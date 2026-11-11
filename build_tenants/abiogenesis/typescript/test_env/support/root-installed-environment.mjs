@@ -1,9 +1,11 @@
 import assert from "node:assert/strict";
 import { execFile } from "node:child_process";
-import { mkdir, mkdtemp, readFile, realpath, rm } from "node:fs/promises";
+import { createHash } from "node:crypto";
+import { lstat, mkdir, mkdtemp, readdir, readFile, readlink, realpath, rm } from "node:fs/promises";
 import { tmpdir } from "node:os";
 import { basename, join } from "node:path";
 import { pathToFileURL } from "node:url";
+import { after } from "node:test";
 import { promisify } from "node:util";
 import { packProduct } from "../../scripts/product-payload.mjs";
 
@@ -166,22 +168,29 @@ export function rawProgramInput(validator, publicationAdmission, program) {
   };
 }
 
-export async function setupInstalledRootCatalog(
-  context,
-  packageRoot,
-  options = {},
-) {
+// Installed setup has two phases. The install phase packs the tenant (or
+// selects the frozen artifact), prepares the fixture Products, verifies every
+// artifact, installs them under one resolved lock and imports the installed
+// owners. The case phase opens one event store, workspace, binding, publication
+// set and Catalog over an install. `installTenantOnce` and
+// `openCaseEnvironment` expose the two phases so that a test file installs once
+// and gives every case its own store, workspace and scratch root;
+// `setupInstalledRootCatalog` composes them into one scratch root per case.
+
+// Options that select what is installed. They belong to the install phase; a
+// case opened on a shared install may repeat them only with the same value.
+const INSTALL_OPTION_KEYS = Object.freeze([
+  "frozenArtifact",
+  "candidateBasisSource",
+  "rootPublicationKind",
+  "prepareAdditionalProducts",
+]);
+
+async function provisionInstalledTenant(scratch, packageRoot, options) {
   const frozenArtifact = selectedFrozenArtifact(options);
-  const scratch = await realpath(await mkdtemp(join(tmpdir(), "abi5-root-env-")));
-  let durableStore = null;
-  context.after(async () => {
-    durableStore?.closeDurableLog();
-    await rm(scratch, { force: true, recursive: true });
-  });
   let artifactPath;
   let bootstrapPackage;
   let consumerRoot;
-  let installedRoot;
   let phaseStarted = performance.now();
   if (frozenArtifact === null) {
     const artifacts = join(scratch, "artifacts");
@@ -333,7 +342,7 @@ export async function setupInstalledRootCatalog(
   }
   accountSetupPhase(options, "provisioning_additional_products", phaseStarted);
   const installCandidates = [installCandidate, ...additionalInstallCandidates];
-  installedRoot = installCandidate.installedRoot;
+  const installedRoot = installCandidate.installedRoot;
   const nonce = Date.now();
   phaseStarted = performance.now();
   const product = await import(`${pathToFileURL(join(installedRoot, "build/code/src/product/index.js")).href}?env=${nonce}`);
@@ -348,7 +357,61 @@ export async function setupInstalledRootCatalog(
   );
   const validator = await import(`${pathToFileURL(join(installedRoot, "build/code/src/validator/index.js")).href}?env=${nonce}`);
   accountSetupPhase(options, "installed_owner_loading", phaseStarted);
-  phaseStarted = performance.now();
+  return {
+    kind: "installed_tenant",
+    installOptions: Object.freeze(Object.fromEntries(
+      INSTALL_OPTION_KEYS.map((key) => [key, options[key]]),
+    )),
+    rootPublicationKind: options.rootPublicationKind,
+    usesLanguageFixture,
+    scratch,
+    artifactPath,
+    bootstrapPackage,
+    consumerRoot,
+    installedRoot,
+    candidateBasis,
+    additionalProducts,
+    verified,
+    additionalVerified,
+    verifiedProducts,
+    lock,
+    installCandidate,
+    installCandidates,
+    additionalInstallCandidates,
+    product,
+    abg,
+    gtl,
+    hog,
+    implementationLeafPort,
+    implementation,
+    validator,
+  };
+}
+
+async function openInstalledCaseEnvironment(scratch, install, options, storeHolder) {
+  const {
+    product,
+    abg,
+    gtl,
+    hog,
+    implementationLeafPort,
+    implementation,
+    validator,
+    usesLanguageFixture,
+    additionalProducts,
+    verified,
+    verifiedProducts,
+    additionalVerified,
+    lock,
+    installCandidate,
+    installCandidates,
+    additionalInstallCandidates,
+    candidateBasis,
+    artifactPath,
+    consumerRoot,
+    installedRoot,
+  } = install;
+  let phaseStarted = performance.now();
   const acquired = abg.createNewEmptyAppendSink({
     kind: "new_empty_append_sink_request",
     schemaVersion: "5.0.0",
@@ -356,7 +419,7 @@ export async function setupInstalledRootCatalog(
   });
   assert.equal(acquired.disposition, undefined, JSON.stringify(acquired));
   const store = acquired.store;
-  durableStore = store;
+  storeHolder.store = store;
   const admittedInstallResults = [];
   let installPrefix = acquired.prefix;
   for (const [index, candidate] of installCandidates.entries()) {
@@ -447,7 +510,7 @@ export async function setupInstalledRootCatalog(
       packageName: verified.packageName,
       packageVersion: verified.packageVersion,
     },
-    options.rootPublicationKind,
+    install.rootPublicationKind,
   );
   const additionalPublications = [];
   for (const [index, prepared] of additionalProducts.entries()) {
@@ -633,6 +696,136 @@ export async function setupInstalledRootCatalog(
   };
 }
 
+// Every path under a shared install root with its kind, mode and content
+// digest. A shared install is inventoried when it is made and again when it is
+// disposed; any difference means a case wrote under the install.
+async function installTreeInventory(root) {
+  const rows = [];
+  async function visit(path, relativePath) {
+    const status = await lstat(path);
+    const mode = status.mode & 0o7777;
+    if (status.isSymbolicLink()) {
+      rows.push(`${relativePath}\tsymlink\t${await readlink(path)}`);
+    } else if (status.isDirectory()) {
+      rows.push(`${relativePath}\tdirectory\t${mode}`);
+      for (const name of (await readdir(path)).sort())
+        await visit(join(path, name), relativePath === "" ? name : `${relativePath}/${name}`);
+    } else {
+      const digest = status.isFile()
+        ? createHash("sha256").update(await readFile(path)).digest("hex")
+        : "not-a-file";
+      rows.push(`${relativePath}\tfile\t${mode}\t${status.size}\t${digest}`);
+    }
+  }
+  await visit(root, "");
+  return rows;
+}
+
+/**
+ * Install phase, once per test file. Packs the tenant (or selects the frozen
+ * artifact), prepares the fixture Products, verifies every artifact, installs
+ * them under one resolved lock and imports the installed owners, all under one
+ * scratch root that belongs to the install. Accepts the install options
+ * (`frozenArtifact`, `candidateBasisSource`, `rootPublicationKind`,
+ * `prepareAdditionalProducts`, and `setupAccounting` for the install phases).
+ * The caller disposes the install after the file's last case: `dispose()`
+ * checks that the install root is byte-for-byte as it was made, then removes
+ * it; it throws, and keeps the root, when a case changed it.
+ */
+export async function installTenantOnce(packageRoot, options = {}) {
+  const scratch = await realpath(await mkdtemp(join(tmpdir(), "abi5-root-install-")));
+  let install;
+  try {
+    install = await provisionInstalledTenant(scratch, packageRoot, options);
+  } catch (error) {
+    await rm(scratch, { force: true, recursive: true });
+    throw error;
+  }
+  const inventoryAtInstall = await installTreeInventory(scratch);
+  let disposed = false;
+  return Object.freeze({
+    ...install,
+    async dispose() {
+      if (disposed) return;
+      disposed = true;
+      const inventoryAtDispose = await installTreeInventory(scratch);
+      const before = new Set(inventoryAtInstall);
+      const after = new Set(inventoryAtDispose);
+      const changed = [
+        ...inventoryAtInstall.filter((row) => !after.has(row)).map((row) => `- ${row}`),
+        ...inventoryAtDispose.filter((row) => !before.has(row)).map((row) => `+ ${row}`),
+      ];
+      if (changed.length > 0) {
+        throw new Error(`shared install ${scratch} changed while its cases ran:\n${changed.slice(0, 20).join("\n")}`);
+      }
+      await rm(scratch, { force: true, recursive: true });
+    },
+  });
+}
+
+/**
+ * Case phase. Opens a fresh case environment on an install from
+ * `installTenantOnce`: its own scratch root, event store, admitted installs,
+ * workspace, binding, publications and Catalog. Returns the environment shape
+ * `setupInstalledRootCatalog` returns; `scratch` is the case's root, while
+ * `artifactPath`, `consumerRoot` and `installedRoot` are the shared install's.
+ * The case's store is closed and its scratch removed after the case.
+ */
+export async function openCaseEnvironment(context, install, options = {}) {
+  assert.equal(install?.kind, "installed_tenant", "openCaseEnvironment requires an install from installTenantOnce");
+  for (const key of INSTALL_OPTION_KEYS) {
+    if (options[key] !== undefined && options[key] !== install.installOptions[key]) {
+      throw new TypeError(`${key} selects the shared install; the case gives a different value`);
+    }
+  }
+  const scratch = await realpath(await mkdtemp(join(tmpdir(), "abi5-root-case-")));
+  const storeHolder = { store: null };
+  context.after(async () => {
+    storeHolder.store?.closeDurableLog();
+    await rm(scratch, { force: true, recursive: true });
+  });
+  return openInstalledCaseEnvironment(scratch, install, options, storeHolder);
+}
+
+/**
+ * One shared install per key for the calling test file, made on first use and
+ * disposed after the file's last test. `create(key)` returns the install
+ * (or an object holding one under `install` with its own `dispose`).
+ */
+export function installOncePerFile(create) {
+  const installs = new Map();
+  after(async () => {
+    for (const pending of installs.values()) {
+      const made = await pending.catch(() => null);
+      await made?.dispose?.();
+    }
+  });
+  return (key = "default") => {
+    if (!installs.has(key)) installs.set(key, create(key));
+    return installs.get(key);
+  };
+}
+
+/**
+ * The per-case entry: one scratch root holding the install and the case, made
+ * and removed with the case. Files whose cases share one install use
+ * `installTenantOnce` and `openCaseEnvironment` instead.
+ */
+export async function setupInstalledRootCatalog(
+  context,
+  packageRoot,
+  options = {},
+) {
+  const scratch = await realpath(await mkdtemp(join(tmpdir(), "abi5-root-env-")));
+  const storeHolder = { store: null };
+  context.after(async () => {
+    storeHolder.store?.closeDurableLog();
+    await rm(scratch, { force: true, recursive: true });
+  });
+  const install = await provisionInstalledTenant(scratch, packageRoot, options);
+  return openInstalledCaseEnvironment(scratch, install, options, storeHolder);
+}
+
 export async function setupInstalledRootInvocation(
   context,
   packageRoot,
@@ -640,11 +833,11 @@ export async function setupInstalledRootInvocation(
 ) {
   // A bounded proof may reuse an already admitted installed environment to
   // establish another binding/Run through the same ordinary invocation owner.
-  const environment = options.existingEnvironment ?? await setupInstalledRootCatalog(
-    context,
-    packageRoot,
-    options,
-  );
+  // With `install` (from installTenantOnce) the case opens its own environment
+  // on that shared install; otherwise the case installs for itself.
+  const environment = options.existingEnvironment ?? (options.install === undefined
+    ? await setupInstalledRootCatalog(context, packageRoot, options)
+    : await openCaseEnvironment(context, options.install, options));
   let phaseStarted = performance.now();
   const {
     product,
