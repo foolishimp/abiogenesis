@@ -377,130 +377,16 @@ const preparedRelations = new WeakSet<object>();
 export function prepareConstructionIntentContinuation(
   prefix: ValidatedRuntimeEventPrefix, selected: ConstructionIntentContinuation,
   resolution: LoadedProductExecutionResolution,
-): Readonly<{
-    continuation: ConstructionIntentContinuation;
-    root: ExecutionBasis;
-    child: ExecutionBasis;
-    rootGraph: Readonly<import("../index.js").GtlGraph>;
-    childGraph: Readonly<import("../index.js").GtlGraph>;
-    rootValidation: import("../validator/graph.js").GraphValidation;
-    childValidation: import("../validator/graph.js").GraphValidation;
-    childFunction: Readonly<import("../gtl/contracts.js").GraphFunction>;
-    rootScope: OpenedTraversalScope;
-    childScope: OpenedTraversalScope;
-    parent: {
-        cursor: TraversalCursorCandidate;
-        input: import("./traversal_cursor.js").TraversalInputOrigin;
-        execution: ExecutionBasis;
-    };
-    pending: {
-        cursor: TraversalCursorCandidate;
-        input: import("./traversal_cursor.js").TraversalInputOrigin;
-        execution: ExecutionBasis;
-    };
-    parentTerm: import("../index.js").CWorkflowNode;
-    pendingTerm: import("../index.js").COfNode;
-    failedCall: CCall;
-    producerCall: CCall;
-    producer: RuntimeEvent;
-    intent: import("./traversal_route.js").ConstructionIntentAdmission;
-    invocation: import("./invocation_admission.js").InvocationAdmission;
-    implementationSet: import("./execution_basis.js").AdmittedImplementationSet;
-    interactionSet: import("./execution_basis.js").AdmittedInteractionSet;
-    resolution: LoadedProductExecutionResolution;
-    parentCall: CCall;
-    parentInput: {
-        readonly [key: string]: JsonValue;
-    };
-    pendingInput: {
-        readonly [key: string]: JsonValue;
-    };
-}> | null;
+): PreparedConstructionIntentContinuation | null;
 /** @internal */
 export function prepareConstructionIntentContinuation(
   prefix: RuntimeEventPrefix, selected: ConstructionIntentContinuation,
   resolution: LoadedProductExecutionResolution,
-): Readonly<{
-    continuation: ConstructionIntentContinuation;
-    root: ExecutionBasis;
-    child: ExecutionBasis;
-    rootGraph: Readonly<import("../index.js").GtlGraph>;
-    childGraph: Readonly<import("../index.js").GtlGraph>;
-    rootValidation: import("../validator/graph.js").GraphValidation;
-    childValidation: import("../validator/graph.js").GraphValidation;
-    childFunction: Readonly<import("../gtl/contracts.js").GraphFunction>;
-    rootScope: OpenedTraversalScope;
-    childScope: OpenedTraversalScope;
-    parent: {
-        cursor: TraversalCursorCandidate;
-        input: import("./traversal_cursor.js").TraversalInputOrigin;
-        execution: ExecutionBasis;
-    };
-    pending: {
-        cursor: TraversalCursorCandidate;
-        input: import("./traversal_cursor.js").TraversalInputOrigin;
-        execution: ExecutionBasis;
-    };
-    parentTerm: import("../index.js").CWorkflowNode;
-    pendingTerm: import("../index.js").COfNode;
-    failedCall: CCall;
-    producerCall: CCall;
-    producer: RuntimeEvent;
-    intent: import("./traversal_route.js").ConstructionIntentAdmission;
-    invocation: import("./invocation_admission.js").InvocationAdmission;
-    implementationSet: import("./execution_basis.js").AdmittedImplementationSet;
-    interactionSet: import("./execution_basis.js").AdmittedInteractionSet;
-    resolution: LoadedProductExecutionResolution;
-    parentCall: CCall;
-    parentInput: {
-        readonly [key: string]: JsonValue;
-    };
-    pendingInput: {
-        readonly [key: string]: JsonValue;
-    };
-}> | null;
+): PreparedConstructionIntentContinuation | null;
 export function prepareConstructionIntentContinuation(
   prefix: RuntimeEventPrefix, selected: ConstructionIntentContinuation,
   resolution: LoadedProductExecutionResolution,
-): Readonly<{
-    continuation: ConstructionIntentContinuation;
-    root: ExecutionBasis;
-    child: ExecutionBasis;
-    rootGraph: Readonly<import("../index.js").GtlGraph>;
-    childGraph: Readonly<import("../index.js").GtlGraph>;
-    rootValidation: import("../validator/graph.js").GraphValidation;
-    childValidation: import("../validator/graph.js").GraphValidation;
-    childFunction: Readonly<import("../gtl/contracts.js").GraphFunction>;
-    rootScope: OpenedTraversalScope;
-    childScope: OpenedTraversalScope;
-    parent: {
-        cursor: TraversalCursorCandidate;
-        input: import("./traversal_cursor.js").TraversalInputOrigin;
-        execution: ExecutionBasis;
-    };
-    pending: {
-        cursor: TraversalCursorCandidate;
-        input: import("./traversal_cursor.js").TraversalInputOrigin;
-        execution: ExecutionBasis;
-    };
-    parentTerm: import("../index.js").CWorkflowNode;
-    pendingTerm: import("../index.js").COfNode;
-    failedCall: CCall;
-    producerCall: CCall;
-    producer: RuntimeEvent;
-    intent: import("./traversal_route.js").ConstructionIntentAdmission;
-    invocation: import("./invocation_admission.js").InvocationAdmission;
-    implementationSet: import("./execution_basis.js").AdmittedImplementationSet;
-    interactionSet: import("./execution_basis.js").AdmittedInteractionSet;
-    resolution: LoadedProductExecutionResolution;
-    parentCall: CCall;
-    parentInput: {
-        readonly [key: string]: JsonValue;
-    };
-    pendingInput: {
-        readonly [key: string]: JsonValue;
-    };
-}> | null {
+): PreparedConstructionIntentContinuation | null {
   const current = projectConstructionIntentContinuations(prefix, selected.runId)
     .find(c => c.continuationRef === selected.continuationRef && c.continuationDigest === selected.continuationDigest);
   if (current?.status !== "open" || !canonicalEquals(current, selected)) return null;
@@ -566,7 +452,19 @@ export function prepareConstructionIntentContinuation(
   preparedRelations.add(prepared);
   return prepared;
 }
-export type PreparedConstructionIntentContinuation = NonNullable<ReturnType<typeof prepareConstructionIntentContinuation>>;
+export type PreparedConstructionIntentContinuation = Readonly<{
+  continuation: ConstructionIntentContinuation; root: ExecutionBasis; child: ExecutionBasis;
+  rootGraph: Readonly<import("../index.js").GtlGraph>; childGraph: Readonly<import("../index.js").GtlGraph>;
+  rootValidation: import("../validator/graph.js").GraphValidation; childValidation: import("../validator/graph.js").GraphValidation;
+  childFunction: Readonly<import("../gtl/contracts.js").GraphFunction>; rootScope: OpenedTraversalScope; childScope: OpenedTraversalScope;
+  parent: { cursor: TraversalCursorCandidate; input: import("./traversal_cursor.js").TraversalInputOrigin; execution: ExecutionBasis };
+  pending: { cursor: TraversalCursorCandidate; input: import("./traversal_cursor.js").TraversalInputOrigin; execution: ExecutionBasis };
+  parentTerm: import("../index.js").CWorkflowNode; pendingTerm: import("../index.js").COfNode;
+  failedCall: CCall; producerCall: CCall; producer: RuntimeEvent;
+  intent: import("./traversal_route.js").ConstructionIntentAdmission; invocation: import("./invocation_admission.js").InvocationAdmission;
+  implementationSet: import("./execution_basis.js").AdmittedImplementationSet; interactionSet: import("./execution_basis.js").AdmittedInteractionSet;
+  resolution: LoadedProductExecutionResolution; parentCall: CCall;
+  parentInput: { readonly [key: string]: JsonValue }; pendingInput: { readonly [key: string]: JsonValue } }>;
 
 import { isCapabilityGrantValue, type CapabilityGrant } from "../product/invocation.js";
 import { validatePublicOperationBasis, type PublicOperationAdmissionBasis } from "./environment_admission.js";
@@ -616,191 +514,20 @@ export function continuationOperationWorkspaceCorresponds(operation: RuntimeEven
     p.authorityRef === invocation.authorityRef && p.authorityDigest === invocation.authorityDigest;
 }
 
+/** The operation preparation over one prefix class: the invocation-truth owner's
+ * duplicate and invalid-history dispositions at that class, or the prepared operation. */
+export type ConstructionContinuationOperationResult<Prefix> = (Exclude<import("./effectful_invocation_truth.js").EffectfulPublicInvocationTruth,
+  { disposition: "available" }> extends infer Truth ? Truth extends unknown
+    ? { readonly [K in keyof Truth]: K extends "prefix" ? Prefix | DurablePrefixCoordinate : Truth[K] } : never : never)
+  | PreparedConstructionContinuationOperation;
 const preparedOperations = new WeakSet<object>();
 export function prepareConstructionContinuationOperation(prefix: ValidatedRuntimeEventPrefix,
-  prepared: PreparedConstructionIntentContinuation, grant: CapabilityGrant, basis: PublicOperationAdmissionBasis): Readonly<{
-    kind: "effectful_public_invocation_truth";
-    schemaVersion: "5.0.0";
-    disposition: "duplicate";
-    invocationRef: string;
-    prefix: ValidatedRuntimeEventPrefix | DurablePrefixCoordinate;
-    priorAdmission: import("./effectful_invocation_truth.js").EffectfulPublicInvocationPriorAdmission;
-}> | Readonly<{
-    kind: "effectful_public_invocation_truth_invalid_history";
-    schemaVersion: "5.0.0";
-    disposition: "invalid_history";
-    code: "artifact_truth_invalid" | "duplicate_outer_invocation" | "invocation_pair_invalid" | "prefix_invalid";
-    invocationRef: string;
-    prefix: ValidatedRuntimeEventPrefix | DurablePrefixCoordinate;
-    eventRefs: readonly string[];
-    artifactTruthCode: import("./artifact_truth.js").ExactPrefixArtifactTruthProjectionRefusalCode | null;
-}> | Readonly<{
-    kind: "prepared_construction_continuation_operation";
-    prepared: Readonly<{
-        continuation: ConstructionIntentContinuation;
-        root: ExecutionBasis;
-        child: ExecutionBasis;
-        rootGraph: Readonly<import("../index.js").GtlGraph>;
-        childGraph: Readonly<import("../index.js").GtlGraph>;
-        rootValidation: import("../validator/graph.js").GraphValidation;
-        childValidation: import("../validator/graph.js").GraphValidation;
-        childFunction: Readonly<import("../gtl/contracts.js").GraphFunction>;
-        rootScope: OpenedTraversalScope;
-        childScope: OpenedTraversalScope;
-        parent: {
-            cursor: TraversalCursorCandidate;
-            input: import("./traversal_cursor.js").TraversalInputOrigin;
-            execution: ExecutionBasis;
-        };
-        pending: {
-            cursor: TraversalCursorCandidate;
-            input: import("./traversal_cursor.js").TraversalInputOrigin;
-            execution: ExecutionBasis;
-        };
-        parentTerm: import("../index.js").CWorkflowNode;
-        pendingTerm: import("../index.js").COfNode;
-        failedCall: CCall;
-        producerCall: CCall;
-        producer: RuntimeEvent;
-        intent: import("./traversal_route.js").ConstructionIntentAdmission;
-        invocation: import("./invocation_admission.js").InvocationAdmission;
-        implementationSet: import("./execution_basis.js").AdmittedImplementationSet;
-        interactionSet: import("./execution_basis.js").AdmittedInteractionSet;
-        resolution: LoadedProductExecutionResolution;
-        parentCall: CCall;
-        parentInput: {
-            readonly [key: string]: JsonValue;
-        };
-        pendingInput: {
-            readonly [key: string]: JsonValue;
-        };
-    }>;
-    candidate: RuntimeEventCandidate;
-    predecessorDigest: `sha256:${string}`;
-}>;
+  prepared: PreparedConstructionIntentContinuation, grant: CapabilityGrant, basis: PublicOperationAdmissionBasis): ConstructionContinuationOperationResult<ValidatedRuntimeEventPrefix>;
 /** @internal */
 export function prepareConstructionContinuationOperation(prefix: RuntimeEventPrefix,
-  prepared: PreparedConstructionIntentContinuation, grant: CapabilityGrant, basis: PublicOperationAdmissionBasis): Readonly<{
-    kind: "effectful_public_invocation_truth";
-    schemaVersion: "5.0.0";
-    disposition: "duplicate";
-    invocationRef: string;
-    prefix: RuntimeEventPrefix | DurablePrefixCoordinate;
-    priorAdmission: import("./effectful_invocation_truth.js").EffectfulPublicInvocationPriorAdmission;
-}> | Readonly<{
-    kind: "effectful_public_invocation_truth_invalid_history";
-    schemaVersion: "5.0.0";
-    disposition: "invalid_history";
-    code: "artifact_truth_invalid" | "duplicate_outer_invocation" | "invocation_pair_invalid" | "prefix_invalid";
-    invocationRef: string;
-    prefix: RuntimeEventPrefix | DurablePrefixCoordinate;
-    eventRefs: readonly string[];
-    artifactTruthCode: import("./artifact_truth.js").ExactPrefixArtifactTruthProjectionRefusalCode | null;
-}> | Readonly<{
-    kind: "prepared_construction_continuation_operation";
-    prepared: Readonly<{
-        continuation: ConstructionIntentContinuation;
-        root: ExecutionBasis;
-        child: ExecutionBasis;
-        rootGraph: Readonly<import("../index.js").GtlGraph>;
-        childGraph: Readonly<import("../index.js").GtlGraph>;
-        rootValidation: import("../validator/graph.js").GraphValidation;
-        childValidation: import("../validator/graph.js").GraphValidation;
-        childFunction: Readonly<import("../gtl/contracts.js").GraphFunction>;
-        rootScope: OpenedTraversalScope;
-        childScope: OpenedTraversalScope;
-        parent: {
-            cursor: TraversalCursorCandidate;
-            input: import("./traversal_cursor.js").TraversalInputOrigin;
-            execution: ExecutionBasis;
-        };
-        pending: {
-            cursor: TraversalCursorCandidate;
-            input: import("./traversal_cursor.js").TraversalInputOrigin;
-            execution: ExecutionBasis;
-        };
-        parentTerm: import("../index.js").CWorkflowNode;
-        pendingTerm: import("../index.js").COfNode;
-        failedCall: CCall;
-        producerCall: CCall;
-        producer: RuntimeEvent;
-        intent: import("./traversal_route.js").ConstructionIntentAdmission;
-        invocation: import("./invocation_admission.js").InvocationAdmission;
-        implementationSet: import("./execution_basis.js").AdmittedImplementationSet;
-        interactionSet: import("./execution_basis.js").AdmittedInteractionSet;
-        resolution: LoadedProductExecutionResolution;
-        parentCall: CCall;
-        parentInput: {
-            readonly [key: string]: JsonValue;
-        };
-        pendingInput: {
-            readonly [key: string]: JsonValue;
-        };
-    }>;
-    candidate: RuntimeEventCandidate;
-    predecessorDigest: `sha256:${string}`;
-}>;
+  prepared: PreparedConstructionIntentContinuation, grant: CapabilityGrant, basis: PublicOperationAdmissionBasis): ConstructionContinuationOperationResult<RuntimeEventPrefix>;
 export function prepareConstructionContinuationOperation(prefix: RuntimeEventPrefix,
-  prepared: PreparedConstructionIntentContinuation, grant: CapabilityGrant, basis: PublicOperationAdmissionBasis): Readonly<{
-    kind: "effectful_public_invocation_truth";
-    schemaVersion: "5.0.0";
-    disposition: "duplicate";
-    invocationRef: string;
-    prefix: RuntimeEventPrefix | DurablePrefixCoordinate;
-    priorAdmission: import("./effectful_invocation_truth.js").EffectfulPublicInvocationPriorAdmission;
-}> | Readonly<{
-    kind: "effectful_public_invocation_truth_invalid_history";
-    schemaVersion: "5.0.0";
-    disposition: "invalid_history";
-    code: "artifact_truth_invalid" | "duplicate_outer_invocation" | "invocation_pair_invalid" | "prefix_invalid";
-    invocationRef: string;
-    prefix: RuntimeEventPrefix | DurablePrefixCoordinate;
-    eventRefs: readonly string[];
-    artifactTruthCode: import("./artifact_truth.js").ExactPrefixArtifactTruthProjectionRefusalCode | null;
-}> | Readonly<{
-    kind: "prepared_construction_continuation_operation";
-    prepared: Readonly<{
-        continuation: ConstructionIntentContinuation;
-        root: ExecutionBasis;
-        child: ExecutionBasis;
-        rootGraph: Readonly<import("../index.js").GtlGraph>;
-        childGraph: Readonly<import("../index.js").GtlGraph>;
-        rootValidation: import("../validator/graph.js").GraphValidation;
-        childValidation: import("../validator/graph.js").GraphValidation;
-        childFunction: Readonly<import("../gtl/contracts.js").GraphFunction>;
-        rootScope: OpenedTraversalScope;
-        childScope: OpenedTraversalScope;
-        parent: {
-            cursor: TraversalCursorCandidate;
-            input: import("./traversal_cursor.js").TraversalInputOrigin;
-            execution: ExecutionBasis;
-        };
-        pending: {
-            cursor: TraversalCursorCandidate;
-            input: import("./traversal_cursor.js").TraversalInputOrigin;
-            execution: ExecutionBasis;
-        };
-        parentTerm: import("../index.js").CWorkflowNode;
-        pendingTerm: import("../index.js").COfNode;
-        failedCall: CCall;
-        producerCall: CCall;
-        producer: RuntimeEvent;
-        intent: import("./traversal_route.js").ConstructionIntentAdmission;
-        invocation: import("./invocation_admission.js").InvocationAdmission;
-        implementationSet: import("./execution_basis.js").AdmittedImplementationSet;
-        interactionSet: import("./execution_basis.js").AdmittedInteractionSet;
-        resolution: LoadedProductExecutionResolution;
-        parentCall: CCall;
-        parentInput: {
-            readonly [key: string]: JsonValue;
-        };
-        pendingInput: {
-            readonly [key: string]: JsonValue;
-        };
-    }>;
-    candidate: RuntimeEventCandidate;
-    predecessorDigest: `sha256:${string}`;
-}> {
+  prepared: PreparedConstructionIntentContinuation, grant: CapabilityGrant, basis: PublicOperationAdmissionBasis): ConstructionContinuationOperationResult<RuntimeEventPrefix> {
   const { invocation, continuation } = prepared;
   const truth = projectEffectfulPublicInvocationTruthAtPrefix(prefix, basis.invocationRef);
   if (truth.disposition !== "available") return truth;
@@ -823,8 +550,8 @@ export function prepareConstructionContinuationOperation(prefix: RuntimeEventPre
   preparedOperations.add(plan);
   return plan;
 }
-export type PreparedConstructionContinuationOperation = Extract<ReturnType<typeof prepareConstructionContinuationOperation>,
-  { kind: "prepared_construction_continuation_operation" }>;
+export type PreparedConstructionContinuationOperation = Readonly<{ kind: "prepared_construction_continuation_operation";
+  prepared: PreparedConstructionIntentContinuation; candidate: RuntimeEventCandidate; predecessorDigest: `sha256:${string}` }>;
 export function isPreparedConstructionContinuationOperation(value: object): value is PreparedConstructionContinuationOperation {
   return preparedOperations.has(value);
 }
@@ -991,6 +718,13 @@ export type SelectedActionUseRequest = Readonly<{ run: SelectedCoordinate; conti
   selectedAction: SelectedCoordinate; basisRelation: Readonly<{ kind: "same_basis" }> |
     Readonly<{ kind: "authority_changed"; coveringReprice: SelectedCoordinate }> }>;
 
+export type SelectedActionUse = Readonly<{ kind: "selected_action_use"; source: SelectedActionContinuation; current: SelectedActionContinuation;
+  sourceBasis: ExecutionBasis; currentBasis: ExecutionBasis; invocation: import("./invocation_admission.js").InvocationAdmission;
+  coveringEventRef: string | null; request: SelectedActionUseRequest }>;
+export type SelectedActionUseRefusal = { kind: "refused"; code: "missing_continuation" } | { kind: "refused"; code: "resolved_continuation" }
+  | { kind: "refused"; code: "basis_mismatch" } | { kind: "refused"; code: "stale_action" }
+  | { kind: "refused"; code: "action_mismatch" } | { kind: "refused"; code: "reprice_mismatch" };
+
 function pendingSelectedOccurrence(candidates: readonly SelectedActionContinuation[], currentBasis: SelectedCoordinate): SelectedActionContinuation | null {
   const pending = candidates.filter(candidate => candidate.status === "open" &&
     candidate.executionBasisRef === currentBasis.ref && candidate.executionBasisDigest === currentBasis.digest);
@@ -999,121 +733,10 @@ function pendingSelectedOccurrence(candidates: readonly SelectedActionContinuati
 
 /** Same owner predicate for new admission and cold operation correspondence. A
  * covering witness never substitutes for a fresh current semantic selection. */
-export function selectPendingActionUse(prefix: ValidatedRuntimeEventPrefix, request: SelectedActionUseRequest, currentExecutionBasis: SelectedCoordinate | null | undefined): Readonly<{
-    kind: "selected_action_use";
-    source: SelectedActionContinuation;
-    current: SelectedActionContinuation;
-    sourceBasis: ExecutionBasis;
-    currentBasis: ExecutionBasis;
-    invocation: import("./invocation_admission.js").InvocationAdmission;
-    coveringEventRef: string | null;
-    request: Readonly<{
-        run: SelectedCoordinate;
-        continuation: SelectedCoordinate;
-        selectedAction: SelectedCoordinate;
-        basisRelation: Readonly<{
-            kind: "same_basis";
-        }> | Readonly<{
-            kind: "authority_changed";
-            coveringReprice: SelectedCoordinate;
-        }>;
-    }>;
-}> | {
-    kind: "refused";
-    code: "missing_continuation";
-} | {
-    kind: "refused";
-    code: "resolved_continuation";
-} | {
-    kind: "refused";
-    code: "basis_mismatch";
-} | {
-    kind: "refused";
-    code: "stale_action";
-} | {
-    kind: "refused";
-    code: "action_mismatch";
-} | {
-    kind: "refused";
-    code: "reprice_mismatch";
-};
+export function selectPendingActionUse(prefix: ValidatedRuntimeEventPrefix, request: SelectedActionUseRequest, currentExecutionBasis: SelectedCoordinate | null | undefined): SelectedActionUse | SelectedActionUseRefusal;
 /** @internal */
-export function selectPendingActionUse(prefix: RuntimeEventPrefix, request: SelectedActionUseRequest, currentExecutionBasis: SelectedCoordinate | null | undefined): Readonly<{
-    kind: "selected_action_use";
-    source: SelectedActionContinuation;
-    current: SelectedActionContinuation;
-    sourceBasis: ExecutionBasis;
-    currentBasis: ExecutionBasis;
-    invocation: import("./invocation_admission.js").InvocationAdmission;
-    coveringEventRef: string | null;
-    request: Readonly<{
-        run: SelectedCoordinate;
-        continuation: SelectedCoordinate;
-        selectedAction: SelectedCoordinate;
-        basisRelation: Readonly<{
-            kind: "same_basis";
-        }> | Readonly<{
-            kind: "authority_changed";
-            coveringReprice: SelectedCoordinate;
-        }>;
-    }>;
-}> | {
-    kind: "refused";
-    code: "missing_continuation";
-} | {
-    kind: "refused";
-    code: "resolved_continuation";
-} | {
-    kind: "refused";
-    code: "basis_mismatch";
-} | {
-    kind: "refused";
-    code: "stale_action";
-} | {
-    kind: "refused";
-    code: "action_mismatch";
-} | {
-    kind: "refused";
-    code: "reprice_mismatch";
-};
-export function selectPendingActionUse(prefix: RuntimeEventPrefix, request: SelectedActionUseRequest, currentExecutionBasis: SelectedCoordinate | null | undefined): Readonly<{
-    kind: "selected_action_use";
-    source: SelectedActionContinuation;
-    current: SelectedActionContinuation;
-    sourceBasis: ExecutionBasis;
-    currentBasis: ExecutionBasis;
-    invocation: import("./invocation_admission.js").InvocationAdmission;
-    coveringEventRef: string | null;
-    request: Readonly<{
-        run: SelectedCoordinate;
-        continuation: SelectedCoordinate;
-        selectedAction: SelectedCoordinate;
-        basisRelation: Readonly<{
-            kind: "same_basis";
-        }> | Readonly<{
-            kind: "authority_changed";
-            coveringReprice: SelectedCoordinate;
-        }>;
-    }>;
-}> | {
-    kind: "refused";
-    code: "missing_continuation";
-} | {
-    kind: "refused";
-    code: "resolved_continuation";
-} | {
-    kind: "refused";
-    code: "basis_mismatch";
-} | {
-    kind: "refused";
-    code: "stale_action";
-} | {
-    kind: "refused";
-    code: "action_mismatch";
-} | {
-    kind: "refused";
-    code: "reprice_mismatch";
-} {
+export function selectPendingActionUse(prefix: RuntimeEventPrefix, request: SelectedActionUseRequest, currentExecutionBasis: SelectedCoordinate | null | undefined): SelectedActionUse | SelectedActionUseRefusal;
+export function selectPendingActionUse(prefix: RuntimeEventPrefix, request: SelectedActionUseRequest, currentExecutionBasis: SelectedCoordinate | null | undefined): SelectedActionUse | SelectedActionUseRefusal {
   const source = projectSelectedActionContinuations(prefix, request.run.ref).find(c =>
     c.continuationRef === request.continuation.ref && c.continuationDigest === request.continuation.digest);
   if (source === undefined) return { kind: "refused" as const, code: "missing_continuation" as const };
@@ -1162,120 +785,12 @@ export function selectPendingActionUse(prefix: RuntimeEventPrefix, request: Sele
 
 const selectedPreparations = new WeakSet<object>();
 export function prepareSelectedActionContinuation(prefix: ValidatedRuntimeEventPrefix,
-  use: Extract<ReturnType<typeof selectPendingActionUse>, { kind: "selected_action_use" }>, resolution: LoadedProductExecutionResolution): Readonly<{
-    use: Readonly<{
-        kind: "selected_action_use";
-        source: SelectedActionContinuation;
-        current: SelectedActionContinuation;
-        sourceBasis: ExecutionBasis;
-        currentBasis: ExecutionBasis;
-        invocation: import("./invocation_admission.js").InvocationAdmission;
-        coveringEventRef: string | null;
-        request: Readonly<{
-            run: SelectedCoordinate;
-            continuation: SelectedCoordinate;
-            selectedAction: SelectedCoordinate;
-            basisRelation: Readonly<{
-                kind: "same_basis";
-            }> | Readonly<{
-                kind: "authority_changed";
-                coveringReprice: SelectedCoordinate;
-            }>;
-        }>;
-    }>;
-    root: ExecutionBasis;
-    graph: Readonly<import("../index.js").GtlGraph>;
-    graphValidation: import("../validator/graph.js").GraphValidation;
-    cursor: TraversalCursorCandidate;
-    input: import("./traversal_cursor.js").TraversalInputOrigin;
-    inputValue: {
-        readonly [key: string]: JsonValue;
-    };
-    intent: import("./traversal_route.js").ConstructionIntentAdmission;
-    term: import("../index.js").CWorkflowNode;
-    scope: OpenedTraversalScope;
-    implementationSet: import("./execution_basis.js").AdmittedImplementationSet;
-    interactionSet: import("./execution_basis.js").AdmittedInteractionSet;
-    resolution: LoadedProductExecutionResolution;
-    predecessorDigest: `sha256:${string}`;
-}> | null;
+  use: SelectedActionUse, resolution: LoadedProductExecutionResolution): PreparedSelectedActionContinuation | null;
 /** @internal */
 export function prepareSelectedActionContinuation(prefix: RuntimeEventPrefix,
-  use: Extract<ReturnType<typeof selectPendingActionUse>, { kind: "selected_action_use" }>, resolution: LoadedProductExecutionResolution): Readonly<{
-    use: Readonly<{
-        kind: "selected_action_use";
-        source: SelectedActionContinuation;
-        current: SelectedActionContinuation;
-        sourceBasis: ExecutionBasis;
-        currentBasis: ExecutionBasis;
-        invocation: import("./invocation_admission.js").InvocationAdmission;
-        coveringEventRef: string | null;
-        request: Readonly<{
-            run: SelectedCoordinate;
-            continuation: SelectedCoordinate;
-            selectedAction: SelectedCoordinate;
-            basisRelation: Readonly<{
-                kind: "same_basis";
-            }> | Readonly<{
-                kind: "authority_changed";
-                coveringReprice: SelectedCoordinate;
-            }>;
-        }>;
-    }>;
-    root: ExecutionBasis;
-    graph: Readonly<import("../index.js").GtlGraph>;
-    graphValidation: import("../validator/graph.js").GraphValidation;
-    cursor: TraversalCursorCandidate;
-    input: import("./traversal_cursor.js").TraversalInputOrigin;
-    inputValue: {
-        readonly [key: string]: JsonValue;
-    };
-    intent: import("./traversal_route.js").ConstructionIntentAdmission;
-    term: import("../index.js").CWorkflowNode;
-    scope: OpenedTraversalScope;
-    implementationSet: import("./execution_basis.js").AdmittedImplementationSet;
-    interactionSet: import("./execution_basis.js").AdmittedInteractionSet;
-    resolution: LoadedProductExecutionResolution;
-    predecessorDigest: `sha256:${string}`;
-}> | null;
+  use: SelectedActionUse, resolution: LoadedProductExecutionResolution): PreparedSelectedActionContinuation | null;
 export function prepareSelectedActionContinuation(prefix: RuntimeEventPrefix,
-  use: Extract<ReturnType<typeof selectPendingActionUse>, { kind: "selected_action_use" }>, resolution: LoadedProductExecutionResolution): Readonly<{
-    use: Readonly<{
-        kind: "selected_action_use";
-        source: SelectedActionContinuation;
-        current: SelectedActionContinuation;
-        sourceBasis: ExecutionBasis;
-        currentBasis: ExecutionBasis;
-        invocation: import("./invocation_admission.js").InvocationAdmission;
-        coveringEventRef: string | null;
-        request: Readonly<{
-            run: SelectedCoordinate;
-            continuation: SelectedCoordinate;
-            selectedAction: SelectedCoordinate;
-            basisRelation: Readonly<{
-                kind: "same_basis";
-            }> | Readonly<{
-                kind: "authority_changed";
-                coveringReprice: SelectedCoordinate;
-            }>;
-        }>;
-    }>;
-    root: ExecutionBasis;
-    graph: Readonly<import("../index.js").GtlGraph>;
-    graphValidation: import("../validator/graph.js").GraphValidation;
-    cursor: TraversalCursorCandidate;
-    input: import("./traversal_cursor.js").TraversalInputOrigin;
-    inputValue: {
-        readonly [key: string]: JsonValue;
-    };
-    intent: import("./traversal_route.js").ConstructionIntentAdmission;
-    term: import("../index.js").CWorkflowNode;
-    scope: OpenedTraversalScope;
-    implementationSet: import("./execution_basis.js").AdmittedImplementationSet;
-    interactionSet: import("./execution_basis.js").AdmittedInteractionSet;
-    resolution: LoadedProductExecutionResolution;
-    predecessorDigest: `sha256:${string}`;
-}> | null {
+  use: SelectedActionUse, resolution: LoadedProductExecutionResolution): PreparedSelectedActionContinuation | null {
   const root = rehydrateExecutionBasisAtPrefix(prefix, use.currentBasis.basisRef);
   if (root === null || root.basisClass !== "root" || root.constructionContinuationUse !== undefined ||
     root.programRef !== resolution.program.programRef || root.programDigest !== hash(resolution.program) ||
@@ -1299,7 +814,12 @@ export function prepareSelectedActionContinuation(prefix: RuntimeEventPrefix,
   selectedPreparations.add(result);
   return result;
 }
-export type PreparedSelectedActionContinuation = NonNullable<ReturnType<typeof prepareSelectedActionContinuation>>;
+export type PreparedSelectedActionContinuation = Readonly<{ use: SelectedActionUse; root: ExecutionBasis;
+  graph: Readonly<import("../index.js").GtlGraph>; graphValidation: import("../validator/graph.js").GraphValidation;
+  cursor: TraversalCursorCandidate; input: import("./traversal_cursor.js").TraversalInputOrigin; inputValue: { readonly [key: string]: JsonValue };
+  intent: import("./traversal_route.js").ConstructionIntentAdmission; term: import("../index.js").CWorkflowNode; scope: OpenedTraversalScope;
+  implementationSet: import("./execution_basis.js").AdmittedImplementationSet; interactionSet: import("./execution_basis.js").AdmittedInteractionSet;
+  resolution: LoadedProductExecutionResolution; predecessorDigest: `sha256:${string}` }>;
 
 export function admitSelectedActionContinuationOperation(store: AbgEventStore, predecessorPrefix: DurablePrefixCoordinate,
   prepared: PreparedSelectedActionContinuation, grant: CapabilityGrant, basis: PublicOperationAdmissionBasis) {
@@ -1334,32 +854,17 @@ export function admitSelectedActionContinuationOperation(store: AbgEventStore, p
   });
 }
 
+/** A continuation operation's prior admission as its projector returns it: the
+ * owner's fields, mutable, with `operationId` narrowed to `abg.operation.run.continue`. */
+export type ContinuationOperationPriorAdmission = {
+  -readonly [K in keyof import("./effectful_invocation_truth.js").EffectfulPublicInvocationPriorAdmission]: K extends "operationId"
+    ? "abg.operation.run.continue" : import("./effectful_invocation_truth.js").EffectfulPublicInvocationPriorAdmission[K] };
+
 /** Cold validation consumes the same admission relation at its actual predecessor. */
-export function projectSelectedActionOperation(prefix: ValidatedRuntimeEventPrefix, operation: RuntimeEvent): {
-    operationId: "abg.operation.run.continue";
-    publicInvocationRef: string;
-    ownerInvocationRef: string;
-    ownerInvocationDigest: Sha256Digest;
-    publicOperationEventRef: string;
-    admissionEventRef: string;
-} | null;
+export function projectSelectedActionOperation(prefix: ValidatedRuntimeEventPrefix, operation: RuntimeEvent): ContinuationOperationPriorAdmission | null;
 /** @internal */
-export function projectSelectedActionOperation(prefix: RuntimeEventPrefix, operation: RuntimeEvent): {
-    operationId: "abg.operation.run.continue";
-    publicInvocationRef: string;
-    ownerInvocationRef: string;
-    ownerInvocationDigest: Sha256Digest;
-    publicOperationEventRef: string;
-    admissionEventRef: string;
-} | null;
-export function projectSelectedActionOperation(prefix: RuntimeEventPrefix, operation: RuntimeEvent): {
-    operationId: "abg.operation.run.continue";
-    publicInvocationRef: string;
-    ownerInvocationRef: string;
-    ownerInvocationDigest: Sha256Digest;
-    publicOperationEventRef: string;
-    admissionEventRef: string;
-} | null {
+export function projectSelectedActionOperation(prefix: RuntimeEventPrefix, operation: RuntimeEvent): ContinuationOperationPriorAdmission | null;
+export function projectSelectedActionOperation(prefix: RuntimeEventPrefix, operation: RuntimeEvent): ContinuationOperationPriorAdmission | null {
   const p = operation.payload;
   if (operation.kind !== "public_operation_admitted" || !isRecord(p) || p.continuationKind !== "selected_action" ||
     p.operationId !== "abg.operation.run.continue" || p.memberKey !== "selected_action" ||
@@ -1484,31 +989,10 @@ export function admitPendingExecutionContinuationOperation(store: AbgEventStore,
 }
 
 /** Cold validation consumes the same use predicate at the operation's actual predecessor. */
-export function projectPendingExecutionOperation(prefix: ValidatedRuntimeEventPrefix, operation: RuntimeEvent): {
-    operationId: "abg.operation.run.continue";
-    publicInvocationRef: string;
-    ownerInvocationRef: string;
-    ownerInvocationDigest: Sha256Digest;
-    publicOperationEventRef: string;
-    admissionEventRef: string;
-} | null;
+export function projectPendingExecutionOperation(prefix: ValidatedRuntimeEventPrefix, operation: RuntimeEvent): ContinuationOperationPriorAdmission | null;
 /** @internal */
-export function projectPendingExecutionOperation(prefix: RuntimeEventPrefix, operation: RuntimeEvent): {
-    operationId: "abg.operation.run.continue";
-    publicInvocationRef: string;
-    ownerInvocationRef: string;
-    ownerInvocationDigest: Sha256Digest;
-    publicOperationEventRef: string;
-    admissionEventRef: string;
-} | null;
-export function projectPendingExecutionOperation(prefix: RuntimeEventPrefix, operation: RuntimeEvent): {
-    operationId: "abg.operation.run.continue";
-    publicInvocationRef: string;
-    ownerInvocationRef: string;
-    ownerInvocationDigest: Sha256Digest;
-    publicOperationEventRef: string;
-    admissionEventRef: string;
-} | null {
+export function projectPendingExecutionOperation(prefix: RuntimeEventPrefix, operation: RuntimeEvent): ContinuationOperationPriorAdmission | null;
+export function projectPendingExecutionOperation(prefix: RuntimeEventPrefix, operation: RuntimeEvent): ContinuationOperationPriorAdmission | null {
   const p = operation.payload;
   const text = (key: string) => isRecord(p) && typeof p[key] === "string" ? p[key] as string : null;
   if (operation.kind !== "public_operation_admitted" || !isRecord(p) || p.continuationKind !== "pending_execution" ||
