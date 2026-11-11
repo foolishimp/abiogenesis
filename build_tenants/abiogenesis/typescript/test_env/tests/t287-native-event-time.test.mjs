@@ -20,20 +20,7 @@ if(proofRoot===undefined){
 const owners=await loadTimeOwners(packageRoot);
 const fixedTime='2000-01-01T00:00:00.000Z';
 
-test('same real HoG basis constructor path reproduces the old seed bug and discriminates the repair',{
-  skip:!process.env.ABI5_EVENT_TIME_BASELINE_ROOT&&'ABI5_EVENT_TIME_BASELINE_ROOT unset; requires the old-seed baseline build root',
-},async context=>{
-  const baseline=await import(pathToFileURL(join(process.env.ABI5_EVENT_TIME_BASELINE_ROOT,'build/code/src/hog/operator_support.js')));
-  context.mock.timers.enable({apis:['Date'],now:Date.parse('2030-01-01T00:00:00.000Z')});
-  const input=Object.freeze({eventTime:fixedTime,correlationId:'correlation://event-time/discriminator'});
-  const oldFirst=baseline.admissionBasis(input,'first'),newFirst=owners.hog.admissionBasis(input,'first');
-  context.mock.timers.tick(154_000);
-  const oldSecond=baseline.admissionBasis(input,'second'),newSecond=owners.hog.admissionBasis(input,'second');
-  assert.deepEqual([oldFirst.eventTime,oldSecond.eventTime],[fixedTime,fixedTime]);
-  assert.equal(Date.parse(newSecond.eventTime)-Date.parse(newFirst.eventTime),154_000);
-  assert.equal(oldFirst.correlationId,newFirst.correlationId);
-  assert.deepEqual(oldFirst.causationEventRefs,newFirst.causationEventRefs);
-});
+// Retired (T-292 TD-60): the basis constructor reproduces the old seed bug in a baseline build; input the old-seed baseline build root not recorded
 
 test('native HoG phase samples ignore caller seed; prepared candidate identity survives later admission and replay',async context=>{
   const fixture=await freshTimeFixture(context,owners,proofRoot);
@@ -165,15 +152,4 @@ test('exact paired admission producer preserves recognition across forced clock 
     clockMovesAfterFirstActualAdmission:true,observations},null,2)+'\n');
 });
 
-test('retained historical identity is unchanged; no wall clock is read by the historical event projector',{
-  skip:!process.env.ABI5_EVENT_TIME_HISTORY_PATH&&'ABI5_EVENT_TIME_HISTORY_PATH unset; requires the retained historical event history',
-},async context=>{
-  const path=process.env.ABI5_EVENT_TIME_HISTORY_PATH,bytes=await readFile(path);
-  assert.equal(sha256(bytes),process.env.ABI5_EVENT_TIME_HISTORY_SHA256);
-  const rows=owners.events.validateHistoricalEvents(bytes);
-  assert.equal(rows.length,388);
-  assert.deepEqual([...new Set(rows.map(e=>e.eventTime))],['2026-09-15T04:00:00.000Z']);
-  context.mock.timers.enable({apis:['Date'],now:Date.parse('2099-01-01T00:00:00.000Z')});
-  assert.deepEqual(owners.events.validateHistoricalEvents(bytes),rows);
-  assert.equal(sha256(await readFile(path)),process.env.ABI5_EVENT_TIME_HISTORY_SHA256);
-});
+// Retired (T-292 TD-60): a 388-row retained history keeps its identity under the historical projector; input the retained historical event history not recorded
