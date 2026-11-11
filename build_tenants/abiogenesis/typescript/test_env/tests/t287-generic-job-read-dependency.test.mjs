@@ -1,7 +1,7 @@
 import assert from "node:assert/strict";
 import { mkdir, readFile, writeFile, lstat } from "node:fs/promises";
 import { join, resolve } from "node:path";
-import { pathToFileURL, fileURLToPath } from "node:url";
+import { pathToFileURL } from "node:url";
 import { spawnSync } from "node:child_process";
 import test from "node:test";
 import { worksiteFixture } from "../support/t287-generic-job-worksite.mjs";
@@ -10,53 +10,12 @@ import { ordinaryJob } from "../support/t287-generic-job-intake.mjs";
 
 const root = process.env.ABI5_GENERIC_JOB_BUILD_ROOT ?? resolve(import.meta.dirname, "../..");
 const load = name => import(pathToFileURL(join(root, "build/code/src", name + ".js")).href);
-const [product, gtl, effects, operations, command, preparation, meaning, jobs, prefixes, origins, provenance] = await Promise.all([
+const [product, gtl, effects, operations, command, preparation, jobs, prefixes, origins, provenance] = await Promise.all([
   "product/index", "gtl/index", "product/worksite_effect", "product/worksite_operations", "product/worksite_command_execution",
-  "product/worksite_preparation", "product/semantic_job", "abg/semantic_job", "abg/event_prefix", "abg/worksite_revision", "abg/worksite_input_provenance"].map(load));
+  "product/worksite_preparation", "abg/semantic_job", "abg/event_prefix", "abg/worksite_revision", "abg/worksite_input_provenance"].map(load));
 const owner = { ...product, ...effects, ...operations }, hash = product.sha256Canonical;
 
-test("completed native Evidence keeps the exact initial Design/context read origin", {
-  skip: !process.env.ABI5_GENERIC_JOB_COMPLETED_ROOT && "ABI5_GENERIC_JOB_COMPLETED_ROOT unset; requires the completed native Evidence scratch root", timeout: 180000,
-}, async () => {
-  const scratch = process.env.ABI5_GENERIC_JOB_COMPLETED_ROOT;
-  const outcome = JSON.parse(await readFile(join(scratch, "full-outcome.json"), "utf8"));
-  assert.equal(outcome.ownerOutput.value.disposition, "completed");
-  const store = await load("abg/event_store"), durable = outcome.resources.eventResource.closeHandoff.prefix;
-  const beforeBytes = await readFile(fileURLToPath(durable.eventLogRef));
-  const events = store.readRuntimeEventsAtDurablePrefix(durable), prefix = prefixes.selectValidatedRuntimeEventPrefix(events);
-  const resultRows = events.filter(e => e.kind === "c_call_result_admitted");
-  const final = resultRows.findLast(e => product.isSemanticJobEnvelope(e.payload.value)).payload.value;
-  const execution = resultRows.find(e => command.isWorksiteCommandExecutionObservation(e.payload.value)).payload.value;
-  const basis = execution.task.readDependencyBasis; assert.ok(basis);
-  assert.ok(final.evidence); assert.equal(final.assets.at(-1).candidate.design, null);
-  const source = jobs.semanticJobConstructionSourceAtPrefix(prefix, final); assert.ok(source);
-  assert.equal(source.original.assets.at(-1).assetRef, basis.designAssetRef);
-  assert.equal(source.original.context.observationRef, basis.contextObservationRef);
-  assert.throws(() => meaning.deriveSemanticJobReadDependencies(final, source.worksite), /no Design/,
-    "the later Evidence asset is not a substitute initial Design");
-  assert.deepEqual(meaning.deriveSemanticJobReadDependencies(source.original, source.worksite), basis);
-  const readSource = jobs.semanticJobReadDependenciesAtPrefix(prefix, basis); assert.ok(readSource);
-  assert.deepEqual(readSource.original, source.original);
-  assert.ok(resultRows.some(e => product.isSemanticJobEnvelope(e.payload.value) &&
-    e.payload.value.assets.at(-1)?.assetRef === basis.designAssetRef && e.payload.value.evidence !== null),
-    "the genuinely admitted Evidence-input envelope supplies the old uniqueness counterexample");
-  const judgment = events.find(e => e.kind === "c_call_judged" && e.aggregateId === readSource.result.cCallRef); assert.ok(judgment);
-  for (const member of basis.members) assert.equal(origins.worksiteRevisionOriginSurvives(prefix, {
-    designTargetRef: member.sourceMemberRef, subject: member.subject, observation: member.observation,
-    origin: { kind: "admitted_initial_job_bridge", resultAdmissionEventRef: readSource.result.admissionEventRef, judgmentEventRef: judgment.eventId },
-  }), true, "actual initial read origin remains available; later D2 still needs its own authority");
-  for (const change of [{ jobRef: "semantic-job://crossed", jobDigest: hash("crossed-job") },
-    { designAssetRef: "semantic-job-asset://crossed", designAssetDigest: hash("crossed-Design") },
-    { contextObservationRef: "worksite-context://crossed", contextObservationDigest: hash("crossed-context") }]) {
-    const crossed = command.constructWorksiteReadDependencyBasis({ ...basis, ...change });
-    assert.equal(jobs.semanticJobReadDependenciesAtPrefix(prefix, crossed), null);
-  }
-  if (process.env.ABI5_GENERIC_JOB_ORIGIN_PREDECESSOR_ROOT) {
-    const old = await import(pathToFileURL(join(process.env.ABI5_GENERIC_JOB_ORIGIN_PREDECESSOR_ROOT, "build/code/src/abg/semantic_job.js")).href);
-    assert.equal(old.semanticJobReadDependenciesAtPrefix(prefix, basis), null, "old whole-envelope uniqueness rejects actual completed history");
-  }
-  assert.deepEqual(await readFile(fileURLToPath(durable.eventLogRef)), beforeBytes);
-});
+// Retired (T-292 TD-60): completed native Evidence keeps its initial Design/context read origin; input the completed native Evidence scratch root not recorded
 
 test("initial read-only context stays outside C1 and inside C2; cold origin claims refuse", async () => {
   // Cold component proof: actual observations/replacements, no fabricated ABG
