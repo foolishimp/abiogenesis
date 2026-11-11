@@ -293,10 +293,9 @@
     {
      "file": "tests/t287-cross-cut-public-read.test.mjs",
      "titles": [
-      "different-cut native Definition reads keep blocked absence and exact historical child result/replay",
-      "late child proof preserves only the exact acquired prefix; copies and closed owners reconstruct, changed bytes refuse"
+      "different-cut native Definition reads keep blocked absence and exact historical child result/replay"
      ],
-     "suiteSkips": 2
+     "suiteSkips": 1
     }
    ],
    "input": "the D2 installed-continuation-09 runtime event log and program-ready record",
@@ -315,13 +314,46 @@
     }
    ],
    "producer": null,
-   "observed": "root-set run of the file (ABI5_EVIDENCE_ROOT set) (1051 s): \"different-cut native Definition reads\" fails its read-count assertion (run_status decodes the extent in bounded chunks and reads each body once by location, :121); \"late child proof\" fails at :207: after one byte of the scratch copy is changed, a prepared historical read projects (abg_project_read_projection) where the case expects abg_project_read_refusal",
-   "note": "class A lane: it gates on evidenceInput, so it runs and fails whenever the root is set. Reading not decided: the read-count case looks like a stale operational expectation; the changed-bytes case is an apparent Product defect unless the held-read design now lets a prepared read keep its acquired facts"
+   "observed": "root-set run of the file (ABI5_EVIDENCE_ROOT set) (1051 s): \"different-cut native Definition reads\" fails its read-count assertion (run_status decodes the extent in bounded chunks and reads each body once by location, :121)",
+   "note": "class A lane: it gates on evidenceInput, so it runs and fails whenever the root is set. TD-60T: Product defect, registered as TD-50 (closure: the body-read counter is at most the row count) and TD-51; every non-basis body is read once, and the 37 basis bodies are re-read 11,461 times (run members) and 92,732 times (graph-call members) by the event-calculus dependency selections. Passed at rc.9 (e30ac16b4), fails from rc.10 (93a0de75a, the O1 basis lifetime). Split from the late-child-proof case (row d2-continuation-09-store-late-child-proof)"
+  },
+  {
+   "gate": "d2-continuation-09-store-late-child-proof",
+   "class": "A",
+   "status": "runs_with_root",
+   "variables": [],
+   "cases": [
+    {
+     "file": "tests/t287-cross-cut-public-read.test.mjs",
+     "titles": [
+      "late child proof preserves only the exact acquired prefix; copies and closed owners reconstruct, changed bytes refuse"
+     ],
+     "suiteSkips": 1
+    }
+   ],
+   "input": "the D2 installed-continuation-09 runtime event log and program-ready record",
+   "inputs": [
+    {
+     "name": "events",
+     "path": "comments/codex/20260911_D2_BOUNDED_REPAIR/installed-continuation-09/installed-frame-01/events-01/runtime.events.jsonl",
+     "sha256": "f841bba98385cb572a944edf1793634fcf10baf59a74331110042bcb200f8e82",
+     "bytes": 19058361
+    },
+    {
+     "name": "ready",
+     "path": "comments/codex/20260911_D2_BOUNDED_REPAIR/installed-continuation-09/installed-frame-01/attempt-01/program-ready-16.json",
+     "sha256": "2147862a16f8526d546ca918563b8d8b8094e684d8f629784b256e4803d3fc02",
+     "bytes": 12781893
+    }
+   ],
+   "producer": null,
+   "observed": "root-set run of the file (ABI5_EVIDENCE_ROOT set) (827 s): the case passes, the file 4 pass, 1 fail (the read-count case, row d2-continuation-09-store-cross-cut-reads); root unset: the case skips (TD-60T)",
+   "note": "class A lane: it gates on evidenceInput. Split from d2-continuation-09-store-cross-cut-reads by TD-60T. TD-60T restated :207: after the owner closes, a prepared historical read is served by the exact coordinate's retained authenticated selection (library design §10.4, RC6), so it projects after a byte changes; the next explicit fresh preparation refuses. Last passing rc.5 (f49e7533e), first failing rc.6 (e7179b19b)"
   },
   {
    "gate": "d2-continuation-09-store-borrowed-ancestry",
    "class": "A",
-   "status": "failing_with_input_present",
+   "status": "runs_with_root",
    "variables": [],
    "cases": [
     {
@@ -348,8 +380,8 @@
     }
    ],
    "producer": null,
-   "observed": "root-set run of the file (ABI5_EVIDENCE_ROOT set) (236 s): fails at t287-historical-source-resource.test.mjs:72 (\"exact existing basis body is borrowed\")",
-   "note": "class A lane: it gates on evidenceInput, so it runs and fails whenever the root is set. Reading not decided: borrowing expectation versus the current basis owner (stale test or regression)"
+   "observed": "root-set run of the file (ABI5_EVIDENCE_ROOT set) (333 s): 4/4 pass; root unset: 1 pass, 3 skip (TD-60T)",
+   "note": "class A lane: it gates on evidenceInput. TD-60T restated the basis-body assertion from strict identity to equality under the RC10 O1 lifetime (library design §10.12: strict reference identity for completed historical calls is not retained, equality and refusal are); it failed from rc.10 (93a0de75a) and passed at rc.9 (e30ac16b4)"
   },
   {
    "gate": "r10-child-proof-d2-s01",
@@ -447,7 +479,7 @@
   {
    "gate": "s01-program-selection-store-malformed-liveness",
    "class": "A",
-   "status": "failing_with_input_present",
+   "status": "runs_with_root",
    "variables": [],
    "cases": [
     {
@@ -474,8 +506,8 @@
     }
    ],
    "producer": null,
-   "observed": "root-set run of the file (ABI5_EVIDENCE_ROOT set): fails at r10-projection-contracts.test.mjs:111: expected refusal code 'invalid_history', actual undefined",
-   "note": "class A lane: it gates on evidenceInput, so it runs and fails whenever the root is set. Reading not decided: the case injects rows through a private-owner stub of ./event_store.js; either the read owner no longer takes its rows from that import (stale test) or it admits a malformed liveness event (apparent Product defect)"
+   "observed": "root-set run of the file (ABI5_EVIDENCE_ROOT set) (4 s): 11/11 pass; root unset: 1 pass, 10 skip (TD-60T)",
+   "note": "class A lane: it gates on evidenceInput. TD-60T: since RC6 (e7179b19b) the read owner's preparation takes its rows from readOwnedRuntimeEventPrefixAtDurablePrefix (./event_prefix.js), not from ./event_store.js, so the old stub intercepted nothing; the premise is now supplied there and the owner refuses the malformed liveness event with invalid_history. Last passing rc.5 (f49e7533e), first failing rc.6"
   },
   {
    "gate": "s7-pending-consumer-intent",
@@ -2223,8 +2255,10 @@
   {
    "gate": "governance-covered-fixture-completed-work",
    "class": "C",
-   "status": "failing_with_input_present",
-   "variables": [
+   "status": "runs_with_root",
+   "conversion": "done",
+   "variables": [],
+   "formerVariables": [
     "ABG_GOVERNANCE_COVERED_FIXTURE"
    ],
    "cases": [
@@ -2260,8 +2294,8 @@
      "recordCount": 8
     }
    ],
-   "observed": "pre-check: the unconverted lane, root unset, its variables set to the recorded values, writes under the root refused: fails: TypeError \"CCall c-call://covered-source violates the atomic open/fibre pair or exact phase cardinality\" (replay.js projectCCallPhase)",
-   "note": "same input as governance-covered-fixture; this case keeps its private variable (split per case)"
+   "observed": "converted lane, root set, ABG_GOVERNANCE_COVERED_FIXTURE unset (TD-60T): the case passes, the file 7 pass, 2 skip (7 s); root unset: the case skips with its gate reason",
+   "note": "same input as governance-covered-fixture, read through this row. TD-60T: the case stubbed replayValidatedRuntimeEventPrefix, which the source-result derivation no longer calls (since 67c333799 it reads projectRuntimeReplayGuard and projectReplayCCallGuardAtPrefix; library design §4.4, sourceReplayDigest); the replay premise is now supplied there. Before, the real guard ran over fixture rows with no c_call_opened and refused in projectCCallPhase"
   },
   {
    "gate": "stdo-proof-entry-run-nine",

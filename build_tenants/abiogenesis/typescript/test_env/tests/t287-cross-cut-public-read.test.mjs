@@ -200,10 +200,14 @@ test('late child proof preserves only the exact acquired prefix; copies and clos
   opened.store.closeDurableLog();
   const closed=await measureHistoryReads(f,()=>project(prefix));assert.ok(closed.reads>0,'closed owner cannot retain live acquisition authority');
   assert.deepEqual(closed.value,warm.value);
-  // A prepared historical read retains its semantic context, but the child
-  // declaration callback must still authenticate bytes once its owner closes.
+  // A prepared historical read is a pure projection of the selection its
+  // preparation authenticated: after the owner closes, the exact coordinate's
+  // retained immutable authenticated selection serves the child declaration
+  // callback (library design §10.4, "Runtime history prefixes and held event
+  // resources", RC6). Changed bytes refuse at the next explicit fresh read,
+  // which authenticates a closed-owner coordinate cold.
   const prepared=prepareRunReadAtDurablePrefix(prefix,'graph_call_result',target);assert.ok(prepared);
   const fd=fs.openSync(f.eventLogPath,'r+');try{fs.writeSync(fd,Buffer.from('!'),0,1,0);}finally{fs.closeSync(fd);}
-  const stale=prepared.project(f.declarationProof);assert.equal(stale.kind,'abg_project_read_refusal');
+  assert.deepEqual(prepared.project(f.declarationProof),warm.value,'the prepared projection keeps its authenticated selection');
   assert.equal(prepareRunReadAtDurablePrefix(prefix,'graph_call_result',target),null);
 });
