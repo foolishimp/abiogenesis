@@ -39,9 +39,13 @@ const LIFECYCLE_FLUENTS = new Set([
 ]);
 const ALSO_EVENT_KINDS = new Set(["actor_process_termination_unconfirmed"]);
 const PROCESS_FACTS = new Set(["scopeAbsence", "directExit"]);
+// `owned_process_state.ts` is the pure transition half of `owned_process_lifetime.ts`
+// (Phase 2, design/T287_EFFECT_FUNCTIONAL_REFACTOR_PLAN.md): it holds and decides
+// the same physical facts, and only `owned_process_lifetime.ts` imports it.
 const PROCESS_FACT_OWNERS = [
   "code/src/shared/process/",
   "code/src/shared/owned_process_lifetime.ts",
+  "code/src/shared/owned_process_state.ts",
   "code/src/abg/worker_transport.ts",
   "code/src/abg/actor_process.ts",
   "code/src/implementation/worksite_command_helper.ts",
