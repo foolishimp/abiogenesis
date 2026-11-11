@@ -226,8 +226,9 @@ for the touched functions and operations:
 | `t287-worksite-command-execution` | command execution | 12 | 12 | 0 | 0 | 324 |
 | `t287-native-worksite-execution` | leaf execution authority (admitted row), catalog | 7 | 4 | 0 | 3 | 0 |
 | `w2-steel-single-start-closure` | leaf execution authority, command execution | 8 | 0 | 0 | 8 | 0 |
-| `r4-catalog-admission` | catalog | 8 | 8 | 0 | 0 | 0 |
-| `t287-required-operation-bindings` | materialization | 10 | 10 | 0 | 0 | 199 |
+| `r4-catalog-admission` | catalog consumers (it stubs `admitGraphFunctionCatalog`, so it does not reach the changed branch) | 8 | 8 | 0 | 0 | 0 |
+| `m5-fresh-process-reconstruction` | catalog: asserts the changed branch's `binding_lock_mismatch` refusal | 1 | 1 | 0 | 0 | 42 |
+| `t287-required-operation-bindings` | materialization: `product.materialize#context_bootstrap` and `#configuration` with a real binding reach `validWorkspaceAndBinding` | 10 | 10 | 0 | 0 | 199 |
 | `r3-workspace-binding` | binding candidate and admitted binding | 1 | 1 | 0 | 0 | 36 |
 | `t287-default-library` | execution basis, command execution, construction, native work | 37 | 34 | 0 | 3 | 323 |
 | `npm run test:r1` | candidate basis | 1 | 1 | 0 | 0 | — |
@@ -243,7 +244,7 @@ so these lanes skip on the old build too:
 - `ABI5_NATIVE_WORK_RETAINED_ROOT`: `t287-native-workspace-work` 1;
 - `ABI5_DEFAULT_LIBRARY_LIVE`, `ABI5_NATIVE_OBSERVATION_CAPTURE` and `ABI5_PLANNING_PROJECTION_CAPTURE`: `t287-default-library` 1 each.
 
-Totals over the 18 rerun files: 189 tests, 156 pass, 0 fail, 33 skip. No rerun
+Totals over the 19 rerun files: 190 tests, 157 pass, 0 fail, 33 skip. No rerun
 file went red, so no exercised shipped path depends on the weaker acceptance.
 Stop condition 1 did not fire. The 33 skipped lanes are the unexercised part;
 the scan in section 1 covers their retained logs only where they sit inside
@@ -298,8 +299,9 @@ Old values still named in tracked text:
 
 ## 6. Residual risks and residuals
 
-These are other copies of these rules. The reviews did not name them, and I
-left them unconverted because the size stop had fired:
+Ruling 1 ("every copy is deleted") is therefore not fully met. These are other
+copies of these rules. The reviews did not name them, and I left them
+unconverted because the size stop had fired:
 - `abg/environment_admission.ts:1103` `hasAdmittedWorkspaceBinding` digests the nine-field body and checks nothing else. Callers: `abg/actor_process.ts:877`, `abg/continuation.ts:1152`, `product/project_read_definition_bindings.ts:690`.
 - `native_workspace_work.ts:39-41` holds an inline join and grant. The join has no `workspaceId` comparison; the grant has no `memberKey` check. The owner join and owner grant would tighten both.
 - `worksite_effect.ts` `isWorksiteFileReplaceRequest` holds the G1 grant rule inline, keyed by the request's binding identity and digest.
@@ -309,5 +311,6 @@ left them unconverted because the size stop had fired:
 - The `exactWorkspaceBinding` delegate is an exported second name with no caller (TD-44 or TD-47).
 
 Other risks:
+- The retained and captured inputs behind the 33 skipped lanes sit outside the sparse checkout and were not scanned. For those inputs, stop condition 1 is unverified. Run those lanes with their evidence roots set before merge.
 - The qualification inventory pins member digests, and this package moves several (source files, the manifest, the capability graph, the C2 record, the candidate basis). As at TD-35, that refresh is a cut-level step and is not done here.
 - `lint:evidence` was not run. It reads `.ai-workspace/evidence/TREE_MIRROR_INVENTORY.json`, which is outside the sparse checkout.
