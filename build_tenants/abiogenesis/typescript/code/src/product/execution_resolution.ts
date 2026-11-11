@@ -19,7 +19,9 @@ import type {
   ModulePublication,
 } from "../gtl/contracts.js";
 import {
+  graphFunctionStartRefusal,
   resolveProgramStart,
+  type ProgramStartRefusal,
   type ProgramStartRequest,
   type ResolvedProgramStart,
 } from "../gtl/public_start.js";
@@ -275,6 +277,20 @@ function refusal(
     stage,
     message,
   });
+}
+
+function programStartRefusal(
+  refused: ProgramStartRefusal,
+): ProductExecutionResolutionRefusal {
+  return refusal(
+    refused.code === "ambiguous_target"
+      ? "ambiguous"
+      : refused.code === "missing_target"
+      ? "absent"
+      : "incompatible_or_unproven",
+    "catalog",
+    refused.message,
+  );
 }
 
 function exact<T>(values: readonly T[], predicate: (value: T) => boolean):
@@ -562,6 +578,8 @@ async function resolveProductExecution(
     input.selection.kind === "start" &&
     "graphFunctionHandle" in input.selection
   ) {
+    const refused = graphFunctionStartRefusal(program, input.selection);
+    if (refused !== null) return programStartRefusal(refused);
     const selected = lookupGraphFunction(
       reconstructedView,
       input.selection.graphFunctionHandle,
@@ -585,15 +603,7 @@ async function resolveProductExecution(
         : { startRef: input.selection.startRef }),
     });
     if (resolved.kind !== "resolved_program_start") {
-      return refusal(
-        resolved.code === "ambiguous_target"
-          ? "ambiguous"
-          : resolved.code === "missing_target"
-          ? "absent"
-          : "incompatible_or_unproven",
-        "catalog",
-        resolved.message,
-      );
+      return programStartRefusal(resolved);
     }
     const selected = lookupGraphFunctionDefinition(
       reconstructedView,
