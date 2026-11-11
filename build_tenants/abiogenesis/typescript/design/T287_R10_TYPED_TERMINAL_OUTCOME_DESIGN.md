@@ -587,3 +587,45 @@ readable. They and new reference-form requests share the same admitted-consumpti
 relation. History is not normalized or rewritten. No new event, receipt authority,
 process-local proof store or alternate reader is introduced. Cuts before Result
 or J, mismatched producer/evidence, and stale or uncovered sources refuse.
+
+## 2026-11-11 readable stops
+
+Path/outcome: a Run that stops without completing reads back its stop through
+`project.read run_status`. Owners: [REQ-P-POLICY-065–068](../../../../specification/requirements/product/REQ-P-POLICY.md#stopped-run-readback),
+this projection section and the existing replay stop truth. Runtime and events
+are unchanged.
+
+```text
+run_status read -> canonicalRunContext(stop = runStoppedEventRef ?? runtimeFailureEventRef)
+  -> stopping C-call: route run_stopped.routeRef | the one failed route in failure causation
+  -> origin: C-call Result, then each failed|blocked child_foldback (parentCCallRef) -> childResultRef
+  -> evaluation: last success Result of the root GraphCall before the stop
+  -> optional run_status_projection.stop
+```
+
+Handoff: native `projectRunStatus` adds `stop`; the definition binding passes it
+unchanged into `run_status_projection.stop` (`ABG_RUN_STOP_READING_SCHEMA`), and
+output admission checks it. Computation: indexed `id:`, `related:`,
+`graph-call:`, `payload:routeRef:`, `payload:parentCCallRef:` and
+`payload:resultRef:` lookups at the Run's read prefix, only when a stop event
+exists. Origin is `failure` (own
+`failureClass`, `diagnosticRef`, `timeoutClass` from its `c_call_evidenced`),
+`gap` (registered-selection gap choice: `missingSupportRefs`, `reason`),
+`result`, or `not_admitted`. The evaluation value is carried uninterpreted.
+`statement` renders these fields in words and always says the Run did not
+complete.
+
+Invariants: no event kind, stop-event change, failure class, stored copy or
+runtime mechanism. An ambiguous or missing link reads `not_admitted`; nothing is
+chosen by diagnostic or class label. Completed, active and held Runs carry no
+`stop`, so their values and digests are unchanged. `run_result` keeps `not_found`
+for a stopped Run; `run_gaps` keeps the HoG gap frontier. A registered-selection
+gap is a `blocked` stop with reason `default-library/gap@5`, not `gap_stopped`.
+Effect grant: none; read only. The added optional member changes the
+`run_status` definition digest; that change is an explicit supersession under
+REQ-P-PUBLIC-CONTRACTS-004 within the same operation identity.
+
+Proof: `t287-readable-stops` starts scripted default-library Runs through the
+Public CLI (worker exit failure, absolute timeout, recursion bound 2, selection
+gap), reopens cold, and asserts `run_status.stop`, `run_result` refusal and
+`run_replay` status. Existing Public-read tests rerun unchanged.
