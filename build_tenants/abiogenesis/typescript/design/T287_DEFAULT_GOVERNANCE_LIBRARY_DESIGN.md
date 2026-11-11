@@ -32,9 +32,8 @@ task without reviews keeps its states, prompts, response schema and digests.
   `{reviewRef, required, resultRef, satisfied, current}` row per declared
   review in order. Construction emits initial rows, folds carry them unchanged
   and only the parent projection recomputes them.
-- Every native work and assessment task carries non-empty
-  `original.authorityRefs` in its instructions beside the conserved original
-  task; an empty list adds no instruction.
+- Native work and assessment instructions carry non-empty `original.authorityRefs`
+  beside the conserved original task; an empty list adds no instruction.
 
 **Declared computations.**
 - `governanceAssessmentContract(state, purpose)` alone decides which assessment
@@ -54,17 +53,15 @@ task without reviews keeps its states, prompts, response schema and digests.
   actor, admitted source basis); a mismatch refuses the parent outcome.
   Acceptance is structural: any later work row other than a review retires it,
   even one with no effect; it also needs this Run and no later admitted change
-  under its read roots.
-  Review currentness is causal: a review admitted in this Run stays current
-  until an admitted change lies at or under a member of its dependency set
-  (read-roots form of `worksiteCommandSourcesInvalidatedAfter`). `terminal` is
-  acceptance, every required review satisfied and current, and fulfillment
-  coverage keyed to the acceptance row.
+  under its read roots. Review currentness is causal: a review admitted in this
+  Run stays current until an admitted change lies at or under a member of its
+  dependency set (read-roots form of `worksiteCommandSourcesInvalidatedAfter`).
+  `terminal` is acceptance, every required review satisfied and current, and
+  fulfillment coverage keyed to the acceptance row.
 - Invalidation interprets C0 replacements and failures, native and unknown
   native effects, and the `worksiteDelta` of an admitted C2 command execution
-  Result. Only a command Result with a non-empty delta carries the
-  `worksite-observation-dependency` key; a command that changed nothing
-  invalidates nothing.
+  Result; only a non-empty delta carries the `worksite-observation-dependency`
+  key, so a command that changed nothing invalidates nothing.
 
 **Invariants, effect and proof.** `terminal` implies every required standing
 row is satisfied and current. Another Run's verdict is not current. A review
