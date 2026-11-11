@@ -59,6 +59,7 @@ Callers:
 - `product/execution_resolution.ts`, graph_function branch: the owner runs before the CatalogView lookup. A refusal maps through `programStartRefusal`, the existing three-way mapping that is now shared with the `resolveProgramStart` branch. The result is `incompatible_or_unproven` / `catalog` with the owner's message. At the Public surface this is `invalid_target` `["/program"]`, the refusal a direct `next` start against a supervised Program gets.
 - `abg/invocation_admission.ts`: `graphFunctionStartRow` is computed only when the owner admits. On refusal admission refuses `selection_mismatch` ("Product start revalidation found no catalog definition"), the code and message a refused `next` start gets there.
 - Admitted starts take the same path as before. `publicStart` construction is unchanged, so the recorded `rootMode` stays as stated.
+- The change alters no admitted event for starts admitted today. Events written by new Runs differ only where they carry the moved product identity (section 4).
 
 Not touched: the invocation-variant `direct` guards (`abg/invocation_admission.ts:955-963`, `product/invocation.ts:1138-1146`). They guard the `invoke` member, not starts. No schema, refusal code set or event shape changed.
 
@@ -97,6 +98,10 @@ Reruns, one file at a time on the final build (`TMPDIR=/private/tmp/abg-td35-tmp
 | `r1-packed-artifact` | pin (candidate basis) | 1 | 1 | 0 | 0 | 29 |
 | `r2-clean-install` | pin (candidate basis) | 1 | 1 | 0 | 0 | 52 |
 | `r3-workspace-binding` | pin (candidate basis) | 1 | 1 | 0 | 0 | 36 |
+| `t287-public-groups` | export surface | 3 | 3 | 0 | 0 | 24 |
+| `hello-product-boundary` | export surface | 1 | 1 | 0 | 0 | 6 |
+| `lint-verification.mjs` over the verification recipe (run from T) | lint | 72 files | 72 | 0 | 0 | 1 |
+| `lint:imports`, `lint:lifecycle`, `lint:calculus` | lint | 3 | 3 | 0 | 0 | 1 |
 
 Every skip is an environment gate, not a failure:
 - selected-execution-closure needs `ABI5_SELECTED_CLOSURE_*`.
@@ -105,6 +110,12 @@ Every skip is an environment gate, not a failure:
 - The default library skips need `ABI5_PLANNING_PROJECTION_CAPTURE`, `ABI5_NATIVE_OBSERVATION_CAPTURE` and `ABI5_DEFAULT_LIBRARY_LIVE=1`.
 
 R1 was run before the basis refresh and failed with `artifact_digest_mismatch`; it passed after.
+
+Two lints did not run in this checkout:
+- `npm run lint` needs a recipe argument, so it was run directly with the verification recipe (the table row above).
+- `lint:evidence` reads `.ai-workspace/evidence/TREE_MIRROR_INVENTORY.json`, which is outside the sparse checkout. It checks tree copies under `.ai-workspace/` and a 6 MB size bound. This package adds one small Return there. The moved manifest (3,276,114 bytes), capability graph and candidate basis keep their byte counts.
+
+Export surface: `graphFunctionStartRefusal` is a new runtime export of `build/code/src/gtl/public_start.js`. It is not re-exported from `gtl/index`. No test or script enumerates that module's runtime exports; the only namespace walker, `support/malformed-gtl-native-fixture.mjs`, re-exports whatever keys exist.
 
 ## 4. Pins
 
@@ -132,7 +143,7 @@ After the refresh, no tracked file under `build_tenants/` or `specification/` na
 ## 5. Deviations
 
 - Predicate: refuse unless the policy is `direct` (`!== "direct"`), not only when it is `supervised`. This is the existing direct start law, so the rule has one copy. Under REQ-P-POLICY-013 an absent policy means the default, `supervised`. The census shows every shipped Program declares the policy and every `graph_function` start site targets a direct Program, so the two predicates agree on everything that exists.
-- The brief expected `npm run build` to leave no tracked change unless an exported declaration changed. That premise does not hold. `productContentDigest` digests every payload file, including `build/**/*.js`. Any source change therefore moves the manifest and the capability graph, even though every `.d.ts` file is byte-identical (checked for `gtl/public_start.d.ts` and `gtl/index.d.ts`; the `publicContractCatalog` and the 5,325 locators are unchanged).
+- The brief expected `npm run build` to leave no tracked change unless an exported declaration changed. That premise does not hold. `productContentDigest` digests every payload file, including `build/**/*.js`. Any source change therefore moves the manifest and the capability graph, even when no declaration changes. Here `gtl/public_start.d.ts` and `gtl/index.d.ts` are byte-identical (diffed). The `publicContractCatalog`, whose 47 rows carry the declaration inventories, is unchanged, and so are the 5,325 locators.
 - My first red run of the ST-1 lane was killed (33.7 GB RSS), because an eager `JSON.stringify` of a loaded resolution was used as an assertion message. The lane now compares small projections only.
 
 ## 6. Residual risks
