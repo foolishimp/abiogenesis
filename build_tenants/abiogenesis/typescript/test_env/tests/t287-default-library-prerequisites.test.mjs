@@ -53,6 +53,11 @@ const synthesisBasis=(task,inputRef='input:synthesis')=>({inputRef,inputDigest:h
 
 // Head 3a02bb52f digests of the same constructions (computed against that build),
 // except graphs and library, which carry the default recoverable failure classes.
+// The library publication and its implementation bindings carry the product
+// identity, so they are built from this fixed test-owned identity, never the
+// ambient stamped one: a version stamp leaves both pins unchanged, and any other
+// change to either construction still moves them.
+const PIN_BASIS={productId:'product://abiogenesis/typescript-tenant@5.0.0-rc.11',packageName:'@abiogenesis/typescript-tenant',packageVersion:'5.0.0-rc.11',artifactDigest:'sha256:'+'1'.repeat(64),productContentDigest:'sha256:'+'2'.repeat(64),productManifestDigest:'sha256:'+'3'.repeat(64)};
 const HEAD_PINS={graphs:'sha256:6dd2d33a2d89d5c71f0fe8b838cf1b6d73578b453ab8b4743e9b118d4a1ef124',library:'sha256:ad5051fd189c9f200c9e07920cbd5032c24226ce84a29d24624d142120b788b2',
   bindings:'sha256:903382114338af04a61b17f6306316fa5e586298b5562974f11a50e406c0fc23',environment:'sha256:6a089e94985d54e96c82a2c8de4bc2e10938d4ba31f36dc8031e752bd9080e32',
   reviewed:'sha256:fc520d836a81eda8f36b56610d0e0ad2e51cdd5d50ebf6bb4c3664a3cfffa0ba',view:'sha256:1fd0cc97a81bebb1f281c2ce7d1dec058dfcc136492429426ebd0fb7e463f8d7',
@@ -61,7 +66,7 @@ test('a Program without a process declaration keeps its definitions, selector vi
   const {state,fixed}=await seeded(t,declaredReviews(null)),task={kind:'framed_synthesis_task',schemaVersion:'5.0.0',state,context:fixed};
   const graphs=gtl.defaultGovernanceGraphFunctions(),targets=targetsOf(graphs);
   assert.ok(targets.every(target=>!Object.hasOwn(target,'requiredReviews')));
-  assert.deepEqual({graphs:h(graphs),library:h(gtl.constructDefaultGovernanceLibraryModulePublication(basis)),bindings:h(gtl.defaultLibraryImplementationBindings(basis)),
+  assert.deepEqual({graphs:h(graphs),library:h(gtl.constructDefaultGovernanceLibraryModulePublication(PIN_BASIS)),bindings:h(gtl.defaultLibraryImplementationBindings(PIN_BASIS)),
     environment:h(gtl.defaultLibraryRunEnvironment()),reviewed:h(state),view:h(product.projectFramedSynthesisPromptTask(task)),schema:h(product.framedSynthesisResponseSchema(task,targets))},HEAD_PINS);
   assert.deepEqual(product.projectFramedSynthesisPromptTask(task,undefined,targets),product.projectFramedSynthesisPromptTask(task),'undeclared targets add no view section');
   const declared=gtl.defaultGovernanceGraphFunctions({prerequisites:PREREQUISITES}),step=stepOf(declared);
