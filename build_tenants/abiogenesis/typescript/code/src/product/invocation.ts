@@ -691,7 +691,7 @@ export function isCapabilityGrantValue(value: unknown): value is CapabilityGrant
  */
 export function isExactDirectGrant(
   value: unknown,
-  workspace: WorkspaceBinding,
+  workspace: Pick<WorkspaceBinding, "authorizedActorRef" | "bindingId" | "bindingDigest">,
 ): value is CapabilityGrant {
   return isCapabilityGrantValue(value) &&
     value.operationId === "abg.operation.run.invoke" &&

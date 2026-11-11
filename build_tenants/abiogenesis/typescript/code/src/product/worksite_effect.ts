@@ -27,6 +27,7 @@ import {
 } from "./environment.js";
 import {
   isCapabilityGrantValue,
+  isExactDirectGrant,
   type CapabilityGrant,
 } from "./invocation.js";
 import { canonicalEquals } from "../shared/value/index.js";
@@ -555,7 +556,10 @@ function exactImplementationSet(value: AdmittedImplementationSet): boolean {
     admissionEventRef: _admissionEventRef,
     ...body
   } = value;
-  const digest = sha256Canonical(body);
+  // The set body is admitted as I-JSON before its digest, as the row check does.
+  const admittedBody = admitJson(body);
+  if (admittedBody.kind !== "ok") return false;
+  const digest = sha256Canonical(admittedBody.value);
   return value.implementationSetDigest === digest &&
     value.implementationSetRef ===
       identity("implementation-set://abiogenesis", digest);
@@ -1063,14 +1067,11 @@ export function isWorksiteFileReplaceRequest(
       value.predecessorObservation.workspaceBindingIdentity &&
     value.predecessorObservation.subjectRef === value.subject.subjectRef &&
     value.predecessorObservation.subjectDigest === value.subject.subjectDigest &&
-    value.capabilityGrant.actorRef.length > 0 &&
-    value.capabilityGrant.operationId === "abg.operation.run.invoke" &&
-    value.capabilityGrant.definitionKey.operationId === "abg.operation.run.invoke" &&
-    (value.capabilityGrant.definitionKey.memberKey === "invoke" ||
-      value.capabilityGrant.definitionKey.memberKey === "start") &&
-    value.capabilityGrant.scopeRef === value.workspaceBindingIdentity &&
-    value.capabilityGrant.scopeDigest === value.workspaceBindingDigest &&
-    value.capabilityGrant.actorRef === authority.authorizedActorRef &&
+    isExactDirectGrant(value.capabilityGrant, {
+      authorizedActorRef: authority.authorizedActorRef,
+      bindingId: value.workspaceBindingIdentity,
+      bindingDigest: value.workspaceBindingDigest,
+    }) &&
     value.subject.subjectUri === expectedFileUri(
       authority.canonicalRoot,
       value.subject.relativePath,
