@@ -15,8 +15,8 @@ import { isNativeWorkspaceWorkObservation, isNativeWorkspaceWorkTask, nativeWork
 import { isNativeWorksiteCommandExecutionObservation, isNativeWorksiteCommandExecutionTask, resolveWorksiteCommandExecutionJudgmentRelation, WORKSITE_COMMAND_EXECUTION_IDS, type WorksiteCommandExecutionLimits,
   type WorksiteCommandAmbientEnvironment } from "./worksite_command_execution.js";
 import { validateDurablePrefixCoordinate, type DurablePrefixCoordinate } from "../abg/event_store.js";
-import { exactWorkspaceBinding, isWorksiteContextObservation, type WorksiteContextObservation } from "./worksite_effect.js";
-import { isWorkspaceAuthorityBasis, type WorkspaceAuthorityBasis, type WorkspaceBinding } from "./environment.js";
+import { isWorksiteContextObservation, type WorksiteContextObservation } from "./worksite_effect.js";
+import { isExactWorkspaceBinding, isWorkspaceAuthorityBasis, type WorkspaceAuthorityBasis, type WorkspaceBinding } from "./environment.js";
 import { isCapabilityGrantValue, type CapabilityGrant } from "./invocation.js";
 import { canonicalEquals } from "../shared/value/index.js";
 
@@ -70,7 +70,7 @@ export function isNativeSemanticRevisionWorksite(value: unknown): value is Nativ
   const x = value as NativeSemanticRevisionWorksite;
   return Object.keys(x).sort().join() === ["kind", "workspaceAuthorityBasis", "workspaceBinding", "capabilityGrant", "context", "commandExecutionLimits", "construction", "source", ...(x.acquisition === undefined ? [] : ["acquisition"])].sort().join() &&
     x.kind === "native_semantic_revision_worksite" && isWorkspaceAuthorityBasis(x.workspaceAuthorityBasis) &&
-    x.workspaceBinding !== null && typeof x.workspaceBinding === "object" && exactWorkspaceBinding(x.workspaceBinding) && isCapabilityGrantValue(x.capabilityGrant) &&
+    isExactWorkspaceBinding(x.workspaceBinding) && isCapabilityGrantValue(x.capabilityGrant) &&
     v.is(v.strictObject({ inactivityTimeoutMs:v.pipe(v.number(),v.integer(),v.minValue(1)), absoluteTimeoutMs:v.pipe(v.number(),v.integer(),v.minValue(1)) }), x.commandExecutionLimits) &&
     x.commandExecutionLimits.absoluteTimeoutMs > x.commandExecutionLimits.inactivityTimeoutMs &&
     isWorksiteContextObservation(x.context) && (x.construction === null || v.is(coordinate, x.construction)) &&

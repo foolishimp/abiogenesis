@@ -12,7 +12,7 @@ import {
 import { sha256Canonical, type Sha256Digest } from "../shared/digests.js";
 import { deepFreeze, isDeeplyFrozen } from "../shared/immutable.js";
 import type { ProductInstall, ResolvedProductLock, WorkspaceBindingCandidate } from "./environment.js";
-import { constructProductSet, isResolvedProductLock } from "./environment.js";
+import { constructProductSet, isResolvedProductLock, isWorkspaceBindingCandidateInResolvedLock } from "./environment.js";
 import type { ProductInstallCandidate, VerifiedProductArtifact } from "./contracts.js";
 import { modulePublicationSemanticDigest } from "./publication.js";
 import { isVerifiedProductArtifact } from "./verify_product.js";
@@ -465,29 +465,9 @@ export function admitGraphFunctionCatalog(
         )),
   };
   const { workspaceBinding, resolvedLock, verifiedProducts, installedProducts, publications } = canonicalBasis;
-  const workspaceBindingBody = {
-    workspaceId: workspaceBinding.workspaceId,
-    authorityBasisId: workspaceBinding.authorityBasisId,
-    authorityBasisDigest: workspaceBinding.authorityBasisDigest,
-    authorizedActorRef: workspaceBinding.authorizedActorRef,
-    productSetId: workspaceBinding.productSetId,
-    productSetDigest: workspaceBinding.productSetDigest,
-    lockId: workspaceBinding.lockId,
-    lockDigest: workspaceBinding.lockDigest,
-    roots: workspaceBinding.roots,
-  };
-  const expectedWorkspaceBindingDigest = sha256Canonical(
-    workspaceBindingBody,
-  );
   if (
     !isResolvedProductLock(resolvedLock) ||
-    workspaceBinding.kind !== "workspace_binding_candidate" ||
-    workspaceBinding.schemaVersion !== "5.0.0" ||
-    workspaceBinding.bindingDigest !== expectedWorkspaceBindingDigest ||
-    workspaceBinding.bindingId !==
-      `workspace-binding://abiogenesis/${expectedWorkspaceBindingDigest.slice("sha256:".length)}` ||
-    workspaceBinding.lockId !== resolvedLock.lockId ||
-    workspaceBinding.lockDigest !== resolvedLock.lockDigest
+    !isWorkspaceBindingCandidateInResolvedLock(workspaceBinding, resolvedLock)
   ) {
     return refusal(
       "binding_lock_mismatch",

@@ -1,4 +1,5 @@
-import { isRecord, hasExactKeys, isNonblankString as nonEmptyString } from "../shared/admission_predicates.js";
+import { isRecord, hasExactKeys, isNonblankString as nonEmptyString,
+  isTrimmedNonblankNulFreeString as exactString } from "../shared/admission_predicates.js";
 import { admitJson } from "../shared/admit/index.js";
 import { isAbsolute } from "node:path";
 
@@ -1267,6 +1268,56 @@ function workspaceBindingCandidateMatches(
   ) {
     return false;
   }
+  // Exact keys and the checked authority/ProductSet coordinates reproduce the
+  // constructor body; compare its digest/identity without constructing it again.
+  return hasWorkspaceBindingIdentity(value);
+}
+
+/**
+ * @internal The admitted workspace binding (`kind: "workspace_binding"`): a
+ * record with exactly its fourteen keys, nonblank NUL-free strings without
+ * surrounding whitespace, sha256 digests, the six absolute declared roots, and
+ * the digest and identity of its nine-field body admitted as I-JSON. A value
+ * with any further top-level key is refused.
+ */
+export function isExactWorkspaceBinding(value: unknown): value is WorkspaceBinding {
+  if (!isRecord(value) || !hasExactKeys(value, [
+    "admissionEventRef", "authorityBasisDigest", "authorityBasisId",
+    "authorizedActorRef", "bindingDigest", "bindingId", "kind", "lockDigest",
+    "lockId", "productSetDigest", "productSetId", "roots", "schemaVersion",
+    "workspaceId",
+  ]) || value.kind !== "workspace_binding" || value.schemaVersion !== "5.0.0" ||
+    !exactString(value.bindingId) || !isSha256Digest(value.bindingDigest) ||
+    !exactString(value.workspaceId) || !exactString(value.authorityBasisId) ||
+    !isSha256Digest(value.authorityBasisDigest) || !exactString(value.authorizedActorRef) ||
+    !exactString(value.productSetId) || !isSha256Digest(value.productSetDigest) ||
+    !exactString(value.lockId) || !isSha256Digest(value.lockDigest) ||
+    !exactString(value.admissionEventRef) || !isRecord(value.roots) ||
+    !hasExactKeys(value.roots, [
+      "archiveRoot", "eventLogRoot", "productRoot", "projectionRoot",
+      "runtimeStateRoot", "toolchainRoot",
+    ]) || Object.values(value.roots).some((root) =>
+      !exactString(root) || !isAbsolute(root)
+    )) return false;
+  return hasWorkspaceBindingIdentity(value);
+}
+
+/** @internal One workspace authority and one exact admitted binding over it. */
+export function exactWorkspaceAuthorityJoin(
+  authority: WorkspaceAuthorityBasis,
+  workspace: WorkspaceBinding,
+): boolean {
+  return isWorkspaceAuthorityBasis(authority) &&
+    isExactWorkspaceBinding(workspace) &&
+    authority.workspaceId === workspace.workspaceId &&
+    authority.authorityBasisId === workspace.authorityBasisId &&
+    authority.authorityBasisDigest === workspace.authorityBasisDigest &&
+    authority.authorizedActorRef === workspace.authorizedActorRef;
+}
+
+// The binding identity: the digest of the nine-field body admitted as I-JSON,
+// and `workspace-binding://abiogenesis/<hex>`. The constructor writes it.
+function hasWorkspaceBindingIdentity(value: Readonly<Record<string, unknown>>): boolean {
   const body = {
     workspaceId: value.workspaceId,
     authorityBasisId: value.authorityBasisId,
@@ -1281,8 +1332,6 @@ function workspaceBindingCandidateMatches(
   const admittedBody = admitJson(body);
   if (admittedBody.kind !== "ok") return false;
   const digest = sha256Canonical(admittedBody.value);
-  // Exact keys and the checked authority/ProductSet coordinates reproduce the
-  // constructor body; compare its digest/identity without constructing it again.
   return value.bindingDigest === digest &&
     value.bindingId === identity("workspace-binding://abiogenesis", digest);
 }

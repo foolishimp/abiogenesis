@@ -17,7 +17,10 @@ import type {
   AdmittedImplementationSet,
   ExecutionBasis,
 } from "../abg/execution_basis.js";
+import { isExactAdmittedImplementationRow } from "../abg/execution_basis.js";
 import {
+  exactWorkspaceAuthorityJoin,
+  isExactWorkspaceBinding,
   isWorkspaceAuthorityBasis,
   type WorkspaceAuthorityBasis,
   type WorkspaceBinding,
@@ -443,58 +446,9 @@ function identity(prefix: string, digest: Sha256Digest): string {
 }
 
 export function exactWorkspaceBinding(value: WorkspaceBinding): boolean {
-  if (
-    value.kind !== "workspace_binding" ||
-    value.schemaVersion !== "5.0.0" ||
-    !nonEmptyString(value.bindingId) ||
-    !isSha256Digest(value.bindingDigest) ||
-    !nonEmptyString(value.workspaceId) ||
-    !nonEmptyString(value.authorityBasisId) ||
-    !isSha256Digest(value.authorityBasisDigest) ||
-    !nonEmptyString(value.authorizedActorRef) ||
-    !nonEmptyString(value.productSetId) ||
-    !isSha256Digest(value.productSetDigest) ||
-    !nonEmptyString(value.lockId) ||
-    !isSha256Digest(value.lockDigest) ||
-    !nonEmptyString(value.admissionEventRef) ||
-    !isRecord(value.roots) ||
-    !hasExactKeys(value.roots, [
-      "archiveRoot",
-      "eventLogRoot",
-      "productRoot",
-      "projectionRoot",
-      "runtimeStateRoot",
-      "toolchainRoot",
-    ]) ||
-    Object.values(value.roots).some((root) =>
-      !nonEmptyString(root) || !isAbsolute(root)
-    )
-  ) return false;
-  const body = {
-    workspaceId: value.workspaceId,
-    authorityBasisId: value.authorityBasisId,
-    authorityBasisDigest: value.authorityBasisDigest,
-    authorizedActorRef: value.authorizedActorRef,
-    productSetId: value.productSetId,
-    productSetDigest: value.productSetDigest,
-    lockId: value.lockId,
-    lockDigest: value.lockDigest,
-    roots: value.roots,
-  };
-  const digest = sha256Canonical(body);
-  return value.bindingDigest === digest &&
-    value.bindingId === identity("workspace-binding://abiogenesis", digest);
-}
-
-function exactWorkspaceAuthorityJoin(
-  authority: WorkspaceAuthorityBasis,
-  workspace: WorkspaceBinding,
-): boolean {
-  return isWorkspaceAuthorityBasis(authority) && exactWorkspaceBinding(workspace) &&
-    authority.workspaceId === workspace.workspaceId &&
-    authority.authorityBasisId === workspace.authorityBasisId &&
-    authority.authorityBasisDigest === workspace.authorityBasisDigest &&
-    authority.authorizedActorRef === workspace.authorizedActorRef;
+  // The binding owner is `isExactWorkspaceBinding` (product/environment.ts);
+  // this exported name keeps the published declaration and has no caller.
+  return isExactWorkspaceBinding(value);
 }
 
 function containsPath(root: string, candidate: string): boolean {
@@ -607,102 +561,12 @@ function exactImplementationSet(value: AdmittedImplementationSet): boolean {
       identity("implementation-set://abiogenesis", digest);
 }
 
-function exactAdmittedImplementationRow(
-  value: AdmittedImplementationResolutionRow,
-): boolean {
-  if (
-    !isRecord(value) ||
-    !hasExactKeys(value, [
-      "catalogBasisDigest",
-      "catalogViewDigest",
-      "computeRegime",
-      "disposition",
-      "failureContractRef",
-      "graphFunctionDigest",
-      "graphFunctionOwnerProductId",
-      "graphFunctionPublicationDigest",
-      "graphFunctionRef",
-      "implementationBindingDigest",
-      "implementationBindingRef",
-      "implementationDescriptorDigest",
-      "implementationOwnerProductId",
-      "implementationPublicationDigest",
-      "implementationRef",
-      "inputContractRef",
-      "kind",
-      "leafResolutionCandidateDigest",
-      "leafResolutionCandidateRef",
-      "modulePath",
-      "namedSymbol",
-      "nodeRef",
-      "outputContractRef",
-      "packageName",
-      "packageVersion",
-      "programLocusRef",
-      "programValidationRef",
-      "publicationDigest",
-      "refusalContractRef",
-      "requirementKey",
-      "requirementKeyDigest",
-      "schemaVersion",
-    ]) ||
-    value.kind !== "admitted_implementation_resolution_row" ||
-    value.schemaVersion !== "5.0.0" ||
-    value.disposition !== "admitted" ||
-    (value.computeRegime !== "F_D" && value.computeRegime !== "F_P")
-  ) return false;
-  const stringFields = [
-    value.leafResolutionCandidateRef,
-    value.requirementKey,
-    value.catalogBasisDigest,
-    value.catalogViewDigest,
-    value.programValidationRef,
-    value.graphFunctionRef,
-    value.graphFunctionOwnerProductId,
-    value.nodeRef,
-    value.programLocusRef,
-    value.implementationBindingRef,
-    value.implementationRef,
-    value.packageName,
-    value.packageVersion,
-    value.modulePath,
-    value.namedSymbol,
-    value.inputContractRef,
-    value.outputContractRef,
-    value.failureContractRef,
-    value.refusalContractRef,
-    value.implementationOwnerProductId,
-  ];
-  if (!stringFields.every(nonEmptyString) || ![
-    value.leafResolutionCandidateDigest,
-    value.requirementKeyDigest,
-    value.publicationDigest,
-    value.graphFunctionDigest,
-    value.graphFunctionPublicationDigest,
-    value.implementationBindingDigest,
-    value.implementationDescriptorDigest,
-    value.implementationPublicationDigest,
-  ].every(isSha256Digest)) return false;
-  const {
-    kind: _kind,
-    schemaVersion: _schemaVersion,
-    disposition: _disposition,
-    leafResolutionCandidateRef: _leafResolutionCandidateRef,
-    leafResolutionCandidateDigest: _leafResolutionCandidateDigest,
-    ...body
-  } = value;
-  const digest = sha256Canonical(body);
-  return value.leafResolutionCandidateDigest === digest &&
-    value.leafResolutionCandidateRef ===
-      identity("leaf-resolution-candidate://abiogenesis", digest);
-}
-
 function selectedImplementation(
   set: AdmittedImplementationSet,
   cCall: CCall,
 ): AdmittedImplementationResolutionRow | null {
   const rows = set.rows.filter((row) =>
-    exactAdmittedImplementationRow(row) &&
+    isExactAdmittedImplementationRow(row) &&
     row.graphFunctionRef === cCall.graphFunctionRef &&
     row.programLocusRef === cCall.programLocusRef &&
     row.requirementKey === cCall.implementationRequirementKey &&
@@ -1250,7 +1114,7 @@ export function constructWorksiteEffectAuthorization(
     relativeRoot: territory.relativeRoot,
   });
   if (
-    !exactWorkspaceBinding(input.workspaceBinding) ||
+    !isExactWorkspaceBinding(input.workspaceBinding) ||
     !exactExecutionBasis(input.executionBasis) ||
     !isCapabilityGrantValue(capabilityGrant) ||
     !exactCCall(input.cCall) ||

@@ -5,7 +5,7 @@ import {
   readFile,
   writeFile,
 } from "node:fs/promises";
-import { dirname, isAbsolute, join } from "node:path";
+import { dirname, join } from "node:path";
 
 import {
   canonicalJson,
@@ -20,6 +20,7 @@ import {
 import { deepFreeze } from "../shared/immutable.js";
 import type { ProductPublicContract } from "./contracts.js";
 import type { WorkspaceBinding } from "./environment.js";
+import { isExactWorkspaceBinding } from "./environment.js";
 import { parseProductPublicContract } from "./verify_product.js";
 
 export type ProductMaterializationMember =
@@ -174,33 +175,6 @@ function refusal(
   });
 }
 
-function bindingBodyDigest(binding: WorkspaceBinding): Sha256Digest | null {
-  if (
-    !isRecord(binding) ||
-    binding.kind !== "workspace_binding" ||
-    binding.schemaVersion !== "5.0.0" ||
-    typeof binding.bindingId !== "string" ||
-    !isSha256Digest(binding.bindingDigest) ||
-    typeof binding.admissionEventRef !== "string" ||
-    binding.admissionEventRef.length === 0 ||
-    !isRecord(binding.roots) ||
-    Object.values(binding.roots).some((root) =>
-      typeof root !== "string" || !isAbsolute(root)
-    )
-  ) return null;
-  return sha256Canonical({
-    workspaceId: binding.workspaceId,
-    authorityBasisId: binding.authorityBasisId,
-    authorityBasisDigest: binding.authorityBasisDigest,
-    authorizedActorRef: binding.authorizedActorRef,
-    productSetId: binding.productSetId,
-    productSetDigest: binding.productSetDigest,
-    lockId: binding.lockId,
-    lockDigest: binding.lockDigest,
-    roots: binding.roots,
-  });
-}
-
 function validWorkspaceAndBinding(
   workspace: unknown,
   binding: unknown,
@@ -219,19 +193,10 @@ function validWorkspaceAndBinding(
     workspace.authorityRef.length === 0 ||
     !isSha256Digest(workspace.workspaceDigest) ||
     !isSha256Digest(workspace.authorityDigest) ||
-    !isRecord(binding) ||
-    binding.kind !== "workspace_binding" ||
+    !isExactWorkspaceBinding(binding) ||
     binding.workspaceId !== workspace.workspaceRef ||
     binding.authorityBasisId !== workspace.authorityRef ||
     binding.authorityBasisDigest !== workspace.authorityDigest
-  ) return false;
-  const typedBinding = binding as unknown as WorkspaceBinding;
-  const digest = bindingBodyDigest(typedBinding);
-  if (
-    digest === null ||
-    digest !== typedBinding.bindingDigest ||
-    typedBinding.bindingId !==
-      `workspace-binding://abiogenesis/${digest.slice("sha256:".length)}`
   ) return false;
   return true;
 }

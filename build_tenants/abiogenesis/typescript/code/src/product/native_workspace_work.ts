@@ -4,9 +4,9 @@ import { canonicalJson, type JsonValue } from "../shared/canonical_json.js";
 import { sha256Bytes, sha256Canonical, type Sha256Digest } from "../shared/digests.js";
 import { deepFreeze } from "../shared/immutable.js";
 import { admitIJsonText } from "../shared/i_json.js";
-import { isWorkspaceAuthorityBasis, type WorkspaceAuthorityBasis, type WorkspaceBinding } from "./environment.js";
+import { isExactWorkspaceBinding, isWorkspaceAuthorityBasis, type WorkspaceAuthorityBasis, type WorkspaceBinding } from "./environment.js";
 import { isCapabilityGrantValue, type CapabilityGrant } from "./invocation.js";
-import { exactWorkspaceBinding, isWorksiteContextObservation, normalizeWorksiteRelativePath, worksiteContextIdentityEntry, type WorksiteContextObservation,
+import { isWorksiteContextObservation, normalizeWorksiteRelativePath, worksiteContextIdentityEntry, type WorksiteContextObservation,
   type WorksiteEffectRefusal } from "./worksite_effect.js";
 import type { ActorProcessCarrierValidation } from "../abg/actor_process.js";
 import type { LeafExecutionAuthority } from "../implementation/contracts.js";
@@ -30,7 +30,7 @@ export type NativeWorkspaceWorkTask = {
 };
 const taskSchema = v.strictObject({ kind: v.literal("native_workspace_work_task"), schemaVersion: v.literal("5.0.0"),
   workspaceAuthorityBasis: v.custom<WorkspaceAuthorityBasis>(isWorkspaceAuthorityBasis),
-  workspaceBinding: v.custom<WorkspaceBinding>(x => x !== null && typeof x === "object" && exactWorkspaceBinding(x as WorkspaceBinding)), capabilityGrant: v.custom<CapabilityGrant>(isCapabilityGrantValue),
+  workspaceBinding: v.custom<WorkspaceBinding>(isExactWorkspaceBinding), capabilityGrant: v.custom<CapabilityGrant>(isCapabilityGrantValue),
   context: v.custom<WorksiteContextObservation>(isWorksiteContextObservation), outcome: ref,
   instructions: v.array(ref), readFirst: paths, writeRoots: paths, checks: v.array(ref), assessment: v.optional(v.custom<NativeWorkspaceAssessmentSelection>(isNativeWorkspaceAssessmentSelection)) });
 export function isNativeWorkspaceWorkTask(value: unknown): value is NativeWorkspaceWorkTask {

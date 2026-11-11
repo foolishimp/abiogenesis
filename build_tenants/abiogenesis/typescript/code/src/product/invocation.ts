@@ -685,6 +685,23 @@ export function isCapabilityGrantValue(value: unknown): value is CapabilityGrant
   );
 }
 
+/**
+ * @internal A run-invocation grant (`invoke` or `start`) held by the binding's
+ * authorized actor and scoped to that binding.
+ */
+export function isExactDirectGrant(
+  value: unknown,
+  workspace: WorkspaceBinding,
+): value is CapabilityGrant {
+  return isCapabilityGrantValue(value) &&
+    value.operationId === "abg.operation.run.invoke" &&
+    value.definitionKey.operationId === "abg.operation.run.invoke" &&
+    (value.definitionKey.memberKey === "invoke" || value.definitionKey.memberKey === "start") &&
+    value.actorRef === workspace.authorizedActorRef &&
+    value.scopeRef === workspace.bindingId &&
+    value.scopeDigest === workspace.bindingDigest;
+}
+
 function exactIntrinsicDefinition(
   basis: Pick<CapabilityGrantConstructionBasis, "fixedPacket">,
 ): IntrinsicPublicFunctionDefinition {
