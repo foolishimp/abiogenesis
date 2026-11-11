@@ -5,7 +5,6 @@ import type {
   BlockedRouteAdmissionEvidence,
   FanOutRouteAdmissionEvidence,
   HoldRouteAdmissionEvidence,
-  InteractionResumeRouteAdmissionEvidence,
   RecursionRouteAdmissionEvidence,
   RetryRouteAdmissionEvidence,
   RouteAdmissionEvidence,
@@ -20,7 +19,6 @@ export type TraversalTransitionEvidence =
   | BlockedRouteAdmissionEvidence
   | FanOutRouteAdmissionEvidence
   | HoldRouteAdmissionEvidence
-  | InteractionResumeRouteAdmissionEvidence
   | RecursionRouteAdmissionEvidence
   | RetryRouteAdmissionEvidence
   | RouteAdmissionEvidence
@@ -103,11 +101,6 @@ function isExactTransitionEvidence(
       return hasExactKeys(value, [
         "cCall", "evidenceClass", "graphFunction", "judgment", "result",
       ]);
-    case "interaction_resume":
-      return hasExactKeys(value, [
-        "cCall", "completedProgresses", "evidenceClass", "graphFunction",
-        "judgment", "result", "resume",
-      ]) && Array.isArray(value.completedProgresses);
     case "judged":
       return hasExactKeys(value, [
         "cCall", "completedProgresses", "evidenceClass", "graphFunction",

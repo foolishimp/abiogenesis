@@ -168,7 +168,6 @@ export {
 export {
   admitInitialTraversalCursor,
   hasAdmittedTraversalCursorAtPrefix,
-  isInteractionResumeCursorSuccessorAtPrefix,
   isTraversalCursorCandidate,
   isTraversalCursorAdmission,
   traversalCursorAdmissionEventRefAtPrefix,
@@ -408,7 +407,6 @@ export {
   type BlockedRouteAdmissionEvidence,
   type FanOutRouteAdmissionEvidence,
   type HoldRouteAdmissionEvidence,
-  type InteractionResumeRouteAdmissionEvidence,
   type RetryRouteAdmissionEvidence,
   type RouteAdmissionEvidence,
   type RouteAdmissionRefusal,

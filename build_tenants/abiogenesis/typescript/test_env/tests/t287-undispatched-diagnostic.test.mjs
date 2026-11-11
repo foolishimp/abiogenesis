@@ -93,7 +93,7 @@ test('other pre-dispatch catches keep exact stage and native stack; arbitrary ge
  assert.equal(body.message.length,8192);assert.equal(body.stack.length,32768);assert(body.messageTruncated&&body.stackTruncated);
 });
 
-test('undispatched refusal retains entered, routed and resumed cursor ownership at raw and cold boundaries',async t=>{
+test('undispatched refusal retains entered and routed cursor ownership at raw and cold boundaries and refuses a resumed cursor',async t=>{
  // The actual prefix owner selects every cut from one immutable admitted
  // order; the array order is the admission order and ordinals are gap-free.
  const prefixes=await import('../../build/code/src/abg/event_prefix.js');
@@ -172,12 +172,13 @@ test('undispatched refusal retains entered, routed and resumed cursor ownership 
  rows=[routedEntry,route,routedOpen,fibre,{...scope,eventId:'event://binding',kind:'actor_transport_binding_admitted',aggregateType:'actor_transport_binding',
   aggregateId:'binding://actor',causationEventRefs:[fibre.eventId],payload:{cCallRef}}];
  assert.equal(matches(),false);
+ // Human response and resumption are reserved to 5.1: a hand-built resume
+ // event is no cursor origin, and the owner refuses the call it would cause.
  const resumed={...scope,eventId:'event://resume',aggregateType:'continuation',aggregateId:'continuation://component',
   kind:'fh_interaction_resume_admitted',payload:{successorCursor:cursor,successorCursorRef:cursor.cursorRef,
    successorCursorDigest:cursor.cursorDigest,successorInputDigest:inputDigest}};
  rows=[resumed,{...opened,causationEventRefs:[resumed.eventId]},fibre];
- assert.equal(admit().kind,'admitted_c_call_evidence');
- rows=[{...resumed,payload:{...resumed.payload,successorInputDigest:hash('wrong')}},rows[1],fibre];
+ assert.equal(admit().kind,'c_call_admission_rejection');
  assert.equal(matches(),false);
 });
 

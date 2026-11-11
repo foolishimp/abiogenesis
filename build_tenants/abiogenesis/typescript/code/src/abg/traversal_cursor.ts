@@ -187,10 +187,7 @@ export function traversalCursorAdmissionEventsAtPrefix(
     candidate.runId === cursor.runId && candidate.graphCallId === cursor.graphCallId &&
     candidate.frameId === cursor.frameId &&
     isRecord(candidate.payload) &&
-    (candidate.kind === "fh_interaction_resume_admitted"
-      ? candidate.payload.successorCursor !== undefined && isRecord(candidate.payload.successorCursor) &&
-        candidate.payload.successorCursor.executionBasisRef === cursor.executionBasisRef
-      : candidate.basisId === cursor.executionBasisRef) &&
+    candidate.basisId === cursor.executionBasisRef &&
     (
       (
         candidate.aggregateType === "frame" &&
@@ -203,12 +200,6 @@ export function traversalCursorAdmissionEventsAtPrefix(
         candidate.aggregateId === cursor.frameId &&
         candidate.kind === "traversal_route_admitted" &&
         candidate.payload.targetCursorRef === cursor.cursorRef
-      ) ||
-      (
-        candidate.aggregateType === "continuation" &&
-        candidate.kind === "fh_interaction_resume_admitted" &&
-        candidate.frameId === cursor.frameId &&
-        candidate.payload.successorCursorRef === cursor.cursorRef
       )
     )
   );
@@ -217,8 +208,7 @@ export function traversalCursorAdmissionEventsAtPrefix(
 export function traversalCursorAdmissionDigest(event: RuntimeEvent): JsonValue | undefined {
   if (!isRecord(event.payload)) return undefined;
   return event.kind === "traversal_cursor_entered" ? event.payload.cursorDigest
-    : event.kind === "traversal_route_admitted" ? event.payload.targetCursorDigest
-    : event.kind === "fh_interaction_resume_admitted" ? event.payload.successorCursorDigest : undefined;
+    : event.kind === "traversal_route_admitted" ? event.payload.targetCursorDigest : undefined;
 }
 
 export function traversalCursorAdmissionEventRefAtPrefix(
@@ -294,7 +284,6 @@ function* selectedTraversalInputOrigins(prefix: RuntimeEventPrefix, graph: Reado
     // is selected by the admitted cursor below, never by this global bucket.
     if (event.kind === "traversal_route_admitted" && p.registeredSelectionApplicationRef !== undefined) continue;
     const origin = event.kind === "c_call_result_admitted" ? [p.resultRef, p.valueDigest, p.value]
-      : event.kind === "fh_interaction_resume_admitted" ? [p.successorInputRef, p.successorInputDigest, p.successorInputValue]
       : event.kind === "fan_out_completion_admitted" ? [p.outputVectorRef, p.outputVectorDigest, p.outputVector]
       : event.kind === "retry_attempt_opened" ? [p.inputRef, p.inputDigest, p.inputValue]
       : event.kind === "traversal_route_admitted" && isRecord(p.boundInput)
@@ -427,8 +416,6 @@ function routeCompletedInput(prefix: RuntimeEventPrefix, route: RuntimeEvent,
   if (witness === null || witness.admissionOrdinal >= before || !isRecord(witness.payload)) return null;
   if (witness.kind === "fan_out_completion_admitted")
     return inputCoordinate(witness.payload.outputVectorRef, witness.payload.outputVectorDigest);
-  if (witness.kind === "fh_interaction_resume_admitted")
-    return inputCoordinate(witness.payload.successorInputRef, witness.payload.successorInputDigest);
   if (p.cCallRef === null) return source;
   if (typeof p.cCallRef !== "string") return null;
   const results = indexedRuntimeEvents(prefix, "aggregate:c_call:" + p.cCallRef).filter(event =>
@@ -477,14 +464,7 @@ function projectCursorAncestry(prefix: RuntimeEventPrefix, graph: Readonly<GtlGr
     origins.push(event);
     before = event.admissionOrdinal;
     if (event.kind === "traversal_cursor_entered") break;
-    let payload = event.payload;
-    if (event.kind === "fh_interaction_resume_admitted") {
-      const opened = eventById(prefix, payload.openedEventRef);
-      if (opened?.kind !== "fh_interaction_opened" || opened.admissionOrdinal >= before ||
-        opened.runId !== selected.runId || opened.graphCallId !== selected.graphCallId || opened.frameId !== selected.frameId ||
-        !isRecord(opened.payload)) return null;
-      payload = { sourceCursorRef: opened.payload.heldCursorRef!, sourceCursorDigest: opened.payload.heldCursorDigest! };
-    }
+    const payload = event.payload;
     if (typeof payload.sourceCursorRef !== "string" || typeof payload.sourceCursorDigest !== "string") return null;
     ref = payload.sourceCursorRef; digest = payload.sourceCursorDigest as Sha256Digest;
   }
@@ -514,77 +494,69 @@ function projectCursorAncestry(prefix: RuntimeEventPrefix, graph: Readonly<GtlGr
     const payload = event.payload;
     if (!isRecord(payload)) return null;
     let next: TraversalCursorCandidate;
-    if (event.kind === "fh_interaction_resume_admitted") {
-      if (!isRecord(payload.successorCursor)) return null;
-      next = payload.successorCursor as unknown as TraversalCursorCandidate;
-      const resumedInput = inputCoordinate(payload.successorInputRef, payload.successorInputDigest);
-      if (resumedInput === null || !isInteractionResumeCursorSuccessorAtPrefix(prefix, current, resumedInput, next)) return null;
-    } else {
-      const coordinate = cursorCoordinate(current);
-      const term = resolveCProgramTermAtSourcePath(graph.template, current.currentNodeRef, current.termPath);
-      if (term.kind === "c_source_path_refusal") return null;
-      let target;
-      if (payload.routeKind === "re_enter" && isRecord(payload.graphSpanReentryProjection)) {
-        const projection = payload.graphSpanReentryProjection;
-        if (typeof projection.targetProgramLocusRef !== "string") return null;
-        const locus = resolveCProgramLocus(graph.template, projection.targetProgramLocusRef);
-        const reentryInput = inputCoordinate(projection.targetInputRef, projection.targetInputDigest);
-        if (locus.kind === "c_source_path_refusal" || reentryInput === null) return null;
-        target = { kind: "c_traversal_target" as const, nodeRef: locus.nodeRef, termPath: locus.termPath,
-          taskOrdinal: null, attempt: current.attempt + 1, retryPath: [], ...reentryInput };
-      } else if (payload.routeKind === "retry" && payload.cCallRef !== null) {
-        const progress = eventById(prefix, event.causationEventRefs[0]);
-        if (progress?.kind !== "retry_progress_recorded" || progress.admissionOrdinal >= event.admissionOrdinal ||
-          !isRecord(progress.payload) || progress.payload.progressClass !== "retry") return null;
-        const retryInput = inputCoordinate(progress.payload.inputRef, progress.payload.inputDigest);
-        if (retryInput === null) return null;
-        target = deriveCRetryTarget(graph, coordinate, retryInput);
-      } else if (payload.cCallRef === null && (payload.routeKind === "advance" || payload.routeKind === "retry")) {
-        target = deriveCStructuralTarget(graph, coordinate, payload.routeKind, enclosingBatchEntry(graph, current, ancestry));
-      } else if (payload.routeKind === "advance" && payload.registeredSelectionApplicationRef !== undefined) {
-        const admittedInput = projectRegisteredSelectionInputAtPrefix(prefix, event);
-        const results = indexedRuntimeEvents(prefix, "related:" + payload.cCallRef).filter(e =>
-          e.kind === "c_call_result_admitted" && e.basisId === current.executionBasisRef && isRecord(e.payload));
-        const result = exactOrUndefined(onlyExactMatch(results));
-        const basis = rehydrateExecutionBasisAtPrefix(prefix, current.executionBasisRef);
-        if (admittedInput === null || result === undefined || !isRecord(result.payload) ||
-          typeof result.payload.contractRef !== "string" || result.payload.value === undefined || basis === null) return null;
-        const relation = resolveRegisteredSelection(graph.template, current, result.payload.contractRef,
-          result.payload.value, basis.registeredSelectionDefinitionDigests ?? {});
-        if (relation?.disposition !== "selected" || relation.applicationRef !== payload.registeredSelectionApplicationRef) return null;
-        target = { kind: "c_traversal_target" as const, nodeRef: relation.nodeRef, termPath: relation.termPath,
-          taskOrdinal: null, attempt: 1, retryPath: [], inputRef: admittedInput.admissionRef, inputDigest: admittedInput.subjectDigest };
-      } else if (payload.routeKind === "advance" && typeof payload.cCallRef === "string" &&
-        graph.template.applications.some(a => a.applicationRef === payload.declarationRef && a.relationKind === "recurse")) {
-        // HoG's deriveRecursionReentryCursor relation, read cold: the same term at
-        // the next bounded attempt, input = the consumed foldback's child Result,
-        // or the parent's prior input when the folded child failed.
-        const application = graph.template.applications.find(a => a.applicationRef === payload.declarationRef)!;
-        const consumed = Array.isArray(payload.consumedAvailabilityRefs) ? payload.consumedAvailabilityRefs : [];
-        const fold = exactOrUndefined(onlyExactMatch(indexedRuntimeEvents(prefix, "kind:child_foldback_admitted").filter(e =>
-          e.admissionOrdinal < event.admissionOrdinal && e.runId === selected.runId && e.frameId === selected.frameId &&
-          isRecord(e.payload) && e.payload.parentCCallRef === payload.cCallRef && consumed.includes(e.payload.foldbackRef as JsonValue))));
-        const folded = fold === undefined || !isRecord(fold.payload) ? null
-          : fold.payload.childDisposition === "failed" ? inputCoordinate(current.inputRef, current.inputDigest)
-          : inputCoordinate(fold.payload.childResultRef, fold.payload.outputDigest);
-        if (folded === null || application.relationKind !== "recurse" || current.position !== "at_term" ||
-          current.attempt >= application.bound) return null;
-        target = { kind: "c_traversal_target" as const, nodeRef: current.currentNodeRef, termPath: current.termPath,
-          taskOrdinal: current.taskOrdinal, attempt: current.attempt + 1, retryPath: current.retryPath, ...folded };
-      } else if (payload.routeKind === "advance") {
-        const completed = routeCompletedInput(prefix, event, current);
-        if (completed === null) return null;
-        target = deriveCContinuationTarget(graph, coordinate, completed, enclosingBatchEntry(graph, current, ancestry));
-      } else return null;
-      if (target === null || target.kind === "c_source_path_refusal" || target.nodeRef === null ||
-        target.termPath === null || target.attempt === null || target.inputRef === null || target.inputDigest === null) return null;
-      const { kind: _kind, schemaVersion: _version, cursorRef: _ref, cursorDigest: _digest, ...body } = current;
-      next = constructTraversalCursorCandidate({ ...body, currentNodeRef: target.nodeRef, termPath: target.termPath,
-        taskOrdinal: target.taskOrdinal, attempt: target.attempt, retryPath: target.retryPath,
-        inputRef: target.inputRef, inputDigest: target.inputDigest });
-    }
-    const expectedRef = event.kind === "fh_interaction_resume_admitted" ? payload.successorCursorRef : payload.targetCursorRef;
-    if (next.cursorRef !== expectedRef || next.cursorDigest !== traversalCursorAdmissionDigest(event)) return null;
+    const coordinate = cursorCoordinate(current);
+    const term = resolveCProgramTermAtSourcePath(graph.template, current.currentNodeRef, current.termPath);
+    if (term.kind === "c_source_path_refusal") return null;
+    let target;
+    if (payload.routeKind === "re_enter" && isRecord(payload.graphSpanReentryProjection)) {
+      const projection = payload.graphSpanReentryProjection;
+      if (typeof projection.targetProgramLocusRef !== "string") return null;
+      const locus = resolveCProgramLocus(graph.template, projection.targetProgramLocusRef);
+      const reentryInput = inputCoordinate(projection.targetInputRef, projection.targetInputDigest);
+      if (locus.kind === "c_source_path_refusal" || reentryInput === null) return null;
+      target = { kind: "c_traversal_target" as const, nodeRef: locus.nodeRef, termPath: locus.termPath,
+        taskOrdinal: null, attempt: current.attempt + 1, retryPath: [], ...reentryInput };
+    } else if (payload.routeKind === "retry" && payload.cCallRef !== null) {
+      const progress = eventById(prefix, event.causationEventRefs[0]);
+      if (progress?.kind !== "retry_progress_recorded" || progress.admissionOrdinal >= event.admissionOrdinal ||
+        !isRecord(progress.payload) || progress.payload.progressClass !== "retry") return null;
+      const retryInput = inputCoordinate(progress.payload.inputRef, progress.payload.inputDigest);
+      if (retryInput === null) return null;
+      target = deriveCRetryTarget(graph, coordinate, retryInput);
+    } else if (payload.cCallRef === null && (payload.routeKind === "advance" || payload.routeKind === "retry")) {
+      target = deriveCStructuralTarget(graph, coordinate, payload.routeKind, enclosingBatchEntry(graph, current, ancestry));
+    } else if (payload.routeKind === "advance" && payload.registeredSelectionApplicationRef !== undefined) {
+      const admittedInput = projectRegisteredSelectionInputAtPrefix(prefix, event);
+      const results = indexedRuntimeEvents(prefix, "related:" + payload.cCallRef).filter(e =>
+        e.kind === "c_call_result_admitted" && e.basisId === current.executionBasisRef && isRecord(e.payload));
+      const result = exactOrUndefined(onlyExactMatch(results));
+      const basis = rehydrateExecutionBasisAtPrefix(prefix, current.executionBasisRef);
+      if (admittedInput === null || result === undefined || !isRecord(result.payload) ||
+        typeof result.payload.contractRef !== "string" || result.payload.value === undefined || basis === null) return null;
+      const relation = resolveRegisteredSelection(graph.template, current, result.payload.contractRef,
+        result.payload.value, basis.registeredSelectionDefinitionDigests ?? {});
+      if (relation?.disposition !== "selected" || relation.applicationRef !== payload.registeredSelectionApplicationRef) return null;
+      target = { kind: "c_traversal_target" as const, nodeRef: relation.nodeRef, termPath: relation.termPath,
+        taskOrdinal: null, attempt: 1, retryPath: [], inputRef: admittedInput.admissionRef, inputDigest: admittedInput.subjectDigest };
+    } else if (payload.routeKind === "advance" && typeof payload.cCallRef === "string" &&
+      graph.template.applications.some(a => a.applicationRef === payload.declarationRef && a.relationKind === "recurse")) {
+      // HoG's deriveRecursionReentryCursor relation, read cold: the same term at
+      // the next bounded attempt, input = the consumed foldback's child Result,
+      // or the parent's prior input when the folded child failed.
+      const application = graph.template.applications.find(a => a.applicationRef === payload.declarationRef)!;
+      const consumed = Array.isArray(payload.consumedAvailabilityRefs) ? payload.consumedAvailabilityRefs : [];
+      const fold = exactOrUndefined(onlyExactMatch(indexedRuntimeEvents(prefix, "kind:child_foldback_admitted").filter(e =>
+        e.admissionOrdinal < event.admissionOrdinal && e.runId === selected.runId && e.frameId === selected.frameId &&
+        isRecord(e.payload) && e.payload.parentCCallRef === payload.cCallRef && consumed.includes(e.payload.foldbackRef as JsonValue))));
+      const folded = fold === undefined || !isRecord(fold.payload) ? null
+        : fold.payload.childDisposition === "failed" ? inputCoordinate(current.inputRef, current.inputDigest)
+        : inputCoordinate(fold.payload.childResultRef, fold.payload.outputDigest);
+      if (folded === null || application.relationKind !== "recurse" || current.position !== "at_term" ||
+        current.attempt >= application.bound) return null;
+      target = { kind: "c_traversal_target" as const, nodeRef: current.currentNodeRef, termPath: current.termPath,
+        taskOrdinal: current.taskOrdinal, attempt: current.attempt + 1, retryPath: current.retryPath, ...folded };
+    } else if (payload.routeKind === "advance") {
+      const completed = routeCompletedInput(prefix, event, current);
+      if (completed === null) return null;
+      target = deriveCContinuationTarget(graph, coordinate, completed, enclosingBatchEntry(graph, current, ancestry));
+    } else return null;
+    if (target === null || target.kind === "c_source_path_refusal" || target.nodeRef === null ||
+      target.termPath === null || target.attempt === null || target.inputRef === null || target.inputDigest === null) return null;
+    const { kind: _kind, schemaVersion: _version, cursorRef: _ref, cursorDigest: _digest, ...body } = current;
+    next = constructTraversalCursorCandidate({ ...body, currentNodeRef: target.nodeRef, termPath: target.termPath,
+      taskOrdinal: target.taskOrdinal, attempt: target.attempt, retryPath: target.retryPath,
+      inputRef: target.inputRef, inputDigest: target.inputDigest });
+    if (next.cursorRef !== payload.targetCursorRef || next.cursorDigest !== traversalCursorAdmissionDigest(event)) return null;
     ancestry.push(next); current = next;
   }
   return current.cursorRef === selected.cursorRef && current.cursorDigest === selected.cursorDigest ? ancestry : null;
@@ -683,67 +655,6 @@ export function deriveAdmittedCStructuralTarget(prefix: RuntimeEventPrefix, grap
   if (next.kind === "c_source_path_refusal") return next;
   return deriveCStructuralTarget(graph, coordinate, routeKind,
     next.inputRef === null || next.inputDigest === null ? undefined : { inputRef: next.inputRef, inputDigest: next.inputDigest });
-}
-
-export function isInteractionResumeCursorSuccessorAtPrefix(
-  prefix: ValidatedRuntimeEventPrefix,
-  heldCursor: TraversalCursorCandidate,
-  successorInput: Readonly<{
-    inputRef: string;
-    inputDigest: Sha256Digest;
-  }>,
-  successorCursor: TraversalCursorCandidate,
-): boolean;
-/** @internal */
-export function isInteractionResumeCursorSuccessorAtPrefix(
-  prefix: RuntimeEventPrefix,
-  heldCursor: TraversalCursorCandidate,
-  successorInput: Readonly<{
-    inputRef: string;
-    inputDigest: Sha256Digest;
-  }>,
-  successorCursor: TraversalCursorCandidate,
-): boolean;
-export function isInteractionResumeCursorSuccessorAtPrefix(
-  prefix: RuntimeEventPrefix,
-  heldCursor: TraversalCursorCandidate,
-  successorInput: Readonly<{
-    inputRef: string;
-    inputDigest: Sha256Digest;
-  }>,
-  successorCursor: TraversalCursorCandidate,
-): boolean {
-  try {
-    return hasAdmittedTraversalCursorAtPrefix(prefix, heldCursor) &&
-      isTraversalCursorCandidate(heldCursor) &&
-      isTraversalCursorCandidate(successorCursor) &&
-      heldCursor.position === "at_term" &&
-      successorInput.inputRef.length > 0 &&
-      successorInput.inputDigest.startsWith("sha256:") &&
-      successorCursor.programRef === heldCursor.programRef &&
-      successorCursor.executionBasisRef === heldCursor.executionBasisRef &&
-      successorCursor.traversalScopeRef === heldCursor.traversalScopeRef &&
-      successorCursor.runId === heldCursor.runId &&
-      successorCursor.graphCallId === heldCursor.graphCallId &&
-      successorCursor.frameId === heldCursor.frameId &&
-      successorCursor.graphRef === heldCursor.graphRef &&
-      successorCursor.inputRef === successorInput.inputRef &&
-      successorCursor.inputDigest === successorInput.inputDigest &&
-      successorCursor.currentNodeRef === heldCursor.currentNodeRef &&
-      successorCursor.position === heldCursor.position &&
-      canonicalEquals(
-        successorCursor.termPath,
-        heldCursor.termPath,
-      ) &&
-      successorCursor.taskOrdinal === heldCursor.taskOrdinal &&
-      successorCursor.attempt === heldCursor.attempt &&
-      canonicalEquals(
-        successorCursor.retryPath,
-        heldCursor.retryPath,
-      );
-  } catch {
-    return false;
-  }
 }
 
 export function isTraversalCursorAdmission(value: object): boolean {
