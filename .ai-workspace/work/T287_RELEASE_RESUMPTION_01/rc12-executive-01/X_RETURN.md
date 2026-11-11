@@ -148,7 +148,7 @@ Operator continuation, commentary. This section and the `demo/RUN.md` update are
 **Install.** Dry-run `DRY_RUN_INSTALL_COMPLETE_IN_SCRATCH`; apply `INSTALL_COMPLETE_UNQUALIFIED`.
 - Host `~/Library/Application Support/ABIogenesis/installs/5.0.0-rc.12`, installed root `node_modules/@abiogenesis/typescript-tenant`.
 - 5,327 installed files = 5,327 members, `installedEqualsArchive:true`. My own walk agrees: 0 missing, 0 extra, 0 differing, no links. Beside the root the host holds only `package.json`, `package-lock.json`, `node_modules/.package-lock.json`.
-- Nothing else under `ABIogenesis/` changed.
+- To depth 2 under `ABIogenesis/`, the only entries newer than the stamp run are the two rc.12 directories and their parents `releases/` and `installs/`.
 
 **Smoke** (dry-run and apply): `INSTALLED_OWNER_SMOKE_CLOSED`, version `5.0.0-rc.12`, 56 definitions, 15 export paths, 0 events, re-verified, content matches. The closed empty resource is kept in scratch.
 
