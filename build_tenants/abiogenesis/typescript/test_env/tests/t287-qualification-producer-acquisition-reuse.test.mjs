@@ -13,20 +13,22 @@ import {createHash} from 'node:crypto';
 import {gunzipSync} from 'node:zlib';
 import {nativeJoinFixture,coverage,hash,identity} from '../support/malformed-gtl-native-fixture.mjs';
 import {privateOwner} from '../support/r10-private-owner-harness.mjs';
+import {evidenceGate} from '../support/evidence-root.mjs';
 import {SELF_CONFORMANCE_IDS as self} from '../../build/code/src/gtl/self_conformance.js';
 import {QUALIFICATION_ROLE_POLICY as policy} from '../../build/code/src/validator/qualification_contracts.js';
 import {isSelfConformanceResult} from '../../build/code/src/validator/self_conformance_contracts.js';
 // The copied producer history, its retained context, the historical owner
-// fixtures and the checked owner-copy record are named by their variables; the
-// lane skips with the unset names when any is absent.
-const unset=['ABI5_PRODUCER_HISTORY_FIXTURE','ABI5_PRODUCER_CONTEXT_FIXTURE','ABI5_PRODUCER_OWNER_FIXTURE','ABI5_PRODUCER_OWNER_SOURCE_FIXTURE','ABI5_PRODUCER_OWNER_COPY_FIXTURE'].filter(name=>!process.env[name]);
-const skip=unset.length>0&&unset.join(', ')+' unset; requires the finite copied producer history, its retained context, the exact historical owner fixtures and their checked owner copy';
+// fixtures and the checked owner-copy record resolve through evidence gate
+// catalogue row producer-acquisition-reuse under ABI5_EVIDENCE_ROOT; without
+// the root the lane skips with the row's reason.
+const gate=evidenceGate('producer-acquisition-reuse');
+const skip=gate.kind==='absent'&&gate.reason;
 if(skip)test('T-287 qualification producer acquisition reuse over the copied producer history and the historical owner',{skip},()=>{});
 else await (async()=>{
 const root=resolve(import.meta.dirname,'../..'), c=(ref,digest=hash(ref))=>({ref,digest});
 const digest=b=>'sha256:'+createHash('sha256').update(b).digest('hex');
-const evidence=process.env.ABI5_PRODUCER_HISTORY_FIXTURE,contextPath=process.env.ABI5_PRODUCER_CONTEXT_FIXTURE;
-const ownerFixture=process.env.ABI5_PRODUCER_OWNER_FIXTURE,ownerSourceFixture=process.env.ABI5_PRODUCER_OWNER_SOURCE_FIXTURE;
+const evidence=gate.inputs.history.path,contextPath=gate.inputs.context.path;
+const ownerFixture=gate.inputs.owner.path,ownerSourceFixture=gate.inputs.ownerSource.path;
 const allBytes=fs.readFileSync(evidence);
 assert.equal(digest(allBytes),'sha256:e8147dd35d207590170bea4f4f2018935c6a5c7fc9893cc3f56585e332692667');
 const contextBytes=fs.readFileSync(contextPath);assert.equal(digest(contextBytes),'sha256:831889537928213cf34909ae2e7d500d4fcbb521b790fa7b0d018e2b7f874058');
@@ -37,7 +39,7 @@ assert.equal(ownerPins.ownerRoot,context.install.installedRoot);
 // into one separately materialized package. Check the archive identity, every
 // original pin against both the archive member and the materialized file, and
 // load only that package's original-byte modules; the pin records stay unchanged.
-const copy=JSON.parse(fs.readFileSync(process.env.ABI5_PRODUCER_OWNER_COPY_FIXTURE));
+const copy=JSON.parse(fs.readFileSync(gate.inputs.ownerCopy.path));
 assert.equal(copy.originalOwnerRoot,ownerPins.ownerRoot);
 assert.equal(copy.archive.sha256,'dd76783f7fc92873d9d21ca66c7f91f9be0eaad77248954ada99f5e265a04dbe');
 const archiveBytes=fs.readFileSync(copy.archive.path);assert.equal(archiveBytes.length,copy.archive.bytes);assert.equal(digest(archiveBytes),'sha256:'+copy.archive.sha256);

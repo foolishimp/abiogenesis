@@ -1928,8 +1928,9 @@
    "gate": "producer-acquisition-reuse",
    "class": "C",
    "status": "runs_with_root",
-   "conversion": "pending",
-   "variables": [
+   "conversion": "done",
+   "variables": [],
+   "formerVariables": [
     "ABI5_PRODUCER_HISTORY_FIXTURE",
     "ABI5_PRODUCER_CONTEXT_FIXTURE",
     "ABI5_PRODUCER_OWNER_FIXTURE",
