@@ -25,7 +25,7 @@ Define recursion as a lawful graph-function capability of GTL 3.
 
 **REQ-L-GTL3-RECURSE-006**: Recursion shall preserve explainable work lineage across parent and child application.
 
-**REQ-L-GTL3-RECURSE-007**: Recursive application shall be bounded by declared termination truth and/or other explicit bounds visible to the interpreter.
+**REQ-L-GTL3-RECURSE-007**: Recursive application shall be bounded by declared termination truth and/or other explicit bounds visible to the interpreter. The bound counts parent evaluations: a bound of N admits N−1 child applications.
 
 **REQ-L-GTL3-RECURSE-008**: Recursive inner steps may remain frame-local unless a separate publication surface explicitly exports them.
 
