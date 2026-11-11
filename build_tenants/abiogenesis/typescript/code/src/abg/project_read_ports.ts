@@ -1301,7 +1301,7 @@ function stopOperator(payload: StopRecord): StopOperator | null {
 const MISSING_LINK_WORDS: Readonly<Record<StopMissingLink, string>> = {
   stopping_route: "the stop names no single admitted route",
   judged_result: "the stopping route's judged Result is not admitted",
-  lifted_foldback: "the child foldback it was lifted from is not admitted exactly",
+  lifted_foldback: "the record does not single out one admitted child foldback it was lifted from",
   child_result: "a child foldback's Result is not admitted",
 };
 
