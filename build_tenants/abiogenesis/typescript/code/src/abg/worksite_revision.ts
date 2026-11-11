@@ -12,6 +12,7 @@ import { isWorksiteFileParentsSuccess } from "../product/worksite_effect.js";
 /** D2's single prefix-owned observation projection. No caller grants or ledger. */
 import { canonicalJson, type JsonValue } from "../shared/canonical_json.js";
 import { sha256Bytes, sha256Canonical, type Sha256Digest } from "../shared/digests.js";
+import { pathRelation, pathStrictlyConfined } from "../shared/path_confinement.js";
 import { constructWorksiteObservation, isWorksiteObservation, type WorksiteObservation, type WorksiteSubject } from "../product/worksite_effect.js";
 import { isSemanticStageEnvelope, projectSemanticWorksiteCoordinates, type SemanticWorksiteBasis } from "../product/semantic_stage.js";
 import { isSemanticRevisionEnvelope, isSemanticRevisionRequest, isSemanticRevisionSelectionInput, isSemanticRevisionSelection,
@@ -39,7 +40,7 @@ import { projectWorksiteTransitionForResult, deriveRuntimeHeldFluentProjection, 
   constructWorksiteObservationCurrentFluent } from "./event_calculus.js";
 import type { ChildExecutionBasisInput, ExecutionBasis } from "./execution_basis.js";
 import { readFileSync, lstatSync, realpathSync } from "node:fs";
-import { resolve, relative, isAbsolute } from "node:path";
+import { resolve } from "node:path";
 import { canonicalEquals, presentMember } from "../shared/value/index.js";
 import { checkExactRecord, onlyExactMatch, resolveExactMatch, type ExactMatch, type RecordCheck } from "../shared/select/index.js";
 import { ok, type Outcome, type StructuralRefusal } from "../shared/refusal.js";
@@ -790,8 +791,8 @@ export function worksiteRevisionPhysicalMatches(current: SemanticWorksiteBasis):
     const root = current.workspaceAuthorityBasis.canonicalRoot;
     if (resolve(root) !== root || realpathSync(root) !== root) return false;
     return current.targets.every(row => {
-      const path = resolve(root, row.target.subject.relativePath), rel = relative(root, path);
-      if (!rel || rel.startsWith("..") || isAbsolute(rel)) return false;
+      const path = resolve(root, row.target.subject.relativePath);
+      if (!pathStrictlyConfined(pathRelation(root, path))) return false;
       let cursor = root;
       for (const part of row.target.subject.relativePath.split("/").slice(0, -1)) {
         cursor = resolve(cursor, part);
@@ -818,8 +819,8 @@ export function retainedWorksitePhysicalMatches(authority:WorkspaceAuthorityBasi
     const root=authority.canonicalRoot;
     if(resolve(root)!==root||realpathSync(root)!==root)return false;
     return rows.every(row=>{
-      const target=resolve(root,row.subject.relativePath),rel=relative(root,target);
-      if(!rel||rel.startsWith("..")||isAbsolute(rel)||row.observation.state!=="file")return false;
+      const target=resolve(root,row.subject.relativePath);
+      if(!pathStrictlyConfined(pathRelation(root,target))||row.observation.state!=="file")return false;
       let cursor=root;
       for(const part of row.subject.relativePath.split("/").slice(0,-1)){
         cursor=resolve(cursor,part);const stat=lstatSync(cursor);
