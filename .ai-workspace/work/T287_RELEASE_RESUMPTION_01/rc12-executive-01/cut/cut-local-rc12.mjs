@@ -200,7 +200,13 @@ try {
   record.buildRoot = tenant;
   record.claims = {local: true, unqualified: true, published: false, installed: false, providerCalls: 0, nativeRuns: 0,
     tagsCreated: false, selectorChanged: false, pinChanged: false, qualificationTransferredFromEarlierCandidates: false};
-  record.claim = `Local unqualified development candidate ${VERSION} cut from ${args.commit}. It proves only that this archive is the built tree of that commit and that the Product's own verifier accepts it. No qualification, Hello, native-workflow or earlier-candidate result transfers to artifact ${identity.artifactDigest}.`;
+  // The claim names what was built: the commit's tree, or its tree after the scratch stamp, and any regenerated-file drift.
+  const stampedSites = (scratchStampDelta?.sites ?? []).filter(r => r.state === 'stamped').map(r => r.path);
+  const builtTree = stampedSites.length === 0 ? 'the built tree of that commit'
+    : `the built tree of that commit's extracted source after a scratch stamp of ${stampedSites.length} site(s) (${stampedSites.join(', ')})`;
+  const drift = (stampedSites.length === 0 ? '' : ' It is not the built tree of the commit itself.') +
+    (generatedEqual ? '' : ` Its regenerated ${GENERATED.join(' and ')} differ from the commit's copies.`);
+  record.claim = `Local unqualified development candidate ${VERSION} cut from ${args.commit}. It proves only that this archive is ${builtTree} and that the Product's own verifier accepts it.${drift} No qualification, Hello, native-workflow or earlier-candidate result transfers to artifact ${identity.artifactDigest}.`;
   writeOnce(join(runDir, 'ARCHIVE_MEMBERS.json'), membersRecord);
 
   if (MODE === 'apply') {
