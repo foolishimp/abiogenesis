@@ -1,0 +1,8958 @@
+[
+ {
+  "value": "abg_admitted_gap",
+  "type": 0,
+  "test": 0,
+  "produce": 2,
+  "props": {
+   "kind": 1
+  },
+  "files": 2,
+  "testFiles": 0,
+  "sites": [
+   "abg/project_read_operation_contracts.ts:154:produce",
+   "abg/project_read_ports.ts:1734:produce"
+  ]
+ },
+ {
+  "value": "abg_continuation",
+  "type": 0,
+  "test": 0,
+  "produce": 1,
+  "props": {
+   "effectClass": 1
+  },
+  "files": 1,
+  "testFiles": 0,
+  "sites": [
+   "product/run_operation_contracts.ts:292:produce"
+  ]
+ },
+ {
+  "value": "abg_governed_context_policy",
+  "type": 0,
+  "test": 0,
+  "produce": 1,
+  "props": {},
+  "files": 1,
+  "testFiles": 0,
+  "sites": [
+   "abg/governed_context.ts:815:produce"
+  ]
+ },
+ {
+  "value": "abg_historical_declaration_reference",
+  "type": 0,
+  "test": 0,
+  "produce": 3,
+  "props": {
+   "kind": 1
+  },
+  "files": 2,
+  "testFiles": 0,
+  "sites": [
+   "abg/invocation_execution_truth.ts:233:produce",
+   "abg/terminal_result_contracts.ts:60:produce",
+   "abg/terminal_result_contracts.ts:74:produce"
+  ]
+ },
+ {
+  "value": "abg_project_read_target_absent",
+  "type": 0,
+  "test": 0,
+  "produce": 1,
+  "props": {},
+  "files": 1,
+  "testFiles": 0,
+  "sites": [
+   "abg/project_read_ports.ts:204:produce"
+  ]
+ },
+ {
+  "value": "abg_project_read_target_not_ready",
+  "type": 0,
+  "test": 0,
+  "produce": 1,
+  "props": {},
+  "files": 1,
+  "testFiles": 0,
+  "sites": [
+   "abg/project_read_ports.ts:205:produce"
+  ]
+ },
+ {
+  "value": "abg_projection",
+  "type": 0,
+  "test": 0,
+  "produce": 3,
+  "props": {},
+  "files": 3,
+  "testFiles": 0,
+  "sites": [
+   "abg/witness_definition_bindings.ts:315:produce",
+   "product/environment_definition_bindings.ts:771:produce",
+   "product/install_definition_bindings.ts:367:produce"
+  ]
+ },
+ {
+  "value": "abg_run_truth_diagnostic",
+  "type": 0,
+  "test": 0,
+  "produce": 1,
+  "props": {
+   "kind": 1
+  },
+  "files": 1,
+  "testFiles": 0,
+  "sites": [
+   "abg/project_read_ports.ts:939:produce"
+  ]
+ },
+ {
+  "value": "abg_traversal",
+  "type": 0,
+  "test": 0,
+  "produce": 1,
+  "props": {
+   "effectClass": 1
+  },
+  "files": 1,
+  "testFiles": 0,
+  "sites": [
+   "product/run_operation_contracts.ts:86:produce"
+  ]
+ },
+ {
+  "value": "abg_typed_terminal_result",
+  "type": 0,
+  "test": 0,
+  "produce": 2,
+  "props": {},
+  "files": 2,
+  "testFiles": 0,
+  "sites": [
+   "abg/project_read_ports.ts:536:produce",
+   "abg/terminal_result_contracts.ts:9:produce"
+  ]
+ },
+ {
+  "value": "absolute_path",
+  "type": 0,
+  "test": 0,
+  "produce": 1,
+  "props": {},
+  "files": 1,
+  "testFiles": 0,
+  "sites": [
+   "shared/public_function_contracts.ts:149:produce"
+  ]
+ },
+ {
+  "value": "absolute_strictly_greater_than_inactivity",
+  "type": 0,
+  "test": 0,
+  "produce": 1,
+  "props": {},
+  "files": 1,
+  "testFiles": 0,
+  "sites": [
+   "product/worksite_command_execution.ts:164:produce"
+  ]
+ },
+ {
+  "value": "accept_or_withhold_same_unchanged_rc",
+  "type": 0,
+  "test": 0,
+  "produce": 1,
+  "props": {
+   "scope": 1
+  },
+  "files": 1,
+  "testFiles": 0,
+  "sites": [
+   "product/release_acceptance.ts:34:produce"
+  ]
+ },
+ {
+  "value": "acceptance_effect",
+  "type": 0,
+  "test": 0,
+  "produce": 1,
+  "props": {},
+  "files": 1,
+  "testFiles": 0,
+  "sites": [
+   "product/release_snapshot_definition_bindings.ts:134:produce"
+  ]
+ },
+ {
+  "value": "acceptance_join",
+  "type": 0,
+  "test": 0,
+  "produce": 1,
+  "props": {},
+  "files": 1,
+  "testFiles": 0,
+  "sites": [
+   "product/release_snapshot_definition_bindings.ts:117:produce"
+  ]
+ },
+ {
+  "value": "acceptance_preflight",
+  "type": 0,
+  "test": 0,
+  "produce": 1,
+  "props": {},
+  "files": 1,
+  "testFiles": 0,
+  "sites": [
+   "implementation/release_publication.ts:220:produce"
+  ]
+ },
+ {
+  "value": "acceptance_unavailable",
+  "type": 0,
+  "test": 0,
+  "produce": 2,
+  "props": {},
+  "files": 2,
+  "testFiles": 0,
+  "sites": [
+   "product/release_snapshot_definition_bindings.ts:128:produce",
+   "product/release_snapshot_operations.ts:77:produce"
+  ]
+ },
+ {
+  "value": "acquired_prefix_mismatch",
+  "type": 0,
+  "test": 0,
+  "produce": 1,
+  "props": {},
+  "files": 1,
+  "testFiles": 0,
+  "sites": [
+   "product/admission_authority.ts:178:produce"
+  ]
+ },
+ {
+  "value": "activation_template",
+  "type": 0,
+  "test": 0,
+  "produce": 2,
+  "props": {},
+  "files": 1,
+  "testFiles": 0,
+  "sites": [
+   "abg/governed_context.ts:755:produce",
+   "abg/governed_context.ts:761:produce"
+  ]
+ },
+ {
+  "value": "actor_attributed_witness_event",
+  "type": 0,
+  "test": 0,
+  "produce": 1,
+  "props": {
+   "effectClass": 1
+  },
+  "files": 1,
+  "testFiles": 0,
+  "sites": [
+   "abg/witness_operation_contracts.ts:120:produce"
+  ]
+ },
+ {
+  "value": "actor_mismatch",
+  "type": 0,
+  "test": 0,
+  "produce": 3,
+  "props": {},
+  "files": 3,
+  "testFiles": 0,
+  "sites": [
+   "abg/witness_definition_bindings.ts:171:produce",
+   "abg/witness_operation_contracts.ts:75:produce",
+   "product/admission_authority.ts:186:produce"
+  ]
+ },
+ {
+  "value": "actor_stderr_available",
+  "type": 0,
+  "test": 0,
+  "produce": 7,
+  "props": {},
+  "files": 2,
+  "testFiles": 0,
+  "sites": [
+   "abg/calculus/axioms.ts:225:produce",
+   "abg/calculus/axioms.ts:258:produce",
+   "abg/calculus/axioms.ts:262:produce",
+   "abg/calculus/axioms.ts:966:produce",
+   "abg/calculus/axioms.ts:1047:produce",
+   "abg/replay.ts:286:produce"
+  ]
+ },
+ {
+  "value": "actor_transport_provenance_bodies",
+  "type": 0,
+  "test": 0,
+  "produce": 1,
+  "props": {},
+  "files": 1,
+  "testFiles": 0,
+  "sites": [
+   "product/semantic_job.ts:380:produce"
+  ]
+ },
+ {
+  "value": "addendum_readback",
+  "type": 0,
+  "test": 0,
+  "produce": 1,
+  "props": {},
+  "files": 1,
+  "testFiles": 0,
+  "sites": [
+   "implementation/release_publication.ts:248:produce"
+  ]
+ },
+ {
+  "value": "addendum_write",
+  "type": 0,
+  "test": 0,
+  "produce": 1,
+  "props": {},
+  "files": 1,
+  "testFiles": 0,
+  "sites": [
+   "implementation/release_publication.ts:246:produce"
+  ]
+ },
+ {
+  "value": "admitted_artifact_preserved",
+  "type": 0,
+  "test": 0,
+  "produce": 1,
+  "props": {},
+  "files": 1,
+  "testFiles": 0,
+  "sites": [
+   "abg/calculus/liveness.ts:796:produce"
+  ]
+ },
+ {
+  "value": "admitted_external_interruption",
+  "type": 0,
+  "test": 0,
+  "produce": 1,
+  "props": {},
+  "files": 1,
+  "testFiles": 0,
+  "sites": [
+   "abg/calculus/liveness.ts:795:produce"
+  ]
+ },
+ {
+  "value": "admitted_set_projection",
+  "type": 0,
+  "test": 0,
+  "produce": 1,
+  "props": {
+   "code": 1
+  },
+  "files": 1,
+  "testFiles": 0,
+  "sites": [
+   "abg/execution_basis.ts:1049:produce"
+  ]
+ },
+ {
+  "value": "admitted_setup_absent",
+  "type": 0,
+  "test": 0,
+  "produce": 1,
+  "props": {
+   "code": 1
+  },
+  "files": 1,
+  "testFiles": 0,
+  "sites": [
+   "owner_bindings/run_invocation.ts:1281:produce"
+  ]
+ },
+ {
+  "value": "adopt_selected_abandoned_lock_or_acquire_selected_absent_lock",
+  "type": 0,
+  "test": 0,
+  "produce": 1,
+  "props": {},
+  "files": 1,
+  "testFiles": 0,
+  "sites": [
+   "abg/definition_event_resource.ts:411:produce"
+  ]
+ },
+ {
+  "value": "aggregate_authority_and_readiness",
+  "type": 0,
+  "test": 0,
+  "produce": 1,
+  "props": {
+   "stageRole": 1
+  },
+  "files": 1,
+  "testFiles": 0,
+  "sites": [
+   "gtl/worksite_branch_construction.ts:257:produce"
+  ]
+ },
+ {
+  "value": "application_applicability_conflict",
+  "type": 0,
+  "test": 0,
+  "produce": 1,
+  "props": {},
+  "files": 1,
+  "testFiles": 0,
+  "sites": [
+   "validator/self_conformance.ts:254:produce"
+  ]
+ },
+ {
+  "value": "application_applicability_unknown",
+  "type": 0,
+  "test": 0,
+  "produce": 1,
+  "props": {},
+  "files": 1,
+  "testFiles": 0,
+  "sites": [
+   "validator/self_conformance.ts:251:produce"
+  ]
+ },
+ {
+  "value": "application_closure_not_evaluated",
+  "type": 0,
+  "test": 0,
+  "produce": 1,
+  "props": {},
+  "files": 1,
+  "testFiles": 0,
+  "sites": [
+   "product/requirement_handoff.ts:33:produce"
+  ]
+ },
+ {
+  "value": "application_requirements_not_closed",
+  "type": 0,
+  "test": 0,
+  "produce": 2,
+  "props": {},
+  "files": 2,
+  "testFiles": 0,
+  "sites": [
+   "product/semantic_job.ts:316:produce",
+   "product/semantic_stage.ts:184:produce"
+  ]
+ },
+ {
+  "value": "application_surface_unbound",
+  "type": 0,
+  "test": 0,
+  "produce": 1,
+  "props": {},
+  "files": 1,
+  "testFiles": 0,
+  "sites": [
+   "validator/self_conformance.ts:250:produce"
+  ]
+ },
+ {
+  "value": "artifact_conflict",
+  "type": 0,
+  "test": 0,
+  "produce": 3,
+  "props": {},
+  "files": 2,
+  "testFiles": 0,
+  "sites": [
+   "product/release_snapshot_definition_bindings.ts:57:produce",
+   "product/release_snapshot_definition_bindings.ts:126:produce",
+   "product/release_snapshot_operations.ts:77:produce"
+  ]
+ },
+ {
+  "value": "artifact_mismatch",
+  "type": 0,
+  "test": 0,
+  "produce": 6,
+  "props": {},
+  "files": 4,
+  "testFiles": 0,
+  "sites": [
+   "product/contracts.ts:341:produce",
+   "product/install_product.ts:360:produce",
+   "product/verification_definition_bindings.ts:197:produce",
+   "product/verification_definition_bindings.ts:198:produce",
+   "product/verification_definition_bindings.ts:254:produce",
+   "product/verification_operation_contracts.ts:97:produce"
+  ]
+ },
+ {
+  "value": "artifact_requires_native_assessment",
+  "type": 0,
+  "test": 0,
+  "produce": 1,
+  "props": {},
+  "files": 1,
+  "testFiles": 0,
+  "sites": [
+   "abg/calculus/liveness.ts:793:produce"
+  ]
+ },
+ {
+  "value": "artifact_truth_unauthenticated",
+  "type": 0,
+  "test": 0,
+  "produce": 1,
+  "props": {},
+  "files": 1,
+  "testFiles": 0,
+  "sites": [
+   "product/admission_authority.ts:180:produce"
+  ]
+ },
+ {
+  "value": "artifact_write",
+  "type": 0,
+  "test": 0,
+  "produce": 1,
+  "props": {},
+  "files": 1,
+  "testFiles": 0,
+  "sites": [
+   "product/release_snapshot_definition_bindings.ts:96:produce"
+  ]
+ },
+ {
+  "value": "assembly_input_implementation",
+  "type": 0,
+  "test": 0,
+  "produce": 1,
+  "props": {},
+  "files": 1,
+  "testFiles": 0,
+  "sites": [
+   "abg/native_work_reacquisition.ts:223:produce"
+  ]
+ },
+ {
+  "value": "assessed_bindings",
+  "type": 0,
+  "test": 0,
+  "produce": 1,
+  "props": {},
+  "files": 1,
+  "testFiles": 0,
+  "sites": [
+   "product/semantic_job.ts:549:produce"
+  ]
+ },
+ {
+  "value": "assessment_blocked",
+  "type": 0,
+  "test": 0,
+  "produce": 2,
+  "props": {},
+  "files": 2,
+  "testFiles": 0,
+  "sites": [
+   "validator/conformance_definition_bindings.ts:127:produce",
+   "validator/conformance_operation_contracts.ts:59:produce"
+  ]
+ },
+ {
+  "value": "assessment_contract_mismatch",
+  "type": 0,
+  "test": 0,
+  "produce": 1,
+  "props": {},
+  "files": 1,
+  "testFiles": 0,
+  "sites": [
+   "implementation/qualification.ts:70:produce"
+  ]
+ },
+ {
+  "value": "assessment_evidence_admitted",
+  "type": 0,
+  "test": 0,
+  "produce": 1,
+  "props": {},
+  "files": 1,
+  "testFiles": 0,
+  "sites": [
+   "validator/self_conformance.ts:269:produce"
+  ]
+ },
+ {
+  "value": "assessment_evidence_basis_mismatch",
+  "type": 0,
+  "test": 0,
+  "produce": 1,
+  "props": {},
+  "files": 1,
+  "testFiles": 0,
+  "sites": [
+   "validator/self_conformance.ts:263:produce"
+  ]
+ },
+ {
+  "value": "assessment_evidence_not_admitted",
+  "type": 0,
+  "test": 0,
+  "produce": 1,
+  "props": {},
+  "files": 1,
+  "testFiles": 0,
+  "sites": [
+   "validator/self_conformance.ts:269:produce"
+  ]
+ },
+ {
+  "value": "assessment_evidence_projection",
+  "type": 0,
+  "test": 0,
+  "produce": 1,
+  "props": {},
+  "files": 1,
+  "testFiles": 0,
+  "sites": [
+   "abg/project_read_operation_contracts.ts:432:produce"
+  ]
+ },
+ {
+  "value": "assessment_missing",
+  "type": 0,
+  "test": 0,
+  "produce": 2,
+  "props": {},
+  "files": 1,
+  "testFiles": 0,
+  "sites": [
+   "product/default_library_fulfillment.ts:116:produce",
+   "product/default_library_fulfillment.ts:153:produce"
+  ]
+ },
+ {
+  "value": "assessment_schema",
+  "type": 0,
+  "test": 0,
+  "produce": 1,
+  "props": {},
+  "files": 1,
+  "testFiles": 0,
+  "sites": [
+   "product/semantic_job.ts:442:produce"
+  ]
+ },
+ {
+  "value": "assessment_transport_mismatch",
+  "type": 0,
+  "test": 0,
+  "produce": 1,
+  "props": {},
+  "files": 1,
+  "testFiles": 0,
+  "sites": [
+   "implementation/qualification.ts:56:produce"
+  ]
+ },
+ {
+  "value": "assessor_is_author",
+  "type": 0,
+  "test": 0,
+  "produce": 1,
+  "props": {},
+  "files": 1,
+  "testFiles": 0,
+  "sites": [
+   "validator/qualification.ts:556:produce"
+  ]
+ },
+ {
+  "value": "assessor_not_independent",
+  "type": 0,
+  "test": 0,
+  "produce": 1,
+  "props": {},
+  "files": 1,
+  "testFiles": 0,
+  "sites": [
+   "product/default_library_fulfillment.ts:213:produce"
+  ]
+ },
+ {
+  "value": "authenticate_preserved_result",
+  "type": 0,
+  "test": 0,
+  "produce": 1,
+  "props": {
+   "stageRole": 1
+  },
+  "files": 1,
+  "testFiles": 0,
+  "sites": [
+   "gtl/worksite_construction_recovery.ts:120:produce"
+  ]
+ },
+ {
+  "value": "author_schema",
+  "type": 0,
+  "test": 0,
+  "produce": 1,
+  "props": {},
+  "files": 1,
+  "testFiles": 0,
+  "sites": [
+   "product/semantic_job.ts:450:produce"
+  ]
+ },
+ {
+  "value": "authority_join",
+  "type": 0,
+  "test": 0,
+  "produce": 2,
+  "props": {
+   "stageRole": 2
+  },
+  "files": 2,
+  "testFiles": 0,
+  "sites": [
+   "gtl/worksite_construction.ts:266:produce",
+   "gtl/worksite_construction_recovery.ts:128:produce"
+  ]
+ },
+ {
+  "value": "authority_member_bytes_bound",
+  "type": 0,
+  "test": 0,
+  "produce": 1,
+  "props": {},
+  "files": 1,
+  "testFiles": 0,
+  "sites": [
+   "validator/self_conformance.ts:189:produce"
+  ]
+ },
+ {
+  "value": "authority_member_digest_mismatch",
+  "type": 0,
+  "test": 0,
+  "produce": 1,
+  "props": {},
+  "files": 1,
+  "testFiles": 0,
+  "sites": [
+   "validator/self_conformance.ts:188:produce"
+  ]
+ },
+ {
+  "value": "authority_slots_undeclared",
+  "type": 0,
+  "test": 0,
+  "produce": 1,
+  "props": {},
+  "files": 1,
+  "testFiles": 0,
+  "sites": [
+   "product/admission_authority.ts:174:produce"
+  ]
+ },
+ {
+  "value": "authorization_mismatch",
+  "type": 0,
+  "test": 0,
+  "produce": 6,
+  "props": {},
+  "files": 2,
+  "testFiles": 0,
+  "sites": [
+   "product/worksite_effect.ts:167:produce",
+   "product/worksite_effect.ts:1784:produce",
+   "product/worksite_effect.ts:1875:produce",
+   "product/worksite_operations.ts:596:produce",
+   "product/worksite_operations.ts:1055:produce",
+   "product/worksite_operations.ts:1057:produce"
+  ]
+ },
+ {
+  "value": "binding_cover",
+  "type": 0,
+  "test": 0,
+  "produce": 1,
+  "props": {},
+  "files": 1,
+  "testFiles": 0,
+  "sites": [
+   "abg/native_work_reacquisition.ts:88:produce"
+  ]
+ },
+ {
+  "value": "binding_cover_absent",
+  "type": 0,
+  "test": 0,
+  "produce": 1,
+  "props": {},
+  "files": 1,
+  "testFiles": 0,
+  "sites": [
+   "abg/semantic_revision.ts:298:produce"
+  ]
+ },
+ {
+  "value": "binding_forbidden",
+  "type": 0,
+  "test": 0,
+  "produce": 1,
+  "props": {},
+  "files": 1,
+  "testFiles": 0,
+  "sites": [
+   "public/binding/public_function_projections.ts:355:produce"
+  ]
+ },
+ {
+  "value": "binding_missing",
+  "type": 0,
+  "test": 0,
+  "produce": 1,
+  "props": {},
+  "files": 1,
+  "testFiles": 0,
+  "sites": [
+   "public/binding/public_function_projections.ts:354:produce"
+  ]
+ },
+ {
+  "value": "blank_ref",
+  "type": 0,
+  "test": 0,
+  "produce": 1,
+  "props": {},
+  "files": 1,
+  "testFiles": 0,
+  "sites": [
+   "shared/admit/contract.ts:45:produce"
+  ]
+ },
+ {
+  "value": "bounded_exclusion",
+  "type": 0,
+  "test": 0,
+  "produce": 1,
+  "props": {},
+  "files": 1,
+  "testFiles": 0,
+  "sites": [
+   "validator/qualification_contracts.ts:265:produce"
+  ]
+ },
+ {
+  "value": "bypass_nonempty",
+  "type": 0,
+  "test": 0,
+  "produce": 1,
+  "props": {},
+  "files": 1,
+  "testFiles": 0,
+  "sites": [
+   "product/release_snapshot_operations.ts:77:produce"
+  ]
+ },
+ {
+  "value": "c_call_evidence_available",
+  "type": 0,
+  "test": 0,
+  "produce": 4,
+  "props": {},
+  "files": 1,
+  "testFiles": 0,
+  "sites": [
+   "abg/calculus/axioms.ts:265:produce",
+   "abg/calculus/axioms.ts:270:produce",
+   "abg/calculus/axioms.ts:1060:produce",
+   "abg/calculus/axioms.ts:1086:produce"
+  ]
+ },
+ {
+  "value": "c_call_fibre_admitted",
+  "type": 0,
+  "test": 0,
+  "produce": 4,
+  "props": {},
+  "files": 1,
+  "testFiles": 0,
+  "sites": [
+   "abg/calculus/axioms.ts:198:produce",
+   "abg/calculus/axioms.ts:266:produce",
+   "abg/calculus/axioms.ts:932:produce",
+   "abg/calculus/axioms.ts:1061:produce"
+  ]
+ },
+ {
+  "value": "c_call_judgment_available",
+  "type": 0,
+  "test": 0,
+  "produce": 8,
+  "props": {
+   "name": 3
+  },
+  "files": 4,
+  "testFiles": 0,
+  "sites": [
+   "abg/c_call.ts:1357:produce",
+   "abg/calculus/axioms.ts:273:produce",
+   "abg/calculus/axioms.ts:753:produce",
+   "abg/calculus/axioms.ts:1102:produce",
+   "abg/calculus/axioms.ts:1561:produce",
+   "abg/calculus/axioms.ts:1596:produce"
+  ]
+ },
+ {
+  "value": "c_call_replay_projection",
+  "type": 0,
+  "test": 0,
+  "produce": 1,
+  "props": {},
+  "files": 1,
+  "testFiles": 0,
+  "sites": [
+   "abg/project_read_operation_contracts.ts:487:produce"
+  ]
+ },
+ {
+  "value": "c_call_result_available",
+  "type": 0,
+  "test": 0,
+  "produce": 4,
+  "props": {},
+  "files": 1,
+  "testFiles": 0,
+  "sites": [
+   "abg/calculus/axioms.ts:269:produce",
+   "abg/calculus/axioms.ts:274:produce",
+   "abg/calculus/axioms.ts:1079:produce",
+   "abg/calculus/axioms.ts:1115:produce"
+  ]
+ },
+ {
+  "value": "c_program_atom_receipt",
+  "type": 0,
+  "test": 0,
+  "produce": 1,
+  "props": {
+   "sourceKind": 1
+  },
+  "files": 1,
+  "testFiles": 0,
+  "sites": [
+   "abg/project_read_operation_contracts.ts:485:produce"
+  ]
+ },
+ {
+  "value": "call_admission",
+  "type": 0,
+  "test": 0,
+  "produce": 8,
+  "props": {},
+  "files": 5,
+  "testFiles": 0,
+  "sites": [
+   "product/catalog_definition_bindings.ts:563:produce",
+   "product/catalog_definition_bindings.ts:692:produce",
+   "product/catalog_definition_bindings.ts:832:produce",
+   "product/environment_definition_bindings.ts:452:produce",
+   "product/environment_definition_bindings.ts:652:produce",
+   "product/install_definition_bindings.ts:248:produce"
+  ]
+ },
+ {
+  "value": "campaign_close",
+  "type": 0,
+  "test": 0,
+  "produce": 3,
+  "props": {},
+  "files": 2,
+  "testFiles": 0,
+  "sites": [
+   "abg/event_store.ts:3313:produce",
+   "abg/event_store.ts:3327:produce",
+   "abg/witness_admission_operation.ts:195:produce"
+  ]
+ },
+ {
+  "value": "campaign_continue",
+  "type": 0,
+  "test": 0,
+  "produce": 2,
+  "props": {},
+  "files": 2,
+  "testFiles": 0,
+  "sites": [
+   "abg/event_store.ts:3338:produce",
+   "abg/witness_admission_operation.ts:202:produce"
+  ]
+ },
+ {
+  "value": "canonical_completion_facts",
+  "type": 0,
+  "test": 0,
+  "produce": 1,
+  "props": {},
+  "files": 1,
+  "testFiles": 0,
+  "sites": [
+   "abg/fan_out_projection.ts:1066:produce"
+  ]
+ },
+ {
+  "value": "canonical_handle_conflict",
+  "type": 0,
+  "test": 0,
+  "produce": 2,
+  "props": {},
+  "files": 2,
+  "testFiles": 0,
+  "sites": [
+   "product/catalog.ts:632:produce",
+   "product/catalog_operation_contracts.ts:85:produce"
+  ]
+ },
+ {
+  "value": "canonical_replay_chain",
+  "type": 0,
+  "test": 0,
+  "produce": 1,
+  "props": {
+   "kind": 1
+  },
+  "files": 1,
+  "testFiles": 0,
+  "sites": [
+   "abg/witness_admission_operation.ts:834:produce"
+  ]
+ },
+ {
+  "value": "capability_missing",
+  "type": 0,
+  "test": 0,
+  "produce": 1,
+  "props": {},
+  "files": 1,
+  "testFiles": 0,
+  "sites": [
+   "public/binding/public_function_projections.ts:361:produce"
+  ]
+ },
+ {
+  "value": "catalog_admission_execution_failure",
+  "type": 0,
+  "test": 0,
+  "produce": 1,
+  "props": {},
+  "files": 1,
+  "testFiles": 0,
+  "sites": [
+   "product/catalog_definition_bindings.ts:649:produce"
+  ]
+ },
+ {
+  "value": "catalog_application_execution_failure",
+  "type": 0,
+  "test": 0,
+  "produce": 1,
+  "props": {},
+  "files": 1,
+  "testFiles": 0,
+  "sites": [
+   "product/catalog_definition_bindings.ts:948:produce"
+  ]
+ },
+ {
+  "value": "catalog_basis_projection_mismatch",
+  "type": 0,
+  "test": 0,
+  "produce": 1,
+  "props": {},
+  "files": 1,
+  "testFiles": 0,
+  "sites": [
+   "product/catalog_definition_bindings.ts:323:produce"
+  ]
+ },
+ {
+  "value": "catalog_conservation_failure",
+  "type": 0,
+  "test": 0,
+  "produce": 1,
+  "props": {},
+  "files": 1,
+  "testFiles": 0,
+  "sites": [
+   "product/catalog_definition_bindings.ts:622:produce"
+  ]
+ },
+ {
+  "value": "catalog_fidelity_assessment_required",
+  "type": 0,
+  "test": 0,
+  "produce": 2,
+  "props": {},
+  "files": 1,
+  "testFiles": 0,
+  "sites": [
+   "validator/self_conformance.ts:192:produce",
+   "validator/self_conformance.ts:193:produce"
+  ]
+ },
+ {
+  "value": "catalog_scope_mismatch",
+  "type": 0,
+  "test": 0,
+  "produce": 2,
+  "props": {},
+  "files": 2,
+  "testFiles": 0,
+  "sites": [
+   "product/catalog_definition_bindings.ts:888:produce",
+   "public/binding/public_function_projections.ts:366:produce"
+  ]
+ },
+ {
+  "value": "catalog_view_execution_failure",
+  "type": 0,
+  "test": 0,
+  "produce": 1,
+  "props": {},
+  "files": 1,
+  "testFiles": 0,
+  "sites": [
+   "product/catalog_definition_bindings.ts:767:produce"
+  ]
+ },
+ {
+  "value": "cause_input_absent",
+  "type": 0,
+  "test": 0,
+  "produce": 1,
+  "props": {},
+  "files": 1,
+  "testFiles": 0,
+  "sites": [
+   "abg/semantic_revision.ts:226:produce"
+  ]
+ },
+ {
+  "value": "child_foldback_available",
+  "type": 0,
+  "test": 0,
+  "produce": 4,
+  "props": {
+   "name": 1
+  },
+  "files": 2,
+  "testFiles": 0,
+  "sites": [
+   "abg/calculus/axioms.ts:290:produce",
+   "abg/calculus/axioms.ts:756:produce",
+   "abg/calculus/axioms.ts:1189:produce",
+   "abg/graph_application.ts:537:produce"
+  ]
+ },
+ {
+  "value": "child_observed_input",
+  "type": 0,
+  "test": 0,
+  "produce": 1,
+  "props": {},
+  "files": 1,
+  "testFiles": 0,
+  "sites": [
+   "abg/replay.ts:2042:produce"
+  ]
+ },
+ {
+  "value": "child_source_result",
+  "type": 0,
+  "test": 0,
+  "produce": 1,
+  "props": {},
+  "files": 1,
+  "testFiles": 0,
+  "sites": [
+   "abg/replay.ts:2051:produce"
+  ]
+ },
+ {
+  "value": "choice_mismatch",
+  "type": 0,
+  "test": 0,
+  "produce": 1,
+  "props": {},
+  "files": 1,
+  "testFiles": 0,
+  "sites": [
+   "product/interaction_operation_contracts.ts:43:produce"
+  ]
+ },
+ {
+  "value": "close_selected_owner_and_release_exact_lock",
+  "type": 0,
+  "test": 0,
+  "produce": 1,
+  "props": {},
+  "files": 1,
+  "testFiles": 0,
+  "sites": [
+   "abg/definition_event_resource.ts:411:produce"
+  ]
+ },
+ {
+  "value": "closed_attempt_without_admitted_result",
+  "type": 0,
+  "test": 0,
+  "produce": 1,
+  "props": {},
+  "files": 1,
+  "testFiles": 0,
+  "sites": [
+   "abg/calculus/liveness.ts:801:produce"
+  ]
+ },
+ {
+  "value": "command_source",
+  "type": 0,
+  "test": 0,
+  "produce": 1,
+  "props": {},
+  "files": 1,
+  "testFiles": 0,
+  "sites": [
+   "abg/native_work_reacquisition.ts:94:produce"
+  ]
+ },
+ {
+  "value": "compatibility_mismatch",
+  "type": 0,
+  "test": 0,
+  "produce": 2,
+  "props": {},
+  "files": 2,
+  "testFiles": 0,
+  "sites": [
+   "product/catalog.ts:677:produce",
+   "product/catalog_operation_contracts.ts:79:produce"
+  ]
+ },
+ {
+  "value": "complete_ordered_terms_shared_with_obligations_by_exact_value",
+  "type": 0,
+  "test": 0,
+  "produce": 1,
+  "props": {
+   "revisionRetainedTerms": 1
+  },
+  "files": 1,
+  "testFiles": 0,
+  "sites": [
+   "abg/instruction_assembly.ts:978:produce"
+  ]
+ },
+ {
+  "value": "complete_typed_assets_shared_with_history_by_exact_value",
+  "type": 0,
+  "test": 0,
+  "produce": 1,
+  "props": {
+   "revisionAssetMaterial": 1
+  },
+  "files": 1,
+  "testFiles": 0,
+  "sites": [
+   "abg/instruction_assembly.ts:978:produce"
+  ]
+ },
+ {
+  "value": "consensus_continuation",
+  "type": 0,
+  "test": 0,
+  "produce": 1,
+  "props": {},
+  "files": 1,
+  "testFiles": 0,
+  "sites": [
+   "gtl/consensus.ts:4098:produce"
+  ]
+ },
+ {
+  "value": "consensus_fh_escalation",
+  "type": 0,
+  "test": 0,
+  "produce": 1,
+  "props": {
+   "stageRole": 1
+  },
+  "files": 1,
+  "testFiles": 0,
+  "sites": [
+   "gtl/consensus.ts:4607:produce"
+  ]
+ },
+ {
+  "value": "consensus_findings_vector",
+  "type": 0,
+  "test": 0,
+  "produce": 1,
+  "props": {},
+  "files": 1,
+  "testFiles": 0,
+  "sites": [
+   "gtl/consensus.ts:4079:produce"
+  ]
+ },
+ {
+  "value": "consensus_gap_projection",
+  "type": 0,
+  "test": 0,
+  "produce": 1,
+  "props": {},
+  "files": 1,
+  "testFiles": 0,
+  "sites": [
+   "gtl/consensus.ts:956:produce"
+  ]
+ },
+ {
+  "value": "consensus_judgment",
+  "type": 0,
+  "test": 0,
+  "produce": 1,
+  "props": {},
+  "files": 1,
+  "testFiles": 0,
+  "sites": [
+   "gtl/consensus.ts:4096:produce"
+  ]
+ },
+ {
+  "value": "consensus_required",
+  "type": 0,
+  "test": 0,
+  "produce": 1,
+  "props": {},
+  "files": 1,
+  "testFiles": 0,
+  "sites": [
+   "gtl/consensus.ts:961:produce"
+  ]
+ },
+ {
+  "value": "consensus_transition",
+  "type": 0,
+  "test": 0,
+  "produce": 1,
+  "props": {},
+  "files": 1,
+  "testFiles": 0,
+  "sites": [
+   "gtl/consensus.ts:4097:produce"
+  ]
+ },
+ {
+  "value": "construction_delta",
+  "type": 0,
+  "test": 0,
+  "produce": 2,
+  "props": {
+   "owner": 1
+  },
+  "files": 1,
+  "testFiles": 0,
+  "sites": [
+   "abg/replay.ts:2115:produce",
+   "abg/replay.ts:2119:produce"
+  ]
+ },
+ {
+  "value": "construction_intent_available",
+  "type": 0,
+  "test": 0,
+  "produce": 7,
+  "props": {},
+  "files": 1,
+  "testFiles": 0,
+  "sites": [
+   "abg/calculus/axioms.ts:309:produce",
+   "abg/calculus/axioms.ts:339:produce",
+   "abg/calculus/axioms.ts:1260:produce",
+   "abg/calculus/axioms.ts:1284:produce",
+   "abg/calculus/axioms.ts:1304:produce",
+   "abg/calculus/axioms.ts:1375:produce"
+  ]
+ },
+ {
+  "value": "construction_result_absent",
+  "type": 0,
+  "test": 0,
+  "produce": 1,
+  "props": {},
+  "files": 1,
+  "testFiles": 0,
+  "sites": [
+   "abg/semantic_revision.ts:302:produce"
+  ]
+ },
+ {
+  "value": "construction_source_mismatch",
+  "type": 0,
+  "test": 0,
+  "produce": 2,
+  "props": {},
+  "files": 1,
+  "testFiles": 0,
+  "sites": [
+   "abg/semantic_revision.ts:232:produce",
+   "abg/semantic_revision.ts:304:produce"
+  ]
+ },
+ {
+  "value": "constructor_input_and_inventory_bodies_not_selected",
+  "type": 0,
+  "test": 0,
+  "produce": 1,
+  "props": {
+   "historicalCarrierDisposition": 1
+  },
+  "files": 1,
+  "testFiles": 0,
+  "sites": [
+   "abg/instruction_assembly.ts:660:produce"
+  ]
+ },
+ {
+  "value": "content_digest_mismatch",
+  "type": 0,
+  "test": 0,
+  "produce": 5,
+  "props": {},
+  "files": 1,
+  "testFiles": 0,
+  "sites": [
+   "product/public_contract_publication.ts:53:produce",
+   "product/public_contract_publication.ts:595:produce",
+   "product/public_contract_publication.ts:717:produce",
+   "product/public_contract_publication.ts:725:produce",
+   "product/public_contract_publication.ts:737:produce"
+  ]
+ },
+ {
+  "value": "context_observation",
+  "type": 0,
+  "test": 0,
+  "produce": 1,
+  "props": {},
+  "files": 1,
+  "testFiles": 0,
+  "sites": [
+   "abg/default_library.ts:110:produce"
+  ]
+ },
+ {
+  "value": "context_only_not_current_proof",
+  "type": 0,
+  "test": 0,
+  "produce": 1,
+  "props": {
+   "historicalContextRole": 1
+  },
+  "files": 1,
+  "testFiles": 0,
+  "sites": [
+   "abg/instruction_assembly.ts:760:produce"
+  ]
+ },
+ {
+  "value": "continuation_reentry_link_available",
+  "type": 0,
+  "test": 0,
+  "produce": 3,
+  "props": {},
+  "files": 2,
+  "testFiles": 0,
+  "sites": [
+   "abg/calculus/axioms.ts:342:produce",
+   "abg/calculus/axioms.ts:1385:produce",
+   "abg/replay.ts:328:produce"
+  ]
+ },
+ {
+  "value": "continuation_replay_projection",
+  "type": 0,
+  "test": 0,
+  "produce": 1,
+  "props": {},
+  "files": 1,
+  "testFiles": 0,
+  "sites": [
+   "abg/project_read_operation_contracts.ts:479:produce"
+  ]
+ },
+ {
+  "value": "continuation_terminated",
+  "type": 0,
+  "test": 0,
+  "produce": 4,
+  "props": {
+   "name": 1
+  },
+  "files": 3,
+  "testFiles": 0,
+  "sites": [
+   "abg/calculus/axioms.ts:325:produce",
+   "abg/calculus/axioms.ts:1332:produce",
+   "abg/fh_continuation_projection.ts:741:produce",
+   "abg/replay.ts:313:produce"
+  ]
+ },
+ {
+  "value": "continued_traversal_cursor",
+  "type": 0,
+  "test": 0,
+  "produce": 1,
+  "props": {},
+  "files": 1,
+  "testFiles": 0,
+  "sites": [
+   "abg/traversal_cursor.ts:944:produce"
+  ]
+ },
+ {
+  "value": "contract_catalog_mismatch",
+  "type": 0,
+  "test": 0,
+  "produce": 1,
+  "props": {},
+  "files": 1,
+  "testFiles": 0,
+  "sites": [
+   "public/binding/public_function_projections.ts:351:produce"
+  ]
+ },
+ {
+  "value": "contribution_mismatch",
+  "type": 0,
+  "test": 0,
+  "produce": 6,
+  "props": {},
+  "files": 5,
+  "testFiles": 0,
+  "sites": [
+   "product/contracts.ts:175:produce",
+   "product/install_operation_contracts.ts:44:produce",
+   "product/verification_definition_bindings.ts:206:produce",
+   "product/verification_definition_bindings.ts:270:produce",
+   "product/verification_operation_contracts.ts:101:produce",
+   "product/verify_product.ts:2078:produce"
+  ]
+ },
+ {
+  "value": "coverage_catalog_mismatch",
+  "type": 0,
+  "test": 0,
+  "produce": 1,
+  "props": {},
+  "files": 1,
+  "testFiles": 0,
+  "sites": [
+   "validator/self_conformance.ts:154:produce"
+  ]
+ },
+ {
+  "value": "coverage_catalog_missing",
+  "type": 0,
+  "test": 0,
+  "produce": 1,
+  "props": {},
+  "files": 1,
+  "testFiles": 0,
+  "sites": [
+   "validator/self_conformance.ts:153:produce"
+  ]
+ },
+ {
+  "value": "cross_definition",
+  "type": 0,
+  "test": 0,
+  "produce": 1,
+  "props": {},
+  "files": 1,
+  "testFiles": 0,
+  "sites": [
+   "public/binding/public_function_projections.ts:510:produce"
+  ]
+ },
+ {
+  "value": "data_basis_invalid",
+  "type": 0,
+  "test": 0,
+  "produce": 1,
+  "props": {},
+  "files": 1,
+  "testFiles": 0,
+  "sites": [
+   "product/admission_authority.ts:176:produce"
+  ]
+ },
+ {
+  "value": "declared_body_capability",
+  "type": 0,
+  "test": 0,
+  "produce": 2,
+  "props": {},
+  "files": 1,
+  "testFiles": 0,
+  "sites": [
+   "product/semantic_job.ts:452:produce",
+   "product/semantic_job.ts:453:produce"
+  ]
+ },
+ {
+  "value": "declared_design",
+  "type": 0,
+  "test": 0,
+  "produce": 1,
+  "props": {},
+  "files": 1,
+  "testFiles": 0,
+  "sites": [
+   "product/semantic_job.ts:589:produce"
+  ]
+ },
+ {
+  "value": "declared_index_access_not_application",
+  "type": 0,
+  "test": 0,
+  "produce": 1,
+  "props": {},
+  "files": 1,
+  "testFiles": 0,
+  "sites": [
+   "abg/stdo_environment.ts:321:produce"
+  ]
+ },
+ {
+  "value": "declared_native_design_relative_paths",
+  "type": 0,
+  "test": 0,
+  "produce": 1,
+  "props": {},
+  "files": 1,
+  "testFiles": 0,
+  "sites": [
+   "abg/instruction_assembly.ts:1187:produce"
+  ]
+ },
+ {
+  "value": "declared_not_required",
+  "type": 0,
+  "test": 0,
+  "produce": 1,
+  "props": {},
+  "files": 1,
+  "testFiles": 0,
+  "sites": [
+   "abg/instruction_assembly.ts:790:produce"
+  ]
+ },
+ {
+  "value": "declared_read_paths_observed_before_construction",
+  "type": 0,
+  "test": 0,
+  "produce": 1,
+  "props": {
+   "dependencyRule": 1
+  },
+  "files": 1,
+  "testFiles": 0,
+  "sites": [
+   "product/semantic_job.ts:359:produce"
+  ]
+ },
+ {
+  "value": "declared_same_edge_continuation",
+  "type": 0,
+  "test": 0,
+  "produce": 2,
+  "props": {},
+  "files": 1,
+  "testFiles": 0,
+  "sites": [
+   "abg/calculus/liveness.ts:798:produce",
+   "abg/calculus/liveness.ts:807:produce"
+  ]
+ },
+ {
+  "value": "definition_call_mismatch",
+  "type": 0,
+  "test": 0,
+  "produce": 1,
+  "props": {},
+  "files": 1,
+  "testFiles": 0,
+  "sites": [
+   "product/admission_authority.ts:194:produce"
+  ]
+ },
+ {
+  "value": "definition_input_binding",
+  "type": 0,
+  "test": 0,
+  "produce": 1,
+  "props": {},
+  "files": 1,
+  "testFiles": 0,
+  "sites": [
+   "abg/native_work_reacquisition.ts:148:produce"
+  ]
+ },
+ {
+  "value": "depth_policy_incomplete",
+  "type": 0,
+  "test": 0,
+  "produce": 1,
+  "props": {},
+  "files": 1,
+  "testFiles": 0,
+  "sites": [
+   "product/default_library_fulfillment.ts:218:produce"
+  ]
+ },
+ {
+  "value": "derive_preserved_candidate",
+  "type": 0,
+  "test": 0,
+  "produce": 1,
+  "props": {
+   "stageRole": 1
+  },
+  "files": 1,
+  "testFiles": 0,
+  "sites": [
+   "gtl/worksite_construction_recovery.ts:124:produce"
+  ]
+ },
+ {
+  "value": "descriptor_mismatch",
+  "type": 0,
+  "test": 0,
+  "produce": 3,
+  "props": {},
+  "files": 3,
+  "testFiles": 0,
+  "sites": [
+   "product/install_operation_contracts.ts:43:produce",
+   "product/verification_definition_bindings.ts:265:produce",
+   "product/verification_operation_contracts.ts:100:produce"
+  ]
+ },
+ {
+  "value": "design_reference_response",
+  "type": 0,
+  "test": 0,
+  "produce": 1,
+  "props": {
+   "rule": 1
+  },
+  "files": 1,
+  "testFiles": 0,
+  "sites": [
+   "implementation/semantic_stage.ts:83:produce"
+  ]
+ },
+ {
+  "value": "design_surface",
+  "type": 0,
+  "test": 0,
+  "produce": 2,
+  "props": {},
+  "files": 2,
+  "testFiles": 0,
+  "sites": [
+   "abg/event_store.ts:3193:produce",
+   "abg/witness_admission_operation.ts:186:produce"
+  ]
+ },
+ {
+  "value": "design_worksite_relation_mismatch",
+  "type": 0,
+  "test": 0,
+  "produce": 1,
+  "props": {},
+  "files": 1,
+  "testFiles": 0,
+  "sites": [
+   "implementation/semantic_stage.ts:102:produce"
+  ]
+ },
+ {
+  "value": "deterministic_assessment",
+  "type": 0,
+  "test": 0,
+  "produce": 1,
+  "props": {
+   "effectClass": 1
+  },
+  "files": 1,
+  "testFiles": 0,
+  "sites": [
+   "validator/conformance_operation_contracts.ts:71:produce"
+  ]
+ },
+ {
+  "value": "deterministic_catalog_application",
+  "type": 0,
+  "test": 0,
+  "produce": 1,
+  "props": {
+   "effectClass": 1
+  },
+  "files": 1,
+  "testFiles": 0,
+  "sites": [
+   "product/catalog_operation_contracts.ts:346:produce"
+  ]
+ },
+ {
+  "value": "deterministic_catalog_narrowing",
+  "type": 0,
+  "test": 0,
+  "produce": 1,
+  "props": {
+   "effectClass": 1
+  },
+  "files": 1,
+  "testFiles": 0,
+  "sites": [
+   "product/catalog_operation_contracts.ts:275:produce"
+  ]
+ },
+ {
+  "value": "deterministic_catalog_readiness",
+  "type": 0,
+  "test": 0,
+  "produce": 1,
+  "props": {
+   "effectClass": 1
+  },
+  "files": 1,
+  "testFiles": 0,
+  "sites": [
+   "product/catalog_operation_contracts.ts:217:produce"
+  ]
+ },
+ {
+  "value": "deterministic_dependency_resolution",
+  "type": 0,
+  "test": 0,
+  "produce": 1,
+  "props": {
+   "effectClass": 1
+  },
+  "files": 1,
+  "testFiles": 0,
+  "sites": [
+   "product/environment_operation_contracts.ts:412:produce"
+  ]
+ },
+ {
+  "value": "deterministic_product_attestation",
+  "type": 0,
+  "test": 0,
+  "produce": 1,
+  "props": {
+   "effectClass": 1
+  },
+  "files": 1,
+  "testFiles": 0,
+  "sites": [
+   "product/verification_operation_contracts.ts:117:produce"
+  ]
+ },
+ {
+  "value": "digested_record_projection",
+  "type": 0,
+  "test": 0,
+  "produce": 1,
+  "props": {
+   "code": 1
+  },
+  "files": 1,
+  "testFiles": 0,
+  "sites": [
+   "abg/calculus/liveness.ts:869:produce"
+  ]
+ },
+ {
+  "value": "direct_testing_child",
+  "type": 0,
+  "test": 0,
+  "produce": 1,
+  "props": {},
+  "files": 1,
+  "testFiles": 0,
+  "sites": [
+   "abg/default_library.ts:335:produce"
+  ]
+ },
+ {
+  "value": "discovered_obligation_policy_incomplete",
+  "type": 0,
+  "test": 0,
+  "produce": 1,
+  "props": {},
+  "files": 1,
+  "testFiles": 0,
+  "sites": [
+   "product/semantic_stage.ts:185:produce"
+  ]
+ },
+ {
+  "value": "discovered_obligations_unassessed",
+  "type": 0,
+  "test": 0,
+  "produce": 1,
+  "props": {},
+  "files": 1,
+  "testFiles": 0,
+  "sites": [
+   "product/requirement_handoff.ts:33:produce"
+  ]
+ },
+ {
+  "value": "duplicate_authority_member",
+  "type": 0,
+  "test": 0,
+  "produce": 1,
+  "props": {},
+  "files": 1,
+  "testFiles": 0,
+  "sites": [
+   "validator/self_conformance.ts:177:produce"
+  ]
+ },
+ {
+  "value": "duplicate_contract_identity",
+  "type": 0,
+  "test": 0,
+  "produce": 3,
+  "props": {},
+  "files": 1,
+  "testFiles": 0,
+  "sites": [
+   "product/public_contract_publication.ts:47:produce",
+   "product/public_contract_publication.ts:604:produce",
+   "product/public_contract_publication.ts:621:produce"
+  ]
+ },
+ {
+  "value": "duplicate_subject_member",
+  "type": 0,
+  "test": 0,
+  "produce": 1,
+  "props": {},
+  "files": 1,
+  "testFiles": 0,
+  "sites": [
+   "validator/self_conformance.ts:200:produce"
+  ]
+ },
+ {
+  "value": "durable_history",
+  "type": 0,
+  "test": 0,
+  "produce": 2,
+  "props": {},
+  "files": 1,
+  "testFiles": 0,
+  "sites": [
+   "abg/event_store.ts:1802:produce",
+   "abg/event_store.ts:1983:produce"
+  ]
+ },
+ {
+  "value": "envelope_output_relation_mismatch",
+  "type": 0,
+  "test": 0,
+  "produce": 1,
+  "props": {},
+  "files": 1,
+  "testFiles": 0,
+  "sites": [
+   "implementation/semantic_stage.ts:114:produce"
+  ]
+ },
+ {
+  "value": "environment_scope_mismatch",
+  "type": 0,
+  "test": 0,
+  "produce": 1,
+  "props": {},
+  "files": 1,
+  "testFiles": 0,
+  "sites": [
+   "product/admission_authority.ts:190:produce"
+  ]
+ },
+ {
+  "value": "environment_unadmitted",
+  "type": 0,
+  "test": 0,
+  "produce": 1,
+  "props": {},
+  "files": 1,
+  "testFiles": 0,
+  "sites": [
+   "product/admission_authority.ts:182:produce"
+  ]
+ },
+ {
+  "value": "evaluated_transition",
+  "type": 0,
+  "test": 0,
+  "produce": 1,
+  "props": {
+   "valueKind": 1
+  },
+  "files": 1,
+  "testFiles": 0,
+  "sites": [
+   "gtl/worksite_c0.ts:162:produce"
+  ]
+ },
+ {
+  "value": "evaluator_progress",
+  "type": 0,
+  "test": 0,
+  "produce": 3,
+  "props": {},
+  "files": 3,
+  "testFiles": 0,
+  "sites": [
+   "abg/calculus/liveness.ts:127:produce",
+   "abg/runtime_liveness.ts:159:produce",
+   "abg/runtime_liveness_contracts.ts:12:produce"
+  ]
+ },
+ {
+  "value": "event_resource_invalid",
+  "type": 0,
+  "test": 0,
+  "produce": 1,
+  "props": {},
+  "files": 1,
+  "testFiles": 0,
+  "sites": [
+   "product/admission_authority.ts:198:produce"
+  ]
+ },
+ {
+  "value": "event_store_construction_authority",
+  "type": 0,
+  "test": 0,
+  "produce": 1,
+  "props": {},
+  "files": 1,
+  "testFiles": 0,
+  "sites": [
+   "abg/event_store.ts:2559:produce"
+  ]
+ },
+ {
+  "value": "evidence_source_relation_mismatch",
+  "type": 0,
+  "test": 0,
+  "produce": 1,
+  "props": {},
+  "files": 1,
+  "testFiles": 0,
+  "sites": [
+   "implementation/semantic_stage.ts:108:produce"
+  ]
+ },
+ {
+  "value": "evidence_write_roots",
+  "type": 0,
+  "test": 0,
+  "produce": 1,
+  "props": {},
+  "files": 1,
+  "testFiles": 0,
+  "sites": [
+   "product/semantic_job.ts:571:produce"
+  ]
+ },
+ {
+  "value": "exact_active_predecessor_version",
+  "type": 0,
+  "test": 0,
+  "produce": 1,
+  "props": {},
+  "files": 1,
+  "testFiles": 0,
+  "sites": [
+   "product/semantic_job.ts:439:produce"
+  ]
+ },
+ {
+  "value": "exact_definition_host_callable",
+  "type": 0,
+  "test": 0,
+  "produce": 1,
+  "props": {
+   "kind": 1
+  },
+  "files": 1,
+  "testFiles": 0,
+  "sites": [
+   "public/binding/owner_contract_source_set.ts:594:produce"
+  ]
+ },
+ {
+  "value": "exact_nested_executable_capability",
+  "type": 0,
+  "test": 0,
+  "produce": 1,
+  "props": {},
+  "files": 1,
+  "testFiles": 0,
+  "sites": [
+   "product/semantic_job.ts:580:produce"
+  ]
+ },
+ {
+  "value": "exact_ordered_rubric",
+  "type": 0,
+  "test": 0,
+  "produce": 1,
+  "props": {},
+  "files": 1,
+  "testFiles": 0,
+  "sites": [
+   "product/semantic_job.ts:444:produce"
+  ]
+ },
+ {
+  "value": "exact_reference_resolution",
+  "type": 0,
+  "test": 0,
+  "produce": 1,
+  "props": {},
+  "files": 1,
+  "testFiles": 0,
+  "sites": [
+   "abg/native_work_reacquisition.ts:253:produce"
+  ]
+ },
+ {
+  "value": "exact_unique_original_source_substring",
+  "type": 0,
+  "test": 0,
+  "produce": 1,
+  "props": {
+   "quoteRule": 1
+  },
+  "files": 1,
+  "testFiles": 0,
+  "sites": [
+   "product/semantic_job.ts:342:produce"
+  ]
+ },
+ {
+  "value": "exact_workspace_environment_bodies",
+  "type": 0,
+  "test": 0,
+  "produce": 1,
+  "props": {},
+  "files": 1,
+  "testFiles": 0,
+  "sites": [
+   "abg/environment_admission.ts:577:produce"
+  ]
+ },
+ {
+  "value": "execution_basis_projection",
+  "type": 0,
+  "test": 0,
+  "produce": 1,
+  "props": {
+   "code": 1
+  },
+  "files": 1,
+  "testFiles": 0,
+  "sites": [
+   "abg/calculus/execution_basis_record.ts:36:produce"
+  ]
+ },
+ {
+  "value": "execution_evidence_unadmitted",
+  "type": 0,
+  "test": 0,
+  "produce": 1,
+  "props": {},
+  "files": 1,
+  "testFiles": 0,
+  "sites": [
+   "validator/self_conformance.ts:155:produce"
+  ]
+ },
+ {
+  "value": "explicit_member_projection",
+  "type": 0,
+  "test": 0,
+  "produce": 1,
+  "props": {
+   "kind": 1
+  },
+  "files": 1,
+  "testFiles": 0,
+  "sites": [
+   "gtl/default_library.ts:313:produce"
+  ]
+ },
+ {
+  "value": "external_recovery",
+  "type": 0,
+  "test": 0,
+  "produce": 2,
+  "props": {},
+  "files": 2,
+  "testFiles": 0,
+  "sites": [
+   "abg/event_store.ts:3337:produce",
+   "abg/witness_admission_operation.ts:201:produce"
+  ]
+ },
+ {
+  "value": "fan_out_completion",
+  "type": 0,
+  "test": 0,
+  "produce": 2,
+  "props": {
+   "owner": 1
+  },
+  "files": 1,
+  "testFiles": 0,
+  "sites": [
+   "abg/replay.ts:2098:produce",
+   "abg/replay.ts:2102:produce"
+  ]
+ },
+ {
+  "value": "fan_out_completion_available",
+  "type": 0,
+  "test": 0,
+  "produce": 1,
+  "props": {},
+  "files": 1,
+  "testFiles": 0,
+  "sites": [
+   "abg/calculus/axioms.ts:298:produce"
+  ]
+ },
+ {
+  "value": "fan_out_partial_stop_available",
+  "type": 0,
+  "test": 0,
+  "produce": 2,
+  "props": {},
+  "files": 1,
+  "testFiles": 0,
+  "sites": [
+   "abg/calculus/axioms.ts:783:produce",
+   "abg/calculus/axioms.ts:1230:produce"
+  ]
+ },
+ {
+  "value": "fan_out_vector_available",
+  "type": 0,
+  "test": 0,
+  "produce": 2,
+  "props": {},
+  "files": 1,
+  "testFiles": 0,
+  "sites": [
+   "abg/calculus/axioms.ts:782:produce",
+   "abg/calculus/axioms.ts:1228:produce"
+  ]
+ },
+ {
+  "value": "fh_continuation",
+  "type": 0,
+  "test": 0,
+  "produce": 1,
+  "props": {},
+  "files": 1,
+  "testFiles": 0,
+  "sites": [
+   "abg/replay.ts:2081:produce"
+  ]
+ },
+ {
+  "value": "fh_escalation_finalization",
+  "type": 0,
+  "test": 0,
+  "produce": 1,
+  "props": {
+   "stageRole": 1
+  },
+  "files": 1,
+  "testFiles": 0,
+  "sites": [
+   "gtl/consensus.ts:4656:produce"
+  ]
+ },
+ {
+  "value": "fh_interaction_projection",
+  "type": 0,
+  "test": 0,
+  "produce": 1,
+  "props": {},
+  "files": 1,
+  "testFiles": 0,
+  "sites": [
+   "product/interaction_operation_contracts.ts:50:produce"
+  ]
+ },
+ {
+  "value": "fh_response_event",
+  "type": 0,
+  "test": 0,
+  "produce": 1,
+  "props": {
+   "effectClass": 1
+  },
+  "files": 1,
+  "testFiles": 0,
+  "sites": [
+   "product/interaction_operation_contracts.ts:103:produce"
+  ]
+ },
+ {
+  "value": "file_observation",
+  "type": 0,
+  "test": 0,
+  "produce": 1,
+  "props": {},
+  "files": 1,
+  "testFiles": 0,
+  "sites": [
+   "abg/default_library.ts:121:produce"
+  ]
+ },
+ {
+  "value": "finalization_termination",
+  "type": 0,
+  "test": 0,
+  "produce": 1,
+  "props": {
+   "stageRole": 1
+  },
+  "files": 1,
+  "testFiles": 0,
+  "sites": [
+   "gtl/consensus.ts:4305:produce"
+  ]
+ },
+ {
+  "value": "forbidden_operation_identity",
+  "type": 0,
+  "test": 0,
+  "produce": 2,
+  "props": {},
+  "files": 1,
+  "testFiles": 0,
+  "sites": [
+   "product/public_contract_publication.ts:46:produce",
+   "product/public_contract_publication.ts:637:produce"
+  ]
+ },
+ {
+  "value": "frame_blocked",
+  "type": 0,
+  "test": 0,
+  "produce": 6,
+  "props": {
+   "name": 1
+  },
+  "files": 3,
+  "testFiles": 0,
+  "sites": [
+   "abg/calculus/axioms.ts:354:produce",
+   "abg/calculus/axioms.ts:1198:produce",
+   "abg/calculus/axioms.ts:1433:produce",
+   "abg/calculus/axioms.ts:1606:produce",
+   "abg/graph_application.ts:659:produce",
+   "abg/replay.ts:314:produce"
+  ]
+ },
+ {
+  "value": "frame_failed",
+  "type": 0,
+  "test": 0,
+  "produce": 6,
+  "props": {
+   "name": 1
+  },
+  "files": 3,
+  "testFiles": 0,
+  "sites": [
+   "abg/calculus/axioms.ts:355:produce",
+   "abg/calculus/axioms.ts:1199:produce",
+   "abg/calculus/axioms.ts:1434:produce",
+   "abg/calculus/axioms.ts:1623:produce",
+   "abg/graph_application.ts:651:produce",
+   "abg/replay.ts:316:produce"
+  ]
+ },
+ {
+  "value": "fulfillment_selection",
+  "type": 0,
+  "test": 0,
+  "produce": 1,
+  "props": {},
+  "files": 1,
+  "testFiles": 0,
+  "sites": [
+   "abg/default_library.ts:68:produce"
+  ]
+ },
+ {
+  "value": "full_source_semantic_assessment_required",
+  "type": 0,
+  "test": 0,
+  "produce": 1,
+  "props": {},
+  "files": 1,
+  "testFiles": 0,
+  "sites": [
+   "product/requirement_handoff.ts:32:produce"
+  ]
+ },
+ {
+  "value": "full_source_semantic_completeness_unassessed",
+  "type": 0,
+  "test": 0,
+  "produce": 2,
+  "props": {},
+  "files": 2,
+  "testFiles": 0,
+  "sites": [
+   "product/semantic_job.ts:316:produce",
+   "product/semantic_stage.ts:184:produce"
+  ]
+ },
+ {
+  "value": "gc03_host_adapter",
+  "type": 0,
+  "test": 0,
+  "produce": 1,
+  "props": {},
+  "files": 1,
+  "testFiles": 0,
+  "sites": [
+   "abg/governed_context.ts:816:produce"
+  ]
+ },
+ {
+  "value": "goal_reprice",
+  "type": 0,
+  "test": 0,
+  "produce": 3,
+  "props": {},
+  "files": 2,
+  "testFiles": 0,
+  "sites": [
+   "abg/event_store.ts:3144:produce",
+   "abg/event_store.ts:3181:produce",
+   "abg/witness_admission_operation.ts:173:produce"
+  ]
+ },
+ {
+  "value": "governance_closure",
+  "type": 0,
+  "test": 0,
+  "produce": 2,
+  "props": {},
+  "files": 1,
+  "testFiles": 0,
+  "sites": [
+   "gtl/default_library.ts:309:produce",
+   "gtl/default_library.ts:309:produce"
+  ]
+ },
+ {
+  "value": "governance_source_result_mismatch",
+  "type": 0,
+  "test": 0,
+  "produce": 1,
+  "props": {
+   "code": 1
+  },
+  "files": 1,
+  "testFiles": 0,
+  "sites": [
+   "abg/invocation_execution_truth.ts:47:produce"
+  ]
+ },
+ {
+  "value": "governed_context_binding",
+  "type": 0,
+  "test": 0,
+  "produce": 1,
+  "props": {
+   "kind": 1
+  },
+  "files": 1,
+  "testFiles": 0,
+  "sites": [
+   "abg/governed_context.ts:300:produce"
+  ]
+ },
+ {
+  "value": "grants_mismatch",
+  "type": 0,
+  "test": 0,
+  "produce": 1,
+  "props": {},
+  "files": 1,
+  "testFiles": 0,
+  "sites": [
+   "product/admission_authority.ts:200:produce"
+  ]
+ },
+ {
+  "value": "graph_call_evidence_projection",
+  "type": 0,
+  "test": 0,
+  "produce": 1,
+  "props": {},
+  "files": 1,
+  "testFiles": 0,
+  "sites": [
+   "abg/project_read_operation_contracts.ts:418:produce"
+  ]
+ },
+ {
+  "value": "graph_call_replay_projection",
+  "type": 0,
+  "test": 0,
+  "produce": 1,
+  "props": {},
+  "files": 1,
+  "testFiles": 0,
+  "sites": [
+   "abg/project_read_operation_contracts.ts:463:produce"
+  ]
+ },
+ {
+  "value": "graph_progress",
+  "type": 0,
+  "test": 0,
+  "produce": 3,
+  "props": {},
+  "files": 3,
+  "testFiles": 0,
+  "sites": [
+   "abg/calculus/liveness.ts:127:produce",
+   "abg/runtime_liveness.ts:159:produce",
+   "abg/runtime_liveness_contracts.ts:11:produce"
+  ]
+ },
+ {
+  "value": "graph_refusal_admission",
+  "type": 0,
+  "test": 0,
+  "produce": 1,
+  "props": {},
+  "files": 1,
+  "testFiles": 0,
+  "sites": [
+   "owner_bindings/run_invocation.ts:1467:produce"
+  ]
+ },
+ {
+  "value": "held_native_context_bodies",
+  "type": 0,
+  "test": 0,
+  "produce": 1,
+  "props": {},
+  "files": 1,
+  "testFiles": 0,
+  "sites": [
+   "abg/event_prefix.ts:846:produce"
+  ]
+ },
+ {
+  "value": "historical_constructor_input_not_selected",
+  "type": 0,
+  "test": 0,
+  "produce": 1,
+  "props": {
+   "bodyDisposition": 1
+  },
+  "files": 1,
+  "testFiles": 0,
+  "sites": [
+   "abg/instruction_assembly.ts:623:produce"
+  ]
+ },
+ {
+  "value": "historical_context_or_invocation_mismatch",
+  "type": 0,
+  "test": 0,
+  "produce": 1,
+  "props": {},
+  "files": 1,
+  "testFiles": 0,
+  "sites": [
+   "abg/semantic_revision.ts:286:produce"
+  ]
+ },
+ {
+  "value": "historical_environment_mismatch",
+  "type": 0,
+  "test": 0,
+  "produce": 1,
+  "props": {},
+  "files": 1,
+  "testFiles": 0,
+  "sites": [
+   "abg/semantic_revision.ts:296:produce"
+  ]
+ },
+ {
+  "value": "historical_inventory_not_selected",
+  "type": 0,
+  "test": 0,
+  "produce": 1,
+  "props": {
+   "bodyDisposition": 1
+  },
+  "files": 1,
+  "testFiles": 0,
+  "sites": [
+   "abg/instruction_assembly.ts:619:produce"
+  ]
+ },
+ {
+  "value": "historical_parent_target_refs",
+  "type": 0,
+  "test": 0,
+  "produce": 1,
+  "props": {},
+  "files": 1,
+  "testFiles": 0,
+  "sites": [
+   "abg/instruction_assembly.ts:1187:produce"
+  ]
+ },
+ {
+  "value": "historical_run",
+  "type": 0,
+  "test": 0,
+  "produce": 1,
+  "props": {},
+  "files": 1,
+  "testFiles": 0,
+  "sites": [
+   "abg/native_work_reacquisition.ts:286:produce"
+  ]
+ },
+ {
+  "value": "hold_route_admitted",
+  "type": 0,
+  "test": 0,
+  "produce": 3,
+  "props": {},
+  "files": 1,
+  "testFiles": 0,
+  "sites": [
+   "abg/calculus/axioms.ts:318:produce",
+   "abg/calculus/axioms.ts:1255:produce",
+   "abg/calculus/axioms.ts:1571:produce"
+  ]
+ },
+ {
+  "value": "immutable_payloads",
+  "type": 0,
+  "test": 0,
+  "produce": 1,
+  "props": {},
+  "files": 1,
+  "testFiles": 0,
+  "sites": [
+   "abg/event_prefix.ts:489:produce"
+  ]
+ },
+ {
+  "value": "immutable_product_filesystem",
+  "type": 0,
+  "test": 0,
+  "produce": 1,
+  "props": {
+   "effectClass": 1
+  },
+  "files": 1,
+  "testFiles": 0,
+  "sites": [
+   "product/install_operation_contracts.ts:59:produce"
+  ]
+ },
+ {
+  "value": "immutable_release_publication",
+  "type": 0,
+  "test": 0,
+  "produce": 1,
+  "props": {
+   "effectClass": 1
+  },
+  "files": 1,
+  "testFiles": 0,
+  "sites": [
+   "product/release_snapshot_operations.ts:81:produce"
+  ]
+ },
+ {
+  "value": "included_declared_evidence_material",
+  "type": 0,
+  "test": 0,
+  "produce": 1,
+  "props": {},
+  "files": 1,
+  "testFiles": 0,
+  "sites": [
+   "abg/instruction_assembly.ts:983:produce"
+  ]
+ },
+ {
+  "value": "included_declared_semantics",
+  "type": 0,
+  "test": 0,
+  "produce": 1,
+  "props": {
+   "predecessors": 1
+  },
+  "files": 1,
+  "testFiles": 0,
+  "sites": [
+   "abg/instruction_assembly.ts:976:produce"
+  ]
+ },
+ {
+  "value": "included_full",
+  "type": 0,
+  "test": 0,
+  "produce": 6,
+  "props": {
+   "disposition": 2
+  },
+  "files": 2,
+  "testFiles": 0,
+  "sites": [
+   "abg/instruction_assembly.ts:272:produce",
+   "abg/instruction_assembly.ts:362:produce",
+   "abg/instruction_assembly.ts:791:produce",
+   "abg/instruction_assembly.ts:983:produce",
+   "abg/instruction_assembly.ts:1207:produce",
+   "abg/stdo_environment.ts:322:produce"
+  ]
+ },
+ {
+  "value": "included_full_semantics",
+  "type": 0,
+  "test": 0,
+  "produce": 2,
+  "props": {
+   "disposition": 1
+  },
+  "files": 1,
+  "testFiles": 0,
+  "sites": [
+   "abg/instruction_assembly.ts:975:produce",
+   "abg/instruction_assembly.ts:976:produce"
+  ]
+ },
+ {
+  "value": "included_identity_bodies_omitted",
+  "type": 0,
+  "test": 0,
+  "produce": 2,
+  "props": {},
+  "files": 1,
+  "testFiles": 0,
+  "sites": [
+   "abg/instruction_assembly.ts:791:produce",
+   "abg/instruction_assembly.ts:982:produce"
+  ]
+ },
+ {
+  "value": "included_semantics",
+  "type": 0,
+  "test": 0,
+  "produce": 1,
+  "props": {
+   "disposition": 1
+  },
+  "files": 1,
+  "testFiles": 0,
+  "sites": [
+   "abg/instruction_assembly.ts:974:produce"
+  ]
+ },
+ {
+  "value": "incoming_requirement_ref",
+  "type": 0,
+  "test": 0,
+  "produce": 1,
+  "props": {
+   "existing": 1
+  },
+  "files": 1,
+  "testFiles": 0,
+  "sites": [
+   "product/semantic_job.ts:348:produce"
+  ]
+ },
+ {
+  "value": "independent_satisfied_assessment",
+  "type": 0,
+  "test": 0,
+  "produce": 1,
+  "props": {
+   "activation": 1
+  },
+  "files": 1,
+  "testFiles": 0,
+  "sites": [
+   "product/semantic_job.ts:349:produce"
+  ]
+ },
+ {
+  "value": "indexed_invocation_admission_refusal",
+  "type": 0,
+  "test": 0,
+  "produce": 1,
+  "props": {
+   "const": 1
+  },
+  "files": 1,
+  "testFiles": 0,
+  "sites": [
+   "public/binding/public_function_projections.ts:427:produce"
+  ]
+ },
+ {
+  "value": "input_bound_semantic_job_design_response",
+  "type": 0,
+  "test": 0,
+  "produce": 1,
+  "props": {
+   "expected": 1
+  },
+  "files": 1,
+  "testFiles": 0,
+  "sites": [
+   "implementation/semantic_stage.ts:83:produce"
+  ]
+ },
+ {
+  "value": "input_implementation_environment",
+  "type": 0,
+  "test": 0,
+  "produce": 1,
+  "props": {},
+  "files": 1,
+  "testFiles": 0,
+  "sites": [
+   "abg/default_library.ts:54:produce"
+  ]
+ },
+ {
+  "value": "install_failed",
+  "type": 0,
+  "test": 0,
+  "produce": 2,
+  "props": {},
+  "files": 2,
+  "testFiles": 0,
+  "sites": [
+   "product/contracts.ts:343:produce",
+   "product/install_product.ts:387:produce"
+  ]
+ },
+ {
+  "value": "installed_admission_basis_bound",
+  "type": 0,
+  "test": 0,
+  "produce": 1,
+  "props": {},
+  "files": 1,
+  "testFiles": 0,
+  "sites": [
+   "validator/self_conformance.ts:150:produce"
+  ]
+ },
+ {
+  "value": "installed_admission_basis_mismatch",
+  "type": 0,
+  "test": 0,
+  "produce": 1,
+  "props": {},
+  "files": 1,
+  "testFiles": 0,
+  "sites": [
+   "validator/self_conformance.ts:149:produce"
+  ]
+ },
+ {
+  "value": "installed_candidate_basis_mismatch",
+  "type": 0,
+  "test": 0,
+  "produce": 1,
+  "props": {},
+  "files": 1,
+  "testFiles": 0,
+  "sites": [
+   "validator/self_conformance.ts:147:produce"
+  ]
+ },
+ {
+  "value": "installed_identity_mismatch",
+  "type": 0,
+  "test": 0,
+  "produce": 4,
+  "props": {},
+  "files": 2,
+  "testFiles": 0,
+  "sites": [
+   "product/contracts.ts:344:produce",
+   "product/install_product.ts:395:produce",
+   "product/install_product.ts:405:produce",
+   "product/install_product.ts:416:produce"
+  ]
+ },
+ {
+  "value": "installed_manifest_mismatch",
+  "type": 0,
+  "test": 0,
+  "produce": 4,
+  "props": {},
+  "files": 2,
+  "testFiles": 0,
+  "sites": [
+   "product/contracts.ts:345:produce",
+   "product/install_product.ts:421:produce",
+   "product/install_product.ts:425:produce",
+   "product/install_product.ts:436:produce"
+  ]
+ },
+ {
+  "value": "installed_verified",
+  "type": 0,
+  "test": 0,
+  "produce": 3,
+  "props": {
+   "disposition": 1
+  },
+  "files": 2,
+  "testFiles": 0,
+  "sites": [
+   "product/verification_definition_bindings.ts:308:produce",
+   "product/verification_operation_contracts.ts:80:produce",
+   "product/verification_operation_contracts.ts:133:produce"
+  ]
+ },
+ {
+  "value": "instruction_assembly_required",
+  "type": 0,
+  "test": 0,
+  "produce": 1,
+  "props": {},
+  "files": 1,
+  "testFiles": 0,
+  "sites": [
+   "product/requirement_handoff.ts:32:produce"
+  ]
+ },
+ {
+  "value": "intake_basis_mismatch",
+  "type": 0,
+  "test": 0,
+  "produce": 1,
+  "props": {},
+  "files": 1,
+  "testFiles": 0,
+  "sites": [
+   "abg/semantic_revision.ts:193:produce"
+  ]
+ },
+ {
+  "value": "intake_projection_exception",
+  "type": 0,
+  "test": 0,
+  "produce": 1,
+  "props": {},
+  "files": 1,
+  "testFiles": 0,
+  "sites": [
+   "abg/semantic_revision.ts:307:produce"
+  ]
+ },
+ {
+  "value": "intent_reprice",
+  "type": 0,
+  "test": 0,
+  "produce": 3,
+  "props": {},
+  "files": 2,
+  "testFiles": 0,
+  "sites": [
+   "abg/event_store.ts:3145:produce",
+   "abg/event_store.ts:3182:produce",
+   "abg/witness_admission_operation.ts:174:produce"
+  ]
+ },
+ {
+  "value": "interaction_replay_projection",
+  "type": 0,
+  "test": 0,
+  "produce": 1,
+  "props": {},
+  "files": 1,
+  "testFiles": 0,
+  "sites": [
+   "abg/project_read_operation_contracts.ts:471:produce"
+  ]
+ },
+ {
+  "value": "invalid_arguments",
+  "type": 0,
+  "test": 0,
+  "produce": 1,
+  "props": {},
+  "files": 1,
+  "testFiles": 0,
+  "sites": [
+   "public/cli.ts:84:produce"
+  ]
+ },
+ {
+  "value": "invalid_constructor",
+  "type": 0,
+  "test": 0,
+  "produce": 7,
+  "props": {
+   "id": 1
+  },
+  "files": 2,
+  "testFiles": 0,
+  "sites": [
+   "validator/c_algebra.ts:45:produce",
+   "validator/c_algebra.ts:258:produce",
+   "validator/c_algebra.ts:285:produce",
+   "validator/c_algebra.ts:297:produce",
+   "validator/c_algebra.ts:334:produce",
+   "validator/c_algebra.ts:440:produce"
+  ]
+ },
+ {
+  "value": "invalid_coordinate",
+  "type": 0,
+  "test": 0,
+  "produce": 15,
+  "props": {},
+  "files": 2,
+  "testFiles": 0,
+  "sites": [
+   "product/worksite_effect.ts:163:produce",
+   "product/worksite_effect.ts:806:produce",
+   "product/worksite_effect.ts:888:produce",
+   "product/worksite_effect.ts:954:produce",
+   "product/worksite_effect.ts:966:produce",
+   "product/worksite_effect.ts:1089:produce"
+  ]
+ },
+ {
+  "value": "invalid_correlation_ref",
+  "type": 0,
+  "test": 0,
+  "produce": 1,
+  "props": {},
+  "files": 1,
+  "testFiles": 0,
+  "sites": [
+   "public/binding/public_function_projections.ts:466:produce"
+  ]
+ },
+ {
+  "value": "invalid_declared_dependency",
+  "type": 0,
+  "test": 0,
+  "produce": 2,
+  "props": {},
+  "files": 2,
+  "testFiles": 0,
+  "sites": [
+   "product/verification_definition_bindings.ts:284:produce",
+   "product/verification_operation_contracts.ts:102:produce"
+  ]
+ },
+ {
+  "value": "invalid_event_time",
+  "type": 0,
+  "test": 0,
+  "produce": 1,
+  "props": {},
+  "files": 1,
+  "testFiles": 0,
+  "sites": [
+   "public/binding/public_function_projections.ts:467:produce"
+  ]
+ },
+ {
+  "value": "invalid_fibre",
+  "type": 0,
+  "test": 0,
+  "produce": 2,
+  "props": {
+   "id": 1
+  },
+  "files": 2,
+  "testFiles": 0,
+  "sites": [
+   "validator/c_algebra.ts:237:produce",
+   "validator/validation.ts:59:produce"
+  ]
+ },
+ {
+  "value": "invalid_import_authority",
+  "type": 0,
+  "test": 0,
+  "produce": 1,
+  "props": {},
+  "files": 1,
+  "testFiles": 0,
+  "sites": [
+   "product/workspace_operation_contracts.ts:26:produce"
+  ]
+ },
+ {
+  "value": "invalid_json",
+  "type": 0,
+  "test": 0,
+  "produce": 1,
+  "props": {},
+  "files": 1,
+  "testFiles": 0,
+  "sites": [
+   "public/cli.ts:105:produce"
+  ]
+ },
+ {
+  "value": "invalid_json_text",
+  "type": 0,
+  "test": 0,
+  "produce": 1,
+  "props": {},
+  "files": 1,
+  "testFiles": 0,
+  "sites": [
+   "public/binding/public_function_projections.ts:458:produce"
+  ]
+ },
+ {
+  "value": "invalid_member_identity",
+  "type": 0,
+  "test": 0,
+  "produce": 1,
+  "props": {},
+  "files": 1,
+  "testFiles": 0,
+  "sites": [
+   "public/binding/public_function_projections.ts:465:produce"
+  ]
+ },
+ {
+  "value": "invalid_operation_identity",
+  "type": 0,
+  "test": 0,
+  "produce": 1,
+  "props": {},
+  "files": 1,
+  "testFiles": 0,
+  "sites": [
+   "public/binding/public_function_projections.ts:464:produce"
+  ]
+ },
+ {
+  "value": "invalid_product_verification_owner_output",
+  "type": 0,
+  "test": 0,
+  "produce": 1,
+  "props": {},
+  "files": 1,
+  "testFiles": 0,
+  "sites": [
+   "product/verification_definition_bindings.ts:375:produce"
+  ]
+ },
+ {
+  "value": "invalid_relative_path",
+  "type": 0,
+  "test": 0,
+  "produce": 7,
+  "props": {},
+  "files": 2,
+  "testFiles": 0,
+  "sites": [
+   "product/worksite_effect.ts:164:produce",
+   "product/worksite_effect.ts:785:produce",
+   "product/worksite_effect.ts:867:produce",
+   "product/worksite_effect.ts:1875:produce",
+   "product/worksite_operations.ts:228:produce",
+   "product/worksite_operations.ts:965:produce"
+  ]
+ },
+ {
+  "value": "invalid_request_candidate",
+  "type": 0,
+  "test": 0,
+  "produce": 1,
+  "props": {},
+  "files": 1,
+  "testFiles": 0,
+  "sites": [
+   "public/binding/public_function_projections.ts:468:produce"
+  ]
+ },
+ {
+  "value": "invalid_result_cardinality",
+  "type": 0,
+  "test": 0,
+  "produce": 5,
+  "props": {
+   "id": 1
+  },
+  "files": 2,
+  "testFiles": 0,
+  "sites": [
+   "validator/c_algebra.ts:229:produce",
+   "validator/c_algebra.ts:406:produce",
+   "validator/c_algebra.ts:422:produce",
+   "validator/c_algebra.ts:472:produce",
+   "validator/validation.ts:62:produce"
+  ]
+ },
+ {
+  "value": "invalid_scaffold",
+  "type": 0,
+  "test": 0,
+  "produce": 2,
+  "props": {
+   "code": 1
+  },
+  "files": 2,
+  "testFiles": 0,
+  "sites": [
+   "product/workspace_definition_bindings.ts:188:produce",
+   "product/workspace_operation_contracts.ts:25:produce"
+  ]
+ },
+ {
+  "value": "invalid_schema_version",
+  "type": 0,
+  "test": 0,
+  "produce": 1,
+  "props": {},
+  "files": 1,
+  "testFiles": 0,
+  "sites": [
+   "public/binding/public_function_projections.ts:463:produce"
+  ]
+ },
+ {
+  "value": "invalid_transport_request",
+  "type": 0,
+  "test": 0,
+  "produce": 2,
+  "props": {},
+  "files": 1,
+  "testFiles": 0,
+  "sites": [
+   "public/cli.ts:95:produce",
+   "public/cli.ts:114:produce"
+  ]
+ },
+ {
+  "value": "invalid_utf8",
+  "type": 0,
+  "test": 0,
+  "produce": 1,
+  "props": {},
+  "files": 1,
+  "testFiles": 0,
+  "sites": [
+   "public/binding/public_function_projections.ts:457:produce"
+  ]
+ },
+ {
+  "value": "invalid_worksite_root",
+  "type": 0,
+  "test": 0,
+  "produce": 4,
+  "props": {},
+  "files": 2,
+  "testFiles": 0,
+  "sites": [
+   "product/worksite_effect.ts:168:produce",
+   "product/worksite_effect.ts:1875:produce",
+   "product/worksite_operations.ts:210:produce",
+   "product/worksite_operations.ts:244:produce"
+  ]
+ },
+ {
+  "value": "invocation_admission_not_projected",
+  "type": 0,
+  "test": 0,
+  "produce": 1,
+  "props": {
+   "code": 1
+  },
+  "files": 1,
+  "testFiles": 0,
+  "sites": [
+   "abg/invocation_execution_truth.ts:319:produce"
+  ]
+ },
+ {
+  "value": "invocation_grant",
+  "type": 0,
+  "test": 0,
+  "produce": 1,
+  "props": {},
+  "files": 1,
+  "testFiles": 0,
+  "sites": [
+   "abg/default_library.ts:56:produce"
+  ]
+ },
+ {
+  "value": "invocation_run_environment",
+  "type": 0,
+  "test": 0,
+  "produce": 1,
+  "props": {
+   "owner": 1
+  },
+  "files": 1,
+  "testFiles": 0,
+  "sites": [
+   "abg/replay.ts:2018:produce"
+  ]
+ },
+ {
+  "value": "invocation_source",
+  "type": 0,
+  "test": 0,
+  "produce": 1,
+  "props": {},
+  "files": 1,
+  "testFiles": 0,
+  "sites": [
+   "abg/native_work_reacquisition.ts:182:produce"
+  ]
+ },
+ {
+  "value": "job_bridge_relation_mismatch",
+  "type": 0,
+  "test": 0,
+  "produce": 1,
+  "props": {},
+  "files": 1,
+  "testFiles": 0,
+  "sites": [
+   "implementation/semantic_stage.ts:126:produce"
+  ]
+ },
+ {
+  "value": "job_context_relation_mismatch",
+  "type": 0,
+  "test": 0,
+  "produce": 1,
+  "props": {},
+  "files": 1,
+  "testFiles": 0,
+  "sites": [
+   "implementation/semantic_stage.ts:118:produce"
+  ]
+ },
+ {
+  "value": "job_plan_relation_mismatch",
+  "type": 0,
+  "test": 0,
+  "produce": 1,
+  "props": {},
+  "files": 1,
+  "testFiles": 0,
+  "sites": [
+   "implementation/semantic_stage.ts:122:produce"
+  ]
+ },
+ {
+  "value": "json_pointer",
+  "type": 0,
+  "test": 0,
+  "produce": 1,
+  "props": {},
+  "files": 1,
+  "testFiles": 0,
+  "sites": [
+   "shared/public_function_contracts.ts:131:produce"
+  ]
+ },
+ {
+  "value": "json_pointer_fragment",
+  "type": 0,
+  "test": 0,
+  "produce": 1,
+  "props": {},
+  "files": 1,
+  "testFiles": 0,
+  "sites": [
+   "shared/public_function_contracts.ts:137:produce"
+  ]
+ },
+ {
+  "value": "justified_exclusion",
+  "type": 0,
+  "test": 0,
+  "produce": 2,
+  "props": {},
+  "files": 2,
+  "testFiles": 0,
+  "sites": [
+   "validator/qualification.ts:797:produce",
+   "validator/qualification_contracts.ts:274:produce"
+  ]
+ },
+ {
+  "value": "law_basis_mismatch",
+  "type": 0,
+  "test": 0,
+  "produce": 1,
+  "props": {},
+  "files": 1,
+  "testFiles": 0,
+  "sites": [
+   "product/release_snapshot_operations.ts:77:produce"
+  ]
+ },
+ {
+  "value": "law_source_inventory_mismatch",
+  "type": 0,
+  "test": 0,
+  "produce": 1,
+  "props": {},
+  "files": 1,
+  "testFiles": 0,
+  "sites": [
+   "validator/self_conformance.ts:175:produce"
+  ]
+ },
+ {
+  "value": "local_native_contract_evidence",
+  "type": 0,
+  "test": 0,
+  "produce": 1,
+  "props": {
+   "kind": 1
+  },
+  "files": 1,
+  "testFiles": 0,
+  "sites": [
+   "product/verify_product.ts:263:produce"
+  ]
+ },
+ {
+  "value": "local_presentation_refs",
+  "type": 0,
+  "test": 0,
+  "produce": 1,
+  "props": {
+   "repeatedMaterial": 1
+  },
+  "files": 1,
+  "testFiles": 0,
+  "sites": [
+   "abg/instruction_assembly.ts:1200:produce"
+  ]
+ },
+ {
+  "value": "local_refs",
+  "type": 0,
+  "test": 0,
+  "produce": 1,
+  "props": {},
+  "files": 1,
+  "testFiles": 0,
+  "sites": [
+   "implementation/release_publication.ts:105:produce"
+  ]
+ },
+ {
+  "value": "local_tag_object",
+  "type": 0,
+  "test": 0,
+  "produce": 1,
+  "props": {
+   "kind": 1
+  },
+  "files": 1,
+  "testFiles": 0,
+  "sites": [
+   "implementation/release_publication.ts:103:produce"
+  ]
+ },
+ {
+  "value": "local_tag_objects",
+  "type": 0,
+  "test": 0,
+  "produce": 1,
+  "props": {},
+  "files": 1,
+  "testFiles": 0,
+  "sites": [
+   "implementation/release_publication.ts:102:produce"
+  ]
+ },
+ {
+  "value": "malformed_contribution",
+  "type": 0,
+  "test": 0,
+  "produce": 3,
+  "props": {},
+  "files": 2,
+  "testFiles": 0,
+  "sites": [
+   "product/catalog_definition_bindings.ts:387:produce",
+   "product/catalog_definition_bindings.ts:400:produce",
+   "product/catalog_operation_contracts.ts:202:produce"
+  ]
+ },
+ {
+  "value": "malformed_descriptor",
+  "type": 0,
+  "test": 0,
+  "produce": 2,
+  "props": {},
+  "files": 2,
+  "testFiles": 0,
+  "sites": [
+   "product/catalog_definition_bindings.ts:393:produce",
+   "product/catalog_operation_contracts.ts:201:produce"
+  ]
+ },
+ {
+  "value": "malformed_owner_output",
+  "type": 0,
+  "test": 0,
+  "produce": 1,
+  "props": {},
+  "files": 1,
+  "testFiles": 0,
+  "sites": [
+   "public/binding/public_function_projections.ts:509:produce"
+  ]
+ },
+ {
+  "value": "manifest_digest_mismatch",
+  "type": 0,
+  "test": 0,
+  "produce": 2,
+  "props": {},
+  "files": 2,
+  "testFiles": 0,
+  "sites": [
+   "product/contracts.ts:169:produce",
+   "product/verify_product.ts:2068:produce"
+  ]
+ },
+ {
+  "value": "manifest_malformed",
+  "type": 0,
+  "test": 0,
+  "produce": 3,
+  "props": {},
+  "files": 2,
+  "testFiles": 0,
+  "sites": [
+   "product/contracts.ts:168:produce",
+   "product/verify_product.ts:2059:produce",
+   "product/verify_product.ts:2116:produce"
+  ]
+ },
+ {
+  "value": "manifest_or_provenance_mismatch",
+  "type": 0,
+  "test": 0,
+  "produce": 2,
+  "props": {},
+  "files": 2,
+  "testFiles": 0,
+  "sites": [
+   "product/catalog.ts:665:produce",
+   "product/catalog_operation_contracts.ts:73:produce"
+  ]
+ },
+ {
+  "value": "manifest_row_absent",
+  "type": 0,
+  "test": 0,
+  "produce": 2,
+  "props": {},
+  "files": 2,
+  "testFiles": 0,
+  "sites": [
+   "product/catalog.ts:641:produce",
+   "product/catalog_operation_contracts.ts:72:produce"
+  ]
+ },
+ {
+  "value": "manifest_row_ambiguous",
+  "type": 0,
+  "test": 0,
+  "produce": 2,
+  "props": {},
+  "files": 2,
+  "testFiles": 0,
+  "sites": [
+   "product/catalog.ts:641:produce",
+   "product/catalog_operation_contracts.ts:86:produce"
+  ]
+ },
+ {
+  "value": "missing_common_field",
+  "type": 0,
+  "test": 0,
+  "produce": 1,
+  "props": {},
+  "files": 1,
+  "testFiles": 0,
+  "sites": [
+   "public/binding/public_function_projections.ts:460:produce"
+  ]
+ },
+ {
+  "value": "missing_interaction",
+  "type": 0,
+  "test": 0,
+  "produce": 1,
+  "props": {},
+  "files": 1,
+  "testFiles": 0,
+  "sites": [
+   "product/interaction_operation_contracts.ts:39:produce"
+  ]
+ },
+ {
+  "value": "missing_projected_identity",
+  "type": 0,
+  "test": 0,
+  "produce": 2,
+  "props": {},
+  "files": 1,
+  "testFiles": 0,
+  "sites": [
+   "product/public_contract_publication.ts:48:produce",
+   "product/public_contract_publication.ts:647:produce"
+  ]
+ },
+ {
+  "value": "missing_readiness_prerequisite",
+  "type": 0,
+  "test": 0,
+  "produce": 1,
+  "props": {},
+  "files": 1,
+  "testFiles": 0,
+  "sites": [
+   "product/catalog_operation_contracts.ts:94:produce"
+  ]
+ },
+ {
+  "value": "mutable_default",
+  "type": 0,
+  "test": 0,
+  "produce": 2,
+  "props": {
+   "mutable_default_forbidden": 1
+  },
+  "files": 2,
+  "testFiles": 0,
+  "sites": [
+   "product/materialization_definition_bindings.ts:132:produce",
+   "product/materialization_operation_contracts.ts:40:produce"
+  ]
+ },
+ {
+  "value": "native_assembly_basis_derivation",
+  "type": 0,
+  "test": 0,
+  "produce": 1,
+  "props": {},
+  "files": 1,
+  "testFiles": 0,
+  "sites": [
+   "abg/execution_basis.ts:226:produce"
+  ]
+ },
+ {
+  "value": "native_binding_cover",
+  "type": 0,
+  "test": 0,
+  "produce": 1,
+  "props": {},
+  "files": 1,
+  "testFiles": 0,
+  "sites": [
+   "abg/native_work_reacquisition.ts:84:produce"
+  ]
+ },
+ {
+  "value": "native_command_source_proof",
+  "type": 0,
+  "test": 0,
+  "produce": 1,
+  "props": {},
+  "files": 1,
+  "testFiles": 0,
+  "sites": [
+   "abg/native_worksite_execution.ts:37:produce"
+  ]
+ },
+ {
+  "value": "native_command_task_proof",
+  "type": 0,
+  "test": 0,
+  "produce": 1,
+  "props": {},
+  "files": 1,
+  "testFiles": 0,
+  "sites": [
+   "abg/native_worksite_execution.ts:36:produce"
+  ]
+ },
+ {
+  "value": "native_current_environment",
+  "type": 0,
+  "test": 0,
+  "produce": 1,
+  "props": {},
+  "files": 1,
+  "testFiles": 0,
+  "sites": [
+   "abg/native_work_reacquisition.ts:79:produce"
+  ]
+ },
+ {
+  "value": "native_current_source",
+  "type": 0,
+  "test": 0,
+  "produce": 1,
+  "props": {},
+  "files": 1,
+  "testFiles": 0,
+  "sites": [
+   "abg/native_work_reacquisition.ts:92:produce"
+  ]
+ },
+ {
+  "value": "native_frontier_and_budget",
+  "type": 0,
+  "test": 0,
+  "produce": 2,
+  "props": {},
+  "files": 1,
+  "testFiles": 0,
+  "sites": [
+   "abg/calculus/liveness.ts:800:produce",
+   "abg/calculus/liveness.ts:809:produce"
+  ]
+ },
+ {
+  "value": "native_occurrence_basis",
+  "type": 0,
+  "test": 0,
+  "produce": 1,
+  "props": {},
+  "files": 1,
+  "testFiles": 0,
+  "sites": [
+   "abg/native_work_reacquisition.ts:136:produce"
+  ]
+ },
+ {
+  "value": "native_occurrence_input",
+  "type": 0,
+  "test": 0,
+  "produce": 1,
+  "props": {},
+  "files": 1,
+  "testFiles": 0,
+  "sites": [
+   "abg/native_work_reacquisition.ts:133:produce"
+  ]
+ },
+ {
+  "value": "native_occurrence_phase",
+  "type": 0,
+  "test": 0,
+  "produce": 1,
+  "props": {},
+  "files": 1,
+  "testFiles": 0,
+  "sites": [
+   "abg/native_work_reacquisition.ts:283:produce"
+  ]
+ },
+ {
+  "value": "native_occurrence_state",
+  "type": 0,
+  "test": 0,
+  "produce": 1,
+  "props": {},
+  "files": 1,
+  "testFiles": 0,
+  "sites": [
+   "abg/native_work_reacquisition.ts:177:produce"
+  ]
+ },
+ {
+  "value": "native_occurrence_subjects",
+  "type": 0,
+  "test": 0,
+  "produce": 2,
+  "props": {},
+  "files": 1,
+  "testFiles": 0,
+  "sites": [
+   "abg/native_work_reacquisition.ts:194:produce",
+   "abg/native_work_reacquisition.ts:201:produce"
+  ]
+ },
+ {
+  "value": "native_preparation_owner",
+  "type": 0,
+  "test": 0,
+  "produce": 1,
+  "props": {},
+  "files": 1,
+  "testFiles": 0,
+  "sites": [
+   "abg/native_work_reacquisition.ts:216:produce"
+  ]
+ },
+ {
+  "value": "native_request_construction",
+  "type": 0,
+  "test": 0,
+  "produce": 1,
+  "props": {},
+  "files": 1,
+  "testFiles": 0,
+  "sites": [
+   "abg/native_work_reacquisition.ts:242:produce"
+  ]
+ },
+ {
+  "value": "native_revision_basis_unavailable",
+  "type": 0,
+  "test": 0,
+  "produce": 1,
+  "props": {},
+  "files": 1,
+  "testFiles": 0,
+  "sites": [
+   "implementation/semantic_revision.ts:114:produce"
+  ]
+ },
+ {
+  "value": "native_revision_current_context_unavailable",
+  "type": 0,
+  "test": 0,
+  "produce": 1,
+  "props": {},
+  "files": 1,
+  "testFiles": 0,
+  "sites": [
+   "abg/semantic_revision.ts:325:produce"
+  ]
+ },
+ {
+  "value": "native_revision_input_malformed",
+  "type": 0,
+  "test": 0,
+  "produce": 1,
+  "props": {},
+  "files": 1,
+  "testFiles": 0,
+  "sites": [
+   "abg/semantic_revision.ts:319:produce"
+  ]
+ },
+ {
+  "value": "native_revision_parent_ambiguous",
+  "type": 0,
+  "test": 0,
+  "produce": 1,
+  "props": {},
+  "files": 1,
+  "testFiles": 0,
+  "sites": [
+   "abg/semantic_revision.ts:272:produce"
+  ]
+ },
+ {
+  "value": "native_runtime_source_unadmitted",
+  "type": 0,
+  "test": 0,
+  "produce": 1,
+  "props": {},
+  "files": 1,
+  "testFiles": 0,
+  "sites": [
+   "implementation/qualification.ts:100:produce"
+  ]
+ },
+ {
+  "value": "native_selected_result",
+  "type": 0,
+  "test": 0,
+  "produce": 1,
+  "props": {},
+  "files": 1,
+  "testFiles": 0,
+  "sites": [
+   "abg/native_work_reacquisition.ts:227:produce"
+  ]
+ },
+ {
+  "value": "native_source_ancestry",
+  "type": 0,
+  "test": 0,
+  "produce": 1,
+  "props": {},
+  "files": 1,
+  "testFiles": 0,
+  "sites": [
+   "abg/native_work_reacquisition.ts:70:produce"
+  ]
+ },
+ {
+  "value": "native_source_run",
+  "type": 0,
+  "test": 0,
+  "produce": 1,
+  "props": {},
+  "files": 1,
+  "testFiles": 0,
+  "sites": [
+   "abg/native_work_reacquisition.ts:286:produce"
+  ]
+ },
+ {
+  "value": "native_store",
+  "type": 0,
+  "test": 0,
+  "produce": 1,
+  "props": {
+   "owner": 1
+  },
+  "files": 1,
+  "testFiles": 0,
+  "sites": [
+   "abg/event_contract_profiles.ts:227:produce"
+  ]
+ },
+ {
+  "value": "native_task_construction",
+  "type": 0,
+  "test": 0,
+  "produce": 1,
+  "props": {},
+  "files": 1,
+  "testFiles": 0,
+  "sites": [
+   "abg/native_work_reacquisition.ts:89:produce"
+  ]
+ },
+ {
+  "value": "native_task_derivation",
+  "type": 0,
+  "test": 0,
+  "produce": 1,
+  "props": {},
+  "files": 1,
+  "testFiles": 0,
+  "sites": [
+   "abg/native_work_reacquisition.ts:254:produce"
+  ]
+ },
+ {
+  "value": "native_work_required",
+  "type": 0,
+  "test": 0,
+  "produce": 1,
+  "props": {},
+  "files": 1,
+  "testFiles": 0,
+  "sites": [
+   "abg/default_library.ts:455:produce"
+  ]
+ },
+ {
+  "value": "native_work_value",
+  "type": 0,
+  "test": 0,
+  "produce": 1,
+  "props": {},
+  "files": 1,
+  "testFiles": 0,
+  "sites": [
+   "abg/native_work_reacquisition.ts:233:produce"
+  ]
+ },
+ {
+  "value": "native_worksite_command_reacquisition_child_closure",
+  "type": 0,
+  "test": 0,
+  "produce": 1,
+  "props": {},
+  "files": 1,
+  "testFiles": 0,
+  "sites": [
+   "gtl/worksite_command_execution.ts:312:produce"
+  ]
+ },
+ {
+  "value": "native_worksite_command_reacquisition_closure",
+  "type": 0,
+  "test": 0,
+  "produce": 1,
+  "props": {},
+  "files": 1,
+  "testFiles": 0,
+  "sites": [
+   "gtl/worksite_command_execution.ts:311:produce"
+  ]
+ },
+ {
+  "value": "native_workspace_work",
+  "type": 0,
+  "test": 0,
+  "produce": 1,
+  "props": {
+   "operation": 1
+  },
+  "files": 1,
+  "testFiles": 0,
+  "sites": [
+   "product/native_workspace_work_identity.ts:23:produce"
+  ]
+ },
+ {
+  "value": "native_workspace_work_child_closure",
+  "type": 0,
+  "test": 0,
+  "produce": 1,
+  "props": {},
+  "files": 1,
+  "testFiles": 0,
+  "sites": [
+   "gtl/native_workspace_work.ts:36:produce"
+  ]
+ },
+ {
+  "value": "native_workspace_work_closure",
+  "type": 0,
+  "test": 0,
+  "produce": 1,
+  "props": {},
+  "files": 1,
+  "testFiles": 0,
+  "sites": [
+   "gtl/native_workspace_work.ts:35:produce"
+  ]
+ },
+ {
+  "value": "native_workspace_work_judgment",
+  "type": 0,
+  "test": 0,
+  "produce": 1,
+  "props": {},
+  "files": 1,
+  "testFiles": 0,
+  "sites": [
+   "gtl/native_workspace_work.ts:34:produce"
+  ]
+ },
+ {
+  "value": "native_workspace_work_refusal",
+  "type": 0,
+  "test": 0,
+  "produce": 2,
+  "props": {
+   "refusalValueKind": 1
+  },
+  "files": 1,
+  "testFiles": 0,
+  "sites": [
+   "gtl/native_workspace_work.ts:18:produce",
+   "gtl/native_workspace_work.ts:33:produce"
+  ]
+ },
+ {
+  "value": "native_workspace_work_transition",
+  "type": 0,
+  "test": 0,
+  "produce": 1,
+  "props": {},
+  "files": 1,
+  "testFiles": 0,
+  "sites": [
+   "gtl/native_workspace_work.ts:35:produce"
+  ]
+ },
+ {
+  "value": "next_action",
+  "type": 0,
+  "test": 0,
+  "produce": 1,
+  "props": {},
+  "files": 1,
+  "testFiles": 0,
+  "sites": [
+   "abg/project_read_operation_contracts.ts:513:produce"
+  ]
+ },
+ {
+  "value": "nonblank_string",
+  "type": 0,
+  "test": 0,
+  "produce": 1,
+  "props": {},
+  "files": 1,
+  "testFiles": 0,
+  "sites": [
+   "shared/public_function_contracts.ts:125:produce"
+  ]
+ },
+ {
+  "value": "nonempty_active_binding_domain",
+  "type": 0,
+  "test": 0,
+  "produce": 1,
+  "props": {},
+  "files": 1,
+  "testFiles": 0,
+  "sites": [
+   "product/semantic_job.ts:549:produce"
+  ]
+ },
+ {
+  "value": "not_i_json_object",
+  "type": 0,
+  "test": 0,
+  "produce": 1,
+  "props": {},
+  "files": 1,
+  "testFiles": 0,
+  "sites": [
+   "public/binding/public_function_projections.ts:459:produce"
+  ]
+ },
+ {
+  "value": "observation_basis_mismatch",
+  "type": 0,
+  "test": 0,
+  "produce": 1,
+  "props": {
+   "code": 1
+  },
+  "files": 1,
+  "testFiles": 0,
+  "sites": [
+   "owner_bindings/run_invocation.ts:1374:produce"
+  ]
+ },
+ {
+  "value": "observation_population",
+  "type": 0,
+  "test": 0,
+  "produce": 1,
+  "props": {},
+  "files": 1,
+  "testFiles": 0,
+  "sites": [
+   "abg/default_library.ts:313:produce"
+  ]
+ },
+ {
+  "value": "observed_output",
+  "type": 0,
+  "test": 0,
+  "produce": 1,
+  "props": {},
+  "files": 1,
+  "testFiles": 0,
+  "sites": [
+   "product/default_library.ts:463:produce"
+  ]
+ },
+ {
+  "value": "omitted_not_required",
+  "type": 0,
+  "test": 0,
+  "produce": 6,
+  "props": {
+   "bodyDisposition": 2,
+   "transportProvenance": 1,
+   "supersededBindings": 1
+  },
+  "files": 2,
+  "testFiles": 0,
+  "sites": [
+   "abg/instruction_assembly.ts:739:produce",
+   "abg/instruction_assembly.ts:942:produce",
+   "abg/instruction_assembly.ts:976:produce",
+   "abg/instruction_assembly.ts:977:produce",
+   "abg/instruction_assembly.ts:977:produce",
+   "abg/stdo_environment.ts:322:produce"
+  ]
+ },
+ {
+  "value": "open_refusal_admission",
+  "type": 0,
+  "test": 0,
+  "produce": 1,
+  "props": {},
+  "files": 1,
+  "testFiles": 0,
+  "sites": [
+   "owner_bindings/run_invocation.ts:1559:produce"
+  ]
+ },
+ {
+  "value": "open_selected_log_and_lock_descriptors",
+  "type": 0,
+  "test": 0,
+  "produce": 1,
+  "props": {},
+  "files": 1,
+  "testFiles": 0,
+  "sites": [
+   "abg/definition_event_resource.ts:411:produce"
+  ]
+ },
+ {
+  "value": "operator_abort",
+  "type": 0,
+  "test": 0,
+  "produce": 3,
+  "props": {},
+  "files": 2,
+  "testFiles": 0,
+  "sites": [
+   "abg/event_store.ts:3312:produce",
+   "abg/event_store.ts:3325:produce",
+   "abg/witness_admission_operation.ts:193:produce"
+  ]
+ },
+ {
+  "value": "ordered_artifact_facts",
+  "type": 0,
+  "test": 0,
+  "produce": 1,
+  "props": {},
+  "files": 1,
+  "testFiles": 0,
+  "sites": [
+   "abg/artifact_truth.ts:301:produce"
+  ]
+ },
+ {
+  "value": "ordered_canonical_prefix_digest",
+  "type": 0,
+  "test": 0,
+  "produce": 1,
+  "props": {},
+  "files": 1,
+  "testFiles": 0,
+  "sites": [
+   "abg/event_prefix.ts:788:produce"
+  ]
+ },
+ {
+  "value": "ordered_event_calculus_derivation",
+  "type": 0,
+  "test": 0,
+  "produce": 1,
+  "props": {},
+  "files": 1,
+  "testFiles": 0,
+  "sites": [
+   "abg/event_calculus.ts:80:produce"
+  ]
+ },
+ {
+  "value": "ordered_exact_terms_shared_with_retained_terms",
+  "type": 0,
+  "test": 0,
+  "produce": 1,
+  "props": {
+   "revisionGroundedTerms": 1
+  },
+  "files": 1,
+  "testFiles": 0,
+  "sites": [
+   "abg/instruction_assembly.ts:979:produce"
+  ]
+ },
+ {
+  "value": "original_job_or_lifecycle_mismatch",
+  "type": 0,
+  "test": 0,
+  "produce": 2,
+  "props": {},
+  "files": 1,
+  "testFiles": 0,
+  "sites": [
+   "abg/semantic_revision.ts:202:produce",
+   "abg/semantic_revision.ts:279:produce"
+  ]
+ },
+ {
+  "value": "owned_runtime_history_selection",
+  "type": 0,
+  "test": 0,
+  "produce": 1,
+  "props": {},
+  "files": 1,
+  "testFiles": 0,
+  "sites": [
+   "abg/runtime_history.ts:57:produce"
+  ]
+ },
+ {
+  "value": "owned_scope_indices",
+  "type": 0,
+  "test": 0,
+  "produce": 1,
+  "props": {},
+  "files": 1,
+  "testFiles": 0,
+  "sites": [
+   "abg/runtime_history.ts:41:produce"
+  ]
+ },
+ {
+  "value": "owner_artifact_mismatch",
+  "type": 0,
+  "test": 0,
+  "produce": 1,
+  "props": {},
+  "files": 1,
+  "testFiles": 0,
+  "sites": [
+   "product/admission_authority.ts:192:produce"
+  ]
+ },
+ {
+  "value": "owner_artifact_truth_derivation",
+  "type": 0,
+  "test": 0,
+  "produce": 1,
+  "props": {},
+  "files": 1,
+  "testFiles": 0,
+  "sites": [
+   "abg/artifact_truth.ts:814:produce"
+  ]
+ },
+ {
+  "value": "owner_artifact_truth_derivation_construction",
+  "type": 0,
+  "test": 0,
+  "produce": 1,
+  "props": {},
+  "files": 1,
+  "testFiles": 0,
+  "sites": [
+   "abg/artifact_truth.ts:815:produce"
+  ]
+ },
+ {
+  "value": "owner_authenticated_durable_cuts",
+  "type": 0,
+  "test": 0,
+  "produce": 1,
+  "props": {},
+  "files": 1,
+  "testFiles": 0,
+  "sites": [
+   "abg/event_store.ts:1770:produce"
+  ]
+ },
+ {
+  "value": "owner_execution",
+  "type": 0,
+  "test": 0,
+  "produce": 9,
+  "props": {},
+  "files": 7,
+  "testFiles": 0,
+  "sites": [
+   "abg/witness_definition_bindings.ts:363:produce",
+   "product/catalog_definition_bindings.ts:648:produce",
+   "product/catalog_definition_bindings.ts:767:produce",
+   "product/catalog_definition_bindings.ts:948:produce",
+   "product/environment_definition_bindings.ts:806:produce",
+   "product/install_definition_bindings.ts:412:produce"
+  ]
+ },
+ {
+  "value": "owner_execution_failure",
+  "type": 0,
+  "test": 0,
+  "produce": 6,
+  "props": {},
+  "files": 2,
+  "testFiles": 0,
+  "sites": [
+   "product/project_read_definition_bindings.ts:563:produce",
+   "product/project_read_definition_bindings.ts:641:produce",
+   "product/project_read_definition_bindings.ts:764:produce",
+   "product/project_read_definition_bindings.ts:865:produce",
+   "product/project_read_definition_bindings.ts:994:produce",
+   "validator/conformance_definition_bindings.ts:555:produce"
+  ]
+ },
+ {
+  "value": "owner_immutable_event_payloads",
+  "type": 0,
+  "test": 0,
+  "produce": 1,
+  "props": {},
+  "files": 1,
+  "testFiles": 0,
+  "sites": [
+   "abg/event_prefix.ts:460:produce"
+  ]
+ },
+ {
+  "value": "owner_indexed_sibling_assertion_and_receipt",
+  "type": 0,
+  "test": 0,
+  "produce": 1,
+  "props": {
+   "resourceRelation": 1
+  },
+  "files": 1,
+  "testFiles": 0,
+  "sites": [
+   "public/binding/owner_contract_source_set.ts:602:produce"
+  ]
+ },
+ {
+  "value": "owner_output_admission",
+  "type": 0,
+  "test": 0,
+  "produce": 1,
+  "props": {},
+  "files": 1,
+  "testFiles": 0,
+  "sites": [
+   "public/binding/static_definition_bindings.ts:168:produce"
+  ]
+ },
+ {
+  "value": "owner_prefix_receipt_construction",
+  "type": 0,
+  "test": 0,
+  "produce": 1,
+  "props": {},
+  "files": 1,
+  "testFiles": 0,
+  "sites": [
+   "abg/event_prefix.ts:34:produce"
+  ]
+ },
+ {
+  "value": "owner_ruling_unadmitted",
+  "type": 0,
+  "test": 0,
+  "produce": 1,
+  "props": {},
+  "files": 1,
+  "testFiles": 0,
+  "sites": [
+   "implementation/qualification.ts:85:produce"
+  ]
+ },
+ {
+  "value": "owner_runtime_replay_derivation",
+  "type": 0,
+  "test": 0,
+  "produce": 1,
+  "props": {},
+  "files": 1,
+  "testFiles": 0,
+  "sites": [
+   "abg/replay.ts:587:produce"
+  ]
+ },
+ {
+  "value": "owner_runtime_replay_derivation_construction",
+  "type": 0,
+  "test": 0,
+  "produce": 1,
+  "props": {},
+  "files": 1,
+  "testFiles": 0,
+  "sites": [
+   "abg/replay.ts:588:produce"
+  ]
+ },
+ {
+  "value": "owning_product_mismatch",
+  "type": 0,
+  "test": 0,
+  "produce": 2,
+  "props": {},
+  "files": 1,
+  "testFiles": 0,
+  "sites": [
+   "product/public_contract_publication.ts:51:produce",
+   "product/public_contract_publication.ts:584:produce"
+  ]
+ },
+ {
+  "value": "parents_for_assessed_files",
+  "type": 0,
+  "test": 0,
+  "produce": 1,
+  "props": {
+   "operation": 1
+  },
+  "files": 1,
+  "testFiles": 0,
+  "sites": [
+   "product/worksite_effect.ts:1597:produce"
+  ]
+ },
+ {
+  "value": "paths_command_configuration",
+  "type": 0,
+  "test": 0,
+  "produce": 1,
+  "props": {},
+  "files": 1,
+  "testFiles": 0,
+  "sites": [
+   "abg/native_work_reacquisition.ts:201:produce"
+  ]
+ },
+ {
+  "value": "payload_inventory_mismatch",
+  "type": 0,
+  "test": 0,
+  "produce": 2,
+  "props": {},
+  "files": 2,
+  "testFiles": 0,
+  "sites": [
+   "product/contracts.ts:172:produce",
+   "product/verify_product.ts:2107:produce"
+  ]
+ },
+ {
+  "value": "payload_not_record",
+  "type": 0,
+  "test": 0,
+  "produce": 2,
+  "props": {
+   "code": 2
+  },
+  "files": 2,
+  "testFiles": 0,
+  "sites": [
+   "abg/c_call_outcome.ts:141:produce",
+   "abg/native_work_effect.ts:81:produce"
+  ]
+ },
+ {
+  "value": "payload_unreadable",
+  "type": 0,
+  "test": 0,
+  "produce": 2,
+  "props": {},
+  "files": 2,
+  "testFiles": 0,
+  "sites": [
+   "product/contracts.ts:173:produce",
+   "product/verify_product.ts:2138:produce"
+  ]
+ },
+ {
+  "value": "per_rule",
+  "type": 0,
+  "test": 0,
+  "produce": 2,
+  "props": {
+   "domainMode": 1
+  },
+  "files": 2,
+  "testFiles": 0,
+  "sites": [
+   "validator/qualification_contracts.ts:184:produce",
+   "validator/qualification_resources.ts:268:produce"
+  ]
+ },
+ {
+  "value": "physical_publication",
+  "type": 0,
+  "test": 0,
+  "produce": 1,
+  "props": {},
+  "files": 1,
+  "testFiles": 0,
+  "sites": [
+   "product/release_snapshot_definition_bindings.ts:62:produce"
+  ]
+ },
+ {
+  "value": "policy_incomplete",
+  "type": 0,
+  "test": 0,
+  "produce": 1,
+  "props": {},
+  "files": 1,
+  "testFiles": 0,
+  "sites": [
+   "product/default_library_fulfillment.ts:199:produce"
+  ]
+ },
+ {
+  "value": "port_file_confinement_or_read_failure",
+  "type": 0,
+  "test": 0,
+  "produce": 1,
+  "props": {},
+  "files": 1,
+  "testFiles": 0,
+  "sites": [
+   "implementation/worksite_command_helper.ts:1289:produce"
+  ]
+ },
+ {
+  "value": "port_out_of_range",
+  "type": 0,
+  "test": 0,
+  "produce": 1,
+  "props": {},
+  "files": 1,
+  "testFiles": 0,
+  "sites": [
+   "implementation/worksite_command_helper.ts:1286:produce"
+  ]
+ },
+ {
+  "value": "post_open_runtime_failure",
+  "type": 0,
+  "test": 0,
+  "produce": 1,
+  "props": {},
+  "files": 1,
+  "testFiles": 0,
+  "sites": [
+   "owner_bindings/run_invocation.ts:1716:produce"
+  ]
+ },
+ {
+  "value": "pre_construction_context",
+  "type": 0,
+  "test": 0,
+  "produce": 1,
+  "props": {},
+  "files": 1,
+  "testFiles": 0,
+  "sites": [
+   "abg/instruction_assembly.ts:940:produce"
+  ]
+ },
+ {
+  "value": "prefix_ancestry",
+  "type": 0,
+  "test": 0,
+  "produce": 1,
+  "props": {},
+  "files": 1,
+  "testFiles": 0,
+  "sites": [
+   "abg/native_work_reacquisition.ts:72:produce"
+  ]
+ },
+ {
+  "value": "preparation_invalid",
+  "type": 0,
+  "test": 0,
+  "produce": 1,
+  "props": {
+   "failureClass": 1
+  },
+  "files": 1,
+  "testFiles": 0,
+  "sites": [
+   "implementation/worksite_command_execution.ts:829:produce"
+  ]
+ },
+ {
+  "value": "prepare_finalization",
+  "type": 0,
+  "test": 0,
+  "produce": 1,
+  "props": {
+   "stageRole": 1
+  },
+  "files": 1,
+  "testFiles": 0,
+  "sites": [
+   "gtl/consensus.ts:4253:produce"
+  ]
+ },
+ {
+  "value": "prepare_submitter_task",
+  "type": 0,
+  "test": 0,
+  "produce": 1,
+  "props": {
+   "stageRole": 1
+  },
+  "files": 1,
+  "testFiles": 0,
+  "sites": [
+   "gtl/consensus.ts:4475:produce"
+  ]
+ },
+ {
+  "value": "preservation_failure",
+  "type": 0,
+  "test": 0,
+  "produce": 1,
+  "props": {},
+  "files": 1,
+  "testFiles": 0,
+  "sites": [
+   "product/workspace_operation_contracts.ts:27:produce"
+  ]
+ },
+ {
+  "value": "preserve_all_existing",
+  "type": 0,
+  "test": 0,
+  "produce": 1,
+  "props": {},
+  "files": 1,
+  "testFiles": 0,
+  "sites": [
+   "product/workspace_operation_contracts.ts:92:produce"
+  ]
+ },
+ {
+  "value": "preserve_project_owned_roots",
+  "type": 0,
+  "test": 0,
+  "produce": 1,
+  "props": {},
+  "files": 1,
+  "testFiles": 0,
+  "sites": [
+   "product/workspace_operation_contracts.ts:91:produce"
+  ]
+ },
+ {
+  "value": "preserved_candidate_invalid",
+  "type": 0,
+  "test": 0,
+  "produce": 1,
+  "props": {},
+  "files": 1,
+  "testFiles": 0,
+  "sites": [
+   "implementation/worksite_construction.ts:93:produce"
+  ]
+ },
+ {
+  "value": "preserved_source_invalid",
+  "type": 0,
+  "test": 0,
+  "produce": 1,
+  "props": {},
+  "files": 1,
+  "testFiles": 0,
+  "sites": [
+   "implementation/worksite_construction.ts:88:produce"
+  ]
+ },
+ {
+  "value": "producer_actor",
+  "type": 0,
+  "test": 0,
+  "produce": 1,
+  "props": {},
+  "files": 1,
+  "testFiles": 0,
+  "sites": [
+   "abg/default_library.ts:326:produce"
+  ]
+ },
+ {
+  "value": "producer_value",
+  "type": 0,
+  "test": 0,
+  "produce": 1,
+  "props": {},
+  "files": 1,
+  "testFiles": 0,
+  "sites": [
+   "abg/native_work_reacquisition.ts:78:produce"
+  ]
+ },
+ {
+  "value": "product_content_mismatch",
+  "type": 0,
+  "test": 0,
+  "produce": 2,
+  "props": {},
+  "files": 2,
+  "testFiles": 0,
+  "sites": [
+   "product/contracts.ts:174:produce",
+   "product/verify_product.ts:2146:produce"
+  ]
+ },
+ {
+  "value": "product_definition",
+  "type": 0,
+  "test": 0,
+  "produce": 2,
+  "props": {},
+  "files": 2,
+  "testFiles": 0,
+  "sites": [
+   "abg/event_store.ts:3191:produce",
+   "abg/witness_admission_operation.ts:184:produce"
+  ]
+ },
+ {
+  "value": "product_descriptor_relation",
+  "type": 0,
+  "test": 0,
+  "produce": 1,
+  "props": {
+   "kind": 1
+  },
+  "files": 1,
+  "testFiles": 0,
+  "sites": [
+   "product/verify_product.ts:233:produce"
+  ]
+ },
+ {
+  "value": "product_filesystem",
+  "type": 0,
+  "test": 0,
+  "produce": 1,
+  "props": {
+   "effectClass": 1
+  },
+  "files": 1,
+  "testFiles": 0,
+  "sites": [
+   "product/materialization_operation_contracts.ts:49:produce"
+  ]
+ },
+ {
+  "value": "product_install_admission_relation_failure",
+  "type": 0,
+  "test": 0,
+  "produce": 1,
+  "props": {},
+  "files": 1,
+  "testFiles": 0,
+  "sites": [
+   "product/install_definition_bindings.ts:343:produce"
+  ]
+ },
+ {
+  "value": "product_install_coordinate_refusal",
+  "type": 0,
+  "test": 0,
+  "produce": 1,
+  "props": {},
+  "files": 1,
+  "testFiles": 0,
+  "sites": [
+   "product/install_definition_bindings.ts:328:produce"
+  ]
+ },
+ {
+  "value": "product_install_execution_failure",
+  "type": 0,
+  "test": 0,
+  "produce": 1,
+  "props": {},
+  "files": 1,
+  "testFiles": 0,
+  "sites": [
+   "product/install_definition_bindings.ts:413:produce"
+  ]
+ },
+ {
+  "value": "product_install_projection_mismatch",
+  "type": 0,
+  "test": 0,
+  "produce": 1,
+  "props": {},
+  "files": 1,
+  "testFiles": 0,
+  "sites": [
+   "product/install_definition_bindings.ts:368:produce"
+  ]
+ },
+ {
+  "value": "product_inventory_mismatch",
+  "type": 0,
+  "test": 0,
+  "produce": 2,
+  "props": {},
+  "files": 1,
+  "testFiles": 0,
+  "sites": [
+   "implementation/worksite_command_execution.ts:695:produce",
+   "implementation/worksite_command_execution.ts:698:produce"
+  ]
+ },
+ {
+  "value": "product_materialize_execution_failure",
+  "type": 0,
+  "test": 0,
+  "produce": 1,
+  "props": {},
+  "files": 1,
+  "testFiles": 0,
+  "sites": [
+   "product/materialization_definition_bindings.ts:447:produce"
+  ]
+ },
+ {
+  "value": "product_prepare",
+  "type": 0,
+  "test": 0,
+  "produce": 1,
+  "props": {},
+  "files": 1,
+  "testFiles": 0,
+  "sites": [
+   "owner_bindings/run_invocation.ts:1327:produce"
+  ]
+ },
+ {
+  "value": "product_reprice",
+  "type": 0,
+  "test": 0,
+  "produce": 3,
+  "props": {},
+  "files": 2,
+  "testFiles": 0,
+  "sites": [
+   "abg/event_store.ts:3146:produce",
+   "abg/event_store.ts:3183:produce",
+   "abg/witness_admission_operation.ts:175:produce"
+  ]
+ },
+ {
+  "value": "product_verification_execution_failure",
+  "type": 0,
+  "test": 0,
+  "produce": 1,
+  "props": {},
+  "files": 1,
+  "testFiles": 0,
+  "sites": [
+   "product/verification_definition_bindings.ts:369:produce"
+  ]
+ },
+ {
+  "value": "product_verification_provenance",
+  "type": 0,
+  "test": 0,
+  "produce": 1,
+  "props": {
+   "kind": 1
+  },
+  "files": 1,
+  "testFiles": 0,
+  "sites": [
+   "product/verify_product.ts:277:produce"
+  ]
+ },
+ {
+  "value": "project_result",
+  "type": 0,
+  "test": 0,
+  "produce": 1,
+  "props": {
+   "stageRole": 1
+  },
+  "files": 1,
+  "testFiles": 0,
+  "sites": [
+   "gtl/consensus.ts:4271:produce"
+  ]
+ },
+ {
+  "value": "projection_failure",
+  "type": 0,
+  "test": 0,
+  "produce": 2,
+  "props": {},
+  "files": 1,
+  "testFiles": 0,
+  "sites": [
+   "abg/project_read_definition_bindings.ts:887:produce",
+   "abg/project_read_definition_bindings.ts:985:produce"
+  ]
+ },
+ {
+  "value": "proof_depth_and_strength_unassessed",
+  "type": 0,
+  "test": 0,
+  "produce": 3,
+  "props": {},
+  "files": 3,
+  "testFiles": 0,
+  "sites": [
+   "product/requirement_handoff.ts:33:produce",
+   "product/semantic_job.ts:316:produce",
+   "product/semantic_stage.ts:185:produce"
+  ]
+ },
+ {
+  "value": "proof_pair_missing",
+  "type": 0,
+  "test": 0,
+  "produce": 1,
+  "props": {},
+  "files": 1,
+  "testFiles": 0,
+  "sites": [
+   "product/default_library_fulfillment.ts:208:produce"
+  ]
+ },
+ {
+  "value": "prospective_release_identity_incomplete",
+  "type": 0,
+  "test": 0,
+  "produce": 1,
+  "props": {},
+  "files": 1,
+  "testFiles": 0,
+  "sites": [
+   "validator/self_conformance.ts:152:produce"
+  ]
+ },
+ {
+  "value": "provenance_mismatch",
+  "type": 0,
+  "test": 0,
+  "produce": 2,
+  "props": {},
+  "files": 2,
+  "testFiles": 0,
+  "sites": [
+   "abg/witness_definition_bindings.ts:177:produce",
+   "abg/witness_operation_contracts.ts:81:produce"
+  ]
+ },
+ {
+  "value": "public_envelope_admission_refusal",
+  "type": 0,
+  "test": 0,
+  "produce": 1,
+  "props": {
+   "const": 1
+  },
+  "files": 1,
+  "testFiles": 0,
+  "sites": [
+   "public/binding/public_function_projections.ts:449:produce"
+  ]
+ },
+ {
+  "value": "public_family_lookup_refusal",
+  "type": 0,
+  "test": 0,
+  "produce": 1,
+  "props": {
+   "const": 1
+  },
+  "files": 1,
+  "testFiles": 0,
+  "sites": [
+   "public/binding/public_function_projections.ts:474:produce"
+  ]
+ },
+ {
+  "value": "public_operation_ingress_admitted",
+  "type": 0,
+  "test": 0,
+  "produce": 2,
+  "props": {},
+  "files": 2,
+  "testFiles": 0,
+  "sites": [
+   "abg/calculus/axioms.ts:138:produce",
+   "abg/replay.ts:333:produce"
+  ]
+ },
+ {
+  "value": "public_outcome",
+  "type": 0,
+  "test": 0,
+  "produce": 1,
+  "props": {
+   "const": 1
+  },
+  "files": 1,
+  "testFiles": 0,
+  "sites": [
+   "public/binding/public_function_projections.ts:537:produce"
+  ]
+ },
+ {
+  "value": "public_transport_refusal",
+  "type": 0,
+  "test": 0,
+  "produce": 1,
+  "props": {
+   "kind": 1
+  },
+  "files": 1,
+  "testFiles": 0,
+  "sites": [
+   "public/cli.ts:69:produce"
+  ]
+ },
+ {
+  "value": "publication_failure",
+  "type": 0,
+  "test": 0,
+  "produce": 5,
+  "props": {},
+  "files": 2,
+  "testFiles": 0,
+  "sites": [
+   "product/release_snapshot_definition_bindings.ts:63:produce",
+   "product/release_snapshot_definition_bindings.ts:72:produce",
+   "product/release_snapshot_definition_bindings.ts:135:produce",
+   "product/release_snapshot_definition_bindings.ts:147:produce",
+   "product/release_snapshot_operations.ts:77:produce"
+  ]
+ },
+ {
+  "value": "publication_identity_mismatch",
+  "type": 0,
+  "test": 0,
+  "produce": 2,
+  "props": {},
+  "files": 2,
+  "testFiles": 0,
+  "sites": [
+   "product/catalog.ts:622:produce",
+   "product/catalog_operation_contracts.ts:71:produce"
+  ]
+ },
+ {
+  "value": "publication_owner_unresolved",
+  "type": 0,
+  "test": 0,
+  "produce": 2,
+  "props": {},
+  "files": 2,
+  "testFiles": 0,
+  "sites": [
+   "product/catalog.ts:585:produce",
+   "product/catalog_operation_contracts.ts:100:produce"
+  ]
+ },
+ {
+  "value": "published_catalog_basis_mismatch",
+  "type": 0,
+  "test": 0,
+  "produce": 1,
+  "props": {},
+  "files": 1,
+  "testFiles": 0,
+  "sites": [
+   "validator/self_conformance.ts:174:produce"
+  ]
+ },
+ {
+  "value": "published_catalog_digest_mismatch",
+  "type": 0,
+  "test": 0,
+  "produce": 1,
+  "props": {},
+  "files": 1,
+  "testFiles": 0,
+  "sites": [
+   "validator/self_conformance.ts:165:produce"
+  ]
+ },
+ {
+  "value": "published_method_basis_mismatch",
+  "type": 0,
+  "test": 0,
+  "produce": 1,
+  "props": {},
+  "files": 1,
+  "testFiles": 0,
+  "sites": [
+   "validator/self_conformance.ts:172:produce"
+  ]
+ },
+ {
+  "value": "published_unqualified",
+  "type": 0,
+  "test": 0,
+  "produce": 2,
+  "props": {},
+  "files": 2,
+  "testFiles": 0,
+  "sites": [
+   "product/project_read_operation_contracts.ts:85:produce",
+   "product/project_read_ports.ts:797:produce"
+  ]
+ },
+ {
+  "value": "pure_projection",
+  "type": 0,
+  "test": 0,
+  "produce": 1,
+  "props": {
+   "effectClass": 1
+  },
+  "files": 1,
+  "testFiles": 0,
+  "sites": [
+   "product/project_read_operation_contracts.ts:180:produce"
+  ]
+ },
+ {
+  "value": "qualification_assessment_invalid",
+  "type": 0,
+  "test": 0,
+  "produce": 1,
+  "props": {},
+  "files": 1,
+  "testFiles": 0,
+  "sites": [
+   "implementation/qualification.ts:80:produce"
+  ]
+ },
+ {
+  "value": "qualification_assessment_unadmitted",
+  "type": 0,
+  "test": 0,
+  "produce": 1,
+  "props": {},
+  "files": 1,
+  "testFiles": 0,
+  "sites": [
+   "implementation/qualification.ts:78:produce"
+  ]
+ },
+ {
+  "value": "qualification_coverage_identity",
+  "type": 0,
+  "test": 0,
+  "produce": 1,
+  "props": {},
+  "files": 1,
+  "testFiles": 0,
+  "sites": [
+   "validator/qualification_resources.ts:118:produce"
+  ]
+ },
+ {
+  "value": "qualification_declaration_ambiguous",
+  "type": 0,
+  "test": 0,
+  "produce": 1,
+  "props": {},
+  "files": 1,
+  "testFiles": 0,
+  "sites": [
+   "validator/qualification_resources.ts:66:produce"
+  ]
+ },
+ {
+  "value": "qualification_declaration_preimage_missing_or_crossed",
+  "type": 0,
+  "test": 0,
+  "produce": 1,
+  "props": {},
+  "files": 1,
+  "testFiles": 0,
+  "sites": [
+   "validator/qualification_resources.ts:159:produce"
+  ]
+ },
+ {
+  "value": "qualification_declaration_selection_ambiguous",
+  "type": 0,
+  "test": 0,
+  "produce": 2,
+  "props": {},
+  "files": 1,
+  "testFiles": 0,
+  "sites": [
+   "validator/qualification_resources.ts:78:produce",
+   "validator/qualification_resources.ts:154:produce"
+  ]
+ },
+ {
+  "value": "qualification_declaration_selection_unbound",
+  "type": 0,
+  "test": 0,
+  "produce": 1,
+  "props": {},
+  "files": 1,
+  "testFiles": 0,
+  "sites": [
+   "validator/qualification_resources.ts:156:produce"
+  ]
+ },
+ {
+  "value": "qualification_inventory_identity_or_ambiguity",
+  "type": 0,
+  "test": 0,
+  "produce": 1,
+  "props": {},
+  "files": 1,
+  "testFiles": 0,
+  "sites": [
+   "validator/qualification_resources.ts:98:produce"
+  ]
+ },
+ {
+  "value": "qualification_join",
+  "type": 0,
+  "test": 0,
+  "produce": 1,
+  "props": {},
+  "files": 1,
+  "testFiles": 0,
+  "sites": [
+   "product/release_snapshot_definition_bindings.ts:45:produce"
+  ]
+ },
+ {
+  "value": "qualification_law_basis_mismatch",
+  "type": 0,
+  "test": 0,
+  "produce": 1,
+  "props": {},
+  "files": 1,
+  "testFiles": 0,
+  "sites": [
+   "validator/self_conformance.ts:170:produce"
+  ]
+ },
+ {
+  "value": "qualification_law_identity",
+  "type": 0,
+  "test": 0,
+  "produce": 1,
+  "props": {},
+  "files": 1,
+  "testFiles": 0,
+  "sites": [
+   "validator/qualification_resources.ts:108:produce"
+  ]
+ },
+ {
+  "value": "qualification_law_missing",
+  "type": 0,
+  "test": 0,
+  "produce": 1,
+  "props": {},
+  "files": 1,
+  "testFiles": 0,
+  "sites": [
+   "validator/self_conformance.ts:166:produce"
+  ]
+ },
+ {
+  "value": "qualification_native_proof",
+  "type": 0,
+  "test": 0,
+  "produce": 1,
+  "props": {},
+  "files": 1,
+  "testFiles": 0,
+  "sites": [
+   "abg/qualification_proof.ts:107:produce"
+  ]
+ },
+ {
+  "value": "qualification_provenance_record_set",
+  "type": 0,
+  "test": 0,
+  "produce": 1,
+  "props": {},
+  "files": 1,
+  "testFiles": 0,
+  "sites": [
+   "validator/qualification_resources.ts:203:produce"
+  ]
+ },
+ {
+  "value": "qualification_reference_set",
+  "type": 0,
+  "test": 0,
+  "produce": 4,
+  "props": {
+   "kind": 2
+  },
+  "files": 2,
+  "testFiles": 0,
+  "sites": [
+   "validator/qualification_contracts.ts:169:produce",
+   "validator/qualification_contracts.ts:172:produce",
+   "validator/qualification_resources.ts:257:produce",
+   "validator/qualification_resources.ts:259:produce"
+  ]
+ },
+ {
+  "value": "qualification_resource_assertion_shape",
+  "type": 0,
+  "test": 0,
+  "produce": 1,
+  "props": {},
+  "files": 1,
+  "testFiles": 0,
+  "sites": [
+   "validator/qualification_resources.ts:61:produce"
+  ]
+ },
+ {
+  "value": "qualification_resource_dependency_missing",
+  "type": 0,
+  "test": 0,
+  "produce": 4,
+  "props": {},
+  "files": 2,
+  "testFiles": 0,
+  "sites": [
+   "validator/qualification.ts:661:produce",
+   "validator/qualification_resources.ts:212:produce",
+   "validator/qualification_resources.ts:220:produce",
+   "validator/qualification_resources.ts:235:produce"
+  ]
+ },
+ {
+  "value": "qualification_resource_entry_ambiguous",
+  "type": 0,
+  "test": 0,
+  "produce": 1,
+  "props": {},
+  "files": 1,
+  "testFiles": 0,
+  "sites": [
+   "validator/qualification_resources.ts:74:produce"
+  ]
+ },
+ {
+  "value": "qualification_resource_entry_identity",
+  "type": 0,
+  "test": 0,
+  "produce": 1,
+  "props": {},
+  "files": 1,
+  "testFiles": 0,
+  "sites": [
+   "validator/qualification_resources.ts:125:produce"
+  ]
+ },
+ {
+  "value": "qualification_resource_entry_missing_or_crossed",
+  "type": 0,
+  "test": 0,
+  "produce": 1,
+  "props": {},
+  "files": 1,
+  "testFiles": 0,
+  "sites": [
+   "validator/qualification_resources.ts:149:produce"
+  ]
+ },
+ {
+  "value": "qualification_resource_identity_or_duplicate",
+  "type": 0,
+  "test": 0,
+  "produce": 1,
+  "props": {},
+  "files": 1,
+  "testFiles": 0,
+  "sites": [
+   "validator/qualification_resources.ts:70:produce"
+  ]
+ },
+ {
+  "value": "qualification_resource_material_bytes",
+  "type": 0,
+  "test": 0,
+  "produce": 1,
+  "props": {},
+  "files": 1,
+  "testFiles": 0,
+  "sites": [
+   "validator/qualification_resources.ts:46:produce"
+  ]
+ },
+ {
+  "value": "qualification_resource_material_shape",
+  "type": 0,
+  "test": 0,
+  "produce": 1,
+  "props": {},
+  "files": 1,
+  "testFiles": 0,
+  "sites": [
+   "validator/qualification_resources.ts:43:produce"
+  ]
+ },
+ {
+  "value": "qualification_resource_missing_or_crossed",
+  "type": 0,
+  "test": 0,
+  "produce": 1,
+  "props": {},
+  "files": 1,
+  "testFiles": 0,
+  "sites": [
+   "validator/qualification_resources.ts:142:produce"
+  ]
+ },
+ {
+  "value": "qualification_resource_wrong_kind",
+  "type": 0,
+  "test": 0,
+  "produce": 1,
+  "props": {},
+  "files": 1,
+  "testFiles": 0,
+  "sites": [
+   "validator/qualification_resources.ts:147:produce"
+  ]
+ },
+ {
+  "value": "qualification_ruling",
+  "type": 0,
+  "test": 0,
+  "produce": 1,
+  "props": {
+   "stageRole": 1
+  },
+  "files": 1,
+  "testFiles": 0,
+  "sites": [
+   "gtl/self_conformance.ts:181:produce"
+  ]
+ },
+ {
+  "value": "qualification_ruling_continuation",
+  "type": 0,
+  "test": 0,
+  "produce": 1,
+  "props": {},
+  "files": 1,
+  "testFiles": 0,
+  "sites": [
+   "gtl/self_conformance.ts:114:produce"
+  ]
+ },
+ {
+  "value": "qualification_scope_empty_relation",
+  "type": 0,
+  "test": 0,
+  "produce": 1,
+  "props": {},
+  "files": 1,
+  "testFiles": 0,
+  "sites": [
+   "validator/qualification_resources.ts:256:produce"
+  ]
+ },
+ {
+  "value": "qualification_scope_identity",
+  "type": 0,
+  "test": 0,
+  "produce": 1,
+  "props": {},
+  "files": 1,
+  "testFiles": 0,
+  "sites": [
+   "validator/qualification_resources.ts:103:produce"
+  ]
+ },
+ {
+  "value": "qualification_scope_member_unbound",
+  "type": 0,
+  "test": 0,
+  "produce": 1,
+  "props": {},
+  "files": 1,
+  "testFiles": 0,
+  "sites": [
+   "validator/qualification_resources.ts:258:produce"
+  ]
+ },
+ {
+  "value": "qualification_scope_resource_basis",
+  "type": 0,
+  "test": 0,
+  "produce": 1,
+  "props": {},
+  "files": 1,
+  "testFiles": 0,
+  "sites": [
+   "validator/qualification_resources.ts:168:produce"
+  ]
+ },
+ {
+  "value": "qualification_scope_role_set",
+  "type": 0,
+  "test": 0,
+  "produce": 1,
+  "props": {},
+  "files": 1,
+  "testFiles": 0,
+  "sites": [
+   "validator/qualification_resources.ts:178:produce"
+  ]
+ },
+ {
+  "value": "qualification_scope_set_identity_or_ambiguity",
+  "type": 0,
+  "test": 0,
+  "produce": 1,
+  "props": {},
+  "files": 1,
+  "testFiles": 0,
+  "sites": [
+   "validator/qualification_resources.ts:173:produce"
+  ]
+ },
+ {
+  "value": "qualification_scope_set_inventory_or_ordinal",
+  "type": 0,
+  "test": 0,
+  "produce": 1,
+  "props": {},
+  "files": 1,
+  "testFiles": 0,
+  "sites": [
+   "validator/qualification_resources.ts:175:produce"
+  ]
+ },
+ {
+  "value": "qualification_scope_set_missing_or_crossed",
+  "type": 0,
+  "test": 0,
+  "produce": 1,
+  "props": {},
+  "files": 1,
+  "testFiles": 0,
+  "sites": [
+   "validator/qualification_resources.ts:183:produce"
+  ]
+ },
+ {
+  "value": "qualification_task_resource_basis",
+  "type": 0,
+  "test": 0,
+  "produce": 1,
+  "props": {},
+  "files": 1,
+  "testFiles": 0,
+  "sites": [
+   "validator/qualification_resources.ts:223:produce"
+  ]
+ },
+ {
+  "value": "qualification_task_resource_crossed",
+  "type": 0,
+  "test": 0,
+  "produce": 1,
+  "props": {},
+  "files": 1,
+  "testFiles": 0,
+  "sites": [
+   "validator/qualification_resources.ts:225:produce"
+  ]
+ },
+ {
+  "value": "qualification_tenant_identity",
+  "type": 0,
+  "test": 0,
+  "produce": 1,
+  "props": {},
+  "files": 1,
+  "testFiles": 0,
+  "sites": [
+   "validator/qualification_resources.ts:113:produce"
+  ]
+ },
+ {
+  "value": "qualified_artifact_verification",
+  "type": 0,
+  "test": 0,
+  "produce": 2,
+  "props": {},
+  "files": 1,
+  "testFiles": 0,
+  "sites": [
+   "product/release_snapshot_definition_bindings.ts:58:produce",
+   "product/release_snapshot_definition_bindings.ts:129:produce"
+  ]
+ },
+ {
+  "value": "r10_historical_graph_call_sources",
+  "type": 0,
+  "test": 0,
+  "produce": 1,
+  "props": {},
+  "files": 1,
+  "testFiles": 0,
+  "sites": [
+   "abg/project_read_ports.ts:555:produce"
+  ]
+ },
+ {
+  "value": "reacquisition_inventory_not_selected",
+  "type": 0,
+  "test": 0,
+  "produce": 1,
+  "props": {
+   "bodyDisposition": 1
+  },
+  "files": 1,
+  "testFiles": 0,
+  "sites": [
+   "abg/instruction_assembly.ts:656:produce"
+  ]
+ },
+ {
+  "value": "readable_relative_path",
+  "type": 0,
+  "test": 0,
+  "produce": 1,
+  "props": {},
+  "files": 1,
+  "testFiles": 0,
+  "sites": [
+   "product/semantic_job.ts:559:produce"
+  ]
+ },
+ {
+  "value": "readiness_declaration_mismatch",
+  "type": 0,
+  "test": 0,
+  "produce": 2,
+  "props": {},
+  "files": 2,
+  "testFiles": 0,
+  "sites": [
+   "product/catalog.ts:688:produce",
+   "product/catalog_operation_contracts.ts:93:produce"
+  ]
+ },
+ {
+  "value": "readiness_is_not_fulfillment",
+  "type": 0,
+  "test": 0,
+  "produce": 1,
+  "props": {
+   "readinessRule": 1
+  },
+  "files": 1,
+  "testFiles": 0,
+  "sites": [
+   "product/semantic_job.ts:359:produce"
+  ]
+ },
+ {
+  "value": "receipt_admission",
+  "type": 0,
+  "test": 0,
+  "produce": 9,
+  "props": {},
+  "files": 5,
+  "testFiles": 0,
+  "sites": [
+   "abg/exact_prefix_bindings.ts:143:produce",
+   "abg/exact_prefix_bindings.ts:199:produce",
+   "abg/witness_definition_bindings.ts:337:produce",
+   "abg/witness_definition_bindings.ts:343:produce",
+   "product/materialization_definition_bindings.ts:428:produce",
+   "product/materialization_definition_bindings.ts:434:produce"
+  ]
+ },
+ {
+  "value": "reference_projection",
+  "type": 0,
+  "test": 0,
+  "produce": 1,
+  "props": {},
+  "files": 1,
+  "testFiles": 0,
+  "sites": [
+   "abg/native_work_reacquisition.ts:241:produce"
+  ]
+ },
+ {
+  "value": "registered_choice_projection",
+  "type": 0,
+  "test": 0,
+  "produce": 1,
+  "props": {
+   "code": 1
+  },
+  "files": 1,
+  "testFiles": 0,
+  "sites": [
+   "abg/registered_selection_provenance.ts:21:produce"
+  ]
+ },
+ {
+  "value": "relation_mismatch",
+  "type": 0,
+  "test": 0,
+  "produce": 1,
+  "props": {},
+  "files": 1,
+  "testFiles": 0,
+  "sites": [
+   "public/binding/public_function_projections.ts:514:produce"
+  ]
+ },
+ {
+  "value": "relative_nontraversing_unique_within_declared_roots",
+  "type": 0,
+  "test": 0,
+  "produce": 1,
+  "props": {
+   "pathRule": 1
+  },
+  "files": 1,
+  "testFiles": 0,
+  "sites": [
+   "product/semantic_job.ts:355:produce"
+  ]
+ },
+ {
+  "value": "release_acceptance_failure",
+  "type": 0,
+  "test": 0,
+  "produce": 1,
+  "props": {},
+  "files": 1,
+  "testFiles": 0,
+  "sites": [
+   "product/release_snapshot_definition_bindings.ts:150:produce"
+  ]
+ },
+ {
+  "value": "release_artifact_failure",
+  "type": 0,
+  "test": 0,
+  "produce": 1,
+  "props": {},
+  "files": 1,
+  "testFiles": 0,
+  "sites": [
+   "product/release_snapshot_definition_bindings.ts:105:produce"
+  ]
+ },
+ {
+  "value": "release_cut",
+  "type": 0,
+  "test": 0,
+  "produce": 1,
+  "props": {
+   "sourceKind": 1
+  },
+  "files": 1,
+  "testFiles": 0,
+  "sites": [
+   "product/project_read_operation_contracts.ts:264:produce"
+  ]
+ },
+ {
+  "value": "release_evidence_projection",
+  "type": 0,
+  "test": 0,
+  "produce": 2,
+  "props": {
+   "kind": 1
+  },
+  "files": 2,
+  "testFiles": 0,
+  "sites": [
+   "product/project_read_operation_contracts.ts:84:produce",
+   "product/project_read_ports.ts:797:produce"
+  ]
+ },
+ {
+  "value": "release_evidence_receipt",
+  "type": 0,
+  "test": 0,
+  "produce": 2,
+  "props": {},
+  "files": 1,
+  "testFiles": 0,
+  "sites": [
+   "product/project_read_definition_bindings.ts:1001:produce",
+   "product/project_read_definition_bindings.ts:1014:produce"
+  ]
+ },
+ {
+  "value": "release_evidence_resources",
+  "type": 0,
+  "test": 0,
+  "produce": 1,
+  "props": {},
+  "files": 1,
+  "testFiles": 0,
+  "sites": [
+   "product/project_read_definition_bindings.ts:999:produce"
+  ]
+ },
+ {
+  "value": "release_publication_failure",
+  "type": 0,
+  "test": 0,
+  "produce": 1,
+  "props": {},
+  "files": 1,
+  "testFiles": 0,
+  "sites": [
+   "product/release_snapshot_definition_bindings.ts:76:produce"
+  ]
+ },
+ {
+  "value": "release_publication_receipt",
+  "type": 0,
+  "test": 0,
+  "produce": 6,
+  "props": {},
+  "files": 1,
+  "testFiles": 0,
+  "sites": [
+   "product/release_snapshot_definition_bindings.ts:31:produce",
+   "product/release_snapshot_definition_bindings.ts:44:produce",
+   "product/release_snapshot_definition_bindings.ts:63:produce",
+   "product/release_snapshot_definition_bindings.ts:73:produce",
+   "product/release_snapshot_definition_bindings.ts:116:produce",
+   "product/release_snapshot_definition_bindings.ts:148:produce"
+  ]
+ },
+ {
+  "value": "release_publication_resources",
+  "type": 0,
+  "test": 0,
+  "produce": 2,
+  "props": {
+   "kind": 1
+  },
+  "files": 2,
+  "testFiles": 0,
+  "sites": [
+   "implementation/release_publication.ts:180:produce",
+   "product/release_snapshot_definition_bindings.ts:27:produce"
+  ]
+ },
+ {
+  "value": "release_read_failure",
+  "type": 0,
+  "test": 0,
+  "produce": 1,
+  "props": {},
+  "files": 1,
+  "testFiles": 0,
+  "sites": [
+   "product/project_read_definition_bindings.ts:1016:produce"
+  ]
+ },
+ {
+  "value": "release_snapshot_manifest",
+  "type": 0,
+  "test": 0,
+  "produce": 1,
+  "props": {
+   "kind": 1
+  },
+  "files": 1,
+  "testFiles": 0,
+  "sites": [
+   "implementation/release_publication.ts:111:produce"
+  ]
+ },
+ {
+  "value": "release_snapshot_refusal",
+  "type": 0,
+  "test": 0,
+  "produce": 2,
+  "props": {
+   "kind": 1
+  },
+  "files": 1,
+  "testFiles": 0,
+  "sites": [
+   "product/release_snapshot_operations.ts:75:produce",
+   "product/release_snapshot_operations.ts:94:produce"
+  ]
+ },
+ {
+  "value": "release_snapshot_result",
+  "type": 0,
+  "test": 0,
+  "produce": 3,
+  "props": {
+   "kind": 2
+  },
+  "files": 2,
+  "testFiles": 0,
+  "sites": [
+   "product/release_snapshot_definition_bindings.ts:71:produce",
+   "product/release_snapshot_definition_bindings.ts:145:produce",
+   "product/release_snapshot_operations.ts:71:produce"
+  ]
+ },
+ {
+  "value": "remote_ref",
+  "type": 0,
+  "test": 0,
+  "produce": 1,
+  "props": {
+   "kind": 1
+  },
+  "files": 1,
+  "testFiles": 0,
+  "sites": [
+   "implementation/release_publication.ts:117:produce"
+  ]
+ },
+ {
+  "value": "reopened_abg_event_resource_receipt_or_held_completion",
+  "type": 0,
+  "test": 0,
+  "produce": 1,
+  "props": {},
+  "files": 1,
+  "testFiles": 0,
+  "sites": [
+   "abg/project_read_definition_bindings.ts:126:produce"
+  ]
+ },
+ {
+  "value": "reopened_or_held_abg_event_resource_input",
+  "type": 0,
+  "test": 0,
+  "produce": 1,
+  "props": {},
+  "files": 1,
+  "testFiles": 0,
+  "sites": [
+   "abg/project_read_definition_bindings.ts:117:produce"
+  ]
+ },
+ {
+  "value": "replacement_invalid",
+  "type": 0,
+  "test": 0,
+  "produce": 6,
+  "props": {},
+  "files": 2,
+  "testFiles": 0,
+  "sites": [
+   "product/worksite_effect.ts:174:produce",
+   "product/worksite_effect.ts:1124:produce",
+   "product/worksite_effect.ts:1875:produce",
+   "product/worksite_operations.ts:654:produce",
+   "product/worksite_operations.ts:718:produce",
+   "product/worksite_operations.ts:758:produce"
+  ]
+ },
+ {
+  "value": "reprice_reentry",
+  "type": 0,
+  "test": 0,
+  "produce": 2,
+  "props": {},
+  "files": 2,
+  "testFiles": 0,
+  "sites": [
+   "abg/event_store.ts:3336:produce",
+   "abg/witness_admission_operation.ts:200:produce"
+  ]
+ },
+ {
+  "value": "request_shape",
+  "type": 0,
+  "test": 0,
+  "produce": 1,
+  "props": {},
+  "files": 1,
+  "testFiles": 0,
+  "sites": [
+   "abg/native_work_reacquisition.ts:135:produce"
+  ]
+ },
+ {
+  "value": "required_authority_member_missing",
+  "type": 0,
+  "test": 0,
+  "produce": 1,
+  "props": {},
+  "files": 1,
+  "testFiles": 0,
+  "sites": [
+   "validator/self_conformance.ts:180:produce"
+  ]
+ },
+ {
+  "value": "required_budget_strictly_less_than_each_limit",
+  "type": 0,
+  "test": 0,
+  "produce": 1,
+  "props": {},
+  "files": 1,
+  "testFiles": 0,
+  "sites": [
+   "product/worksite_command_execution.ts:163:produce"
+  ]
+ },
+ {
+  "value": "required_capability_refs",
+  "type": 0,
+  "test": 0,
+  "produce": 1,
+  "props": {},
+  "files": 1,
+  "testFiles": 0,
+  "sites": [
+   "public/binding/definition_binding_mechanics.ts:347:produce"
+  ]
+ },
+ {
+  "value": "requirement_handoff_closure",
+  "type": 0,
+  "test": 0,
+  "produce": 1,
+  "props": {
+   "valueKind": 1
+  },
+  "files": 1,
+  "testFiles": 0,
+  "sites": [
+   "gtl/requirement_handoff.ts:177:produce"
+  ]
+ },
+ {
+  "value": "requirement_handoff_refusal",
+  "type": 0,
+  "test": 0,
+  "produce": 1,
+  "props": {
+   "refusalValueKind": 1
+  },
+  "files": 1,
+  "testFiles": 0,
+  "sites": [
+   "gtl/requirement_handoff.ts:111:produce"
+  ]
+ },
+ {
+  "value": "requirement_reprice",
+  "type": 0,
+  "test": 0,
+  "produce": 3,
+  "props": {},
+  "files": 2,
+  "testFiles": 0,
+  "sites": [
+   "abg/event_store.ts:3147:produce",
+   "abg/event_store.ts:3184:produce",
+   "abg/witness_admission_operation.ts:176:produce"
+  ]
+ },
+ {
+  "value": "resolved_interaction",
+  "type": 0,
+  "test": 0,
+  "produce": 1,
+  "props": {},
+  "files": 1,
+  "testFiles": 0,
+  "sites": [
+   "product/interaction_operation_contracts.ts:40:produce"
+  ]
+ },
+ {
+  "value": "resource_completion",
+  "type": 0,
+  "test": 0,
+  "produce": 1,
+  "props": {},
+  "files": 1,
+  "testFiles": 0,
+  "sites": [
+   "owner_bindings/run_invocation.ts:1228:produce"
+  ]
+ },
+ {
+  "value": "resource_identity",
+  "type": 0,
+  "test": 0,
+  "produce": 1,
+  "props": {},
+  "files": 1,
+  "testFiles": 0,
+  "sites": [
+   "abg/event_store.ts:4124:produce"
+  ]
+ },
+ {
+  "value": "resource_scope_mismatch",
+  "type": 0,
+  "test": 0,
+  "produce": 1,
+  "props": {},
+  "files": 1,
+  "testFiles": 0,
+  "sites": [
+   "product/admission_authority.ts:196:produce"
+  ]
+ },
+ {
+  "value": "result_assess_execution_failure",
+  "type": 0,
+  "test": 0,
+  "produce": 1,
+  "props": {},
+  "files": 1,
+  "testFiles": 0,
+  "sites": [
+   "product/result_definition_bindings.ts:300:produce"
+  ]
+ },
+ {
+  "value": "result_assessment",
+  "type": 0,
+  "test": 0,
+  "produce": 1,
+  "props": {
+   "sourceKind": 1
+  },
+  "files": 1,
+  "testFiles": 0,
+  "sites": [
+   "abg/project_read_operation_contracts.ts:430:produce"
+  ]
+ },
+ {
+  "value": "result_assessment_admitted",
+  "type": 0,
+  "test": 0,
+  "produce": 2,
+  "props": {},
+  "files": 1,
+  "testFiles": 0,
+  "sites": [
+   "abg/calculus/axioms.ts:278:produce",
+   "abg/calculus/axioms.ts:1126:produce"
+  ]
+ },
+ {
+  "value": "result_assessment_event",
+  "type": 0,
+  "test": 0,
+  "produce": 1,
+  "props": {
+   "effectClass": 1
+  },
+  "files": 1,
+  "testFiles": 0,
+  "sites": [
+   "product/interaction_operation_contracts.ts:237:produce"
+  ]
+ },
+ {
+  "value": "result_evidence_projection",
+  "type": 0,
+  "test": 0,
+  "produce": 1,
+  "props": {},
+  "files": 1,
+  "testFiles": 0,
+  "sites": [
+   "abg/project_read_operation_contracts.ts:425:produce"
+  ]
+ },
+ {
+  "value": "result_judgment_identity",
+  "type": 0,
+  "test": 0,
+  "produce": 1,
+  "props": {},
+  "files": 1,
+  "testFiles": 0,
+  "sites": [
+   "abg/native_work_reacquisition.ts:96:produce"
+  ]
+ },
+ {
+  "value": "result_value_projection",
+  "type": 0,
+  "test": 0,
+  "produce": 1,
+  "props": {
+   "code": 1
+  },
+  "files": 1,
+  "testFiles": 0,
+  "sites": [
+   "abg/worksite_input_provenance.ts:57:produce"
+  ]
+ },
+ {
+  "value": "retained_c_call_input",
+  "type": 0,
+  "test": 0,
+  "produce": 1,
+  "props": {},
+  "files": 1,
+  "testFiles": 0,
+  "sites": [
+   "abg/traversal_route.ts:4214:produce"
+  ]
+ },
+ {
+  "value": "retained_row_changed",
+  "type": 0,
+  "test": 0,
+  "produce": 2,
+  "props": {},
+  "files": 1,
+  "testFiles": 0,
+  "sites": [
+   "product/public_contract_publication.ts:50:produce",
+   "product/public_contract_publication.ts:612:produce"
+  ]
+ },
+ {
+  "value": "retry_attempt_not_projected",
+  "type": 0,
+  "test": 0,
+  "produce": 1,
+  "props": {
+   "code": 1
+  },
+  "files": 1,
+  "testFiles": 0,
+  "sites": [
+   "abg/retry.ts:1296:produce"
+  ]
+ },
+ {
+  "value": "retry_budget_exhausted",
+  "type": 0,
+  "test": 0,
+  "produce": 2,
+  "props": {},
+  "files": 1,
+  "testFiles": 0,
+  "sites": [
+   "abg/calculus/liveness.ts:799:produce",
+   "abg/calculus/liveness.ts:808:produce"
+  ]
+ },
+ {
+  "value": "retry_fluent_identity",
+  "type": 0,
+  "test": 0,
+  "produce": 1,
+  "props": {
+   "kind": 1
+  },
+  "files": 1,
+  "testFiles": 0,
+  "sites": [
+   "abg/calculus/axioms.ts:88:produce"
+  ]
+ },
+ {
+  "value": "review_rulings",
+  "type": 0,
+  "test": 0,
+  "produce": 1,
+  "props": {},
+  "files": 1,
+  "testFiles": 0,
+  "sites": [
+   "gtl/consensus.ts:4062:produce"
+  ]
+ },
+ {
+  "value": "reviewer_assessment",
+  "type": 0,
+  "test": 0,
+  "produce": 1,
+  "props": {
+   "stageRole": 1
+  },
+  "files": 1,
+  "testFiles": 0,
+  "sites": [
+   "gtl/consensus.ts:4465:produce"
+  ]
+ },
+ {
+  "value": "root_event_contract_profile",
+  "type": 0,
+  "test": 0,
+  "produce": 1,
+  "props": {
+   "kind": 1
+  },
+  "files": 1,
+  "testFiles": 0,
+  "sites": [
+   "abg/event_contract_profiles.ts:220:produce"
+  ]
+ },
+ {
+  "value": "round_reduction",
+  "type": 0,
+  "test": 0,
+  "produce": 1,
+  "props": {
+   "stageRole": 1
+  },
+  "files": 1,
+  "testFiles": 0,
+  "sites": [
+   "gtl/consensus.ts:4505:produce"
+  ]
+ },
+ {
+  "value": "round_termination",
+  "type": 0,
+  "test": 0,
+  "produce": 1,
+  "props": {
+   "stageRole": 1
+  },
+  "files": 1,
+  "testFiles": 0,
+  "sites": [
+   "gtl/consensus.ts:4288:produce"
+  ]
+ },
+ {
+  "value": "route_bound_input",
+  "type": 0,
+  "test": 0,
+  "produce": 2,
+  "props": {},
+  "files": 1,
+  "testFiles": 0,
+  "sites": [
+   "abg/replay.ts:2074:produce",
+   "abg/replay.ts:2075:produce"
+  ]
+ },
+ {
+  "value": "rule_application_missing",
+  "type": 0,
+  "test": 0,
+  "produce": 1,
+  "props": {},
+  "files": 1,
+  "testFiles": 0,
+  "sites": [
+   "validator/self_conformance.ts:248:produce"
+  ]
+ },
+ {
+  "value": "rule_source_span_mismatch",
+  "type": 0,
+  "test": 0,
+  "produce": 1,
+  "props": {},
+  "files": 1,
+  "testFiles": 0,
+  "sites": [
+   "validator/self_conformance.ts:242:produce"
+  ]
+ },
+ {
+  "value": "run_environment_evidence",
+  "type": 0,
+  "test": 0,
+  "produce": 2,
+  "props": {},
+  "files": 2,
+  "testFiles": 0,
+  "sites": [
+   "abg/stdo_environment.ts:183:produce",
+   "product/stdo_environment.ts:420:produce"
+  ]
+ },
+ {
+  "value": "run_environment_instruction_assembly",
+  "type": 0,
+  "test": 0,
+  "produce": 1,
+  "props": {
+   "owner": 1
+  },
+  "files": 1,
+  "testFiles": 0,
+  "sites": [
+   "abg/replay.ts:2029:produce"
+  ]
+ },
+ {
+  "value": "run_evidence_projection",
+  "type": 0,
+  "test": 0,
+  "produce": 1,
+  "props": {},
+  "files": 1,
+  "testFiles": 0,
+  "sites": [
+   "abg/project_read_operation_contracts.ts:411:produce"
+  ]
+ },
+ {
+  "value": "run_lawful_action_projection",
+  "type": 0,
+  "test": 0,
+  "produce": 2,
+  "props": {
+   "kind": 1
+  },
+  "files": 2,
+  "testFiles": 0,
+  "sites": [
+   "abg/project_read_definition_bindings.ts:502:produce",
+   "abg/project_read_operation_contracts.ts:254:produce"
+  ]
+ },
+ {
+  "value": "run_replay_projection",
+  "type": 0,
+  "test": 0,
+  "produce": 1,
+  "props": {},
+  "files": 1,
+  "testFiles": 0,
+  "sites": [
+   "abg/project_read_operation_contracts.ts:455:produce"
+  ]
+ },
+ {
+  "value": "run_terminal",
+  "type": 0,
+  "test": 0,
+  "produce": 5,
+  "props": {
+   "name": 2
+  },
+  "files": 3,
+  "testFiles": 0,
+  "sites": [
+   "abg/calculus/axioms.ts:350:produce",
+   "abg/calculus/axioms.ts:1427:produce",
+   "abg/calculus/axioms.ts:1869:produce",
+   "abg/graph_application.ts:666:produce",
+   "abg/replay.ts:319:produce"
+  ]
+ },
+ {
+  "value": "runtime_event_index",
+  "type": 0,
+  "test": 0,
+  "produce": 1,
+  "props": {},
+  "files": 1,
+  "testFiles": 0,
+  "sites": [
+   "abg/event_prefix.ts:605:produce"
+  ]
+ },
+ {
+  "value": "runtime_failure_evidence",
+  "type": 0,
+  "test": 0,
+  "produce": 1,
+  "props": {
+   "kind": 1
+  },
+  "files": 1,
+  "testFiles": 0,
+  "sites": [
+   "abg/runtime_failure.ts:196:produce"
+  ]
+ },
+ {
+  "value": "runtime_prefix_checked_records",
+  "type": 0,
+  "test": 0,
+  "produce": 1,
+  "props": {},
+  "files": 1,
+  "testFiles": 0,
+  "sites": [
+   "abg/event_prefix.ts:756:produce"
+  ]
+ },
+ {
+  "value": "runtime_replay_authority",
+  "type": 0,
+  "test": 0,
+  "produce": 1,
+  "props": {},
+  "files": 1,
+  "testFiles": 0,
+  "sites": [
+   "abg/replay.ts:840:produce"
+  ]
+ },
+ {
+  "value": "runtime_replay_facts",
+  "type": 0,
+  "test": 0,
+  "produce": 1,
+  "props": {},
+  "files": 1,
+  "testFiles": 0,
+  "sites": [
+   "abg/replay.ts:839:produce"
+  ]
+ },
+ {
+  "value": "runtime_result",
+  "type": 0,
+  "test": 0,
+  "produce": 1,
+  "props": {
+   "sourceKind": 1
+  },
+  "files": 1,
+  "testFiles": 0,
+  "sites": [
+   "abg/project_read_operation_contracts.ts:423:produce"
+  ]
+ },
+ {
+  "value": "runtime_threshold_staged",
+  "type": 0,
+  "test": 0,
+  "produce": 1,
+  "props": {},
+  "files": 1,
+  "testFiles": 0,
+  "sites": [
+   "abg/runtime_liveness.ts:478:produce"
+  ]
+ },
+ {
+  "value": "same_admitted_construction_evidence",
+  "type": 0,
+  "test": 0,
+  "produce": 3,
+  "props": {
+   "disposition": 3
+  },
+  "files": 1,
+  "testFiles": 0,
+  "sites": [
+   "abg/instruction_assembly.ts:645:produce",
+   "abg/instruction_assembly.ts:930:produce",
+   "abg/instruction_assembly.ts:1068:produce"
+  ]
+ },
+ {
+  "value": "same_rc_acceptance_request",
+  "type": 0,
+  "test": 0,
+  "produce": 1,
+  "props": {
+   "kind": 1
+  },
+  "files": 1,
+  "testFiles": 0,
+  "sites": [
+   "product/release_acceptance.ts:33:produce"
+  ]
+ },
+ {
+  "value": "same_rc_owner_ruling_addendum",
+  "type": 0,
+  "test": 0,
+  "produce": 1,
+  "props": {
+   "kind": 1
+  },
+  "files": 1,
+  "testFiles": 0,
+  "sites": [
+   "implementation/release_publication.ts:243:produce"
+  ]
+ },
+ {
+  "value": "same_response_requirement_candidate_ref",
+  "type": 0,
+  "test": 0,
+  "produce": 1,
+  "props": {
+   "candidate": 1
+  },
+  "files": 1,
+  "testFiles": 0,
+  "sites": [
+   "product/semantic_job.ts:348:produce"
+  ]
+ },
+ {
+  "value": "same_run_observed_input",
+  "type": 0,
+  "test": 0,
+  "produce": 1,
+  "props": {
+   "owner": 1
+  },
+  "files": 1,
+  "testFiles": 0,
+  "sites": [
+   "abg/replay.ts:2042:produce"
+  ]
+ },
+ {
+  "value": "schema_unique_paths_and_declared_bounds",
+  "type": 0,
+  "test": 0,
+  "produce": 1,
+  "props": {},
+  "files": 1,
+  "testFiles": 0,
+  "sites": [
+   "product/semantic_job.ts:546:produce"
+  ]
+ },
+ {
+  "value": "scope_application_member_domain_incomplete",
+  "type": 0,
+  "test": 0,
+  "produce": 1,
+  "props": {},
+  "files": 1,
+  "testFiles": 0,
+  "sites": [
+   "validator/qualification.ts:401:produce"
+  ]
+ },
+ {
+  "value": "scope_application_root_domain_incomplete",
+  "type": 0,
+  "test": 0,
+  "produce": 1,
+  "props": {},
+  "files": 1,
+  "testFiles": 0,
+  "sites": [
+   "validator/qualification.ts:402:produce"
+  ]
+ },
+ {
+  "value": "scope_application_rule_domain_incomplete",
+  "type": 0,
+  "test": 0,
+  "produce": 1,
+  "props": {},
+  "files": 1,
+  "testFiles": 0,
+  "sites": [
+   "validator/qualification.ts:399:produce"
+  ]
+ },
+ {
+  "value": "scope_catalog_mismatch",
+  "type": 0,
+  "test": 0,
+  "produce": 1,
+  "props": {},
+  "files": 1,
+  "testFiles": 0,
+  "sites": [
+   "validator/qualification.ts:385:produce"
+  ]
+ },
+ {
+  "value": "scope_group_identity_ambiguous",
+  "type": 0,
+  "test": 0,
+  "produce": 1,
+  "props": {},
+  "files": 1,
+  "testFiles": 0,
+  "sites": [
+   "validator/qualification.ts:391:produce"
+  ]
+ },
+ {
+  "value": "scope_identity_mismatch",
+  "type": 0,
+  "test": 0,
+  "produce": 1,
+  "props": {},
+  "files": 1,
+  "testFiles": 0,
+  "sites": [
+   "validator/qualification.ts:384:produce"
+  ]
+ },
+ {
+  "value": "scope_inventory_ambiguous",
+  "type": 0,
+  "test": 0,
+  "produce": 1,
+  "props": {},
+  "files": 1,
+  "testFiles": 0,
+  "sites": [
+   "validator/qualification.ts:388:produce"
+  ]
+ },
+ {
+  "value": "scope_inventory_identity_mismatch",
+  "type": 0,
+  "test": 0,
+  "produce": 1,
+  "props": {},
+  "files": 1,
+  "testFiles": 0,
+  "sites": [
+   "validator/qualification.ts:386:produce"
+  ]
+ },
+ {
+  "value": "scope_ownership_source_unbound",
+  "type": 0,
+  "test": 0,
+  "produce": 1,
+  "props": {},
+  "files": 1,
+  "testFiles": 0,
+  "sites": [
+   "validator/qualification.ts:409:produce"
+  ]
+ },
+ {
+  "value": "scope_root_unbound",
+  "type": 0,
+  "test": 0,
+  "produce": 1,
+  "props": {},
+  "files": 1,
+  "testFiles": 0,
+  "sites": [
+   "validator/qualification.ts:406:produce"
+  ]
+ },
+ {
+  "value": "scope_rule_source_mismatch",
+  "type": 0,
+  "test": 0,
+  "produce": 1,
+  "props": {},
+  "files": 1,
+  "testFiles": 0,
+  "sites": [
+   "validator/qualification.ts:397:produce"
+  ]
+ },
+ {
+  "value": "selected_evidence_material_historical_input_and_inventory_bodies_not_selected",
+  "type": 0,
+  "test": 0,
+  "produce": 1,
+  "props": {
+   "completedConstructionDisposition": 1
+  },
+  "files": 1,
+  "testFiles": 0,
+  "sites": [
+   "abg/instruction_assembly.ts:1120:produce"
+  ]
+ },
+ {
+  "value": "selected_evidence_ref",
+  "type": 0,
+  "test": 0,
+  "produce": 1,
+  "props": {},
+  "files": 1,
+  "testFiles": 0,
+  "sites": [
+   "abg/default_library.ts:311:produce"
+  ]
+ },
+ {
+  "value": "selected_implementation",
+  "type": 0,
+  "test": 0,
+  "produce": 3,
+  "props": {
+   "ownerClass": 3
+  },
+  "files": 2,
+  "testFiles": 0,
+  "sites": [
+   "product/native_workspace_work_identity.ts:23:produce",
+   "product/worksite_effect.ts:41:produce",
+   "product/worksite_effect.ts:1597:produce"
+  ]
+ },
+ {
+  "value": "selected_producer_declaration",
+  "type": 0,
+  "test": 0,
+  "produce": 1,
+  "props": {},
+  "files": 1,
+  "testFiles": 0,
+  "sites": [
+   "abg/native_work_reacquisition.ts:191:produce"
+  ]
+ },
+ {
+  "value": "selection_context",
+  "type": 0,
+  "test": 0,
+  "produce": 1,
+  "props": {},
+  "files": 1,
+  "testFiles": 0,
+  "sites": [
+   "abg/native_work_reacquisition.ts:177:produce"
+  ]
+ },
+ {
+  "value": "self_conformance_refusal",
+  "type": 0,
+  "test": 0,
+  "produce": 1,
+  "props": {
+   "refusalValueKind": 1
+  },
+  "files": 1,
+  "testFiles": 0,
+  "sites": [
+   "gtl/self_conformance.ts:30:produce"
+  ]
+ },
+ {
+  "value": "self_conformance_resource_basis",
+  "type": 0,
+  "test": 0,
+  "produce": 1,
+  "props": {},
+  "files": 1,
+  "testFiles": 0,
+  "sites": [
+   "validator/qualification_resources.ts:238:produce"
+  ]
+ },
+ {
+  "value": "self_conformance_resource_crossed_or_mixed",
+  "type": 0,
+  "test": 0,
+  "produce": 1,
+  "props": {},
+  "files": 1,
+  "testFiles": 0,
+  "sites": [
+   "validator/qualification_resources.ts:241:produce"
+  ]
+ },
+ {
+  "value": "semantic_assessment_candidate",
+  "type": 0,
+  "test": 0,
+  "produce": 1,
+  "props": {},
+  "files": 1,
+  "testFiles": 0,
+  "sites": [
+   "product/semantic_job.ts:442:produce"
+  ]
+ },
+ {
+  "value": "semantic_candidate_malformed",
+  "type": 0,
+  "test": 0,
+  "produce": 1,
+  "props": {},
+  "files": 1,
+  "testFiles": 0,
+  "sites": [
+   "implementation/semantic_stage.ts:91:produce"
+  ]
+ },
+ {
+  "value": "semantic_candidate_relation_mismatch",
+  "type": 0,
+  "test": 0,
+  "produce": 2,
+  "props": {},
+  "files": 1,
+  "testFiles": 0,
+  "sites": [
+   "implementation/semantic_stage.ts:82:produce",
+   "implementation/semantic_stage.ts:89:produce"
+  ]
+ },
+ {
+  "value": "semantic_criterion_incomplete",
+  "type": 0,
+  "test": 0,
+  "produce": 1,
+  "props": {},
+  "files": 1,
+  "testFiles": 0,
+  "sites": [
+   "product/default_library_fulfillment.ts:217:produce"
+  ]
+ },
+ {
+  "value": "semantic_job",
+  "type": 0,
+  "test": 0,
+  "produce": 1,
+  "props": {
+   "variant": 1
+  },
+  "files": 1,
+  "testFiles": 0,
+  "sites": [
+   "abg/instruction_assembly.ts:960:produce"
+  ]
+ },
+ {
+  "value": "semantic_job_actor_contract",
+  "type": 0,
+  "test": 0,
+  "produce": 1,
+  "props": {
+   "kind": 1
+  },
+  "files": 1,
+  "testFiles": 0,
+  "sites": [
+   "product/semantic_job.ts:341:produce"
+  ]
+ },
+ {
+  "value": "semantic_revision_prompt_metadata",
+  "type": 0,
+  "test": 0,
+  "produce": 1,
+  "props": {
+   "kind": 1
+  },
+  "files": 1,
+  "testFiles": 0,
+  "sites": [
+   "abg/instruction_assembly.ts:586:produce"
+  ]
+ },
+ {
+  "value": "semantic_revision_request_prompt_metadata",
+  "type": 0,
+  "test": 0,
+  "produce": 1,
+  "props": {
+   "kind": 1
+  },
+  "files": 1,
+  "testFiles": 0,
+  "sites": [
+   "abg/instruction_assembly.ts:590:produce"
+  ]
+ },
+ {
+  "value": "semantic_stage_refusal",
+  "type": 0,
+  "test": 0,
+  "produce": 1,
+  "props": {
+   "refusalValueKind": 1
+  },
+  "files": 1,
+  "testFiles": 0,
+  "sites": [
+   "gtl/semantic_stage_publication.ts:100:produce"
+  ]
+ },
+ {
+  "value": "semantic_stage_result_required",
+  "type": 0,
+  "test": 0,
+  "produce": 1,
+  "props": {},
+  "files": 1,
+  "testFiles": 0,
+  "sites": [
+   "product/requirement_handoff.ts:32:produce"
+  ]
+ },
+ {
+  "value": "semantic_worksite_evidence_text_view",
+  "type": 0,
+  "test": 0,
+  "produce": 1,
+  "props": {
+   "kind": 1
+  },
+  "files": 1,
+  "testFiles": 0,
+  "sites": [
+   "abg/instruction_assembly.ts:658:produce"
+  ]
+ },
+ {
+  "value": "setup_truth",
+  "type": 0,
+  "test": 0,
+  "produce": 4,
+  "props": {},
+  "files": 1,
+  "testFiles": 0,
+  "sites": [
+   "owner_bindings/run_invocation.ts:1271:produce",
+   "owner_bindings/run_invocation.ts:1950:produce",
+   "owner_bindings/run_invocation.ts:2023:produce",
+   "owner_bindings/run_invocation.ts:2114:produce"
+  ]
+ },
+ {
+  "value": "sha256_digest",
+  "type": 0,
+  "test": 0,
+  "produce": 1,
+  "props": {},
+  "files": 1,
+  "testFiles": 0,
+  "sites": [
+   "shared/public_function_contracts.ts:143:produce"
+  ]
+ },
+ {
+  "value": "source_basis",
+  "type": 0,
+  "test": 0,
+  "produce": 1,
+  "props": {},
+  "files": 1,
+  "testFiles": 0,
+  "sites": [
+   "abg/default_library.ts:318:produce"
+  ]
+ },
+ {
+  "value": "source_basis_binding",
+  "type": 0,
+  "test": 0,
+  "produce": 2,
+  "props": {},
+  "files": 1,
+  "testFiles": 0,
+  "sites": [
+   "abg/native_work_reacquisition.ts:83:produce",
+   "abg/native_work_reacquisition.ts:86:produce"
+  ]
+ },
+ {
+  "value": "source_correspondence_missing",
+  "type": 0,
+  "test": 0,
+  "produce": 1,
+  "props": {},
+  "files": 1,
+  "testFiles": 0,
+  "sites": [
+   "abg/qualification_proof.ts:777:produce"
+  ]
+ },
+ {
+  "value": "source_invalidated",
+  "type": 0,
+  "test": 0,
+  "produce": 1,
+  "props": {},
+  "files": 1,
+  "testFiles": 0,
+  "sites": [
+   "abg/semantic_revision.ts:300:produce"
+  ]
+ },
+ {
+  "value": "source_prefix_mismatch",
+  "type": 0,
+  "test": 0,
+  "produce": 1,
+  "props": {},
+  "files": 1,
+  "testFiles": 0,
+  "sites": [
+   "abg/semantic_revision.ts:194:produce"
+  ]
+ },
+ {
+  "value": "source_result",
+  "type": 0,
+  "test": 0,
+  "produce": 1,
+  "props": {},
+  "files": 1,
+  "testFiles": 0,
+  "sites": [
+   "abg/replay.ts:2009:produce"
+  ]
+ },
+ {
+  "value": "source_result_absent",
+  "type": 0,
+  "test": 0,
+  "produce": 1,
+  "props": {
+   "code": 1
+  },
+  "files": 1,
+  "testFiles": 0,
+  "sites": [
+   "owner_bindings/run_invocation.ts:1309:produce"
+  ]
+ },
+ {
+  "value": "source_root_ancestry_mismatch",
+  "type": 0,
+  "test": 0,
+  "produce": 1,
+  "props": {},
+  "files": 1,
+  "testFiles": 0,
+  "sites": [
+   "abg/semantic_revision.ts:290:produce"
+  ]
+ },
+ {
+  "value": "source_run_mismatch",
+  "type": 0,
+  "test": 0,
+  "produce": 1,
+  "props": {},
+  "files": 1,
+  "testFiles": 0,
+  "sites": [
+   "abg/semantic_revision.ts:199:produce"
+  ]
+ },
+ {
+  "value": "source_use",
+  "type": 0,
+  "test": 0,
+  "produce": 2,
+  "props": {},
+  "files": 2,
+  "testFiles": 0,
+  "sites": [
+   "abg/default_library.ts:320:produce",
+   "abg/native_work_reacquisition.ts:183:produce"
+  ]
+ },
+ {
+  "value": "state_purpose",
+  "type": 0,
+  "test": 0,
+  "produce": 1,
+  "props": {},
+  "files": 1,
+  "testFiles": 0,
+  "sites": [
+   "abg/default_library.ts:440:produce"
+  ]
+ },
+ {
+  "value": "stdo_assembly",
+  "type": 0,
+  "test": 0,
+  "produce": 1,
+  "props": {},
+  "files": 1,
+  "testFiles": 0,
+  "sites": [
+   "abg/replay.ts:2029:produce"
+  ]
+ },
+ {
+  "value": "stdo_environment",
+  "type": 0,
+  "test": 0,
+  "produce": 1,
+  "props": {},
+  "files": 1,
+  "testFiles": 0,
+  "sites": [
+   "abg/replay.ts:2018:produce"
+  ]
+ },
+ {
+  "value": "stdo_environment_evidence",
+  "type": 0,
+  "test": 0,
+  "produce": 2,
+  "props": {},
+  "files": 2,
+  "testFiles": 0,
+  "sites": [
+   "abg/stdo_environment.ts:20:produce",
+   "product/stdo_environment.ts:182:produce"
+  ]
+ },
+ {
+  "value": "strict_json_value_shared_with_history_original_byte_identity_retained",
+  "type": 0,
+  "test": 0,
+  "produce": 1,
+  "props": {
+   "observedCandidateMaterial": 1
+  },
+  "files": 1,
+  "testFiles": 0,
+  "sites": [
+   "abg/instruction_assembly.ts:979:produce"
+  ]
+ },
+ {
+  "value": "structural_corpus_access_not_frame_application",
+  "type": 0,
+  "test": 0,
+  "produce": 1,
+  "props": {},
+  "files": 1,
+  "testFiles": 0,
+  "sites": [
+   "abg/stdo_environment.ts:321:produce"
+  ]
+ },
+ {
+  "value": "subject_basis_digest_mismatch",
+  "type": 0,
+  "test": 0,
+  "produce": 1,
+  "props": {},
+  "files": 1,
+  "testFiles": 0,
+  "sites": [
+   "validator/self_conformance.ts:145:produce"
+  ]
+ },
+ {
+  "value": "subject_construction",
+  "type": 0,
+  "test": 0,
+  "produce": 2,
+  "props": {},
+  "files": 2,
+  "testFiles": 0,
+  "sites": [
+   "abg/default_library.ts:119:produce",
+   "abg/native_work_reacquisition.ts:194:produce"
+  ]
+ },
+ {
+  "value": "subject_inventory_basis_mismatch",
+  "type": 0,
+  "test": 0,
+  "produce": 1,
+  "props": {},
+  "files": 1,
+  "testFiles": 0,
+  "sites": [
+   "validator/self_conformance.ts:199:produce"
+  ]
+ },
+ {
+  "value": "subject_inventory_declared_incomplete",
+  "type": 0,
+  "test": 0,
+  "produce": 1,
+  "props": {},
+  "files": 1,
+  "testFiles": 0,
+  "sites": [
+   "validator/self_conformance.ts:197:produce"
+  ]
+ },
+ {
+  "value": "subject_inventory_missing",
+  "type": 0,
+  "test": 0,
+  "produce": 1,
+  "props": {},
+  "files": 1,
+  "testFiles": 0,
+  "sites": [
+   "validator/self_conformance.ts:195:produce"
+  ]
+ },
+ {
+  "value": "subject_material_mismatch",
+  "type": 0,
+  "test": 0,
+  "produce": 1,
+  "props": {},
+  "files": 1,
+  "testFiles": 0,
+  "sites": [
+   "validator/self_conformance.ts:221:produce"
+  ]
+ },
+ {
+  "value": "subject_material_missing",
+  "type": 0,
+  "test": 0,
+  "produce": 2,
+  "props": {},
+  "files": 1,
+  "testFiles": 0,
+  "sites": [
+   "validator/self_conformance.ts:218:produce",
+   "validator/self_conformance.ts:223:produce"
+  ]
+ },
+ {
+  "value": "subject_material_roster_mismatch",
+  "type": 0,
+  "test": 0,
+  "produce": 1,
+  "props": {},
+  "files": 1,
+  "testFiles": 0,
+  "sites": [
+   "validator/self_conformance.ts:215:produce"
+  ]
+ },
+ {
+  "value": "subject_member_classification_incomplete",
+  "type": 0,
+  "test": 0,
+  "produce": 2,
+  "props": {},
+  "files": 1,
+  "testFiles": 0,
+  "sites": [
+   "validator/self_conformance.ts:205:produce",
+   "validator/self_conformance.ts:209:produce"
+  ]
+ },
+ {
+  "value": "subject_member_role_missing",
+  "type": 0,
+  "test": 0,
+  "produce": 1,
+  "props": {},
+  "files": 1,
+  "testFiles": 0,
+  "sites": [
+   "validator/self_conformance.ts:208:produce"
+  ]
+ },
+ {
+  "value": "subject_mismatch",
+  "type": 0,
+  "test": 0,
+  "produce": 2,
+  "props": {},
+  "files": 2,
+  "testFiles": 0,
+  "sites": [
+   "abg/witness_definition_bindings.ts:172:produce",
+   "abg/witness_operation_contracts.ts:76:produce"
+  ]
+ },
+ {
+  "value": "submitter_response",
+  "type": 0,
+  "test": 0,
+  "produce": 1,
+  "props": {
+   "stageRole": 1
+  },
+  "files": 1,
+  "testFiles": 0,
+  "sites": [
+   "gtl/consensus.ts:4496:produce"
+  ]
+ },
+ {
+  "value": "successful_result_population",
+  "type": 0,
+  "test": 0,
+  "produce": 1,
+  "props": {},
+  "files": 1,
+  "testFiles": 0,
+  "sites": [
+   "abg/native_work_reacquisition.ts:231:produce"
+  ]
+ },
+ {
+  "value": "successor_observation_mismatch",
+  "type": 0,
+  "test": 0,
+  "produce": 5,
+  "props": {},
+  "files": 2,
+  "testFiles": 0,
+  "sites": [
+   "product/worksite_effect.ts:176:produce",
+   "product/worksite_effect.ts:1516:produce",
+   "product/worksite_effect.ts:1875:produce",
+   "product/worksite_operations.ts:853:produce",
+   "product/worksite_operations.ts:864:produce"
+  ]
+ },
+ {
+  "value": "superseded_binding_bodies",
+  "type": 0,
+  "test": 0,
+  "produce": 1,
+  "props": {},
+  "files": 1,
+  "testFiles": 0,
+  "sites": [
+   "product/semantic_job.ts:380:produce"
+  ]
+ },
+ {
+  "value": "supplied_request_facts_only_not_current_workspace",
+  "type": 0,
+  "test": 0,
+  "produce": 1,
+  "props": {
+   "scope": 1
+  },
+  "files": 1,
+  "testFiles": 0,
+  "sites": [
+   "abg/instruction_assembly.ts:348:produce"
+  ]
+ },
+ {
+  "value": "target_binding_versions_equal_active_versions_selected_by_its_obligations",
+  "type": 0,
+  "test": 0,
+  "produce": 1,
+  "props": {},
+  "files": 1,
+  "testFiles": 0,
+  "sites": [
+   "product/semantic_job.ts:354:produce"
+  ]
+ },
+ {
+  "value": "target_failure",
+  "type": 0,
+  "test": 0,
+  "produce": 3,
+  "props": {},
+  "files": 2,
+  "testFiles": 0,
+  "sites": [
+   "product/install_definition_bindings.ts:190:produce",
+   "product/install_definition_bindings.ts:337:produce",
+   "product/install_operation_contracts.ts:40:produce"
+  ]
+ },
+ {
+  "value": "target_not_file",
+  "type": 0,
+  "test": 0,
+  "produce": 5,
+  "props": {},
+  "files": 2,
+  "testFiles": 0,
+  "sites": [
+   "product/worksite_effect.ts:170:produce",
+   "product/worksite_effect.ts:1875:produce",
+   "product/worksite_operations.ts:287:produce",
+   "product/worksite_operations.ts:321:produce",
+   "product/worksite_operations.ts:1164:produce"
+  ]
+ },
+ {
+  "value": "tenant_claim_roster_mismatch",
+  "type": 0,
+  "test": 0,
+  "produce": 1,
+  "props": {},
+  "files": 1,
+  "testFiles": 0,
+  "sites": [
+   "validator/self_conformance.ts:231:produce"
+  ]
+ },
+ {
+  "value": "tenant_conformance_manifest_basis_mismatch",
+  "type": 0,
+  "test": 0,
+  "produce": 1,
+  "props": {},
+  "files": 1,
+  "testFiles": 0,
+  "sites": [
+   "validator/self_conformance.ts:227:produce"
+  ]
+ },
+ {
+  "value": "tenant_conformance_manifest_missing",
+  "type": 0,
+  "test": 0,
+  "produce": 1,
+  "props": {},
+  "files": 1,
+  "testFiles": 0,
+  "sites": [
+   "validator/self_conformance.ts:225:produce"
+  ]
+ },
+ {
+  "value": "tenant_owned_capability_contract_mismatch",
+  "type": 0,
+  "test": 0,
+  "produce": 1,
+  "props": {},
+  "files": 1,
+  "testFiles": 0,
+  "sites": [
+   "validator/self_conformance.ts:233:produce"
+  ]
+ },
+ {
+  "value": "tenant_realization_assessment_required",
+  "type": 0,
+  "test": 0,
+  "produce": 1,
+  "props": {},
+  "files": 1,
+  "testFiles": 0,
+  "sites": [
+   "validator/self_conformance.ts:234:produce"
+  ]
+ },
+ {
+  "value": "terminal_admitted",
+  "type": 0,
+  "test": 0,
+  "produce": 3,
+  "props": {},
+  "files": 2,
+  "testFiles": 0,
+  "sites": [
+   "abg/calculus/axioms.ts:363:produce",
+   "abg/calculus/axioms.ts:1451:produce",
+   "abg/replay.ts:322:produce"
+  ]
+ },
+ {
+  "value": "terminal_projection",
+  "type": 0,
+  "test": 0,
+  "produce": 1,
+  "props": {},
+  "files": 1,
+  "testFiles": 0,
+  "sites": [
+   "abg/native_work_reacquisition.ts:76:produce"
+  ]
+ },
+ {
+  "value": "test_event_summary_mismatch",
+  "type": 0,
+  "test": 0,
+  "produce": 1,
+  "props": {},
+  "files": 1,
+  "testFiles": 0,
+  "sites": [
+   "validator/qualification.ts:118:produce"
+  ]
+ },
+ {
+  "value": "test_file_population_mismatch",
+  "type": 0,
+  "test": 0,
+  "produce": 1,
+  "props": {},
+  "files": 1,
+  "testFiles": 0,
+  "sites": [
+   "validator/qualification.ts:108:produce"
+  ]
+ },
+ {
+  "value": "test_selection_incomplete",
+  "type": 0,
+  "test": 0,
+  "produce": 1,
+  "props": {},
+  "files": 1,
+  "testFiles": 0,
+  "sites": [
+   "validator/qualification.ts:123:produce"
+  ]
+ },
+ {
+  "value": "test_summary_process_mismatch",
+  "type": 0,
+  "test": 0,
+  "produce": 1,
+  "props": {},
+  "files": 1,
+  "testFiles": 0,
+  "sites": [
+   "validator/qualification.ts:119:produce"
+  ]
+ },
+ {
+  "value": "testing_input",
+  "type": 0,
+  "test": 0,
+  "produce": 1,
+  "props": {},
+  "files": 1,
+  "testFiles": 0,
+  "sites": [
+   "abg/default_library.ts:440:produce"
+  ]
+ },
+ {
+  "value": "testing_observed_subject",
+  "type": 0,
+  "test": 0,
+  "produce": 2,
+  "props": {},
+  "files": 1,
+  "testFiles": 0,
+  "sites": [
+   "abg/default_library.ts:119:produce",
+   "abg/default_library.ts:121:produce"
+  ]
+ },
+ {
+  "value": "top_level_and_nested_http_launch_within_exact_capabilities",
+  "type": 0,
+  "test": 0,
+  "produce": 1,
+  "props": {
+   "commandRule": 1
+  },
+  "files": 1,
+  "testFiles": 0,
+  "sites": [
+   "product/semantic_job.ts:355:produce"
+  ]
+ },
+ {
+  "value": "traversal_exception",
+  "type": 0,
+  "test": 0,
+  "produce": 1,
+  "props": {
+   "errorClass": 1
+  },
+  "files": 1,
+  "testFiles": 0,
+  "sites": [
+   "hog/entry.ts:264:produce"
+  ]
+ },
+ {
+  "value": "typed_json_value",
+  "type": 0,
+  "test": 0,
+  "produce": 1,
+  "props": {
+   "disposition": 1
+  },
+  "files": 1,
+  "testFiles": 0,
+  "sites": [
+   "abg/instruction_assembly.ts:908:produce"
+  ]
+ },
+ {
+  "value": "unadmitted_catalog_basis",
+  "type": 0,
+  "test": 0,
+  "produce": 1,
+  "props": {},
+  "files": 1,
+  "testFiles": 0,
+  "sites": [
+   "product/catalog_definition_bindings.ts:329:produce"
+  ]
+ },
+ {
+  "value": "undeclared_authority_member",
+  "type": 0,
+  "test": 0,
+  "produce": 1,
+  "props": {},
+  "files": 1,
+  "testFiles": 0,
+  "sites": [
+   "validator/self_conformance.ts:191:produce"
+  ]
+ },
+ {
+  "value": "undeclared_predecessor_bodies",
+  "type": 0,
+  "test": 0,
+  "produce": 1,
+  "props": {},
+  "files": 1,
+  "testFiles": 0,
+  "sites": [
+   "product/semantic_job.ts:380:produce"
+  ]
+ },
+ {
+  "value": "undispatched_evidence_mismatch",
+  "type": 0,
+  "test": 0,
+  "produce": 1,
+  "props": {
+   "code": 1
+  },
+  "files": 1,
+  "testFiles": 0,
+  "sites": [
+   "abg/c_call.ts:2423:produce"
+  ]
+ },
+ {
+  "value": "unexpected_common_field",
+  "type": 0,
+  "test": 0,
+  "produce": 1,
+  "props": {},
+  "files": 1,
+  "testFiles": 0,
+  "sites": [
+   "public/binding/public_function_projections.ts:461:produce"
+  ]
+ },
+ {
+  "value": "unexpected_nonterminal",
+  "type": 0,
+  "test": 0,
+  "produce": 1,
+  "props": {},
+  "files": 1,
+  "testFiles": 0,
+  "sites": [
+   "public/binding/public_function_projections.ts:513:produce"
+  ]
+ },
+ {
+  "value": "unexpected_projected_identity",
+  "type": 0,
+  "test": 0,
+  "produce": 2,
+  "props": {},
+  "files": 1,
+  "testFiles": 0,
+  "sites": [
+   "product/public_contract_publication.ts:49:produce",
+   "product/public_contract_publication.ts:658:produce"
+  ]
+ },
+ {
+  "value": "unexpected_source_surface",
+  "type": 0,
+  "test": 0,
+  "produce": 2,
+  "props": {},
+  "files": 2,
+  "testFiles": 0,
+  "sites": [
+   "product/contracts.ts:346:produce",
+   "product/install_product.ts:444:produce"
+  ]
+ },
+ {
+  "value": "unique_active_obligation_domain",
+  "type": 0,
+  "test": 0,
+  "produce": 1,
+  "props": {},
+  "files": 1,
+  "testFiles": 0,
+  "sites": [
+   "product/semantic_job.ts:555:produce"
+  ]
+ },
+ {
+  "value": "unknown_variant",
+  "type": 0,
+  "test": 0,
+  "produce": 1,
+  "props": {},
+  "files": 1,
+  "testFiles": 0,
+  "sites": [
+   "public/binding/public_function_projections.ts:477:produce"
+  ]
+ },
+ {
+  "value": "unknown_watchdog_policy",
+  "type": 0,
+  "test": 0,
+  "produce": 1,
+  "props": {},
+  "files": 1,
+  "testFiles": 0,
+  "sites": [
+   "abg/calculus/liveness.ts:794:produce"
+  ]
+ },
+ {
+  "value": "unpublished_rule_application",
+  "type": 0,
+  "test": 0,
+  "produce": 1,
+  "props": {},
+  "files": 1,
+  "testFiles": 0,
+  "sites": [
+   "validator/self_conformance.ts:260:produce"
+  ]
+ },
+ {
+  "value": "unresolved_locator",
+  "type": 0,
+  "test": 0,
+  "produce": 4,
+  "props": {},
+  "files": 1,
+  "testFiles": 0,
+  "sites": [
+   "product/public_contract_publication.ts:52:produce",
+   "product/public_contract_publication.ts:674:produce",
+   "product/public_contract_publication.ts:693:produce",
+   "product/public_contract_publication.ts:705:produce"
+  ]
+ },
+ {
+  "value": "unsupported_contract",
+  "type": 0,
+  "test": 0,
+  "produce": 4,
+  "props": {},
+  "files": 2,
+  "testFiles": 0,
+  "sites": [
+   "product/verification_definition_bindings.ts:207:produce",
+   "product/verification_definition_bindings.ts:208:produce",
+   "product/verification_definition_bindings.ts:209:produce",
+   "product/verification_operation_contracts.ts:103:produce"
+  ]
+ },
+ {
+  "value": "utf8_text",
+  "type": 0,
+  "test": 0,
+  "produce": 2,
+  "props": {
+   "disposition": 2
+  },
+  "files": 1,
+  "testFiles": 0,
+  "sites": [
+   "abg/instruction_assembly.ts:607:produce",
+   "abg/instruction_assembly.ts:1034:produce"
+  ]
+ },
+ {
+  "value": "validated_runtime_prefix_immutability",
+  "type": 0,
+  "test": 0,
+  "produce": 1,
+  "props": {},
+  "files": 1,
+  "testFiles": 0,
+  "sites": [
+   "abg/event_prefix.ts:33:produce"
+  ]
+ },
+ {
+  "value": "validation_refused",
+  "type": 0,
+  "test": 0,
+  "produce": 1,
+  "props": {
+   "code": 1
+  },
+  "files": 1,
+  "testFiles": 0,
+  "sites": [
+   "owner_bindings/run_invocation.ts:1490:produce"
+  ]
+ },
+ {
+  "value": "verdict_not_green",
+  "type": 0,
+  "test": 0,
+  "produce": 1,
+  "props": {},
+  "files": 1,
+  "testFiles": 0,
+  "sites": [
+   "product/release_snapshot_operations.ts:77:produce"
+  ]
+ },
+ {
+  "value": "verification_command_failed",
+  "type": 0,
+  "test": 0,
+  "produce": 1,
+  "props": {},
+  "files": 1,
+  "testFiles": 0,
+  "sites": [
+   "validator/qualification.ts:179:produce"
+  ]
+ },
+ {
+  "value": "verification_failure",
+  "type": 0,
+  "test": 0,
+  "produce": 2,
+  "props": {},
+  "files": 2,
+  "testFiles": 0,
+  "sites": [
+   "product/install_definition_bindings.ts:191:produce",
+   "product/install_operation_contracts.ts:39:produce"
+  ]
+ },
+ {
+  "value": "verification_lint_failed",
+  "type": 0,
+  "test": 0,
+  "produce": 1,
+  "props": {},
+  "files": 1,
+  "testFiles": 0,
+  "sites": [
+   "validator/qualification.ts:233:produce"
+  ]
+ },
+ {
+  "value": "verification_lint_policy_mismatch",
+  "type": 0,
+  "test": 0,
+  "produce": 1,
+  "props": {},
+  "files": 1,
+  "testFiles": 0,
+  "sites": [
+   "validator/qualification.ts:232:produce"
+  ]
+ },
+ {
+  "value": "verification_predicate_comparison_incomplete",
+  "type": 0,
+  "test": 0,
+  "produce": 1,
+  "props": {},
+  "files": 1,
+  "testFiles": 0,
+  "sites": [
+   "validator/qualification.ts:217:produce"
+  ]
+ },
+ {
+  "value": "verification_predicate_mismatch",
+  "type": 0,
+  "test": 0,
+  "produce": 1,
+  "props": {},
+  "files": 1,
+  "testFiles": 0,
+  "sites": [
+   "validator/qualification.ts:217:produce"
+  ]
+ },
+ {
+  "value": "verification_product_changed",
+  "type": 0,
+  "test": 0,
+  "produce": 1,
+  "props": {},
+  "files": 1,
+  "testFiles": 0,
+  "sites": [
+   "validator/qualification.ts:170:produce"
+  ]
+ },
+ {
+  "value": "verification_recipe_configuration_mismatch",
+  "type": 0,
+  "test": 0,
+  "produce": 1,
+  "props": {},
+  "files": 1,
+  "testFiles": 0,
+  "sites": [
+   "validator/qualification.ts:169:produce"
+  ]
+ },
+ {
+  "value": "verification_source_inventory_mismatch",
+  "type": 0,
+  "test": 0,
+  "produce": 1,
+  "props": {},
+  "files": 1,
+  "testFiles": 0,
+  "sites": [
+   "validator/qualification.ts:161:produce"
+  ]
+ },
+ {
+  "value": "verified_preimage_mismatch",
+  "type": 0,
+  "test": 0,
+  "produce": 1,
+  "props": {},
+  "files": 1,
+  "testFiles": 0,
+  "sites": [
+   "product/environment_definition_bindings.ts:257:produce"
+  ]
+ },
+ {
+  "value": "well_formed_design_relation",
+  "type": 0,
+  "test": 0,
+  "produce": 1,
+  "props": {},
+  "files": 1,
+  "testFiles": 0,
+  "sites": [
+   "product/semantic_job.ts:589:produce"
+  ]
+ },
+ {
+  "value": "within_bound_lease",
+  "type": 0,
+  "test": 0,
+  "produce": 1,
+  "props": {},
+  "files": 1,
+  "testFiles": 0,
+  "sites": [
+   "abg/calculus/liveness.ts:791:produce"
+  ]
+ },
+ {
+  "value": "witness_content_contract",
+  "type": 0,
+  "test": 0,
+  "produce": 1,
+  "props": {},
+  "files": 1,
+  "testFiles": 0,
+  "sites": [
+   "abg/witness_admission_operation.ts:264:produce"
+  ]
+ },
+ {
+  "value": "witness_event_projection_mismatch",
+  "type": 0,
+  "test": 0,
+  "produce": 1,
+  "props": {},
+  "files": 1,
+  "testFiles": 0,
+  "sites": [
+   "abg/witness_definition_bindings.ts:315:produce"
+  ]
+ },
+ {
+  "value": "witness_evidence_projection",
+  "type": 0,
+  "test": 0,
+  "produce": 1,
+  "props": {},
+  "files": 1,
+  "testFiles": 0,
+  "sites": [
+   "abg/project_read_operation_contracts.ts:439:produce"
+  ]
+ },
+ {
+  "value": "witness_reprice_execution_failure",
+  "type": 0,
+  "test": 0,
+  "produce": 1,
+  "props": {},
+  "files": 1,
+  "testFiles": 0,
+  "sites": [
+   "abg/witness_definition_bindings.ts:364:produce"
+  ]
+ },
+ {
+  "value": "witness_run_stopped_execution_failure",
+  "type": 0,
+  "test": 0,
+  "produce": 1,
+  "props": {},
+  "files": 1,
+  "testFiles": 0,
+  "sites": [
+   "abg/witness_definition_bindings.ts:364:produce"
+  ]
+ },
+ {
+  "value": "witnessed_act",
+  "type": 0,
+  "test": 0,
+  "produce": 1,
+  "props": {
+   "sourceKind": 1
+  },
+  "files": 1,
+  "testFiles": 0,
+  "sites": [
+   "abg/project_read_operation_contracts.ts:437:produce"
+  ]
+ },
+ {
+  "value": "work_observation",
+  "type": 0,
+  "test": 0,
+  "produce": 1,
+  "props": {},
+  "files": 1,
+  "testFiles": 0,
+  "sites": [
+   "abg/default_library.ts:325:produce"
+  ]
+ },
+ {
+  "value": "worker_heartbeat",
+  "type": 0,
+  "test": 0,
+  "produce": 1,
+  "props": {},
+  "files": 1,
+  "testFiles": 0,
+  "sites": [
+   "abg/runtime_liveness_contracts.ts:11:produce"
+  ]
+ },
+ {
+  "value": "worksite_branch_construction_branch_application_child_closure",
+  "type": 0,
+  "test": 0,
+  "produce": 1,
+  "props": {},
+  "files": 1,
+  "testFiles": 0,
+  "sites": [
+   "gtl/worksite_branch_construction.ts:513:produce"
+  ]
+ },
+ {
+  "value": "worksite_branch_construction_child_closure",
+  "type": 0,
+  "test": 0,
+  "produce": 1,
+  "props": {},
+  "files": 1,
+  "testFiles": 0,
+  "sites": [
+   "gtl/worksite_branch_construction.ts:464:produce"
+  ]
+ },
+ {
+  "value": "worksite_branch_construction_closure",
+  "type": 0,
+  "test": 0,
+  "produce": 1,
+  "props": {},
+  "files": 1,
+  "testFiles": 0,
+  "sites": [
+   "gtl/worksite_branch_construction.ts:508:produce"
+  ]
+ },
+ {
+  "value": "worksite_branch_construction_evidence_candidate",
+  "type": 0,
+  "test": 0,
+  "produce": 1,
+  "props": {},
+  "files": 1,
+  "testFiles": 0,
+  "sites": [
+   "gtl/worksite_branch_construction.ts:493:produce"
+  ]
+ },
+ {
+  "value": "worksite_branch_construction_judgment",
+  "type": 0,
+  "test": 0,
+  "produce": 1,
+  "props": {},
+  "files": 1,
+  "testFiles": 0,
+  "sites": [
+   "gtl/worksite_branch_construction.ts:498:produce"
+  ]
+ },
+ {
+  "value": "worksite_branch_construction_reducer_child_closure",
+  "type": 0,
+  "test": 0,
+  "produce": 1,
+  "props": {},
+  "files": 1,
+  "testFiles": 0,
+  "sites": [
+   "gtl/worksite_branch_construction.ts:523:produce"
+  ]
+ },
+ {
+  "value": "worksite_branch_construction_refusal",
+  "type": 0,
+  "test": 0,
+  "produce": 2,
+  "props": {
+   "refusalValueKind": 1
+  },
+  "files": 1,
+  "testFiles": 0,
+  "sites": [
+   "gtl/worksite_branch_construction.ts:87:produce",
+   "gtl/worksite_branch_construction.ts:488:produce"
+  ]
+ },
+ {
+  "value": "worksite_branch_construction_transition",
+  "type": 0,
+  "test": 0,
+  "produce": 1,
+  "props": {},
+  "files": 1,
+  "testFiles": 0,
+  "sites": [
+   "gtl/worksite_branch_construction.ts:503:produce"
+  ]
+ },
+ {
+  "value": "worksite_command_execution_child_closure",
+  "type": 0,
+  "test": 0,
+  "produce": 1,
+  "props": {},
+  "files": 1,
+  "testFiles": 0,
+  "sites": [
+   "gtl/worksite_command_execution.ts:317:produce"
+  ]
+ },
+ {
+  "value": "worksite_command_execution_closure",
+  "type": 0,
+  "test": 0,
+  "produce": 1,
+  "props": {},
+  "files": 1,
+  "testFiles": 0,
+  "sites": [
+   "gtl/worksite_command_execution.ts:326:produce"
+  ]
+ },
+ {
+  "value": "worksite_command_execution_evidence",
+  "type": 0,
+  "test": 0,
+  "produce": 1,
+  "props": {},
+  "files": 1,
+  "testFiles": 0,
+  "sites": [
+   "gtl/worksite_command_execution.ts:323:produce"
+  ]
+ },
+ {
+  "value": "worksite_command_execution_judgment",
+  "type": 0,
+  "test": 0,
+  "produce": 1,
+  "props": {},
+  "files": 1,
+  "testFiles": 0,
+  "sites": [
+   "gtl/worksite_command_execution.ts:324:produce"
+  ]
+ },
+ {
+  "value": "worksite_command_execution_transition",
+  "type": 0,
+  "test": 0,
+  "produce": 1,
+  "props": {},
+  "files": 1,
+  "testFiles": 0,
+  "sites": [
+   "gtl/worksite_command_execution.ts:325:produce"
+  ]
+ },
+ {
+  "value": "worksite_command_forward_child_closure",
+  "type": 0,
+  "test": 0,
+  "produce": 1,
+  "props": {},
+  "files": 1,
+  "testFiles": 0,
+  "sites": [
+   "gtl/worksite_command_forward.ts:73:produce"
+  ]
+ },
+ {
+  "value": "worksite_command_forward_closure",
+  "type": 0,
+  "test": 0,
+  "produce": 1,
+  "props": {},
+  "files": 1,
+  "testFiles": 0,
+  "sites": [
+   "gtl/worksite_command_forward.ts:73:produce"
+  ]
+ },
+ {
+  "value": "worksite_construction_child_closure",
+  "type": 0,
+  "test": 0,
+  "produce": 1,
+  "props": {},
+  "files": 1,
+  "testFiles": 0,
+  "sites": [
+   "gtl/worksite_construction.ts:534:produce"
+  ]
+ },
+ {
+  "value": "worksite_construction_closure",
+  "type": 0,
+  "test": 0,
+  "produce": 1,
+  "props": {},
+  "files": 1,
+  "testFiles": 0,
+  "sites": [
+   "gtl/worksite_construction.ts:529:produce"
+  ]
+ },
+ {
+  "value": "worksite_construction_evidence_candidate",
+  "type": 0,
+  "test": 0,
+  "produce": 1,
+  "props": {},
+  "files": 1,
+  "testFiles": 0,
+  "sites": [
+   "gtl/worksite_construction.ts:514:produce"
+  ]
+ },
+ {
+  "value": "worksite_construction_judgment",
+  "type": 0,
+  "test": 0,
+  "produce": 1,
+  "props": {},
+  "files": 1,
+  "testFiles": 0,
+  "sites": [
+   "gtl/worksite_construction.ts:519:produce"
+  ]
+ },
+ {
+  "value": "worksite_construction_reducer_child_closure",
+  "type": 0,
+  "test": 0,
+  "produce": 1,
+  "props": {},
+  "files": 1,
+  "testFiles": 0,
+  "sites": [
+   "gtl/worksite_construction.ts:544:produce"
+  ]
+ },
+ {
+  "value": "worksite_construction_refusal",
+  "type": 0,
+  "test": 0,
+  "produce": 2,
+  "props": {
+   "refusalValueKind": 1
+  },
+  "files": 1,
+  "testFiles": 0,
+  "sites": [
+   "gtl/worksite_construction.ts:66:produce",
+   "gtl/worksite_construction.ts:509:produce"
+  ]
+ },
+ {
+  "value": "worksite_construction_transition",
+  "type": 0,
+  "test": 0,
+  "produce": 1,
+  "props": {},
+  "files": 1,
+  "testFiles": 0,
+  "sites": [
+   "gtl/worksite_construction.ts:524:produce"
+  ]
+ },
+ {
+  "value": "worksite_construction_vector_application_child_closure",
+  "type": 0,
+  "test": 0,
+  "produce": 1,
+  "props": {},
+  "files": 1,
+  "testFiles": 0,
+  "sites": [
+   "gtl/worksite_construction.ts:539:produce"
+  ]
+ },
+ {
+  "value": "worksite_failure_evidence_mismatch",
+  "type": 0,
+  "test": 0,
+  "produce": 1,
+  "props": {
+   "code": 1
+  },
+  "files": 1,
+  "testFiles": 0,
+  "sites": [
+   "abg/c_call_outcome.ts:373:produce"
+  ]
+ },
+ {
+  "value": "worksite_file_parents_evidence_candidate",
+  "type": 0,
+  "test": 0,
+  "produce": 1,
+  "props": {
+   "valueKind": 1
+  },
+  "files": 1,
+  "testFiles": 0,
+  "sites": [
+   "gtl/worksite_c0.ts:160:produce"
+  ]
+ },
+ {
+  "value": "worksite_file_replace_child_closure",
+  "type": 0,
+  "test": 0,
+  "produce": 1,
+  "props": {
+   "valueKind": 1
+  },
+  "files": 1,
+  "testFiles": 0,
+  "sites": [
+   "gtl/worksite_c0.ts:227:produce"
+  ]
+ },
+ {
+  "value": "worksite_file_replace_closure",
+  "type": 0,
+  "test": 0,
+  "produce": 1,
+  "props": {
+   "valueKind": 1
+  },
+  "files": 1,
+  "testFiles": 0,
+  "sites": [
+   "gtl/worksite_c0.ts:226:produce"
+  ]
+ },
+ {
+  "value": "worksite_file_replace_judgment",
+  "type": 0,
+  "test": 0,
+  "produce": 1,
+  "props": {
+   "valueKind": 1
+  },
+  "files": 1,
+  "testFiles": 0,
+  "sites": [
+   "gtl/worksite_c0.ts:224:produce"
+  ]
+ },
+ {
+  "value": "worksite_file_replace_transition",
+  "type": 0,
+  "test": 0,
+  "produce": 1,
+  "props": {
+   "valueKind": 1
+  },
+  "files": 1,
+  "testFiles": 0,
+  "sites": [
+   "gtl/worksite_c0.ts:225:produce"
+  ]
+ },
+ {
+  "value": "worksite_http_probe_observation",
+  "type": 0,
+  "test": 0,
+  "produce": 1,
+  "props": {
+   "kind": 1
+  },
+  "files": 1,
+  "testFiles": 0,
+  "sites": [
+   "implementation/worksite_command_helper.ts:1433:produce"
+  ]
+ },
+ {
+  "value": "worksite_observation_coordinate",
+  "type": 0,
+  "test": 0,
+  "produce": 3,
+  "props": {
+   "kind": 3
+  },
+  "files": 1,
+  "testFiles": 0,
+  "sites": [
+   "implementation/worksite_command_helper.ts:1419:produce",
+   "implementation/worksite_command_helper.ts:1456:produce",
+   "implementation/worksite_command_helper.ts:1473:produce"
+  ]
+ },
+ {
+  "value": "worksite_revision_command_execution_child_closure",
+  "type": 0,
+  "test": 0,
+  "produce": 1,
+  "props": {},
+  "files": 1,
+  "testFiles": 0,
+  "sites": [
+   "gtl/worksite_command_execution.ts:316:produce"
+  ]
+ },
+ {
+  "value": "worksite_revision_evidence_mismatch",
+  "type": 0,
+  "test": 0,
+  "produce": 1,
+  "props": {
+   "code": 1
+  },
+  "files": 1,
+  "testFiles": 0,
+  "sites": [
+   "abg/worksite_revision.ts:357:produce"
+  ]
+ },
+ {
+  "value": "workspace_admission",
+  "type": 0,
+  "test": 0,
+  "produce": 1,
+  "props": {
+   "effectClass": 1
+  },
+  "files": 1,
+  "testFiles": 0,
+  "sites": [
+   "product/workspace_operation_contracts.ts:138:produce"
+  ]
+ },
+ {
+  "value": "workspace_binding_admission_relation_failure",
+  "type": 0,
+  "test": 0,
+  "produce": 1,
+  "props": {},
+  "files": 1,
+  "testFiles": 0,
+  "sites": [
+   "product/environment_definition_bindings.ts:747:produce"
+  ]
+ },
+ {
+  "value": "workspace_binding_coordinate_refusal",
+  "type": 0,
+  "test": 0,
+  "produce": 1,
+  "props": {},
+  "files": 1,
+  "testFiles": 0,
+  "sites": [
+   "product/environment_definition_bindings.ts:732:produce"
+  ]
+ },
+ {
+  "value": "workspace_binding_execution_failure",
+  "type": 0,
+  "test": 0,
+  "produce": 1,
+  "props": {},
+  "files": 1,
+  "testFiles": 0,
+  "sites": [
+   "product/environment_definition_bindings.ts:807:produce"
+  ]
+ },
+ {
+  "value": "workspace_binding_forbidden",
+  "type": 0,
+  "test": 0,
+  "produce": 1,
+  "props": {},
+  "files": 1,
+  "testFiles": 0,
+  "sites": [
+   "product/admission_authority.ts:188:produce"
+  ]
+ },
+ {
+  "value": "workspace_binding_persistence",
+  "type": 0,
+  "test": 0,
+  "produce": 1,
+  "props": {
+   "effectClass": 1
+  },
+  "files": 1,
+  "testFiles": 0,
+  "sites": [
+   "product/environment_operation_contracts.ts:475:produce"
+  ]
+ },
+ {
+  "value": "workspace_binding_projection_mismatch",
+  "type": 0,
+  "test": 0,
+  "produce": 1,
+  "props": {},
+  "files": 1,
+  "testFiles": 0,
+  "sites": [
+   "product/environment_definition_bindings.ts:772:produce"
+  ]
+ },
+ {
+  "value": "workspace_execution_failure",
+  "type": 0,
+  "test": 0,
+  "produce": 2,
+  "props": {},
+  "files": 1,
+  "testFiles": 0,
+  "sites": [
+   "product/workspace_definition_bindings.ts:227:produce",
+   "product/workspace_definition_bindings.ts:287:produce"
+  ]
+ },
+ {
+  "value": "workspace_filesystem",
+  "type": 0,
+  "test": 0,
+  "produce": 1,
+  "props": {
+   "effectClass": 1
+  },
+  "files": 1,
+  "testFiles": 0,
+  "sites": [
+   "product/workspace_operation_contracts.ts:34:produce"
+  ]
+ },
+ {
+  "value": "workspace_gap_basis",
+  "type": 0,
+  "test": 0,
+  "produce": 1,
+  "props": {},
+  "files": 1,
+  "testFiles": 0,
+  "sites": [
+   "abg/project_read_operation_contracts.ts:496:produce"
+  ]
+ },
+ {
+  "value": "workspace_identity_conflict",
+  "type": 0,
+  "test": 0,
+  "produce": 1,
+  "props": {},
+  "files": 1,
+  "testFiles": 0,
+  "sites": [
+   "product/workspace_operation_contracts.ts:24:produce"
+  ]
+ },
+ {
+  "value": "workspace_mismatch",
+  "type": 0,
+  "test": 0,
+  "produce": 5,
+  "props": {
+   "workspace_not_ready": 1
+  },
+  "files": 4,
+  "testFiles": 0,
+  "sites": [
+   "product/environment_definition_bindings.ts:593:produce",
+   "product/environment_operation_contracts.ts:457:produce",
+   "product/materialization_definition_bindings.ts:127:produce",
+   "product/materialization_definition_bindings.ts:233:produce",
+   "product/materialization_operation_contracts.ts:35:produce"
+  ]
+ },
+ {
+  "value": "workspace_replay_projection",
+  "type": 0,
+  "test": 0,
+  "produce": 1,
+  "props": {},
+  "files": 1,
+  "testFiles": 0,
+  "sites": [
+   "abg/project_read_operation_contracts.ts:447:produce"
+  ]
+ },
+ {
+  "value": "wrong_contract",
+  "type": 0,
+  "test": 0,
+  "produce": 1,
+  "props": {},
+  "files": 1,
+  "testFiles": 0,
+  "sites": [
+   "public/binding/public_function_projections.ts:511:produce"
+  ]
+ },
+ {
+  "value": "wrong_subject_kind",
+  "type": 0,
+  "test": 0,
+  "produce": 1,
+  "props": {},
+  "files": 1,
+  "testFiles": 0,
+  "sites": [
+   "product/release_snapshot_operations.ts:77:produce"
+  ]
+ },
+ {
+  "value": "yield_continuation",
+  "type": 0,
+  "test": 0,
+  "produce": 4,
+  "props": {},
+  "files": 2,
+  "testFiles": 0,
+  "sites": [
+   "abg/calculus/liveness.ts:795:produce",
+   "abg/calculus/liveness.ts:798:produce",
+   "abg/calculus/liveness.ts:807:produce",
+   "abg/runtime_liveness_contracts.ts:22:produce"
+  ]
+ }
+]

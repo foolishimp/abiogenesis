@@ -1,0 +1,188 @@
+[
+ {
+  "file": "abg/c_call.ts",
+  "line": 79,
+  "code": 6133,
+  "text": "'selectValidatedRuntimeEventPrefix' is declared but its value is never read."
+ },
+ {
+  "file": "abg/c_call.ts",
+  "line": 3173,
+  "code": 6133,
+  "text": "'runtimeFailurePlanBody' is declared but its value is never read."
+ },
+ {
+  "file": "abg/c_call.ts",
+  "line": 3512,
+  "code": 6133,
+  "text": "'runtimeFailureCloseError' is declared but its value is never read."
+ },
+ {
+  "file": "abg/c_call.ts",
+  "line": 3911,
+  "code": 6133,
+  "text": "'request' is declared but its value is never read."
+ },
+ {
+  "file": "abg/c_call.ts",
+  "line": 4146,
+  "code": 6133,
+  "text": "'predecessorPrefix' is declared but its value is never read."
+ },
+ {
+  "file": "abg/c_call_outcome.ts",
+  "line": 1004,
+  "code": 6133,
+  "text": "'priorDerivation' is declared but its value is never read."
+ },
+ {
+  "file": "abg/environment_admission.ts",
+  "line": 39,
+  "code": 6133,
+  "text": "'ExactPrefixArtifactTruthProjectionResult' is declared but its value is never read."
+ },
+ {
+  "file": "abg/event_store.ts",
+  "line": 42,
+  "code": 6133,
+  "text": "'ROOT_CURRENT_EVENT_PROFILE_REF' is declared but its value is never read."
+ },
+ {
+  "file": "abg/execution_basis.ts",
+  "line": 127,
+  "code": 6133,
+  "text": "'selectValidatedRuntimeEventPrefix' is declared but its value is never read."
+ },
+ {
+  "file": "abg/execution_basis.ts",
+  "line": 687,
+  "code": 6133,
+  "text": "'programModuleRef' is declared but its value is never read."
+ },
+ {
+  "file": "abg/execution_basis.ts",
+  "line": 688,
+  "code": 6133,
+  "text": "'programRef' is declared but its value is never read."
+ },
+ {
+  "file": "abg/invocation_admission.ts",
+  "line": 99,
+  "code": 6133,
+  "text": "'selectValidatedRuntimeEventPrefix' is declared but its value is never read."
+ },
+ {
+  "file": "abg/retry.ts",
+  "line": 4,
+  "code": 6133,
+  "text": "'runtimeEventPrefixExtent' is declared but its value is never read."
+ },
+ {
+  "file": "abg/retry.ts",
+  "line": 5170,
+  "code": 6133,
+  "text": "'predecessorPrefix' is declared but its value is never read."
+ },
+ {
+  "file": "abg/semantic_revision.ts",
+  "line": 44,
+  "code": 6133,
+  "text": "'runtimeEventsFromValidatedPrefix' is declared but its value is never read."
+ },
+ {
+  "file": "abg/semantic_stage.ts",
+  "line": 82,
+  "code": 6133,
+  "text": "'events' is declared but its value is never read."
+ },
+ {
+  "file": "abg/witness_admission_operation.ts",
+  "line": 677,
+  "code": 6133,
+  "text": "'packet' is declared but its value is never read."
+ },
+ {
+  "file": "abg/worksite_revision.ts",
+  "line": 337,
+  "code": 6133,
+  "text": "'work' is declared but its value is never read."
+ },
+ {
+  "file": "hog/route_proposal.ts",
+  "line": 200,
+  "code": 6133,
+  "text": "'boundInput' is declared but its value is never read."
+ },
+ {
+  "file": "hog/route_proposal.ts",
+  "line": 1043,
+  "code": 6133,
+  "text": "'boundInput' is declared but its value is never read."
+ },
+ {
+  "file": "hog/route_proposal.ts",
+  "line": 1044,
+  "code": 6133,
+  "text": "'definitionDigests' is declared but its value is never read."
+ },
+ {
+  "file": "implementation/worksite_command_helper.ts",
+  "line": 379,
+  "code": 6133,
+  "text": "'manifest' is declared but its value is never read."
+ },
+ {
+  "file": "implementation/worksite_construction.ts",
+  "line": 151,
+  "code": 6133,
+  "text": "'task' is declared but its value is never read."
+ },
+ {
+  "file": "product/contracts.ts",
+  "line": 196,
+  "code": 6133,
+  "text": "'T' is declared but its value is never read."
+ },
+ {
+  "file": "product/result_assessment_operation.ts",
+  "line": 34,
+  "code": 6133,
+  "text": "'T' is declared but its value is never read."
+ },
+ {
+  "file": "product/worksite_operations.ts",
+  "line": 17,
+  "code": 6133,
+  "text": "'sha256Canonical' is declared but its value is never read."
+ },
+ {
+  "file": "public/gap_authority.ts",
+  "line": 75,
+  "code": 6133,
+  "text": "'AUTHORITY_KEYS' is declared but its value is never read."
+ },
+ {
+  "file": "public/gap_authority.ts",
+  "line": 94,
+  "code": 6133,
+  "text": "'PUBLIC_START_KEYS' is declared but its value is never read."
+ },
+ {
+  "file": "public/gap_authority.ts",
+  "line": 106,
+  "code": 6133,
+  "text": "'SOURCE_KEYS' is declared but its value is never read."
+ },
+ {
+  "file": "shared/public_invocation.ts",
+  "line": 9,
+  "code": 6133,
+  "text": "'T' is declared but its value is never read."
+ },
+ {
+  "file": "validator/qualification.ts",
+  "line": 456,
+  "code": 6133,
+  "text": "'normalized' is declared but its value is never read."
+ }
+]

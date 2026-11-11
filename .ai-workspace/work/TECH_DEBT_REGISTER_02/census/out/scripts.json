@@ -1,0 +1,62 @@
+[
+ {
+  "inNpmScripts": true,
+  "mentions": 1,
+  "script": "check-calculus-boundary.mjs"
+ },
+ {
+  "inNpmScripts": true,
+  "mentions": 3,
+  "script": "check-evidence-mirrors.mjs"
+ },
+ {
+  "inNpmScripts": true,
+  "mentions": 1,
+  "script": "check-import-direction.mjs"
+ },
+ {
+  "inNpmScripts": true,
+  "mentions": 1,
+  "script": "check-lifecycle-boundary.mjs"
+ },
+ {
+  "inNpmScripts": true,
+  "mentions": 1,
+  "script": "clean.mjs"
+ },
+ {
+  "inNpmScripts": true,
+  "mentions": 4,
+  "script": "generate-product-manifest.mjs"
+ },
+ {
+  "inNpmScripts": false,
+  "mentions": 4,
+  "script": "generate-qualification-rule-catalog.mjs"
+ },
+ {
+  "inNpmScripts": true,
+  "mentions": 2,
+  "script": "lint-verification.mjs"
+ },
+ {
+  "inNpmScripts": false,
+  "mentions": 1,
+  "script": "node-test-evidence-reporter.mjs"
+ },
+ {
+  "inNpmScripts": false,
+  "mentions": 1,
+  "script": "prepare-retained-setup-binding.mjs"
+ },
+ {
+  "inNpmScripts": false,
+  "mentions": 0,
+  "script": "refresh-candidate-basis.mjs"
+ },
+ {
+  "inNpmScripts": true,
+  "mentions": 4,
+  "script": "sandbox-uat.mjs"
+ }
+]

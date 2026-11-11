@@ -1,0 +1,322 @@
+[
+ {
+  "a": "code/src/abg/construction_continuation.ts",
+  "b": "code/src/abg/construction_continuation.ts",
+  "normalizedLines": 22580
+ },
+ {
+  "a": "code/src/gtl/consensus_schema.ts",
+  "b": "code/src/gtl/consensus_schema.ts",
+  "normalizedLines": 600
+ },
+ {
+  "a": "code/src/abg/c_call.ts",
+  "b": "code/src/abg/c_call.ts",
+  "normalizedLines": 505
+ },
+ {
+  "a": "code/src/abg/retry.ts",
+  "b": "code/src/abg/retry.ts",
+  "normalizedLines": 398
+ },
+ {
+  "a": "code/src/abg/traversal_route.ts",
+  "b": "code/src/abg/traversal_route.ts",
+  "normalizedLines": 152
+ },
+ {
+  "a": "code/src/abg/worksite_input_provenance.ts",
+  "b": "code/src/abg/worksite_input_provenance.ts",
+  "normalizedLines": 103
+ },
+ {
+  "a": "code/src/abg/execution_basis.ts",
+  "b": "code/src/abg/execution_basis.ts",
+  "normalizedLines": 74
+ },
+ {
+  "a": "code/src/implementation/leaf_execution_authority.ts",
+  "b": "code/src/product/worksite_effect.ts",
+  "normalizedLines": 70
+ },
+ {
+  "a": "code/src/hog/route_proposal.ts",
+  "b": "code/src/hog/route_proposal.ts",
+  "normalizedLines": 70
+ },
+ {
+  "a": "code/src/owner_bindings/run_invocation.ts",
+  "b": "code/src/owner_bindings/run_invocation.ts",
+  "normalizedLines": 49
+ },
+ {
+  "a": "code/src/gtl/consensus.ts",
+  "b": "code/src/gtl/consensus.ts",
+  "normalizedLines": 47
+ },
+ {
+  "a": "code/src/abg/replay.ts",
+  "b": "code/src/abg/traversal_route.ts",
+  "normalizedLines": 40
+ },
+ {
+  "a": "code/src/implementation/consensus.ts",
+  "b": "code/src/implementation/consensus.ts",
+  "normalizedLines": 37
+ },
+ {
+  "a": "code/src/product/environment.ts",
+  "b": "code/src/product/worksite_construction.ts",
+  "normalizedLines": 35
+ },
+ {
+  "a": "code/src/abg/continuation.ts",
+  "b": "code/src/abg/continuation.ts",
+  "normalizedLines": 31
+ },
+ {
+  "a": "code/src/product/worksite_construction.ts",
+  "b": "code/src/product/worksite_effect.ts",
+  "normalizedLines": 30
+ },
+ {
+  "a": "code/src/abg/project_read_operation_contracts.ts",
+  "b": "code/src/product/project_read_operation_contracts.ts",
+  "normalizedLines": 28
+ },
+ {
+  "a": "code/src/product/invocation.ts",
+  "b": "code/src/product/invocation.ts",
+  "normalizedLines": 28
+ },
+ {
+  "a": "code/src/abg/calculus/index.ts",
+  "b": "code/src/abg/event_calculus.ts",
+  "normalizedLines": 27
+ },
+ {
+  "a": "code/src/product/worksite_command_execution.ts",
+  "b": "code/src/product/worksite_construction.ts",
+  "normalizedLines": 27
+ },
+ {
+  "a": "code/src/product/environment_operation_contracts.ts",
+  "b": "code/src/shared/public_function_contracts.ts",
+  "normalizedLines": 25
+ },
+ {
+  "a": "code/src/abg/c_call.ts",
+  "b": "code/src/abg/continuation.ts",
+  "normalizedLines": 23
+ },
+ {
+  "a": "code/src/product/materialization_definition_bindings.ts",
+  "b": "code/src/product/result_definition_bindings.ts",
+  "normalizedLines": 22
+ },
+ {
+  "a": "code/src/abg/c_call.ts",
+  "b": "code/src/abg/runtime_failure.ts",
+  "normalizedLines": 20
+ },
+ {
+  "a": "code/src/abg/child_lifecycle.ts",
+  "b": "code/src/abg/child_lifecycle.ts",
+  "normalizedLines": 18
+ },
+ {
+  "a": "code/src/abg/project_read_operation_contracts.ts",
+  "b": "code/src/abg/project_read_ports.ts",
+  "normalizedLines": 18
+ },
+ {
+  "a": "code/src/product/contracts.ts",
+  "b": "code/src/product/contracts.ts",
+  "normalizedLines": 18
+ },
+ {
+  "a": "code/src/abg/graph_application.ts",
+  "b": "code/src/abg/graph_application.ts",
+  "normalizedLines": 17
+ },
+ {
+  "a": "code/src/implementation/worksite_command_execution.ts",
+  "b": "code/src/implementation/worksite_command_helper.ts",
+  "normalizedLines": 17
+ },
+ {
+  "a": "code/src/abg/witness_admission_operation.ts",
+  "b": "code/src/validator/conformance_operation.ts",
+  "normalizedLines": 15
+ },
+ {
+  "a": "code/src/gtl/worksite_branch_construction.ts",
+  "b": "code/src/gtl/worksite_construction.ts",
+  "normalizedLines": 15
+ },
+ {
+  "a": "code/src/implementation/leaf_execution_authority.ts",
+  "b": "code/src/implementation/leaf_invocation_port.ts",
+  "normalizedLines": 15
+ },
+ {
+  "a": "code/src/product/environment.ts",
+  "b": "code/src/product/worksite_command_execution.ts",
+  "normalizedLines": 15
+ },
+ {
+  "a": "code/src/product/implementation_resolution.ts",
+  "b": "code/src/product/implementation_resolution.ts",
+  "normalizedLines": 15
+ },
+ {
+  "a": "code/src/validator/implementation_resolution.ts",
+  "b": "code/src/validator/implementation_resolution.ts",
+  "normalizedLines": 15
+ },
+ {
+  "a": "code/src/abg/probabilistic_result.ts",
+  "b": "code/src/abg/witness_admission_operation.ts",
+  "normalizedLines": 14
+ },
+ {
+  "a": "code/src/abg/probabilistic_result.ts",
+  "b": "code/src/validator/conformance_operation.ts",
+  "normalizedLines": 14
+ },
+ {
+  "a": "code/src/shared/public_function_contracts.ts",
+  "b": "code/src/shared/public_function_contracts.ts",
+  "normalizedLines": 14
+ },
+ {
+  "a": "code/src/abg/continuation.ts",
+  "b": "code/src/abg/fh_continuation_projection.ts",
+  "normalizedLines": 13
+ },
+ {
+  "a": "code/src/abg/environment_admission.ts",
+  "b": "code/src/abg/environment_admission.ts",
+  "normalizedLines": 13
+ },
+ {
+  "a": "code/src/abg/actor_process.ts",
+  "b": "code/src/implementation/contracts.ts",
+  "normalizedLines": 12
+ },
+ {
+  "a": "code/src/gtl/worksite_command_execution.ts",
+  "b": "code/src/gtl/worksite_construction.ts",
+  "normalizedLines": 12
+ },
+ {
+  "a": "code/src/implementation/worksite_command_execution.ts",
+  "b": "code/src/implementation/worksite_file_replace.ts",
+  "normalizedLines": 12
+ },
+ {
+  "a": "code/src/implementation/worksite_file_replace.ts",
+  "b": "code/src/implementation/worksite_file_replace.ts",
+  "normalizedLines": 12
+ },
+ {
+  "a": "code/src/product/catalog_operation_contracts.ts",
+  "b": "code/src/product/environment_operation_contracts.ts",
+  "normalizedLines": 12
+ },
+ {
+  "a": "code/src/product/environment.ts",
+  "b": "code/src/product/environment.ts",
+  "normalizedLines": 12
+ },
+ {
+  "a": "code/src/public/binding/public_function_projections.ts",
+  "b": "code/src/shared/public_function_contracts.ts",
+  "normalizedLines": 12
+ },
+ {
+  "a": "code/src/shared/public_function_contracts.ts",
+  "b": "code/src/shared/public_invocation.ts",
+  "normalizedLines": 12
+ },
+ {
+  "a": "code/src/abg/c_call.ts",
+  "b": "code/src/abg/graph_application.ts",
+  "normalizedLines": 11
+ },
+ {
+  "a": "code/src/abg/fh_resume_relation.ts",
+  "b": "code/src/abg/traversal_route.ts",
+  "normalizedLines": 11
+ },
+ {
+  "a": "code/src/gtl/consensus.ts",
+  "b": "code/src/validator/validation.ts",
+  "normalizedLines": 11
+ },
+ {
+  "a": "code/src/implementation/consensus.ts",
+  "b": "code/src/implementation/worksite_branch_construction.ts",
+  "normalizedLines": 11
+ },
+ {
+  "a": "code/src/implementation/consensus.ts",
+  "b": "code/src/implementation/worksite_construction.ts",
+  "normalizedLines": 11
+ },
+ {
+  "a": "code/src/implementation/worksite_branch_construction.ts",
+  "b": "code/src/implementation/worksite_construction.ts",
+  "normalizedLines": 11
+ },
+ {
+  "a": "code/src/product/semantics.ts",
+  "b": "code/src/product/semantics.ts",
+  "normalizedLines": 11
+ },
+ {
+  "a": "code/src/abg/actor_process.ts",
+  "b": "code/src/abg/c_call.ts",
+  "normalizedLines": 10
+ },
+ {
+  "a": "code/src/abg/graph_application.ts",
+  "b": "code/src/abg/traversal_route.ts",
+  "normalizedLines": 10
+ },
+ {
+  "a": "code/src/gtl/worksite_c0.ts",
+  "b": "code/src/gtl/worksite_c0.ts",
+  "normalizedLines": 10
+ },
+ {
+  "a": "code/src/hog/retry_lifecycle.ts",
+  "b": "code/src/hog/retry_lifecycle.ts",
+  "normalizedLines": 10
+ },
+ {
+  "a": "code/src/product/environment.ts",
+  "b": "code/src/product/worksite_effect.ts",
+  "normalizedLines": 10
+ },
+ {
+  "a": "code/src/product/worksite_command_execution.ts",
+  "b": "code/src/product/worksite_effect.ts",
+  "normalizedLines": 10
+ },
+ {
+  "a": "code/src/product/environment_definition_bindings.ts",
+  "b": "code/src/public/binding/definition_binding_mechanics.ts",
+  "normalizedLines": 10
+ },
+ {
+  "a": "code/src/product/run_operation_contracts.ts",
+  "b": "code/src/product/run_operation_contracts.ts",
+  "normalizedLines": 10
+ },
+ {
+  "a": "code/src/product/worksite_branch_construction.ts",
+  "b": "code/src/product/worksite_construction.ts",
+  "normalizedLines": 10
+ }
+]

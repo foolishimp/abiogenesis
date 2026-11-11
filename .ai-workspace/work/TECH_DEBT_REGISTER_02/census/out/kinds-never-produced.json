@@ -1,0 +1,702 @@
+[
+ {
+  "value": "abg_cli_transport_request",
+  "type": 1,
+  "test": 1,
+  "produce": 0,
+  "props": {},
+  "files": 1,
+  "testFiles": 18,
+  "sites": [
+   "public/cli.ts:27:type",
+   "public/cli.ts:45:test"
+  ]
+ },
+ {
+  "value": "abg_product_toolchain_manifest",
+  "type": 1,
+  "test": 1,
+  "produce": 0,
+  "props": {},
+  "files": 1,
+  "testFiles": 18,
+  "sites": [
+   "product/verify_product.ts:86:type",
+   "product/verify_product.ts:1036:test"
+  ]
+ },
+ {
+  "value": "api_retry",
+  "type": 0,
+  "test": 2,
+  "produce": 0,
+  "props": {},
+  "files": 1,
+  "testFiles": 4,
+  "sites": [
+   "abg/worker_transport.ts:347:test",
+   "abg/worker_transport.ts:348:test"
+  ]
+ },
+ {
+  "value": "c_call_open",
+  "type": 1,
+  "test": 0,
+  "produce": 0,
+  "props": {},
+  "files": 1,
+  "testFiles": 0,
+  "sites": [
+   "abg/runtime_failure.ts:61:type"
+  ]
+ },
+ {
+  "value": "c_program_syntax",
+  "type": 1,
+  "test": 0,
+  "produce": 0,
+  "props": {},
+  "files": 1,
+  "testFiles": 0,
+  "sites": [
+   "gtl/serialization_contracts.ts:15:type"
+  ]
+ },
+ {
+  "value": "catalog_admission_resource_assertion",
+  "type": 1,
+  "test": 1,
+  "produce": 0,
+  "props": {},
+  "files": 1,
+  "testFiles": 12,
+  "sites": [
+   "product/catalog_definition_bindings.ts:98:type",
+   "product/catalog_definition_bindings.ts:286:test"
+  ]
+ },
+ {
+  "value": "catalog_view_resource_assertion",
+  "type": 1,
+  "test": 1,
+  "produce": 0,
+  "props": {},
+  "files": 1,
+  "testFiles": 14,
+  "sites": [
+   "product/catalog_definition_bindings.ts:124:type",
+   "product/catalog_definition_bindings.ts:700:test"
+  ]
+ },
+ {
+  "value": "conformance_evaluation_resource_assertion",
+  "type": 1,
+  "test": 1,
+  "produce": 0,
+  "props": {},
+  "files": 1,
+  "testFiles": 13,
+  "sites": [
+   "validator/conformance_definition_bindings.ts:72:type",
+   "validator/conformance_definition_bindings.ts:336:test"
+  ]
+ },
+ {
+  "value": "continue_candidate",
+  "type": 1,
+  "test": 3,
+  "produce": 0,
+  "props": {},
+  "files": 1,
+  "testFiles": 5,
+  "sites": [
+   "abg/traversal_route.ts:380:type",
+   "abg/traversal_route.ts:1307:test",
+   "abg/traversal_route.ts:1901:test",
+   "abg/traversal_route.ts:2674:test"
+  ]
+ },
+ {
+  "value": "direct_owner_primitive",
+  "type": 1,
+  "test": 0,
+  "produce": 0,
+  "props": {},
+  "files": 1,
+  "testFiles": 0,
+  "sites": [
+   "public/binding/owner_contract_source_set.ts:51:type"
+  ]
+ },
+ {
+  "value": "envelope_output",
+  "type": 1,
+  "test": 0,
+  "produce": 0,
+  "props": {},
+  "files": 1,
+  "testFiles": 7,
+  "sites": [
+   "gtl/semantic_stage_publication.ts:71:type"
+  ]
+ },
+ {
+  "value": "evidence_input",
+  "type": 1,
+  "test": 1,
+  "produce": 0,
+  "props": {},
+  "files": 1,
+  "testFiles": 4,
+  "sites": [
+   "gtl/semantic_stage_publication.ts:71:type",
+   "gtl/semantic_stage_publication.ts:72:test"
+  ]
+ },
+ {
+  "value": "existing_contract",
+  "type": 1,
+  "test": 0,
+  "produce": 0,
+  "props": {},
+  "files": 1,
+  "testFiles": 0,
+  "sites": [
+   "gtl/serialization_contracts.ts:17:type"
+  ]
+ },
+ {
+  "value": "fh_interaction_resume_admission",
+  "type": 1,
+  "test": 0,
+  "produce": 0,
+  "props": {},
+  "files": 1,
+  "testFiles": 0,
+  "sites": [
+   "abg/continuation.ts:295:type"
+  ]
+ },
+ {
+  "value": "governed_correction",
+  "type": 0,
+  "test": 1,
+  "produce": 0,
+  "props": {},
+  "files": 1,
+  "testFiles": 3,
+  "sites": [
+   "abg/traversal_route.ts:2009:test"
+  ]
+ },
+ {
+  "value": "graph_span_selection",
+  "type": 1,
+  "test": 2,
+  "produce": 0,
+  "props": {},
+  "files": 2,
+  "testFiles": 7,
+  "sites": [
+   "abg/traversal_route.ts:212:type",
+   "abg/traversal_route.ts:1000:test",
+   "hog/route_proposal.ts:737:test"
+  ]
+ },
+ {
+  "value": "interaction_resume",
+  "type": 1,
+  "test": 4,
+  "produce": 0,
+  "props": {},
+  "files": 3,
+  "testFiles": 0,
+  "sites": [
+   "abg/c_call_outcome.ts:1803:test",
+   "abg/traversal_route.ts:478:type",
+   "abg/traversal_route.ts:2887:test",
+   "abg/traversal_route.ts:4394:test",
+   "abg/traversal_transition.ts:106:test"
+  ]
+ },
+ {
+  "value": "invocation_reentry_basis",
+  "type": 1,
+  "test": 1,
+  "produce": 0,
+  "props": {},
+  "files": 1,
+  "testFiles": 0,
+  "sites": [
+   "abg/invocation_admission.ts:161:type",
+   "abg/invocation_admission.ts:1402:test"
+  ]
+ },
+ {
+  "value": "json_value",
+  "type": 1,
+  "test": 0,
+  "produce": 0,
+  "props": {},
+  "files": 1,
+  "testFiles": 0,
+  "sites": [
+   "gtl/serialization_contracts.ts:16:type"
+  ]
+ },
+ {
+  "value": "mutable_default_forbidden",
+  "type": 1,
+  "test": 0,
+  "produce": 0,
+  "props": {},
+  "files": 1,
+  "testFiles": 0,
+  "sites": [
+   "product/materialization_operations.ts:77:type"
+  ]
+ },
+ {
+  "value": "new_abg_event_resource",
+  "type": 2,
+  "test": 6,
+  "produce": 0,
+  "props": {},
+  "files": 3,
+  "testFiles": 19,
+  "sites": [
+   "abg/definition_event_resource.ts:35:type",
+   "abg/definition_event_resource.ts:223:test",
+   "abg/definition_event_resource.ts:287:test",
+   "abg/definition_event_resource.ts:391:type",
+   "abg/definition_event_resource.ts:392:test",
+   "abg/exact_prefix_bindings.ts:92:test"
+  ]
+ },
+ {
+  "value": "no_action",
+  "type": 1,
+  "test": 4,
+  "produce": 0,
+  "props": {},
+  "files": 3,
+  "testFiles": 5,
+  "sites": [
+   "abg/project_read_ports.ts:1663:test",
+   "abg/traversal_route.ts:258:type",
+   "abg/traversal_route.ts:1175:test",
+   "hog/route_proposal.ts:564:test",
+   "hog/route_proposal.ts:740:test"
+  ]
+ },
+ {
+  "value": "no_declared_check",
+  "type": 1,
+  "test": 0,
+  "produce": 0,
+  "props": {},
+  "files": 1,
+  "testFiles": 0,
+  "sites": [
+   "abg/c_call.ts:784:type"
+  ]
+ },
+ {
+  "value": "plan_mismatch",
+  "type": 1,
+  "test": 0,
+  "produce": 0,
+  "props": {},
+  "files": 1,
+  "testFiles": 0,
+  "sites": [
+   "abg/c_call.ts:869:type"
+  ]
+ },
+ {
+  "value": "product_install_resource_assertion",
+  "type": 1,
+  "test": 1,
+  "produce": 0,
+  "props": {},
+  "files": 1,
+  "testFiles": 12,
+  "sites": [
+   "product/install_definition_bindings.ts:71:type",
+   "product/install_definition_bindings.ts:139:test"
+  ]
+ },
+ {
+  "value": "product_project_read_resource_assertion",
+  "type": 1,
+  "test": 1,
+  "produce": 0,
+  "props": {},
+  "files": 1,
+  "testFiles": 1,
+  "sites": [
+   "product/project_read_definition_bindings.ts:92:type",
+   "product/project_read_definition_bindings.ts:125:test"
+  ]
+ },
+ {
+  "value": "product_resolution_packet",
+  "type": 1,
+  "test": 0,
+  "produce": 0,
+  "props": {},
+  "files": 1,
+  "testFiles": 13,
+  "sites": [
+   "product/environment_operations.ts:16:type"
+  ]
+ },
+ {
+  "value": "product_resolution_resource_assertion",
+  "type": 1,
+  "test": 1,
+  "produce": 0,
+  "props": {},
+  "files": 1,
+  "testFiles": 11,
+  "sites": [
+   "product/environment_definition_bindings.ts:88:type",
+   "product/environment_definition_bindings.ts:235:test"
+  ]
+ },
+ {
+  "value": "product_workspace_binding_resource_assertion",
+  "type": 1,
+  "test": 1,
+  "produce": 0,
+  "props": {},
+  "files": 1,
+  "testFiles": 12,
+  "sites": [
+   "product/environment_definition_bindings.ts:104:type",
+   "product/environment_definition_bindings.ts:530:test"
+  ]
+ },
+ {
+  "value": "provenance_invalid",
+  "type": 1,
+  "test": 0,
+  "produce": 0,
+  "props": {},
+  "files": 1,
+  "testFiles": 0,
+  "sites": [
+   "abg/witness_admission_operation.ts:134:type"
+  ]
+ },
+ {
+  "value": "publication_not_bound",
+  "type": 1,
+  "test": 1,
+  "produce": 0,
+  "props": {},
+  "files": 2,
+  "testFiles": 0,
+  "sites": [
+   "product/catalog.ts:148:type",
+   "product/catalog_definition_bindings.ts:396:test"
+  ]
+ },
+ {
+  "value": "query_artifacts",
+  "type": 0,
+  "test": 1,
+  "produce": 0,
+  "props": {},
+  "files": 1,
+  "testFiles": 0,
+  "sites": [
+   "abg/governed_context.ts:483:test"
+  ]
+ },
+ {
+  "value": "registered_selection_response",
+  "type": 0,
+  "test": 1,
+  "produce": 0,
+  "props": {},
+  "files": 1,
+  "testFiles": 2,
+  "sites": [
+   "abg/instruction_assembly.ts:322:test"
+  ]
+ },
+ {
+  "value": "registered_selection_task",
+  "type": 1,
+  "test": 2,
+  "produce": 0,
+  "props": {},
+  "files": 2,
+  "testFiles": 5,
+  "sites": [
+   "abg/instruction_assembly.ts:320:test",
+   "product/registered_selection_native.ts:12:type",
+   "product/registered_selection_native.ts:29:test"
+  ]
+ },
+ {
+  "value": "reopen_abg_event_resource",
+  "type": 3,
+  "test": 7,
+  "produce": 0,
+  "props": {},
+  "files": 5,
+  "testFiles": 56,
+  "sites": [
+   "abg/definition_event_resource.ts:41:type",
+   "abg/definition_event_resource.ts:72:type",
+   "abg/definition_event_resource.ts:127:test",
+   "abg/definition_event_resource.ts:230:test",
+   "abg/definition_event_resource.ts:320:test",
+   "abg/project_read_definition_bindings.ts:904:test"
+  ]
+ },
+ {
+  "value": "request_human_input",
+  "type": 0,
+  "test": 1,
+  "produce": 0,
+  "props": {},
+  "files": 1,
+  "testFiles": 3,
+  "sites": [
+   "abg/traversal_route.ts:1611:test"
+  ]
+ },
+ {
+  "value": "resolve_artifact",
+  "type": 0,
+  "test": 1,
+  "produce": 0,
+  "props": {},
+  "files": 1,
+  "testFiles": 0,
+  "sites": [
+   "abg/governed_context.ts:482:test"
+  ]
+ },
+ {
+  "value": "resume_not_admitted",
+  "type": 1,
+  "test": 0,
+  "produce": 0,
+  "props": {},
+  "files": 1,
+  "testFiles": 0,
+  "sites": [
+   "hog/route_proposal.ts:75:type"
+  ]
+ },
+ {
+  "value": "runtime_archive_inspection",
+  "type": 0,
+  "test": 1,
+  "produce": 0,
+  "props": {},
+  "files": 1,
+  "testFiles": 3,
+  "sites": [
+   "abg/traversal_route.ts:1397:test"
+  ]
+ },
+ {
+  "value": "runtime_nonterminal",
+  "type": 1,
+  "test": 0,
+  "produce": 0,
+  "props": {},
+  "files": 1,
+  "testFiles": 0,
+  "sites": [
+   "shared/public_function_contracts.ts:39:type"
+  ]
+ },
+ {
+  "value": "selected_prefix",
+  "type": 0,
+  "test": 1,
+  "produce": 0,
+  "props": {},
+  "files": 1,
+  "testFiles": 1,
+  "sites": [
+   "abg/witness_admission_operation.ts:394:test"
+  ]
+ },
+ {
+  "value": "set_mismatch",
+  "type": 1,
+  "test": 1,
+  "produce": 0,
+  "props": {},
+  "files": 1,
+  "testFiles": 0,
+  "sites": [
+   "product/implementation_resolution.ts:145:type",
+   "product/implementation_resolution.ts:635:test"
+  ]
+ },
+ {
+  "value": "stream_event",
+  "type": 0,
+  "test": 4,
+  "produce": 0,
+  "props": {},
+  "files": 2,
+  "testFiles": 6,
+  "sites": [
+   "abg/worker_transport.ts:351:test",
+   "abg/worker_transport.ts:360:test",
+   "abg/worksite_construction_recovery.ts:188:test",
+   "abg/worksite_construction_recovery.ts:190:test"
+  ]
+ },
+ {
+  "value": "strict_object",
+  "type": 1,
+  "test": 1,
+  "produce": 0,
+  "props": {},
+  "files": 1,
+  "testFiles": 0,
+  "sites": [
+   "public/binding/static_definition_bindings.ts:25:type",
+   "public/binding/static_definition_bindings.ts:32:test"
+  ]
+ },
+ {
+  "value": "terminal_only",
+  "type": 1,
+  "test": 0,
+  "produce": 0,
+  "props": {},
+  "files": 1,
+  "testFiles": 0,
+  "sites": [
+   "shared/public_function_contracts.ts:39:type"
+  ]
+ },
+ {
+  "value": "thinking_tokens",
+  "type": 0,
+  "test": 1,
+  "produce": 0,
+  "props": {},
+  "files": 1,
+  "testFiles": 3,
+  "sites": [
+   "abg/worker_transport.ts:353:test"
+  ]
+ },
+ {
+  "value": "tool_result",
+  "type": 0,
+  "test": 2,
+  "produce": 0,
+  "props": {},
+  "files": 2,
+  "testFiles": 8,
+  "sites": [
+   "abg/governed_context.ts:549:test",
+   "abg/worksite_construction_recovery.ts:200:test"
+  ]
+ },
+ {
+  "value": "tool_use",
+  "type": 0,
+  "test": 7,
+  "produce": 0,
+  "props": {},
+  "files": 3,
+  "testFiles": 16,
+  "sites": [
+   "abg/governed_context.ts:545:test",
+   "abg/worker_transport.ts:229:test",
+   "abg/worker_transport.ts:230:test",
+   "abg/worker_transport.ts:299:test",
+   "abg/worker_transport.ts:301:test",
+   "abg/worksite_construction_recovery.ts:191:test"
+  ]
+ },
+ {
+  "value": "unresolved_readiness_prerequisite",
+  "type": 1,
+  "test": 1,
+  "produce": 0,
+  "props": {},
+  "files": 2,
+  "testFiles": 0,
+  "sites": [
+   "product/catalog.ts:149:type",
+   "product/catalog_definition_bindings.ts:405:test"
+  ]
+ },
+ {
+  "value": "vector_contract_mismatch",
+  "type": 1,
+  "test": 0,
+  "produce": 0,
+  "props": {},
+  "files": 1,
+  "testFiles": 0,
+  "sites": [
+   "abg/fan_out.ts:126:type"
+  ]
+ },
+ {
+  "value": "worksite_bridge",
+  "type": 1,
+  "test": 0,
+  "produce": 0,
+  "props": {},
+  "files": 1,
+  "testFiles": 2,
+  "sites": [
+   "gtl/semantic_stage_publication.ts:85:type"
+  ]
+ },
+ {
+  "value": "worksite_plan",
+  "type": 1,
+  "test": 1,
+  "produce": 0,
+  "props": {},
+  "files": 1,
+  "testFiles": 1,
+  "sites": [
+   "gtl/semantic_stage_publication.ts:85:type",
+   "gtl/semantic_stage_publication.ts:86:test"
+  ]
+ },
+ {
+  "value": "worksite_preserved_result_source",
+  "type": 1,
+  "test": 1,
+  "produce": 0,
+  "props": {},
+  "files": 1,
+  "testFiles": 2,
+  "sites": [
+   "gtl/worksite_construction_recovery.ts:56:type",
+   "gtl/worksite_construction_recovery.ts:87:test"
+  ]
+ },
+ {
+  "value": "workspace_not_ready",
+  "type": 1,
+  "test": 0,
+  "produce": 0,
+  "props": {},
+  "files": 1,
+  "testFiles": 0,
+  "sites": [
+   "product/materialization_operations.ts:72:type"
+  ]
+ }
+]

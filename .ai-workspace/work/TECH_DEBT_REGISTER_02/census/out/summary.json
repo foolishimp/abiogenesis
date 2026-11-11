@@ -1,0 +1,276 @@
+{
+ "typescript": "5.9.2",
+ "sourceFiles": 291,
+ "testSideFilesScanned": 365,
+ "declarations": 7162,
+ "declarationLines": 152973,
+ "exportEntries": [
+  {
+   "key": ".",
+   "file": "index.ts",
+   "exists": true
+  },
+  {
+   "key": "./product",
+   "file": "product/index.ts",
+   "exists": true
+  },
+  {
+   "key": "./abg",
+   "file": "abg/index.ts",
+   "exists": true
+  },
+  {
+   "key": "./gtl",
+   "file": "gtl/index.ts",
+   "exists": true
+  },
+  {
+   "key": "./hog",
+   "file": "hog/index.ts",
+   "exists": true
+  },
+  {
+   "key": "./public",
+   "file": "public/index.ts",
+   "exists": true
+  },
+  {
+   "key": "./validator",
+   "file": "validator/index.ts",
+   "exists": true
+  },
+  {
+   "key": "./gtl/m01",
+   "file": "gtl/m01.ts",
+   "exists": true
+  },
+  {
+   "key": "./gtl/m02",
+   "file": "gtl/m02.ts",
+   "exists": true
+  },
+  {
+   "key": "./gtl/requirements",
+   "file": "gtl/requirements.ts",
+   "exists": true
+  },
+  {
+   "key": "./abg/requirements",
+   "file": "abg/requirements.ts",
+   "exists": true
+  },
+  {
+   "key": "./abg/m03",
+   "file": "abg/m03.ts",
+   "exists": true
+  },
+  {
+   "key": "./abg/m03/transport",
+   "file": "abg/m03/transport.ts",
+   "exists": true
+  },
+  {
+   "key": "./app/m04",
+   "file": "app/m04.ts",
+   "exists": true
+  },
+  {
+   "key": "./qualification/m05",
+   "file": "qualification/m05.ts",
+   "exists": true
+  }
+ ],
+ "binEntries": [
+  {
+   "key": "abg.cli",
+   "file": "public/cli.ts",
+   "exists": true
+  },
+  {
+   "key": "abg.codex",
+   "file": "public/codex_cli.ts",
+   "exists": true
+  }
+ ],
+ "processEntries": [
+  "abg/governed_context_client.ts",
+  "implementation/worksite_command_helper.ts"
+ ],
+ "dynamicModules": {
+  "implementation/requirement_handoff.ts": 3,
+  "product/builtin_semantics.ts": 10,
+  "implementation/self_conformance.ts": 2,
+  "validator/self_conformance_semantics.ts": 1,
+  "implementation/qualification.ts": 2,
+  "implementation/default_library.ts": 1,
+  "implementation/worksite_file_replace.ts": 4,
+  "implementation/semantic_stage.ts": 1,
+  "implementation/native_workspace_work.ts": 2,
+  "product/worksite_command_execution.ts": 1,
+  "implementation/worksite_command_execution.ts": 3,
+  "implementation/native_work_reacquisition.ts": 2,
+  "implementation/worksite_branch_construction.ts": 2,
+  "implementation/worksite_construction.ts": 2,
+  "implementation/consensus.ts": 2,
+  "implementation/semantic_revision.ts": 1,
+  "implementation/worksite_command_forward.ts": 2
+ },
+ "danglingModulePaths": [],
+ "namedRuntimeRoots": [
+  "ABG_PROJECT_READ_DEFINITION_BINDINGS",
+  "CATALOG_DEFINITION_BINDINGS",
+  "CONFORMANCE_DEFINITION_BINDINGS",
+  "INTERACTION_DEFINITION_BINDINGS",
+  "MATERIALIZATION_DEFINITION_BINDINGS",
+  "PRODUCT_ENVIRONMENT_DEFINITION_BINDINGS",
+  "PRODUCT_INSTALL_DEFINITION_BINDINGS",
+  "PRODUCT_PROJECT_READ_DEFINITION_BINDINGS",
+  "PRODUCT_VERIFICATION_DEFINITION_BINDINGS",
+  "RELEASE_SNAPSHOT_DEFINITION_BINDINGS",
+  "RESULT_DEFINITION_BINDINGS",
+  "RUN_DEFINITION_BINDINGS",
+  "WITNESS_DEFINITION_BINDINGS",
+  "WORKSPACE_DEFINITION_BINDINGS"
+ ],
+ "unresolvedNamedRoots": [
+  {
+   "name": "INTERACTION_DEFINITION_BINDINGS",
+   "exportPath": "./product",
+   "site": "public/binding/owner_contract_source_set.ts:190"
+  }
+ ],
+ "modulesNotLoadedByRuntime": [
+  "hog/index.ts",
+  "public/gap_authority.ts",
+  "public/run_projection_authority.ts",
+  "public/installed_public_definition_call.ts",
+  "public/index.ts",
+  "index.ts",
+  "abg/m03.ts",
+  "abg/requirements.ts",
+  "abg/m03/transport.ts",
+  "app/m04.ts",
+  "gtl/serialization.ts",
+  "gtl/m01.ts",
+  "gtl/m02.ts",
+  "gtl/requirements.ts",
+  "implementation/index.ts",
+  "qualification/m05.ts",
+  "shared/index.ts"
+ ],
+ "modulesNotReachableFromPackage": [
+  "implementation/index.ts",
+  "shared/index.ts"
+ ],
+ "tierLines": {
+  "runtime": 144003,
+  "sdk": 1191,
+  "package": 6529,
+  "none": 1250
+ },
+ "compilerUnused": 31,
+ "compilerOtherByCode": {
+  "2322": 1
+ },
+ "compilerOtherSample": [
+  {
+   "file": "validator/conformance_operation.ts",
+   "line": 325,
+   "code": 2322,
+   "text": "Type 'Readonly<{ kind: \"gtl_program_conformance_result\"; schemaVersion: \"5.0.0\"; disposition: \"passed\"; programRef: string; programDigest: `sha256:${string}`; evidenceRef: string; evidenceDigest: `sha256:${string}`; validation: ProgramValidation; diagnostics: readonly never[]; violatedContractRefs: readonly never[]; repai...' is not assignable to type 'GtlProgramConformanceOperationResult'.   Type 'Readonly<{ kind: \"gtl_program_conformance_result\"; schemaVersion: \"5.0.0\"; disposition: \"passed\"; programRef: string; programDigest: `sha256:${string}`; evidenceRef: string; evidenceDigest: `sha256:${string}`; validation: ProgramValidation; diagnostics: readonly never[]; violatedContractRefs: readonly never[]; repai...' is not assignable to type 'GtlProgramConformanceResult'.     Types of property 'diagnostics' are incompatible.       Type 'readonly never[]' is not assignable to type 'readonly []'.         Target allows only 0 element(s) but source may have more."
+  }
+ ],
+ "byDir": {
+  "shared": {
+   "declarations": 274,
+   "lines": 3030,
+   "runtime": 2913,
+   "sdk": 0,
+   "package": 87,
+   "none": 30,
+   "noneNoTests": 15,
+   "packageNoTests": 75
+  },
+  "gtl": {
+   "declarations": 670,
+   "lines": 14480,
+   "runtime": 11141,
+   "sdk": 0,
+   "package": 3287,
+   "none": 52,
+   "noneNoTests": 12,
+   "packageNoTests": 427
+  },
+  "product": {
+   "declarations": 2108,
+   "lines": 37658,
+   "runtime": 36023,
+   "sdk": 232,
+   "package": 1091,
+   "none": 312,
+   "noneNoTests": 127,
+   "packageNoTests": 395
+  },
+  "abg": {
+   "declarations": 2799,
+   "lines": 70264,
+   "runtime": 68018,
+   "sdk": 86,
+   "package": 1786,
+   "none": 374,
+   "noneNoTests": 82,
+   "packageNoTests": 1043
+  },
+  "validator": {
+   "declarations": 366,
+   "lines": 6190,
+   "runtime": 5985,
+   "sdk": 0,
+   "package": 150,
+   "none": 55,
+   "noneNoTests": 3,
+   "packageNoTests": 10
+  },
+  "public": {
+   "declarations": 235,
+   "lines": 3747,
+   "runtime": 2768,
+   "sdk": 748,
+   "package": 1,
+   "none": 230,
+   "noneNoTests": 100,
+   "packageNoTests": 1
+  },
+  "implementation": {
+   "declarations": 383,
+   "lines": 7114,
+   "runtime": 7062,
+   "sdk": 0,
+   "package": 0,
+   "none": 52,
+   "noneNoTests": 12,
+   "packageNoTests": 0
+  },
+  "hog": {
+   "declarations": 245,
+   "lines": 8409,
+   "runtime": 8142,
+   "sdk": 0,
+   "package": 122,
+   "none": 145,
+   "noneNoTests": 82,
+   "packageNoTests": 55
+  },
+  "owner_bindings": {
+   "declarations": 82,
+   "lines": 2081,
+   "runtime": 1951,
+   "sdk": 125,
+   "package": 5,
+   "none": 0,
+   "noneNoTests": 0,
+   "packageNoTests": 0
+  }
+ }
+}

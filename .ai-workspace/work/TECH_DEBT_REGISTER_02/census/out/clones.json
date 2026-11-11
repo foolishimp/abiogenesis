@@ -1,0 +1,2802 @@
+[
+ {
+  "a": "code/src/abg/construction_continuation.ts",
+  "aLine": 1248,
+  "b": "code/src/abg/construction_continuation.ts",
+  "bLine": 1455,
+  "normalizedLines": 186
+ },
+ {
+  "a": "code/src/abg/construction_continuation.ts",
+  "aLine": 2061,
+  "b": "code/src/abg/construction_continuation.ts",
+  "bLine": 2100,
+  "normalizedLines": 41
+ },
+ {
+  "a": "code/src/gtl/consensus_schema.ts",
+  "aLine": 1451,
+  "b": "code/src/gtl/consensus_schema.ts",
+  "bLine": 1699,
+  "normalizedLines": 32
+ },
+ {
+  "a": "code/src/abg/traversal_route.ts",
+  "aLine": 1539,
+  "b": "code/src/abg/traversal_route.ts",
+  "bLine": 1809,
+  "normalizedLines": 30
+ },
+ {
+  "a": "code/src/implementation/leaf_execution_authority.ts",
+  "aLine": 57,
+  "b": "code/src/product/worksite_effect.ts",
+  "bLine": 616,
+  "normalizedLines": 30
+ },
+ {
+  "a": "code/src/abg/calculus/index.ts",
+  "aLine": 2,
+  "b": "code/src/abg/event_calculus.ts",
+  "bLine": 49,
+  "normalizedLines": 27
+ },
+ {
+  "a": "code/src/product/worksite_command_execution.ts",
+  "aLine": 854,
+  "b": "code/src/product/worksite_construction.ts",
+  "bLine": 248,
+  "normalizedLines": 27
+ },
+ {
+  "a": "code/src/abg/c_call.ts",
+  "aLine": 3449,
+  "b": "code/src/abg/c_call.ts",
+  "bLine": 6214,
+  "normalizedLines": 26
+ },
+ {
+  "a": "code/src/implementation/leaf_execution_authority.ts",
+  "aLine": 126,
+  "b": "code/src/product/worksite_effect.ts",
+  "bLine": 649,
+  "normalizedLines": 26
+ },
+ {
+  "a": "code/src/product/environment_operation_contracts.ts",
+  "aLine": 106,
+  "b": "code/src/shared/public_function_contracts.ts",
+  "bLine": 258,
+  "normalizedLines": 25
+ },
+ {
+  "a": "code/src/abg/c_call.ts",
+  "aLine": 6921,
+  "b": "code/src/abg/c_call.ts",
+  "bLine": 6937,
+  "normalizedLines": 24
+ },
+ {
+  "a": "code/src/abg/c_call.ts",
+  "aLine": 5465,
+  "b": "code/src/abg/c_call.ts",
+  "bLine": 5616,
+  "normalizedLines": 23
+ },
+ {
+  "a": "code/src/abg/c_call.ts",
+  "aLine": 6454,
+  "b": "code/src/abg/c_call.ts",
+  "bLine": 6470,
+  "normalizedLines": 23
+ },
+ {
+  "a": "code/src/abg/construction_continuation.ts",
+  "aLine": 552,
+  "b": "code/src/abg/construction_continuation.ts",
+  "bLine": 740,
+  "normalizedLines": 23
+ },
+ {
+  "a": "code/src/abg/worksite_input_provenance.ts",
+  "aLine": 373,
+  "b": "code/src/abg/worksite_input_provenance.ts",
+  "bLine": 391,
+  "normalizedLines": 23
+ },
+ {
+  "a": "code/src/abg/c_call.ts",
+  "aLine": 3189,
+  "b": "code/src/abg/c_call.ts",
+  "bLine": 3203,
+  "normalizedLines": 22
+ },
+ {
+  "a": "code/src/abg/retry.ts",
+  "aLine": 4973,
+  "b": "code/src/abg/retry.ts",
+  "bLine": 4987,
+  "normalizedLines": 22
+ },
+ {
+  "a": "code/src/product/materialization_definition_bindings.ts",
+  "aLine": 26,
+  "b": "code/src/product/result_definition_bindings.ts",
+  "bLine": 20,
+  "normalizedLines": 22
+ },
+ {
+  "a": "code/src/abg/c_call.ts",
+  "aLine": 1170,
+  "b": "code/src/abg/c_call.ts",
+  "bLine": 1184,
+  "normalizedLines": 21
+ },
+ {
+  "a": "code/src/abg/c_call.ts",
+  "aLine": 4421,
+  "b": "code/src/abg/c_call.ts",
+  "bLine": 4434,
+  "normalizedLines": 21
+ },
+ {
+  "a": "code/src/abg/construction_continuation.ts",
+  "aLine": 1918,
+  "b": "code/src/abg/construction_continuation.ts",
+  "bLine": 1956,
+  "normalizedLines": 21
+ },
+ {
+  "a": "code/src/abg/construction_continuation.ts",
+  "aLine": 1896,
+  "b": "code/src/abg/construction_continuation.ts",
+  "bLine": 1935,
+  "normalizedLines": 20
+ },
+ {
+  "a": "code/src/abg/execution_basis.ts",
+  "aLine": 1633,
+  "b": "code/src/abg/execution_basis.ts",
+  "bLine": 1668,
+  "normalizedLines": 20
+ },
+ {
+  "a": "code/src/abg/construction_continuation.ts",
+  "aLine": 2410,
+  "b": "code/src/abg/construction_continuation.ts",
+  "bLine": 2422,
+  "normalizedLines": 19
+ },
+ {
+  "a": "code/src/product/worksite_construction.ts",
+  "aLine": 224,
+  "b": "code/src/product/worksite_effect.ts",
+  "bLine": 449,
+  "normalizedLines": 19
+ },
+ {
+  "a": "code/src/abg/child_lifecycle.ts",
+  "aLine": 35,
+  "b": "code/src/abg/child_lifecycle.ts",
+  "bLine": 47,
+  "normalizedLines": 18
+ },
+ {
+  "a": "code/src/abg/project_read_operation_contracts.ts",
+  "aLine": 24,
+  "b": "code/src/abg/project_read_ports.ts",
+  "bLine": 60,
+  "normalizedLines": 18
+ },
+ {
+  "a": "code/src/abg/project_read_operation_contracts.ts",
+  "aLine": 314,
+  "b": "code/src/product/project_read_operation_contracts.ts",
+  "bLine": 145,
+  "normalizedLines": 18
+ },
+ {
+  "a": "code/src/abg/retry.ts",
+  "aLine": 4026,
+  "b": "code/src/abg/retry.ts",
+  "bLine": 4038,
+  "normalizedLines": 18
+ },
+ {
+  "a": "code/src/owner_bindings/run_invocation.ts",
+  "aLine": 550,
+  "b": "code/src/owner_bindings/run_invocation.ts",
+  "bLine": 574,
+  "normalizedLines": 18
+ },
+ {
+  "a": "code/src/owner_bindings/run_invocation.ts",
+  "aLine": 861,
+  "b": "code/src/owner_bindings/run_invocation.ts",
+  "bLine": 899,
+  "normalizedLines": 18
+ },
+ {
+  "a": "code/src/product/contracts.ts",
+  "aLine": 139,
+  "b": "code/src/product/contracts.ts",
+  "bLine": 317,
+  "normalizedLines": 18
+ },
+ {
+  "a": "code/src/abg/c_call.ts",
+  "aLine": 2658,
+  "b": "code/src/abg/c_call.ts",
+  "bLine": 2750,
+  "normalizedLines": 17
+ },
+ {
+  "a": "code/src/abg/c_call.ts",
+  "aLine": 2942,
+  "b": "code/src/abg/c_call.ts",
+  "bLine": 4599,
+  "normalizedLines": 17
+ },
+ {
+  "a": "code/src/abg/graph_application.ts",
+  "aLine": 578,
+  "b": "code/src/abg/graph_application.ts",
+  "bLine": 591,
+  "normalizedLines": 17
+ },
+ {
+  "a": "code/src/implementation/worksite_command_execution.ts",
+  "aLine": 103,
+  "b": "code/src/implementation/worksite_command_helper.ts",
+  "bLine": 96,
+  "normalizedLines": 17
+ },
+ {
+  "a": "code/src/abg/c_call.ts",
+  "aLine": 2772,
+  "b": "code/src/abg/c_call.ts",
+  "bLine": 4911,
+  "normalizedLines": 16
+ },
+ {
+  "a": "code/src/abg/c_call.ts",
+  "aLine": 3037,
+  "b": "code/src/abg/c_call.ts",
+  "bLine": 3048,
+  "normalizedLines": 16
+ },
+ {
+  "a": "code/src/abg/c_call.ts",
+  "aLine": 3416,
+  "b": "code/src/abg/c_call.ts",
+  "bLine": 6178,
+  "normalizedLines": 16
+ },
+ {
+  "a": "code/src/abg/c_call.ts",
+  "aLine": 7195,
+  "b": "code/src/abg/c_call.ts",
+  "bLine": 7206,
+  "normalizedLines": 16
+ },
+ {
+  "a": "code/src/hog/route_proposal.ts",
+  "aLine": 1108,
+  "b": "code/src/hog/route_proposal.ts",
+  "bLine": 1124,
+  "normalizedLines": 16
+ },
+ {
+  "a": "code/src/implementation/consensus.ts",
+  "aLine": 385,
+  "b": "code/src/implementation/consensus.ts",
+  "bLine": 421,
+  "normalizedLines": 16
+ },
+ {
+  "a": "code/src/product/invocation.ts",
+  "aLine": 1235,
+  "b": "code/src/product/invocation.ts",
+  "bLine": 1280,
+  "normalizedLines": 16
+ },
+ {
+  "a": "code/src/abg/witness_admission_operation.ts",
+  "aLine": 282,
+  "b": "code/src/validator/conformance_operation.ts",
+  "bLine": 84,
+  "normalizedLines": 15
+ },
+ {
+  "a": "code/src/gtl/worksite_branch_construction.ts",
+  "aLine": 96,
+  "b": "code/src/gtl/worksite_construction.ts",
+  "bLine": 71,
+  "normalizedLines": 15
+ },
+ {
+  "a": "code/src/implementation/leaf_execution_authority.ts",
+  "aLine": 91,
+  "b": "code/src/implementation/leaf_invocation_port.ts",
+  "bLine": 178,
+  "normalizedLines": 15
+ },
+ {
+  "a": "code/src/product/environment.ts",
+  "aLine": 1270,
+  "b": "code/src/product/worksite_construction.ts",
+  "bLine": 248,
+  "normalizedLines": 15
+ },
+ {
+  "a": "code/src/product/environment.ts",
+  "aLine": 1270,
+  "b": "code/src/product/worksite_command_execution.ts",
+  "bLine": 854,
+  "normalizedLines": 15
+ },
+ {
+  "a": "code/src/product/implementation_resolution.ts",
+  "aLine": 62,
+  "b": "code/src/product/implementation_resolution.ts",
+  "bLine": 110,
+  "normalizedLines": 15
+ },
+ {
+  "a": "code/src/validator/implementation_resolution.ts",
+  "aLine": 130,
+  "b": "code/src/validator/implementation_resolution.ts",
+  "bLine": 230,
+  "normalizedLines": 15
+ },
+ {
+  "a": "code/src/abg/c_call.ts",
+  "aLine": 2958,
+  "b": "code/src/abg/c_call.ts",
+  "bLine": 2996,
+  "normalizedLines": 14
+ },
+ {
+  "a": "code/src/abg/c_call.ts",
+  "aLine": 2989,
+  "b": "code/src/abg/c_call.ts",
+  "bLine": 4551,
+  "normalizedLines": 14
+ },
+ {
+  "a": "code/src/abg/c_call.ts",
+  "aLine": 6172,
+  "b": "code/src/abg/c_call.ts",
+  "bLine": 7345,
+  "normalizedLines": 14
+ },
+ {
+  "a": "code/src/abg/c_call.ts",
+  "aLine": 6483,
+  "b": "code/src/abg/c_call.ts",
+  "bLine": 6510,
+  "normalizedLines": 14
+ },
+ {
+  "a": "code/src/abg/execution_basis.ts",
+  "aLine": 2132,
+  "b": "code/src/abg/execution_basis.ts",
+  "bLine": 2667,
+  "normalizedLines": 14
+ },
+ {
+  "a": "code/src/abg/probabilistic_result.ts",
+  "aLine": 146,
+  "b": "code/src/abg/witness_admission_operation.ts",
+  "bLine": 283,
+  "normalizedLines": 14
+ },
+ {
+  "a": "code/src/abg/probabilistic_result.ts",
+  "aLine": 146,
+  "b": "code/src/validator/conformance_operation.ts",
+  "bLine": 85,
+  "normalizedLines": 14
+ },
+ {
+  "a": "code/src/abg/traversal_route.ts",
+  "aLine": 182,
+  "b": "code/src/abg/traversal_route.ts",
+  "bLine": 533,
+  "normalizedLines": 14
+ },
+ {
+  "a": "code/src/abg/retry.ts",
+  "aLine": 2131,
+  "b": "code/src/abg/retry.ts",
+  "bLine": 2842,
+  "normalizedLines": 14
+ },
+ {
+  "a": "code/src/gtl/consensus.ts",
+  "aLine": 2737,
+  "b": "code/src/gtl/consensus.ts",
+  "bLine": 2990,
+  "normalizedLines": 14
+ },
+ {
+  "a": "code/src/gtl/consensus_schema.ts",
+  "aLine": 1302,
+  "b": "code/src/gtl/consensus_schema.ts",
+  "bLine": 1424,
+  "normalizedLines": 14
+ },
+ {
+  "a": "code/src/hog/route_proposal.ts",
+  "aLine": 362,
+  "b": "code/src/hog/route_proposal.ts",
+  "bLine": 376,
+  "normalizedLines": 14
+ },
+ {
+  "a": "code/src/hog/route_proposal.ts",
+  "aLine": 1014,
+  "b": "code/src/hog/route_proposal.ts",
+  "bLine": 1028,
+  "normalizedLines": 14
+ },
+ {
+  "a": "code/src/implementation/leaf_execution_authority.ts",
+  "aLine": 20,
+  "b": "code/src/product/worksite_effect.ts",
+  "bLine": 1392,
+  "normalizedLines": 14
+ },
+ {
+  "a": "code/src/shared/public_function_contracts.ts",
+  "aLine": 562,
+  "b": "code/src/shared/public_function_contracts.ts",
+  "bLine": 608,
+  "normalizedLines": 14
+ },
+ {
+  "a": "code/src/abg/c_call.ts",
+  "aLine": 4083,
+  "b": "code/src/abg/c_call.ts",
+  "bLine": 4145,
+  "normalizedLines": 13
+ },
+ {
+  "a": "code/src/abg/c_call.ts",
+  "aLine": 7072,
+  "b": "code/src/abg/c_call.ts",
+  "bLine": 7085,
+  "normalizedLines": 13
+ },
+ {
+  "a": "code/src/abg/continuation.ts",
+  "aLine": 208,
+  "b": "code/src/abg/fh_continuation_projection.ts",
+  "bLine": 48,
+  "normalizedLines": 13
+ },
+ {
+  "a": "code/src/abg/environment_admission.ts",
+  "aLine": 1210,
+  "b": "code/src/abg/environment_admission.ts",
+  "bLine": 1362,
+  "normalizedLines": 13
+ },
+ {
+  "a": "code/src/abg/traversal_route.ts",
+  "aLine": 1506,
+  "b": "code/src/abg/traversal_route.ts",
+  "bLine": 1778,
+  "normalizedLines": 13
+ },
+ {
+  "a": "code/src/abg/traversal_route.ts",
+  "aLine": 1645,
+  "b": "code/src/abg/traversal_route.ts",
+  "bLine": 1932,
+  "normalizedLines": 13
+ },
+ {
+  "a": "code/src/gtl/consensus.ts",
+  "aLine": 672,
+  "b": "code/src/gtl/consensus.ts",
+  "bLine": 742,
+  "normalizedLines": 13
+ },
+ {
+  "a": "code/src/gtl/consensus_schema.ts",
+  "aLine": 502,
+  "b": "code/src/gtl/consensus_schema.ts",
+  "bLine": 591,
+  "normalizedLines": 13
+ },
+ {
+  "a": "code/src/gtl/consensus_schema.ts",
+  "aLine": 521,
+  "b": "code/src/gtl/consensus_schema.ts",
+  "bLine": 610,
+  "normalizedLines": 13
+ },
+ {
+  "a": "code/src/hog/route_proposal.ts",
+  "aLine": 449,
+  "b": "code/src/hog/route_proposal.ts",
+  "bLine": 461,
+  "normalizedLines": 13
+ },
+ {
+  "a": "code/src/hog/route_proposal.ts",
+  "aLine": 808,
+  "b": "code/src/hog/route_proposal.ts",
+  "bLine": 820,
+  "normalizedLines": 13
+ },
+ {
+  "a": "code/src/owner_bindings/run_invocation.ts",
+  "aLine": 672,
+  "b": "code/src/owner_bindings/run_invocation.ts",
+  "bLine": 693,
+  "normalizedLines": 13
+ },
+ {
+  "a": "code/src/abg/actor_process.ts",
+  "aLine": 94,
+  "b": "code/src/implementation/contracts.ts",
+  "bLine": 64,
+  "normalizedLines": 12
+ },
+ {
+  "a": "code/src/abg/c_call.ts",
+  "aLine": 4934,
+  "b": "code/src/abg/continuation.ts",
+  "bLine": 616,
+  "normalizedLines": 12
+ },
+ {
+  "a": "code/src/abg/retry.ts",
+  "aLine": 4864,
+  "b": "code/src/abg/retry.ts",
+  "bLine": 4879,
+  "normalizedLines": 12
+ },
+ {
+  "a": "code/src/gtl/consensus_schema.ts",
+  "aLine": 480,
+  "b": "code/src/gtl/consensus_schema.ts",
+  "bLine": 569,
+  "normalizedLines": 12
+ },
+ {
+  "a": "code/src/gtl/consensus_schema.ts",
+  "aLine": 1328,
+  "b": "code/src/gtl/consensus_schema.ts",
+  "bLine": 1448,
+  "normalizedLines": 12
+ },
+ {
+  "a": "code/src/gtl/consensus_schema.ts",
+  "aLine": 1364,
+  "b": "code/src/gtl/consensus_schema.ts",
+  "bLine": 1732,
+  "normalizedLines": 12
+ },
+ {
+  "a": "code/src/gtl/worksite_command_execution.ts",
+  "aLine": 13,
+  "b": "code/src/gtl/worksite_construction.ts",
+  "bLine": 16,
+  "normalizedLines": 12
+ },
+ {
+  "a": "code/src/implementation/worksite_command_execution.ts",
+  "aLine": 395,
+  "b": "code/src/implementation/worksite_file_replace.ts",
+  "bLine": 208,
+  "normalizedLines": 12
+ },
+ {
+  "a": "code/src/implementation/worksite_file_replace.ts",
+  "aLine": 522,
+  "b": "code/src/implementation/worksite_file_replace.ts",
+  "bLine": 578,
+  "normalizedLines": 12
+ },
+ {
+  "a": "code/src/product/catalog_operation_contracts.ts",
+  "aLine": 9,
+  "b": "code/src/product/environment_operation_contracts.ts",
+  "bLine": 21,
+  "normalizedLines": 12
+ },
+ {
+  "a": "code/src/product/environment.ts",
+  "aLine": 574,
+  "b": "code/src/product/environment.ts",
+  "bLine": 836,
+  "normalizedLines": 12
+ },
+ {
+  "a": "code/src/product/invocation.ts",
+  "aLine": 1331,
+  "b": "code/src/product/invocation.ts",
+  "bLine": 1384,
+  "normalizedLines": 12
+ },
+ {
+  "a": "code/src/public/binding/public_function_projections.ts",
+  "aLine": 30,
+  "b": "code/src/shared/public_function_contracts.ts",
+  "bLine": 79,
+  "normalizedLines": 12
+ },
+ {
+  "a": "code/src/shared/public_function_contracts.ts",
+  "aLine": 64,
+  "b": "code/src/shared/public_invocation.ts",
+  "bLine": 87,
+  "normalizedLines": 12
+ },
+ {
+  "a": "code/src/abg/c_call.ts",
+  "aLine": 935,
+  "b": "code/src/abg/graph_application.ts",
+  "bLine": 131,
+  "normalizedLines": 11
+ },
+ {
+  "a": "code/src/abg/c_call.ts",
+  "aLine": 2938,
+  "b": "code/src/abg/c_call.ts",
+  "bLine": 2985,
+  "normalizedLines": 11
+ },
+ {
+  "a": "code/src/abg/c_call.ts",
+  "aLine": 3341,
+  "b": "code/src/abg/c_call.ts",
+  "bLine": 7301,
+  "normalizedLines": 11
+ },
+ {
+  "a": "code/src/abg/c_call.ts",
+  "aLine": 4547,
+  "b": "code/src/abg/c_call.ts",
+  "bLine": 4595,
+  "normalizedLines": 11
+ },
+ {
+  "a": "code/src/abg/c_call.ts",
+  "aLine": 4847,
+  "b": "code/src/abg/c_call.ts",
+  "bLine": 4897,
+  "normalizedLines": 11
+ },
+ {
+  "a": "code/src/abg/c_call.ts",
+  "aLine": 5159,
+  "b": "code/src/abg/c_call.ts",
+  "bLine": 5235,
+  "normalizedLines": 11
+ },
+ {
+  "a": "code/src/abg/c_call.ts",
+  "aLine": 4887,
+  "b": "code/src/abg/continuation.ts",
+  "bLine": 569,
+  "normalizedLines": 11
+ },
+ {
+  "a": "code/src/abg/continuation.ts",
+  "aLine": 464,
+  "b": "code/src/abg/continuation.ts",
+  "bLine": 590,
+  "normalizedLines": 11
+ },
+ {
+  "a": "code/src/abg/fh_resume_relation.ts",
+  "aLine": 230,
+  "b": "code/src/abg/traversal_route.ts",
+  "bLine": 2253,
+  "normalizedLines": 11
+ },
+ {
+  "a": "code/src/abg/traversal_route.ts",
+  "aLine": 685,
+  "b": "code/src/abg/traversal_route.ts",
+  "bLine": 806,
+  "normalizedLines": 11
+ },
+ {
+  "a": "code/src/abg/traversal_route.ts",
+  "aLine": 707,
+  "b": "code/src/abg/traversal_route.ts",
+  "bLine": 838,
+  "normalizedLines": 11
+ },
+ {
+  "a": "code/src/abg/retry.ts",
+  "aLine": 4335,
+  "b": "code/src/abg/retry.ts",
+  "bLine": 4348,
+  "normalizedLines": 11
+ },
+ {
+  "a": "code/src/abg/retry.ts",
+  "aLine": 4852,
+  "b": "code/src/abg/retry.ts",
+  "bLine": 4971,
+  "normalizedLines": 11
+ },
+ {
+  "a": "code/src/gtl/consensus.ts",
+  "aLine": 818,
+  "b": "code/src/validator/validation.ts",
+  "bLine": 1725,
+  "normalizedLines": 11
+ },
+ {
+  "a": "code/src/gtl/consensus_schema.ts",
+  "aLine": 1308,
+  "b": "code/src/gtl/consensus_schema.ts",
+  "bLine": 1665,
+  "normalizedLines": 11
+ },
+ {
+  "a": "code/src/gtl/consensus_schema.ts",
+  "aLine": 1429,
+  "b": "code/src/gtl/consensus_schema.ts",
+  "bLine": 1664,
+  "normalizedLines": 11
+ },
+ {
+  "a": "code/src/implementation/consensus.ts",
+  "aLine": 240,
+  "b": "code/src/implementation/worksite_branch_construction.ts",
+  "bLine": 69,
+  "normalizedLines": 11
+ },
+ {
+  "a": "code/src/implementation/consensus.ts",
+  "aLine": 240,
+  "b": "code/src/implementation/worksite_construction.ts",
+  "bLine": 135,
+  "normalizedLines": 11
+ },
+ {
+  "a": "code/src/implementation/worksite_branch_construction.ts",
+  "aLine": 69,
+  "b": "code/src/implementation/worksite_construction.ts",
+  "bLine": 135,
+  "normalizedLines": 11
+ },
+ {
+  "a": "code/src/implementation/consensus.ts",
+  "aLine": 483,
+  "b": "code/src/implementation/consensus.ts",
+  "bLine": 527,
+  "normalizedLines": 11
+ },
+ {
+  "a": "code/src/product/worksite_construction.ts",
+  "aLine": 247,
+  "b": "code/src/product/worksite_effect.ts",
+  "bLine": 472,
+  "normalizedLines": 11
+ },
+ {
+  "a": "code/src/product/semantics.ts",
+  "aLine": 168,
+  "b": "code/src/product/semantics.ts",
+  "bLine": 271,
+  "normalizedLines": 11
+ },
+ {
+  "a": "code/src/abg/actor_process.ts",
+  "aLine": 129,
+  "b": "code/src/abg/c_call.ts",
+  "bLine": 579,
+  "normalizedLines": 10
+ },
+ {
+  "a": "code/src/abg/c_call.ts",
+  "aLine": 2575,
+  "b": "code/src/abg/c_call.ts",
+  "bLine": 2666,
+  "normalizedLines": 10
+ },
+ {
+  "a": "code/src/abg/c_call.ts",
+  "aLine": 2575,
+  "b": "code/src/abg/c_call.ts",
+  "bLine": 2758,
+  "normalizedLines": 10
+ },
+ {
+  "a": "code/src/abg/c_call.ts",
+  "aLine": 4395,
+  "b": "code/src/abg/c_call.ts",
+  "bLine": 4446,
+  "normalizedLines": 10
+ },
+ {
+  "a": "code/src/abg/c_call.ts",
+  "aLine": 4562,
+  "b": "code/src/abg/c_call.ts",
+  "bLine": 4619,
+  "normalizedLines": 10
+ },
+ {
+  "a": "code/src/abg/c_call.ts",
+  "aLine": 5382,
+  "b": "code/src/abg/c_call.ts",
+  "bLine": 5402,
+  "normalizedLines": 10
+ },
+ {
+  "a": "code/src/abg/c_call.ts",
+  "aLine": 5449,
+  "b": "code/src/abg/c_call.ts",
+  "bLine": 5600,
+  "normalizedLines": 10
+ },
+ {
+  "a": "code/src/abg/c_call.ts",
+  "aLine": 6468,
+  "b": "code/src/abg/c_call.ts",
+  "bLine": 6510,
+  "normalizedLines": 10
+ },
+ {
+  "a": "code/src/abg/c_call.ts",
+  "aLine": 6919,
+  "b": "code/src/abg/c_call.ts",
+  "bLine": 6935,
+  "normalizedLines": 10
+ },
+ {
+  "a": "code/src/abg/c_call.ts",
+  "aLine": 6919,
+  "b": "code/src/abg/c_call.ts",
+  "bLine": 6950,
+  "normalizedLines": 10
+ },
+ {
+  "a": "code/src/abg/c_call.ts",
+  "aLine": 6920,
+  "b": "code/src/abg/c_call.ts",
+  "bLine": 6936,
+  "normalizedLines": 10
+ },
+ {
+  "a": "code/src/abg/c_call.ts",
+  "aLine": 6920,
+  "b": "code/src/abg/c_call.ts",
+  "bLine": 6951,
+  "normalizedLines": 10
+ },
+ {
+  "a": "code/src/abg/c_call.ts",
+  "aLine": 5382,
+  "b": "code/src/abg/runtime_failure.ts",
+  "bLine": 320,
+  "normalizedLines": 10
+ },
+ {
+  "a": "code/src/abg/c_call.ts",
+  "aLine": 5402,
+  "b": "code/src/abg/runtime_failure.ts",
+  "bLine": 320,
+  "normalizedLines": 10
+ },
+ {
+  "a": "code/src/abg/construction_continuation.ts",
+  "aLine": 25,
+  "b": "code/src/abg/construction_continuation.ts",
+  "bLine": 1768,
+  "normalizedLines": 10
+ },
+ {
+  "a": "code/src/abg/construction_continuation.ts",
+  "aLine": 379,
+  "b": "code/src/abg/construction_continuation.ts",
+  "bLine": 567,
+  "normalizedLines": 10
+ },
+ {
+  "a": "code/src/abg/construction_continuation.ts",
+  "aLine": 379,
+  "b": "code/src/abg/construction_continuation.ts",
+  "bLine": 754,
+  "normalizedLines": 10
+ },
+ {
+  "a": "code/src/abg/construction_continuation.ts",
+  "aLine": 380,
+  "b": "code/src/abg/construction_continuation.ts",
+  "bLine": 568,
+  "normalizedLines": 10
+ },
+ {
+  "a": "code/src/abg/construction_continuation.ts",
+  "aLine": 380,
+  "b": "code/src/abg/construction_continuation.ts",
+  "bLine": 755,
+  "normalizedLines": 10
+ },
+ {
+  "a": "code/src/abg/construction_continuation.ts",
+  "aLine": 381,
+  "b": "code/src/abg/construction_continuation.ts",
+  "bLine": 569,
+  "normalizedLines": 10
+ },
+ {
+  "a": "code/src/abg/construction_continuation.ts",
+  "aLine": 381,
+  "b": "code/src/abg/construction_continuation.ts",
+  "bLine": 756,
+  "normalizedLines": 10
+ },
+ {
+  "a": "code/src/abg/construction_continuation.ts",
+  "aLine": 381,
+  "b": "code/src/abg/construction_continuation.ts",
+  "bLine": 1075,
+  "normalizedLines": 10
+ },
+ {
+  "a": "code/src/abg/construction_continuation.ts",
+  "aLine": 381,
+  "b": "code/src/abg/construction_continuation.ts",
+  "bLine": 1282,
+  "normalizedLines": 10
+ },
+ {
+  "a": "code/src/abg/construction_continuation.ts",
+  "aLine": 381,
+  "b": "code/src/abg/construction_continuation.ts",
+  "bLine": 1488,
+  "normalizedLines": 10
+ },
+ {
+  "a": "code/src/abg/construction_continuation.ts",
+  "aLine": 382,
+  "b": "code/src/abg/construction_continuation.ts",
+  "bLine": 570,
+  "normalizedLines": 10
+ },
+ {
+  "a": "code/src/abg/construction_continuation.ts",
+  "aLine": 382,
+  "b": "code/src/abg/construction_continuation.ts",
+  "bLine": 757,
+  "normalizedLines": 10
+ },
+ {
+  "a": "code/src/abg/construction_continuation.ts",
+  "aLine": 382,
+  "b": "code/src/abg/construction_continuation.ts",
+  "bLine": 1076,
+  "normalizedLines": 10
+ },
+ {
+  "a": "code/src/abg/construction_continuation.ts",
+  "aLine": 382,
+  "b": "code/src/abg/construction_continuation.ts",
+  "bLine": 1283,
+  "normalizedLines": 10
+ },
+ {
+  "a": "code/src/abg/construction_continuation.ts",
+  "aLine": 382,
+  "b": "code/src/abg/construction_continuation.ts",
+  "bLine": 1489,
+  "normalizedLines": 10
+ },
+ {
+  "a": "code/src/abg/construction_continuation.ts",
+  "aLine": 383,
+  "b": "code/src/abg/construction_continuation.ts",
+  "bLine": 571,
+  "normalizedLines": 10
+ },
+ {
+  "a": "code/src/abg/construction_continuation.ts",
+  "aLine": 383,
+  "b": "code/src/abg/construction_continuation.ts",
+  "bLine": 758,
+  "normalizedLines": 10
+ },
+ {
+  "a": "code/src/abg/construction_continuation.ts",
+  "aLine": 383,
+  "b": "code/src/abg/construction_continuation.ts",
+  "bLine": 1077,
+  "normalizedLines": 10
+ },
+ {
+  "a": "code/src/abg/construction_continuation.ts",
+  "aLine": 383,
+  "b": "code/src/abg/construction_continuation.ts",
+  "bLine": 1284,
+  "normalizedLines": 10
+ },
+ {
+  "a": "code/src/abg/construction_continuation.ts",
+  "aLine": 383,
+  "b": "code/src/abg/construction_continuation.ts",
+  "bLine": 1490,
+  "normalizedLines": 10
+ },
+ {
+  "a": "code/src/abg/construction_continuation.ts",
+  "aLine": 384,
+  "b": "code/src/abg/construction_continuation.ts",
+  "bLine": 572,
+  "normalizedLines": 10
+ },
+ {
+  "a": "code/src/abg/construction_continuation.ts",
+  "aLine": 384,
+  "b": "code/src/abg/construction_continuation.ts",
+  "bLine": 759,
+  "normalizedLines": 10
+ },
+ {
+  "a": "code/src/abg/construction_continuation.ts",
+  "aLine": 384,
+  "b": "code/src/abg/construction_continuation.ts",
+  "bLine": 1078,
+  "normalizedLines": 10
+ },
+ {
+  "a": "code/src/abg/construction_continuation.ts",
+  "aLine": 384,
+  "b": "code/src/abg/construction_continuation.ts",
+  "bLine": 1285,
+  "normalizedLines": 10
+ },
+ {
+  "a": "code/src/abg/construction_continuation.ts",
+  "aLine": 384,
+  "b": "code/src/abg/construction_continuation.ts",
+  "bLine": 1491,
+  "normalizedLines": 10
+ },
+ {
+  "a": "code/src/abg/construction_continuation.ts",
+  "aLine": 385,
+  "b": "code/src/abg/construction_continuation.ts",
+  "bLine": 573,
+  "normalizedLines": 10
+ },
+ {
+  "a": "code/src/abg/construction_continuation.ts",
+  "aLine": 385,
+  "b": "code/src/abg/construction_continuation.ts",
+  "bLine": 760,
+  "normalizedLines": 10
+ },
+ {
+  "a": "code/src/abg/construction_continuation.ts",
+  "aLine": 385,
+  "b": "code/src/abg/construction_continuation.ts",
+  "bLine": 1079,
+  "normalizedLines": 10
+ },
+ {
+  "a": "code/src/abg/construction_continuation.ts",
+  "aLine": 385,
+  "b": "code/src/abg/construction_continuation.ts",
+  "bLine": 1286,
+  "normalizedLines": 10
+ },
+ {
+  "a": "code/src/abg/construction_continuation.ts",
+  "aLine": 385,
+  "b": "code/src/abg/construction_continuation.ts",
+  "bLine": 1492,
+  "normalizedLines": 10
+ },
+ {
+  "a": "code/src/abg/construction_continuation.ts",
+  "aLine": 386,
+  "b": "code/src/abg/construction_continuation.ts",
+  "bLine": 574,
+  "normalizedLines": 10
+ },
+ {
+  "a": "code/src/abg/construction_continuation.ts",
+  "aLine": 386,
+  "b": "code/src/abg/construction_continuation.ts",
+  "bLine": 761,
+  "normalizedLines": 10
+ },
+ {
+  "a": "code/src/abg/construction_continuation.ts",
+  "aLine": 386,
+  "b": "code/src/abg/construction_continuation.ts",
+  "bLine": 1080,
+  "normalizedLines": 10
+ },
+ {
+  "a": "code/src/abg/construction_continuation.ts",
+  "aLine": 386,
+  "b": "code/src/abg/construction_continuation.ts",
+  "bLine": 1287,
+  "normalizedLines": 10
+ },
+ {
+  "a": "code/src/abg/construction_continuation.ts",
+  "aLine": 386,
+  "b": "code/src/abg/construction_continuation.ts",
+  "bLine": 1493,
+  "normalizedLines": 10
+ },
+ {
+  "a": "code/src/abg/construction_continuation.ts",
+  "aLine": 387,
+  "b": "code/src/abg/construction_continuation.ts",
+  "bLine": 575,
+  "normalizedLines": 10
+ },
+ {
+  "a": "code/src/abg/construction_continuation.ts",
+  "aLine": 387,
+  "b": "code/src/abg/construction_continuation.ts",
+  "bLine": 762,
+  "normalizedLines": 10
+ },
+ {
+  "a": "code/src/abg/construction_continuation.ts",
+  "aLine": 387,
+  "b": "code/src/abg/construction_continuation.ts",
+  "bLine": 1081,
+  "normalizedLines": 10
+ },
+ {
+  "a": "code/src/abg/construction_continuation.ts",
+  "aLine": 387,
+  "b": "code/src/abg/construction_continuation.ts",
+  "bLine": 1288,
+  "normalizedLines": 10
+ },
+ {
+  "a": "code/src/abg/construction_continuation.ts",
+  "aLine": 387,
+  "b": "code/src/abg/construction_continuation.ts",
+  "bLine": 1494,
+  "normalizedLines": 10
+ },
+ {
+  "a": "code/src/abg/construction_continuation.ts",
+  "aLine": 388,
+  "b": "code/src/abg/construction_continuation.ts",
+  "bLine": 576,
+  "normalizedLines": 10
+ },
+ {
+  "a": "code/src/abg/construction_continuation.ts",
+  "aLine": 388,
+  "b": "code/src/abg/construction_continuation.ts",
+  "bLine": 763,
+  "normalizedLines": 10
+ },
+ {
+  "a": "code/src/abg/construction_continuation.ts",
+  "aLine": 388,
+  "b": "code/src/abg/construction_continuation.ts",
+  "bLine": 1082,
+  "normalizedLines": 10
+ },
+ {
+  "a": "code/src/abg/construction_continuation.ts",
+  "aLine": 388,
+  "b": "code/src/abg/construction_continuation.ts",
+  "bLine": 1289,
+  "normalizedLines": 10
+ },
+ {
+  "a": "code/src/abg/construction_continuation.ts",
+  "aLine": 388,
+  "b": "code/src/abg/construction_continuation.ts",
+  "bLine": 1495,
+  "normalizedLines": 10
+ },
+ {
+  "a": "code/src/abg/construction_continuation.ts",
+  "aLine": 389,
+  "b": "code/src/abg/construction_continuation.ts",
+  "bLine": 577,
+  "normalizedLines": 10
+ },
+ {
+  "a": "code/src/abg/construction_continuation.ts",
+  "aLine": 389,
+  "b": "code/src/abg/construction_continuation.ts",
+  "bLine": 764,
+  "normalizedLines": 10
+ },
+ {
+  "a": "code/src/abg/construction_continuation.ts",
+  "aLine": 389,
+  "b": "code/src/abg/construction_continuation.ts",
+  "bLine": 1083,
+  "normalizedLines": 10
+ },
+ {
+  "a": "code/src/abg/construction_continuation.ts",
+  "aLine": 389,
+  "b": "code/src/abg/construction_continuation.ts",
+  "bLine": 1290,
+  "normalizedLines": 10
+ },
+ {
+  "a": "code/src/abg/construction_continuation.ts",
+  "aLine": 389,
+  "b": "code/src/abg/construction_continuation.ts",
+  "bLine": 1496,
+  "normalizedLines": 10
+ },
+ {
+  "a": "code/src/abg/construction_continuation.ts",
+  "aLine": 390,
+  "b": "code/src/abg/construction_continuation.ts",
+  "bLine": 578,
+  "normalizedLines": 10
+ },
+ {
+  "a": "code/src/abg/construction_continuation.ts",
+  "aLine": 390,
+  "b": "code/src/abg/construction_continuation.ts",
+  "bLine": 765,
+  "normalizedLines": 10
+ },
+ {
+  "a": "code/src/abg/construction_continuation.ts",
+  "aLine": 390,
+  "b": "code/src/abg/construction_continuation.ts",
+  "bLine": 1084,
+  "normalizedLines": 10
+ },
+ {
+  "a": "code/src/abg/construction_continuation.ts",
+  "aLine": 390,
+  "b": "code/src/abg/construction_continuation.ts",
+  "bLine": 1291,
+  "normalizedLines": 10
+ },
+ {
+  "a": "code/src/abg/construction_continuation.ts",
+  "aLine": 390,
+  "b": "code/src/abg/construction_continuation.ts",
+  "bLine": 1497,
+  "normalizedLines": 10
+ },
+ {
+  "a": "code/src/abg/construction_continuation.ts",
+  "aLine": 391,
+  "b": "code/src/abg/construction_continuation.ts",
+  "bLine": 579,
+  "normalizedLines": 10
+ },
+ {
+  "a": "code/src/abg/construction_continuation.ts",
+  "aLine": 391,
+  "b": "code/src/abg/construction_continuation.ts",
+  "bLine": 766,
+  "normalizedLines": 10
+ },
+ {
+  "a": "code/src/abg/construction_continuation.ts",
+  "aLine": 391,
+  "b": "code/src/abg/construction_continuation.ts",
+  "bLine": 1085,
+  "normalizedLines": 10
+ },
+ {
+  "a": "code/src/abg/construction_continuation.ts",
+  "aLine": 391,
+  "b": "code/src/abg/construction_continuation.ts",
+  "bLine": 1292,
+  "normalizedLines": 10
+ },
+ {
+  "a": "code/src/abg/construction_continuation.ts",
+  "aLine": 391,
+  "b": "code/src/abg/construction_continuation.ts",
+  "bLine": 1498,
+  "normalizedLines": 10
+ },
+ {
+  "a": "code/src/abg/construction_continuation.ts",
+  "aLine": 392,
+  "b": "code/src/abg/construction_continuation.ts",
+  "bLine": 580,
+  "normalizedLines": 10
+ },
+ {
+  "a": "code/src/abg/construction_continuation.ts",
+  "aLine": 392,
+  "b": "code/src/abg/construction_continuation.ts",
+  "bLine": 767,
+  "normalizedLines": 10
+ },
+ {
+  "a": "code/src/abg/construction_continuation.ts",
+  "aLine": 392,
+  "b": "code/src/abg/construction_continuation.ts",
+  "bLine": 1086,
+  "normalizedLines": 10
+ },
+ {
+  "a": "code/src/abg/construction_continuation.ts",
+  "aLine": 392,
+  "b": "code/src/abg/construction_continuation.ts",
+  "bLine": 1293,
+  "normalizedLines": 10
+ },
+ {
+  "a": "code/src/abg/construction_continuation.ts",
+  "aLine": 392,
+  "b": "code/src/abg/construction_continuation.ts",
+  "bLine": 1499,
+  "normalizedLines": 10
+ },
+ {
+  "a": "code/src/abg/construction_continuation.ts",
+  "aLine": 393,
+  "b": "code/src/abg/construction_continuation.ts",
+  "bLine": 581,
+  "normalizedLines": 10
+ },
+ {
+  "a": "code/src/abg/construction_continuation.ts",
+  "aLine": 393,
+  "b": "code/src/abg/construction_continuation.ts",
+  "bLine": 768,
+  "normalizedLines": 10
+ },
+ {
+  "a": "code/src/abg/construction_continuation.ts",
+  "aLine": 393,
+  "b": "code/src/abg/construction_continuation.ts",
+  "bLine": 1087,
+  "normalizedLines": 10
+ },
+ {
+  "a": "code/src/abg/construction_continuation.ts",
+  "aLine": 393,
+  "b": "code/src/abg/construction_continuation.ts",
+  "bLine": 1294,
+  "normalizedLines": 10
+ },
+ {
+  "a": "code/src/abg/construction_continuation.ts",
+  "aLine": 393,
+  "b": "code/src/abg/construction_continuation.ts",
+  "bLine": 1500,
+  "normalizedLines": 10
+ },
+ {
+  "a": "code/src/abg/construction_continuation.ts",
+  "aLine": 394,
+  "b": "code/src/abg/construction_continuation.ts",
+  "bLine": 582,
+  "normalizedLines": 10
+ },
+ {
+  "a": "code/src/abg/construction_continuation.ts",
+  "aLine": 394,
+  "b": "code/src/abg/construction_continuation.ts",
+  "bLine": 769,
+  "normalizedLines": 10
+ },
+ {
+  "a": "code/src/abg/construction_continuation.ts",
+  "aLine": 394,
+  "b": "code/src/abg/construction_continuation.ts",
+  "bLine": 1088,
+  "normalizedLines": 10
+ },
+ {
+  "a": "code/src/abg/construction_continuation.ts",
+  "aLine": 394,
+  "b": "code/src/abg/construction_continuation.ts",
+  "bLine": 1295,
+  "normalizedLines": 10
+ },
+ {
+  "a": "code/src/abg/construction_continuation.ts",
+  "aLine": 394,
+  "b": "code/src/abg/construction_continuation.ts",
+  "bLine": 1501,
+  "normalizedLines": 10
+ },
+ {
+  "a": "code/src/abg/construction_continuation.ts",
+  "aLine": 395,
+  "b": "code/src/abg/construction_continuation.ts",
+  "bLine": 583,
+  "normalizedLines": 10
+ },
+ {
+  "a": "code/src/abg/construction_continuation.ts",
+  "aLine": 395,
+  "b": "code/src/abg/construction_continuation.ts",
+  "bLine": 770,
+  "normalizedLines": 10
+ },
+ {
+  "a": "code/src/abg/construction_continuation.ts",
+  "aLine": 395,
+  "b": "code/src/abg/construction_continuation.ts",
+  "bLine": 1089,
+  "normalizedLines": 10
+ },
+ {
+  "a": "code/src/abg/construction_continuation.ts",
+  "aLine": 395,
+  "b": "code/src/abg/construction_continuation.ts",
+  "bLine": 1296,
+  "normalizedLines": 10
+ },
+ {
+  "a": "code/src/abg/construction_continuation.ts",
+  "aLine": 395,
+  "b": "code/src/abg/construction_continuation.ts",
+  "bLine": 1502,
+  "normalizedLines": 10
+ },
+ {
+  "a": "code/src/abg/construction_continuation.ts",
+  "aLine": 397,
+  "b": "code/src/abg/construction_continuation.ts",
+  "bLine": 585,
+  "normalizedLines": 10
+ },
+ {
+  "a": "code/src/abg/construction_continuation.ts",
+  "aLine": 397,
+  "b": "code/src/abg/construction_continuation.ts",
+  "bLine": 772,
+  "normalizedLines": 10
+ },
+ {
+  "a": "code/src/abg/construction_continuation.ts",
+  "aLine": 397,
+  "b": "code/src/abg/construction_continuation.ts",
+  "bLine": 1091,
+  "normalizedLines": 10
+ },
+ {
+  "a": "code/src/abg/construction_continuation.ts",
+  "aLine": 397,
+  "b": "code/src/abg/construction_continuation.ts",
+  "bLine": 1298,
+  "normalizedLines": 10
+ },
+ {
+  "a": "code/src/abg/construction_continuation.ts",
+  "aLine": 397,
+  "b": "code/src/abg/construction_continuation.ts",
+  "bLine": 1504,
+  "normalizedLines": 10
+ },
+ {
+  "a": "code/src/abg/construction_continuation.ts",
+  "aLine": 398,
+  "b": "code/src/abg/construction_continuation.ts",
+  "bLine": 586,
+  "normalizedLines": 10
+ },
+ {
+  "a": "code/src/abg/construction_continuation.ts",
+  "aLine": 398,
+  "b": "code/src/abg/construction_continuation.ts",
+  "bLine": 773,
+  "normalizedLines": 10
+ },
+ {
+  "a": "code/src/abg/construction_continuation.ts",
+  "aLine": 398,
+  "b": "code/src/abg/construction_continuation.ts",
+  "bLine": 1092,
+  "normalizedLines": 10
+ },
+ {
+  "a": "code/src/abg/construction_continuation.ts",
+  "aLine": 398,
+  "b": "code/src/abg/construction_continuation.ts",
+  "bLine": 1299,
+  "normalizedLines": 10
+ },
+ {
+  "a": "code/src/abg/construction_continuation.ts",
+  "aLine": 398,
+  "b": "code/src/abg/construction_continuation.ts",
+  "bLine": 1505,
+  "normalizedLines": 10
+ },
+ {
+  "a": "code/src/abg/construction_continuation.ts",
+  "aLine": 399,
+  "b": "code/src/abg/construction_continuation.ts",
+  "bLine": 587,
+  "normalizedLines": 10
+ },
+ {
+  "a": "code/src/abg/construction_continuation.ts",
+  "aLine": 399,
+  "b": "code/src/abg/construction_continuation.ts",
+  "bLine": 774,
+  "normalizedLines": 10
+ },
+ {
+  "a": "code/src/abg/construction_continuation.ts",
+  "aLine": 399,
+  "b": "code/src/abg/construction_continuation.ts",
+  "bLine": 1093,
+  "normalizedLines": 10
+ },
+ {
+  "a": "code/src/abg/construction_continuation.ts",
+  "aLine": 399,
+  "b": "code/src/abg/construction_continuation.ts",
+  "bLine": 1300,
+  "normalizedLines": 10
+ },
+ {
+  "a": "code/src/abg/construction_continuation.ts",
+  "aLine": 399,
+  "b": "code/src/abg/construction_continuation.ts",
+  "bLine": 1506,
+  "normalizedLines": 10
+ },
+ {
+  "a": "code/src/abg/construction_continuation.ts",
+  "aLine": 400,
+  "b": "code/src/abg/construction_continuation.ts",
+  "bLine": 588,
+  "normalizedLines": 10
+ },
+ {
+  "a": "code/src/abg/construction_continuation.ts",
+  "aLine": 400,
+  "b": "code/src/abg/construction_continuation.ts",
+  "bLine": 775,
+  "normalizedLines": 10
+ },
+ {
+  "a": "code/src/abg/construction_continuation.ts",
+  "aLine": 400,
+  "b": "code/src/abg/construction_continuation.ts",
+  "bLine": 1094,
+  "normalizedLines": 10
+ },
+ {
+  "a": "code/src/abg/construction_continuation.ts",
+  "aLine": 400,
+  "b": "code/src/abg/construction_continuation.ts",
+  "bLine": 1301,
+  "normalizedLines": 10
+ },
+ {
+  "a": "code/src/abg/construction_continuation.ts",
+  "aLine": 400,
+  "b": "code/src/abg/construction_continuation.ts",
+  "bLine": 1507,
+  "normalizedLines": 10
+ },
+ {
+  "a": "code/src/abg/construction_continuation.ts",
+  "aLine": 401,
+  "b": "code/src/abg/construction_continuation.ts",
+  "bLine": 589,
+  "normalizedLines": 10
+ },
+ {
+  "a": "code/src/abg/construction_continuation.ts",
+  "aLine": 401,
+  "b": "code/src/abg/construction_continuation.ts",
+  "bLine": 776,
+  "normalizedLines": 10
+ },
+ {
+  "a": "code/src/abg/construction_continuation.ts",
+  "aLine": 401,
+  "b": "code/src/abg/construction_continuation.ts",
+  "bLine": 1095,
+  "normalizedLines": 10
+ },
+ {
+  "a": "code/src/abg/construction_continuation.ts",
+  "aLine": 401,
+  "b": "code/src/abg/construction_continuation.ts",
+  "bLine": 1302,
+  "normalizedLines": 10
+ },
+ {
+  "a": "code/src/abg/construction_continuation.ts",
+  "aLine": 401,
+  "b": "code/src/abg/construction_continuation.ts",
+  "bLine": 1508,
+  "normalizedLines": 10
+ },
+ {
+  "a": "code/src/abg/construction_continuation.ts",
+  "aLine": 402,
+  "b": "code/src/abg/construction_continuation.ts",
+  "bLine": 590,
+  "normalizedLines": 10
+ },
+ {
+  "a": "code/src/abg/construction_continuation.ts",
+  "aLine": 402,
+  "b": "code/src/abg/construction_continuation.ts",
+  "bLine": 777,
+  "normalizedLines": 10
+ },
+ {
+  "a": "code/src/abg/construction_continuation.ts",
+  "aLine": 402,
+  "b": "code/src/abg/construction_continuation.ts",
+  "bLine": 1096,
+  "normalizedLines": 10
+ },
+ {
+  "a": "code/src/abg/construction_continuation.ts",
+  "aLine": 402,
+  "b": "code/src/abg/construction_continuation.ts",
+  "bLine": 1303,
+  "normalizedLines": 10
+ },
+ {
+  "a": "code/src/abg/construction_continuation.ts",
+  "aLine": 402,
+  "b": "code/src/abg/construction_continuation.ts",
+  "bLine": 1509,
+  "normalizedLines": 10
+ },
+ {
+  "a": "code/src/abg/construction_continuation.ts",
+  "aLine": 403,
+  "b": "code/src/abg/construction_continuation.ts",
+  "bLine": 591,
+  "normalizedLines": 10
+ },
+ {
+  "a": "code/src/abg/construction_continuation.ts",
+  "aLine": 403,
+  "b": "code/src/abg/construction_continuation.ts",
+  "bLine": 778,
+  "normalizedLines": 10
+ },
+ {
+  "a": "code/src/abg/construction_continuation.ts",
+  "aLine": 403,
+  "b": "code/src/abg/construction_continuation.ts",
+  "bLine": 1097,
+  "normalizedLines": 10
+ },
+ {
+  "a": "code/src/abg/construction_continuation.ts",
+  "aLine": 403,
+  "b": "code/src/abg/construction_continuation.ts",
+  "bLine": 1304,
+  "normalizedLines": 10
+ },
+ {
+  "a": "code/src/abg/construction_continuation.ts",
+  "aLine": 403,
+  "b": "code/src/abg/construction_continuation.ts",
+  "bLine": 1510,
+  "normalizedLines": 10
+ },
+ {
+  "a": "code/src/abg/construction_continuation.ts",
+  "aLine": 404,
+  "b": "code/src/abg/construction_continuation.ts",
+  "bLine": 592,
+  "normalizedLines": 10
+ },
+ {
+  "a": "code/src/abg/construction_continuation.ts",
+  "aLine": 404,
+  "b": "code/src/abg/construction_continuation.ts",
+  "bLine": 779,
+  "normalizedLines": 10
+ },
+ {
+  "a": "code/src/abg/construction_continuation.ts",
+  "aLine": 404,
+  "b": "code/src/abg/construction_continuation.ts",
+  "bLine": 1098,
+  "normalizedLines": 10
+ },
+ {
+  "a": "code/src/abg/construction_continuation.ts",
+  "aLine": 404,
+  "b": "code/src/abg/construction_continuation.ts",
+  "bLine": 1305,
+  "normalizedLines": 10
+ },
+ {
+  "a": "code/src/abg/construction_continuation.ts",
+  "aLine": 404,
+  "b": "code/src/abg/construction_continuation.ts",
+  "bLine": 1511,
+  "normalizedLines": 10
+ },
+ {
+  "a": "code/src/abg/construction_continuation.ts",
+  "aLine": 405,
+  "b": "code/src/abg/construction_continuation.ts",
+  "bLine": 593,
+  "normalizedLines": 10
+ },
+ {
+  "a": "code/src/abg/construction_continuation.ts",
+  "aLine": 405,
+  "b": "code/src/abg/construction_continuation.ts",
+  "bLine": 780,
+  "normalizedLines": 10
+ },
+ {
+  "a": "code/src/abg/construction_continuation.ts",
+  "aLine": 405,
+  "b": "code/src/abg/construction_continuation.ts",
+  "bLine": 1099,
+  "normalizedLines": 10
+ },
+ {
+  "a": "code/src/abg/construction_continuation.ts",
+  "aLine": 405,
+  "b": "code/src/abg/construction_continuation.ts",
+  "bLine": 1306,
+  "normalizedLines": 10
+ },
+ {
+  "a": "code/src/abg/construction_continuation.ts",
+  "aLine": 405,
+  "b": "code/src/abg/construction_continuation.ts",
+  "bLine": 1512,
+  "normalizedLines": 10
+ },
+ {
+  "a": "code/src/abg/construction_continuation.ts",
+  "aLine": 406,
+  "b": "code/src/abg/construction_continuation.ts",
+  "bLine": 594,
+  "normalizedLines": 10
+ },
+ {
+  "a": "code/src/abg/construction_continuation.ts",
+  "aLine": 406,
+  "b": "code/src/abg/construction_continuation.ts",
+  "bLine": 781,
+  "normalizedLines": 10
+ },
+ {
+  "a": "code/src/abg/construction_continuation.ts",
+  "aLine": 406,
+  "b": "code/src/abg/construction_continuation.ts",
+  "bLine": 1100,
+  "normalizedLines": 10
+ },
+ {
+  "a": "code/src/abg/construction_continuation.ts",
+  "aLine": 406,
+  "b": "code/src/abg/construction_continuation.ts",
+  "bLine": 1307,
+  "normalizedLines": 10
+ },
+ {
+  "a": "code/src/abg/construction_continuation.ts",
+  "aLine": 406,
+  "b": "code/src/abg/construction_continuation.ts",
+  "bLine": 1513,
+  "normalizedLines": 10
+ },
+ {
+  "a": "code/src/abg/construction_continuation.ts",
+  "aLine": 407,
+  "b": "code/src/abg/construction_continuation.ts",
+  "bLine": 595,
+  "normalizedLines": 10
+ },
+ {
+  "a": "code/src/abg/construction_continuation.ts",
+  "aLine": 407,
+  "b": "code/src/abg/construction_continuation.ts",
+  "bLine": 782,
+  "normalizedLines": 10
+ },
+ {
+  "a": "code/src/abg/construction_continuation.ts",
+  "aLine": 407,
+  "b": "code/src/abg/construction_continuation.ts",
+  "bLine": 1101,
+  "normalizedLines": 10
+ },
+ {
+  "a": "code/src/abg/construction_continuation.ts",
+  "aLine": 407,
+  "b": "code/src/abg/construction_continuation.ts",
+  "bLine": 1308,
+  "normalizedLines": 10
+ },
+ {
+  "a": "code/src/abg/construction_continuation.ts",
+  "aLine": 407,
+  "b": "code/src/abg/construction_continuation.ts",
+  "bLine": 1514,
+  "normalizedLines": 10
+ },
+ {
+  "a": "code/src/abg/construction_continuation.ts",
+  "aLine": 409,
+  "b": "code/src/abg/construction_continuation.ts",
+  "bLine": 597,
+  "normalizedLines": 10
+ },
+ {
+  "a": "code/src/abg/construction_continuation.ts",
+  "aLine": 409,
+  "b": "code/src/abg/construction_continuation.ts",
+  "bLine": 784,
+  "normalizedLines": 10
+ },
+ {
+  "a": "code/src/abg/construction_continuation.ts",
+  "aLine": 409,
+  "b": "code/src/abg/construction_continuation.ts",
+  "bLine": 1103,
+  "normalizedLines": 10
+ },
+ {
+  "a": "code/src/abg/construction_continuation.ts",
+  "aLine": 409,
+  "b": "code/src/abg/construction_continuation.ts",
+  "bLine": 1310,
+  "normalizedLines": 10
+ },
+ {
+  "a": "code/src/abg/construction_continuation.ts",
+  "aLine": 409,
+  "b": "code/src/abg/construction_continuation.ts",
+  "bLine": 1516,
+  "normalizedLines": 10
+ },
+ {
+  "a": "code/src/abg/construction_continuation.ts",
+  "aLine": 410,
+  "b": "code/src/abg/construction_continuation.ts",
+  "bLine": 598,
+  "normalizedLines": 10
+ },
+ {
+  "a": "code/src/abg/construction_continuation.ts",
+  "aLine": 410,
+  "b": "code/src/abg/construction_continuation.ts",
+  "bLine": 785,
+  "normalizedLines": 10
+ },
+ {
+  "a": "code/src/abg/construction_continuation.ts",
+  "aLine": 410,
+  "b": "code/src/abg/construction_continuation.ts",
+  "bLine": 1104,
+  "normalizedLines": 10
+ },
+ {
+  "a": "code/src/abg/construction_continuation.ts",
+  "aLine": 410,
+  "b": "code/src/abg/construction_continuation.ts",
+  "bLine": 1311,
+  "normalizedLines": 10
+ },
+ {
+  "a": "code/src/abg/construction_continuation.ts",
+  "aLine": 410,
+  "b": "code/src/abg/construction_continuation.ts",
+  "bLine": 1517,
+  "normalizedLines": 10
+ },
+ {
+  "a": "code/src/abg/construction_continuation.ts",
+  "aLine": 411,
+  "b": "code/src/abg/construction_continuation.ts",
+  "bLine": 599,
+  "normalizedLines": 10
+ },
+ {
+  "a": "code/src/abg/construction_continuation.ts",
+  "aLine": 411,
+  "b": "code/src/abg/construction_continuation.ts",
+  "bLine": 786,
+  "normalizedLines": 10
+ },
+ {
+  "a": "code/src/abg/construction_continuation.ts",
+  "aLine": 411,
+  "b": "code/src/abg/construction_continuation.ts",
+  "bLine": 1105,
+  "normalizedLines": 10
+ },
+ {
+  "a": "code/src/abg/construction_continuation.ts",
+  "aLine": 411,
+  "b": "code/src/abg/construction_continuation.ts",
+  "bLine": 1312,
+  "normalizedLines": 10
+ },
+ {
+  "a": "code/src/abg/construction_continuation.ts",
+  "aLine": 411,
+  "b": "code/src/abg/construction_continuation.ts",
+  "bLine": 1518,
+  "normalizedLines": 10
+ },
+ {
+  "a": "code/src/abg/construction_continuation.ts",
+  "aLine": 412,
+  "b": "code/src/abg/construction_continuation.ts",
+  "bLine": 600,
+  "normalizedLines": 10
+ },
+ {
+  "a": "code/src/abg/construction_continuation.ts",
+  "aLine": 412,
+  "b": "code/src/abg/construction_continuation.ts",
+  "bLine": 787,
+  "normalizedLines": 10
+ },
+ {
+  "a": "code/src/abg/construction_continuation.ts",
+  "aLine": 412,
+  "b": "code/src/abg/construction_continuation.ts",
+  "bLine": 1106,
+  "normalizedLines": 10
+ },
+ {
+  "a": "code/src/abg/construction_continuation.ts",
+  "aLine": 412,
+  "b": "code/src/abg/construction_continuation.ts",
+  "bLine": 1313,
+  "normalizedLines": 10
+ },
+ {
+  "a": "code/src/abg/construction_continuation.ts",
+  "aLine": 412,
+  "b": "code/src/abg/construction_continuation.ts",
+  "bLine": 1519,
+  "normalizedLines": 10
+ },
+ {
+  "a": "code/src/abg/construction_continuation.ts",
+  "aLine": 413,
+  "b": "code/src/abg/construction_continuation.ts",
+  "bLine": 601,
+  "normalizedLines": 10
+ },
+ {
+  "a": "code/src/abg/construction_continuation.ts",
+  "aLine": 413,
+  "b": "code/src/abg/construction_continuation.ts",
+  "bLine": 788,
+  "normalizedLines": 10
+ },
+ {
+  "a": "code/src/abg/construction_continuation.ts",
+  "aLine": 413,
+  "b": "code/src/abg/construction_continuation.ts",
+  "bLine": 1107,
+  "normalizedLines": 10
+ },
+ {
+  "a": "code/src/abg/construction_continuation.ts",
+  "aLine": 413,
+  "b": "code/src/abg/construction_continuation.ts",
+  "bLine": 1314,
+  "normalizedLines": 10
+ },
+ {
+  "a": "code/src/abg/construction_continuation.ts",
+  "aLine": 413,
+  "b": "code/src/abg/construction_continuation.ts",
+  "bLine": 1520,
+  "normalizedLines": 10
+ },
+ {
+  "a": "code/src/abg/construction_continuation.ts",
+  "aLine": 414,
+  "b": "code/src/abg/construction_continuation.ts",
+  "bLine": 602,
+  "normalizedLines": 10
+ },
+ {
+  "a": "code/src/abg/construction_continuation.ts",
+  "aLine": 414,
+  "b": "code/src/abg/construction_continuation.ts",
+  "bLine": 789,
+  "normalizedLines": 10
+ },
+ {
+  "a": "code/src/abg/construction_continuation.ts",
+  "aLine": 414,
+  "b": "code/src/abg/construction_continuation.ts",
+  "bLine": 1108,
+  "normalizedLines": 10
+ },
+ {
+  "a": "code/src/abg/construction_continuation.ts",
+  "aLine": 414,
+  "b": "code/src/abg/construction_continuation.ts",
+  "bLine": 1315,
+  "normalizedLines": 10
+ },
+ {
+  "a": "code/src/abg/construction_continuation.ts",
+  "aLine": 414,
+  "b": "code/src/abg/construction_continuation.ts",
+  "bLine": 1521,
+  "normalizedLines": 10
+ },
+ {
+  "a": "code/src/abg/construction_continuation.ts",
+  "aLine": 415,
+  "b": "code/src/abg/construction_continuation.ts",
+  "bLine": 603,
+  "normalizedLines": 10
+ },
+ {
+  "a": "code/src/abg/construction_continuation.ts",
+  "aLine": 415,
+  "b": "code/src/abg/construction_continuation.ts",
+  "bLine": 790,
+  "normalizedLines": 10
+ },
+ {
+  "a": "code/src/abg/construction_continuation.ts",
+  "aLine": 415,
+  "b": "code/src/abg/construction_continuation.ts",
+  "bLine": 1109,
+  "normalizedLines": 10
+ },
+ {
+  "a": "code/src/abg/construction_continuation.ts",
+  "aLine": 415,
+  "b": "code/src/abg/construction_continuation.ts",
+  "bLine": 1316,
+  "normalizedLines": 10
+ },
+ {
+  "a": "code/src/abg/construction_continuation.ts",
+  "aLine": 415,
+  "b": "code/src/abg/construction_continuation.ts",
+  "bLine": 1522,
+  "normalizedLines": 10
+ },
+ {
+  "a": "code/src/abg/construction_continuation.ts",
+  "aLine": 416,
+  "b": "code/src/abg/construction_continuation.ts",
+  "bLine": 604,
+  "normalizedLines": 10
+ },
+ {
+  "a": "code/src/abg/construction_continuation.ts",
+  "aLine": 416,
+  "b": "code/src/abg/construction_continuation.ts",
+  "bLine": 791,
+  "normalizedLines": 10
+ },
+ {
+  "a": "code/src/abg/construction_continuation.ts",
+  "aLine": 416,
+  "b": "code/src/abg/construction_continuation.ts",
+  "bLine": 1110,
+  "normalizedLines": 10
+ },
+ {
+  "a": "code/src/abg/construction_continuation.ts",
+  "aLine": 416,
+  "b": "code/src/abg/construction_continuation.ts",
+  "bLine": 1317,
+  "normalizedLines": 10
+ },
+ {
+  "a": "code/src/abg/construction_continuation.ts",
+  "aLine": 416,
+  "b": "code/src/abg/construction_continuation.ts",
+  "bLine": 1523,
+  "normalizedLines": 10
+ },
+ {
+  "a": "code/src/abg/construction_continuation.ts",
+  "aLine": 417,
+  "b": "code/src/abg/construction_continuation.ts",
+  "bLine": 605,
+  "normalizedLines": 10
+ },
+ {
+  "a": "code/src/abg/construction_continuation.ts",
+  "aLine": 417,
+  "b": "code/src/abg/construction_continuation.ts",
+  "bLine": 792,
+  "normalizedLines": 10
+ },
+ {
+  "a": "code/src/abg/construction_continuation.ts",
+  "aLine": 417,
+  "b": "code/src/abg/construction_continuation.ts",
+  "bLine": 1111,
+  "normalizedLines": 10
+ },
+ {
+  "a": "code/src/abg/construction_continuation.ts",
+  "aLine": 417,
+  "b": "code/src/abg/construction_continuation.ts",
+  "bLine": 1318,
+  "normalizedLines": 10
+ },
+ {
+  "a": "code/src/abg/construction_continuation.ts",
+  "aLine": 417,
+  "b": "code/src/abg/construction_continuation.ts",
+  "bLine": 1524,
+  "normalizedLines": 10
+ },
+ {
+  "a": "code/src/abg/construction_continuation.ts",
+  "aLine": 420,
+  "b": "code/src/abg/construction_continuation.ts",
+  "bLine": 608,
+  "normalizedLines": 10
+ },
+ {
+  "a": "code/src/abg/construction_continuation.ts",
+  "aLine": 420,
+  "b": "code/src/abg/construction_continuation.ts",
+  "bLine": 795,
+  "normalizedLines": 10
+ },
+ {
+  "a": "code/src/abg/construction_continuation.ts",
+  "aLine": 420,
+  "b": "code/src/abg/construction_continuation.ts",
+  "bLine": 1114,
+  "normalizedLines": 10
+ },
+ {
+  "a": "code/src/abg/construction_continuation.ts",
+  "aLine": 420,
+  "b": "code/src/abg/construction_continuation.ts",
+  "bLine": 1321,
+  "normalizedLines": 10
+ },
+ {
+  "a": "code/src/abg/construction_continuation.ts",
+  "aLine": 420,
+  "b": "code/src/abg/construction_continuation.ts",
+  "bLine": 1527,
+  "normalizedLines": 10
+ },
+ {
+  "a": "code/src/abg/construction_continuation.ts",
+  "aLine": 421,
+  "b": "code/src/abg/construction_continuation.ts",
+  "bLine": 609,
+  "normalizedLines": 10
+ },
+ {
+  "a": "code/src/abg/construction_continuation.ts",
+  "aLine": 421,
+  "b": "code/src/abg/construction_continuation.ts",
+  "bLine": 796,
+  "normalizedLines": 10
+ },
+ {
+  "a": "code/src/abg/construction_continuation.ts",
+  "aLine": 421,
+  "b": "code/src/abg/construction_continuation.ts",
+  "bLine": 1115,
+  "normalizedLines": 10
+ },
+ {
+  "a": "code/src/abg/construction_continuation.ts",
+  "aLine": 421,
+  "b": "code/src/abg/construction_continuation.ts",
+  "bLine": 1322,
+  "normalizedLines": 10
+ },
+ {
+  "a": "code/src/abg/construction_continuation.ts",
+  "aLine": 421,
+  "b": "code/src/abg/construction_continuation.ts",
+  "bLine": 1528,
+  "normalizedLines": 10
+ },
+ {
+  "a": "code/src/abg/construction_continuation.ts",
+  "aLine": 422,
+  "b": "code/src/abg/construction_continuation.ts",
+  "bLine": 610,
+  "normalizedLines": 10
+ },
+ {
+  "a": "code/src/abg/construction_continuation.ts",
+  "aLine": 422,
+  "b": "code/src/abg/construction_continuation.ts",
+  "bLine": 797,
+  "normalizedLines": 10
+ },
+ {
+  "a": "code/src/abg/construction_continuation.ts",
+  "aLine": 422,
+  "b": "code/src/abg/construction_continuation.ts",
+  "bLine": 1116,
+  "normalizedLines": 10
+ },
+ {
+  "a": "code/src/abg/construction_continuation.ts",
+  "aLine": 422,
+  "b": "code/src/abg/construction_continuation.ts",
+  "bLine": 1323,
+  "normalizedLines": 10
+ },
+ {
+  "a": "code/src/abg/construction_continuation.ts",
+  "aLine": 422,
+  "b": "code/src/abg/construction_continuation.ts",
+  "bLine": 1529,
+  "normalizedLines": 10
+ },
+ {
+  "a": "code/src/abg/construction_continuation.ts",
+  "aLine": 423,
+  "b": "code/src/abg/construction_continuation.ts",
+  "bLine": 611,
+  "normalizedLines": 10
+ },
+ {
+  "a": "code/src/abg/construction_continuation.ts",
+  "aLine": 423,
+  "b": "code/src/abg/construction_continuation.ts",
+  "bLine": 798,
+  "normalizedLines": 10
+ },
+ {
+  "a": "code/src/abg/construction_continuation.ts",
+  "aLine": 423,
+  "b": "code/src/abg/construction_continuation.ts",
+  "bLine": 1117,
+  "normalizedLines": 10
+ },
+ {
+  "a": "code/src/abg/construction_continuation.ts",
+  "aLine": 423,
+  "b": "code/src/abg/construction_continuation.ts",
+  "bLine": 1324,
+  "normalizedLines": 10
+ },
+ {
+  "a": "code/src/abg/construction_continuation.ts",
+  "aLine": 423,
+  "b": "code/src/abg/construction_continuation.ts",
+  "bLine": 1530,
+  "normalizedLines": 10
+ },
+ {
+  "a": "code/src/abg/construction_continuation.ts",
+  "aLine": 424,
+  "b": "code/src/abg/construction_continuation.ts",
+  "bLine": 612,
+  "normalizedLines": 10
+ },
+ {
+  "a": "code/src/abg/construction_continuation.ts",
+  "aLine": 424,
+  "b": "code/src/abg/construction_continuation.ts",
+  "bLine": 799,
+  "normalizedLines": 10
+ },
+ {
+  "a": "code/src/abg/construction_continuation.ts",
+  "aLine": 424,
+  "b": "code/src/abg/construction_continuation.ts",
+  "bLine": 1118,
+  "normalizedLines": 10
+ },
+ {
+  "a": "code/src/abg/construction_continuation.ts",
+  "aLine": 424,
+  "b": "code/src/abg/construction_continuation.ts",
+  "bLine": 1325,
+  "normalizedLines": 10
+ },
+ {
+  "a": "code/src/abg/construction_continuation.ts",
+  "aLine": 424,
+  "b": "code/src/abg/construction_continuation.ts",
+  "bLine": 1531,
+  "normalizedLines": 10
+ },
+ {
+  "a": "code/src/abg/construction_continuation.ts",
+  "aLine": 425,
+  "b": "code/src/abg/construction_continuation.ts",
+  "bLine": 613,
+  "normalizedLines": 10
+ },
+ {
+  "a": "code/src/abg/construction_continuation.ts",
+  "aLine": 425,
+  "b": "code/src/abg/construction_continuation.ts",
+  "bLine": 800,
+  "normalizedLines": 10
+ },
+ {
+  "a": "code/src/abg/construction_continuation.ts",
+  "aLine": 425,
+  "b": "code/src/abg/construction_continuation.ts",
+  "bLine": 1119,
+  "normalizedLines": 10
+ },
+ {
+  "a": "code/src/abg/construction_continuation.ts",
+  "aLine": 425,
+  "b": "code/src/abg/construction_continuation.ts",
+  "bLine": 1326,
+  "normalizedLines": 10
+ },
+ {
+  "a": "code/src/abg/construction_continuation.ts",
+  "aLine": 425,
+  "b": "code/src/abg/construction_continuation.ts",
+  "bLine": 1532,
+  "normalizedLines": 10
+ },
+ {
+  "a": "code/src/abg/construction_continuation.ts",
+  "aLine": 426,
+  "b": "code/src/abg/construction_continuation.ts",
+  "bLine": 614,
+  "normalizedLines": 10
+ },
+ {
+  "a": "code/src/abg/construction_continuation.ts",
+  "aLine": 426,
+  "b": "code/src/abg/construction_continuation.ts",
+  "bLine": 801,
+  "normalizedLines": 10
+ },
+ {
+  "a": "code/src/abg/construction_continuation.ts",
+  "aLine": 426,
+  "b": "code/src/abg/construction_continuation.ts",
+  "bLine": 1120,
+  "normalizedLines": 10
+ },
+ {
+  "a": "code/src/abg/construction_continuation.ts",
+  "aLine": 426,
+  "b": "code/src/abg/construction_continuation.ts",
+  "bLine": 1327,
+  "normalizedLines": 10
+ },
+ {
+  "a": "code/src/abg/construction_continuation.ts",
+  "aLine": 426,
+  "b": "code/src/abg/construction_continuation.ts",
+  "bLine": 1533,
+  "normalizedLines": 10
+ },
+ {
+  "a": "code/src/abg/construction_continuation.ts",
+  "aLine": 427,
+  "b": "code/src/abg/construction_continuation.ts",
+  "bLine": 615,
+  "normalizedLines": 10
+ },
+ {
+  "a": "code/src/abg/construction_continuation.ts",
+  "aLine": 427,
+  "b": "code/src/abg/construction_continuation.ts",
+  "bLine": 802,
+  "normalizedLines": 10
+ },
+ {
+  "a": "code/src/abg/construction_continuation.ts",
+  "aLine": 427,
+  "b": "code/src/abg/construction_continuation.ts",
+  "bLine": 1121,
+  "normalizedLines": 10
+ },
+ {
+  "a": "code/src/abg/construction_continuation.ts",
+  "aLine": 427,
+  "b": "code/src/abg/construction_continuation.ts",
+  "bLine": 1328,
+  "normalizedLines": 10
+ },
+ {
+  "a": "code/src/abg/construction_continuation.ts",
+  "aLine": 427,
+  "b": "code/src/abg/construction_continuation.ts",
+  "bLine": 1534,
+  "normalizedLines": 10
+ },
+ {
+  "a": "code/src/abg/construction_continuation.ts",
+  "aLine": 429,
+  "b": "code/src/abg/construction_continuation.ts",
+  "bLine": 617,
+  "normalizedLines": 10
+ },
+ {
+  "a": "code/src/abg/construction_continuation.ts",
+  "aLine": 429,
+  "b": "code/src/abg/construction_continuation.ts",
+  "bLine": 804,
+  "normalizedLines": 10
+ },
+ {
+  "a": "code/src/abg/construction_continuation.ts",
+  "aLine": 429,
+  "b": "code/src/abg/construction_continuation.ts",
+  "bLine": 1123,
+  "normalizedLines": 10
+ },
+ {
+  "a": "code/src/abg/construction_continuation.ts",
+  "aLine": 429,
+  "b": "code/src/abg/construction_continuation.ts",
+  "bLine": 1330,
+  "normalizedLines": 10
+ },
+ {
+  "a": "code/src/abg/construction_continuation.ts",
+  "aLine": 429,
+  "b": "code/src/abg/construction_continuation.ts",
+  "bLine": 1536,
+  "normalizedLines": 10
+ },
+ {
+  "a": "code/src/abg/construction_continuation.ts",
+  "aLine": 430,
+  "b": "code/src/abg/construction_continuation.ts",
+  "bLine": 618,
+  "normalizedLines": 10
+ },
+ {
+  "a": "code/src/abg/construction_continuation.ts",
+  "aLine": 430,
+  "b": "code/src/abg/construction_continuation.ts",
+  "bLine": 805,
+  "normalizedLines": 10
+ },
+ {
+  "a": "code/src/abg/construction_continuation.ts",
+  "aLine": 430,
+  "b": "code/src/abg/construction_continuation.ts",
+  "bLine": 1124,
+  "normalizedLines": 10
+ },
+ {
+  "a": "code/src/abg/construction_continuation.ts",
+  "aLine": 430,
+  "b": "code/src/abg/construction_continuation.ts",
+  "bLine": 1331,
+  "normalizedLines": 10
+ },
+ {
+  "a": "code/src/abg/construction_continuation.ts",
+  "aLine": 430,
+  "b": "code/src/abg/construction_continuation.ts",
+  "bLine": 1537,
+  "normalizedLines": 10
+ },
+ {
+  "a": "code/src/abg/construction_continuation.ts",
+  "aLine": 431,
+  "b": "code/src/abg/construction_continuation.ts",
+  "bLine": 619,
+  "normalizedLines": 10
+ },
+ {
+  "a": "code/src/abg/construction_continuation.ts",
+  "aLine": 431,
+  "b": "code/src/abg/construction_continuation.ts",
+  "bLine": 806,
+  "normalizedLines": 10
+ },
+ {
+  "a": "code/src/abg/construction_continuation.ts",
+  "aLine": 431,
+  "b": "code/src/abg/construction_continuation.ts",
+  "bLine": 1125,
+  "normalizedLines": 10
+ },
+ {
+  "a": "code/src/abg/construction_continuation.ts",
+  "aLine": 431,
+  "b": "code/src/abg/construction_continuation.ts",
+  "bLine": 1332,
+  "normalizedLines": 10
+ },
+ {
+  "a": "code/src/abg/construction_continuation.ts",
+  "aLine": 431,
+  "b": "code/src/abg/construction_continuation.ts",
+  "bLine": 1538,
+  "normalizedLines": 10
+ },
+ {
+  "a": "code/src/abg/construction_continuation.ts",
+  "aLine": 432,
+  "b": "code/src/abg/construction_continuation.ts",
+  "bLine": 620,
+  "normalizedLines": 10
+ },
+ {
+  "a": "code/src/abg/construction_continuation.ts",
+  "aLine": 432,
+  "b": "code/src/abg/construction_continuation.ts",
+  "bLine": 807,
+  "normalizedLines": 10
+ },
+ {
+  "a": "code/src/abg/construction_continuation.ts",
+  "aLine": 432,
+  "b": "code/src/abg/construction_continuation.ts",
+  "bLine": 1126,
+  "normalizedLines": 10
+ },
+ {
+  "a": "code/src/abg/construction_continuation.ts",
+  "aLine": 432,
+  "b": "code/src/abg/construction_continuation.ts",
+  "bLine": 1333,
+  "normalizedLines": 10
+ },
+ {
+  "a": "code/src/abg/construction_continuation.ts",
+  "aLine": 432,
+  "b": "code/src/abg/construction_continuation.ts",
+  "bLine": 1539,
+  "normalizedLines": 10
+ },
+ {
+  "a": "code/src/abg/construction_continuation.ts",
+  "aLine": 433,
+  "b": "code/src/abg/construction_continuation.ts",
+  "bLine": 621,
+  "normalizedLines": 10
+ },
+ {
+  "a": "code/src/abg/construction_continuation.ts",
+  "aLine": 433,
+  "b": "code/src/abg/construction_continuation.ts",
+  "bLine": 808,
+  "normalizedLines": 10
+ },
+ {
+  "a": "code/src/abg/construction_continuation.ts",
+  "aLine": 433,
+  "b": "code/src/abg/construction_continuation.ts",
+  "bLine": 1127,
+  "normalizedLines": 10
+ },
+ {
+  "a": "code/src/abg/construction_continuation.ts",
+  "aLine": 433,
+  "b": "code/src/abg/construction_continuation.ts",
+  "bLine": 1334,
+  "normalizedLines": 10
+ },
+ {
+  "a": "code/src/abg/construction_continuation.ts",
+  "aLine": 433,
+  "b": "code/src/abg/construction_continuation.ts",
+  "bLine": 1540,
+  "normalizedLines": 10
+ },
+ {
+  "a": "code/src/abg/construction_continuation.ts",
+  "aLine": 434,
+  "b": "code/src/abg/construction_continuation.ts",
+  "bLine": 622,
+  "normalizedLines": 10
+ },
+ {
+  "a": "code/src/abg/construction_continuation.ts",
+  "aLine": 434,
+  "b": "code/src/abg/construction_continuation.ts",
+  "bLine": 809,
+  "normalizedLines": 10
+ },
+ {
+  "a": "code/src/abg/construction_continuation.ts",
+  "aLine": 434,
+  "b": "code/src/abg/construction_continuation.ts",
+  "bLine": 1128,
+  "normalizedLines": 10
+ },
+ {
+  "a": "code/src/abg/construction_continuation.ts",
+  "aLine": 434,
+  "b": "code/src/abg/construction_continuation.ts",
+  "bLine": 1335,
+  "normalizedLines": 10
+ },
+ {
+  "a": "code/src/abg/construction_continuation.ts",
+  "aLine": 434,
+  "b": "code/src/abg/construction_continuation.ts",
+  "bLine": 1541,
+  "normalizedLines": 10
+ },
+ {
+  "a": "code/src/abg/construction_continuation.ts",
+  "aLine": 435,
+  "b": "code/src/abg/construction_continuation.ts",
+  "bLine": 623,
+  "normalizedLines": 10
+ },
+ {
+  "a": "code/src/abg/construction_continuation.ts",
+  "aLine": 435,
+  "b": "code/src/abg/construction_continuation.ts",
+  "bLine": 810,
+  "normalizedLines": 10
+ },
+ {
+  "a": "code/src/abg/construction_continuation.ts",
+  "aLine": 435,
+  "b": "code/src/abg/construction_continuation.ts",
+  "bLine": 1129,
+  "normalizedLines": 10
+ },
+ {
+  "a": "code/src/abg/construction_continuation.ts",
+  "aLine": 435,
+  "b": "code/src/abg/construction_continuation.ts",
+  "bLine": 1336,
+  "normalizedLines": 10
+ },
+ {
+  "a": "code/src/abg/construction_continuation.ts",
+  "aLine": 435,
+  "b": "code/src/abg/construction_continuation.ts",
+  "bLine": 1542,
+  "normalizedLines": 10
+ },
+ {
+  "a": "code/src/abg/construction_continuation.ts",
+  "aLine": 436,
+  "b": "code/src/abg/construction_continuation.ts",
+  "bLine": 624,
+  "normalizedLines": 10
+ },
+ {
+  "a": "code/src/abg/construction_continuation.ts",
+  "aLine": 436,
+  "b": "code/src/abg/construction_continuation.ts",
+  "bLine": 811,
+  "normalizedLines": 10
+ },
+ {
+  "a": "code/src/abg/construction_continuation.ts",
+  "aLine": 436,
+  "b": "code/src/abg/construction_continuation.ts",
+  "bLine": 1130,
+  "normalizedLines": 10
+ },
+ {
+  "a": "code/src/abg/construction_continuation.ts",
+  "aLine": 436,
+  "b": "code/src/abg/construction_continuation.ts",
+  "bLine": 1337,
+  "normalizedLines": 10
+ },
+ {
+  "a": "code/src/abg/construction_continuation.ts",
+  "aLine": 436,
+  "b": "code/src/abg/construction_continuation.ts",
+  "bLine": 1543,
+  "normalizedLines": 10
+ },
+ {
+  "a": "code/src/abg/construction_continuation.ts",
+  "aLine": 438,
+  "b": "code/src/abg/construction_continuation.ts",
+  "bLine": 626,
+  "normalizedLines": 10
+ },
+ {
+  "a": "code/src/abg/construction_continuation.ts",
+  "aLine": 438,
+  "b": "code/src/abg/construction_continuation.ts",
+  "bLine": 813,
+  "normalizedLines": 10
+ },
+ {
+  "a": "code/src/abg/construction_continuation.ts",
+  "aLine": 438,
+  "b": "code/src/abg/construction_continuation.ts",
+  "bLine": 1132,
+  "normalizedLines": 10
+ },
+ {
+  "a": "code/src/abg/construction_continuation.ts",
+  "aLine": 438,
+  "b": "code/src/abg/construction_continuation.ts",
+  "bLine": 1339,
+  "normalizedLines": 10
+ },
+ {
+  "a": "code/src/abg/construction_continuation.ts",
+  "aLine": 438,
+  "b": "code/src/abg/construction_continuation.ts",
+  "bLine": 1545,
+  "normalizedLines": 10
+ },
+ {
+  "a": "code/src/abg/construction_continuation.ts",
+  "aLine": 439,
+  "b": "code/src/abg/construction_continuation.ts",
+  "bLine": 627,
+  "normalizedLines": 10
+ },
+ {
+  "a": "code/src/abg/construction_continuation.ts",
+  "aLine": 439,
+  "b": "code/src/abg/construction_continuation.ts",
+  "bLine": 814,
+  "normalizedLines": 10
+ },
+ {
+  "a": "code/src/abg/construction_continuation.ts",
+  "aLine": 439,
+  "b": "code/src/abg/construction_continuation.ts",
+  "bLine": 1133,
+  "normalizedLines": 10
+ },
+ {
+  "a": "code/src/abg/construction_continuation.ts",
+  "aLine": 439,
+  "b": "code/src/abg/construction_continuation.ts",
+  "bLine": 1340,
+  "normalizedLines": 10
+ },
+ {
+  "a": "code/src/abg/construction_continuation.ts",
+  "aLine": 439,
+  "b": "code/src/abg/construction_continuation.ts",
+  "bLine": 1546,
+  "normalizedLines": 10
+ },
+ {
+  "a": "code/src/abg/construction_continuation.ts",
+  "aLine": 440,
+  "b": "code/src/abg/construction_continuation.ts",
+  "bLine": 628,
+  "normalizedLines": 10
+ },
+ {
+  "a": "code/src/abg/construction_continuation.ts",
+  "aLine": 440,
+  "b": "code/src/abg/construction_continuation.ts",
+  "bLine": 815,
+  "normalizedLines": 10
+ },
+ {
+  "a": "code/src/abg/construction_continuation.ts",
+  "aLine": 440,
+  "b": "code/src/abg/construction_continuation.ts",
+  "bLine": 1134,
+  "normalizedLines": 10
+ }
+]

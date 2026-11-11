@@ -1,0 +1,692 @@
+{
+ "counts": [
+  [
+   "historical",
+   85
+  ],
+  [
+   "legacy",
+   13
+  ],
+  [
+   "compatibility",
+   3
+  ],
+  [
+   "temporary",
+   2
+  ],
+  [
+   "unused",
+   2
+  ],
+  [
+   "obsolete",
+   2
+  ],
+  [
+   "no longer",
+   1
+  ],
+  [
+   "superseded",
+   1
+  ]
+ ],
+ "sites": [
+  {
+   "file": "code/src/abg/actor_process.ts",
+   "line": 1080,
+   "marker": "legacy",
+   "text": "// The binding records the plan's identity once; a legacy-profile binding"
+  },
+  {
+   "file": "code/src/abg/artifact_truth.ts",
+   "line": 900,
+   "marker": "historical",
+   "text": "// currentness. Historical byte validation keeps its existing contract."
+  },
+  {
+   "file": "code/src/abg/c_call.ts",
+   "line": 438,
+   "marker": "legacy",
+   "text": "/** Resolves one child's published declaration and admitted legacy rows. */"
+  },
+  {
+   "file": "code/src/abg/c_call.ts",
+   "line": 683,
+   "marker": "historical",
+   "text": "* genuine owner coordinates. Complete historical outputs stay Public-only. */"
+  },
+  {
+   "file": "code/src/abg/c_call.ts",
+   "line": 1777,
+   "marker": "legacy",
+   "text": "* legacy `identity: null`. A substituted, crossed or edited binding has no"
+  },
+  {
+   "file": "code/src/abg/c_call_outcome.ts",
+   "line": 1933,
+   "marker": "legacy",
+   "text": "/** @internal Explicit legacy-output boundary for the same named owner receipts. */"
+  },
+  {
+   "file": "code/src/abg/calculus/fold.ts",
+   "line": 30,
+   "marker": "historical",
+   "text": "/** @internal The same fold, without complete historical effect bodies. */"
+  },
+  {
+   "file": "code/src/abg/calculus/liveness.ts",
+   "line": 325,
+   "marker": "historical",
+   "text": "* directly without constructing a pair of historical prefixes per event."
+  },
+  {
+   "file": "code/src/abg/calculus/liveness.ts",
+   "line": 367,
+   "marker": "historical",
+   "text": "// mutate the later-cut fold, but an ordered historical walk need not restart."
+  },
+  {
+   "file": "code/src/abg/construction_continuation.ts",
+   "line": 1801,
+   "marker": "historical",
+   "text": "// not justify decoding other historical inputs or Results."
+  },
+  {
+   "file": "code/src/abg/default_library.ts",
+   "line": 610,
+   "marker": "historical",
+   "text": "* from prompt text and no historical Result stands in for this Run's producer."
+  },
+  {
+   "file": "code/src/abg/deferred_application.ts",
+   "line": 79,
+   "marker": "historical",
+   "text": "/** @internal Ordinary restoration does not request a complete historical output. */"
+  },
+  {
+   "file": "code/src/abg/definition_event_resource.ts",
+   "line": 90,
+   "marker": "historical",
+   "text": "* rereading historical bytes. Same-inode outside content edits are unsupported. */"
+  },
+  {
+   "file": "code/src/abg/event_calculus.ts",
+   "line": 82,
+   "marker": "historical",
+   "text": "/** The same fold serves cold input, suffix advancement and historical facts."
+  },
+  {
+   "file": "code/src/abg/event_calculus.ts",
+   "line": 147,
+   "marker": "historical",
+   "text": "* advanced in place, and records every step's transition for historical cuts"
+  },
+  {
+   "file": "code/src/abg/event_calculus.ts",
+   "line": 320,
+   "marker": "historical",
+   "text": "/** @internal The same authenticated fold, without complete historical effect bodies. */"
+  },
+  {
+   "file": "code/src/abg/event_calculus.ts",
+   "line": 337,
+   "marker": "historical",
+   "text": "/** Exact historical availability without manufacturing a historical projection. */"
+  },
+  {
+   "file": "code/src/abg/event_calculus.ts",
+   "line": 337,
+   "marker": "historical",
+   "text": "/** Exact historical availability without manufacturing a historical projection. */"
+  },
+  {
+   "file": "code/src/abg/event_contract_profiles.ts",
+   "line": 52,
+   "marker": "no longer",
+   "text": "* are pins: a table that no longer reproduces its pin refuses at load. */"
+  },
+  {
+   "file": "code/src/abg/event_prefix.ts",
+   "line": 539,
+   "marker": "compatibility",
+   "text": "// Raw compatibility includes duplicate identities and forward causes. Those"
+  },
+  {
+   "file": "code/src/abg/event_prefix.ts",
+   "line": 682,
+   "marker": "historical",
+   "text": "// older workspace cause. Historical cuts must exclude those later discoveries."
+  },
+  {
+   "file": "code/src/abg/event_store.ts",
+   "line": 1092,
+   "marker": "legacy",
+   "text": "// unknown identity, never as an established one. Legacy bindings are unchanged."
+  },
+  {
+   "file": "code/src/abg/event_store.ts",
+   "line": 1412,
+   "marker": "historical",
+   "text": "* It is not a historical snapshot or independently admitted authority. */"
+  },
+  {
+   "file": "code/src/abg/event_store.ts",
+   "line": 1918,
+   "marker": "historical",
+   "text": "/** Reidentify a serialized historical cut only through a coordinate previously"
+  },
+  {
+   "file": "code/src/abg/event_store.ts",
+   "line": 1934,
+   "marker": "historical",
+   "text": "/** Derive a historical coordinate from this resource's decoded physical rows."
+  },
+  {
+   "file": "code/src/abg/event_store.ts",
+   "line": 3811,
+   "marker": "temporary",
+   "text": "// actor/call obligation dependency. Its temporary materialization dies here."
+  },
+  {
+   "file": "code/src/abg/event_store.ts",
+   "line": 4581,
+   "marker": "historical",
+   "text": "/** @internal The same active-transaction check without full historical output. */"
+  },
+  {
+   "file": "code/src/abg/execution_basis.ts",
+   "line": 998,
+   "marker": "historical",
+   "text": "// historical child-admission cut and separate latest-currentness check."
+  },
+  {
+   "file": "code/src/abg/execution_basis.ts",
+   "line": 1840,
+   "marker": "legacy",
+   "text": "\"diagnostic://abiogenesis/execution-basis/legacy-projection-incomplete@5\","
+  },
+  {
+   "file": "code/src/abg/instruction_assembly.ts",
+   "line": 611,
+   "marker": "historical",
+   "text": "/** Evidence roles consume artifacts and observed execution, not the historical"
+  },
+  {
+   "file": "code/src/abg/instruction_assembly.ts",
+   "line": 629,
+   "marker": "historical",
+   "text": "* replacement occurs. Historical task/inventory bodies are not role material. */"
+  },
+  {
+   "file": "code/src/abg/instruction_assembly.ts",
+   "line": 824,
+   "marker": "historical",
+   "text": "// After construction the saved pre-Design context is explicitly historical;"
+  },
+  {
+   "file": "code/src/abg/instruction_assembly.ts",
+   "line": 875,
+   "marker": "historical",
+   "text": "// Only these typed current/historical asset slots share material. A matching"
+  },
+  {
+   "file": "code/src/abg/instruction_assembly.ts",
+   "line": 920,
+   "marker": "unused",
+   "text": "// Origins are shown only beside a revision subject; without one they are unused."
+  },
+  {
+   "file": "code/src/abg/instruction_assembly.ts",
+   "line": 1125,
+   "marker": "historical",
+   "text": "// All typed byte routes have now been visited. An exact historical candidate"
+  },
+  {
+   "file": "code/src/abg/invocation_admission.ts",
+   "line": 622,
+   "marker": "historical",
+   "text": "* reacquisition of a historical closed child, or the invocation's admitted"
+  },
+  {
+   "file": "code/src/abg/invocation_execution_truth.ts",
+   "line": 214,
+   "marker": "historical",
+   "text": "/** Selector only: the historical resource/closed-child owner authenticates the"
+  },
+  {
+   "file": "code/src/abg/native_event_time.ts",
+   "line": 6,
+   "marker": "historical",
+   "text": "* admission. The event store and historical projectors do not read this clock"
+  },
+  {
+   "file": "code/src/abg/native_work_reacquisition.ts",
+   "line": 66,
+   "marker": "historical",
+   "text": "* The historical terminal and latest source checks retain their own owners. */"
+  },
+  {
+   "file": "code/src/abg/native_work_reacquisition.ts",
+   "line": 298,
+   "marker": "historical",
+   "text": "* historical preparation cut; it confers no current-source or effect authority. */"
+  },
+  {
+   "file": "code/src/abg/native_work_reacquisition.ts",
+   "line": 313,
+   "marker": "historical",
+   "text": "/** Authenticated current-Run preparation carries historical child provenance."
+  },
+  {
+   "file": "code/src/abg/project_read_definition_bindings.ts",
+   "line": 65,
+   "marker": "legacy",
+   "text": "* legacy reads stay reopen-only (\u00a710.9 R-B). */"
+  },
+  {
+   "file": "code/src/abg/project_read_definition_bindings.ts",
+   "line": 791,
+   "marker": "historical",
+   "text": "// The loaded reader owns its current contract. Historical grants below"
+  },
+  {
+   "file": "code/src/abg/project_read_ports.ts",
+   "line": 302,
+   "marker": "historical",
+   "text": "* the historical parent frontier and the original root declaration closure. */"
+  },
+  {
+   "file": "code/src/abg/project_read_ports.ts",
+   "line": 602,
+   "marker": "historical",
+   "text": "// The complete prefix is sufficient and prevents a historical cut from"
+  },
+  {
+   "file": "code/src/abg/qualification_proof.ts",
+   "line": 175,
+   "marker": "historical",
+   "text": "/** Reuses the historical Product verifier and native CCall owner. No supplied"
+  },
+  {
+   "file": "code/src/abg/qualification_proof.ts",
+   "line": 671,
+   "marker": "unused",
+   "text": "// relation and this frozen subject, never from an unused caller label."
+  },
+  {
+   "file": "code/src/abg/replay.ts",
+   "line": 113,
+   "marker": "historical",
+   "text": "* complete historical ReplayState or a counterfeit of that Public output. */"
+  },
+  {
+   "file": "code/src/abg/replay.ts",
+   "line": 126,
+   "marker": "historical",
+   "text": "* Historical values stream through its canonical writer without a full vector. */"
+  },
+  {
+   "file": "code/src/abg/replay.ts",
+   "line": 347,
+   "marker": "historical",
+   "text": "* is historical. The derived fluents themselves still hold. Returns the ended"
+  },
+  {
+   "file": "code/src/abg/replay.ts",
+   "line": 349,
+   "marker": "historical",
+   "text": "* refs they make historical. Run quiescence and the Public read ports consume it. */"
+  },
+  {
+   "file": "code/src/abg/replay.ts",
+   "line": 619,
+   "marker": "historical",
+   "text": "/** The route's existing replay relation, independently consumable by historical authentication. */"
+  },
+  {
+   "file": "code/src/abg/replay.ts",
+   "line": 902,
+   "marker": "historical",
+   "text": "* complete ReplayState when only one authenticated historical route is consumed. */"
+  },
+  {
+   "file": "code/src/abg/replay.ts",
+   "line": 919,
+   "marker": "historical",
+   "text": "/** @internal One authenticated historical route by its CCall and judgment"
+  },
+  {
+   "file": "code/src/abg/replay.ts",
+   "line": 1758,
+   "marker": "historical",
+   "text": "// This exact historical intent is an admitted owner fact, not a"
+  },
+  {
+   "file": "code/src/abg/replay.ts",
+   "line": 2172,
+   "marker": "historical",
+   "text": "* An existing held coordinate only reidentifies historical source cuts; raw or"
+  },
+  {
+   "file": "code/src/abg/replay.ts",
+   "line": 2194,
+   "marker": "historical",
+   "text": "/** @internal Explicit joined historical output for the read owner; its private prefix is not a Public array. */"
+  },
+  {
+   "file": "code/src/abg/replay.ts",
+   "line": 2362,
+   "marker": "historical",
+   "text": "/** @internal The same canonical selected C_Call fields without its historical value. */"
+  },
+  {
+   "file": "code/src/abg/retry.ts",
+   "line": 257,
+   "marker": "historical",
+   "text": "/** @internal Same finite plan and full digest extent, without historical output vectors. */"
+  },
+  {
+   "file": "code/src/abg/retry.ts",
+   "line": 1975,
+   "marker": "historical",
+   "text": "* `propagateReplayFailure`, the historical route exit also carries the replay"
+  },
+  {
+   "file": "code/src/abg/retry.ts",
+   "line": 4829,
+   "marker": "historical",
+   "text": "/** @internal No complete historical output is acquired merely to compare private failure plans. */"
+  },
+  {
+   "file": "code/src/abg/runtime_derivation.ts",
+   "line": 25,
+   "marker": "historical",
+   "text": "// A historical read of this exact ordered owner does not roll the live"
+  },
+  {
+   "file": "code/src/abg/runtime_history.ts",
+   "line": 564,
+   "marker": "historical",
+   "text": "/** Complete historical materialization is explicit; each call returns a fresh"
+  },
+  {
+   "file": "code/src/abg/semantic_job.ts",
+   "line": 658,
+   "marker": "legacy",
+   "text": "// Native observations carry the current evidence; there is no legacy C1"
+  },
+  {
+   "file": "code/src/abg/semantic_revision.ts",
+   "line": 85,
+   "marker": "historical",
+   "text": "/** An admitted acquisition already owns historical discovery and binding cover."
+  },
+  {
+   "file": "code/src/abg/semantic_revision.ts",
+   "line": 104,
+   "marker": "historical",
+   "text": "* admitted request/acquisition chain. No historical value search selects it. */"
+  },
+  {
+   "file": "code/src/abg/semantic_revision.ts",
+   "line": 291,
+   "marker": "historical",
+   "text": "// Earlier acquisitions retain their own historical W cover. The new cover"
+  },
+  {
+   "file": "code/src/abg/semantic_revision.ts",
+   "line": 335,
+   "marker": "historical",
+   "text": "/** The admitted intake is the acquisition proof. Its historical facts are not"
+  },
+  {
+   "file": "code/src/abg/semantic_revision.ts",
+   "line": 459,
+   "marker": "historical",
+   "text": "/** The saved revision input remains historical after its selected effects."
+  },
+  {
+   "file": "code/src/abg/semantic_revision.ts",
+   "line": 986,
+   "marker": "historical",
+   "text": "* each caller, and historical reconstruction never dispatches or reads files. */"
+  },
+  {
+   "file": "code/src/abg/terminal_result_contracts.ts",
+   "line": 39,
+   "marker": "historical",
+   "text": "* join these bytes to the historical WorkspaceBinding, Catalog and Run. */"
+  },
+  {
+   "file": "code/src/abg/traversal_cursor.ts",
+   "line": 327,
+   "marker": "historical",
+   "text": "* Both execution and historical recovery consume this read-only relation. */"
+  },
+  {
+   "file": "code/src/abg/traversal_cursor.ts",
+   "line": 604,
+   "marker": "historical",
+   "text": "/** Historical calls retain their opened cursor even after failure/closure. */"
+  },
+  {
+   "file": "code/src/abg/traversal_route.ts",
+   "line": 5476,
+   "marker": "historical",
+   "text": "/** @internal Same atomic route computation without complete historical output. */"
+  },
+  {
+   "file": "code/src/abg/traversal_route.ts",
+   "line": 5562,
+   "marker": "historical",
+   "text": "/** @internal Same atomic route computation without complete historical output. */"
+  },
+  {
+   "file": "code/src/abg/traversal_route.ts",
+   "line": 5683,
+   "marker": "historical",
+   "text": "/** @internal Same atomic route computation without complete historical output. */"
+  },
+  {
+   "file": "code/src/abg/worker_transport.ts",
+   "line": 801,
+   "marker": "legacy",
+   "text": "// Legacy transports retain their exception contract. Current-profile owners"
+  },
+  {
+   "file": "code/src/abg/worksite_command_forward.ts",
+   "line": 4,
+   "marker": "historical",
+   "text": "/** One native forward relation. Historical coordinates never become current-Run causation. */"
+  },
+  {
+   "file": "code/src/abg/worksite_command_forward.ts",
+   "line": 52,
+   "marker": "historical",
+   "text": "/** Exact decoded-history ancestry of an owned historical cut within the current"
+  },
+  {
+   "file": "code/src/abg/worksite_command_forward.ts",
+   "line": 78,
+   "marker": "historical",
+   "text": "/** Pure authentic historical proof. No filesystem worksite observation occurs here. */"
+  },
+  {
+   "file": "code/src/abg/worksite_command_forward.ts",
+   "line": 85,
+   "marker": "historical",
+   "text": "/** The owner-selected historical prefix stays private to this owner's relations. */"
+  },
+  {
+   "file": "code/src/abg/worksite_construction_recovery.ts",
+   "line": 110,
+   "marker": "historical",
+   "text": "* not from today's callable closure or a caller-supplied historical definition. */"
+  },
+  {
+   "file": "code/src/abg/worksite_construction_recovery.ts",
+   "line": 223,
+   "marker": "historical",
+   "text": "/** Native historical read projection. This admits neither the old proposal nor a new effect. */"
+  },
+  {
+   "file": "code/src/abg/worksite_construction_recovery.ts",
+   "line": 430,
+   "marker": "temporary",
+   "text": "* It reads no original application bytes or temporary command snapshot. */"
+  },
+  {
+   "file": "code/src/gtl/semantic_revision_identity.ts",
+   "line": 25,
+   "marker": "historical",
+   "text": "historicalOwnerDependencyRef: `declaration://${scope}/historical-owners@5`,"
+  },
+  {
+   "file": "code/src/gtl/stdo_run_environment.ts",
+   "line": 141,
+   "marker": "historical",
+   "text": "* Historical STDO roles remain confined to their existing declaration profile. */"
+  },
+  {
+   "file": "code/src/hog/graph_execute.ts",
+   "line": 1121,
+   "marker": "historical",
+   "text": "/** @internal Ordinary Run execution retains no complete historical replay vector. */"
+  },
+  {
+   "file": "code/src/implementation/contracts.ts",
+   "line": 142,
+   "marker": "historical",
+   "text": "* historical resource. No serialized assertion grants this operation. */"
+  },
+  {
+   "file": "code/src/implementation/release_publication.ts",
+   "line": 86,
+   "marker": "historical",
+   "text": "requireRelation(!/^refs\\/tags\\/.+\\/v5\\.0\\.0(?:-rc\\.[^/]*)?$/.test(row.ref),\"historical project-qualified release profile conflicts\");"
+  },
+  {
+   "file": "code/src/implementation/release_publication.ts",
+   "line": 177,
+   "marker": "historical",
+   "text": "/** The resource body is conserved once across live admission and historical reads. */"
+  },
+  {
+   "file": "code/src/product/admission_authority.ts",
+   "line": 334,
+   "marker": "historical",
+   "text": "/** Existing environment owner over one exact selection. Historical release"
+  },
+  {
+   "file": "code/src/product/builtin_semantics.ts",
+   "line": 855,
+   "marker": "historical",
+   "text": "// authenticate the request, historical bridge and C2 predecessors."
+  },
+  {
+   "file": "code/src/product/builtin_semantics.ts",
+   "line": 1019,
+   "marker": "historical",
+   "text": "// An exact historical Design may enter a new ordinary tail invocation."
+  },
+  {
+   "file": "code/src/product/declaration_closure.ts",
+   "line": 495,
+   "marker": "historical",
+   "text": "// Historical stages are exact declared dependencies, not new start/call rights."
+  },
+  {
+   "file": "code/src/product/declaration_closure.ts",
+   "line": 645,
+   "marker": "historical",
+   "text": "// callable membership. Historical definitions authenticate observations;"
+  },
+  {
+   "file": "code/src/product/index.ts",
+   "line": 104,
+   "marker": "compatibility",
+   "text": "// Compatibility projection: shared primitives are not Product-owned."
+  },
+  {
+   "file": "code/src/product/invocation.ts",
+   "line": 1327,
+   "marker": "legacy",
+   "text": "* it does not manufacture or translate a legacy Public request carrier."
+  },
+  {
+   "file": "code/src/product/invocation.ts",
+   "line": 1381,
+   "marker": "legacy",
+   "text": "/** Native exact-family start construction; no legacy request is manufactured. */"
+  },
+  {
+   "file": "code/src/product/run_invocation_operation.ts",
+   "line": 551,
+   "marker": "historical",
+   "text": "// Current/historical proofs are explicit alternate sources. Duplicate exact dependencies refuse."
+  },
+  {
+   "file": "code/src/product/semantic_revision.ts",
+   "line": 86,
+   "marker": "historical",
+   "text": "/** Terminal-readable projection of the admitted selection; absent on historical requests. */"
+  },
+  {
+   "file": "code/src/product/semantic_revision.ts",
+   "line": 232,
+   "marker": "legacy",
+   "text": "/** Closed job arm; legacy fixed binding equality above is unchanged. */"
+  },
+  {
+   "file": "code/src/product/semantic_stage.ts",
+   "line": 27,
+   "marker": "historical",
+   "text": "* statements introduced by this response or historical-only revision context. */"
+  },
+  {
+   "file": "code/src/product/worksite_command_forward_identity.ts",
+   "line": 14,
+   "marker": "historical",
+   "text": "judgmentPredicateRef: `predicate://${scope}/observation@5`, historyDependencyRef: `dependency://${scope}/historical-owners@5`,"
+  },
+  {
+   "file": "code/src/public/installed_definition_call_transport.ts",
+   "line": 259,
+   "marker": "legacy",
+   "text": "// Serialized ingress also serves legacy read owners whose admission is at"
+  },
+  {
+   "file": "code/src/public/installed_definition_call_transport.ts",
+   "line": 494,
+   "marker": "compatibility",
+   "text": "// ambiguous admission failures need the compatibility check. Execution"
+  },
+  {
+   "file": "code/src/shared/owned_process_state.ts",
+   "line": 160,
+   "marker": "superseded",
+   "text": "// Counted at entry. A superseded or completed assessment writes no fact and continues nothing."
+  },
+  {
+   "file": "code/src/shared/owned_process_state.ts",
+   "line": 161,
+   "marker": "obsolete",
+   "text": "// Its observation is obsolete, but an immediate request it carried is not: that"
+  },
+  {
+   "file": "code/src/shared/owned_process_state.ts",
+   "line": 191,
+   "marker": "obsolete",
+   "text": "// its obsolete signal and waits are then never performed."
+  },
+  {
+   "file": "code/src/validator/self_conformance_semantics.ts",
+   "line": 64,
+   "marker": "historical",
+   "text": "// Only the current native owner can recover these exact historical cuts."
+  }
+ ]
+}

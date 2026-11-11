@@ -1,0 +1,3621 @@
+[
+ {
+  "env": [],
+  "file": "test_env/tests/a5-f02-canonical-gtl-identity.test.mjs",
+  "importsBuild": [
+   "product/index",
+   "shared/digests",
+   "validator/index"
+  ],
+  "lines": 936,
+  "skipSites": 0,
+  "spawnsProcess": false,
+  "testCalls": 7
+ },
+ {
+  "env": [],
+  "file": "test_env/tests/d1-preserved-result-mechanics.test.mjs",
+  "importsBuild": [
+   "gtl/worksite_construction"
+  ],
+  "lines": 73,
+  "skipSites": 1,
+  "spawnsProcess": false,
+  "testCalls": 2
+ },
+ {
+  "env": [],
+  "file": "test_env/tests/d2-acknowledgment.test.mjs",
+  "importsBuild": [
+   "gtl/index",
+   "product/builtin_semantics",
+   "product/worksite_command_execution"
+  ],
+  "lines": 88,
+  "skipSites": 3,
+  "spawnsProcess": false,
+  "testCalls": 3
+ },
+ {
+  "env": [],
+  "file": "test_env/tests/d2-binding-query-reuse.test.mjs",
+  "importsBuild": [
+   "abg/semantic_revision"
+  ],
+  "lines": 127,
+  "skipSites": 0,
+  "spawnsProcess": false,
+  "testCalls": 7
+ },
+ {
+  "env": [],
+  "file": "test_env/tests/d2-binding-transition.test.mjs",
+  "importsBuild": [
+   "abg/event_store"
+  ],
+  "lines": 337,
+  "skipSites": 10,
+  "spawnsProcess": false,
+  "testCalls": 10
+ },
+ {
+  "env": [],
+  "file": "test_env/tests/d2-bounded-repair.test.mjs",
+  "importsBuild": [
+   "gtl/index",
+   "product/index",
+   "validator/index"
+  ],
+  "lines": 69,
+  "skipSites": 4,
+  "spawnsProcess": false,
+  "testCalls": 5
+ },
+ {
+  "env": [],
+  "file": "test_env/tests/d2-evidence-owner-lookup.test.mjs",
+  "importsBuild": [],
+  "lines": 49,
+  "skipSites": 0,
+  "spawnsProcess": false,
+  "testCalls": 5
+ },
+ {
+  "env": [
+   "ABG_TS_CLAUDE_APPEND_ARGS",
+   "ABG_TS_CLAUDE_COMMAND",
+   "ABG_TS_FP_ABSOLUTE_TIMEOUT_MS",
+   "ABG_TS_FP_TIMEOUT_MS",
+   "ABI5_D2_FRAME_BUILD_ROOT",
+   "ABI5_D2_FRAME_RUN",
+   "ABI5_D2_FRAME_RUN_ROOT",
+   "ABI5_WAVE1_FROZEN_INSTALL_HOST"
+  ],
+  "file": "test_env/tests/d2-frame-installed.mjs",
+  "importsBuild": [
+   "abg/index"
+  ],
+  "lines": 725,
+  "skipSites": 0,
+  "spawnsProcess": true,
+  "testCalls": 1
+ },
+ {
+  "env": [],
+  "file": "test_env/tests/d2-historical-design.test.mjs",
+  "importsBuild": [],
+  "lines": 95,
+  "skipSites": 6,
+  "spawnsProcess": false,
+  "testCalls": 6
+ },
+ {
+  "env": [],
+  "file": "test_env/tests/d2-workflow-step.test.mjs",
+  "importsBuild": [
+   "gtl/semantic_stage_identity",
+   "product/builtin_semantics",
+   "product/index"
+  ],
+  "lines": 114,
+  "skipSites": 8,
+  "spawnsProcess": false,
+  "testCalls": 8
+ },
+ {
+  "env": [],
+  "file": "test_env/tests/forward-command-contracts.test.mjs",
+  "importsBuild": [
+   "product/builtin_semantics"
+  ],
+  "lines": 163,
+  "skipSites": 0,
+  "spawnsProcess": false,
+  "testCalls": 10
+ },
+ {
+  "env": [],
+  "file": "test_env/tests/forward-command-owners.test.mjs",
+  "importsBuild": [],
+  "lines": 72,
+  "skipSites": 0,
+  "spawnsProcess": false,
+  "testCalls": 6
+ },
+ {
+  "env": [],
+  "file": "test_env/tests/generic-input-retention.test.mjs",
+  "importsBuild": [
+   "abg/runtime_history",
+   "abg/traversal_transition",
+   "gtl/index",
+   "product/index",
+   "shared/canonical_json",
+   "shared/immutable",
+   "shared/value/index",
+   "validator/index"
+  ],
+  "lines": 180,
+  "skipSites": 0,
+  "spawnsProcess": false,
+  "testCalls": 4
+ },
+ {
+  "env": [
+   "ABI5_WAVE1_FROZEN_ARTIFACT_PATH"
+  ],
+  "file": "test_env/tests/hello-product-boundary.test.mjs",
+  "importsBuild": [],
+  "lines": 58,
+  "skipSites": 0,
+  "spawnsProcess": true,
+  "testCalls": 1
+ },
+ {
+  "env": [],
+  "file": "test_env/tests/hog-operator-support.test.mjs",
+  "importsBuild": [
+   "abg/index",
+   "gtl/index",
+   "hog/operator_support"
+  ],
+  "lines": 168,
+  "skipSites": 0,
+  "spawnsProcess": false,
+  "testCalls": 3
+ },
+ {
+  "env": [],
+  "file": "test_env/tests/installed-language-smoke.test.mjs",
+  "importsBuild": [],
+  "lines": 27,
+  "skipSites": 0,
+  "spawnsProcess": false,
+  "testCalls": 1
+ },
+ {
+  "env": [],
+  "file": "test_env/tests/integration-shared-seams.test.mjs",
+  "importsBuild": [
+   "abg/index",
+   "product/declaration_closure",
+   "shared/digests"
+  ],
+  "lines": 45,
+  "skipSites": 0,
+  "spawnsProcess": false,
+  "testCalls": 2
+ },
+ {
+  "env": [
+   "ABI5_STEEL02_RESOLVER_PROOF_PATH"
+  ],
+  "file": "test_env/tests/m5-c-algebra-validation.test.mjs",
+  "importsBuild": [
+   "abg/index",
+   "product/index",
+   "validator/index"
+  ],
+  "lines": 1494,
+  "skipSites": 1,
+  "spawnsProcess": false,
+  "testCalls": 22
+ },
+ {
+  "env": [],
+  "file": "test_env/tests/m5-consensus-module.test.mjs",
+  "importsBuild": [
+   "abg/event_store",
+   "abg/index",
+   "gtl/index",
+   "implementation/consensus",
+   "product/builtin_semantics",
+   "product/index",
+   "public/index",
+   "public/run_projection_authority",
+   "shared/canonical_json",
+   "validator/index"
+  ],
+  "lines": 2203,
+  "skipSites": 0,
+  "spawnsProcess": false,
+  "testCalls": 17
+ },
+ {
+  "env": [
+   "ABI5_PREFIX_REUSE_BASELINE_ROOT",
+   "ABI5_PREFIX_REUSE_CUTS",
+   "ABI5_PREFIX_REUSE_OBSERVATIONS"
+  ],
+  "file": "test_env/tests/m5-event-calculus-runtime.test.mjs",
+  "importsBuild": [
+   "abg/event_calculus",
+   "abg/event_prefix",
+   "abg/event_store",
+   "abg/graph_application",
+   "abg/replay",
+   "abg/traversal_cursor",
+   "abg/traversal_route",
+   "shared/digests"
+  ],
+  "lines": 2000,
+  "skipSites": 1,
+  "spawnsProcess": true,
+  "testCalls": 19
+ },
+ {
+  "env": [],
+  "file": "test_env/tests/m5-event-store-reopen.test.mjs",
+  "importsBuild": [
+   "abg/artifact_truth",
+   "abg/effectful_invocation_truth",
+   "abg/event_prefix",
+   "abg/event_store",
+   "abg/runtime_history",
+   "abg/runtime_liveness_contracts",
+   "abg/transport_contracts",
+   "product/index"
+  ],
+  "lines": 2114,
+  "skipSites": 2,
+  "spawnsProcess": true,
+  "testCalls": 27
+ },
+ {
+  "env": [],
+  "file": "test_env/tests/m5-fresh-process-reconstruction.test.mjs",
+  "importsBuild": [],
+  "lines": 106,
+  "skipSites": 0,
+  "spawnsProcess": false,
+  "testCalls": 1
+ },
+ {
+  "env": [],
+  "file": "test_env/tests/m5-installed-graph-edge.test.mjs",
+  "importsBuild": [],
+  "lines": 179,
+  "skipSites": 0,
+  "spawnsProcess": false,
+  "testCalls": 2
+ },
+ {
+  "env": [],
+  "file": "test_env/tests/m5-installed-portability.test.mjs",
+  "importsBuild": [
+   "product/index"
+  ],
+  "lines": 492,
+  "skipSites": 0,
+  "spawnsProcess": false,
+  "testCalls": 8
+ },
+ {
+  "env": [],
+  "file": "test_env/tests/m5-retry-lifecycle-authority.test.mjs",
+  "importsBuild": [
+   "abg/event_store",
+   "abg/index",
+   "abg/retry",
+   "abg/retry_lifecycle",
+   "abg/traversal_cursor",
+   "hog/entry",
+   "index",
+   "product/index"
+  ],
+  "lines": 577,
+  "skipSites": 0,
+  "spawnsProcess": false,
+  "testCalls": 7
+ },
+ {
+  "env": [],
+  "file": "test_env/tests/m5-s03-authority.test.mjs",
+  "importsBuild": [
+   "abg/event_store",
+   "abg/index",
+   "hog/index",
+   "product/index",
+   "product/interaction_operation_contracts",
+   "product/semantics",
+   "shared/leaf_semantics_projection"
+  ],
+  "lines": 578,
+  "skipSites": 0,
+  "spawnsProcess": false,
+  "testCalls": 5
+ },
+ {
+  "env": [],
+  "file": "test_env/tests/m5-s06-prime.test.mjs",
+  "importsBuild": [
+   "gtl/index",
+   "gtl/missing",
+   "product/declaration_exports",
+   "product/index",
+   "product/installed_module",
+   "shared/select/exact_match"
+  ],
+  "lines": 2006,
+  "skipSites": 0,
+  "spawnsProcess": true,
+  "testCalls": 13
+ },
+ {
+  "env": [
+   "ABI5_NATIVE_MATERIAL_SCRATCH"
+  ],
+  "file": "test_env/tests/m5-terminal-quiescence-owner.test.mjs",
+  "importsBuild": [
+   "abg/actor_process",
+   "abg/c_call",
+   "abg/event_calculus",
+   "abg/event_prefix",
+   "abg/event_store",
+   "abg/replay",
+   "shared/digests",
+   "shared/immutable"
+  ],
+  "lines": 228,
+  "skipSites": 0,
+  "spawnsProcess": false,
+  "testCalls": 7
+ },
+ {
+  "env": [
+   "ANTHROPIC_MODEL",
+   "FIXTURE_TOOL_USES_JSON"
+  ],
+  "file": "test_env/tests/m5-worker-transport.test.mjs",
+  "importsBuild": [
+   "abg/event_store",
+   "abg/index",
+   "abg/runtime_liveness_contracts",
+   "abg/transport_contracts",
+   "abg/worker_transport",
+   "implementation/worksite_command_helper",
+   "product/native_workspace_assessment",
+   "product/native_workspace_work",
+   "product/worksite_command_execution",
+   "shared/admit/index",
+   "shared/canonical_json",
+   "shared/digests",
+   "shared/i_json",
+   "shared/immutable",
+   "shared/owned_process_lifetime",
+   "shared/process/index"
+  ],
+  "lines": 2319,
+  "skipSites": 3,
+  "spawnsProcess": true,
+  "testCalls": 39
+ },
+ {
+  "env": [],
+  "file": "test_env/tests/r1-packed-artifact.test.mjs",
+  "importsBuild": [
+   "abg/governed_context_client",
+   "index",
+   "product/index"
+  ],
+  "lines": 135,
+  "skipSites": 0,
+  "spawnsProcess": true,
+  "testCalls": 1
+ },
+ {
+  "env": [],
+  "file": "test_env/tests/r10-child-proof.test.mjs",
+  "importsBuild": [
+   "abg/environment_admission",
+   "abg/event_store",
+   "abg/invocation_execution_truth",
+   "abg/project_read_ports",
+   "product/declaration_closure",
+   "shared/digests"
+  ],
+  "lines": 185,
+  "skipSites": 1,
+  "spawnsProcess": false,
+  "testCalls": 10
+ },
+ {
+  "env": [],
+  "file": "test_env/tests/r10-fresh-imports.mjs",
+  "importsBuild": [],
+  "lines": 11,
+  "skipSites": 0,
+  "spawnsProcess": true,
+  "testCalls": 0
+ },
+ {
+  "env": [],
+  "file": "test_env/tests/r10-projection-contracts.test.mjs",
+  "importsBuild": [
+   "abg/c_call",
+   "abg/event_prefix",
+   "abg/event_store",
+   "abg/project_read_definition_bindings",
+   "abg/project_read_operation_contracts",
+   "abg/project_read_ports",
+   "abg/runtime_liveness_contracts",
+   "abg/terminal_result_contracts",
+   "product/run_invocation_operation",
+   "public/binding/public_function_family",
+   "shared/digests",
+   "shared/immutable"
+  ],
+  "lines": 205,
+  "skipSites": 0,
+  "spawnsProcess": false,
+  "testCalls": 11
+ },
+ {
+  "env": [],
+  "file": "test_env/tests/r10-retained-child-projection.mjs",
+  "importsBuild": [
+   "abg/event_store",
+   "abg/project_read_ports",
+   "shared/digests"
+  ],
+  "lines": 70,
+  "skipSites": 0,
+  "spawnsProcess": false,
+  "testCalls": 0
+ },
+ {
+  "env": [],
+  "file": "test_env/tests/r10-retained-hello-projection.mjs",
+  "importsBuild": [
+   "abg/project_read_ports",
+   "product/run_invocation_operation"
+  ],
+  "lines": 47,
+  "skipSites": 0,
+  "spawnsProcess": false,
+  "testCalls": 0
+ },
+ {
+  "env": [
+   "ABI5_ARTIFACT_DIGEST",
+   "ABI5_ARTIFACT_PATH",
+   "ABI5_ARTIFACT_REF",
+   "ABI5_MANIFEST_DIGEST",
+   "ABI5_PACKAGE_NAME",
+   "ABI5_PACKAGE_VERSION",
+   "ABI5_PRODUCT_CONTENT_DIGEST",
+   "ABI5_PRODUCT_ID"
+  ],
+  "file": "test_env/tests/r2-clean-install.test.mjs",
+  "importsBuild": [
+   "product/index"
+  ],
+  "lines": 148,
+  "skipSites": 0,
+  "spawnsProcess": true,
+  "testCalls": 1
+ },
+ {
+  "env": [],
+  "file": "test_env/tests/r3-workspace-binding.test.mjs",
+  "importsBuild": [
+   "abg/event_store",
+   "abg/index",
+   "product/index"
+  ],
+  "lines": 639,
+  "skipSites": 0,
+  "spawnsProcess": true,
+  "testCalls": 1
+ },
+ {
+  "env": [],
+  "file": "test_env/tests/r4-catalog-admission.test.mjs",
+  "importsBuild": [
+   "abg/event_store",
+   "abg/index",
+   "product/catalog",
+   "product/declaration_application",
+   "shared/digests"
+  ],
+  "lines": 508,
+  "skipSites": 0,
+  "spawnsProcess": false,
+  "testCalls": 7
+ },
+ {
+  "env": [],
+  "file": "test_env/tests/r5-invocation-admission.test.mjs",
+  "importsBuild": [],
+  "lines": 804,
+  "skipSites": 0,
+  "spawnsProcess": false,
+  "testCalls": 2
+ },
+ {
+  "env": [],
+  "file": "test_env/tests/r6-implementation-resolution.test.mjs",
+  "importsBuild": [
+   "implementation/other"
+  ],
+  "lines": 218,
+  "skipSites": 0,
+  "spawnsProcess": true,
+  "testCalls": 1
+ },
+ {
+  "env": [],
+  "file": "test_env/tests/r7-graph-validation-basis.test.mjs",
+  "importsBuild": [],
+  "lines": 348,
+  "skipSites": 0,
+  "spawnsProcess": false,
+  "testCalls": 1
+ },
+ {
+  "env": [],
+  "file": "test_env/tests/r8-direct-hog-entry.test.mjs",
+  "importsBuild": [],
+  "lines": 226,
+  "skipSites": 0,
+  "spawnsProcess": false,
+  "testCalls": 1
+ },
+ {
+  "env": [],
+  "file": "test_env/tests/r9-causal-result-closure.test.mjs",
+  "importsBuild": [],
+  "lines": 282,
+  "skipSites": 0,
+  "spawnsProcess": false,
+  "testCalls": 2
+ },
+ {
+  "env": [],
+  "file": "test_env/tests/rc2-assessment-intake.test.mjs",
+  "importsBuild": [
+   "product/index"
+  ],
+  "lines": 75,
+  "skipSites": 0,
+  "spawnsProcess": false,
+  "testCalls": 5
+ },
+ {
+  "env": [
+   "ABI5_RETAINED_MATERIAL"
+  ],
+  "file": "test_env/tests/retained-route-cursor-transition.test.mjs",
+  "importsBuild": [
+   "abg/event_prefix",
+   "abg/event_store",
+   "abg/traversal_cursor",
+   "abg/traversal_transition",
+   "product/index",
+   "shared/immutable",
+   "validator/index"
+  ],
+  "lines": 165,
+  "skipSites": 0,
+  "spawnsProcess": false,
+  "testCalls": 1
+ },
+ {
+  "env": [],
+  "file": "test_env/tests/rival-authority-mutations.test.mjs",
+  "importsBuild": [
+   "abg/index"
+  ],
+  "lines": 153,
+  "skipSites": 0,
+  "spawnsProcess": false,
+  "testCalls": 3
+ },
+ {
+  "env": [],
+  "file": "test_env/tests/runtime-scope-regressions.test.mjs",
+  "importsBuild": [
+   "abg/event_store"
+  ],
+  "lines": 88,
+  "skipSites": 0,
+  "spawnsProcess": false,
+  "testCalls": 2
+ },
+ {
+  "env": [
+   "ABI5_C2_CARRIER_FIXTURE_PATH",
+   "ABI5_C2_PRODUCT_MODULE"
+  ],
+  "file": "test_env/tests/steel-basic-cli-c2.test.mjs",
+  "importsBuild": [
+   "product/builtin_semantics",
+   "product/worksite_command_execution",
+   "product/worksite_construction",
+   "shared/canonical_json",
+   "shared/digests"
+  ],
+  "lines": 147,
+  "skipSites": 1,
+  "spawnsProcess": false,
+  "testCalls": 6
+ },
+ {
+  "env": [
+   "ABI5_STEEL_C1_ATTEMPT_PATH",
+   "ABI5_STEEL_PROJECTION_EVIDENCE_PATH",
+   "ABI5_STEEL_READER_INSTALL_ROOT"
+  ],
+  "file": "test_env/tests/steel-basic-cli-projection.test.mjs",
+  "importsBuild": [],
+  "lines": 201,
+  "skipSites": 0,
+  "spawnsProcess": false,
+  "testCalls": 1
+ },
+ {
+  "env": [
+   "ABI5_STEEL_PUBLIC_EVIDENCE_PATH"
+  ],
+  "file": "test_env/tests/steel-basic-cli-public.test.mjs",
+  "importsBuild": [],
+  "lines": 854,
+  "skipSites": 0,
+  "spawnsProcess": true,
+  "testCalls": 1
+ },
+ {
+  "env": [
+   "ABI5_STEEL_C2_ATTEMPT_PATH",
+   "ABI5_STEEL_REPLAY_CANDIDATE_SOURCE",
+   "ABI5_STEEL_REPLAY_EVIDENCE_PATH",
+   "ABI5_STEEL_REPLAY_READER_ROOT",
+   "ABI5_STEEL_SOURCE_REPLAY_STATE"
+  ],
+  "file": "test_env/tests/steel-basic-cli-source-replay.test.mjs",
+  "importsBuild": [
+   "abg/event_prefix",
+   "abg/index",
+   "abg/replay",
+   "shared/digests"
+  ],
+  "lines": 224,
+  "skipSites": 0,
+  "spawnsProcess": false,
+  "testCalls": 2
+ },
+ {
+  "env": [
+   "ABI5_STEEL02_AUTHORITY_CALL_PATH",
+   "ABI5_STEEL02_AUTHORITY_INSTALL_HOST"
+  ],
+  "file": "test_env/tests/steel-consumer-authority.test.mjs",
+  "importsBuild": [],
+  "lines": 39,
+  "skipSites": 0,
+  "spawnsProcess": false,
+  "testCalls": 1
+ },
+ {
+  "env": [
+   "ABI5_STEEL02_EVIDENCE_PATH",
+   "ABI5_WAVE1_FROZEN_ARTIFACT_PATH",
+   "ABI5_WAVE1_FROZEN_ARTIFACT_SHA256"
+  ],
+  "file": "test_env/tests/steel-consumer-declaration.test.mjs",
+  "importsBuild": [],
+  "lines": 632,
+  "skipSites": 0,
+  "spawnsProcess": true,
+  "testCalls": 1
+ },
+ {
+  "env": [
+   "ABI5_AMENDMENT_WITNESS_DUMP",
+   "ABI5_AMENDMENT_WITNESS_EVIDENCE_ROOT",
+   "ABI5_AMENDMENT_WITNESS_LIVE",
+   "ABI5_NATIVE_SELECTION_PROVIDER"
+  ],
+  "file": "test_env/tests/t287-amendment-witness.test.mjs",
+  "importsBuild": [
+   "product/index",
+   "product/worksite_command_execution"
+  ],
+  "lines": 456,
+  "skipSites": 1,
+  "spawnsProcess": true,
+  "testCalls": 13
+ },
+ {
+  "env": [
+   "ABI5_OWNER_HISTORY",
+   "ABI5_OWNER_PREDECESSOR"
+  ],
+  "file": "test_env/tests/t287-authenticated-owner-family.test.mjs",
+  "importsBuild": [
+   "shared/digests"
+  ],
+  "lines": 53,
+  "skipSites": 1,
+  "spawnsProcess": false,
+  "testCalls": 1
+ },
+ {
+  "env": [
+   "ABI5_NATIVE_BASIS_PREDECESSOR",
+   "ABI5_NATIVE_BASIS_SAMPLE"
+  ],
+  "file": "test_env/tests/t287-authenticated-owner-values.test.mjs",
+  "importsBuild": [
+   "abg/artifact_truth",
+   "abg/event_calculus",
+   "abg/event_prefix",
+   "abg/event_store",
+   "abg/execution_basis",
+   "abg/runtime_derivation",
+   "abg/runtime_liveness",
+   "shared/digests",
+   "shared/immutable"
+  ],
+  "lines": 150,
+  "skipSites": 1,
+  "spawnsProcess": false,
+  "testCalls": 3
+ },
+ {
+  "env": [
+   "ABG_C0_PROOF_ROOT"
+  ],
+  "file": "test_env/tests/t287-c0-correction-regressions.test.mjs",
+  "importsBuild": [
+   "implementation/leaf_invocation_port",
+   "product/index",
+   "product/worksite_effect",
+   "product/worksite_operations"
+  ],
+  "lines": 125,
+  "skipSites": 0,
+  "spawnsProcess": false,
+  "testCalls": 2
+ },
+ {
+  "env": [],
+  "file": "test_env/tests/t287-c0-post-publication-failure-owner-admission-close.test.mjs",
+  "importsBuild": [],
+  "lines": 24,
+  "skipSites": 0,
+  "spawnsProcess": false,
+  "testCalls": 0
+ },
+ {
+  "env": [],
+  "file": "test_env/tests/t287-c0-post-publication-failure.test.mjs",
+  "importsBuild": [],
+  "lines": 25,
+  "skipSites": 0,
+  "spawnsProcess": false,
+  "testCalls": 0
+ },
+ {
+  "env": [],
+  "file": "test_env/tests/t287-c2-child-program.test.mjs",
+  "importsBuild": [
+   "gtl/index",
+   "gtl/public_start",
+   "gtl/stdo_run_environment",
+   "product/index",
+   "validator/index"
+  ],
+  "lines": 88,
+  "skipSites": 0,
+  "spawnsProcess": false,
+  "testCalls": 4
+ },
+ {
+  "env": [
+   "HOME",
+   "LANG",
+   "LC_ALL",
+   "PATH",
+   "TMPDIR"
+  ],
+  "file": "test_env/tests/t287-c2-core-environment.test.mjs",
+  "importsBuild": [
+   "abg/actor_process",
+   "abg/event_prefix",
+   "abg/instruction_assembly",
+   "abg/stdo_environment",
+   "gtl/index",
+   "gtl/stdo_run_environment",
+   "hog/ccall_lifecycle",
+   "product/index",
+   "product/worksite_command_execution",
+   "product/worksite_preparation",
+   "shared/immutable"
+  ],
+  "lines": 223,
+  "skipSites": 0,
+  "spawnsProcess": false,
+  "testCalls": 7
+ },
+ {
+  "env": [],
+  "file": "test_env/tests/t287-c2a-fp-source-contract.test.mjs",
+  "importsBuild": [
+   "implementation/test"
+  ],
+  "lines": 426,
+  "skipSites": 0,
+  "spawnsProcess": false,
+  "testCalls": 4
+ },
+ {
+  "env": [],
+  "file": "test_env/tests/t287-calculus-fold.test.mjs",
+  "importsBuild": [
+   "abg/actor_process",
+   "abg/calculus/execution_basis_record",
+   "abg/calculus/fold",
+   "abg/calculus/index",
+   "abg/calculus/liveness",
+   "abg/event_calculus",
+   "abg/event_prefix",
+   "abg/event_store",
+   "abg/index",
+   "abg/invocation_execution_truth",
+   "abg/runtime_liveness",
+   "abg/runtime_liveness_contracts",
+   "shared/immutable",
+   "shared/value/index"
+  ],
+  "lines": 1846,
+  "skipSites": 0,
+  "spawnsProcess": false,
+  "testCalls": 22
+ },
+ {
+  "env": [
+   "ABI5_CALCULUS_CASES"
+  ],
+  "file": "test_env/tests/t287-calculus-state-transfer.test.mjs",
+  "importsBuild": [
+   "abg/traversal_cursor",
+   "abg/worksite_input_provenance"
+  ],
+  "lines": 106,
+  "skipSites": 0,
+  "spawnsProcess": false,
+  "testCalls": 1
+ },
+ {
+  "env": [
+   "ABI5_COLD_RECORD_MATERIAL"
+  ],
+  "file": "test_env/tests/t287-cold-record-decoder.test.mjs",
+  "importsBuild": [
+   "abg/event_store",
+   "shared/canonical_json",
+   "shared/digests"
+  ],
+  "lines": 113,
+  "skipSites": 1,
+  "spawnsProcess": false,
+  "testCalls": 3
+ },
+ {
+  "env": [],
+  "file": "test_env/tests/t287-common-computational-library.test.mjs",
+  "importsBuild": [
+   "abg/event_body_encoding",
+   "abg/event_prefix",
+   "gtl/semantic_revision_identity",
+   "product/index",
+   "product/semantics",
+   "public/binding/definition_binding_mechanics",
+   "shared/admit/index",
+   "shared/canonical_json",
+   "shared/digests",
+   "shared/refusal",
+   "shared/select/exact_match",
+   "shared/select/index",
+   "shared/value/index"
+  ],
+  "lines": 467,
+  "skipSites": 0,
+  "spawnsProcess": false,
+  "testCalls": 17
+ },
+ {
+  "env": [
+   "ABI5_CONFORMANCE_METADATA",
+   "ABI5_CONFORMANCE_PREDECESSOR_ROOT",
+   "ABI5_CONFORMANCE_PROOF_ROOT",
+   "ABI5_CONFORMANCE_SOURCE_ONLY"
+  ],
+  "file": "test_env/tests/t287-conformance-owner-reuse.test.mjs",
+  "importsBuild": [],
+  "lines": 448,
+  "skipSites": 0,
+  "spawnsProcess": false,
+  "testCalls": 4
+ },
+ {
+  "env": [],
+  "file": "test_env/tests/t287-consensus-ref-shape.test.mjs",
+  "importsBuild": [
+   "gtl/index",
+   "shared/digests"
+  ],
+  "lines": 115,
+  "skipSites": 0,
+  "spawnsProcess": false,
+  "testCalls": 2
+ },
+ {
+  "env": [
+   "ABI5_CAUSATION_EVIDENCE_ROOT"
+  ],
+  "file": "test_env/tests/t287-continuation-causation.test.mjs",
+  "importsBuild": [
+   "abg/construction_continuation",
+   "abg/event_prefix",
+   "abg/event_store",
+   "abg/invocation_execution_truth",
+   "product/index"
+  ],
+  "lines": 115,
+  "skipSites": 0,
+  "spawnsProcess": false,
+  "testCalls": 1
+ },
+ {
+  "env": [],
+  "file": "test_env/tests/t287-cross-cut-public-read.test.mjs",
+  "importsBuild": [
+   "abg/environment_admission",
+   "abg/event_store",
+   "abg/project_read_definition_bindings",
+   "abg/project_read_operation_contracts",
+   "abg/project_read_ports",
+   "product/index",
+   "product/verify_product",
+   "public/binding/definition_binding_mechanics",
+   "public/index"
+  ],
+  "lines": 210,
+  "skipSites": 0,
+  "spawnsProcess": false,
+  "testCalls": 5
+ },
+ {
+  "env": [
+   "ABI5_D1_ATTEMPT",
+   "ABI5_D1_BUILD_ROOT",
+   "ABI5_D1_CONTINUATION_ATTEMPT",
+   "ABI5_D1_CONTINUE",
+   "ABI5_D1_EVIDENCE_ROOT",
+   "ABI5_D1_NEGATIVE_ROOT",
+   "ABI5_D1_POSITIVE_PROOF",
+   "ABI5_D1_PREFLIGHT_ONLY",
+   "ABI5_D1_RETAINED_EPOCH",
+   "ABI5_D1_RETAINED_NATIVE_BASIS",
+   "ABI5_D1_RETAINED_NATIVE_PROOF",
+   "ABI5_D1_RUN_ROOT",
+   "ABI5_D1_SOURCE_FIXTURE",
+   "ABI5_WAVE1_FROZEN_ARTIFACT_PATH",
+   "ABI5_WAVE1_FROZEN_INSTALL_HOST"
+  ],
+  "file": "test_env/tests/t287-d1-requirement-handoff.test.mjs",
+  "importsBuild": [
+   "abg/c_call"
+  ],
+  "lines": 1161,
+  "skipSites": 0,
+  "spawnsProcess": true,
+  "testCalls": 5
+ },
+ {
+  "env": [
+   "ABI5_D1_ASSESSOR_DOMAIN_EVIDENCE",
+   "ABI5_D1_ASSESSOR_PREDECESSOR_ROOT",
+   "ABI5_D1_BUILD_ROOT",
+   "ABI5_D1_NATIVE_PROJECTION_EVIDENCE"
+  ],
+  "file": "test_env/tests/t287-d1-semantic-stage.test.mjs",
+  "importsBuild": [
+   "abg/index",
+   "product/builtin_semantics",
+   "product/index",
+   "product/semantic_stage"
+  ],
+  "lines": 258,
+  "skipSites": 0,
+  "spawnsProcess": false,
+  "testCalls": 3
+ },
+ {
+  "env": [],
+  "file": "test_env/tests/t287-d5-authentic-preserved-result.test.mjs",
+  "importsBuild": [],
+  "lines": 187,
+  "skipSites": 0,
+  "spawnsProcess": false,
+  "testCalls": 1
+ },
+ {
+  "env": [
+   "ABI5_DECLARATION_BASELINE_MODULE",
+   "ABI5_DECLARATION_PROOF_ROOT"
+  ],
+  "file": "test_env/tests/t287-declaration-closure-symbol-reuse.test.mjs",
+  "importsBuild": [
+   "product/declaration_exports"
+  ],
+  "lines": 30,
+  "skipSites": 0,
+  "spawnsProcess": false,
+  "testCalls": 1
+ },
+ {
+  "env": [
+   "ABI5_TESTING_BUILD_ROOT",
+   "ABI5_TESTING_DEADLINE",
+   "ABI5_TESTING_INPUT_ROOT"
+  ],
+  "file": "test_env/tests/t287-declared-testing-capability.test.mjs",
+  "importsBuild": [
+   "abg/execution_basis",
+   "abg/index",
+   "abg/transport_contracts",
+   "gtl/stdo_run_environment",
+   "product/index"
+  ],
+  "lines": 326,
+  "skipSites": 2,
+  "spawnsProcess": true,
+  "testCalls": 7
+ },
+ {
+  "env": [
+   "ABI5_FULFILLMENT_RECORDS_ROOT"
+  ],
+  "file": "test_env/tests/t287-default-library-fulfillment.test.mjs",
+  "importsBuild": [
+   "abg/default_library",
+   "abg/instruction_assembly",
+   "abg/semantic_job",
+   "gtl/index",
+   "implementation/default_library",
+   "implementation/leaf_invocation_port",
+   "product/index",
+   "product/native_workspace_assessment",
+   "product/native_workspace_work",
+   "product/worksite_command_execution",
+   "validator/index"
+  ],
+  "lines": 275,
+  "skipSites": 0,
+  "spawnsProcess": false,
+  "testCalls": 5
+ },
+ {
+  "env": [],
+  "file": "test_env/tests/t287-default-library-prerequisites.test.mjs",
+  "importsBuild": [
+   "abg/default_library",
+   "abg/semantic_job",
+   "product/index"
+  ],
+  "lines": 225,
+  "skipSites": 0,
+  "spawnsProcess": false,
+  "testCalls": 7
+ },
+ {
+  "env": [],
+  "file": "test_env/tests/t287-default-library-recoverable-failure.test.mjs",
+  "importsBuild": [
+   "abg/default_library",
+   "abg/event_prefix",
+   "abg/runtime_failure",
+   "gtl/index",
+   "implementation/default_library",
+   "product/index",
+   "product/worksite_effect",
+   "shared/immutable"
+  ],
+  "lines": 199,
+  "skipSites": 0,
+  "spawnsProcess": false,
+  "testCalls": 5
+ },
+ {
+  "env": [
+   "ABI5_REVIEW_ACTOR_LOG",
+   "ABI5_REVIEW_ACTOR_TOUCH"
+  ],
+  "file": "test_env/tests/t287-default-library-reviews.test.mjs",
+  "importsBuild": [
+   "abg/default_library",
+   "abg/semantic_job",
+   "product/index",
+   "product/native_workspace_work"
+  ],
+  "lines": 507,
+  "skipSites": 0,
+  "spawnsProcess": true,
+  "testCalls": 10
+ },
+ {
+  "env": [
+   "ABG_TS_CLAUDE_COMMAND",
+   "ABI5_DEFAULT_LIBRARY_BUILD_ROOT",
+   "ABI5_DEFAULT_LIBRARY_CANDIDATE_EVENTS",
+   "ABI5_DEFAULT_LIBRARY_EVIDENCE_ROOT",
+   "ABI5_DEFAULT_LIBRARY_FROZEN_ARTIFACT",
+   "ABI5_DEFAULT_LIBRARY_LIVE",
+   "ABI5_DEFAULT_LIBRARY_SUPPLIED_VALID",
+   "ABI5_DEFAULT_LIBRARY_VALID_CANDIDATE",
+   "ABI5_NATIVE_OBSERVATION_CAPTURE",
+   "ABI5_NATIVE_SELECTION_PROVIDER",
+   "ABI5_PENDING_TESTING_EVIDENCE_ROOT",
+   "ABI5_PENDING_TESTING_HOST",
+   "ABI5_PLANNING_PROJECTION_CAPTURE",
+   "ABI5_RETAINED_SOURCE_EVIDENCE_ROOT",
+   "ABI5_SCRIPTED_ACTOR_LOG",
+   "ABI5_SCRIPTED_ACTOR_PHASE",
+   "ABI5_SCRIPTED_ACTOR_PROMPTS",
+   "ABI5_SCRIPTED_ACTOR_W_OUTSIDE_R",
+   "PATH"
+  ],
+  "file": "test_env/tests/t287-default-library.test.mjs",
+  "importsBuild": [
+   "abg/default_library",
+   "abg/event_prefix",
+   "abg/event_store",
+   "abg/instruction_assembly",
+   "abg/invocation_admission",
+   "abg/semantic_job",
+   "abg/stdo_environment",
+   "abg/transport_contracts",
+   "abg/worker_transport",
+   "abg/worksite_input_provenance",
+   "gtl/c_algebra",
+   "gtl/default_library",
+   "gtl/stdo_run_environment",
+   "implementation/default_library",
+   "implementation/leaf_invocation_port",
+   "product/default_library",
+   "product/execution_resolution",
+   "product/index",
+   "product/native_workspace_work",
+   "product/worksite_command_execution",
+   "public/cli",
+   "validator/index"
+  ],
+  "lines": 2851,
+  "skipSites": 3,
+  "spawnsProcess": true,
+  "testCalls": 37
+ },
+ {
+  "env": [
+   "ABI5_S02_RECURSION_FIXTURE"
+  ],
+  "file": "test_env/tests/t287-deferred-application-restoration.test.mjs",
+  "importsBuild": [
+   "abg/event_store",
+   "abg/replay",
+   "hog/traversal_completion",
+   "shared/digests"
+  ],
+  "lines": 137,
+  "skipSites": 1,
+  "spawnsProcess": false,
+  "testCalls": 2
+ },
+ {
+  "env": [
+   "P0_ENVIRONMENT_FINAL_ROOT",
+   "P0_ENVIRONMENT_NATIVE_SCRATCH",
+   "P0_ENVIRONMENT_PREDECESSOR_ROOT"
+  ],
+  "file": "test_env/tests/t287-environment-projection-conservation.test.mjs",
+  "importsBuild": [],
+  "lines": 48,
+  "skipSites": 1,
+  "spawnsProcess": false,
+  "testCalls": 1
+ },
+ {
+  "env": [
+   "ABG_RC5_ROUTE_SAMPLE_FILE",
+   "ABI5_MEMORY_SEED_PATH"
+  ],
+  "file": "test_env/tests/t287-event-body-encoding.test.mjs",
+  "importsBuild": [
+   "abg/event_body_encoding",
+   "abg/event_log",
+   "abg/event_prefix",
+   "abg/event_store",
+   "abg/invocation_execution_truth",
+   "abg/native_worksite_execution",
+   "abg/replay",
+   "abg/runtime_liveness_contracts",
+   "gtl/worksite_command_execution",
+   "product/default_library_identity",
+   "product/index",
+   "product/native_workspace_work",
+   "product/worksite_effect",
+   "shared/canonical_json",
+   "shared/digests",
+   "shared/immutable",
+   "validator/index"
+  ],
+  "lines": 1306,
+  "skipSites": 0,
+  "spawnsProcess": true,
+  "testCalls": 26
+ },
+ {
+  "env": [
+   "ABI5_EC_OWNER_CLOSED_HISTORY",
+   "ABI5_EC_OWNER_CLOSED_SHA256",
+   "ABI5_EC_OWNER_EVIDENCE"
+  ],
+  "file": "test_env/tests/t287-event-calculus-owner-continuation.test.mjs",
+  "importsBuild": [
+   "abg/event_calculus",
+   "abg/event_prefix",
+   "abg/event_store",
+   "abg/runtime_derivation",
+   "shared/digests",
+   "shared/immutable"
+  ],
+  "lines": 235,
+  "skipSites": 0,
+  "spawnsProcess": false,
+  "testCalls": 4
+ },
+ {
+  "env": [
+   "ABI5_EXACT_INTENT_EVIDENCE_ROOT"
+  ],
+  "file": "test_env/tests/t287-exact-construction-intent.test.mjs",
+  "importsBuild": [],
+  "lines": 214,
+  "skipSites": 0,
+  "spawnsProcess": false,
+  "testCalls": 1
+ },
+ {
+  "env": [
+   "ABI5_PREFIX_EVENT_PATH",
+   "ABI5_PREFIX_EXPECTED_SHA256",
+   "ABI5_PREFIX_PACKAGE_ROOT",
+   "ABI5_PREFIX_PROOF_ROOT"
+  ],
+  "file": "test_env/tests/t287-exact-prefix-projection-reuse.test.mjs",
+  "importsBuild": [],
+  "lines": 226,
+  "skipSites": 1,
+  "spawnsProcess": false,
+  "testCalls": 3
+ },
+ {
+  "env": [],
+  "file": "test_env/tests/t287-f04a-probabilistic-result-candidate.test.mjs",
+  "importsBuild": [
+   "gtl/index",
+   "product/contracts",
+   "product/publication",
+   "shared/digests",
+   "shared/i_json"
+  ],
+  "lines": 1203,
+  "skipSites": 0,
+  "spawnsProcess": true,
+  "testCalls": 2
+ },
+ {
+  "env": [],
+  "file": "test_env/tests/t287-f09-frontier-handoff.test.mjs",
+  "importsBuild": [],
+  "lines": 13,
+  "skipSites": 0,
+  "spawnsProcess": false,
+  "testCalls": 1
+ },
+ {
+  "env": [
+   "ABG_FRAMEWORK_HANDOFF_PACKAGE_ARCHIVE",
+   "ABG_FRAMEWORK_HANDOFF_PACKAGE_ROOT",
+   "ABG_FRAMEWORK_HANDOFF_TENANT_ROOT",
+   "ABI5_HC1_BASELINE_PACKAGE_PATH"
+  ],
+  "file": "test_env/tests/t287-framework-handoff-types.test.mjs",
+  "importsBuild": [],
+  "lines": 366,
+  "skipSites": 0,
+  "spawnsProcess": true,
+  "testCalls": 6
+ },
+ {
+  "env": [
+   "ABI5_GENERIC_JOB_BUILD_ROOT",
+   "ABI5_GENERIC_JOB_EVIDENCE_ROOT",
+   "ABI5_GENERIC_JOB_RETAINED_PROOF"
+  ],
+  "file": "test_env/tests/t287-generic-job-intake.test.mjs",
+  "importsBuild": [
+   "public/index"
+  ],
+  "lines": 83,
+  "skipSites": 1,
+  "spawnsProcess": false,
+  "testCalls": 2
+ },
+ {
+  "env": [
+   "ABG_TS_CLAUDE_COMMAND",
+   "ABI5_GENERIC_JOB_BUILD_ROOT",
+   "ABI5_GENERIC_JOB_FULL_NATIVE"
+  ],
+  "file": "test_env/tests/t287-generic-job-lifecycle.test.mjs",
+  "importsBuild": [
+   "abg/semantic_job",
+   "product/worksite_command_execution",
+   "public/index"
+  ],
+  "lines": 84,
+  "skipSites": 1,
+  "spawnsProcess": false,
+  "testCalls": 1
+ },
+ {
+  "env": [
+   "ABI5_GENERIC_JOB_BUILD_ROOT",
+   "ABI5_GENERIC_JOB_FAILED_FULL_ROOT",
+   "ABI5_GENERIC_JOB_FAILED_PARENT_ROOT"
+  ],
+  "file": "test_env/tests/t287-generic-job-meaning.test.mjs",
+  "importsBuild": [
+   "abg/semantic_job"
+  ],
+  "lines": 292,
+  "skipSites": 2,
+  "spawnsProcess": true,
+  "testCalls": 5
+ },
+ {
+  "env": [
+   "ABI5_GENERIC_JOB_BUILD_ROOT",
+   "ABI5_GENERIC_JOB_PARENT_GATE_ROOT"
+  ],
+  "file": "test_env/tests/t287-generic-job-parent-audit.test.mjs",
+  "importsBuild": [],
+  "lines": 9,
+  "skipSites": 1,
+  "spawnsProcess": false,
+  "testCalls": 1
+ },
+ {
+  "env": [
+   "ABI5_GENERIC_JOB_BUILD_ROOT",
+   "ABI5_GENERIC_JOB_PARENT_FOLDBACK_ROOT"
+  ],
+  "file": "test_env/tests/t287-generic-job-parent-foldback.test.mjs",
+  "importsBuild": [
+   "abg/c_call_outcome"
+  ],
+  "lines": 128,
+  "skipSites": 1,
+  "spawnsProcess": false,
+  "testCalls": 1
+ },
+ {
+  "env": [
+   "ABI5_GENERIC_JOB_BUILD_ROOT",
+   "ABI5_GENERIC_JOB_COMPLETED_ROOT",
+   "ABI5_GENERIC_JOB_ORIGIN_PREDECESSOR_ROOT"
+  ],
+  "file": "test_env/tests/t287-generic-job-read-dependency.test.mjs",
+  "importsBuild": [
+   "abg/semantic_job"
+  ],
+  "lines": 162,
+  "skipSites": 1,
+  "spawnsProcess": true,
+  "testCalls": 2
+ },
+ {
+  "env": [
+   "ABG_TS_CLAUDE_COMMAND",
+   "ABI5_GENERIC_JOB_BUILD_ROOT",
+   "ABI5_GENERIC_JOB_CORRECTION_NATIVE",
+   "ABI5_GENERIC_JOB_REVISION_EVIDENCE_PREFIX_ROOT",
+   "ABI5_GENERIC_JOB_REVISION_PREFIX_ROOT"
+  ],
+  "file": "test_env/tests/t287-generic-job-revision.test.mjs",
+  "importsBuild": [
+   "abg/instruction_assembly",
+   "abg/semantic_job",
+   "abg/semantic_revision",
+   "public/index"
+  ],
+  "lines": 331,
+  "skipSites": 3,
+  "spawnsProcess": false,
+  "testCalls": 4
+ },
+ {
+  "env": [],
+  "file": "test_env/tests/t287-generic-job-worksite.test.mjs",
+  "importsBuild": [],
+  "lines": 213,
+  "skipSites": 0,
+  "spawnsProcess": false,
+  "testCalls": 9
+ },
+ {
+  "env": [
+   "ABG_GOVERNANCE_COVERED_BUILD_ROOT",
+   "ABG_GOVERNANCE_COVERED_C2_MATERIAL_SELECTORS",
+   "ABG_GOVERNANCE_COVERED_DECLARATION_PAIR",
+   "ABG_GOVERNANCE_COVERED_FIXTURE",
+   "ABG_GOVERNANCE_COVERED_PROOF_ROOT"
+  ],
+  "file": "test_env/tests/t287-governance-covered-source-use.test.mjs",
+  "importsBuild": [
+   "abg/event_prefix",
+   "abg/invocation_execution_truth",
+   "gtl/worksite_command_execution",
+   "product/worksite_command_execution"
+  ],
+  "lines": 467,
+  "skipSites": 4,
+  "spawnsProcess": false,
+  "testCalls": 9
+ },
+ {
+  "env": [
+   "ABG_GOVERNED_CONTEXT_CLIENT",
+   "ABG_GOVERNED_CONTEXT_ENDPOINT",
+   "ABG_GOVERNED_CONTEXT_EXECUTABLE"
+  ],
+  "file": "test_env/tests/t287-governed-context.test.mjs",
+  "importsBuild": [],
+  "lines": 1036,
+  "skipSites": 0,
+  "spawnsProcess": true,
+  "testCalls": 15
+ },
+ {
+  "env": [
+   "ABI5_GTL_GRAPH_BASELINE_CORE",
+   "ABI5_GTL_GRAPH_OWNER_CORE"
+  ],
+  "file": "test_env/tests/t287-gtl-graph-law.test.mjs",
+  "importsBuild": [],
+  "lines": 210,
+  "skipSites": 0,
+  "spawnsProcess": false,
+  "testCalls": 6
+ },
+ {
+  "env": [
+   "ABI5_GTL_CORE_PACKAGE_ROOT"
+  ],
+  "file": "test_env/tests/t287-gtl-language-corpus.test.mjs",
+  "importsBuild": [
+   "validator/conformance_operation",
+   "validator/validation"
+  ],
+  "lines": 66,
+  "skipSites": 0,
+  "spawnsProcess": false,
+  "testCalls": 3
+ },
+ {
+  "env": [
+   "ABI5_GTL_CORE_PACKAGE_ROOT"
+  ],
+  "file": "test_env/tests/t287-gtl-serialization-publication.test.mjs",
+  "importsBuild": [
+   "gtl/m01",
+   "gtl/semantic_job",
+   "gtl/semantic_stage",
+   "gtl/stdo_run_environment",
+   "product/declaration_exports",
+   "shared/canonical_json",
+   "shared/digests",
+   "shared/i_json"
+  ],
+  "lines": 397,
+  "skipSites": 0,
+  "spawnsProcess": true,
+  "testCalls": 9
+ },
+ {
+  "env": [
+   "ABG_RC10_BASIS_LIFETIME_MODE"
+  ],
+  "file": "test_env/tests/t287-held-basis-lifetime.test.mjs",
+  "importsBuild": [],
+  "lines": 198,
+  "skipSites": 2,
+  "spawnsProcess": false,
+  "testCalls": 2
+ },
+ {
+  "env": [],
+  "file": "test_env/tests/t287-held-owner-fold-reuse.test.mjs",
+  "importsBuild": [],
+  "lines": 241,
+  "skipSites": 0,
+  "spawnsProcess": false,
+  "testCalls": 1
+ },
+ {
+  "env": [
+   "ABI5_HELD_PREFIX_NATIVE_FIXTURE",
+   "ABI5_OWNED_JUDGMENT_FIXTURE",
+   "ABI5_OWNED_OUTCOME_PREIMAGE"
+  ],
+  "file": "test_env/tests/t287-held-prefix.test.mjs",
+  "importsBuild": [
+   "abg/c_call",
+   "abg/c_call_outcome",
+   "abg/event_prefix",
+   "abg/event_store",
+   "abg/project_read_ports",
+   "abg/replay",
+   "abg/traversal_cursor",
+   "hog/judgment",
+   "shared/canonical_json",
+   "shared/digests",
+   "shared/immutable"
+  ],
+  "lines": 268,
+  "skipSites": 2,
+  "spawnsProcess": false,
+  "testCalls": 4
+ },
+ {
+  "env": [
+   "ABI5_HISTORICAL_SOURCE_EVIDENCE"
+  ],
+  "file": "test_env/tests/t287-historical-source-resource.test.mjs",
+  "importsBuild": [
+   "abg/event_prefix",
+   "abg/event_store",
+   "abg/invocation_execution_truth",
+   "abg/project_read_ports",
+   "abg/terminal_result_contracts",
+   "product/declaration_closure",
+   "shared/digests",
+   "shared/immutable"
+  ],
+  "lines": 173,
+  "skipSites": 0,
+  "spawnsProcess": false,
+  "testCalls": 4
+ },
+ {
+  "env": [
+   "ABI207_COMPILED_ROOT",
+   "ABI207_NATIVE_IDENTITY",
+   "ABI207_PROOF_ROOT",
+   "ABI232_ISOLATED_MANIFEST",
+   "ABI232_NATIVE_IDENTITY"
+  ],
+  "file": "test_env/tests/t287-installed-dependency-lock.test.mjs",
+  "importsBuild": [],
+  "lines": 221,
+  "skipSites": 1,
+  "spawnsProcess": true,
+  "testCalls": 2
+ },
+ {
+  "env": [],
+  "file": "test_env/tests/t287-installed-product-coordinate.test.mjs",
+  "importsBuild": [
+   "abg/project_read_operation_contracts",
+   "product/environment",
+   "product/release_snapshot_operations",
+   "product/run_invocation_operation",
+   "product/run_operation_contracts",
+   "shared/digests",
+   "shared/operation_definition_coordinate"
+  ],
+  "lines": 188,
+  "skipSites": 0,
+  "spawnsProcess": false,
+  "testCalls": 3
+ },
+ {
+  "env": [
+   "ABG_TS_CLAUDE_COMMAND",
+   "ABG_TS_FP_ABSOLUTE_TIMEOUT_MS",
+   "ABG_TS_FP_TIMEOUT_MS",
+   "ABI5_INSTALLED_CONSERVATION_ARCHIVE",
+   "ABI5_INSTALLED_CONSERVATION_ARCHIVE_DIGEST",
+   "ABI5_INSTALLED_CONSERVATION_EVIDENCE_ROOT",
+   "ABI5_INSTALLED_CONSERVATION_FIXTURE_ROOT",
+   "ABI5_INSTALLED_CONSERVATION_HANDOFF",
+   "ABI5_INSTALLED_CONSERVATION_INPUT_ROOT",
+   "ABI5_INSTALLED_CONSERVATION_MODE",
+   "ABI5_INSTALLED_CONSERVATION_NODE",
+   "ABI5_INSTALLED_CONSERVATION_ORIGINAL_ROOT",
+   "ABI5_INSTALLED_CONSERVATION_PACKAGE_ROOT",
+   "ABI5_INSTALLED_CONSERVATION_ROOT",
+   "NODE_OPTIONS"
+  ],
+  "file": "test_env/tests/t287-installed-qualification-conservation.test.mjs",
+  "importsBuild": [],
+  "lines": 374,
+  "skipSites": 0,
+  "spawnsProcess": false,
+  "testCalls": 1
+ },
+ {
+  "env": [],
+  "file": "test_env/tests/t287-interrupted-event-resource-recovery.test.mjs",
+  "importsBuild": [
+   "abg/definition_event_resource",
+   "abg/event_store",
+   "abg/index",
+   "product/index"
+  ],
+  "lines": 243,
+  "skipSites": 0,
+  "spawnsProcess": true,
+  "testCalls": 8
+ },
+ {
+  "env": [],
+  "file": "test_env/tests/t287-json-value-definition.test.mjs",
+  "importsBuild": [
+   "shared/public_function_contracts"
+  ],
+  "lines": 22,
+  "skipSites": 0,
+  "spawnsProcess": false,
+  "testCalls": 1
+ },
+ {
+  "env": [],
+  "file": "test_env/tests/t287-lifecycle-failure-carrier.test.mjs",
+  "importsBuild": [
+   "abg/c_call",
+   "abg/event_calculus",
+   "abg/event_prefix",
+   "abg/event_store",
+   "abg/runtime_liveness",
+   "shared/digests",
+   "shared/immutable",
+   "shared/owned_process_lifetime",
+   "shared/process/index",
+   "shared/value/index"
+  ],
+  "lines": 702,
+  "skipSites": 2,
+  "spawnsProcess": true,
+  "testCalls": 7
+ },
+ {
+  "env": [
+   "ABG_TS_CLAUDE_COMMAND"
+  ],
+  "file": "test_env/tests/t287-live-worksite-construction.test.mjs",
+  "importsBuild": [
+   "product/index"
+  ],
+  "lines": 292,
+  "skipSites": 1,
+  "spawnsProcess": false,
+  "testCalls": 1
+ },
+ {
+  "env": [
+   "T287_HEARTBEAT_ORPHAN",
+   "T287_HEARTBEAT_PLAN",
+   "T287_HEARTBEAT_THEN"
+  ],
+  "file": "test_env/tests/t287-liveness-heartbeat.test.mjs",
+  "importsBuild": [
+   "abg/transport_contracts",
+   "abg/worker_transport"
+  ],
+  "lines": 173,
+  "skipSites": 0,
+  "spawnsProcess": true,
+  "testCalls": 6
+ },
+ {
+  "env": [],
+  "file": "test_env/tests/t287-liveness-inactivity.test.mjs",
+  "importsBuild": [
+   "abg/event_prefix",
+   "abg/event_store",
+   "abg/runtime_liveness",
+   "abg/runtime_liveness_contracts",
+   "shared/immutable",
+   "shared/value/index"
+  ],
+  "lines": 143,
+  "skipSites": 0,
+  "spawnsProcess": false,
+  "testCalls": 3
+ },
+ {
+  "env": [],
+  "file": "test_env/tests/t287-malformed-gtl-gate.test.mjs",
+  "importsBuild": [
+   "validator/conformance_operation",
+   "validator/qualification",
+   "validator/raw_admission",
+   "validator/self_conformance_semantics"
+  ],
+  "lines": 154,
+  "skipSites": 0,
+  "spawnsProcess": false,
+  "testCalls": 6
+ },
+ {
+  "env": [
+   "ABI5_CONTEXT_ODD_DECLARATIONS",
+   "ABI5_CONTEXT_PROOF_ROOT",
+   "ABI5_CONTEXT_PUBLIC_PROOF",
+   "ABI5_CONTEXT_STDO_CONFIGURATION"
+  ],
+  "file": "test_env/tests/t287-management-context.test.mjs",
+  "importsBuild": [
+   "abg/stdo_environment",
+   "gtl/c_algebra",
+   "gtl/index",
+   "gtl/stdo_run_environment",
+   "product/builtin_semantics",
+   "product/index",
+   "product/run_invocation_operation",
+   "product/semantic_job",
+   "public/index"
+  ],
+  "lines": 453,
+  "skipSites": 2,
+  "spawnsProcess": false,
+  "testCalls": 14
+ },
+ {
+  "env": [
+   "T287_STREAM_HELD_EVENT_LOG",
+   "T287_STREAM_RETAINED_EVENT_LOG"
+  ],
+  "file": "test_env/tests/t287-management-stream-drain.test.mjs",
+  "importsBuild": [
+   "abg/event_prefix",
+   "abg/event_store",
+   "abg/runtime_liveness",
+   "abg/transport_contracts",
+   "abg/worker_transport",
+   "shared/digests"
+  ],
+  "lines": 245,
+  "skipSites": 3,
+  "spawnsProcess": false,
+  "testCalls": 7
+ },
+ {
+  "env": [],
+  "file": "test_env/tests/t287-management-supervision.test.mjs",
+  "importsBuild": [
+   "abg/transport_contracts",
+   "abg/worker_transport",
+   "public/index"
+  ],
+  "lines": 197,
+  "skipSites": 0,
+  "spawnsProcess": true,
+  "testCalls": 5
+ },
+ {
+  "env": [],
+  "file": "test_env/tests/t287-multi-candidate-admission.test.mjs",
+  "importsBuild": [],
+  "lines": 185,
+  "skipSites": 0,
+  "spawnsProcess": false,
+  "testCalls": 10
+ },
+ {
+  "env": [
+   "ABI5_GENERIC_JOB_BUILD_ROOT",
+   "ABI5_NATIVE_RETAINED_JOB"
+  ],
+  "file": "test_env/tests/t287-native-assembly-retained-input.test.mjs",
+  "importsBuild": [
+   "abg/execution_basis"
+  ],
+  "lines": 148,
+  "skipSites": 1,
+  "spawnsProcess": false,
+  "testCalls": 2
+ },
+ {
+  "env": [],
+  "file": "test_env/tests/t287-native-assessment-evidence.test.mjs",
+  "importsBuild": [
+   "abg/c_call",
+   "abg/event_prefix",
+   "abg/transport_contracts",
+   "shared/digests",
+   "shared/immutable"
+  ],
+  "lines": 133,
+  "skipSites": 0,
+  "spawnsProcess": false,
+  "testCalls": 4
+ },
+ {
+  "env": [
+   "ABI5_NATIVE_MATERIAL_PREIMAGE"
+  ],
+  "file": "test_env/tests/t287-native-c2-instruction-assembly.test.mjs",
+  "importsBuild": [
+   "abg/instruction_assembly",
+   "gtl/worksite_command_execution",
+   "product/index",
+   "product/native_workspace_work",
+   "product/worksite_command_execution"
+  ],
+  "lines": 121,
+  "skipSites": 0,
+  "spawnsProcess": false,
+  "testCalls": 1
+ },
+ {
+  "env": [
+   "ABI5_EVENT_TIME_BASELINE_ROOT",
+   "ABI5_EVENT_TIME_HISTORY_PATH",
+   "ABI5_EVENT_TIME_HISTORY_SHA256",
+   "ABI5_EVENT_TIME_PACKAGE_ROOT",
+   "ABI5_EVENT_TIME_PROOF_ROOT",
+   "TMPDIR"
+  ],
+  "file": "test_env/tests/t287-native-event-time.test.mjs",
+  "importsBuild": [
+   "hog/operator_support"
+  ],
+  "lines": 180,
+  "skipSites": 3,
+  "spawnsProcess": false,
+  "testCalls": 5
+ },
+ {
+  "env": [
+   "ABI5_FRAME_ATTEMPT",
+   "ABI5_FRAME_ENTRY_ROOT",
+   "ABI5_FRAME_HISTORY_PATH",
+   "ABI5_FRAME_HISTORY_SHA256",
+   "ABI5_FRAME_PACKAGE_ROOT",
+   "ABI5_FRAME_PROOF_ROOT",
+   "ABI5_PREFIX_REUSE_BASELINE_ROOT",
+   "ABI5_PREFIX_REUSE_CUTS",
+   "ABI5_PREFIX_REUSE_OBSERVATIONS"
+  ],
+  "file": "test_env/tests/t287-native-frame-observation.test.mjs",
+  "importsBuild": [],
+  "lines": 330,
+  "skipSites": 6,
+  "spawnsProcess": false,
+  "testCalls": 7
+ },
+ {
+  "env": [
+   "ABG_OWNER_REUSE_EVIDENCE",
+   "ABG_OWNER_REUSE_PREDECESSOR",
+   "ABG_OWNER_REUSE_TASK"
+  ],
+  "file": "test_env/tests/t287-native-owner-reuse.test.mjs",
+  "importsBuild": [],
+  "lines": 130,
+  "skipSites": 3,
+  "spawnsProcess": false,
+  "testCalls": 3
+ },
+ {
+  "env": [
+   "ABI5_NATIVE_SELECTION_EVIDENCE_ROOT",
+   "ABI5_NATIVE_SELECTION_LIVE",
+   "ABI5_NATIVE_SELECTION_PROVIDER",
+   "ABI5_STDO3_SOURCE_ROOT"
+  ],
+  "file": "test_env/tests/t287-native-registered-selection.test.mjs",
+  "importsBuild": [],
+  "lines": 152,
+  "skipSites": 1,
+  "spawnsProcess": false,
+  "testCalls": 1
+ },
+ {
+  "env": [
+   "ABI5_OWNED_PROOF_DECLARATION"
+  ],
+  "file": "test_env/tests/t287-native-runtime-gate.test.mjs",
+  "importsBuild": [
+   "validator/qualification"
+  ],
+  "lines": 159,
+  "skipSites": 1,
+  "spawnsProcess": false,
+  "testCalls": 7
+ },
+ {
+  "env": [],
+  "file": "test_env/tests/t287-native-selection-profile-scope.test.mjs",
+  "importsBuild": [
+   "abg/instruction_assembly",
+   "gtl/index",
+   "gtl/stdo_run_environment",
+   "shared/digests"
+  ],
+  "lines": 67,
+  "skipSites": 0,
+  "spawnsProcess": false,
+  "testCalls": 4
+ },
+ {
+  "env": [
+   "ABI5_GENERIC_JOB_BUILD_ROOT",
+   "ABI5_NATIVE_EVIDENCE_EXTRACT",
+   "PATH"
+  ],
+  "file": "test_env/tests/t287-native-semantic-evidence.test.mjs",
+  "importsBuild": [],
+  "lines": 64,
+  "skipSites": 1,
+  "spawnsProcess": false,
+  "testCalls": 1
+ },
+ {
+  "env": [
+   "ABG_TS_FP_ABSOLUTE_TIMEOUT_MS",
+   "ABG_TS_FP_TIMEOUT_MS",
+   "ABI5_GENERIC_JOB_BUILD_ROOT"
+  ],
+  "file": "test_env/tests/t287-native-semantic-job.test.mjs",
+  "importsBuild": [],
+  "lines": 379,
+  "skipSites": 0,
+  "spawnsProcess": false,
+  "testCalls": 9
+ },
+ {
+  "env": [
+   "ABI5_GENERIC_JOB_BUILD_ROOT"
+  ],
+  "file": "test_env/tests/t287-native-semantic-revision.test.mjs",
+  "importsBuild": [],
+  "lines": 577,
+  "skipSites": 2,
+  "spawnsProcess": false,
+  "testCalls": 7
+ },
+ {
+  "env": [],
+  "file": "test_env/tests/t287-native-structural-gates.test.mjs",
+  "importsBuild": [
+   "validator/qualification"
+  ],
+  "lines": 139,
+  "skipSites": 0,
+  "spawnsProcess": false,
+  "testCalls": 4
+ },
+ {
+  "env": [
+   "ABG_U1_EVIDENCE_DIR",
+   "ABG_U1_FIRST_CASE"
+  ],
+  "file": "test_env/tests/t287-native-work-currentness-consumers.test.mjs",
+  "importsBuild": [
+   "abg/c_call_outcome",
+   "abg/event_calculus",
+   "abg/event_prefix",
+   "abg/event_store",
+   "abg/invocation_execution_truth",
+   "abg/native_work_effect",
+   "abg/native_worksite_execution",
+   "gtl/index",
+   "gtl/semantic_revision_identity",
+   "gtl/worksite_c0",
+   "product/index",
+   "product/invocation",
+   "product/native_workspace_assessment",
+   "product/native_workspace_work",
+   "product/semantic_job",
+   "product/semantic_revision",
+   "shared/admit/index",
+   "shared/digests",
+   "shared/immutable",
+   "shared/operation_definition_coordinate",
+   "shared/value/index"
+  ],
+  "lines": 1455,
+  "skipSites": 0,
+  "spawnsProcess": false,
+  "testCalls": 6
+ },
+ {
+  "env": [
+   "ABG_REACQUISITION_NORMALIZATION_RETAINED_ROOT"
+  ],
+  "file": "test_env/tests/t287-native-work-reacquisition-normalization.test.mjs",
+  "importsBuild": [
+   "abg/native_work_reacquisition",
+   "gtl/index",
+   "product/index"
+  ],
+  "lines": 49,
+  "skipSites": 1,
+  "spawnsProcess": false,
+  "testCalls": 2
+ },
+ {
+  "env": [
+   "ABG_GOVERNANCE_COVERED_BUILD_ROOT",
+   "ABG_NATIVE_REACQUISITION_RETAINED_ROOT"
+  ],
+  "file": "test_env/tests/t287-native-work-reacquisition.test.mjs",
+  "importsBuild": [
+   "abg/event_prefix",
+   "abg/event_store",
+   "abg/invocation_admission",
+   "abg/invocation_execution_truth",
+   "abg/native_work_reacquisition",
+   "abg/native_worksite_execution",
+   "abg/runtime_failure",
+   "abg/terminal_result_contracts",
+   "gtl/index",
+   "product/builtin_semantics",
+   "product/index",
+   "product/native_workspace_work",
+   "product/worksite_effect",
+   "shared/immutable",
+   "validator/index"
+  ],
+  "lines": 449,
+  "skipSites": 3,
+  "spawnsProcess": false,
+  "testCalls": 10
+ },
+ {
+  "env": [],
+  "file": "test_env/tests/t287-native-work-unknown-effect.test.mjs",
+  "importsBuild": [
+   "abg/event_calculus",
+   "abg/event_prefix",
+   "abg/event_store",
+   "abg/native_work_effect",
+   "abg/native_worksite_execution",
+   "product/worksite_command_execution",
+   "shared/immutable"
+  ],
+  "lines": 161,
+  "skipSites": 0,
+  "spawnsProcess": false,
+  "testCalls": 5
+ },
+ {
+  "env": [
+   "ABG_NATIVE_EXECUTION_RETAINED_LOG",
+   "ABI5_NATIVE_SOURCE_READY_CATALOG"
+  ],
+  "file": "test_env/tests/t287-native-worksite-execution.test.mjs",
+  "importsBuild": [
+   "abg/event_prefix",
+   "abg/event_store",
+   "abg/invocation_admission",
+   "abg/invocation_execution_truth",
+   "abg/native_worksite_execution",
+   "abg/transport_contracts",
+   "implementation/leaf_invocation_port",
+   "implementation/worksite_command_execution",
+   "product/builtin_semantics",
+   "product/declaration_closure",
+   "product/index",
+   "product/native_workspace_work",
+   "product/worksite_command_execution",
+   "shared/immutable"
+  ],
+  "lines": 446,
+  "skipSites": 3,
+  "spawnsProcess": false,
+  "testCalls": 7
+ },
+ {
+  "env": [
+   "ABG_TS_CLAUDE_COMMAND",
+   "ABI5_NATIVE_WORK_CHECK_CHILD",
+   "ABI5_NATIVE_WORK_OWNER_PROOF_PATH",
+   "ABI5_NATIVE_WORK_RETAINED_ROOT"
+  ],
+  "file": "test_env/tests/t287-native-workspace-work.test.mjs",
+  "importsBuild": [
+   "abg/actor_process",
+   "abg/c_call",
+   "abg/event_calculus",
+   "abg/event_prefix",
+   "abg/event_store",
+   "abg/execution_basis",
+   "abg/index",
+   "abg/instruction_assembly",
+   "abg/invocation_execution_truth",
+   "abg/native_work_effect",
+   "abg/native_worksite_execution",
+   "abg/worker_transport",
+   "gtl/index",
+   "implementation/leaf_execution_authority",
+   "implementation/leaf_invocation_port",
+   "implementation/native_workspace_work",
+   "product/builtin_semantics",
+   "product/declaration_closure",
+   "product/default_library_fulfillment",
+   "product/index",
+   "product/native_workspace_assessment",
+   "product/native_workspace_work",
+   "product/publication",
+   "shared/canonical_json",
+   "shared/digests",
+   "shared/immutable",
+   "validator/raw_admission"
+  ],
+  "lines": 1266,
+  "skipSites": 1,
+  "spawnsProcess": false,
+  "testCalls": 28
+ },
+ {
+  "env": [],
+  "file": "test_env/tests/t287-observed-worksite-command.test.mjs",
+  "importsBuild": [
+   "abg/event_store",
+   "abg/execution_basis",
+   "implementation/worksite_command_execution",
+   "product/builtin_semantics",
+   "product/index",
+   "product/native_workspace_work",
+   "product/worksite_command_execution"
+  ],
+  "lines": 334,
+  "skipSites": 0,
+  "spawnsProcess": true,
+  "testCalls": 8
+ },
+ {
+  "env": [
+   "ABI5_HISTORICAL_LIVENESS_DIGEST",
+   "ABI5_HISTORICAL_LIVENESS_LOG",
+   "ABI5_HISTORICAL_LIVENESS_PREDECESSOR",
+   "ABI5_LIVENESS_CUT_HISTORY",
+   "ABI5_LIVENESS_CUT_PREDECESSOR",
+   "ABI5_LIVENESS_CUT_SHA256",
+   "ABI5_PREFIX_REUSE_OBSERVATIONS",
+   "ABI5_SNAPSHOT_PREDECESSOR",
+   "P0_SAVED_OUTPUTS"
+  ],
+  "file": "test_env/tests/t287-ordered-reconstruction.test.mjs",
+  "importsBuild": [
+   "abg/artifact_truth",
+   "abg/event_calculus",
+   "abg/event_prefix",
+   "abg/event_store",
+   "abg/project_read_ports",
+   "abg/replay",
+   "abg/runtime_derivation",
+   "abg/runtime_liveness",
+   "shared/digests",
+   "shared/i_json",
+   "shared/immutable"
+  ],
+  "lines": 479,
+  "skipSites": 3,
+  "spawnsProcess": false,
+  "testCalls": 7
+ },
+ {
+  "env": [],
+  "file": "test_env/tests/t287-owned-call-reference.test.mjs",
+  "importsBuild": [
+   "public/index"
+  ],
+  "lines": 245,
+  "skipSites": 0,
+  "spawnsProcess": false,
+  "testCalls": 1
+ },
+ {
+  "env": [
+   "ABI5_OWNED_PROOF_NATIVE_REQUEST"
+  ],
+  "file": "test_env/tests/t287-owned-native-proof.test.mjs",
+  "importsBuild": [
+   "abg/runtime_derivation",
+   "gtl/index",
+   "product/declaration_closure",
+   "product/index",
+   "shared/canonical_json",
+   "shared/immutable"
+  ],
+  "lines": 142,
+  "skipSites": 1,
+  "spawnsProcess": false,
+  "testCalls": 1
+ },
+ {
+  "env": [
+   "ABI5_OWNED_PROCESS_PACKAGE_ROOT"
+  ],
+  "file": "test_env/tests/t287-owned-process-lifetime.test.mjs",
+  "importsBuild": [
+   "abg/worker_transport",
+   "implementation/worksite_command_helper"
+  ],
+  "lines": 1322,
+  "skipSites": 2,
+  "spawnsProcess": true,
+  "testCalls": 34
+ },
+ {
+  "env": [],
+  "file": "test_env/tests/t287-pfc-f08a-product-verification-boundary.test.mjs",
+  "importsBuild": [
+   "product/declaration_exports",
+   "product/index",
+   "product/public_contract_publication",
+   "product/verification_operation_contracts",
+   "public/binding/public_function_projections",
+   "shared/canonical_json",
+   "shared/digests"
+  ],
+  "lines": 720,
+  "skipSites": 0,
+  "spawnsProcess": true,
+  "testCalls": 1
+ },
+ {
+  "env": [],
+  "file": "test_env/tests/t287-post-binding-worksite-write.test.mjs",
+  "importsBuild": [
+   "abg/event_store",
+   "abg/replay",
+   "gtl/index",
+   "implementation/index",
+   "implementation/worksite_file_replace",
+   "product/index"
+  ],
+  "lines": 1547,
+  "skipSites": 0,
+  "spawnsProcess": false,
+  "testCalls": 2
+ },
+ {
+  "env": [
+   "ABI5_PREDECESSOR_OLD_PACKAGE_ROOT",
+   "ABI5_PREDECESSOR_PRIOR_ROOT",
+   "ABI5_PREDECESSOR_PROOF_ROOT"
+  ],
+  "file": "test_env/tests/t287-predecessor-context.test.mjs",
+  "importsBuild": [
+   "abg/instruction_assembly",
+   "product/semantic_stage"
+  ],
+  "lines": 70,
+  "skipSites": 1,
+  "spawnsProcess": false,
+  "testCalls": 3
+ },
+ {
+  "env": [
+   "ABI5_PUBLIC_GROUPS_PACKAGE_ROOT"
+  ],
+  "file": "test_env/tests/t287-public-groups.test.mjs",
+  "importsBuild": [
+   "product/declaration_exports",
+   "shared/digests"
+  ],
+  "lines": 135,
+  "skipSites": 0,
+  "spawnsProcess": true,
+  "testCalls": 3
+ },
+ {
+  "env": [
+   "ABI5_PUBLIC_PREPARATION_PACKAGE_ROOT"
+  ],
+  "file": "test_env/tests/t287-public-preparation.test.mjs",
+  "importsBuild": [
+   "qualification/m05"
+  ],
+  "lines": 325,
+  "skipSites": 0,
+  "spawnsProcess": false,
+  "testCalls": 6
+ },
+ {
+  "env": [
+   "ABI5_S02_PROJECTION_FIXTURE"
+  ],
+  "file": "test_env/tests/t287-public-terminal-projection.test.mjs",
+  "importsBuild": [
+   "abg/event_prefix",
+   "abg/event_store",
+   "abg/project_read_operation_contracts",
+   "abg/project_read_ports",
+   "abg/retry",
+   "product/index"
+  ],
+  "lines": 100,
+  "skipSites": 1,
+  "spawnsProcess": false,
+  "testCalls": 4
+ },
+ {
+  "env": [],
+  "file": "test_env/tests/t287-publication-observer.test.mjs",
+  "importsBuild": [],
+  "lines": 147,
+  "skipSites": 0,
+  "spawnsProcess": false,
+  "testCalls": 8
+ },
+ {
+  "env": [
+   "PATH"
+  ],
+  "file": "test_env/tests/t287-qual056-material.test.mjs",
+  "importsBuild": [
+   "gtl/self_conformance",
+   "implementation/release_publication",
+   "product/index",
+   "product/worksite_command_execution",
+   "validator/qualification",
+   "validator/qualification_contracts",
+   "validator/self_conformance"
+  ],
+  "lines": 235,
+  "skipSites": 3,
+  "spawnsProcess": true,
+  "testCalls": 8
+ },
+ {
+  "env": [
+   "ABI5_F11_CARRIER_FULL_FIXTURE",
+   "ABI5_F11_CARRIER_REPORT"
+  ],
+  "file": "test_env/tests/t287-qualification-carrier-resource.test.mjs",
+  "importsBuild": [
+   "abg/qualification_proof",
+   "product/run_invocation_operation",
+   "shared/canonical_json",
+   "validator/qualification",
+   "validator/qualification_contracts",
+   "validator/qualification_resources",
+   "validator/self_conformance",
+   "validator/self_conformance_contracts",
+   "validator/self_conformance_semantics"
+  ],
+  "lines": 144,
+  "skipSites": 0,
+  "spawnsProcess": true,
+  "testCalls": 7
+ },
+ {
+  "env": [],
+  "file": "test_env/tests/t287-qualification-contraction.test.mjs",
+  "importsBuild": [
+   "gtl/self_conformance",
+   "validator/qualification",
+   "validator/self_conformance",
+   "validator/self_conformance_contracts",
+   "validator/self_conformance_semantics"
+  ],
+  "lines": 122,
+  "skipSites": 0,
+  "spawnsProcess": false,
+  "testCalls": 4
+ },
+ {
+  "env": [
+   "ABI5_F11_FP_ASSESSMENT_PACKET",
+   "ABI5_F11_FP_BASELINE_TENANT",
+   "ABI5_F11_FP_PROOF_REPORT"
+  ],
+  "file": "test_env/tests/t287-qualification-fp-proof-delivery.test.mjs",
+  "importsBuild": [
+   "abg/runtime_failure",
+   "implementation/leaf_invocation_port",
+   "implementation/qualification",
+   "product/worksite_command_execution",
+   "product/worksite_revision",
+   "shared/immutable",
+   "validator/qualification",
+   "validator/qualification_contracts",
+   "validator/qualification_resources"
+  ],
+  "lines": 153,
+  "skipSites": 1,
+  "spawnsProcess": false,
+  "testCalls": 1
+ },
+ {
+  "env": [
+   "ABG_QUALIFICATION_RELEASE_ROOT",
+   "ABG_QUALIFICATION_RETAIN_TEST_SCRATCH",
+   "ABG_QUALIFICATION_SOURCE_ROOT",
+   "ABG_QUALIFICATION_STAGE_FIXTURES"
+  ],
+  "file": "test_env/tests/t287-qualification-law.test.mjs",
+  "importsBuild": [
+   "implementation/leaf_invocation_port",
+   "shared/digests",
+   "validator/qualification",
+   "validator/qualification_catalogs"
+  ],
+  "lines": 345,
+  "skipSites": 0,
+  "spawnsProcess": false,
+  "testCalls": 9
+ },
+ {
+  "env": [
+   "ABI5_PARENT_ALIAS_BINDINGS",
+   "ABI5_PARENT_ALIAS_REPORT"
+  ],
+  "file": "test_env/tests/t287-qualification-parent-alias.test.mjs",
+  "importsBuild": [
+   "abg/qualification_proof"
+  ],
+  "lines": 238,
+  "skipSites": 1,
+  "spawnsProcess": false,
+  "testCalls": 1
+ },
+ {
+  "env": [
+   "ABI5_PRODUCER_CONTEXT_FIXTURE",
+   "ABI5_PRODUCER_HISTORY_FIXTURE",
+   "ABI5_PRODUCER_OWNER_COPY_FIXTURE",
+   "ABI5_PRODUCER_OWNER_FIXTURE",
+   "ABI5_PRODUCER_OWNER_SOURCE_FIXTURE"
+  ],
+  "file": "test_env/tests/t287-qualification-producer-acquisition-reuse.test.mjs",
+  "importsBuild": [
+   "abg/event_store",
+   "gtl/materialize",
+   "gtl/self_conformance",
+   "implementation/leaf_invocation_port",
+   "implementation/self_conformance",
+   "validator/qualification_contracts",
+   "validator/self_conformance_contracts"
+  ],
+  "lines": 207,
+  "skipSites": 0,
+  "spawnsProcess": false,
+  "testCalls": 3
+ },
+ {
+  "env": [],
+  "file": "test_env/tests/t287-qualification-producer-context.test.mjs",
+  "importsBuild": [
+   "gtl/self_conformance"
+  ],
+  "lines": 69,
+  "skipSites": 0,
+  "spawnsProcess": false,
+  "testCalls": 4
+ },
+ {
+  "env": [
+   "ABI5_QUAL_RAW_BASELINE_TENANT",
+   "ABI5_QUAL_RAW_BODY",
+   "ABI5_QUAL_RAW_COORDINATES",
+   "ABI5_QUAL_RAW_INPUT_PACKET",
+   "ABI5_QUAL_RAW_REPORT",
+   "ABI5_QUAL_RAW_REQUEST"
+  ],
+  "file": "test_env/tests/t287-qualification-raw-contract-preimage.test.mjs",
+  "importsBuild": [
+   "gtl/self_conformance",
+   "implementation/leaf_invocation_port",
+   "product/declaration_closure",
+   "product/index",
+   "validator/self_conformance_semantics"
+  ],
+  "lines": 116,
+  "skipSites": 0,
+  "spawnsProcess": false,
+  "testCalls": 1
+ },
+ {
+  "env": [
+   "ABG_TS_CLAUDE_APPEND_ARGS",
+   "ABG_TS_CLAUDE_COMMAND",
+   "ANTHROPIC_MODEL"
+  ],
+  "file": "test_env/tests/t287-qualification-scopes.test.mjs",
+  "importsBuild": [
+   "abg/actor_process",
+   "abg/c_call",
+   "abg/event_store",
+   "abg/transport_contracts",
+   "gtl/worksite_construction",
+   "product/worksite_construction",
+   "validator/qualification",
+   "validator/qualification_contracts",
+   "validator/qualification_resources",
+   "validator/self_conformance_contracts"
+  ],
+  "lines": 850,
+  "skipSites": 0,
+  "spawnsProcess": true,
+  "testCalls": 24
+ },
+ {
+  "env": [],
+  "file": "test_env/tests/t287-r4-aba-retry.test.mjs",
+  "importsBuild": [],
+  "lines": 13,
+  "skipSites": 0,
+  "spawnsProcess": false,
+  "testCalls": 1
+ },
+ {
+  "env": [],
+  "file": "test_env/tests/t287-r6-retry-success-exit.test.mjs",
+  "importsBuild": [
+   "abg/retry",
+   "product/index"
+  ],
+  "lines": 313,
+  "skipSites": 0,
+  "spawnsProcess": false,
+  "testCalls": 1
+ },
+ {
+  "env": [
+   "ABG_REACQUISITION_ROOT_ACTUAL_REQUEST",
+   "ABG_REACQUISITION_ROOT_BASELINE"
+  ],
+  "file": "test_env/tests/t287-reacquisition-root-contract.test.mjs",
+  "importsBuild": [
+   "abg/invocation_admission",
+   "gtl/index",
+   "product/builtin_semantics",
+   "product/index",
+   "shared/admission_predicates",
+   "shared/canonical_json",
+   "shared/value/index",
+   "validator/index",
+   "validator/raw_admission"
+  ],
+  "lines": 73,
+  "skipSites": 1,
+  "spawnsProcess": false,
+  "testCalls": 2
+ },
+ {
+  "env": [],
+  "file": "test_env/tests/t287-readable-stops-foldback.test.mjs",
+  "importsBuild": [
+   "gtl/index",
+   "product/index"
+  ],
+  "lines": 203,
+  "skipSites": 0,
+  "spawnsProcess": false,
+  "testCalls": 1
+ },
+ {
+  "env": [
+   "ABI5_STOP_ACTOR_LOG",
+   "STOP_MODE",
+   "STOP_ROLE"
+  ],
+  "file": "test_env/tests/t287-readable-stops.test.mjs",
+  "importsBuild": [
+   "abg/project_read_operation_contracts",
+   "gtl/index",
+   "product/index"
+  ],
+  "lines": 237,
+  "skipSites": 0,
+  "spawnsProcess": true,
+  "testCalls": 5
+ },
+ {
+  "env": [
+   "ABI5_PREFIX_REUSE_OBSERVATIONS"
+  ],
+  "file": "test_env/tests/t287-reconstruction-conservation.test.mjs",
+  "importsBuild": [
+   "abg/artifact_truth",
+   "abg/event_prefix",
+   "abg/event_store",
+   "abg/replay",
+   "shared/digests",
+   "shared/immutable"
+  ],
+  "lines": 80,
+  "skipSites": 1,
+  "spawnsProcess": false,
+  "testCalls": 2
+ },
+ {
+  "env": [],
+  "file": "test_env/tests/t287-recursive-failure-foldback.test.mjs",
+  "importsBuild": [
+   "gtl/index",
+   "gtl/m01",
+   "product/index",
+   "validator/index"
+  ],
+  "lines": 310,
+  "skipSites": 0,
+  "spawnsProcess": false,
+  "testCalls": 7
+ },
+ {
+  "env": [
+   "ABI5_NATIVE_SELECTION_PROVIDER",
+   "ABI5_RECURSIVE_SELECTION_EVIDENCE_ROOT",
+   "ABI5_RECURSIVE_SELECTION_LIVE",
+   "ABI5_STDO3_SOURCE_ROOT",
+   "ABI5_WAVE1_FROZEN_ARTIFACT_PATH"
+  ],
+  "file": "test_env/tests/t287-recursive-registered-selection.test.mjs",
+  "importsBuild": [
+   "gtl/index",
+   "hog/ccall_lifecycle",
+   "hog/graph_execute",
+   "hog/recursion_lifecycle",
+   "product/index",
+   "validator/index"
+  ],
+  "lines": 606,
+  "skipSites": 1,
+  "spawnsProcess": false,
+  "testCalls": 7
+ },
+ {
+  "env": [
+   "ABI5_SELECTION_EVIDENCE_ROOT",
+   "ABI5_SELECTION_REPEAT_ONLY"
+  ],
+  "file": "test_env/tests/t287-registered-graph-selection.test.mjs",
+  "importsBuild": [],
+  "lines": 144,
+  "skipSites": 0,
+  "spawnsProcess": false,
+  "testCalls": 1
+ },
+ {
+  "env": [
+   "ABI5_F16_PROOF_ROOT"
+  ],
+  "file": "test_env/tests/t287-release-acceptance.test.mjs",
+  "importsBuild": [
+   "implementation/release_publication",
+   "product/index",
+   "product/release_acceptance",
+   "product/release_snapshot_operations",
+   "shared/canonical_json",
+   "shared/public_function_contracts",
+   "validator/qualification_contracts"
+  ],
+  "lines": 162,
+  "skipSites": 0,
+  "spawnsProcess": true,
+  "testCalls": 6
+ },
+ {
+  "env": [
+   "ABI5_RELEASE_PROOF_ROOT",
+   "ABI5_RELEASE_RETAINED_INSTALL_COORDINATE"
+  ],
+  "file": "test_env/tests/t287-release-publication.test.mjs",
+  "importsBuild": [
+   "abg/artifact_truth",
+   "abg/environment_admission",
+   "abg/event_store",
+   "abg/index",
+   "implementation/release_publication",
+   "product/index",
+   "product/project_read_ports",
+   "shared/operation_definition_coordinate",
+   "validator/qualification_contracts"
+  ],
+  "lines": 126,
+  "skipSites": 1,
+  "spawnsProcess": true,
+  "testCalls": 6
+ },
+ {
+  "env": [],
+  "file": "test_env/tests/t287-required-operation-bindings.test.mjs",
+  "importsBuild": [
+   "abg/artifact_truth",
+   "product/materialization_definition_bindings",
+   "product/materialization_operation_contracts",
+   "shared/digests"
+  ],
+  "lines": 539,
+  "skipSites": 0,
+  "spawnsProcess": false,
+  "testCalls": 4
+ },
+ {
+  "env": [
+   "ABI5_RESULT_LINEAGE_BASELINE",
+   "ABI5_RESULT_LINEAGE_REPORT"
+  ],
+  "file": "test_env/tests/t287-result-evidence-lineage-projection.test.mjs",
+  "importsBuild": [
+   "abg/c_call_outcome",
+   "gtl/self_conformance",
+   "shared/digests",
+   "shared/immutable",
+   "validator/qualification",
+   "validator/qualification_contracts",
+   "validator/qualification_resources",
+   "validator/self_conformance_semantics"
+  ],
+  "lines": 303,
+  "skipSites": 0,
+  "spawnsProcess": false,
+  "testCalls": 1
+ },
+ {
+  "env": [
+   "ABG_RESULT_LINEAGE_TYPE_PROOF_DIR",
+   "ABG_RESULT_LINEAGE_TYPE_TENANT_ROOT"
+  ],
+  "file": "test_env/tests/t287-result-evidence-lineage-type-contract.test.mjs",
+  "importsBuild": [],
+  "lines": 112,
+  "skipSites": 0,
+  "spawnsProcess": false,
+  "testCalls": 1
+ },
+ {
+  "env": [
+   "ABI5_RETAINED_CONSUMER_CONFIG",
+   "ABI5_RETAINED_CONSUMER_PHASE"
+  ],
+  "file": "test_env/tests/t287-retained-installed-consumer.test.mjs",
+  "importsBuild": [],
+  "lines": 203,
+  "skipSites": 0,
+  "spawnsProcess": false,
+  "testCalls": 0
+ },
+ {
+  "env": [],
+  "file": "test_env/tests/t287-retry-run-prefix.test.mjs",
+  "importsBuild": [
+   "hog/index"
+  ],
+  "lines": 314,
+  "skipSites": 0,
+  "spawnsProcess": false,
+  "testCalls": 3
+ },
+ {
+  "env": [
+   "ABI5_ROUTE_PROJECTION_SCRATCH",
+   "ABI5_ROUTE_REPLAY_PREIMAGE",
+   "P0_PREDECESSOR_INSTALLED_ROOT",
+   "P0_RETAINED_NATIVE_SCRATCH"
+  ],
+  "file": "test_env/tests/t287-route-reconstruction.test.mjs",
+  "importsBuild": [
+   "abg/c_call_outcome",
+   "abg/deferred_application",
+   "abg/event_calculus",
+   "abg/event_prefix",
+   "abg/event_store",
+   "abg/replay",
+   "abg/retry",
+   "abg/runtime_derivation",
+   "abg/runtime_history",
+   "abg/traversal_cursor",
+   "abg/traversal_route",
+   "abg/traversal_transition",
+   "abg/worksite_input_provenance",
+   "hog/ccall_lifecycle",
+   "hog/judgment",
+   "hog/recursion_lifecycle",
+   "hog/traversal_completion",
+   "shared/canonical_json",
+   "shared/digests",
+   "shared/immutable"
+  ],
+  "lines": 900,
+  "skipSites": 2,
+  "spawnsProcess": false,
+  "testCalls": 12
+ },
+ {
+  "env": [
+   "ABI5_RP2_BEHAVIOR_EVIDENCE_ROOT"
+  ],
+  "file": "test_env/tests/t287-rp2-behavior-carriers.test.mjs",
+  "importsBuild": [],
+  "lines": 89,
+  "skipSites": 0,
+  "spawnsProcess": false,
+  "testCalls": 1
+ },
+ {
+  "env": [
+   "ABI5_RP2_CORRECTION_EVIDENCE_ROOT"
+  ],
+  "file": "test_env/tests/t287-rp2-correction-carriers.test.mjs",
+  "importsBuild": [
+   "abg/project_read_operation_contracts",
+   "public/index"
+  ],
+  "lines": 52,
+  "skipSites": 0,
+  "spawnsProcess": false,
+  "testCalls": 1
+ },
+ {
+  "env": [
+   "ABI5_RP2_FIBRE_EVIDENCE_ROOT",
+   "PATH"
+  ],
+  "file": "test_env/tests/t287-rp2-fibre-substitution.test.mjs",
+  "importsBuild": [
+   "abg/project_read_operation_contracts",
+   "public/index"
+  ],
+  "lines": 64,
+  "skipSites": 0,
+  "spawnsProcess": false,
+  "testCalls": 1
+ },
+ {
+  "env": [],
+  "file": "test_env/tests/t287-rp2-material-selection.test.mjs",
+  "importsBuild": [],
+  "lines": 41,
+  "skipSites": 0,
+  "spawnsProcess": false,
+  "testCalls": 3
+ },
+ {
+  "env": [],
+  "file": "test_env/tests/t287-rp2-resource-memo.test.mjs",
+  "importsBuild": [
+   "validator/qualification_contracts",
+   "validator/qualification_resources"
+  ],
+  "lines": 42,
+  "skipSites": 0,
+  "spawnsProcess": false,
+  "testCalls": 1
+ },
+ {
+  "env": [],
+  "file": "test_env/tests/t287-runtime-activity-quiescence.test.mjs",
+  "importsBuild": [
+   "abg/event_calculus",
+   "abg/event_prefix",
+   "abg/event_store",
+   "abg/replay",
+   "shared/digests",
+   "shared/immutable"
+  ],
+  "lines": 32,
+  "skipSites": 0,
+  "spawnsProcess": false,
+  "testCalls": 1
+ },
+ {
+  "env": [],
+  "file": "test_env/tests/t287-runtime-failure-diagnostic.test.mjs",
+  "importsBuild": [
+   "abg/actor_process",
+   "abg/event_calculus",
+   "abg/event_prefix",
+   "abg/event_store",
+   "abg/witness_admission_operation",
+   "implementation/leaf_invocation_port",
+   "product/result_assessment_operation",
+   "shared/admission_predicates",
+   "shared/canonical_json",
+   "shared/digests",
+   "shared/immutable",
+   "validator/conformance_operation"
+  ],
+  "lines": 1013,
+  "skipSites": 0,
+  "spawnsProcess": true,
+  "testCalls": 21
+ },
+ {
+  "env": [
+   "ABI5_S03_EVIDENCE_ROOT",
+   "ABI5_S03_PHASE_B_RELEASE"
+  ],
+  "file": "test_env/tests/t287-s03-automatic.test.mjs",
+  "importsBuild": [],
+  "lines": 17,
+  "skipSites": 2,
+  "spawnsProcess": false,
+  "testCalls": 2
+ },
+ {
+  "env": [],
+  "file": "test_env/tests/t287-select-family.test.mjs",
+  "importsBuild": [
+   "shared/refusal",
+   "shared/select/index",
+   "shared/value/index"
+  ],
+  "lines": 143,
+  "skipSites": 0,
+  "spawnsProcess": false,
+  "testCalls": 7
+ },
+ {
+  "env": [
+   "ABI5_SELECTED_ACTION_OWNER_SUBJECT",
+   "ABI5_SELECTED_ACTION_SOURCE_BOUND"
+  ],
+  "file": "test_env/tests/t287-selected-action-authority.test.mjs",
+  "importsBuild": [
+   "abg/construction_continuation",
+   "abg/index",
+   "product/index"
+  ],
+  "lines": 73,
+  "skipSites": 1,
+  "spawnsProcess": false,
+  "testCalls": 3
+ },
+ {
+  "env": [
+   "ABI5_SELECTED_ACTION_EVIDENCE_ROOT",
+   "ABI5_SELECTED_ACTION_OBSERVER_PREFLIGHT",
+   "ABI5_SELECTED_ACTION_PREFLIGHT",
+   "ABI5_SELECTED_ACTION_RECOVER_FROM",
+   "ABI5_SELECTED_ACTION_RESUME_FROM",
+   "ABI5_SELECTED_ACTION_RESUME_PREFLIGHT",
+   "TMPDIR"
+  ],
+  "file": "test_env/tests/t287-selected-action.test.mjs",
+  "importsBuild": [],
+  "lines": 251,
+  "skipSites": 1,
+  "spawnsProcess": true,
+  "testCalls": 1
+ },
+ {
+  "env": [
+   "ABI5_SELECTED_CLOSURE_EVIDENCE",
+   "ABI5_SELECTED_CLOSURE_HISTORY_FIXTURE",
+   "ABI5_SELECTED_CLOSURE_INSTALLED_ROOT",
+   "ABI5_SELECTED_CLOSURE_PREIMAGE"
+  ],
+  "file": "test_env/tests/t287-selected-execution-closure.test.mjs",
+  "importsBuild": [
+   "abg/execution_basis"
+  ],
+  "lines": 207,
+  "skipSites": 0,
+  "spawnsProcess": false,
+  "testCalls": 6
+ },
+ {
+  "env": [
+   "PATH"
+  ],
+  "file": "test_env/tests/t287-single-address-space-consolidation.test.mjs",
+  "importsBuild": [
+   "abg/semantic_stage"
+  ],
+  "lines": 1368,
+  "skipSites": 0,
+  "spawnsProcess": true,
+  "testCalls": 12
+ },
+ {
+  "env": [],
+  "file": "test_env/tests/t287-st1-installed-cross-owner-hello.test.mjs",
+  "importsBuild": [
+   "abg/index",
+   "abg/project_read_operation_contracts",
+   "abg/project_read_ports",
+   "abg/replay",
+   "public/cli",
+   "public/index"
+  ],
+  "lines": 2348,
+  "skipSites": 0,
+  "spawnsProcess": true,
+  "testCalls": 3
+ },
+ {
+  "env": [],
+  "file": "test_env/tests/t287-st2a-e-exact-prefix-workspace-environment.test.mjs",
+  "importsBuild": [],
+  "lines": 237,
+  "skipSites": 0,
+  "spawnsProcess": false,
+  "testCalls": 2
+ },
+ {
+  "env": [],
+  "file": "test_env/tests/t287-st2a-g-capability-definition-graph.test.mjs",
+  "importsBuild": [
+   "product/index",
+   "product/verify_product",
+   "public/binding/public_function_family"
+  ],
+  "lines": 496,
+  "skipSites": 0,
+  "spawnsProcess": true,
+  "testCalls": 4
+ },
+ {
+  "env": [
+   "ABI5_STATIC_CLOSURE_BASELINE_MODULE",
+   "ABI5_STATIC_CLOSURE_CAPTURED_INPUT",
+   "ABI5_STATIC_CLOSURE_OWNER_ROOT"
+  ],
+  "file": "test_env/tests/t287-static-declaration-closure.test.mjs",
+  "importsBuild": [],
+  "lines": 270,
+  "skipSites": 0,
+  "spawnsProcess": false,
+  "testCalls": 11
+ },
+ {
+  "env": [
+   "ABI5_ENV_INPUT_ROOT",
+   "ABI5_ENV_PRIOR_EVENTS",
+   "ABI5_ENV_PROOF_ROOT",
+   "ABI5_ENV_TEST_PACKAGE_ROOT",
+   "ABI5_WAVE1_FROZEN_ARTIFACT_SHA256"
+  ],
+  "file": "test_env/tests/t287-stdo-environment-citation.test.mjs",
+  "importsBuild": [
+   "abg/instruction_assembly"
+  ],
+  "lines": 131,
+  "skipSites": 1,
+  "spawnsProcess": false,
+  "testCalls": 2
+ },
+ {
+  "env": [
+   "ABI5_ENV_RUN_ROOT",
+   "ABI5_ENV_SOURCE_EVIDENCE",
+   "ABI5_WAVE1_FROZEN_INSTALL_HOST"
+  ],
+  "file": "test_env/tests/t287-stdo-proof-entry.test.mjs",
+  "importsBuild": [],
+  "lines": 81,
+  "skipSites": 5,
+  "spawnsProcess": false,
+  "testCalls": 5
+ },
+ {
+  "env": [
+   "ABI5_ENV_ATTEMPT",
+   "ABI5_ENV_BUILD_ROOT",
+   "ABI5_ENV_DEADLINE",
+   "ABI5_ENV_EVIDENCE_ROOT",
+   "ABI5_ENV_INPUT_ROOT",
+   "ABI5_ENV_NATIVE_BUDGET_MS",
+   "ABI5_ENV_OUTPUT_ROOT",
+   "ABI5_ENV_PROOF_ENTRY_ONLY",
+   "ABI5_ENV_RESUME_PREPARATION",
+   "ABI5_ENV_RUN_ROOT",
+   "ABI5_ENV_SOURCE_EVIDENCE",
+   "ABI5_STAGE_MODE",
+   "ABI5_STAGE_SETUP_ATTEMPT",
+   "ABI5_WAVE1_FROZEN_ARTIFACT_PATH"
+  ],
+  "file": "test_env/tests/t287-stdo-run-environment-installed.mjs",
+  "importsBuild": [],
+  "lines": 767,
+  "skipSites": 0,
+  "spawnsProcess": true,
+  "testCalls": 1
+ },
+ {
+  "env": [
+   "ABI5_DESIGN_CONTEXT_OBSERVATIONS",
+   "ABI5_DESIGN_CONTEXT_PREDECESSOR",
+   "ABI5_ENV_INPUT_ROOT",
+   "ABI5_ENV_PROOF_ROOT"
+  ],
+  "file": "test_env/tests/t287-stdo-run-environment.test.mjs",
+  "importsBuild": [
+   "abg/event_store",
+   "abg/instruction_assembly",
+   "abg/stdo_environment",
+   "gtl/index",
+   "gtl/stdo_run_environment",
+   "product/index",
+   "product/stdo_environment"
+  ],
+  "lines": 134,
+  "skipSites": 1,
+  "spawnsProcess": false,
+  "testCalls": 2
+ },
+ {
+  "env": [],
+  "file": "test_env/tests/t287-stdo3-run-environment.test.mjs",
+  "importsBuild": [
+   "abg/stdo_environment",
+   "gtl/index",
+   "product/index"
+  ],
+  "lines": 211,
+  "skipSites": 0,
+  "spawnsProcess": true,
+  "testCalls": 5
+ },
+ {
+  "env": [],
+  "file": "test_env/tests/t287-tv5-rooted-topology-partition.test.mjs",
+  "importsBuild": [
+   "shared/rooted_topology_partition"
+  ],
+  "lines": 200,
+  "skipSites": 0,
+  "spawnsProcess": false,
+  "testCalls": 3
+ },
+ {
+  "env": [],
+  "file": "test_env/tests/t287-undispatched-diagnostic.test.mjs",
+  "importsBuild": [
+   "abg/event_contract_profiles",
+   "abg/event_prefix",
+   "abg/event_store",
+   "abg/runtime_failure",
+   "abg/traversal_cursor",
+   "shared/digests",
+   "shared/immutable"
+  ],
+  "lines": 345,
+  "skipSites": 0,
+  "spawnsProcess": false,
+  "testCalls": 7
+ },
+ {
+  "env": [],
+  "file": "test_env/tests/t287-value-equality.test.mjs",
+  "importsBuild": [
+   "abg/event_prefix",
+   "abg/event_store",
+   "shared/admit/index",
+   "shared/value/index"
+  ],
+  "lines": 242,
+  "skipSites": 0,
+  "spawnsProcess": false,
+  "testCalls": 5
+ },
+ {
+  "env": [],
+  "file": "test_env/tests/t287-w2-05-generator-package-reproducibility.test.mjs",
+  "importsBuild": [
+   "product/declaration_exports",
+   "product/index",
+   "product/public_contract_publication",
+   "public/binding/public_function_family",
+   "public/binding/public_function_projections",
+   "public/index",
+   "shared/canonical_json",
+   "shared/digests"
+  ],
+  "lines": 402,
+  "skipSites": 0,
+  "spawnsProcess": true,
+  "testCalls": 2
+ },
+ {
+  "env": [],
+  "file": "test_env/tests/t287-w2-05-install-catalog-owner-chain.test.mjs",
+  "importsBuild": [
+   "product/catalog_definition_bindings",
+   "product/install_definition_bindings",
+   "product/project_read_definition_bindings",
+   "public/binding/definition_binding_mechanics",
+   "validator/conformance_definition_bindings"
+  ],
+  "lines": 1651,
+  "skipSites": 0,
+  "spawnsProcess": false,
+  "testCalls": 3
+ },
+ {
+  "env": [],
+  "file": "test_env/tests/t287-w2-05-release-snapshot-definition-bindings.test.mjs",
+  "importsBuild": [
+   "product/index"
+  ],
+  "lines": 144,
+  "skipSites": 0,
+  "spawnsProcess": true,
+  "testCalls": 1
+ },
+ {
+  "env": [
+   "ABI5_OWNED_ADMISSION_PREIMAGE",
+   "ABI5_PREPARATION_RESOLVE_CALL"
+  ],
+  "file": "test_env/tests/t287-w2-05-static-binding-algebra.test.mjs",
+  "importsBuild": [
+   "abg/definition_event_resource",
+   "abg/environment_admission",
+   "abg/event_store",
+   "abg/exact_prefix_bindings",
+   "product/declaration_exports",
+   "product/environment",
+   "product/implementation_resolution",
+   "product/install_product",
+   "product/run_operation_contracts",
+   "product/verify_product",
+   "public/binding/definition_binding_mechanics",
+   "public/binding/public_function_family",
+   "public/binding/public_function_projections",
+   "public/binding/static_definition_bindings",
+   "shared/digests",
+   "shared/operation_definition_coordinate"
+  ],
+  "lines": 914,
+  "skipSites": 2,
+  "spawnsProcess": false,
+  "testCalls": 5
+ },
+ {
+  "env": [],
+  "file": "test_env/tests/t287-wave2-definition-coordinate.test.mjs",
+  "importsBuild": [
+   "shared/digests",
+   "shared/operation_definition_coordinate"
+  ],
+  "lines": 60,
+  "skipSites": 0,
+  "spawnsProcess": false,
+  "testCalls": 1
+ },
+ {
+  "env": [],
+  "file": "test_env/tests/t287-wave2-installed-product-verification.test.mjs",
+  "importsBuild": [
+   "product/index",
+   "product/verification_operation"
+  ],
+  "lines": 150,
+  "skipSites": 0,
+  "spawnsProcess": false,
+  "testCalls": 2
+ },
+ {
+  "env": [],
+  "file": "test_env/tests/t287-wave2-owner-chain.test.mjs",
+  "importsBuild": [],
+  "lines": 142,
+  "skipSites": 0,
+  "spawnsProcess": false,
+  "testCalls": 2
+ },
+ {
+  "env": [],
+  "file": "test_env/tests/t287-wave2-owner-contract-source-set.test.mjs",
+  "importsBuild": [
+   "product/catalog_operation_contracts",
+   "product/environment_operation_contracts",
+   "product/release_snapshot_operations",
+   "product/verification_operation_contracts",
+   "public/binding/owner_contract_source_set",
+   "public/binding/public_function_family",
+   "shared/canonical_json",
+   "shared/digests",
+   "shared/immutable",
+   "shared/public_function_contracts",
+   "validator/qualification_contracts"
+  ],
+  "lines": 1100,
+  "skipSites": 0,
+  "spawnsProcess": false,
+  "testCalls": 15
+ },
+ {
+  "env": [
+   "ABG_TS_CLAUDE_COMMAND"
+  ],
+  "file": "test_env/tests/t287-worksite-branch-construction.test.mjs",
+  "importsBuild": [
+   "product/index"
+  ],
+  "lines": 778,
+  "skipSites": 0,
+  "spawnsProcess": false,
+  "testCalls": 2
+ },
+ {
+  "env": [
+   "ABG_T287_C2_PROOF_CONFIG",
+   "ABG_T287_HELPER_FACTS",
+   "ABG_T287_HELPER_UNCONFIRMED",
+   "ABG_TS_CLAUDE_COMMAND",
+   "ABG_TS_FP_ABSOLUTE_TIMEOUT_MS",
+   "ABG_TS_FP_TIMEOUT_MS",
+   "NODE_OPTIONS",
+   "TMPDIR"
+  ],
+  "file": "test_env/tests/t287-worksite-command-execution.test.mjs",
+  "importsBuild": [
+   "abg/runtime_failure",
+   "implementation/worksite_command_execution",
+   "product/index",
+   "product/worksite_command_execution",
+   "public/index",
+   "shared/owned_process_lifetime"
+  ],
+  "lines": 1643,
+  "skipSites": 5,
+  "spawnsProcess": true,
+  "testCalls": 12
+ },
+ {
+  "env": [
+   "ABG_TS_CLAUDE_COMMAND"
+  ],
+  "file": "test_env/tests/t287-worksite-construction.test.mjs",
+  "importsBuild": [
+   "abg/c_call",
+   "gtl/index",
+   "implementation/worksite_construction",
+   "product/index"
+  ],
+  "lines": 1015,
+  "skipSites": 0,
+  "spawnsProcess": false,
+  "testCalls": 3
+ },
+ {
+  "env": [],
+  "file": "test_env/tests/t288-initial-cursor-entry.test.mjs",
+  "importsBuild": [
+   "abg/event_store",
+   "abg/traversal_cursor",
+   "shared/digests"
+  ],
+  "lines": 36,
+  "skipSites": 0,
+  "spawnsProcess": false,
+  "testCalls": 1
+ },
+ {
+  "env": [
+   "ABI5_D07_PREDECESSOR_SCRATCH",
+   "ABI5_NATIVE_D2_SELECTOR_PROMPT"
+  ],
+  "file": "test_env/tests/t288-instruction-assembly-owner.test.mjs",
+  "importsBuild": [],
+  "lines": 509,
+  "skipSites": 2,
+  "spawnsProcess": false,
+  "testCalls": 6
+ },
+ {
+  "env": [
+   "ABI5_OWNER_HISTORY"
+  ],
+  "file": "test_env/tests/t288-logical-prefix-digest.test.mjs",
+  "importsBuild": [
+   "abg/event_prefix",
+   "abg/event_store",
+   "abg/runtime_derivation",
+   "shared/digests",
+   "shared/immutable"
+  ],
+  "lines": 64,
+  "skipSites": 1,
+  "spawnsProcess": false,
+  "testCalls": 2
+ },
+ {
+  "env": [
+   "ABI5_INSTALL_BODY_PROOF_ROOT"
+  ],
+  "file": "test_env/tests/t289-install-event-bodies.test.mjs",
+  "importsBuild": [
+   "abg/environment_admission",
+   "product/environment",
+   "shared/operation_definition_coordinate"
+  ],
+  "lines": 497,
+  "skipSites": 0,
+  "spawnsProcess": true,
+  "testCalls": 4
+ },
+ {
+  "env": [],
+  "file": "test_env/tests/t291-m6-admission-refusal-surface.test.mjs",
+  "importsBuild": [],
+  "lines": 69,
+  "skipSites": 0,
+  "spawnsProcess": false,
+  "testCalls": 5
+ },
+ {
+  "env": [
+   "ABG_TS_CLAUDE_APPEND_ARGS",
+   "ABG_TS_CLAUDE_COMMAND",
+   "ABG_TS_FP_ABSOLUTE_TIMEOUT_MS",
+   "ABG_TS_FP_TIMEOUT_MS",
+   "ABI5_STEEL04_EVIDENCE_PATH",
+   "ABI5_STEEL04_RUN_LIVE",
+   "ABI5_STEEL04_RUN_ROOT",
+   "ABI5_STEEL04_SUCCESS_ROOT",
+   "ABI5_WAVE1_FROZEN_ARTIFACT_PATH",
+   "ABI5_WAVE1_FROZEN_ARTIFACT_SHA256"
+  ],
+  "file": "test_env/tests/w2-steel-serial-branch-installed.test.mjs",
+  "importsBuild": [
+   "implementation/worksite_command_helper"
+  ],
+  "lines": 735,
+  "skipSites": 0,
+  "spawnsProcess": true,
+  "testCalls": 2
+ },
+ {
+  "env": [
+   "ABI5_STEEL03_C0_WITNESS_PROOF_PATH",
+   "ABI5_STEEL03_CLOSURE_PROOF_PATH",
+   "ABI5_STEEL03_CONTINUATION_PROOF_PATH",
+   "ABI5_STEEL03_FANOUT_PROOF_PATH",
+   "ABI5_STEEL03_OUTPUT_PROOF_PATH",
+   "ABI5_STEEL03_OWNER_PROOF_PATH",
+   "ABI5_STEEL03_RESOURCE_PROOF_PATH",
+   "ABI5_STEEL03_RETAINED_C0_ROOT",
+   "ABI5_STEEL03_RETAINED_C2_ROOT",
+   "ABI5_STEEL03_RETAINED_CALL_PATH",
+   "ABI5_STEEL03_RETAINED_CONTINUATION_ROOT",
+   "ABI5_STEEL03_RETAINED_FANOUT_ROOT",
+   "ABI5_STEEL03_RETAINED_LEAF_ROOT",
+   "ABI5_STEEL03_RETAINED_PREFLIGHT_PATH",
+   "ABI5_STEEL03_RETAINED_START_CALL_PATH",
+   "ABI5_STEEL03_SOURCE_REPLAY_PROOF_PATH"
+  ],
+  "file": "test_env/tests/w2-steel-single-start-closure.test.mjs",
+  "importsBuild": [
+   "abg/c_call",
+   "abg/event_store",
+   "abg/execution_basis",
+   "abg/fan_out_projection",
+   "abg/index",
+   "abg/invocation_admission",
+   "abg/replay",
+   "abg/retry",
+   "abg/traversal_cursor",
+   "abg/traversal_route",
+   "abg/traversal_transition",
+   "abg/worksite_input_provenance",
+   "gtl/index",
+   "hog/route_proposal",
+   "hog/traversal",
+   "implementation/leaf_execution_authority",
+   "implementation/leaf_invocation_port",
+   "implementation/worksite_command_execution",
+   "product/index",
+   "shared/immutable",
+   "validator/raw_admission"
+  ],
+  "lines": 583,
+  "skipSites": 8,
+  "spawnsProcess": false,
+  "testCalls": 8
+ },
+ {
+  "env": [
+   "ABG_TS_CLAUDE_APPEND_ARGS",
+   "ABG_TS_CLAUDE_COMMAND",
+   "ABG_TS_FP_ABSOLUTE_TIMEOUT_MS",
+   "ABG_TS_FP_TIMEOUT_MS",
+   "ABI5_STEEL03_EVIDENCE_PATH",
+   "ABI5_STEEL03_RUN_LIVE",
+   "ABI5_STEEL03_RUN_ROOT",
+   "ABI5_WAVE1_FROZEN_ARTIFACT_PATH",
+   "ABI5_WAVE1_FROZEN_ARTIFACT_SHA256"
+  ],
+  "file": "test_env/tests/w2-steel-single-start-installed.test.mjs",
+  "importsBuild": [
+   "implementation/worksite_command_helper"
+  ],
+  "lines": 609,
+  "skipSites": 0,
+  "spawnsProcess": true,
+  "testCalls": 1
+ },
+ {
+  "env": [
+   "W2_STEEL_RETAINED_EVENT_PATH"
+  ],
+  "file": "test_env/tests/w2-steel-single-start.test.mjs",
+  "importsBuild": [
+   "gtl/index",
+   "implementation/worksite_command_execution",
+   "product/index",
+   "validator/index"
+  ],
+  "lines": 172,
+  "skipSites": 1,
+  "spawnsProcess": false,
+  "testCalls": 8
+ },
+ {
+  "env": [],
+  "file": "test_env/tests/witness-reprice-definition-binding.test.mjs",
+  "importsBuild": [
+   "abg/definition_event_resource",
+   "abg/event_contract_profiles",
+   "abg/index",
+   "shared/digests",
+   "shared/operation_definition_coordinate"
+  ],
+  "lines": 259,
+  "skipSites": 0,
+  "spawnsProcess": true,
+  "testCalls": 15
+ },
+ {
+  "env": [],
+  "file": "test_env/tests/witness-run-stopped-definition-binding.test.mjs",
+  "importsBuild": [
+   "abg/definition_event_resource",
+   "abg/event_calculus",
+   "abg/event_prefix",
+   "abg/event_store",
+   "abg/replay",
+   "shared/digests"
+  ],
+  "lines": 125,
+  "skipSites": 0,
+  "spawnsProcess": true,
+  "testCalls": 7
+ }
+]
