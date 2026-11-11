@@ -6,7 +6,8 @@ import * as p from '../../build/code/src/product/index.js';
 import * as gtl from '../../build/code/src/gtl/index.js';
 import * as v from '../../build/code/src/validator/index.js';
 import { validRunEnvironmentProgram } from '../../build/code/src/gtl/stdo_run_environment.js';
-import { resolveProgramStart } from '../../build/code/src/gtl/public_start.js';
+import * as publicStart from '../../build/code/src/gtl/public_start.js';
+const { resolveProgramStart } = publicStart;
 import { genericRevisionPublicationData, genericRevisionIds } from '../support/t287-generic-job-revision.mjs';
 const hash=p.sha256Canonical,ids=p.WORKSITE_COMMAND_EXECUTION_IDS,revision=p.WORKSITE_REVISION_IDS;
 const basis={productId:p.ABI5_PRODUCT_ID,packageName:p.ABI5_PACKAGE_NAME,packageVersion:p.ABI5_PACKAGE_VERSION,
@@ -56,6 +57,10 @@ test('revision no-start Program refuses public starts and direct root invocation
   {scope:'program',target:'start://component/guessed',startRef:'start://component/guessed',until:'converged',rootMode:'supervised'}]){
   assert.equal(resolveProgramStart(child,request).kind,'program_start_refusal');
  }
+ // A graph_function start of the child's member is a direct start: refused as a direct next start is.
+ const directRefusal=resolveProgramStart(child,{scope:'program',target:'next',until:'converged',rootMode:'direct'});
+ assert.deepEqual(publicStart.graphFunctionStartRefusal(child,{scope:'program',until:'converged'}),directRefusal);
+ assert.equal(publicStart.graphFunctionStartRefusal(root,{scope:'program',until:'converged'}),null);
  const catalog=p.buildGraphFunctionCatalog(publications),view=p.narrowGraphFunctionCatalog(catalog,[revision.graphFunctionRef]);
  const selected=p.lookupGraphFunction(view,revision.graphFunctionRef);
  // Supplied workspace identity is sufficient only to construct a Product policy;
