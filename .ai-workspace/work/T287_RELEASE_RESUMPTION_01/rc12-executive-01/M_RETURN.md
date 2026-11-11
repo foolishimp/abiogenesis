@@ -37,7 +37,7 @@ The closed store also survives: node:test keeps every `TestHook` in `testResourc
 ## What pushed the candidate over the limit
 - `close-only` alone needs a heap between 925 MB (OOM) and 950 MB (pass) at **both** builds. GC traces put the peak in the case's first ~20 s, at 903–935 MB live (setup and traversal). The Executive's OOM stack is in a zlib callback, and `verifyProduct`'s `gunzip` is the Product's only zlib use.
 - Entry to case 31 is 3139.4 MB at base and 3160.8 MB at the candidate (+21.4 MB). V8 aborts on "ineffective mark-compacts" before the 4288 MB limit: the candidate died with 4037–4047 MB live.
-- Direct test, three runs side by side: base at the default heap passes 31/31. Base with its limit lowered by the same 21 MB (`NODE_OPTIONS=--max-old-space-size=4075`) dies in case 31, as does the candidate at the default heap.
+- Direct test, one run each, side by side under load: base at the default heap passes 31/31. Base with its limit lowered by the same 21 MB (`NODE_OPTIONS=--max-old-space-size=4075`) dies in case 31, as does the candidate at the default heap.
 
 ## Long-lived real process
 A host that imports the Product once is not affected, whether it makes many reads over one store or opens stores in sequence: the retention is per loaded module graph, and each case's store state is released. A host that imports N installed roots keeps N graphs of about 50 MB each.
@@ -53,7 +53,7 @@ The stop reading is not on this file's path. The file never calls `run_status` o
 That is about 0.0002 MB per read after a 1.3 MB warm-up, at about 2.4 ms per read. Limit: an operator stop admits no root Result (`lastRootResult` is `not_admitted`), so the carried-value part of the reviewer's hypothesis was not exercised.
 
 ## Why the package tests did not catch it
-No package changed retention. The file failed only as a whole, in its last case, once the cumulative graphs plus that case's ~0.93 GB peak passed the abort point. Package runs ran their own files, and no test asserts a heap ceiling. Base passed with less than 21 MB to spare.
+No package changed retention. The file failed only as a whole, in its last case, once the cumulative graphs plus that case's ~0.93 GB peak passed the abort point. Package runs ran their own files, and no test asserts a heap ceiling. In one run under load, base at a 21 MB lower limit failed.
 
 ## Split (`1cc747533`)
 - `t287-c0-post-publication-failure.test.mjs` keeps its name and holds B04-06, B04-01, B04-02 and B04-03 (16 cases).
@@ -62,7 +62,10 @@ No package changed retention. The file failed only as a whole, in its last case,
 - No case depends on another: each has its own pack, install, store and scratch root.
 - The C0 design (`T287_W2_R3_C0_…_DESIGN.md`, formerly l.658 and l.679) names both files.
 - `git diff --stat 9e1172ce0 -- . ':!.ai-workspace'` shows 5 files: the two test files, the support module and the two design files (C0, plus D11 below).
-- **The qualification preparation step must add the new member** `test_env/tests/t287-c0-post-publication-failure-owner-admission-close.test.mjs` to `test_env/qualification/inventory.json` and `recipe/verification-recipe.json` (beside l.3822–3823). Neither file was touched, nor was `specification/GOALS.md`.
+- **The qualification preparation step must update** `test_env/qualification/inventory.json` and `recipe/verification-recipe.json`. Support and design files are members there: `root-installed-environment.mjs` and both design files each appear twice in each file.
+  - Add two new members: `test_env/tests/t287-c0-post-publication-failure-owner-admission-close.test.mjs` and `test_env/support/c0-post-publication-failure.mjs`.
+  - Refresh three changed members: `test_env/tests/t287-c0-post-publication-failure.test.mjs` (recipe l.3822–3823), `design/T287_W2_R3_C0_MUTABLE_WORKSITE_CAUSALITY_DESIGN.md` and `design/M03_TYPED_RECURSE_RUNTIME_BEHAVIOR_DESIGN.md`.
+  - Neither file was touched here, nor was `specification/GOALS.md`.
 - Candidate build, default heap, instrument:
 
 | file | result | entry to last case | end | per case |
@@ -76,10 +79,10 @@ No package changed retention. The file failed only as a whole, in its last case,
 ## Addition: D11 design sentence (`48c8c1afb`)
 `design/M03_TYPED_RECURSE_RUNTIME_BEHAVIOR_DESIGN.md` D11, "Run quiescence": the stale sentence is replaced and the bullet rewrapped at 79 columns; the other sentences are unchanged. Checked against `project_read_ports.ts` at `9e1172ce0`:
 - "`run_status` omits an ended frame's probe from `holdsAt`" is exact (l.1086, 1094–1095).
-- "The liveness read" is not exact: there is no separate liveness read. `withoutEndedFrames` (l.1061) filters the `nativeLiveness` carried by the `*_status`, `*_replay`, `*_gaps` and `run_lawful_actions` reads (l.1874–1881), so the sentence names those reads.
+- "The liveness read" is not exact: `ABG_PROJECT_READ_MEMBER_KEYS` has no liveness member. `withoutEndedFrames` (l.1061) filters the top-level `nativeLiveness` that the `*_status`, `*_replay`, `*_gaps` and `run_lawful_actions` reads carry (l.1874–1886), so the sentence names those reads. The replay owner's own `nativeLiveness` (`replay.ts` l.1410) stays unfiltered, consistent with the bullet's unchanged replay digests. It was not checked whether a `*_replay` projection also embeds that unfiltered copy.
 - "Graph-call status reads as its stopped disposition" holds only when the graph call is neither closed nor holding `graph_call_active` (l.1071–1076), so the sentence states that condition.
 
-No live mirror exists. The A5 register links the file without a digest; the `.ai-workspace/**/stage|source|preimages` copies are historical snapshots.
+No live mirror exists. The A5 register links the file without a digest; the `.ai-workspace/**/stage|source|preimages` copies are historical snapshots. The qualification inventory and recipe list the file (see Split).
 
 ## Open findings (Product side, owners not traced)
 - **A setup peak of ~0.93 GB per case**, the same at base and candidate. It falls in a case's first ~20 s (pack, `verifyProduct` gunzip, install, imports).
