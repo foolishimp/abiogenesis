@@ -1886,8 +1886,9 @@
    "gate": "owned-proof-declaration",
    "class": "C",
    "status": "runs_with_root",
-   "conversion": "pending",
-   "variables": [
+   "conversion": "done",
+   "variables": [],
+   "formerVariables": [
     "ABI5_OWNED_PROOF_DECLARATION"
    ],
    "cases": [
