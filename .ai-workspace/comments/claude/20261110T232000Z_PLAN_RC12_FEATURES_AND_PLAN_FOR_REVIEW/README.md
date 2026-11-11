@@ -262,3 +262,137 @@ Review file: `/private/tmp/abg-rv4-tmp/RV4_REVIEW.md`. Verdict: changes requeste
 **Owner decision needed before the retirement proceeds:** how `A5-F07` is realized and proved once the Consensus program is gone, and what the default start mode targets. Two lawful routes: re-home the standard system program onto the Executive, with the four One Surface authorities; or reprice the feature to a law without a shipped program and choose the default start mode explicitly.
 
 **Other findings accepted.** The intent amendment's "as the default experience" conflicts with the Product's rule that a Program adopts the STDO environment explicitly; it becomes "out of the box", adopted explicitly. Change authority for RC12's Product and requirement edits is not recorded in a tracked authority surface; the Product header gains it at the close of the integration line.
+
+## 15. Close: the candidate, its evidence and the decisions left to the owner (2026-11-11)
+
+**Nothing is merged and nothing is pushed.** `5.0.0-rc.12` exists as a local, unqualified, unpublished candidate. It completed one live Run, on the sunny path. The Consensus retirement is not in it. Merging the branch into `main` would ratify changed Product, requirement and intent text, so the Executive left the merge to the owner.
+
+### 15.1 Identity
+
+| Item | Value |
+|---|---|
+| Branch | `claude/rc12-integration`, head `34aafb2c6` |
+| Cut commit | `95da94e725c709b8307b125f20f350861fc1e8a3`, tree `b1586e3c6fb0b553105db7989f10990bb8918f0a` |
+| Archive | `~/Library/Application Support/ABIogenesis/releases/5.0.0-rc.12/abiogenesis-typescript-tenant-5.0.0-rc.12.tgz`, `sha256:db80a5dac52fac5a859daf45a646e21209e538c7093b443ffca6532e6be9e3ca`, 11,062,933 bytes, 5,327 members |
+| Install | `~/Library/Application Support/ABIogenesis/installs/5.0.0-rc.12`; 5,327 files equal to the archive; smoke closed with 56 definitions |
+| Builder | RC11 remains the pinned builder |
+| Records | On the branch under `.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc12-executive-01/`: `LEDGER.md` (one row per package, and the list of authority-level text awaiting ratification), one Return per package, `DEMONSTRATION.md`, and the six review files under `reviews/` |
+
+The archive holds `build/`, `contracts/`, the toolchain manifest, `package.json` and dependencies. Commits after the cut commit change tests, one design note and records, so they do not change the archive.
+
+The build's worktrees are under `/private/tmp`, which the system may clear. Commits are safe in the repository. The untracked evidence of the live Run, the comparison run and the failure trace is copied, byte-equal, to `.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc12-executive-01-evidence/` in the main checkout (26 MB, untracked).
+
+Sections 13 and 14 cite review files at temporary paths. The durable copies are `reviews/RV1_REVIEW.md` (section 13's review 2), `RV2_REVIEW.md` (review 3) and `RV4_REVIEW.md` (section 14's review 4). `RV3`, `RV5` and `RV6` are reported in 15.5.
+
+### 15.2 What the candidate does
+
+1. **Declared framed reviews.** A task declares its reviews. One assessor graph serves all of them; a review's type is its frame. Completion requires the acceptance verdict and every required review, satisfied and current. A verdict goes stale when a later admitted effect touches its subject or a declared input.
+2. **Declared process prerequisites.** A Program names the reviews that must hold before a purpose is selected. An out-of-order choice is refused before the work is entered, and the Executive selects again.
+3. **Recoverable step failure.** A step that fails with a declared class returns to the Executive in the same Run. The next selection sees the failed attempts, read from the event log. Failed steps count against the step limit. Every other failure stops the Run.
+4. **Readable stops.** A Run that stops without completing reads back its disposition, its reason, the Result the stop came from, the root's last Result and the next lawful action. The start and continue commands print the same statement.
+5. **Inactivity containment.** A silent worker is contained when its declared inactivity expires. A working agent CLI's status rows renew the lease and are not counted as progress.
+6. **The amendment witness.** A test fixture: a small existing system, a process definition written once, and an amendment as the only per-task input.
+
+Not in the candidate: the Consensus retirement (section 14) and the items section 11 lists as not in RC12.
+
+### 15.3 The live demonstration
+
+One Public start, frozen to the cut archive, on the amendment witness. The record is `DEMONSTRATION.md` on the branch.
+
+| Measure | Governed Run | Bare model CLI, same amendment |
+|---|---|---|
+| Outcome | Completed on the first attempt; both required reviews satisfied and current | Equivalent one-line change; tests pass |
+| Steps | 7 selected by the Executive: triage, impact assessment, impact review, construction, testing, preservation review, acceptance | 1 call |
+| Agent calls | 14 | 1 |
+| Elapsed | 566 s | 49 s |
+| Reported cost | 9.21 USD | 0.34 USD |
+| Tokens | 2,193,119 | 308,232 |
+
+**What it did not show.** Nothing was refused and nothing failed during the live Run. Refusal of an out-of-order choice, an adverse review followed by correction, recovery from a worker failure, a stop on a write outside the grant and the step limit are proved by scripted Runs with a stand-in model on the same installed topology (`t287-amendment-witness`, 12 of 13 cases; the thirteenth is the live case). Every role ran on one model family, which the method's evaluation standard does not count as independent assessment. The candidate has no path for a human response during a Run.
+
+**What it cost.** On a one-line change the governed Run cost 27 times as much and took 11.5 times as long as the bare CLI. Seven selection calls cost 2.87 USD of the 9.21. One observation of a small task says nothing about work that spans corrections, failures or sessions.
+
+### 15.4 The whole suite
+
+Run on the merged head before the pre-cut pass (`82ad6639b`): 1,396 tests, 1,142 pass, 18 fail, 236 skipped. The skips are environment gates.
+
+| Failing file | Failures | At base `b7cf409fc` |
+|---|---|---|
+| `t287-single-address-space-consolidation` | 7 | Same 7 fail |
+| `t287-route-reconstruction` | 2 | Same 2 fail |
+| `t287-calculus-fold` (HS03) | 2 | Same 2 fail |
+| `t287-governed-context` (GC03) | 1 | Fails. Its recipe pins STDO 3.0.2 standards; the project selects 3.0.4. Needs a ticket |
+| `t287-framework-handoff-types` (exact014) | 1 | Fails |
+| `witness-reprice-definition-binding` | 1 | Fails |
+| `r1`, `r2`, `r3` | 3 | Fail at base on a stale candidate basis; all three pass on the cut build after the basis refresh |
+| `t287-c0-post-publication-failure` | 1 (the file) | Passes 31 of 31 |
+
+**The one file that passes at base is not a product regression.** The Executive first reported it to the owner as one, before the triage, and corrected that.
+
+- The test process retains about 103 MB of heap per case at base and 104 MB on the candidate. The harness imports two fresh copies of the product for every case, and Node never unloads a module.
+- At base the 31-case file passes under the default 4,288 MB heap limit and fails when the limit is lowered to 4,075 MB. The candidate's built code is 0.9% larger, which adds 21 MB by the last case, enough to fail.
+- A host that imports the product once is not affected by this mechanism. 300 Public status reads over one stopped Run stayed flat after a 1.3 MB warm-up. A stopped Run carrying a large root Result was not measured.
+- The 31 cases are now split across two files that run in separate processes (package M); no assertion changed. The Executive reran both on the merged head `083c96002` at the default heap: 16 of 16 and 15 of 15 pass. The Writer measured about 1.7 GB and 1.6 GB of heap at the end of each.
+
+With that, no file fails on the candidate that passes at base. The whole suite was not rerun after the pre-cut pass; the commits since then were verified file by file.
+
+### 15.5 Independent reviews RV3, RV5 and RV6
+
+All reviewers are Claude Opus 5.5 at maximum effort in fresh contexts, the same model family as the authors. Every S1 and S2 finding has a disposition below. An S3 or S4 finding not named here has no recorded disposition and stays open; the review files list them.
+
+| Review and subject | Verdict | Findings acted on | Left open |
+|---|---|---|---|
+| `RV3`: failed-child foldback (runtime half) and process prerequisites | Accept with repairs, both | A folded failed child read as `closed`: the Public read now gives the foldback's disposition. A closed Run showed folded frames as live: the Public reads omit ended frames. The selector's refusal was an untyped implementation exception: it has its own class, `missing-owned-select@5`, with three typed relations. Re-evaluation could not see the failure: the selection task carries the failed attempts. "Offered only permitted work" overclaimed: the Product sentence is "Only permitted work can be selected next". A task could silently waive a Program's prerequisite: a not-applicable declaration now needs a stated reason | A failure class is not proved to survive a fan-out or retry lift. The task author still decides applicability, and no authority is recorded for that decision. The prerequisite declaration is not checked at admission, so a malformed one is refused only at intake. No test pins that a consumer Program cannot invoke a library wrapper directly, which is what keeps the fixed Testing and acceptance route behind the prerequisites |
+| `RV5`: readable-stops repairs and the heartbeat | Readable stops: changes requested (one green test turned red). Heartbeat: accept with repairs | The red test's expectations were corrected to the new reading. The ended-frame rule had two owners: `projectEndedChildFrames` in `replay.ts` is now the one owner. The repriced retry requirement stated a rule the code lacks: reworded to the code. The heartbeat evidence was unsound in the package: the Executive read the recorded archive and confirmed the status rows during compaction | No test separates causal origin from position; the added case is a regression guard only. The 60 s inactivity default still ends a working agent, so hosts must declare a longer value; the demonstration declared 300 s. The replay view digest covers liveness the Public reads now omit |
+| `RV6`: recoverable step failure (library half) | Accept with repairs | Selector refusal relations described as built. An empty worker answer with a normal exit continued at the selector and stopped the Run at the worker: `native-work/no_output@5` is now recoverable by default, and the Product's stop list reads "among them" | The stop after a refused parent re-entry is truthful but reads as an encoded reference. A Testing actor that exits before its helper reads as an integrity stop |
+
+### 15.6 Section 14's Product header line is not yet written
+
+Section 14 said the Product header would gain the change authority for RC12's edits at the close. It was not written at the `rc.12` cut. By ruling 2 of 15.7 the next package writes it, in the header's existing form: `**Default-governance change authority**: direct Product-owner instruction, 2026-11-11, and [RC12 build record](../.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc12-executive-01/LEDGER.md).`, with `**Updated**: 2026-11-11`.
+
+### 15.7 Decisions: two for the owner, the rest ruled from precedent
+
+The owner asked, at the close, for the decisions that prior cases cannot answer. The Executive had listed four. Checked against the record, precedent answers them; two others have no precedent to derive from.
+
+**For the owner.**
+
+1. **Whether RC12 is integrated into local `main`, and what `GOALS.md` selects next.** RC9, RC10 and RC11 were each pinned on the owner's instruction; only RC9 was integrated, on explicit authorization (`rc9-main-integration-01`). A trial merge of committed content is clean (`git merge-tree`, result tree `65ad29e2b`). The branch's base `b7cf409fc` is not on `main`, so the merge brings the seven foundation-correction commits. `main` carries Codex's uncommitted status blocks in `specification/GOALS.md` and the T-287 ticket, and they do not re-apply on top of the merged files. The top block reads "RC12 WAITING_FOR_OWNER_RESUME", which is no longer true; its replacement states the owner's current selection. Mechanics on a yes: the RC9 precedent, a preservation checkpoint and a two-parent merge.
+2. **Who runs the round after RC12.** The owner gave this build to the Executive as a one-off, "in the interest of time and testing how good Fable 5.2 is", and named dogfooding as the purpose. The choices are the same Executive directly, Codex as Root, or the installed candidate's own Executive with the candidate pinned as builder. Every earlier pen change was the owner's explicit call.
+
+Only the owner can tell Codex that its RC12 wait is over.
+
+**Ruled from precedent.**
+
+| Question | Ruling | Precedent |
+|---|---|---|
+| How One Surface is realized once Consensus is retired | Re-home the standard system program onto the Executive, then retire standalone Consensus with review 4's repairs. It is the unfinished part of the RC12 objective and is built directly, like the rest. The package starts with a read-only trace that maps the four authorities `synthesizeModel`, `evalGap`, `evaluateNext` and `evaluateAction` onto the Executive's step as built, and stops if one has no counterpart. Its cut is `rc.13`, because the `rc.12` release and install directories are create-once | Owner: "consensus has been replaced by executive". The Product section "System And One Surface" already says "In 5.0, a required human response yields a truthful blocked handoff; native response/resume is 5.1", so no human-response path is needed. Section 14's rejected route removed the feature; this one keeps it |
+| Ratifying the changed authority text | It stands under the owner's delegation for this build. The next package records the change authority in the Product and intent headers (15.6). `LEDGER.md` lists every change: three new intent paragraphs, seven Product changes and four requirement changes covering seven requirement statements. The Executive read the whole specification difference against the base to make the list | Owner, 2026-11-11: "run from the precedences established, all your questions can be answered by my historical intent"; the header convention of earlier re-entries |
+| Whether to qualify `rc.12` | No. The cut to qualify is the one with Consensus superseded. The qualification inventory and recipe predate RC12: none of the ten test files RC12 added is listed in either, and the package M Return names the members its split adds and changes | Owner, 2026-10-29: "i approve the recommendations, they are now the refactor plan". That plan qualified a repair cut, not the candidate it repaired, because a Product change makes a new cut |
+| Whether to re-cut after the memory fix | No. The fix is test-only; no archive input has changed since the cut commit | Sixth amendment: unchanged code is not rechecked |
+| The 60 s inactivity default (15.8, item 2) | A defect. The next package sets the default from the recorded evidence | Owner: always discharge technical debt |
+
+### 15.8 Open findings
+
+Ranked by their effect on the stated use, a person who cannot inspect the engineering amending a specification.
+
+1. **The framework does not yet enforce all it states.** Writes outside the read roots are unobserved. An assessor can read beyond its declared material. A review subject is one file.
+2. **A working agent can still be ended** at the 60 s inactivity default. A first response took 83.5 s in one recorded run.
+3. **Assessment is not independent** while one model family serves every role.
+4. **Governance has a fixed cost** that dominates a small task (15.3). The cost is the number of calls, not their size: the governed Run averaged about 157,000 tokens per call over 14 calls, against 308,232 for the single bare call. Where the tokens of a call go was not analysed.
+5. **Readability gaps on stops.** The refused re-entry stop reads as an encoded reference; a Testing actor's early exit reads as an integrity stop; frames on a failed Run still report `continue_waiting`.
+6. **Replay digests include derived liveness.** That blocks correcting the axioms, so RC12 corrected the readers instead.
+7. **Verdict vocabulary** lacks out-of-frame and not-applicable. STDO sources reach the assessor as URI text only.
+8. **The `gate` application** is declared, validated and accepted by the Public request schema. No code outside declaration, validation and type positions names it; the Executive found nothing that executes one. Checked by search, not by running a Program.
+9. **Installing a product for a test peaks at about 0.93 GB of heap** per install. This predates RC12 and is not traced.
+10. **Stale surroundings.** The runtime archive sits inside the worksite. `lint:evidence` is red on five committed oversize archives. The `exact014` handoff pin is superseded.
+
+### 15.9 The Executive's errors in this build
+
+1. Accepted a false review finding on Testing-command effects without running the code that produces the field; withdrawn (section 13).
+2. Repriced a selected feature by rewording the One Surface sentences; backed out (section 14).
+3. Ruled review currentness over too small a set; repaired after review 1 (section 8).
+4. Proposed `re_enter` for failure recovery; the trace refuted it (section 10).
+5. Gave the library half two rulings that contradicted each other; the Writer stopped and the rulings were replaced.
+6. Reported the suite's memory failure to the owner as a product regression before the triage (15.4).
+7. Left package A's Product paragraphs out of the ratification list until the close.
+8. Estimated the package A repairs at 75 minutes; they took 2.6 hours. Recoverable failure landed 3.5 hours after its estimate.
