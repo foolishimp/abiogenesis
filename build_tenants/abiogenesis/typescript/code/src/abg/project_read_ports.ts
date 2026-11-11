@@ -50,7 +50,8 @@ import {
   type RunSemanticReplayProjection,
 } from "./replay.js";
 import { canonicalEquals } from "../shared/value/index.js";
-import { checkExactRecord, onlyExactMatch, type ExactMatch, type RecordCheck } from "../shared/select/index.js";
+import { checkExactRecord, onlyExactMatch, resolveExactMatch, type ExactMatch, type RecordCheck } from "../shared/select/index.js";
+import { isRegisteredGraphChoice } from "../gtl/registered_selection.js";
 import { ok } from "../shared/refusal.js";
 
 export const ABG_PROJECT_READ_MEMBER_KEYS = Object.freeze([
@@ -1055,6 +1056,7 @@ function projectRunStatus(
   context: CanonicalRunReadContext | null = canonicalRunContext(prepared, targetRef),
 ): ProjectedValue {
   if (context === null) return ABSENT;
+  const stop = projectRunStopReading(context);
   return {
     runId: targetRef,
     executionBasis: context.truth.executionBasis,
@@ -1063,7 +1065,188 @@ function projectRunStatus(
     replayDigest: context.truth.replay.digest,
     quiescence: projectRunQuiescence(context.prefix),
     holdsAt: context.calculus.holds,
+    ...(stop === null ? {} : { stop }),
   } as unknown as JsonValue;
+}
+
+type StopRecord = Readonly<Record<string, JsonValue>>;
+type StopNotAdmitted = Readonly<{ kind: "not_admitted" }>;
+const STOP_NOT_ADMITTED: StopNotAdmitted = Object.freeze({ kind: "not_admitted" });
+type StopResultFields = Readonly<{
+  result: AbgRunTruthCoordinate;
+  cCallRef: string;
+  graphFunctionRef: string | null;
+  contractRef: string;
+  valueKind: string | null;
+}>;
+type StopTimeout = Readonly<{ kind: "observed"; timeoutClass: "absolute" | "inactivity" | null }> | StopNotAdmitted;
+type StopOrigin =
+  | (StopResultFields & Readonly<{ kind: "failure"; failureClass: string | null; diagnosticRef: string | null; timeout: StopTimeout }>)
+  | (StopResultFields & Readonly<{ kind: "gap"; missingSupportRefs: readonly string[]; reason: string }>)
+  | (StopResultFields & Readonly<{ kind: "result"; resultClass: string }>)
+  | StopNotAdmitted;
+type StopEvaluation = Readonly<{
+  kind: "admitted_result"; result: AbgRunTruthCoordinate; contractRef: string; valueKind: string | null;
+  valueDigest: Sha256Digest; value: StopRecord; cCallRef: string; resultAdmissionEventRef: string;
+}> | StopNotAdmitted;
+type StopReading = Readonly<{
+  kind: "abg_run_stop_reading"; schemaVersion: "5.0.0"; stop: AbgRunTruthCoordinate;
+  eventKind: "run_stopped" | "runtime_failure_observed"; disposition: string; reasonRef: string | null; stage: string | null;
+  origin: StopOrigin; evaluation: StopEvaluation; statement: string;
+}>;
+
+function stopString(record: StopRecord, field: string): string | null {
+  const value = record[field];
+  return typeof value === "string" && value.trim().length > 0 ? value : null;
+}
+
+/** One admitted event under an indexed key, or null when absent or ambiguous. */
+function oneStopEvent(prefix: RuntimeEventPrefix, key: string, predicate: (event: RuntimeEvent) => boolean): RuntimeEvent | null {
+  const match = resolveExactMatch(indexedRuntimeEvents(prefix, key), (event) => isRecord(event.payload) && predicate(event));
+  return match.kind === "one" ? match.value : null;
+}
+
+/** The C-call whose Result starts the origin descent: the route a route stop
+ * names, or the one failed route among a runtime failure's causes. */
+function stoppingCCallRef(prefix: RuntimeEventPrefix, stop: RuntimeEvent): string | null {
+  const routeRef = stopString(eventRecord(stop), "routeRef");
+  const routes = stop.kind === "run_stopped"
+    ? routeRef === null ? [] : indexedRuntimeEvents(prefix, "payload:routeRef:" + routeRef).filter((event) =>
+        event.kind === "traversal_route_admitted" && stop.causationEventRefs.includes(event.eventId) &&
+        eventRecord(event).routeRef === routeRef)
+    : stop.causationEventRefs.flatMap((eventRef) => {
+        const event = oneStopEvent(prefix, "id:" + eventRef, (row) => row.eventId === eventRef);
+        return event !== null && event.kind === "traversal_route_admitted" && eventRecord(event).routeKind === "failed" ? [event] : [];
+      });
+  return routes.length === 1 ? stopString(eventRecord(routes[0]!), "cCallRef") : null;
+}
+
+/** Descend from the stopping C-call's Result through each admitted failed or
+ * blocked child foldback to the child Result it records. */
+function stopOriginEvent(prefix: RuntimeEventPrefix, cCallRef: string): RuntimeEvent | null {
+  let result = oneStopEvent(prefix, "related:" + cCallRef, (event) =>
+    event.kind === "c_call_result_admitted" && event.aggregateId === cCallRef);
+  const visited = new Set<string>();
+  while (result !== null && !visited.has(result.aggregateId)) {
+    const parent = result.aggregateId;
+    visited.add(parent);
+    const foldbacks = indexedRuntimeEvents(prefix, "payload:parentCCallRef:" + parent).filter((event) =>
+      event.kind === "child_foldback_admitted" && isRecord(event.payload) && event.payload.parentCCallRef === parent &&
+      (event.payload.childDisposition === "failed" || event.payload.childDisposition === "blocked"));
+    if (foldbacks.length === 0) return result;
+    if (foldbacks.length !== 1) return null;
+    const foldback = eventRecord(foldbacks[0]!);
+    const childResultRef = stopString(foldback, "childResultRef");
+    result = childResultRef === null ? null : oneStopEvent(prefix, "payload:resultRef:" + childResultRef, (event) =>
+      event.kind === "c_call_result_admitted" && eventRecord(event).resultRef === childResultRef &&
+      eventRecord(event).resultDigest === foldback.childResultDigest);
+  }
+  return null;
+}
+
+function stopResultFields(event: RuntimeEvent): StopResultFields | null {
+  const payload = eventRecord(event);
+  const resultRef = stopString(payload, "resultRef"), resultDigest = stopString(payload, "resultDigest");
+  const contractRef = stopString(payload, "contractRef");
+  if (resultRef === null || resultDigest === null || contractRef === null || !isRecord(payload.value)) return null;
+  return {
+    result: truthCoordinate(resultRef, resultDigest as Sha256Digest),
+    cCallRef: event.aggregateId,
+    graphFunctionRef: event.graphFunctionRef ?? null,
+    contractRef,
+    valueKind: stopString(payload.value, "kind"),
+  };
+}
+
+/** The timeout class the origin's own transport evidence recorded. */
+function stopTimeout(prefix: RuntimeEventPrefix, result: RuntimeEvent): StopTimeout {
+  const evidenceRefs = eventRecord(result).evidenceRefs;
+  const evidence = Array.isArray(evidenceRefs) ? indexedRuntimeEvents(prefix, "related:" + result.aggregateId).filter((event) =>
+    event.kind === "c_call_evidenced" && event.aggregateId === result.aggregateId && isRecord(event.payload) &&
+    evidenceRefs.includes(event.payload.evidenceRef ?? null) && Object.hasOwn(event.payload, "timeoutClass")) : [];
+  const timeoutClass = evidence.length === 1 ? eventRecord(evidence[0]!).timeoutClass : undefined;
+  return timeoutClass === null || timeoutClass === "absolute" || timeoutClass === "inactivity"
+    ? { kind: "observed", timeoutClass } : STOP_NOT_ADMITTED;
+}
+
+function stopOrigin(prefix: RuntimeEventPrefix, cCallRef: string | null): StopOrigin {
+  const event = cCallRef === null ? null : stopOriginEvent(prefix, cCallRef);
+  const fields = event === null ? null : stopResultFields(event);
+  if (event === null || fields === null) return STOP_NOT_ADMITTED;
+  const payload = eventRecord(event), value = payload.value as StopRecord;
+  if (payload.resultClass === "failure") {
+    return { kind: "failure", ...fields, failureClass: stopString(value, "failureClass"),
+      diagnosticRef: stopString(value, "diagnosticRef"), timeout: stopTimeout(prefix, event) };
+  }
+  if (isRegisteredGraphChoice(value) && value.disposition === "gap") {
+    return { kind: "gap", ...fields, missingSupportRefs: value.missingSupportRefs as readonly string[], reason: value.reason as string };
+  }
+  const resultClass = stopString(payload, "resultClass");
+  return resultClass === null ? STOP_NOT_ADMITTED : { kind: "result", ...fields, resultClass };
+}
+
+/** The last success Result of the Run's root GraphCall admitted before the
+ * stop. Its value is carried, never interpreted: obligation meaning is the
+ * owning Product's. */
+function stopEvaluation(prefix: RuntimeEventPrefix, graphCallId: string | null, stop: RuntimeEvent): StopEvaluation {
+  const event = graphCallId === null ? undefined : indexedRuntimeEvents(prefix, "graph-call:" + graphCallId).filter((row) =>
+    row.kind === "c_call_result_admitted" && row.graphCallId === graphCallId &&
+    row.admissionOrdinal < stop.admissionOrdinal && isRecord(row.payload) && row.payload.resultClass === "success").at(-1);
+  const fields = event === undefined ? null : stopResultFields(event);
+  if (event === undefined || fields === null) return STOP_NOT_ADMITTED;
+  const value = eventRecord(event).value as StopRecord;
+  return {
+    kind: "admitted_result", result: fields.result, contractRef: fields.contractRef, valueKind: fields.valueKind,
+    valueDigest: sha256Canonical(value), value, cCallRef: fields.cCallRef, resultAdmissionEventRef: event.eventId,
+  };
+}
+
+/** Plain words over the typed reading, for the CLI's one output line. */
+function stopStatement(reading: Omit<StopReading, "statement">): string {
+  const { origin, evaluation } = reading;
+  const reason = reading.reasonRef === null ? "No stop reason reference is admitted."
+    : `Reason: ${reading.reasonRef}${reading.stage === null ? "" : ` at stage ${reading.stage}`}.`;
+  const source = origin.kind === "not_admitted" ? ""
+    : `${origin.result.ref}${origin.graphFunctionRef === null ? "" : ` from ${origin.graphFunctionRef}`}`;
+  const originText = origin.kind === "failure"
+    ? `Originating failure: class ${origin.failureClass ?? "not admitted"} in ${source}; timeout class ${
+        origin.timeout.kind === "observed" ? origin.timeout.timeoutClass ?? "none" : "not admitted"}.`
+    : origin.kind === "gap"
+    ? `Originating gap in ${source}: missing support ${origin.missingSupportRefs.join(", ")}; reason "${origin.reason}".`
+    : origin.kind === "result"
+    ? `Originating result: ${origin.valueKind ?? "unkinded value"} ${source}.`
+    : "No originating result is admitted.";
+  const evaluationText = evaluation.kind === "admitted_result"
+    ? `Unresolved obligations are those recorded by the last admitted evaluation ${evaluation.valueKind ?? "result"} ${evaluation.result.ref}.`
+    : "No evaluation result is admitted.";
+  return `The Run stopped as ${reading.disposition} and did not complete. ${reason} ${originText} ${evaluationText}`;
+}
+
+/** REQ-P-POLICY-065–068: the stop reading is a read-time fold over the Run's
+ * admitted stop, route, foldback, Result and evidence events. A missing or
+ * ambiguous link reads `not_admitted`; nothing is chosen by label. */
+function projectRunStopReading(context: CanonicalRunReadContext): StopReading | null {
+  const coordinate = context.truth.stop;
+  if (coordinate === null) return null;
+  const stop = oneStopEvent(context.prefix, "id:" + coordinate.ref, (event) => event.eventId === coordinate.ref);
+  if (stop === null || (stop.kind !== "run_stopped" && stop.kind !== "runtime_failure_observed")) {
+    throw new TypeError("Run stop reading lacks its exact admitted stop event");
+  }
+  const payload = eventRecord(stop), failure = stop.kind === "runtime_failure_observed";
+  const disposition = failure ? "failed" : stopString(payload, "disposition") ?? stopString(payload, "reasonKind");
+  if (disposition === null) throw new TypeError("Run stop event lacks its disposition");
+  const reading = {
+    kind: "abg_run_stop_reading" as const,
+    schemaVersion: "5.0.0" as const,
+    stop: coordinate,
+    eventKind: stop.kind,
+    disposition,
+    reasonRef: stopString(payload, failure ? "diagnosticRef" : "reasonRef"),
+    stage: failure ? stopString(payload, "stage") : null,
+    origin: stopOrigin(context.prefix, stoppingCCallRef(context.prefix, stop)),
+    evaluation: stopEvaluation(context.prefix, context.replay.graphCallId, stop),
+  };
+  return deepFreeze({ ...reading, statement: stopStatement(reading) });
 }
 
 function projectGraphCallStatus(
