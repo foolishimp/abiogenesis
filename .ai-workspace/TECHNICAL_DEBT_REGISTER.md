@@ -157,7 +157,7 @@ These entries looked like owner decisions; a rule already in force answers each,
 | TD-55 | Open | Decode worker stdout once; stop copying streams; window stderr rows | S; about 30 | replay digests | realization_refactor | Successor profile for row changes |
 | TD-56 | Open | Reference probe contracts, work state and publications instead of copying them | L | replay digests; qualification mirrors | design_reframe | Successor profile (TD-66); measured |
 | TD-57 | Open | One suite command, lanes by owner and tier, one lane manifest | L | qualification mirrors if files are renamed | realization_refactor | None |
-| TD-58 | Open | One installed-setup owner; install once per test file | L; 150 removed, 300 moved (test side) | qualification mirrors | realization_refactor | None; measured |
+| TD-58 | In flight (first slice closed) | One installed-setup owner; one install per test file | L; eight files converted, about 70 remain | qualification mirrors | realization_refactor | First slice closed at `e10f1a13d` (T-292); measured 3,546 s to 1,572 s for the eight files |
 | TD-59 | Open | Classify and discharge the fourteen failures and the r1 to r3 basis | M | qualification mirrors; manifest pins (r1 to r3) | realization_refactor | TD-60, TD-71 |
 | TD-60 | Open | One gate catalogue for the 236 skips | L | qualification mirrors | realization_refactor | None |
 | TD-61 | Open | Route copied harness and helpers to their owners | M; about 1,300 (test side) | qualification mirrors | realization_refactor | After TD-60 |
@@ -636,7 +636,7 @@ Status Open. Sources: tests-scripts TS-13, TS-16; gtl-validator GV-10; executive
 
 #### TD-58 — One installed-setup owner, and one install per test file
 
-Status Open. Sources: tests-scripts TS-08, TS-11; performance P7.
+Status In flight; first slice closed at `e10f1a13d` (T-292, 2026-11-12). `test_env/support/root-installed-environment.mjs` now has two phases: `installTenantOnce` packs, verifies, installs and imports once per file, and `openCaseEnvironment` gives each case its own store, workspace and scratch root; a file's dispose re-hashes the install root and fails the file if a case changed it. Eight of the costliest files are converted. Each gives the same titles and counts before the change, after it and with its cases in reversed order, and together they go from 3,546 s to 1,572 s (measured under load on both sides); the two C0 files go from 694 s and 726 s to 163 s and 160 s. About 70 installer files remain for later slices. Sources: tests-scripts TS-08, TS-11; performance P7; `work/T292_CONSOLIDATION_01/TD-58A_RETURN.md`.
 
 - **Evidence:**
   - Measured per suite (TS-11, from `suite1.tap` at `82ad6639b`): 8,744 s, of which the 79 installer files with 464 cases take about 8,280 s. Twelve files take 55%, led by `t287-c0-post-publication-failure` (1,290 s for 31 cases, now split 16 plus 15) and `t287-amendment-witness` (880 s).
