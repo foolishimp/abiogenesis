@@ -25,6 +25,17 @@ assurance depend on remembered implementation behavior.
 ABIogenesis exists to make the complete program inspectable before execution
 and the complete runtime episode replayable after execution.
 
+Its use is governed change to an existing system. A person who cannot inspect
+the engineering amends the system's specification, and the automation builds
+that amendment reliably: it does the affected work, preserves what the amendment
+does not authorize it to change, and returns an accepted revision or a clear
+statement of what prevents acceptance.
+
+The governance is independent of the agents that perform the work. The declared
+process, its authority, its evidence and its completion state do not depend on
+which agent implements or assesses. An agent supplies capability within its
+assignment; it does not hold the process.
+
 Its governance makes the selected questions, evidence, evaluators and permitted
 consequences explicit. Reference frames bound what work considers over a mutable
 workspace and admitted execution facts. Governance preserves the declared
@@ -192,6 +203,13 @@ evidence over its installed public contract class. Its complete selected
 contract is bound before execution; full original Data Mapper and GLC Product
 delivery remain separately owned downstream beta work. The witness does not
 qualify or release the GLC Product.
+
+The supplied configuration implements the selected STDO release as the default
+experience. The method arrives ready as declared process, reference frames,
+evidence rules and completion conditions; a project supplies its bindings; a
+task supplies its amendment. The configuration determines the applicable work
+and evidence for each amendment and does not force every amendment through every
+stage or reviewer. A GTL Program remains free to declare another method.
 
 ## Established Directional Constraints
 
