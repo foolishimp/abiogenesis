@@ -195,7 +195,7 @@ const sites = [
   ['W35/W36/W37 ABG revision snapshots and targets', 'strictPrefixFalsy', 'pathStrictlyConfined', 'none'],
   ['W41 actor archive file', 'transportArchiveFile', 'pathConfined', 'none'],
   ['O1 release inside', 'releaseInside', 'pathStrictlyWithin', 'none'],
-  ['O2 self-conformance (prefix form kept)', 'selfConformance', 'pathConfined', 'none'],
+  ['O2 self-conformance (prefix verdict kept)', 'selfConformance', 'pathConfined', 'none'],
   ['O3 installed module', 'installedModule', 'pathStrictlyWithin', 'none'],
   ['O4 install package directory', 'installProduct', 'pathWithin', 'none'],
   ['O5 declaration contract asset', 'declarationApplication', 'pathWithin', 'none'],
