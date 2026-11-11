@@ -17,11 +17,11 @@ Retired sections: [history/M03_TRAVERSAL_NON_PROGRESS_CONTINUATION_DERIVATION__R
 - `specification/requirements/abg/REQ-R-ABG3-CONTINUATION.md`
 - `specification/requirements/abg/REQ-R-ABG3-PROJECTION.md`
 - `specification/requirements/abg/REQ-R-ABG3-EVENTS.md`
-- `M03_SUPERVISED_ACTOR_INVOCATION_DERIVATION.md`
-- `M03_RETRY_REPAIR_LEAFTASK_DERIVATION.md`
-- `M03_OUTPUT_ALLOCATION_AND_WORKSPACE_ZOOM_FOLDBACK_DERIVATION.md`
-- `M03_GRAPH_SPAN_FOLDBACK_REENTRY_DERIVATION.md`
-- [T-106](../../../../.ai-workspace/tickets/active/T-106-define-abg-typed-traversal-non-progress-continuation-and-summary-agreement.md)
+- `history/M03_SUPERVISED_ACTOR_INVOCATION_DERIVATION.md`
+- `history/M03_RETRY_REPAIR_LEAFTASK_DERIVATION.md`
+- `history/M03_OUTPUT_ALLOCATION_AND_WORKSPACE_ZOOM_FOLDBACK_DERIVATION.md`
+- `history/M03_GRAPH_SPAN_FOLDBACK_REENTRY_DERIVATION.md`
+- [T-106](../../../../.ai-workspace/tickets/completed/T-106-define-abg-typed-traversal-non-progress-continuation-and-summary-agreement.md)
 
 ## Timeout And Retry Mapping
 

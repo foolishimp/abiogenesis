@@ -23,9 +23,9 @@ Retired sections: [history/M03_INSTRUCTION_ASSEMBLY_DERIVATION__RETIRED_SECTIONS
 - `specification/requirements/abg/REQ-R-ABG3-TRANSPORT.md`
 - `specification/requirements/abg/REQ-R-ABG3-INTERPRET.md`
 - `specification/requirements/abg/REQ-R-ABG3-INSTRUCTION-ASSEMBLY.md`
-- `.ai-workspace/tickets/active/T-183-design-and-realize-abg-instruction-assembly-semantic-compiler.md`
-- `build_tenants/abiogenesis/typescript/design/M03_INSTRUCTION_ASSEMBLY_FIRST_SLICE_IACS.md`
-- `build_tenants/abiogenesis/typescript/design/M03_INSTRUCTION_ASSEMBLY_STRUCTURAL_CARRIER_DIAGRAM.md`
+- `.ai-workspace/tickets/completed/T-183-design-and-realize-abg-instruction-assembly-semantic-compiler.md`
+- `build_tenants/abiogenesis/typescript/design/history/M03_INSTRUCTION_ASSEMBLY_FIRST_SLICE_IACS.md`
+- `build_tenants/abiogenesis/typescript/design/history/M03_INSTRUCTION_ASSEMBLY_STRUCTURAL_CARRIER_DIAGRAM.md`
 
 ## Current native binding and material lifetime
 

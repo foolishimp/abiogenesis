@@ -1615,76 +1615,76 @@
       "relativePath": "contracts/worksite/command-execution-context.inventory.json"
     },
     {
-      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/A5_COMPLETED_CODE_DESIGN_STAGE_REGISTER.md",
-      "relativePath": "design/A5_COMPLETED_CODE_DESIGN_STAGE_REGISTER.md"
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/history/A5_COMPLETED_CODE_DESIGN_STAGE_REGISTER.md",
+      "relativePath": "design/history/A5_COMPLETED_CODE_DESIGN_STAGE_REGISTER.md"
     },
     {
-      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/A5_PRIME_CONTRACTION_CENSUS.md",
-      "relativePath": "design/A5_PRIME_CONTRACTION_CENSUS.md"
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/history/A5_PRIME_CONTRACTION_CENSUS.md",
+      "relativePath": "design/history/A5_PRIME_CONTRACTION_CENSUS.md"
     },
     {
-      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/ABG_3_FIRST_SLICE_IACS.md",
-      "relativePath": "design/ABG_3_FIRST_SLICE_IACS.md"
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/history/ABG_3_FIRST_SLICE_IACS.md",
+      "relativePath": "design/history/ABG_3_FIRST_SLICE_IACS.md"
     },
     {
-      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/ABG_3_M03_STRUCTURAL_CARRIER_DIAGRAM.md",
-      "relativePath": "design/ABG_3_M03_STRUCTURAL_CARRIER_DIAGRAM.md"
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/history/ABG_3_M03_STRUCTURAL_CARRIER_DIAGRAM.md",
+      "relativePath": "design/history/ABG_3_M03_STRUCTURAL_CARRIER_DIAGRAM.md"
     },
     {
-      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/ABG_3_MODULE_DESIGN.md",
-      "relativePath": "design/ABG_3_MODULE_DESIGN.md"
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/history/ABG_3_MODULE_DESIGN.md",
+      "relativePath": "design/history/ABG_3_MODULE_DESIGN.md"
     },
     {
-      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/ABG_COMMON_DELIVERY_LIBRARY_DERIVATION.md",
-      "relativePath": "design/ABG_COMMON_DELIVERY_LIBRARY_DERIVATION.md"
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/history/ABG_COMMON_DELIVERY_LIBRARY_DERIVATION.md",
+      "relativePath": "design/history/ABG_COMMON_DELIVERY_LIBRARY_DERIVATION.md"
     },
     {
-      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/ABG_COMMON_DELIVERY_LIBRARY_FIRST_SLICE_IACS.md",
-      "relativePath": "design/ABG_COMMON_DELIVERY_LIBRARY_FIRST_SLICE_IACS.md"
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/history/ABG_COMMON_DELIVERY_LIBRARY_FIRST_SLICE_IACS.md",
+      "relativePath": "design/history/ABG_COMMON_DELIVERY_LIBRARY_FIRST_SLICE_IACS.md"
     },
     {
-      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/ABG_COMMON_DELIVERY_LIBRARY_STRUCTURAL_CARRIER_DIAGRAM.md",
-      "relativePath": "design/ABG_COMMON_DELIVERY_LIBRARY_STRUCTURAL_CARRIER_DIAGRAM.md"
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/history/ABG_COMMON_DELIVERY_LIBRARY_STRUCTURAL_CARRIER_DIAGRAM.md",
+      "relativePath": "design/history/ABG_COMMON_DELIVERY_LIBRARY_STRUCTURAL_CARRIER_DIAGRAM.md"
     },
     {
-      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/ABG_COMMON_REALIZATION_LIBRARY_DERIVATION.md",
-      "relativePath": "design/ABG_COMMON_REALIZATION_LIBRARY_DERIVATION.md"
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/history/ABG_COMMON_REALIZATION_LIBRARY_DERIVATION.md",
+      "relativePath": "design/history/ABG_COMMON_REALIZATION_LIBRARY_DERIVATION.md"
     },
     {
-      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/ABG_COMMON_REALIZATION_LIBRARY_FIRST_SLICE_IACS.md",
-      "relativePath": "design/ABG_COMMON_REALIZATION_LIBRARY_FIRST_SLICE_IACS.md"
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/history/ABG_COMMON_REALIZATION_LIBRARY_FIRST_SLICE_IACS.md",
+      "relativePath": "design/history/ABG_COMMON_REALIZATION_LIBRARY_FIRST_SLICE_IACS.md"
     },
     {
-      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/ABG_COMMON_REALIZATION_LIBRARY_STRUCTURAL_CARRIER_DIAGRAM.md",
-      "relativePath": "design/ABG_COMMON_REALIZATION_LIBRARY_STRUCTURAL_CARRIER_DIAGRAM.md"
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/history/ABG_COMMON_REALIZATION_LIBRARY_STRUCTURAL_CARRIER_DIAGRAM.md",
+      "relativePath": "design/history/ABG_COMMON_REALIZATION_LIBRARY_STRUCTURAL_CARRIER_DIAGRAM.md"
     },
     {
       "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/ABG_EVENT_CALCULUS_IACS.md",
       "relativePath": "design/ABG_EVENT_CALCULUS_IACS.md"
     },
     {
-      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/ABG_EVENT_CALCULUS_PROJECTION_REFACTOR_PLAN.md",
-      "relativePath": "design/ABG_EVENT_CALCULUS_PROJECTION_REFACTOR_PLAN.md"
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/history/ABG_EVENT_CALCULUS_PROJECTION_REFACTOR_PLAN.md",
+      "relativePath": "design/history/ABG_EVENT_CALCULUS_PROJECTION_REFACTOR_PLAN.md"
     },
     {
       "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/ABG_EVENT_CALCULUS_RUNTIME_LAW_DERIVATION.md",
       "relativePath": "design/ABG_EVENT_CALCULUS_RUNTIME_LAW_DERIVATION.md"
     },
     {
-      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/ABG_EVENT_CALCULUS_STRUCTURAL_CARRIER_DIAGRAM.md",
-      "relativePath": "design/ABG_EVENT_CALCULUS_STRUCTURAL_CARRIER_DIAGRAM.md"
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/history/ABG_EVENT_CALCULUS_STRUCTURAL_CARRIER_DIAGRAM.md",
+      "relativePath": "design/history/ABG_EVENT_CALCULUS_STRUCTURAL_CARRIER_DIAGRAM.md"
     },
     {
-      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/ABG_EVENT_CALCULUS_T119_TEMPORAL_EXTENSION_CONTRACT.md",
-      "relativePath": "design/ABG_EVENT_CALCULUS_T119_TEMPORAL_EXTENSION_CONTRACT.md"
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/history/ABG_EVENT_CALCULUS_T119_TEMPORAL_EXTENSION_CONTRACT.md",
+      "relativePath": "design/history/ABG_EVENT_CALCULUS_T119_TEMPORAL_EXTENSION_CONTRACT.md"
     },
     {
-      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/ABG_METHOD_TRACE_CLOSURE_GUARD_DERIVATION.md",
-      "relativePath": "design/ABG_METHOD_TRACE_CLOSURE_GUARD_DERIVATION.md"
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/history/ABG_METHOD_TRACE_CLOSURE_GUARD_DERIVATION.md",
+      "relativePath": "design/history/ABG_METHOD_TRACE_CLOSURE_GUARD_DERIVATION.md"
     },
     {
-      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/ABG_SCHEDULE_RUNTIME_DERIVATION.md",
-      "relativePath": "design/ABG_SCHEDULE_RUNTIME_DERIVATION.md"
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/history/ABG_SCHEDULE_RUNTIME_DERIVATION.md",
+      "relativePath": "design/history/ABG_SCHEDULE_RUNTIME_DERIVATION.md"
     },
     {
       "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/ABI5_COMMON_COMPUTATIONAL_CAPABILITY_LIBRARY_DESIGN.md",
@@ -1703,960 +1703,960 @@
       "relativePath": "design/ABI5_STDO3_COMPUTATIONAL_BINDING.md"
     },
     {
-      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/ABIOGENESIS_PUBLIC_CONTROL_PLANE_ONTOLOGY.md",
-      "relativePath": "design/ABIOGENESIS_PUBLIC_CONTROL_PLANE_ONTOLOGY.md"
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/history/ABIOGENESIS_PUBLIC_CONTROL_PLANE_ONTOLOGY.md",
+      "relativePath": "design/history/ABIOGENESIS_PUBLIC_CONTROL_PLANE_ONTOLOGY.md"
     },
     {
-      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/DESIGN_SLICE_PRE_CODE_GATE_TEMPLATE.md",
-      "relativePath": "design/DESIGN_SLICE_PRE_CODE_GATE_TEMPLATE.md"
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/history/DESIGN_SLICE_PRE_CODE_GATE_TEMPLATE.md",
+      "relativePath": "design/history/DESIGN_SLICE_PRE_CODE_GATE_TEMPLATE.md"
     },
     {
-      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/GTL_3_FIRST_SLICE_IACS.md",
-      "relativePath": "design/GTL_3_FIRST_SLICE_IACS.md"
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/history/GTL_3_FIRST_SLICE_IACS.md",
+      "relativePath": "design/history/GTL_3_FIRST_SLICE_IACS.md"
     },
     {
-      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/GTL_3_GRAPH_FUNCTION_ZOOM_PLAN_DERIVATION.md",
-      "relativePath": "design/GTL_3_GRAPH_FUNCTION_ZOOM_PLAN_DERIVATION.md"
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/history/GTL_3_GRAPH_FUNCTION_ZOOM_PLAN_DERIVATION.md",
+      "relativePath": "design/history/GTL_3_GRAPH_FUNCTION_ZOOM_PLAN_DERIVATION.md"
     },
     {
-      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/GTL_3_IMPLEMENTATION_PLAN.md",
-      "relativePath": "design/GTL_3_IMPLEMENTATION_PLAN.md"
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/history/GTL_3_IMPLEMENTATION_PLAN.md",
+      "relativePath": "design/history/GTL_3_IMPLEMENTATION_PLAN.md"
     },
     {
-      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/GTL_3_INTERFACE_CONTRACTS.md",
-      "relativePath": "design/GTL_3_INTERFACE_CONTRACTS.md"
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/history/GTL_3_INTERFACE_CONTRACTS.md",
+      "relativePath": "design/history/GTL_3_INTERFACE_CONTRACTS.md"
     },
     {
-      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/GTL_3_M02_WORK_PUBLICATION_IACS.md",
-      "relativePath": "design/GTL_3_M02_WORK_PUBLICATION_IACS.md"
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/history/GTL_3_M02_WORK_PUBLICATION_IACS.md",
+      "relativePath": "design/history/GTL_3_M02_WORK_PUBLICATION_IACS.md"
     },
     {
-      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/GTL_3_MODULE_DESIGN.md",
-      "relativePath": "design/GTL_3_MODULE_DESIGN.md"
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/history/GTL_3_MODULE_DESIGN.md",
+      "relativePath": "design/history/GTL_3_MODULE_DESIGN.md"
     },
     {
-      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/GTL_3_STRUCTURAL_CARRIER_DIAGRAM.md",
-      "relativePath": "design/GTL_3_STRUCTURAL_CARRIER_DIAGRAM.md"
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/history/GTL_3_STRUCTURAL_CARRIER_DIAGRAM.md",
+      "relativePath": "design/history/GTL_3_STRUCTURAL_CARRIER_DIAGRAM.md"
     },
     {
-      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/GTL_ASSET_SURFACE_PROMPT_INTERFACE_DERIVATION.md",
-      "relativePath": "design/GTL_ASSET_SURFACE_PROMPT_INTERFACE_DERIVATION.md"
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/history/GTL_ASSET_SURFACE_PROMPT_INTERFACE_DERIVATION.md",
+      "relativePath": "design/history/GTL_ASSET_SURFACE_PROMPT_INTERFACE_DERIVATION.md"
     },
     {
-      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/GTL_ODD_ZOOM_FOLD_ALGEBRA_DECISION.md",
-      "relativePath": "design/GTL_ODD_ZOOM_FOLD_ALGEBRA_DECISION.md"
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/history/GTL_ODD_ZOOM_FOLD_ALGEBRA_DECISION.md",
+      "relativePath": "design/history/GTL_ODD_ZOOM_FOLD_ALGEBRA_DECISION.md"
     },
     {
-      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/GTL_TIME_ALGEBRA_DERIVATION.md",
-      "relativePath": "design/GTL_TIME_ALGEBRA_DERIVATION.md"
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/history/GTL_TIME_ALGEBRA_DERIVATION.md",
+      "relativePath": "design/history/GTL_TIME_ALGEBRA_DERIVATION.md"
     },
     {
-      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/GTL_TIME_ALGEBRA_FIRST_PROOF_PLAN.md",
-      "relativePath": "design/GTL_TIME_ALGEBRA_FIRST_PROOF_PLAN.md"
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/history/GTL_TIME_ALGEBRA_FIRST_PROOF_PLAN.md",
+      "relativePath": "design/history/GTL_TIME_ALGEBRA_FIRST_PROOF_PLAN.md"
     },
     {
-      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/GTL_TIME_ALGEBRA_IACS.md",
-      "relativePath": "design/GTL_TIME_ALGEBRA_IACS.md"
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/history/GTL_TIME_ALGEBRA_IACS.md",
+      "relativePath": "design/history/GTL_TIME_ALGEBRA_IACS.md"
     },
     {
-      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/GTL_TIME_ALGEBRA_STRUCTURAL_CARRIER_DIAGRAM.md",
-      "relativePath": "design/GTL_TIME_ALGEBRA_STRUCTURAL_CARRIER_DIAGRAM.md"
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/history/GTL_TIME_ALGEBRA_STRUCTURAL_CARRIER_DIAGRAM.md",
+      "relativePath": "design/history/GTL_TIME_ALGEBRA_STRUCTURAL_CARRIER_DIAGRAM.md"
     },
     {
-      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/HOMEOSTATIC_LOOP_AFTER_EVAL_EVENT_DERIVATION.md",
-      "relativePath": "design/HOMEOSTATIC_LOOP_AFTER_EVAL_EVENT_DERIVATION.md"
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/history/HOMEOSTATIC_LOOP_AFTER_EVAL_EVENT_DERIVATION.md",
+      "relativePath": "design/history/HOMEOSTATIC_LOOP_AFTER_EVAL_EVENT_DERIVATION.md"
     },
     {
-      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/M01_M02_M03_GRAPH_FUNCTION_COMBINATOR_APPLICATION_BEHAVIOR_DESIGN.md",
-      "relativePath": "design/M01_M02_M03_GRAPH_FUNCTION_COMBINATOR_APPLICATION_BEHAVIOR_DESIGN.md"
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/history/M01_M02_M03_GRAPH_FUNCTION_COMBINATOR_APPLICATION_BEHAVIOR_DESIGN.md",
+      "relativePath": "design/history/M01_M02_M03_GRAPH_FUNCTION_COMBINATOR_APPLICATION_BEHAVIOR_DESIGN.md"
     },
     {
-      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/M01_M02_M03_NATIVE_NODE_INTERFACE_TYPE_WITNESS_BEHAVIOR_DESIGN.md",
-      "relativePath": "design/M01_M02_M03_NATIVE_NODE_INTERFACE_TYPE_WITNESS_BEHAVIOR_DESIGN.md"
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/history/M01_M02_M03_NATIVE_NODE_INTERFACE_TYPE_WITNESS_BEHAVIOR_DESIGN.md",
+      "relativePath": "design/history/M01_M02_M03_NATIVE_NODE_INTERFACE_TYPE_WITNESS_BEHAVIOR_DESIGN.md"
     },
     {
-      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/M01_M02_STRICT_RAW_MODULE_ADMISSION_BEHAVIOR_DESIGN.md",
-      "relativePath": "design/M01_M02_STRICT_RAW_MODULE_ADMISSION_BEHAVIOR_DESIGN.md"
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/history/M01_M02_STRICT_RAW_MODULE_ADMISSION_BEHAVIOR_DESIGN.md",
+      "relativePath": "design/history/M01_M02_STRICT_RAW_MODULE_ADMISSION_BEHAVIOR_DESIGN.md"
     },
     {
-      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/M01_M03_CONSENSUS_GTL_FREE_CONSTRUCTION_BEHAVIOR_DESIGN.md",
-      "relativePath": "design/M01_M03_CONSENSUS_GTL_FREE_CONSTRUCTION_BEHAVIOR_DESIGN.md"
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/history/M01_M03_CONSENSUS_GTL_FREE_CONSTRUCTION_BEHAVIOR_DESIGN.md",
+      "relativePath": "design/history/M01_M03_CONSENSUS_GTL_FREE_CONSTRUCTION_BEHAVIOR_DESIGN.md"
     },
     {
-      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/M01_M03_GRAPH_VECTOR_C_PROGRAM_SELECTION_BEHAVIOR_DESIGN.md",
-      "relativePath": "design/M01_M03_GRAPH_VECTOR_C_PROGRAM_SELECTION_BEHAVIOR_DESIGN.md"
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/history/M01_M03_GRAPH_VECTOR_C_PROGRAM_SELECTION_BEHAVIOR_DESIGN.md",
+      "relativePath": "design/history/M01_M03_GRAPH_VECTOR_C_PROGRAM_SELECTION_BEHAVIOR_DESIGN.md"
     },
     {
-      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/M01_M03_TYPED_C_ALGEBRA_BEHAVIOR_DESIGN.md",
-      "relativePath": "design/M01_M03_TYPED_C_ALGEBRA_BEHAVIOR_DESIGN.md"
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/history/M01_M03_TYPED_C_ALGEBRA_BEHAVIOR_DESIGN.md",
+      "relativePath": "design/history/M01_M03_TYPED_C_ALGEBRA_BEHAVIOR_DESIGN.md"
     },
     {
-      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/M01_M03_TYPED_HOF_VECTOR_RELATION_BEHAVIOR_DESIGN.md",
-      "relativePath": "design/M01_M03_TYPED_HOF_VECTOR_RELATION_BEHAVIOR_DESIGN.md"
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/history/M01_M03_TYPED_HOF_VECTOR_RELATION_BEHAVIOR_DESIGN.md",
+      "relativePath": "design/history/M01_M03_TYPED_HOF_VECTOR_RELATION_BEHAVIOR_DESIGN.md"
     },
     {
-      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/M01_TYPED_C_ALGEBRA_AUTHORING_IACS.md",
-      "relativePath": "design/M01_TYPED_C_ALGEBRA_AUTHORING_IACS.md"
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/history/M01_TYPED_C_ALGEBRA_AUTHORING_IACS.md",
+      "relativePath": "design/history/M01_TYPED_C_ALGEBRA_AUTHORING_IACS.md"
     },
     {
-      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/M01_TYPED_C_ALGEBRA_STRUCTURAL_CARRIER_DIAGRAM.md",
-      "relativePath": "design/M01_TYPED_C_ALGEBRA_STRUCTURAL_CARRIER_DIAGRAM.md"
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/history/M01_TYPED_C_ALGEBRA_STRUCTURAL_CARRIER_DIAGRAM.md",
+      "relativePath": "design/history/M01_TYPED_C_ALGEBRA_STRUCTURAL_CARRIER_DIAGRAM.md"
     },
     {
-      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/M02_M03_LOOKUP_AUTHORITY_DERIVATION.md",
-      "relativePath": "design/M02_M03_LOOKUP_AUTHORITY_DERIVATION.md"
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/history/M02_M03_LOOKUP_AUTHORITY_DERIVATION.md",
+      "relativePath": "design/history/M02_M03_LOOKUP_AUTHORITY_DERIVATION.md"
     },
     {
-      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/M02_M03_LOOKUP_AUTHORITY_IACS.md",
-      "relativePath": "design/M02_M03_LOOKUP_AUTHORITY_IACS.md"
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/history/M02_M03_LOOKUP_AUTHORITY_IACS.md",
+      "relativePath": "design/history/M02_M03_LOOKUP_AUTHORITY_IACS.md"
     },
     {
-      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/M02_M03_LOOKUP_AUTHORITY_STRUCTURAL_CARRIER_DIAGRAM.md",
-      "relativePath": "design/M02_M03_LOOKUP_AUTHORITY_STRUCTURAL_CARRIER_DIAGRAM.md"
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/history/M02_M03_LOOKUP_AUTHORITY_STRUCTURAL_CARRIER_DIAGRAM.md",
+      "relativePath": "design/history/M02_M03_LOOKUP_AUTHORITY_STRUCTURAL_CARRIER_DIAGRAM.md"
     },
     {
-      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/M02_M04_CAPABILITY_DECLARATION_GRAPH_PRIME_CONTRACTION_BEHAVIOR_DESIGN.md",
-      "relativePath": "design/M02_M04_CAPABILITY_DECLARATION_GRAPH_PRIME_CONTRACTION_BEHAVIOR_DESIGN.md"
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/history/M02_M04_CAPABILITY_DECLARATION_GRAPH_PRIME_CONTRACTION_BEHAVIOR_DESIGN.md",
+      "relativePath": "design/history/M02_M04_CAPABILITY_DECLARATION_GRAPH_PRIME_CONTRACTION_BEHAVIOR_DESIGN.md"
     },
     {
-      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/M02_M04_CONSENSUS_PUBLICATION_PRIME_CONTRACTION_BEHAVIOR_DESIGN.md",
-      "relativePath": "design/M02_M04_CONSENSUS_PUBLICATION_PRIME_CONTRACTION_BEHAVIOR_DESIGN.md"
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/history/M02_M04_CONSENSUS_PUBLICATION_PRIME_CONTRACTION_BEHAVIOR_DESIGN.md",
+      "relativePath": "design/history/M02_M04_CONSENSUS_PUBLICATION_PRIME_CONTRACTION_BEHAVIOR_DESIGN.md"
     },
     {
-      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/M02_M04_INSTALLED_CATALOG_FOUNDATION_BEHAVIOR_DESIGN.md",
-      "relativePath": "design/M02_M04_INSTALLED_CATALOG_FOUNDATION_BEHAVIOR_DESIGN.md"
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/history/M02_M04_INSTALLED_CATALOG_FOUNDATION_BEHAVIOR_DESIGN.md",
+      "relativePath": "design/history/M02_M04_INSTALLED_CATALOG_FOUNDATION_BEHAVIOR_DESIGN.md"
     },
     {
-      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/M02_M04_INSTALLED_CATALOG_SDK_CLI_DERIVATION.md",
-      "relativePath": "design/M02_M04_INSTALLED_CATALOG_SDK_CLI_DERIVATION.md"
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/history/M02_M04_INSTALLED_CATALOG_SDK_CLI_DERIVATION.md",
+      "relativePath": "design/history/M02_M04_INSTALLED_CATALOG_SDK_CLI_DERIVATION.md"
     },
     {
-      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/M02_M04_INSTALLED_CATALOG_SDK_CLI_IACS.md",
-      "relativePath": "design/M02_M04_INSTALLED_CATALOG_SDK_CLI_IACS.md"
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/history/M02_M04_INSTALLED_CATALOG_SDK_CLI_IACS.md",
+      "relativePath": "design/history/M02_M04_INSTALLED_CATALOG_SDK_CLI_IACS.md"
     },
     {
-      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/M02_M04_INSTALLED_CATALOG_SDK_CLI_PUBLIC_OPERATION_REGISTER.md",
-      "relativePath": "design/M02_M04_INSTALLED_CATALOG_SDK_CLI_PUBLIC_OPERATION_REGISTER.md"
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/history/M02_M04_INSTALLED_CATALOG_SDK_CLI_PUBLIC_OPERATION_REGISTER.md",
+      "relativePath": "design/history/M02_M04_INSTALLED_CATALOG_SDK_CLI_PUBLIC_OPERATION_REGISTER.md"
     },
     {
-      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/M02_M04_INSTALLED_CATALOG_SDK_CLI_STRUCTURAL_CARRIER_DIAGRAM.md",
-      "relativePath": "design/M02_M04_INSTALLED_CATALOG_SDK_CLI_STRUCTURAL_CARRIER_DIAGRAM.md"
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/history/M02_M04_INSTALLED_CATALOG_SDK_CLI_STRUCTURAL_CARRIER_DIAGRAM.md",
+      "relativePath": "design/history/M02_M04_INSTALLED_CATALOG_SDK_CLI_STRUCTURAL_CARRIER_DIAGRAM.md"
     },
     {
-      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/M02_M05_PACKED_INSTALLED_VERTICAL_BEHAVIOR_DESIGN.md",
-      "relativePath": "design/M02_M05_PACKED_INSTALLED_VERTICAL_BEHAVIOR_DESIGN.md"
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/history/M02_M05_PACKED_INSTALLED_VERTICAL_BEHAVIOR_DESIGN.md",
+      "relativePath": "design/history/M02_M05_PACKED_INSTALLED_VERTICAL_BEHAVIOR_DESIGN.md"
     },
     {
-      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/M03_ABG_FN_COMPOSITION_DERIVATION.md",
-      "relativePath": "design/M03_ABG_FN_COMPOSITION_DERIVATION.md"
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/history/M03_ABG_FN_COMPOSITION_DERIVATION.md",
+      "relativePath": "design/history/M03_ABG_FN_COMPOSITION_DERIVATION.md"
     },
     {
-      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/M03_ABG_FN_COMPOSITION_FIRST_SLICE_IACS.md",
-      "relativePath": "design/M03_ABG_FN_COMPOSITION_FIRST_SLICE_IACS.md"
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/history/M03_ABG_FN_COMPOSITION_FIRST_SLICE_IACS.md",
+      "relativePath": "design/history/M03_ABG_FN_COMPOSITION_FIRST_SLICE_IACS.md"
     },
     {
-      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/M03_ABG_FN_COMPOSITION_STRUCTURAL_CARRIER_DIAGRAM.md",
-      "relativePath": "design/M03_ABG_FN_COMPOSITION_STRUCTURAL_CARRIER_DIAGRAM.md"
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/history/M03_ABG_FN_COMPOSITION_STRUCTURAL_CARRIER_DIAGRAM.md",
+      "relativePath": "design/history/M03_ABG_FN_COMPOSITION_STRUCTURAL_CARRIER_DIAGRAM.md"
     },
     {
-      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/M03_ABG_PROBABILISTIC_MONAD_PLUGIN_BOUNDARY_DERIVATION.md",
-      "relativePath": "design/M03_ABG_PROBABILISTIC_MONAD_PLUGIN_BOUNDARY_DERIVATION.md"
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/history/M03_ABG_PROBABILISTIC_MONAD_PLUGIN_BOUNDARY_DERIVATION.md",
+      "relativePath": "design/history/M03_ABG_PROBABILISTIC_MONAD_PLUGIN_BOUNDARY_DERIVATION.md"
     },
     {
-      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/M03_ATTACHED_FP_WORKER_LOOP_DERIVATION.md",
-      "relativePath": "design/M03_ATTACHED_FP_WORKER_LOOP_DERIVATION.md"
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/history/M03_ATTACHED_FP_WORKER_LOOP_DERIVATION.md",
+      "relativePath": "design/history/M03_ATTACHED_FP_WORKER_LOOP_DERIVATION.md"
     },
     {
-      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/M03_ATTACHED_FP_WORKER_LOOP_FIRST_SLICE_IACS.md",
-      "relativePath": "design/M03_ATTACHED_FP_WORKER_LOOP_FIRST_SLICE_IACS.md"
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/history/M03_ATTACHED_FP_WORKER_LOOP_FIRST_SLICE_IACS.md",
+      "relativePath": "design/history/M03_ATTACHED_FP_WORKER_LOOP_FIRST_SLICE_IACS.md"
     },
     {
-      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/M03_ATTACHED_FP_WORKER_LOOP_STRUCTURAL_CARRIER_DIAGRAM.md",
-      "relativePath": "design/M03_ATTACHED_FP_WORKER_LOOP_STRUCTURAL_CARRIER_DIAGRAM.md"
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/history/M03_ATTACHED_FP_WORKER_LOOP_STRUCTURAL_CARRIER_DIAGRAM.md",
+      "relativePath": "design/history/M03_ATTACHED_FP_WORKER_LOOP_STRUCTURAL_CARRIER_DIAGRAM.md"
     },
     {
-      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/M03_COMPILED_EXECUTION_HANDOFF_BEHAVIOR_DESIGN.md",
-      "relativePath": "design/M03_COMPILED_EXECUTION_HANDOFF_BEHAVIOR_DESIGN.md"
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/history/M03_COMPILED_EXECUTION_HANDOFF_BEHAVIOR_DESIGN.md",
+      "relativePath": "design/history/M03_COMPILED_EXECUTION_HANDOFF_BEHAVIOR_DESIGN.md"
     },
     {
-      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/M03_COMPLETE_C_PROGRAM_INTERPRETER_BEHAVIOR_DESIGN.md",
-      "relativePath": "design/M03_COMPLETE_C_PROGRAM_INTERPRETER_BEHAVIOR_DESIGN.md"
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/history/M03_COMPLETE_C_PROGRAM_INTERPRETER_BEHAVIOR_DESIGN.md",
+      "relativePath": "design/history/M03_COMPLETE_C_PROGRAM_INTERPRETER_BEHAVIOR_DESIGN.md"
     },
     {
-      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/M03_COMPOSED_C_STAGE_SET_DERIVATION.md",
-      "relativePath": "design/M03_COMPOSED_C_STAGE_SET_DERIVATION.md"
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/history/M03_COMPOSED_C_STAGE_SET_DERIVATION.md",
+      "relativePath": "design/history/M03_COMPOSED_C_STAGE_SET_DERIVATION.md"
     },
     {
-      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/M03_CONSCIOUSNESS_TIER_STACK_AND_EXECUTION_MODEL.md",
-      "relativePath": "design/M03_CONSCIOUSNESS_TIER_STACK_AND_EXECUTION_MODEL.md"
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/history/M03_CONSCIOUSNESS_TIER_STACK_AND_EXECUTION_MODEL.md",
+      "relativePath": "design/history/M03_CONSCIOUSNESS_TIER_STACK_AND_EXECUTION_MODEL.md"
     },
     {
-      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/M03_CONSENSUS_DOMAIN_FAMILY_PRIME_CONTRACTION_BEHAVIOR_DESIGN.md",
-      "relativePath": "design/M03_CONSENSUS_DOMAIN_FAMILY_PRIME_CONTRACTION_BEHAVIOR_DESIGN.md"
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/history/M03_CONSENSUS_DOMAIN_FAMILY_PRIME_CONTRACTION_BEHAVIOR_DESIGN.md",
+      "relativePath": "design/history/M03_CONSENSUS_DOMAIN_FAMILY_PRIME_CONTRACTION_BEHAVIOR_DESIGN.md"
     },
     {
-      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/M03_CONSENSUS_REJECTED_AS_BUILT_BEHAVIOR_DESIGN.md",
-      "relativePath": "design/M03_CONSENSUS_REJECTED_AS_BUILT_BEHAVIOR_DESIGN.md"
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/history/M03_CONSENSUS_REJECTED_AS_BUILT_BEHAVIOR_DESIGN.md",
+      "relativePath": "design/history/M03_CONSENSUS_REJECTED_AS_BUILT_BEHAVIOR_DESIGN.md"
     },
     {
-      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/M03_CONSEQUENCE_ALLOWED_TRAVERSAL_CATALOG_DERIVATION.md",
-      "relativePath": "design/M03_CONSEQUENCE_ALLOWED_TRAVERSAL_CATALOG_DERIVATION.md"
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/history/M03_CONSEQUENCE_ALLOWED_TRAVERSAL_CATALOG_DERIVATION.md",
+      "relativePath": "design/history/M03_CONSEQUENCE_ALLOWED_TRAVERSAL_CATALOG_DERIVATION.md"
     },
     {
-      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/M03_CONSTITUTIONAL_VERSION_BASIS_BEHAVIOR_DESIGN.md",
-      "relativePath": "design/M03_CONSTITUTIONAL_VERSION_BASIS_BEHAVIOR_DESIGN.md"
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/history/M03_CONSTITUTIONAL_VERSION_BASIS_BEHAVIOR_DESIGN.md",
+      "relativePath": "design/history/M03_CONSTITUTIONAL_VERSION_BASIS_BEHAVIOR_DESIGN.md"
     },
     {
-      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/M03_CONSTRUCTION_INTENT_RUNNER_DERIVATION.md",
-      "relativePath": "design/M03_CONSTRUCTION_INTENT_RUNNER_DERIVATION.md"
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/history/M03_CONSTRUCTION_INTENT_RUNNER_DERIVATION.md",
+      "relativePath": "design/history/M03_CONSTRUCTION_INTENT_RUNNER_DERIVATION.md"
     },
     {
-      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/M03_CONSTRUCTION_INTENT_RUNNER_FIRST_SLICE_IACS.md",
-      "relativePath": "design/M03_CONSTRUCTION_INTENT_RUNNER_FIRST_SLICE_IACS.md"
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/history/M03_CONSTRUCTION_INTENT_RUNNER_FIRST_SLICE_IACS.md",
+      "relativePath": "design/history/M03_CONSTRUCTION_INTENT_RUNNER_FIRST_SLICE_IACS.md"
     },
     {
-      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/M03_CONSTRUCTION_INTENT_RUNNER_STRUCTURAL_CARRIER_DIAGRAM.md",
-      "relativePath": "design/M03_CONSTRUCTION_INTENT_RUNNER_STRUCTURAL_CARRIER_DIAGRAM.md"
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/history/M03_CONSTRUCTION_INTENT_RUNNER_STRUCTURAL_CARRIER_DIAGRAM.md",
+      "relativePath": "design/history/M03_CONSTRUCTION_INTENT_RUNNER_STRUCTURAL_CARRIER_DIAGRAM.md"
     },
     {
-      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/M03_CONSTRUCTION_PRESSURE_PACKAGE_DERIVATION.md",
-      "relativePath": "design/M03_CONSTRUCTION_PRESSURE_PACKAGE_DERIVATION.md"
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/history/M03_CONSTRUCTION_PRESSURE_PACKAGE_DERIVATION.md",
+      "relativePath": "design/history/M03_CONSTRUCTION_PRESSURE_PACKAGE_DERIVATION.md"
     },
     {
-      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/M03_CONSTRUCTION_PRESSURE_PACKAGE_FIRST_SLICE_IACS.md",
-      "relativePath": "design/M03_CONSTRUCTION_PRESSURE_PACKAGE_FIRST_SLICE_IACS.md"
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/history/M03_CONSTRUCTION_PRESSURE_PACKAGE_FIRST_SLICE_IACS.md",
+      "relativePath": "design/history/M03_CONSTRUCTION_PRESSURE_PACKAGE_FIRST_SLICE_IACS.md"
     },
     {
-      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/M03_CONSTRUCTION_PRESSURE_PACKAGE_STRUCTURAL_CARRIER_DIAGRAM.md",
-      "relativePath": "design/M03_CONSTRUCTION_PRESSURE_PACKAGE_STRUCTURAL_CARRIER_DIAGRAM.md"
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/history/M03_CONSTRUCTION_PRESSURE_PACKAGE_STRUCTURAL_CARRIER_DIAGRAM.md",
+      "relativePath": "design/history/M03_CONSTRUCTION_PRESSURE_PACKAGE_STRUCTURAL_CARRIER_DIAGRAM.md"
     },
     {
-      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/M03_C_RETRY_RUNTIME_BEHAVIOR_DESIGN.md",
-      "relativePath": "design/M03_C_RETRY_RUNTIME_BEHAVIOR_DESIGN.md"
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/history/M03_C_RETRY_RUNTIME_BEHAVIOR_DESIGN.md",
+      "relativePath": "design/history/M03_C_RETRY_RUNTIME_BEHAVIOR_DESIGN.md"
     },
     {
       "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/M03_DIRECT_GTL_TRAVERSAL_BEHAVIOR_DESIGN.md",
       "relativePath": "design/M03_DIRECT_GTL_TRAVERSAL_BEHAVIOR_DESIGN.md"
     },
     {
-      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/M03_DISTRIBUTED_EXECUTOR_BACKENDS.md",
-      "relativePath": "design/M03_DISTRIBUTED_EXECUTOR_BACKENDS.md"
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/history/M03_DISTRIBUTED_EXECUTOR_BACKENDS.md",
+      "relativePath": "design/history/M03_DISTRIBUTED_EXECUTOR_BACKENDS.md"
     },
     {
-      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/M03_EDGE_ASSURANCE_CONTRACT_DERIVATION.md",
-      "relativePath": "design/M03_EDGE_ASSURANCE_CONTRACT_DERIVATION.md"
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/history/M03_EDGE_ASSURANCE_CONTRACT_DERIVATION.md",
+      "relativePath": "design/history/M03_EDGE_ASSURANCE_CONTRACT_DERIVATION.md"
     },
     {
-      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/M03_EDGE_ASSURANCE_CONTRACT_FIRST_SLICE_IACS.md",
-      "relativePath": "design/M03_EDGE_ASSURANCE_CONTRACT_FIRST_SLICE_IACS.md"
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/history/M03_EDGE_ASSURANCE_CONTRACT_FIRST_SLICE_IACS.md",
+      "relativePath": "design/history/M03_EDGE_ASSURANCE_CONTRACT_FIRST_SLICE_IACS.md"
     },
     {
-      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/M03_EDGE_ASSURANCE_CONTRACT_STRUCTURAL_CARRIER_DIAGRAM.md",
-      "relativePath": "design/M03_EDGE_ASSURANCE_CONTRACT_STRUCTURAL_CARRIER_DIAGRAM.md"
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/history/M03_EDGE_ASSURANCE_CONTRACT_STRUCTURAL_CARRIER_DIAGRAM.md",
+      "relativePath": "design/history/M03_EDGE_ASSURANCE_CONTRACT_STRUCTURAL_CARRIER_DIAGRAM.md"
     },
     {
-      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/M03_EXECUTION_AUTHORITY_PROVENANCE_DESIGN.md",
-      "relativePath": "design/M03_EXECUTION_AUTHORITY_PROVENANCE_DESIGN.md"
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/history/M03_EXECUTION_AUTHORITY_PROVENANCE_DESIGN.md",
+      "relativePath": "design/history/M03_EXECUTION_AUTHORITY_PROVENANCE_DESIGN.md"
     },
     {
-      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/M03_FD_AUTHORITY_PLACEMENT_DERIVATION.md",
-      "relativePath": "design/M03_FD_AUTHORITY_PLACEMENT_DERIVATION.md"
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/history/M03_FD_AUTHORITY_PLACEMENT_DERIVATION.md",
+      "relativePath": "design/history/M03_FD_AUTHORITY_PLACEMENT_DERIVATION.md"
     },
     {
-      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/M03_FD_AUTHORITY_PLACEMENT_FIRST_SLICE_IACS.md",
-      "relativePath": "design/M03_FD_AUTHORITY_PLACEMENT_FIRST_SLICE_IACS.md"
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/history/M03_FD_AUTHORITY_PLACEMENT_FIRST_SLICE_IACS.md",
+      "relativePath": "design/history/M03_FD_AUTHORITY_PLACEMENT_FIRST_SLICE_IACS.md"
     },
     {
-      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/M03_FD_AUTHORITY_PLACEMENT_STRUCTURAL_CARRIER_DIAGRAM.md",
-      "relativePath": "design/M03_FD_AUTHORITY_PLACEMENT_STRUCTURAL_CARRIER_DIAGRAM.md"
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/history/M03_FD_AUTHORITY_PLACEMENT_STRUCTURAL_CARRIER_DIAGRAM.md",
+      "relativePath": "design/history/M03_FD_AUTHORITY_PLACEMENT_STRUCTURAL_CARRIER_DIAGRAM.md"
     },
     {
-      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/M03_FP_CONSCIOUSNESS_LOOP_DERIVATION.md",
-      "relativePath": "design/M03_FP_CONSCIOUSNESS_LOOP_DERIVATION.md"
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/history/M03_FP_CONSCIOUSNESS_LOOP_DERIVATION.md",
+      "relativePath": "design/history/M03_FP_CONSCIOUSNESS_LOOP_DERIVATION.md"
     },
     {
-      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/M03_FP_CONSCIOUSNESS_LOOP_FIRST_SLICE_IACS.md",
-      "relativePath": "design/M03_FP_CONSCIOUSNESS_LOOP_FIRST_SLICE_IACS.md"
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/history/M03_FP_CONSCIOUSNESS_LOOP_FIRST_SLICE_IACS.md",
+      "relativePath": "design/history/M03_FP_CONSCIOUSNESS_LOOP_FIRST_SLICE_IACS.md"
     },
     {
-      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/M03_FP_CONSCIOUSNESS_LOOP_STRUCTURAL_CARRIER_DIAGRAM.md",
-      "relativePath": "design/M03_FP_CONSCIOUSNESS_LOOP_STRUCTURAL_CARRIER_DIAGRAM.md"
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/history/M03_FP_CONSCIOUSNESS_LOOP_STRUCTURAL_CARRIER_DIAGRAM.md",
+      "relativePath": "design/history/M03_FP_CONSCIOUSNESS_LOOP_STRUCTURAL_CARRIER_DIAGRAM.md"
     },
     {
-      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/M03_FP_OUTPUT_ADMISSION_BEHAVIOR_DESIGN.md",
-      "relativePath": "design/M03_FP_OUTPUT_ADMISSION_BEHAVIOR_DESIGN.md"
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/history/M03_FP_OUTPUT_ADMISSION_BEHAVIOR_DESIGN.md",
+      "relativePath": "design/history/M03_FP_OUTPUT_ADMISSION_BEHAVIOR_DESIGN.md"
     },
     {
-      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/M03_GRAPH_APPLICATION_INSTANCE_SEMANTICS_DERIVATION.md",
-      "relativePath": "design/M03_GRAPH_APPLICATION_INSTANCE_SEMANTICS_DERIVATION.md"
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/history/M03_GRAPH_APPLICATION_INSTANCE_SEMANTICS_DERIVATION.md",
+      "relativePath": "design/history/M03_GRAPH_APPLICATION_INSTANCE_SEMANTICS_DERIVATION.md"
     },
     {
-      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/M03_GRAPH_FUNCTION_ITERATION_DERIVATION.md",
-      "relativePath": "design/M03_GRAPH_FUNCTION_ITERATION_DERIVATION.md"
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/history/M03_GRAPH_FUNCTION_ITERATION_DERIVATION.md",
+      "relativePath": "design/history/M03_GRAPH_FUNCTION_ITERATION_DERIVATION.md"
     },
     {
-      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/M03_GRAPH_FUNCTION_ITERATION_FIRST_SLICE_IACS.md",
-      "relativePath": "design/M03_GRAPH_FUNCTION_ITERATION_FIRST_SLICE_IACS.md"
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/history/M03_GRAPH_FUNCTION_ITERATION_FIRST_SLICE_IACS.md",
+      "relativePath": "design/history/M03_GRAPH_FUNCTION_ITERATION_FIRST_SLICE_IACS.md"
     },
     {
-      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/M03_GRAPH_FUNCTION_ITERATION_STRUCTURAL_CARRIER_DIAGRAM.md",
-      "relativePath": "design/M03_GRAPH_FUNCTION_ITERATION_STRUCTURAL_CARRIER_DIAGRAM.md"
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/history/M03_GRAPH_FUNCTION_ITERATION_STRUCTURAL_CARRIER_DIAGRAM.md",
+      "relativePath": "design/history/M03_GRAPH_FUNCTION_ITERATION_STRUCTURAL_CARRIER_DIAGRAM.md"
     },
     {
-      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/M03_GRAPH_SPAN_FOLDBACK_REENTRY_DERIVATION.md",
-      "relativePath": "design/M03_GRAPH_SPAN_FOLDBACK_REENTRY_DERIVATION.md"
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/history/M03_GRAPH_SPAN_FOLDBACK_REENTRY_DERIVATION.md",
+      "relativePath": "design/history/M03_GRAPH_SPAN_FOLDBACK_REENTRY_DERIVATION.md"
     },
     {
-      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/M03_GTL_PROGRAM_CONFORMANCE_GATE_FIRST_SLICE_IACS.md",
-      "relativePath": "design/M03_GTL_PROGRAM_CONFORMANCE_GATE_FIRST_SLICE_IACS.md"
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/history/M03_GTL_PROGRAM_CONFORMANCE_GATE_FIRST_SLICE_IACS.md",
+      "relativePath": "design/history/M03_GTL_PROGRAM_CONFORMANCE_GATE_FIRST_SLICE_IACS.md"
     },
     {
-      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/M03_GTL_PROGRAM_CONFORMANCE_GATE_STRUCTURAL_CARRIER_DIAGRAM.md",
-      "relativePath": "design/M03_GTL_PROGRAM_CONFORMANCE_GATE_STRUCTURAL_CARRIER_DIAGRAM.md"
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/history/M03_GTL_PROGRAM_CONFORMANCE_GATE_STRUCTURAL_CARRIER_DIAGRAM.md",
+      "relativePath": "design/history/M03_GTL_PROGRAM_CONFORMANCE_GATE_STRUCTURAL_CARRIER_DIAGRAM.md"
     },
     {
       "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/M03_INSTRUCTION_ASSEMBLY_DERIVATION.md",
       "relativePath": "design/M03_INSTRUCTION_ASSEMBLY_DERIVATION.md"
     },
     {
-      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/M03_INSTRUCTION_ASSEMBLY_FIRST_SLICE_IACS.md",
-      "relativePath": "design/M03_INSTRUCTION_ASSEMBLY_FIRST_SLICE_IACS.md"
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/history/M03_INSTRUCTION_ASSEMBLY_FIRST_SLICE_IACS.md",
+      "relativePath": "design/history/M03_INSTRUCTION_ASSEMBLY_FIRST_SLICE_IACS.md"
     },
     {
-      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/M03_INSTRUCTION_ASSEMBLY_STRUCTURAL_CARRIER_DIAGRAM.md",
-      "relativePath": "design/M03_INSTRUCTION_ASSEMBLY_STRUCTURAL_CARRIER_DIAGRAM.md"
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/history/M03_INSTRUCTION_ASSEMBLY_STRUCTURAL_CARRIER_DIAGRAM.md",
+      "relativePath": "design/history/M03_INSTRUCTION_ASSEMBLY_STRUCTURAL_CARRIER_DIAGRAM.md"
     },
     {
-      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/M03_INSTRUCTION_PROTOCOL_BEHAVIOR_DESIGN.md",
-      "relativePath": "design/M03_INSTRUCTION_PROTOCOL_BEHAVIOR_DESIGN.md"
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/history/M03_INSTRUCTION_PROTOCOL_BEHAVIOR_DESIGN.md",
+      "relativePath": "design/history/M03_INSTRUCTION_PROTOCOL_BEHAVIOR_DESIGN.md"
     },
     {
-      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/M03_ITERATION_STATE_ACTION_ALGEBRA_DERIVATION.md",
-      "relativePath": "design/M03_ITERATION_STATE_ACTION_ALGEBRA_DERIVATION.md"
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/history/M03_ITERATION_STATE_ACTION_ALGEBRA_DERIVATION.md",
+      "relativePath": "design/history/M03_ITERATION_STATE_ACTION_ALGEBRA_DERIVATION.md"
     },
     {
-      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/M03_ITERATION_STATE_ACTION_ALGEBRA_FIRST_SLICE_IACS.md",
-      "relativePath": "design/M03_ITERATION_STATE_ACTION_ALGEBRA_FIRST_SLICE_IACS.md"
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/history/M03_ITERATION_STATE_ACTION_ALGEBRA_FIRST_SLICE_IACS.md",
+      "relativePath": "design/history/M03_ITERATION_STATE_ACTION_ALGEBRA_FIRST_SLICE_IACS.md"
     },
     {
-      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/M03_ITERATION_STATE_ACTION_ALGEBRA_STRUCTURAL_CARRIER_DIAGRAM.md",
-      "relativePath": "design/M03_ITERATION_STATE_ACTION_ALGEBRA_STRUCTURAL_CARRIER_DIAGRAM.md"
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/history/M03_ITERATION_STATE_ACTION_ALGEBRA_STRUCTURAL_CARRIER_DIAGRAM.md",
+      "relativePath": "design/history/M03_ITERATION_STATE_ACTION_ALGEBRA_STRUCTURAL_CARRIER_DIAGRAM.md"
     },
     {
-      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/M03_M04_FH_RUNTIME_CONTINUATION_BEHAVIOR_DESIGN.md",
-      "relativePath": "design/M03_M04_FH_RUNTIME_CONTINUATION_BEHAVIOR_DESIGN.md"
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/history/M03_M04_FH_RUNTIME_CONTINUATION_BEHAVIOR_DESIGN.md",
+      "relativePath": "design/history/M03_M04_FH_RUNTIME_CONTINUATION_BEHAVIOR_DESIGN.md"
     },
     {
-      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/M03_M04_ONE_SURFACE_AUTHORITY_BEHAVIOR_DESIGN.md",
-      "relativePath": "design/M03_M04_ONE_SURFACE_AUTHORITY_BEHAVIOR_DESIGN.md"
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/history/M03_M04_ONE_SURFACE_AUTHORITY_BEHAVIOR_DESIGN.md",
+      "relativePath": "design/history/M03_M04_ONE_SURFACE_AUTHORITY_BEHAVIOR_DESIGN.md"
     },
     {
-      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/M03_M04_PLUGIN_CONTRACT_MODEL_DERIVATION.md",
-      "relativePath": "design/M03_M04_PLUGIN_CONTRACT_MODEL_DERIVATION.md"
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/history/M03_M04_PLUGIN_CONTRACT_MODEL_DERIVATION.md",
+      "relativePath": "design/history/M03_M04_PLUGIN_CONTRACT_MODEL_DERIVATION.md"
     },
     {
-      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/M03_M04_PLUGIN_CONTRACT_MODEL_IACS.md",
-      "relativePath": "design/M03_M04_PLUGIN_CONTRACT_MODEL_IACS.md"
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/history/M03_M04_PLUGIN_CONTRACT_MODEL_IACS.md",
+      "relativePath": "design/history/M03_M04_PLUGIN_CONTRACT_MODEL_IACS.md"
     },
     {
-      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/M03_M04_PLUGIN_CONTRACT_MODEL_STRUCTURAL_CARRIER_DIAGRAM.md",
-      "relativePath": "design/M03_M04_PLUGIN_CONTRACT_MODEL_STRUCTURAL_CARRIER_DIAGRAM.md"
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/history/M03_M04_PLUGIN_CONTRACT_MODEL_STRUCTURAL_CARRIER_DIAGRAM.md",
+      "relativePath": "design/history/M03_M04_PLUGIN_CONTRACT_MODEL_STRUCTURAL_CARRIER_DIAGRAM.md"
     },
     {
-      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/M03_M04_PUBLIC_CATALOG_INVOCATION_AUTHORITY_BEHAVIOR_DESIGN.md",
-      "relativePath": "design/M03_M04_PUBLIC_CATALOG_INVOCATION_AUTHORITY_BEHAVIOR_DESIGN.md"
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/history/M03_M04_PUBLIC_CATALOG_INVOCATION_AUTHORITY_BEHAVIOR_DESIGN.md",
+      "relativePath": "design/history/M03_M04_PUBLIC_CATALOG_INVOCATION_AUTHORITY_BEHAVIOR_DESIGN.md"
     },
     {
-      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/M03_M04_PUBLIC_SDK_CLI_BEHAVIOR_DESIGN.md",
-      "relativePath": "design/M03_M04_PUBLIC_SDK_CLI_BEHAVIOR_DESIGN.md"
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/history/M03_M04_PUBLIC_SDK_CLI_BEHAVIOR_DESIGN.md",
+      "relativePath": "design/history/M03_M04_PUBLIC_SDK_CLI_BEHAVIOR_DESIGN.md"
     },
     {
-      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/M03_M04_RUNTIME_FAILURE_TAXONOMY_DERIVATION.md",
-      "relativePath": "design/M03_M04_RUNTIME_FAILURE_TAXONOMY_DERIVATION.md"
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/history/M03_M04_RUNTIME_FAILURE_TAXONOMY_DERIVATION.md",
+      "relativePath": "design/history/M03_M04_RUNTIME_FAILURE_TAXONOMY_DERIVATION.md"
     },
     {
-      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/M03_M04_RUNTIME_FAILURE_TAXONOMY_FIRST_SLICE_IACS.md",
-      "relativePath": "design/M03_M04_RUNTIME_FAILURE_TAXONOMY_FIRST_SLICE_IACS.md"
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/history/M03_M04_RUNTIME_FAILURE_TAXONOMY_FIRST_SLICE_IACS.md",
+      "relativePath": "design/history/M03_M04_RUNTIME_FAILURE_TAXONOMY_FIRST_SLICE_IACS.md"
     },
     {
-      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/M03_M04_RUNTIME_FAILURE_TAXONOMY_STRUCTURAL_CARRIER_DIAGRAM.md",
-      "relativePath": "design/M03_M04_RUNTIME_FAILURE_TAXONOMY_STRUCTURAL_CARRIER_DIAGRAM.md"
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/history/M03_M04_RUNTIME_FAILURE_TAXONOMY_STRUCTURAL_CARRIER_DIAGRAM.md",
+      "relativePath": "design/history/M03_M04_RUNTIME_FAILURE_TAXONOMY_STRUCTURAL_CARRIER_DIAGRAM.md"
     },
     {
-      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/M03_OBSERVED_STATE_ADMISSION_DERIVATION.md",
-      "relativePath": "design/M03_OBSERVED_STATE_ADMISSION_DERIVATION.md"
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/history/M03_OBSERVED_STATE_ADMISSION_DERIVATION.md",
+      "relativePath": "design/history/M03_OBSERVED_STATE_ADMISSION_DERIVATION.md"
     },
     {
-      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/M03_OBSERVED_STATE_ADMISSION_FIRST_SLICE_IACS.md",
-      "relativePath": "design/M03_OBSERVED_STATE_ADMISSION_FIRST_SLICE_IACS.md"
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/history/M03_OBSERVED_STATE_ADMISSION_FIRST_SLICE_IACS.md",
+      "relativePath": "design/history/M03_OBSERVED_STATE_ADMISSION_FIRST_SLICE_IACS.md"
     },
     {
-      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/M03_OBSERVED_STATE_ADMISSION_STRUCTURAL_CARRIER_DIAGRAM.md",
-      "relativePath": "design/M03_OBSERVED_STATE_ADMISSION_STRUCTURAL_CARRIER_DIAGRAM.md"
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/history/M03_OBSERVED_STATE_ADMISSION_STRUCTURAL_CARRIER_DIAGRAM.md",
+      "relativePath": "design/history/M03_OBSERVED_STATE_ADMISSION_STRUCTURAL_CARRIER_DIAGRAM.md"
     },
     {
-      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/M03_OUTPUT_ALLOCATION_AND_WORKSPACE_ZOOM_FOLDBACK_DERIVATION.md",
-      "relativePath": "design/M03_OUTPUT_ALLOCATION_AND_WORKSPACE_ZOOM_FOLDBACK_DERIVATION.md"
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/history/M03_OUTPUT_ALLOCATION_AND_WORKSPACE_ZOOM_FOLDBACK_DERIVATION.md",
+      "relativePath": "design/history/M03_OUTPUT_ALLOCATION_AND_WORKSPACE_ZOOM_FOLDBACK_DERIVATION.md"
     },
     {
-      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/M03_OVERLAY_FRAME_CONTRACT_DERIVATION.md",
-      "relativePath": "design/M03_OVERLAY_FRAME_CONTRACT_DERIVATION.md"
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/history/M03_OVERLAY_FRAME_CONTRACT_DERIVATION.md",
+      "relativePath": "design/history/M03_OVERLAY_FRAME_CONTRACT_DERIVATION.md"
     },
     {
-      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/M03_OVERLAY_FRAME_CONTRACT_FIRST_SLICE_IACS.md",
-      "relativePath": "design/M03_OVERLAY_FRAME_CONTRACT_FIRST_SLICE_IACS.md"
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/history/M03_OVERLAY_FRAME_CONTRACT_FIRST_SLICE_IACS.md",
+      "relativePath": "design/history/M03_OVERLAY_FRAME_CONTRACT_FIRST_SLICE_IACS.md"
     },
     {
-      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/M03_OVERLAY_FRAME_CONTRACT_STRUCTURAL_CARRIER_DIAGRAM.md",
-      "relativePath": "design/M03_OVERLAY_FRAME_CONTRACT_STRUCTURAL_CARRIER_DIAGRAM.md"
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/history/M03_OVERLAY_FRAME_CONTRACT_STRUCTURAL_CARRIER_DIAGRAM.md",
+      "relativePath": "design/history/M03_OVERLAY_FRAME_CONTRACT_STRUCTURAL_CARRIER_DIAGRAM.md"
     },
     {
       "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/M03_PAYLOAD_LEDGER_EVENT_TOPOLOGY_DERIVATION.md",
       "relativePath": "design/M03_PAYLOAD_LEDGER_EVENT_TOPOLOGY_DERIVATION.md"
     },
     {
-      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/M03_PAYLOAD_LEDGER_EVENT_TOPOLOGY_FIRST_SLICE_IACS.md",
-      "relativePath": "design/M03_PAYLOAD_LEDGER_EVENT_TOPOLOGY_FIRST_SLICE_IACS.md"
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/history/M03_PAYLOAD_LEDGER_EVENT_TOPOLOGY_FIRST_SLICE_IACS.md",
+      "relativePath": "design/history/M03_PAYLOAD_LEDGER_EVENT_TOPOLOGY_FIRST_SLICE_IACS.md"
     },
     {
-      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/M03_PAYLOAD_LEDGER_EVENT_TOPOLOGY_PROOF_PLAN.md",
-      "relativePath": "design/M03_PAYLOAD_LEDGER_EVENT_TOPOLOGY_PROOF_PLAN.md"
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/history/M03_PAYLOAD_LEDGER_EVENT_TOPOLOGY_PROOF_PLAN.md",
+      "relativePath": "design/history/M03_PAYLOAD_LEDGER_EVENT_TOPOLOGY_PROOF_PLAN.md"
     },
     {
-      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/M03_PAYLOAD_LEDGER_EVENT_TOPOLOGY_STRUCTURAL_CARRIER_DIAGRAM.md",
-      "relativePath": "design/M03_PAYLOAD_LEDGER_EVENT_TOPOLOGY_STRUCTURAL_CARRIER_DIAGRAM.md"
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/history/M03_PAYLOAD_LEDGER_EVENT_TOPOLOGY_STRUCTURAL_CARRIER_DIAGRAM.md",
+      "relativePath": "design/history/M03_PAYLOAD_LEDGER_EVENT_TOPOLOGY_STRUCTURAL_CARRIER_DIAGRAM.md"
     },
     {
-      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/M03_PLUGIN_RESULT_INTERFACE_CONTRACT_DERIVATION.md",
-      "relativePath": "design/M03_PLUGIN_RESULT_INTERFACE_CONTRACT_DERIVATION.md"
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/history/M03_PLUGIN_RESULT_INTERFACE_CONTRACT_DERIVATION.md",
+      "relativePath": "design/history/M03_PLUGIN_RESULT_INTERFACE_CONTRACT_DERIVATION.md"
     },
     {
-      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/M03_PROPORTIONAL_CONFORMANCE_INVENTORY_BEHAVIOR_DESIGN.md",
-      "relativePath": "design/M03_PROPORTIONAL_CONFORMANCE_INVENTORY_BEHAVIOR_DESIGN.md"
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/history/M03_PROPORTIONAL_CONFORMANCE_INVENTORY_BEHAVIOR_DESIGN.md",
+      "relativePath": "design/history/M03_PROPORTIONAL_CONFORMANCE_INVENTORY_BEHAVIOR_DESIGN.md"
     },
     {
-      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/M03_RECURSIVE_EXECUTIVE_OBSERVER_DERIVATION.md",
-      "relativePath": "design/M03_RECURSIVE_EXECUTIVE_OBSERVER_DERIVATION.md"
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/history/M03_RECURSIVE_EXECUTIVE_OBSERVER_DERIVATION.md",
+      "relativePath": "design/history/M03_RECURSIVE_EXECUTIVE_OBSERVER_DERIVATION.md"
     },
     {
-      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/M03_RECURSIVE_EXECUTIVE_OBSERVER_FIRST_SLICE_IACS.md",
-      "relativePath": "design/M03_RECURSIVE_EXECUTIVE_OBSERVER_FIRST_SLICE_IACS.md"
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/history/M03_RECURSIVE_EXECUTIVE_OBSERVER_FIRST_SLICE_IACS.md",
+      "relativePath": "design/history/M03_RECURSIVE_EXECUTIVE_OBSERVER_FIRST_SLICE_IACS.md"
     },
     {
-      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/M03_RECURSIVE_EXECUTIVE_OBSERVER_STRUCTURAL_CARRIER_DIAGRAM.md",
-      "relativePath": "design/M03_RECURSIVE_EXECUTIVE_OBSERVER_STRUCTURAL_CARRIER_DIAGRAM.md"
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/history/M03_RECURSIVE_EXECUTIVE_OBSERVER_STRUCTURAL_CARRIER_DIAGRAM.md",
+      "relativePath": "design/history/M03_RECURSIVE_EXECUTIVE_OBSERVER_STRUCTURAL_CARRIER_DIAGRAM.md"
     },
     {
-      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/M03_REQUIREMENTS_ALGEBRA_DERIVATION.md",
-      "relativePath": "design/M03_REQUIREMENTS_ALGEBRA_DERIVATION.md"
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/history/M03_REQUIREMENTS_ALGEBRA_DERIVATION.md",
+      "relativePath": "design/history/M03_REQUIREMENTS_ALGEBRA_DERIVATION.md"
     },
     {
-      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/M03_REQUIREMENTS_ALGEBRA_DESIGN_MODULE_REVIEW.md",
-      "relativePath": "design/M03_REQUIREMENTS_ALGEBRA_DESIGN_MODULE_REVIEW.md"
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/history/M03_REQUIREMENTS_ALGEBRA_DESIGN_MODULE_REVIEW.md",
+      "relativePath": "design/history/M03_REQUIREMENTS_ALGEBRA_DESIGN_MODULE_REVIEW.md"
     },
     {
-      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/M03_REQUIREMENTS_ALGEBRA_DOWNSTREAM_READINESS_DERIVATION.md",
-      "relativePath": "design/M03_REQUIREMENTS_ALGEBRA_DOWNSTREAM_READINESS_DERIVATION.md"
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/history/M03_REQUIREMENTS_ALGEBRA_DOWNSTREAM_READINESS_DERIVATION.md",
+      "relativePath": "design/history/M03_REQUIREMENTS_ALGEBRA_DOWNSTREAM_READINESS_DERIVATION.md"
     },
     {
-      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/M03_REQUIREMENTS_ALGEBRA_DOWNSTREAM_READINESS_FIRST_SLICE_IACS.md",
-      "relativePath": "design/M03_REQUIREMENTS_ALGEBRA_DOWNSTREAM_READINESS_FIRST_SLICE_IACS.md"
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/history/M03_REQUIREMENTS_ALGEBRA_DOWNSTREAM_READINESS_FIRST_SLICE_IACS.md",
+      "relativePath": "design/history/M03_REQUIREMENTS_ALGEBRA_DOWNSTREAM_READINESS_FIRST_SLICE_IACS.md"
     },
     {
-      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/M03_REQUIREMENTS_ALGEBRA_FIRST_SLICE_IACS.md",
-      "relativePath": "design/M03_REQUIREMENTS_ALGEBRA_FIRST_SLICE_IACS.md"
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/history/M03_REQUIREMENTS_ALGEBRA_FIRST_SLICE_IACS.md",
+      "relativePath": "design/history/M03_REQUIREMENTS_ALGEBRA_FIRST_SLICE_IACS.md"
     },
     {
-      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/M03_REQUIREMENTS_ALGEBRA_REFINEMENT_DERIVATION.md",
-      "relativePath": "design/M03_REQUIREMENTS_ALGEBRA_REFINEMENT_DERIVATION.md"
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/history/M03_REQUIREMENTS_ALGEBRA_REFINEMENT_DERIVATION.md",
+      "relativePath": "design/history/M03_REQUIREMENTS_ALGEBRA_REFINEMENT_DERIVATION.md"
     },
     {
-      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/M03_REQUIREMENTS_ALGEBRA_REFINEMENT_FIRST_SLICE_IACS.md",
-      "relativePath": "design/M03_REQUIREMENTS_ALGEBRA_REFINEMENT_FIRST_SLICE_IACS.md"
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/history/M03_REQUIREMENTS_ALGEBRA_REFINEMENT_FIRST_SLICE_IACS.md",
+      "relativePath": "design/history/M03_REQUIREMENTS_ALGEBRA_REFINEMENT_FIRST_SLICE_IACS.md"
     },
     {
-      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/M03_REQUIREMENTS_ALGEBRA_REFINEMENT_STRUCTURAL_CARRIER_DIAGRAM.md",
-      "relativePath": "design/M03_REQUIREMENTS_ALGEBRA_REFINEMENT_STRUCTURAL_CARRIER_DIAGRAM.md"
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/history/M03_REQUIREMENTS_ALGEBRA_REFINEMENT_STRUCTURAL_CARRIER_DIAGRAM.md",
+      "relativePath": "design/history/M03_REQUIREMENTS_ALGEBRA_REFINEMENT_STRUCTURAL_CARRIER_DIAGRAM.md"
     },
     {
-      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/M03_REQUIREMENTS_ALGEBRA_ROUTE_INTERFACE_DESIGN.md",
-      "relativePath": "design/M03_REQUIREMENTS_ALGEBRA_ROUTE_INTERFACE_DESIGN.md"
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/history/M03_REQUIREMENTS_ALGEBRA_ROUTE_INTERFACE_DESIGN.md",
+      "relativePath": "design/history/M03_REQUIREMENTS_ALGEBRA_ROUTE_INTERFACE_DESIGN.md"
     },
     {
-      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/M03_REQUIREMENTS_ALGEBRA_ROUTE_REQUIREMENTS_AUDIT.md",
-      "relativePath": "design/M03_REQUIREMENTS_ALGEBRA_ROUTE_REQUIREMENTS_AUDIT.md"
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/history/M03_REQUIREMENTS_ALGEBRA_ROUTE_REQUIREMENTS_AUDIT.md",
+      "relativePath": "design/history/M03_REQUIREMENTS_ALGEBRA_ROUTE_REQUIREMENTS_AUDIT.md"
     },
     {
-      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/M03_REQUIREMENTS_ALGEBRA_STRUCTURAL_CARRIER_DIAGRAM.md",
-      "relativePath": "design/M03_REQUIREMENTS_ALGEBRA_STRUCTURAL_CARRIER_DIAGRAM.md"
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/history/M03_REQUIREMENTS_ALGEBRA_STRUCTURAL_CARRIER_DIAGRAM.md",
+      "relativePath": "design/history/M03_REQUIREMENTS_ALGEBRA_STRUCTURAL_CARRIER_DIAGRAM.md"
     },
     {
-      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/M03_REQUIREMENT_PROOF_CARRY_THROUGH_DERIVATION.md",
-      "relativePath": "design/M03_REQUIREMENT_PROOF_CARRY_THROUGH_DERIVATION.md"
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/history/M03_REQUIREMENT_PROOF_CARRY_THROUGH_DERIVATION.md",
+      "relativePath": "design/history/M03_REQUIREMENT_PROOF_CARRY_THROUGH_DERIVATION.md"
     },
     {
-      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/M03_REQUIREMENT_PROOF_CARRY_THROUGH_FIRST_SLICE_IACS.md",
-      "relativePath": "design/M03_REQUIREMENT_PROOF_CARRY_THROUGH_FIRST_SLICE_IACS.md"
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/history/M03_REQUIREMENT_PROOF_CARRY_THROUGH_FIRST_SLICE_IACS.md",
+      "relativePath": "design/history/M03_REQUIREMENT_PROOF_CARRY_THROUGH_FIRST_SLICE_IACS.md"
     },
     {
-      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/M03_REQUIREMENT_PROOF_CARRY_THROUGH_STRUCTURAL_CARRIER_DIAGRAM.md",
-      "relativePath": "design/M03_REQUIREMENT_PROOF_CARRY_THROUGH_STRUCTURAL_CARRIER_DIAGRAM.md"
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/history/M03_REQUIREMENT_PROOF_CARRY_THROUGH_STRUCTURAL_CARRIER_DIAGRAM.md",
+      "relativePath": "design/history/M03_REQUIREMENT_PROOF_CARRY_THROUGH_STRUCTURAL_CARRIER_DIAGRAM.md"
     },
     {
-      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/M03_REQUIREMENT_SPAN_IDENTITY_RECURSION_DERIVATION.md",
-      "relativePath": "design/M03_REQUIREMENT_SPAN_IDENTITY_RECURSION_DERIVATION.md"
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/history/M03_REQUIREMENT_SPAN_IDENTITY_RECURSION_DERIVATION.md",
+      "relativePath": "design/history/M03_REQUIREMENT_SPAN_IDENTITY_RECURSION_DERIVATION.md"
     },
     {
-      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/M03_REQUIREMENT_SPAN_IDENTITY_RECURSION_FIRST_SLICE_IACS.md",
-      "relativePath": "design/M03_REQUIREMENT_SPAN_IDENTITY_RECURSION_FIRST_SLICE_IACS.md"
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/history/M03_REQUIREMENT_SPAN_IDENTITY_RECURSION_FIRST_SLICE_IACS.md",
+      "relativePath": "design/history/M03_REQUIREMENT_SPAN_IDENTITY_RECURSION_FIRST_SLICE_IACS.md"
     },
     {
-      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/M03_REQUIREMENT_SPAN_IDENTITY_RECURSION_STRUCTURAL_CARRIER_DIAGRAM.md",
-      "relativePath": "design/M03_REQUIREMENT_SPAN_IDENTITY_RECURSION_STRUCTURAL_CARRIER_DIAGRAM.md"
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/history/M03_REQUIREMENT_SPAN_IDENTITY_RECURSION_STRUCTURAL_CARRIER_DIAGRAM.md",
+      "relativePath": "design/history/M03_REQUIREMENT_SPAN_IDENTITY_RECURSION_STRUCTURAL_CARRIER_DIAGRAM.md"
     },
     {
-      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/M03_RETRY_REPAIR_LEAFTASK_DERIVATION.md",
-      "relativePath": "design/M03_RETRY_REPAIR_LEAFTASK_DERIVATION.md"
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/history/M03_RETRY_REPAIR_LEAFTASK_DERIVATION.md",
+      "relativePath": "design/history/M03_RETRY_REPAIR_LEAFTASK_DERIVATION.md"
     },
     {
-      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/M03_RETRY_REPAIR_LEAFTASK_FIRST_SLICE_IACS.md",
-      "relativePath": "design/M03_RETRY_REPAIR_LEAFTASK_FIRST_SLICE_IACS.md"
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/history/M03_RETRY_REPAIR_LEAFTASK_FIRST_SLICE_IACS.md",
+      "relativePath": "design/history/M03_RETRY_REPAIR_LEAFTASK_FIRST_SLICE_IACS.md"
     },
     {
-      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/M03_RETRY_REPAIR_LEAFTASK_STRUCTURAL_CARRIER_DIAGRAM.md",
-      "relativePath": "design/M03_RETRY_REPAIR_LEAFTASK_STRUCTURAL_CARRIER_DIAGRAM.md"
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/history/M03_RETRY_REPAIR_LEAFTASK_STRUCTURAL_CARRIER_DIAGRAM.md",
+      "relativePath": "design/history/M03_RETRY_REPAIR_LEAFTASK_STRUCTURAL_CARRIER_DIAGRAM.md"
     },
     {
-      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/M03_RUNTIME_CONTINUATION_TRANSITION_DERIVATION.md",
-      "relativePath": "design/M03_RUNTIME_CONTINUATION_TRANSITION_DERIVATION.md"
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/history/M03_RUNTIME_CONTINUATION_TRANSITION_DERIVATION.md",
+      "relativePath": "design/history/M03_RUNTIME_CONTINUATION_TRANSITION_DERIVATION.md"
     },
     {
-      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/M03_RUNTIME_CONTINUATION_TRANSITION_FIRST_SLICE_IACS.md",
-      "relativePath": "design/M03_RUNTIME_CONTINUATION_TRANSITION_FIRST_SLICE_IACS.md"
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/history/M03_RUNTIME_CONTINUATION_TRANSITION_FIRST_SLICE_IACS.md",
+      "relativePath": "design/history/M03_RUNTIME_CONTINUATION_TRANSITION_FIRST_SLICE_IACS.md"
     },
     {
-      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/M03_RUNTIME_CONTINUATION_TRANSITION_STRUCTURAL_CARRIER_DIAGRAM.md",
-      "relativePath": "design/M03_RUNTIME_CONTINUATION_TRANSITION_STRUCTURAL_CARRIER_DIAGRAM.md"
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/history/M03_RUNTIME_CONTINUATION_TRANSITION_STRUCTURAL_CARRIER_DIAGRAM.md",
+      "relativePath": "design/history/M03_RUNTIME_CONTINUATION_TRANSITION_STRUCTURAL_CARRIER_DIAGRAM.md"
     },
     {
-      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/M03_RUNTIME_GRAPH_FUNCTION_REGISTRY_API_EVENT_PROJECTION_PROOF_PLAN.md",
-      "relativePath": "design/M03_RUNTIME_GRAPH_FUNCTION_REGISTRY_API_EVENT_PROJECTION_PROOF_PLAN.md"
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/history/M03_RUNTIME_GRAPH_FUNCTION_REGISTRY_API_EVENT_PROJECTION_PROOF_PLAN.md",
+      "relativePath": "design/history/M03_RUNTIME_GRAPH_FUNCTION_REGISTRY_API_EVENT_PROJECTION_PROOF_PLAN.md"
     },
     {
-      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/M03_RUNTIME_GRAPH_FUNCTION_REGISTRY_DERIVATION.md",
-      "relativePath": "design/M03_RUNTIME_GRAPH_FUNCTION_REGISTRY_DERIVATION.md"
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/history/M03_RUNTIME_GRAPH_FUNCTION_REGISTRY_DERIVATION.md",
+      "relativePath": "design/history/M03_RUNTIME_GRAPH_FUNCTION_REGISTRY_DERIVATION.md"
     },
     {
-      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/M03_RUNTIME_GRAPH_FUNCTION_REGISTRY_FIRST_SLICE_IACS.md",
-      "relativePath": "design/M03_RUNTIME_GRAPH_FUNCTION_REGISTRY_FIRST_SLICE_IACS.md"
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/history/M03_RUNTIME_GRAPH_FUNCTION_REGISTRY_FIRST_SLICE_IACS.md",
+      "relativePath": "design/history/M03_RUNTIME_GRAPH_FUNCTION_REGISTRY_FIRST_SLICE_IACS.md"
     },
     {
-      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/M03_RUNTIME_GRAPH_FUNCTION_REGISTRY_STRUCTURAL_CARRIER_DIAGRAM.md",
-      "relativePath": "design/M03_RUNTIME_GRAPH_FUNCTION_REGISTRY_STRUCTURAL_CARRIER_DIAGRAM.md"
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/history/M03_RUNTIME_GRAPH_FUNCTION_REGISTRY_STRUCTURAL_CARRIER_DIAGRAM.md",
+      "relativePath": "design/history/M03_RUNTIME_GRAPH_FUNCTION_REGISTRY_STRUCTURAL_CARRIER_DIAGRAM.md"
     },
     {
-      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/M03_SAGA_FRONTIER_DERIVATION.md",
-      "relativePath": "design/M03_SAGA_FRONTIER_DERIVATION.md"
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/history/M03_SAGA_FRONTIER_DERIVATION.md",
+      "relativePath": "design/history/M03_SAGA_FRONTIER_DERIVATION.md"
     },
     {
-      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/M03_SAGA_FRONTIER_FIRST_SLICE_IACS.md",
-      "relativePath": "design/M03_SAGA_FRONTIER_FIRST_SLICE_IACS.md"
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/history/M03_SAGA_FRONTIER_FIRST_SLICE_IACS.md",
+      "relativePath": "design/history/M03_SAGA_FRONTIER_FIRST_SLICE_IACS.md"
     },
     {
-      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/M03_SUPERVISED_ACTOR_INVOCATION_DERIVATION.md",
-      "relativePath": "design/M03_SUPERVISED_ACTOR_INVOCATION_DERIVATION.md"
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/history/M03_SUPERVISED_ACTOR_INVOCATION_DERIVATION.md",
+      "relativePath": "design/history/M03_SUPERVISED_ACTOR_INVOCATION_DERIVATION.md"
     },
     {
-      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/M03_SUPERVISED_ACTOR_INVOCATION_FIRST_SLICE_IACS.md",
-      "relativePath": "design/M03_SUPERVISED_ACTOR_INVOCATION_FIRST_SLICE_IACS.md"
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/history/M03_SUPERVISED_ACTOR_INVOCATION_FIRST_SLICE_IACS.md",
+      "relativePath": "design/history/M03_SUPERVISED_ACTOR_INVOCATION_FIRST_SLICE_IACS.md"
     },
     {
-      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/M03_SUPERVISED_ACTOR_INVOCATION_STRUCTURAL_CARRIER_DIAGRAM.md",
-      "relativePath": "design/M03_SUPERVISED_ACTOR_INVOCATION_STRUCTURAL_CARRIER_DIAGRAM.md"
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/history/M03_SUPERVISED_ACTOR_INVOCATION_STRUCTURAL_CARRIER_DIAGRAM.md",
+      "relativePath": "design/history/M03_SUPERVISED_ACTOR_INVOCATION_STRUCTURAL_CARRIER_DIAGRAM.md"
     },
     {
       "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/M03_SYSTEM_PROBE_OBSERVER_LIVENESS_DERIVATION.md",
       "relativePath": "design/M03_SYSTEM_PROBE_OBSERVER_LIVENESS_DERIVATION.md"
     },
     {
-      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/M03_TOTAL_ASSURANCE_PROJECTION_DERIVATION.md",
-      "relativePath": "design/M03_TOTAL_ASSURANCE_PROJECTION_DERIVATION.md"
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/history/M03_TOTAL_ASSURANCE_PROJECTION_DERIVATION.md",
+      "relativePath": "design/history/M03_TOTAL_ASSURANCE_PROJECTION_DERIVATION.md"
     },
     {
-      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/M03_TOTAL_ASSURANCE_PROJECTION_FIRST_SLICE_IACS.md",
-      "relativePath": "design/M03_TOTAL_ASSURANCE_PROJECTION_FIRST_SLICE_IACS.md"
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/history/M03_TOTAL_ASSURANCE_PROJECTION_FIRST_SLICE_IACS.md",
+      "relativePath": "design/history/M03_TOTAL_ASSURANCE_PROJECTION_FIRST_SLICE_IACS.md"
     },
     {
-      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/M03_TOTAL_ASSURANCE_PROJECTION_PROOF_PLAN.md",
-      "relativePath": "design/M03_TOTAL_ASSURANCE_PROJECTION_PROOF_PLAN.md"
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/history/M03_TOTAL_ASSURANCE_PROJECTION_PROOF_PLAN.md",
+      "relativePath": "design/history/M03_TOTAL_ASSURANCE_PROJECTION_PROOF_PLAN.md"
     },
     {
-      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/M03_TOTAL_ASSURANCE_PROJECTION_STRUCTURAL_CARRIER_DIAGRAM.md",
-      "relativePath": "design/M03_TOTAL_ASSURANCE_PROJECTION_STRUCTURAL_CARRIER_DIAGRAM.md"
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/history/M03_TOTAL_ASSURANCE_PROJECTION_STRUCTURAL_CARRIER_DIAGRAM.md",
+      "relativePath": "design/history/M03_TOTAL_ASSURANCE_PROJECTION_STRUCTURAL_CARRIER_DIAGRAM.md"
     },
     {
-      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/M03_TRACED_EXECUTOR_BACKENDS.md",
-      "relativePath": "design/M03_TRACED_EXECUTOR_BACKENDS.md"
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/history/M03_TRACED_EXECUTOR_BACKENDS.md",
+      "relativePath": "design/history/M03_TRACED_EXECUTOR_BACKENDS.md"
     },
     {
-      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/M03_TRANSPORT_PROTOCOL_DERIVATION.md",
-      "relativePath": "design/M03_TRANSPORT_PROTOCOL_DERIVATION.md"
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/history/M03_TRANSPORT_PROTOCOL_DERIVATION.md",
+      "relativePath": "design/history/M03_TRANSPORT_PROTOCOL_DERIVATION.md"
     },
     {
-      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/M03_TRANSPORT_PROTOCOL_FIRST_SLICE_IACS.md",
-      "relativePath": "design/M03_TRANSPORT_PROTOCOL_FIRST_SLICE_IACS.md"
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/history/M03_TRANSPORT_PROTOCOL_FIRST_SLICE_IACS.md",
+      "relativePath": "design/history/M03_TRANSPORT_PROTOCOL_FIRST_SLICE_IACS.md"
     },
     {
-      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/M03_TRANSPORT_PROTOCOL_STRUCTURAL_CARRIER_DIAGRAM.md",
-      "relativePath": "design/M03_TRANSPORT_PROTOCOL_STRUCTURAL_CARRIER_DIAGRAM.md"
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/history/M03_TRANSPORT_PROTOCOL_STRUCTURAL_CARRIER_DIAGRAM.md",
+      "relativePath": "design/history/M03_TRANSPORT_PROTOCOL_STRUCTURAL_CARRIER_DIAGRAM.md"
     },
     {
-      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/M03_TRAVERSAL_ENVELOPE_TOPOLOGY_DERIVATION.md",
-      "relativePath": "design/M03_TRAVERSAL_ENVELOPE_TOPOLOGY_DERIVATION.md"
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/history/M03_TRAVERSAL_ENVELOPE_TOPOLOGY_DERIVATION.md",
+      "relativePath": "design/history/M03_TRAVERSAL_ENVELOPE_TOPOLOGY_DERIVATION.md"
     },
     {
-      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/M03_TRAVERSAL_ENVELOPE_TOPOLOGY_FIRST_SLICE_IACS.md",
-      "relativePath": "design/M03_TRAVERSAL_ENVELOPE_TOPOLOGY_FIRST_SLICE_IACS.md"
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/history/M03_TRAVERSAL_ENVELOPE_TOPOLOGY_FIRST_SLICE_IACS.md",
+      "relativePath": "design/history/M03_TRAVERSAL_ENVELOPE_TOPOLOGY_FIRST_SLICE_IACS.md"
     },
     {
-      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/M03_TRAVERSAL_ENVELOPE_TOPOLOGY_STRUCTURAL_CARRIER_DIAGRAM.md",
-      "relativePath": "design/M03_TRAVERSAL_ENVELOPE_TOPOLOGY_STRUCTURAL_CARRIER_DIAGRAM.md"
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/history/M03_TRAVERSAL_ENVELOPE_TOPOLOGY_STRUCTURAL_CARRIER_DIAGRAM.md",
+      "relativePath": "design/history/M03_TRAVERSAL_ENVELOPE_TOPOLOGY_STRUCTURAL_CARRIER_DIAGRAM.md"
     },
     {
-      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/M03_TRAVERSAL_MODULATION_DERIVATION.md",
-      "relativePath": "design/M03_TRAVERSAL_MODULATION_DERIVATION.md"
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/history/M03_TRAVERSAL_MODULATION_DERIVATION.md",
+      "relativePath": "design/history/M03_TRAVERSAL_MODULATION_DERIVATION.md"
     },
     {
-      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/M03_TRAVERSAL_MODULATION_FIRST_SLICE_IACS.md",
-      "relativePath": "design/M03_TRAVERSAL_MODULATION_FIRST_SLICE_IACS.md"
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/history/M03_TRAVERSAL_MODULATION_FIRST_SLICE_IACS.md",
+      "relativePath": "design/history/M03_TRAVERSAL_MODULATION_FIRST_SLICE_IACS.md"
     },
     {
       "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/M03_TRAVERSAL_NON_PROGRESS_CONTINUATION_DERIVATION.md",
       "relativePath": "design/M03_TRAVERSAL_NON_PROGRESS_CONTINUATION_DERIVATION.md"
     },
     {
-      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/M03_TRAVERSAL_NON_PROGRESS_CONTINUATION_FIRST_SLICE_IACS.md",
-      "relativePath": "design/M03_TRAVERSAL_NON_PROGRESS_CONTINUATION_FIRST_SLICE_IACS.md"
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/history/M03_TRAVERSAL_NON_PROGRESS_CONTINUATION_FIRST_SLICE_IACS.md",
+      "relativePath": "design/history/M03_TRAVERSAL_NON_PROGRESS_CONTINUATION_FIRST_SLICE_IACS.md"
     },
     {
-      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/M03_TRAVERSAL_RESULT_BIND_CONSERVATION_BEHAVIOR_DESIGN.md",
-      "relativePath": "design/M03_TRAVERSAL_RESULT_BIND_CONSERVATION_BEHAVIOR_DESIGN.md"
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/history/M03_TRAVERSAL_RESULT_BIND_CONSERVATION_BEHAVIOR_DESIGN.md",
+      "relativePath": "design/history/M03_TRAVERSAL_RESULT_BIND_CONSERVATION_BEHAVIOR_DESIGN.md"
     },
     {
-      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/M03_TYPED_HOF_BATCH_RUNTIME_BEHAVIOR_DESIGN.md",
-      "relativePath": "design/M03_TYPED_HOF_BATCH_RUNTIME_BEHAVIOR_DESIGN.md"
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/history/M03_TYPED_HOF_BATCH_RUNTIME_BEHAVIOR_DESIGN.md",
+      "relativePath": "design/history/M03_TYPED_HOF_BATCH_RUNTIME_BEHAVIOR_DESIGN.md"
     },
     {
       "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/M03_TYPED_RECURSE_RUNTIME_BEHAVIOR_DESIGN.md",
       "relativePath": "design/M03_TYPED_RECURSE_RUNTIME_BEHAVIOR_DESIGN.md"
     },
     {
-      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/M03_VECTOR_RUNTIME_REGIME_RESOLUTION_DERIVATION.md",
-      "relativePath": "design/M03_VECTOR_RUNTIME_REGIME_RESOLUTION_DERIVATION.md"
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/history/M03_VECTOR_RUNTIME_REGIME_RESOLUTION_DERIVATION.md",
+      "relativePath": "design/history/M03_VECTOR_RUNTIME_REGIME_RESOLUTION_DERIVATION.md"
     },
     {
-      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/M03_VECTOR_RUNTIME_REGIME_RESOLUTION_FIRST_SLICE_IACS.md",
-      "relativePath": "design/M03_VECTOR_RUNTIME_REGIME_RESOLUTION_FIRST_SLICE_IACS.md"
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/history/M03_VECTOR_RUNTIME_REGIME_RESOLUTION_FIRST_SLICE_IACS.md",
+      "relativePath": "design/history/M03_VECTOR_RUNTIME_REGIME_RESOLUTION_FIRST_SLICE_IACS.md"
     },
     {
-      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/M03_VECTOR_RUNTIME_REGIME_RESOLUTION_STRUCTURAL_CARRIER_DIAGRAM.md",
-      "relativePath": "design/M03_VECTOR_RUNTIME_REGIME_RESOLUTION_STRUCTURAL_CARRIER_DIAGRAM.md"
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/history/M03_VECTOR_RUNTIME_REGIME_RESOLUTION_STRUCTURAL_CARRIER_DIAGRAM.md",
+      "relativePath": "design/history/M03_VECTOR_RUNTIME_REGIME_RESOLUTION_STRUCTURAL_CARRIER_DIAGRAM.md"
     },
     {
-      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/M03_WORKFLOW_C_RUNTIME_BEHAVIOR_DESIGN.md",
-      "relativePath": "design/M03_WORKFLOW_C_RUNTIME_BEHAVIOR_DESIGN.md"
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/history/M03_WORKFLOW_C_RUNTIME_BEHAVIOR_DESIGN.md",
+      "relativePath": "design/history/M03_WORKFLOW_C_RUNTIME_BEHAVIOR_DESIGN.md"
     },
     {
-      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/M04_BOOTLOADER_DERIVATION.md",
-      "relativePath": "design/M04_BOOTLOADER_DERIVATION.md"
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/history/M04_BOOTLOADER_DERIVATION.md",
+      "relativePath": "design/history/M04_BOOTLOADER_DERIVATION.md"
     },
     {
-      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/M04_BOOTLOADER_FIRST_SLICE_IACS.md",
-      "relativePath": "design/M04_BOOTLOADER_FIRST_SLICE_IACS.md"
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/history/M04_BOOTLOADER_FIRST_SLICE_IACS.md",
+      "relativePath": "design/history/M04_BOOTLOADER_FIRST_SLICE_IACS.md"
     },
     {
-      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/M04_BOOTLOADER_STRUCTURAL_CARRIER_DIAGRAM.md",
-      "relativePath": "design/M04_BOOTLOADER_STRUCTURAL_CARRIER_DIAGRAM.md"
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/history/M04_BOOTLOADER_STRUCTURAL_CARRIER_DIAGRAM.md",
+      "relativePath": "design/history/M04_BOOTLOADER_STRUCTURAL_CARRIER_DIAGRAM.md"
     },
     {
-      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/M04_CONTROL_LOOP_DERIVATION.md",
-      "relativePath": "design/M04_CONTROL_LOOP_DERIVATION.md"
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/history/M04_CONTROL_LOOP_DERIVATION.md",
+      "relativePath": "design/history/M04_CONTROL_LOOP_DERIVATION.md"
     },
     {
-      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/M04_CONTROL_LOOP_FIRST_SLICE_IACS.md",
-      "relativePath": "design/M04_CONTROL_LOOP_FIRST_SLICE_IACS.md"
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/history/M04_CONTROL_LOOP_FIRST_SLICE_IACS.md",
+      "relativePath": "design/history/M04_CONTROL_LOOP_FIRST_SLICE_IACS.md"
     },
     {
-      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/M04_CONTROL_LOOP_STRUCTURAL_CARRIER_DIAGRAM.md",
-      "relativePath": "design/M04_CONTROL_LOOP_STRUCTURAL_CARRIER_DIAGRAM.md"
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/history/M04_CONTROL_LOOP_STRUCTURAL_CARRIER_DIAGRAM.md",
+      "relativePath": "design/history/M04_CONTROL_LOOP_STRUCTURAL_CARRIER_DIAGRAM.md"
     },
     {
-      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/M04_EVENT_INGRESS_DERIVATION.md",
-      "relativePath": "design/M04_EVENT_INGRESS_DERIVATION.md"
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/history/M04_EVENT_INGRESS_DERIVATION.md",
+      "relativePath": "design/history/M04_EVENT_INGRESS_DERIVATION.md"
     },
     {
-      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/M04_EVENT_INGRESS_FIRST_SLICE_IACS.md",
-      "relativePath": "design/M04_EVENT_INGRESS_FIRST_SLICE_IACS.md"
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/history/M04_EVENT_INGRESS_FIRST_SLICE_IACS.md",
+      "relativePath": "design/history/M04_EVENT_INGRESS_FIRST_SLICE_IACS.md"
     },
     {
-      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/M04_EVENT_INGRESS_STRUCTURAL_CARRIER_DIAGRAM.md",
-      "relativePath": "design/M04_EVENT_INGRESS_STRUCTURAL_CARRIER_DIAGRAM.md"
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/history/M04_EVENT_INGRESS_STRUCTURAL_CARRIER_DIAGRAM.md",
+      "relativePath": "design/history/M04_EVENT_INGRESS_STRUCTURAL_CARRIER_DIAGRAM.md"
     },
     {
-      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/M04_FIRST_SLICE_IACS.md",
-      "relativePath": "design/M04_FIRST_SLICE_IACS.md"
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/history/M04_FIRST_SLICE_IACS.md",
+      "relativePath": "design/history/M04_FIRST_SLICE_IACS.md"
     },
     {
-      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/M04_GAP_TRIAGE_GRAPH_FUNCTION_DERIVATION.md",
-      "relativePath": "design/M04_GAP_TRIAGE_GRAPH_FUNCTION_DERIVATION.md"
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/history/M04_GAP_TRIAGE_GRAPH_FUNCTION_DERIVATION.md",
+      "relativePath": "design/history/M04_GAP_TRIAGE_GRAPH_FUNCTION_DERIVATION.md"
     },
     {
-      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/M04_INSTALL_BOOTSTRAP_DERIVATION.md",
-      "relativePath": "design/M04_INSTALL_BOOTSTRAP_DERIVATION.md"
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/history/M04_INSTALL_BOOTSTRAP_DERIVATION.md",
+      "relativePath": "design/history/M04_INSTALL_BOOTSTRAP_DERIVATION.md"
     },
     {
-      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/M04_INSTALL_BOOTSTRAP_FIRST_SLICE_IACS.md",
-      "relativePath": "design/M04_INSTALL_BOOTSTRAP_FIRST_SLICE_IACS.md"
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/history/M04_INSTALL_BOOTSTRAP_FIRST_SLICE_IACS.md",
+      "relativePath": "design/history/M04_INSTALL_BOOTSTRAP_FIRST_SLICE_IACS.md"
     },
     {
-      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/M04_INSTALL_BOOTSTRAP_STRUCTURAL_CARRIER_DIAGRAM.md",
-      "relativePath": "design/M04_INSTALL_BOOTSTRAP_STRUCTURAL_CARRIER_DIAGRAM.md"
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/history/M04_INSTALL_BOOTSTRAP_STRUCTURAL_CARRIER_DIAGRAM.md",
+      "relativePath": "design/history/M04_INSTALL_BOOTSTRAP_STRUCTURAL_CARRIER_DIAGRAM.md"
     },
     {
-      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/M04_LIVE_STATUS_DERIVATION.md",
-      "relativePath": "design/M04_LIVE_STATUS_DERIVATION.md"
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/history/M04_LIVE_STATUS_DERIVATION.md",
+      "relativePath": "design/history/M04_LIVE_STATUS_DERIVATION.md"
     },
     {
-      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/M04_LIVE_STATUS_FIRST_SLICE_IACS.md",
-      "relativePath": "design/M04_LIVE_STATUS_FIRST_SLICE_IACS.md"
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/history/M04_LIVE_STATUS_FIRST_SLICE_IACS.md",
+      "relativePath": "design/history/M04_LIVE_STATUS_FIRST_SLICE_IACS.md"
     },
     {
-      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/M04_LIVE_STATUS_STRUCTURAL_CARRIER_DIAGRAM.md",
-      "relativePath": "design/M04_LIVE_STATUS_STRUCTURAL_CARRIER_DIAGRAM.md"
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/history/M04_LIVE_STATUS_STRUCTURAL_CARRIER_DIAGRAM.md",
+      "relativePath": "design/history/M04_LIVE_STATUS_STRUCTURAL_CARRIER_DIAGRAM.md"
     },
     {
-      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/M04_M05_INSTALLED_CONSENSUS_SCENARIO_PRIME_CONTRACTION_BEHAVIOR_DESIGN.md",
-      "relativePath": "design/M04_M05_INSTALLED_CONSENSUS_SCENARIO_PRIME_CONTRACTION_BEHAVIOR_DESIGN.md"
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/history/M04_M05_INSTALLED_CONSENSUS_SCENARIO_PRIME_CONTRACTION_BEHAVIOR_DESIGN.md",
+      "relativePath": "design/history/M04_M05_INSTALLED_CONSENSUS_SCENARIO_PRIME_CONTRACTION_BEHAVIOR_DESIGN.md"
     },
     {
-      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/M04_MAXIMUM_AUTONOMY_GEN_START_DERIVATION.md",
-      "relativePath": "design/M04_MAXIMUM_AUTONOMY_GEN_START_DERIVATION.md"
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/history/M04_MAXIMUM_AUTONOMY_GEN_START_DERIVATION.md",
+      "relativePath": "design/history/M04_MAXIMUM_AUTONOMY_GEN_START_DERIVATION.md"
     },
     {
-      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/M04_MAXIMUM_AUTONOMY_GEN_START_FIRST_SLICE_IACS.md",
-      "relativePath": "design/M04_MAXIMUM_AUTONOMY_GEN_START_FIRST_SLICE_IACS.md"
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/history/M04_MAXIMUM_AUTONOMY_GEN_START_FIRST_SLICE_IACS.md",
+      "relativePath": "design/history/M04_MAXIMUM_AUTONOMY_GEN_START_FIRST_SLICE_IACS.md"
     },
     {
-      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/M04_MAXIMUM_AUTONOMY_GEN_START_STRUCTURAL_CARRIER_DIAGRAM.md",
-      "relativePath": "design/M04_MAXIMUM_AUTONOMY_GEN_START_STRUCTURAL_CARRIER_DIAGRAM.md"
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/history/M04_MAXIMUM_AUTONOMY_GEN_START_STRUCTURAL_CARRIER_DIAGRAM.md",
+      "relativePath": "design/history/M04_MAXIMUM_AUTONOMY_GEN_START_STRUCTURAL_CARRIER_DIAGRAM.md"
     },
     {
-      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/M04_PUBLIC_ASSET_ADDRESSING_DERIVATION.md",
-      "relativePath": "design/M04_PUBLIC_ASSET_ADDRESSING_DERIVATION.md"
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/history/M04_PUBLIC_ASSET_ADDRESSING_DERIVATION.md",
+      "relativePath": "design/history/M04_PUBLIC_ASSET_ADDRESSING_DERIVATION.md"
     },
     {
-      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/M04_PUBLIC_ASSET_ADDRESSING_FIRST_SLICE_IACS.md",
-      "relativePath": "design/M04_PUBLIC_ASSET_ADDRESSING_FIRST_SLICE_IACS.md"
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/history/M04_PUBLIC_ASSET_ADDRESSING_FIRST_SLICE_IACS.md",
+      "relativePath": "design/history/M04_PUBLIC_ASSET_ADDRESSING_FIRST_SLICE_IACS.md"
     },
     {
-      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/M04_PUBLIC_ASSET_ADDRESSING_STRUCTURAL_CARRIER_DIAGRAM.md",
-      "relativePath": "design/M04_PUBLIC_ASSET_ADDRESSING_STRUCTURAL_CARRIER_DIAGRAM.md"
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/history/M04_PUBLIC_ASSET_ADDRESSING_STRUCTURAL_CARRIER_DIAGRAM.md",
+      "relativePath": "design/history/M04_PUBLIC_ASSET_ADDRESSING_STRUCTURAL_CARRIER_DIAGRAM.md"
     },
     {
-      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/M04_PUBLIC_CONTRACT_PUBLICATION_BEHAVIOR_DESIGN.md",
-      "relativePath": "design/M04_PUBLIC_CONTRACT_PUBLICATION_BEHAVIOR_DESIGN.md"
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/history/M04_PUBLIC_CONTRACT_PUBLICATION_BEHAVIOR_DESIGN.md",
+      "relativePath": "design/history/M04_PUBLIC_CONTRACT_PUBLICATION_BEHAVIOR_DESIGN.md"
     },
     {
-      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/M04_PUBLIC_GAPS_PROJECTION_DERIVATION.md",
-      "relativePath": "design/M04_PUBLIC_GAPS_PROJECTION_DERIVATION.md"
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/history/M04_PUBLIC_GAPS_PROJECTION_DERIVATION.md",
+      "relativePath": "design/history/M04_PUBLIC_GAPS_PROJECTION_DERIVATION.md"
     },
     {
-      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/M04_PUBLIC_GAPS_PROJECTION_FIRST_SLICE_IACS.md",
-      "relativePath": "design/M04_PUBLIC_GAPS_PROJECTION_FIRST_SLICE_IACS.md"
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/history/M04_PUBLIC_GAPS_PROJECTION_FIRST_SLICE_IACS.md",
+      "relativePath": "design/history/M04_PUBLIC_GAPS_PROJECTION_FIRST_SLICE_IACS.md"
     },
     {
-      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/M04_PUBLIC_GAPS_PROJECTION_STRUCTURAL_CARRIER_DIAGRAM.md",
-      "relativePath": "design/M04_PUBLIC_GAPS_PROJECTION_STRUCTURAL_CARRIER_DIAGRAM.md"
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/history/M04_PUBLIC_GAPS_PROJECTION_STRUCTURAL_CARRIER_DIAGRAM.md",
+      "relativePath": "design/history/M04_PUBLIC_GAPS_PROJECTION_STRUCTURAL_CARRIER_DIAGRAM.md"
     },
     {
-      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/M04_PUBLIC_OPERATION_DEFINITION_FAMILY_BEHAVIOR_DESIGN.md",
-      "relativePath": "design/M04_PUBLIC_OPERATION_DEFINITION_FAMILY_BEHAVIOR_DESIGN.md"
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/history/M04_PUBLIC_OPERATION_DEFINITION_FAMILY_BEHAVIOR_DESIGN.md",
+      "relativePath": "design/history/M04_PUBLIC_OPERATION_DEFINITION_FAMILY_BEHAVIOR_DESIGN.md"
     },
     {
-      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/M04_PUBLIC_OPERATION_PRIME_CONTRACTION_BEHAVIOR_DESIGN.md",
-      "relativePath": "design/M04_PUBLIC_OPERATION_PRIME_CONTRACTION_BEHAVIOR_DESIGN.md"
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/history/M04_PUBLIC_OPERATION_PRIME_CONTRACTION_BEHAVIOR_DESIGN.md",
+      "relativePath": "design/history/M04_PUBLIC_OPERATION_PRIME_CONTRACTION_BEHAVIOR_DESIGN.md"
     },
     {
-      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/M04_PUBLIC_START_DERIVATION.md",
-      "relativePath": "design/M04_PUBLIC_START_DERIVATION.md"
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/history/M04_PUBLIC_START_DERIVATION.md",
+      "relativePath": "design/history/M04_PUBLIC_START_DERIVATION.md"
     },
     {
-      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/M04_PUBLIC_START_STRUCTURAL_CARRIER_DIAGRAM.md",
-      "relativePath": "design/M04_PUBLIC_START_STRUCTURAL_CARRIER_DIAGRAM.md"
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/history/M04_PUBLIC_START_STRUCTURAL_CARRIER_DIAGRAM.md",
+      "relativePath": "design/history/M04_PUBLIC_START_STRUCTURAL_CARRIER_DIAGRAM.md"
     },
     {
-      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/M04_RESULT_ASSESSMENT_DERIVATION.md",
-      "relativePath": "design/M04_RESULT_ASSESSMENT_DERIVATION.md"
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/history/M04_RESULT_ASSESSMENT_DERIVATION.md",
+      "relativePath": "design/history/M04_RESULT_ASSESSMENT_DERIVATION.md"
     },
     {
-      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/M04_RESULT_ASSESSMENT_FIRST_SLICE_IACS.md",
-      "relativePath": "design/M04_RESULT_ASSESSMENT_FIRST_SLICE_IACS.md"
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/history/M04_RESULT_ASSESSMENT_FIRST_SLICE_IACS.md",
+      "relativePath": "design/history/M04_RESULT_ASSESSMENT_FIRST_SLICE_IACS.md"
     },
     {
-      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/M04_RESULT_ASSESSMENT_STRUCTURAL_CARRIER_DIAGRAM.md",
-      "relativePath": "design/M04_RESULT_ASSESSMENT_STRUCTURAL_CARRIER_DIAGRAM.md"
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/history/M04_RESULT_ASSESSMENT_STRUCTURAL_CARRIER_DIAGRAM.md",
+      "relativePath": "design/history/M04_RESULT_ASSESSMENT_STRUCTURAL_CARRIER_DIAGRAM.md"
     },
     {
-      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/M04_SHARED_PRODUCT_TOOLCHAIN_DERIVATION.md",
-      "relativePath": "design/M04_SHARED_PRODUCT_TOOLCHAIN_DERIVATION.md"
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/history/M04_SHARED_PRODUCT_TOOLCHAIN_DERIVATION.md",
+      "relativePath": "design/history/M04_SHARED_PRODUCT_TOOLCHAIN_DERIVATION.md"
     },
     {
-      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/M04_SHARED_PRODUCT_TOOLCHAIN_DESIGN_MODULE_REVIEW.md",
-      "relativePath": "design/M04_SHARED_PRODUCT_TOOLCHAIN_DESIGN_MODULE_REVIEW.md"
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/history/M04_SHARED_PRODUCT_TOOLCHAIN_DESIGN_MODULE_REVIEW.md",
+      "relativePath": "design/history/M04_SHARED_PRODUCT_TOOLCHAIN_DESIGN_MODULE_REVIEW.md"
     },
     {
-      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/M04_SHARED_PRODUCT_TOOLCHAIN_FIRST_SLICE_IACS.md",
-      "relativePath": "design/M04_SHARED_PRODUCT_TOOLCHAIN_FIRST_SLICE_IACS.md"
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/history/M04_SHARED_PRODUCT_TOOLCHAIN_FIRST_SLICE_IACS.md",
+      "relativePath": "design/history/M04_SHARED_PRODUCT_TOOLCHAIN_FIRST_SLICE_IACS.md"
     },
     {
-      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/M04_TYPESCRIPT_INSTALLER_DERIVATION.md",
-      "relativePath": "design/M04_TYPESCRIPT_INSTALLER_DERIVATION.md"
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/history/M04_TYPESCRIPT_INSTALLER_DERIVATION.md",
+      "relativePath": "design/history/M04_TYPESCRIPT_INSTALLER_DERIVATION.md"
     },
     {
-      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/M04_TYPESCRIPT_INSTALLER_FIRST_SLICE_IACS.md",
-      "relativePath": "design/M04_TYPESCRIPT_INSTALLER_FIRST_SLICE_IACS.md"
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/history/M04_TYPESCRIPT_INSTALLER_FIRST_SLICE_IACS.md",
+      "relativePath": "design/history/M04_TYPESCRIPT_INSTALLER_FIRST_SLICE_IACS.md"
     },
     {
-      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/M04_TYPESCRIPT_INSTALLER_STRUCTURAL_CARRIER_DIAGRAM.md",
-      "relativePath": "design/M04_TYPESCRIPT_INSTALLER_STRUCTURAL_CARRIER_DIAGRAM.md"
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/history/M04_TYPESCRIPT_INSTALLER_STRUCTURAL_CARRIER_DIAGRAM.md",
+      "relativePath": "design/history/M04_TYPESCRIPT_INSTALLER_STRUCTURAL_CARRIER_DIAGRAM.md"
     },
     {
-      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/M05_ARCHIVE_FINALIZATION_DERIVATION.md",
-      "relativePath": "design/M05_ARCHIVE_FINALIZATION_DERIVATION.md"
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/history/M05_ARCHIVE_FINALIZATION_DERIVATION.md",
+      "relativePath": "design/history/M05_ARCHIVE_FINALIZATION_DERIVATION.md"
     },
     {
-      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/M05_ARCHIVE_FINALIZATION_FIRST_SLICE_IACS.md",
-      "relativePath": "design/M05_ARCHIVE_FINALIZATION_FIRST_SLICE_IACS.md"
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/history/M05_ARCHIVE_FINALIZATION_FIRST_SLICE_IACS.md",
+      "relativePath": "design/history/M05_ARCHIVE_FINALIZATION_FIRST_SLICE_IACS.md"
     },
     {
-      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/M05_ARCHIVE_FINALIZATION_STRUCTURAL_CARRIER_DIAGRAM.md",
-      "relativePath": "design/M05_ARCHIVE_FINALIZATION_STRUCTURAL_CARRIER_DIAGRAM.md"
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/history/M05_ARCHIVE_FINALIZATION_STRUCTURAL_CARRIER_DIAGRAM.md",
+      "relativePath": "design/history/M05_ARCHIVE_FINALIZATION_STRUCTURAL_CARRIER_DIAGRAM.md"
     },
     {
-      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/M05_ATTACHED_FP_LOCAL_LIVE_SANDBOX_DERIVATION.md",
-      "relativePath": "design/M05_ATTACHED_FP_LOCAL_LIVE_SANDBOX_DERIVATION.md"
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/history/M05_ATTACHED_FP_LOCAL_LIVE_SANDBOX_DERIVATION.md",
+      "relativePath": "design/history/M05_ATTACHED_FP_LOCAL_LIVE_SANDBOX_DERIVATION.md"
     },
     {
-      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/M05_ATTACHED_FP_LOCAL_LIVE_SANDBOX_FIRST_SLICE_IACS.md",
-      "relativePath": "design/M05_ATTACHED_FP_LOCAL_LIVE_SANDBOX_FIRST_SLICE_IACS.md"
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/history/M05_ATTACHED_FP_LOCAL_LIVE_SANDBOX_FIRST_SLICE_IACS.md",
+      "relativePath": "design/history/M05_ATTACHED_FP_LOCAL_LIVE_SANDBOX_FIRST_SLICE_IACS.md"
     },
     {
-      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/M05_ATTACHED_FP_LOCAL_LIVE_SANDBOX_STRUCTURAL_CARRIER_DIAGRAM.md",
-      "relativePath": "design/M05_ATTACHED_FP_LOCAL_LIVE_SANDBOX_STRUCTURAL_CARRIER_DIAGRAM.md"
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/history/M05_ATTACHED_FP_LOCAL_LIVE_SANDBOX_STRUCTURAL_CARRIER_DIAGRAM.md",
+      "relativePath": "design/history/M05_ATTACHED_FP_LOCAL_LIVE_SANDBOX_STRUCTURAL_CARRIER_DIAGRAM.md"
     },
     {
-      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/M05_DATA_MAPPER_REAL_INGRESS_PROOF_DERIVATION.md",
-      "relativePath": "design/M05_DATA_MAPPER_REAL_INGRESS_PROOF_DERIVATION.md"
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/history/M05_DATA_MAPPER_REAL_INGRESS_PROOF_DERIVATION.md",
+      "relativePath": "design/history/M05_DATA_MAPPER_REAL_INGRESS_PROOF_DERIVATION.md"
     },
     {
       "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/M05_DIRECT_GTL_TRAVERSAL_EXPANSION_DESIGN.md",
       "relativePath": "design/M05_DIRECT_GTL_TRAVERSAL_EXPANSION_DESIGN.md"
     },
     {
-      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/M05_ENTRY_PROOF_GATES_BEHAVIOR_DESIGN.md",
-      "relativePath": "design/M05_ENTRY_PROOF_GATES_BEHAVIOR_DESIGN.md"
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/history/M05_ENTRY_PROOF_GATES_BEHAVIOR_DESIGN.md",
+      "relativePath": "design/history/M05_ENTRY_PROOF_GATES_BEHAVIOR_DESIGN.md"
     },
     {
-      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/M05_INSTALLED_LIVE_PORTFOLIO_DERIVATION.md",
-      "relativePath": "design/M05_INSTALLED_LIVE_PORTFOLIO_DERIVATION.md"
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/history/M05_INSTALLED_LIVE_PORTFOLIO_DERIVATION.md",
+      "relativePath": "design/history/M05_INSTALLED_LIVE_PORTFOLIO_DERIVATION.md"
     },
     {
-      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/M05_INSTALLED_LIVE_PORTFOLIO_FIRST_SLICE_IACS.md",
-      "relativePath": "design/M05_INSTALLED_LIVE_PORTFOLIO_FIRST_SLICE_IACS.md"
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/history/M05_INSTALLED_LIVE_PORTFOLIO_FIRST_SLICE_IACS.md",
+      "relativePath": "design/history/M05_INSTALLED_LIVE_PORTFOLIO_FIRST_SLICE_IACS.md"
     },
     {
-      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/M05_INSTALLED_LIVE_PORTFOLIO_STRUCTURAL_CARRIER_DIAGRAM.md",
-      "relativePath": "design/M05_INSTALLED_LIVE_PORTFOLIO_STRUCTURAL_CARRIER_DIAGRAM.md"
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/history/M05_INSTALLED_LIVE_PORTFOLIO_STRUCTURAL_CARRIER_DIAGRAM.md",
+      "relativePath": "design/history/M05_INSTALLED_LIVE_PORTFOLIO_STRUCTURAL_CARRIER_DIAGRAM.md"
     },
     {
-      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/M05_INSTALLED_RESET_POSTMORTEM_DERIVATION.md",
-      "relativePath": "design/M05_INSTALLED_RESET_POSTMORTEM_DERIVATION.md"
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/history/M05_INSTALLED_RESET_POSTMORTEM_DERIVATION.md",
+      "relativePath": "design/history/M05_INSTALLED_RESET_POSTMORTEM_DERIVATION.md"
     },
     {
-      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/M05_INSTALLED_RESET_POSTMORTEM_FIRST_SLICE_IACS.md",
-      "relativePath": "design/M05_INSTALLED_RESET_POSTMORTEM_FIRST_SLICE_IACS.md"
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/history/M05_INSTALLED_RESET_POSTMORTEM_FIRST_SLICE_IACS.md",
+      "relativePath": "design/history/M05_INSTALLED_RESET_POSTMORTEM_FIRST_SLICE_IACS.md"
     },
     {
-      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/M05_INSTALLED_RESET_POSTMORTEM_STRUCTURAL_CARRIER_DIAGRAM.md",
-      "relativePath": "design/M05_INSTALLED_RESET_POSTMORTEM_STRUCTURAL_CARRIER_DIAGRAM.md"
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/history/M05_INSTALLED_RESET_POSTMORTEM_STRUCTURAL_CARRIER_DIAGRAM.md",
+      "relativePath": "design/history/M05_INSTALLED_RESET_POSTMORTEM_STRUCTURAL_CARRIER_DIAGRAM.md"
     },
     {
-      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/M05_INSTALLED_SANDBOX_DERIVATION.md",
-      "relativePath": "design/M05_INSTALLED_SANDBOX_DERIVATION.md"
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/history/M05_INSTALLED_SANDBOX_DERIVATION.md",
+      "relativePath": "design/history/M05_INSTALLED_SANDBOX_DERIVATION.md"
     },
     {
-      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/M05_INSTALLED_SANDBOX_FIRST_SLICE_IACS.md",
-      "relativePath": "design/M05_INSTALLED_SANDBOX_FIRST_SLICE_IACS.md"
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/history/M05_INSTALLED_SANDBOX_FIRST_SLICE_IACS.md",
+      "relativePath": "design/history/M05_INSTALLED_SANDBOX_FIRST_SLICE_IACS.md"
     },
     {
-      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/M05_INSTALLED_SANDBOX_STRUCTURAL_CARRIER_DIAGRAM.md",
-      "relativePath": "design/M05_INSTALLED_SANDBOX_STRUCTURAL_CARRIER_DIAGRAM.md"
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/history/M05_INSTALLED_SANDBOX_STRUCTURAL_CARRIER_DIAGRAM.md",
+      "relativePath": "design/history/M05_INSTALLED_SANDBOX_STRUCTURAL_CARRIER_DIAGRAM.md"
     },
     {
-      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/M05_PUBLIC_SANDBOX_ARCHIVE_API_DERIVATION.md",
-      "relativePath": "design/M05_PUBLIC_SANDBOX_ARCHIVE_API_DERIVATION.md"
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/history/M05_PUBLIC_SANDBOX_ARCHIVE_API_DERIVATION.md",
+      "relativePath": "design/history/M05_PUBLIC_SANDBOX_ARCHIVE_API_DERIVATION.md"
     },
     {
-      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/M05_PUBLIC_SANDBOX_ARCHIVE_API_FIRST_SLICE_IACS.md",
-      "relativePath": "design/M05_PUBLIC_SANDBOX_ARCHIVE_API_FIRST_SLICE_IACS.md"
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/history/M05_PUBLIC_SANDBOX_ARCHIVE_API_FIRST_SLICE_IACS.md",
+      "relativePath": "design/history/M05_PUBLIC_SANDBOX_ARCHIVE_API_FIRST_SLICE_IACS.md"
     },
     {
-      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/M05_PUBLIC_SANDBOX_ARCHIVE_API_STRUCTURAL_CARRIER_DIAGRAM.md",
-      "relativePath": "design/M05_PUBLIC_SANDBOX_ARCHIVE_API_STRUCTURAL_CARRIER_DIAGRAM.md"
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/history/M05_PUBLIC_SANDBOX_ARCHIVE_API_STRUCTURAL_CARRIER_DIAGRAM.md",
+      "relativePath": "design/history/M05_PUBLIC_SANDBOX_ARCHIVE_API_STRUCTURAL_CARRIER_DIAGRAM.md"
     },
     {
-      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/M05_PYTHON_SANDBOX_BEHAVIOR_PORTFOLIO_DERIVATION.md",
-      "relativePath": "design/M05_PYTHON_SANDBOX_BEHAVIOR_PORTFOLIO_DERIVATION.md"
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/history/M05_PYTHON_SANDBOX_BEHAVIOR_PORTFOLIO_DERIVATION.md",
+      "relativePath": "design/history/M05_PYTHON_SANDBOX_BEHAVIOR_PORTFOLIO_DERIVATION.md"
     },
     {
-      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/M05_PYTHON_SANDBOX_PROOF_EQUIVALENCE_AUDIT.md",
-      "relativePath": "design/M05_PYTHON_SANDBOX_PROOF_EQUIVALENCE_AUDIT.md"
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/history/M05_PYTHON_SANDBOX_PROOF_EQUIVALENCE_AUDIT.md",
+      "relativePath": "design/history/M05_PYTHON_SANDBOX_PROOF_EQUIVALENCE_AUDIT.md"
     },
     {
-      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/M05_QUALIFICATION_DERIVATION.md",
-      "relativePath": "design/M05_QUALIFICATION_DERIVATION.md"
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/history/M05_QUALIFICATION_DERIVATION.md",
+      "relativePath": "design/history/M05_QUALIFICATION_DERIVATION.md"
     },
     {
-      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/M05_QUALIFICATION_FIRST_SLICE_IACS.md",
-      "relativePath": "design/M05_QUALIFICATION_FIRST_SLICE_IACS.md"
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/history/M05_QUALIFICATION_FIRST_SLICE_IACS.md",
+      "relativePath": "design/history/M05_QUALIFICATION_FIRST_SLICE_IACS.md"
     },
     {
-      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/M05_QUALIFICATION_STRUCTURAL_CARRIER_DIAGRAM.md",
-      "relativePath": "design/M05_QUALIFICATION_STRUCTURAL_CARRIER_DIAGRAM.md"
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/history/M05_QUALIFICATION_STRUCTURAL_CARRIER_DIAGRAM.md",
+      "relativePath": "design/history/M05_QUALIFICATION_STRUCTURAL_CARRIER_DIAGRAM.md"
     },
     {
-      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/M05_RC_LIVE_PORTFOLIO_DERIVATION.md",
-      "relativePath": "design/M05_RC_LIVE_PORTFOLIO_DERIVATION.md"
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/history/M05_RC_LIVE_PORTFOLIO_DERIVATION.md",
+      "relativePath": "design/history/M05_RC_LIVE_PORTFOLIO_DERIVATION.md"
     },
     {
-      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/M05_RC_LIVE_UAT_DERIVATION.md",
-      "relativePath": "design/M05_RC_LIVE_UAT_DERIVATION.md"
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/history/M05_RC_LIVE_UAT_DERIVATION.md",
+      "relativePath": "design/history/M05_RC_LIVE_UAT_DERIVATION.md"
     },
     {
-      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/M05_RELEASE_SNAPSHOT_DERIVATION.md",
-      "relativePath": "design/M05_RELEASE_SNAPSHOT_DERIVATION.md"
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/history/M05_RELEASE_SNAPSHOT_DERIVATION.md",
+      "relativePath": "design/history/M05_RELEASE_SNAPSHOT_DERIVATION.md"
     },
     {
-      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/M05_RELEASE_SNAPSHOT_FIRST_SLICE_IACS.md",
-      "relativePath": "design/M05_RELEASE_SNAPSHOT_FIRST_SLICE_IACS.md"
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/history/M05_RELEASE_SNAPSHOT_FIRST_SLICE_IACS.md",
+      "relativePath": "design/history/M05_RELEASE_SNAPSHOT_FIRST_SLICE_IACS.md"
     },
     {
-      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/M05_RESEARCH_PRODUCT_LAB_SCENARIO_CATALOG_DERIVATION.md",
-      "relativePath": "design/M05_RESEARCH_PRODUCT_LAB_SCENARIO_CATALOG_DERIVATION.md"
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/history/M05_RESEARCH_PRODUCT_LAB_SCENARIO_CATALOG_DERIVATION.md",
+      "relativePath": "design/history/M05_RESEARCH_PRODUCT_LAB_SCENARIO_CATALOG_DERIVATION.md"
     },
     {
-      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/M05_S04_OBSERVER_TUNER_GLOBAL_TO_LOCAL_DESIGN.md",
-      "relativePath": "design/M05_S04_OBSERVER_TUNER_GLOBAL_TO_LOCAL_DESIGN.md"
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/history/M05_S04_OBSERVER_TUNER_GLOBAL_TO_LOCAL_DESIGN.md",
+      "relativePath": "design/history/M05_S04_OBSERVER_TUNER_GLOBAL_TO_LOCAL_DESIGN.md"
     },
     {
       "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/M05_S05_CONSENSUS_GLOBAL_TO_LOCAL_DESIGN.md",
@@ -2675,64 +2675,64 @@
       "relativePath": "design/M05_S06_PUBLIC_FUNCTION_AND_NATIVE_OCCURRENCE_CLOSURE_DESIGN.md"
     },
     {
-      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/M05_SDLC_BOOTSTRAP_LINEAGE_DERIVATION.md",
-      "relativePath": "design/M05_SDLC_BOOTSTRAP_LINEAGE_DERIVATION.md"
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/history/M05_SDLC_BOOTSTRAP_LINEAGE_DERIVATION.md",
+      "relativePath": "design/history/M05_SDLC_BOOTSTRAP_LINEAGE_DERIVATION.md"
     },
     {
-      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/M05_SDLC_BOOTSTRAP_LINEAGE_FIRST_SLICE_IACS.md",
-      "relativePath": "design/M05_SDLC_BOOTSTRAP_LINEAGE_FIRST_SLICE_IACS.md"
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/history/M05_SDLC_BOOTSTRAP_LINEAGE_FIRST_SLICE_IACS.md",
+      "relativePath": "design/history/M05_SDLC_BOOTSTRAP_LINEAGE_FIRST_SLICE_IACS.md"
     },
     {
-      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/M05_SDLC_BOOTSTRAP_LINEAGE_STRUCTURAL_CARRIER_DIAGRAM.md",
-      "relativePath": "design/M05_SDLC_BOOTSTRAP_LINEAGE_STRUCTURAL_CARRIER_DIAGRAM.md"
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/history/M05_SDLC_BOOTSTRAP_LINEAGE_STRUCTURAL_CARRIER_DIAGRAM.md",
+      "relativePath": "design/history/M05_SDLC_BOOTSTRAP_LINEAGE_STRUCTURAL_CARRIER_DIAGRAM.md"
     },
     {
-      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/M06_MAPPING_DEFERRED_DERIVATION.md",
-      "relativePath": "design/M06_MAPPING_DEFERRED_DERIVATION.md"
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/history/M06_MAPPING_DEFERRED_DERIVATION.md",
+      "relativePath": "design/history/M06_MAPPING_DEFERRED_DERIVATION.md"
     },
     {
-      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/M06_MAPPING_DEFERRED_STRUCTURAL_CARRIER_DIAGRAM.md",
-      "relativePath": "design/M06_MAPPING_DEFERRED_STRUCTURAL_CARRIER_DIAGRAM.md"
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/history/M06_MAPPING_DEFERRED_STRUCTURAL_CARRIER_DIAGRAM.md",
+      "relativePath": "design/history/M06_MAPPING_DEFERRED_STRUCTURAL_CARRIER_DIAGRAM.md"
     },
     {
-      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/M06_MAPPING_DEFERRED_TRIGGER_IACS.md",
-      "relativePath": "design/M06_MAPPING_DEFERRED_TRIGGER_IACS.md"
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/history/M06_MAPPING_DEFERRED_TRIGGER_IACS.md",
+      "relativePath": "design/history/M06_MAPPING_DEFERRED_TRIGGER_IACS.md"
     },
     {
-      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/MIGRATED_TYPESCRIPT_DESIGN_SOURCE_AUDIT.md",
-      "relativePath": "design/MIGRATED_TYPESCRIPT_DESIGN_SOURCE_AUDIT.md"
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/history/MIGRATED_TYPESCRIPT_DESIGN_SOURCE_AUDIT.md",
+      "relativePath": "design/history/MIGRATED_TYPESCRIPT_DESIGN_SOURCE_AUDIT.md"
     },
     {
-      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/PYTHON_TO_TYPESCRIPT_DESIGN_DERIVATION.md",
-      "relativePath": "design/PYTHON_TO_TYPESCRIPT_DESIGN_DERIVATION.md"
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/history/PYTHON_TO_TYPESCRIPT_DESIGN_DERIVATION.md",
+      "relativePath": "design/history/PYTHON_TO_TYPESCRIPT_DESIGN_DERIVATION.md"
     },
     {
       "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/README.md",
       "relativePath": "design/README.md"
     },
     {
-      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/REMAINING_TYPESCRIPT_FORWARD_DERIVATION_PLAN.md",
-      "relativePath": "design/REMAINING_TYPESCRIPT_FORWARD_DERIVATION_PLAN.md"
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/history/REMAINING_TYPESCRIPT_FORWARD_DERIVATION_PLAN.md",
+      "relativePath": "design/history/REMAINING_TYPESCRIPT_FORWARD_DERIVATION_PLAN.md"
     },
     {
-      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/REMAINING_TYPESCRIPT_OPTIMIZATION_LEDGER.md",
-      "relativePath": "design/REMAINING_TYPESCRIPT_OPTIMIZATION_LEDGER.md"
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/history/REMAINING_TYPESCRIPT_OPTIMIZATION_LEDGER.md",
+      "relativePath": "design/history/REMAINING_TYPESCRIPT_OPTIMIZATION_LEDGER.md"
     },
     {
-      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/SCHEDULE_DOMAIN_MODULE_DERIVATION.md",
-      "relativePath": "design/SCHEDULE_DOMAIN_MODULE_DERIVATION.md"
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/history/SCHEDULE_DOMAIN_MODULE_DERIVATION.md",
+      "relativePath": "design/history/SCHEDULE_DOMAIN_MODULE_DERIVATION.md"
     },
     {
-      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/SCHEDULE_RUN_PROJECTION_AND_SLA_ANALYTICS.md",
-      "relativePath": "design/SCHEDULE_RUN_PROJECTION_AND_SLA_ANALYTICS.md"
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/history/SCHEDULE_RUN_PROJECTION_AND_SLA_ANALYTICS.md",
+      "relativePath": "design/history/SCHEDULE_RUN_PROJECTION_AND_SLA_ANALYTICS.md"
     },
     {
-      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/SLA_TELEMETRY_HOMEOSTATIC_FEEDBACK.md",
-      "relativePath": "design/SLA_TELEMETRY_HOMEOSTATIC_FEEDBACK.md"
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/history/SLA_TELEMETRY_HOMEOSTATIC_FEEDBACK.md",
+      "relativePath": "design/history/SLA_TELEMETRY_HOMEOSTATIC_FEEDBACK.md"
     },
     {
-      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/T176_GTL_LANGUAGE_CAPABILITY_TS_HOW_AND_GAP_ANALYSIS.md",
-      "relativePath": "design/T176_GTL_LANGUAGE_CAPABILITY_TS_HOW_AND_GAP_ANALYSIS.md"
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/history/T176_GTL_LANGUAGE_CAPABILITY_TS_HOW_AND_GAP_ANALYSIS.md",
+      "relativePath": "design/history/T176_GTL_LANGUAGE_CAPABILITY_TS_HOW_AND_GAP_ANALYSIS.md"
     },
     {
       "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/T287_C1_PRESERVED_RESULT_ARTIFACT_DESIGN.md",
@@ -2839,8 +2839,8 @@
       "relativePath": "design/T287_TERMINAL_QUIESCENCE_OWNER_NETWORK_ACCEPTED_DESIGN.md"
     },
     {
-      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/T287_W2_ODD_GLC_TYPED_WORKSPACE_ADMISSION_DESIGN.md",
-      "relativePath": "design/T287_W2_ODD_GLC_TYPED_WORKSPACE_ADMISSION_DESIGN.md"
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/history/T287_W2_ODD_GLC_TYPED_WORKSPACE_ADMISSION_DESIGN.md",
+      "relativePath": "design/history/T287_W2_ODD_GLC_TYPED_WORKSPACE_ADMISSION_DESIGN.md"
     },
     {
       "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/T287_W2_R2_CONSUMER_DECLARATION_ADMISSION_DESIGN.md",
@@ -2871,52 +2871,52 @@
       "relativePath": "design/T289_IMMUTABLE_INSTALL_EVENT_BODIES_DESIGN.md"
     },
     {
-      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/TIMER_PROVIDER_CONTRACT_SKETCH.md",
-      "relativePath": "design/TIMER_PROVIDER_CONTRACT_SKETCH.md"
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/history/TIMER_PROVIDER_CONTRACT_SKETCH.md",
+      "relativePath": "design/history/TIMER_PROVIDER_CONTRACT_SKETCH.md"
     },
     {
-      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/TWO_STAGE_EVALUATION_MODEL.md",
-      "relativePath": "design/TWO_STAGE_EVALUATION_MODEL.md"
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/history/TWO_STAGE_EVALUATION_MODEL.md",
+      "relativePath": "design/history/TWO_STAGE_EVALUATION_MODEL.md"
     },
     {
-      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/TYPESCRIPT_REALIZATION_GUARDRAILS.md",
-      "relativePath": "design/TYPESCRIPT_REALIZATION_GUARDRAILS.md"
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/history/TYPESCRIPT_REALIZATION_GUARDRAILS.md",
+      "relativePath": "design/history/TYPESCRIPT_REALIZATION_GUARDRAILS.md"
     },
     {
-      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/TYPESCRIPT_STRICT_LANE.md",
-      "relativePath": "design/TYPESCRIPT_STRICT_LANE.md"
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/history/TYPESCRIPT_STRICT_LANE.md",
+      "relativePath": "design/history/TYPESCRIPT_STRICT_LANE.md"
     },
     {
-      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/adrs/ADR-040-typescript-tenant-as-package-first-realization.md",
-      "relativePath": "design/adrs/ADR-040-typescript-tenant-as-package-first-realization.md"
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/history/adrs/ADR-040-typescript-tenant-as-package-first-realization.md",
+      "relativePath": "design/history/adrs/ADR-040-typescript-tenant-as-package-first-realization.md"
     },
     {
-      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/adrs/ADR-041-runtime-execution-law-is-carrier-and-event-owned.md",
-      "relativePath": "design/adrs/ADR-041-runtime-execution-law-is-carrier-and-event-owned.md"
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/history/adrs/ADR-041-runtime-execution-law-is-carrier-and-event-owned.md",
+      "relativePath": "design/history/adrs/ADR-041-runtime-execution-law-is-carrier-and-event-owned.md"
     },
     {
-      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/adrs/ADR-042-deterministic-handling-must-not-structurally-block-governed-fp.md",
-      "relativePath": "design/adrs/ADR-042-deterministic-handling-must-not-structurally-block-governed-fp.md"
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/history/adrs/ADR-042-deterministic-handling-must-not-structurally-block-governed-fp.md",
+      "relativePath": "design/history/adrs/ADR-042-deterministic-handling-must-not-structurally-block-governed-fp.md"
     },
     {
-      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/adrs/ADR-043-runtime-advancement-uses-execution-basis-and-advancement-transition.md",
-      "relativePath": "design/adrs/ADR-043-runtime-advancement-uses-execution-basis-and-advancement-transition.md"
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/history/adrs/ADR-043-runtime-advancement-uses-execution-basis-and-advancement-transition.md",
+      "relativePath": "design/history/adrs/ADR-043-runtime-advancement-uses-execution-basis-and-advancement-transition.md"
     },
     {
-      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/adrs/ADR-044-prime-contraction-is-a-cross-boundary-design-gate.md",
-      "relativePath": "design/adrs/ADR-044-prime-contraction-is-a-cross-boundary-design-gate.md"
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/history/adrs/ADR-044-prime-contraction-is-a-cross-boundary-design-gate.md",
+      "relativePath": "design/history/adrs/ADR-044-prime-contraction-is-a-cross-boundary-design-gate.md"
     },
     {
-      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/adrs/ADR-045-global-design-constraints-survive-local-projection.md",
-      "relativePath": "design/adrs/ADR-045-global-design-constraints-survive-local-projection.md"
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/history/adrs/ADR-045-global-design-constraints-survive-local-projection.md",
+      "relativePath": "design/history/adrs/ADR-045-global-design-constraints-survive-local-projection.md"
     },
     {
-      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/adrs/ADR-046-catalog-application-binds-concrete-values-without-runtime-events.md",
-      "relativePath": "design/adrs/ADR-046-catalog-application-binds-concrete-values-without-runtime-events.md"
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/history/adrs/ADR-046-catalog-application-binds-concrete-values-without-runtime-events.md",
+      "relativePath": "design/history/adrs/ADR-046-catalog-application-binds-concrete-values-without-runtime-events.md"
     },
     {
-      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/adrs/ADR-047-reflective-optimization-is-gtl-over-replay.md",
-      "relativePath": "design/adrs/ADR-047-reflective-optimization-is-gtl-over-replay.md"
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/history/adrs/ADR-047-reflective-optimization-is-gtl-over-replay.md",
+      "relativePath": "design/history/adrs/ADR-047-reflective-optimization-is-gtl-over-replay.md"
     },
     {
       "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/package-lock.json",

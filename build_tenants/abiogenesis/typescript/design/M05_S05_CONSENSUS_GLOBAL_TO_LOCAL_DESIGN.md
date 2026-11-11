@@ -11,9 +11,9 @@ catalog-application clarification pending exact-cut review
 1 through 12
 
 **Decision rationale**:
-[ADR-045](./adrs/ADR-045-global-design-constraints-survive-local-projection.md)
+[ADR-045](./history/adrs/ADR-045-global-design-constraints-survive-local-projection.md)
 and
-[ADR-046](./adrs/ADR-046-catalog-application-binds-concrete-values-without-runtime-events.md)
+[ADR-046](./history/adrs/ADR-046-catalog-application-binds-concrete-values-without-runtime-events.md)
 
 ## Authority And Supersession
 

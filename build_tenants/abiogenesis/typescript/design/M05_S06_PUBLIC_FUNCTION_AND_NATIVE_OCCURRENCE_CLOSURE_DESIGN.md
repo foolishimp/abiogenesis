@@ -40,9 +40,9 @@ It derives from:
 This file is the sole current design asset for the affected S06 delta. It:
 
 - supersedes the public-operation-family part of
-  `M04_PUBLIC_CONTRACT_PUBLICATION_BEHAVIOR_DESIGN.md`;
+  `history/M04_PUBLIC_CONTRACT_PUBLICATION_BEHAVIOR_DESIGN.md`;
 - re-derives useful contract evidence from
-  `M04_PUBLIC_OPERATION_DEFINITION_FAMILY_BEHAVIOR_DESIGN.md`, whose prior
+  `history/M04_PUBLIC_OPERATION_DEFINITION_FAMILY_BEHAVIOR_DESIGN.md`, whose prior
   19-operation authority was invalidated by T-283;
 - removes the planned 5.1 tuning operation and observer/tuner read variants;
 - refines only the occurrence and binding parts of the accepted

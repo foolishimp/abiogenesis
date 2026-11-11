@@ -3287,7 +3287,7 @@ operation, event kind, continuation, or runtime.
 **Supersession note (2026-07-28):** Sections 14.1 and 14.2 remain the
 provisional S06 portability design. The observer/tuner material in Sections
 14.3 through 14.7 is superseded for S04 by
-`M05_S04_OBSERVER_TUNER_GLOBAL_TO_LOCAL_DESIGN.md` and remains design-discovery
+`history/M05_S04_OBSERVER_TUNER_GLOBAL_TO_LOCAL_DESIGN.md` and remains design-discovery
 evidence only. It carries no independent S04 realization or closure authority.
 
 Retired sections: [history/M05_DIRECT_GTL_TRAVERSAL_EXPANSION_DESIGN__RETIRED_SECTIONS.md](history/M05_DIRECT_GTL_TRAVERSAL_EXPANSION_DESIGN__RETIRED_SECTIONS.md).

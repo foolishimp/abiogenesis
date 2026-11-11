@@ -18,8 +18,8 @@ Retired sections: [history/M03_PAYLOAD_LEDGER_EVENT_TOPOLOGY_DERIVATION__RETIRED
 - `specification/requirements/abg/REQ-R-ABG3-TRANSPORT.md`
 - `specification/requirements/gtl/REQ-L-GTL3-HOOKS.md`
 - `specification/scenarios/11-event-sourced-payload-ledger-uat.md`
-- `M03_TOTAL_ASSURANCE_PROJECTION_DERIVATION.md`
-- [T-095](../../../../.ai-workspace/tickets/active/T-095-define-event-sourced-abg-payload-ledger-and-legal-proof-topology.md)
+- `history/M03_TOTAL_ASSURANCE_PROJECTION_DERIVATION.md`
+- [T-095](../../../../.ai-workspace/tickets/completed/T-095-define-event-sourced-abg-payload-ledger-and-legal-proof-topology.md)
 
 ## Position
 
