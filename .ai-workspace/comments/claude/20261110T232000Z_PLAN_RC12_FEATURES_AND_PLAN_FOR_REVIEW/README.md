@@ -265,13 +265,13 @@ Review file: `/private/tmp/abg-rv4-tmp/RV4_REVIEW.md`. Verdict: changes requeste
 
 ## 15. Close: the candidate, its evidence and the decisions left to the owner (2026-11-11)
 
-**Nothing is merged and nothing is pushed.** `5.0.0-rc.12` exists as a local, unqualified, unpublished candidate. It completed one live Run, on the sunny path. The Consensus retirement is not in it. Merging the branch into `main` would ratify changed Product, requirement and intent text, so the Executive left the merge to the owner.
+**RC12 is integrated into local `main`. Nothing is pushed.** `5.0.0-rc.12` exists as a local, unqualified, unpublished candidate. It completed one live Run, on the sunny path. The Consensus retirement is not in it. The Executive first left the merge to the owner; the owner then ruled it (15.7), and the merge is `99e6085b0`.
 
 ### 15.1 Identity
 
 | Item | Value |
 |---|---|
-| Branch | `claude/rc12-integration`, head `34aafb2c6` |
+| Branch | `claude/rc12-integration`, head `34aafb2c6`; on `main` through two-parent merge `99e6085b0` over preservation commit `89ee06e15` |
 | Cut commit | `95da94e725c709b8307b125f20f350861fc1e8a3`, tree `b1586e3c6fb0b553105db7989f10990bb8918f0a` |
 | Archive | `~/Library/Application Support/ABIogenesis/releases/5.0.0-rc.12/abiogenesis-typescript-tenant-5.0.0-rc.12.tgz`, `sha256:db80a5dac52fac5a859daf45a646e21209e538c7093b443ffca6532e6be9e3ca`, 11,062,933 bytes, 5,327 members |
 | Install | `~/Library/Application Support/ABIogenesis/installs/5.0.0-rc.12`; 5,327 files equal to the archive; smoke closed with 56 definitions |
@@ -280,7 +280,7 @@ Review file: `/private/tmp/abg-rv4-tmp/RV4_REVIEW.md`. Verdict: changes requeste
 
 The archive holds `build/`, `contracts/`, the toolchain manifest, `package.json` and dependencies. Commits after the cut commit change tests, one design note and records, so they do not change the archive.
 
-The build's worktrees are under `/private/tmp`, which the system may clear. Commits are safe in the repository. The untracked evidence of the live Run, the comparison run and the failure trace is copied, byte-equal, to `.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc12-executive-01-evidence/` in the main checkout (26 MB, untracked).
+The build's worktrees were under `/private/tmp`. The untracked evidence the Returns cite is copied to `.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc12-executive-01-evidence/` in the main checkout (117 MB, untracked): the live Run, the comparison run, the failure trace, the inactivity and heartbeat scratch, the suite and base outputs, and the memory measurements.
 
 Sections 13 and 14 cite review files at temporary paths. The durable copies are `reviews/RV1_REVIEW.md` (section 13's review 2), `RV2_REVIEW.md` (review 3) and `RV4_REVIEW.md` (section 14's review 4). `RV3`, `RV5` and `RV6` are reported in 15.5.
 
@@ -348,16 +348,21 @@ All reviewers are Claude Opus 5.5 at maximum effort in fresh contexts, the same 
 
 ### 15.6 Section 14's Product header line is not yet written
 
-Section 14 said the Product header would gain the change authority for RC12's edits at the close. It was not written at the `rc.12` cut. By ruling 2 of 15.7 the next package writes it, in the header's existing form: `**Default-governance change authority**: direct Product-owner instruction, 2026-11-11, and [RC12 build record](../.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc12-executive-01/LEDGER.md).`, with `**Updated**: 2026-11-11`.
+Section 14 said the Product header would gain the change authority for RC12's edits at the close. It was not written at the `rc.12` cut, and it cannot be added to `rc.12` now: the packaged contracts carry a mirror of the Product and intent files (`T/contracts/qualification/sources/`), so a header edit changes the archive. It goes into the next cut, in the header's existing form: `**Default-governance change authority**: direct Product-owner instruction, 2026-11-11, and [RC12 build record](../.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc12-executive-01/LEDGER.md).`, with `**Updated**: 2026-11-11`.
 
-### 15.7 Decisions: two for the owner, the rest ruled from precedent
+### 15.7 Decisions: one answered by the owner, one open, the rest ruled from precedent
 
-The owner asked, at the close, for the decisions that prior cases cannot answer. The Executive had listed four. Checked against the record, precedent answers them; two others have no precedent to derive from.
+The owner asked, at the close, for the decisions that prior cases cannot answer. The Executive had listed four. Checked against the record, precedent answers them. Two others looked underivable: integration into `main`, which the owner then answered with a standing rule, and who runs the next round.
 
-**For the owner.**
+**Answered by the owner at the close.** The Executive asked whether RC12 is integrated into local `main`, because only RC9 had been integrated and RC10 and RC11 had not. Owner, 2026-11-11: "i thought RC9 established precedence, but it failed to do so, all worktrees are short lived are merged back to main and deleted". Done by the RC9 precedent (`rc9-main-integration-01`):
 
-1. **Whether RC12 is integrated into local `main`, and what `GOALS.md` selects next.** RC9, RC10 and RC11 were each pinned on the owner's instruction; only RC9 was integrated, on explicit authorization (`rc9-main-integration-01`). A trial merge of committed content is clean (`git merge-tree`, result tree `65ad29e2b`). The branch's base `b7cf409fc` is not on `main`, so the merge brings the seven foundation-correction commits. `main` carries Codex's uncommitted status blocks in `specification/GOALS.md` and the T-287 ticket, and they do not re-apply on top of the merged files. The top block reads "RC12 WAITING_FOR_OWNER_RESUME", which is no longer true; its replacement states the owner's current selection. Mechanics on a yes: the RC9 precedent, a preservation checkpoint and a two-parent merge.
-2. **Who runs the round after RC12.** The owner gave this build to the Executive as a one-off, "in the interest of time and testing how good Fable 5.2 is", and named dogfooding as the purpose. The choices are the same Executive directly, Codex as Root, or the installed candidate's own Executive with the candidate pinned as builder. Every earlier pen change was the owner's explicit call.
+- Preservation commit `89ee06e15` commits, unchanged, the status blocks Codex had left uncommitted in `specification/GOALS.md` and the T-287 ticket.
+- Two-parent merge `99e6085b0` of `claude/rc12-integration` at `34aafb2c6`. Every entry outside `.ai-workspace` and `GOALS.md` equals the RC12 head (1,891 entries, none differing). Every record of `main` is retained exactly and 34 records are added. The two conflicted records are restored from the preservation commit; they already hold later revisions of the incoming entries.
+- The merge also brings the RC10 retention, RC11 qualification and RC11 foundation-correction lines, which the RC12 head contains.
+- `f76847223` adds one status block at the top of `GOALS.md` and the ticket. It records the integration and states that no pin, qualification or next round is selected.
+- Three idle RC12 worktrees are deleted after their cited evidence was copied out. The worktree running the final whole-suite run and the one running the read-only trace below are deleted when those finish. Codex's three worktrees (`codex/rc10-retention`, `codex/rc11-foundation-correction`, `codex/rc11-qualification`) are now merged into `main` but hold untracked directories (`.abiogenesis/`, `qualification-inputs/`, `qualification-scratch/`), so the Executive left them in place.
+
+**For the owner.** Next steps. The owner said at the close that RC12 comes first and next steps are evaluated after it. The open question is who runs the next round: the owner gave this build to the Executive as a one-off, "in the interest of time and testing how good Fable 5.2 is", and named dogfooding as the purpose. The choices are the same Executive directly, Codex as Root, or the installed candidate's own Executive with the candidate pinned as builder. Every earlier pen change was the owner's explicit call.
 
 Only the owner can tell Codex that its RC12 wait is over.
 
@@ -365,8 +370,8 @@ Only the owner can tell Codex that its RC12 wait is over.
 
 | Question | Ruling | Precedent |
 |---|---|---|
-| How One Surface is realized once Consensus is retired | Re-home the standard system program onto the Executive, then retire standalone Consensus with review 4's repairs. It is the unfinished part of the RC12 objective and is built directly, like the rest. The package starts with a read-only trace that maps the four authorities `synthesizeModel`, `evalGap`, `evaluateNext` and `evaluateAction` onto the Executive's step as built, and stops if one has no counterpart. Its cut is `rc.13`, because the `rc.12` release and install directories are create-once | Owner: "consensus has been replaced by executive". The Product section "System And One Surface" already says "In 5.0, a required human response yields a truthful blocked handoff; native response/resume is 5.1", so no human-response path is needed. Section 14's rejected route removed the feature; this one keeps it |
-| Ratifying the changed authority text | It stands under the owner's delegation for this build. The next package records the change authority in the Product and intent headers (15.6). `LEDGER.md` lists every change: three new intent paragraphs, seven Product changes and four requirement changes covering seven requirement statements. The Executive read the whole specification difference against the base to make the list | Owner, 2026-11-11: "run from the precedences established, all your questions can be answered by my historical intent"; the header convention of earlier re-entries |
+| How One Surface is realized once Consensus is retired | Re-home the standard system program onto the Executive, then retire standalone Consensus with review 4's repairs. A read-only trace is running (branch `claude/rc13-one-surface`, Return `O1_TRACE.md`): it maps the four authorities `synthesizeModel`, `evalGap`, `evaluateNext` and `evaluateAction` onto the Executive's step as built and proposes the smallest re-homing. No construction starts before the owner's evaluation of next steps. A cut that contains it is `rc.13`, because the `rc.12` release and install directories are create-once | Owner: "consensus has been replaced by executive". The Product section "System And One Surface" already says "In 5.0, a required human response yields a truthful blocked handoff; native response/resume is 5.1", so no human-response path is needed. Section 14's rejected route removed the feature; this one keeps it |
+| Ratifying the changed authority text | It stands under the owner's delegation for this build. The next cut records the change authority in the Product and intent headers (15.6). `LEDGER.md` lists every change: three new intent paragraphs, seven Product changes and four requirement changes covering seven requirement statements. The Executive read the whole specification difference against the base to make the list | Owner, 2026-11-11: "run from the precedences established, all your questions can be answered by my historical intent"; the header convention of earlier re-entries |
 | Whether to qualify `rc.12` | No. The cut to qualify is the one with Consensus superseded. The qualification inventory and recipe predate RC12: none of the ten test files RC12 added is listed in either, and the package M Return names the members its split adds and changes | Owner, 2026-10-29: "i approve the recommendations, they are now the refactor plan". That plan qualified a repair cut, not the candidate it repaired, because a Product change makes a new cut |
 | Whether to re-cut after the memory fix | No. The fix is test-only; no archive input has changed since the cut commit | Sixth amendment: unchanged code is not rechecked |
 | The 60 s inactivity default (15.8, item 2) | A defect. The next package sets the default from the recorded evidence | Owner: always discharge technical debt |
