@@ -1,8 +1,11 @@
 # RC12 live amendment witness: how to run it
 
-Prepared by package X. Nothing here has been run. No provider call has been made.
+Prepared by package X. The live case has not been run. No provider call has been made.
 
-**Precondition not met.** The rc.12 cut does not exist. Package X stopped at the stamp dry-run (see `X_RETURN.md`). The cut archive's digest is unknown. The frozen route below can run only after the cut and install exist.
+**Subject.** The local unqualified candidate `5.0.0-rc.12`, cut from commit `95da94e725c709b8307b125f20f350861fc1e8a3` (tree `b1586e3c6fb0b553105db7989f10990bb8918f0a`) on `claude/rc12-integration`.
+- Archive: `/Users/jim/Library/Application Support/ABIogenesis/releases/5.0.0-rc.12/abiogenesis-typescript-tenant-5.0.0-rc.12.tgz`, sha256 `db80a5dac52fac5a859daf45a646e21209e538c7093b443ffca6532e6be9e3ca`, 11,062,933 bytes, 5,327 members.
+- Install host: `/Users/jim/Library/Application Support/ABIogenesis/installs/5.0.0-rc.12`; installed root `node_modules/@abiogenesis/typescript-tenant` below it.
+- Records: `CUT_RECORD.json`, `INSTALL_RECORD.json` and `INSTALLED_OWNER_SMOKE.json` in the release directory.
 
 ## Variables
 
@@ -16,7 +19,7 @@ E=$W/qualification-scratch/rc12-executive-01/demo
 mkdir -p /private/tmp/abg-demo-tmp
 ```
 
-- Check out the cut commit in `W` and build T at that commit (`cd $T && npm run build`). The harness imports T's own `build/` for its helpers, and `product.ABI5_PRODUCT_ID` comes from there.
+- Build T at the cut commit (`cd $T && npm run build`). The harness imports T's own `build/` for its helpers, and `product.ABI5_PRODUCT_ID` comes from there. The commits after the cut on `claude/rc12-integration` change only `.ai-workspace/`, so T at the branch head is T at the cut commit.
 - `qualification-scratch/` is not gitignored. Leave it uncommitted.
 - Every evidence file is written with the `wx` flag, so each attempt needs a new directory (`live-01`, `live-02`, …).
 - `ANTHROPIC_MODEL` must be unset or equal `claude-opus-5-5`. A different value makes the recorded actor identity `model_environment_conflict`.
@@ -30,7 +33,7 @@ mkdir -p /private/tmp/abg-demo-tmp
 
 ## Which artifact the live case executes
 
-**By default, not the cut archive.** `runWitness` calls `setupInstalledRootCatalog`, which runs `npm pack --ignore-scripts` in T and installs that pack into scratch (`test_env/support/root-installed-environment.mjs:185-207`). The pack has never been compared with the cut archive, so equality of their digests is not established. K_RETURN D4 found that the worktree build equals the cut build on every locator except the four version files. That is evidence about member bytes, not about the archive digest.
+**By default, a fresh pack of T, not the cut archive.** `runWitness` calls `setupInstalledRootCatalog`, which runs `npm pack --ignore-scripts` in T and installs that pack into scratch (`test_env/support/root-installed-environment.mjs:185-207`). At the cut commit, the worktree pack made by `scripts/refresh-candidate-basis.mjs` had the cut archive's digest. Nothing in the default route asserts that equality on a later run.
 
 **Cut archive (frozen route).** The harness supports this route; use it to execute exactly the cut.
 - Set `ABI5_WAVE1_FROZEN_ARTIFACT_PATH`, `ABI5_WAVE1_FROZEN_INSTALL_HOST` and `ABI5_WAVE1_FROZEN_ARTIFACT_SHA256` (`root-installed-environment.mjs:30-55`).
@@ -39,6 +42,10 @@ mkdir -p /private/tmp/abg-demo-tmp
   - asserts that the archive's sha256 equals the given digest (`:223`);
   - installs that archive into its own scratch.
 - It writes nothing under the install host.
+- **Verified without a provider call** at `95da94e72`. The three variables below were set, the live gate was unset, and `--test-name-pattern '^a task that omits a review its Program names'` selected one scripted case of `t287-amendment-witness.test.mjs`, which uses the stand-in actor.
+  - With the cut digest: 1/1/0/0.
+  - With an all-zero digest: 1/0/1/0, failing with "frozen artifact digest differs from the authorized subject". That assertion exists only on the frozen route.
+  - The install host's file inventory (`c80bfef4…`, 5,330 rows) was identical before and after, and no file under it was newer than a marker set before the runs.
 
 ## Live case (from T, frozen to the cut)
 
@@ -47,9 +54,9 @@ cd $T && \
 ABI5_AMENDMENT_WITNESS_LIVE=1 \
 ABI5_AMENDMENT_WITNESS_EVIDENCE_ROOT=$E/live-01 \
 ABI5_NATIVE_SELECTION_PROVIDER=$X/demo/provider.json \
-ABI5_WAVE1_FROZEN_ARTIFACT_PATH="$R/abiogenesis-typescript-tenant-5.0.0-rc.12.tgz" \
-ABI5_WAVE1_FROZEN_INSTALL_HOST="$AS/installs/5.0.0-rc.12" \
-ABI5_WAVE1_FROZEN_ARTIFACT_SHA256=<archive sha256 from $R/CUT_RECORD.json .archive.sha256> \
+ABI5_WAVE1_FROZEN_ARTIFACT_PATH="/Users/jim/Library/Application Support/ABIogenesis/releases/5.0.0-rc.12/abiogenesis-typescript-tenant-5.0.0-rc.12.tgz" \
+ABI5_WAVE1_FROZEN_INSTALL_HOST="/Users/jim/Library/Application Support/ABIogenesis/installs/5.0.0-rc.12" \
+ABI5_WAVE1_FROZEN_ARTIFACT_SHA256=db80a5dac52fac5a859daf45a646e21209e538c7093b443ffca6532e6be9e3ca \
 ABG_TS_FP_TIMEOUT_MS=300000 ABG_TS_FP_ABSOLUTE_TIMEOUT_MS=1800000 \
 TMPDIR=/private/tmp/abg-demo-tmp \
 node --experimental-vm-modules --test --test-concurrency=1 --test-name-pattern '^live:' \

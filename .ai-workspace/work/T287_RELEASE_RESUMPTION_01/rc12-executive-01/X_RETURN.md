@@ -118,3 +118,65 @@ Writer Return, commentary.
    - (a) move the two ignored `test_env/test_runs/` subtrees into scratch, which keeps their bytes; or
    - (b) add `test_env/test_runs` to `stamp-rc12.mjs`'s `ignored`, to match its stated rule.
 2. **P3.** Accept RV5's stated equivalence, or commission a fan-out or retry fixture.
+
+## Continuation: stamp, cut, install
+
+Operator continuation, commentary. This section and the `demo/RUN.md` update are committed on top of the cut commit `95da94e72`; that commit changes only `.ai-workspace/`. Scratch: `/private/tmp/abg-rc12-cut-02` (run directories, logs, `post-cut-checks.sh`).
+
+**Stop hit after the cut: a version-derived test pin.** At `95da94e72`, `t287-default-library-prerequisites` is 7/6/1/0 (7/7/0/0 at `eb87782fa`).
+- The failing case (test file line 60) pins the `library` and `bindings` digests of constructions over a basis built from `product.ABI5_PRODUCT_ID` and `ABI5_PACKAGE_VERSION` (line 18). On the cut build, the rc.11 identity gives exactly the pinned `ad5051fd…` and `90338211…`; the rc.12 identity gives the observed `0f140619…` and `8ba685c3…`. The stamp caused the red.
+- The repair is a test-pin edit, outside the grant. Not made.
+- Census gap: K D1 and the stamp's own check search only for the literal version string; neither sees digests derived from it.
+- Scope at `95da94e72`, each file alone, of the other files that build a basis from the product identity and pin digests: `t287-default-library-reviews` 10/10/0/0, `t287-default-library-fulfillment` 7/7/0/0, `t287-native-work-reacquisition-normalization` 2/1/0/1 (skip: retained root unset), `t287-recursive-failure-foldback` 8/8/0/0, `t287-default-library` 37/34/0/3 (the B2a-continuation baseline). No other red.
+- Facts for the decision: `test_env/` is outside the package `files`, so a test-only repin cannot change the archive bytes. The rc.12 release and install directories exist and are create-once, so any re-cut is rc.13. (A) keep `95da94e72` as the cut and repin in a later commit: same archive, but the cut commit carries the red pin. (B) repin and cut rc.13.
+
+**Script change, `e91bfa6dc`.** `stamp-rc12.mjs` adds `test_env/test_runs` to `ignored` (the repository `.gitignore:38` rule), and the comment names both ignore sources. Dry-run then: `changed` 4 sites, `regeneratedByBuild` 2 (`capability-definition-graph.json`, `product-toolchain-manifest.json`).
+
+**Stamp commit = cut commit** `95da94e725c709b8307b125f20f350861fc1e8a3`, tree `b1586e3c6fb0b553105db7989f10990bb8918f0a`, 8 paths: the 4 census sites (rc.11 → rc.12), the 2 regenerated files, `release-claim.md`, and `abi5-root-candidate-basis.json`, which `scripts/refresh-candidate-basis.mjs` refreshed. The refresher needs no qualification step; it ran with npm offline.
+- `npm run build` exit 0. Two further builds left the 8 paths byte-unchanged; the last was compared against the staged content.
+- At the staged stamp: `lint:imports` "3 forbidden owner pair(s) hold"; `lint:lifecycle` "291 modules … no offender"; `lint:calculus` "6 modules … no offender"; recipe lint `"passed":true` over 72 files; `lint:evidence` the same five offenders.
+- After the commit, `test:r1`'s build left the tree clean.
+
+**Cut.** Package-files branch, both donor and build. Inventory `f28e1d19…`: 4,576 rows, equal.
+- Dry-run: `DRY_RUN_COMPLETE_NOTHING_WRITTEN_OUTSIDE_SCRATCH`, `generatedEqual:true`, `outputAbsent:true`.
+- Apply: `CUT_COMPLETE_INSTALL_NOT_PERFORMED`.
+- Archive `~/Library/Application Support/ABIogenesis/releases/5.0.0-rc.12/abiogenesis-typescript-tenant-5.0.0-rc.12.tgz`: `sha256:db80a5dac52fac5a859daf45a646e21209e538c7093b443ffca6532e6be9e3ca`, 11,062,933 bytes, 5,327 members, 71,976,940 payload bytes. `productContentDigest` `sha256:dcfbcf42…d106`, `manifestDigest` `sha256:644edecc…a3d3`. Verifier `verified`, 5,325 payload files checked.
+- Against RC11, from the cut record `comparison`: +`build/code/src/shared/owned_process_state.{js,d.ts}`; −`node_modules/{fast-check,pure-rand}/CHANGELOG.md` (C1: two fewer dependency changelogs); 87 changed, 5,238 unchanged.
+
+**Reproducibility.** The dry-run and the apply each build fresh from a git-archive of the commit, and both gave `db80a5da…`. The worktree pack made by the basis refresh before the commit gave the same digest. The basis's three digests equal the cut record's identity, so r1 and r2 verify the rc.12 bytes. No third cut run (the script refuses an existing `--output`).
+
+**Install.** Dry-run `DRY_RUN_INSTALL_COMPLETE_IN_SCRATCH`; apply `INSTALL_COMPLETE_UNQUALIFIED`.
+- Host `~/Library/Application Support/ABIogenesis/installs/5.0.0-rc.12`, installed root `node_modules/@abiogenesis/typescript-tenant`.
+- 5,327 installed files = 5,327 members, `installedEqualsArchive:true`. My own walk agrees: 0 missing, 0 extra, 0 differing, no links. Beside the root the host holds only `package.json`, `package-lock.json`, `node_modules/.package-lock.json`.
+- Nothing else under `ABIogenesis/` changed.
+
+**Smoke** (dry-run and apply): `INSTALLED_OWNER_SMOKE_CLOSED`, version `5.0.0-rc.12`, 56 definitions, 15 export paths, 0 events, re-verified, content matches. The closed empty resource is kept in scratch.
+
+**Tests at `95da94e72`,** each file alone with TMPDIR `/private/tmp/abg-x-tmp`, as tests/pass/fail/skip:
+- `t287-default-library-recoverable-failure` 5/5/0/0;
+- `t287-default-library-prerequisites` 7/6/1/0 (the stop above);
+- `t287-amendment-witness` 13/12/0/1 (the gated live case);
+- `m5-consensus-module` 17/17/0/0;
+- `npm run test:r1` 1/1/0/0;
+- `npm run test:r2` 2/2/0/0 (r1 and r2). Both verified `db80a5da…`; r2 materialized it, and the installed export re-verified it.
+
+**`release-claim.md`** opens: "`5.0.0-rc.12` is a local, unqualified, unpublished development candidate. It is cut from the commit on branch `claude/rc12-integration` that adds this text … RC11 remains the pinned builder." It lists X's results, each at the commit where it was observed (`eb87782fa`, `c174b2b44`), and says "The whole suite is not run for this claim; it is reported separately." It does not claim "Qualification … Publication … Evidence from earlier candidates … A live provider run … Any Consensus change: the Consensus sources are unchanged from the base `82ad6639b`." (Checked: no tracked file whose path contains "consensus" differs between `82ad6639b`, or RC11's `e2ba05da5`, and the cut.) Its line "prerequisites 7/7/0/0" at `eb87782fa` is accurate for that commit, but it does not hold at the cut commit.
+
+**Demonstration.** `demo/RUN.md`'s live command now sets:
+- `ABI5_WAVE1_FROZEN_ARTIFACT_PATH` = the archive above;
+- `ABI5_WAVE1_FROZEN_INSTALL_HOST` = the install host above;
+- `ABI5_WAVE1_FROZEN_ARTIFACT_SHA256=db80a5da…e9e3ca`.
+
+The FP limits (300000 and 1800000), `E=$W/qualification-scratch/rc12-executive-01/demo` with `live-01`, and TMPDIR `/private/tmp/abg-demo-tmp` are kept.
+
+The frozen route is verified with no provider call, using one scripted case and the live gate unset. The cut digest gives 1/1/0/0. An all-zero digest gives 1/0/1/0, "frozen artifact digest differs from the authorized subject". The install host inventory is `c80bfef4…` (5,330 rows) before and after, with 0 files newer than the marker. The live case was not started.
+
+**Deviations.**
+- npm ran with `npm_config_offline=true` and `npm_config_update_notifier=false`.
+- Extra builds and the scope runs were added beyond E4.
+- The claim cites only X's results, not every earlier Return's.
+
+**Residual risks.**
+- The census misses other version-derived pins outside the files run here.
+- The whole suite was not run.
+- The writer and the advisor are the same model family.
