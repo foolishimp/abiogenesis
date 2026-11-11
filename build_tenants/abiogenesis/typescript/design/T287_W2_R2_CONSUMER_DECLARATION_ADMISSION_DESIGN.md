@@ -2,6 +2,8 @@
 
 Status: `W2-STEEL-02-I/R2-OBS-05`, Executive-selected bounded membership clarification during implementation; the complete successor awaits independent implementation review. The accepted predecessor HOW `193cdb1863486cac10387c5f3c6ac2c50af9d9cb363e2c64e1c21b5a81e27051` is retained in the implementation record. This child closes the two producer questions for one independent, zero-executable consumer case; the remaining parent HOW stays unratified.
 
+Retired sections: [history/T287_W2_R2_CONSUMER_DECLARATION_ADMISSION_DESIGN__RETIRED_SECTIONS.md](history/T287_W2_R2_CONSUMER_DECLARATION_ADMISSION_DESIGN__RETIRED_SECTIONS.md).
+
 ## Basis and boundary
 
 Exact worktree: ABIogenesis main `29846fc36c6a455e5aab642a5965a47fbfeb815d` plus the current dirty source set bound by the [original design subject](../../../../.ai-workspace/comments/codex/20260908_W2_STEEL_SEQUENCE/thread-02-design/subject.json); the [correction manifest](../../../../.ai-workspace/comments/codex/20260908_W2_STEEL_SEQUENCE/thread-02-design/correction-01/manifest.json) binds this successor and retains its preimage. Accepted basic-cli artifact `e51a7393523ecb00f1e069f8962f43dcaf6d6556d37511294680dbbd6fbec63d` remains historical immutable evidence.
@@ -148,30 +150,3 @@ Primary foundation evidence: [Ajv 8.20.0 package](https://raw.githubusercontent.
 Malformed or crossed native authority/resource carriers use the existing `DefinitionExecutionFault` call/resource-admission stages and existing identity/resource mismatch codes before effects. Capability construction throws the existing constructor `TypeError` class on an invalid basis; the fixed owner maps it to resource admission. No new semantic Public refusal code is selected.
 
 For validly shaped application requests, preserve the existing catalog-apply partition: wrong kind -> `kind_mismatch`; crossed catalog/view -> `view_mismatch`; missing/ambiguous/unready declaration or schema closure -> `unready`; wrong target or membership -> `target_mismatch`; schema-invalid value or mismatched value coordinate -> `application_mismatch`; treating node type/overlay as callable -> `callability_mismatch`; copied/changed validation receipt -> `invalid_validation_receipt`; wrong or mismatched contributor owner/provenance -> `invalid_contributor`. Structural request/resource disagreement remains a resource fault. Run-time failure to reconstruct application use stays in the existing invocation-admission refusal path. No failed check creates install/binding/run events, worker work or an application store.
-
-## Implementation cut and source-blind proof
-
-The later bounded source grant should name only these seams (paths under `code/src`):
-
-| Seam | Proposed files |
-|---|---|
-| Admission grant overload, shared graph/owner checks and exported constructors | `product/invocation.ts`, `product/index.ts`; if extracted, one `product/admission_authority.ts` internal module |
-| Existing fixed setup owners consume authority before effects | `product/{workspace,verification,environment,install}_definition_bindings.ts` |
-| Application construction/schema validation and fixed catalog owner | new `product/declaration_application.ts`, `product/catalog_definition_bindings.ts` |
-| Bound conformance grant check | `validator/conformance_definition_bindings.ts` |
-| Complete application inputs reach existing invocation admission | `owner_bindings/run_invocation.ts`, `abg/invocation_admission.ts` |
-| Foundation packaging | tenant `package.json` and existing lock; generated assets only through the established isolated build |
-
-Reuse `environment.ts`, `catalog.ts`, `declaration_closure.ts`, raw admission, capability contracts and exact artifact projections. Their Product algorithms are not redesigned by this child. Any required edit beyond these named seams returns with the observed relation; the table is not a source grant. No change to Public operations/contracts/CLI transport, runtime traversal, source/C0/C1/C2/C3 semantics, store/event schema or Product requirements is selected.
-
-One decisive proof uses a freshly installed ABI artifact and an independently authored test Program, with ABI source unavailable. The test fixture owns its publication, Program, contracts, schemas, ordinary leaf binding, implementation and expected output outside ABIogenesis production source and package. Declaration-only consumers may reuse genuinely generic published capabilities; a test solution is not an ABI-owned capability. This proves test declaration ownership and generic application validation through ordinary installed owner relations.
-
-The installed path is: explicit external resolved authority -> installed grant producer -> actual `workspace.create#clean` and `workspace.open#open` -> verify both immutable artifacts -> resolve/install all declared Products -> bind exact A/W -> catalog admit/view -> construct and apply both node type and overlay -> `conformance.evaluate#gtl_program` -> existing `run.invoke#start` of the consumer Program -> admitted typed result -> fresh-process declared `project.read#run_result/#run_replay`. Pass full exported owner packets only to native constructors; send the closed data-only basis through the existing installed DefinitionCall/CLI route, whose fixed owner supplies its own full packet. No legacy RootPublicInvocation, private import, fixture grant/receipt or source-tree fallback is permitted. Derive the runtime policy from the actual reconstructed applications.
-
-Retain exact artifact and fixture identities, external decision and constructed resources, setup receipts, application coordinates, conformance result, admitted result/event prefix and fresh read/replay equivalence; prove the immutable installs did not change. Reuse accepted B06 evidence for the existing CLI node-type/overlay routes, checking only affected owner/resource agreement on this successor. No all-56 positive matrix is required.
-
-Deterministic negatives must cross one relation at a time: missing/denied approval, wrong actor/definition/request/root, missing or duplicate capability owner/dependency; phantom W on a forbidden definition and absent/crossed W on a bound one; missing/ambiguous/wrong-owner schema/declaration, invalid dialect/keyword/reference/value, wrong node/Program membership, copied validation from another value/target/view/prefix and changed contributor provenance; bare applications or an unrelated durable prefix at invocation. Show typed failure before the corresponding effect and unchanged event/install/workspace bytes where the operation has not been admitted. The fresh JSON positive serializes only the closed data basis, grants and existing operation resources, then invokes a fresh installed process whose fixed owner reattaches its native packet; require equal reconstructed grant/application coordinates. Crossed serialized definition/owner coordinates must fail before effect. Include two different neutral values under the same schema to exclude fixture identity selection.
-
-## Disposition
-
-The selected producer relations are decision-complete for this one schema-asset case and independent typed leaf. No unresolved new WHAT is proposed. Independent review and Executive acceptance precede source activation; implementation evidence remains unrun. Later one-start worksite construction/execution, serial C3 branching, general URI traversal, full Data Mapper, seven-scenario UAT, positive human continuation and release remain outside this child. Wave 2 and umbrella T-287/GOAL-035 remain active/HOLD under the sequence.
