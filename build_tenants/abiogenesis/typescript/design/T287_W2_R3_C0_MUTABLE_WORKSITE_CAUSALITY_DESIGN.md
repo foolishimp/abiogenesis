@@ -159,7 +159,7 @@ its `WorkspaceBinding.roots.productRoot` worksite interpretation is reopened
 and does not authorize implementation
 
 **Parent roadmap**:
-[`T287_W2_ODD_GLC_TYPED_WORKSPACE_ADMISSION_DESIGN.md`](./T287_W2_ODD_GLC_TYPED_WORKSPACE_ADMISSION_DESIGN.md)
+[`T287_W2_ODD_GLC_TYPED_WORKSPACE_ADMISSION_DESIGN.md`](./history/T287_W2_ODD_GLC_TYPED_WORKSPACE_ADMISSION_DESIGN.md)
 
 ## Decision
 

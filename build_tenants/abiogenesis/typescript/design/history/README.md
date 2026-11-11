@@ -1,0 +1,294 @@
+# Design History
+
+These notes are records. They do not authorize design, code or closure; the current notes are indexed in [../README.md](../README.md).
+
+They moved here unchanged on 2026-11-12 in commit `e1516b5f1` (`git mv`, 100% renames). The `__RETIRED_SECTIONS.md` files hold sections cut verbatim from five kept notes in commit `4e405ff08`; each names its source on its first line.
+Relative links inside these notes resolve against the pre-move layout: a link to a sibling note may name a note that now lives here or one that stayed in `design/`, and `../` paths are one level short.
+
+| Note | Class | Reason | Replacing note or ruling |
+|---|---|---|---|
+| [A5_COMPLETED_CODE_DESIGN_STAGE_REGISTER.md](A5_COMPLETED_CODE_DESIGN_STAGE_REGISTER.md) | record | register with a non-operative method banner; `classification.json` names it as evidence | - |
+| [A5_PRIME_CONTRACTION_CENSUS.md](A5_PRIME_CONTRACTION_CENSUS.md) | record | census closed by T-277; names live `DS1_CAPABILITY_CONTRACT_REGISTER` and `ConsensusResult` only as census subjects | - |
+| [ABG_3_FIRST_SLICE_IACS.md](ABG_3_FIRST_SLICE_IACS.md) | stale | names fewer than 5 code identifiers; owns by the M01-M06 module decomposition | - |
+| [ABG_3_M03_STRUCTURAL_CARRIER_DIAGRAM.md](ABG_3_M03_STRUCTURAL_CARRIER_DIAGRAM.md) | stale | names fewer than 5 code identifiers; owns by the M01-M06 module decomposition | - |
+| [ABG_3_MODULE_DESIGN.md](ABG_3_MODULE_DESIGN.md) | stale | only 50% of named identifiers exist; owns by the M01-M06 module decomposition | - |
+| [ABG_COMMON_DELIVERY_LIBRARY_DERIVATION.md](ABG_COMMON_DELIVERY_LIBRARY_DERIVATION.md) | record | status is completed, closed, retrospective, historical or reserved 5.1 | - |
+| [ABG_COMMON_DELIVERY_LIBRARY_FIRST_SLICE_IACS.md](ABG_COMMON_DELIVERY_LIBRARY_FIRST_SLICE_IACS.md) | record | status is completed, closed, retrospective, historical or reserved 5.1 | - |
+| [ABG_COMMON_DELIVERY_LIBRARY_STRUCTURAL_CARRIER_DIAGRAM.md](ABG_COMMON_DELIVERY_LIBRARY_STRUCTURAL_CARRIER_DIAGRAM.md) | record | status is completed, closed, retrospective, historical or reserved 5.1 | - |
+| [ABG_COMMON_REALIZATION_LIBRARY_DERIVATION.md](ABG_COMMON_REALIZATION_LIBRARY_DERIVATION.md) | stale | names fewer than 5 code identifiers; derives from the withdrawn Python tenant | - |
+| [ABG_COMMON_REALIZATION_LIBRARY_FIRST_SLICE_IACS.md](ABG_COMMON_REALIZATION_LIBRARY_FIRST_SLICE_IACS.md) | stale | only 0% of named identifiers exist | - |
+| [ABG_COMMON_REALIZATION_LIBRARY_STRUCTURAL_CARRIER_DIAGRAM.md](ABG_COMMON_REALIZATION_LIBRARY_STRUCTURAL_CARRIER_DIAGRAM.md) | stale | names fewer than 5 code identifiers | - |
+| [ABG_EVENT_CALCULUS_PROJECTION_REFACTOR_PLAN.md](ABG_EVENT_CALCULUS_PROJECTION_REFACTOR_PLAN.md) | record | name is a register, census, audit, plan, review, template, ADR or index | - |
+| [ABG_EVENT_CALCULUS_STRUCTURAL_CARRIER_DIAGRAM.md](ABG_EVENT_CALCULUS_STRUCTURAL_CARRIER_DIAGRAM.md) | superseded | draws `RuntimeEventCalculusEffect`, absent at head; the IACS revision redraws the carrier set | ABG_EVENT_CALCULUS_IACS (2026-10-22 revision) |
+| [ABG_EVENT_CALCULUS_T119_TEMPORAL_EXTENSION_CONTRACT.md](ABG_EVENT_CALCULUS_T119_TEMPORAL_EXTENSION_CONTRACT.md) | stale | only 0% of named identifiers exist | - |
+| [ABG_METHOD_TRACE_CLOSURE_GUARD_DERIVATION.md](ABG_METHOD_TRACE_CLOSURE_GUARD_DERIVATION.md) | stale | names fewer than 5 code identifiers | - |
+| [ABG_SCHEDULE_RUNTIME_DERIVATION.md](ABG_SCHEDULE_RUNTIME_DERIVATION.md) | stale | only 0% of named identifiers exist | - |
+| [ABIOGENESIS_PUBLIC_CONTROL_PLANE_ONTOLOGY.md](ABIOGENESIS_PUBLIC_CONTROL_PLANE_ONTOLOGY.md) | superseded | T-283 banner; its live entities (`CapabilityGrant`, `ConstructionIntent`, `InvocationAuthority`, `EdgeClosureDecision`) are designed by kept notes | M05_S06_PUBLIC_FUNCTION_AND_NATIVE_OCCURRENCE_CLOSURE_DESIGN; M05_DIRECT_GTL_TRAVERSAL_EXPANSION_DESIGN |
+| [DESIGN_SLICE_PRE_CODE_GATE_TEMPLATE.md](DESIGN_SLICE_PRE_CODE_GATE_TEMPLATE.md) | record | name is a register, census, audit, plan, review, template, ADR or index | - |
+| [GTL_3_FIRST_SLICE_IACS.md](GTL_3_FIRST_SLICE_IACS.md) | stale | only 17% of named identifiers exist; owns by the M01-M06 module decomposition | - |
+| [GTL_3_GRAPH_FUNCTION_ZOOM_PLAN_DERIVATION.md](GTL_3_GRAPH_FUNCTION_ZOOM_PLAN_DERIVATION.md) | stale | only 14% of named identifiers exist | - |
+| [GTL_3_IMPLEMENTATION_PLAN.md](GTL_3_IMPLEMENTATION_PLAN.md) | record | name is a register, census, audit, plan, review, template, ADR or index | - |
+| [GTL_3_INTERFACE_CONTRACTS.md](GTL_3_INTERFACE_CONTRACTS.md) | stale | only 20% of named identifiers exist; owns by the M01-M06 module decomposition | - |
+| [GTL_3_M02_WORK_PUBLICATION_IACS.md](GTL_3_M02_WORK_PUBLICATION_IACS.md) | stale | only 28% of named identifiers exist; owns by the M01-M06 module decomposition | - |
+| [GTL_3_MODULE_DESIGN.md](GTL_3_MODULE_DESIGN.md) | stale | names fewer than 5 code identifiers; owns by the M01-M06 module decomposition | - |
+| [GTL_3_STRUCTURAL_CARRIER_DIAGRAM.md](GTL_3_STRUCTURAL_CARRIER_DIAGRAM.md) | stale | names fewer than 5 code identifiers; owns by the M01-M06 module decomposition | - |
+| [GTL_ASSET_SURFACE_PROMPT_INTERFACE_DERIVATION.md](GTL_ASSET_SURFACE_PROMPT_INTERFACE_DERIVATION.md) | stale | names fewer than 5 code identifiers | - |
+| [GTL_ODD_ZOOM_FOLD_ALGEBRA_DECISION.md](GTL_ODD_ZOOM_FOLD_ALGEBRA_DECISION.md) | stale | names fewer than 5 code identifiers | - |
+| [GTL_TIME_ALGEBRA_DERIVATION.md](GTL_TIME_ALGEBRA_DERIVATION.md) | stale | only 9% of named identifiers exist | - |
+| [GTL_TIME_ALGEBRA_FIRST_PROOF_PLAN.md](GTL_TIME_ALGEBRA_FIRST_PROOF_PLAN.md) | record | name is a register, census, audit, plan, review, template, ADR or index | - |
+| [GTL_TIME_ALGEBRA_IACS.md](GTL_TIME_ALGEBRA_IACS.md) | stale | only 0% of named identifiers exist | - |
+| [GTL_TIME_ALGEBRA_STRUCTURAL_CARRIER_DIAGRAM.md](GTL_TIME_ALGEBRA_STRUCTURAL_CARRIER_DIAGRAM.md) | stale | only 0% of named identifiers exist | - |
+| [HOMEOSTATIC_LOOP_AFTER_EVAL_EVENT_DERIVATION.md](HOMEOSTATIC_LOOP_AFTER_EVAL_EVENT_DERIVATION.md) | stale | names fewer than 5 code identifiers | - |
+| [M01_M02_M03_GRAPH_FUNCTION_COMBINATOR_APPLICATION_BEHAVIOR_DESIGN.md](M01_M02_M03_GRAPH_FUNCTION_COMBINATOR_APPLICATION_BEHAVIOR_DESIGN.md) | stale | only 6% of named identifiers exist; owns by the M01-M06 module decomposition | - |
+| [M01_M02_M03_NATIVE_NODE_INTERFACE_TYPE_WITNESS_BEHAVIOR_DESIGN.md](M01_M02_M03_NATIVE_NODE_INTERFACE_TYPE_WITNESS_BEHAVIOR_DESIGN.md) | stale | only 28% of named identifiers exist | - |
+| [M01_M02_STRICT_RAW_MODULE_ADMISSION_BEHAVIOR_DESIGN.md](M01_M02_STRICT_RAW_MODULE_ADMISSION_BEHAVIOR_DESIGN.md) | stale | only 33% of named identifiers exist; owns by the M01-M06 module decomposition | - |
+| [M01_M03_CONSENSUS_GTL_FREE_CONSTRUCTION_BEHAVIOR_DESIGN.md](M01_M03_CONSENSUS_GTL_FREE_CONSTRUCTION_BEHAVIOR_DESIGN.md) | superseded | T-252 Consensus construction replaced by the accepted S05 design | M05_S05_CONSENSUS_GLOBAL_TO_LOCAL_DESIGN |
+| [M01_M03_GRAPH_VECTOR_C_PROGRAM_SELECTION_BEHAVIOR_DESIGN.md](M01_M03_GRAPH_VECTOR_C_PROGRAM_SELECTION_BEHAVIOR_DESIGN.md) | superseded | its head carries a T-283 invalidation or non-operative banner | T-283 disposition 2026-07-20; direct-GTL design (M03_DIRECT_GTL_TRAVERSAL_BEHAVIOR_DESIGN, M05_DIRECT_GTL_TRAVERSAL_EXPANSION_DESIGN) |
+| [M01_M03_TYPED_C_ALGEBRA_BEHAVIOR_DESIGN.md](M01_M03_TYPED_C_ALGEBRA_BEHAVIOR_DESIGN.md) | record | status is completed, closed, retrospective, historical or reserved 5.1 | - |
+| [M01_M03_TYPED_HOF_VECTOR_RELATION_BEHAVIOR_DESIGN.md](M01_M03_TYPED_HOF_VECTOR_RELATION_BEHAVIOR_DESIGN.md) | stale | only 6% of named identifiers exist; owns by the M01-M06 module decomposition | - |
+| [M01_TYPED_C_ALGEBRA_AUTHORING_IACS.md](M01_TYPED_C_ALGEBRA_AUTHORING_IACS.md) | superseded | the seven-constructor closed union is live as `CProgramTerm`/`CTermKind` in `gtl/c_algebra.ts`, designed by later notes; `CExpression`, `CStage`, `GraphFunctionDeclarations` and the semantic compiler are absent; companion diagram carries the T-283 banner | M05_DIRECT_GTL_TRAVERSAL_EXPANSION_DESIGN (§3 `CProgramTerm`); ABI5_STDO3_COMPUTATIONAL_BINDING (Seven C constructors) |
+| [M01_TYPED_C_ALGEBRA_STRUCTURAL_CARRIER_DIAGRAM.md](M01_TYPED_C_ALGEBRA_STRUCTURAL_CARRIER_DIAGRAM.md) | superseded | T-283 banner; companion diagram of the superseded C-algebra IACS | M05_DIRECT_GTL_TRAVERSAL_EXPANSION_DESIGN (§3 `CProgramTerm`); ABI5_STDO3_COMPUTATIONAL_BINDING (Seven C constructors) |
+| [M02_M03_LOOKUP_AUTHORITY_DERIVATION.md](M02_M03_LOOKUP_AUTHORITY_DERIVATION.md) | stale | names fewer than 5 code identifiers; derives from the withdrawn Python tenant; owns by the M01-M06 module decomposition | - |
+| [M02_M03_LOOKUP_AUTHORITY_IACS.md](M02_M03_LOOKUP_AUTHORITY_IACS.md) | stale | only 28% of named identifiers exist; owns by the M01-M06 module decomposition | - |
+| [M02_M03_LOOKUP_AUTHORITY_STRUCTURAL_CARRIER_DIAGRAM.md](M02_M03_LOOKUP_AUTHORITY_STRUCTURAL_CARRIER_DIAGRAM.md) | stale | only 40% of named identifiers exist; owns by the M01-M06 module decomposition | - |
+| [M02_M04_CAPABILITY_DECLARATION_GRAPH_PRIME_CONTRACTION_BEHAVIOR_DESIGN.md](M02_M04_CAPABILITY_DECLARATION_GRAPH_PRIME_CONTRACTION_BEHAVIOR_DESIGN.md) | superseded | prospective T-268 owner design; `T255CapabilityCoverageEvaluator` absent; the capability-definition graph over `DS1_CAPABILITY_CONTRACT_REGISTER` is designed by the constitution | ABI5_REALIZATION_CONSTITUTION §5.6.2C and §16.10-16.11 |
+| [M02_M04_CONSENSUS_PUBLICATION_PRIME_CONTRACTION_BEHAVIOR_DESIGN.md](M02_M04_CONSENSUS_PUBLICATION_PRIME_CONTRACTION_BEHAVIOR_DESIGN.md) | superseded | T-283 banner; Consensus publication replaced by the accepted S05 design | M05_S05_CONSENSUS_GLOBAL_TO_LOCAL_DESIGN |
+| [M02_M04_INSTALLED_CATALOG_FOUNDATION_BEHAVIOR_DESIGN.md](M02_M04_INSTALLED_CATALOG_FOUNDATION_BEHAVIOR_DESIGN.md) | record | status is completed, closed, retrospective, historical or reserved 5.1 | - |
+| [M02_M04_INSTALLED_CATALOG_SDK_CLI_DERIVATION.md](M02_M04_INSTALLED_CATALOG_SDK_CLI_DERIVATION.md) | superseded | completed T-222 design; T-283 invalidated the T-222 public family, now designed by the M05_S06 notes | M05_S06_PUBLIC_FUNCTION_AND_NATIVE_OCCURRENCE_CLOSURE_DESIGN |
+| [M02_M04_INSTALLED_CATALOG_SDK_CLI_IACS.md](M02_M04_INSTALLED_CATALOG_SDK_CLI_IACS.md) | superseded | completed T-222 IACS; T-283 invalidated the T-222 public family, now designed by the M05_S06 notes | M05_S06_PUBLIC_FUNCTION_AND_NATIVE_OCCURRENCE_CLOSURE_DESIGN |
+| [M02_M04_INSTALLED_CATALOG_SDK_CLI_PUBLIC_OPERATION_REGISTER.md](M02_M04_INSTALLED_CATALOG_SDK_CLI_PUBLIC_OPERATION_REGISTER.md) | record | T-222 operation register under the T-283 banner; its live names (`CatalogAdmissionResult`, `InstallProductRequest`) are designed by M05_S06_PUBLIC | - |
+| [M02_M04_INSTALLED_CATALOG_SDK_CLI_STRUCTURAL_CARRIER_DIAGRAM.md](M02_M04_INSTALLED_CATALOG_SDK_CLI_STRUCTURAL_CARRIER_DIAGRAM.md) | superseded | completed T-222 diagram; T-283 invalidated the T-222 public family, now designed by the M05_S06 notes | M05_S06_PUBLIC_FUNCTION_AND_NATIVE_OCCURRENCE_CLOSURE_DESIGN |
+| [M02_M05_PACKED_INSTALLED_VERTICAL_BEHAVIOR_DESIGN.md](M02_M05_PACKED_INSTALLED_VERTICAL_BEHAVIOR_DESIGN.md) | stale | names fewer than 5 code identifiers | - |
+| [M03_ABG_FN_COMPOSITION_DERIVATION.md](M03_ABG_FN_COMPOSITION_DERIVATION.md) | stale | names fewer than 5 code identifiers | - |
+| [M03_ABG_FN_COMPOSITION_FIRST_SLICE_IACS.md](M03_ABG_FN_COMPOSITION_FIRST_SLICE_IACS.md) | stale | only 8% of named identifiers exist; owns by the M01-M06 module decomposition | - |
+| [M03_ABG_FN_COMPOSITION_STRUCTURAL_CARRIER_DIAGRAM.md](M03_ABG_FN_COMPOSITION_STRUCTURAL_CARRIER_DIAGRAM.md) | stale | only 0% of named identifiers exist | - |
+| [M03_ABG_PROBABILISTIC_MONAD_PLUGIN_BOUNDARY_DERIVATION.md](M03_ABG_PROBABILISTIC_MONAD_PLUGIN_BOUNDARY_DERIVATION.md) | stale | only 6% of named identifiers exist | - |
+| [M03_ATTACHED_FP_WORKER_LOOP_DERIVATION.md](M03_ATTACHED_FP_WORKER_LOOP_DERIVATION.md) | stale | derives the worker loop from the Python-era realization; its IACS carriers (`admitFpDispatchOutcome`, `attachedResultArtifact`) are absent; names only generic live symbols | - |
+| [M03_ATTACHED_FP_WORKER_LOOP_FIRST_SLICE_IACS.md](M03_ATTACHED_FP_WORKER_LOOP_FIRST_SLICE_IACS.md) | stale | only 21% of named identifiers exist; owns by the M01-M06 module decomposition | - |
+| [M03_ATTACHED_FP_WORKER_LOOP_STRUCTURAL_CARRIER_DIAGRAM.md](M03_ATTACHED_FP_WORKER_LOOP_STRUCTURAL_CARRIER_DIAGRAM.md) | stale | names fewer than 5 code identifiers | - |
+| [M03_COMPILED_EXECUTION_HANDOFF_BEHAVIOR_DESIGN.md](M03_COMPILED_EXECUTION_HANDOFF_BEHAVIOR_DESIGN.md) | superseded | its head carries a T-283 invalidation or non-operative banner | T-283 disposition 2026-07-20; direct-GTL design (M03_DIRECT_GTL_TRAVERSAL_BEHAVIOR_DESIGN, M05_DIRECT_GTL_TRAVERSAL_EXPANSION_DESIGN) |
+| [M03_COMPLETE_C_PROGRAM_INTERPRETER_BEHAVIOR_DESIGN.md](M03_COMPLETE_C_PROGRAM_INTERPRETER_BEHAVIOR_DESIGN.md) | superseded | its head carries a T-283 invalidation or non-operative banner | T-283 disposition 2026-07-20; direct-GTL design (M03_DIRECT_GTL_TRAVERSAL_BEHAVIOR_DESIGN, M05_DIRECT_GTL_TRAVERSAL_EXPANSION_DESIGN) |
+| [M03_COMPOSED_C_STAGE_SET_DERIVATION.md](M03_COMPOSED_C_STAGE_SET_DERIVATION.md) | stale | only 0% of named identifiers exist | - |
+| [M03_CONSCIOUSNESS_TIER_STACK_AND_EXECUTION_MODEL.md](M03_CONSCIOUSNESS_TIER_STACK_AND_EXECUTION_MODEL.md) | stale | names fewer than 5 code identifiers | - |
+| [M03_CONSENSUS_DOMAIN_FAMILY_PRIME_CONTRACTION_BEHAVIOR_DESIGN.md](M03_CONSENSUS_DOMAIN_FAMILY_PRIME_CONTRACTION_BEHAVIOR_DESIGN.md) | superseded | T-283 banner; Consensus domain family replaced by the accepted S05 design | M05_S05_CONSENSUS_GLOBAL_TO_LOCAL_DESIGN |
+| [M03_CONSENSUS_REJECTED_AS_BUILT_BEHAVIOR_DESIGN.md](M03_CONSENSUS_REJECTED_AS_BUILT_BEHAVIOR_DESIGN.md) | record | retrospective calibration of reverted commit `945b5a2` | - |
+| [M03_CONSEQUENCE_ALLOWED_TRAVERSAL_CATALOG_DERIVATION.md](M03_CONSEQUENCE_ALLOWED_TRAVERSAL_CATALOG_DERIVATION.md) | stale | only 6% of named identifiers exist | - |
+| [M03_CONSTITUTIONAL_VERSION_BASIS_BEHAVIOR_DESIGN.md](M03_CONSTITUTIONAL_VERSION_BASIS_BEHAVIOR_DESIGN.md) | stale | `ConstitutionalSurfaceRow`, `ConstitutionalSurfaceVersionBinding` and the drift judge are absent (5 of 33 distinctive tokens live); T287_G2 still links it | - |
+| [M03_CONSTRUCTION_INTENT_RUNNER_DERIVATION.md](M03_CONSTRUCTION_INTENT_RUNNER_DERIVATION.md) | stale | names fewer than 5 code identifiers | - |
+| [M03_CONSTRUCTION_INTENT_RUNNER_FIRST_SLICE_IACS.md](M03_CONSTRUCTION_INTENT_RUNNER_FIRST_SLICE_IACS.md) | stale | only 0% of named identifiers exist | - |
+| [M03_CONSTRUCTION_INTENT_RUNNER_STRUCTURAL_CARRIER_DIAGRAM.md](M03_CONSTRUCTION_INTENT_RUNNER_STRUCTURAL_CARRIER_DIAGRAM.md) | stale | only 0% of named identifiers exist | - |
+| [M03_CONSTRUCTION_PRESSURE_PACKAGE_DERIVATION.md](M03_CONSTRUCTION_PRESSURE_PACKAGE_DERIVATION.md) | stale | only 20% of named identifiers exist; 8 dangling path refs | - |
+| [M03_CONSTRUCTION_PRESSURE_PACKAGE_FIRST_SLICE_IACS.md](M03_CONSTRUCTION_PRESSURE_PACKAGE_FIRST_SLICE_IACS.md) | stale | only 0% of named identifiers exist | - |
+| [M03_CONSTRUCTION_PRESSURE_PACKAGE_STRUCTURAL_CARRIER_DIAGRAM.md](M03_CONSTRUCTION_PRESSURE_PACKAGE_STRUCTURAL_CARRIER_DIAGRAM.md) | stale | names fewer than 5 code identifiers | - |
+| [M03_C_RETRY_RUNTIME_BEHAVIOR_DESIGN.md](M03_C_RETRY_RUNTIME_BEHAVIOR_DESIGN.md) | stale | only 25% of named identifiers exist | - |
+| [M03_DISTRIBUTED_EXECUTOR_BACKENDS.md](M03_DISTRIBUTED_EXECUTOR_BACKENDS.md) | stale | names fewer than 5 code identifiers | - |
+| [M03_EDGE_ASSURANCE_CONTRACT_DERIVATION.md](M03_EDGE_ASSURANCE_CONTRACT_DERIVATION.md) | stale | only 0% of named identifiers exist | - |
+| [M03_EDGE_ASSURANCE_CONTRACT_FIRST_SLICE_IACS.md](M03_EDGE_ASSURANCE_CONTRACT_FIRST_SLICE_IACS.md) | stale | only 0% of named identifiers exist; owns by the M01-M06 module decomposition | - |
+| [M03_EDGE_ASSURANCE_CONTRACT_STRUCTURAL_CARRIER_DIAGRAM.md](M03_EDGE_ASSURANCE_CONTRACT_STRUCTURAL_CARRIER_DIAGRAM.md) | stale | only 0% of named identifiers exist | - |
+| [M03_EXECUTION_AUTHORITY_PROVENANCE_DESIGN.md](M03_EXECUTION_AUTHORITY_PROVENANCE_DESIGN.md) | stale | names fewer than 5 code identifiers | - |
+| [M03_FD_AUTHORITY_PLACEMENT_DERIVATION.md](M03_FD_AUTHORITY_PLACEMENT_DERIVATION.md) | stale | only 0% of named identifiers exist; 1 dangling path refs | - |
+| [M03_FD_AUTHORITY_PLACEMENT_FIRST_SLICE_IACS.md](M03_FD_AUTHORITY_PLACEMENT_FIRST_SLICE_IACS.md) | stale | only 0% of named identifiers exist | - |
+| [M03_FD_AUTHORITY_PLACEMENT_STRUCTURAL_CARRIER_DIAGRAM.md](M03_FD_AUTHORITY_PLACEMENT_STRUCTURAL_CARRIER_DIAGRAM.md) | stale | names fewer than 5 code identifiers | - |
+| [M03_FP_CONSCIOUSNESS_LOOP_DERIVATION.md](M03_FP_CONSCIOUSNESS_LOOP_DERIVATION.md) | stale | only 15% of named identifiers exist | - |
+| [M03_FP_CONSCIOUSNESS_LOOP_FIRST_SLICE_IACS.md](M03_FP_CONSCIOUSNESS_LOOP_FIRST_SLICE_IACS.md) | stale | T-127 design candidate; names `ConstructionIntentAdmission`, which is live (`abg/traversal_route.ts:351`) with a different 5.0 shape designed by M05_DIRECT; its loop carriers are absent | - |
+| [M03_FP_CONSCIOUSNESS_LOOP_STRUCTURAL_CARRIER_DIAGRAM.md](M03_FP_CONSCIOUSNESS_LOOP_STRUCTURAL_CARRIER_DIAGRAM.md) | stale | only 0% of named identifiers exist | - |
+| [M03_FP_OUTPUT_ADMISSION_BEHAVIOR_DESIGN.md](M03_FP_OUTPUT_ADMISSION_BEHAVIOR_DESIGN.md) | stale | T-257 carriers (`FpResultContractAdmission`, `FpTransformWireProjection`) absent (3 of 23 live); T287_PUBLIC_DEFINITION_CALL_CONSTRUCTION still links it | - |
+| [M03_GRAPH_APPLICATION_INSTANCE_SEMANTICS_DERIVATION.md](M03_GRAPH_APPLICATION_INSTANCE_SEMANTICS_DERIVATION.md) | stale | names fewer than 5 code identifiers | - |
+| [M03_GRAPH_FUNCTION_ITERATION_DERIVATION.md](M03_GRAPH_FUNCTION_ITERATION_DERIVATION.md) | stale | only 19% of named identifiers exist; owns by the M01-M06 module decomposition | - |
+| [M03_GRAPH_FUNCTION_ITERATION_FIRST_SLICE_IACS.md](M03_GRAPH_FUNCTION_ITERATION_FIRST_SLICE_IACS.md) | stale | only 27% of named identifiers exist; owns by the M01-M06 module decomposition | - |
+| [M03_GRAPH_FUNCTION_ITERATION_STRUCTURAL_CARRIER_DIAGRAM.md](M03_GRAPH_FUNCTION_ITERATION_STRUCTURAL_CARRIER_DIAGRAM.md) | stale | only 23% of named identifiers exist | - |
+| [M03_GRAPH_SPAN_FOLDBACK_REENTRY_DERIVATION.md](M03_GRAPH_SPAN_FOLDBACK_REENTRY_DERIVATION.md) | stale | only 33% of named identifiers exist; 9 dangling path refs; derives from the withdrawn Python tenant | - |
+| [M03_GTL_PROGRAM_CONFORMANCE_GATE_FIRST_SLICE_IACS.md](M03_GTL_PROGRAM_CONFORMANCE_GATE_FIRST_SLICE_IACS.md) | stale | T-152 carriers absent (2 of 25 live); the live gate `validator/conformance_operation.ts` is designed by ABI5_REALIZATION_CONSTITUTION (R36) and M05_S06_AXIOMATIC (D13) | - |
+| [M03_GTL_PROGRAM_CONFORMANCE_GATE_STRUCTURAL_CARRIER_DIAGRAM.md](M03_GTL_PROGRAM_CONFORMANCE_GATE_STRUCTURAL_CARRIER_DIAGRAM.md) | stale | names fewer than 5 code identifiers | - |
+| [M03_INSTRUCTION_ASSEMBLY_FIRST_SLICE_IACS.md](M03_INSTRUCTION_ASSEMBLY_FIRST_SLICE_IACS.md) | stale | only 0% of named identifiers exist | - |
+| [M03_INSTRUCTION_ASSEMBLY_STRUCTURAL_CARRIER_DIAGRAM.md](M03_INSTRUCTION_ASSEMBLY_STRUCTURAL_CARRIER_DIAGRAM.md) | stale | only 0% of named identifiers exist | - |
+| [M03_INSTRUCTION_PROTOCOL_BEHAVIOR_DESIGN.md](M03_INSTRUCTION_PROTOCOL_BEHAVIOR_DESIGN.md) | record | status is completed, closed, retrospective, historical or reserved 5.1 | - |
+| [M03_ITERATION_STATE_ACTION_ALGEBRA_DERIVATION.md](M03_ITERATION_STATE_ACTION_ALGEBRA_DERIVATION.md) | stale | only 20% of named identifiers exist | - |
+| [M03_ITERATION_STATE_ACTION_ALGEBRA_FIRST_SLICE_IACS.md](M03_ITERATION_STATE_ACTION_ALGEBRA_FIRST_SLICE_IACS.md) | stale | only 0% of named identifiers exist; owns by the M01-M06 module decomposition | - |
+| [M03_ITERATION_STATE_ACTION_ALGEBRA_STRUCTURAL_CARRIER_DIAGRAM.md](M03_ITERATION_STATE_ACTION_ALGEBRA_STRUCTURAL_CARRIER_DIAGRAM.md) | stale | names fewer than 5 code identifiers | - |
+| [M03_M04_FH_RUNTIME_CONTINUATION_BEHAVIOR_DESIGN.md](M03_M04_FH_RUNTIME_CONTINUATION_BEHAVIOR_DESIGN.md) | superseded | T-283 banner; F_H continuation carriers are designed by M05_DIRECT and ABI5_STDO3 | M05_DIRECT_GTL_TRAVERSAL_EXPANSION_DESIGN; ABI5_STDO3_COMPUTATIONAL_BINDING |
+| [M03_M04_ONE_SURFACE_AUTHORITY_BEHAVIOR_DESIGN.md](M03_M04_ONE_SURFACE_AUTHORITY_BEHAVIOR_DESIGN.md) | superseded | T-283 banner; One Surface carriers in `abg/traversal_route.ts` are designed by M05_DIRECT §12 | M05_DIRECT_GTL_TRAVERSAL_EXPANSION_DESIGN §12 |
+| [M03_M04_PLUGIN_CONTRACT_MODEL_DERIVATION.md](M03_M04_PLUGIN_CONTRACT_MODEL_DERIVATION.md) | stale | only 0% of named identifiers exist; owns by the M01-M06 module decomposition | - |
+| [M03_M04_PLUGIN_CONTRACT_MODEL_IACS.md](M03_M04_PLUGIN_CONTRACT_MODEL_IACS.md) | stale | only 5% of named identifiers exist; owns by the M01-M06 module decomposition | - |
+| [M03_M04_PLUGIN_CONTRACT_MODEL_STRUCTURAL_CARRIER_DIAGRAM.md](M03_M04_PLUGIN_CONTRACT_MODEL_STRUCTURAL_CARRIER_DIAGRAM.md) | stale | only 0% of named identifiers exist | - |
+| [M03_M04_PUBLIC_CATALOG_INVOCATION_AUTHORITY_BEHAVIOR_DESIGN.md](M03_M04_PUBLIC_CATALOG_INVOCATION_AUTHORITY_BEHAVIOR_DESIGN.md) | superseded | T-283 banner; the public invocation family is designed by the M05_S06 notes | M05_S06_PUBLIC_FUNCTION_AND_NATIVE_OCCURRENCE_CLOSURE_DESIGN |
+| [M03_M04_PUBLIC_SDK_CLI_BEHAVIOR_DESIGN.md](M03_M04_PUBLIC_SDK_CLI_BEHAVIOR_DESIGN.md) | stale | only 33% of named identifiers exist | - |
+| [M03_M04_RUNTIME_FAILURE_TAXONOMY_DERIVATION.md](M03_M04_RUNTIME_FAILURE_TAXONOMY_DERIVATION.md) | stale | designs a split into `runtime_unavailable` and `payload_contract_failure`, both absent; the live classifier keeps `transport_failure`, `no_output`, `contract_failure` | - |
+| [M03_M04_RUNTIME_FAILURE_TAXONOMY_FIRST_SLICE_IACS.md](M03_M04_RUNTIME_FAILURE_TAXONOMY_FIRST_SLICE_IACS.md) | stale | only 35% of named identifiers exist; owns by the M01-M06 module decomposition | - |
+| [M03_M04_RUNTIME_FAILURE_TAXONOMY_STRUCTURAL_CARRIER_DIAGRAM.md](M03_M04_RUNTIME_FAILURE_TAXONOMY_STRUCTURAL_CARRIER_DIAGRAM.md) | stale | names fewer than 5 code identifiers | - |
+| [M03_OBSERVED_STATE_ADMISSION_DERIVATION.md](M03_OBSERVED_STATE_ADMISSION_DERIVATION.md) | stale | only 0% of named identifiers exist; 6 dangling path refs | - |
+| [M03_OBSERVED_STATE_ADMISSION_FIRST_SLICE_IACS.md](M03_OBSERVED_STATE_ADMISSION_FIRST_SLICE_IACS.md) | stale | only 0% of named identifiers exist | - |
+| [M03_OBSERVED_STATE_ADMISSION_STRUCTURAL_CARRIER_DIAGRAM.md](M03_OBSERVED_STATE_ADMISSION_STRUCTURAL_CARRIER_DIAGRAM.md) | stale | names fewer than 5 code identifiers | - |
+| [M03_OUTPUT_ALLOCATION_AND_WORKSPACE_ZOOM_FOLDBACK_DERIVATION.md](M03_OUTPUT_ALLOCATION_AND_WORKSPACE_ZOOM_FOLDBACK_DERIVATION.md) | stale | only 9% of named identifiers exist; 5 dangling path refs | - |
+| [M03_OVERLAY_FRAME_CONTRACT_DERIVATION.md](M03_OVERLAY_FRAME_CONTRACT_DERIVATION.md) | stale | only 8% of named identifiers exist; 5 dangling path refs | - |
+| [M03_OVERLAY_FRAME_CONTRACT_FIRST_SLICE_IACS.md](M03_OVERLAY_FRAME_CONTRACT_FIRST_SLICE_IACS.md) | stale | only 0% of named identifiers exist | - |
+| [M03_OVERLAY_FRAME_CONTRACT_STRUCTURAL_CARRIER_DIAGRAM.md](M03_OVERLAY_FRAME_CONTRACT_STRUCTURAL_CARRIER_DIAGRAM.md) | stale | names fewer than 5 code identifiers | - |
+| [M03_PAYLOAD_LEDGER_EVENT_TOPOLOGY_FIRST_SLICE_IACS.md](M03_PAYLOAD_LEDGER_EVENT_TOPOLOGY_FIRST_SLICE_IACS.md) | record | name is a register, census, audit, plan, review, template, ADR or index | - |
+| [M03_PAYLOAD_LEDGER_EVENT_TOPOLOGY_PROOF_PLAN.md](M03_PAYLOAD_LEDGER_EVENT_TOPOLOGY_PROOF_PLAN.md) | record | name is a register, census, audit, plan, review, template, ADR or index | - |
+| [M03_PAYLOAD_LEDGER_EVENT_TOPOLOGY_STRUCTURAL_CARRIER_DIAGRAM.md](M03_PAYLOAD_LEDGER_EVENT_TOPOLOGY_STRUCTURAL_CARRIER_DIAGRAM.md) | record | name is a register, census, audit, plan, review, template, ADR or index | - |
+| [M03_PLUGIN_RESULT_INTERFACE_CONTRACT_DERIVATION.md](M03_PLUGIN_RESULT_INTERFACE_CONTRACT_DERIVATION.md) | stale | only 0% of named identifiers exist | - |
+| [M03_PROPORTIONAL_CONFORMANCE_INVENTORY_BEHAVIOR_DESIGN.md](M03_PROPORTIONAL_CONFORMANCE_INVENTORY_BEHAVIOR_DESIGN.md) | stale | T-264 carriers (`ConformanceScope`, `DerivedConformanceInventory`) absent; live gate designed by the constitution (R36) and M05_S06_AXIOMATIC (D13) | - |
+| [M03_RECURSIVE_EXECUTIVE_OBSERVER_DERIVATION.md](M03_RECURSIVE_EXECUTIVE_OBSERVER_DERIVATION.md) | superseded | T-283 banner; observer design not realized at head | T-283 disposition 2026-07-20; observer parked for 5.1 (M05_S04_OBSERVER_TUNER_GLOBAL_TO_LOCAL_DESIGN, held) |
+| [M03_RECURSIVE_EXECUTIVE_OBSERVER_FIRST_SLICE_IACS.md](M03_RECURSIVE_EXECUTIVE_OBSERVER_FIRST_SLICE_IACS.md) | stale | only 0% of named identifiers exist | - |
+| [M03_RECURSIVE_EXECUTIVE_OBSERVER_STRUCTURAL_CARRIER_DIAGRAM.md](M03_RECURSIVE_EXECUTIVE_OBSERVER_STRUCTURAL_CARRIER_DIAGRAM.md) | stale | only 0% of named identifiers exist | - |
+| [M03_REQUIREMENTS_ALGEBRA_DERIVATION.md](M03_REQUIREMENTS_ALGEBRA_DERIVATION.md) | stale | the requirements algebra it designs is absent; the names `RequirementTerm` and `GtlContractFulfillmentBinding` are reused by the narrower D1 handoff in `gtl/requirement_handoff.ts`, designed by T287_D1_REQUIREMENT_LIFECYCLE_DESIGN | - |
+| [M03_REQUIREMENTS_ALGEBRA_DESIGN_MODULE_REVIEW.md](M03_REQUIREMENTS_ALGEBRA_DESIGN_MODULE_REVIEW.md) | record | name is a register, census, audit, plan, review, template, ADR or index | - |
+| [M03_REQUIREMENTS_ALGEBRA_DOWNSTREAM_READINESS_DERIVATION.md](M03_REQUIREMENTS_ALGEBRA_DOWNSTREAM_READINESS_DERIVATION.md) | stale | only 0% of named identifiers exist | - |
+| [M03_REQUIREMENTS_ALGEBRA_DOWNSTREAM_READINESS_FIRST_SLICE_IACS.md](M03_REQUIREMENTS_ALGEBRA_DOWNSTREAM_READINESS_FIRST_SLICE_IACS.md) | stale | the requirements algebra it designs is absent; the names `RequirementTerm` and `GtlContractFulfillmentBinding` are reused by the narrower D1 handoff in `gtl/requirement_handoff.ts`, designed by T287_D1_REQUIREMENT_LIFECYCLE_DESIGN | - |
+| [M03_REQUIREMENTS_ALGEBRA_FIRST_SLICE_IACS.md](M03_REQUIREMENTS_ALGEBRA_FIRST_SLICE_IACS.md) | stale | the requirements algebra it designs is absent; the names `RequirementTerm` and `GtlContractFulfillmentBinding` are reused by the narrower D1 handoff in `gtl/requirement_handoff.ts`, designed by T287_D1_REQUIREMENT_LIFECYCLE_DESIGN | - |
+| [M03_REQUIREMENTS_ALGEBRA_REFINEMENT_DERIVATION.md](M03_REQUIREMENTS_ALGEBRA_REFINEMENT_DERIVATION.md) | stale | the requirements algebra it designs is absent; the names `RequirementTerm` and `GtlContractFulfillmentBinding` are reused by the narrower D1 handoff in `gtl/requirement_handoff.ts`, designed by T287_D1_REQUIREMENT_LIFECYCLE_DESIGN | - |
+| [M03_REQUIREMENTS_ALGEBRA_REFINEMENT_FIRST_SLICE_IACS.md](M03_REQUIREMENTS_ALGEBRA_REFINEMENT_FIRST_SLICE_IACS.md) | stale | the requirements algebra it designs is absent; the names `RequirementTerm` and `GtlContractFulfillmentBinding` are reused by the narrower D1 handoff in `gtl/requirement_handoff.ts`, designed by T287_D1_REQUIREMENT_LIFECYCLE_DESIGN | - |
+| [M03_REQUIREMENTS_ALGEBRA_REFINEMENT_STRUCTURAL_CARRIER_DIAGRAM.md](M03_REQUIREMENTS_ALGEBRA_REFINEMENT_STRUCTURAL_CARRIER_DIAGRAM.md) | stale | only 0% of named identifiers exist | - |
+| [M03_REQUIREMENTS_ALGEBRA_ROUTE_INTERFACE_DESIGN.md](M03_REQUIREMENTS_ALGEBRA_ROUTE_INTERFACE_DESIGN.md) | stale | only 0% of named identifiers exist | - |
+| [M03_REQUIREMENTS_ALGEBRA_ROUTE_REQUIREMENTS_AUDIT.md](M03_REQUIREMENTS_ALGEBRA_ROUTE_REQUIREMENTS_AUDIT.md) | record | name is a register, census, audit, plan, review, template, ADR or index | - |
+| [M03_REQUIREMENTS_ALGEBRA_STRUCTURAL_CARRIER_DIAGRAM.md](M03_REQUIREMENTS_ALGEBRA_STRUCTURAL_CARRIER_DIAGRAM.md) | stale | only 0% of named identifiers exist | - |
+| [M03_REQUIREMENT_PROOF_CARRY_THROUGH_DERIVATION.md](M03_REQUIREMENT_PROOF_CARRY_THROUGH_DERIVATION.md) | stale | the requirements algebra it designs is absent; the names `RequirementTerm` and `GtlContractFulfillmentBinding` are reused by the narrower D1 handoff in `gtl/requirement_handoff.ts`, designed by T287_D1_REQUIREMENT_LIFECYCLE_DESIGN | - |
+| [M03_REQUIREMENT_PROOF_CARRY_THROUGH_FIRST_SLICE_IACS.md](M03_REQUIREMENT_PROOF_CARRY_THROUGH_FIRST_SLICE_IACS.md) | stale | the requirements algebra it designs is absent; the names `RequirementTerm` and `GtlContractFulfillmentBinding` are reused by the narrower D1 handoff in `gtl/requirement_handoff.ts`, designed by T287_D1_REQUIREMENT_LIFECYCLE_DESIGN | - |
+| [M03_REQUIREMENT_PROOF_CARRY_THROUGH_STRUCTURAL_CARRIER_DIAGRAM.md](M03_REQUIREMENT_PROOF_CARRY_THROUGH_STRUCTURAL_CARRIER_DIAGRAM.md) | stale | only 0% of named identifiers exist | - |
+| [M03_REQUIREMENT_SPAN_IDENTITY_RECURSION_DERIVATION.md](M03_REQUIREMENT_SPAN_IDENTITY_RECURSION_DERIVATION.md) | stale | names fewer than 5 code identifiers | - |
+| [M03_REQUIREMENT_SPAN_IDENTITY_RECURSION_FIRST_SLICE_IACS.md](M03_REQUIREMENT_SPAN_IDENTITY_RECURSION_FIRST_SLICE_IACS.md) | stale | only 17% of named identifiers exist | - |
+| [M03_REQUIREMENT_SPAN_IDENTITY_RECURSION_STRUCTURAL_CARRIER_DIAGRAM.md](M03_REQUIREMENT_SPAN_IDENTITY_RECURSION_STRUCTURAL_CARRIER_DIAGRAM.md) | stale | names fewer than 5 code identifiers | - |
+| [M03_RETRY_REPAIR_LEAFTASK_DERIVATION.md](M03_RETRY_REPAIR_LEAFTASK_DERIVATION.md) | stale | names fewer than 5 code identifiers; owns by the M01-M06 module decomposition | - |
+| [M03_RETRY_REPAIR_LEAFTASK_FIRST_SLICE_IACS.md](M03_RETRY_REPAIR_LEAFTASK_FIRST_SLICE_IACS.md) | stale | only 20% of named identifiers exist; owns by the M01-M06 module decomposition | - |
+| [M03_RETRY_REPAIR_LEAFTASK_STRUCTURAL_CARRIER_DIAGRAM.md](M03_RETRY_REPAIR_LEAFTASK_STRUCTURAL_CARRIER_DIAGRAM.md) | stale | names fewer than 5 code identifiers | - |
+| [M03_RUNTIME_CONTINUATION_TRANSITION_DERIVATION.md](M03_RUNTIME_CONTINUATION_TRANSITION_DERIVATION.md) | stale | only 14% of named identifiers exist | - |
+| [M03_RUNTIME_CONTINUATION_TRANSITION_FIRST_SLICE_IACS.md](M03_RUNTIME_CONTINUATION_TRANSITION_FIRST_SLICE_IACS.md) | stale | only 0% of named identifiers exist; owns by the M01-M06 module decomposition | - |
+| [M03_RUNTIME_CONTINUATION_TRANSITION_STRUCTURAL_CARRIER_DIAGRAM.md](M03_RUNTIME_CONTINUATION_TRANSITION_STRUCTURAL_CARRIER_DIAGRAM.md) | stale | names fewer than 5 code identifiers | - |
+| [M03_RUNTIME_GRAPH_FUNCTION_REGISTRY_API_EVENT_PROJECTION_PROOF_PLAN.md](M03_RUNTIME_GRAPH_FUNCTION_REGISTRY_API_EVENT_PROJECTION_PROOF_PLAN.md) | record | name is a register, census, audit, plan, review, template, ADR or index | - |
+| [M03_RUNTIME_GRAPH_FUNCTION_REGISTRY_DERIVATION.md](M03_RUNTIME_GRAPH_FUNCTION_REGISTRY_DERIVATION.md) | stale | only 25% of named identifiers exist | - |
+| [M03_RUNTIME_GRAPH_FUNCTION_REGISTRY_FIRST_SLICE_IACS.md](M03_RUNTIME_GRAPH_FUNCTION_REGISTRY_FIRST_SLICE_IACS.md) | stale | only 8% of named identifiers exist | - |
+| [M03_RUNTIME_GRAPH_FUNCTION_REGISTRY_STRUCTURAL_CARRIER_DIAGRAM.md](M03_RUNTIME_GRAPH_FUNCTION_REGISTRY_STRUCTURAL_CARRIER_DIAGRAM.md) | stale | names fewer than 5 code identifiers | - |
+| [M03_SAGA_FRONTIER_DERIVATION.md](M03_SAGA_FRONTIER_DERIVATION.md) | stale | T-141 branch carriers (`BranchLeaseRecord`, `BranchFanInProjection`) absent; names live `RuntimeWatchdogPolicy` only as a dependency | - |
+| [M03_SAGA_FRONTIER_FIRST_SLICE_IACS.md](M03_SAGA_FRONTIER_FIRST_SLICE_IACS.md) | stale | only 0% of named identifiers exist; 3 dangling path refs | - |
+| [M03_SUPERVISED_ACTOR_INVOCATION_DERIVATION.md](M03_SUPERVISED_ACTOR_INVOCATION_DERIVATION.md) | stale | only 33% of named identifiers exist | - |
+| [M03_SUPERVISED_ACTOR_INVOCATION_FIRST_SLICE_IACS.md](M03_SUPERVISED_ACTOR_INVOCATION_FIRST_SLICE_IACS.md) | stale | only 28% of named identifiers exist; owns by the M01-M06 module decomposition | - |
+| [M03_SUPERVISED_ACTOR_INVOCATION_STRUCTURAL_CARRIER_DIAGRAM.md](M03_SUPERVISED_ACTOR_INVOCATION_STRUCTURAL_CARRIER_DIAGRAM.md) | stale | names fewer than 5 code identifiers | - |
+| [M03_TOTAL_ASSURANCE_PROJECTION_DERIVATION.md](M03_TOTAL_ASSURANCE_PROJECTION_DERIVATION.md) | stale | only 10% of named identifiers exist | - |
+| [M03_TOTAL_ASSURANCE_PROJECTION_FIRST_SLICE_IACS.md](M03_TOTAL_ASSURANCE_PROJECTION_FIRST_SLICE_IACS.md) | stale | only 3% of named identifiers exist; owns by the M01-M06 module decomposition | - |
+| [M03_TOTAL_ASSURANCE_PROJECTION_PROOF_PLAN.md](M03_TOTAL_ASSURANCE_PROJECTION_PROOF_PLAN.md) | record | name is a register, census, audit, plan, review, template, ADR or index | - |
+| [M03_TOTAL_ASSURANCE_PROJECTION_STRUCTURAL_CARRIER_DIAGRAM.md](M03_TOTAL_ASSURANCE_PROJECTION_STRUCTURAL_CARRIER_DIAGRAM.md) | stale | names fewer than 5 code identifiers | - |
+| [M03_TRACED_EXECUTOR_BACKENDS.md](M03_TRACED_EXECUTOR_BACKENDS.md) | stale | only 20% of named identifiers exist | - |
+| [M03_TRANSPORT_PROTOCOL_DERIVATION.md](M03_TRANSPORT_PROTOCOL_DERIVATION.md) | stale | names fewer than 5 code identifiers; 3 dangling path refs; derives from the withdrawn Python tenant | - |
+| [M03_TRANSPORT_PROTOCOL_FIRST_SLICE_IACS.md](M03_TRANSPORT_PROTOCOL_FIRST_SLICE_IACS.md) | stale | only 20% of named identifiers exist; owns by the M01-M06 module decomposition | - |
+| [M03_TRANSPORT_PROTOCOL_STRUCTURAL_CARRIER_DIAGRAM.md](M03_TRANSPORT_PROTOCOL_STRUCTURAL_CARRIER_DIAGRAM.md) | stale | names fewer than 5 code identifiers | - |
+| [M03_TRAVERSAL_ENVELOPE_TOPOLOGY_DERIVATION.md](M03_TRAVERSAL_ENVELOPE_TOPOLOGY_DERIVATION.md) | stale | only 15% of named identifiers exist | - |
+| [M03_TRAVERSAL_ENVELOPE_TOPOLOGY_FIRST_SLICE_IACS.md](M03_TRAVERSAL_ENVELOPE_TOPOLOGY_FIRST_SLICE_IACS.md) | stale | only 11% of named identifiers exist; owns by the M01-M06 module decomposition | - |
+| [M03_TRAVERSAL_ENVELOPE_TOPOLOGY_STRUCTURAL_CARRIER_DIAGRAM.md](M03_TRAVERSAL_ENVELOPE_TOPOLOGY_STRUCTURAL_CARRIER_DIAGRAM.md) | stale | names fewer than 5 code identifiers | - |
+| [M03_TRAVERSAL_MODULATION_DERIVATION.md](M03_TRAVERSAL_MODULATION_DERIVATION.md) | stale | only 6% of named identifiers exist | - |
+| [M03_TRAVERSAL_MODULATION_FIRST_SLICE_IACS.md](M03_TRAVERSAL_MODULATION_FIRST_SLICE_IACS.md) | stale | only 0% of named identifiers exist; 10 dangling path refs | - |
+| [M03_TRAVERSAL_NON_PROGRESS_CONTINUATION_FIRST_SLICE_IACS.md](M03_TRAVERSAL_NON_PROGRESS_CONTINUATION_FIRST_SLICE_IACS.md) | stale | only 36% of named identifiers exist; owns by the M01-M06 module decomposition | - |
+| [M03_TRAVERSAL_RESULT_BIND_CONSERVATION_BEHAVIOR_DESIGN.md](M03_TRAVERSAL_RESULT_BIND_CONSERVATION_BEHAVIOR_DESIGN.md) | superseded | its head carries a T-283 invalidation or non-operative banner | T-283 disposition 2026-07-20; direct-GTL design (M03_DIRECT_GTL_TRAVERSAL_BEHAVIOR_DESIGN, M05_DIRECT_GTL_TRAVERSAL_EXPANSION_DESIGN) |
+| [M03_TYPED_HOF_BATCH_RUNTIME_BEHAVIOR_DESIGN.md](M03_TYPED_HOF_BATCH_RUNTIME_BEHAVIOR_DESIGN.md) | stale | only 7% of named identifiers exist | - |
+| [M03_VECTOR_RUNTIME_REGIME_RESOLUTION_DERIVATION.md](M03_VECTOR_RUNTIME_REGIME_RESOLUTION_DERIVATION.md) | stale | only 0% of named identifiers exist; 4 dangling path refs | - |
+| [M03_VECTOR_RUNTIME_REGIME_RESOLUTION_FIRST_SLICE_IACS.md](M03_VECTOR_RUNTIME_REGIME_RESOLUTION_FIRST_SLICE_IACS.md) | stale | only 10% of named identifiers exist | - |
+| [M03_VECTOR_RUNTIME_REGIME_RESOLUTION_STRUCTURAL_CARRIER_DIAGRAM.md](M03_VECTOR_RUNTIME_REGIME_RESOLUTION_STRUCTURAL_CARRIER_DIAGRAM.md) | stale | names fewer than 5 code identifiers | - |
+| [M03_WORKFLOW_C_RUNTIME_BEHAVIOR_DESIGN.md](M03_WORKFLOW_C_RUNTIME_BEHAVIOR_DESIGN.md) | stale | only 23% of named identifiers exist | - |
+| [M04_BOOTLOADER_DERIVATION.md](M04_BOOTLOADER_DERIVATION.md) | record | status is completed, closed, retrospective, historical or reserved 5.1 | - |
+| [M04_BOOTLOADER_FIRST_SLICE_IACS.md](M04_BOOTLOADER_FIRST_SLICE_IACS.md) | record | status is completed, closed, retrospective, historical or reserved 5.1 | - |
+| [M04_BOOTLOADER_STRUCTURAL_CARRIER_DIAGRAM.md](M04_BOOTLOADER_STRUCTURAL_CARRIER_DIAGRAM.md) | record | status is completed, closed, retrospective, historical or reserved 5.1 | - |
+| [M04_CONTROL_LOOP_DERIVATION.md](M04_CONTROL_LOOP_DERIVATION.md) | stale | names fewer than 5 code identifiers; derives from the withdrawn Python tenant; owns by the M01-M06 module decomposition | - |
+| [M04_CONTROL_LOOP_FIRST_SLICE_IACS.md](M04_CONTROL_LOOP_FIRST_SLICE_IACS.md) | stale | only 11% of named identifiers exist; owns by the M01-M06 module decomposition | - |
+| [M04_CONTROL_LOOP_STRUCTURAL_CARRIER_DIAGRAM.md](M04_CONTROL_LOOP_STRUCTURAL_CARRIER_DIAGRAM.md) | stale | only 9% of named identifiers exist; owns by the M01-M06 module decomposition | - |
+| [M04_EVENT_INGRESS_DERIVATION.md](M04_EVENT_INGRESS_DERIVATION.md) | stale | names fewer than 5 code identifiers; derives from the withdrawn Python tenant; owns by the M01-M06 module decomposition | - |
+| [M04_EVENT_INGRESS_FIRST_SLICE_IACS.md](M04_EVENT_INGRESS_FIRST_SLICE_IACS.md) | stale | only 9% of named identifiers exist; owns by the M01-M06 module decomposition | - |
+| [M04_EVENT_INGRESS_STRUCTURAL_CARRIER_DIAGRAM.md](M04_EVENT_INGRESS_STRUCTURAL_CARRIER_DIAGRAM.md) | stale | only 11% of named identifiers exist; owns by the M01-M06 module decomposition | - |
+| [M04_FIRST_SLICE_IACS.md](M04_FIRST_SLICE_IACS.md) | stale | only 11% of named identifiers exist; owns by the M01-M06 module decomposition | - |
+| [M04_GAP_TRIAGE_GRAPH_FUNCTION_DERIVATION.md](M04_GAP_TRIAGE_GRAPH_FUNCTION_DERIVATION.md) | stale | names fewer than 5 code identifiers; derives from the withdrawn Python tenant | - |
+| [M04_INSTALL_BOOTSTRAP_DERIVATION.md](M04_INSTALL_BOOTSTRAP_DERIVATION.md) | record | status is completed, closed, retrospective, historical or reserved 5.1 | - |
+| [M04_INSTALL_BOOTSTRAP_FIRST_SLICE_IACS.md](M04_INSTALL_BOOTSTRAP_FIRST_SLICE_IACS.md) | record | status is completed, closed, retrospective, historical or reserved 5.1 | - |
+| [M04_INSTALL_BOOTSTRAP_STRUCTURAL_CARRIER_DIAGRAM.md](M04_INSTALL_BOOTSTRAP_STRUCTURAL_CARRIER_DIAGRAM.md) | record | status is completed, closed, retrospective, historical or reserved 5.1 | - |
+| [M04_LIVE_STATUS_DERIVATION.md](M04_LIVE_STATUS_DERIVATION.md) | stale | names fewer than 5 code identifiers; derives from the withdrawn Python tenant; owns by the M01-M06 module decomposition | - |
+| [M04_LIVE_STATUS_FIRST_SLICE_IACS.md](M04_LIVE_STATUS_FIRST_SLICE_IACS.md) | stale | only 0% of named identifiers exist; owns by the M01-M06 module decomposition | - |
+| [M04_LIVE_STATUS_STRUCTURAL_CARRIER_DIAGRAM.md](M04_LIVE_STATUS_STRUCTURAL_CARRIER_DIAGRAM.md) | stale | names fewer than 5 code identifiers; owns by the M01-M06 module decomposition | - |
+| [M04_M05_INSTALLED_CONSENSUS_SCENARIO_PRIME_CONTRACTION_BEHAVIOR_DESIGN.md](M04_M05_INSTALLED_CONSENSUS_SCENARIO_PRIME_CONTRACTION_BEHAVIOR_DESIGN.md) | superseded | T-283 banner; installed Consensus scenario replaced by the accepted S05 design | M05_S05_CONSENSUS_GLOBAL_TO_LOCAL_DESIGN |
+| [M04_MAXIMUM_AUTONOMY_GEN_START_DERIVATION.md](M04_MAXIMUM_AUTONOMY_GEN_START_DERIVATION.md) | stale | only 23% of named identifiers exist; derives from the withdrawn Python tenant; owns by the M01-M06 module decomposition | - |
+| [M04_MAXIMUM_AUTONOMY_GEN_START_FIRST_SLICE_IACS.md](M04_MAXIMUM_AUTONOMY_GEN_START_FIRST_SLICE_IACS.md) | stale | only 14% of named identifiers exist; owns by the M01-M06 module decomposition | - |
+| [M04_MAXIMUM_AUTONOMY_GEN_START_STRUCTURAL_CARRIER_DIAGRAM.md](M04_MAXIMUM_AUTONOMY_GEN_START_STRUCTURAL_CARRIER_DIAGRAM.md) | stale | names fewer than 5 code identifiers | - |
+| [M04_PUBLIC_ASSET_ADDRESSING_DERIVATION.md](M04_PUBLIC_ASSET_ADDRESSING_DERIVATION.md) | record | status is completed, closed, retrospective, historical or reserved 5.1 | - |
+| [M04_PUBLIC_ASSET_ADDRESSING_FIRST_SLICE_IACS.md](M04_PUBLIC_ASSET_ADDRESSING_FIRST_SLICE_IACS.md) | record | status is completed, closed, retrospective, historical or reserved 5.1 | - |
+| [M04_PUBLIC_ASSET_ADDRESSING_STRUCTURAL_CARRIER_DIAGRAM.md](M04_PUBLIC_ASSET_ADDRESSING_STRUCTURAL_CARRIER_DIAGRAM.md) | record | status is completed, closed, retrospective, historical or reserved 5.1 | - |
+| [M04_PUBLIC_CONTRACT_PUBLICATION_BEHAVIOR_DESIGN.md](M04_PUBLIC_CONTRACT_PUBLICATION_BEHAVIOR_DESIGN.md) | record | candidate retrospective; names `DS1_CAPABILITY_CONTRACT_REGISTER` only in a gap table; its public-operation part is superseded by M05_S06_PUBLIC (which says so) | - |
+| [M04_PUBLIC_GAPS_PROJECTION_DERIVATION.md](M04_PUBLIC_GAPS_PROJECTION_DERIVATION.md) | record | status is completed, closed, retrospective, historical or reserved 5.1 | - |
+| [M04_PUBLIC_GAPS_PROJECTION_FIRST_SLICE_IACS.md](M04_PUBLIC_GAPS_PROJECTION_FIRST_SLICE_IACS.md) | record | status is completed, closed, retrospective, historical or reserved 5.1 | - |
+| [M04_PUBLIC_GAPS_PROJECTION_STRUCTURAL_CARRIER_DIAGRAM.md](M04_PUBLIC_GAPS_PROJECTION_STRUCTURAL_CARRIER_DIAGRAM.md) | record | status is completed, closed, retrospective, historical or reserved 5.1 | - |
+| [M04_PUBLIC_OPERATION_DEFINITION_FAMILY_BEHAVIOR_DESIGN.md](M04_PUBLIC_OPERATION_DEFINITION_FAMILY_BEHAVIOR_DESIGN.md) | superseded | T-283 banner; M05_S06_PUBLIC re-derives its useful contracts; the 2026-11-02 edit (`6dffbc0ad`) only renamed the `pending_execution` arm and left the banner | M05_S06_PUBLIC_FUNCTION_AND_NATIVE_OCCURRENCE_CLOSURE_DESIGN |
+| [M04_PUBLIC_OPERATION_PRIME_CONTRACTION_BEHAVIOR_DESIGN.md](M04_PUBLIC_OPERATION_PRIME_CONTRACTION_BEHAVIOR_DESIGN.md) | record | contraction closed with T-277; names live `PublicOperationId` only as a contraction subject | - |
+| [M04_PUBLIC_START_DERIVATION.md](M04_PUBLIC_START_DERIVATION.md) | stale | names fewer than 5 code identifiers; derives from the withdrawn Python tenant; owns by the M01-M06 module decomposition | - |
+| [M04_PUBLIC_START_STRUCTURAL_CARRIER_DIAGRAM.md](M04_PUBLIC_START_STRUCTURAL_CARRIER_DIAGRAM.md) | stale | only 33% of named identifiers exist; owns by the M01-M06 module decomposition | - |
+| [M04_RESULT_ASSESSMENT_DERIVATION.md](M04_RESULT_ASSESSMENT_DERIVATION.md) | stale | only 0% of named identifiers exist; derives from the withdrawn Python tenant; owns by the M01-M06 module decomposition | - |
+| [M04_RESULT_ASSESSMENT_FIRST_SLICE_IACS.md](M04_RESULT_ASSESSMENT_FIRST_SLICE_IACS.md) | stale | only 8% of named identifiers exist; owns by the M01-M06 module decomposition | - |
+| [M04_RESULT_ASSESSMENT_STRUCTURAL_CARRIER_DIAGRAM.md](M04_RESULT_ASSESSMENT_STRUCTURAL_CARRIER_DIAGRAM.md) | stale | only 9% of named identifiers exist; owns by the M01-M06 module decomposition | - |
+| [M04_SHARED_PRODUCT_TOOLCHAIN_DERIVATION.md](M04_SHARED_PRODUCT_TOOLCHAIN_DERIVATION.md) | stale | names fewer than 5 code identifiers | - |
+| [M04_SHARED_PRODUCT_TOOLCHAIN_DESIGN_MODULE_REVIEW.md](M04_SHARED_PRODUCT_TOOLCHAIN_DESIGN_MODULE_REVIEW.md) | record | name is a register, census, audit, plan, review, template, ADR or index | - |
+| [M04_SHARED_PRODUCT_TOOLCHAIN_FIRST_SLICE_IACS.md](M04_SHARED_PRODUCT_TOOLCHAIN_FIRST_SLICE_IACS.md) | stale | only 17% of named identifiers exist | - |
+| [M04_TYPESCRIPT_INSTALLER_DERIVATION.md](M04_TYPESCRIPT_INSTALLER_DERIVATION.md) | stale | names fewer than 5 code identifiers; derives from the withdrawn Python tenant | - |
+| [M04_TYPESCRIPT_INSTALLER_FIRST_SLICE_IACS.md](M04_TYPESCRIPT_INSTALLER_FIRST_SLICE_IACS.md) | stale | only 4% of named identifiers exist; owns by the M01-M06 module decomposition | - |
+| [M04_TYPESCRIPT_INSTALLER_STRUCTURAL_CARRIER_DIAGRAM.md](M04_TYPESCRIPT_INSTALLER_STRUCTURAL_CARRIER_DIAGRAM.md) | stale | names fewer than 5 code identifiers | - |
+| [M05_ARCHIVE_FINALIZATION_DERIVATION.md](M05_ARCHIVE_FINALIZATION_DERIVATION.md) | record | status is completed, closed, retrospective, historical or reserved 5.1 | - |
+| [M05_ARCHIVE_FINALIZATION_FIRST_SLICE_IACS.md](M05_ARCHIVE_FINALIZATION_FIRST_SLICE_IACS.md) | record | status is completed, closed, retrospective, historical or reserved 5.1 | - |
+| [M05_ARCHIVE_FINALIZATION_STRUCTURAL_CARRIER_DIAGRAM.md](M05_ARCHIVE_FINALIZATION_STRUCTURAL_CARRIER_DIAGRAM.md) | record | status is completed, closed, retrospective, historical or reserved 5.1 | - |
+| [M05_ATTACHED_FP_LOCAL_LIVE_SANDBOX_DERIVATION.md](M05_ATTACHED_FP_LOCAL_LIVE_SANDBOX_DERIVATION.md) | stale | names fewer than 5 code identifiers | - |
+| [M05_ATTACHED_FP_LOCAL_LIVE_SANDBOX_FIRST_SLICE_IACS.md](M05_ATTACHED_FP_LOCAL_LIVE_SANDBOX_FIRST_SLICE_IACS.md) | stale | names fewer than 5 code identifiers; owns by the M01-M06 module decomposition | - |
+| [M05_ATTACHED_FP_LOCAL_LIVE_SANDBOX_STRUCTURAL_CARRIER_DIAGRAM.md](M05_ATTACHED_FP_LOCAL_LIVE_SANDBOX_STRUCTURAL_CARRIER_DIAGRAM.md) | stale | names fewer than 5 code identifiers | - |
+| [M05_DATA_MAPPER_REAL_INGRESS_PROOF_DERIVATION.md](M05_DATA_MAPPER_REAL_INGRESS_PROOF_DERIVATION.md) | stale | names fewer than 5 code identifiers; derives from the withdrawn Python tenant | - |
+| [M05_ENTRY_PROOF_GATES_BEHAVIOR_DESIGN.md](M05_ENTRY_PROOF_GATES_BEHAVIOR_DESIGN.md) | stale | only 11% of named identifiers exist | - |
+| [M05_INSTALLED_LIVE_PORTFOLIO_DERIVATION.md](M05_INSTALLED_LIVE_PORTFOLIO_DERIVATION.md) | record | status is completed, closed, retrospective, historical or reserved 5.1 | - |
+| [M05_INSTALLED_LIVE_PORTFOLIO_FIRST_SLICE_IACS.md](M05_INSTALLED_LIVE_PORTFOLIO_FIRST_SLICE_IACS.md) | record | status is completed, closed, retrospective, historical or reserved 5.1 | - |
+| [M05_INSTALLED_LIVE_PORTFOLIO_STRUCTURAL_CARRIER_DIAGRAM.md](M05_INSTALLED_LIVE_PORTFOLIO_STRUCTURAL_CARRIER_DIAGRAM.md) | record | status is completed, closed, retrospective, historical or reserved 5.1 | - |
+| [M05_INSTALLED_RESET_POSTMORTEM_DERIVATION.md](M05_INSTALLED_RESET_POSTMORTEM_DERIVATION.md) | record | name is a register, census, audit, plan, review, template, ADR or index | - |
+| [M05_INSTALLED_RESET_POSTMORTEM_FIRST_SLICE_IACS.md](M05_INSTALLED_RESET_POSTMORTEM_FIRST_SLICE_IACS.md) | record | name is a register, census, audit, plan, review, template, ADR or index | - |
+| [M05_INSTALLED_RESET_POSTMORTEM_STRUCTURAL_CARRIER_DIAGRAM.md](M05_INSTALLED_RESET_POSTMORTEM_STRUCTURAL_CARRIER_DIAGRAM.md) | record | name is a register, census, audit, plan, review, template, ADR or index | - |
+| [M05_INSTALLED_SANDBOX_DERIVATION.md](M05_INSTALLED_SANDBOX_DERIVATION.md) | record | status is completed, closed, retrospective, historical or reserved 5.1 | - |
+| [M05_INSTALLED_SANDBOX_FIRST_SLICE_IACS.md](M05_INSTALLED_SANDBOX_FIRST_SLICE_IACS.md) | record | status is completed, closed, retrospective, historical or reserved 5.1 | - |
+| [M05_INSTALLED_SANDBOX_STRUCTURAL_CARRIER_DIAGRAM.md](M05_INSTALLED_SANDBOX_STRUCTURAL_CARRIER_DIAGRAM.md) | record | status is completed, closed, retrospective, historical or reserved 5.1 | - |
+| [M05_PUBLIC_SANDBOX_ARCHIVE_API_DERIVATION.md](M05_PUBLIC_SANDBOX_ARCHIVE_API_DERIVATION.md) | record | status is completed, closed, retrospective, historical or reserved 5.1 | - |
+| [M05_PUBLIC_SANDBOX_ARCHIVE_API_FIRST_SLICE_IACS.md](M05_PUBLIC_SANDBOX_ARCHIVE_API_FIRST_SLICE_IACS.md) | record | status is completed, closed, retrospective, historical or reserved 5.1 | - |
+| [M05_PUBLIC_SANDBOX_ARCHIVE_API_STRUCTURAL_CARRIER_DIAGRAM.md](M05_PUBLIC_SANDBOX_ARCHIVE_API_STRUCTURAL_CARRIER_DIAGRAM.md) | record | status is completed, closed, retrospective, historical or reserved 5.1 | - |
+| [M05_PYTHON_SANDBOX_BEHAVIOR_PORTFOLIO_DERIVATION.md](M05_PYTHON_SANDBOX_BEHAVIOR_PORTFOLIO_DERIVATION.md) | stale | names fewer than 5 code identifiers; derives from the withdrawn Python tenant | - |
+| [M05_PYTHON_SANDBOX_PROOF_EQUIVALENCE_AUDIT.md](M05_PYTHON_SANDBOX_PROOF_EQUIVALENCE_AUDIT.md) | record | name is a register, census, audit, plan, review, template, ADR or index | - |
+| [M05_QUALIFICATION_DERIVATION.md](M05_QUALIFICATION_DERIVATION.md) | stale | names fewer than 5 code identifiers; derives from the withdrawn Python tenant; owns by the M01-M06 module decomposition | - |
+| [M05_QUALIFICATION_FIRST_SLICE_IACS.md](M05_QUALIFICATION_FIRST_SLICE_IACS.md) | stale | only 0% of named identifiers exist; owns by the M01-M06 module decomposition | - |
+| [M05_QUALIFICATION_STRUCTURAL_CARRIER_DIAGRAM.md](M05_QUALIFICATION_STRUCTURAL_CARRIER_DIAGRAM.md) | stale | names fewer than 5 code identifiers; owns by the M01-M06 module decomposition | - |
+| [M05_RC_LIVE_PORTFOLIO_DERIVATION.md](M05_RC_LIVE_PORTFOLIO_DERIVATION.md) | stale | only 0% of named identifiers exist | - |
+| [M05_RC_LIVE_UAT_DERIVATION.md](M05_RC_LIVE_UAT_DERIVATION.md) | stale | names fewer than 5 code identifiers; derives from the withdrawn Python tenant | - |
+| [M05_RELEASE_SNAPSHOT_DERIVATION.md](M05_RELEASE_SNAPSHOT_DERIVATION.md) | stale | names fewer than 5 code identifiers | - |
+| [M05_RELEASE_SNAPSHOT_FIRST_SLICE_IACS.md](M05_RELEASE_SNAPSHOT_FIRST_SLICE_IACS.md) | stale | only 0% of named identifiers exist; owns by the M01-M06 module decomposition | - |
+| [M05_RESEARCH_PRODUCT_LAB_SCENARIO_CATALOG_DERIVATION.md](M05_RESEARCH_PRODUCT_LAB_SCENARIO_CATALOG_DERIVATION.md) | stale | names fewer than 5 code identifiers; derives from the withdrawn Python tenant | - |
+| [M05_S04_OBSERVER_TUNER_GLOBAL_TO_LOCAL_DESIGN.md](M05_S04_OBSERVER_TUNER_GLOBAL_TO_LOCAL_DESIGN.md) | record | status is completed, closed, retrospective, historical or reserved 5.1 | - |
+| [M05_SDLC_BOOTSTRAP_LINEAGE_DERIVATION.md](M05_SDLC_BOOTSTRAP_LINEAGE_DERIVATION.md) | stale | names fewer than 5 code identifiers; derives from the withdrawn Python tenant; owns by the M01-M06 module decomposition | - |
+| [M05_SDLC_BOOTSTRAP_LINEAGE_FIRST_SLICE_IACS.md](M05_SDLC_BOOTSTRAP_LINEAGE_FIRST_SLICE_IACS.md) | stale | only 17% of named identifiers exist; owns by the M01-M06 module decomposition | - |
+| [M05_SDLC_BOOTSTRAP_LINEAGE_STRUCTURAL_CARRIER_DIAGRAM.md](M05_SDLC_BOOTSTRAP_LINEAGE_STRUCTURAL_CARRIER_DIAGRAM.md) | stale | only 33% of named identifiers exist | - |
+| [M06_MAPPING_DEFERRED_DERIVATION.md](M06_MAPPING_DEFERRED_DERIVATION.md) | record | status is completed, closed, retrospective, historical or reserved 5.1 | - |
+| [M06_MAPPING_DEFERRED_STRUCTURAL_CARRIER_DIAGRAM.md](M06_MAPPING_DEFERRED_STRUCTURAL_CARRIER_DIAGRAM.md) | record | status is completed, closed, retrospective, historical or reserved 5.1 | - |
+| [M06_MAPPING_DEFERRED_TRIGGER_IACS.md](M06_MAPPING_DEFERRED_TRIGGER_IACS.md) | record | status is completed, closed, retrospective, historical or reserved 5.1 | - |
+| [MIGRATED_TYPESCRIPT_DESIGN_SOURCE_AUDIT.md](MIGRATED_TYPESCRIPT_DESIGN_SOURCE_AUDIT.md) | record | name is a register, census, audit, plan, review, template, ADR or index | - |
+| [PYTHON_TO_TYPESCRIPT_DESIGN_DERIVATION.md](PYTHON_TO_TYPESCRIPT_DESIGN_DERIVATION.md) | superseded | derivation from the paused Python reference design (0 of 21 distinctive tokens live); the constitution's authority flow has no Python reference step | ABI5_REALIZATION_CONSTITUTION §1 (authority flow) |
+| [README_BEFORE_2026-11-12.md](README_BEFORE_2026-11-12.md) | record | historical narrative; moves to `history/README_BEFORE_2026-11-12.md` and is replaced by a present-tense index | - |
+| [REMAINING_TYPESCRIPT_FORWARD_DERIVATION_PLAN.md](REMAINING_TYPESCRIPT_FORWARD_DERIVATION_PLAN.md) | record | name is a register, census, audit, plan, review, template, ADR or index | - |
+| [REMAINING_TYPESCRIPT_OPTIMIZATION_LEDGER.md](REMAINING_TYPESCRIPT_OPTIMIZATION_LEDGER.md) | record | name is a register, census, audit, plan, review, template, ADR or index | - |
+| [SCHEDULE_DOMAIN_MODULE_DERIVATION.md](SCHEDULE_DOMAIN_MODULE_DERIVATION.md) | stale | names fewer than 5 code identifiers | - |
+| [SCHEDULE_RUN_PROJECTION_AND_SLA_ANALYTICS.md](SCHEDULE_RUN_PROJECTION_AND_SLA_ANALYTICS.md) | stale | names fewer than 5 code identifiers | - |
+| [SLA_TELEMETRY_HOMEOSTATIC_FEEDBACK.md](SLA_TELEMETRY_HOMEOSTATIC_FEEDBACK.md) | stale | names fewer than 5 code identifiers | - |
+| [T176_GTL_LANGUAGE_CAPABILITY_TS_HOW_AND_GAP_ANALYSIS.md](T176_GTL_LANGUAGE_CAPABILITY_TS_HOW_AND_GAP_ANALYSIS.md) | record | gap analysis read-model; names live `GtlProgramConformanceInput` only as an analysed surface | - |
+| [T287_EFFECT_FUNCTIONAL_REFACTOR_PLAN.md](T287_EFFECT_FUNCTIONAL_REFACTOR_PLAN.md) | record | a plan; Phase 2 is realized in `shared/owned_process_state.ts` and designed by ABI5_COMMON §10 (process family); GOALS.md names it as the adopted plan; `scripts/check-lifecycle-boundary.mjs:43` cites it | - |
+| [T287_W2_ODD_GLC_TYPED_WORKSPACE_ADMISSION_DESIGN.md](T287_W2_ODD_GLC_TYPED_WORKSPACE_ADMISSION_DESIGN.md) | record | roadmap: its R2 and R3 parts are proposed and unratified; the ratified parts are designed by the C0-C3 and R2 notes | - |
+| [TIMER_PROVIDER_CONTRACT_SKETCH.md](TIMER_PROVIDER_CONTRACT_SKETCH.md) | stale | names fewer than 5 code identifiers | - |
+| [TWO_STAGE_EVALUATION_MODEL.md](TWO_STAGE_EVALUATION_MODEL.md) | stale | names fewer than 5 code identifiers | - |
+| [TYPESCRIPT_REALIZATION_GUARDRAILS.md](TYPESCRIPT_REALIZATION_GUARDRAILS.md) | superseded | tenant design law derived from STDO v2.5.0-rc.6; the constitution is now the operative local realization authority | ABI5_REALIZATION_CONSTITUTION §1 (sole local disambiguation of the selected STDO) |
+| [TYPESCRIPT_STRICT_LANE.md](TYPESCRIPT_STRICT_LANE.md) | stale | names fewer than 5 code identifiers; 2 dangling path refs; owns by the M01-M06 module decomposition | - |
+| [adrs/ADR-040-typescript-tenant-as-package-first-realization.md](adrs/ADR-040-typescript-tenant-as-package-first-realization.md) | superseded | package-first realization decision restated by the constitution | ABI5_REALIZATION_CONSTITUTION |
+| [adrs/ADR-041-runtime-execution-law-is-carrier-and-event-owned.md](adrs/ADR-041-runtime-execution-law-is-carrier-and-event-owned.md) | superseded | carrier and event ownership is stated by the events requirement and the constitution | REQ-R-ABG3-EVENTS; ABI5_REALIZATION_CONSTITUTION |
+| [adrs/ADR-042-deterministic-handling-must-not-structurally-block-governed-fp.md](adrs/ADR-042-deterministic-handling-must-not-structurally-block-governed-fp.md) | superseded | stated by the convergence requirement and the constitution; ABI5_STDO3 links it | REQ-R-ABG3-CONVERGENCE; ABI5_REALIZATION_CONSTITUTION |
+| [adrs/ADR-043-runtime-advancement-uses-execution-basis-and-advancement-transition.md](adrs/ADR-043-runtime-advancement-uses-execution-basis-and-advancement-transition.md) | stale | `AdvancementTransition` is absent at head | - |
+| [adrs/ADR-044-prime-contraction-is-a-cross-boundary-design-gate.md](adrs/ADR-044-prime-contraction-is-a-cross-boundary-design-gate.md) | record | closed T-277 method gate | - |
+| [adrs/ADR-045-global-design-constraints-survive-local-projection.md](adrs/ADR-045-global-design-constraints-survive-local-projection.md) | record | proposed rationale, never ratified; M05_S05 links it | - |
+| [adrs/ADR-046-catalog-application-binds-concrete-values-without-runtime-events.md](adrs/ADR-046-catalog-application-binds-concrete-values-without-runtime-events.md) | superseded | catalog application is designed by the accepted catalog contraction; M05_S05 links it | T287_GRAPH_CATALOG_CONTRACTION_ACCEPTED_DESIGN |
+| [adrs/ADR-047-reflective-optimization-is-gtl-over-replay.md](adrs/ADR-047-reflective-optimization-is-gtl-over-replay.md) | record | held 5.1 candidate; `classification.json` names it as evidence | - |
+
+Retired sections:
+
+- [M03_INSTRUCTION_ASSEMBLY_DERIVATION__RETIRED_SECTIONS.md](M03_INSTRUCTION_ASSEMBLY_DERIVATION__RETIRED_SECTIONS.md), cut from [../M03_INSTRUCTION_ASSEMBLY_DERIVATION.md](../M03_INSTRUCTION_ASSEMBLY_DERIVATION.md)
+- [M03_PAYLOAD_LEDGER_EVENT_TOPOLOGY_DERIVATION__RETIRED_SECTIONS.md](M03_PAYLOAD_LEDGER_EVENT_TOPOLOGY_DERIVATION__RETIRED_SECTIONS.md), cut from [../M03_PAYLOAD_LEDGER_EVENT_TOPOLOGY_DERIVATION.md](../M03_PAYLOAD_LEDGER_EVENT_TOPOLOGY_DERIVATION.md)
+- [M03_TRAVERSAL_NON_PROGRESS_CONTINUATION_DERIVATION__RETIRED_SECTIONS.md](M03_TRAVERSAL_NON_PROGRESS_CONTINUATION_DERIVATION__RETIRED_SECTIONS.md), cut from [../M03_TRAVERSAL_NON_PROGRESS_CONTINUATION_DERIVATION.md](../M03_TRAVERSAL_NON_PROGRESS_CONTINUATION_DERIVATION.md)
+- [M03_TYPED_RECURSE_RUNTIME_BEHAVIOR_DESIGN__RETIRED_SECTIONS.md](M03_TYPED_RECURSE_RUNTIME_BEHAVIOR_DESIGN__RETIRED_SECTIONS.md), cut from [../M03_TYPED_RECURSE_RUNTIME_BEHAVIOR_DESIGN.md](../M03_TYPED_RECURSE_RUNTIME_BEHAVIOR_DESIGN.md)
+- [M05_DIRECT_GTL_TRAVERSAL_EXPANSION_DESIGN__RETIRED_SECTIONS.md](M05_DIRECT_GTL_TRAVERSAL_EXPANSION_DESIGN__RETIRED_SECTIONS.md), cut from [../M05_DIRECT_GTL_TRAVERSAL_EXPANSION_DESIGN.md](../M05_DIRECT_GTL_TRAVERSAL_EXPANSION_DESIGN.md)

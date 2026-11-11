@@ -192,7 +192,7 @@ The [catalog owner](T287_GRAPH_CATALOG_CONTRACTION_ACCEPTED_DESIGN.md) continues
 to return plain immutable derived construction: equal complete bases produce
 equal results, independently of process identity. Catalog reuse grants neither
 execution authority nor a runtime lifecycle. The existing
-[F_P admission design](M03_FP_OUTPUT_ADMISSION_BEHAVIOR_DESIGN.md) retains wire,
+[F_P admission design](history/M03_FP_OUTPUT_ADMISSION_BEHAVIOR_DESIGN.md) retains wire,
 target and judgment separation; checked-result reuse cannot promote unjudged
 actor output, broaden evidence eligibility or replace independent assessment.
 Public carrier/receipt changes re-enter their exact owning contracts together

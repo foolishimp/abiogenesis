@@ -15,7 +15,7 @@ Owning WHAT: [Product F05/F10/F11/F15/F16](../../../../specification/PRODUCT.md)
 Owning HOW: [native qualification design](T287_D4_D5_NATIVE_QUALIFICATION_DESIGN.md), [carrier/resource design](T287_F11_CARRIER_RESOURCE_DESIGN.md), [realization constitution §§7/10/12](ABI5_REALIZATION_CONSTITUTION.md), and [end-to-end integration frame](ABI5_PROJECT_REFERENCE_FRAME_BASIS.md#f-end-to-end-interface-integration).
 The sole method basis is the current [Definition](../../../../stdo_abiogenesis.json): `stdo://releases/v2.5.1-rc.2/`, verified manifest `3d860ff4c1746f06ac25295a9e205cffb8e7725869615ac77cf2304b70ff2782`. Its DESIGN_MODULE_METHOD §§4B/5E and computational realization projection govern this pack. Historical method literals in predecessor HOW retain their original evidence scope.
 
-The [Python-to-TypeScript derivation](PYTHON_TO_TYPESCRIPT_DESIGN_DERIVATION.md) supplies the preserved M03/M05 authority split. This target projects the current TypeScript qualification domain, not the paused Python file layout.
+The [Python-to-TypeScript derivation](history/PYTHON_TO_TYPESCRIPT_DESIGN_DERIVATION.md) supplies the preserved M03/M05 authority split. This target projects the current TypeScript qualification domain, not the paused Python file layout.
 
 ## 2. Library boundary and contraction
 
