@@ -8,7 +8,7 @@
 - parent: T-287
 - updated_at: 2026-11-12
 - current_activation: T292_CONSOLIDATION_01
-- current_package: TD-36 follow-up and TD-58 (one install per test file), in flight
+- current_package: TD-36 follow-up (source), TD-59 (the fourteen failures at the base), TD-64 (design history), in flight
 - change_class: realization_refactor
 - derived_change_classes: design_reframe, requirement_reprice and product_reprice, each only for a register entry the owner decides
 - re_entry_point: specification/GOALS.md, the selection block of 2026-11-12
@@ -46,6 +46,12 @@ attribution alone does not close it.
   deleted (owner rule, 2026-11-11).
 - Nothing is pushed. Pins are refreshed per package. A cut is made only at a
   checkpoint the owner selects.
+- Source packages that touch disjoint files may run side by side (from
+  2026-11-12, after TD-36). Their Writers commit authored changes only. At
+  each merge the Executive rebuilds on `main` and commits the regenerated
+  manifest, capability graph and contracts; these are outputs of the tenant's
+  build, not authored source. Each package's new lanes are rerun on `main`
+  after the merge that follows another package's.
 - A register entry marked Decision waits for the owner's word. The Executive
   rules the rest from recorded rules and states the rule.
 - A package stops and returns to the Executive if it would change the bytes of
@@ -78,3 +84,4 @@ attribution alone does not close it.
 | TD-35 | Start law has two owners, and a `graph_function` start bypasses root mode | `claude/td35-start-law` `7928c58cc..d74f03044`, merged at `32e60ae65` | Accepted 2026-11-12 after Executive diff review and rerun | New lanes red on the old build and green after (`t287-st1-installed-cross-owner-hello` 3/3, `t287-c2-child-program` 4/4, Executive rerun); `r1` 1/1 on the refreshed basis; Writer: 18 files and the lints pass, `resolveProgramStart` unchanged over a 16,128-case grid | Every source change moves `productContentDigest` (here `dcfbcf42…` to `8dd660a1…`), the manifest, the capability graph and the candidate basis: each source package regenerates and commits them, so source packages run one at a time. `lint:evidence` cannot run in a sparse worktree |
 | TD-36 | Workspace-binding identity and the admitted-row check are copied and have diverged | `claude/td36-binding-identity` `0f77e3976..cfec62082`, merged at `0269c244f` | Accepted 2026-11-12 as a first part. The Writer stopped at the size bound (729 changed source lines against about 500); ruling: accept as one package, since it is mostly deletion with lanes on both builds | Two new files 8/8, red on the old build for the extra-key lanes; 19 caller files 190 tests, 157 pass, 0 fail, 33 gated skips; `r1`, `r2` pass; three import lints pass. Executive rerun with `ABI5_EVIDENCE_ROOT` set: 12 of the 33 skipped lanes run against recorded inputs and pass (`d2-binding-transition` 10/10, `t287-native-semantic-revision` 7/7) | Follow-up package for the five copies the reviews had not named. 18 lanes stay gated by variables with no recorded value (TD-60). Evidence-gated lanes run from a sparse worktree with `ABI5_EVIDENCE_ROOT=<main checkout>/.ai-workspace` |
 | TD-58, slice A | One installed-setup owner, and one install per test file | `claude/td58-one-install-per-file` `7928c58cc..ea1212445`, merged at `e10f1a13d` | Accepted 2026-11-12. The Writer's run ended before its measurement chain; the Executive tabulated the finished chain, checked that the uncommitted conversions removed no assertion or test declaration, and committed them | Eight files: same titles and counts before, after and in reversed order; 3,546 s to 1,572 s under load; peak resident memory lower in each file read | About 70 installer files remain (slice B). Fixed shared output paths still block running files in parallel (TD-62). The support module and the converted tests are qualification inventory members and are now stale there (TD-63) |
+| TD-58, slice B | One installed-setup owner, and one install per test file | `claude/td58b-one-install-per-file` `ebeeaf5e0..8a2970e14`, merged at `4108746ba` | Accepted 2026-11-12 after the Executive read the verdict table from the recorded runs, checked the diff (eleven test files, no assertion or test declaration added or removed, nothing outside `test_env/tests`) and reran three files on `main` | Eleven files: same titles and counts before, after and in reversed order, exit 0 on all 33 runs; 27 installs to 13; 1,482 s to 1,040 s under load. Rerun on `main`: `r5-invocation-admission`, `r9-causal-result-closure`, `runtime-scope-regressions` 2/2 each, no tracked change | Per-file sharing is exhausted: the rest install once per run or install different variants. Left: `t287-single-address-space-consolidation` (after TD-59), `rival-authority-mutations`, and sharing the pack and verified install across files. `r7-graph-validation-basis` has one case, so its independence rests on reading. Eight of the eleven are qualification inventory members (TD-63) |
