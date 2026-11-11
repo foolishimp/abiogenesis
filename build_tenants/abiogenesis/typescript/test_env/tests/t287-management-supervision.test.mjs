@@ -102,7 +102,7 @@ test("retry-only process rows remain archived without renewing the observer leas
   assert.equal(await readFile(result.artifacts.stdout.path, "utf8"), result.stdout);
 });
 
-test("native unknown coverage preserves a silent actor until hard cap; blocked child reaches Public unchanged", { timeout: 600000 }, async () => {
+test("native lease contains a silent actor at inactivity before its hard cap without a no-progress classification under unknown coverage; an active blocked child reaches Public unchanged", { timeout: 600000 }, async () => {
   const environment = await setupInstalledRootCatalog({ after() {} }, root, {
     candidateBasisSource: "packed_artifact", workspaceProductIndex: 1,
     prepareAdditionalProducts: async basis => [await prepareGenericJobIntakeProduct({ ...basis, declarationFactory: genericLifecyclePublicationData })],
@@ -118,13 +118,15 @@ test("native unknown coverage preserves a silent actor until hard cap; blocked c
   let closed = environment.store.projectReopenAuthorityAndClose();
   const command = join(environment.scratch, "semantic-worker.mjs");
   await writeFile(command, await readFile(join(fixtures, "semantic-worker.mjs")), { flag: "wx" }); await chmod(command, 0o755);
-  for (const mode of ["blocked", "hard_cap"]) {
+  // The worker's `hard_cap` mode is silent after its prompt; the active worker
+  // emits within every lease interval of the longer blocked-mode lease.
+  for (const [mode, workerMode] of [["blocked", "blocked"], ["silent", "hard_cap"]]) {
     const eventResource = { kind: "reopen_abg_event_resource", schemaVersion: "5.0.0", closeHandoff: closed, handoffDigest: product.sha256Canonical(closed) };
     const input = ordinaryJob(product, gtl, "Build a program that prints Hello World and an independent verifier.");
     const { call } = await constructGenericIntakeStart({ environment, publicApi, eventResource, input, identity: "supervision-" + mode });
     await writeFile(join(environment.scratch, mode + "-call.json"), JSON.stringify(call, null, 2) + "\n", { flag: "wx" });
-    const settings = { ABG_TS_CLAUDE_COMMAND: command, ABG_TS_FP_TIMEOUT_MS: "100", ABG_TS_FP_ABSOLUTE_TIMEOUT_MS: mode === "hard_cap" ? "600" : "5000",
-      ABG_TS_FP_TERMINATION_GRACE_MS: "50", T287_SUPERVISION_MODE: mode };
+    const settings = { ABG_TS_CLAUDE_COMMAND: command, ABG_TS_FP_TIMEOUT_MS: mode === "silent" ? "100" : "3000",
+      ABG_TS_FP_ABSOLUTE_TIMEOUT_MS: mode === "silent" ? "10000" : "5000", ABG_TS_FP_TERMINATION_GRACE_MS: "50", T287_SUPERVISION_MODE: workerMode };
     const prior = Object.fromEntries(Object.keys(settings).map(key => [key, process.env[key]]));
     Object.assign(process.env, settings);
     let outcome;
@@ -147,8 +149,17 @@ test("native unknown coverage preserves a silent actor until hard cap; blocked c
       assert.ok(events.some(event => event.kind === "run_stopped" && event.payload.disposition === "blocked"));
     } else {
       assert.equal(timeouts.length, 1);
-      assert.equal(timeouts[0].payload.timeoutClass, "absolute");
-      assert.ok(events.some(event => event.kind === "runtime_external_interruption_observed"));
+      assert.deepEqual([timeouts[0].payload.timeoutClass, timeouts[0].payload.timeoutMs], ["inactivity", 100], "the lease, not the cap, contains");
+      assert.ok(timeouts[0].payload.thresholdObservation.elapsedMs < 5000, "contained well before the 10000 ms hard cap");
+      // As of the admitted threshold's own sample: lease expiry on a live process while five sources stay unknown.
+      const all = abg.readRuntimeEventsAtDurablePrefix(closed.prefix);
+      const contained = abg.projectRuntimeLivenessAtPrefix(abg.selectValidatedRuntimeEventPrefix(Object.freeze(all.slice(0, timeouts[0].admissionOrdinal))),
+        timeouts[0].payload.actorInvocationRef);
+      assert.deepEqual([contained.asOf.elapsedMs, contained.disposition.disposition, contained.disposition.reason, contained.leaseExpired, contained.hardCapReached],
+        [timeouts[0].payload.thresholdObservation.elapsedMs, "controlled_terminate", "inactivity_expired", true, false]);
+      assert.deepEqual(contained.coverage.filter(row => row.state === "unknown").map(row => row.source),
+        ["structured_output", "tool_progress", "api_progress", "archive", "result_artifact"]);
+      assert.equal(events.some(event => event.kind === "runtime_external_interruption_observed"), false, "inactivity is not an external interruption");
       assert.ok(events.some(event => event.kind === "c_call_result_admitted" && event.payload.value?.failureClass === "transport_failure"));
       assert.equal(events.some(event => event.kind === "c_call_result_admitted" && event.payload.value?.failureClass === "transport_relation_mismatch"), false);
       assert.equal(probes.some(event => event.payload.probeContract.scope.actorInvocationRef !== null &&
@@ -162,10 +173,12 @@ test("native unknown coverage preserves a silent actor until hard cap; blocked c
     if (mode === "blocked") {
       const judged = events.find(event => event.kind === "c_call_judged" && event.payload.judgment === "blocked");
       assert.ok(judged && causes.has(judged.eventId), "Public block must reach the original child judgment");
-    } else assert.ok(causes.has(timeouts[0].eventId), "Public failure must reach its actual hard-cap observation");
+    } else assert.ok(causes.has(timeouts[0].eventId), "Public failure must reach its actual inactivity observation");
     const reads = await readSupervisionThroughFreshPublic({ scratch: environment.scratch, installedRoot: environment.installedRoot,
       artifactPath: environment.artifactPath, call, outcome, mode });
     assert.equal(reads.run_status.status, mode === "blocked" ? "blocked" : "failed");
+    assert.equal(reads.run_status.nativeLiveness.invocations.some(row => ["no_output", "progress_without_result"].includes(row.disposition.reason)), false,
+      "unknown coverage withholds every no-progress classification");
     assert.equal(reads.run_replay.status, reads.run_status.status);
     console.log(JSON.stringify({ mode, scratch: environment.scratch, events: events.length, disposition: outcome.ownerOutput.value.disposition, paidCalls: 0 }));
   }

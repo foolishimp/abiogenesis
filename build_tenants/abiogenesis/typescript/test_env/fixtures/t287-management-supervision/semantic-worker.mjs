@@ -28,6 +28,6 @@ process.stdin.on("end", () => {
         obligationRefs: active.map(row => row.binding.obligationRef), predecessorStatementRefs: [] }],
       requirementCandidates: [], worksiteDesign: null, pressure: [] }, bindings: [], design: null,
   };
-  // Deliberately exceeds the test lease, with no claim about unobserved work.
+  // Stays silent 350 ms, inside the blocked-mode test lease (3000 ms), with no claim about unobserved work.
   setTimeout(() => emit({ type: "result", subtype: "success", is_error: false, result: JSON.stringify(raw), structured_output: raw }), 350);
 });
