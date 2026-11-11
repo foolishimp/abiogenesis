@@ -20,7 +20,7 @@ import { constructWorksiteCommandExecutionModulePublication } from '../../build/
 import { WORKSITE_COMMAND_EXECUTION_IDS, ABI5_PRODUCT_ID, ABI5_PACKAGE_NAME, ABI5_PACKAGE_VERSION, RETAINED_GRAPH_INPUT_CONTRACT,
   constructRetainedGraphInput } from '../../build/code/src/product/index.js';
 import { rawAdmitValue } from '../../build/code/src/validator/index.js';
-import { inlineEventBody, inlineEventBodyValue, inlineEventBodyKey, encodeEventBody, decodeEventBody } from '../../build/code/src/abg/event_body_encoding.js';
+import { inlineEventBody, inlineEventBodyValue, inlineEventBodyKey } from '../../build/code/src/abg/event_body_encoding.js';
 import { actorRuntimeProbeSources, constructRuntimeWatchdogPolicy } from '../../build/code/src/abg/runtime_liveness_contracts.js';
 import { loadWorksiteOwner, worksiteFixture } from "../support/t287-generic-job-worksite.mjs";
 import * as nativeWork from "../../build/code/src/product/native_workspace_work.js";
@@ -1166,49 +1166,7 @@ test("RC5 retained route publishes nothing on rollback or failed fsync, poisons 
   assert.deepEqual(storeOwner.validateHistoricalEvents(good), events);
 });
 
-test("RC5 retained route measures the captured-route-37961 sample with exact logical reconstruction", async t => {
-  const samplePath = process.env.ABG_RC5_ROUTE_SAMPLE_FILE;
-  if (samplePath === undefined) { t.skip("ABG_RC5_ROUTE_SAMPLE_FILE names the pinned captured sample"); return; }
-  const sample = JSON.parse(await readFile(samplePath, "utf8"));
-  assert.equal(sample.kind, "rc5_retained_route_captured_codec_sample");
-  const physical = sample.rows.map(row => {
-    const line = canonicalJson(row.physical) + "\n";
-    assert.equal(Buffer.byteLength(line), row.bytes, "captured row keeps its exact physical length");
-    assert.equal(sha256Bytes(line).slice(7), row.physicalLineSha256, "captured row keeps its exact physical bytes");
-    return { row, line };
-  });
-  const [inlineRow, resultRow, routeRow] = physical;
-  // Existing v1 decode of the captured inline body and its already-referenced Result.
-  const inlineByEvent = new Map(), byId = new Map();
-  for (const { row } of [inlineRow, resultRow]) {
-    const { event: decoded, physicallyInline } = decodeEventBody(row.physical, inlineByEvent);
-    assert.equal(sha256Canonical(decoded.payload), decoded.payloadDigest, "captured logical payload digest");
-    if (physicallyInline) inlineByEvent.set(decoded.eventId, inlineEventBody(decoded));
-    byId.set(decoded.eventId, decoded);
-  }
-  const consumed = byId.get(resultRow.row.eventRef), used = routeRow.row.physical;
-  assert.equal(resultRow.row.physical.codecVersion, 1, "the sample Result is already physically referenced");
-  assert.equal(consumed.payload.resultRef, sample.resultRef); assert.equal(used.payload.cCallRef, consumed.aggregateId);
-  // Three-row custody, not an admitted history: the codec sees only these earlier rows.
-  const earlier = { envelope: ref => byId.get(ref), event: ref => byId.get(ref),
-    cCallEvents: ref => [...byId.values()].filter(e => e.aggregateType === "c_call" && e.aggregateId === ref).map(e => e.eventId) };
-  const encoded = encodeEventBody(used, new Map(), new Map(), undefined, earlier), record = JSON.parse(encoded);
-  assert.equal(record.codecVersion, 3);
-  assert.deepEqual(record.bodyReference, { sourceEventRef: consumed.eventId, sourcePayloadDigest: consumed.payloadDigest,
-    sourceSlot: "c_call_result_value", bodyDigest: consumed.payload.valueDigest });
-  assert.equal(encoded, canonicalJson(record) + "\n", "encoded record is canonical under the same newline convention");
-  const restored = decodeEventBody(record, inlineByEvent, undefined, { envelope: earlier.envelope, event: earlier.event }).event;
-  assert.equal(canonicalJson(restored) + "\n", routeRow.line, "restored route equals the captured logical route");
-  assert.equal(sha256Canonical(restored.payload), used.payloadDigest);
-  assert.equal(sha256Canonical(restored.payload.boundInput.value.source), consumed.payload.valueDigest);
-  const beforeBytes = physical.reduce((total, { line }) => total + Buffer.byteLength(line), 0);
-  const afterBytes = Buffer.byteLength(inlineRow.line) + Buffer.byteLength(resultRow.line) + Buffer.byteLength(encoded);
-  t.diagnostic("RC5_RETAINED_ROUTE_MEASURE " + JSON.stringify({ sample: "captured-route-37961", beforeBytes, afterBytes,
-    netSavedBytes: beforeBytes - afterBytes, logicalUnchanged: true, rows: physical.length,
-    routeBeforeBytes: Buffer.byteLength(routeRow.line), routeAfterBytes: Buffer.byteLength(encoded),
-    grossSourceBytes: sample.grossSourceBytes, sourceStoreRowOrdinals: [37940, 37953, 37961],
-    limits: "three captured physical rows only; no complete admitted history, campaign saving or latency claim" }));
-});
+// Retired (T-292 TD-60): the RC5 route measures the captured-route-37961 sample; input the pinned sample file recorded value gone
 
 // Real EventStore admission, worksite observation, owner Result construction and
 // cold log reopen. The admitted child basis is the one native task holder; the
