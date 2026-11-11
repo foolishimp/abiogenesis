@@ -145,7 +145,16 @@ export function recurseApplication(
       "foldback must declare rebind mode, one binding, and parent re-evaluation",
     );
   }
-  const canonicalFoldback = deepFreeze({ ...input.foldback });
+  const { failedChildDiagnosticClassRefs, ...declared } = input.foldback;
+  if (failedChildDiagnosticClassRefs !== undefined &&
+      new Set(requireRefs(failedChildDiagnosticClassRefs, "failedChildDiagnosticClassRefs")).size !==
+        failedChildDiagnosticClassRefs.length) {
+    throw new TypeError("failedChildDiagnosticClassRefs must not repeat a reference");
+  }
+  // An absent member stays absent: existing foldback and application refs keep their bytes.
+  const canonicalFoldback = deepFreeze(failedChildDiagnosticClassRefs === undefined
+    ? { ...declared }
+    : { ...declared, failedChildDiagnosticClassRefs: [...failedChildDiagnosticClassRefs] });
   return constructApplication("recurse", {
     ...input,
     terminationEvaluatorRefs: [...input.terminationEvaluatorRefs],

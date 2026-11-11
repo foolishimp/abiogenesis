@@ -6,6 +6,7 @@ import { ABG_HISTORICAL_GRAPH_CALL_SOURCE_RESOURCE_SCHEMA } from "../abg/termina
 import { REQUIREMENT_HANDOFF_DECLARATION_SCHEMA } from "../gtl/requirement_handoff.js";
 import { SEMANTIC_LIFECYCLE_SCHEMA } from "../gtl/semantic_stage.js";
 import { SEMANTIC_JOB_LIFECYCLE_SCHEMA } from "../gtl/semantic_job.js";
+import { FOLDBACK_DECLARATION_SCHEMA } from "../gtl/serialization_contracts.js";
 import * as Cause from "effect/Cause";
 import * as Effect from "effect/Effect";
 import * as Option from "effect/Option";
@@ -359,11 +360,7 @@ const GRAPH_FUNCTION_APPLICATION_SCHEMA = v.union([
     terminationEvaluatorRefs: REF_ARRAY_SCHEMA,
     terminationFieldRef: nonblankSchema,
     foldbackRef: nonblankSchema,
-    foldback: v.strictObject({
-      mode: v.literal("rebind"),
-      binding: nonblankSchema,
-      requiresParentEvaluation: v.literal(true),
-    }),
+    foldback: FOLDBACK_DECLARATION_SCHEMA,
     bound: v.pipe(v.number(), v.safeInteger(), v.minValue(1)),
   }),
   v.strictObject({

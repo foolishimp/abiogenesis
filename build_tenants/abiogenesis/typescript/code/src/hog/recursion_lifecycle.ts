@@ -4,6 +4,7 @@ import { projectOwnedRuntimeEventPrefixAtDurablePrefix, selectRuntimeEventPrefix
 import { projectOwnedAdmittedLeafCCallOutcomeAtPrefix } from "../abg/c_call.js";
 import { projectOwnedDeferredApplicationAtPrefix } from "../abg/deferred_application.js";
 import { projectChildFoldbackTruth } from "../abg/child_lifecycle.js";
+import { declaresFailedChildFoldback } from "../abg/graph_application.js";
 import { indexedRuntimeEvents } from "../abg/event_prefix.js";
 import {
   constructRuntimeFailureDiagnosticRef,
@@ -865,13 +866,16 @@ function completeRecursionChildUsing(
   if (child.disposition === "failed" && child.replayState.runtimeStatus === "failed") {
     return child;
   }
+  let foldsFailedChild = false;
   if (child.disposition === "failed" && child.cCallRef !== null &&
       child.resultRef !== null && child.judgmentRef !== null &&
       child.resultValue !== null && child.diagnosticRef !== null) {
     const truth = projectFailedRecursionChildTruth(frame, state, child);
     const childBasis = frame.childExecutionBasis;
     const childScope = frame.childTraversalScope;
-    if (truth !== null) {
+    foldsFailedChild = truth !== null &&
+      declaresFailedChildFoldback(frame.application, child.diagnosticRef);
+    if (truth !== null && !foldsFailedChild) {
       const retainedSubject = readRuntimeFailureDiagnosticSubject(child.diagnosticRef);
       const retainsSubject = retainedSubject !== null ||
         child.diagnosticRef === constructRuntimeFailureDiagnosticRef(null);
@@ -910,7 +914,7 @@ function completeRecursionChildUsing(
     }
   }
   if (
-    (child.disposition !== "closed" && child.disposition !== "blocked") ||
+    (child.disposition !== "closed" && child.disposition !== "blocked" && !foldsFailedChild) ||
     child.resultRef === null || child.judgmentRef === null ||
     child.resultValue === null || !isRecord(child.resultValue)
   ) {
@@ -954,16 +958,17 @@ function completeRecursionChildUsing(
   }
   const foldback = foldbackReceipt.admission;
   const blocked = foldback.childDisposition === "blocked";
+  const sourceCursor = state.input.traversalStop.cursor;
+  // A declared failed child re-enters the parent over its prior admitted input.
   const target = blocked
     ? null
     : deriveRecursionReentryCursor(
         state.input.graph,
         frame.application,
-        state.input.traversalStop.cursor,
-        {
-          inputRef: foldback.childResultRef,
-          inputDigest: foldback.outputDigest,
-        },
+        sourceCursor,
+        foldback.childDisposition === "failed"
+          ? { inputRef: sourceCursor.inputRef, inputDigest: sourceCursor.inputDigest }
+          : { inputRef: foldback.childResultRef, inputDigest: foldback.outputDigest },
       );
   if (target?.kind === "traversal_refusal") {
     return recursionFailure(

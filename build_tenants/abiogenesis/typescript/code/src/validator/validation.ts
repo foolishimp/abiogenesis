@@ -382,6 +382,9 @@ function hasExactApplicationShape(
         "binding",
         "mode",
         "requiresParentEvaluation",
+        ...(application.foldback.failedChildDiagnosticClassRefs === undefined
+          ? []
+          : ["failedChildDiagnosticClassRefs"]),
       ]);
     case "fan_out":
       return hasExactKeys(application, [
@@ -1149,6 +1152,24 @@ function validateProgramSubject(input: ProgramValidationInput): ProgramValidatio
           code: "invalid_application",
           path: `$.graphFunctions[${graphFunction.name}].template.applications[${application.applicationRef}].foldback`,
           message: "recurse application requires a positive bound and exact rebind foldback with parent re-evaluation",
+        });
+      }
+      // The Program publishes no failure-class declarations; the declared
+      // diagnostic class references are checked for form only.
+      const failedChildClassRefs: unknown = application.relationKind === "recurse"
+        ? application.foldback.failedChildDiagnosticClassRefs
+        : undefined;
+      if (failedChildClassRefs !== undefined &&
+        (
+          !Array.isArray(failedChildClassRefs) ||
+          failedChildClassRefs.length === 0 ||
+          failedChildClassRefs.some((ref) => typeof ref !== "string" || ref.trim().length === 0) ||
+          new Set(failedChildClassRefs).size !== failedChildClassRefs.length
+        )) {
+        diagnostics.push({
+          code: "invalid_application",
+          path: `$.graphFunctions[${graphFunction.name}].template.applications[${application.applicationRef}].foldback.failedChildDiagnosticClassRefs`,
+          message: "recurse failed-child foldback requires a non-empty duplicate-free list of diagnostic class references",
         });
       }
       if (
