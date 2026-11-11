@@ -43,3 +43,14 @@ Stop at the deadline, wider authority, loss of same-invocation or exact request
 identity, or inability to fit the coherent increment. Return the exact completed
 subset and dependency; do not claim disconnected execution as completion,
 weaken the oracle or launch another review campaign. T-287 remains the schedule.
+
+---
+
+Cut from `build_tenants/abiogenesis/typescript/design/T287_DECLARED_TESTING_CAPABILITY_DESIGN.md` at commit `f7c1961ff`, lines 84-89, verbatim.
+
+The gap is environment coverage. `gtl/stdo_run_environment.ts` currently
+accepts only semantic author/assessor loci; C1 and C2 prepare separate native
+worker requests, and `actor_process.ts` reconstructs semantic assembly only.
+Separate STDO Design and standalone C2 invocations cannot satisfy the current
+evidence bridge. Retain **one composed lifecycle invocation** through Design,
+C1, C2 and assessment. Do not add a private cross-invocation conversion.

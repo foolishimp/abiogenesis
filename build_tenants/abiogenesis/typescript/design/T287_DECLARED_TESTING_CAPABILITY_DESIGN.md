@@ -81,8 +81,12 @@ it does not apply axioms, choose a checker or accept a result.
    to later native application assessment. Preserve
    `selectedSemanticPredecessor`/`sameInvocation` unchanged.
 
-The gap is environment coverage. `gtl/stdo_run_environment.ts` currently
-accepts only semantic author/assessor loci; C1 and C2 prepare separate native
+`gtl/stdo_run_environment.ts` maps declared F_P leaves to environment roles:
+semantic and revision author and assessor loci, native assessment and native
+work, the C1 worksite-construction candidate (`constructor`), the C2
+worksite command execution (`command_executor`) and framed synthesis
+(`selector`) (`stdoRoleForDeclaredLeaf`; role picklist of
+`RUN_ENVIRONMENT_SCHEMA`). C1 and C2 prepare separate native
 worker requests, and `actor_process.ts` reconstructs semantic assembly only.
 Separate STDO Design and standalone C2 invocations cannot satisfy the current
 evidence bridge. Retain **one composed lifecycle invocation** through Design,
