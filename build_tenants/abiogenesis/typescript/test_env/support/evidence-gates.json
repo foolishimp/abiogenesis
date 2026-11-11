@@ -2375,6 +2375,14 @@
     }
    ],
    "input": "the retained Thread 2 installed consumer proof (setup-proof.json, 37,961,807 bytes)",
+   "inputs": [
+    {
+     "name": "setupProof",
+     "path": "comments/codex/20260908_W2_STEEL_SEQUENCE/thread-02-implementation/installed-proof/attempt-1788837068970-74645/setup-proof.json",
+     "sha256": "5e321caeae82c98b122db94e9ee4b63fd0724b5fe01522270691d028e45f60e5",
+     "bytes": 37961807
+    }
+   ],
    "producer": null,
    "recorded": [
     {
@@ -2413,6 +2421,20 @@
     }
    ],
    "input": "the candidate-31 native artifact identity and the isolated compiler-basis manifest",
+   "inputs": [
+    {
+     "name": "identity",
+     "path": "work/T287_SANDBOX_UAT_RUN_02/candidate-31/identity.json",
+     "sha256": "f78e30080bdf23d43ed2ab4fe4f2e59ebcb8a2eeea72a145e7e0cf041f5adcae",
+     "bytes": 18321
+    },
+    {
+     "name": "isolatedManifest",
+     "path": "work/T287_SANDBOX_UAT_RUN_02/operator/library-definition-reuse-232/compiler/product-toolchain-manifest.json",
+     "sha256": "475e2b7fec78a95884a4253585634076bd1343e3b8eb37c957b542c1e666b91b",
+     "bytes": 3171685
+    }
+   ],
    "producer": null,
    "recorded": [
     {
@@ -2483,6 +2505,14 @@
     }
    ],
    "input": "the candidate-28 native artifact identity",
+   "inputs": [
+    {
+     "name": "identity",
+     "path": "work/T287_SANDBOX_UAT_RUN_02/candidate-28/identity.json",
+     "sha256": "d42bf07f9e831e7633cc2c0fcf6ec16eb7745732ababbea680f6be117bf41bee",
+     "bytes": 7804
+    }
+   ],
    "producer": null,
    "recorded": [
     {
@@ -2537,6 +2567,14 @@
     }
    ],
    "input": "an explicit closed native proof observation record",
+   "inputs": [
+    {
+     "name": "observations",
+     "path": "comments/codex/20260916_ABG5_MVP_CONTINUATION/proof/closed-observations.json",
+     "sha256": "f4a6476f6bcae9cc619a08db1053b71d6264a32047a78a464fad83a95bc4b3a1",
+     "bytes": 3996
+    }
+   ],
    "producer": null,
    "recorded": [
     {
@@ -2574,6 +2612,14 @@
     }
    ],
    "input": "the retained prefix-reuse observation record (live-uat-02)",
+   "inputs": [
+    {
+     "name": "observations",
+     "path": "comments/codex/20260916_ABG5_MVP_CONTINUATION/live-uat-02/closed-observations.json",
+     "sha256": "1c465f0ed298622a2e6ccfc944263b6eb875c6174fe4b36a7a5f973a532f2834",
+     "bytes": 36548
+    }
+   ],
    "producer": null,
    "recorded": [
     {
@@ -2735,6 +2781,20 @@
     }
    ],
    "input": "the full F11 carrier fixture",
+   "inputs": [
+    {
+     "name": "fixtureA",
+     "path": "comments/codex/20260928_FRAMED_GOVERNANCE/final-f11-bound-assessment-01/assessment-input.json",
+     "sha256": "10ebbf15a389ca5d15c7d84ed4feb1cafe63dc2b5be1c3f717229c65c5a29901",
+     "bytes": 82175295
+    },
+    {
+     "name": "fixtureB",
+     "path": "comments/codex/20260928_FRAMED_GOVERNANCE/final-qualification-inputs-04/readiness/copied-tenant/.fixtures/carrier/assessment-input.json",
+     "sha256": "10ebbf15a389ca5d15c7d84ed4feb1cafe63dc2b5be1c3f717229c65c5a29901",
+     "bytes": 82175295
+    }
+   ],
    "producer": null,
    "recorded": [
     {
@@ -2784,6 +2844,14 @@
     }
    ],
    "input": "the prepared F_P assessment packet and baseline tenant",
+   "inputs": [
+    {
+     "name": "packet",
+     "path": "comments/codex/20260928_FRAMED_GOVERNANCE/final-qualification-inputs-06/f11-bound-packet.json",
+     "sha256": "b4803006d68b12a6dc139dc85d07af0a574f954afbc041f338ae1ddab9da466d",
+     "bytes": 29331587
+    }
+   ],
    "producer": null,
    "recorded": [
     {
@@ -2812,7 +2880,7 @@
     }
    ],
    "observed": "pre-check: the unconverted lane, root unset, its variables set to the recorded values, writes under the root refused: fails: \"qualification resource material/scope correspondence differs\"",
-   "note": "reading: superseded cut"
+   "note": "reading: superseded cut. The pre-check failed before reading any file under the recorded baseline tenant, so only the packet is pinned; it also read the sibling f11-bound-resource-manifest.json, which is not the recorded value and is not pinned"
   },
   {
    "gate": "native-d2-selector-prompt",
@@ -2831,6 +2899,14 @@
     }
    ],
    "input": "the retained native D2 selector prompt",
+   "inputs": [
+    {
+     "name": "prompt",
+     "path": "comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/step6-installed/preparation/invocation/archives/fp-f304d26f4bb76f62-prompt.txt",
+     "sha256": "ef70f87489f8bb9bc3fa875baafa8c651fe43f39d4132a8435472feab532e3e2",
+     "bytes": 1052422
+    }
+   ],
    "producer": null,
    "recorded": [
     {
@@ -2866,6 +2942,14 @@
     }
    ],
    "input": "the captured native observation fixture",
+   "inputs": [
+    {
+     "name": "capture",
+     "path": "work/T287_SANDBOX_UAT_RUN_02/source-repair-native-observation-view-138/capture.json",
+     "sha256": "52f2bd1a346e751d1325d91d149c7017100ca35b36f5e79d07055541246697e4",
+     "bytes": 2115
+    }
+   ],
    "producer": null,
    "recorded": [
     {
@@ -2902,6 +2986,14 @@
     }
    ],
    "input": "the owner's retained runtime event history (event-memory-repair-35 logical history)",
+   "inputs": [
+    {
+     "name": "history",
+     "path": "work/T287_SANDBOX_UAT_RUN_02/operator/event-memory-repair-35/owner-history.logical.jsonl",
+     "sha256": "b22178799d600fbde510c235b8cee58f95b458b363507f98e4da7738557d7afb",
+     "bytes": 6341605
+    }
+   ],
    "producer": null,
    "recorded": [
     {
@@ -2952,6 +3044,152 @@
     }
    ],
    "input": "explicit raw qualification coordinates, input packet, request, body and baseline tenant",
+   "inputs": [
+    {
+     "name": "coordinates",
+     "path": "comments/codex/20260928_FRAMED_GOVERNANCE/final-qualification-inputs-08/f11/actual-setup-coordinates.json",
+     "sha256": "6feb7f1a0d2ef8d1e2b18a835f724ef08fad07e77242be3b23d050dcabfeb1c7",
+     "bytes": 21570647
+    },
+    {
+     "name": "inputPacket",
+     "path": "comments/codex/20260928_FRAMED_GOVERNANCE/final-qualification-inputs-08/f11-bound-packet.json",
+     "sha256": "ee08c36919f0a5e4a806e188b45cb2dbe99836e1b10682e0808bbb4fb92b5e7b",
+     "bytes": 29337915
+    },
+    {
+     "name": "request",
+     "path": "comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-execution-07/available-owner-preparation-worker-request.json",
+     "sha256": "8f3df10e93efb9764f18f72e0cdebed8d1e7bc88a002364275f6a17b18224c2f",
+     "bytes": 372940
+    },
+    {
+     "name": "body",
+     "path": "comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-execution-07/controlled-raw-response.json",
+     "sha256": "05755288e2d8e40c98e4764a7be4e408b46388b3cc0fe0b68469a16a05053c8e",
+     "bytes": 15861
+    },
+    {
+     "name": "baselineTenant:build/code/src/abg/terminal_result_contracts.js",
+     "path": "comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-06/final-stage/build_tenants/abiogenesis/typescript/build/code/src/abg/terminal_result_contracts.js",
+     "sha256": "d33403921f9bb933c0241a0de00e1892272657aa12deec86f8228cbe549eba76",
+     "bytes": 4476
+    },
+    {
+     "name": "baselineTenant:build/code/src/gtl/c_algebra.js",
+     "path": "comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-06/final-stage/build_tenants/abiogenesis/typescript/build/code/src/gtl/c_algebra.js",
+     "sha256": "a17d87087904f198f0bd780c5d33bc599de4811768d72514ed04ca45181a4ad3",
+     "bytes": 10149
+    },
+    {
+     "name": "baselineTenant:build/code/src/gtl/canonicalization.js",
+     "path": "comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-06/final-stage/build_tenants/abiogenesis/typescript/build/code/src/gtl/canonicalization.js",
+     "sha256": "f7c2371bb3a15e28be732f9c2525a97bc36a6e002b16dea4da2c29ed9d2da1b8",
+     "bytes": 5220
+    },
+    {
+     "name": "baselineTenant:build/code/src/gtl/declarations.js",
+     "path": "comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-06/final-stage/build_tenants/abiogenesis/typescript/build/code/src/gtl/declarations.js",
+     "sha256": "9b8e684da3d2781eb7609f632135b9c9a3fe3783b5f72483a29dce564d3ea465",
+     "bytes": 6432
+    },
+    {
+     "name": "baselineTenant:build/code/src/gtl/graph_applications.js",
+     "path": "comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-06/final-stage/build_tenants/abiogenesis/typescript/build/code/src/gtl/graph_applications.js",
+     "sha256": "d9da4ab80fa5529bf9bdd39824cf5e4861d7d1d9a3a5804c9d99bb95b4ba5c00",
+     "bytes": 8091
+    },
+    {
+     "name": "baselineTenant:build/code/src/gtl/requirement_handoff.js",
+     "path": "comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-06/final-stage/build_tenants/abiogenesis/typescript/build/code/src/gtl/requirement_handoff.js",
+     "sha256": "3bc366d8150819d8699971dc9c00c0d487b769db2f2422fec151e8af791ec9bf",
+     "bytes": 13966
+    },
+    {
+     "name": "baselineTenant:build/code/src/gtl/self_conformance.js",
+     "path": "comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-06/final-stage/build_tenants/abiogenesis/typescript/build/code/src/gtl/self_conformance.js",
+     "sha256": "4de8b39dbdbe7f1d1691ea326f6047fe95b19040655d284ca6b78f46036b6037",
+     "bytes": 18937
+    },
+    {
+     "name": "baselineTenant:build/code/src/product/worksite_construction_identity.js",
+     "path": "comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-06/final-stage/build_tenants/abiogenesis/typescript/build/code/src/product/worksite_construction_identity.js",
+     "sha256": "2c19a972af8050a68dd7919b9e4a44e648a2ec7815d60816685847c70035e3fb",
+     "bytes": 5131
+    },
+    {
+     "name": "baselineTenant:build/code/src/product/worksite_preparation_contracts.js",
+     "path": "comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-06/final-stage/build_tenants/abiogenesis/typescript/build/code/src/product/worksite_preparation_contracts.js",
+     "sha256": "c30bc66969888e9a3eeaef5d6570f46206068feda370bf075b9d80bc27a9cc0f",
+     "bytes": 9807
+    },
+    {
+     "name": "baselineTenant:build/code/src/product/worksite_revision_identity.js",
+     "path": "comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-06/final-stage/build_tenants/abiogenesis/typescript/build/code/src/product/worksite_revision_identity.js",
+     "sha256": "218bcf0cbddd5d65fecaf43cda79f928bc57d4694ff81fb780d806d77cf9d088",
+     "bytes": 1462
+    },
+    {
+     "name": "baselineTenant:build/code/src/shared/admission_predicates.js",
+     "path": "comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-06/final-stage/build_tenants/abiogenesis/typescript/build/code/src/shared/admission_predicates.js",
+     "sha256": "926509776bf8eebf9d5e3b44363af09e4daf0a0950eb420019682ce8f04f6c3c",
+     "bytes": 2710
+    },
+    {
+     "name": "baselineTenant:build/code/src/shared/canonical_json.js",
+     "path": "comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-06/final-stage/build_tenants/abiogenesis/typescript/build/code/src/shared/canonical_json.js",
+     "sha256": "ae5a20c7e8a4bb182f7576e558436eaeaa5c87ac7a1e75ce1106567158cf2b02",
+     "bytes": 1551
+    },
+    {
+     "name": "baselineTenant:build/code/src/shared/digests.js",
+     "path": "comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-06/final-stage/build_tenants/abiogenesis/typescript/build/code/src/shared/digests.js",
+     "sha256": "bcfca50154c00df17ac3eacbd49323180f7645b2b0d779554dc9aa7c7c34212a",
+     "bytes": 838
+    },
+    {
+     "name": "baselineTenant:build/code/src/shared/immutable.js",
+     "path": "comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-06/final-stage/build_tenants/abiogenesis/typescript/build/code/src/shared/immutable.js",
+     "sha256": "b8cc59aa2f8a8ccf6cdfbc9e5ac85c344f0e97604c55fb3f75cb9446daf2d2e7",
+     "bytes": 608
+    },
+    {
+     "name": "baselineTenant:build/code/src/shared/public_function_contracts.js",
+     "path": "comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-06/final-stage/build_tenants/abiogenesis/typescript/build/code/src/shared/public_function_contracts.js",
+     "sha256": "470e373128486e86ecac2cdd1ba089fbe169a571c1238e1d34c97e21c2ddac6b",
+     "bytes": 17373
+    },
+    {
+     "name": "baselineTenant:build/code/src/shared/references.js",
+     "path": "comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-06/final-stage/build_tenants/abiogenesis/typescript/build/code/src/shared/references.js",
+     "sha256": "0aec7e79338a8950a8b100a4554990c72d1ee84b8679ed872aefcb82f8f4a779",
+     "bytes": 276
+    },
+    {
+     "name": "baselineTenant:build/code/src/validator/qualification_contracts.js",
+     "path": "comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-06/final-stage/build_tenants/abiogenesis/typescript/build/code/src/validator/qualification_contracts.js",
+     "sha256": "c56c2cc8e22c2edc238e22935fcf73490270e4cd0f5df1630badf26fca7751a9",
+     "bytes": 36688
+    },
+    {
+     "name": "baselineTenant:build/code/src/validator/raw_admission.js",
+     "path": "comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-06/final-stage/build_tenants/abiogenesis/typescript/build/code/src/validator/raw_admission.js",
+     "sha256": "20df548a6cabca13ac95fc06d3a9d42b610eb5d837e1cce4881d1db94ea8e936",
+     "bytes": 4097
+    },
+    {
+     "name": "baselineTenant:node_modules/@valibot/to-json-schema/dist/index.mjs",
+     "path": "comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-06/final-stage/build_tenants/abiogenesis/typescript/node_modules/@valibot/to-json-schema/dist/index.mjs",
+     "sha256": "59766d688d3cd8d0631acdfc9ff15cb24e02b3926da85ef87d2f34935e246407",
+     "bytes": 24573
+    },
+    {
+     "name": "baselineTenant:node_modules/valibot/dist/index.mjs",
+     "path": "comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-06/final-stage/build_tenants/abiogenesis/typescript/node_modules/valibot/dist/index.mjs",
+     "sha256": "df5a9ac0c6b7183af2571ab48e22719e4ab5fe331bc7afe04301472607b80a60",
+     "bytes": 206613
+    }
+   ],
    "producer": null,
    "recorded": [
     {
@@ -3036,6 +3274,20 @@
     }
    ],
    "input": "the frozen S02 continuation-03 evidence carrier (directory)",
+   "inputs": [
+    {
+     "name": "fixture:episode-01/CONTINUATION-03-STOP.json",
+     "path": "comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-03/episode-01/CONTINUATION-03-STOP.json",
+     "sha256": "163474ae64d786b1aa72d3fb696af65fd37eba7cf593a904ad80b4332bb12c47",
+     "bytes": 15974
+    },
+    {
+     "name": "fixture:runtime-stop/event-prefix.jsonl",
+     "path": "comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-03/runtime-stop/event-prefix.jsonl",
+     "sha256": "e8147dd35d207590170bea4f4f2018935c6a5c7fc9893cc3f56585e332692667",
+     "bytes": 3856953
+    }
+   ],
    "producer": null,
    "recorded": [
     {
@@ -3073,6 +3325,20 @@
     }
    ],
    "input": "the explicit frozen fixture and isolated emitted-owner binding",
+   "inputs": [
+    {
+     "name": "bindingsA",
+     "path": "comments/codex/20260928_FRAMED_GOVERNANCE/rc1-parent-alias-owner-repair-01/test-bindings.json",
+     "sha256": "717c82fc8ca6c64c7a9f599c9322effe4facac078bbe08a1a27a56919aeeb3b9",
+     "bytes": 2779
+    },
+    {
+     "name": "bindingsB",
+     "path": "comments/codex/20260928_FRAMED_GOVERNANCE/g3-parent-alias-fixture-01/test-bindings.json",
+     "sha256": "0bc9923d7103493d52a1973b7905532f1465ab83005578c75ad9956df77c411d",
+     "bytes": 3132
+    }
+   ],
    "producer": null,
    "recorded": [
     {
@@ -3121,6 +3387,14 @@
     }
    ],
    "input": "the exact historical and current staging fixtures",
+   "inputs": [
+    {
+     "name": "stagingFixtures",
+     "path": "comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-realization-01/staging-fixtures.json",
+     "sha256": "7b392de17bdd4bbd551fe0c585b417af7781a8ca437740cea88b3d7ca8c3be8d",
+     "bytes": 1355
+    }
+   ],
    "producer": null,
    "recorded": [
     {
@@ -3155,6 +3429,1028 @@
     }
    ],
    "input": "the exact frozen baseline module (final-candidate-construction-03 install) and a proof-local output root",
+   "inputs": [
+    {
+     "name": "install:build/code/src/product/contracts.js",
+     "path": "comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-03/final-install/node_modules/@abiogenesis/typescript-tenant/build/code/src/product/contracts.js",
+     "sha256": "2f69eb137c235c571eac972886cb1c4375b9e9149c5d92b26a54b7011e40936a",
+     "bytes": 880
+    },
+    {
+     "name": "install:build/code/src/product/declaration_exports.js",
+     "path": "comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-03/final-install/node_modules/@abiogenesis/typescript-tenant/build/code/src/product/declaration_exports.js",
+     "sha256": "e904eacfb1a433a8989127623baebe8e7ab13c1b661d86212d3ed421d7253074",
+     "bytes": 102102
+    },
+    {
+     "name": "install:build/code/src/shared/canonical_json.js",
+     "path": "comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-03/final-install/node_modules/@abiogenesis/typescript-tenant/build/code/src/shared/canonical_json.js",
+     "sha256": "ae5a20c7e8a4bb182f7576e558436eaeaa5c87ac7a1e75ce1106567158cf2b02",
+     "bytes": 1551
+    },
+    {
+     "name": "install:build/code/src/shared/digests.js",
+     "path": "comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-03/final-install/node_modules/@abiogenesis/typescript-tenant/build/code/src/shared/digests.js",
+     "sha256": "bcfca50154c00df17ac3eacbd49323180f7645b2b0d779554dc9aa7c7c34212a",
+     "bytes": 838
+    },
+    {
+     "name": "install:build/toolchain/lib.decorators.d.ts",
+     "path": "comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-03/final-install/node_modules/@abiogenesis/typescript-tenant/build/toolchain/lib.decorators.d.ts",
+     "sha256": "8e7f8264d0fb4c5339605a15daadb037bf238c10b654bb3eee14208f860a32ea",
+     "bytes": 13192
+    },
+    {
+     "name": "install:build/toolchain/lib.decorators.legacy.d.ts",
+     "path": "comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-03/final-install/node_modules/@abiogenesis/typescript-tenant/build/toolchain/lib.decorators.legacy.d.ts",
+     "sha256": "782dec38049b92d4e85c1585fbea5474a219c6984a35b004963b00beb1aab538",
+     "bytes": 1326
+    },
+    {
+     "name": "install:build/toolchain/lib.dom.asynciterable.d.ts",
+     "path": "comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-03/final-install/node_modules/@abiogenesis/typescript-tenant/build/toolchain/lib.dom.asynciterable.d.ts",
+     "sha256": "d7a3c8b952931daebdfc7a2897c53c0a1c73624593fa070e46bd537e64dcd20a",
+     "bytes": 1887
+    },
+    {
+     "name": "install:build/toolchain/lib.dom.d.ts",
+     "path": "comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-03/final-install/node_modules/@abiogenesis/typescript-tenant/build/toolchain/lib.dom.d.ts",
+     "sha256": "080941d9f9ff9307f7e27a83bcd888b7c8270716c39af943532438932ec1d0b9",
+     "bytes": 1874901
+    },
+    {
+     "name": "install:build/toolchain/lib.dom.iterable.d.ts",
+     "path": "comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-03/final-install/node_modules/@abiogenesis/typescript-tenant/build/toolchain/lib.dom.iterable.d.ts",
+     "sha256": "2e80ee7a49e8ac312cc11b77f1475804bee36b3b2bc896bead8b6e1266befb43",
+     "bytes": 29802
+    },
+    {
+     "name": "install:build/toolchain/lib.es2015.collection.d.ts",
+     "path": "comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-03/final-install/node_modules/@abiogenesis/typescript-tenant/build/toolchain/lib.es2015.collection.d.ts",
+     "sha256": "dc2df20b1bcdc8c2d34af4926e2c3ab15ffe1160a63e58b7e09833f616efff44",
+     "bytes": 5229
+    },
+    {
+     "name": "install:build/toolchain/lib.es2015.core.d.ts",
+     "path": "comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-03/final-install/node_modules/@abiogenesis/typescript-tenant/build/toolchain/lib.es2015.core.d.ts",
+     "sha256": "c57796738e7f83dbc4b8e65132f11a377649c00dd3eee333f672b8f0a6bea671",
+     "bytes": 22866
+    },
+    {
+     "name": "install:build/toolchain/lib.es2015.d.ts",
+     "path": "comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-03/final-install/node_modules/@abiogenesis/typescript-tenant/build/toolchain/lib.es2015.d.ts",
+     "sha256": "45b7ab580deca34ae9729e97c13cfd999df04416a79116c3bfb483804f85ded4",
+     "bytes": 1241
+    },
+    {
+     "name": "install:build/toolchain/lib.es2015.generator.d.ts",
+     "path": "comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-03/final-install/node_modules/@abiogenesis/typescript-tenant/build/toolchain/lib.es2015.generator.d.ts",
+     "sha256": "515d0b7b9bea2e31ea4ec968e9edd2c39d3eebf4a2d5cbd04e88639819ae3b71",
+     "bytes": 2557
+    },
+    {
+     "name": "install:build/toolchain/lib.es2015.iterable.d.ts",
+     "path": "comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-03/final-install/node_modules/@abiogenesis/typescript-tenant/build/toolchain/lib.es2015.iterable.d.ts",
+     "sha256": "0559b1f683ac7505ae451f9a96ce4c3c92bdc71411651ca6ddb0e88baaaad6a3",
+     "bytes": 18200
+    },
+    {
+     "name": "install:build/toolchain/lib.es2015.promise.d.ts",
+     "path": "comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-03/final-install/node_modules/@abiogenesis/typescript-tenant/build/toolchain/lib.es2015.promise.d.ts",
+     "sha256": "0dc1e7ceda9b8b9b455c3a2d67b0412feab00bd2f66656cd8850e8831b08b537",
+     "bytes": 3200
+    },
+    {
+     "name": "install:build/toolchain/lib.es2015.proxy.d.ts",
+     "path": "comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-03/final-install/node_modules/@abiogenesis/typescript-tenant/build/toolchain/lib.es2015.proxy.d.ts",
+     "sha256": "ce691fb9e5c64efb9547083e4a34091bcbe5bdb41027e310ebba8f7d96a98671",
+     "bytes": 5251
+    },
+    {
+     "name": "install:build/toolchain/lib.es2015.reflect.d.ts",
+     "path": "comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-03/final-install/node_modules/@abiogenesis/typescript-tenant/build/toolchain/lib.es2015.reflect.d.ts",
+     "sha256": "8d697a2a929a5fcb38b7a65594020fcef05ec1630804a33748829c5ff53640d0",
+     "bytes": 6493
+    },
+    {
+     "name": "install:build/toolchain/lib.es2015.symbol.d.ts",
+     "path": "comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-03/final-install/node_modules/@abiogenesis/typescript-tenant/build/toolchain/lib.es2015.symbol.d.ts",
+     "sha256": "4ff2a353abf8a80ee399af572debb8faab2d33ad38c4b4474cff7f26e7653b8d",
+     "bytes": 1649
+    },
+    {
+     "name": "install:build/toolchain/lib.es2015.symbol.wellknown.d.ts",
+     "path": "comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-03/final-install/node_modules/@abiogenesis/typescript-tenant/build/toolchain/lib.es2015.symbol.wellknown.d.ts",
+     "sha256": "fb0f136d372979348d59b3f5020b4cdb81b5504192b1cacff5d1fbba29378aa1",
+     "bytes": 11010
+    },
+    {
+     "name": "install:build/toolchain/lib.es2016.array.include.d.ts",
+     "path": "comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-03/final-install/node_modules/@abiogenesis/typescript-tenant/build/toolchain/lib.es2016.array.include.d.ts",
+     "sha256": "d15bea3d62cbbdb9797079416b8ac375ae99162a7fba5de2c6c505446486ac0a",
+     "bytes": 5204
+    },
+    {
+     "name": "install:build/toolchain/lib.es2016.d.ts",
+     "path": "comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-03/final-install/node_modules/@abiogenesis/typescript-tenant/build/toolchain/lib.es2016.d.ts",
+     "sha256": "3facaf05f0c5fc569c5649dd359892c98a85557e3e0c847964caeb67076f4d75",
+     "bytes": 965
+    },
+    {
+     "name": "install:build/toolchain/lib.es2016.intl.d.ts",
+     "path": "comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-03/final-install/node_modules/@abiogenesis/typescript-tenant/build/toolchain/lib.es2016.intl.d.ts",
+     "sha256": "68d18b664c9d32a7336a70235958b8997ebc1c3b8505f4f1ae2b7e7753b87618",
+     "bytes": 1484
+    },
+    {
+     "name": "install:build/toolchain/lib.es2017.arraybuffer.d.ts",
+     "path": "comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-03/final-install/node_modules/@abiogenesis/typescript-tenant/build/toolchain/lib.es2017.arraybuffer.d.ts",
+     "sha256": "eb3d66c8327153d8fa7dd03f9c58d351107fe824c79e9b56b462935176cdf12a",
+     "bytes": 915
+    },
+    {
+     "name": "install:build/toolchain/lib.es2017.d.ts",
+     "path": "comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-03/final-install/node_modules/@abiogenesis/typescript-tenant/build/toolchain/lib.es2017.d.ts",
+     "sha256": "e44bb8bbac7f10ecc786703fe0a6a4b952189f908707980ba8f3c8975a760962",
+     "bytes": 1162
+    },
+    {
+     "name": "install:build/toolchain/lib.es2017.date.d.ts",
+     "path": "comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-03/final-install/node_modules/@abiogenesis/typescript-tenant/build/toolchain/lib.es2017.date.d.ts",
+     "sha256": "38f0219c9e23c915ef9790ab1d680440d95419ad264816fa15009a8851e79119",
+     "bytes": 1916
+    },
+    {
+     "name": "install:build/toolchain/lib.es2017.intl.d.ts",
+     "path": "comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-03/final-install/node_modules/@abiogenesis/typescript-tenant/build/toolchain/lib.es2017.intl.d.ts",
+     "sha256": "4de680d5bb41c17f7f68e0419412ca23c98d5749dcaaea1896172f06435891fc",
+     "bytes": 1449
+    },
+    {
+     "name": "install:build/toolchain/lib.es2017.object.d.ts",
+     "path": "comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-03/final-install/node_modules/@abiogenesis/typescript-tenant/build/toolchain/lib.es2017.object.d.ts",
+     "sha256": "69ab18c3b76cd9b1be3d188eaf8bba06112ebbe2f47f6c322b5105a6fbc45a2e",
+     "bytes": 2473
+    },
+    {
+     "name": "install:build/toolchain/lib.es2017.sharedmemory.d.ts",
+     "path": "comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-03/final-install/node_modules/@abiogenesis/typescript-tenant/build/toolchain/lib.es2017.sharedmemory.d.ts",
+     "sha256": "a680117f487a4d2f30ea46f1b4b7f58bef1480456e18ba53ee85c2746eeca012",
+     "bytes": 7209
+    },
+    {
+     "name": "install:build/toolchain/lib.es2017.string.d.ts",
+     "path": "comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-03/final-install/node_modules/@abiogenesis/typescript-tenant/build/toolchain/lib.es2017.string.d.ts",
+     "sha256": "2f11ff796926e0832f9ae148008138ad583bd181899ab7dd768a2666700b1893",
+     "bytes": 2378
+    },
+    {
+     "name": "install:build/toolchain/lib.es2017.typedarrays.d.ts",
+     "path": "comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-03/final-install/node_modules/@abiogenesis/typescript-tenant/build/toolchain/lib.es2017.typedarrays.d.ts",
+     "sha256": "954296b30da6d508a104a3a0b5d96b76495c709785c1d11610908e63481ee667",
+     "bytes": 1542
+    },
+    {
+     "name": "install:build/toolchain/lib.es2018.asyncgenerator.d.ts",
+     "path": "comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-03/final-install/node_modules/@abiogenesis/typescript-tenant/build/toolchain/lib.es2018.asyncgenerator.d.ts",
+     "sha256": "ac9538681b19688c8eae65811b329d3744af679e0bdfa5d842d0e32524c73e1c",
+     "bytes": 2692
+    },
+    {
+     "name": "install:build/toolchain/lib.es2018.asynciterable.d.ts",
+     "path": "comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-03/final-install/node_modules/@abiogenesis/typescript-tenant/build/toolchain/lib.es2018.asynciterable.d.ts",
+     "sha256": "0a969edff4bd52585473d24995c5ef223f6652d6ef46193309b3921d65dd4376",
+     "bytes": 2257
+    },
+    {
+     "name": "install:build/toolchain/lib.es2018.d.ts",
+     "path": "comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-03/final-install/node_modules/@abiogenesis/typescript-tenant/build/toolchain/lib.es2018.d.ts",
+     "sha256": "5e1c4c362065a6b95ff952c0eab010f04dcd2c3494e813b493ecfd4fcb9fc0d8",
+     "bytes": 1088
+    },
+    {
+     "name": "install:build/toolchain/lib.es2018.intl.d.ts",
+     "path": "comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-03/final-install/node_modules/@abiogenesis/typescript-tenant/build/toolchain/lib.es2018.intl.d.ts",
+     "sha256": "9e9fbd7030c440b33d021da145d3232984c8bb7916f277e8ffd3dc2e3eae2bdb",
+     "bytes": 3021
+    },
+    {
+     "name": "install:build/toolchain/lib.es2018.promise.d.ts",
+     "path": "comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-03/final-install/node_modules/@abiogenesis/typescript-tenant/build/toolchain/lib.es2018.promise.d.ts",
+     "sha256": "811ec78f7fefcabbda4bfa93b3eb67d9ae166ef95f9bff989d964061cbf81a0c",
+     "bytes": 1353
+    },
+    {
+     "name": "install:build/toolchain/lib.es2018.regexp.d.ts",
+     "path": "comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-03/final-install/node_modules/@abiogenesis/typescript-tenant/build/toolchain/lib.es2018.regexp.d.ts",
+     "sha256": "717937616a17072082152a2ef351cb51f98802fb4b2fdabd32399843875974ca",
+     "bytes": 1232
+    },
+    {
+     "name": "install:build/toolchain/lib.es2019.array.d.ts",
+     "path": "comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-03/final-install/node_modules/@abiogenesis/typescript-tenant/build/toolchain/lib.es2019.array.d.ts",
+     "sha256": "d7e7d9b7b50e5f22c915b525acc5a49a7a6584cf8f62d0569e557c5cfc4b2ac2",
+     "bytes": 3163
+    },
+    {
+     "name": "install:build/toolchain/lib.es2019.d.ts",
+     "path": "comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-03/final-install/node_modules/@abiogenesis/typescript-tenant/build/toolchain/lib.es2019.d.ts",
+     "sha256": "68d73b4a11549f9c0b7d352d10e91e5dca8faa3322bfb77b661839c42b1ddec7",
+     "bytes": 1071
+    },
+    {
+     "name": "install:build/toolchain/lib.es2019.intl.d.ts",
+     "path": "comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-03/final-install/node_modules/@abiogenesis/typescript-tenant/build/toolchain/lib.es2019.intl.d.ts",
+     "sha256": "74f7fa2d027d5b33eb0471c8e82a6c87216223181ec31247c357a3e8e2fddc5b",
+     "bytes": 958
+    },
+    {
+     "name": "install:build/toolchain/lib.es2019.object.d.ts",
+     "path": "comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-03/final-install/node_modules/@abiogenesis/typescript-tenant/build/toolchain/lib.es2019.object.d.ts",
+     "sha256": "71c37f4c9543f31dfced6c7840e068c5a5aacb7b89111a4364b1d5276b852557",
+     "bytes": 1473
+    },
+    {
+     "name": "install:build/toolchain/lib.es2019.string.d.ts",
+     "path": "comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-03/final-install/node_modules/@abiogenesis/typescript-tenant/build/toolchain/lib.es2019.string.d.ts",
+     "sha256": "576711e016cf4f1804676043e6a0a5414252560eb57de9faceee34d79798c850",
+     "bytes": 1528
+    },
+    {
+     "name": "install:build/toolchain/lib.es2019.symbol.d.ts",
+     "path": "comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-03/final-install/node_modules/@abiogenesis/typescript-tenant/build/toolchain/lib.es2019.symbol.d.ts",
+     "sha256": "89c1b1281ba7b8a96efc676b11b264de7a8374c5ea1e6617f11880a13fc56dc6",
+     "bytes": 1006
+    },
+    {
+     "name": "install:build/toolchain/lib.es2020.bigint.d.ts",
+     "path": "comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-03/final-install/node_modules/@abiogenesis/typescript-tenant/build/toolchain/lib.es2020.bigint.d.ts",
+     "sha256": "d6d7ae4d1f1f3772e2a3cde568ed08991a8ae34a080ff1151af28b7f798e22ca",
+     "bytes": 38185
+    },
+    {
+     "name": "install:build/toolchain/lib.es2020.d.ts",
+     "path": "comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-03/final-install/node_modules/@abiogenesis/typescript-tenant/build/toolchain/lib.es2020.d.ts",
+     "sha256": "5efce4fc3c29ea84e8928f97adec086e3dc876365e0982cc8479a07954a3efd4",
+     "bytes": 1201
+    },
+    {
+     "name": "install:build/toolchain/lib.es2020.date.d.ts",
+     "path": "comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-03/final-install/node_modules/@abiogenesis/typescript-tenant/build/toolchain/lib.es2020.date.d.ts",
+     "sha256": "063600664504610fe3e99b717a1223f8b1900087fab0b4cad1496a114744f8df",
+     "bytes": 2956
+    },
+    {
+     "name": "install:build/toolchain/lib.es2020.intl.d.ts",
+     "path": "comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-03/final-install/node_modules/@abiogenesis/typescript-tenant/build/toolchain/lib.es2020.intl.d.ts",
+     "sha256": "639e512c0dfc3fad96a84caad71b8834d66329a1f28dc95e3946c9b58176c73a",
+     "bytes": 22438
+    },
+    {
+     "name": "install:build/toolchain/lib.es2020.number.d.ts",
+     "path": "comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-03/final-install/node_modules/@abiogenesis/typescript-tenant/build/toolchain/lib.es2020.number.d.ts",
+     "sha256": "368af93f74c9c932edd84c58883e736c9e3d53cec1fe24c0b0ff451f529ceab1",
+     "bytes": 1587
+    },
+    {
+     "name": "install:build/toolchain/lib.es2020.promise.d.ts",
+     "path": "comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-03/final-install/node_modules/@abiogenesis/typescript-tenant/build/toolchain/lib.es2020.promise.d.ts",
+     "sha256": "934019d7e3c81950f9a8426d093458b65d5aff2c7c1511233c0fd5b941e608ab",
+     "bytes": 1803
+    },
+    {
+     "name": "install:build/toolchain/lib.es2020.sharedmemory.d.ts",
+     "path": "comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-03/final-install/node_modules/@abiogenesis/typescript-tenant/build/toolchain/lib.es2020.sharedmemory.d.ts",
+     "sha256": "52ada8e0b6e0482b728070b7639ee42e83a9b1c22d205992756fe020fd9f4a47",
+     "bytes": 5128
+    },
+    {
+     "name": "install:build/toolchain/lib.es2020.string.d.ts",
+     "path": "comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-03/final-install/node_modules/@abiogenesis/typescript-tenant/build/toolchain/lib.es2020.string.d.ts",
+     "sha256": "3bdefe1bfd4d6dee0e26f928f93ccc128f1b64d5d501ff4a8cf3c6371200e5e6",
+     "bytes": 2556
+    },
+    {
+     "name": "install:build/toolchain/lib.es2020.symbol.wellknown.d.ts",
+     "path": "comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-03/final-install/node_modules/@abiogenesis/typescript-tenant/build/toolchain/lib.es2020.symbol.wellknown.d.ts",
+     "sha256": "59fb2c069260b4ba00b5643b907ef5d5341b167e7d1dbf58dfd895658bda2867",
+     "bytes": 1606
+    },
+    {
+     "name": "install:build/toolchain/lib.es2021.d.ts",
+     "path": "comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-03/final-install/node_modules/@abiogenesis/typescript-tenant/build/toolchain/lib.es2021.d.ts",
+     "sha256": "feecb1be483ed332fad555aff858affd90a48ab19ba7272ee084704eb7167569",
+     "bytes": 1036
+    },
+    {
+     "name": "install:build/toolchain/lib.es2021.intl.d.ts",
+     "path": "comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-03/final-install/node_modules/@abiogenesis/typescript-tenant/build/toolchain/lib.es2021.intl.d.ts",
+     "sha256": "965f36eae237dd74e6cca203a43e9ca801ce38824ead814728a2807b1910117d",
+     "bytes": 8245
+    },
+    {
+     "name": "install:build/toolchain/lib.es2021.promise.d.ts",
+     "path": "comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-03/final-install/node_modules/@abiogenesis/typescript-tenant/build/toolchain/lib.es2021.promise.d.ts",
+     "sha256": "af3dd424cf267428f30ccfc376f47a2c0114546b55c44d8c0f1d57d841e28d74",
+     "bytes": 2262
+    },
+    {
+     "name": "install:build/toolchain/lib.es2021.string.d.ts",
+     "path": "comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-03/final-install/node_modules/@abiogenesis/typescript-tenant/build/toolchain/lib.es2021.string.d.ts",
+     "sha256": "995c005ab91a498455ea8dfb63aa9f83fa2ea793c3d8aa344be4a1678d06d399",
+     "bytes": 1592
+    },
+    {
+     "name": "install:build/toolchain/lib.es2021.weakref.d.ts",
+     "path": "comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-03/final-install/node_modules/@abiogenesis/typescript-tenant/build/toolchain/lib.es2021.weakref.d.ts",
+     "sha256": "959d36cddf5e7d572a65045b876f2956c973a586da58e5d26cde519184fd9b8a",
+     "bytes": 3171
+    },
+    {
+     "name": "install:build/toolchain/lib.es2022.array.d.ts",
+     "path": "comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-03/final-install/node_modules/@abiogenesis/typescript-tenant/build/toolchain/lib.es2022.array.d.ts",
+     "sha256": "3925a6c820dcb1a06506c90b1577db1fdbf7705d65b62b99dce4be75c637e26b",
+     "bytes": 4676
+    },
+    {
+     "name": "install:build/toolchain/lib.es2022.d.ts",
+     "path": "comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-03/final-install/node_modules/@abiogenesis/typescript-tenant/build/toolchain/lib.es2022.d.ts",
+     "sha256": "ee7bad0c15b58988daa84371e0b89d313b762ab83cb5b31b8a2d1162e8eb41c2",
+     "bytes": 1108
+    },
+    {
+     "name": "install:build/toolchain/lib.es2022.error.d.ts",
+     "path": "comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-03/final-install/node_modules/@abiogenesis/typescript-tenant/build/toolchain/lib.es2022.error.d.ts",
+     "sha256": "0a3d63ef2b853447ec4f749d3f368ce642264246e02911fcb1590d8c161b8005",
+     "bytes": 2379
+    },
+    {
+     "name": "install:build/toolchain/lib.es2022.full.d.ts",
+     "path": "comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-03/final-install/node_modules/@abiogenesis/typescript-tenant/build/toolchain/lib.es2022.full.d.ts",
+     "sha256": "3cbad9a1ba4453443026ed38e4b8be018abb26565fa7c944376463ad9df07c41",
+     "bytes": 1074
+    },
+    {
+     "name": "install:build/toolchain/lib.es2022.intl.d.ts",
+     "path": "comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-03/final-install/node_modules/@abiogenesis/typescript-tenant/build/toolchain/lib.es2022.intl.d.ts",
+     "sha256": "8cdf8847677ac7d20486e54dd3fcf09eda95812ac8ace44b4418da1bbbab6eb8",
+     "bytes": 7692
+    },
+    {
+     "name": "install:build/toolchain/lib.es2022.object.d.ts",
+     "path": "comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-03/final-install/node_modules/@abiogenesis/typescript-tenant/build/toolchain/lib.es2022.object.d.ts",
+     "sha256": "8444af78980e3b20b49324f4a16ba35024fef3ee069a0eb67616ea6ca821c47a",
+     "bytes": 1085
+    },
+    {
+     "name": "install:build/toolchain/lib.es2022.regexp.d.ts",
+     "path": "comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-03/final-install/node_modules/@abiogenesis/typescript-tenant/build/toolchain/lib.es2022.regexp.d.ts",
+     "sha256": "b4b67b1a91182421f5df999988c690f14d813b9850b40acd06ed44691f6727ad",
+     "bytes": 1331
+    },
+    {
+     "name": "install:build/toolchain/lib.es2022.string.d.ts",
+     "path": "comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-03/final-install/node_modules/@abiogenesis/typescript-tenant/build/toolchain/lib.es2022.string.d.ts",
+     "sha256": "3287d9d085fbd618c3971944b65b4be57859f5415f495b33a6adc994edd2f004",
+     "bytes": 1155
+    },
+    {
+     "name": "install:build/toolchain/lib.es5.d.ts",
+     "path": "comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-03/final-install/node_modules/@abiogenesis/typescript-tenant/build/toolchain/lib.es5.d.ts",
+     "sha256": "c430d44666289dae81f30fa7b2edebf186ecc91a2d4c71266ea6ae76388792e1",
+     "bytes": 218439
+    },
+    {
+     "name": "install:build/toolchain/lib.esnext.disposable.d.ts",
+     "path": "comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-03/final-install/node_modules/@abiogenesis/typescript-tenant/build/toolchain/lib.esnext.disposable.d.ts",
+     "sha256": "51ad4c928303041605b4d7ae32e0c1ee387d43a24cd6f1ebf4a2699e1076d4fa",
+     "bytes": 6806
+    },
+    {
+     "name": "install:build/toolchain/lib.esnext.float16.d.ts",
+     "path": "comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-03/final-install/node_modules/@abiogenesis/typescript-tenant/build/toolchain/lib.esnext.float16.d.ts",
+     "sha256": "4245fee526a7d1754529d19227ecbf3be066ff79ebb6a380d78e41648f2f224d",
+     "bytes": 20355
+    },
+    {
+     "name": "install:build/toolchain/lib.scripthost.d.ts",
+     "path": "comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-03/final-install/node_modules/@abiogenesis/typescript-tenant/build/toolchain/lib.scripthost.d.ts",
+     "sha256": "cd034f499c6cdca722b60c04b5b1b78e058487a7085a8e0d6fb50809947ee573",
+     "bytes": 9451
+    },
+    {
+     "name": "install:build/toolchain/lib.webworker.importscripts.d.ts",
+     "path": "comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-03/final-install/node_modules/@abiogenesis/typescript-tenant/build/toolchain/lib.webworker.importscripts.d.ts",
+     "sha256": "80e18897e5884b6723488d4f5652167e7bb5024f946743134ecc4aa4ee731f89",
+     "bytes": 1041
+    },
+    {
+     "name": "install:build/toolchain/node_modules/@types/node/assert.d.ts",
+     "path": "comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-03/final-install/node_modules/@abiogenesis/typescript-tenant/build/toolchain/node_modules/@types/node/assert.d.ts",
+     "sha256": "bbcfd9cd76d92c3ee70475270156755346c9086391e1b9cb643d072e0cf576b8",
+     "bytes": 44778
+    },
+    {
+     "name": "install:build/toolchain/node_modules/@types/node/assert/strict.d.ts",
+     "path": "comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-03/final-install/node_modules/@abiogenesis/typescript-tenant/build/toolchain/node_modules/@types/node/assert/strict.d.ts",
+     "sha256": "7394959e5a741b185456e1ef5d64599c36c60a323207450991e7a42e08911419",
+     "bytes": 201
+    },
+    {
+     "name": "install:build/toolchain/node_modules/@types/node/async_hooks.d.ts",
+     "path": "comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-03/final-install/node_modules/@abiogenesis/typescript-tenant/build/toolchain/node_modules/@types/node/async_hooks.d.ts",
+     "sha256": "72c1f5e0a28e473026074817561d1bc9647909cf253c8d56c41d1df8d95b85f7",
+     "bytes": 26208
+    },
+    {
+     "name": "install:build/toolchain/node_modules/@types/node/buffer.buffer.d.ts",
+     "path": "comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-03/final-install/node_modules/@abiogenesis/typescript-tenant/build/toolchain/node_modules/@types/node/buffer.buffer.d.ts",
+     "sha256": "d802f0e6b5188646d307f070d83512e8eb94651858de8a82d1e47f60fb6da4e2",
+     "bytes": 22411
+    },
+    {
+     "name": "install:build/toolchain/node_modules/@types/node/buffer.d.ts",
+     "path": "comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-03/final-install/node_modules/@abiogenesis/typescript-tenant/build/toolchain/node_modules/@types/node/buffer.d.ts",
+     "sha256": "003ec918ec442c3a4db2c36dc0c9c766977ea1c8bcc1ca7c2085868727c3d3f6",
+     "bytes": 88304
+    },
+    {
+     "name": "install:build/toolchain/node_modules/@types/node/child_process.d.ts",
+     "path": "comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-03/final-install/node_modules/@abiogenesis/typescript-tenant/build/toolchain/node_modules/@types/node/child_process.d.ts",
+     "sha256": "a6310806c6aa3154773976dd083a15659d294700d9ad8f6b8a2e10c3dc461ff1",
+     "bytes": 65938
+    },
+    {
+     "name": "install:build/toolchain/node_modules/@types/node/cluster.d.ts",
+     "path": "comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-03/final-install/node_modules/@abiogenesis/typescript-tenant/build/toolchain/node_modules/@types/node/cluster.d.ts",
+     "sha256": "c4e8e8031808b158cfb5ac5c4b38d4a26659aec4b57b6a7e2ba0a141439c208c",
+     "bytes": 28016
+    },
+    {
+     "name": "install:build/toolchain/node_modules/@types/node/compatibility/iterators.d.ts",
+     "path": "comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-03/final-install/node_modules/@abiogenesis/typescript-tenant/build/toolchain/node_modules/@types/node/compatibility/iterators.d.ts",
+     "sha256": "d153a11543fd884b596587ccd97aebbeed950b26933ee000f94009f1ab142848",
+     "bytes": 1303
+    },
+    {
+     "name": "install:build/toolchain/node_modules/@types/node/console.d.ts",
+     "path": "comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-03/final-install/node_modules/@abiogenesis/typescript-tenant/build/toolchain/node_modules/@types/node/console.d.ts",
+     "sha256": "2c91d8366ff2506296191c26fd97cc1990bab3ee22576275d28b654a21261a44",
+     "bytes": 21249
+    },
+    {
+     "name": "install:build/toolchain/node_modules/@types/node/constants.d.ts",
+     "path": "comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-03/final-install/node_modules/@abiogenesis/typescript-tenant/build/toolchain/node_modules/@types/node/constants.d.ts",
+     "sha256": "5524481e56c48ff486f42926778c0a3cce1cc85dc46683b92b1271865bcf015a",
+     "bytes": 816
+    },
+    {
+     "name": "install:build/toolchain/node_modules/@types/node/crypto.d.ts",
+     "path": "comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-03/final-install/node_modules/@abiogenesis/typescript-tenant/build/toolchain/node_modules/@types/node/crypto.d.ts",
+     "sha256": "db39d9a16e4ddcd8a8f2b7b3292b362cc5392f92ad7ccd76f00bccf6838ac7de",
+     "bytes": 190906
+    },
+    {
+     "name": "install:build/toolchain/node_modules/@types/node/dgram.d.ts",
+     "path": "comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-03/final-install/node_modules/@abiogenesis/typescript-tenant/build/toolchain/node_modules/@types/node/dgram.d.ts",
+     "sha256": "289e9894a4668c61b5ffed09e196c1f0c2f87ca81efcaebdf6357cfb198dac14",
+     "bytes": 27991
+    },
+    {
+     "name": "install:build/toolchain/node_modules/@types/node/diagnostics_channel.d.ts",
+     "path": "comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-03/final-install/node_modules/@abiogenesis/typescript-tenant/build/toolchain/node_modules/@types/node/diagnostics_channel.d.ts",
+     "sha256": "25a1105595236f09f5bce42398be9f9ededc8d538c258579ab662d509aa3b98e",
+     "bytes": 25224
+    },
+    {
+     "name": "install:build/toolchain/node_modules/@types/node/dns.d.ts",
+     "path": "comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-03/final-install/node_modules/@abiogenesis/typescript-tenant/build/toolchain/node_modules/@types/node/dns.d.ts",
+     "sha256": "5078cd62dbdf91ae8b1dc90b1384dec71a9c0932d62bdafb1a811d2a8e26bef2",
+     "bytes": 36886
+    },
+    {
+     "name": "install:build/toolchain/node_modules/@types/node/dns/promises.d.ts",
+     "path": "comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-03/final-install/node_modules/@abiogenesis/typescript-tenant/build/toolchain/node_modules/@types/node/dns/promises.d.ts",
+     "sha256": "a2e2bbde231b65c53c764c12313897ffdfb6c49183dd31823ee2405f2f7b5378",
+     "bytes": 21107
+    },
+    {
+     "name": "install:build/toolchain/node_modules/@types/node/dom-events.d.ts",
+     "path": "comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-03/final-install/node_modules/@abiogenesis/typescript-tenant/build/toolchain/node_modules/@types/node/dom-events.d.ts",
+     "sha256": "71450bbc2d82821d24ca05699a533e72758964e9852062c53b30f31c36978ab8",
+     "bytes": 3023
+    },
+    {
+     "name": "install:build/toolchain/node_modules/@types/node/domain.d.ts",
+     "path": "comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-03/final-install/node_modules/@abiogenesis/typescript-tenant/build/toolchain/node_modules/@types/node/domain.d.ts",
+     "sha256": "ad1cc0ed328f3f708771272021be61ab146b32ecf2b78f3224959ff1e2cd2a5c",
+     "bytes": 7812
+    },
+    {
+     "name": "install:build/toolchain/node_modules/@types/node/events.d.ts",
+     "path": "comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-03/final-install/node_modules/@abiogenesis/typescript-tenant/build/toolchain/node_modules/@types/node/events.d.ts",
+     "sha256": "62f572306e0b173cc5dfc4c583471151f16ef3779cf27ab96922c92ec82a3bc8",
+     "bytes": 43144
+    },
+    {
+     "name": "install:build/toolchain/node_modules/@types/node/fs.d.ts",
+     "path": "comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-03/final-install/node_modules/@abiogenesis/typescript-tenant/build/toolchain/node_modules/@types/node/fs.d.ts",
+     "sha256": "622b67a408a881e15ab38043547563b9d29ca4b46f5b7a7e4a4fc3123d25d19f",
+     "bytes": 188677
+    },
+    {
+     "name": "install:build/toolchain/node_modules/@types/node/fs/promises.d.ts",
+     "path": "comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-03/final-install/node_modules/@abiogenesis/typescript-tenant/build/toolchain/node_modules/@types/node/fs/promises.d.ts",
+     "sha256": "2617f1d06b32c7b4dfd0a5c8bc7b5de69368ec56788c90f3d7f3e3d2f39f0253",
+     "bytes": 55102
+    },
+    {
+     "name": "install:build/toolchain/node_modules/@types/node/globals.d.ts",
+     "path": "comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-03/final-install/node_modules/@abiogenesis/typescript-tenant/build/toolchain/node_modules/@types/node/globals.d.ts",
+     "sha256": "f4b4faedc57701ae727d78ba4a83e466a6e3bdcbe40efbf913b17e860642897c",
+     "bytes": 13770
+    },
+    {
+     "name": "install:build/toolchain/node_modules/@types/node/globals.typedarray.d.ts",
+     "path": "comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-03/final-install/node_modules/@abiogenesis/typescript-tenant/build/toolchain/node_modules/@types/node/globals.typedarray.d.ts",
+     "sha256": "c0671b50bb99cc7ad46e9c68fa0e7f15ba4bc898b59c31a17ea4611fab5095da",
+     "bytes": 818
+    },
+    {
+     "name": "install:build/toolchain/node_modules/@types/node/http.d.ts",
+     "path": "comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-03/final-install/node_modules/@abiogenesis/typescript-tenant/build/toolchain/node_modules/@types/node/http.d.ts",
+     "sha256": "bd8b644c5861b94926687618ec2c9e60ad054d334d6b7eb4517f23f53cb11f91",
+     "bytes": 91395
+    },
+    {
+     "name": "install:build/toolchain/node_modules/@types/node/http2.d.ts",
+     "path": "comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-03/final-install/node_modules/@abiogenesis/typescript-tenant/build/toolchain/node_modules/@types/node/http2.d.ts",
+     "sha256": "bcbabfaca3f6b8a76cb2739e57710daf70ab5c9479ab70f5351c9b4932abf6bd",
+     "bytes": 129324
+    },
+    {
+     "name": "install:build/toolchain/node_modules/@types/node/https.d.ts",
+     "path": "comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-03/final-install/node_modules/@abiogenesis/typescript-tenant/build/toolchain/node_modules/@types/node/https.d.ts",
+     "sha256": "77fced47f495f4ff29bb49c52c605c5e73cd9b47d50080133783032769a9d8a6",
+     "bytes": 24807
+    },
+    {
+     "name": "install:build/toolchain/node_modules/@types/node/index.d.ts",
+     "path": "comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-03/final-install/node_modules/@abiogenesis/typescript-tenant/build/toolchain/node_modules/@types/node/index.d.ts",
+     "sha256": "a51f786b9f3c297668f8f322a6c58f85d84948ef69ade32069d5d63ec917221c",
+     "bytes": 4000
+    },
+    {
+     "name": "install:build/toolchain/node_modules/@types/node/inspector.d.ts",
+     "path": "comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-03/final-install/node_modules/@abiogenesis/typescript-tenant/build/toolchain/node_modules/@types/node/inspector.d.ts",
+     "sha256": "966dd0793b220e22344c944e0f15afafdc9b0c9201b6444ea0197cd176b96893",
+     "bytes": 211032
+    },
+    {
+     "name": "install:build/toolchain/node_modules/@types/node/module.d.ts",
+     "path": "comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-03/final-install/node_modules/@abiogenesis/typescript-tenant/build/toolchain/node_modules/@types/node/module.d.ts",
+     "sha256": "c54f0b30a787b3df16280f4675bd3d9d17bf983ae3cd40087409476bc50b922d",
+     "bytes": 40390
+    },
+    {
+     "name": "install:build/toolchain/node_modules/@types/node/net.d.ts",
+     "path": "comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-03/final-install/node_modules/@abiogenesis/typescript-tenant/build/toolchain/node_modules/@types/node/net.d.ts",
+     "sha256": "0f5cda0282e1d18198e2887387eb2f026372ebc4e11c4e4516fef8a19ee4d514",
+     "bytes": 47571
+    },
+    {
+     "name": "install:build/toolchain/node_modules/@types/node/os.d.ts",
+     "path": "comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-03/final-install/node_modules/@abiogenesis/typescript-tenant/build/toolchain/node_modules/@types/node/os.d.ts",
+     "sha256": "e99b0e71f07128fc32583e88ccd509a1aaa9524c290efb2f48c22f9bf8ba83b1",
+     "bytes": 18949
+    },
+    {
+     "name": "install:build/toolchain/node_modules/@types/node/package.json",
+     "path": "comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-03/final-install/node_modules/@abiogenesis/typescript-tenant/build/toolchain/node_modules/@types/node/package.json",
+     "sha256": "89cb280743d8e75899ce6848e2d6502b47b0409e403a7fbc956a2d0aec9cb182",
+     "bytes": 4509
+    },
+    {
+     "name": "install:build/toolchain/node_modules/@types/node/path.d.ts",
+     "path": "comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-03/final-install/node_modules/@abiogenesis/typescript-tenant/build/toolchain/node_modules/@types/node/path.d.ts",
+     "sha256": "76957a6d92b94b9e2852cf527fea32ad2dc0ef50f67fe2b14bd027c9ceef2d86",
+     "bytes": 8235
+    },
+    {
+     "name": "install:build/toolchain/node_modules/@types/node/perf_hooks.d.ts",
+     "path": "comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-03/final-install/node_modules/@abiogenesis/typescript-tenant/build/toolchain/node_modules/@types/node/perf_hooks.d.ts",
+     "sha256": "5e9f8c1e042b0f598a9be018fc8c3cb670fe579e9f2e18e3388b63327544fe16",
+     "bytes": 39055
+    },
+    {
+     "name": "install:build/toolchain/node_modules/@types/node/process.d.ts",
+     "path": "comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-03/final-install/node_modules/@abiogenesis/typescript-tenant/build/toolchain/node_modules/@types/node/process.d.ts",
+     "sha256": "a8a99a5e6ed33c4a951b67cc1fd5b64fd6ad719f5747845c165ca12f6c21ba16",
+     "bytes": 106429
+    },
+    {
+     "name": "install:build/toolchain/node_modules/@types/node/punycode.d.ts",
+     "path": "comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-03/final-install/node_modules/@abiogenesis/typescript-tenant/build/toolchain/node_modules/@types/node/punycode.d.ts",
+     "sha256": "a58a15da4c5ba3df60c910a043281256fa52d36a0fcdef9b9100c646282e88dd",
+     "bytes": 5479
+    },
+    {
+     "name": "install:build/toolchain/node_modules/@types/node/querystring.d.ts",
+     "path": "comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-03/final-install/node_modules/@abiogenesis/typescript-tenant/build/toolchain/node_modules/@types/node/querystring.d.ts",
+     "sha256": "b36beffbf8acdc3ebc58c8bb4b75574b31a2169869c70fc03f82895b93950a12",
+     "bytes": 7125
+    },
+    {
+     "name": "install:build/toolchain/node_modules/@types/node/readline.d.ts",
+     "path": "comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-03/final-install/node_modules/@abiogenesis/typescript-tenant/build/toolchain/node_modules/@types/node/readline.d.ts",
+     "sha256": "de263f0089aefbfd73c89562fb7254a7468b1f33b61839aafc3f035d60766cb4",
+     "bytes": 25878
+    },
+    {
+     "name": "install:build/toolchain/node_modules/@types/node/readline/promises.d.ts",
+     "path": "comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-03/final-install/node_modules/@abiogenesis/typescript-tenant/build/toolchain/node_modules/@types/node/readline/promises.d.ts",
+     "sha256": "70b57b5529051497e9f6482b76d91c0dcbb103d9ead8a0549f5bab8f65e5d031",
+     "bytes": 6427
+    },
+    {
+     "name": "install:build/toolchain/node_modules/@types/node/repl.d.ts",
+     "path": "comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-03/final-install/node_modules/@abiogenesis/typescript-tenant/build/toolchain/node_modules/@types/node/repl.d.ts",
+     "sha256": "8c81fd4a110490c43d7c578e8c6f69b3af01717189196899a6a44f93daa57a3a",
+     "bytes": 19901
+    },
+    {
+     "name": "install:build/toolchain/node_modules/@types/node/sea.d.ts",
+     "path": "comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-03/final-install/node_modules/@abiogenesis/typescript-tenant/build/toolchain/node_modules/@types/node/sea.d.ts",
+     "sha256": "1013eb2e2547ad8c100aca52ef9df8c3f209edee32bb387121bb3227f7c00088",
+     "bytes": 6195
+    },
+    {
+     "name": "install:build/toolchain/node_modules/@types/node/sqlite.d.ts",
+     "path": "comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-03/final-install/node_modules/@abiogenesis/typescript-tenant/build/toolchain/node_modules/@types/node/sqlite.d.ts",
+     "sha256": "e07c573ac1971ea89e2c56ff5fd096f6f7bba2e6dbcd5681d39257c8d954d4a8",
+     "bytes": 34754
+    },
+    {
+     "name": "install:build/toolchain/node_modules/@types/node/stream.d.ts",
+     "path": "comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-03/final-install/node_modules/@abiogenesis/typescript-tenant/build/toolchain/node_modules/@types/node/stream.d.ts",
+     "sha256": "363eedb495912790e867da6ff96e81bf792c8cfe386321e8163b71823a35719a",
+     "bytes": 85270
+    },
+    {
+     "name": "install:build/toolchain/node_modules/@types/node/stream/consumers.d.ts",
+     "path": "comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-03/final-install/node_modules/@abiogenesis/typescript-tenant/build/toolchain/node_modules/@types/node/stream/consumers.d.ts",
+     "sha256": "125d792ec6c0c0f657d758055c494301cc5fdb327d9d9d5960b3f129aff76093",
+     "bytes": 1593
+    },
+    {
+     "name": "install:build/toolchain/node_modules/@types/node/stream/promises.d.ts",
+     "path": "comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-03/final-install/node_modules/@abiogenesis/typescript-tenant/build/toolchain/node_modules/@types/node/stream/promises.d.ts",
+     "sha256": "37ba7b45141a45ce6e80e66f2a96c8a5ab1bcef0fc2d0f56bb58df96ec67e972",
+     "bytes": 2971
+    },
+    {
+     "name": "install:build/toolchain/node_modules/@types/node/stream/web.d.ts",
+     "path": "comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-03/final-install/node_modules/@abiogenesis/typescript-tenant/build/toolchain/node_modules/@types/node/stream/web.d.ts",
+     "sha256": "dba28a419aec76ed864ef43e5f577a5c99a010c32e5949fe4e17a4d57c58dd11",
+     "bytes": 29915
+    },
+    {
+     "name": "install:build/toolchain/node_modules/@types/node/string_decoder.d.ts",
+     "path": "comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-03/final-install/node_modules/@abiogenesis/typescript-tenant/build/toolchain/node_modules/@types/node/string_decoder.d.ts",
+     "sha256": "ea713aa14a670b1ea0fbaaca4fd204e645f71ca7653a834a8ec07ee889c45de6",
+     "bytes": 2827
+    },
+    {
+     "name": "install:build/toolchain/node_modules/@types/node/test.d.ts",
+     "path": "comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-03/final-install/node_modules/@abiogenesis/typescript-tenant/build/toolchain/node_modules/@types/node/test.d.ts",
+     "sha256": "07199a85560f473f37363d8f1300fac361cda2e954caf8a40221f83a6bfa7ade",
+     "bytes": 109841
+    },
+    {
+     "name": "install:build/toolchain/node_modules/@types/node/timers.d.ts",
+     "path": "comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-03/final-install/node_modules/@abiogenesis/typescript-tenant/build/toolchain/node_modules/@types/node/timers.d.ts",
+     "sha256": "9705cd157ffbb91c5cab48bdd2de5a437a372e63f870f8a8472e72ff634d47c1",
+     "bytes": 14570
+    },
+    {
+     "name": "install:build/toolchain/node_modules/@types/node/timers/promises.d.ts",
+     "path": "comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-03/final-install/node_modules/@abiogenesis/typescript-tenant/build/toolchain/node_modules/@types/node/timers/promises.d.ts",
+     "sha256": "ae86f30d5d10e4f75ce8dcb6e1bd3a12ecec3d071a21e8f462c5c85c678efb41",
+     "bytes": 3780
+    },
+    {
+     "name": "install:build/toolchain/node_modules/@types/node/tls.d.ts",
+     "path": "comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-03/final-install/node_modules/@abiogenesis/typescript-tenant/build/toolchain/node_modules/@types/node/tls.d.ts",
+     "sha256": "982efeb2573605d4e6d5df4dc7e40846bda8b9e678e058fc99522ab6165c479e",
+     "bytes": 57848
+    },
+    {
+     "name": "install:build/toolchain/node_modules/@types/node/trace_events.d.ts",
+     "path": "comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-03/final-install/node_modules/@abiogenesis/typescript-tenant/build/toolchain/node_modules/@types/node/trace_events.d.ts",
+     "sha256": "e03460fe72b259f6d25ad029f085e4bedc3f90477da4401d8fbc1efa9793230e",
+     "bytes": 8926
+    },
+    {
+     "name": "install:build/toolchain/node_modules/@types/node/tty.d.ts",
+     "path": "comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-03/final-install/node_modules/@abiogenesis/typescript-tenant/build/toolchain/node_modules/@types/node/tty.d.ts",
+     "sha256": "4286a3a6619514fca656089aee160bb6f2e77f4dd53dc5a96b26a0b4fc778055",
+     "bytes": 10053
+    },
+    {
+     "name": "install:build/toolchain/node_modules/@types/node/url.d.ts",
+     "path": "comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-03/final-install/node_modules/@abiogenesis/typescript-tenant/build/toolchain/node_modules/@types/node/url.d.ts",
+     "sha256": "c9231cf03fd7e8cfd78307eecbd24ff3f0fa55d0f6d1108c4003c124d168adc4",
+     "bytes": 44705
+    },
+    {
+     "name": "install:build/toolchain/node_modules/@types/node/util.d.ts",
+     "path": "comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-03/final-install/node_modules/@abiogenesis/typescript-tenant/build/toolchain/node_modules/@types/node/util.d.ts",
+     "sha256": "2d5d50cd0667d9710d4d2f6e077cc4e0f9dc75e106cccaea59999b36873c5a0d",
+     "bytes": 90416
+    },
+    {
+     "name": "install:build/toolchain/node_modules/@types/node/v8.d.ts",
+     "path": "comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-03/final-install/node_modules/@abiogenesis/typescript-tenant/build/toolchain/node_modules/@types/node/v8.d.ts",
+     "sha256": "784490137935e1e38c49b9289110e74a1622baf8a8907888dcbe9e476d7c5e44",
+     "bytes": 38674
+    },
+    {
+     "name": "install:build/toolchain/node_modules/@types/node/vm.d.ts",
+     "path": "comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-03/final-install/node_modules/@abiogenesis/typescript-tenant/build/toolchain/node_modules/@types/node/vm.d.ts",
+     "sha256": "42180b657831d1b8fead051698618b31da623fb71ff37f002cb9d932cfa775f1",
+     "bytes": 47245
+    },
+    {
+     "name": "install:build/toolchain/node_modules/@types/node/wasi.d.ts",
+     "path": "comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-03/final-install/node_modules/@abiogenesis/typescript-tenant/build/toolchain/node_modules/@types/node/wasi.d.ts",
+     "sha256": "4f98d6fb4fe7cbeaa04635c6eaa119d966285d4d39f0eb55b2654187b0b27446",
+     "bytes": 7935
+    },
+    {
+     "name": "install:build/toolchain/node_modules/@types/node/worker_threads.d.ts",
+     "path": "comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-03/final-install/node_modules/@abiogenesis/typescript-tenant/build/toolchain/node_modules/@types/node/worker_threads.d.ts",
+     "sha256": "f8529fe0645fd9af7441191a4961497cc7638f75a777a56248eac6a079bb275d",
+     "bytes": 37894
+    },
+    {
+     "name": "install:build/toolchain/node_modules/@types/node/zlib.d.ts",
+     "path": "comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-03/final-install/node_modules/@abiogenesis/typescript-tenant/build/toolchain/node_modules/@types/node/zlib.d.ts",
+     "sha256": "4445f6ce6289c5b2220398138da23752fd84152c5c95bb8b58dedefc1758c036",
+     "bytes": 25877
+    },
+    {
+     "name": "install:build/toolchain/node_modules/undici-types/agent.d.ts",
+     "path": "comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-03/final-install/node_modules/@abiogenesis/typescript-tenant/build/toolchain/node_modules/undici-types/agent.d.ts",
+     "sha256": "af13e99445f37022c730bfcafcdc1761e9382ce1ea02afb678e3130b01ce5676",
+     "bytes": 1251
+    },
+    {
+     "name": "install:build/toolchain/node_modules/undici-types/api.d.ts",
+     "path": "comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-03/final-install/node_modules/@abiogenesis/typescript-tenant/build/toolchain/node_modules/undici-types/api.d.ts",
+     "sha256": "54c3e2371e3d016469ad959697fd257e5621e16296fa67082c2575d0bf8eced0",
+     "bytes": 1599
+    },
+    {
+     "name": "install:build/toolchain/node_modules/undici-types/balanced-pool.d.ts",
+     "path": "comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-03/final-install/node_modules/@abiogenesis/typescript-tenant/build/toolchain/node_modules/undici-types/balanced-pool.d.ts",
+     "sha256": "b41767d372275c154c7ea6c9d5449d9a741b8ce080f640155cc88ba1763e35b3",
+     "bytes": 957
+    },
+    {
+     "name": "install:build/toolchain/node_modules/undici-types/cache-interceptor.d.ts",
+     "path": "comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-03/final-install/node_modules/@abiogenesis/typescript-tenant/build/toolchain/node_modules/undici-types/cache-interceptor.d.ts",
+     "sha256": "beb8233b2c220cfa0feea31fbe9218d89fa02faa81ef744be8dce5acb89bb1fd",
+     "bytes": 4120
+    },
+    {
+     "name": "install:build/toolchain/node_modules/undici-types/cache.d.ts",
+     "path": "comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-03/final-install/node_modules/@abiogenesis/typescript-tenant/build/toolchain/node_modules/undici-types/cache.d.ts",
+     "sha256": "c46e079fe54c76f95c67fb89081b3e399da2c7d109e7dca8e4b58d83e332e605",
+     "bytes": 1251
+    },
+    {
+     "name": "install:build/toolchain/node_modules/undici-types/client-stats.d.ts",
+     "path": "comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-03/final-install/node_modules/@abiogenesis/typescript-tenant/build/toolchain/node_modules/undici-types/client-stats.d.ts",
+     "sha256": "68834d631c8838c715f225509cfc3927913b9cc7a4870460b5b60c8dbdb99baf",
+     "bytes": 456
+    },
+    {
+     "name": "install:build/toolchain/node_modules/undici-types/client.d.ts",
+     "path": "comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-03/final-install/node_modules/@abiogenesis/typescript-tenant/build/toolchain/node_modules/undici-types/client.d.ts",
+     "sha256": "4bc0794175abedf989547e628949888c1085b1efcd93fc482bccd77ee27f8b7c",
+     "bytes": 5049
+    },
+    {
+     "name": "install:build/toolchain/node_modules/undici-types/connector.d.ts",
+     "path": "comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-03/final-install/node_modules/@abiogenesis/typescript-tenant/build/toolchain/node_modules/undici-types/connector.d.ts",
+     "sha256": "c6fd2c5a395f2432786c9cb8deb870b9b0e8ff7e22c029954fabdd692bff6195",
+     "bytes": 1029
+    },
+    {
+     "name": "install:build/toolchain/node_modules/undici-types/content-type.d.ts",
+     "path": "comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-03/final-install/node_modules/@abiogenesis/typescript-tenant/build/toolchain/node_modules/undici-types/content-type.d.ts",
+     "sha256": "2e85db9e6fd73cfa3d7f28e0ab6b55417ea18931423bd47b409a96e4a169e8e6",
+     "bytes": 561
+    },
+    {
+     "name": "install:build/toolchain/node_modules/undici-types/cookies.d.ts",
+     "path": "comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-03/final-install/node_modules/@abiogenesis/typescript-tenant/build/toolchain/node_modules/undici-types/cookies.d.ts",
+     "sha256": "59af37caec41ecf7b2e76059c9672a49e682c1a2aa6f9d7dc78878f53aa284d6",
+     "bytes": 696
+    },
+    {
+     "name": "install:build/toolchain/node_modules/undici-types/diagnostics-channel.d.ts",
+     "path": "comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-03/final-install/node_modules/@abiogenesis/typescript-tenant/build/toolchain/node_modules/undici-types/diagnostics-channel.d.ts",
+     "sha256": "7c10a32ae6f3962672e6869ee2c794e8055d8225ef35c91c0228e354b4e5d2d3",
+     "bytes": 1583
+    },
+    {
+     "name": "install:build/toolchain/node_modules/undici-types/dispatcher.d.ts",
+     "path": "comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-03/final-install/node_modules/@abiogenesis/typescript-tenant/build/toolchain/node_modules/undici-types/dispatcher.d.ts",
+     "sha256": "2c9875466123715464539bfd69bcaccb8ff6f3e217809428e0d7bd6323416d01",
+     "bytes": 15750
+    },
+    {
+     "name": "install:build/toolchain/node_modules/undici-types/env-http-proxy-agent.d.ts",
+     "path": "comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-03/final-install/node_modules/@abiogenesis/typescript-tenant/build/toolchain/node_modules/undici-types/env-http-proxy-agent.d.ts",
+     "sha256": "1e30c045732e7db8f7a82cf90b516ebe693d2f499ce2250a977ec0d12e44a529",
+     "bytes": 675
+    },
+    {
+     "name": "install:build/toolchain/node_modules/undici-types/errors.d.ts",
+     "path": "comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-03/final-install/node_modules/@abiogenesis/typescript-tenant/build/toolchain/node_modules/undici-types/errors.d.ts",
+     "sha256": "3c8e93af4d6ce21eb4c8d005ad6dc02e7b5e6781f429d52a35290210f495a674",
+     "bytes": 4767
+    },
+    {
+     "name": "install:build/toolchain/node_modules/undici-types/eventsource.d.ts",
+     "path": "comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-03/final-install/node_modules/@abiogenesis/typescript-tenant/build/toolchain/node_modules/undici-types/eventsource.d.ts",
+     "sha256": "8bd86b8e8f6a6aa6c49b71e14c4ffe1211a0e97c80f08d2c8cc98838006e4b88",
+     "bytes": 1648
+    },
+    {
+     "name": "install:build/toolchain/node_modules/undici-types/fetch.d.ts",
+     "path": "comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-03/final-install/node_modules/@abiogenesis/typescript-tenant/build/toolchain/node_modules/undici-types/fetch.d.ts",
+     "sha256": "e525f9e67f5ddba7b5548430211cae2479070b70ef1fd93550c96c10529457bd",
+     "bytes": 5607
+    },
+    {
+     "name": "install:build/toolchain/node_modules/undici-types/formdata.d.ts",
+     "path": "comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-03/final-install/node_modules/@abiogenesis/typescript-tenant/build/toolchain/node_modules/undici-types/formdata.d.ts",
+     "sha256": "ccf4552357ce3c159ef75f0f0114e80401702228f1898bdc9402214c9499e8c0",
+     "bytes": 5004
+    },
+    {
+     "name": "install:build/toolchain/node_modules/undici-types/global-dispatcher.d.ts",
+     "path": "comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-03/final-install/node_modules/@abiogenesis/typescript-tenant/build/toolchain/node_modules/undici-types/global-dispatcher.d.ts",
+     "sha256": "ea6bc8de8b59f90a7a3960005fd01988f98fd0784e14bc6922dde2e93305ec7d",
+     "bytes": 275
+    },
+    {
+     "name": "install:build/toolchain/node_modules/undici-types/global-origin.d.ts",
+     "path": "comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-03/final-install/node_modules/@abiogenesis/typescript-tenant/build/toolchain/node_modules/undici-types/global-origin.d.ts",
+     "sha256": "36107995674b29284a115e21a0618c4c2751b32a8766dd4cb3ba740308b16d59",
+     "bytes": 176
+    },
+    {
+     "name": "install:build/toolchain/node_modules/undici-types/h2c-client.d.ts",
+     "path": "comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-03/final-install/node_modules/@abiogenesis/typescript-tenant/build/toolchain/node_modules/undici-types/h2c-client.d.ts",
+     "sha256": "1cd673d367293fc5cb31cd7bf03d598eb368e4f31f39cf2b908abbaf120ab85a",
+     "bytes": 3747
+    },
+    {
+     "name": "install:build/toolchain/node_modules/undici-types/handlers.d.ts",
+     "path": "comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-03/final-install/node_modules/@abiogenesis/typescript-tenant/build/toolchain/node_modules/undici-types/handlers.d.ts",
+     "sha256": "6c8e442ba33b07892169a14f7757321e49ab0f1032d676d321a1fdab8a67d40c",
+     "bytes": 442
+    },
+    {
+     "name": "install:build/toolchain/node_modules/undici-types/header.d.ts",
+     "path": "comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-03/final-install/node_modules/@abiogenesis/typescript-tenant/build/toolchain/node_modules/undici-types/header.d.ts",
+     "sha256": "23cd712e2ce083d68afe69224587438e5914b457b8acf87073c22494d706a3d0",
+     "bytes": 3336
+    },
+    {
+     "name": "install:build/toolchain/node_modules/undici-types/index.d.ts",
+     "path": "comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-03/final-install/node_modules/@abiogenesis/typescript-tenant/build/toolchain/node_modules/undici-types/index.d.ts",
+     "sha256": "99f569b42ea7e7c5fe404b2848c0893f3e1a56e0547c1cd0f74d5dbb9a9de27e",
+     "bytes": 3752
+    },
+    {
+     "name": "install:build/toolchain/node_modules/undici-types/interceptors.d.ts",
+     "path": "comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-03/final-install/node_modules/@abiogenesis/typescript-tenant/build/toolchain/node_modules/undici-types/interceptors.d.ts",
+     "sha256": "78b29846349d4dfdd88bd6650cc5d2baaa67f2e89dc8a80c8e26ef7995386583",
+     "bytes": 1771
+    },
+    {
+     "name": "install:build/toolchain/node_modules/undici-types/mock-agent.d.ts",
+     "path": "comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-03/final-install/node_modules/@abiogenesis/typescript-tenant/build/toolchain/node_modules/undici-types/mock-agent.d.ts",
+     "sha256": "9666f2f84b985b62400d2e5ab0adae9ff44de9b2a34803c2c5bd3c8325b17dc0",
+     "bytes": 3448
+    },
+    {
+     "name": "install:build/toolchain/node_modules/undici-types/mock-call-history.d.ts",
+     "path": "comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-03/final-install/node_modules/@abiogenesis/typescript-tenant/build/toolchain/node_modules/undici-types/mock-call-history.d.ts",
+     "sha256": "0b6e25234b4eec6ed96ab138d96eb70b135690d7dd01f3dd8a8ab291c35a683a",
+     "bytes": 5558
+    },
+    {
+     "name": "install:build/toolchain/node_modules/undici-types/mock-client.d.ts",
+     "path": "comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-03/final-install/node_modules/@abiogenesis/typescript-tenant/build/toolchain/node_modules/undici-types/mock-client.d.ts",
+     "sha256": "da52342062e70c77213e45107921100ba9f9b3a30dd019444cf349e5fb3470c4",
+     "bytes": 1001
+    },
+    {
+     "name": "install:build/toolchain/node_modules/undici-types/mock-errors.d.ts",
+     "path": "comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-03/final-install/node_modules/@abiogenesis/typescript-tenant/build/toolchain/node_modules/undici-types/mock-errors.d.ts",
+     "sha256": "40b463c6766ca1b689bfcc46d26b5e295954f32ad43e37ee6953c0a677e4ae2b",
+     "bytes": 336
+    },
+    {
+     "name": "install:build/toolchain/node_modules/undici-types/mock-interceptor.d.ts",
+     "path": "comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-03/final-install/node_modules/@abiogenesis/typescript-tenant/build/toolchain/node_modules/undici-types/mock-interceptor.d.ts",
+     "sha256": "3825bf209f1662dfd039010a27747b73d0ef379f79970b1d05601ec8e8a4249f",
+     "bytes": 3897
+    },
+    {
+     "name": "install:build/toolchain/node_modules/undici-types/mock-pool.d.ts",
+     "path": "comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-03/final-install/node_modules/@abiogenesis/typescript-tenant/build/toolchain/node_modules/undici-types/mock-pool.d.ts",
+     "sha256": "e9ace91946385d29192766bf783b8460c7dbcbfc63284aa3c9cae6de5155c8bc",
+     "bytes": 973
+    },
+    {
+     "name": "install:build/toolchain/node_modules/undici-types/package.json",
+     "path": "comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-03/final-install/node_modules/@abiogenesis/typescript-tenant/build/toolchain/node_modules/undici-types/package.json",
+     "sha256": "3235a70e0936b193bd993a1f48221f2ada41bc5ae48eb84735f5aa83c30236e5",
+     "bytes": 1193
+    },
+    {
+     "name": "install:build/toolchain/node_modules/undici-types/patch.d.ts",
+     "path": "comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-03/final-install/node_modules/@abiogenesis/typescript-tenant/build/toolchain/node_modules/undici-types/patch.d.ts",
+     "sha256": "addf417b9eb3f938fddf8d81e96393a165e4be0d4a8b6402292f9c634b1cb00d",
+     "bytes": 599
+    },
+    {
+     "name": "install:build/toolchain/node_modules/undici-types/pool-stats.d.ts",
+     "path": "comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-03/final-install/node_modules/@abiogenesis/typescript-tenant/build/toolchain/node_modules/undici-types/pool-stats.d.ts",
+     "sha256": "914a0ae30d96d71915fc519ccb4efbf2b62c0ddfb3a3fc6129151076bc01dc60",
+     "bytes": 663
+    },
+    {
+     "name": "install:build/toolchain/node_modules/undici-types/pool.d.ts",
+     "path": "comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-03/final-install/node_modules/@abiogenesis/typescript-tenant/build/toolchain/node_modules/undici-types/pool.d.ts",
+     "sha256": "33e981bf6376e939f99bd7f89abec757c64897d33c005036b9a10d9587d80187",
+     "bytes": 1485
+    },
+    {
+     "name": "install:build/toolchain/node_modules/undici-types/proxy-agent.d.ts",
+     "path": "comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-03/final-install/node_modules/@abiogenesis/typescript-tenant/build/toolchain/node_modules/undici-types/proxy-agent.d.ts",
+     "sha256": "249b9cab7f5d628b71308c7d9bb0a808b50b091e640ba3ed6e2d0516f4a8d91d",
+     "bytes": 806
+    },
+    {
+     "name": "install:build/toolchain/node_modules/undici-types/readable.d.ts",
+     "path": "comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-03/final-install/node_modules/@abiogenesis/typescript-tenant/build/toolchain/node_modules/undici-types/readable.d.ts",
+     "sha256": "487b694c3de27ddf4ad107d4007ad304d29effccf9800c8ae23c2093638d906a",
+     "bytes": 1900
+    },
+    {
+     "name": "install:build/toolchain/node_modules/undici-types/retry-agent.d.ts",
+     "path": "comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-03/final-install/node_modules/@abiogenesis/typescript-tenant/build/toolchain/node_modules/undici-types/retry-agent.d.ts",
+     "sha256": "499e5b055a5aba1e1998f7311a6c441a369831c70905cc565ceac93c28083d53",
+     "bytes": 233
+    },
+    {
+     "name": "install:build/toolchain/node_modules/undici-types/retry-handler.d.ts",
+     "path": "comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-03/final-install/node_modules/@abiogenesis/typescript-tenant/build/toolchain/node_modules/undici-types/retry-handler.d.ts",
+     "sha256": "84b736594d8760f43400202859cda55607663090a43445a078963031d47e25e7",
+     "bytes": 2967
+    },
+    {
+     "name": "install:build/toolchain/node_modules/undici-types/util.d.ts",
+     "path": "comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-03/final-install/node_modules/@abiogenesis/typescript-tenant/build/toolchain/node_modules/undici-types/util.d.ts",
+     "sha256": "5d0375ca7310efb77e3ef18d068d53784faf62705e0ad04569597ae0e755c401",
+     "bytes": 623
+    },
+    {
+     "name": "install:build/toolchain/node_modules/undici-types/utility.d.ts",
+     "path": "comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-03/final-install/node_modules/@abiogenesis/typescript-tenant/build/toolchain/node_modules/undici-types/utility.d.ts",
+     "sha256": "cdcf9ea426ad970f96ac930cd176d5c69c6c24eebd9fc580e1572d6c6a88f62c",
+     "bytes": 245
+    },
+    {
+     "name": "install:build/toolchain/node_modules/undici-types/websocket.d.ts",
+     "path": "comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-03/final-install/node_modules/@abiogenesis/typescript-tenant/build/toolchain/node_modules/undici-types/websocket.d.ts",
+     "sha256": "e38d4fdf79e1eadd92ed7844c331dbaa40f29f21541cfee4e1acff4db09cda33",
+     "bytes": 4623
+    },
+    {
+     "name": "install:build/toolchain/typescript.cjs",
+     "path": "comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-03/final-install/node_modules/@abiogenesis/typescript-tenant/build/toolchain/typescript.cjs",
+     "sha256": "e5f1f6b3e82228a89873cc7b941b2465185e839c0692860f83e3e63e53f94c2b",
+     "bytes": 9111680
+    }
+   ],
    "producer": null,
    "recorded": [
     {
@@ -3216,7 +4512,7 @@
      "recordCount": 1
     }
    ],
-   "note": "not converted: Phase A writes pure-preflight.json into the evidence directory, which would write under the root"
+   "note": "not converted: Phase A writes pure-preflight.json into the evidence directory, which would write under the root. Not pre-checked (the write would be refused), so no traced file list: the input is not pinned"
   },
   {
    "gate": "stdo-proof-entry-install-host",
@@ -4133,6 +5429,14 @@
     }
    ],
    "input": "the retained prefix-reuse observation record",
+   "inputs": [
+    {
+     "name": "observations",
+     "path": "comments/codex/20260916_ABG5_MVP_CONTINUATION/live-uat-02/closed-observations.json",
+     "sha256": "1c465f0ed298622a2e6ccfc944263b6eb875c6174fe4b36a7a5f973a532f2834",
+     "bytes": 36548
+    }
+   ],
    "producer": null,
    "recorded": [
     {
@@ -4252,6 +5556,14 @@
     }
    ],
    "input": "the retained prefix-reuse observation record",
+   "inputs": [
+    {
+     "name": "observations",
+     "path": "comments/codex/20260916_ABG5_MVP_CONTINUATION/live-uat-02/closed-observations.json",
+     "sha256": "1c465f0ed298622a2e6ccfc944263b6eb875c6174fe4b36a7a5f973a532f2834",
+     "bytes": 36548
+    }
+   ],
    "producer": null,
    "recorded": [
     {
@@ -4301,6 +5613,14 @@
     }
    ],
    "input": "the held-prefix native fixture directory",
+   "inputs": [
+    {
+     "name": "fixture:source.json",
+     "path": "comments/codex/20260921_TRUSTED_DESKTOP_STEEL_THREAD/native-reacquisition-01/held-prefix-01/fixtures/source.json",
+     "sha256": "9c5d1dc6f1f1e9c08363706589b590ba90ed6257e1a34bd09096d6874e70fd7f",
+     "bytes": 1044
+    }
+   ],
    "producer": null,
    "recorded": [
     {
@@ -4340,6 +5660,20 @@
     }
    ],
    "input": "the owned judgment fixture directory",
+   "inputs": [
+    {
+     "name": "fixture:fixture/events/events.jsonl",
+     "path": "comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/implementation-03/fixture/events/events.jsonl",
+     "sha256": "58b8799ee41b8cca733cc8e61704afcd201c3f7f6b768fcd897d9a2060da4ce8",
+     "bytes": 2579265
+    },
+    {
+     "name": "fixture:fresh-read-input.json",
+     "path": "comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/implementation-03/fresh-read-input.json",
+     "sha256": "5c0bc85dc424e32866820ba4b080f0d4aae8fef4cfe7ba29763cd092cef4dadb",
+     "bytes": 47391
+    }
+   ],
    "producer": null,
    "recorded": [
     {
