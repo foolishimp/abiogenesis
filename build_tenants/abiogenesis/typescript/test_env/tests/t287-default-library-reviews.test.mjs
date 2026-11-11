@@ -367,10 +367,12 @@ test('authority selections travel with every prepared native work and assessment
 // the latest Construction; UAT over that Testing; then each required review
 // whose verdict is not satisfied and current. The constructor first writes a
 // wrong greeting, then the declared one. The assessor reads the declared
-// candidate: the CLI is satisfied only with the declared greeting.
+// candidate: the CLI is satisfied only with the declared greeting. With
+// ABI5_REVIEW_ACTOR_TOUCH the first Construction writes the declared greeting,
+// a second Construction follows the reviews and rewrites only that path.
 const REVIEW_ACTOR=`
 import {readFileSync,writeFileSync,existsSync,appendFileSync} from 'node:fs';import {spawnSync} from 'node:child_process';import {join} from 'node:path';
-const args=process.argv.slice(2),at=args.indexOf('--json-schema'),prompt=readFileSync(0,'utf8'),log=process.env.ABI5_REVIEW_ACTOR_LOG;
+const args=process.argv.slice(2),at=args.indexOf('--json-schema'),prompt=readFileSync(0,'utf8'),log=process.env.ABI5_REVIEW_ACTOR_LOG,touch=process.env.ABI5_REVIEW_ACTOR_TOUCH;
 const prior=existsSync(log)?readFileSync(log,'utf8').trim().split('\\n').filter(Boolean).map(l=>JSON.parse(l)):[];
 const emit=(role,output,extra={})=>{appendFileSync(log,JSON.stringify({role,...extra})+'\\n');console.log(JSON.stringify({type:'system',subtype:'init'}));
  console.log(JSON.stringify({type:'result',subtype:'success',is_error:false,result:JSON.stringify(output),structured_output:output}));process.exit(0);};
@@ -389,6 +391,7 @@ if('interpretation' in props){
  let next=null,subject=null,reviewRef=null;
  if(!construction||adverse)next='construction';
  else if(unrun)[next,reviewRef,subject]=['review',unrun.reviewRef,construction.resultRef];
+ else if(touch&&rows.filter(r=>r.purpose==='construction').length===1&&testing===undefined)next='construction';
  else if(!tested)[next,subject]=['testing',construction.resultRef];
  else if(last('uat')<last('testing'))[next,subject]=['uat',testing.resultRef];
  else if(pending)[next,reviewRef,subject]=['review',pending.reviewRef,construction.resultRef];
@@ -398,7 +401,8 @@ if('interpretation' in props){
   revisionReason:'Scripted.',revisionEvidenceRefs:[],...('reviewRef' in props?{reviewRef}:{})},{standing:reviews.map(r=>({reviewRef:r.reviewRef,...r.standing}))});
 }else if('summary' in props&&'gaps' in props){
  if(!existsSync('generated/hello-world.mjs')){process.stderr.write('review actor expects the worksite cwd\\n');process.exit(1);}
- const first=!prior.some(r=>r.role==='native');writeFileSync('generated/hello-world.mjs',first?'console.log("Hello world");\\n':'console.log("Hello, world!");\\n');
+ const first=!prior.some(r=>r.role==='native');if(touch&&!first)writeFileSync(touch,'Revised review input.\\n');
+ else writeFileSync('generated/hello-world.mjs',first&&!touch?'console.log("Hello world");\\n':'console.log("Hello, world!");\\n');
  emit('native',{summary:first?'Scripted first construction.':'Scripted correction.',gaps:[]});
 }else{
  const line=label=>prompt.split('\\n').find(l=>l.startsWith(label)),declared=line('Exact declared response JSON Schema: '),review=line('Declared review: ');
@@ -408,7 +412,10 @@ if('interpretation' in props){
  emit('assess:'+(review===undefined?'uat':JSON.parse(review.slice('Declared review: '.length)).reviewRef),{kind,disposition:met?'satisfied':'unmet',reason:'Scripted assessment of '+basis.candidate.path+'.',unresolvedCriteria:met?[]:['output']},{candidate:basis.candidate.path});
 }
 `;
-test('one Public start with two required framed reviews: each frame runs on the one assessor, adverse or stale review keeps the Run open, only the touched review reruns',{timeout:600_000},async t=>{
+// One installed Public start of the library with two required reviews and the
+// scripted actor. `touch` seeds one more path in the read scope, grants it to
+// Construction and adds it to review A's readFirst only.
+async function publicReviewsRun(t,{identity,touch=null}){
   const selection=JSON.parse(await readFile(join(witnessRoot,'selection.json'),'utf8'));let selectedEnvironment;
   const env=await setupInstalledRootCatalog(t,packageRoot,{candidateBasisSource:'packed_artifact',rootPublicationKind:'worksite_construction',workspaceProductIndex:1,additionalCorePublicationConstructors:constructors,
     prepareAdditionalProducts:async setup=>{
@@ -420,27 +427,35 @@ test('one Public start with two required framed reviews: each frame runs on the 
         fixtureFiles:[{path:'build/index.mjs',source:new URL('../fixtures/default-library-product/index.mjs',import.meta.url)}],
         schemaAssets:[{path:schemaPath,source:schema,contractId:witnessRef('contract','assessment'),requirementAuthorityRefs:[witnessRef('support','complete-source-outcome')]}]})];
     }});
-  const proof=join(env.scratch,'framed-reviews');await mkdir(proof);
+  const proof=join(env.scratch,identity);await mkdir(proof);
   const actor=join(proof,'review-actor.mjs'),actorLog=join(proof,'review-actor.jsonl');
   await writeFile(actor,'#!'+process.execPath+'\n'+REVIEW_ACTOR);await chmod(actor,0o755);
   const worksite=env.workspaceBinding.canonicalRoot??env.workspaceAuthority?.canonicalRoot??join(env.scratch,'workspace');
   await cp(join(witnessRoot,'seed'),worksite,{recursive:true});
-  const witness=await witnessInput({product,selection,seedRoot:worksite}),input=product.constructGovernanceWorkState({...witness.original,reviews:declaredReviews()});
+  const witness=await witnessInput({product,selection,seedRoot:worksite}),[b,a]=declaredReviews();let original=witness.original,reviews=[b,a];
+  if(touch!==null){await writeFile(join(worksite,touch),'Seeded review input.\n');const {construction}=original.workOrders;
+    original={...original,readRoots:[...original.readRoots,touch].sort(),workOrders:{...original.workOrders,construction:{...construction,writeRoots:[...construction.writeRoots,touch]}}};
+    reviews=[b,{...a,order:{...a.order,readFirst:[...a.order.readFirst,touch]}}];}
+  const input=product.constructGovernanceWorkState({...original,reviews});
   env.catalogView=env.product.narrowGraphFunctionCatalog(env.catalog,env.additionalPublications[0].programs[0].callableMembership);assert.equal(env.catalogView.kind,'graph_function_catalog_view');
   const load=async path=>import(pathToFileURL(join(env.installedRoot,`build/code/src/${path}.js`)).href);
   const publicApi=await load('public/index'),storeOwner=await load('abg/event_store');
   let handoff=env.store.projectReopenAuthorityAndClose();const before=storeOwner.readRuntimeEventsAtDurablePrefix(handoff.prefix).length;
   const resource=()=>({kind:'reopen_abg_event_resource',schemaVersion:'5.0.0',closeHandoff:handoff,handoffDigest:product.sha256Canonical(handoff)});
-  const start=await constructInstalledStartCall({environment:env,publicApi,eventResource:resource(),input,identity:'framed-reviews',runEnvironmentResourceFactory:selectedEnvironment.resources});
-  const execution=await runInstalledCliRequest({scratch:proof,installedRoot:env.installedRoot,identity:'framed-reviews-start',acquisition:{kind:'reopen',closeHandoff:handoff},call:start.call,expectedExitCode:null,
-    environment:{...process.env,ABG_TS_CLAUDE_COMMAND:actor,ABI5_REVIEW_ACTOR_LOG:actorLog}});
+  const start=await constructInstalledStartCall({environment:env,publicApi,eventResource:resource(),input,identity,runEnvironmentResourceFactory:selectedEnvironment.resources});
+  const execution=await runInstalledCliRequest({scratch:proof,installedRoot:env.installedRoot,identity:identity+'-start',acquisition:{kind:'reopen',closeHandoff:handoff},call:start.call,expectedExitCode:null,
+    environment:{...process.env,ABG_TS_CLAUDE_COMMAND:actor,ABI5_REVIEW_ACTOR_LOG:actorLog,...(touch===null?{}:{ABI5_REVIEW_ACTOR_TOUCH:touch})}});
   const receipt=execution.output?.receipt;assert.ok(receipt,JSON.stringify(execution).slice(0,4000));assert.equal(receipt.failure,null,JSON.stringify(receipt).slice(0,4000));
   if(receipt.resources?.eventResource?.closeHandoff)handoff=receipt.resources.eventResource.closeHandoff;
   const events=storeOwner.readRuntimeEventsAtDurablePrefix(handoff.prefix).slice(before),results=events.filter(e=>e.kind==='c_call_result_admitted');
   const log=(await readFile(actorLog,'utf8').catch(()=>'')).trim().split('\n').filter(Boolean).map(l=>JSON.parse(l));
-  const diagnostic=()=>JSON.stringify({ownerOutput:receipt.ownerOutput,roles:log.map(r=>r.role),trace:events.filter(e=>['child_preparation_refused','runtime_failure_observed','actor_invocation_failed','run_stopped'].includes(e.kind))
-    .slice(0,6).map(e=>({kind:e.kind,graphFunctionRef:e.graphFunctionRef,payload:JSON.stringify(e.payload).slice(0,600)}))}).slice(0,6000);
+  const diagnostic=()=>JSON.stringify({roles:log.map(r=>r.role),trace:events.filter(e=>['child_preparation_refused','runtime_failure_observed','actor_invocation_failed','run_stopped'].includes(e.kind))
+    .slice(0,6).map(e=>({kind:e.kind,graphFunctionRef:e.graphFunctionRef,payload:JSON.stringify(e.payload).slice(0,600)})),ownerOutput:receipt.ownerOutput}).slice(0,6000);
   assert.equal(receipt.ownerOutput.outcomeKind,'result',diagnostic());assert.equal(receipt.ownerOutput.value.disposition,'completed',diagnostic());
+  return {input,worksite,events,results,log,diagnostic};
+}
+test('one Public start with two required framed reviews: each frame runs on the one assessor, adverse or stale review keeps the Run open, only the touched review reruns',{timeout:600_000},async t=>{
+  const {worksite,events,results,log,diagnostic}=await publicReviewsRun(t,{identity:'framed-reviews'});
   // The order: Construction; review B satisfied; review A adverse; correcting Construction; Testing; UAT satisfied; review A rerun.
   assert.deepEqual(log.map(r=>r.role),['select:construction','native','select:review:'+REVIEW_B,'assess:'+REVIEW_B,'select:review:'+REVIEW_A,'assess:'+REVIEW_A,
     'select:construction','native','select:testing','c2','select:uat','assess:uat','select:review:'+REVIEW_A,'assess:'+REVIEW_A],diagnostic());
@@ -461,5 +476,31 @@ test('one Public start with two required framed reviews: each frame runs on the 
   assert.deepEqual(final.unresolvedSupportRefs,[]);assert.equal(product.isGovernanceWorkState(final),true);
   assert.equal(events.filter(e=>e.kind==='run_closed').length,1);assert.equal(events.some(e=>e.kind==='runtime_failure_observed'),false);
   assert.equal(await readFile(join(worksite,'generated/hello-world.mjs'),'utf8'),'console.log("Hello, world!");\n');
+  t.diagnostic(JSON.stringify({roles:log.map(r=>r.role),choices,parents:parents.length,events:events.length}));
+});
+test('one Public start: a Construction that changes only review A readFirst input retires A through the event-log invalidation owner; B stays current and only A reruns',{timeout:600_000},async t=>{
+  const TOUCH='generated/review-input.md',{input,worksite,events,results,log,diagnostic}=await publicReviewsRun(t,{identity:'framed-reviews-read-first',touch:TOUCH});
+  const [B,A]=input.original.reviews,dependencies=r=>product.governanceAssessmentDependencies(r.order,r.assessment);
+  assert.ok(A.order.readFirst.includes(TOUCH)&&dependencies(A).includes(TOUCH));
+  assert.equal([...A.assessment.sources,A.assessment.candidatePath,A.assessment.rubricPath,...dependencies(B)].includes(TOUCH),false,'only A readFirst names the changed input');
+  // Construction; review B; review A; a Construction that rewrites only that input; Testing; UAT satisfied; review A rerun.
+  assert.deepEqual(log.map(r=>r.role),['select:construction','native','select:review:'+REVIEW_B,'assess:'+REVIEW_B,'select:review:'+REVIEW_A,'assess:'+REVIEW_A,
+    'select:construction','native','select:testing','c2','select:uat','assess:uat','select:review:'+REVIEW_A,'assess:'+REVIEW_A],diagnostic());
+  const choices=results.filter(e=>e.payload.value?.kind==='registered_graph_choice').map(e=>[e.payload.value.graphFunctionRef,e.payload.value.input.value.synthesis.judgment.reviewRef]);
+  assert.deepEqual(choices,[[ref('construction'),null],[ref('review'),REVIEW_B],[ref('review'),REVIEW_A],[ref('construction'),null],[ref('testing'),null],[ref('uat'),null],[ref('review'),REVIEW_A]]);
+  const parents=results.filter(e=>e.graphFunctionRef===witnessRef('graph-function','executive')&&e.payload.value?.kind==='governance_work_state').map(e=>e.payload.value);
+  const final=parents.at(-1),reviewRows=final.observations.filter(o=>o.purpose==='review');
+  assert.deepEqual(final.observations.filter(o=>o.purpose==='construction').map(o=>o.value.changedPaths),[['generated/hello-world.mjs'],[TOUCH]],'the second Construction changed only the readFirst input');
+  assert.deepEqual(reviewRows.map(o=>[o.reviewRef,o.value.disposition]),[[REVIEW_B,'satisfied'],[REVIEW_A,'satisfied'],[REVIEW_A,'satisfied']],'B ran once; only A reran');
+  // After satisfied UAT the parent stays open: A is satisfied, but an admitted native effect changed its readFirst input.
+  const accepted=parents.find(p=>p.observations.at(-1)?.purpose==='uat');
+  assert.equal(accepted.observations.at(-1).value.disposition,'satisfied');assert.equal(accepted.terminal,false);
+  assert.deepEqual(accepted.reviewStanding.map(r=>[r.reviewRef,r.satisfied,r.current]),[[REVIEW_B,true,true],[REVIEW_A,true,false]]);
+  assert.deepEqual(final.reviewStanding.map(r=>[r.reviewRef,r.required,r.resultRef,r.satisfied,r.current]),
+    [[REVIEW_B,true,reviewRows[0].resultRef,true,true],[REVIEW_A,true,reviewRows[2].resultRef,true,true]]);
+  assert.deepEqual(parents.map(p=>p.terminal),[...parents.slice(1).map(()=>false),true],'only the last parent evaluation closes');
+  assert.equal(events.filter(e=>e.kind==='run_closed').length,1);assert.equal(events.some(e=>e.kind==='runtime_failure_observed'),false);
+  assert.equal(await readFile(join(worksite,'generated/hello-world.mjs'),'utf8'),'console.log("Hello, world!");\n');
+  assert.equal(await readFile(join(worksite,TOUCH),'utf8'),'Revised review input.\n');
   t.diagnostic(JSON.stringify({roles:log.map(r=>r.role),choices,parents:parents.length,events:events.length}));
 });

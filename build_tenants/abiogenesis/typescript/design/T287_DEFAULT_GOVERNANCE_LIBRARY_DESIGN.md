@@ -142,8 +142,10 @@ row is satisfied and current. Another Run's verdict is not current. A review
 fold writes no fulfillment fact; fulfillment response instructions stay
 UAT-only; the fixed direct Testing/UAT route refuses declared reviews. No
 effect grant is added: a review has empty `writeRoots`. Proof: unit atoms, the
-no-review digests, and one installed Public start with two required reviews
-and a scripted stand-in model (`t287-default-library-reviews.test.mjs`).
+no-review digests, and two installed Public starts with two required reviews
+and a scripted stand-in model (`t287-default-library-reviews.test.mjs`); in
+the second, a Construction changes only one review's `readFirst` input, and
+that review alone goes stale and reruns.
 
 ```mermaid
 sequenceDiagram
