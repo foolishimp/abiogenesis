@@ -446,12 +446,6 @@ function identity(prefix: string, digest: Sha256Digest): string {
   return `${prefix}/${digest.slice("sha256:".length)}`;
 }
 
-export function exactWorkspaceBinding(value: WorkspaceBinding): boolean {
-  // The binding owner is `isExactWorkspaceBinding` (product/environment.ts);
-  // this exported name keeps the published declaration and has no caller.
-  return isExactWorkspaceBinding(value);
-}
-
 function containsPath(root: string, candidate: string): boolean {
   const relation = relative(resolve(root), resolve(candidate));
   return relation === "" ||
