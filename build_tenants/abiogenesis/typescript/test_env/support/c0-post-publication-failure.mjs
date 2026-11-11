@@ -1,7 +1,11 @@
 // Shared case body of the C0 B04 post-publication failure files
 // (`t287-c0-post-publication-failure.test.mjs` and
 // `t287-c0-post-publication-failure-owner-admission-close.test.mjs`).
-// Each case is independent: its own pack, install, store and scratch root.
+// The cases of one file share one packed, verified and installed Product
+// (`installC0Tenant`, made once per file); each case still opens its own event
+// store, workspace and scratch root on it, and still proves by independent
+// inventory that its run leaves the installed tree unchanged. The potential
+// proof mode (ABG_C0_POTENTIAL_PROOF=1) installs per case and keeps its roots.
 
 import assert from "node:assert/strict";
 import fs from "node:fs";
@@ -11,7 +15,7 @@ import { dirname, join, resolve } from "node:path";
 import { fileURLToPath, pathToFileURL } from "node:url";
 import { gzipSync } from "node:zlib";
 
-import { setupInstalledRootExecutionBasis, publicOperationBasis, requirePublicationValidations, rawProgramInput } from "./root-installed-environment.mjs";
+import { installTenantOnce, setupInstalledRootExecutionBasis, publicOperationBasis, requirePublicationValidations, rawProgramInput } from "./root-installed-environment.mjs";
 import { proveFreshProcessRuntimeProjectionEquality } from "./fresh-process-runtime-proof.mjs";
 import { constructD2FrameDeclarations, nativePublications } from "./d2-frame-fixture.mjs";
 
@@ -403,7 +407,16 @@ function deepOccurrenceNegatives(admission, product, events, selectedRef) {
   return records;
 }
 
-export async function runCase(context, label, options = {}) {
+const C0_INSTALL_OPTIONS = Object.freeze({ candidateBasisSource: "packed_artifact", rootPublicationKind: "worksite_c0" });
+
+// One install of the packed tenant for a file's cases (installOncePerFile).
+export function installC0Tenant() {
+  return installTenantOnce(root, C0_INSTALL_OPTIONS);
+}
+
+// `sharedInstall`, when given, returns the file's shared install; without it
+// (and always in the potential proof mode) the case installs for itself.
+export async function runCase(context, label, options = {}, sharedInstall = undefined) {
   const modes = options.modes ?? [];
   if (potentialProof) options = { ...options, replace: true };
   const setupContext = potentialProof ? { after() {} } : context;
@@ -411,8 +424,9 @@ export async function runCase(context, label, options = {}) {
   const gtl = await import(pathToFileURL(join(root, "build/code/src/gtl/index.js")).href);
   let targetPath;
   const replacement = Buffer.from(`B04 ${label}\n`);
+  const install = potentialProof || sharedInstall === undefined ? undefined : await sharedInstall();
   const env = await setupInstalledRootExecutionBasis(setupContext, root, {
-    candidateBasisSource: "packed_artifact", rootPublicationKind: "worksite_c0",
+    ...C0_INSTALL_OPTIONS, ...(install === undefined ? {} : { install }),
     ...(potentialProof ? { additionalCorePublicationConstructors: ["constructSemanticStageModulePublication"] } : {}),
     programRef: gtl.WORKSITE_C0_IDS.programRef, graphFunctionRef: gtl.WORKSITE_C0_IDS.graphFunctionRef,
     inputContractRef: gtl.WORKSITE_C0_IDS.inputContractRef,
