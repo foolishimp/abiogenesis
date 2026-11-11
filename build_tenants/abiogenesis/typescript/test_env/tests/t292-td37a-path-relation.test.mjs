@@ -1,19 +1,23 @@
 // TD-37a (T-292). One owner states "is this path inside that root?":
 // `shared/path_confinement.ts` classifies `relative(root, candidate)` into
-// same | outside | inside_dotted | inside, and four named predicates answer
-// over the class. This file
-//   1. states the four classes and the four predicates over a grid;
+// same | outside | inside, segment-exactly, and two named predicates answer
+// over the class. A relation is outside only when it is absolute, is `..`, or
+// begins with `..` and the separator; a first segment that merely begins with
+// two dots (`..x`, `...`) is inside (T287 W2 R3 C0: a subject is a strict
+// descendant of the canonical root; `.` and `..` spellings refuse). This file
+//   1. states the three classes and the two predicates over a grid;
 //   2. vendors each distinct present form verbatim (the relation expression the
 //      site replaced, at `52afade26`), named by its sites, and compares it with
-//      the owner predicate those sites now call: equal on every cell, except the
-//      inside_dotted cells the Executive's rulings change, which are asserted
-//      with their new verdict;
-//   3. does the same for Product's relative-path normalizer, whose only
-//      changed cells are locators whose first segment begins with two dots.
+//      the owner predicate those sites now call: equal on every cell, except
+//      the prefix-form sites (`relation.startsWith("..")`) on a dotted first
+//      segment, where the owner answers inside: admitted where the site demands
+//      that a path be inside, flagged where it demands that a path stay out of
+//      a protected root;
+//   3. pins Product's relative-path normalizer to its base behaviour.
 // The grid is POSIX: on POSIX `relative()` never returns an absolute path, so
 // the absolute-relation cell (win32, across drive roots) is asserted
-// separately on the relation string. Set ABG_WORKSITE_BUILD_ROOT to run the
-// file against another build.
+// separately on the relation string; the win32 verdicts hold by construction,
+// not by run. Set ABG_WORKSITE_BUILD_ROOT to run the file against another build.
 import assert from 'node:assert/strict';
 import test from 'node:test';
 import { isAbsolute, join, posix, relative, resolve, sep, win32 } from 'node:path';
@@ -25,48 +29,48 @@ const owner = await load('shared/path_confinement.js');
 const { normalizeWorksiteRelativePath } = await load('product/worksite_effect.js');
 const posixOnly = { skip: sep !== '/' && 'the grid is written in POSIX paths' };
 
-// Root, candidate, class. Candidates are written as callers pass them:
-// unresolved, with trailing separators, and with `..` before resolution.
+// Root, candidate, class, and whether the relation's first segment begins with
+// two dots without being `..` (the only cells on which present forms differ).
+// Candidates are written as callers pass them: unresolved, with trailing
+// separators, and with `..` before resolution.
 const grid = [
-  ['/w/root', '/w/root', 'same'],
-  ['/w/root', '/w/root/', 'same'],
-  ['/w/root/', '/w/root', 'same'],
-  ['/w/root', '/w/root/a', 'inside'],
-  ['/w/root/', '/w/root/a/', 'inside'],
-  ['/w/root', '/w/root/a/b', 'inside'],
-  ['/w/root', '/w/root/.hidden', 'inside'],
-  ['/w/root', '/w/root/a/..x', 'inside'],
-  ['/w/root', '/w/root/a/../b', 'inside'],
-  ['/w/root', '/w/root/..x/../f', 'inside'],
-  ['/w/root', '/w/root/..x', 'inside_dotted'],
-  ['/w/root', '/w/root/..x/f', 'inside_dotted'],
-  ['/w/root', '/w/root/...', 'inside_dotted'],
-  ['/w/root', '/w/root/..\\x', 'inside_dotted'],
-  ['/w/root', '/w', 'outside'],
-  ['/w/root', '/w/root/..', 'outside'],
-  ['/w/root', '/w/x', 'outside'],
-  ['/w/root', '/elsewhere/f', 'outside'],
-  ['/w/root', '/w/root2', 'outside'],
-  ['/w/root', '/w/root2/f', 'outside'],
-  ['/p/..x/state', '/p/..x/state', 'same'],
-  ['/p/..x/state', '/p/..x/state/f', 'inside'],
-  ['/p/..x/state', '/p/..x', 'outside'],
-  ['/p', '/p/..x/state', 'inside_dotted'],
-  ['/w/site/.abg/events', '/w/site/.abg/events/..x/f', 'inside_dotted'],
+  ['/w/root', '/w/root', 'same', false],
+  ['/w/root', '/w/root/', 'same', false],
+  ['/w/root/', '/w/root', 'same', false],
+  ['/w/root', '/w/root/a', 'inside', false],
+  ['/w/root/', '/w/root/a/', 'inside', false],
+  ['/w/root', '/w/root/a/b', 'inside', false],
+  ['/w/root', '/w/root/.hidden', 'inside', false],
+  ['/w/root', '/w/root/a/..x', 'inside', false],
+  ['/w/root', '/w/root/a/../b', 'inside', false],
+  ['/w/root', '/w/root/..x/../f', 'inside', false],
+  ['/w/root', '/w/root/..x', 'inside', true],
+  ['/w/root', '/w/root/..x/f', 'inside', true],
+  ['/w/root', '/w/root/...', 'inside', true],
+  ['/w/root', '/w/root/..\\x', 'inside', true],
+  ['/w/root', '/w', 'outside', false],
+  ['/w/root', '/w/root/..', 'outside', false],
+  ['/w/root', '/w/x', 'outside', false],
+  ['/w/root', '/elsewhere/f', 'outside', false],
+  ['/w/root', '/w/root2', 'outside', false],
+  ['/w/root', '/w/root2/f', 'outside', false],
+  ['/p/..x/state', '/p/..x/state', 'same', false],
+  ['/p/..x/state', '/p/..x/state/f', 'inside', false],
+  ['/p/..x/state', '/p/..x', 'outside', false],
+  ['/p', '/p/..x/state', 'inside', true],
+  ['/w/site/.abg/events', '/w/site/.abg/events/..x/f', 'inside', true],
 ];
 
 const predicates = {
-  pathWithin: { same: true, inside: true, inside_dotted: true, outside: false },
-  pathStrictlyWithin: { same: false, inside: true, inside_dotted: true, outside: false },
-  pathConfined: { same: true, inside: true, inside_dotted: false, outside: false },
-  pathStrictlyConfined: { same: false, inside: true, inside_dotted: false, outside: false },
+  pathWithin: { same: true, inside: true, outside: false },
+  pathStrictlyWithin: { same: false, inside: true, outside: false },
 };
 
-test('the owner classifies relation strings into four classes', () => {
+test('the owner classifies relation strings into three classes', () => {
   const relations = [
     ['', 'same'], ['a', 'inside'], ['a/b', 'inside'], ['.hidden', 'inside'], ['a/..x', 'inside'],
+    ['..x', 'inside'], ['..x/f', 'inside'], ['...', 'inside'], ['....', 'inside'],
     ['..', 'outside'], ['../x', 'outside'], ['../../x', 'outside'], ['/abs', 'outside'],
-    ['..x', 'inside_dotted'], ['..x/f', 'inside_dotted'], ['...', 'inside_dotted'], ['....', 'inside_dotted'],
   ];
   for (const [relation, expected] of relations) {
     assert.equal(owner.classifyPathRelation(relation), expected, JSON.stringify(relation));
@@ -74,18 +78,21 @@ test('the owner classifies relation strings into four classes', () => {
 });
 
 test('the owner classifies root and candidate pairs over the grid', posixOnly, () => {
-  for (const [root, candidate, expected] of grid) {
+  for (const [root, candidate, expected, dotted] of grid) {
     assert.equal(owner.pathRelation(root, candidate), expected, `${root} ${candidate}`);
     assert.equal(owner.pathRelation(root, candidate), owner.classifyPathRelation(relative(root, candidate)));
+    const relation = relative(root, candidate);
+    assert.equal(dotted, relation.startsWith('..') && relation !== '..' && !relation.startsWith('../'), `${root} ${candidate} dotted`);
   }
 });
 
-test('each predicate states its truth table over the four classes', () => {
+test('each predicate states its truth table over the three classes, and the owner exports only these', () => {
   for (const [name, table] of Object.entries(predicates)) {
     for (const [relation, expected] of Object.entries(table)) {
       assert.equal(owner[name](relation), expected, `${name}(${relation})`);
     }
   }
+  assert.deepEqual(Object.keys(owner).sort(), ['classifyPathRelation', 'pathRelation', 'pathStrictlyWithin', 'pathWithin']);
 });
 
 // Present forms, verbatim at 52afade26. Each returns whether the candidate
@@ -168,60 +175,62 @@ const vendored = {
   },
 };
 
-// Site, vendored form, the owner predicate it now calls, and the rulings'
-// change: none; `refuse` (confinement tightened: inside_dotted stops passing);
-// `flag` (exclusion repaired: inside_dotted now counts as inside).
+// Site, use, vendored form, the owner predicate it now calls, and whether its
+// present form is the prefix form (its dotted cells change).
 const sites = [
-  ['W1 parent :337 subject in worksite root', 'parentContainsPath', 'pathConfined', 'none'],
-  ['W2 parent :342 subject in a binding root', 'parentContainsPath', 'pathWithin', 'flag'],
-  ['W3 parent :449 archive overlap', 'parentContainsPath', 'pathWithin', 'flag'],
-  ['W4 parent :459 mutable root in Product root', 'parentContainsPath', 'pathWithin', 'flag'],
-  ['W5 parent :475 lexical attempt path', 'parentLexicalRelation', 'pathStrictlyConfined', 'none'],
-  ['W6 parent :476 canonical attempt path', 'parentContainsPath', 'pathConfined', 'none'],
-  ['W7/W8 helper subject source and snapshot target', 'helperContained', 'pathConfined', 'refuse'],
-  ['W9-W17 helper command locators', 'helperContained', 'pathWithin', 'none'],
-  ['W18 helper launch paths', 'helperLaunchPath', 'pathStrictlyConfined', 'refuse'],
-  ['W19 helper archive overlap', 'helperContainsAbsolutePath', 'pathWithin', 'none'],
-  ['W20 leaf module in install', 'strictPrefixLength', 'pathStrictlyConfined', 'none'],
-  ['W21/W22 Product protected roots', 'segmentExactSlash', 'pathWithin', 'none'],
-  ['W24 operations :226 subject in worksite root', 'segmentExactSlash', 'pathConfined', 'refuse'],
-  ['W25/W27/W30/W32 operations protected roots', 'segmentExactSlash', 'pathWithin', 'none'],
-  ['W26 operations :622 territory in worksite root', 'segmentExactSlash', 'pathConfined', 'refuse'],
-  ['W28 operations :624 subject in its territory', 'segmentExactSlash', 'pathWithin', 'none'],
-  ['W29 operations :967 path in worksite root', 'segmentExactSlash', 'pathConfined', 'refuse'],
-  ['W31 operations :1012 planned write root', 'segmentExactSlash', 'pathConfined', 'refuse'],
-  ['W33 command paths in binding roots', 'segmentExactSlash', 'pathWithin', 'none'],
-  ['W34/W38/W39/W40 ABG targets and snapshots', 'strictPrefixLength', 'pathStrictlyConfined', 'none'],
-  ['W35/W36/W37 ABG revision snapshots and targets', 'strictPrefixFalsy', 'pathStrictlyConfined', 'none'],
-  ['W41 actor archive file', 'transportArchiveFile', 'pathConfined', 'none'],
-  ['O1 release inside', 'releaseInside', 'pathStrictlyWithin', 'none'],
-  ['O2 self-conformance (prefix verdict kept)', 'selfConformance', 'pathConfined', 'none'],
-  ['O3 installed module', 'installedModule', 'pathStrictlyWithin', 'none'],
-  ['O4 install package directory', 'installProduct', 'pathWithin', 'none'],
-  ['O5 declaration contract asset', 'declarationApplication', 'pathWithin', 'none'],
-  ['O6 release snapshot within', 'segmentExactSlash', 'pathWithin', 'none'],
+  ['W1 parent :337 subject in worksite root', 'confinement', 'parentContainsPath', 'pathWithin', true],
+  ['W2 parent :342 subject in a binding root', 'exclusion', 'parentContainsPath', 'pathWithin', true],
+  ['W3 parent :449 archive overlap', 'exclusion', 'parentContainsPath', 'pathWithin', true],
+  ['W4 parent :459 mutable root in Product root', 'exclusion', 'parentContainsPath', 'pathWithin', true],
+  ['W5 parent :475 lexical attempt path', 'confinement', 'parentLexicalRelation', 'pathStrictlyWithin', true],
+  ['W6 parent :476 canonical attempt path', 'confinement', 'parentContainsPath', 'pathWithin', true],
+  ['W7/W8 helper subject source and snapshot target', 'confinement', 'helperContained', 'pathWithin', false],
+  ['W9-W17 helper command locators', 'confinement', 'helperContained', 'pathWithin', false],
+  ['W18 helper launch paths', 'confinement', 'helperLaunchPath', 'pathStrictlyWithin', false],
+  ['W19 helper archive overlap', 'exclusion', 'helperContainsAbsolutePath', 'pathWithin', false],
+  ['W20 leaf module in install', 'confinement', 'strictPrefixLength', 'pathStrictlyWithin', true],
+  ['W21/W22 Product protected roots', 'exclusion', 'segmentExactSlash', 'pathWithin', false],
+  ['W24/W26/W29/W31 operations paths in worksite root', 'confinement', 'segmentExactSlash', 'pathWithin', false],
+  ['W25/W27/W30/W32 operations protected roots', 'exclusion', 'segmentExactSlash', 'pathWithin', false],
+  ['W28 operations :624 subject in its territory', 'confinement', 'segmentExactSlash', 'pathWithin', false],
+  ['W33 command paths in binding roots', 'exclusion', 'segmentExactSlash', 'pathWithin', false],
+  ['W34/W38/W39/W40 ABG targets and snapshots', 'confinement', 'strictPrefixLength', 'pathStrictlyWithin', true],
+  ['W35/W36/W37 ABG revision snapshots and targets', 'confinement', 'strictPrefixFalsy', 'pathStrictlyWithin', true],
+  ['W41 actor archive file', 'confinement', 'transportArchiveFile', 'pathWithin', true],
+  ['O1 release inside', 'confinement', 'releaseInside', 'pathStrictlyWithin', false],
+  ['O2 self-conformance catalog source', 'confinement', 'selfConformance', 'pathWithin', true],
+  ['O3 installed module', 'confinement', 'installedModule', 'pathStrictlyWithin', false],
+  ['O4 install package directory', 'confinement', 'installProduct', 'pathWithin', false],
+  ['O5 declaration contract asset', 'confinement', 'declarationApplication', 'pathWithin', false],
+  ['O6 release snapshot within', 'exclusion', 'segmentExactSlash', 'pathWithin', false],
 ];
 
-test('each site\'s owner predicate equals its present form except the cells the rulings change', posixOnly, () => {
-  const changed = [];
-  for (const [site, form, predicate, change] of sites) {
-    for (const [root, candidate, relation] of grid) {
+test('each site\'s owner predicate equals its present form except the prefix-form sites on a dotted first segment', posixOnly, () => {
+  const changed = { confinement: [], exclusion: [] };
+  for (const [site, use, form, predicate, prefixForm] of sites) {
+    for (const [root, candidate, , dotted] of grid) {
       const before = vendored[form](root, candidate);
       const after = owner[predicate](owner.pathRelation(root, candidate));
       const cell = `${site}: ${root} ${candidate}`;
-      if (change !== 'none' && relation === 'inside_dotted') {
-        assert.equal(before, change === 'flag' ? false : true, `${cell} (before)`);
-        assert.equal(after, change === 'flag', `${cell} (after)`);
-        changed.push(cell);
+      if (prefixForm && dotted) {
+        // Confinement: refused before, admitted now. Exclusion: missed before, flagged now.
+        const [was, is] = use === 'confinement' ? ['refused', 'admitted'] : ['missed', 'flagged'];
+        assert.equal(before, false, `${cell} was ${was}`);
+        assert.equal(after, true, `${cell} is ${is}`);
+        changed[use].push(cell);
       } else {
         assert.equal(after, before, cell);
       }
     }
   }
-  // Nine changed site rows (three flag, six refuse), six inside_dotted grid rows each.
-  assert.equal(sites.filter(row => row[3] !== 'none').length, 9);
-  assert.equal(grid.filter(row => row[2] === 'inside_dotted').length, 6);
-  assert.equal(changed.length, 9 * 6);
+  const dottedRows = grid.filter(row => row[3]).length;
+  assert.equal(dottedRows, 6);
+  // Eight confinement rows (W1, W5, W6, W20, W34/38/39/40, W35/36/37, W41, O2)
+  // and three exclusion rows (W2, W3, W4) have the prefix form.
+  assert.equal(sites.filter(row => row[4] && row[1] === 'confinement').length, 8);
+  assert.equal(sites.filter(row => row[4] && row[1] === 'exclusion').length, 3);
+  assert.equal(changed.confinement.length, 8 * dottedRows);
+  assert.equal(changed.exclusion.length, 3 * dottedRows);
 });
 
 test('the absolute relation (win32 across drive roots only) is outside for every site', () => {
@@ -259,19 +268,15 @@ function presentNormalizer(value, allowRoot) {
   return normalized.length === 0 ? "." : normalized;
 }
 
-test('Product\'s relative-path normalizer changes only for a dotted first segment', () => {
+test('Product\'s relative-path normalizer keeps its base behaviour: a dotted first segment is admitted, `.` and `..` segments refuse', () => {
   const locators = ['', '.', './a', 'a', 'a/', 'a//b', 'a/b', '.hidden', '.hidden/f', 'a/..x', 'a/...', 'a/..x/f',
     '..', '../x', 'a/../b', 'a/..', '..x', '..x/f', '...', '...x/y', '..\\x', 'a\\b', '/abs', 'C:\\x', 'C:x', 'a\0b', ' a'];
-  const dotted = new Set(['..x', '..x/f', '...', '...x/y']);
   for (const allowRoot of [false, true]) {
     for (const locator of locators) {
-      const before = presentNormalizer(locator, allowRoot), after = normalizeWorksiteRelativePath(locator, allowRoot);
-      if (dotted.has(locator)) {
-        assert.equal(before, locator, `${JSON.stringify(locator)} passed before`);
-        assert.equal(after, null, `${JSON.stringify(locator)} is refused now`);
-      } else {
-        assert.equal(after, before, `${JSON.stringify(locator)} allowRoot=${allowRoot}`);
-      }
+      assert.equal(normalizeWorksiteRelativePath(locator, allowRoot), presentNormalizer(locator, allowRoot),
+        `${JSON.stringify(locator)} allowRoot=${allowRoot}`);
     }
   }
+  for (const locator of ['..x', '..x/f', '...', '...x/y']) assert.equal(normalizeWorksiteRelativePath(locator, false), locator);
+  for (const locator of ['..', '../x', 'a/../b', './a']) assert.equal(normalizeWorksiteRelativePath(locator, true), null);
 });
