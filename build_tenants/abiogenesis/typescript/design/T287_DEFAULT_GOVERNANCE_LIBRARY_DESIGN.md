@@ -133,10 +133,9 @@ task without reviews keeps its states, prompts, response schema and digests.
   dependency set (read-roots form of `worksiteCommandSourcesInvalidatedAfter`).
   `terminal` is acceptance, every required review satisfied and current, and
   fulfillment coverage keyed to the acceptance row.
-- Invalidation interprets C0 replacements and failures, native and unknown
-  native effects, and the `worksiteDelta` of an admitted C2 command execution
-  Result; only a non-empty delta carries the `worksite-observation-dependency`
-  key, so a command that changed nothing invalidates nothing.
+- Invalidation interprets C0 replacements and failures and native and unknown
+  native effects. A C2 command Result's `worksiteDelta` is not a cause: it
+  describes the helper's sandbox, not the worksite.
 
 **Invariants, effect and proof.** `terminal` implies every required standing
 row is satisfied and current. Another Run's verdict is not current. A review

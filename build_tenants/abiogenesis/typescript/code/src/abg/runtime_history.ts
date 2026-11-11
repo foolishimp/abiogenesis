@@ -700,9 +700,7 @@ export function runtimeHistorySelectorKeys(event: RuntimeEvent): readonly string
       keys.push("worksite-observation-dependency");
     if (event.kind === "c_call_result_admitted" && record(payload.value) &&
         (payload.value.kind === "worksite_file_replace_output" || payload.value.kind === "native_workspace_work_observation" || payload.value.kind === "native_workspace_work_failure" ||
-          (payload.value.kind === "worksite_effect_refusal" && payload.value.phase === "post_publication") ||
-          // A C2 command Result is a cause only when its delta changed the worksite.
-          (payload.value.kind === "worksite_command_execution_observation" && Array.isArray(payload.value.worksiteDelta) && payload.value.worksiteDelta.length > 0)))
+          (payload.value.kind === "worksite_effect_refusal" && payload.value.phase === "post_publication")))
       keys.push("worksite-observation-dependency");
     if (event.kind === "c_call_result_admitted" && (payload.resultClass === "success" || payload.resultClass === "failure"))
       for (const digest of nativeContextHeldBodyDigests(payload.value)) keys.push(NATIVE_CONTEXT_BODY_KEY + digest);

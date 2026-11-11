@@ -186,7 +186,8 @@ async function reviewOwner(f,initial,{program}={}){
   const rootBasis=(_p,r)=>r===root.payload.basisRef?{...execution,basisRef:r,parentExecutionBasisRef:null,rawInputValue:root.payload.rawInputValue}:null;
   const file=resolve(packageRoot,'build/code/src/abg/default_library.js'),m=new SourceTextModule(await readFile(file,'utf8'),{identifier:file});
   // Currentness premise over the owner's two query forms: selected paths match exactly, read roots at
-  // or under a root. A stale path changed after every ordinal, '*' everywhere; a change {path,at} after its ordinal.
+  // or under a root. A stale path changed after every ordinal, '*' everywhere; an admitted native effect
+  // {path,at} after its ordinal. A C2 command delta is not a cause.
   const invalidated=(_p,ordinal,_root,paths,roots)=>{x.checked.push(roots===undefined?{paths}:{roots});
     const hit=p=>roots===undefined?paths.includes(p):roots.some(r=>r==='.'||p===r||p.startsWith(r+'/'));
     return x.stale.has('*')||[...x.stale].some(hit)||x.changes.some(c=>c.at>ordinal&&hit(c.path));};
