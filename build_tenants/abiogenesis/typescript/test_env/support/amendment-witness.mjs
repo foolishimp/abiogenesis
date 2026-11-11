@@ -84,8 +84,9 @@ export async function amendmentWitnessInput({processDefinition:def,amendment,see
       outcomePredicates:plan.predicates.map(p=>({predicateId:amendmentRef('predicate',p.id),predicateKind:p.kind,declaration:{validationCommandId:commandId(p.command),equals:p.equals}})),
       allowedWriteTerritories:plan.writeTerritories},
     assessment:assessment(def.acceptance.candidate,def.acceptance.rubric,def.acceptance.sources),
-    // Every review the process names is declared; one that does not apply to this amendment is declared not required.
+    // Every review the process names is declared; one that does not apply to this amendment is declared not required, with its stated reason.
     reviews:def.reviews.map(r=>({reviewRef:reviewRefOf(r.name),frame:renderFrame(r.name,r.frame),required:r.required&&declared.includes(r),
+      ...(r.required&&declared.includes(r)?{}:{notApplicableReason:r.applicability.notApplicable}),
       order:{outcome:r.outcome,instructions:[...r.instructions,`Applicability: ${r.applicability.notApplicable}`],readFirst:[r.rubric],writeRoots:[],checks:[]},
       assessment:assessment(r.candidate,r.rubric,r.sources)}))};
   const state=product.constructGovernanceWorkState(original);

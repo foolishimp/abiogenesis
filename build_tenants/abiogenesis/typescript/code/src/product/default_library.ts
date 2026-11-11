@@ -57,8 +57,10 @@ const workOrder = v.strictObject({ outcome: text, instructions: texts, readFirst
 const source = v.strictObject({ path: text, digest });
 const assessmentSchema = v.strictObject({ sources: v.pipe(texts, v.minLength(1)), candidatePath: text, rubricPath: text,
   resultContract: jsonRecord, schemaAsset: jsonRecord, verdictField: text, satisfiedValue: text });
-// A review's type is its declared frame; its order writes nothing.
-const reviewSchema = v.strictObject({ reviewRef: text, frame: text, required: v.boolean(), order: workOrder, assessment: assessmentSchema });
+// A review's type is its declared frame; its order writes nothing. A review
+// declared not required may state why it does not apply.
+const reviewSchema = v.strictObject({ reviewRef: text, frame: text, required: v.boolean(), notApplicableReason: v.exactOptional(text),
+  order: workOrder, assessment: assessmentSchema });
 const originalSchema = v.strictObject({ taskRef: text, task: text, sources: v.pipe(v.array(source), v.minLength(1)),
   requiredSupportRefs: v.pipe(texts, v.minLength(1)), authorityRefs: texts,
   readRoots: v.pipe(texts, v.minLength(1)), maxContextFiles: v.pipe(v.number(), v.integer(), v.minValue(1)),
@@ -96,7 +98,8 @@ function governanceAssessmentRolesDistinct(assessment: GovernanceOriginal["asses
 function governanceReviewsMatch(value: GovernanceWorkState): boolean {
   const reviews = value.original.reviews ?? [], standing = value.reviewStanding;
   return new Set(reviews.map(r => r.reviewRef)).size === reviews.length && !Object.hasOwn(value.original.workOrders, "review") &&
-    reviews.every(r => r.order.writeRoots.length === 0 && governanceAssessmentRolesDistinct(r.assessment)) &&
+    reviews.every(r => r.order.writeRoots.length === 0 && governanceAssessmentRolesDistinct(r.assessment) &&
+      (!r.required || r.notApplicableReason === undefined)) &&
     value.observations.every(o => o.purpose === "review" ? reviews.some(r => r.reviewRef === o.reviewRef) : o.reviewRef === undefined) &&
     (value.original.reviews === undefined ? standing === undefined : standing !== undefined && standing.length === reviews.length &&
       standing.every((row, i) => row.reviewRef === reviews[i]!.reviewRef && row.required === reviews[i]!.required &&
@@ -195,9 +198,13 @@ export function governancePrerequisites(declarations: Readonly<Record<string, st
   return v.is(prerequisitesSchema, value) && Object.keys(value).length > 0 && Object.values(value).every(refs => unique(refs!)) &&
     canonicalJson(value as JsonValue) === declared ? value : null;
 }
-/** Intake: the reviews the Program names that the task does not declare, as required or not. */
+/** Intake: the reviews the Program names that the task does not declare as
+ * required or, with a non-blank stated reason, as not applicable. */
 export function governancePrerequisitesUndeclared(original: GovernanceOriginal, prerequisites: GovernancePrerequisites | undefined): readonly string[] {
-  return [...new Set(Object.values(prerequisites ?? {}).flat())].filter(ref => !original.reviews?.some(r => r.reviewRef === ref));
+  return [...new Set(Object.values(prerequisites ?? {}).flat())].filter(ref => {
+    const review = original.reviews?.find(r => r.reviewRef === ref);
+    return review === undefined || !review.required && (review.notApplicableReason ?? "").trim().length === 0;
+  });
 }
 /** The one construction of a registered target from its wrapper definition. */
 export function governanceTarget(definition: { readonly name: string; readonly declarations: Readonly<Record<string, string>> },
@@ -469,7 +476,8 @@ export function projectFramedSynthesisPromptTask(task: FramedSynthesisTask,
       verdictField: original.assessment.verdictField, satisfiedValue: original.assessment.satisfiedValue },
     ...(original.reviews === undefined ? {} : { reviews: { declared: original.reviews.map((review, i) => {
       const standing = state.reviewStanding![i]!;
-      return { reviewRef: review.reviewRef, frame: review.frame, required: review.required, outcome: review.order.outcome,
+      return { reviewRef: review.reviewRef, frame: review.frame, required: review.required,
+        ...(review.notApplicableReason === undefined ? {} : { notApplicableReason: review.notApplicableReason }), outcome: review.order.outcome,
         candidatePath: review.assessment.candidatePath, rubricPath: review.assessment.rubricPath, sources: review.assessment.sources,
         standing: { resultRef: standing.resultRef, satisfied: standing.satisfied, current: standing.current } };
     }), meaning: "Required reviews gate parent completion together with acceptance: each counts only while its admitted verdict is satisfied and no later admitted effect touches its subject or the declared inputs its assessment depends on, binds only its declared frame, never replaces acceptance, and is selected through the review wrapper by its reviewRef with subject evidence from the review domain." } }),

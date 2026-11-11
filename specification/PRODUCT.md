@@ -1147,8 +1147,8 @@ A Program may declare, for a registered purpose, the reviews that must be
 satisfied and current before that purpose is selected. Only permitted work can
 be selected next, and a choice whose prerequisites do not hold is refused before
 the work is entered. A task declares every review its Program names, as required
-or as not applicable; a prerequisite binds only a required review. The
-selector's stated dependencies remain advisory.
+or, with a stated reason, as not applicable; a prerequisite binds only a required
+review. The selector's stated dependencies remain advisory.
 
 A step that fails with a declared recoverable class returns to the Executive in
 the same Run: the parent is re-evaluated, and the next selection sees the failed

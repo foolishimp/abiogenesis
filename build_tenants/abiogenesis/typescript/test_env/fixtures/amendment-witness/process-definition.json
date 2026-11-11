@@ -176,7 +176,7 @@
     }
   ],
   "prerequisites": {
-    "meaning": "Declared on the consumer Program's executive step: a stage is offered and admitted only while each review it names that the amendment declares required is satisfied and current.",
+    "meaning": "Declared on the consumer Program's executive step: a stage is offered and admitted only while each review it names that the amendment declares required is satisfied and current. A review it names that does not apply to the amendment is declared not applicable with its applicability.notApplicable text as the stated reason.",
     "construction": ["impact"],
     "uat": ["preservation"]
   }

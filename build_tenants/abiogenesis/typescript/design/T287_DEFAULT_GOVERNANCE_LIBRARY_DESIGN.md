@@ -86,7 +86,8 @@ requirements unchanged.
 construction, the reviews each registered purpose requires. Only permitted work
 can be selected next. A choice whose prerequisites do not hold is refused at
 binding or at the choice projection, before its wrapper is entered.
-A task that omits a review its Program names is refused at selection intake.
+A task that omits a review its Program names, or declares it not applicable
+without a reason, is refused at selection intake.
 Without a declaration every definition, digest, prompt, schema and binding is
 unchanged.
 
@@ -99,6 +100,9 @@ unchanged.
 - `FramedSynthesisTarget.requiredReviews`: present on every target exactly when
   the step declares prerequisites. `governanceTarget` alone builds a target from
   a wrapper definition, for the assembly and the projection.
+- Review declaration `notApplicableReason` (exactOptional text): only on a review
+  declared `required: false`. The selector view's declared review row carries it
+  exactly when it is declared; without it every byte is unchanged.
 - Selector view `prerequisites` (present exactly with a declaration): per offered
   target `{graphFunctionRef, purpose, requiredReviews, permitted, missingReviews}`
   and one meaning sentence. `testingPrerequisites` reads the same relation.
@@ -122,9 +126,11 @@ unchanged.
   `projectGovernanceChoice` use `permitted`. A non-permitted target stays
   plannable as a contribution; `dependsOn` remains advisory.
 - `governancePrerequisitesUndeclared(original, prerequisites)` names the
-  Program's reviews the task does not declare; selection preparation, its result
-  match and the selector assembly refuse when it is non-empty. A review declared
-  with `required: false` is declared and never gates.
+  Program's reviews the task does not declare as required or, with a non-blank
+  `notApplicableReason`, as not applicable; selection preparation, its result
+  match and the selector assembly refuse when it is non-empty. A Program-named
+  review declared with `required: false` and its reason is declared and never
+  gates. A review no prerequisite names needs no reason.
 - `projectGovernanceChoice` resolves the selector's admitted input task by its
   ref and digest and applies the relation to the chosen target.
 
@@ -167,7 +173,8 @@ task without reviews keeps its states, prompts, response schema and digests.
 
 **Typed handoffs.**
 - `original.reviews` (exactOptional, non-empty): strict `{reviewRef, frame,
-  required, order, assessment}`; `order` is the work-order shape with empty
+  required, notApplicableReason?, order, assessment}` (the reason only when not
+  required; see process prerequisites); `order` is the work-order shape with empty
   `writeRoots`, `assessment` the `original.assessment` shape; unique
   `reviewRef`, distinct assessment roles, no `review` key in `workOrders`.
   `frame` states the evaluation family, its authority, its exclusions and the

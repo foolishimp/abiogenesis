@@ -141,7 +141,8 @@ function bodies(o: Owner, context: WorksiteContextObservation) {
   return worksiteContextBodyReaderAtPrefix(o.prefix, context, governanceContextBodyUse(o.invocation, o.call.runId));
 }
 /** Selection intake: the executive step's process declaration is valid and the
- * task declares, as required or not, every review it names. */
+ * task declares every review it names, as required or, with a stated reason,
+ * as not applicable. */
 function selectionIntake(basis: NativeInstructionAssemblyBasis, state: GovernanceWorkState, refusal?: GovernanceTestingRefusal): boolean {
   const prerequisites = governancePrerequisites(basis.graphFunction.declarations);
   const undeclared = prerequisites === null ? null : governancePrerequisitesUndeclared(state.original, prerequisites);

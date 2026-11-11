@@ -21,20 +21,22 @@ const REVIEW_A=witnessRef('review','code'),REVIEW_B=witnessRef('review','design'
 const stepOf=graphs=>graphs.find(g=>g.name===ref('executive-step'));
 const targetsOf=graphs=>graphs.filter(g=>g.declarations['abg.default_library_purpose']).map(g=>product.governanceTarget(g,h(g),product.governancePrerequisites(stepOf(graphs).declarations)));
 const plainSchemaAsset={productId:witnessRef('product','consumer'),contractId:assessmentContract.contractRef,bytesBase64:Buffer.from(JSON.stringify(assessmentSchema)+'\n').toString('base64')};
-// Two frames over one assessor, as in the declared-review cases: B (design) required, A (code) declared not required.
-function declaredReviews(){
+// Two frames over one assessor, as in the declared-review cases: B (design) required, A (code) declared not required,
+// with its stated reason unless `reason` is null (the shape of an instance without prerequisites).
+const A_REASON='The task changes no CLI source, so the code review does not apply.';
+function declaredReviews(reason=A_REASON){
   const order=outcome=>({outcome,instructions:['Assess only under the declared reference frame.'],readFirst:['source/original-basic-cli.txt'],writeRoots:[],checks:[]});
   const assessment=(sources,candidatePath,rubricPath)=>({sources,candidatePath,rubricPath,resultContract:assessmentContract,schemaAsset:plainSchemaAsset,verdictField:'disposition',satisfiedValue:'satisfied'});
   return [{reviewRef:REVIEW_B,frame:'Design review: the implementation design conforms to the project conformance rubric.',required:true,
       order:order('The implementation design conforms to the declared project conformance rubric.'),assessment:assessment(['source/original-basic-cli.txt'],'design/implementation-design.md','specification/project-conformance.md')},
-    {reviewRef:REVIEW_A,frame:'Code review: the CLI source satisfies the declared oracle.',required:false,
+    {reviewRef:REVIEW_A,frame:'Code review: the CLI source satisfies the declared oracle.',required:false,...(reason===null?{}:{notApplicableReason:reason}),
       order:order('The CLI source satisfies the declared oracle.'),assessment:assessment(['source/original-basic-cli.txt','source/witness-contract.md'],'generated/hello-world.mjs','source/basic-cli.oracle.json')}];
 }
-async function seeded(t){
+async function seeded(t,reviews=declaredReviews()){
   const physical=await loadWorksiteOwner(),f=await worksiteFixture(physical);t.after(()=>rm(f.scratch,{recursive:true,force:true}));
   await cp(join(witnessRoot,'seed'),f.canonicalRoot,{recursive:true});
   const selection=JSON.parse(await readFile(join(witnessRoot,'selection.json'),'utf8'));
-  const witness=await witnessInput({product,selection,seedRoot:join(witnessRoot,'seed')}),state=product.constructGovernanceWorkState({...witness.original,reviews:declaredReviews()});
+  const witness=await witnessInput({product,selection,seedRoot:join(witnessRoot,'seed')}),state=product.constructGovernanceWorkState({...witness.original,reviews});
   const observed=await physical.observeWorksiteContext({...f,readRoots:state.original.readRoots,maxFiles:state.original.maxContextFiles,maxBytes:state.original.maxContextBytes});
   return {f,witness,state,context:observed,fixed:{...observed,observationRef:'worksite-context-observation://abiogenesis/fixed'}};
 }
@@ -55,7 +57,7 @@ const HEAD_PINS={graphs:'sha256:b8d87f1b0257c54798496456a67f14957700afcd3a5ae0b3
   reviewed:'sha256:fc520d836a81eda8f36b56610d0e0ad2e51cdd5d50ebf6bb4c3664a3cfffa0ba',view:'sha256:1fd0cc97a81bebb1f281c2ce7d1dec058dfcc136492429426ebd0fb7e463f8d7',
   schema:'sha256:c2e7b76317fc6707d6701f601dbb93cedb40faf6a15594304c084b7dc9cded5d'};
 test('a Program without a process declaration keeps its definitions, selector view and response schema; a declaration changes only the executive step',async t=>{
-  const {state,fixed}=await seeded(t),task={kind:'framed_synthesis_task',schemaVersion:'5.0.0',state,context:fixed};
+  const {state,fixed}=await seeded(t,declaredReviews(null)),task={kind:'framed_synthesis_task',schemaVersion:'5.0.0',state,context:fixed};
   const graphs=gtl.defaultGovernanceGraphFunctions(),targets=targetsOf(graphs);
   assert.ok(targets.every(target=>!Object.hasOwn(target,'requiredReviews')));
   assert.deepEqual({graphs:h(graphs),library:h(gtl.constructDefaultGovernanceLibraryModulePublication(basis)),bindings:h(gtl.defaultLibraryImplementationBindings(basis)),
@@ -165,12 +167,35 @@ test('selection intake refuses a task that does not declare every Program-named 
   assert.deepEqual(refusals,[['selection_intake','process_review_undeclared',{reviewRefs:REVIEW_B+' '+REVIEW_A}]]);
   const malformed={...y.step,declarations:{...y.step.declarations,[product.GOVERNANCE_PREREQUISITES_DECLARATION]:'{"construction": []}'}};refusals.length=0;
   assert.equal(await y.m.projectGovernanceSelection({graphFunction:malformed},plain,refusal),null);assert.deepEqual(refusals,[['selection_intake','process_declaration',{}]]);
-  // Every named review declared, required or not: intake admits the same task a Program without a declaration would.
+  // Every named review declared, required or, with a reason, not applicable: intake admits the same task a Program without a declaration would.
   const z=await stepOwner(f,state,graphs);z.at('prepare-selection',state);
   const task=await z.m.projectGovernanceSelection({graphFunction:z.step},state);assert.ok(product.isFramedSynthesisTask(task));
   assert.equal(z.m.governanceResultMatches({graphFunction:z.step},state,task),true);
   assert.equal(x.m.governanceResultMatches({graphFunction:x.step},partial,{...task,state:partial}),false,'a result cannot cross the intake');
   assert.deepEqual(await z.m.projectGovernanceSelection({graphFunction:stepOf(gtl.defaultGovernanceGraphFunctions())},state),task);
+});
+test('a Program-named review declared not applicable carries a non-blank reason: intake refuses without one, the selector view shows it, an unnamed review needs none',async t=>{
+  const {f,witness,state,context}=await seeded(t),graphs=gtl.defaultGovernanceGraphFunctions({prerequisites:PREREQUISITES});
+  const withReviews=reviews=>product.constructGovernanceWorkState({...witness.original,reviews});
+  const bare=withReviews(declaredReviews(null)),blank=withReviews(declaredReviews(' \t'));
+  assert.deepEqual(product.governancePrerequisitesUndeclared(state.original,PREREQUISITES),[],'a stated reason declares the review not applicable');
+  for(const s of [bare,blank])assert.deepEqual(product.governancePrerequisitesUndeclared(s.original,PREREQUISITES),[REVIEW_A]);
+  assert.deepEqual(product.governancePrerequisitesUndeclared(bare.original,{construction:[REVIEW_B]}),[],'a review no prerequisite names needs no reason');
+  // The built owner refuses at selection intake and names the review.
+  for(const s of [bare,blank]){
+    const refusals=[],x=await stepOwner(f,s,graphs);x.at('prepare-selection',s);
+    assert.equal(await x.m.projectGovernanceSelection({graphFunction:x.step},s,(...r)=>refusals.push(r)),null);
+    assert.deepEqual(refusals,[['selection_intake','process_review_undeclared',{reviewRefs:REVIEW_A}]]);
+  }
+  // The reason belongs to a not-required review and is text.
+  const [b,a]=declaredReviews();
+  for(const [label,reviews] of [['reason on a required review',[{...b,notApplicableReason:A_REASON},a]],['empty reason',[b,{...a,notApplicableReason:''}]]])
+    assert.throws(()=>withReviews(reviews),/governance input requires/,label);
+  // The selector view shows the reason on the declared review row; a review without one has no such member.
+  const declaredRows=s=>product.projectFramedSynthesisPromptTask({kind:'framed_synthesis_task',schemaVersion:'5.0.0',state:s,context}).reviews.declared;
+  assert.deepEqual(declaredRows(state).map(r=>[r.reviewRef,r.required,r.notApplicableReason]),[[REVIEW_B,true,undefined],[REVIEW_A,false,A_REASON]]);
+  assert.equal(Object.hasOwn(declaredRows(state)[0],'notApplicableReason'),false);
+  assert.ok(declaredRows(bare).every(r=>!Object.hasOwn(r,'notApplicableReason')));
 });
 test('the choice projection applies the permitted relation to the admitted selector input: a non-permitted choice is refused',async t=>{
   const {f,state}=await seeded(t),graphs=gtl.defaultGovernanceGraphFunctions({prerequisites:PREREQUISITES}),targets=targetsOf(graphs),x=await stepOwner(f,state,graphs);

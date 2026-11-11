@@ -94,14 +94,20 @@ test('reuse: the same process definition gives a valid input for a discount amen
   for(const path of [...original.sources.map(s=>s.path),...Object.values(original.workOrders).flatMap(o=>o.readFirst),original.assessment.candidatePath,original.assessment.rubricPath,...original.assessment.sources,
     ...original.reviews.flatMap(r=>[r.assessment.candidatePath==='design/impact-assessment.md'?null:r.assessment.candidatePath,r.assessment.rubricPath,...r.assessment.sources]).filter(Boolean),...original.testing.selectedPaths])assert.ok(files.has(path),path);
   for(const s of original.sources)assert.equal(files.get(s.path),s.digest,s.path);
-  // Wording only: the examples are unchanged, so preservation is declared not applicable and does not gate UAT.
+  // Wording only: the examples are unchanged, so preservation is declared not applicable, with the process's stated reason, and does not gate UAT.
   const wordingDir=await scratchCopy(t),seedText=await readFile(join(seed,'specification/requirements/REQ-ORDER-APPROVAL.md'),'utf8');
   const reworded=seedText.replace('An order whose total is above 5,000 requires manager approval.','Manager approval is required for an order whose total is above 5,000.');
   assert.notEqual(reworded,seedText);assert.deepEqual(parseExamples(reworded),parseExamples(seedText));
   const wording=await amendmentWitnessInput({processDefinition:definition,amendment:{statement:'Reword the approval rule.',text:reworded},seedRoot:wordingDir,product});
-  assert.deepEqual([wording.derivation.examplesChanged,wording.derivation.notApplicable,wording.state.original.reviews.map(r=>[r.reviewRef,r.required])],[false,['preservation'],[[IMPACT,true],[PRESERVATION,false]]]);
+  const reason=definition.reviews.find(r=>r.name==='preservation').applicability.notApplicable;
+  assert.deepEqual([wording.derivation.examplesChanged,wording.derivation.notApplicable,wording.state.original.reviews.map(r=>[r.reviewRef,r.required,r.notApplicableReason])],
+    [false,['preservation'],[[IMPACT,true,undefined],[PRESERVATION,false,reason]]]);
+  assert.deepEqual(original.reviews.map(r=>Object.hasOwn(r,'notApplicableReason')),[false,false],'a required review states no reason');
   const prerequisites=amendmentPrerequisites(definition),gates=(purpose,state)=>!product.governanceTargetPermission({state},{purpose,requiredReviews:prerequisites[purpose]}).permitted;
-  assert.deepEqual(product.governancePrerequisitesUndeclared(wording.state.original,prerequisites),[],'intake admits the not-applicable declaration');
+  assert.deepEqual(product.governancePrerequisitesUndeclared(wording.state.original,prerequisites),[],'intake admits the not-applicable declaration with its reason');
+  const withReason=text=>({...wording.state.original,reviews:wording.state.original.reviews.map(({notApplicableReason,...r})=>r.reviewRef===PRESERVATION&&text!==undefined?{...r,notApplicableReason:text}:r)});
+  for(const [label,text] of [['no reason',undefined],['a blank reason',' \t']])
+    assert.deepEqual(product.governancePrerequisitesUndeclared(withReason(text),prerequisites),[PRESERVATION],'intake refuses the not-applicable declaration with '+label);
   assert.equal(gates('uat',wording.state),false,'a review declared not applicable does not gate UAT');assert.equal(gates('construction',wording.state),true,'impact still gates construction');
 });
 
