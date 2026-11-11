@@ -84,22 +84,11 @@ export const MANDATORY_SCHEMA_VOCABULARY_CORPUS_IDS = Object.freeze([
   "abg.schema.tenant-conformance-manifest",
   "abg.schema.self-conformance-result",
   "abg.schema.exact-candidate-qualification",
-  "abg.schema.consensus-subject",
-  "abg.schema.consensus-panel",
-  "abg.schema.consensus-reviewer-profile",
-  "abg.schema.review-findings",
-  "abg.schema.review-rulings",
-  "abg.schema.consensus-round-policy",
-  "abg.schema.consensus-round-outcome",
-  "abg.schema.consensus-result",
-  "abg.schema.ticket-consensus-projection",
   "abg.schema.release-snapshot",
   "abg.schema.a5-r1-release-manifest",
   "abg.vocabulary.runtime-event-kind",
   "abg.vocabulary.gtl-program-diagnostic-id",
   "abg.vocabulary.gtl-program-repair-edit-class",
-  "abg.vocabulary.review-ruling-kind",
-  "abg.vocabulary.consensus-round-outcome",
   "abg.asset.gtl.language-conformance-corpus",
 ] as const);
 
@@ -117,7 +106,7 @@ export const S06_REPLACEMENT_CONTRACT_IDS = Object.freeze([
 if (
   operationIds.length !== 18 ||
   S06_REPLACEMENT_CONTRACT_IDS.length !== 21 ||
-  MANDATORY_SCHEMA_VOCABULARY_CORPUS_IDS.length !== 44
+  MANDATORY_SCHEMA_VOCABULARY_CORPUS_IDS.length !== 33
 ) {
   throw new TypeError("PFC-F08 closed identity cardinality diverged");
 }

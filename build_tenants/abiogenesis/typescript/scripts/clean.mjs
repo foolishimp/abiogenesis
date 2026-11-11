@@ -7,7 +7,6 @@ const root = resolve(dirname(fileURLToPath(import.meta.url)), "..");
 await Promise.all([
   rm(resolve(root, "artifacts"), { force: true, recursive: true }),
   rm(resolve(root, "build"), { force: true, recursive: true }),
-  rm(resolve(root, "contracts/schemas/consensus.schema.json"), { force: true }),
   rm(resolve(root, "contracts/schemas/operations"), { force: true, recursive: true }),
   rm(resolve(root, "contracts/public-functions"), { force: true, recursive: true }),
   rm(resolve(root, "contracts/public-operations"), { force: true, recursive: true }),

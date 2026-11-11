@@ -1547,7 +1547,7 @@ function bindDefinitionContractCoordinates(
   const hostAdapter = PUBLIC_PROJECTION_PAYLOADS.adapterAsset.content;
   if (!canonicalEquals(adapter, hostAdapter)) {
     return bindingFailure(
-      "the artifact does not declare the selected exact 18/56 public-function family",
+      "the artifact does not declare the selected exact 18/55 public-function family",
     );
   }
 
@@ -1570,15 +1570,15 @@ function bindDefinitionContractCoordinates(
     definitionKeyToken(definitionKey)
   );
   if (
-    declaredKeys.size !== 56 ||
-    new Set(declaredSdkKeys).size !== 56 ||
-    new Set(declaredCliKeys).size !== 56 ||
+    declaredKeys.size !== 55 ||
+    new Set(declaredSdkKeys).size !== 55 ||
+    new Set(declaredCliKeys).size !== 55 ||
     [...declaredKeys.keys()].some((key) =>
       !declaredSdkKeys.includes(key) || !declaredCliKeys.includes(key)
     )
   ) {
     return bindingFailure(
-      "the content-verified adapter projection does not close all 56 definitions",
+      "the content-verified adapter projection does not close all 55 definitions",
     );
   }
   const declaredOperationIds = new Set(

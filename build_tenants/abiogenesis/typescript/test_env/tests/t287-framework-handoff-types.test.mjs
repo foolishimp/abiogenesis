@@ -171,7 +171,7 @@ test('HC1 proof source uses only canonical package imports and no proof-erasing 
   assert.ok(markers.length >= 17);
   // The shipped constructors' crossed operation/variant pairings.
   assert.ok(markers.filter(m => m.name.startsWith('hc2-')).length >= 11);
-  assert.equal(oracle('DECLARED').length, 56);
+  assert.equal(oracle('DECLARED').length, 55);
   assert.equal(oracle('UNAVAILABLE').length, 9);
 });
 
@@ -223,7 +223,7 @@ test('packed consumer compiles the HC1 proof from canonical package declarations
     packageDeclarations: declarations.length, negatives: markers.length}));
 });
 
-test('packed runtime keeps 56 declared, 47 callable and 9 unavailable members and its raw refusals', async t => {
+test('packed runtime keeps 55 declared, 46 callable and 9 unavailable members and its raw refusals', async t => {
   const pkg = await loadPackage(candidatePackage(t));
   const definitions = pkg.public.PUBLIC_FUNCTION_DEFINITION_FAMILY.definitions;
   assert.deepEqual(definitions.map(keyOf).sort(), [...oracle('DECLARED')].sort());
@@ -241,7 +241,7 @@ test('packed runtime keeps 56 declared, 47 callable and 9 unavailable members an
     (typeof selected === 'function' ? callable : unavailable).push(keyOf(definition));
     if (typeof selected !== 'function') assert.equal(selected, undefined, keyOf(definition));
   }
-  assert.equal(callable.length, 47);
+  assert.equal(callable.length, 46);
   assert.deepEqual(unavailable.sort(), [...oracle('UNAVAILABLE')].sort());
 
   // Every unavailable member sends one structurally exact call through the raw

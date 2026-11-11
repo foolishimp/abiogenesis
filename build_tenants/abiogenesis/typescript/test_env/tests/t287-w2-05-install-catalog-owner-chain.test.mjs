@@ -25,7 +25,6 @@ const selectedAdditions = Object.freeze([
   "abg.operation.project.read#catalog_describe",
   "abg.operation.project.read#catalog_list",
   "abg.operation.project.read#install_evidence",
-  "abg.operation.project.read#ticket_consensus",
   "abg.operation.project.read#workspace_status",
 ]);
 let admittedContractCatalog = null;
@@ -395,7 +394,7 @@ test("W2-05 installed Product install and catalog owners compose without catalog
     .filter((row) => !row.callable)
     .map(({ definitionKey }) => definitionKey)
     .sort();
-  assert.equal(census.report.definitionCount, 56);
+  assert.equal(census.report.definitionCount, 55);
   // RETIRED (T-290 C-18b, superseded cut): the W2-05 cut's frozen callable
   // census (39 callable, 17 named remaining, release_evidence unbound, 28
   // earlier keys and their digest). Later work bound five more definitions
@@ -679,11 +678,10 @@ test("W2-05 installed Product install and catalog owners compose without catalog
     packageName: harness.candidateBasis.packageName,
     packageVersion: harness.candidateBasis.packageVersion,
   });
-  // The Product's contribution manifest binds its ten core publications
+  // The Product's contribution manifest binds its nine core publications
   // (scripts/generate-product-manifest.mjs); the catalog admits exactly them.
   const publications = Object.freeze([
     gtl.constructDefaultGovernanceLibraryModulePublication(artifactBasis),
-    gtl.constructConsensusModulePublication(artifactBasis),
     gtl.constructWorksiteConstructionModulePublication(artifactBasis),
     gtl.constructWorksiteCommandExecutionModulePublication(artifactBasis),
     gtl.constructNativeWorkspaceWorkModulePublication(artifactBasis),
@@ -787,15 +785,16 @@ test("W2-05 installed Product install and catalog owners compose without catalog
     admittedCatalog.ownerOutput.value.catalog,
     admittedCatalog.resources.catalog,
   );
-  const nodeRow = catalog.declarationEntries.find(
-    ({ declarationKind }) => declarationKind === "node_type",
-  );
-  const overlayRow = catalog.declarationEntries.find(
-    ({ declarationKind }) => declarationKind === "overlay",
-  );
-  assert.ok(nodeRow);
-  assert.ok(overlayRow);
-  const allowlist = [nodeRow.handle, overlayRow.handle].sort();
+  // The view narrows the core catalog to two callable rows. The core Product
+  // publishes no declaration rows; steel-consumer-declaration views a
+  // consumer's node_type and overlay rows.
+  const allowlist = [gtl.REQUIREMENT_HANDOFF_IDS, gtl.SEMANTIC_STAGE_IDS]
+    .map(({ graphFunctionRef }) => {
+      const rows = catalog.entries.filter(({ definitionRef }) =>
+        definitionRef === graphFunctionRef);
+      assert.equal(rows.length, 1);
+      return rows[0].handle;
+    }).sort();
   const viewRequest = Object.freeze({
     catalog: admittedCatalog.ownerOutput.value.catalog,
     allowlist,
@@ -843,15 +842,11 @@ test("W2-05 installed Product install and catalog owners compose without catalog
     product_set: [install.ownerOutput.value.installedProduct],
     dependency_lock: lockCoordinate,
   });
-  // RETIRED (T-290 C-18b, removed surface): catalog.apply over the core
-  // consensus node_type and overlay rows with caller-asserted application
-  // basis, validation receipt and contributor coordinates. At head the owner
-  // derives all three from an explicit construction (prefix, Program, target,
-  // value, installed schema assets: constructCatalogApplicationResources), and
-  // the core consensus schema asset ($id abg.schema.consensus@5) carries no
-  // schema whose $id is a row's contract ref, so these rows have no Public
-  // application. steel-consumer-declaration owns the Public apply claim over a
-  // consumer's installed schemas; m5-consensus-module owns the native one.
+  // RETIRED (T-290 C-18b, removed surface): catalog.apply with caller-asserted
+  // application basis, validation receipt and contributor coordinates. The
+  // owner derives all three from an explicit construction
+  // (constructCatalogApplicationResources). steel-consumer-declaration owns the
+  // Public apply claim over a consumer's installed schemas.
 
   const projectionBasis = (memberKey, value) => Object.freeze({
     basisRef: `projection-basis://abiogenesis/t287/w2-05/${memberKey}`,
@@ -1133,97 +1128,12 @@ test("W2-05 installed Product install and catalog owners compose without catalog
   );
 
   const unavailableRunId = "run://abiogenesis/t287/w2-05/not-issued";
-  const unavailableGraphCallId =
-    "graph-call://abiogenesis/t287/w2-05/not-issued";
   const unavailableRunTruth = abg.projectRunTruthAtDurablePrefix(
     artifactTruth.prefix,
     unavailableRunId,
   );
   assert.equal(unavailableRunTruth.kind, "abg_run_truth_refusal");
   assert.equal(unavailableRunTruth.code, "target_absent");
-  const unavailableConsensusSource = coordinate(
-    product,
-    "consensus-result://abiogenesis/t287/w2-05/not-issued",
-  );
-  const unavailableConsensusBasis = projectionBasis("ticket_consensus", {
-    requestedSource: unavailableConsensusSource,
-  });
-  const unavailableTicketSelector = Object.freeze({
-    kind: "ticket_consensus",
-    ticket: coordinate(product, "ticket://abiogenesis/T-287"),
-    outputAuthority: coordinate(
-      product,
-      "result://abiogenesis/t287/w2-05/not-issued",
-    ),
-    replayBasis: coordinate(
-      product,
-      "replay://abiogenesis/t287/w2-05/not-issued",
-    ),
-  });
-  const unavailableTicketPacket = Object.freeze({
-    kind: "product_project_read_packet",
-    schemaVersion,
-    memberKey: "ticket_consensus",
-    sourceRef: unavailableConsensusSource.ref,
-    sourceDigest: unavailableConsensusSource.digest,
-    projectionBasis: unavailableConsensusBasis,
-    selector: unavailableTicketSelector,
-  });
-  assert.equal("consensusResult" in unavailableTicketPacket, false);
-  const ticketConsensusUnavailableCall = definitionCall({
-    publicApi,
-    product,
-    operationId: "abg.operation.project.read",
-    memberKey: "ticket_consensus",
-    ordinal: 25,
-    request: readRequest(
-      "ticket_consensus",
-      "consensus_result",
-      unavailableConsensusSource,
-      unavailableConsensusBasis,
-      unavailableTicketSelector,
-    ),
-    slots: environmentReadSlots,
-    resources: readResources(unavailableTicketPacket, {
-      artifactTruth,
-      runtime: Object.freeze({
-        prefix: artifactTruth.prefix,
-        runId: unavailableRunId,
-        graphCallId: unavailableGraphCallId,
-      }),
-    }),
-  });
-  const ticketDefinition = definitionFor(
-    publicApi,
-    "abg.operation.project.read",
-    "ticket_consensus",
-  );
-  assert.equal(
-    keyOf(ticketDefinition),
-    "abg.operation.project.read#ticket_consensus",
-  );
-  assert.deepEqual(
-    ticketConsensusUnavailableCall.invocation.definitionKey,
-    ticketDefinition.definitionKey,
-  );
-  const ticketConsensusUnavailableFault = await Effect.runPromise(Effect.flip(
-    product.PRODUCT_PROJECT_READ_DEFINITION_BINDINGS.ticket_consensus(
-      ticketConsensusUnavailableCall,
-    ),
-  ));
-  assert.equal(
-    ticketConsensusUnavailableFault.kind,
-    "definition_execution_fault",
-  );
-  assert.equal(ticketConsensusUnavailableFault.stage, "resource_admission");
-  assert.equal(
-    ticketConsensusUnavailableFault.code,
-    "resource_relation_mismatch",
-  );
-  assert.equal(
-    ticketConsensusUnavailableFault.message,
-    "ticket consensus packet differs from the public source, basis, or selector coordinates",
-  );
 
   for (const [label, mutate] of [
     ["blank request ref", (call) => {
@@ -1480,8 +1390,11 @@ test("W2-05 installed Product install and catalog owners compose without catalog
   // A declared-inventory conformance evaluates a Program of the admitted
   // catalog over its exact bound publications and a view of the Program's
   // members (declarationCatalog). The W2-05 cut's test-owned root publication
-  // is no longer a catalog publication; a core consensus Program stands for it.
-  const conformancePublication = publications[1];
+  // is no longer a catalog publication; the core requirement handoff Program
+  // stands for it.
+  const conformancePublication = publications.find(({ moduleRef }) =>
+    moduleRef === "module://abiogenesis/requirement-handoff@5");
+  assert.ok(conformancePublication);
   const conformanceProgram = conformancePublication.programs[0];
   assert.ok(conformanceProgram);
   const conformanceProgramCoordinate = Object.freeze({
@@ -1645,6 +1558,5 @@ test("W2-05 installed Product install and catalog owners compose without catalog
     remainingKeys: missingKeys,
     eventCountBeforeCatalog: 2,
     eventCountAfterCatalog: 2,
-    ticketConsensusUnavailableCode: ticketConsensusUnavailableFault.code,
   })}\n`);
 });

@@ -49,8 +49,8 @@ ABIogenesis 5.0 selects `A5-F01` through `A5-F07`, `A5-F09` through `A5-F11`, an
 `A5-F17`. It selects pre-RC scenarios `ABG5-S01`, `ABG5-S02`, `ABG5-S03`,
 and `ABG5-S06`; `ABG5-S07` owns release.
 
-`A5-F08`/`ABG5-S05` and `A5-F12`/`ABG5-S04` are planned ABIogenesis 5.1 identities. Their frozen
-design and requirement text are preserved as future input. Their dedicated
+`A5-F12`/`ABG5-S04` is a planned ABIogenesis 5.1 identity. Its frozen
+design and requirement text are preserved as future input. Its dedicated
 release-completeness obligations are not mandatory 5.0 realization,
 self-conformance, qualification, release, public-contract or no-silence gates.
 An optional published claim still obeys its current declared contract and
@@ -61,11 +61,8 @@ evaluation, recursion and context laws defer only their dedicated F12/S04
 observer/tuner variants. The selected ordinary Executive/default-library
 composition inherits those shared laws under Product Release Boundaries.
 
-- dedicated `REQ-P-CONSENSUS` qualification, `REQ-P-SCENARIOS-012`,
-  `REQ-P-QUAL-061` and `REQ-P-QUAL-066`, host parity in
-  `REQ-P-SCENARIOS-013`/`REQ-P-QUAL-063`, and their former mandatory
-  Consensus/host portions in `REQ-P-QUAL-064/067`;
-- mandatory Consensus capability publication in `REQ-P-PUBLIC-CONTRACTS-011`;
+- `REQ-P-QUAL-066`, host parity in `REQ-P-SCENARIOS-013`/`REQ-P-QUAL-063`,
+  and their former mandatory host portions in `REQ-P-QUAL-064/067`;
 - `REQ-P-SCENARIOS-011` and `REQ-P-QUAL-060A`;
 - `REQ-P-POLICY-036`, `REQ-P-POLICY-037`, and only the observer/tuning
   variants named by `REQ-P-POLICY-021`, `REQ-P-POLICY-041`, and

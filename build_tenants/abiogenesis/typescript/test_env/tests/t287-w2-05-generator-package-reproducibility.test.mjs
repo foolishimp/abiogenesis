@@ -133,7 +133,7 @@ async function generatedSnapshot(run, api) {
   ].sort();
   assert.deepEqual(actualPaths, expectedPaths, "generated payload exact set");
   assert.equal(PUBLIC_PROJECTION_PAYLOADS.operationContractAssets.length, 18);
-  assert.equal(PUBLIC_FUNCTION_DEFINITION_FAMILY.definitions.length, 56);
+  assert.equal(PUBLIC_FUNCTION_DEFINITION_FAMILY.definitions.length, 55);
 
   const assetHashes = [];
   for (const asset of expectedAssets) {
@@ -300,7 +300,7 @@ async function verifyPackedProduct(artifactPath, extractRoot, api) {
     verified.definitionContractCoordinates.operations.flatMap(({ members }) =>
       members
     ).length,
-    56,
+    55,
   );
   const { verificationDigest, verificationRef, ...verificationBody } = verified;
   assert.ok(verificationBody.definitionContractCoordinates);
@@ -311,14 +311,14 @@ async function verifyPackedProduct(artifactPath, extractRoot, api) {
   );
   return {
     artifactDigest: request.expectedArtifactDigest,
-    definitionCount: 56,
+    definitionCount: 55,
     operationCount: 18,
     verificationDigest,
     verificationRef,
   };
 }
 
-test("W2-05 generator is reproducible and the real pack verifies 18/56", async () => {
+test("W2-05 generator is reproducible and the real pack verifies 18/55", async () => {
   const snapshots = [];
   let api;
   for (const run of [1, 2]) {
@@ -365,7 +365,7 @@ test("W2-05 generator is reproducible and the real pack verifies 18/56", async (
       assetSetDigest: second.assetSetDigest,
       operationIds: second.operationIds,
       operationCount: 18,
-      definitionCount: 56,
+      definitionCount: 55,
     },
     reproducibility: {
       buildCount: 2,

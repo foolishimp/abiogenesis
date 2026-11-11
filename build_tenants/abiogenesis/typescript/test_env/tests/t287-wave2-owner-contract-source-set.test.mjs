@@ -291,7 +291,6 @@ function capabilityRefs(operationId, memberKey) {
       "workspace_gaps",
       "witness_evidence",
       "release_evidence",
-      "ticket_consensus",
     ].includes(memberKey)) {
       return ["abg.capability.operator.public-contract@5"];
     }
@@ -435,12 +434,12 @@ function renderedSlot(requirement) {
   return `${requirement.slot}?${path}=${requirement.requiredWhen.equalsAny.join("|")}`;
 }
 
-test("one owner source relation derives the exact frozen 18/56 key set", () => {
-  assert.equal(OWNER_CONTRACT_SOURCES.length, 56);
+test("one owner source relation derives the exact frozen 18/55 key set", () => {
+  assert.equal(OWNER_CONTRACT_SOURCES.length, 55);
   assert.equal(Object.keys(OWNER_CONTRACT_SOURCE_MAP).length, 18);
   assert.equal(OWNER_CONTRACT_KEY_SET_DIGEST, EXACT_OWNER_CONTRACT_KEY_SET_DIGEST);
   assert.equal(new Set(OWNER_CONTRACT_SOURCES.map(({ memberDigest }) =>
-    memberDigest)).size, 56);
+    memberDigest)).size, 55);
   for (const source of OWNER_CONTRACT_SOURCES) {
     assert.deepEqual(Object.keys(source.packet).sort(), [
       "definitionKey",
@@ -629,7 +628,7 @@ test("the deeply frozen intrinsic family closes exact schemas and schema-free di
     ...family,
     definitions: Object.freeze(family.definitions.map(frozenSchemaFreeProjection)),
   })), true);
-  assert.equal(family.definitions.length, 56);
+  assert.equal(family.definitions.length, 55);
   assert.equal(
     new Set(family.definitions.map(({ definitionKey }) =>
       definitionKey.operationId)).size,
@@ -717,7 +716,7 @@ test("the deeply frozen intrinsic family closes exact schemas and schema-free di
   assert.equal(derived.length, 18);
   assert.equal(
     derived.flatMap(({ definitions }) => definitions).length,
-    56,
+    55,
   );
   for (const projection of derived) {
     const { rowRef, rowDigest, ...body } = projection;
@@ -794,7 +793,7 @@ test("recursive family schema normalization survives refCount perturbation", () 
   assert.equal(normalizedAfter, normalizedBefore);
 });
 
-test("all 56 packets preserve exact capability and authority-slot vectors", () => {
+test("all 55 packets preserve exact capability and authority-slot vectors", () => {
   for (const source of OWNER_CONTRACT_SOURCES) {
     const { operationId, memberKey } = source.packet.definitionKey;
     assert.deepEqual(
@@ -843,7 +842,7 @@ test("D01-D15 reject the superseded wrapper and construction-issue shapes", () =
   }
 });
 
-test("all 56 result contracts project closed schemas rather than open JSON", () => {
+test("all 55 result contracts project closed schemas rather than open JSON", () => {
   for (const { declaration: selected } of OWNER_CONTRACT_SOURCES) {
     const schema = projectStrictJsonSchema(selected.resultSchema);
     assert.equal(

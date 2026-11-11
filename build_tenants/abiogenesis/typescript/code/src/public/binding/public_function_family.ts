@@ -459,7 +459,7 @@ function constructOperationProjection(
   });
 }
 
-/** Exact intrinsic 18-operation/56-definition family closure. */
+/** Exact intrinsic 18-operation/55-definition family closure. */
 export const PUBLIC_FUNCTION_DEFINITION_FAMILY = constructFamily();
 
 export function selectIntrinsicPublicFunctionDefinition(

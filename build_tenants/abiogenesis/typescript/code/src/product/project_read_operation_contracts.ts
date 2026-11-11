@@ -6,7 +6,6 @@ import {
   type ExactOwnerOperationPort,
   nonblankSchema,
   jsonValueSchema,
-  nonemptyRefDigestSetSchema,
   ownerAuthorityDigest,
   ownerContractPacket,
   ownerMetadata,
@@ -23,8 +22,7 @@ type ProductReadCase =
   | "catalog_describe"
   | "workspace_status"
   | "install_evidence"
-  | "release_evidence"
-  | "ticket_consensus";
+  | "release_evidence";
 
 const noSelectorSchema = v.strictObject({ kind: v.literal("none") });
 
@@ -92,15 +90,6 @@ const releaseEvidenceProjectionSchema = v.strictObject({
   artifacts: refDigestSetSchema,
   qualification: refDigestSchema,
   provenance: refDigestSetSchema,
-});
-
-const ticketConsensusProjectionSchema = v.strictObject({
-  kind: v.literal("ticket_consensus_projection"),
-  ticket: refDigestSchema,
-  consensus: refDigestSchema,
-  outputAuthority: refDigestSchema,
-  replayBasis: refDigestSchema,
-  evidence: nonemptyRefDigestSetSchema,
 });
 
 function productReadRefusal(catalog: boolean) {
@@ -271,27 +260,12 @@ const releaseEvidence = productReadContract({
   bindingRequired: false,
 });
 
-const ticketConsensus = productReadContract({
-  caseKey: "ticket_consensus",
-  sourceKind: "consensus_result",
-  selector: v.strictObject({
-    kind: v.literal("ticket_consensus"),
-    ticket: refDigestSchema,
-    outputAuthority: refDigestSchema,
-    replayBasis: refDigestSchema,
-  }),
-  projection: ticketConsensusProjectionSchema,
-  abstractModule: "Product.ConsensusProjection",
-  bindingRequired: true,
-});
-
 export const PRODUCT_PROJECT_READ_CONTRACTS = Object.freeze({
   catalog_list: catalogList,
   catalog_describe: catalogDescribe,
   workspace_status: workspaceStatus,
   install_evidence: installEvidence,
   release_evidence: releaseEvidence,
-  ticket_consensus: ticketConsensus,
 });
 
 export interface CatalogProjectionPort {
@@ -311,6 +285,3 @@ export interface ReleaseProjectionPort {
   readonly evidence: ExactOwnerOperationPort<typeof releaseEvidence>;
 }
 
-export interface ConsensusProjectionPort {
-  readonly ticketConsensus: ExactOwnerOperationPort<typeof ticketConsensus>;
-}
