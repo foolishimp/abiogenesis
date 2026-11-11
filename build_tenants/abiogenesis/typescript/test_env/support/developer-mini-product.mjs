@@ -9,6 +9,7 @@ import {
 import { basename, join } from "node:path";
 import { pathToFileURL } from "node:url";
 import { promisify } from "node:util";
+import { packProduct } from "../../scripts/product-payload.mjs";
 
 const execFileAsync = promisify(execFile);
 
@@ -44,12 +45,7 @@ export async function prepareDeveloperMiniProduct(packageRoot, scratch) {
   // selection product's package does.
   const dependencyArtifacts = join(scratch, "developer-mini-product-dependencies");
   await mkdir(dependencyArtifacts, { recursive: true });
-  const { stdout: abiPackStdout } = await execFileAsync(
-    "npm",
-    ["pack", "--ignore-scripts", "--json", "--pack-destination", dependencyArtifacts],
-    { cwd: packageRoot, maxBuffer: 10 * 1024 * 1024 },
-  );
-  const [abiPackResult] = JSON.parse(abiPackStdout);
+  const [abiPackResult] = await packProduct(packageRoot, dependencyArtifacts);
   const abiPackageName = JSON.parse(
     await readFile(join(packageRoot, "package.json"), "utf8"),
   ).name;

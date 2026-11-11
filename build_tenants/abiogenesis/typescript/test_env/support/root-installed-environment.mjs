@@ -5,6 +5,7 @@ import { tmpdir } from "node:os";
 import { basename, join } from "node:path";
 import { pathToFileURL } from "node:url";
 import { promisify } from "node:util";
+import { packProduct } from "../../scripts/product-payload.mjs";
 
 import {
   expectedVerificationIdentity,
@@ -185,12 +186,7 @@ export async function setupInstalledRootCatalog(
   if (frozenArtifact === null) {
     const artifacts = join(scratch, "artifacts");
     await mkdir(artifacts);
-    const { stdout } = await execFileAsync(
-      "npm",
-      ["pack", "--ignore-scripts", "--json", "--pack-destination", artifacts],
-      { cwd: packageRoot, maxBuffer: 10 * 1024 * 1024 },
-    );
-    const [packResult] = JSON.parse(stdout);
+    const [packResult] = await packProduct(packageRoot, artifacts);
     accountSetupPhase(options, "provisioning_pack", phaseStarted);
     if (options.setupAccounting !== undefined) options.setupAccounting.volumes = {
       archiveBytes: packResult.size, archiveUnpackedBytes: packResult.unpackedSize,

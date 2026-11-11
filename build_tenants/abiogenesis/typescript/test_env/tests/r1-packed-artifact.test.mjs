@@ -5,6 +5,7 @@ import { tmpdir } from "node:os";
 import { basename, dirname, join, resolve } from "node:path";
 import { pathToFileURL, fileURLToPath } from "node:url";
 import { promisify } from "node:util";
+import { packProduct } from "../../scripts/product-payload.mjs";
 import test from "node:test";
 
 import {
@@ -20,12 +21,7 @@ test("R1 verifies exact packed bytes without a source import", async (context) =
   await rm(artifacts, { force: true, recursive: true });
   await mkdir(artifacts, { recursive: true });
 
-  const { stdout } = await execFileAsync(
-    "npm",
-    ["pack", "--ignore-scripts", "--json", "--pack-destination", artifacts],
-    { cwd: root, maxBuffer: 10 * 1024 * 1024 },
-  );
-  const [packResult] = JSON.parse(stdout);
+  const [packResult] = await packProduct(root, artifacts);
   assert.equal(typeof packResult.filename, "string");
 
   const artifactPath = join(artifacts, packResult.filename);

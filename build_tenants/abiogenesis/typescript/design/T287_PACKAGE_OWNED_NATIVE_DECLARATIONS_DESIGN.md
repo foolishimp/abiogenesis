@@ -130,6 +130,28 @@ Transitive package presence does not create cross-Product authority. No host
 filesystem search, ambient compiler/configuration, network or automatic type
 acquisition completes a missing relation.
 
+## Product payload membership
+
+The Product payload is every regular file that a package's own `package.json`
+selects, for the root package and for each package in the lockfile's
+bundled-dependency closure. A package selects `package.json`, its top-level
+README, LICENSE, LICENCE and COPYING files, the targets of `main`, `browser`
+and `bin`, and every file under its `files` entries. A package without `files`
+selects every file in its directory. Nested `node_modules`, version-control
+directories and operating-system or editor residue (`.DS_Store`, `._*`,
+`.*.swp`, `*.orig`, `npm-debug.log`, `.npmrc`) are never selected. A `files`
+entry is a literal path, `dir/` or `dir/**`; any other entry refuses.
+
+`productPayloadMembers` in `scripts/product-payload.mjs` owns this rule. The
+manifest generator digests its list into `productContentDigest`. `packProduct`
+copies exactly that list into a stage outside the source tree, packs the stage
+with npm and refuses when the archive's members differ from the list. Every
+tenant pack of the Product root uses it, and `node scripts/product-payload.mjs
+pack <destination>` serves callers outside the tenant. npm's projection of the
+source tree is not an input. When npm trusts `node_modules/.package-lock.json`
+it reads dependency metadata without `files` and `main`, and lists files that
+the dependency's own `package.json` excludes.
+
 ## Requirement, function and realization mapping
 
 | Requirement | Function and existing owner |

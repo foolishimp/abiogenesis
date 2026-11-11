@@ -5,6 +5,7 @@ import { tmpdir } from "node:os";
 import { basename, dirname, join, resolve } from "node:path";
 import { pathToFileURL, fileURLToPath } from "node:url";
 import { promisify } from "node:util";
+import { packProduct } from "../../scripts/product-payload.mjs";
 import test from "node:test";
 
 import {
@@ -21,12 +22,7 @@ test("R2 installs the verified artifact into an empty source-blind consumer", as
   const artifacts = join(scratch, "artifacts");
   await mkdir(artifacts);
 
-  const { stdout } = await execFileAsync(
-    "npm",
-    ["pack", "--ignore-scripts", "--json", "--pack-destination", artifacts],
-    { cwd: root, maxBuffer: 10 * 1024 * 1024 },
-  );
-  const [packResult] = JSON.parse(stdout);
+  const [packResult] = await packProduct(root, artifacts);
   const artifactPath = join(artifacts, packResult.filename);
 
   const bootstrapRoot = join(scratch, "bootstrap");

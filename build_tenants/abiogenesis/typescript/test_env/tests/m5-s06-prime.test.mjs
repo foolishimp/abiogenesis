@@ -5,6 +5,7 @@ import { mkdir, mkdtemp, readFile, realpath, rm } from "node:fs/promises";
 import { join } from "node:path";
 import test, { after } from "node:test";
 import { promisify } from "node:util";
+import { packProduct } from "../../scripts/product-payload.mjs";
 
 import {
   catalogContribution,
@@ -1832,9 +1833,7 @@ async function extractedInstall() {
   await mkdir(join(packageRoot, "test_env/test_runs"), { recursive: true });
   const territory = await realpath(await mkdtemp(join(packageRoot, "test_env/test_runs/s06-installed-module-")));
   after(() => rm(territory, { recursive: true, force: true }));
-  const { stdout } = await exec("npm", ["pack", "--ignore-scripts", "--json", "--pack-destination", territory],
-    { cwd: packageRoot, maxBuffer: 10 * 1024 * 1024 });
-  const [packed] = JSON.parse(stdout);
+  const [packed] = await packProduct(packageRoot, territory);
   await exec("tar", ["-xzf", join(territory, packed.filename), "-C", territory]);
   return join(territory, "package");
 }

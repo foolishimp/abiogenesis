@@ -1,10 +1,7 @@
-import { execFile } from "node:child_process";
 import { mkdir, readFile } from "node:fs/promises";
 import { basename, join } from "node:path";
 import { pathToFileURL } from "node:url";
-import { promisify } from "node:util";
-
-const execFileAsync = promisify(execFile);
+import { packProduct } from "../../scripts/product-payload.mjs";
 
 export function jsonRoundTrip(value) {
   return JSON.parse(JSON.stringify(value));
@@ -22,12 +19,7 @@ export async function runWave2OwnerCandidateChain({ root, temporaryRoot }) {
   const product = await loadProduct(root);
   const artifacts = join(temporaryRoot, "artifacts");
   await mkdir(artifacts);
-  const { stdout } = await execFileAsync(
-    "npm",
-    ["pack", "--ignore-scripts", "--json", "--pack-destination", artifacts],
-    { cwd: root, maxBuffer: 10 * 1024 * 1024 },
-  );
-  const [packResult] = JSON.parse(stdout);
+  const [packResult] = await packProduct(root, artifacts);
   const artifactPath = join(artifacts, packResult.filename);
   const productManifest = JSON.parse(
     await readFile(join(root, "product-toolchain-manifest.json"), "utf8"),

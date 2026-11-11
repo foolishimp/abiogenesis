@@ -18,11 +18,10 @@ import {
   rm,
   writeFile,
 } from "node:fs/promises";
-import { execFile } from "node:child_process";
 import { createRequire } from "node:module";
 import { dirname, join, relative, resolve, sep } from "node:path";
 import { fileURLToPath } from "node:url";
-import { promisify } from "node:util";
+import { bundledDependencyClosure, productPayloadMembers } from "./product-payload.mjs";
 
 import {
   ABI5_PACKAGE_NAME,
@@ -83,7 +82,6 @@ import {
 
 const root = resolve(dirname(fileURLToPath(import.meta.url)), "..");
 const require = createRequire(import.meta.url);
-const execFileAsync = promisify(execFile);
 const packageJson = JSON.parse(await readFile(join(root, "package.json"), "utf8"));
 const packageLock = JSON.parse(
   await readFile(join(root, "package-lock.json"), "utf8"),
@@ -366,85 +364,7 @@ async function listFiles(path) {
   return files;
 }
 
-const bundledDependencyNames = packageJson.bundleDependencies ??
-  packageJson.bundledDependencies ?? [];
-if (
-  !Array.isArray(bundledDependencyNames) ||
-  bundledDependencyNames.some(
-    (name) =>
-      typeof name !== "string" ||
-      packageJson.dependencies?.[name] === undefined,
-  )
-) {
-  throw new Error(
-    "bundled runtime dependencies must name exact declared dependencies",
-  );
-}
-
-const lockedPackages = packageLock.packages;
-if (
-  lockedPackages === null ||
-  typeof lockedPackages !== "object" ||
-  Array.isArray(lockedPackages)
-) {
-  throw new Error("package lock does not expose an installed package inventory");
-}
-
-function dependencyLocator(ownerLocator, dependencyName) {
-  const dependencySuffix = `node_modules/${dependencyName}`;
-  let cursor = ownerLocator;
-  while (cursor !== "") {
-    const nestedCandidate = `${cursor}/${dependencySuffix}`;
-    if (lockedPackages[nestedCandidate] !== undefined) {
-      return nestedCandidate;
-    }
-    const parentMarker = cursor.lastIndexOf("/node_modules/");
-    cursor = parentMarker === -1 ? "" : cursor.slice(0, parentMarker);
-  }
-  return lockedPackages[dependencySuffix] === undefined
-    ? null
-    : dependencySuffix;
-}
-
-function bundledDependencyClosure(names) {
-  const pending = names.map((name) => `node_modules/${name}`);
-  const visited = new Set();
-  while (pending.length > 0) {
-    const locator = pending.pop();
-    if (visited.has(locator)) {
-      continue;
-    }
-    const lockedPackage = lockedPackages[locator];
-    if (
-      lockedPackage === null ||
-      typeof lockedPackage !== "object" ||
-      Array.isArray(lockedPackage)
-    ) {
-      throw new Error(`bundled dependency is absent from package lock: ${locator}`);
-    }
-    visited.add(locator);
-    const requiredDependencies = lockedPackage.dependencies ?? {};
-    for (const dependencyName of Object.keys(requiredDependencies).sort()) {
-      const dependency = dependencyLocator(locator, dependencyName);
-      if (dependency === null) {
-        throw new Error(
-          `bundled dependency closure is incomplete: ${locator} -> ${dependencyName}`,
-        );
-      }
-      pending.push(dependency);
-    }
-    const optionalDependencies = lockedPackage.optionalDependencies ?? {};
-    for (const dependencyName of Object.keys(optionalDependencies).sort()) {
-      const dependency = dependencyLocator(locator, dependencyName);
-      if (dependency !== null) {
-        pending.push(dependency);
-      }
-    }
-  }
-  return [...visited].sort();
-}
-
-for (const locator of bundledDependencyClosure(bundledDependencyNames)) {
+for (const locator of bundledDependencyClosure(packageJson, packageLock)) {
   const name = locator.slice("node_modules/".length);
   const expectedRoot = join(root, ...locator.split("/"));
   const dependencyEntry = resolve(require.resolve(name));
@@ -481,10 +401,10 @@ await writeFile(join(root, GOVERNED_CONTEXT_SELECTION_PATH), `${canonicalJson({
   sourceCheckoutFallback: false,
 })}\n`, "utf8");
 
-// The immutable development cut is the package npm actually projects, not a
-// separately predicted traversal of the mutable source and dependency trees.
-// Placeholders keep the two subsequently generated mandatory members visible
-// to the dry-run; their final bytes do not change the selected path set.
+// The payload rule (scripts/product-payload.mjs) selects the immutable
+// development cut; npm's own projection is not consulted. Placeholders keep the
+// two subsequently generated mandatory members on disk for the rule; their
+// final bytes do not change the selected path set.
 await mkdir(dirname(join(root, CAPABILITY_DEFINITION_GRAPH_ASSET_PATH)), {
   recursive: true,
 });
@@ -492,53 +412,21 @@ await Promise.all([
   writeFile(join(root, "product-toolchain-manifest.json"), "{}\n", "utf8"),
   writeFile(join(root, CAPABILITY_DEFINITION_GRAPH_ASSET_PATH), "{}\n", "utf8"),
 ]);
-const { stdout: packProjectionJson } = await execFileAsync(
-  "npm",
-  ["pack", "--dry-run", "--ignore-scripts", "--json"],
-  { cwd: root, maxBuffer: 32 * 1024 * 1024 },
-);
-const packProjection = JSON.parse(packProjectionJson);
+const payloadMembers = await productPayloadMembers(root);
 if (
-  !Array.isArray(packProjection) ||
-  packProjection.length !== 1 ||
-  !Array.isArray(packProjection[0]?.files)
+  !payloadMembers.includes("product-toolchain-manifest.json") ||
+  !payloadMembers.includes(CAPABILITY_DEFINITION_GRAPH_ASSET_PATH)
 ) {
-  throw new Error("npm pack did not return one exact file projection");
-}
-const projectedPaths = packProjection[0].files.map(({ path }) => path);
-if (
-  projectedPaths.some((path) => typeof path !== "string") ||
-  !projectedPaths.includes("product-toolchain-manifest.json") ||
-  !projectedPaths.includes(CAPABILITY_DEFINITION_GRAPH_ASSET_PATH)
-) {
-  throw new Error("npm pack projection omits a mandatory Product cut member");
+  throw new Error("payload rule omits a mandatory Product cut member");
 }
 for (const path of [GOVERNED_CONTEXT_ADAPTER_PATH, GOVERNED_CONTEXT_CLIENT_PATH, GOVERNED_CONTEXT_SELECTION_PATH]) {
-  if (!projectedPaths.includes(path)) throw new Error(`npm pack projection omits governed-context member ${path}`);
+  if (!payloadMembers.includes(path)) throw new Error(`payload rule omits governed-context member ${path}`);
 }
-const productRelativeLocators = projectedPaths.filter(
+const productRelativeLocators = payloadMembers.filter(
   (path) =>
     path !== "product-toolchain-manifest.json" &&
     path !== CAPABILITY_DEFINITION_GRAPH_ASSET_PATH,
-).sort();
-if (new Set(productRelativeLocators).size !== productRelativeLocators.length) {
-  throw new Error("npm pack projection contains duplicate Product paths");
-}
-for (const path of productRelativeLocators) {
-  const absolute = resolve(root, path);
-  const relativeToRoot = relative(root, absolute);
-  if (
-    relativeToRoot === "" ||
-    relativeToRoot === ".." ||
-    relativeToRoot.startsWith(`..${sep}`)
-  ) {
-    throw new Error(`npm pack projected an unsafe Product path: ${path}`);
-  }
-  const stat = await lstat(absolute);
-  if (!stat.isFile() || stat.isSymbolicLink()) {
-    throw new Error(`npm pack projected a non-file Product member: ${path}`);
-  }
-}
+);
 
 const payloadInventory = [];
 for (const path of productRelativeLocators) {

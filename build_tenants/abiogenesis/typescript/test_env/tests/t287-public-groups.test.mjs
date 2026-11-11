@@ -4,6 +4,7 @@ import { mkdtemp, readFile, readdir, realpath, rm } from "node:fs/promises";
 import { execFile } from "node:child_process";
 import { tmpdir } from "node:os";
 import { promisify } from "node:util";
+import { packProduct } from "../../scripts/product-payload.mjs";
 import { join, resolve } from "node:path";
 import { fileURLToPath, pathToFileURL } from "node:url";
 import test, { after } from "node:test";
@@ -30,9 +31,7 @@ async function extractedPackage() {
   if (named) return root;
   const exec = promisify(execFile), territory = await realpath(await mkdtemp(join(tmpdir(), "abi5-public-groups-pack-")));
   after(() => rm(territory, { recursive: true, force: true }));
-  const { stdout } = await exec("npm", ["pack", "--ignore-scripts", "--json", "--pack-destination", territory],
-    { cwd: root, maxBuffer: 10 * 1024 * 1024 });
-  const [packed] = JSON.parse(stdout);
+  const [packed] = await packProduct(root, territory);
   await exec("tar", ["-xzf", join(territory, packed.filename), "-C", territory]);
   return join(territory, "package");
 }
