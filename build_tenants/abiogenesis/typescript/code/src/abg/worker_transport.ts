@@ -35,10 +35,12 @@ export type WorkerTransportTimeoutClass = "absolute" | "inactivity";
 /** A window closes at most this much actor clock after its first capture (§10.10). */
 export const STDOUT_WINDOW_MAX_MS = 30_000;
 /** One part of a captured chunk ending at chunk-relative character `end`,
- * classified only by the records it completes. */
+ * classified only by the records it completes. `heartbeat` marks the worker
+ * CLI's own status rows: lease-renewing activity, never model progress. */
 export type WorkerStdoutChunkSegment = Readonly<{
   end: number;
   progress: boolean;
+  heartbeat: boolean;
   result: boolean;
   turnBoundary: boolean;
 }>;
@@ -48,6 +50,7 @@ export type WorkerStdoutChunkSegment = Readonly<{
 export type WorkerStdoutChunkClass = Readonly<{
   elapsedMs: number;
   progress: boolean;
+  heartbeat: boolean;
   result: boolean;
   turnBoundary: boolean;
   segments?: readonly WorkerStdoutChunkSegment[];
@@ -303,12 +306,16 @@ function countToolUses(
 }
 
 /** One incremental decoder for complete protocol rows. Partial message events
- * expose received bytes, not unobservable model progress or tool execution. */
+ * expose received bytes, not unobservable model progress or tool execution.
+ * The CLI's status rows are its heartbeat (TRANSPORT-025/027): they renew the
+ * lease and count as no progress, retry, tool or result. */
 export function createWorkerTransportOutputObserver(structuredOutputExpected: boolean) {
   let pending = "";
   let structuredEventCount = 0;
   let finalOutput = "";
   let progressEventCount = 0;
+  // Window classification only; no observation or transport result carries it.
+  let heartbeatEventCount = 0;
   let rawToolCallCount = 0;
   const rawToolInvocations: WorkerToolInvocationEvidence[] = [];
   // The tool projection, maintained as raw rows arrive: each ref's first-seen
@@ -322,10 +329,11 @@ export function createWorkerTransportOutputObserver(structuredOutputExpected: bo
   let apiRetryCount = 0;
   let turnBoundaryCount = 0;
   // Turn boundaries completed by the last observed chunk: each chunk-relative
-  // end (after its newline) with the progress and final output standing there.
-  let chunkTurnBoundaries: Readonly<{ end: number; progressEventCount: number; finalOutput: string }>[] = [];
+  // end (after its newline) with the progress, heartbeat and final output standing there.
+  let chunkTurnBoundaries: Readonly<{ end: number; progressEventCount: number; heartbeatEventCount: number; finalOutput: string }>[] = [];
   // The standing at the end of the last classified window segment.
   let classifiedProgressEventCount = 0;
+  let classifiedHeartbeatEventCount = 0;
   let classifiedFinalOutput = "";
   const observeLine = (line: string): void => {
     if (line.trim().length === 0) return;
@@ -339,6 +347,7 @@ export function createWorkerTransportOutputObserver(structuredOutputExpected: bo
     const retry = record.type === "api_retry" ||
       record.type === "system" && record.subtype === "api_retry";
     if (retry) { apiRetryCount += 1; return; }
+    if (record.type === "system" && record.subtype === "status") heartbeatEventCount += 1;
     const streamEvent = record.type === "stream_event" && typeof record.event === "object" && record.event !== null
       ? record.event as Readonly<Record<string, unknown>> : null;
     const reportedThinking = record.type === "system" && record.subtype === "thinking_tokens" &&
@@ -411,14 +420,14 @@ export function createWorkerTransportOutputObserver(structuredOutputExpected: bo
       observeLine(pending.slice(0, newline));
       consumed += newline + 1;
       pending = pending.slice(newline + 1);
-      if (turnBoundaryCount > turns) chunkTurnBoundaries.push({ end: consumed, progressEventCount, finalOutput });
+      if (turnBoundaryCount > turns) chunkTurnBoundaries.push({ end: consumed, progressEventCount, heartbeatEventCount, finalOutput });
     }
     return snapshot();
   };
-  const classifySegment = (end: number, progressCount: number, output: string, turnBoundary: boolean): WorkerStdoutChunkSegment => {
+  const classifySegment = (end: number, progressCount: number, heartbeatCount: number, output: string, turnBoundary: boolean): WorkerStdoutChunkSegment => {
     const segment = Object.freeze({ end, progress: progressCount > classifiedProgressEventCount,
-      result: output.length > 0 && output !== classifiedFinalOutput, turnBoundary });
-    classifiedProgressEventCount = progressCount; classifiedFinalOutput = output;
+      heartbeat: heartbeatCount > classifiedHeartbeatEventCount, result: output.length > 0 && output !== classifiedFinalOutput, turnBoundary });
+    classifiedProgressEventCount = progressCount; classifiedHeartbeatEventCount = heartbeatCount; classifiedFinalOutput = output;
     return segment;
   };
   return {
@@ -435,9 +444,9 @@ export function createWorkerTransportOutputObserver(structuredOutputExpected: bo
      * after a boundary is not activity. */
     classifyChunk(chunk: string): readonly WorkerStdoutChunkSegment[] {
       const output = observe(chunk);
-      const segments = chunkTurnBoundaries.map(row => classifySegment(row.end, row.progressEventCount, row.finalOutput, true));
+      const segments = chunkTurnBoundaries.map(row => classifySegment(row.end, row.progressEventCount, row.heartbeatEventCount, row.finalOutput, true));
       if (segments.length === 0 || segments.at(-1)!.end !== chunk.length) {
-        segments.push(classifySegment(chunk.length, output.progressEventCount, output.finalOutput, false));
+        segments.push(classifySegment(chunk.length, output.progressEventCount, heartbeatEventCount, output.finalOutput, false));
       }
       return Object.freeze(segments);
     },
@@ -613,7 +622,8 @@ async function runProcess(input: {
     }
     // Each completed turn boundary closes the window holding it at its exact
     // position; a later segment of the same capture keeps its own class.
-    const segments = selected.segments ?? [{ end: chunk.length, progress: selected.progress, result: selected.result, turnBoundary: selected.turnBoundary }];
+    const segments = selected.segments ?? [{ end: chunk.length, progress: selected.progress, heartbeat: selected.heartbeat,
+      result: selected.result, turnBoundary: selected.turnBoundary }];
     const parts: { readonly text: string; readonly byteLength: number; readonly segment: WorkerStdoutChunkSegment }[] = [];
     let start = 0, partitioned = 0;
     for (const segment of segments) {
@@ -627,7 +637,8 @@ async function runProcess(input: {
     if (pendingWindow !== null && selected.elapsedMs - pendingWindow.firstCaptureElapsedMs >= STDOUT_WINDOW_MAX_MS) closeWindow("interval");
     let offset = archiveOffset, renew = false;
     for (const { text, byteLength: length, segment } of parts) {
-      const qualifying = segment.progress || segment.result;
+      // Model progress, a result or the CLI heartbeat is admitted activity.
+      const qualifying = segment.progress || segment.heartbeat || segment.result;
       if (pendingWindow === null) {
         pendingWindow = { archiveOffset: offset, byteLength: 0, parts: [], firstCaptureElapsedMs: selected.elapsedMs,
           lastCaptureElapsedMs: selected.elapsedMs, lastQualifyingElapsedMs: null, resultElapsedMs: null,

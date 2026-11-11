@@ -2066,12 +2066,13 @@ test("M5 Q23 the current binding contract records one corresponding identity; a 
 });
 
 // RC7 HS03 (design §10.10): the real transport over controlled structured
-// captures. Noise rows complete no turn and are not progress.
+// captures. Noise rows complete no turn and are not activity. A CLI status
+// row is the heartbeat (t287-liveness-heartbeat), so the noise is a rate-limit row.
 const HS03_ASSISTANT = `${JSON.stringify({ type: "assistant", message: { content: [{ type: "text", text: "a" }] } })}\n`;
 const HS03_USER = `${JSON.stringify({ type: "user", message: { content: [{ type: "text", text: "u" }] } })}\n`;
 const HS03_RESULT = `${JSON.stringify({ type: "result", subtype: "success", is_error: false, result: "done" })}\n`;
 const HS03_DELTA = `${JSON.stringify({ type: "stream_event", event: { type: "content_block_delta" } })}\n`;
-const hs03Noise = n => `${JSON.stringify({ type: "system", subtype: "status", n })}\n`;
+const hs03Noise = n => `${JSON.stringify({ type: "rate_limit_event", rate_limit_info: { status: "allowed" }, n })}\n`;
 // One atomic pipe write (below PIPE_BUF) holding two complete turn records
 // and a noise-only tail, then a result turn, then a noise-only final tail.
 const HS03_PARTS = Object.freeze([HS03_ASSISTANT + hs03Noise(1) + HS03_USER + hs03Noise(2), HS03_RESULT, hs03Noise(3)]);
@@ -2168,9 +2169,9 @@ test("RC7 HS03 archive: one coalesced capture closes a window at each completed 
   const [first] = HS03_PARTS;
   assert.equal(live.captures[0].chunk, first, "one atomic write is one captured string");
   assert.deepEqual(live.captures[0].segments.map(s => ({ ...s })), [
-    { end: HS03_ASSISTANT.length, progress: true, result: false, turnBoundary: true },
-    { end: HS03_ASSISTANT.length + hs03Noise(1).length + HS03_USER.length, progress: true, result: false, turnBoundary: true },
-    { end: first.length, progress: false, result: false, turnBoundary: false },
+    { end: HS03_ASSISTANT.length, progress: true, heartbeat: false, result: false, turnBoundary: true },
+    { end: HS03_ASSISTANT.length + hs03Noise(1).length + HS03_USER.length, progress: true, heartbeat: false, result: false, turnBoundary: true },
+    { end: first.length, progress: false, heartbeat: false, result: false, turnBoundary: false },
   ]);
   const c0 = live.captures[0].elapsedMs, cResult = live.captureOf(HS03_RESULT), cTail = live.captureOf(hs03Noise(3));
   const texts = [HS03_ASSISTANT, hs03Noise(1) + HS03_USER, hs03Noise(2) + HS03_RESULT, hs03Noise(3)];
@@ -2272,7 +2273,7 @@ test("RC7 HS03 timeout: an inactivity timeout drains the pending partial window 
   const cAssistant = live.captureOf(HS03_ASSISTANT), cDelta = live.captureOf(HS03_DELTA);
   const noiseCaptures = live.captures.filter(c => !c.chunk.includes(HS03_DELTA) && !c.chunk.includes(HS03_ASSISTANT));
   assert.equal(noiseCaptures.length > 0, true, "noise arrived after the last qualifying row");
-  assert.equal(noiseCaptures.every(c => c.segments.every(s => !s.progress && !s.result && !s.turnBoundary)), true, "noise is not activity");
+  assert.equal(noiseCaptures.every(c => c.segments.every(s => !s.progress && !s.heartbeat && !s.result && !s.turnBoundary)), true, "noise is not activity");
   assert.equal(live.windows.length, 2, "the completed turn and one drained partial window");
   const [turn, partial] = live.windows;
   assert.deepEqual({ ...turn.window }, { archiveOffset: 0, byteLength: hs03Bytes(HS03_ASSISTANT), firstCaptureElapsedMs: cAssistant,
