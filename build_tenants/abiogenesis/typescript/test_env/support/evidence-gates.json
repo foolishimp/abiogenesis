@@ -2083,8 +2083,9 @@
    "gate": "steel03-retained-call",
    "class": "C",
    "status": "runs_with_root",
-   "conversion": "pending",
-   "variables": [
+   "conversion": "done",
+   "variables": [],
+   "formerVariables": [
     "ABI5_STEEL03_RETAINED_CALL_PATH"
    ],
    "cases": [
