@@ -800,9 +800,11 @@ function deriveRuntimeLivenessSemantics(
       else if (budget.remaining !== null && budget.retryEligible) { disposition = "retry"; reason = "native_frontier_and_budget"; }
       else { disposition = "block"; reason = "closed_attempt_without_admitted_result"; }
     }
+    // The lease over admitted activity contains a live process whatever the
+    // coverage; unknown coverage withholds only the no-progress classification.
+    else if (leaseExpired && processLive) { disposition = "controlled_terminate"; reason = lastActivity === null ? "startup_expired" : "inactivity_expired"; }
     else if (leaseExpired && completeCoverage) {
-      if (processLive) { disposition = "controlled_terminate"; reason = lastActivity === null ? "startup_expired" : "inactivity_expired"; }
-      else if (budget.continuationRef !== null) { disposition = "yield_continuation"; reason = "declared_same_edge_continuation"; }
+      if (budget.continuationRef !== null) { disposition = "yield_continuation"; reason = "declared_same_edge_continuation"; }
       else if (budget.remaining === 0) { disposition = budget.terminalPolicy; reason = "retry_budget_exhausted"; }
       else if (budget.remaining !== null && budget.retryEligible) { disposition = "retry"; reason = "native_frontier_and_budget"; }
       else { disposition = "block"; reason = lastActivity === null ? "no_output" : "progress_without_result"; }

@@ -200,6 +200,16 @@ continue_waiting, controlled_terminate, retry, yield_continuation, block,
 inspect_archive, escalate, reprice_policy. These are derived read values, not
 new callable actions or automatic scheduling rights.
 
+### 4.1 Lease containment and coverage (2026-11-11)
+
+Path: RC12 package L ([triage](../../../../.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc12-executive-01/L_RETURN.md)), under TRANSPORT-027/028/030 and rule 1.
+
+- Computation: containment at lease expiry is independent of coverage. An expired lease over admitted activity on a live process derives controlled_terminate with startup_expired or inactivity_expired; its threshold carries the inactivity timeout class.
+- Invariant: classification is coverage-gated. Unknown required coverage withholds no_output, progress_without_result and the retry, continuation and budget dispositions, and reports unknown_required_coverage. Containment grants no classification; the hard cap and artifact inspection keep their precedence.
+- Policy obligation: tool, API and archive progress have no producer, so the declared inactivity exceeds the longest interval in which a working actor emits no admitted activity.
+- Effect grant: none added. Threshold admission, TERM/KILL/grace and the transport failure class are unchanged.
+- Proof: `t287-liveness-inactivity` (relation) and `t287-management-supervision` (installed silent and active workers).
+
 ## 5. Native consumers and Event Calculus
 
 Activity initiates activity-recent and invocation-active in its exact scope and
