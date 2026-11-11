@@ -4,7 +4,7 @@
 **Date**: 2026-07-13
 **Ticket**: `T-262`
 **Method authority**: `stdo://releases/v2.5.0-rc.6/standards/DESIGN_MODULE_METHOD.md` section 5E
-**Tenant authority**: [TYPESCRIPT_REALIZATION_GUARDRAILS.md](./history/TYPESCRIPT_REALIZATION_GUARDRAILS.md)
+**Tenant authority**: [ABI5_REALIZATION_CONSTITUTION.md](./ABI5_REALIZATION_CONSTITUTION.md)
 
 Retired sections: [history/M03_TYPED_RECURSE_RUNTIME_BEHAVIOR_DESIGN__RETIRED_SECTIONS.md](history/M03_TYPED_RECURSE_RUNTIME_BEHAVIOR_DESIGN__RETIRED_SECTIONS.md).
 
@@ -47,51 +47,58 @@ Retired sections: [history/M03_TYPED_RECURSE_RUNTIME_BEHAVIOR_DESIGN__RETIRED_SE
 
 ### D6. ABG prepares child identity before the effect edge
 
-Before invoking the operand GraphFunction, ABG derives a
-`TypedRecurseChildRequest` with:
-
-- plan and binding refs;
-- selected Module and operand GraphFunction identity;
-- stable parent locus and frame-lineage ref;
-- replay-derived application ordinal;
-- fresh child GraphCall and frame-attempt refs;
-- exact A input carrier and payload refs; and
-- the positive maximum application count.
+Before the child GraphFunction runs, HoG prepares the child traversal
+(`prepareChildTraversal`, `hog/child_traversal.ts`). ABG admits a child
+execution basis bound to the parent execution basis and traversal scope, the
+parent CCall, the declared child GraphFunction and the parent's admitted result
+as the child input (`admitChildExecutionBasis`, `abg/execution_basis.ts`), and
+opens the child traversal scope with its own GraphCall and frame
+(`openTraversalScope`, `abg/open_call.ts`).
 
 The child adapter owns only the GraphFunction interior and must be idempotent
-for the prepared child GraphCall ref. It returns one closed candidate:
+for the prepared child GraphCall ref.
 
-```text
-completed(B payload, response contract, evidence)
-held(reason, evidence)
-blocked(reason, evidence)
-runtime_failed(reason, evidence)
-```
+The child returns its traversal completion (`ExecutableTraversalCompletion`,
+`hog/traversal_completion.ts`). The recursion accepts the dispositions
+`closed`, `held`, `blocked` and `failed` (`completeRecursionChildUsing`,
+`hog/recursion_lifecycle.ts`). The child neither admits its own foldback nor
+opens the parent's next attempt: HoG proposes the foldback and ABG admits it
+(`admitChildFoldback`, `abg/graph_application.ts`), and the next attempt opens
+only through an ABG-admitted recursion route (`applyRecursionRoute`,
+`hog/traversal.ts`). The child's completion does not decide the parent's
+termination, which reads only the parent locus's result
+(`recursionTerminationDecision`, `gtl/graph_applications.ts`).
 
-It cannot select foldback, change policy, advance the ordinal, emit runtime
-events, or certify the parent. Malformed or thrown output becomes a truthful
-blocked runtime resolution; recursion does not retry it.
+An admitted child-local failed return can leave the enclosing Run active
+(`completeRecursionChildUsing`). HoG authenticates that return against the
+prepared child execution basis and scope at the child's successor prefix,
+through the ABG child lifecycle projection (`projectFailedRecursionChildTruth`,
+`hog/recursion_lifecycle.ts`; `projectChildFoldbackTruth`,
+`abg/child_lifecycle.ts`). The failed route, Result, Judgment, C_Call, value
+digest and original diagnostic must agree (`projectFailedRecursionChildTruth`).
+This return is a truthful failure, not a malformed completed-child foldback
+(`completeRecursionChildUsing`).
 
-For the direct HoG realization, an admitted child-local failed return can leave
-the enclosing Run active. HoG authenticates that return against the prepared
-child execution basis and scope at its exact successor prefix, using the
-existing ABG child lifecycle projection. The failed route, Result, Judgment,
-C_Call, value digest and original diagnostic must agree. This return is a
-truthful failure, not a malformed completed-child foldback.
-
-HoG stops the active enclosing Run through the existing ABG runtime-failure
-owner. Its cause is the admitted failed child route. For an opaque diagnostic,
-the failure subject names the original child C_Call, Result and Judgment and
-the parent evaluator/input coordinates. For a canonical retained-JSON
-diagnostic, HoG uses the existing diagnostic owner to preserve its exact
-decoded subject, including JSON `null`; replacing that subject would violate
-the diagnostic's digest relation. The admitted parent scope and failed-child
-route causation retain the enclosing and child coordinates in either case.
-The returned failed completion preserves the child value and diagnostic.
+HoG stops the active enclosing Run through the ABG runtime-failure owner
+(`admitRuntimeFailure`, `abg/runtime_failure.ts`). Its cause is the admitted
+failed child route (`causationEventRefs`, `completeRecursionChildUsing`). For an
+opaque diagnostic, the failure subject names the original child C_Call, Result
+and Judgment and the parent evaluator/input coordinates
+(`completeRecursionChildUsing`). For a canonical retained-JSON diagnostic, HoG
+uses the diagnostic owner to preserve its exact decoded subject, including JSON
+`null`; replacing that subject would violate the diagnostic's digest relation
+(`readRuntimeFailureDiagnosticSubject`, `constructRuntimeFailureDiagnosticRef`,
+`abg/runtime_failure.ts`). The admitted parent scope and failed-child route
+causation retain the enclosing and child coordinates in either case
+(`completeRecursionChildUsing`). The returned failed completion preserves the
+child value and diagnostic (`completeRecursionChildUsing`).
 Prior admitted parent work and unresolved input remain unchanged.
-No successful child foldback, termination evaluation, rebind or retry follows.
+No successful child foldback, termination evaluation, rebind or retry follows
+(`completeRecursionChildUsing` returns after the failure admission).
 An already-failed Run propagates its existing failure without a second failure
-admission. Missing, crossed or stale child truth retains the existing refusal.
+admission (`completeRecursionChildUsing`). Missing, crossed or stale child
+truth fails the recursion with `application-foldback-mismatch`
+(`recursionFailure`, `hog/recursion_lifecycle.ts`).
 
 ```mermaid
 sequenceDiagram
@@ -108,71 +115,79 @@ sequenceDiagram
 
 ### D7. Termination is evaluated over admitted B
 
-Only an admitted exact-contract `completed` child result reaches the declared
-termination evaluator. The evaluator request contains the declaration's
-exact binding and consumed field refs, current ordinal, policy projection,
-admitted B payload, and prior foldback evidence. Its closed candidate is:
+A non-terminating decision continues the recursion only while the parent
+cursor's attempt is below the declared `bound` (`beginRecursionApplicationUsing`,
+`hog/recursion_lifecycle.ts`); ABG refuses a recursion advance route at the
+bound (`recursionRouteCausation`, `abg/traversal_route.ts`). At the bound, HoG
+proposes and ABG admits a blocked route with reason `bound-exhausted` before any
+child preparation or foldback (`blockRecursion`, `hog/recursion_lifecycle.ts`;
+`recursionRouteCausation` admits a blocked route without a foldback or a
+preparation refusal only at the bound).
 
-```text
-terminate(reason, evidence)
-foldback(reason, evidence)
-blocked(reason, evidence)
-```
-
-ABG validates the echo and admits one termination event. `terminate` returns
-the exact B payload. `blocked` stops. `foldback` may continue only when the
-current ordinal is below the admitted maximum. At the maximum, ABG records a
-budget stop before any foldback or next child effect.
-
-For T-252, held F_H and blocked paths never produce a completed round
-disposition and therefore never reach this evaluator. `closed_done` terminates;
-only the structurally admitted post-submitter `recurse_next_round` disposition
-may select foldback.
+A held F_H child and a blocked child never re-enter the parent, so neither
+reaches a termination decision: a held child completion returns as child truth,
+and a blocked child folds back into a blocked route
+(`completeRecursionChildUsing`). In Consensus the round state's `terminal`
+field is the declared termination field (`terminationFieldRef: "$.terminal"`,
+`constructConsensusModulePublication`, `gtl/consensus.ts`): `closed_done`
+terminates, and only `recurse_next_round` continues the recursion
+(`reduceConsensusRound`, `gtl/consensus.ts`).
 
 ### D8. Foldback is an exact B to A admission boundary
 
-The foldback adapter receives the admitted B payload, exact declaration,
-current policy, frame lineage, and prior-round evidence. It returns:
+The foldback is an ABG admission: HoG proposes the child's completion and ABG
+admits `child_foldback_admitted` (`admitChildFoldback`,
+`admitRecursiveApplicationChildFoldback`, `abg/graph_application.ts`). Its body
+binds the declared foldback (`applicationFoldbackRef`), the exact child output
+(`childResultRef`, `outputDigest`), the parent CCall, judgment and source
+cursor, and the child execution basis, GraphCall and frame; its `foldbackRef`
+is derived from the digest of that body (`admitRecursiveApplicationChildFoldback`).
 
-```text
-bindingRef exact declaration binding
-sourceOutputCarrierRef exact B
-sourceOutputPayloadRef exact admitted child result
-targetInputCarrierRef exact A
-targetInputPayloadRef next A
-policyRef and policyDigest unchanged
-budgetSourceFieldRef unchanged
-preservedEvidenceRefs non-empty superset of prior round evidence
-foldbackEvidenceRefs include a content-derived parent-rebind witness
-```
-
-ABG rejects a changed binding, carrier pair, source payload, policy identity,
-budget-source ref, missing prior evidence, malformed target, or stale lineage.
-The witness binds the exact child output, proposed next input, foldback
-declaration digest, policy, budget, lineage, and preserved evidence. Generic or
-unrelated evidence cannot authorize the proposed next input.
-Rejection is itself admitted as terminal recurse truth, so replay cannot invoke
-the rejected foldback adapter again.
-An admitted foldback event is necessary but not sufficient to open the next
-child application.
+ABG refuses a foldback whose application or declared foldback differs
+(`application_mismatch`), whose parent CCall, judgment or source cursor is not
+the admitted evaluated parent (`parent_truth_mismatch`), or whose child basis,
+scope, Result, Judgment or route is not exact admitted causal child truth
+(`child_truth_mismatch`) (`admitRecursiveApplicationChildFoldback`). The
+recursion route refuses a target whose input or cursor lineage differs from the
+foldback and the source cursor (`recursionRouteCausation`,
+`abg/traversal_route.ts`). Generic or unrelated evidence cannot authorize the
+next input: the advance route consumes exactly the parent judgment and the
+foldback (`consumedAvailabilityRefs`), and its target input is the foldback's
+child output (`recursionRouteCausation`).
+A refused foldback is admitted as runtime failure truth (`recursionFailure`,
+`hog/recursion_lifecycle.ts`).
+An admitted foldback is necessary but not sufficient to continue the
+recursion: an admitted recursion advance route must consume it
+(`recursionRouteCausation`; `applyRecursionRoute`, `hog/traversal.ts`).
 
 ### D9. Parent rebind evaluation is mandatory
 
-The declared `requiresParentEvaluation: true` is realized by a separate
-`TypedRecurseParentRebindEvaluation`. This is a deterministic ABG admission
-projection, not another product callback. It checks the exact foldback event,
-next A carrier and payload, unchanged policy ref/digest and budget-source ref,
-stable lineage, preserved evidence, and the declaration's mandatory
-parent-evaluation flag. It independently re-derives the parent-rebind witness
-from admitted event truth; an absent or stale witness produces `blocked`
-before another child effect. Its closed result is `admitted` or `blocked`.
+Every recurse declaration carries `requiresParentEvaluation: true`
+(`FOLDBACK_DECLARATION_SCHEMA`, `gtl/serialization_contracts.ts`;
+`recurseApplication`, `gtl/graph_applications.ts`). It is realized by
+re-entering the parent locus: a closed child's output re-enters the same parent
+term at the next attempt (`deriveRecursionReentryCursor`, `hog/traversal.ts`).
+The rebind admission is the deterministic ABG recursion route admission, not a
+product callback (`recursionRouteCausation`, `abg/traversal_route.ts`). It
+checks the admitted foldback of this application, parent CCall, judgment and
+source cursor; the next cursor's input against the foldback's child output; the
+same cursor lineage, node, term path and task ordinal at the next attempt; and
+the bound (`recursionRouteCausation`). It re-derives the foldback from admitted
+event truth (`isAdmittedApplicationChildFoldbackAtPrefix`,
+`abg/graph_application.ts`).
 
-Only an admitted parent-rebind event can advance replay to the next ordinal.
-The next child request consumes exactly the event's A payload and preserved
-evidence. The next operand invocation performs the actual semantic
-re-evaluation of the parent contract. Child closure and foldback alone never
-certify parent convergence. A held F_H state remains child runtime truth and
-does not arise from structural rebind admission.
+Only an ABG-admitted recursion advance route moves the parent to its next
+attempt (`applyRecursionRoute`, `hog/traversal.ts`). The next attempt consumes
+exactly the foldback's child output as its input
+(`deriveRecursionReentryCursor`; checked by `recursionRouteCausation`). The
+parent locus evaluates again at that attempt, and that evaluation is the
+semantic re-evaluation of the parent (`beginRecursionApplicationUsing` decides
+termination over its new result). Child closure and foldback alone never
+terminate the recursion: termination reads only the parent locus's result
+(`recursionTerminationDecision`, `gtl/graph_applications.ts`). A held F_H child
+completion remains child runtime truth and is returned unchanged
+(`completeRecursionChildUsing`); the recursion route admits only `advance` and
+`blocked` routes (`recursionRouteCausation`).
 
 ### D11. Declared failed-child foldback
 

@@ -504,3 +504,138 @@ declared GTL syntax and replay-owned ABG truth. Bounded self-review repaired
 parent-evaluation authority and policy-preservation ambiguity before delegated
 F_H acceptance. Implementation is authorized only for this direct recurse
 boundary; T-267 and T-268 remain separate gates.
+
+---
+
+Cut from `build_tenants/abiogenesis/typescript/design/M03_TYPED_RECURSE_RUNTIME_BEHAVIOR_DESIGN.md` at commit `39d6cb975`, lines 7-7, 48-175, verbatim.
+
+**Tenant authority**: [TYPESCRIPT_REALIZATION_GUARDRAILS.md](./history/TYPESCRIPT_REALIZATION_GUARDRAILS.md)
+
+### D6. ABG prepares child identity before the effect edge
+
+Before invoking the operand GraphFunction, ABG derives a
+`TypedRecurseChildRequest` with:
+
+- plan and binding refs;
+- selected Module and operand GraphFunction identity;
+- stable parent locus and frame-lineage ref;
+- replay-derived application ordinal;
+- fresh child GraphCall and frame-attempt refs;
+- exact A input carrier and payload refs; and
+- the positive maximum application count.
+
+The child adapter owns only the GraphFunction interior and must be idempotent
+for the prepared child GraphCall ref. It returns one closed candidate:
+
+```text
+completed(B payload, response contract, evidence)
+held(reason, evidence)
+blocked(reason, evidence)
+runtime_failed(reason, evidence)
+```
+
+It cannot select foldback, change policy, advance the ordinal, emit runtime
+events, or certify the parent. Malformed or thrown output becomes a truthful
+blocked runtime resolution; recursion does not retry it.
+
+For the direct HoG realization, an admitted child-local failed return can leave
+the enclosing Run active. HoG authenticates that return against the prepared
+child execution basis and scope at its exact successor prefix, using the
+existing ABG child lifecycle projection. The failed route, Result, Judgment,
+C_Call, value digest and original diagnostic must agree. This return is a
+truthful failure, not a malformed completed-child foldback.
+
+HoG stops the active enclosing Run through the existing ABG runtime-failure
+owner. Its cause is the admitted failed child route. For an opaque diagnostic,
+the failure subject names the original child C_Call, Result and Judgment and
+the parent evaluator/input coordinates. For a canonical retained-JSON
+diagnostic, HoG uses the existing diagnostic owner to preserve its exact
+decoded subject, including JSON `null`; replacing that subject would violate
+the diagnostic's digest relation. The admitted parent scope and failed-child
+route causation retain the enclosing and child coordinates in either case.
+The returned failed completion preserves the child value and diagnostic.
+Prior admitted parent work and unresolved input remain unchanged.
+No successful child foldback, termination evaluation, rebind or retry follows.
+An already-failed Run propagates its existing failure without a second failure
+admission. Missing, crossed or stale child truth retains the existing refusal.
+
+```mermaid
+sequenceDiagram
+    participant Child as Declared child
+    participant HoG as HoG recursion
+    participant ABG as ABG owners
+    Child->>HoG: Failed completion with exact child refs
+    HoG->>ABG: Project admitted child basis, scope and failed route
+    ABG-->>HoG: Exact Result/Judgment/value/diagnostic correspondence
+    HoG->>ABG: Admit failure with exact diagnostic subject and child route cause
+    ABG-->>HoG: Non-green successor prefix and replay
+    HoG->>HoG: Return failed; no foldback or retry
+```
+
+### D7. Termination is evaluated over admitted B
+
+Only an admitted exact-contract `completed` child result reaches the declared
+termination evaluator. The evaluator request contains the declaration's
+exact binding and consumed field refs, current ordinal, policy projection,
+admitted B payload, and prior foldback evidence. Its closed candidate is:
+
+```text
+terminate(reason, evidence)
+foldback(reason, evidence)
+blocked(reason, evidence)
+```
+
+ABG validates the echo and admits one termination event. `terminate` returns
+the exact B payload. `blocked` stops. `foldback` may continue only when the
+current ordinal is below the admitted maximum. At the maximum, ABG records a
+budget stop before any foldback or next child effect.
+
+For T-252, held F_H and blocked paths never produce a completed round
+disposition and therefore never reach this evaluator. `closed_done` terminates;
+only the structurally admitted post-submitter `recurse_next_round` disposition
+may select foldback.
+
+### D8. Foldback is an exact B to A admission boundary
+
+The foldback adapter receives the admitted B payload, exact declaration,
+current policy, frame lineage, and prior-round evidence. It returns:
+
+```text
+bindingRef exact declaration binding
+sourceOutputCarrierRef exact B
+sourceOutputPayloadRef exact admitted child result
+targetInputCarrierRef exact A
+targetInputPayloadRef next A
+policyRef and policyDigest unchanged
+budgetSourceFieldRef unchanged
+preservedEvidenceRefs non-empty superset of prior round evidence
+foldbackEvidenceRefs include a content-derived parent-rebind witness
+```
+
+ABG rejects a changed binding, carrier pair, source payload, policy identity,
+budget-source ref, missing prior evidence, malformed target, or stale lineage.
+The witness binds the exact child output, proposed next input, foldback
+declaration digest, policy, budget, lineage, and preserved evidence. Generic or
+unrelated evidence cannot authorize the proposed next input.
+Rejection is itself admitted as terminal recurse truth, so replay cannot invoke
+the rejected foldback adapter again.
+An admitted foldback event is necessary but not sufficient to open the next
+child application.
+
+### D9. Parent rebind evaluation is mandatory
+
+The declared `requiresParentEvaluation: true` is realized by a separate
+`TypedRecurseParentRebindEvaluation`. This is a deterministic ABG admission
+projection, not another product callback. It checks the exact foldback event,
+next A carrier and payload, unchanged policy ref/digest and budget-source ref,
+stable lineage, preserved evidence, and the declaration's mandatory
+parent-evaluation flag. It independently re-derives the parent-rebind witness
+from admitted event truth; an absent or stale witness produces `blocked`
+before another child effect. Its closed result is `admitted` or `blocked`.
+
+Only an admitted parent-rebind event can advance replay to the next ordinal.
+The next child request consumes exactly the event's A payload and preserved
+evidence. The next operand invocation performs the actual semantic
+re-evaluation of the parent contract. Child closure and foldback alone never
+certify parent convergence. A held F_H state remains child runtime truth and
+does not arise from structural rebind admission.
