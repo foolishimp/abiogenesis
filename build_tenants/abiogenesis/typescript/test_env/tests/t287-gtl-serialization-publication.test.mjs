@@ -14,6 +14,7 @@ import * as m01 from '@abiogenesis/typescript-tenant/gtl/m01';
 import * as m02 from '@abiogenesis/typescript-tenant/gtl/m02';
 import * as m03 from '@abiogenesis/typescript-tenant/abg/m03';
 import * as gtl from '@abiogenesis/typescript-tenant/gtl';
+import {packProduct} from '../../scripts/product-payload.mjs';
 // The package is the extracted one a source-blind consumer run names, else the
 // build it is packed from. Unnamed, the lane packs and extracts its own copy for
 // the population case and writes the strict consumer inside the package scope
@@ -24,8 +25,7 @@ const exec=promisify(execFile);
 const lane=(base,prefix)=>{fs.mkdirSync(base,{recursive:true});const directory=fs.mkdtempSync(path.join(base,prefix));
  after(()=>fs.rmSync(directory,{recursive:true,force:true}));return directory;};
 const extractedPackage=async()=>{if(named)return root;const territory=lane(os.tmpdir(),'abi5-gtl-core-pack-');
- const {stdout}=await exec('npm',['pack','--ignore-scripts','--json','--pack-destination',territory],{cwd:tenantRoot,maxBuffer:10*1024*1024});
- const [packed]=JSON.parse(stdout);await exec('tar',['-xzf',path.join(territory,packed.filename),'-C',territory]);
+ const [packed]=await packProduct(tenantRoot,territory);await exec('tar',['-xzf',path.join(territory,packed.filename),'-C',territory]);
  return path.join(territory,'package');};
 assert.equal(fileURLToPath(import.meta.resolve('@abiogenesis/typescript-tenant/gtl/m01')),path.join(root,'build/code/src/gtl/m01.js'));
 const require=createRequire(import.meta.url),ts=require(path.join(root,'build/toolchain/typescript.cjs'));
