@@ -10,7 +10,8 @@ differs. The compiler finds every exported signature of the module identical to
 the base, except where the re-synced `childFunction` reaches. There the one
 difference is the optional `failedChildDiagnosticClassRefs` on the recurse
 `foldback`. The five smoke lanes pass: 13 tests, 10 pass, 0 fail, 3 skipped by
-environment gates.
+environment gates. r1 (packed artifact) and r2 (clean install) pass against a
+candidate basis refreshed from the final build.
 
 | Commit | Content |
 | --- | --- |
@@ -216,9 +217,10 @@ No file re-exports a new name, so no other declaration changes.
 
 ## 6. Identity digests
 
-The base build regenerates the committed manifest, graph and candidate basis
-byte for byte. The values below come from the regenerated files, observed
-before they were restored (ruling 6):
+The base build regenerates the committed manifest and capability graph byte
+for byte. The build does not write the candidate basis; it comes from
+`scripts/refresh-candidate-basis.mjs`. The values below come from the
+regenerated files, observed before they were restored (ruling 6):
 
 | Digest | Base | After re-sync | Final |
 | --- | --- | --- | --- |
@@ -226,6 +228,11 @@ before they were restored (ruling 6):
 | `contributionManifestDigest` | `sha256:3c104740283c7317960566f81fc96d7a00101676b2739ec687004197089da9ea` | `sha256:d50702e2071b10a07f0d37c0704817b023f4cfadfc3a1fd9a220829c28e33186` | `sha256:3c7080f93dc6f8c6e7ff2bae4cd9ec0566cd16ff677fcf2c32090d4608287ebf` |
 | `publicContractCatalog.catalogDigest` | `sha256:a67e743ca8fb775927c6ad67394d41797632d7895a9e7a9edce966ffb0f073f7` | `sha256:8a8644bbb1adab1f5629a32b4bdc40ee9bfdcb342b1dca8965755dd594dff077` | `sha256:44dc5b920db0402cab7ec6a5c2c7fdd6c2fdea53bd204df1c49604df66d096f4` |
 | capability graph `graphDigest` | `sha256:f9e6457b54b1bc548c00137a26d6790995e92cab20967479da832539a77590b2` | `sha256:844ff39610bbdd464dd8f4420dfa4f39e19c8f4a36430771690bd5dfe305c89b` | `sha256:4667187b71327110a9be5c35ea3c37fb348090bc7a65c5f3b92c1c1ecaa4cf88` |
+| candidate basis `artifactDigest` | `sha256:a03f1f7be520ef047a36946c16b0e4041469ddd5d9918cbb7930ad4b1b308c2a` (committed) | not refreshed | `sha256:13c80165fcf9505fdea2a5ece696dd76ef4c92396ee6d3364565cf8c5adbcf65` |
+| candidate basis `manifestDigest` | `sha256:abc60f8b7bb1254cff3d2e6bebd830130ccbacbdbc5c2ce5ecf08286d5ddae41` (committed) | not refreshed | `sha256:1eaa9c1a93b01ed4ed92a891292389a4fe87f0f605611a8c16c2a39bb11a2a24` |
+
+The final candidate basis comes from the final build, refreshed for r1 and
+r2. Its `productContentDigest` equals the final manifest's.
 
 Catalog rows (75 in all), at the re-sync and again at the final state:
 
@@ -277,9 +284,21 @@ Pins of this module's declaration or the old digests in `test_env`:
 - `test_env/fixtures/abi5-root-candidate-basis.json` pins the base
   `productContentDigest`. The pack and install lanes read it through
   `test_env/support/candidate-basis.mjs`: r1, r2, r3, steel and the installed
-  w2/d1/d2 files. None of those is in the smoke list. The Executive refreshes
-  it with `scripts/refresh-candidate-basis.mjs` at the merge, so I did not run
-  it.
+  w2/d1/d2 files. Sequence:
+  1. Rebuild the final state. Its 795 build files are byte-identical to the
+     earlier final build.
+  2. Run `node scripts/refresh-candidate-basis.mjs`. Its digests are in
+     section 6.
+  3. Run r1 and r2 with the lane command:
+
+  | File | Tests | Pass | Fail | Skip | Seconds |
+  | --- | --- | --- | --- | --- | --- |
+  | `r1-packed-artifact` | 1 | 1 | 0 | 0 | 29 |
+  | `r2-clean-install` | 1 | 1 | 0 | 0 | 52 |
+
+  r1 packs and verifies the tenant, so the packed declaration closure carries
+  the four new names. I restored the fixture afterwards, and the Executive
+  refreshes it at the merge.
 - `test_env/qualification/recipe/expected-output-inventory.json` (the
   5.0.0-rc.1 recipe, `ddc1b091c`) pins this module's `.d.ts`
   (`0dffd310…`) and `.js` (`69128cf4…`). Both already differ from the base
@@ -321,4 +340,5 @@ Pins of this module's declaration or the old digests in `test_env`:
 - The generated files are restored, not committed:
   - `contracts/capabilities/capability-definition-graph.json`;
   - `product-toolchain-manifest.json`;
-  - `test_env/fixtures/abi5-root-candidate-basis.json` (not regenerated).
+  - `test_env/fixtures/abi5-root-candidate-basis.json` (refreshed for r1 and
+    r2, then restored).
