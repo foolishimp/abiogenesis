@@ -4,8 +4,7 @@ import { isDeepStrictEqual } from "node:util";
 import { isRecord } from "../shared/admission_predicates.js";
 import { compareUnicodeCodeUnits, type JsonValue } from "../shared/canonical_json.js";
 import { projectNativeLivenessRead } from "./runtime_liveness.js";
-import { isRuntimeProbeObservation, isRuntimeSystemProbeContract, type RuntimeInvocationScope,
-  type RuntimeLivenessReadProjection } from "./runtime_liveness_contracts.js";
+import type { RuntimeInvocationScope, RuntimeLivenessReadProjection } from "./runtime_liveness_contracts.js";
 import { constructRuntimeFailureDiagnosticRef, projectRuntimeFailureEvidenceAtPrefix } from "./runtime_failure.js";
 import { modulePublicationSemanticDigest } from "../product/publication.js";
 import { reconstructHistoricalDeclarationCatalog, resolveExecutionDeclarationClosure, selectExactClosureContract } from "../product/declaration_closure.js";
@@ -41,6 +40,7 @@ import {
 import { projectExactExecutionBasisAtPrefix, projectExactInvocationAdmissionAtPrefix } from
   "./invocation_execution_truth.js";
 import {
+  projectEndedChildFrames,
   projectRunQuiescence,
   projectRunIdentityAtPrefix,
   projectRunSemanticReplayProjection,
@@ -1051,47 +1051,18 @@ function prepareRunRead(
   } catch { return null; }
 }
 
-/** Run quiescence's reader rule (`replay.ts` `projectRunQuiescence`): an
- * admitted blocked or failed child foldback is the fact that its child frame
- * ended, with that disposition. The derived fluents are unchanged. */
-type StoppedChildFrame = Readonly<{
-  runId: string; frameId: JsonValue | undefined; graphCallId: JsonValue | undefined; disposition: "blocked" | "failed";
-}>;
-
-function stoppedChildFrames(prefix: RuntimeEventPrefix, runId: string | null): readonly StoppedChildFrame[] {
-  return indexedRuntimeEvents(prefix, "kind:child_foldback_admitted").flatMap((event) => {
-    const payload = isRecord(event.payload) ? event.payload : null;
-    const disposition = payload?.childDisposition;
-    return payload !== null && event.runId !== undefined && (runId === null || event.runId === runId) &&
-        (disposition === "blocked" || disposition === "failed")
-      ? [{ runId: event.runId, frameId: payload.childFrameId, graphCallId: payload.childGraphCallId, disposition }]
-      : [];
-  });
-}
-
 const childFrameKey = (runId: string, frameId: JsonValue | undefined, graphCallId: JsonValue | undefined) =>
   JSON.stringify([runId, frameId, graphCallId]);
 const isFrameScope = (scope: RuntimeInvocationScope) => scope.cCallRef === null && scope.actorInvocationRef === null;
 
-/** The held frame-probe fluents of child frames that ended at a stopped foldback. */
-function endedFrameProbeFluentRefs(prefix: RuntimeEventPrefix, runId: string): ReadonlySet<string> {
-  const ended = new Set(stoppedChildFrames(prefix, runId).map((row) => childFrameKey(row.runId, row.frameId, row.graphCallId)));
-  return new Set(ended.size === 0 ? [] : indexedRuntimeEvents(prefix, "kind:runtime_activity_probe_observed").flatMap((event) => {
-    const contract = isRecord(event.payload) ? event.payload.probeContract : null;
-    const observation = isRecord(event.payload) ? event.payload.observation : null;
-    return event.runId === runId && isRuntimeSystemProbeContract(contract) && isRuntimeProbeObservation(observation) &&
-        isFrameScope(contract.scope) && ended.has(childFrameKey(runId, contract.scope.frameId, contract.scope.graphCallId))
-      ? [constructRuntimeFluent({ name: "runtime_invocation_active", identity: observation.scopeDigest }).fluentRef]
-      : [];
-  }));
-}
-
-/** A frame that ended at its admitted stopped foldback is not a live invocation.
- * The owner-sealed observer projections are kept or omitted, never rewritten. */
+/** A frame that ended at its admitted stopped foldback (`replay.ts`
+ * `projectEndedChildFrames`) is not a live invocation. The owner-sealed
+ * observer projections are kept or omitted, never rewritten. */
 function withoutEndedFrames(
   prefix: RuntimeEventPrefix, runId: string | null, liveness: RuntimeLivenessReadProjection,
 ): RuntimeLivenessReadProjection {
-  const ended = new Set(stoppedChildFrames(prefix, runId).map((row) => childFrameKey(row.runId, row.frameId, row.graphCallId)));
+  const ended = new Set(projectEndedChildFrames(prefix, runId).frames
+    .map((row) => childFrameKey(row.runId, row.frameId, row.graphCallId)));
   const invocations = liveness.invocations.filter((invocation) => !isFrameScope(invocation.scope) ||
     !ended.has(childFrameKey(invocation.scope.runId, invocation.scope.frameId, invocation.scope.graphCallId)));
   return invocations.length === liveness.invocations.length ? liveness : deepFreeze({ ...liveness, invocations });
@@ -1100,7 +1071,7 @@ function withoutEndedFrames(
 function graphCallStatus(context: GraphCallReadContext): ReplayState["runtimeStatus"] {
   if (context.eventAtoms.some((event) => event.eventKind === "graph_call_closed" && event.aggregateId === context.graphCallId)) return "closed";
   if (holdsAt(context.calculus, constructRuntimeFluent({ name: "graph_call_active", identity: context.graphCallId }))) return "active";
-  const ended = context.replay.runId === null ? [] : stoppedChildFrames(context.prefix, context.replay.runId)
+  const ended = context.replay.runId === null ? [] : projectEndedChildFrames(context.prefix, context.replay.runId).frames
     .filter((row) => row.graphCallId === context.graphCallId);
   return ended.length === 1 ? ended[0]!.disposition : context.replay.runtimeStatus;
 }
@@ -1112,7 +1083,7 @@ function projectRunStatus(
 ): ProjectedValue {
   if (context === null) return ABSENT;
   const stop = projectRunStopReading(context);
-  const ended = endedFrameProbeFluentRefs(context.prefix, targetRef);
+  const ended = projectEndedChildFrames(context.prefix, targetRef).probeFluentRefs;
   return {
     runId: targetRef,
     executionBasis: context.truth.executionBasis,

@@ -334,6 +334,45 @@ const RUN_QUIESCENCE_RUN_INDEPENDENT_FLUENTS = new Set([
   "worksite_observation_current",
 ]);
 
+/** @internal A child frame that ended at its admitted stopped foldback, with that disposition. */
+export type EndedChildFrame = Readonly<{
+  runId: string; frameId: JsonValue | undefined; graphCallId: JsonValue | undefined; disposition: "blocked" | "failed";
+}>;
+
+const endedChildFrameKey = (runId: string, frameId: JsonValue | undefined, graphCallId: JsonValue | undefined) =>
+  JSON.stringify([runId, frameId, graphCallId]);
+
+/** @internal The owner of one rule: an admitted stopped (blocked or failed)
+ * child foldback is the fact that its child frame ended, so that frame's probe
+ * is historical. The derived fluents themselves still hold. Returns the ended
+ * frames of `runId` (of every Run when null) and the held frame-probe fluent
+ * refs they make historical. Run quiescence and the Public read ports consume it. */
+export function projectEndedChildFrames(prefix: RuntimeEventPrefix, runId: string | null): Readonly<{
+  frames: readonly EndedChildFrame[];
+  probeFluentRefs: ReadonlySet<string>;
+}> {
+  const frames: readonly EndedChildFrame[] = indexedRuntimeEvents(prefix, "kind:child_foldback_admitted").flatMap((event) => {
+    const payload = isRecord(event.payload) ? event.payload : null;
+    const disposition = payload?.childDisposition;
+    return payload !== null && event.runId !== undefined && (runId === null || event.runId === runId) &&
+        (disposition === "blocked" || disposition === "failed")
+      ? [{ runId: event.runId, frameId: payload.childFrameId, graphCallId: payload.childGraphCallId, disposition }]
+      : [];
+  });
+  const ended = new Set(frames.map((row) => endedChildFrameKey(row.runId, row.frameId, row.graphCallId)));
+  const probeFluentRefs = new Set(ended.size === 0 ? [] :
+    indexedRuntimeEvents(prefix, "kind:runtime_activity_probe_observed").flatMap((event) => {
+      const contract = isRecord(event.payload) ? event.payload.probeContract : null;
+      const observation = isRecord(event.payload) ? event.payload.observation : null;
+      return event.runId !== undefined && isRuntimeSystemProbeContract(contract) && isRuntimeProbeObservation(observation) &&
+          contract.scope.cCallRef === null && contract.scope.actorInvocationRef === null &&
+          ended.has(endedChildFrameKey(event.runId, contract.scope.frameId, contract.scope.graphCallId))
+        ? [runtimeFluentKey(constructRuntimeFluent({ name: "runtime_invocation_active", identity: observation.scopeDigest }))]
+        : [];
+    }));
+  return { frames, probeFluentRefs };
+}
+
 export function projectRunQuiescence(
   prefix: ValidatedRuntimeEventPrefix,
 ): RunQuiescenceProjection;
@@ -407,22 +446,7 @@ export function projectRunQuiescence(
         identity: sha256Canonical(context.scope) })));
     }
   }
-  // A child frame ends at its admitted stopped (blocked or failed) foldback, so
-  // its frame probe is historical here. The derived fluent itself still holds.
-  const stoppedChildFrames = new Set(indexedRuntimeEvents(prefix, "kind:child_foldback_admitted").flatMap((event) =>
-    event.runId === runId && isRecord(event.payload) &&
-      (event.payload.childDisposition === "blocked" || event.payload.childDisposition === "failed")
-      ? [JSON.stringify([event.payload.childFrameId, event.payload.childGraphCallId])] : []));
-  const historicalProbeKeys = new Set(stoppedChildFrames.size === 0 ? [] :
-    indexedRuntimeEvents(prefix, "kind:runtime_activity_probe_observed").flatMap((event) => {
-      const contract = isRecord(event.payload) ? event.payload.probeContract : null;
-      const observation = isRecord(event.payload) ? event.payload.observation : null;
-      return event.runId === runId && isRuntimeSystemProbeContract(contract) && isRuntimeProbeObservation(observation) &&
-          contract.scope.cCallRef === null && contract.scope.actorInvocationRef === null &&
-          stoppedChildFrames.has(JSON.stringify([contract.scope.frameId, contract.scope.graphCallId]))
-        ? [runtimeFluentKey(constructRuntimeFluent({ name: "runtime_invocation_active", identity: observation.scopeDigest }))]
-        : [];
-    }));
+  const historicalProbeKeys = projectEndedChildFrames(prefix, runId).probeFluentRefs;
   const unknownFluents = projection.holds.filter((fluent) =>
     !closureSpineKeys.has(runtimeFluentKey(fluent)) &&
     !historicalProbeKeys.has(runtimeFluentKey(fluent)) &&
