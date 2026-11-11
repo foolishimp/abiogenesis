@@ -2523,9 +2523,8 @@ test('RC7 fixed admission: a Public direct Testing state Result admits direct UA
   for(const directory of (process.env.PATH??'').split(':').filter(Boolean)){try{await stat(join(directory,'npm'));npm=join(directory,'npm');break;}catch{}}
   assert.ok(npm,'the maintained setup requires npm on PATH');
   await mkdir(join(scratch,'artifacts'));
-  const {stdout:packed}=await promisify(execFile)(npm,['pack','--ignore-scripts','--json','--pack-destination',join(scratch,'artifacts')],
-    {cwd:packageRoot,maxBuffer:16*1024*1024,env:{...process.env,npm_config_update_notifier:'false'}});
-  const artifactPath=join(scratch,'artifacts',JSON.parse(packed)[0].filename),setupTmp=join(scratch,'setup-tmp');await mkdir(setupTmp);
+  const {packProduct}=await import('../../scripts/product-payload.mjs'),[packed]=await packProduct(packageRoot,join(scratch,'artifacts'));
+  const artifactPath=join(scratch,'artifacts',packed.filename),setupTmp=join(scratch,'setup-tmp');await mkdir(setupTmp);
   const inherited=Object.keys(process.env).filter(key=>['HOME','LANG','LC_ALL'].includes(key)||/^npm_config_/iu.test(key));
   const setupEnvironment={...Object.fromEntries(inherited.map(key=>[key,process.env[key]])),PATH:process.env.PATH,TMPDIR:setupTmp,npm_config_update_notifier:'false'};
   const root=join(scratch,'caller'),bootstrapRoot=join(root,'bootstrap/node_modules/@abiogenesis/typescript-tenant');await mkdir(bootstrapRoot,{recursive:true});
