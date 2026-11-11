@@ -1126,11 +1126,18 @@ dependency and sufficiency remain its judgment. It cannot select completion or
 override this computation.
 
 A Program may declare, for a registered purpose, the reviews that must be
-satisfied and current before that purpose is selected. The Executive is offered
-only permitted work, and a choice whose prerequisites do not hold is refused
-before the work is entered. A task declares every review its Program names, as
-required or as not applicable; a prerequisite binds only a required review. The
+satisfied and current before that purpose is selected. Only permitted work can
+be selected next, and a choice whose prerequisites do not hold is refused before
+the work is entered. A task declares every review its Program names, as required
+or as not applicable; a prerequisite binds only a required review. The
 selector's stated dependencies remain advisory.
+
+A step that fails with a declared recoverable class returns to the Executive in
+the same Run: the parent is re-evaluated, and the next selection sees the failed
+attempts from the admitted record, with the changes each attempt left in the
+worksite. A refused choice returns the same way. A write outside the grant, an
+unattributable effect, an unconfirmed termination or a failed deterministic
+computation stops the Run. Failed steps count against the declared limit.
 
 Governance preserves the original task, required outcomes and authority while
 selecting or revising the choice of preregistered graph work in response to

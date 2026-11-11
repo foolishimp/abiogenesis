@@ -1,5 +1,81 @@
 # T-287 Default Governance Library
 
+## Recoverable step failure — 2026-11-11
+
+RC12 package B2b, `design_reframe` of this library HOW/contract under Product
+[Default Governance And Lifecycle Library](../../../../specification/PRODUCT.md#default-governance-and-lifecycle-library);
+the recursion foldback member and bound counting are REQ-L-GTL3-RECURSE-007.
+
+**Path and outcome.** The executive recursion declares
+`failedChildDiagnosticClassRefs`. A step that fails with a declared class folds
+back failed; the runtime re-evaluates the parent over its unchanged input. The
+parent continues only over a step its admitted record shows to be recoverable,
+and the next selection task carries every failed step of this Run. Failed steps
+consume the recursion bound; at the bound the existing blocked stop occurs.
+
+**Typed handoffs.**
+- `defaultGovernanceGraphFunctions({ failedChildDiagnosticClassRefs })`, default
+  `GOVERNANCE_RECOVERABLE_FAILURE_CLASSES`:
+  `diagnostic://abiogenesis/worksite/native-work/transport_failure@5`,
+  `diagnostic://abiogenesis/worksite/native-work/contract_failure@5`,
+  `diagnostic://abiogenesis/default-library/missing-owned-select@5`. An empty
+  list omits the member: every definition, digest, prompt, schema and task byte
+  is unchanged and a failed step stops the Run.
+- Selector refusal: an exchange whose request, prompt digest, input digest or
+  implementation differs from the prepared one throws and stops the Run. Every
+  other unbound completion is a typed F_P refusal, class `missing-owned-select`,
+  stage `selector_completion`, relation (`GOVERNANCE_SELECTION_REFUSALS`):
+  `selector_process_ended` {actorInvocationRef, failureClass, timeoutClass};
+  `target_not_permitted` {graphFunctionRef, reviewRef, missingReviews,
+  staleReviews, missingSelectedPaths}; `response_refused` {graphFunctionRef,
+  reviewRef}, including tool calls and non-I-JSON output.
+- Selection task `failedAttempts` (exactOptional, non-empty, present exactly
+  when this Run has a failed step): per step in order `{graphFunctionRef,
+  reviewRef?, failureClassRef, timeoutClass, changedPaths, refusal?: {relation,
+  selectors}, resultRef}`. Each `resultRef` joins `framedSynthesisEvidenceRefs`;
+  the view shows the rows with one meaning sentence. No row enters the work state.
+
+**Declared computations.** `projectGovernanceFailedStepAtPrefix` reads one
+failed recursion foldback: its failed step Result, then down each failed
+workflow foldback under the failed CCall to the originating leaf Result, its
+locus and its last `c_call_evidenced` timeout class. The step continues when:
+- the origin is the selector leaf in the step, the retained diagnostic is
+  `missing-owned-select` for that CCall with a relation in the three above, and
+  for `selector_process_ended` an `actor_invocation_failed` for that CCall and
+  actor exists; or
+- the origin is the native work or native assessment leaf, the value is a
+  native failure with `after`, its class is not `write_scope_violation`,
+  `transport_identity_mismatch` or `assessment_independence_mismatch`, no
+  changed path lies outside the task's write roots, and no unknown-effect fact
+  (`nativeWorkUnknownEffectActor`) names its actor invocation.
+
+Otherwise the parent refuses at stage `parent_reentry` with
+`failure_record_unresolved`, `selection_failure_not_recoverable`,
+`failure_origin_not_recoverable`, `failure_class_not_recoverable`,
+`failure_effects_unattributed` or `failure_write_outside_grant`, selector
+`failureResultRef`, and the Run stops. The parent reads only its latest
+recursion foldback; selection preparation folds all of them and admission
+re-derives the task from the same prefix. Undeclared classes (a write outside
+the grant, preparation and projection refusals, command helper mismatches) are
+never folded back and stop the Run at the route.
+
+```mermaid
+sequenceDiagram
+  participant P as Parent
+  participant S as Executive step
+  participant L as Leaf
+  P->>S: state
+  S->>L: selection or chosen work
+  L-->>S: failed Result, declared class
+  S-->>P: failed foldback
+  P->>P: re-evaluate; origin and effects from the admitted record
+  alt recoverable
+    P->>S: unchanged state; task carries failedAttempts
+  else not recoverable
+    P-->>P: parent_reentry refusal; the Run stops
+  end
+```
+
 ## Declared process prerequisites — 2026-11-11
 
 RC12 package P, `design_reframe` of this library HOW/contract under Product
@@ -7,9 +83,9 @@ RC12 package P, `design_reframe` of this library HOW/contract under Product
 requirements unchanged.
 
 **Path and outcome.** A consumer Program declares, through the library's graph
-construction, the reviews each registered purpose requires. The selector is
-offered only permitted work. A choice whose prerequisites do not hold is
-refused at binding or at the choice projection, before its wrapper is entered.
+construction, the reviews each registered purpose requires. Only permitted work
+can be selected next. A choice whose prerequisites do not hold is refused at
+binding or at the choice projection, before its wrapper is entered.
 A task that omits a review its Program names is refused at selection intake.
 Without a declaration every definition, digest, prompt, schema and binding is
 unchanged.
@@ -29,8 +105,9 @@ unchanged.
 - Refusals keep their classes. Intake and projection use the existing
   `missing-owned-<operation>` diagnostics: stage `selection_intake`, relation
   `process_review_undeclared`, or stage `choice_projection`, relation
-  `target_not_permitted`, with the refs. The selector's binding exception
-  message names the next member and its missing reviews.
+  `target_not_permitted`, with the refs. The selector's binding refusal is the
+  typed `missing-owned-select` relation `target_not_permitted` with the chosen
+  target and its missing and stale reviews.
 
 **Declared computations.**
 - `governanceTargetPermission(task, target)` is the one permitted relation. It
@@ -52,8 +129,8 @@ unchanged.
   ref and digest and applies the relation to the chosen target.
 
 **Invariants, effect and proof.** No admitted choice names a non-permitted
-target. A refused choice opens no wrapper call and causes no effect; the Run
-stops at the failed selection, as any failed selection does. No event kind,
+target. A refused choice opens no wrapper call and causes no effect; it returns
+to the parent as a recoverable step failure (section above). No event kind,
 application, operation, binding, role, failure class or Public member is added;
 the declared `gate` application is not used. Proof:
 `t287-default-library-prerequisites.test.mjs` and the amendment witness.
@@ -71,7 +148,7 @@ sequenceDiagram
   alt permitted
     B->>W: admitted registered choice
   else not permitted
-    B-->>S: refusal before the wrapper; the Run stops
+    B-->>S: typed refusal before the wrapper; the step returns to the parent
   end
 ```
 
