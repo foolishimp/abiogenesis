@@ -3,10 +3,12 @@ import { projectGovernanceCoveredSourceUse } from "../abg/invocation_execution_t
 import { projectOwnedRuntimeEventPrefixAtDurablePrefix, readOwnedRuntimeEventPrefixAtDurablePrefix, retainExecutionBasisLifetime, type RuntimeEventPrefix } from "../abg/event_prefix.js";
 import { QUALIFICATION_RESOURCE_ASSERTION_SCHEMA } from "../validator/qualification_contracts.js";
 import { ABG_HISTORICAL_GRAPH_CALL_SOURCE_RESOURCE_SCHEMA } from "../abg/terminal_result_contracts.js";
-import { REQUIREMENT_HANDOFF_DECLARATION_SCHEMA } from "../gtl/requirement_handoff.js";
-import { SEMANTIC_LIFECYCLE_SCHEMA } from "../gtl/semantic_stage.js";
-import { SEMANTIC_JOB_LIFECYCLE_SCHEMA } from "../gtl/semantic_job.js";
-import { FOLDBACK_DECLARATION_SCHEMA } from "../gtl/serialization_contracts.js";
+import { isSemanticStageDeclaration } from "../gtl/semantic_stage.js";
+import {
+  GRAPH_FUNCTION_SCHEMA,
+  MODULE_PUBLICATION_SCHEMA,
+  nativeStructuralSchema,
+} from "../gtl/serialization_contracts.js";
 import * as Cause from "effect/Cause";
 import * as Effect from "effect/Effect";
 import * as Option from "effect/Option";
@@ -126,7 +128,6 @@ import {
   type OwnerSemanticOutput,
 } from "../shared/public_function_contracts.js";
 import { validateGraph } from "../validator/graph.js";
-import { RUN_ENVIRONMENT_SCHEMA } from "../gtl/stdo_run_environment.js";
 import { RUN_ENVIRONMENT_RESOURCES_SCHEMA } from "../product/stdo_environment.js";
 import { canonicalEquals } from "../shared/value/index.js";
 
@@ -246,475 +247,42 @@ function asyncStage<TPacket extends RunPacket, A>(
 
 const REF_ARRAY_SCHEMA = v.array(nonblankSchema);
 
-const EXECUTABLE_LEAF_REQUIREMENT_SCHEMA = v.strictObject({
-  kind: v.literal("executable_leaf_requirement"),
-  implementationBindingRef: nonblankSchema,
-  inputContractRef: nonblankSchema,
-  outputContractRef: nonblankSchema,
-  evidenceContractRef: nonblankSchema,
-  failureContractRef: nonblankSchema,
-  refusalContractRef: nonblankSchema,
-  judgmentContractRef: nonblankSchema,
-});
+// TD-34: GTL owns the graph function and module publication schemas
+// (`gtl/serialization_contracts.ts`); this door imports them. In three places
+// this door is stricter than the owner. Each is one named check applied on top
+// of the owner's schema: the owner admits the value and this door refuses it.
+// Whether the owner adopts each check is recorded under TD-34 in the technical
+// debt register.
 
-const INTERACTION_LEAF_REQUIREMENT_SCHEMA = v.strictObject({
-  kind: v.literal("interaction_leaf_requirement"),
-  interactionKind: nonblankSchema,
-  actorCapabilityRef: nonblankSchema,
-  requestContractRef: nonblankSchema,
-  responseContractRef: nonblankSchema,
-  continuationContractRef: nonblankSchema,
-});
+/** Stricter than the owner, which admits any string: every declaration value is nonblank. */
+function hasNonblankDeclarationValues(graphFunction: Readonly<GraphFunction>): boolean {
+  return Object.values(graphFunction.declarations).every((value) => v.is(nonblankSchema, value));
+}
 
-const C_OF_SCHEMA = v.strictObject({
-  kind: v.literal("c_of"),
-  inputCarrierRef: nonblankSchema,
-  outputCarrierRef: nonblankSchema,
-  programLocusRef: nonblankSchema,
-  stageRole: nonblankSchema,
-  fibre: v.picklist(["F_D", "F_P", "F_H"]),
-  armId: nonblankSchema,
-  compositionRef: v.nullable(nonblankSchema),
-  vectorIndex: v.pipe(v.number(), v.safeInteger(), v.minValue(0)),
-  judgmentPredicateRef: nonblankSchema,
-  resultBearing: v.boolean(),
-  requirement: v.union([
-    EXECUTABLE_LEAF_REQUIREMENT_SCHEMA,
-    INTERACTION_LEAF_REQUIREMENT_SCHEMA,
-  ]),
-});
+/** Stricter than the owner, which admits any string: every Program policy value is nonblank. */
+function hasNonblankPolicyValues(publication: Readonly<ModulePublication>): boolean {
+  return publication.programs.every((program) =>
+    Object.values(program.policies).every((value) => v.is(nonblankSchema, value)));
+}
 
-const C_PROGRAM_TERM_SCHEMA: v.GenericSchema = v.lazy(() => v.union([
-  C_OF_SCHEMA,
-  v.strictObject({
-    kind: v.literal("c_identity"),
-    inputCarrierRef: nonblankSchema,
-    outputCarrierRef: nonblankSchema,
-  }),
-  v.strictObject({
-    kind: v.literal("c_compose"),
-    inputCarrierRef: nonblankSchema,
-    outputCarrierRef: nonblankSchema,
-    terms: v.array(C_PROGRAM_TERM_SCHEMA),
-  }),
-  v.strictObject({
-    kind: v.literal("c_edge"),
-    inputCarrierRef: nonblankSchema,
-    outputCarrierRef: nonblankSchema,
-    transform: C_OF_SCHEMA,
-    evaluate: C_OF_SCHEMA,
-    consequence: C_OF_SCHEMA,
-  }),
-  v.strictObject({
-    kind: v.literal("c_workflow"),
-    inputCarrierRef: nonblankSchema,
-    outputCarrierRef: nonblankSchema,
-    graphFunctionRef: nonblankSchema,
-  }),
-  v.strictObject({
-    kind: v.literal("c_batch"),
-    inputCarrierRef: nonblankSchema,
-    outputCarrierRef: nonblankSchema,
-    taskInputCarrierRef: nonblankSchema,
-    taskOutputCarrierRef: nonblankSchema,
-    batchRef: nonblankSchema,
-    tasks: v.array(C_PROGRAM_TERM_SCHEMA),
-  }),
-  v.strictObject({
-    kind: v.literal("c_retry"),
-    inputCarrierRef: nonblankSchema,
-    outputCarrierRef: nonblankSchema,
-    budget: v.pipe(v.number(), v.safeInteger(), v.minValue(1)),
-    term: C_PROGRAM_TERM_SCHEMA,
-  }),
-]));
+/** Stricter than the owner, which checks each stage's structure alone: every
+ * semantic job stage also meets the stage invariants. */
+function hasSemanticJobStageInvariants(publication: Readonly<ModulePublication>): boolean {
+  return publication.semanticJobLifecycle === undefined ||
+    publication.semanticJobLifecycle.stages.every((stage) => isSemanticStageDeclaration(stage));
+}
 
-const GRAPH_FUNCTION_APPLICATION_SCHEMA = v.union([
-  v.strictObject({
-    kind: v.literal("graph_function_application"),
-    relationKind: v.literal("compose"),
-    applicationRef: nonblankSchema,
-    inputContractRef: nonblankSchema,
-    outputContractRef: nonblankSchema,
-    leftGraphFunctionRef: nonblankSchema,
-    rightGraphFunctionRef: nonblankSchema,
-  }),
-  v.strictObject({
-    kind: v.literal("graph_function_application"),
-    relationKind: v.literal("substitute"),
-    applicationRef: nonblankSchema,
-    inputContractRef: nonblankSchema,
-    outputContractRef: nonblankSchema,
-    outerGraphFunctionRef: nonblankSchema,
-    targetVectorRef: nonblankSchema,
-    innerGraphFunctionRef: nonblankSchema,
-  }),
-  v.strictObject({
-    kind: v.literal("graph_function_application"),
-    relationKind: v.literal("recurse"),
-    applicationRef: nonblankSchema,
-    inputContractRef: nonblankSchema,
-    outputContractRef: nonblankSchema,
-    graphFunctionRef: nonblankSchema,
-    terminationRuleRef: nonblankSchema,
-    terminationEvaluatorRefs: REF_ARRAY_SCHEMA,
-    terminationFieldRef: nonblankSchema,
-    foldbackRef: nonblankSchema,
-    foldback: FOLDBACK_DECLARATION_SCHEMA,
-    bound: v.pipe(v.number(), v.safeInteger(), v.minValue(1)),
-  }),
-  v.strictObject({
-    kind: v.literal("graph_function_application"),
-    relationKind: v.literal("fan_out"),
-    applicationRef: nonblankSchema,
-    inputContractRef: nonblankSchema,
-    outputContractRef: nonblankSchema,
-    batchRef: nonblankSchema,
-    elementGraphFunctionRef: nonblankSchema,
-    inputVectorRef: nonblankSchema,
-    outputVectorRef: nonblankSchema,
-    inputMemberContractRef: nonblankSchema,
-    outputMemberContractRef: nonblankSchema,
-  }),
-  v.strictObject({
-    kind: v.literal("graph_function_application"),
-    relationKind: v.literal("fan_in"),
-    applicationRef: nonblankSchema,
-    inputContractRef: nonblankSchema,
-    outputContractRef: nonblankSchema,
-    reducerGraphFunctionRef: nonblankSchema,
-    inputVectorRef: nonblankSchema,
-  }),
-  v.strictObject({
-    kind: v.literal("graph_function_application"),
-    relationKind: v.literal("gate"),
-    applicationRef: nonblankSchema,
-    inputContractRef: nonblankSchema,
-    outputContractRef: nonblankSchema,
-    targetRef: nonblankSchema,
-    ruleRef: nonblankSchema,
-    evaluatorRefs: REF_ARRAY_SCHEMA,
-  }),
-  v.strictObject({
-    kind: v.literal("graph_function_application"),
-    relationKind: v.literal("registered_selection"),
-    applicationRef: nonblankSchema,
-    inputContractRef: nonblankSchema,
-    outputContractRef: nonblankSchema,
-    sourceProgramLocusRef: nonblankSchema,
-    evaluatorRef: nonblankSchema,
-    ruleRef: nonblankSchema,
-  }),
-  v.strictObject({
-    kind: v.literal("graph_function_application"),
-    relationKind: v.literal("re_enter"),
-    applicationRef: nonblankSchema,
-    inputContractRef: nonblankSchema,
-    outputContractRef: nonblankSchema,
-    graphFunctionRef: nonblankSchema,
-    sourceProgramLocusRef: nonblankSchema,
-    targetProgramLocusRef: nonblankSchema,
-    maxApplications: v.pipe(v.number(), v.safeInteger(), v.minValue(1)),
-  }),
-  v.strictObject({
-    kind: v.literal("graph_function_application"),
-    relationKind: v.literal("promote"),
-    applicationRef: nonblankSchema,
-    inputContractRef: nonblankSchema,
-    outputContractRef: nonblankSchema,
-    sourceRef: nonblankSchema,
-    targetRef: nonblankSchema,
-  }),
-  v.strictObject({
-    kind: v.literal("graph_function_application"),
-    relationKind: v.literal("identity"),
-    applicationRef: nonblankSchema,
-    inputContractRef: nonblankSchema,
-    outputContractRef: nonblankSchema,
-    targetRef: nonblankSchema,
-  }),
-  v.strictObject({
-    kind: v.literal("graph_function_application"),
-    relationKind: v.literal("same_object"),
-    applicationRef: nonblankSchema,
-    inputContractRef: nonblankSchema,
-    outputContractRef: nonblankSchema,
-    leftRef: nonblankSchema,
-    rightRef: nonblankSchema,
-    witnessRef: nonblankSchema,
-  }),
-]);
+const RUN_INVOCATION_GRAPH_FUNCTION_SCHEMA = v.pipe(
+  nativeStructuralSchema(GRAPH_FUNCTION_SCHEMA),
+  v.check(hasNonblankDeclarationValues, "nonblank_declaration_value"),
+) as unknown as v.GenericSchema<GraphFunction, GraphFunction>;
 
-const GRAPH_TEMPLATE_SCHEMA = v.strictObject({
-  kind: v.literal("inline_graph"),
-  graphRef: nonblankSchema,
-  startNodeRef: nonblankSchema,
-  terminalNodeRefs: REF_ARRAY_SCHEMA,
-  nodes: v.array(v.strictObject({
-    nodeRef: nonblankSchema,
-    nodeKind: v.literal("c_locus"),
-    term: C_PROGRAM_TERM_SCHEMA,
-  })),
-  edges: v.array(v.strictObject({
-    edgeRef: nonblankSchema,
-    fromNodeRef: nonblankSchema,
-    toNodeRef: nonblankSchema,
-    inputBinding: v.optional(v.strictObject({
-      kind: v.literal("retain_graph_input"),
-      entryContractRef: nonblankSchema,
-      sourceContractRef: nonblankSchema,
-      targetContractRef: nonblankSchema,
-    })),
-  })),
-  applications: v.array(GRAPH_FUNCTION_APPLICATION_SCHEMA),
-});
-
-const GRAPH_FUNCTION_SCHEMA = v.strictObject({
-    kind: v.literal("graph_function"),
-    name: nonblankSchema,
-    version: v.literal("5.0.0"),
-    environment: v.strictObject({
-      requires: REF_ARRAY_SCHEMA,
-      provides: REF_ARRAY_SCHEMA,
-      carries: REF_ARRAY_SCHEMA,
-    }),
-    inputs: REF_ARRAY_SCHEMA,
-    outputs: REF_ARRAY_SCHEMA,
-    template: GRAPH_TEMPLATE_SCHEMA,
-    effects: REF_ARRAY_SCHEMA,
-    declarations: v.record(v.string(), nonblankSchema),
-    tags: REF_ARRAY_SCHEMA,
-  }) as unknown as v.GenericSchema<GraphFunction, GraphFunction>;
-
-const CONTRACT_DECLARATION_SCHEMA = v.strictObject({
-  contractRef: nonblankSchema,
-  contractVersion: v.literal("5.0.0"),
-  contractKind: v.picklist([
-    "closure",
-    "evidence",
-    "failure",
-    "input",
-    "judgment",
-    "output",
-    "refusal",
-    "transition",
-  ]),
-  valueKind: nonblankSchema,
-});
-
-const GTL_PROGRAM_SCHEMA = v.strictObject({
-  kind: v.literal("gtl_program"),
-  programRef: nonblankSchema,
-  version: v.literal("5.0.0"),
-  moduleRef: nonblankSchema,
-  starts: v.array(v.strictObject({
-    startRef: nonblankSchema,
-    graphFunctionRef: nonblankSchema,
-  })),
-  callableMembership: REF_ARRAY_SCHEMA,
-  closureContractRef: nonblankSchema,
-  policies: v.record(v.string(), nonblankSchema),
-  publicAssetTargets: v.optional(v.array(v.strictObject({
-    kind: v.literal("program_public_asset_target"),
-    handle: nonblankSchema,
-    assetRef: nonblankSchema,
-    startRef: nonblankSchema,
-  }))),
-  actionCatalog: v.optional(v.strictObject({
-    kind: v.literal("action_catalog"),
-    schemaVersion: v.literal("5.0.0"),
-    catalogRef: nonblankSchema,
-    catalogDigest: digestSchema,
-    rows: v.array(v.strictObject({
-      kind: v.literal("action_catalog_row"),
-      actionRef: nonblankSchema,
-      actionKind: nonblankSchema,
-      programRef: nonblankSchema,
-      graphFunctionRef: nonblankSchema,
-      targetProgramLocusRef: nonblankSchema,
-      targetObligationRefs: REF_ARRAY_SCHEMA,
-      inputAssetRefs: REF_ARRAY_SCHEMA,
-      outputAssetRefs: REF_ARRAY_SCHEMA,
-      expectedDeltaRef: nonblankSchema,
-      progressConditionRef: nonblankSchema,
-      stopConditionRef: nonblankSchema,
-    })),
-  })),
-  constructionComposition: v.optional(v.strictObject({
-    kind: v.literal("construction_composition"),
-    schemaVersion: v.literal("5.0.0"),
-    compositionRef: nonblankSchema,
-    compositionDigest: digestSchema,
-    graphFunctionRef: nonblankSchema,
-    authorities: v.tuple([
-      v.strictObject({
-        kind: v.literal("construction_authority_binding"),
-        semanticAuthority: v.picklist([
-          "synthesizeModel",
-          "evalGap",
-          "evaluateNext",
-          "evaluateAction",
-        ]),
-        authorityRef: nonblankSchema,
-        initialProgramLocusRef: nonblankSchema,
-        refreshProgramLocusRef: v.nullable(nonblankSchema),
-      }),
-      v.strictObject({
-        kind: v.literal("construction_authority_binding"),
-        semanticAuthority: v.picklist([
-          "synthesizeModel",
-          "evalGap",
-          "evaluateNext",
-          "evaluateAction",
-        ]),
-        authorityRef: nonblankSchema,
-        initialProgramLocusRef: nonblankSchema,
-        refreshProgramLocusRef: v.nullable(nonblankSchema),
-      }),
-      v.strictObject({
-        kind: v.literal("construction_authority_binding"),
-        semanticAuthority: v.picklist([
-          "synthesizeModel",
-          "evalGap",
-          "evaluateNext",
-          "evaluateAction",
-        ]),
-        authorityRef: nonblankSchema,
-        initialProgramLocusRef: nonblankSchema,
-        refreshProgramLocusRef: v.nullable(nonblankSchema),
-      }),
-      v.strictObject({
-        kind: v.literal("construction_authority_binding"),
-        semanticAuthority: v.picklist([
-          "synthesizeModel",
-          "evalGap",
-          "evaluateNext",
-          "evaluateAction",
-        ]),
-        authorityRef: nonblankSchema,
-        initialProgramLocusRef: nonblankSchema,
-        refreshProgramLocusRef: v.nullable(nonblankSchema),
-      }),
-    ]),
-    interactionProgramLocusRef: nonblankSchema,
-    closurePolicy: v.strictObject({
-      kind: v.literal("construction_policy"),
-      policyRef: nonblankSchema,
-      requireCompleteEvidence: v.boolean(),
-      requirePostEvidenceRefresh: v.boolean(),
-    }),
-  })),
-});
-
-const CATALOG_CONTRIBUTION_SCHEMA = v.strictObject({
-  handle: nonblankSchema,
-  kind: v.picklist(["graph_function", "node_type", "overlay"]),
-  declarationOrContractRef: nonblankSchema,
-  owningProductId: nonblankSchema,
-  programMembershipRefs: REF_ARRAY_SCHEMA,
-  readinessPrerequisiteRefs: REF_ARRAY_SCHEMA,
-  compatibilityRefs: REF_ARRAY_SCHEMA,
-  provenanceRefs: REF_ARRAY_SCHEMA,
-});
-
-const MODULE_PUBLICATION_SCHEMA = v.strictObject({
-    requirementHandoffs: v.optional(v.array(REQUIREMENT_HANDOFF_DECLARATION_SCHEMA)),
-    runEnvironments: v.optional(v.array(RUN_ENVIRONMENT_SCHEMA)),
-    semanticLifecycle: v.optional(SEMANTIC_LIFECYCLE_SCHEMA),
-    semanticJobLifecycle: v.optional(SEMANTIC_JOB_LIFECYCLE_SCHEMA),
-    kind: v.literal("module_publication"),
-    moduleRef: nonblankSchema,
-    moduleVersion: v.literal("5.0.0"),
-    owningProductId: nonblankSchema,
-    artifactDigest: digestSchema,
-    productContentDigest: digestSchema,
-    productManifestDigest: digestSchema,
-    descriptorRef: nonblankSchema,
-    contributionManifestRef: nonblankSchema,
-    productSemanticsBinding: v.strictObject({
-      kind: v.literal("product_semantics_binding"),
-      bindingRef: nonblankSchema,
-      packageName: nonblankSchema,
-      packageVersion: nonblankSchema,
-      modulePath: nonblankSchema,
-      namedSymbol: nonblankSchema,
-    }),
-    contracts: v.array(CONTRACT_DECLARATION_SCHEMA),
-    evaluators: v.array(v.strictObject({
-      name: nonblankSchema,
-      regime: v.picklist(["F_D", "F_P", "F_H"]),
-      description: v.string(),
-      binding: nonblankSchema,
-      consumedFieldRefs: REF_ARRAY_SCHEMA,
-      tags: REF_ARRAY_SCHEMA,
-    })),
-    rules: v.array(v.strictObject({
-      name: nonblankSchema,
-      kind: nonblankSchema,
-      config: v.record(v.string(), jsonValueSchema),
-      tags: REF_ARRAY_SCHEMA,
-    })),
-    implementationBindings: v.array(v.strictObject({
-      kind: v.literal("implementation_binding"),
-      bindingRef: nonblankSchema,
-      implementationRef: nonblankSchema,
-      packageName: nonblankSchema,
-      packageVersion: nonblankSchema,
-      modulePath: nonblankSchema,
-      namedSymbol: nonblankSchema,
-      computeRegime: v.picklist(["F_D", "F_P"]),
-      inputContractRef: nonblankSchema,
-      outputContractRef: nonblankSchema,
-      failureContractRef: nonblankSchema,
-      refusalContractRef: nonblankSchema,
-    })),
-    closureContracts: v.array(v.union([
-      v.strictObject({
-        kind: v.literal("closure_contract"),
-        closureContractRef: nonblankSchema,
-        predicateRef: nonblankSchema,
-        evidenceContractRef: nonblankSchema,
-        resultContractRef: nonblankSchema,
-        refusalContractRef: nonblankSchema,
-        refusalValueKind: nonblankSchema,
-        judgmentContractRef: nonblankSchema,
-        rejectionContractRef: nonblankSchema,
-        transitionContractRef: nonblankSchema,
-        replayProjectionRef: nonblankSchema,
-        terminalKind: v.literal("completed"),
-        closureScope: v.literal("run"),
-        eventKindRefs: v.tuple([
-          v.literal("terminal_reached"),
-          v.literal("frame_closed"),
-          v.literal("graph_call_closed"),
-          v.literal("run_closed"),
-        ]),
-      }),
-      v.strictObject({
-        kind: v.literal("closure_contract"),
-        closureContractRef: nonblankSchema,
-        predicateRef: nonblankSchema,
-        evidenceContractRef: nonblankSchema,
-        resultContractRef: nonblankSchema,
-        refusalContractRef: nonblankSchema,
-        refusalValueKind: nonblankSchema,
-        judgmentContractRef: nonblankSchema,
-        rejectionContractRef: nonblankSchema,
-        transitionContractRef: nonblankSchema,
-        replayProjectionRef: nonblankSchema,
-        terminalKind: v.literal("completed"),
-        closureScope: v.literal("graph_call"),
-        eventKindRefs: v.tuple([
-          v.literal("terminal_reached"),
-          v.literal("frame_closed"),
-          v.literal("graph_call_closed"),
-        ]),
-      }),
-    ])),
-    programs: v.array(GTL_PROGRAM_SCHEMA),
-    graphFunctions: v.array(GRAPH_FUNCTION_SCHEMA),
-    contributions: v.array(CATALOG_CONTRIBUTION_SCHEMA),
-  }) as unknown as v.GenericSchema<ModulePublication, ModulePublication>;
+const RUN_INVOCATION_MODULE_PUBLICATION_SCHEMA = v.pipe(
+  nativeStructuralSchema(MODULE_PUBLICATION_SCHEMA),
+  v.check((publication) => publication.graphFunctions.every(hasNonblankDeclarationValues), "nonblank_declaration_value"),
+  v.check(hasNonblankPolicyValues, "nonblank_policy_value"),
+  v.check(hasSemanticJobStageInvariants, "semantic_job_stage_invariants"),
+) as unknown as v.GenericSchema<ModulePublication, ModulePublication>;
 
 const PRODUCT_DECLARED_DEPENDENCY_SCHEMA = v.strictObject({
   kind: v.literal("requires"),
@@ -923,7 +491,7 @@ const GRAPH_FUNCTION_CATALOG_ENTRY_SCHEMA = v.strictObject({
   handle: nonblankSchema,
   definitionRef: nonblankSchema,
   definitionDigest: digestSchema,
-  definition: GRAPH_FUNCTION_SCHEMA,
+  definition: RUN_INVOCATION_GRAPH_FUNCTION_SCHEMA,
   owningProductId: nonblankSchema,
   moduleRef: nonblankSchema,
   publicationDigest: digestSchema,
@@ -1012,9 +580,9 @@ const READY_GRAPH_FUNCTION_CATALOG_SCHEMA = v.strictObject({
     resolvedLock: RESOLVED_PRODUCT_LOCK_SCHEMA,
     verifiedProducts: v.array(VERIFIED_PRODUCT_SCHEMA),
     installedProducts: v.array(PRODUCT_INSTALL_CANDIDATE_SCHEMA),
-    publications: v.array(MODULE_PUBLICATION_SCHEMA),
+    publications: v.array(RUN_INVOCATION_MODULE_PUBLICATION_SCHEMA),
   }),
-  boundPublications: v.array(MODULE_PUBLICATION_SCHEMA),
+  boundPublications: v.array(RUN_INVOCATION_MODULE_PUBLICATION_SCHEMA),
   rowDispositions: v.array(CATALOG_READINESS_ROW_SCHEMA),
 }) as unknown as v.GenericSchema<
   ReadyGraphFunctionCatalog,
