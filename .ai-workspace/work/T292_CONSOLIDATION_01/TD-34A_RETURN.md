@@ -180,21 +180,40 @@ The door checks shape only. It does not check that `boundPublications` equals
 entry's definition is in a publication. In the mixed case (a copied Catalog
 with an established view) only the Catalog is checked.
 
-**Relation to TD-31's closure-publication gap.** Product resolution rebuilds
-the Catalog from `input.catalog.readinessBasis`
-(`product/execution_resolution.ts:459-463`, `admitGraphFunctionCatalog`) and
-takes the closure publications from that Catalog's `boundPublications`
-(`product/declaration_closure.ts:53`, `:445`). Every closure publication is
-therefore a member of `readinessBasis.publications`. On a run that enters
-through this door with a caller-supplied Catalog, this door has already
-checked every closure publication against the owner's strict publication
-schema before resolution runs. A dependency publication with an unknown key,
-such as TD-31's `fooTd31`, is refused here. This was already true of the copy,
-whose publication schema was also a strict object, and it stays true. The gap
-TD-31 found remains for a caller that calls Product resolution directly
-(`ProductExecutionResolutionPort.resolve`, TD-31's probe door), because that
-caller does not pass through this door. `product/catalog_operations.ts` is
-unchanged.
+**Relation to TD-31's closure-publication gap.**
+
+- Product resolution rebuilds the Catalog from
+  `input.catalog.readinessBasis` (`product/execution_resolution.ts:459-463`,
+  `admitGraphFunctionCatalog`). It takes the closure publications from that
+  Catalog's `boundPublications` (`product/declaration_closure.ts:53`, `:445`).
+  Every closure publication is therefore a member of
+  `readinessBasis.publications`.
+- On a run, this door runs before the run owner's preparation resolves
+  execution (`ProductRunInvocationPort.prepare`,
+  `owner_bindings/run_invocation.ts:896`). So when a caller-supplied Catalog
+  has a dependency publication with an unknown top-level key (TD-31's
+  `fooTd31`), the run is refused here, before that resolution.
+- The grid shows this on both doors. On each of the 7 publication families
+  (section 7), an unknown top-level key is refused in
+  `readinessBasis.publications` (7 cells) and in `boundPublications` (7
+  cells). The copy's publication schema was also a strict object, so this is
+  unchanged.
+- Across the grid, both doors admit an unknown key only at record sites, where
+  any key is lawful: `declarations`, `policies` and `rules[].config`.
+
+The gap TD-31 found can still be reached without passing this door, in two
+places:
+
+- a direct call to `ProductExecutionResolutionPort.resolve` (TD-31's probe
+  door);
+- SDK call construction. `constructInstalledStartCall`
+  (`public/installed_public_definition_call.ts:542`) calls
+  `populateProductRunInvocation`, which resolves the caller's Catalog
+  (`product/run_invocation_operation.ts:943`) before the call exists. A run
+  built this way is still refused at this door when it is submitted, but the
+  population's resolution has already run over the unchecked Catalog.
+
+`product/catalog_operations.ts` is unchanged.
 
 ## 6. Replay, re-admission and recorded data (ruling 5)
 
@@ -293,7 +312,9 @@ re-admits one.
 ## 7. Differential over values
 
 Harness: `/private/tmp/abg-td34a-work/harness/grid.mjs`, with
-`doors.mjs`. Result: `grid-final2.json`.
+`doors.mjs`. Result: `grid-final3.json`, which carries the differing cells, the
+admitted cells whose output differs from the input, and the unknown-key
+tally.
 
 **How the doors are built.** Each side transpiles its own source of
 `run_invocation.ts`:
@@ -314,12 +335,19 @@ what the binder runs for a member that no owner established (section 3).
   - nested compose, batch and recursion;
   - all 11 applications, and `recurse` with and without
     `failedChildDiagnosticClassRefs`.
-- Graph functions from every shipped publication.
-- Every `construct*ModulePublication`, plus the D2 source publication (with
-  `requirementHandoffs`), the D2 consumer publication (`semanticLifecycle`)
-  and a generic job publication (`semanticJobLifecycle`).
-- The default library publication carries `runEnvironments`. Each optional
-  member is tested present and absent.
+- Graph functions: the first graph function of every
+  `construct*ModulePublication` and of the three publications below, plus
+  synthesized ones.
+- Seven publications, each mutated at every structural site:
+  - consensus;
+  - worksite construction;
+  - default governance library, which carries `runEnvironments`;
+  - self-conformance;
+  - the D2 source publication (`requirementHandoffs`);
+  - the D2 consumer publication (`semanticLifecycle`);
+  - a generic job publication (`semanticJobLifecycle`).
+- Each optional member is tested present and absent, including on the
+  consensus publication.
 
 **Mutations.**
 
@@ -543,6 +571,25 @@ and the base `productContentDigest` reproduces the base manifest's
 No generated contract is built from the copy. Both changed files were restored
 before committing. The Executive regenerates them at the merge.
 
+**Qualification inventory.** Two qualification files pin digests that cover
+this file:
+
+- `test_env/qualification/inventory.json` pins the digest of
+  `code/src/owner_bindings/run_invocation.ts`;
+- `test_env/qualification/recipe/expected-output-inventory.json` pins the
+  digests of the built `run_invocation.js` and `.d.ts`.
+
+`npm run build` does not regenerate either file, and both pins were already
+stale at base:
+
+- the inventory pins the source at 84,653 bytes (`sha256:1c4a66a3…`), while
+  the base file is 109,109 bytes (`sha256:68e0c572…`);
+- the expected-output inventory pins `run_invocation.js` at 80,272 bytes,
+  while the base build's is 98,503.
+
+These files are maintained by hand (TD-63; TD-64 left their digests to TD-63).
+This package does not touch them. No T-292 lane is registered in them.
+
 ## 11. Size
 
 `git diff --numstat 2a2c07894 -- build_tenants/abiogenesis/typescript/code/src`:
@@ -559,7 +606,8 @@ lines.
 | Commit | Content |
 | --- | --- |
 | `43a500c86` | the source change and the new lane (authored files only) |
-| this commit | this Return |
+| `171421f0f` | this Return |
+| this commit | the Return amended: section 5 (SDK population reaches resolution before this door; grid evidence for unknown keys), section 10 (qualification inventory), residual 4 |
 
 ## 13. Deviations
 
@@ -587,9 +635,11 @@ lines.
      refuse them is an owner question for TD-34 or a new entry.
 3. **The three stricter checks** stay at this door. Whether the GTL owner
    adopts them is open under TD-34 (ruling 3).
-4. **The closure-publication gap** (TD-31) remains for a direct call to
-   Product resolution. On a run through this door, every closure publication
-   is already checked here (section 5).
+4. **The closure-publication gap** (TD-31) remains in two places: a direct
+   call to Product resolution, and SDK call population
+   (`populateProductRunInvocation`), which resolves the caller's Catalog
+   before the call reaches this door. A run submitted through this door has
+   every closure publication checked here first (section 5).
 5. **`t287-historical-source-resource` test 1** is red on base and after,
    and is recorded in TD-60.
 6. **The later parts of TD-34** are untouched: the repeated setup sequence,
