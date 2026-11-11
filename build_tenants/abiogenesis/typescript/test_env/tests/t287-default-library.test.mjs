@@ -921,49 +921,7 @@ test('worksite command-executor assembly is bounded by the Run declared prompt b
   async t=>worksiteRoleBoundCase(t,'command_executor'));
 test('worksite constructor assembly is bounded by the Run declared prompt bound: a fitting prompt assembles, an overflowing one refuses',
   async t=>worksiteRoleBoundCase(t,'constructor'));
-test('selector planning fits captured eighteen and realistic fifty-one complete owned assemblies',
-  {skip:!process.env.ABI5_PLANNING_PROJECTION_CAPTURE&&'ABI5_PLANNING_PROJECTION_CAPTURE unset; requires the captured planning-projection fixture'},async t=>{
-    const fixture=JSON.parse(await readFile(process.env.ABI5_PLANNING_PROJECTION_CAPTURE,'utf8')),metrics=[];
-    const load=async pin=>{const bytes=await readFile(pin.path);assert.equal(product.sha256Bytes(bytes),'sha256:'+pin.sha256);return JSON.parse(bytes);};
-    const captured=await load(fixture.captured),controlled=await load(fixture.controlled);
-    assert.equal(product.sha256Bytes(await readFile(fixture.oldProjector.path)),'sha256:'+fixture.oldProjector.sha256);
-    assert.equal(captured.state.observations.length,18);assert.equal(controlled.state.observations.length,51);
-    assert.deepEqual(controlled.state.observations.slice(0,18),captured.state.observations);assert.deepEqual(controlled.state.original,captured.state.original);
-    for(const[name,task]of [['captured',captured],['controlled16',controlled]]){
-      const before=product.sha256Canonical(task),view=product.projectFramedSynthesisPromptTask(task);planningFactCorrespondence(task,view);
-      let knownNameLines=0;
-      for(const[i,o]of task.state.observations.entries())if(o.purpose==='testing')for(const[j,c]of o.value.commandResults.entries()){
-        const names=(c.stdout.text??'').split('\n').filter(line=>line.includes('*** FAILED ***')),shown=view.observations[i].observed.commandResults[j].stdout;
-        knownNameLines+=names.length;for(const name of names)assert.ok(shown.excerpts.some(e=>e.text.includes(name)),name);
-      }
-      if(name==='captured')assert.equal(knownNameLines,31);
-      const old=await planningAssemblyFor(task,{oldProjectorSource:fixture.oldProjector.path});assert.equal(old.cause,'declared_bound_overflow');
-      const assembly=await planningAssemblyFor(task);assert.equal(assembly.kind,'native_instruction_assembly',JSON.stringify(assembly));
-      assert.ok(Buffer.byteLength(assembly.request.prompt)<=task.state.original.maxPromptBytes);assert.equal(product.sha256Canonical(task),before);
-      metrics.push({name,observations:task.state.observations.length,completePromptBytes:Buffer.byteLength(assembly.request.prompt),projectionBytes:Buffer.byteLength(product.canonicalJson(view)),knownNameLines});
-    }
-    const fd=await import('node:fs/promises'),handle=await fd.open(fixture.eventStore.path,'r');
-    try{for(const coordinate of fixture.owners){
-      const bytes=Buffer.alloc(coordinate.byteLength);await handle.read(bytes,0,bytes.length,coordinate.offset);assert.equal(product.sha256Bytes(bytes),'sha256:'+coordinate.sha256);
-      const event=JSON.parse(bytes),owner=event.payload.value;assert.equal(event.payload.resultRef,coordinate.resultRef);
-      assert.equal(product.sha256Canonical(owner),event.payload.valueDigest);
-      const {resultRef,resultDigest,...resultBody}=event.payload;
-      assert.equal(product.sha256Canonical(resultBody),resultDigest);
-      assert.equal(resultDigest,coordinate.resultDigest);assert.equal(resultRef,'result://abiogenesis/'+resultDigest.slice(7));
-      const retained=captured.state.observations.find(o=>o.resultRef===coordinate.resultRef);assert.equal(retained.resultDigest,coordinate.resultDigest);
-      assert.equal(event.payload.cCallRef,retained.cCallRef);assert.equal(event.aggregateId,retained.cCallRef);
-      const displayed=product.projectFramedSynthesisPromptTask(captured).observations[captured.state.observations.indexOf(retained)].observed;
-      for(const[j,row]of retained.value.commandResults.entries())for(const lane of ['stdout','stderr']){
-        const ref=displayed.commandResults[j][lane].rawBody,stream=ref.fieldPath.reduce((v,k)=>v[k],owner),decoded=Buffer.from(stream.payload,'base64');
-        assert.equal(product.sha256Bytes(decoded),stream.digest);assert.equal(decoded.length,stream.byteLength);
-        assert.equal(stream.digest,row[lane].digest);assert.equal(stream.byteLength,row[lane].byteLength);
-        assert.equal(decoded.toString(),row[lane].text);
-      }
-      for(const[j,p]of retained.value.predicateObservations.entries())assert.deepEqual(
-        displayed.predicateObservations[j].evidenceBody.fieldPath.reduce((v,k)=>v[k],owner),p.evidence);
-    }}finally{await handle.close();}
-    t.diagnostic(JSON.stringify({metrics,authenticOwningResults:fixture.owners.length,controlled:'synthetic; not native mutant detection'}));
-  });
+// Retired (T-292 TD-60): selector planning fits the captured eighteen and fifty-one owned assemblies; input the captured planning-projection fixture not recorded
 
 test('native observation facts preserve captured history through preparation admission and complete assembly',
   {skip:!process.env.ABI5_NATIVE_OBSERVATION_CAPTURE&&'ABI5_NATIVE_OBSERVATION_CAPTURE unset; requires the captured native observation fixture'},async t=>{
