@@ -13,6 +13,7 @@ import {
 } from "../product/index.js";
 import {
   constructWorkspaceBindingInResolvedLock,
+  isExactWorkspaceBinding,
   isProductInstallCandidateInResolvedLock,
   isWorkspaceBindingCandidateInResolvedLock,
 } from "../product/environment.js";
@@ -1104,19 +1105,9 @@ export function hasAdmittedWorkspaceBinding(
   projection: ExactPrefixArtifactTruthProjection,
   binding: WorkspaceBinding,
 ): boolean {
-  const bindingDigest = sha256Canonical({
-    workspaceId: binding.workspaceId,
-    authorityBasisId: binding.authorityBasisId,
-    authorityBasisDigest: binding.authorityBasisDigest,
-    authorizedActorRef: binding.authorizedActorRef,
-    productSetId: binding.productSetId,
-    productSetDigest: binding.productSetDigest,
-    lockId: binding.lockId,
-    lockDigest: binding.lockDigest,
-    roots: binding.roots,
-  });
+  // The binding owner is `isExactWorkspaceBinding`; the row is its admission.
   return (
-    bindingDigest === binding.bindingDigest &&
+    isExactWorkspaceBinding(binding) &&
     selectExactArtifactTruthRow(projection, {
       operationId: "abg.operation.workspace.bind",
       authorityScopeRef: binding.bindingId,

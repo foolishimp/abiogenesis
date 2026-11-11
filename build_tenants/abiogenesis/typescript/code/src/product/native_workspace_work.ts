@@ -4,8 +4,8 @@ import { canonicalJson, type JsonValue } from "../shared/canonical_json.js";
 import { sha256Bytes, sha256Canonical, type Sha256Digest } from "../shared/digests.js";
 import { deepFreeze } from "../shared/immutable.js";
 import { admitIJsonText } from "../shared/i_json.js";
-import { isExactWorkspaceBinding, isWorkspaceAuthorityBasis, type WorkspaceAuthorityBasis, type WorkspaceBinding } from "./environment.js";
-import { isCapabilityGrantValue, type CapabilityGrant } from "./invocation.js";
+import { exactWorkspaceAuthorityJoin, isExactWorkspaceBinding, isWorkspaceAuthorityBasis, type WorkspaceAuthorityBasis, type WorkspaceBinding } from "./environment.js";
+import { isCapabilityGrantValue, isExactDirectGrant, type CapabilityGrant } from "./invocation.js";
 import { isWorksiteContextObservation, normalizeWorksiteRelativePath, worksiteContextIdentityEntry, type WorksiteContextObservation,
   type WorksiteEffectRefusal } from "./worksite_effect.js";
 import type { ActorProcessCarrierValidation } from "../abg/actor_process.js";
@@ -36,9 +36,7 @@ const taskSchema = v.strictObject({ kind: v.literal("native_workspace_work_task"
 export function isNativeWorkspaceWorkTask(value: unknown): value is NativeWorkspaceWorkTask {
   if (!v.is(taskSchema, value)) return false;
   const t = value, w = t.workspaceBinding, a = t.workspaceAuthorityBasis, c = t.context, g = t.capabilityGrant;
-  return w.authorityBasisId === a.authorityBasisId && w.authorityBasisDigest === a.authorityBasisDigest &&
-    w.authorizedActorRef === a.authorizedActorRef && g.actorRef === a.authorizedActorRef &&
-    g.operationId === "abg.operation.run.invoke" && g.scopeRef === w.bindingId && g.scopeDigest === w.bindingDigest &&
+  return exactWorkspaceAuthorityJoin(a, w) && isExactDirectGrant(g, w) &&
     c.workspaceAuthorityBasisRef === a.authorityBasisId && c.workspaceAuthorityBasisDigest === a.authorityBasisDigest &&
     c.workspaceBindingIdentity === w.bindingId && c.workspaceBindingDigest === w.bindingDigest &&
     // W and R are distinct: R is the observed commissioned scope; W may name
