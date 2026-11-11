@@ -57,6 +57,10 @@ const unknownGroupLifetime = {
   }, observers),
 };
 
+// The helper's Effect command reaches these Promise-facing cases through its own host projection.
+const runCommandOnHost = '\nconst runCommandOnHost = (...args) => runHelperProgram(runCommand(...args));' +
+  '\nexport { runCommandOnHost as runCommand };';
+
 const holds = (rows, name, identity) => calculus.holdsAt(
   calculus.deriveRuntimeEventCalculusProjection(prefixes.selectValidatedRuntimeEventPrefix(deepFreeze([...rows]))),
   calculus.constructRuntimeFluent({ name, identity }));
@@ -322,14 +326,14 @@ test('helper route: the classifier reports spawn failure as confirmed and unreso
     commandId: 'command://t287/carrier', executable, args: executable === process.execPath ? ['-e', ''] : [],
     relativeCwd: '.', environment: [], timeoutMs: 10_000, terminationGraceMs: 50, expectedReports: [] }] });
 
-  const real = await component('implementation/worksite_command_helper', {}, '\nexport { runCommand };', exposeRunCommand);
+  const real = await component('implementation/worksite_command_helper', {}, runCommandOnHost, exposeRunCommand);
   const launched = await real.runCommand(task(join(scratch, 'absent-executable')), scratch, 0);
   assert.equal(launched.exitStatus, 127);
   assert.equal(launched.terminationConfirmed, true, 'a no-child launch failure has nothing to clean up');
   assert.equal(Buffer.from(launched.stderr.payload, 'base64').toString('utf8').includes('cleanup unresolved'), false);
 
   const unknown = await component('implementation/worksite_command_helper',
-    { '../shared/owned_process_lifetime.js': unknownGroupLifetime }, '\nexport { runCommand };', exposeRunCommand);
+    { '../shared/owned_process_lifetime.js': unknownGroupLifetime }, runCommandOnHost, exposeRunCommand);
   let thrown = null;
   try { await unknown.runCommand(task(process.execPath), scratch, 0); }
   catch (error) { thrown = error; }
@@ -371,7 +375,7 @@ test('helper route: an error after launch with unresolved cleanup throws the com
     observe: () => undefined, fail: () => {}, requestTermination: () => {}, snapshot: () => facts }) };
   const helper = await component('implementation/worksite_command_helper',
     { 'node:child_process': { spawn: () => child }, '../shared/owned_process_lifetime.js': stubLifetime },
-    '\nexport { runCommand };', exposeRunCommand);
+    runCommandOnHost, exposeRunCommand);
   const task = { taskRef: 'task://t287/carrier', taskDigest: hash('task'), commands: [{
     commandId: 'command://t287/carrier', executable: 'fixture-command', args: [], relativeCwd: '.', environment: [],
     timeoutMs: 10_000, terminationGraceMs: 50, expectedReports: [] }] };

@@ -164,12 +164,3 @@ export function projectExecutableTraversalCompletion(
 ): ExecutableTraversalCompletion {
   return completePublicOutcome<ExecutableTraversalCompletion>(projectOwnedExecutableTraversalCompletion(disposition, replayState, successorPrefix, values));
 }
-
-export function projectBlockedRetryTraversalCompletion(
-  input: Readonly<{
-  plan: RetryRuntimeFailureTransitionPlan;
-  route: RouteTransitionAdmission;
-}>
-): ExecutableTraversalCompletion {
-  return completePublicOutcome<ExecutableTraversalCompletion>(projectOwnedBlockedRetryTraversalCompletion(input));
-}

@@ -28,6 +28,17 @@ process.stdin.on("end", () => {
         obligationRefs: active.map(row => row.binding.obligationRef), predecessorStatementRefs: [] }],
       requirementCandidates: [], worksiteDesign: null, pressure: [] }, bindings: [], design: null,
   };
-  // Deliberately exceeds the test lease, with no claim about unobserved work.
-  setTimeout(() => emit({ type: "result", subtype: "success", is_error: false, result: JSON.stringify(raw), structured_output: raw }), 350);
+  const result = () => emit({ type: "result", subtype: "success", is_error: false, result: JSON.stringify(raw), structured_output: raw });
+  // `heartbeat` emits only the CLI status row every 1000 ms for 7000 ms, more
+  // than two of its 3000 ms leases, as a compaction does; then its result.
+  if (mode === "heartbeat") {
+    let beats = 0;
+    const timer = setInterval(() => {
+      emit({ type: "system", subtype: "status", status: "compacting", session_id: "supervision-heartbeat", uuid: "status-" + beats });
+      if (++beats === 7) { clearInterval(timer); result(); }
+    }, 1000);
+    return;
+  }
+  // Stays silent 350 ms, inside the blocked-mode test lease (3000 ms), with no claim about unobserved work.
+  setTimeout(result, 350);
 });

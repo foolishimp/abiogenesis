@@ -1,5 +1,258 @@
 # T-287 Default Governance Library
 
+## Recoverable step failure — 2026-11-11
+
+RC12 package B2b, `design_reframe` of this library HOW/contract under Product
+[Default Governance And Lifecycle Library](../../../../specification/PRODUCT.md#default-governance-and-lifecycle-library);
+the recursion foldback member and bound counting are REQ-L-GTL3-RECURSE-007.
+
+**Path and outcome.** The executive recursion declares
+`failedChildDiagnosticClassRefs`. A step that fails with a declared class folds
+back failed; the runtime re-evaluates the parent over its unchanged input. The
+parent continues only over a step its admitted record shows to be recoverable,
+and the next selection task carries every failed step of this Run. Failed steps
+consume the recursion bound; at the bound the existing blocked stop occurs.
+
+**Typed handoffs.**
+- `defaultGovernanceGraphFunctions({ failedChildDiagnosticClassRefs })`, default
+  `GOVERNANCE_RECOVERABLE_FAILURE_CLASSES`, four declared classes:
+  `diagnostic://abiogenesis/worksite/native-work/transport_failure@5`,
+  `diagnostic://abiogenesis/worksite/native-work/contract_failure@5`,
+  `diagnostic://abiogenesis/worksite/native-work/no_output@5` (a worker that
+  ended normally, without a timeout, with empty final output),
+  `diagnostic://abiogenesis/default-library/missing-owned-select@5`. An empty
+  list omits the member: every definition, digest, prompt, schema and task byte
+  is unchanged and a failed step stops the Run.
+- Selector refusal: an exchange whose request, prompt digest, input digest or
+  implementation differs from the prepared one throws and stops the Run. Every
+  other unbound completion is a typed F_P refusal, class `missing-owned-select`,
+  stage `selector_completion`, relation (`GOVERNANCE_SELECTION_REFUSALS`):
+  `selector_process_ended` {actorInvocationRef, failureClass, timeoutClass};
+  `target_not_permitted` {graphFunctionRef, reviewRef, missingReviews,
+  staleReviews, missingSelectedPaths}; `response_refused` {graphFunctionRef,
+  reviewRef}, the strict binder refusing a well-formed response. On the
+  installed path a malformed or non-JSON answer ends the selector process with
+  the contract failure class and folds back as `selector_process_ended`; a tool
+  call in the closed selection lane never completes, and the Run stops blocked
+  with an evidence contract mismatch.
+- Selection task `failedAttempts` (exactOptional, non-empty, present exactly
+  when this Run has a failed step): per step in order `{graphFunctionRef,
+  reviewRef?, failureClassRef, timeoutClass, changedPaths, refusal?: {relation,
+  selectors}, resultRef}`. Each `resultRef` joins `framedSynthesisEvidenceRefs`;
+  the view shows the rows with one meaning sentence. No row enters the work state.
+
+**Declared computations.** `projectGovernanceFailedStepAtPrefix` reads one
+failed recursion foldback: its failed step Result, then down each failed
+workflow foldback under the failed CCall to the originating leaf Result, its
+locus and its last `c_call_evidenced` timeout class. The step continues when:
+- the origin is the selector leaf in the step, the retained diagnostic is
+  `missing-owned-select` for that CCall with a relation in the three above, and
+  for `selector_process_ended` an `actor_invocation_failed` for that CCall and
+  actor exists; or
+- the origin is the native work or native assessment leaf, the value is a
+  native failure with `after`, its class is not `write_scope_violation`,
+  `transport_identity_mismatch` or `assessment_independence_mismatch`, no
+  changed path lies outside the task's write roots, and no unknown-effect fact
+  (`nativeWorkUnknownEffectActor`) names its actor invocation.
+
+Otherwise the parent refuses at stage `parent_reentry` with
+`failure_record_unresolved`, `selection_failure_not_recoverable`,
+`failure_origin_not_recoverable`, `failure_class_not_recoverable`,
+`failure_effects_unattributed` or `failure_write_outside_grant`, selector
+`failureResultRef`, and the Run stops. The parent reads only its latest
+recursion foldback; selection preparation folds all of them and admission
+re-derives the task from the same prefix. Every other failure stops the Run,
+among them a write outside the grant, an unattributable effect, an unconfirmed
+termination and a failed deterministic computation. An undeclared class (a
+write outside the grant, preparation and projection refusals, command helper
+mismatches) is never folded back and stops the Run at the route.
+
+```mermaid
+sequenceDiagram
+  participant P as Parent
+  participant S as Executive step
+  participant L as Leaf
+  P->>S: state
+  S->>L: selection or chosen work
+  L-->>S: failed Result, declared class
+  S-->>P: failed foldback
+  P->>P: re-evaluate; origin and effects from the admitted record
+  alt recoverable
+    P->>S: unchanged state; task carries failedAttempts
+  else not recoverable
+    P-->>P: parent_reentry refusal; the Run stops
+  end
+```
+
+## Declared process prerequisites — 2026-11-11
+
+RC12 package P, `design_reframe` of this library HOW/contract under Product
+[Default Governance And Lifecycle Library](../../../../specification/PRODUCT.md#default-governance-and-lifecycle-library);
+requirements unchanged.
+
+**Path and outcome.** A consumer Program declares, through the library's graph
+construction, the reviews each registered purpose requires. Only permitted work
+can be selected next. A choice whose prerequisites do not hold is refused at
+binding or at the choice projection, before its wrapper is entered.
+A task that omits a review its Program names, or declares it not applicable
+without a reason, is refused at selection intake.
+Without a declaration every definition, digest, prompt, schema and binding is
+unchanged.
+
+**Typed handoffs.**
+- `defaultGovernanceGraphFunctions({ prerequisites })`: `{ [purpose]: reviewRef[] }`
+  over registered purposes other than `review`, each list non-empty and unique;
+  `review` must be registered. The executive step carries the canonical JSON as
+  `abg.default_library_prerequisites`, so the step digest, the Program and its
+  catalog row bind it. Wrappers and the parent are unchanged.
+- `FramedSynthesisTarget.requiredReviews`: present on every target exactly when
+  the step declares prerequisites. `governanceTarget` alone builds a target from
+  a wrapper definition, for the assembly and the projection.
+- Review declaration `notApplicableReason` (exactOptional text): only on a review
+  declared `required: false`. The selector view's declared review row carries it
+  exactly when it is declared; without it every byte is unchanged.
+- Selector view `prerequisites` (present exactly with a declaration): per offered
+  target `{graphFunctionRef, purpose, requiredReviews, permitted, missingReviews}`
+  and one meaning sentence. `testingPrerequisites` reads the same relation.
+- Refusals keep their classes. Intake and projection use the existing
+  `missing-owned-<operation>` diagnostics: stage `selection_intake`, relation
+  `process_review_undeclared`, or stage `choice_projection`, relation
+  `target_not_permitted`, with the refs. The selector's binding refusal is the
+  typed `missing-owned-select` relation `target_not_permitted` with the chosen
+  target and its missing and stale reviews.
+
+**Declared computations.**
+- `governanceTargetPermission(task, target)` is the one permitted relation. It
+  returns `offered` (the review wrapper only with declared reviews) and
+  `permitted`: offered; for Testing every original selected path is an observed
+  file; each required review that the task declares as required has a row in
+  `state.reviewStanding`, as the parent computed it, satisfied and current. It
+  computes no currentness and names `missingSelectedPaths` and `missingReviews`;
+  a Program-named review the task does not declare is missing.
+- Readings: assembly choices and the contribution domain of binder and schema
+  use `offered`; the schema's next-member enum, the binder's next member and
+  `projectGovernanceChoice` use `permitted`. A non-permitted target stays
+  plannable as a contribution; `dependsOn` remains advisory.
+- `governancePrerequisitesUndeclared(original, prerequisites)` names the
+  Program's reviews the task does not declare as required or, with a non-blank
+  `notApplicableReason`, as not applicable; selection preparation, its result
+  match and the selector assembly refuse when it is non-empty. A Program-named
+  review declared with `required: false` and its reason is declared and never
+  gates. A review no prerequisite names needs no reason.
+- `projectGovernanceChoice` resolves the selector's admitted input task by its
+  ref and digest and applies the relation to the chosen target.
+
+**Invariants, effect and proof.** No admitted choice names a non-permitted
+target. A refused choice opens no wrapper call and causes no effect; it returns
+to the parent as a recoverable step failure (section above). No event kind,
+application, operation, binding, role, failure class or Public member is added;
+the declared `gate` application is not used. Proof:
+`t287-default-library-prerequisites.test.mjs` and the amendment witness.
+
+```mermaid
+sequenceDiagram
+  participant P as Parent
+  participant S as Executive step
+  participant B as Binder and projection
+  participant W as Wrapper
+  P->>S: state with review standing
+  S->>S: intake: every Program-named review declared
+  S->>B: proposed choice
+  B->>B: governanceTargetPermission(task, target)
+  alt permitted
+    B->>W: admitted registered choice
+  else not permitted
+    B-->>S: typed refusal before the wrapper; the step returns to the parent
+  end
+```
+
+## Declared framed reviews — 2026-11-11
+
+RC12 packages A and A2, `design_reframe` of this library HOW/contract under
+Product [Default Governance And Lifecycle Library](../../../../specification/PRODUCT.md#default-governance-and-lifecycle-library);
+requirements unchanged.
+
+**Path and outcome.** A task declares its reviews. The Executive selects the
+registered `review` wrapper and names one declared review. The wrapper prepares
+a native assessment task from that review's work order and assessment, runs the
+existing native assessor child and folds the verdict. The parent closes only
+when acceptance and every required review verdict are satisfied and current. A
+task without reviews keeps its states, prompts, response schema and digests.
+
+**Typed handoffs.**
+- `original.reviews` (exactOptional, non-empty): strict `{reviewRef, frame,
+  required, notApplicableReason?, order, assessment}` (the reason only when not
+  required; see process prerequisites); `order` is the work-order shape with empty
+  `writeRoots`, `assessment` the `original.assessment` shape; unique
+  `reviewRef`, distinct assessment roles, no `review` key in `workOrders`.
+  `frame` states the evaluation family, its authority, its exclusions and the
+  return relation, or names an exact declared frame whose content is among the
+  review's sources. A label alone declares no frame.
+- Selector `reviewRef` (exactOptional): present exactly when reviews are
+  declared; a declared ref when the next member is the review wrapper, else
+  null, enforced by binder and response schema (`anyOf` rows included).
+  Without declared reviews `governanceTargetSelectable` removes the wrapper
+  from assembly choices, schema and binder; the registered domain stays whole.
+- A `review` observation carries the assessment value and its declared
+  `reviewRef`, present exactly on `review` rows.
+- `reviewStanding` (exactOptional, present exactly with declared reviews): one
+  `{reviewRef, required, resultRef, satisfied, current}` row per declared
+  review in order. Construction emits initial rows, folds carry them unchanged
+  and only the parent projection recomputes them.
+- Native work and assessment instructions carry non-empty `original.authorityRefs`
+  beside the conserved original task; an empty list adds no instruction.
+
+**Declared computations.**
+- `governanceAssessmentContract(state, purpose)` alone decides which assessment
+  applies: `uat` takes `original.assessment`, `review` the declared review the
+  current selection names. Review subject evidence is the UAT domain; review
+  preparation reuses the UAT producer, candidate and invalidation checks.
+- `governanceAssessmentDependencies(order, assessment)` alone owns the material
+  dependency set: the order's `readFirst` as declared, then each source,
+  candidate and rubric not already present; preparation binds exactly this set
+  as the task's `readFirst` and still refuses a duplicate declared `readFirst`.
+  The candidate is the subject, the rest its verdict's inputs. The admitted
+  Result records no reads, so review instructions admit only declared material.
+- `governanceVerdicts(state)`: acceptance is the latest `uat` row that only
+  `review` rows follow; each review takes its latest row.
+- Parent: acceptance and each latest review row pass the existing
+  authentication (admitted success Result, equal assessment value, CCall,
+  actor, admitted source basis); a mismatch refuses the parent outcome.
+  Acceptance is structural: any later work row other than a review retires it,
+  even one with no effect; it also needs this Run and no later admitted change
+  under its read roots. Review currentness is causal: a review admitted in this
+  Run stays current until an admitted change lies at or under a member of its
+  dependency set (read-roots form of `worksiteCommandSourcesInvalidatedAfter`).
+  `terminal` is acceptance, every required review satisfied and current, and
+  fulfillment coverage keyed to the acceptance row.
+- Invalidation interprets C0 replacements and failures and native and unknown
+  native effects. A C2 command Result's `worksiteDelta` is not a cause: it
+  describes the helper's sandbox, not the worksite.
+
+**Invariants, effect and proof.** `terminal` implies every required standing
+row is satisfied and current. Another Run's verdict is not current. A review
+fold writes no fulfillment fact; fulfillment response instructions stay
+UAT-only; the fixed direct Testing/UAT route refuses declared reviews. No
+effect grant is added: a review has empty `writeRoots`. Proof: unit atoms, the
+no-review digests, and two installed Public starts with two required reviews
+and a scripted stand-in model (`t287-default-library-reviews.test.mjs`); in
+the second, a Construction changes only one review's `readFirst` input, and
+that review alone goes stale and reruns.
+
+```mermaid
+sequenceDiagram
+  participant P as Parent
+  participant E as Executive step
+  participant R as Review wrapper
+  participant A as Native assessor
+  P->>P: acceptance and required review standing
+  P->>E: open state with standing
+  E->>R: review wrapper, reviewRef, subject Result
+  R->>A: declared order and assessment, writeRoots []
+  A-->>R: verdict, unmet criteria kept
+  R->>P: fold review row; parent recomputes standing
+```
+
 ## RC7 fixed Testing/UAT direct wrapper route — 2026-11-06
 
 Root selection `RC7-LAUNCH-02`, grant `rc7-fixed-proof-author-01`,

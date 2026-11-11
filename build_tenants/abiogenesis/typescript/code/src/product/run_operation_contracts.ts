@@ -24,6 +24,10 @@ const RUN_AUTHORITY = "authority://abiogenesis/product/run-invocation@5";
 const CONTINUE_AUTHORITY =
   "authority://abiogenesis/product/run-continuation@5";
 
+// REQ-P-POLICY-068: a Run that stops states the plain-words statement of its
+// `project.read run_status` stop reading, from the same fold; absent otherwise.
+const stopStatementSchema = v.optional(nonblankSchema);
+
 const publicTargetSchema = v.union([
   v.strictObject({ kind: v.literal("next") }),
   v.strictObject({ kind: v.literal("graph_function"), handle: nonblankSchema }),
@@ -58,6 +62,7 @@ function runResultSchema(invocationKind: "invoke" | "start") {
     interaction: v.nullable(refDigestSchema),
     evidence: nonemptyRefDigestSetSchema,
     replay: refDigestSchema,
+    stopStatement: stopStatementSchema,
   });
 }
 
@@ -71,6 +76,7 @@ function runNonTerminalSchema(invocationKind: "invoke" | "start") {
     gap: v.nullable(refDigestSchema),
     evidence: nonemptyRefDigestSetSchema,
     replay: refDigestSchema,
+    stopStatement: stopStatementSchema,
   });
 }
 
@@ -257,6 +263,7 @@ function continueContract<const TMember extends
     disposition: v.picklist(["completed", "blocked", "runtime_failed"]),
     evidence: nonemptyRefDigestSetSchema,
     replay: refDigestSchema,
+    stopStatement: stopStatementSchema,
   });
   const nonTerminal = v.strictObject({
     continuationKind: kindSchema,
@@ -265,6 +272,7 @@ function continueContract<const TMember extends
     continuation: refDigestSchema,
     evidence: nonemptyRefDigestSetSchema,
     replay: refDigestSchema,
+    stopStatement: stopStatementSchema,
   });
   return ownerContractPacket(
     { operationId: "abg.operation.run.continue", memberKey: member } as const,

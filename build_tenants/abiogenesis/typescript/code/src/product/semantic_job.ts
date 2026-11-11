@@ -592,10 +592,6 @@ export function semanticJobDesignIssues(envelope: SemanticJobEnvelope, design: S
 export function semanticJobDesignMatches(envelope: SemanticJobEnvelope, design: SemanticJobDesign, executionLimits?: WorksiteCommandExecutionLimits): boolean {
   return semanticJobDesignIssues(envelope, design, executionLimits).length === 0;
 }
-export function semanticJobAssessmentDomain(envelope: SemanticJobEnvelope) {
-  const current = envelope.assets.at(-1);
-  return current === undefined ? null : { assetRef: current.assetRef, statementRefs: current.candidate.asset.statements.map(s => s.statementRef) };
-}
 /** Pure projection of already observed context. Native owners establish its
  * admission/currentness; this never observes a file or grants a write. */
 export function deriveSemanticJobReadDependencies(envelope: SemanticJobEnvelope,

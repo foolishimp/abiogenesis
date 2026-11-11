@@ -11,7 +11,7 @@ import { ok, type Outcome, type StructuralRefusal } from "../../shared/refusal.j
 import { checkExactRecord, resolveExactMatch, type CheckedRecord, type ExactMatch, type RecordCheck } from "../../shared/select/index.js";
 import { canonicalRecordDigest } from "../../shared/value/index.js";
 import {
-  indexedRuntimeEvents, isValidationRuntimeEventPrefix, runtimePrefixComputation,
+  indexedRuntimeEvents, runtimePrefixBasisRetention,
   type RuntimeEventPrefix, type ValidatedRuntimeEventPrefix,
 } from "../event_prefix.js";
 import type { RuntimeEvent } from "../event_store.js";
@@ -91,31 +91,31 @@ export function observeExecutionBasisRowWork(): Readonly<typeof executionBasisRo
   return Object.freeze({ ...executionBasisRowWork });
 }
 
-const EXECUTION_BASIS_ROW_FACTS = Symbol("execution_basis_row_facts");
 /** The row law over one admitted `basis_admitted` row is an immutable fact of
- * that row. It is checked once and retained in the prefix's own authenticated
- * derivation territory, which spans every cut of one ordered lineage, under
- * the row's event id and admission ordinal. Selection membership and match
- * cardinality stay outside the fact: every call resolves its own exact match
- * at its own cut, so a later duplicate is `many`, an earlier cut lacking the
- * row is `absent`, and a foreign, copied or raw history has its own territory
- * and checks cold. Only a `one` outcome is retained, so a refused row is
- * checked again and reproduces its refusal. A validation view retains nothing. */
+ * that row (§10.12 O1). Selection membership and match cardinality stay
+ * outside the fact: every call resolves its own exact match at its own cut, so
+ * more than one matching row is `many` and an earlier cut lacking the row is
+ * `absent` before any retained fact is consulted. The checked record is
+ * retained only while an open run operation scope of the owned cut's store
+ * history holds the row's invocation, under the history generation, event id
+ * and admission ordinal. Without such a scope, and for a validation view or a
+ * foreign, copied or raw history, the row is checked cold. Only a `one`
+ * outcome is retained, so a refused row is checked again. */
 function checkExecutionBasisRow(
   prefix: RuntimeEventPrefix,
   match: ExactMatch<RuntimeEvent>,
 ): CheckedRecord<RuntimeEvent, ExecutionBasisRecord> {
-  if (match.kind !== "one" || isValidationRuntimeEventPrefix(prefix)) {
-    return checkExactRecord(match, EXECUTION_BASIS_RECORD);
-  }
+  if (match.kind !== "one") return checkExactRecord(match, EXECUTION_BASIS_RECORD);
   const event = match.value;
-  const facts = runtimePrefixComputation(prefix, EXECUTION_BASIS_ROW_FACTS,
-    () => new Map<string, ExecutionBasisRecord>());
+  const invocationRef = isRecord(event.payload) && typeof event.payload.invocationRef === "string"
+    ? event.payload.invocationRef : undefined;
+  const history = invocationRef === undefined ? undefined : runtimePrefixBasisRetention(prefix);
+  if (history === undefined || invocationRef === undefined) return checkExactRecord(match, EXECUTION_BASIS_RECORD);
   const row = event.eventId + ":" + event.admissionOrdinal;
-  const retained = facts.get(row);
+  const retained = history.basisRowFact(invocationRef, row) as ExecutionBasisRecord | undefined;
   if (retained !== undefined) return Object.freeze({ kind: "one", event, value: retained });
   const checked = checkExactRecord(match, EXECUTION_BASIS_RECORD);
-  if (checked.kind === "one") facts.set(row, checked.value);
+  if (checked.kind === "one") history.retainBasisRowFact(invocationRef, row, checked.value, checked.value.rawInputValue);
   return checked;
 }
 

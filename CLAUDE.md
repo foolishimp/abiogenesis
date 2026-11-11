@@ -35,6 +35,18 @@ Do not introduce a compiled plan, generated executable Program, hidden default,
 feature runner, Public controller, second runtime, rival catalog, private event
 writer, compatibility Product, or required process-local runtime authority.
 
+ABIogenesis is the application; implementation foundations do not become
+semantic owners. Select the best lawful foundation by correctness,
+maintainability, performance and total lifecycle cost. Under Product and
+realization constitution Section 9, core Effect `3.22.1` fibers, streams,
+queues, clocks, schedules, references, STM and scopes may realize declared
+contracts and carry immutable application values. No capability-name blacklist
+or per-API/helper approval gate applies. Preserve owner policy, admission,
+sequence, idempotence, currentness and replay law, the canonical production
+runner and physical-absence proof. Library interruption is not process absence;
+observed clock time is not admitted event time. This selects no automatic
+concurrency/retry behavior, dependency upgrade or second semantic runtime.
+
 ## Delivery Discipline
 
 Use a compact UML path model under `AGENTS.md`, with brief notes for typed

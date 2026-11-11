@@ -1,5 +1,6 @@
 import assert from "node:assert/strict";
 import { spawn } from "node:child_process";
+import { EventEmitter } from "node:events";
 import { chmod, mkdtemp, readFile, realpath, rm, writeFile } from "node:fs/promises";
 import { tmpdir } from "node:os";
 import { dirname, join, resolve } from "node:path";
@@ -34,6 +35,7 @@ import { isRecord } from "../../build/code/src/shared/admit/index.js";
 import { LEGACY_ROOT_EVENT_CONTRACT_DIGEST, ROOT_EVENT_CONTRACT_DIGEST } from "../../build/code/src/abg/event_store.js";
 import { actorRuntimeProbeSources, constructRuntimeWatchdogPolicy } from "../../build/code/src/abg/runtime_liveness_contracts.js";
 import { privateOwner } from "../support/r10-private-owner-harness.mjs";
+import { failureFact, retainEvidence } from "../support/t287-publication-observer.mjs";
 import { hasConfirmedOwnedProcessBoundary } from "../../build/code/src/shared/process/index.js";
 import { closeSync as hs03CloseSync, fsyncSync as hs03FsyncSync, openSync as hs03OpenSync, readSync as hs03ReadSync,
   truncateSync as hs03TruncateSync, unlinkSync as hs03UnlinkSync, writeSync as hs03WriteSync } from "node:fs";
@@ -698,23 +700,303 @@ test("M5 selected result text cannot admit a valid file without its final carrie
   /distinct worker output channels disagree/);
 });
 
-test("M5 ABG transport force-terminates a worker that ignores SIGTERM", async (context) => {
+// Physical m5 fixtures declare one prospective finite setup allowance per cold
+// Node through its first fixture statement (the owned-process lifetime file's
+// SETUP_MS precedent), not an observed startup bound. Owner clocks still start
+// at spawn; nothing is rebased, renewed, retried or skipped, and no extra
+// acknowledgement is supplied. A missing fixture premise is a failed
+// prerequisite, never a pass. Exact lease, acknowledgement and cutoff law is
+// proved separately on the actual owner with a controlled clock below.
+const M5_SETUP_MS = 5_000, M5_GROUP_SETUP_MS = 2 * M5_SETUP_MS + 5, M5_ADMINISTRATIVE_MS = 5_000;
+const m5CleanupMs = grace => 2 * grace + Math.min(grace, 250);
+const m5Cap = ownerCeilingMs => Math.ceil((M5_ADMINISTRATIVE_MS + ownerCeilingMs) / 1000) * 1000;
+const m5Alive = pid => { try { process.kill(pid, 0); return true; } catch (error) { if (error.code === "ESRCH") return false; throw error; } };
+const m5Optional = path => readFile(path, "utf8").then(text => text, error => error.code === "ENOENT" ? null : { readError: error.code ?? error.message });
+const m5Events = text => typeof text === "string" ? text.split("\n").filter(line => line.length > 0).map(line => JSON.parse(line)) : text;
+// Ordered complete records of one byte sequence, independent of capture chunking.
+const m5CompleteRecords = text => { assert.equal(text.endsWith("\n"), true, "no partial trailing record"); return text.slice(0, -1).split("\n"); };
+// Progress timing over ordered captures { chunk, at } on one millisecond clock.
+// Completion is the capture at which the ordered bytes first hold the whole
+// "complete" record, however callbacks split or coalesce it; null when no
+// capture completes it. No owner duration or default time stands in for it.
+function m5ProgressTiming(captures, spawnedAt) {
+  let text = "", completeAt = null;
+  for (const { chunk, at } of captures) {
+    const open = text.lastIndexOf("\n") + 1;
+    text += chunk;
+    const end = text.lastIndexOf("\n");
+    if (end >= open && text.slice(open, end).split("\n").includes("complete")) { completeAt = at; break; }
+  }
+  const gaps = captures.slice(1).map((row, index) => row.at - captures[index].at);
+  return { spawnToCompleteCaptureMs: spawnedAt === null || completeAt === null ? null : completeAt - spawnedAt,
+    maxAcknowledgedGapMs: gaps.length === 0 ? null : Math.max(...gaps), callbacks: captures.length };
+}
+// The owner's settle instant and its original result or thrown value.
+async function m5Settle(call) {
+  const startedAt = performance.now();
+  try { const result = await call(); return { result, failure: null, threw: false, settledMs: performance.now() - startedAt }; }
+  catch (failure) { return { result: null, failure, threw: true, settledMs: performance.now() - startedAt }; }
+}
+async function m5Artifacts(archiveRoot, label) {
+  return Object.fromEntries(await Promise.all(["prompt.txt", "stdout.log", "stderr.log", "output.txt", "transport.json"].map(async name =>
+    [name, await m5Optional(join(archiveRoot, `${label}-${name}`))])));
+}
+
+class M5ControlledChild extends EventEmitter {
+  constructor(pid = 4242) {
+    super(); this.pid = pid; this.stdinWrites = [];
+    for (const name of ["stdin", "stdout", "stderr"]) {
+      const stream = new EventEmitter();
+      Object.assign(stream, { closed: false, destroyed: false, destroy: () => { stream.destroyed = true; },
+        setEncoding: () => stream, end: data => { this.stdinWrites.push(data ?? null); } });
+      this[name] = stream;
+    }
+  }
+}
+const m5Ns = ms => BigInt(ms) * 1_000_000n;
+// The emitted worker transport with only spawn and the owned-lifetime host
+// replaced: the actual createMonotonicDeadline and createOwnedProcessLifetime
+// run on one controlled bigint clock through their declared host seam.
+async function m5ControlledTransport() {
+  const actual = await import("../../build/code/src/shared/owned_process_lifetime.js");
+  let now = 0n, next = 0;
+  const timers = new Map(), world = { child: null, signals: [], group: "present", spawned: null };
+  const clock = {
+    nowNs: () => now,
+    arm: (callback, delayMs) => { const id = ++next; timers.set(id, { callback, due: now + m5Ns(delayMs) }); return id; },
+    cancel: id => { timers.delete(id); },
+  };
+  const host = { clock, platform: "posix", probeGroup: () => world.group,
+    signal: (_child, value) => { world.signals.push({ value, atNs: now }); } };
+  const advanceTo = target => {
+    for (let count = 0; ; count++) {
+      assert.equal(count < 100_000, true, "controlled callback population bounded");
+      const row = [...timers].filter(([, timer]) => timer.due <= target)
+        .sort((a, b) => a[1].due < b[1].due ? -1 : a[1].due > b[1].due ? 1 : a[0] - b[0])[0];
+      if (row === undefined) break;
+      timers.delete(row[0]); now = row[1].due; row[1].callback();
+    }
+    now = target;
+  };
+  let spawned;
+  const spawnedChild = new Promise(resolveSpawn => { spawned = resolveSpawn; });
+  const owner = await privateOwner("abg/worker_transport.js", [], {
+    "node:child_process": { spawn: (command, args, options) => {
+      world.spawned = { command, args, options }; world.child = new M5ControlledChild(); spawned(world.child); return world.child;
+    } },
+    "../shared/owned_process_lifetime.js": {
+      createMonotonicDeadline: () => actual.createMonotonicDeadline(clock),
+      createOwnedProcessLifetime: (child, bounds, observations) => actual.createOwnedProcessLifetime(child, { ...bounds, host }, observations),
+    },
+  });
+  return { owner, world, spawnedChild, advanceTo, now: () => now };
+}
+// One controlled run: drive(child, control) schedules captures and process facts.
+async function m5ControlledRun(context, label, bounds, ack, drive) {
+  const scratch = await mkdtemp(join(tmpdir(), `abi5-m5-controlled-${label}-`));
+  context.after(async () => rm(scratch, { force: true, recursive: true }));
+  const control = await m5ControlledTransport(), acknowledged = [], timeouts = [], log = [];
+  const running = m5Settle(() => control.owner.runWorkerTransport({
+    contract: constructKnownWorkerTransportContract("generic", { command: process.execPath, prefixArgs: [], environment: {} }),
+    prompt: "controlled", lane: "worker_executes", cwd: scratch, archiveRoot: join(scratch, "archive"), label,
+    timeoutMs: bounds.timeoutMs, absoluteTimeoutMs: bounds.absoluteTimeoutMs, terminationGraceMs: bounds.graceMs, environment: {},
+    observer: {
+      onStdoutObserved: chunk => { acknowledged.push({ chunk, atNs: control.now() }); return ack(chunk); },
+      onTimeoutObserved: timeoutClass => { timeouts.push({ timeoutClass, atNs: control.now() }); log.push(`timeout:${timeoutClass}`); },
+      onSignalRequested: signal => log.push(`signal:${signal}`),
+    },
+  }));
+  const child = await control.spawnedChild;
+  child.emit("spawn");
+  const emit = (atMs, chunk) => { control.advanceTo(m5Ns(atMs)); log.push(`data:${chunk}`); child.stdout.emit("data", chunk); };
+  const exit = (atMs, status, signal) => {
+    control.advanceTo(m5Ns(atMs)); control.world.group = "absent"; log.push(`exit:${status}:${signal}`);
+    child.emit("exit", status, signal); child.emit("close", status, signal);
+  };
+  try { await drive({ child, control, emit, exit, timeouts, log }); }
+  catch (failure) {
+    // A rejected schedule may never let the owner finish: retain the facts
+    // available now, owner pending or settled, then rethrow the original.
+    const pending = Symbol("pending"), owner = await Promise.race([running, pending]);
+    try {
+      retainEvidence(context, "m5-worker-transport", `controlled-${label}`, { bounds, log, timeouts, acknowledged,
+        signals: control.world.signals, driveFailure: failureFact(failure), owner: owner === pending ? { state: "pending" }
+          : { state: "settled", settledMs: owner.settledMs, failure: failureFact(owner.failure), result: owner.result } });
+    } catch (retention) { context.diagnostic(`controlled-${label} evidence retention failed: ${retention?.message ?? String(retention)}`); }
+    throw failure;
+  }
+  const settled = await running;
+  retainEvidence(context, "m5-worker-transport", `controlled-${label}`, { bounds, log, timeouts, acknowledged,
+    signals: control.world.signals, failure: failureFact(settled.failure), result: settled.result });
+  if (settled.threw) throw settled.failure;
+  return { result: settled.result, acknowledged, timeouts, signals: control.world.signals, log };
+}
+
+test("M5 actual owner, controlled clock: a true acknowledgement renews inactivity and the timeout cutoff excludes later semantic bytes", async (context) => {
+  const run = await m5ControlledRun(context, "true-ack", { timeoutMs: 100, absoluteTimeoutMs: 1_000, graceMs: 50 }, () => true,
+    async ({ control, emit, exit, timeouts }) => {
+      emit(60, "renewing\n");
+      control.advanceTo(m5Ns(100)); assert.deepEqual(timeouts, [], "the initial lease at 100 was renewed by the acknowledged capture at 60");
+      control.advanceTo(m5Ns(160) - 1n); assert.deepEqual(timeouts, []);
+      control.advanceTo(m5Ns(160)); assert.deepEqual(timeouts, [{ timeoutClass: "inactivity", atNs: m5Ns(160) }]);
+      emit(170, "after-cutoff\n");
+      exit(180, null, "SIGTERM");
+    });
+  assert.deepEqual(run.signals, [{ value: "SIGTERM", atNs: m5Ns(160) }]);
+  assert.deepEqual([run.result.timedOut, run.result.timeoutClass, run.result.disposition], [true, "inactivity", "failure"]);
+  assert.equal(run.result.stdout, "renewing\nafter-cutoff\n", "raw capture remains open until direct exit");
+  assert.equal(run.result.finalOutput, "renewing\n", "semantic output is the stdout prefix at the timeout cutoff");
+  assert.equal(run.timeouts.length, 1, "an acknowledgement after the cutoff renews nothing");
+});
+
+test("M5 actual owner, controlled clock: a false acknowledgement never renews inactivity", async (context) => {
+  const run = await m5ControlledRun(context, "false-ack", { timeoutMs: 100, absoluteTimeoutMs: 1_000, graceMs: 50 }, () => false,
+    async ({ control, emit, exit, timeouts }) => {
+      emit(30, "unadmitted-0\n"); emit(60, "unadmitted-1\n"); emit(90, "unadmitted-2\n");
+      control.advanceTo(m5Ns(100) - 1n); assert.deepEqual(timeouts, []);
+      control.advanceTo(m5Ns(100)); assert.deepEqual(timeouts, [{ timeoutClass: "inactivity", atNs: m5Ns(100) }], "the original lease expires unrenewed");
+      exit(110, null, "SIGTERM");
+    });
+  assert.equal(run.acknowledged.length, 3, "three captured chunks were offered and refused acknowledgement");
+  assert.deepEqual([run.result.timeoutClass, run.result.finalOutput], ["inactivity", "unadmitted-0\nunadmitted-1\nunadmitted-2\n"]);
+});
+
+test("M5 actual owner, controlled clock: continuous true acknowledgements never renew the absolute deadline", async (context) => {
+  const run = await m5ControlledRun(context, "absolute", { timeoutMs: 100, absoluteTimeoutMs: 250, graceMs: 50 }, () => true,
+    async ({ control, emit, exit, timeouts }) => {
+      for (const at of [50, 100, 150, 200]) emit(at, `progress-${at}\n`);
+      control.advanceTo(m5Ns(250) - 1n); assert.deepEqual(timeouts, []);
+      control.advanceTo(m5Ns(250)); assert.deepEqual(timeouts, [{ timeoutClass: "absolute", atNs: m5Ns(250) }]);
+      exit(260, null, "SIGTERM");
+    });
+  assert.deepEqual([run.result.timeoutClass, run.result.finalOutput], ["absolute", "progress-50\nprogress-100\nprogress-150\nprogress-200\n"]);
+});
+
+test("M5 actual owner, controlled clock: descendant bytes after direct exit reach the closed-capture branch and stay outside raw and semantic output", async (context) => {
+  const run = await m5ControlledRun(context, "post-exit", { timeoutMs: 100, absoluteTimeoutMs: 1_000, graceMs: 50 }, () => true,
+    async ({ control, child, emit, log }) => {
+      emit(10, "before-exit\n");
+      control.advanceTo(m5Ns(20)); log.push("exit:47:null"); child.emit("exit", 47, null);
+      assert.equal(child.stdout.destroyed, true, "the owner closed its capture at direct exit");
+      // The owner still listens; this exercises its late-data branch.
+      assert.equal(child.stdout.listenerCount("data") > 0, true);
+      emit(25, "late-after-exit\n");
+      control.advanceTo(m5Ns(30)); control.world.group = "absent"; control.advanceTo(m5Ns(45));
+      child.emit("close", 47, null);
+    });
+  assert.deepEqual(run.signals.map(row => row.value), ["SIGTERM"], "post-exit group cleanup only");
+  assert.deepEqual(run.acknowledged.map(row => row.chunk), ["before-exit\n"], "no observation of the late bytes");
+  assert.deepEqual([run.result.status, run.result.timedOut, run.result.stdout, run.result.finalOutput], [47, false, "before-exit\n", "before-exit\n"]);
+});
+
+test("M5 actual owner, controlled clock: identical ordered progress gives one outcome under split and coalesced capture", async (context) => {
+  const records = [...Array.from({ length: 7 }, (_, index) => `progress-${index}`), "complete"], bytes = records.map(row => `${row}\n`).join("");
+  const partitions = { recordByRecord: records.map(row => `${row}\n`), oneCoalesced: [bytes],
+    fourScheduled: [records[0], records.slice(1, 3).join("\n"), records.slice(3, 5).join("\n"), records.slice(5).join("\n")].map(row => `${row}\n`),
+    splitEachByte: [...bytes] };
+  const outcomes = [];
+  for (const [name, chunks] of Object.entries(partitions)) {
+    assert.equal(chunks.join(""), bytes);
+    const run = await m5ControlledRun(context, `partition-${name}`, { timeoutMs: 100, absoluteTimeoutMs: 10_000, graceMs: 50 }, () => true,
+      async ({ emit, exit }) => { chunks.forEach((chunk, index) => emit(10 * (index + 1), chunk)); exit(10 * (chunks.length + 1), 0, null); });
+    const acknowledged = run.acknowledged.map(row => row.chunk).join("");
+    outcomes.push({ name, callbacks: run.acknowledged.length, acknowledged, records: m5CompleteRecords(acknowledged),
+      disposition: run.result.disposition, timeoutClass: run.result.timeoutClass, stdout: run.result.stdout, finalOutput: run.result.finalOutput });
+  }
+  for (const outcome of outcomes) {
+    assert.deepEqual({ ...outcome, name: undefined, callbacks: undefined }, { name: undefined, callbacks: undefined, acknowledged: bytes,
+      records, disposition: "success", timeoutClass: null, stdout: bytes, finalOutput: bytes }, outcome.name);
+  }
+  assert.deepEqual(outcomes.map(row => row.callbacks), [8, 1, 4, Buffer.byteLength(bytes)], "callback counts differ; the oracle does not");
+});
+
+test("M5 actual owner, controlled clock: the progress completion instant is the capture that completes the ordered record under every split, and incomplete completion has none", async (context) => {
+  const lease = 100, last = "complete\n", records = ["progress-0", "progress-1", "progress-2", "progress-3", "complete"];
+  const bytes = records.map(row => `${row}\n`).join(""), head = [[40, "progress-0\n"], [80, "progress-1\n"], [120, "progress-2\n"]];
+  // Each completing schedule makes the final record whole at 200, after the
+  // initial lease at 100; only intact and coalesced give it one callback.
+  const completing = { intact: [[160, "progress-3\n"], [200, last]], coalesced: [[200, `progress-3\n${last}`]],
+    coalescedSplit: [[160, "progress-3\ncomple"], [200, "te\n"]],
+    ...Object.fromEntries(Array.from({ length: last.length - 1 }, (_, index) =>
+      [`split${index + 1}`, [[160, "progress-3\n"], [180, last.slice(0, index + 1)], [200, last.slice(index + 1)]]])),
+    eachByte: [[160, "progress-3\n"], ...[...last].map((byte, index) => [200 - 2 * (last.length - 1 - index), byte])] };
+  const incomplete = { missing: [[160, "progress-3\n"]], unterminated: [[160, "progress-3\n"], [200, "complete"]] };
+  const observe = async (name, schedule) => {
+    let spawnedAt = null;
+    const run = await m5ControlledRun(context, `completion-${name}`, { timeoutMs: lease, absoluteTimeoutMs: 1_000, graceMs: 50 }, () => true,
+      async ({ control, emit, exit }) => {
+        spawnedAt = Number(control.now()) / 1e6;
+        for (const [at, chunk] of [...head, ...schedule]) emit(at, chunk);
+        exit(220, 0, null);
+      });
+    const captures = run.acknowledged.map(({ chunk, atNs }) => ({ chunk, at: Number(atNs) / 1e6 }));
+    return { run, captures, acknowledged: captures.map(row => row.chunk).join(""), timing: m5ProgressTiming(captures, spawnedAt) };
+  };
+  for (const [name, schedule] of Object.entries(completing)) {
+    const { run, captures, acknowledged, timing } = await observe(name, schedule);
+    assert.equal(acknowledged, bytes, name);
+    assert.deepEqual(m5CompleteRecords(acknowledged), records, name);
+    assert.deepEqual([run.timeouts, run.result.disposition, run.result.timeoutClass, run.result.finalOutput], [[], "success", null, bytes], name);
+    assert.equal(captures.some(row => row.chunk.includes(last)), name === "intact" || name === "coalesced", `${name}: partition premise`);
+    assert.equal(timing.spawnToCompleteCaptureMs, 200, `${name}: the capture that completed the ordered record`);
+    assert.equal(timing.spawnToCompleteCaptureMs > lease, true, `${name}: completion outlasted the initial lease`);
+  }
+  for (const [name, schedule] of Object.entries(incomplete)) {
+    const { run, acknowledged, timing } = await observe(name, schedule);
+    assert.equal(run.timeouts.length, 0, name);
+    assert.equal(acknowledged.includes(last), false, name);
+    assert.equal(timing.spawnToCompleteCaptureMs, null, `${name}: no completion witness`);
+  }
+});
+
+test("M5 actual owner, controlled clock: a rejected drive retains its available trace without awaiting the pending owner and rethrows the identical failure", async (context) => {
+  const retained = [];
+  const observed = { after: hook => context.after(hook), diagnostic: text => { retained.push(text); context.diagnostic(text); } };
+  let thrown = null, handback;
+  const unreturned = new Promise(resolve => { handback = resolve; });
+  const running = m5ControlledRun(observed, "drive-rejected", { timeoutMs: 100, absoluteTimeoutMs: 1_000, graceMs: 50 }, () => true,
+    async ({ control, emit, timeouts }) => {
+      emit(60, "renewing\n"); control.advanceTo(m5Ns(160));
+      // The owner now awaits an exit this schedule never supplies. One
+      // event-loop turn bounds the handback; the rethrow needs none.
+      setImmediate(() => handback({ unreturned: true }));
+      try { assert.deepEqual(timeouts, [], "a contrary expectation after the actual inactivity expiry"); }
+      catch (failure) { thrown = failure; throw failure; }
+    });
+  const outcome = await Promise.race([running.then(result => ({ result }), failure => ({ failure })), unreturned]);
+  assert.equal(thrown instanceof assert.AssertionError, true, "the driver's own assertion rejected");
+  assert.equal(outcome.failure, thrown, "the identical original failure, handed back without awaiting the owner");
+  assert.equal(retained.length, 1, "one evidence record precedes the rethrow");
+  const record = JSON.parse(retained[0].slice("evidence ".length));
+  assert.deepEqual([record.caseId, record.acknowledged, record.timeouts, record.signals, record.owner],
+    ["controlled-drive-rejected", [{ chunk: "renewing\n", atNs: String(m5Ns(60)) }], [{ timeoutClass: "inactivity", atNs: String(m5Ns(160)) }],
+      [{ value: "SIGTERM", atNs: String(m5Ns(160)) }], { state: "pending" }]);
+  assert.deepEqual([record.driveFailure.name, record.driveFailure.message], [thrown.name, thrown.message]);
+  assert.equal(record.log.some(entry => entry.startsWith("exit:")), false, "no exit or close was supplied or claimed");
+  assert.equal(Object.hasOwn(record, "result"), false, "no owner result is fabricated");
+});
+
+test("M5 ABG transport force-terminates a worker that ignores SIGTERM", { timeout: m5Cap(M5_SETUP_MS + 350 + m5CleanupMs(75)) }, async (context) => {
   const scratch = await mkdtemp(join(tmpdir(), "abi5-bounded-timeout-"));
   context.after(async () => rm(scratch, { force: true, recursive: true }));
-  const workerPath = join(scratch, "resistant-worker.mjs");
+  const workerPath = join(scratch, "resistant-worker.mjs"), readyPath = join(scratch, "ready.json"), evidencePath = join(scratch, "fixture.jsonl");
   await writeFile(workerPath, [
     "#!/usr/bin/env node",
-    "process.on('SIGTERM', () => {});",
+    "import { appendFileSync, writeFileSync } from 'node:fs';",
+    `process.on('SIGTERM', () => appendFileSync(${JSON.stringify(evidencePath)}, JSON.stringify({ event: 'term-ignored' }) + '\\n'));`,
+    `writeFileSync(${JSON.stringify(readyPath)}, JSON.stringify({ pid: process.pid, handler: 'SIGTERM' }));`,
     "process.stdout.write('started\\n');",
     "setInterval(() => process.stdout.write('still-running\\n'), 20);",
     "",
   ].join("\n"), "utf8");
   await chmod(workerPath, 0o755);
+  // Inactivity covers one cold start; acknowledged output then renews it until
+  // the absolute deadline, also anchored at spawn.
+  const bounds = { timeoutMs: M5_SETUP_MS, absoluteTimeoutMs: M5_SETUP_MS + 350, terminationGraceMs: 75 };
   let processId = null;
   const observedExits = [];
   let unconfirmedTerminations = 0;
-  const startedAt = Date.now();
-  const result = await runWorkerTransport({
+  const settled = await m5Settle(() => runWorkerTransport({
     contract: constructKnownWorkerTransportContract("generic", {
       command: process.execPath,
       prefixArgs: [workerPath],
@@ -725,9 +1007,7 @@ test("M5 ABG transport force-terminates a worker that ignores SIGTERM", async (c
     cwd: scratch,
     archiveRoot: join(scratch, "archive"),
     label: "resistant-worker",
-    timeoutMs: 200,
-    absoluteTimeoutMs: 350,
-    terminationGraceMs: 75,
+    ...bounds,
     environment: {},
     observer: {
       onProcessStarted: (pid) => { processId = pid; },
@@ -737,7 +1017,17 @@ test("M5 ABG transport force-terminates a worker that ignores SIGTERM", async (c
         if (facts.scopeAbsence !== "absent") unconfirmedTerminations += 1;
       },
     },
-  });
+  }));
+  const { result } = settled;
+  const fixture = { ready: await m5Optional(readyPath), events: m5Events(await m5Optional(evidencePath)) };
+  retainEvidence(context, "m5-worker-transport", "resistant-worker", { bounds, settledMs: settled.settledMs, processId,
+    processAbsent: processId === null ? null : !m5Alive(processId), observedExits, unconfirmedTerminations, fixture,
+    failure: failureFact(settled.failure), result, artifacts: await m5Artifacts(join(scratch, "archive"), "resistant-worker") });
+  if (settled.threw) throw settled.failure;
+  // Premise chain: the handler precedes the ready record and 'started'; that
+  // capture precedes the cutoff, which precedes the owner's SIGTERM.
+  assert.equal(JSON.parse(fixture.ready ?? "null")?.pid, processId, "fixture body installed its TERM handler");
+  assert.match(result.finalOutput, /^started\n/u, "acknowledged fixture output was captured before the cutoff");
   assert.equal(result.disposition, "failure");
   assert.equal(result.timedOut, true);
   assert.equal(result.timeoutClass, "absolute");
@@ -751,31 +1041,35 @@ test("M5 ABG transport force-terminates a worker that ignores SIGTERM", async (c
     () => process.kill(processId, 0),
     (error) => error?.code === "ESRCH",
   );
-  assert.equal(Date.now() - startedAt < 2_000, true);
+  assert.equal(settled.settledMs < bounds.absoluteTimeoutMs + m5CleanupMs(bounds.terminationGraceMs) + M5_ADMINISTRATIVE_MS, true);
 });
 
-test("M5 ABG transport renews its inactivity lease only from observed progress", async (context) => {
+const M5_PROGRESS = { leaseMs: M5_SETUP_MS, intervalMs: 50, records: Math.ceil((M5_SETUP_MS + 500) / 50) + 1 };
+M5_PROGRESS.absoluteMs = 2 * M5_SETUP_MS + M5_PROGRESS.records * M5_PROGRESS.intervalMs;
+test("M5 ABG transport renews its inactivity lease only from observed progress", { timeout: m5Cap(M5_PROGRESS.absoluteMs + m5CleanupMs(75)) }, async (context) => {
   const scratch = await mkdtemp(join(tmpdir(), "abi5-progress-lease-"));
   context.after(async () => rm(scratch, { force: true, recursive: true }));
   const workerPath = join(scratch, "progress-worker.mjs");
+  // The workload alone (records x interval) outlasts the initial lease, so
+  // only acknowledged renewal can keep it live to completion.
   await writeFile(workerPath, [
     "#!/usr/bin/env node",
     "let ordinal = 0;",
     "process.stdout.write('progress-0\\n');",
     "const progress = setInterval(() => {",
     "  ordinal += 1;",
-    "  process.stdout.write(`progress-${ordinal}\\n`);",
-    "  if (ordinal === 6) {",
-    "    clearInterval(progress);",
-    "    process.stdout.write('complete\\n', () => process.exit(0));",
-    "  }",
-    "}, 40);",
+    `  if (ordinal < ${M5_PROGRESS.records}) { process.stdout.write(\`progress-\${ordinal}\\n\`); return; }`,
+    "  clearInterval(progress);",
+    "  process.stdout.write('complete\\n', () => process.exit(0));",
+    `}, ${M5_PROGRESS.intervalMs});`,
     "",
   ].join("\n"), "utf8");
   await chmod(workerPath, 0o755);
-  let progressObservations = 0;
-  const startedAt = Date.now();
-  const result = await runWorkerTransport({
+  const records = [...Array.from({ length: M5_PROGRESS.records }, (_, index) => `progress-${index}`), "complete"];
+  const expected = records.map(row => `${row}\n`).join("");
+  const captures = [];
+  let spawnedAt = null;
+  const settled = await m5Settle(() => runWorkerTransport({
     contract: constructKnownWorkerTransportContract("generic", {
       command: process.execPath,
       prefixArgs: [workerPath],
@@ -786,27 +1080,38 @@ test("M5 ABG transport renews its inactivity lease only from observed progress",
     cwd: scratch,
     archiveRoot: join(scratch, "archive"),
     label: "progress-worker",
-    timeoutMs: 120,
-    absoluteTimeoutMs: 600,
+    timeoutMs: M5_PROGRESS.leaseMs,
+    absoluteTimeoutMs: M5_PROGRESS.absoluteMs,
     terminationGraceMs: 75,
     environment: {},
     observer: {
-      onStdoutObserved: () => {
-        progressObservations += 1;
+      onProcessStarted: () => { spawnedAt = performance.now(); },
+      onStdoutObserved: (chunk) => {
+        captures.push({ chunk, at: performance.now() });
         return true;
       },
     },
-  });
-
-  assert.equal(Date.now() - startedAt > 120, true);
-  assert.equal(progressObservations >= 7, true);
+  }));
+  const { result } = settled;
+  const acknowledged = captures.map(row => row.chunk).join("");
+  const timing = m5ProgressTiming(captures, spawnedAt);
+  retainEvidence(context, "m5-worker-transport", "progress-lease", { bounds: M5_PROGRESS, settledMs: settled.settledMs, timing,
+    acknowledged, failure: failureFact(settled.failure), result, artifacts: await m5Artifacts(join(scratch, "archive"), "progress-worker") });
+  if (settled.threw) throw settled.failure;
+  // Ordered complete bytes and records, independent of chunk boundaries.
+  assert.equal(acknowledged, expected, "every acknowledged byte in order");
+  assert.deepEqual(m5CompleteRecords(acknowledged), records);
   assert.equal(result.disposition, "success");
   assert.equal(result.timedOut, false);
   assert.equal(result.timeoutClass, null);
-  assert.match(result.finalOutput, /complete/u);
+  assert.equal(result.stdout, expected);
+  assert.equal(result.finalOutput, expected);
+  // The spawn notification follows the lease arm, so this lower-bounds the
+  // lease's age at the completing capture.
+  assert.equal(timing.spawnToCompleteCaptureMs > M5_PROGRESS.leaseMs, true, "the workload outlasted its initial inactivity lease");
 });
 
-test("M5 ABG transport does not renew from unacknowledged output", async (context) => {
+test("M5 ABG transport does not renew from unacknowledged output", { timeout: m5Cap(2 * M5_SETUP_MS + m5CleanupMs(75)) }, async (context) => {
   const scratch = await mkdtemp(join(tmpdir(), "abi5-unadmitted-progress-"));
   context.after(async () => rm(scratch, { force: true, recursive: true }));
   const workerPath = join(scratch, "unadmitted-progress-worker.mjs");
@@ -816,8 +1121,10 @@ test("M5 ABG transport does not renew from unacknowledged output", async (contex
     "",
   ].join("\n"), "utf8");
   await chmod(workerPath, 0o755);
-  let rawObservations = 0;
-  const result = await runWorkerTransport({
+  const bounds = { timeoutMs: M5_SETUP_MS, absoluteTimeoutMs: 2 * M5_SETUP_MS, terminationGraceMs: 75 };
+  const captures = [];
+  let timeoutAt = null;
+  const settled = await m5Settle(() => runWorkerTransport({
     contract: constructKnownWorkerTransportContract("generic", {
       command: process.execPath,
       prefixArgs: [workerPath],
@@ -828,41 +1135,53 @@ test("M5 ABG transport does not renew from unacknowledged output", async (contex
     cwd: scratch,
     archiveRoot: join(scratch, "archive"),
     label: "unadmitted-progress-worker",
-    timeoutMs: 150,
-    absoluteTimeoutMs: 600,
-    terminationGraceMs: 75,
+    ...bounds,
     environment: {},
     observer: {
-      onStdoutObserved: () => {
-        rawObservations += 1;
+      onStdoutObserved: (chunk) => {
+        captures.push({ chunk, at: performance.now(), beforeTimeout: timeoutAt === null });
         return false;
       },
+      onTimeoutObserved: () => { timeoutAt = performance.now(); },
     },
-  });
-
-  assert.equal(rawObservations > 0, true);
+  }));
+  const { result } = settled;
+  const beforeCutoff = captures.filter(row => row.beforeTimeout).map(row => row.chunk);
+  retainEvidence(context, "m5-worker-transport", "unacknowledged-output", { bounds, settledMs: settled.settledMs,
+    captures: captures.map(({ at, beforeTimeout, chunk }) => ({ at, beforeTimeout, bytes: Buffer.byteLength(chunk) })), timeoutAt,
+    failure: failureFact(settled.failure), result, artifacts: await m5Artifacts(join(scratch, "archive"), "unadmitted-progress-worker") });
+  if (settled.threw) throw settled.failure;
+  assert.equal(beforeCutoff.length >= 2, true, "refused acknowledgements were offered before the timeout");
   assert.equal(result.disposition, "failure");
   assert.equal(result.timedOut, true);
   assert.equal(result.timeoutClass, "inactivity");
+  assert.equal(result.finalOutput, beforeCutoff.join(""), "semantic output is exactly the captured prefix at the cutoff");
   assert.equal(result.finalOutput.length > 0, true);
 });
 
-test("M5 ABG transport excludes semantic output emitted after its timeout boundary", async (context) => {
+test("M5 ABG transport excludes semantic output emitted after its timeout boundary", { timeout: m5Cap(2 * M5_SETUP_MS + m5CleanupMs(250)) }, async (context) => {
   const scratch = await mkdtemp(join(tmpdir(), "abi5-post-timeout-output-"));
   context.after(async () => rm(scratch, { force: true, recursive: true }));
-  const workerPath = join(scratch, "post-timeout-worker.mjs");
+  const workerPath = join(scratch, "post-timeout-worker.mjs"), readyPath = join(scratch, "ready.json"), evidencePath = join(scratch, "fixture.jsonl");
+  const transcript = JSON.stringify({ type: "result", subtype: "success", result: JSON.stringify({ kind: "late_worker_output", schemaVersion: "5.0.0" }) });
   await writeFile(workerPath, [
     "#!/usr/bin/env node",
+    "import { appendFileSync, writeFileSync } from 'node:fs';",
+    `const evidence = (event, extra = {}) => appendFileSync(${JSON.stringify(evidencePath)}, JSON.stringify({ event, ...extra }) + '\\n');`,
     "process.on('SIGTERM', () => {",
-    "  const result = JSON.stringify({kind:'late_worker_output',schemaVersion:'5.0.0'});",
-    "  const transcript = JSON.stringify({type:'result',subtype:'success',result});",
-    "  process.stdout.write(`${transcript}\\n`, () => process.exit(0));",
+    "  evidence('term-received');",
+    `  const transcript = ${JSON.stringify(transcript)};`,
+    "  evidence('write-attempt', { bytes: Buffer.byteLength(transcript) + 1 });",
+    "  process.stdout.write(`${transcript}\\n`, error => { evidence('write-callback', { code: error?.code ?? null }); process.exit(0); });",
     "});",
+    `writeFileSync(${JSON.stringify(readyPath)}, JSON.stringify({ pid: process.pid, handler: 'SIGTERM' }));`,
     "setInterval(() => {}, 1_000);",
     "",
   ].join("\n"), "utf8");
   await chmod(workerPath, 0o755);
-  const result = await runWorkerTransport({
+  const bounds = { timeoutMs: M5_SETUP_MS, absoluteTimeoutMs: 2 * M5_SETUP_MS, terminationGraceMs: 250 };
+  let processId = null;
+  const settled = await m5Settle(() => runWorkerTransport({
     contract: constructKnownWorkerTransportContract("claude", {
       command: process.execPath,
       prefixArgs: [workerPath],
@@ -873,36 +1192,53 @@ test("M5 ABG transport excludes semantic output emitted after its timeout bounda
     cwd: scratch,
     archiveRoot: join(scratch, "archive"),
     label: "post-timeout-output",
-    timeoutMs: 150,
-    absoluteTimeoutMs: 600,
-    terminationGraceMs: 250,
+    ...bounds,
     environment: {},
-  });
-
+    observer: { onProcessStarted: pid => { processId = pid; } },
+  }));
+  const { result } = settled;
+  const fixture = { ready: await m5Optional(readyPath), events: m5Events(await m5Optional(evidencePath)) };
+  retainEvidence(context, "m5-worker-transport", "post-timeout-output", { bounds, settledMs: settled.settledMs, processId, fixture,
+    failure: failureFact(settled.failure), result, artifacts: await m5Artifacts(join(scratch, "archive"), "post-timeout-output") });
+  if (settled.threw) throw settled.failure;
+  // Premise: the handler ran on the owner's SIGTERM and completed its write.
+  assert.equal(JSON.parse(fixture.ready ?? "null")?.pid, processId, "fixture body installed its TERM handler");
+  assert.deepEqual(fixture.events?.map(row => row.event), ["term-received", "write-attempt", "write-callback"]);
+  assert.equal(fixture.events[2].code, null, "the late write completed");
   assert.equal(result.disposition, "failure");
   assert.equal(result.failureClass, "transport_failure");
   assert.equal(result.timedOut, true);
   assert.equal(result.timeoutClass, "inactivity");
   assert.equal(result.finalOutput, "");
   assert.equal(result.structuredEventCount, 0);
-  assert.match(result.stdout, /late_worker_output/u);
+  assert.equal(result.stdout, `${transcript}\n`, "raw capture holds the complete late bytes");
   assert.equal(result.artifacts.output.byteLength, 0);
 });
 
+// Leader plus descendant: two cold Nodes and the leader's 5ms readiness poll,
+// then the original 700ms launch/inactivity, 1500ms absolute and 500ms request
+// margins. Normal leaders exit after readiness, HTTP-normal only after serving
+// the owner's actual request; TERM leaders wait for the owner's timeout, which
+// must follow that readiness.
+const M5_GROUP = { timeoutMs: M5_GROUP_SETUP_MS + 700, absoluteTimeoutMs: M5_GROUP_SETUP_MS + 1500,
+  requestMs: M5_GROUP_SETUP_MS + 500, graceMs: 150 };
 test('owned process groups retain descendant cleanup after normal and TERM leader exits', {
-  skip: process.platform === 'win32' && 'win32 platform: owned POSIX process groups and TERM leader exits are unavailable', timeout: 20_000,
+  skip: process.platform === 'win32' && 'win32 platform: owned POSIX process groups and TERM leader exits are unavailable',
+  timeout: m5Cap(6 * (M5_GROUP.absoluteTimeoutMs + m5CleanupMs(M5_GROUP.graceMs))),
 }, async t => {
   const scratch = await realpath(await mkdtemp(join(tmpdir(), 'abi5-owned-group-')));
   t.after(() => rm(scratch, { recursive: true, force: true }));
   // Expose only the compiled private command/HTTP owners in this component test VM.
   // Its function body and imported owners are unchanged; helper main is not run.
   const modulePath = resolve(import.meta.dirname, '../../build/code/src/implementation/worksite_command_helper.js');
-  const source = (await readFile(modulePath, 'utf8')).replace(/await main\(\);\s*$/u, 'export { runCommand, runHttpProbe };');
-  assert.match(source, /export \{ runCommand, runHttpProbe \};$/u);
+  // The Effect command crosses the helper's own host projection to this Promise-facing case.
+  const source = (await readFile(modulePath, 'utf8')).replace(/await main\(\);\s*$/u,
+    'const runCommandOnHost = (...args) => runHelperProgram(runCommand(...args));\nexport { runCommandOnHost as runCommand, runHttpProbe };');
+  assert.match(source, /export \{ runCommandOnHost as runCommand, runHttpProbe \};$/u);
   const priorSignals = new Map(['SIGTERM', 'SIGINT'].map(signal => [signal, process.listeners(signal)]));
   const module = new SourceTextModule(source, { identifier: modulePath });
   await module.link(async specifier => {
-    const imported = await import(specifier.startsWith('node:') ? specifier : pathToFileURL(resolve(dirname(modulePath), specifier)).href);
+    const imported = await import(specifier.startsWith('.') ? pathToFileURL(resolve(dirname(modulePath), specifier)).href : specifier);
     return new SyntheticModule(Object.keys(imported), function () {
       for (const [name, value] of Object.entries(imported)) this.setExport(name, value);
     });
@@ -910,94 +1246,141 @@ test('owned process groups retain descendant cleanup after normal and TERM leade
   await module.evaluate();
   t.after(() => { for (const [signal, prior] of priorSignals) for (const listener of process.listeners(signal))
     if (!prior.includes(listener)) process.removeListener(signal, listener); });
-  const alive = pid => { try { process.kill(pid, 0); return true; } catch (error) {
-    if (error.code === 'ESRCH') return false; throw error;
-  } };
+  const alive = m5Alive;
   for (const owner of ['worker', 'command', 'http']) for (const mode of ['normal', 'TERM']) {
     const label = `${owner}-${mode}`, ready = join(scratch, `${label}-descendant.json`), leaderFile = join(scratch, `${label}-leader.json`);
     const descendant = join(scratch, `${label}-descendant.mjs`), leader = join(scratch, `${label}-leader.mjs`);
     await writeFile(descendant, `import {writeFileSync} from 'node:fs';\nprocess.on('SIGTERM',()=>{});\nwriteFileSync(${JSON.stringify(ready)},JSON.stringify({pid:process.pid,ppid:process.ppid}));\nsetInterval(()=>{},1000);\n`);
-    await writeFile(leader, `import {spawn} from 'node:child_process';\nimport {existsSync,writeFileSync} from 'node:fs';\nwriteFileSync(${JSON.stringify(leaderFile)},JSON.stringify({pid:process.pid}));\nconst child=spawn(process.execPath,[${JSON.stringify(descendant)}],{stdio:'ignore'});child.unref();\nconst wait=setInterval(()=>{if(!existsSync(${JSON.stringify(ready)}))return;clearInterval(wait);process.stdout.write('ready\\n');${owner === 'http' ? `writeFileSync(${JSON.stringify(join(scratch, `${label}.port`))},'1');` : ''}${mode === 'normal' ? 'process.exit(0);' : 'setInterval(()=>{},1000);'}},5);\n`);
-    let leaderPid = null, result, signals = [];
+    // HTTP-normal binds loopback port zero, publishes it and exits normally only
+    // once the owner's actual request has been served, so port observation
+    // causally precedes that exit. Its log separates publication, request,
+    // response write attempt/finish and exit intention from the owner's status.
+    const httpNormal = owner === 'http' && mode === 'normal', fixtureLog = join(scratch, `${label}-fixture.jsonl`);
+    const leaderTail = httpNormal ? `const fixture=(event,extra={})=>appendFileSync(${JSON.stringify(fixtureLog)},JSON.stringify({event,...extra})+'\\n');const body='actual-http';const server=http.createServer((q,r)=>{fixture('request-received',{method:q.method,url:q.url,localPort:q.socket.localPort});r.setHeader('Connection','close');r.once('finish',()=>{fixture('response-finished');server.close(()=>{fixture('exit-intention',{status:0});process.exit(0);});});fixture('response-write-attempt',{bytes:Buffer.byteLength(body)});r.end(body);});server.listen(0,'127.0.0.1',()=>{const port=server.address().port;writeFileSync(process.argv[2],String(port),{flag:'wx'});fixture('port-published',{port});});`
+      : `${owner === 'http' ? `writeFileSync(${JSON.stringify(join(scratch, `${label}.port`))},'1');` : ''}${mode === 'normal' ? 'process.exit(0);' : 'setInterval(()=>{},1000);'}`;
+    await writeFile(leader, `import {spawn} from 'node:child_process';\nimport {${httpNormal ? 'appendFileSync,' : ''}existsSync,writeFileSync} from 'node:fs';\n${httpNormal ? "import http from 'node:http';\n" : ''}writeFileSync(${JSON.stringify(leaderFile)},JSON.stringify({pid:process.pid}));\nconst child=spawn(process.execPath,[${JSON.stringify(descendant)}],{stdio:'ignore'});child.unref();\nconst wait=setInterval(()=>{if(!existsSync(${JSON.stringify(ready)}))return;clearInterval(wait);process.stdout.write('ready\\n');${leaderTail}},5);\n`);
+    let leaderPid = null, startedPid = null;
+    const workerSignals = [];
     t.after(async () => { if (leaderPid === null) {
       try { leaderPid = JSON.parse(await readFile(leaderFile, 'utf8')).pid; }
       catch (error) { if (error.code !== 'ENOENT') throw error; }
     }
       if (leaderPid !== null) { try { process.kill(-leaderPid, 'SIGKILL'); }
         catch (error) { if (error.code !== 'ESRCH') throw error; } } });
-    if (owner === 'worker') {
-      result = await runWorkerTransport({ contract: constructKnownWorkerTransportContract('generic', {
+    const { WORKSITE_COMMAND_EXECUTION_IDS } = await import('../../build/code/src/product/worksite_command_execution.js');
+    const settled = await m5Settle(async () => {
+      if (owner === 'worker') return runWorkerTransport({ contract: constructKnownWorkerTransportContract('generic', {
         command: process.execPath, prefixArgs: [leader], environment: {} }), prompt: 'owned group test', lane: 'worker_executes',
-        cwd: scratch, archiveRoot: join(scratch, 'archives'), label, timeoutMs: 700, absoluteTimeoutMs: 1500,
-        terminationGraceMs: 150, environment: {}, observer: { onProcessStarted: pid => { leaderPid = pid; },
-          onSignalRequested: signal => signals.push(signal) } });
+        cwd: scratch, archiveRoot: join(scratch, 'archives'), label, timeoutMs: M5_GROUP.timeoutMs, absoluteTimeoutMs: M5_GROUP.absoluteTimeoutMs,
+        terminationGraceMs: M5_GROUP.graceMs, environment: {}, observer: { onProcessStarted: pid => { startedPid = pid; },
+          onSignalRequested: signal => workerSignals.push(signal) } });
+      if (owner === 'command') return module.namespace.runCommand({ taskRef: `task://fixture/${label}`, taskDigest: 'sha256:' + '4'.repeat(64),
+        commands: [{ commandId: `command://fixture/${label}`, executable: process.execPath, args: [leader],
+        relativeCwd: '.', environment: [], timeoutMs: M5_GROUP.timeoutMs, terminationGraceMs: M5_GROUP.graceMs, expectedReports: [] }] }, scratch, 0);
+      return module.namespace.runHttpProbe({ taskRef: `task://fixture/${label}`, taskDigest: 'sha256:' + '4'.repeat(64) }, scratch, {
+        launch: { executable: process.execPath, args: [leader, WORKSITE_COMMAND_EXECUTION_IDS.httpPortFileArgumentPlaceholder],
+          relativeCwd: '.', environment: [], timeoutMs: M5_GROUP.timeoutMs, terminationGraceMs: M5_GROUP.graceMs, portFile: { relativePath: `${label}.port` } },
+        request: { hostname: '127.0.0.1', method: 'GET', path: '/', timeoutMs: M5_GROUP.requestMs },
+      });
+    });
+    // Retain owner, fixture and physical facts before any assertion can stop the case.
+    const leaderRecord = await m5Optional(leaderFile), readyRecord = await m5Optional(ready);
+    const publishedLeader = typeof leaderRecord === 'string' ? JSON.parse(leaderRecord).pid : null;
+    leaderPid = startedPid ?? publishedLeader;
+    const child = typeof readyRecord === 'string' ? JSON.parse(readyRecord) : null;
+    const fixture = httpNormal ? m5Events(await m5Optional(fixtureLog)) : null;
+    const result = owner === 'http' ? settled.result?.process ?? null : settled.result;
+    const signals = owner === 'worker' ? workerSignals : result?.signalSequence ?? null;
+    const groupPresent = leaderPid === null ? null : alive(-leaderPid), descendantPresent = child === null ? null : alive(child.pid);
+    retainEvidence(t, 'm5-worker-transport', `owned-group-${label}`, { bounds: M5_GROUP, settledMs: settled.settledMs, startedPid,
+      leaderRecord, readyRecord, signals, groupPresent, descendantPresent, failure: failureFact(settled.failure), observation: settled.result,
+      ...(httpNormal ? { fixture } : {}), artifacts: owner === 'worker' ? await m5Artifacts(join(scratch, 'archives'), label) : null });
+    if (settled.threw) throw settled.failure;
+    assert.notEqual(publishedLeader, null, `${label}: leader body ran`);
+    if (owner === 'worker') assert.equal(publishedLeader, startedPid, `${label}: published leader is the spawned owned child`);
+    assert.notEqual(child, null, `${label}: descendant body ran before leader readiness`);
+    if (httpNormal) {
+      // Premise: the leader received a request on its published port and
+      // finished that response before intending its normal exit.
+      assert.deepEqual(Array.isArray(fixture) ? fixture.map(row => row.event) : fixture, ['port-published', 'request-received',
+        'response-write-attempt', 'response-finished', 'exit-intention'], `${label}: actual request preceded normal leader exit`);
+      assert.deepEqual([fixture[1].method, fixture[1].url, fixture[1].localPort], ['GET', '/', fixture[0].port],
+        `${label}: the declared request reached the published port`);
+    }
+    if (owner === 'worker') {
       assert.equal(result.exitObserved, true);
       assert.equal(result.status, mode === 'normal' ? 0 : null);
       assert.equal(result.signal, mode === 'normal' ? null : 'SIGTERM');
-    } else if (owner === 'command') {
-      const task = { taskRef: `task://fixture/${label}`, taskDigest: 'sha256:' + '4'.repeat(64),
-        commands: [{ commandId: `command://fixture/${label}`, executable: process.execPath, args: [leader],
-        relativeCwd: '.', environment: [], timeoutMs: 700, terminationGraceMs: 150, expectedReports: [] }] };
-      result = await module.namespace.runCommand(task, scratch, 0);
-      leaderPid = JSON.parse(await readFile(leaderFile, 'utf8')).pid;
-      signals = result.signalSequence;
-      assert.equal(result.exitStatus, mode === 'normal' ? 0 : 124);
-      assert.equal(result.processSignal, mode === 'normal' ? null : 'SIGTERM');
     } else {
-      const { WORKSITE_COMMAND_EXECUTION_IDS } = await import('../../build/code/src/product/worksite_command_execution.js');
-      const probe = await module.namespace.runHttpProbe({ taskRef: `task://fixture/${label}`, taskDigest: 'sha256:' + '4'.repeat(64) }, scratch, {
-        launch: { executable: process.execPath, args: [leader, WORKSITE_COMMAND_EXECUTION_IDS.httpPortFileArgumentPlaceholder],
-          relativeCwd: '.', environment: [], timeoutMs: 700, terminationGraceMs: 150, portFile: { relativePath: `${label}.port` } },
-        request: { hostname: '127.0.0.1', method: 'GET', path: '/', timeoutMs: 500 },
-      });
-      result = probe.process;
-      leaderPid = JSON.parse(await readFile(leaderFile, 'utf8')).pid;
-      signals = result.signalSequence;
+      if (owner === 'http') assert.equal(settled.result.portFile.state, 'observed', `${label}: port published within the request window`);
+      // The owner's own observation and request carry the leader's published port.
+      if (httpNormal) assert.deepEqual([settled.result.portFile.port, settled.result.request?.port], [fixture[0].port, fixture[0].port],
+        `${label}: owner requested the port it observed`);
       assert.equal(result.exitStatus, mode === 'normal' ? 0 : 124);
       assert.equal(result.processSignal, mode === 'normal' ? null : 'SIGTERM');
     }
-    const child = JSON.parse(await readFile(ready, 'utf8'));
     assert.equal(child.ppid, leaderPid, 'actual redirected-stdio descendant belongs to this leader');
     assert.equal(result.timedOut, mode === 'TERM');
     assert.deepEqual(signals, ['SIGTERM', 'SIGKILL']);
     // A surviving zombie/group probe is residue, not a false group-gone claim.
-    assert.equal(result.terminationConfirmed, !alive(-leaderPid));
-    if (alive(child.pid)) { try { process.kill(-leaderPid, 'SIGKILL'); }
+    assert.equal(result.terminationConfirmed, !groupPresent);
+    if (descendantPresent) { try { process.kill(-leaderPid, 'SIGKILL'); }
       catch (error) { if (error.code !== 'ESRCH') throw error; }
       assert.fail(`${label}: owned group remains probe-visible; stop dependent process cases with the unconfirmed residue retained`); }
   }
 });
 
-test("M5 ABG transport excludes descendant output emitted after direct-process exit", async (context) => {
+test("M5 ABG transport excludes descendant output emitted after direct-process exit", {
+  skip: process.platform === 'win32' && 'win32 platform: owned POSIX process groups are unavailable',
+  timeout: m5Cap(M5_GROUP_SETUP_MS + 1000 + m5CleanupMs(500)),
+}, async (context) => {
   const scratch = await mkdtemp(join(tmpdir(), "abi5-post-exit-output-"));
   context.after(async () => rm(scratch, { force: true, recursive: true }));
   const descendantPath = join(scratch, "post-exit-descendant.mjs");
   const workerPath = join(scratch, "post-exit-worker.mjs");
+  const readyPath = join(scratch, "descendant-ready.json"), evidencePath = join(scratch, "fixture.jsonl");
+  const evidence = `const evidence = (event, extra = {}) => appendFileSync(${JSON.stringify(evidencePath)}, JSON.stringify({ event, ...extra }) + '\\n');`;
+  // The descendant's late emission is triggered by the owner's group SIGTERM,
+  // which the owner requests only after observing the leader's direct exit and
+  // closing its capture; the attempt and its outcome are recorded here.
   await writeFile(descendantPath, [
     "#!/usr/bin/env node",
-    "setTimeout(() => {",
+    "import { appendFileSync, writeFileSync } from 'node:fs';",
+    evidence,
+    "process.on('SIGTERM', () => {",
+    "  evidence('term-received');",
     "  const result = JSON.stringify({kind:'late_exit_output',schemaVersion:'5.0.0'});",
     "  const transcript = JSON.stringify({type:'result',subtype:'success',result});",
-    "  process.stdout.write(`${transcript}\\n`, () => process.exit(0));",
-    "}, 225);",
+    "  process.stdout.on('error', error => evidence('stdout-error', { code: error.code ?? null }));",
+    "  evidence('write-attempt', { bytes: Buffer.byteLength(transcript) + 1 });",
+    "  process.stdout.write(`${transcript}\\n`, error => { evidence('write-callback', { code: error?.code ?? null }); process.exit(0); });",
+    "  setTimeout(() => { evidence('fallback-exit'); process.exit(0); }, 100);",
+    "});",
+    `writeFileSync(${JSON.stringify(readyPath)}, JSON.stringify({ pid: process.pid, ppid: process.ppid }));`,
+    "setInterval(() => {}, 1_000);",
     "",
   ].join("\n"), "utf8");
   await writeFile(workerPath, [
     "#!/usr/bin/env node",
     "import { spawn } from 'node:child_process';",
+    "import { appendFileSync, existsSync } from 'node:fs';",
+    evidence,
     `const descendant = spawn(process.execPath, [${
       JSON.stringify(descendantPath)
     }], {stdio:['ignore','inherit','inherit']});`,
     "descendant.unref();",
-    "setTimeout(() => process.exit(47), 50);",
+    `const wait = setInterval(() => { if (!existsSync(${JSON.stringify(readyPath)})) return; clearInterval(wait); evidence('leader-exit-intent', { status: 47 }); process.exit(47); }, 5);`,
     "",
   ].join("\n"), "utf8");
   await chmod(descendantPath, 0o755);
   await chmod(workerPath, 0o755);
-  let timeoutObservations = 0;
+  const bounds = { timeoutMs: M5_GROUP_SETUP_MS, absoluteTimeoutMs: M5_GROUP_SETUP_MS + 1000, terminationGraceMs: 500 };
+  let timeoutObservations = 0, processId = null;
   const requestedSignals = [];
   const observedExits = [];
-  const result = await runWorkerTransport({
+  context.after(() => { if (processId !== null && m5Alive(-processId)) { try { process.kill(-processId, "SIGKILL"); }
+    catch (error) { if (error.code !== "ESRCH") throw error; } } });
+  const settled = await m5Settle(() => runWorkerTransport({
     contract: constructKnownWorkerTransportContract("claude", {
       command: process.execPath,
       prefixArgs: [workerPath],
@@ -1008,16 +1391,29 @@ test("M5 ABG transport excludes descendant output emitted after direct-process e
     cwd: scratch,
     archiveRoot: join(scratch, "archive"),
     label: "post-exit-output",
-    timeoutMs: 150,
-    terminationGraceMs: 500,
+    ...bounds,
     environment: {},
     observer: {
+      onProcessStarted: (pid) => { processId = pid; },
       onTimeoutObserved: () => { timeoutObservations += 1; },
       onSignalRequested: (signal) => requestedSignals.push(signal),
       onProcessFinalized: facts => { if (facts.directExit !== null) observedExits.push(facts.directExit); },
     },
-  });
-
+  }));
+  const { result } = settled;
+  const ready = await m5Optional(readyPath), fixture = { ready, events: m5Events(await m5Optional(evidencePath)) };
+  const descendant = typeof ready === "string" ? JSON.parse(ready) : null;
+  retainEvidence(context, "m5-worker-transport", "post-exit-output", { bounds, settledMs: settled.settledMs, processId, requestedSignals,
+    observedExits, timeoutObservations, fixture, groupPresent: processId === null ? null : m5Alive(-processId),
+    descendantPresent: descendant === null ? null : m5Alive(descendant.pid), failure: failureFact(settled.failure), result,
+    artifacts: await m5Artifacts(join(scratch, "archive"), "post-exit-output") });
+  if (settled.threw) throw settled.failure;
+  const events = fixture.events ?? [];
+  // Premises: the descendant belonged to the leader and was ready before its
+  // exit, the leader intended exit 47, and the late emission was attempted.
+  assert.equal(descendant?.ppid, processId, "descendant body ran under the owned leader");
+  assert.deepEqual(events.slice(0, 3).map(row => row.event), ["leader-exit-intent", "term-received", "write-attempt"]);
+  assert.equal(events.some(row => ["write-callback", "stdout-error", "fallback-exit"].includes(row.event)), true, "the late write attempt reached an outcome");
   assert.equal(result.disposition, "failure");
   assert.equal(result.failureClass, "transport_failure");
   assert.equal(result.status, 47);
@@ -1030,6 +1426,7 @@ test("M5 ABG transport excludes descendant output emitted after direct-process e
   assert.equal(result.structuredEventCount, 0);
   assert.doesNotMatch(result.stdout, /late_exit_output/u);
   assert.equal(result.artifacts.output.byteLength, 0);
+  assert.equal(m5Alive(-processId), false, "owned group absent before the next case");
 });
 
 test('M5 admitted long inactivity, absolute and grace values do not become one-millisecond timeouts', async t => {
@@ -1669,12 +2066,13 @@ test("M5 Q23 the current binding contract records one corresponding identity; a 
 });
 
 // RC7 HS03 (design §10.10): the real transport over controlled structured
-// captures. Noise rows complete no turn and are not progress.
+// captures. Noise rows complete no turn and are not activity. A CLI status
+// row is the heartbeat (t287-liveness-heartbeat), so the noise is a rate-limit row.
 const HS03_ASSISTANT = `${JSON.stringify({ type: "assistant", message: { content: [{ type: "text", text: "a" }] } })}\n`;
 const HS03_USER = `${JSON.stringify({ type: "user", message: { content: [{ type: "text", text: "u" }] } })}\n`;
 const HS03_RESULT = `${JSON.stringify({ type: "result", subtype: "success", is_error: false, result: "done" })}\n`;
 const HS03_DELTA = `${JSON.stringify({ type: "stream_event", event: { type: "content_block_delta" } })}\n`;
-const hs03Noise = n => `${JSON.stringify({ type: "system", subtype: "status", n })}\n`;
+const hs03Noise = n => `${JSON.stringify({ type: "rate_limit_event", rate_limit_info: { status: "allowed" }, n })}\n`;
 // One atomic pipe write (below PIPE_BUF) holding two complete turn records
 // and a noise-only tail, then a result turn, then a noise-only final tail.
 const HS03_PARTS = Object.freeze([HS03_ASSISTANT + hs03Noise(1) + HS03_USER + hs03Noise(2), HS03_RESULT, hs03Noise(3)]);
@@ -1771,9 +2169,9 @@ test("RC7 HS03 archive: one coalesced capture closes a window at each completed 
   const [first] = HS03_PARTS;
   assert.equal(live.captures[0].chunk, first, "one atomic write is one captured string");
   assert.deepEqual(live.captures[0].segments.map(s => ({ ...s })), [
-    { end: HS03_ASSISTANT.length, progress: true, result: false, turnBoundary: true },
-    { end: HS03_ASSISTANT.length + hs03Noise(1).length + HS03_USER.length, progress: true, result: false, turnBoundary: true },
-    { end: first.length, progress: false, result: false, turnBoundary: false },
+    { end: HS03_ASSISTANT.length, progress: true, heartbeat: false, result: false, turnBoundary: true },
+    { end: HS03_ASSISTANT.length + hs03Noise(1).length + HS03_USER.length, progress: true, heartbeat: false, result: false, turnBoundary: true },
+    { end: first.length, progress: false, heartbeat: false, result: false, turnBoundary: false },
   ]);
   const c0 = live.captures[0].elapsedMs, cResult = live.captureOf(HS03_RESULT), cTail = live.captureOf(hs03Noise(3));
   const texts = [HS03_ASSISTANT, hs03Noise(1) + HS03_USER, hs03Noise(2) + HS03_RESULT, hs03Noise(3)];
@@ -1875,7 +2273,7 @@ test("RC7 HS03 timeout: an inactivity timeout drains the pending partial window 
   const cAssistant = live.captureOf(HS03_ASSISTANT), cDelta = live.captureOf(HS03_DELTA);
   const noiseCaptures = live.captures.filter(c => !c.chunk.includes(HS03_DELTA) && !c.chunk.includes(HS03_ASSISTANT));
   assert.equal(noiseCaptures.length > 0, true, "noise arrived after the last qualifying row");
-  assert.equal(noiseCaptures.every(c => c.segments.every(s => !s.progress && !s.result && !s.turnBoundary)), true, "noise is not activity");
+  assert.equal(noiseCaptures.every(c => c.segments.every(s => !s.progress && !s.heartbeat && !s.result && !s.turnBoundary)), true, "noise is not activity");
   assert.equal(live.windows.length, 2, "the completed turn and one drained partial window");
   const [turn, partial] = live.windows;
   assert.deepEqual({ ...turn.window }, { archiveOffset: 0, byteLength: hs03Bytes(HS03_ASSISTANT), firstCaptureElapsedMs: cAssistant,

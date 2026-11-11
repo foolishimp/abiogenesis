@@ -1,4 +1,9 @@
 import type { ChildProcess } from "node:child_process";
+import {
+  initialOwnedProcessState, transitionOwnedProcess,
+  type OwnedProcessInput, type OwnedProcessNotice, type OwnedProcessScopeAbsence,
+  type OwnedProcessTiming, type OwnedProcessWait, type OwnedProcessWaitName,
+} from "./owned_process_state.js";
 
 const HOST_MAX_MS = 2_147_483_647;
 const NS_PER_MS = 1_000_000n;
@@ -70,7 +75,7 @@ export function createMonotonicDeadline(clock: MonotonicTimerHost = nodeClock) {
   };
 }
 
-export type OwnedProcessScopeAbsence = "absent" | "present" | "unknown";
+export type { OwnedProcessScopeAbsence };
 export interface OwnedProcessHost {
   readonly clock: MonotonicTimerHost;
   readonly platform: "posix" | "win32";
@@ -146,148 +151,110 @@ export function createOwnedProcessLifetime(
   }
   const host = bounds.host ?? nodeHost;
   const clock = host.clock;
-  const grace = durationNs(bounds.terminationGraceMs);
-  const drain = durationNs(Math.min(bounds.terminationGraceMs, 250));
-  const phaseTimer = createMonotonicDeadline(clock);
-  const probeTimer = createMonotonicDeadline(clock);
-  const drainTimer = createMonotonicDeadline(clock);
-  let phase: "live" | "term" | "kill" | "drain" | "complete" = "live";
-  let directExit: OwnedProcessFacts["directExit"] = null;
-  let launchFailure: Error | null = null;
-  let firstError: Error | null = null;
-  let scopeAbsence: OwnedProcessScopeAbsence = "unknown";
-  let closeObserved = false;
-  let streamsDisposed = false;
-  let drainExpired = false;
-  let cleanupStartedNs: bigint | null = null;
-  let scopeDeadlineNs: bigint | null = null;
-  let cleanupDeadlineNs: bigint | null = null;
-  let probeCount = 0;
-  let signalAttempts = 0;
-  let killAttempted = false;
-  let completionPublished = false;
+  const timing: OwnedProcessTiming = Object.freeze({
+    platform: host.platform,
+    graceNs: durationNs(bounds.terminationGraceMs),
+    drainNs: durationNs(Math.min(bounds.terminationGraceMs, 250)),
+    probeNs: durationNs(Math.min(bounds.terminationGraceMs, 10)),
+  });
+  const timers: Record<OwnedProcessWaitName, ReturnType<typeof createMonotonicDeadline>> = {
+    phase: createMonotonicDeadline(clock), probe: createMonotonicDeadline(clock), drain: createMonotonicDeadline(clock),
+  };
+  const armed: Record<OwnedProcessWaitName, OwnedProcessWait | null> = { phase: null, probe: null, drain: null };
+  let current = initialOwnedProcessState;
   let resolveCompletion!: (facts: OwnedProcessFacts) => void;
   const completion = new Promise<OwnedProcessFacts>((resolve) => { resolveCompletion = resolve; });
-  const noChild = (): boolean => child.pid === undefined && launchFailure !== null;
-  const snapshot = (): OwnedProcessFacts => ({
-    directExit, launchFailure, noChildEstablished: noChild(),
-    scopeKind: host.platform === "win32" ? "windows_direct_child" : "posix_process_group",
-    scopeAbsence, closeObserved, streamsDisposed, drainExpired, firstError,
-    cleanupDeadlineNs,
-    cleanupElapsedMs: cleanupStartedNs === null ? 0 : Number(clock.nowNs() - cleanupStartedNs) / 1_000_000,
-    probeCount, signalAttempts,
-  });
-  const probe = (): OwnedProcessScopeAbsence => {
-    probeCount += 1;
-    if (noChild()) scopeAbsence = "absent";
-    else if (host.platform === "win32") scopeAbsence = directExit === null ? "unknown" : "absent";
-    else if (child.pid === undefined) scopeAbsence = "unknown";
-    else {
-      try { scopeAbsence = host.probeGroup(child.pid); }
-      catch { scopeAbsence = "unknown"; }
+  // Every call returns a fresh view; elapsed cleanup time is recomputed, also after completion.
+  const snapshot = (): OwnedProcessFacts => {
+    const s = current;
+    return {
+      directExit: s.directExit, launchFailure: s.launchFailure,
+      noChildEstablished: child.pid === undefined && s.launchFailure !== null,
+      scopeKind: host.platform === "win32" ? "windows_direct_child" : "posix_process_group",
+      scopeAbsence: s.scopeAbsence, closeObserved: s.closeObserved, streamsDisposed: s.streamsDisposed,
+      drainExpired: s.drainExpired, firstError: s.firstError,
+      cleanupDeadlineNs: s.cleanupDeadlineNs,
+      cleanupElapsedMs: s.cleanupStartedNs === null ? 0 : Number(clock.nowNs() - s.cleanupStartedNs) / 1_000_000,
+      probeCount: s.probeCount, signalAttempts: s.signalAttempts,
+    };
+  };
+  const probeGroup = (pid: number | undefined): OwnedProcessScopeAbsence => {
+    if (pid === undefined) return "unknown";
+    try { return host.probeGroup(pid); }
+    catch { return "unknown"; }
+  };
+  const notify = (notice: OwnedProcessNotice): void => {
+    if (notice.kind === "error") observations.onError?.(notice.error);
+    else if (notice.kind === "exit") observations.onExit?.(notice.status, notice.signal);
+    else if (notice.kind === "signal") observations.onSignalRequested?.(notice.signal);
+    else observations.onUnconfirmed?.();
+  };
+  // Waits follow the published state; an already-due wait re-enters synchronously.
+  const reconcile = (): void => {
+    for (const name of ["phase", "probe", "drain"] as const) {
+      const wait = current.waits[name];
+      if (armed[name] === wait) continue;
+      armed[name] = wait;
+      if (wait === null) timers[name].cancel();
+      else timers[name].at(wait.atNs, () => dispatch({ kind: "due", wait: name, token: wait }));
     }
-    return scopeAbsence;
   };
-  const signal = (value: "SIGTERM" | "SIGKILL"): void => {
-    if (noChild() || (value === "SIGKILL" && killAttempted)) return;
-    if (value === "SIGKILL") killAttempted = true;
-    signalAttempts += 1;
-    try { host.signal(child, value); }
-    catch { /* Signal failure cannot establish absence. */ }
-  };
-  const complete = (): void => {
-    if (phase === "complete") return;
-    phase = "complete";
-    phaseTimer.cancel(); probeTimer.cancel(); drainTimer.cancel();
+  const dispose = (): void => {
     child.off("spawn", onSpawn);
     child.off("exit", onExit); child.off("close", onClose);
-    streamsDisposed = true;
     for (const stream of [child.stdin, child.stdout, child.stderr]) {
       try { stream?.destroy(); }
-      catch (error) { streamsDisposed = false; fail(error); }
+      catch (error) { failWith(error, true); }
     }
     // Synchronous disposal errors still belong to this outcome. Errors queued
     // for later delivery cannot rewrite it or become an unhandled host error.
     for (const disconnect of errorGuards) disconnect();
-    completionPublished = true;
-    resolveCompletion(Object.freeze(snapshot()));
   };
+  /** Publish the next state before any action; after host or callback re-entry,
+   * only inputs decided against the then-current state may act. */
+  function dispatch(input: OwnedProcessInput): void {
+    const step = transitionOwnedProcess(timing, current, input, { nowNs: clock.nowNs(), pid: child.pid });
+    current = step.state;
+    if (step.signal !== null) {
+      try { host.signal(child, step.signal); }
+      catch { /* Signal failure cannot establish absence. */ }
+    }
+    reconcile();
+    if (current !== step.state) return;
+    const tail = step.tail;
+    let next = step.next;
+    if (tail?.kind === "notify") observe(() => notify(tail.notice));
+    else if (tail?.kind === "probe") {
+      // Count the entered assessment before evaluation or the host can re-enter.
+      dispatch({ kind: "probing", probe: tail.probe });
+      next = [{ kind: "probed", probe: tail.probe, absence: tail.known ?? probeGroup(tail.pid) }, ...next];
+    } else if (tail?.kind === "dispose") dispose();
+    else if (tail?.kind === "publish") resolveCompletion(Object.freeze(snapshot()));
+    for (const following of next) dispatch(following);
+  }
   const observe = <T>(action: () => T): T | undefined => {
-    if (phase === "complete" || firstError !== null) return undefined;
+    if (current.phase === "complete" || current.firstError !== null) return undefined;
     try { return action(); }
     catch (error) { fail(error); return undefined; }
   };
-  const finishScope = (): void => {
-    if (phase === "drain" || phase === "complete") return;
-    phase = "drain";
-    phaseTimer.cancel(); probeTimer.cancel();
-    if (scopeAbsence !== "absent") observe(() => observations.onUnconfirmed?.());
-    if (closeObserved) { complete(); return; }
-    const requested = clock.nowNs() + drain;
-    const deadline = cleanupDeadlineNs === null || requested < cleanupDeadlineNs ? requested : cleanupDeadlineNs;
-    drainTimer.at(deadline, () => { drainExpired = true; complete(); });
-  };
-  const check = (): void => {
-    probeTimer.cancel();
-    if (phase === "live" || phase === "drain" || phase === "complete") return;
-    if (probe() === "absent" && (directExit !== null || noChild())) { finishScope(); return; }
-    probeTimer.after(Math.min(bounds.terminationGraceMs, 10), check);
-  };
-  const startKill = (): void => {
-    if (phase === "kill" || phase === "complete") return;
-    if (phase === "drain") { if (scopeAbsence !== "absent") signal("SIGKILL"); return; }
-    phase = "kill";
-    phaseTimer.cancel();
-    if (probe() === "absent" && (directExit !== null || noChild())) { finishScope(); return; }
-    observe(() => observations.onSignalRequested?.("SIGKILL"));
-    signal("SIGKILL");
-    const requested = clock.nowNs() + grace;
-    scopeDeadlineNs = scopeDeadlineNs === null || requested < scopeDeadlineNs ? requested : scopeDeadlineNs;
-    const final = scopeDeadlineNs + drain;
-    if (cleanupDeadlineNs === null || final < cleanupDeadlineNs) cleanupDeadlineNs = final;
-    phaseTimer.at(scopeDeadlineNs, () => { probe(); finishScope(); });
-    check();
-  };
   const requestTermination = (mode: "graceful" | "immediate" = "graceful"): void => {
-    if (phase === "complete") return;
-    if (phase !== "live") { if (mode === "immediate") startKill(); return; }
-    cleanupStartedNs = clock.nowNs();
-    scopeDeadlineNs = cleanupStartedNs + 2n * grace;
-    cleanupDeadlineNs = scopeDeadlineNs + drain;
-    if (probe() === "absent" && (directExit !== null || noChild())) { finishScope(); return; }
-    if (mode === "immediate") { startKill(); return; }
-    phase = "term";
-    observe(() => observations.onSignalRequested?.("SIGTERM"));
-    // A throwing signal observer may already have strengthened this attempt.
-    if (phase !== "term") return;
-    signal("SIGTERM");
-    phaseTimer.at(cleanupStartedNs + grace, startKill);
-    check();
+    dispatch({ kind: "terminate", mode });
   };
-  const fail = (error: unknown): void => {
-    if (completionPublished) return;
-    firstError ??= error instanceof Error ? error : new TypeError(String(error));
-    requestTermination("immediate");
+  const failWith = (error: unknown, disposal: boolean): void => {
+    if (current.sealed) return;
+    dispatch({ kind: "fail", disposal,
+      error: current.firstError ?? (error instanceof Error ? error : new TypeError(String(error))) });
   };
+  const fail = (error: unknown): void => { failWith(error, false); };
   function onSpawn(): void { if (child.pid !== undefined) observe(() => observations.onSpawn?.(child.pid!)); }
   function onError(error: Error): void {
-    if (child.pid === undefined) {
-      launchFailure ??= error;
-      observe(() => observations.onError?.(error));
-      requestTermination();
-    } else fail(error);
+    if (child.pid === undefined) dispatch({ kind: "launchError", error });
+    else fail(error);
   }
   function onExit(status: number | null, signalValue: NodeJS.Signals | null): void {
-    directExit = Object.freeze({ status, signal: signalValue });
-    observe(() => observations.onExit?.(status, signalValue));
-    requestTermination();
-    check();
+    dispatch({ kind: "exit", status, signal: signalValue });
   }
-  function onClose(): void {
-    closeObserved = true;
-    if (phase === "drain") complete();
-    else { requestTermination(); check(); }
-  }
+  function onClose(): void { dispatch({ kind: "close" }); }
   const errorGuards = [guardOwnedErrors(child, onError)];
   for (const stream of [child.stdin, child.stdout, child.stderr]) {
     if (stream !== null && !stream.closed) errorGuards.push(guardOwnedErrors(stream, fail));

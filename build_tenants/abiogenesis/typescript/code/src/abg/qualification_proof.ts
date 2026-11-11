@@ -685,12 +685,6 @@ function nativeConstructionAuthors(proof: QualificationProofResource, task: Qual
   }
   return task.subjectMembers.every(m => covered.has(m.ref)) ? authors : null;
 }
-/** Missing or conflicting attribution is blocked. This validates a concrete
- * record chain under the declared trusted-desktop authority; labels alone fail. */
-export function projectQualificationConstructionAuthors(proof: QualificationProofResource, plan: QualificationAssessmentPlan,
-  judgment: QualificationJudgment, resources?: QualificationResources, catalogs?: QualificationCatalogs): readonly string[] | null {
-  return constructionAuthorSet(proof, plan, judgment, resources, catalogs)?.actorRefs ?? null;
-}
 /** Native authors keep their actual occurrence selections; external authors
  * are their established identity refs and carry no occurrence selection. */
 function constructionAuthorSet(proof: QualificationProofResource, plan: QualificationAssessmentPlan,

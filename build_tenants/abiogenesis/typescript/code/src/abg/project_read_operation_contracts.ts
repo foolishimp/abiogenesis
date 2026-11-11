@@ -173,6 +173,83 @@ export const ABG_ADMITTED_GAP_SCHEMA = v.strictObject({
   }),
 });
 
+// REQ-P-POLICY-065–068: a stopped Run's reading, folded at read time from its
+// admitted stop, route, foldback, Result and evidence events. Each link the
+// record does not establish is `not_admitted`. The root Result's value is
+// carried without interpretation.
+const stopNotAdmittedSchema = v.strictObject({ kind: v.literal("not_admitted") });
+// The language's own predicate for a gap's missing support references
+// (`gtl/registered_selection.ts`): non-empty strings. A reading never refuses
+// a value the language admitted.
+const admittedGapSupportRefSchema = v.pipe(v.string(), v.minLength(1));
+const stopResultFields = {
+  result: refDigestSchema,
+  cCallRef: nonblankSchema,
+  graphFunctionRef: v.nullable(nonblankSchema),
+  contractRef: nonblankSchema,
+  valueKind: v.nullable(nonblankSchema),
+};
+
+export const ABG_RUN_STOP_READING_SCHEMA = v.strictObject({
+  kind: v.literal("abg_run_stop_reading"),
+  schemaVersion: v.literal("5.0.0"),
+  stop: refDigestSchema,
+  eventKind: v.picklist(["run_stopped", "runtime_failure_observed"]),
+  disposition: nonblankSchema,
+  reasonRef: v.nullable(nonblankSchema),
+  stage: v.nullable(nonblankSchema),
+  operator: v.nullable(v.strictObject({
+    reasonKind: nonblankSchema,
+    reasonDetail: nonblankSchema,
+    operatorActorRef: nonblankSchema,
+  })),
+  origin: v.variant("kind", [
+    v.strictObject({
+      kind: v.literal("failure"),
+      ...stopResultFields,
+      failureClass: v.nullable(nonblankSchema),
+      diagnosticRef: v.nullable(nonblankSchema),
+      timeout: v.variant("kind", [
+        v.strictObject({
+          kind: v.literal("observed"),
+          timeoutClass: v.nullable(v.picklist(["absolute", "inactivity"])),
+        }),
+        stopNotAdmittedSchema,
+      ]),
+    }),
+    v.strictObject({
+      kind: v.literal("gap"),
+      ...stopResultFields,
+      missingSupportRefs: v.array(admittedGapSupportRefSchema),
+      reason: nonblankSchema,
+    }),
+    v.strictObject({
+      kind: v.literal("result"),
+      ...stopResultFields,
+      resultClass: nonblankSchema,
+    }),
+    v.strictObject({
+      kind: v.literal("not_admitted"),
+      missingLink: v.picklist(["stopping_route", "judged_result", "lifted_foldback", "child_result"]),
+    }),
+  ]),
+  lastRootResult: v.variant("kind", [
+    v.strictObject({
+      kind: v.literal("admitted_result"),
+      result: refDigestSchema,
+      contractRef: nonblankSchema,
+      valueKind: v.nullable(nonblankSchema),
+      valueDigest: refDigestSchema.entries.digest,
+      value: v.record(v.string(), jsonValueSchema),
+      cCallRef: nonblankSchema,
+      resultAdmissionEventRef: nonblankSchema,
+    }),
+    stopNotAdmittedSchema,
+  ]),
+  nextActions: refDigestSetSchema,
+  statement: nonblankSchema,
+});
+
 const lawfulActionProjectionSchema = withNativeLiveness({
   kind: v.literal("run_lawful_action_projection"),
   run: refDigestSchema,
@@ -301,6 +378,7 @@ const runStatus = abgReadContract({
   selector: noSelectorSchema,
   projection: subjectStatusProjectionSchema("run_status_projection", {
     executionBasis: refDigestSchema,
+    stop: v.optional(ABG_RUN_STOP_READING_SCHEMA),
   }),
   abstractModule: "ABG.RunProjection",
 });

@@ -956,7 +956,7 @@ export async function setupInstalledRootResolution(
       row.graphFunctionRef === graphFunction.name &&
       row.nodeRef === node.nodeRef,
   );
-  const resolutionCandidate = rootRows.length === 1
+  const resolutionCandidate = rootRows.length === 1 && gtl.isExecutableCLeaf(node.term)
     ? product.resolveImplementation(
         catalogView,
         environment.executionResolution.declarationClosure,

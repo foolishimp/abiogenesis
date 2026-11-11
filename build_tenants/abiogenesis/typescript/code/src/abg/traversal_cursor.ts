@@ -557,13 +557,16 @@ function projectCursorAncestry(prefix: RuntimeEventPrefix, graph: Readonly<GtlGr
       } else if (payload.routeKind === "advance" && typeof payload.cCallRef === "string" &&
         graph.template.applications.some(a => a.applicationRef === payload.declarationRef && a.relationKind === "recurse")) {
         // HoG's deriveRecursionReentryCursor relation, read cold: the same term at
-        // the next bounded attempt, input = the consumed foldback's child Result.
+        // the next bounded attempt, input = the consumed foldback's child Result,
+        // or the parent's prior input when the folded child failed.
         const application = graph.template.applications.find(a => a.applicationRef === payload.declarationRef)!;
         const consumed = Array.isArray(payload.consumedAvailabilityRefs) ? payload.consumedAvailabilityRefs : [];
         const fold = exactOrUndefined(onlyExactMatch(indexedRuntimeEvents(prefix, "kind:child_foldback_admitted").filter(e =>
           e.admissionOrdinal < event.admissionOrdinal && e.runId === selected.runId && e.frameId === selected.frameId &&
           isRecord(e.payload) && e.payload.parentCCallRef === payload.cCallRef && consumed.includes(e.payload.foldbackRef as JsonValue))));
-        const folded = fold === undefined || !isRecord(fold.payload) ? null : inputCoordinate(fold.payload.childResultRef, fold.payload.outputDigest);
+        const folded = fold === undefined || !isRecord(fold.payload) ? null
+          : fold.payload.childDisposition === "failed" ? inputCoordinate(current.inputRef, current.inputDigest)
+          : inputCoordinate(fold.payload.childResultRef, fold.payload.outputDigest);
         if (folded === null || application.relationKind !== "recurse" || current.position !== "at_term" ||
           current.attempt >= application.bound) return null;
         target = { kind: "c_traversal_target" as const, nodeRef: current.currentNodeRef, termPath: current.termPath,

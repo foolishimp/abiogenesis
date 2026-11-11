@@ -1,7 +1,7 @@
 import { isDeepStrictEqual as same, types } from "node:util";
 import { defaultLibraryImplementationBindings } from "../gtl/default_library.js";
-import { governanceRef as ref, GOVERNANCE_OPERATIONS } from "../product/default_library.js";
-import { bindFramedSynthesisResult, isFramedSynthesisTask, type FramedSynthesisTarget, type FramedSynthesisBasis } from "../product/default_library.js";
+import { governanceRef as ref, GOVERNANCE_OPERATIONS, GOVERNANCE_SELECTION_REFUSALS } from "../product/default_library.js";
+import { bindFramedSynthesisResult, isFramedSynthesisTask, governanceTargetPermission, type FramedSynthesisTarget, type FramedSynthesisBasis } from "../product/default_library.js";
 import { admitIJsonText } from "../shared/i_json.js";
 import { ABI5_PACKAGE_NAME, ABI5_PACKAGE_VERSION } from "../product/contracts.js";
 import type { PackagedLeafImplementationDescriptor } from "../product/implementation_resolution.js";
@@ -35,6 +35,25 @@ function realized(operation: typeof GOVERNANCE_OPERATIONS[number], input: JsonVa
   return success ? { kind: "leaf_realization_candidate", schemaVersion: "5.0.0", disposition: "success", resultCandidate, evidenceCandidates }
     : { kind: "leaf_realization_candidate", schemaVersion: "5.0.0", disposition: "failure", resultCandidate, evidenceCandidates, diagnosticRef };
 }
+/** The first owner refusal of one construction, retained as its runtime-failure diagnostic.
+ * `computeRegime` is the refusing leaf's regime: F_D for a construction, F_P for the selector. */
+function refusalReport(operation: typeof GOVERNANCE_OPERATIONS[number], occurrence: LeafExecutionOccurrence, inputDigest: Sha256Digest,
+  computeRegime: "F_D" | "F_P" = "F_D") {
+  let diagnosticRef: string | undefined;
+  const refusal: GovernanceTestingRefusal = (stage, relation, selectors = {}, error) => {
+    if (diagnosticRef !== undefined) return;
+    const caught = relation === "caught" && !types.isProxy(error) ? error : null;
+    diagnosticRef = constructRuntimeFailureDiagnosticRef({
+      diagnosticClassRef: ref("diagnostic", "missing-owned-" + operation), computeRegime,
+      implementationRef: ref("implementation", operation), inputDigest,
+      occurrence: { cCallRef: occurrence.cCallRef, runId: occurrence.runId ?? null, graphCallId: occurrence.graphCallId ?? null,
+        frameId: occurrence.frameId ?? null, programLocusRef: occurrence.programLocusRef ?? null,
+        taskOrdinal: occurrence.taskOrdinal ?? null, attempt: occurrence.attempt ?? null },
+      stage, relation, selectors, cause: relation === "caught" ? sanitizeUndispatchedOwnerError(caught) : null,
+    });
+  };
+  return { refusal, diagnosticRef: () => diagnosticRef };
+}
 /**
  * The three governance preparation leaves each run one worksite observation
  * effect, admitted by its owner before any construction reads it
@@ -47,7 +66,9 @@ function realized(operation: typeof GOVERNANCE_OPERATIONS[number], input: JsonVa
  */
 export async function prepareGovernanceSelection(input: Readonly<Record<string, JsonValue>>, occurrence: LeafExecutionOccurrence,
   _resolution?: unknown, inputDigest?: Sha256Digest) {
-  return realized("prepare-selection", input, occurrence.nativeInstructionAssemblyBasis === undefined ? null : await projectGovernanceSelection(occurrence.nativeInstructionAssemblyBasis, input), undefined, inputDigest);
+  const checkedInputDigest = inputDigest ?? hash(input), report = refusalReport("prepare-selection", occurrence, checkedInputDigest);
+  const output = occurrence.nativeInstructionAssemblyBasis === undefined ? null : await projectGovernanceSelection(occurrence.nativeInstructionAssemblyBasis, input, report.refusal);
+  return realized("prepare-selection", input, output, output === null ? report.diagnosticRef() : undefined, checkedInputDigest);
 }
 export async function prepareGovernanceNativeTask(input: Readonly<Record<string, JsonValue>>, occurrence: LeafExecutionOccurrence,
   _resolution?: unknown, inputDigest?: Sha256Digest) {
@@ -55,27 +76,14 @@ export async function prepareGovernanceNativeTask(input: Readonly<Record<string,
 }
 export async function prepareObservedTestingTask(input: Readonly<Record<string, JsonValue>>, occurrence: LeafExecutionOccurrence,
   _resolution?: unknown, inputDigest?: Sha256Digest, proof?: NativeLeafProofOperations) {
-  let diagnosticRef: string | undefined;
-  const checkedInputDigest = inputDigest ?? hash(input);
-  const refusal: GovernanceTestingRefusal = (stage, relation, selectors = {}, error) => {
-    if (diagnosticRef !== undefined) return;
-    const caught = relation === "caught" && !types.isProxy(error) ? error : null;
-    diagnosticRef = constructRuntimeFailureDiagnosticRef({
-      diagnosticClassRef: ref("diagnostic", "missing-owned-prepare-testing"), computeRegime: "F_D",
-      implementationRef: ref("implementation", "prepare-testing"), inputDigest: checkedInputDigest,
-      occurrence: { cCallRef: occurrence.cCallRef, runId: occurrence.runId ?? null, graphCallId: occurrence.graphCallId ?? null,
-        frameId: occurrence.frameId ?? null, programLocusRef: occurrence.programLocusRef ?? null,
-        taskOrdinal: occurrence.taskOrdinal ?? null, attempt: occurrence.attempt ?? null },
-      stage, relation, selectors, cause: relation === "caught" ? sanitizeUndispatchedOwnerError(caught) : null,
-    });
-  };
+  const checkedInputDigest = inputDigest ?? hash(input), { refusal, diagnosticRef } = refusalReport("prepare-testing", occurrence, checkedInputDigest);
   const basis = occurrence.nativeInstructionAssemblyBasis;
   if (basis === undefined) refusal("testing_basis", "assembly_basis_absent");
   const output = basis === undefined ? null : await projectGovernanceTestingTask(basis, input,
     proof?.governanceTestingReacquisition === undefined ? undefined :
       (context, report) => proof.governanceTestingReacquisition!(input, occurrence, context, report), refusal,
     occurrence.commandAmbientEnvironment);
-  return realized("prepare-testing", input, output, output === null ? diagnosticRef : undefined, checkedInputDigest);
+  return realized("prepare-testing", input, output, output === null ? diagnosticRef() : undefined, checkedInputDigest);
 }
 export function foldGovernanceWork(input: Readonly<Record<string, JsonValue>>, occurrence: LeafExecutionOccurrence,
   _resolution?: unknown, inputDigest?: Sha256Digest) {
@@ -83,24 +91,50 @@ export function foldGovernanceWork(input: Readonly<Record<string, JsonValue>>, o
 }
 export function evaluateGovernanceParent(input: Readonly<Record<string, JsonValue>>, occurrence: LeafExecutionOccurrence,
   _resolution?: unknown, inputDigest?: Sha256Digest) {
-  return realized("evaluate-parent", input, occurrence.nativeInstructionAssemblyBasis === undefined ? null : projectGovernanceParent(occurrence.nativeInstructionAssemblyBasis, input), undefined, inputDigest);
+  const checkedInputDigest = inputDigest ?? hash(input), report = refusalReport("evaluate-parent", occurrence, checkedInputDigest);
+  const output = occurrence.nativeInstructionAssemblyBasis === undefined ? null : projectGovernanceParent(occurrence.nativeInstructionAssemblyBasis, input, report.refusal);
+  return realized("evaluate-parent", input, output, output === null ? report.diagnosticRef() : undefined, checkedInputDigest);
 }
 export function projectGovernanceChoice(input: Readonly<Record<string, JsonValue>>, occurrence: LeafExecutionOccurrence,
   _resolution?: unknown, inputDigest?: Sha256Digest) {
-  return realized("project-choice", input, occurrence.nativeInstructionAssemblyBasis === undefined ? null : projectChoice(occurrence.nativeInstructionAssemblyBasis, input), undefined, inputDigest);
+  const checkedInputDigest = inputDigest ?? hash(input), report = refusalReport("project-choice", occurrence, checkedInputDigest);
+  const output = occurrence.nativeInstructionAssemblyBasis === undefined ? null : projectChoice(occurrence.nativeInstructionAssemblyBasis, input, report.refusal);
+  return realized("project-choice", input, output, output === null ? report.diagnosticRef() : undefined, checkedInputDigest);
 }
-export function selectGovernanceWork(input: Readonly<Record<string, JsonValue>>, _occurrence: LeafExecutionOccurrence,
+/** The selector's completion. An exchange whose identity differs from the
+ * prepared request is an integrity failure and throws. Every other outcome that
+ * binds no choice is a typed refusal of class `missing-owned-select`, relation
+ * one of `GOVERNANCE_SELECTION_REFUSALS`: the selector's process ended without
+ * success, its response was refused, or it chose a target that is not permitted. */
+export function selectGovernanceWork(input: Readonly<Record<string, JsonValue>>, occurrence: LeafExecutionOccurrence,
   prepareAssembly: () => NativeInstructionAssembly): PreparedProbabilisticLeafInvocation<LeafRealizationCandidate> {
   if (!isFramedSynthesisTask(input)) throw new TypeError("framed synthesis task required");
   const assembly = prepareAssembly();
   return deepFreeze({ kind: "prepared_probabilistic_leaf_invocation", schemaVersion: "5.0.0", workerRequest: assembly.request,
     complete(exchange) {
-      const o = exchange.observation;
-      if (!same(exchange.request, assembly.request) || o.disposition !== "success" || o.toolCallCount !== 0 ||
-        o.promptDigest !== assembly.manifest.promptDigest || o.inputDigest !== hash(input) || o.implementationRef !== ref("implementation", "select")) throw new TypeError("native selector exchange mismatch");
-      const output = bindFramedSynthesisResult(input, assembly.envelope.targetBindings as unknown as FramedSynthesisTarget[],
-        assembly.envelope.boundBasis as unknown as FramedSynthesisBasis, admitIJsonText(o.finalOutput, "framed synthesis raw result"));
-      if (output === null) throw new TypeError("native selector choice binding refused");
-      return realized("select", input, output);
+      const o = exchange.observation, inputDigest = hash(input);
+      if (!same(exchange.request, assembly.request) || o.promptDigest !== assembly.manifest.promptDigest || o.inputDigest !== inputDigest ||
+        o.implementationRef !== ref("implementation", "select")) throw new TypeError("native selector exchange mismatch");
+      const { refusal, diagnosticRef } = refusalReport("select", occurrence, inputDigest, "F_P");
+      const refused = (relation: typeof GOVERNANCE_SELECTION_REFUSALS[number], selectors: Readonly<Record<string, string | number | boolean | null>>) => {
+        refusal("selector_completion", relation, selectors); return realized("select", input, null, diagnosticRef());
+      };
+      if (o.disposition !== "success")
+        return refused("selector_process_ended", { actorInvocationRef: o.actorInvocationRef, failureClass: o.failureClass, timeoutClass: o.timeoutClass });
+      const targets = assembly.envelope.targetBindings as unknown as FramedSynthesisTarget[];
+      let raw: unknown = null;
+      if (o.toolCallCount === 0) try { raw = admitIJsonText(o.finalOutput, "framed synthesis raw result"); } catch { raw = null; }
+      const proposed = raw !== null && typeof raw === "object" && !Array.isArray(raw) ? raw as { readonly nextGraphFunctionRef?: unknown; readonly reviewRef?: unknown } : {};
+      const next = targets.find(t => t.graphFunctionRef === proposed.nextGraphFunctionRef);
+      const choice = { graphFunctionRef: next?.graphFunctionRef ?? null, reviewRef: typeof proposed.reviewRef === "string" ? proposed.reviewRef : null };
+      const output = o.toolCallCount === 0 && raw !== null ? bindFramedSynthesisResult(input, targets, assembly.envelope.boundBasis as unknown as FramedSynthesisBasis, raw) : null;
+      if (output !== null) return realized("select", input, output);
+      const permission = next === undefined ? null : governanceTargetPermission(input, next);
+      const join = (refs: readonly string[]) => refs.length === 0 ? null : refs.join(" ");
+      // A chosen target whose declared prerequisites do not hold names its missing and stale reviews.
+      return permission !== null && permission.offered && !permission.permitted ? refused("target_not_permitted", { ...choice,
+        missingReviews: join(permission.missingReviews.filter(m => !m.satisfied).map(m => m.reviewRef)),
+        staleReviews: join(permission.missingReviews.filter(m => m.satisfied).map(m => m.reviewRef)),
+        missingSelectedPaths: join(permission.missingSelectedPaths) }) : refused("response_refused", choice);
     } });
 }

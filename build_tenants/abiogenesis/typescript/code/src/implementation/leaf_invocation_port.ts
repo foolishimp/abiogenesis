@@ -858,17 +858,6 @@ export function isAdmittedLeafInvocationPort(value: object): boolean {
     typeof candidate.invoke === "function";
 }
 
-export function isAdmittedLeafInvocationResolution(
-  port: object,
-  resolution: object,
-): boolean {
-  if (!isAdmittedLeafInvocationPort(port)) return false;
-  const candidate = port as LeafInvocationPort;
-  return candidate.isAdmittedResolution(
-    resolution as LeafInvocationResolution,
-  );
-}
-
 function exactOwnerPublication(
   resolution: LoadedLeafExecutionAuthority,
   coordinate: ExecutionDeclarationOwnerCoordinate,

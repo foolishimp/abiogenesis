@@ -1,4 +1,5 @@
 import { writeCanonicalJson, type JsonValue } from "../shared/canonical_json.js";
+import { Buffer } from "node:buffer";
 import { createHash, type Hash } from "node:crypto";
 import type { Sha256Digest } from "../shared/digests.js";
 import { deepFreeze } from "../shared/immutable.js";
@@ -69,6 +70,14 @@ export class RuntimeHistory {
   readonly #scopeExtents = new WeakMap<object, Map<string, { length: number; count: number; lastOrdinal: number }>>();
   readonly #scopes = new Map<string, { through: number; indices: number[]; included: Set<number>; order: object; selection: RuntimeHistorySelection }>();
   readonly #verifiedBodies = new Map<number, Readonly<{ body: RuntimeEventBodyLocation; event: RuntimeEvent }>>();
+  // §10.12 O1 lifetime: open run operation scopes per invocation, their
+  // checked basis rows and their retained basis body indices with the logical
+  // canonical raw-input bytes recorded once at insertion. Disposable
+  // computation of this generation, never status or admission.
+  readonly #basisHolds = new Map<string, number>();
+  readonly #basisRows = new Map<string, Map<string, Readonly<{ value: unknown; payloadBytes: number }>>>();
+  readonly #basisBodies = new Map<string, Map<number, number>>();
+  #basisEpoch = 0;
   readonly work = { bodyRows: 0, bodyDecodes: 0, scopeRows: 0, membershipComparisons: 0, selectorRows: 0 };
   #canonicalHash = createHash("sha256").update("[");
   #committedHash: Hash = this.#canonicalHash.copy();
@@ -192,6 +201,7 @@ export class RuntimeHistory {
       throw new TypeError("invalid runtime history rollback");
     if (length === this.length) return;
     if (length !== this.#committedLength) throw new TypeError("runtime rollback must restore its committed prefix");
+    this.disposeBasisRetention();
     this.#generation++; this.#scopes.clear(); this.#verifiedBodies.clear();
     for (const row of this.#rows.slice(length)) this.#byId.delete(row.envelope.eventId);
     this.#rows.length = length;
@@ -317,8 +327,67 @@ export class RuntimeHistory {
     if (value.eventId !== row.envelope.eventId || value.payloadDigest !== row.envelope.payloadDigest ||
         value.admissionOrdinal !== row.envelope.admissionOrdinal)
       throw new TypeError("selected body differs from its authenticated envelope");
-    if (!current && committed) this.#verifiedBodies.set(index, { body: row.body, event: value });
+    if (!current && committed) {
+      // A basis body is kept only while an open scope holds its invocation;
+      // otherwise it lives in the consumer-local selected-body map.
+      const invocationRef = basisInvocationRef(value);
+      if (invocationRef === undefined) this.#verifiedBodies.set(index, { body: row.body, event: value });
+      else if (this.#basisHolds.has(invocationRef)) {
+        this.#verifiedBodies.set(index, { body: row.body, event: value });
+        let bodies = this.#basisBodies.get(invocationRef);
+        if (bodies === undefined) { bodies = new Map(); this.#basisBodies.set(invocationRef, bodies); }
+        bodies.set(index, rawInputBytes(value.payload));
+      }
+    }
     return value;
+  }
+
+  /** @internal §10.12 O1: open one run operation scope's retention of the
+   * basis rows and bodies of one invocation. The returned release is the
+   * scope finalizer; releasing removes only what no other open scope holds.
+   * A rollback or physical close disposes every handle first. */
+  retainBasis(invocationRef: string): () => void {
+    if (this.#validation !== undefined) return () => {};
+    const epoch = this.#basisEpoch;
+    this.#basisHolds.set(invocationRef, (this.#basisHolds.get(invocationRef) ?? 0) + 1);
+    let open = true;
+    return () => {
+      if (!open) return;
+      open = false;
+      if (epoch !== this.#basisEpoch) return;
+      const count = (this.#basisHolds.get(invocationRef) ?? 1) - 1;
+      if (count > 0) { this.#basisHolds.set(invocationRef, count); return; }
+      this.#basisHolds.delete(invocationRef); this.#basisRows.delete(invocationRef);
+      for (const index of this.#basisBodies.get(invocationRef)?.keys() ?? []) this.#verifiedBodies.delete(index);
+      this.#basisBodies.delete(invocationRef);
+    };
+  }
+  /** @internal The retained checked row of an open scope, keyed by generation and row. */
+  basisRowFact(invocationRef: string, row: string): unknown {
+    return this.#basisHolds.has(invocationRef) ? this.#basisRows.get(invocationRef)?.get(this.#generation + ":" + row)?.value : undefined;
+  }
+  /** @internal Retains a checked row only under an open scope of its invocation. */
+  retainBasisRowFact(invocationRef: string, row: string, value: unknown, rawInputValue: unknown): void {
+    if (!this.#basisHolds.has(invocationRef)) return;
+    let rows = this.#basisRows.get(invocationRef);
+    if (rows === undefined) { rows = new Map(); this.#basisRows.set(invocationRef, rows); }
+    const key = this.#generation + ":" + row;
+    if (!rows.has(key)) rows.set(key, Object.freeze({ value, payloadBytes: rawInputBytes({ rawInputValue }) }));
+  }
+  /** @internal Rollback and physical close dispose every handle and retained root. */
+  disposeBasisRetention(): void {
+    this.#basisEpoch++;
+    for (const bodies of this.#basisBodies.values()) for (const index of bodies.keys()) this.#verifiedBodies.delete(index);
+    this.#basisHolds.clear(); this.#basisRows.clear(); this.#basisBodies.clear();
+  }
+  /** @internal Owner gauges; recorded byte lengths are summed, rows are not reserialized. */
+  observeBasisRetention(): Readonly<{ openHandles: number; retainedRows: number; retainedPayloadBytes: number;
+    historyBasisBodies: number; historyBasisPayloadBytes: number }> {
+    let openHandles = 0, retainedRows = 0, retainedPayloadBytes = 0, historyBasisBodies = 0, historyBasisPayloadBytes = 0;
+    for (const count of this.#basisHolds.values()) openHandles += count;
+    for (const rows of this.#basisRows.values()) for (const fact of rows.values()) { retainedRows++; retainedPayloadBytes += fact.payloadBytes; }
+    for (const bodies of this.#basisBodies.values()) for (const bytes of bodies.values()) { historyBasisBodies++; historyBasisPayloadBytes += bytes; }
+    return Object.freeze({ openHandles, retainedRows, retainedPayloadBytes, historyBasisBodies, historyBasisPayloadBytes });
   }
   select(through = this.length, indices?: readonly number[] | RuntimeScopeIndices): RuntimeHistorySelection {
     return new RuntimeHistorySelection(SELECTION_KEY, this, through, indices);
@@ -537,11 +606,28 @@ export function runtimeHistoryRow(event: RuntimeEvent, body: RuntimeEventBodyLoc
   return deepFreeze({ envelope, profileAfter, scalarPayload, body: { ...body }, selectorKeys: [...selectorKeys] });
 }
 
-/** @internal The actual JSON value is used only within its selected consumer. */
-export function runtimeHistoryPayload(selection: RuntimeHistorySelection, index: number): JsonValue {
-  const event = selection.event(index);
-  if (event === undefined) throw new TypeError("selected history payload is absent");
-  return event.payload;
+function basisInvocationRef(event: RuntimeEvent): string | undefined {
+  if (event.kind !== "basis_admitted") return undefined;
+  const payload = event.payload;
+  const invocationRef = typeof payload === "object" && payload !== null && !Array.isArray(payload)
+    ? (payload as Readonly<Record<string, unknown>>).invocationRef : undefined;
+  return typeof invocationRef === "string" ? invocationRef : "";
+}
+/** Logical UTF-8 length of the canonical JSON of a basis raw input; not heap size. */
+function rawInputBytes(payload: unknown): number {
+  if (typeof payload !== "object" || payload === null || Array.isArray(payload)) return 0;
+  const raw = (payload as Readonly<Record<string, unknown>>).rawInputValue;
+  if (raw === undefined) return 0;
+  let bytes = 0;
+  writeCanonicalJson(raw as JsonValue, part => { bytes += Buffer.byteLength(part, "utf8"); });
+  return bytes;
+}
+
+/** @internal §10.12 O1 owner gauges of the store history owning this selection. */
+export function observeRuntimeHistoryBasisRetention(selection: RuntimeHistorySelection): ReturnType<RuntimeHistory["observeBasisRetention"]> {
+  const owner = RuntimeHistorySelection.owner(selection);
+  if (owner === undefined) throw new TypeError("basis retention belongs to an owned history selection");
+  return owner.observeBasisRetention();
 }
 
 /** @internal Declared native context positions of admitted Result values, and

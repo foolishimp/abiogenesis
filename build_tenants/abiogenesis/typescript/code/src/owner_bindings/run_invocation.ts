@@ -1,11 +1,12 @@
 import { prepareRunQualificationResources } from "../product/run_invocation_operation.js";
 import { projectGovernanceCoveredSourceUse } from "../abg/invocation_execution_truth.js";
-import { projectOwnedRuntimeEventPrefixAtDurablePrefix, readOwnedRuntimeEventPrefixAtDurablePrefix, type RuntimeEventPrefix } from "../abg/event_prefix.js";
+import { projectOwnedRuntimeEventPrefixAtDurablePrefix, readOwnedRuntimeEventPrefixAtDurablePrefix, retainExecutionBasisLifetime, type RuntimeEventPrefix } from "../abg/event_prefix.js";
 import { QUALIFICATION_RESOURCE_ASSERTION_SCHEMA } from "../validator/qualification_contracts.js";
 import { ABG_HISTORICAL_GRAPH_CALL_SOURCE_RESOURCE_SCHEMA } from "../abg/terminal_result_contracts.js";
 import { REQUIREMENT_HANDOFF_DECLARATION_SCHEMA } from "../gtl/requirement_handoff.js";
 import { SEMANTIC_LIFECYCLE_SCHEMA } from "../gtl/semantic_stage.js";
 import { SEMANTIC_JOB_LIFECYCLE_SCHEMA } from "../gtl/semantic_job.js";
+import { FOLDBACK_DECLARATION_SCHEMA } from "../gtl/serialization_contracts.js";
 import * as Cause from "effect/Cause";
 import * as Effect from "effect/Effect";
 import * as Option from "effect/Option";
@@ -359,11 +360,7 @@ const GRAPH_FUNCTION_APPLICATION_SCHEMA = v.union([
     terminationEvaluatorRefs: REF_ARRAY_SCHEMA,
     terminationFieldRef: nonblankSchema,
     foldbackRef: nonblankSchema,
-    foldback: v.strictObject({
-      mode: v.literal("rebind"),
-      binding: nonblankSchema,
-      requiresParentEvaluation: v.literal(true),
-    }),
+    foldback: FOLDBACK_DECLARATION_SCHEMA,
     bound: v.pipe(v.number(), v.safeInteger(), v.minValue(1)),
   }),
   v.strictObject({
@@ -1237,6 +1234,19 @@ function finish<TPacket extends RunPacket>(
   });
 }
 
+/** §10.12 O1: one disposable basis retention handle of this run operation
+ * scope. A start names its admitted execution invocation after invocation
+ * admission, never the Public request ref; a continuation names its prepared
+ * original invocation, never the public continuation operation's own
+ * invocation ref. Release is computational disposal on every exit and declares
+ * no semantic closure. */
+function retainBasisLifetime(coordinate: DurablePrefixCoordinate, invocationRef: string) {
+  return Effect.acquireRelease(
+    Effect.sync(() => retainExecutionBasisLifetime(coordinate, invocationRef)),
+    (release) => Effect.sync(release),
+  );
+}
+
 function runInvocationOwner<TPacket extends InvocationPacket>(
   call: DefinitionCall<TPacket, RunInvocationResourceAssertion>,
 ): ReturnType<RunCallable<TPacket>> {
@@ -1424,6 +1434,11 @@ function runInvocationOwner<TPacket extends InvocationPacket>(
       );
     }
     const admission = admitted.admission;
+    // §10.12 O1: this scope alone retains the admitted execution invocation's
+    // basis rows and bodies, never the Public request ref, on the returned
+    // current successor; the finalizer releases them on every exit, before
+    // abandon.
+    yield* retainBasisLifetime(admitted.successorPrefix, admission.invocationRef);
     const graph = yield* syncStage(call, "graph_materialization", () =>
       materializeGraph(prepared.resolution.graphFunction, {
         invocationAdmissionRef: admission.invocationAdmissionRef,
@@ -1941,6 +1956,7 @@ function runCurrentIntentOwner(call: DefinitionCall<ContinuePacket, RunInvocatio
       request.run.ref, request.continuation);
     if (selection.kind === "refused") return yield* refuse(selection.code, selection.path);
     const { resolution, prepared } = selection;
+    yield* retainBasisLifetime(entryPrefix, prepared.invocation.invocationRef);
     if (request.run.digest !== prepared.rootScope.runDigest ||
       request.expectedBasis.ref !== prepared.child.basisRef || request.expectedBasis.digest !== prepared.child.basisDigest)
       return yield* refuse("basis_mismatch", "/expectedBasis");
@@ -1987,12 +2003,7 @@ function runCurrentIntentOwner(call: DefinitionCall<ContinuePacket, RunInvocatio
     if (truth.kind !== "abg_run_truth_projection")
       return yield* finish(call, resource, finalPrefix, { outcomeKind: "refusal", value: { code: "replay_mismatch", issuePaths: ["/run"], evidenceRefs: [] } } as OwnerSemanticOutput<ContinuePacket>, null, prepared.invocation, null);
     const successor = { ref: continued.continuation.continuationRef, digest: continued.continuation.continuationDigest };
-    const ownerOutput: OwnerSemanticOutput<ContinuePacket> = truth.runtimeStatus === "held" || truth.runtimeStatus === "gap_stopped"
-      ? { outcomeKind: "nonterminal", value: { continuationKind: "current_intent", disposition: truth.runtimeStatus === "held" ? "held" : "gap_stop",
-          run: truth.run, continuation: successor, evidence: [...truth.evidence], replay: truth.replay } }
-      : { outcomeKind: "result", value: { continuationKind: "current_intent", run: truth.run, graphCall: truth.graphCall,
-          admittedIntent: null, successor, disposition: truth.runtimeStatus === "closed" ? "completed" : truth.runtimeStatus === "blocked" ? "blocked" : "runtime_failed",
-          evidence: [...truth.evidence], replay: truth.replay } };
+    const ownerOutput = continuationOutcome<ContinuePacket>("current_intent", truth, successor, null);
     return yield* finish(call, resource, finalPrefix, ownerOutput, null, prepared.invocation, truth);
   }));
 }
@@ -2018,6 +2029,7 @@ function runSelectedActionOwner(call: DefinitionCall<SelectedActionPacket, RunIn
       request as SelectedActionUseRequest, call.invocation.invocationAuthority.slots.execution_basis);
     if (selection.kind === "refused") return yield* refuse(selection.code, selection.path);
     const { use, resolution, prepared } = selection;
+    yield* retainBasisLifetime(entryPrefix, use.invocation.invocationRef);
     const policy = constructRunOperationPolicy(setup.workspaceBinding, resolution, call.resources.applications);
     const packet = RUN_OPERATION_CONTRACTS.continue.selected_action;
     const grant = constructCapabilityGrant(policy, use.invocation.actorRef, "abg.operation.run.continue", packet.metadata.capabilityRefs[0]!,
@@ -2060,15 +2072,27 @@ function runSelectedActionOwner(call: DefinitionCall<SelectedActionPacket, RunIn
     if (truth.kind !== "abg_run_truth_projection") return yield* finish(call, resource, finalPrefix,
       { outcomeKind: "refusal", value: { code: "replay_mismatch", issuePaths: ["/run"], evidenceRefs: [] } } as OwnerSemanticOutput<SelectedActionPacket>, null, use.invocation, null);
     const successor = { ref: use.current.continuationRef, digest: use.current.continuationDigest };
-    const ownerOutput: OwnerSemanticOutput<SelectedActionPacket> = truth.runtimeStatus === "held" || truth.runtimeStatus === "gap_stopped"
-      ? { outcomeKind: "nonterminal", value: { continuationKind: "selected_action", disposition: truth.runtimeStatus === "held" ? "held" : "gap_stop",
-          run: truth.run, continuation: successor, evidence: [...truth.evidence], replay: truth.replay } }
-      : { outcomeKind: "result", value: { continuationKind: "selected_action", run: truth.run, graphCall: truth.graphCall,
-          admittedIntent: { ref: prepared.intent.constructionIntentRef, digest: prepared.intent.constructionIntentDigest }, successor,
-          disposition: truth.runtimeStatus === "closed" ? "completed" : truth.runtimeStatus === "blocked" ? "blocked" : "runtime_failed",
-          evidence: [...truth.evidence], replay: truth.replay } };
+    const ownerOutput = continuationOutcome<SelectedActionPacket>("selected_action", truth, successor,
+      { ref: prepared.intent.constructionIntentRef, digest: prepared.intent.constructionIntentDigest });
     return yield* finish(call, resource, finalPrefix, ownerOutput, null, use.invocation, truth);
   }));
+}
+
+/** One continuation outcome over the Run's admitted truth. A Run that stops
+ * states its `run_status` stop statement, from the same fold (REQ-P-POLICY-068). */
+function continuationOutcome<P extends ContinuePacket | SelectedActionPacket>(
+  continuationKind: "current_intent" | "pending_execution" | "selected_action",
+  truth: AbgRunTruthProjection,
+  successor: Readonly<{ ref: string; digest: Sha256Digest }>,
+  admittedIntent: Readonly<{ ref: string; digest: Sha256Digest }> | null,
+): OwnerSemanticOutput<P> {
+  const stopped = truth.stopStatement === null ? {} : { stopStatement: truth.stopStatement };
+  return (truth.runtimeStatus === "held" || truth.runtimeStatus === "gap_stopped"
+    ? { outcomeKind: "nonterminal", value: { continuationKind, disposition: truth.runtimeStatus === "held" ? "held" : "gap_stop",
+        run: truth.run, continuation: successor, evidence: [...truth.evidence], replay: truth.replay, ...stopped } }
+    : { outcomeKind: "result", value: { continuationKind, run: truth.run, graphCall: truth.graphCall, admittedIntent, successor,
+        disposition: truth.runtimeStatus === "closed" ? "completed" : truth.runtimeStatus === "blocked" ? "blocked" : "runtime_failed",
+        evidence: [...truth.evidence], replay: truth.replay, ...stopped } }) as OwnerSemanticOutput<P>;
 }
 
 /** The `pending_execution` alternative of the current-execution member:
@@ -2096,6 +2120,7 @@ function runPendingExecutionOwner(call: DefinitionCall<ContinuePacket, RunInvoca
       request as PendingExecutionUseRequest);
     if (selection.kind === "refused") return yield* refuse(selection.code, selection.path);
     const { use, resolution, prepared } = selection;
+    yield* retainBasisLifetime(entryPrefix, use.invocation.invocationRef);
     const policy = constructRunOperationPolicy(setup.workspaceBinding, resolution, call.resources.applications);
     const packet = RUN_OPERATION_CONTRACTS.continue.current_intent;
     const grant = constructCapabilityGrant(policy, use.invocation.actorRef, "abg.operation.run.continue", packet.metadata.capabilityRefs[0]!,
@@ -2142,13 +2167,7 @@ function runPendingExecutionOwner(call: DefinitionCall<ContinuePacket, RunInvoca
     if (truth.kind !== "abg_run_truth_projection") return yield* finish(call, resource, finalPrefix,
       { outcomeKind: "refusal", value: { code: "replay_mismatch", issuePaths: ["/run"], evidenceRefs: [] } } as OwnerSemanticOutput<ContinuePacket>, null, use.invocation, null);
     const successor = { ref: use.source.continuationRef, digest: use.source.continuationDigest };
-    const ownerOutput: OwnerSemanticOutput<ContinuePacket> = truth.runtimeStatus === "held" || truth.runtimeStatus === "gap_stopped"
-      ? { outcomeKind: "nonterminal", value: { continuationKind: "pending_execution", disposition: truth.runtimeStatus === "held" ? "held" : "gap_stop",
-          run: truth.run, continuation: successor, evidence: [...truth.evidence], replay: truth.replay } }
-      : { outcomeKind: "result", value: { continuationKind: "pending_execution", run: truth.run, graphCall: truth.graphCall,
-          admittedIntent: null, successor,
-          disposition: truth.runtimeStatus === "closed" ? "completed" : truth.runtimeStatus === "blocked" ? "blocked" : "runtime_failed",
-          evidence: [...truth.evidence], replay: truth.replay } };
+    const ownerOutput = continuationOutcome<ContinuePacket>("pending_execution", truth, successor, null);
     return yield* finish(call, resource, finalPrefix, ownerOutput, null, use.invocation, truth);
   }));
 }

@@ -1052,14 +1052,57 @@ lifetime or Public value is added.
 
 **O1 Execution-basis row fact.** `execution_basis_record.ts` checks one
 admitted `basis_admitted` row (raw input `admitJson`, raw digest, body digest)
-once and retains the checked record in the prefix's derivation territory
-(`runtimePrefixComputation`, one ordered lineage) under the row's event id and
-admission ordinal. Exact-prefix membership and match cardinality stay outside
-the fact: each call resolves its own match at its own cut, so a later
-duplicate is `many` and an earlier cut lacking the row is `absent`. Only a
-`one` outcome is retained; a refused or malformed row is checked again. A
-validation view, a foreign history and a raw or copied prefix have no shared
-territory and check cold; a rolled-back row is never in a selected cut.
+and returns the full checked record. Exact-prefix membership and match
+cardinality stay outside the fact: each call resolves its own match at its own
+cut, so an earlier cut lacking the row is `absent` and more than one matching
+row is `many` before any retained fact is consulted. Only a `one` outcome is
+retained; a refused or malformed row is checked again. A validation view, a
+foreign history and a raw or copied prefix check cold.
+
+**O1 lifetime (RC10).** Retaining the full record, and the decoded
+`basis_admitted` body in `RuntimeHistory`, is disposable computation owned by
+the existing run operation scope, not runtime status. Each run owner in
+`owner_bindings/run_invocation.ts` (`runInvocationOwner`,
+`runCurrentIntentOwner`, `runSelectedActionOwner`,
+`runPendingExecutionOwner`) acquires its event resource and then opens one
+basis retention handle with `Effect.acquireRelease` inside its existing
+`Effect.scoped` (`retainExecutionBasisLifetime`). The handle names exactly one
+admitted execution invocation, the identity its `basis_admitted` rows carry.
+A start acquires it only after a successful `invocation_admission_receipt`,
+before graph and basis construction, for the actual admitted invocation
+(`admission.invocationRef`) on the store history of the returned current
+successor (`admitted.successorPrefix`). That Product-derived, ABG-admitted
+identity is distinct from the Public request identity
+(`call.invocation.invocationRef`, kept as the admission's
+`publicRequestInvocationRef`), which no basis row carries and which opens no
+handle; a start refused before invocation admission opens none. Each
+continuation keeps its existing handle on the store history of its acquired
+entry coordinate for the prepared original invocation (not the public
+continuation operation's own invocation ref). The scope lifetime below is
+unchanged. A
+basis row is eligible only when its `invocationRef` is held by an open handle
+of that exact store history generation; descendant bases inherit the parent's
+invocation through the existing actual relation, so they are eligible under
+the same handle. Handles are counted per invocation, so disposing one scope
+removes only entries no other open scope holds. The finalizer releases the
+handle on every exit: result, refusal (including refusal before a basis
+exists), runtime failure, defect, interruption and nonterminal held/gap
+return. Release is computational disposal; it declares no semantic closure,
+and a later continuation reacquires from admitted history. Historical, replay
+and cold reads, an old retained prefix and a reopened resource open no handle,
+so they never mint retention; without a handle the row is checked cold and the
+history keeps its basis body only in the consumer-local selected-body map.
+Rollback (`RuntimeHistory.truncate`) and physical close or abandonment
+(`releaseDurableOwnership`) dispose every handle and retained root of that
+history; a disposed handle releases nothing and cannot re-register. Active
+identity and work reuse are preserved for repeated reads inside an open scope;
+strict reference identity for completed historical calls is intentionally not
+retained, while equality and refusal are. The bound is that completed
+operations hold nothing: retained rows are the eligible basis rows of
+currently open scopes, which for arbitrary child graphs may exceed the number
+of open invocations. Strict child-level eviction is not selected. No global
+registry, WeakRef, tombstone ledger, hostile-host requirement or heap bound is
+claimed; caller-held returned values stay alive with their caller.
 
 **O2 Workspace environment body.** `environment_admission.ts` retains the
 invariant environment body (authority basis, binding candidate and binding,
@@ -1095,9 +1138,16 @@ actual work: `observeExecutionBasisRowWork` (row admissions, body digests),
 `observeWorkspaceEnvironmentWork` (body derivations),
 `observeInstalledContentWork` (verifications, `lstat`, directory lists, file
 hashes, graph-carrier reads). They select, cache and change nothing.
+`observeRuntimeHistoryBasisRetention` reports the O1 owner gauges of one store
+history: open handles, `retainedRows` and `retainedPayloadBytes` of checked
+records, and `historyBasisBodies` and `historyBasisPayloadBytes` of retained
+basis bodies. Payload bytes are the logical UTF-8 length of the canonical JSON
+of the row's `rawInputValue`, recorded once at insertion; no snapshot rescans
+rows, and none of these is heap, RSS or allocation size. Heap observations are
+reported separately by the proof.
 
 **Proof.** `t287-held-owner-fold-reuse.test.mjs` drives the real owners for
-O1, O2 and O4: first validation once, later-cut reuse, duplicate, earlier cut,
+O1, O2 and O4: first validation once, completed-call cold equality, earlier cut,
 copied and malformed rows, rollback-free cold equality, unrelated append and
 binding change, copied projection, configuration variation and owner output
 equivalence. Its held installed Runs carry each returned successor selection.
@@ -1105,8 +1155,22 @@ For O3 it observes physical verification in every Run and every Public check,
 and, after a disposable install content change, the first content check of an
 actual resolution's retained leaf semantics verifies physically and refuses, as
 does a new resolution.
-The W2 owner-chain oracle admits exactly `selectedDefinitions`,
-`establishedInvocations` and `gatedResourceMembers` in the binding mechanics.
+`t287-held-basis-lifetime.test.mjs` drives the O1 lifetime. Before any manual
+handle, the first actual start Run of the existing single-root,
+single-deterministic-leaf language fixture measures basis row work around only
+its `runInstalledDefinitionCallWithResource` call, excluding call construction
+and observers, and expects exactly one row admission and one body digest; owned
+selection metadata then shows exactly one new `basis_admitted` row and zero
+retention. That count is this fixture's prediction, not a general
+per-invocation bound, and no manual handle can establish it. Manual handles
+then probe gauges inside an open handle, overlapping handles and historical
+reads that mint nothing; each completed operation releases to zero; physical
+close (`closeAbgEventResource`) disposes every handle and retained root, and a
+closed coordinate opens nothing. Actual rollback disposal
+(`RuntimeHistory.truncate` after a failed append) is not driven, so it is
+unproved by this test. A fifty-call workload mode is separately selected.
+The W2 owner-chain source check rejects only the removed legacy root seams and
+judges no call-local collection; owner facts rest on behavioral owner proof.
 
 ## 11. Source-to-library-to-outcome paths
 

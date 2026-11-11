@@ -120,7 +120,7 @@ test('default catalogue publishes conditional purposes over fixed native/C2 chil
   const pubs=constructors.map(n=>gtl[n](basis)),library=pubs[0];
   assert.deepEqual(library.runEnvironments[0].roles.find(r=>r.role==='selector').contextPolicy.selectors,['full_source','active_binding_semantics']);
   const contractRefs=pubs.flatMap(p=>p.contracts.map(c=>c.contractRef));assert.equal(new Set(contractRefs).size,contractRefs.length,'shared contracts retain one publication owner');
-  assert.equal(library.contributions.length,8,'one Catalog row per published GraphFunction');assert.equal(library.graphFunctions.length,8);
+  assert.equal(library.contributions.length,9,'one Catalog row per published GraphFunction');assert.equal(library.graphFunctions.length,9);
   const result=validation(library,library.programs[0],pubs);assert.equal(result.kind,'program_validation',JSON.stringify(result));
   assert.equal(result.executableLeafRows.filter(r=>r.fibre==='F_P').length,4);
   const app=library.graphFunctions.find(g=>g.name===product.governanceRef("graph-function","executive")).template.applications[0];assert.equal(app.foldback.requiresParentEvaluation,true);assert.equal(app.bound,12);
@@ -188,7 +188,7 @@ test('declared wrapper judgments advance actual observations, including red C2, 
   assert.equal(wrapper.declarations['abg.judgment_predicate'],product.WORKSITE_COMMAND_EXECUTION_IDS.judgmentPredicateRef);
   assert.equal(semantics.resolveJudgmentRelation(wrapper.declarations['abg.judgment_predicate']).evaluate(commandTask,observed),true);assert.equal(observed.commandResults[0].exitStatus,7);
   const selection=JSON.parse(await readFile(join(witnessRoot,'selection.json'),'utf8')),state=await witnessInput({product,selection,seedRoot:join(witnessRoot,'seed')});
-  assert.equal(product.governanceVerdict(state),false);assert.equal(semantics.resolveJudgmentRelation(product.governanceRef('predicate','fold')).evaluate(commandTask,observed),false,'observation and state fold remain different contracts');
+  assert.equal(product.governanceVerdicts(state).acceptance.satisfied,false);assert.equal(semantics.resolveJudgmentRelation(product.governanceRef('predicate','fold')).evaluate(commandTask,observed),false,'observation and state fold remain different contracts');
 });
 
 // Selected RC5 source (T287_DEFAULT_GOVERNANCE_LIBRARY_DESIGN, RC5 successor selection):
@@ -531,12 +531,15 @@ test('framed synthesis binds imported contracts, exact raw judgment and compact 
   const origin={kind:'c_call_result_admitted',runId:'run:unit',basisId:execution.basisRef,graphCallId:'graph-call:unit',aggregateId:call.cCallRef,payload:{resultClass:'success',resultRef:'result:unit',resultDigest:product.sha256Canonical(bound)}};
   const projectionOwner={...owner,inputValue:bound,inputRef:origin.payload.resultRef,inputOrigin:{event:origin},execution:{...execution,rootImplementationSetRef:'set:unit',invocationRef:invocation.invocationRef,parentExecutionBasisRef:'basis:root-unit'},environment:{kind:'exact_prefix_workspace_environment'},prefix:{},call:{...call,runId:'run:unit',graphCallId:'graph-call:unit',implementationRef:product.governanceRef('implementation','project-choice'),outputContractRef:product.governanceContract('choice')}};
   const root={kind:'basis_admitted',payload:{basisClass:'root',basisRef:'basis:root-unit',invocationAdmissionRef:invocation.invocationAdmissionRef,implementationSetRef:'set:unit',rawInputValue:state}},opened={kind:'c_call_opened',runId:'run:unit',basisId:execution.basisRef,payload:{programLocusRef:node.nodeRef}};
-  const projectionIndex=(_p,key)=>key==='invocation:'+invocation.invocationRef?[root]:[opened],projectionRoot=await rootProjection(projectionIndex,rootBasis(root,projectionOwner.execution));
+  // The selector's admitted input, indexed by its result ref, owns the standing the choice projection reads.
+  const selectorInput=(task,basis)=>({kind:'c_call_result_admitted',runId:'run:unit',basisId:execution.basisRef,payload:{resultClass:'success',resultRef:basis.inputRef,valueDigest:basis.inputDigest,value:task}});
+  const selectorInputs=[selectorInput(supplied,bound.basis)];
+  const projectionIndex=(_p,key)=>key==='invocation:'+invocation.invocationRef?[root]:key.startsWith('payload:resultRef:')?selectorInputs.filter(e=>key==='payload:resultRef:'+e.payload.resultRef):[opened],projectionRoot=await rootProjection(projectionIndex,rootBasis(root,projectionOwner.execution));
   const projectionFile=resolve(packageRoot,'build/code/src/abg/default_library.js'),projectionModule=new SourceTextModule(await readFile(projectionFile,'utf8'),{identifier:projectionFile});
   await projectionModule.link(async specifier=>{const actual=await import(specifier.startsWith('node:')?specifier:pathToFileURL(resolve(dirname(projectionFile),specifier)).href);
     const replacements=specifier==='./execution_basis.js'?{authenticateOwnedNativeInstructionAssemblyBasis:()=>projectionOwner}:specifier==='./invocation_execution_truth.js'?{projectExactInvocationAdmissionAtPrefix:()=>invocation}:specifier==='./event_prefix.js'?{indexedRuntimeEvents:projectionIndex}:specifier==='./native_worksite_execution.js'?{...nativeResultTaskPremise}:specifier==='./semantic_job.js'?projectionRoot:{};
     const values={...actual,...replacements};return new SyntheticModule(Object.keys(values),function(){for(const[k,v]of Object.entries(values))this.setExport(k,v);});});await projectionModule.evaluate();
-  const projectionBasis={graphFunction:graph,cursor:{currentNodeRef:projection.nodeRef,termPath:gtl.rootCSourcePath(projection.nodeRef)}};
+  const projectionBasis={graphFunction:graph,declarationGraphFunctions:library.graphFunctions,cursor:{currentNodeRef:projection.nodeRef,termPath:gtl.rootCSourcePath(projection.nodeRef)}};
   const choice=projectionModule.namespace.projectGovernanceChoice(projectionBasis,bound);assert.ok(choice);assert.equal(choice.graphFunctionRef,raw.nextGraphFunctionRef);assert.equal(choice.reason,raw.nextReason);assert.deepEqual(choice.input.value.original,state.original);assert.deepEqual(choice.input.value.synthesis,current.resultRef==='result:unit'?current:{...current,resultRef:'result:unit'});
   origin.basisId='basis:foreign';assert.equal(projectionModule.namespace.projectGovernanceChoice(projectionBasis,bound),null);origin.basisId=execution.basisRef;
   projectionOwner.inputValue=gap;assert.equal(projectionModule.namespace.projectGovernanceChoice(projectionBasis,gap).disposition,'gap');
@@ -596,7 +599,7 @@ test('framed synthesis binds imported contracts, exact raw judgment and compact 
   assert.deepEqual(projectionModule.namespace.projectGovernanceParent({},folded),folded,'partial work returns for parent reassessment');
   const reentered={...supplied,state:folded},reentryBasis={...narrow.basis,inputRef:'input:after-partial',inputDigest:product.sha256Canonical(reentered),previousResultRef:folded.synthesis.resultRef};
   const next=product.bindFramedSynthesisResult(reentered,assembly.envelope.targetBindings,reentryBasis,{...raw,nextReason:'Measure after the bounded inspection.',nextEvidenceRefs:[partialEvent.payload.resultRef],revisionReason:'The partial inspection is now admitted.',revisionEvidenceRefs:[folded.synthesis.resultRef]});assert.ok(next);
-  projectionOwner.inputValue=next;projectionOwner.inputOrigin={event:origin};projectionOwner.call.implementationRef=product.governanceRef('implementation','project-choice');origin.payload.resultDigest=product.sha256Canonical(next);
+  selectorInputs.push(selectorInput(reentered,reentryBasis));projectionOwner.inputValue=next;projectionOwner.inputOrigin={event:origin};projectionOwner.call.implementationRef=product.governanceRef('implementation','project-choice');origin.payload.resultDigest=product.sha256Canonical(next);
   const nextChoice=projectionModule.namespace.projectGovernanceChoice(projectionBasis,next);assert.equal(nextChoice.graphFunctionRef,target.name);
   assert.deepEqual(nextChoice.input.value.original,state.original);assert.deepEqual(nextChoice.input.value.observations,folded.observations);assert.equal(nextChoice.input.value.synthesis.basis.previousResultRef,folded.synthesis.resultRef);
 
@@ -713,7 +716,7 @@ test('selector planning preserves provenance, adverse values and bounded Unicode
   const view=product.projectFramedSynthesisPromptTask(task);planningFactCorrespondence(task,view);
   assert.ok(view.observations[0].observed.commandResults[0].stdout.excerpts.some(e=>e.text.includes('controlled Ω😀 named diagnostic')));
   assert.ok(view.observations[0].observed.commandResults[0].stderr.omittedCandidates>0);
-  assert.equal(product.sha256Canonical(task),before);assert.equal(product.governanceVerdict(state),false);
+  assert.equal(product.sha256Canonical(task),before);assert.equal(product.governanceVerdicts(state).acceptance.satisfied,false);
   for(const text of ['\uFEFFa\n','\uFEFF[error] Ω😀 exact\n','[error] plain Ω😀\n'])for(const encoding of ['utf8','base64']){
     const sample=structuredClone(task),bytes=Buffer.from(text),row=sample.state.observations[0].value.commandResults[0];
     row.stdout={encoding,...(encoding==='utf8'?{text}:{payload:bytes.toString('base64')}),digest:product.sha256Bytes(bytes),byteLength:bytes.length};
@@ -1160,12 +1163,13 @@ test('fold and assessment consume actual native, C2 and assessment carriers with
   const projectNode=executive.template.nodes.find(n=>n.nodeRef===executive.declarations['abg.framed_synthesis_projection']);
   owned.graph={template:executive.template};execution.registeredSelectionDefinitionDigests=Object.fromEntries(targets.map(row=>[row.graphFunctionRef,row.definitionDigest]));
   owned.call.graphCallId='graph-call:typed-source';owned.call.outputContractRef=product.governanceContract('choice');
-  const projectionBasis={graphFunction:executive,cursor:{currentNodeRef:projectNode.nodeRef,termPath:gtl.rootCSourcePath(projectNode.nodeRef)}};
+  const projectionBasis={graphFunction:executive,declarationGraphFunctions:library.graphFunctions,cursor:{currentNodeRef:projectNode.nodeRef,termPath:gtl.rootCSourcePath(projectNode.nodeRef)}};
   const choose=bound=>{
     const event={kind:'c_call_result_admitted',runId:owned.call.runId,basisId:execution.basisRef,graphCallId:owned.call.graphCallId,aggregateId:'call:source-choice',payload:{resultClass:'success',resultRef:'result:source-choice',resultDigest:product.sha256Canonical(bound)}};
-    rows.push({kind:'c_call_opened',runId:owned.call.runId,basisId:execution.basisRef,aggregateId:event.aggregateId,payload:{programLocusRef:selectNode.nodeRef}});
+    rows.push({kind:'c_call_opened',runId:owned.call.runId,basisId:execution.basisRef,aggregateId:event.aggregateId,payload:{programLocusRef:selectNode.nodeRef}},
+      {kind:'c_call_result_admitted',runId:owned.call.runId,basisId:execution.basisRef,aggregateId:'call:source-selection-input',payload:{resultClass:'success',resultRef:bound.basis.inputRef,valueDigest:bound.basis.inputDigest,value:framed}});
     owned.inputValue=bound;owned.inputRef=event.payload.resultRef;owned.inputOrigin={event};owned.call.implementationRef=product.governanceRef('implementation','project-choice');
-    const choice=m.namespace.projectGovernanceChoice(projectionBasis,bound);assert.ok(choice);rows.pop();
+    const choice=m.namespace.projectGovernanceChoice(projectionBasis,bound);assert.ok(choice);rows.splice(-2);
     assert.deepEqual(choice.input.value.original,population.original);assert.deepEqual(choice.input.value.observations,population.observations);return choice.input.value;
   };
   for(const purpose of ['testing','uat'])for(const subject of [null,nativeRef,c2Ref,assessmentRef,'result:unknown']){
