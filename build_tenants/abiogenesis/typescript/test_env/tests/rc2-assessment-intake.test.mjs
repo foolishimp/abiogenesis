@@ -41,12 +41,12 @@ test('RC2 assessment intake valid disjoint roles stay constructible and valid',(
   assert.deepEqual(control,{kind:'governance_work_state',schemaVersion:'5.0.0',original:input,synthesis:null,observations:[],
     unresolvedSupportRefs:input.requiredSupportRefs,terminal:false});
   assert.equal(product.isGovernanceWorkState(control),true);
-  const selection=product.governanceAssessmentContract(control);
+  const selection=product.governanceAssessmentContract(control,'uat');
   assert.deepEqual([selection.sources,selection.candidatePath,selection.rubricPath],[[task],candidate,rubric]);
   // Several distinct sources, including a protected original source beside the rubric, remain valid.
   const several=product.constructGovernanceWorkState(original({sources:[task,notes]}));
   assert.equal(product.isGovernanceWorkState(several),true);
-  assert.deepEqual(product.governanceAssessmentContract(several).sources,[task,notes]);
+  assert.deepEqual(product.governanceAssessmentContract(several,'uat').sources,[task,notes]);
 });
 
 test('RC2 assessment intake refuses duplicate assessment sources',()=>{

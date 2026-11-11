@@ -154,11 +154,23 @@ export function governanceSelectedReview(state: GovernanceWorkState): Governance
 }
 /** The one owner of which assessment declaration an assessment wrapper applies:
  * full-original acceptance for `uat`, the selected declared review for `review`. */
-export function governanceAssessmentContract(state: GovernanceWorkState, purpose: "uat" | "review" = "uat") {
+export function governanceAssessmentContract(state: GovernanceWorkState, purpose: "uat" | "review") {
   const assessment = purpose === "uat" ? state.original.assessment : governanceSelectedReview(state)?.assessment;
   return assessment === undefined ? null : assessment as unknown as { sources: readonly string[]; candidatePath: string; rubricPath: string;
     resultContract: NativeWorkspaceAssessmentSelection["resultContract"]; schemaAsset: NativeWorkspaceAssessmentSelection["schemaAsset"];
     verdictField: string; satisfiedValue: string };
+}
+/** The one owner of an assessment's material dependency set: every mandatory
+ * input its preparation binds as read-first material. The candidate is the
+ * subject; the rest are the declared inputs its verdict depends on. The order's
+ * readFirst stays as declared (preparation refuses a duplicate there); each
+ * assessment input not already present is added once. */
+export function governanceAssessmentDependencies(order: { readonly readFirst: readonly string[] },
+  assessment: { readonly sources: readonly string[]; readonly candidatePath: string; readonly rubricPath: string }): readonly string[] {
+  const dependencies = [...order.readFirst];
+  for (const path of [...assessment.sources, assessment.candidatePath, assessment.rubricPath])
+    if (!dependencies.includes(path)) dependencies.push(path);
+  return dependencies;
 }
 /** A review wrapper is selectable only for a task that declares reviews. */
 export function governanceTargetSelectable(state: GovernanceWorkState, purpose: GovernancePurpose): boolean {
@@ -403,7 +415,7 @@ export function projectFramedSynthesisPromptTask(task: FramedSynthesisTask,
       return { reviewRef: review.reviewRef, frame: review.frame, required: review.required, outcome: review.order.outcome,
         candidatePath: review.assessment.candidatePath, rubricPath: review.assessment.rubricPath, sources: review.assessment.sources,
         standing: { resultRef: standing.resultRef, satisfied: standing.satisfied, current: standing.current } };
-    }), meaning: "Required reviews gate parent completion together with acceptance: each counts only while its admitted verdict is satisfied and its declared subject unchanged, binds only its declared frame, never replaces acceptance, and is selected through the review wrapper by its reviewRef with subject evidence from the review domain." } }),
+    }), meaning: "Required reviews gate parent completion together with acceptance: each counts only while its admitted verdict is satisfied and no later admitted effect touches its subject or the declared inputs its assessment depends on, binds only its declared frame, never replaces acceptance, and is selected through the review wrapper by its reviewRef with subject evidence from the review domain." } }),
     fulfillment, observations: evidence, planningEvidenceMeaning: "A strict UTF-8 stream of at most 8192 bytes is shown whole as one exact excerpt marked complete. Longer or non-UTF-8 streams and detailed predicate proof are explicitly omitted from this selector view, with byte counts, and remain in the cited admitted Result. Field paths are relative to that Result value; metadata grants no lookup authority or automatic external read. Excerpts are bounded literal diagnostics at exact UTF-8 byte ranges, not interpreted failure names or verdicts. All original criteria and unresolved outcomes remain governing. C2 success is a measurement observation, never application acceptance.", unresolvedSupportRefs: state.unresolvedSupportRefs,
     priorJudgment: state.synthesis === null ? null : { resultRef: state.synthesis.resultRef, judgment: state.synthesis.judgment },
   });

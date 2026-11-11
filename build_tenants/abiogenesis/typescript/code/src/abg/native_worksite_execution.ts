@@ -7,7 +7,7 @@ import { projectReacquiredNativeWorkCommandSourceAtPrefix } from "./native_work_
 /** Native-work source alternative at the existing C2 admission boundary. */
 import { type JsonValue } from "../shared/canonical_json.js";
 import { sha256Canonical } from "../shared/digests.js";
-import { isNativeWorksiteCommandExecutionTask, type NativeWorksiteCommandExecutionTask } from "../product/worksite_command_execution.js";
+import { isNativeWorksiteCommandExecutionTask, isWorksiteExecutionObservation, type NativeWorksiteCommandExecutionTask } from "../product/worksite_command_execution.js";
 import { NATIVE_WORKSPACE_WORK_IDS as native, isNativeWorkspaceWorkObservation, isNativeWorkspaceWorkFailure, nativeWorkspacePathWithin,
   isNativeWorkspaceWorkTask, nativeWorkspaceWorkObservationMatchesTask, nativeWorkspaceWorkFailureMatchesTask, type NativeWorkspaceWorkTask } from "../product/native_workspace_work.js";
 import { WORKSITE_COMMAND_EXECUTION_IDS as c2 } from "../product/worksite_command_execution_identity.js";
@@ -246,7 +246,8 @@ export function worksiteCommandSourcesInvalidatedAfter(prefix: RuntimeEventPrefi
   // A later admitted mutation invalidates only the selected files it touches.
   // Physical currentness is additionally checked by the unchanged C2 owner
   // before creating manifests and immediately before helper launch. Native
-  // causes use the shared EC impact relation over exact paths or subtrees.
+  // causes use the shared EC impact relation over exact paths or subtrees;
+  // C2 command Results their admitted worksite delta.
   const queried = readRoots ?? selectedPaths;
   return indexedRuntimeEvents(prefix, "worksite-observation-dependency").some(e => {
     if (e.admissionOrdinal <= afterOrdinal || !record(e.payload)) return false;
@@ -267,6 +268,14 @@ export function worksiteCommandSourcesInvalidatedAfter(prefix: RuntimeEventPrefi
       isWorksiteFileReplaceRequest(e.payload.request)) return e.payload.request.workspaceAuthorityBasis.canonicalRoot ===
         canonicalRoot && invalidates(e.payload.request.subject.relativePath);
     if (e.kind === "c_call_result_admitted") {
+      // An admitted C2 leaf Result changed exactly its delta, under its own task's root.
+      const command = e.payload.value;
+      if (record(command) && command.kind === "worksite_command_execution_observation")
+        return e.graphFunctionRef === c2.graphFunctionRef && e.payload.contractRef === c2.observationContractRef &&
+          e.payload.resultClass === "success" && Array.isArray(command.worksiteDelta) &&
+          command.worksiteDelta.some(row => record(row) && typeof row.relativePath === "string" && invalidates(row.relativePath)) &&
+          record(command.task) && record(command.task.workspaceAuthorityBasis) && command.task.workspaceAuthorityBasis.canonicalRoot === canonicalRoot &&
+          isWorksiteExecutionObservation(command);
       const dependencies = worksiteFailureResultDependencies(prefix, e);
       const request = dependencies.length === 0 ? null : projectWorksiteFailureResultRequest(e, dependencies);
       if (request !== null) return request.workspaceAuthorityBasis.canonicalRoot === canonicalRoot &&
