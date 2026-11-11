@@ -62,7 +62,7 @@ Writer Return, commentary.
   - m5-terminal-quiescence-owner 7/7/0/0; t287-runtime-activity-quiescence 1/1/0/0; m5-consensus-module 17/17/0/0; t287-liveness-heartbeat 6/6/0/0;
   - prerequisites 7/7/0/0; readable-stops-foldback 5/5/0/0; recoverable-failure 4/4/0/0; reviews 10/10/0/0; readable-stops 5/5/0/0.
   - I stopped the batch before recursive-failure-foldback and amendment-witness to apply the addition. They ran once, after it.
-- **After the addition (`eb87782fa`).** prerequisites 7/7/0/0; recoverable-failure 5/5/0/0; reviews 10/10/0/0; recursive-failure-foldback 8/8/0/0; amendment-witness 13/12/0/1 (live case gated). Logs: `…/scratchpad/x/after-addition/`.
+- **After the addition (`eb87782fa`).** prerequisites 7/7/0/0; recoverable-failure 5/5/0/0; reviews 10/10/0/0; recursive-failure-foldback 8/8/0/0; amendment-witness 13/12/0/1 (live case gated); readable-stops 5/5/0/0 and readable-stops-foldback 5/5/0/0, rerun because their consumer inherits the default list. Logs: `…/scratchpad/x/after-addition*/`.
 - **Concurrent load.** A full-suite process from another worktree (`abg-rc12-foldback`) ran during these runs.
 
 ## Part 2: stopped at the stamp
