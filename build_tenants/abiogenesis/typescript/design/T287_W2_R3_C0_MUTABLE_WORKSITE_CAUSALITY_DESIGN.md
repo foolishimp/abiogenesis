@@ -654,8 +654,14 @@ After independent acceptance, the minimum B04 implementation territory is:
 - `repo://abiogenesis/build_tenants/abiogenesis/typescript/code/src/abg/replay.ts`,
   only the guard for a transition without a successor observation.
 
-The minimum evidence frontier is one new focused
-`test_env/tests/t287-c0-post-publication-failure.test.mjs` plus the existing
+The minimum evidence frontier is the focused pair
+`test_env/tests/t287-c0-post-publication-failure.test.mjs` (B04-06 through
+B04-03) and
+`test_env/tests/t287-c0-post-publication-failure-owner-admission-close.test.mjs`
+(B04-04 through B04-C01). Both run the one case body in
+`test_env/support/c0-post-publication-failure.mjs`, and each file runs in its
+own process because every case loads two complete Product module graphs that
+the process keeps until it exits. The pair adds to the existing
 `test_env/support/root-installed-environment.mjs` input-factory argument seam.
 That helper already constructs and returns `workspaceAuthority`; expose that
 same value to `inputFactory`, and let the new C0 fixture construct subjects and
@@ -676,7 +682,9 @@ When implementation is activated, first use the existing compiler with
 `tsc -p tsconfig.json --noEmit`. `npm run build` cleans/transpiles and regenerates
 `product-toolchain-manifest.json`; run it only in a disposable copy bound to the
 frozen current source, then run `node --test --test-concurrency=1
-test_env/tests/t287-c0-post-publication-failure.test.mjs` there. The support's
+test_env/tests/t287-c0-post-publication-failure.test.mjs
+test_env/tests/t287-c0-post-publication-failure-owner-admission-close.test.mjs`
+there. The support's
 existing `npm pack --ignore-scripts` and disposable install bind that candidate
 for the focused installed cases. Retain source/artifact/log/prefix identities
 and proof in the single C0 work directory. No build, package, install, runtime
