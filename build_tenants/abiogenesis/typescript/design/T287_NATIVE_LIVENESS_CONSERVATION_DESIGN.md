@@ -4,6 +4,8 @@
 **Owner:** Existing native ABG observation, Event Calculus, actor, retry and projection owners.
 **Acceptance and exact source basis:** [Writer25 application and attributed reviews](../../../../.ai-workspace/comments/codex/20260911_P3_LIVENESS_PROFILE_IMPLEMENTATION_26/how-application-25/accepted-subjects-and-reviews.md).
 
+Retired sections: [history/T287_NATIVE_LIVENESS_CONSERVATION_DESIGN__RETIRED_SECTIONS.md](history/T287_NATIVE_LIVENESS_CONSERVATION_DESIGN__RETIRED_SECTIONS.md).
+
 This refines the active [T129 design](M03_SYSTEM_PROBE_OBSERVER_LIVENESS_DERIVATION.md)
 and its traversal-non-progress consumer for the current 5.0 owners. The exact
 [native event-contract compatibility](T287_NATIVE_EVENT_CONTRACT_COMPATIBILITY_DESIGN.md)
@@ -284,24 +286,14 @@ Occurrence-specific admission/effect handling completes the already-declared fra
 
 ## 7. Implementation and qualification
 
-The [accepted source/test plan](../../../../.ai-workspace/comments/codex/20260911_D4_NATIVE_LIVENESS_CONSERVATION_HOW_24/source-test-plan.md)
-is finite and not a source grant. Compose this liveness law with native
-event-contract compatibility before computing/publishing P; retain all original
-immutable inputs and reviewed source ancestry. Do not reopen or
-rewrite original D1/D2 failures as proof of conservation.
-
-Source evidence must establish the actual native relation and admission/
-consumer positives plus falsifiers, exact legacy replay and new-profile fresh
-replay. A separate installed execution must show declared activity prevents
-local flat-timeout authority, artifact-before-no-progress and real interruption/
-exhaustion behavior. A pure timer simulation alone is not that proof.
-No full D4/D1/D2/S06, UAT, integration or release acceptance follows here.
-
 ### 7.1 RC2 call-local historical views
 
 Snapshot identity uses the owning runtime derivation's private WeakMap
 association: exact snapshot key, own SNAPSHOT proof descriptor and private proof
-brand must agree. Proofs have no snapshot backpointer. This preserves parent and
+brand must agree (`SNAPSHOT_PROOFS`, `SnapshotProof.for`,
+`abg/runtime_derivation.ts`). Proofs have no snapshot backpointer: a
+`SnapshotProof` holds its source, parent proof and shared length
+(`SnapshotProof`). This preserves parent and
 shared-prefix correspondence without WeakRef construction/dereference keeping
 every intermediate vector alive until the current synchronous execution ends
 ([ECMAScript kept objects](https://tc39.es/ecma262/multipage/executable-code-and-execution-contexts.html#sec-addtokeptobjects)).
@@ -309,7 +301,9 @@ Current reusable facts, historical answers, scope refusal and rollback rules
 remain those below; no recovery authority or memory-bound claim is added.
 
 The disposable liveness reconstruction retains completed declaration/context,
-budget and observation-fold facts for its exact owner source. A historical
+budget and observation-fold facts for its exact owner source
+(`RuntimeLivenessReconstruction.folds`, `livenessReconstruction`,
+`abg/calculus/liveness.ts`). A historical
 prefix used to compute those facts is an intermediate view, not an additional
 historical authority or a permanent fact cache. Both event/profile cuts and
 structural slices are call-local subfunction inputs: retain no intermediate
@@ -323,9 +317,7 @@ durable event log.
 This changes neither admitted history nor producer, nominal, scope, profile or
 before-effect checks. Source rollback/invalidation still discards all disposable
 facts; it is not replaced by blanket invalidation at each query. Caller-held
-views keep their normal lifetime. The measured cumulative cut-cache retention
-is the selected repair seam; its share of the observed native heap abort and
-whole-run availability remain to be proved on an installed successor.
+views keep their normal lifetime.
 
 ```mermaid
 sequenceDiagram
