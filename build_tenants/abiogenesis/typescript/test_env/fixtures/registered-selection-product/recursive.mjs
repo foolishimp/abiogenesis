@@ -67,7 +67,6 @@ export const evaluateParent=input=>realize('parent',input,evaluatedState(input))
 export const prepareSelectionTask=input=>realize('prepare',input,selectionTask(input));
 export const SEMANTICS={kind:'product_semantics_provider',schemaVersion:version,bindingRef:ref('semantics','product'),packageName,packageVersion:version,
   admitInput(c,v){return c===stateContract&&validState(v)||c===contract('request')&&isNativeRegisteredSelectionTask(v)?v:null;},
-  evaluateInteractionResponse(){return null;},
   resolveProbabilisticWorkerContracts(basis){return {instructionContractRef:basis.inputContractRef,resultContractRef:contract('native-response')};},
   validateContractValue(kind,v){if(kind==='recursive_selection_state')return validState(v);if(kind==='registered_selection_task')return isNativeRegisteredSelectionTask(v);if(kind==='registered_selection_response')return isNativeRegisteredSelectionResponse(v);return v?.kind===kind;},
   resolveJudgmentRelation(predicateRef){

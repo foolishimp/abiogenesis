@@ -247,7 +247,7 @@ const FAILURE_FRONTIER_KINDS = new Set<RuntimeEvent["kind"]>([
   "frame_opened", "traversal_cursor_entered", "c_call_opened", "c_call_fibre_selected",
   "c_call_evidenced", "c_call_result_admitted", "c_call_judged", "retry_attempt_opened",
   "retry_progress_recorded", "child_foldback_admitted", "child_preparation_refused",
-  "fan_out_completion_admitted", "traversal_route_admitted", "fh_interaction_resume_admitted",
+  "fan_out_completion_admitted", "traversal_route_admitted",
 ]);
 
 function failureFrontierEventRef(prefix: RuntimeEventPrefix, scope: OpenedTraversalScope): string {

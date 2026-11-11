@@ -37,7 +37,7 @@ import {
   type QualificationVerificationSelection, type QualificationVerificationMaterial, type QualificationSubjectInventory,
 } from "../validator/qualification_contracts.js";
 import { isQualificationAssessmentInput, qualificationPlanMatches, qualificationRawMatches,
-  qualificationRulingMatches, isQualificationVerdictInput, reduceExactCandidateQualification, constructQualificationVerificationMaterial,
+  isQualificationVerdictInput, reduceExactCandidateQualification, constructQualificationVerificationMaterial,
   qualificationVerificationMaterialEntry, observedQualificationTestSummaries } from "../validator/qualification.js";
 import { projectExternalConstructionAttribution, decideQualificationDispatchEligibility,
   isMalformedGtlAssessmentInput, isMalformedGtlAssessment,
@@ -508,25 +508,11 @@ export function nativeRuntimeAssessmentHasNativeOwner(proof: QualificationProofR
       nativeRuntimeCases(assessment.input, proof) !== null;
   } catch { return false; }
 }
-export function projectQualificationRulingForConsumer(basis: QualificationNativeBasis, input: unknown, requireCurrent = false, resources?: QualificationResources,
-  catalogs?: QualificationCatalogs): Readonly<QualificationOwnerRuling> | null {
-  try {
-    if (!referenceDependencies(input, resources)) return null;
-    const owner = qualificationConsumerOwner(basis, input, requireCurrent, resources, catalogs);
-    if (owner === null || owner.call.implementationRef !== RULING) return null;
-    const admittedInput = admitJson(input);
-    if (admittedInput.kind !== "ok") return null;
-    const rows = projectFhContinuations(owner.prefix, deriveRuntimeEventCalculusProjection(owner.prefix)).filter(c =>
-      c.runId === owner.call.runId && (c.status === "responded" || c.status === "resolved") && canonicalEquals(c.responseValue, admittedInput.value));
-    const row = exactOrNull(onlyExactMatch(rows)); if (row === null) return null;
-    const requestOwner = graphOwner(basis.predecessorPrefix as DurablePrefixCoordinate, row.cCallRef, [owner.proof]);
-    const response = exactOrNull(onlyExactMatch(indexedRuntimeEvents(owner.prefix, "id:" + row.respondedEventRef).filter(e => e.eventId === row.respondedEventRef)));
-    if (requestOwner === null || requestOwner.call.regime !== "F_H" || requestOwner.call.actorCapabilityRef !== QUALIFICATION_ROLE_POLICY.authorityRef ||
-        response === null || response.kind !== "fh_interaction_responded" || !record(response.payload) || typeof response.payload.actorRef !== "string" ||
-        response.payload.capabilityRef !== QUALIFICATION_ROLE_POLICY.authorityRef ||
-        !qualificationRulingMatches(requestOwner.input, input, response.payload.actorRef)) return null;
-    return deepFreeze(input as QualificationOwnerRuling);
-  } catch { return null; }
+export function projectQualificationRulingForConsumer(_basis: QualificationNativeBasis, _input: unknown, _requireCurrent = false, _resources?: QualificationResources,
+  _catalogs?: QualificationCatalogs): Readonly<QualificationOwnerRuling> | null {
+  // An owner ruling is a human response, reserved to 5.1: no 5.0 history
+  // carries one.
+  return null;
 }
 function proofWithin(proof: QualificationProofResource, consumer: QualificationNativeBasis): boolean {
   return canonicalEquals(proof.prefix.storeIdentity, consumer.predecessorPrefix.storeIdentity) &&
@@ -628,25 +614,12 @@ export function projectQualificationJudgment(proof: QualificationProofResource, 
     return eligible.length === 1 && eligible[0]!.cCallRef === selected.state.cCall.cCallRef ? deepFreeze(eligible[0]!.value) : null;
   } catch { return null; }
 }
-export function projectQualificationOwnerRuling(proof: QualificationProofResource, plan: QualificationAssessmentPlan,
-  selection: Extract<QualificationEvidenceSelection, { kind: "ruling_selection" }>, resources?: QualificationResources,
-  catalogs?: QualificationCatalogs): Readonly<QualificationOwnerRuling> | null {
-  try {
-    proof = ownedProof(proof, resources, catalogs);
-    const prefix = readOwnedRuntimeEventPrefixAtDurablePrefix(proof.prefix as DurablePrefixCoordinate);
-    const rows = projectFhContinuations(prefix, deriveRuntimeEventCalculusProjection(prefix)).filter(c =>
-      c.continuationRef === selection.continuationRef && c.requestRef === selection.request.ref &&
-      c.requestDigest === selection.request.digest && (c.status === "responded" || c.status === "resolved"));
-    const row = exactOrNull(onlyExactMatch(rows)); if (row === null) return null;
-    const owner = graphOwner(proof.prefix as DurablePrefixCoordinate, row.cCallRef, proof.declarations as readonly AbgHistoricalDeclarationProof[], executionProofFacts.get(proof));
-    const response = exactOrNull(onlyExactMatch(indexedRuntimeEvents(prefix, "id:" + row.respondedEventRef).filter(e => e.eventId === row.respondedEventRef)));
-    if (owner === null || owner.call.regime !== "F_H" || owner.call.actorCapabilityRef !== plan.ownerAuthorityRef ||
-        response === null || response.kind !== "fh_interaction_responded" || !record(response.payload) || response.payload.actorRef !== plan.ownerActorRef || response.payload.capabilityRef !== plan.ownerAuthorityRef ||
-        !record(owner.input) || owner.input.slotRef !== selection.slotRef || owner.input.actorRef !== plan.ownerActorRef ||
-        (owner.input.subjectBasis === undefined || !canonicalEquals(owner.input.subjectBasis, plan.subjectBasis)) || (owner.input.lawBasis === undefined || !canonicalEquals(owner.input.lawBasis, plan.lawBasis)) ||
-        !qualificationRulingMatches(owner.input, row.responseValue, response.payload.actorRef)) return null;
-    return deepFreeze(row.responseValue as unknown as QualificationOwnerRuling);
-  } catch { return null; }
+export function projectQualificationOwnerRuling(_proof: QualificationProofResource, _plan: QualificationAssessmentPlan,
+  _selection: Extract<QualificationEvidenceSelection, { kind: "ruling_selection" }>, _resources?: QualificationResources,
+  _catalogs?: QualificationCatalogs): Readonly<QualificationOwnerRuling> | null {
+  // An owner ruling is a human response, reserved to 5.1: no 5.0 history
+  // carries one.
+  return null;
 }
 /** The configured selection of one admitted occurrence's transport evidence,
  * read through the c_call owner's actor/binding projection at its prefix. */

@@ -104,7 +104,11 @@ test('real warm derivation and serialized cold projector agree; crossed/missing/
   x=>x.route.payload.boundInput.value.entry.job.label='crossed']){
   const changed=structuredClone(f);alter(changed);assert.equal(cold.projectRetainedWorksiteInputAtPrefix(changed,changed.route),null);
  }
- for(const origin of ['entry','route','resume']){
+ // Human response and resumption are reserved to 5.1: a hand-built resume
+ // event is no cursor origin, and the cold projector refuses its input.
+ const resumed=JSON.parse(JSON.stringify(fixture('resume')));
+ assert.equal(cold.projectRetainedWorksiteInputAtPrefix(resumed,resumed.route),null,'resume');
+ for(const origin of ['entry','route']){
   const raw=JSON.parse(JSON.stringify(fixture(origin)));
   assert.deepEqual(cold.projectRetainedWorksiteInputAtPrefix(raw,raw.route)?.input,raw.input,origin);
   if(origin!=='entry')assert.equal(raw.rows.filter(e=>e.kind==='traversal_cursor_entered').length,0);
@@ -112,12 +116,12 @@ test('real warm derivation and serialized cold projector agree; crossed/missing/
    x=>x.rows.splice(x.rows.findIndex(e=>e.eventId==='event://cursor'),1),
    x=>x.rows.find(e=>e.eventId==='event://cursor').graphCallId='graph-call://crossed',
    x=>x.rows.find(e=>e.eventId==='event://cursor').runId='run://crossed',
-   x=>{const e=x.rows.find(e=>e.eventId==='event://cursor');if(origin==='resume')e.payload.successorCursor.executionBasisRef='basis://crossed';else e.basisId='basis://crossed';},
+   x=>x.rows.find(e=>e.eventId==='event://cursor').basisId='basis://crossed',
    x=>x.rows.find(e=>e.eventId==='event://cursor').frameId='frame://crossed',
    x=>x.child.invocationRef='invocation://crossed',
    x=>x.rows.splice(x.rows.findIndex(e=>e.eventId==='event://route'),1),
    x=>x.route.payload.boundInput.value.source.result='altered',
-   x=>x.rows.find(e=>e.eventId==='event://cursor').payload[origin==='entry'?'cursorDigest':origin==='route'?'targetCursorDigest':'successorCursorDigest']=hash('crossed'),
+   x=>x.rows.find(e=>e.eventId==='event://cursor').payload[origin==='entry'?'cursorDigest':'targetCursorDigest']=hash('crossed'),
    x=>x.rows.find(e=>e.eventId==='event://open').causationEventRefs=['event://entry'],
    x=>x.rows.find(e=>e.eventId==='event://cursor').admissionOrdinal=x.route.admissionOrdinal+1,
    x=>x.rows.find(e=>e.eventId==='event://evidence').payload.inputDigest=hash('crossed'),

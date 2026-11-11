@@ -1,11 +1,8 @@
-import { indexedRuntimeEvents, isOwnedRuntimeEventPrefix, runtimeEventAtPrefix, runtimeEventEnvelopesAtPrefix } from "./event_prefix.js";
+import { indexedRuntimeEvents, runtimeEventAtPrefix } from "./event_prefix.js";
 import type { RuntimeEventPrefix } from "./event_prefix.js";
 import { isRecord } from "../shared/admission_predicates.js";
-import type { ClosureContract } from "../gtl/contracts.js";
-import { type JsonValue } from "../shared/canonical_json.js";
 import { sha256Canonical, type Sha256Digest } from "../shared/digests.js";
 import { deepFreeze } from "../shared/immutable.js";
-import { isExactOperationInvocationCoordinate } from "../shared/operation_definition_coordinate.js";
 import { projectPendingInteractionCarrier } from "./c_call.js";
 import {
   constructRuntimeFluent,
@@ -19,28 +16,21 @@ import {
   validatedRuntimeEventPrefixThroughEvent,
   type ValidatedRuntimeEventPrefix,
 } from "./event_prefix.js";
-import { rehydrateExecutionBasisAtPrefix } from "./execution_basis.js";
-import {
-  runtimeEventPhysicalPrefix,
-  type RuntimeEvent,
-} from "./event_store.js";
-import {
-  deriveFhResumeSuccessorInputAtPrefix,
-  type FhResumeSuccessorInput,
-} from "./fh_resume_relation.js";
+import { type RuntimeEvent } from "./event_store.js";
 import {
   hasExactInvocationRunBindingAtPrefix,
   projectExactExecutionBasisAtPrefix,
   projectExactInvocationAdmissionAtPrefix,
 } from "./invocation_execution_truth.js";
 import {
-  isInteractionResumeCursorSuccessorAtPrefix,
   isTraversalCursorCandidate,
   type TraversalCursorCandidate,
 } from "./traversal_cursor.js";
-import { canonicalEquals } from "../shared/value/index.js";
 import { isConstructionContinuationKind } from "./construction_continuation.js";
 
+// Human response and same-Run resumption are reserved to 5.1. A 5.0 F_H
+// continuation is an open hold: its response, successor and terminal fields
+// are null and keep their keys, so the replay digest is unchanged.
 export type ReplayContinuationState = {
   readonly continuationRef: string;
   readonly continuationDigest: Sha256Digest;
@@ -58,40 +48,29 @@ export type ReplayContinuationState = {
   readonly heldCursorDigest: Sha256Digest;
   readonly constructionIntentRef: string | null;
   readonly constructionIntentDigest: Sha256Digest | null;
-  readonly responseRef: string | null;
-  readonly responseDigest: Sha256Digest | null;
-  readonly responseValue: JsonValue | null;
-  readonly successorInputRef: string | null;
-  readonly successorInputDigest: Sha256Digest | null;
-  readonly successorInputValue: JsonValue | null;
-  readonly successorInputContractRef: string | null;
-  readonly successorInputValueKind: string | null;
-  readonly successorCursorRef: string | null;
-  readonly successorCursorDigest: Sha256Digest | null;
+  readonly responseRef: null;
+  readonly responseDigest: null;
+  readonly responseValue: null;
+  readonly successorInputRef: null;
+  readonly successorInputDigest: null;
+  readonly successorInputValue: null;
+  readonly successorInputContractRef: null;
+  readonly successorInputValueKind: null;
+  readonly successorCursorRef: null;
+  readonly successorCursorDigest: null;
   readonly openedEventRef: string;
-  readonly respondedEventRef: string | null;
-  readonly respondedPublicOperationEventRef: string | null;
-  readonly resumedEventRef: string | null;
-  readonly resumedPublicOperationEventRef: string | null;
-  readonly terminalEventRef: string | null;
-  readonly status: "abandoned" | "open" | "responded" | "resolved" | "superseded";
+  readonly respondedEventRef: null;
+  readonly respondedPublicOperationEventRef: null;
+  readonly resumedEventRef: null;
+  readonly resumedPublicOperationEventRef: null;
+  readonly terminalEventRef: null;
+  readonly status: "open";
 };
-
-export interface FhEffectfulPublicInvocationFact {
-  readonly operationId:
-    | "abg.operation.interaction.respond"
-    | "abg.operation.run.continue";
-  readonly publicInvocationRef: string;
-  readonly ownerInvocationRef: string;
-  readonly ownerInvocationDigest: Sha256Digest;
-  readonly publicOperationEventRef: string;
-  readonly admissionEventRef: string;
-}
 
 export type FhEffectfulPublicInvocationFactProjection =
   | Readonly<{
       readonly disposition: "valid";
-      readonly facts: readonly FhEffectfulPublicInvocationFact[];
+      readonly facts: readonly [];
     }>
   | Readonly<{
       readonly disposition: "invalid_history";
@@ -107,38 +86,6 @@ function stringField(event: RuntimeEvent, key: string): string | null {
 function digestField(event: RuntimeEvent, key: string): Sha256Digest | null {
   const value = stringField(event, key);
   return value?.startsWith("sha256:") ? value as Sha256Digest : null;
-}
-
-function exactPublicOperation(
-  prefix: RuntimeEventPrefix,
-  continuationRef: string,
-  operationEventRef: JsonValue | undefined,
-  operationId:
-    | "abg.operation.interaction.respond"
-    | "abg.operation.run.continue",
-  actorRef: JsonValue | undefined,
-  capabilityRef: JsonValue | undefined,
-  predecessor: RuntimeEvent,
-  successor: RuntimeEvent,
-): RuntimeEvent | null {
-  if (typeof operationEventRef !== "string") return null;
-  const event = runtimeEventAtPrefix(prefix, operationEventRef);
-  if (event === undefined || event.kind !== "public_operation_admitted" || !isRecord(event.payload)) return null;
-  const grants = event.payload.capabilityGrantRefs;
-  return event.payload.operationId === operationId &&
-      event.payload.continuationRef === continuationRef &&
-      event.payload.actorRef === actorRef &&
-      event.payload.capabilityRef === capabilityRef &&
-      Array.isArray(grants) && grants.length === 1 &&
-      typeof grants[0] === "string" && grants[0].length > 0 &&
-      event.admissionOrdinal > predecessor.admissionOrdinal &&
-      event.admissionOrdinal < successor.admissionOrdinal &&
-      event.admissionOrdinal + 1 === successor.admissionOrdinal &&
-      successor.causationEventRefs.length === 2 &&
-      successor.causationEventRefs[0] === predecessor.eventId &&
-      successor.causationEventRefs[1] === event.eventId
-    ? event
-    : null;
 }
 
 function exactOpenedBasis(
@@ -286,317 +233,30 @@ function exactOpenedBasis(
   };
 }
 
-function exactLifecycleEnvelope(
-  event: RuntimeEvent,
-  opened: RuntimeEvent,
-  basisId: string,
-): boolean {
-  return event.aggregateType === "continuation" && (!isRecord(event.payload) || !isConstructionContinuationKind(event.payload.continuationKind)) &&
-    event.aggregateId === opened.aggregateId &&
-    event.parentAggregateId === opened.frameId &&
-    event.workflowVersion === "5.0.0" && event.scopeClass === "run" &&
-    event.basisId === basisId && event.runId === opened.runId &&
-    event.graphCallId === opened.graphCallId && event.frameId === opened.frameId;
-}
-
-function exactClosureContract(
-  value: JsonValue | undefined,
-  executionBasis: NonNullable<ReturnType<
-    typeof projectExactExecutionBasisAtPrefix
-  >>,
-): Readonly<ClosureContract> | null {
-  if (!isRecord(value)) return null;
-  const keys = Object.keys(value).sort();
-  const expectedKeys = [
-    "closureContractRef",
-    "closureScope",
-    "eventKindRefs",
-    "evidenceContractRef",
-    "judgmentContractRef",
-    "kind",
-    "predicateRef",
-    "refusalContractRef",
-    "refusalValueKind",
-    "rejectionContractRef",
-    "replayProjectionRef",
-    "resultContractRef",
-    "terminalKind",
-    "transitionContractRef",
-  ].sort();
-  if (
-    keys.length !== expectedKeys.length ||
-    keys.some((key, index) => key !== expectedKeys[index]) ||
-    value.kind !== "closure_contract" ||
-    (value.closureScope !== "run" && value.closureScope !== "graph_call") ||
-    value.terminalKind !== "completed" ||
-    !Array.isArray(value.eventKindRefs)
-  ) return null;
-  const expectedKinds = value.closureScope === "run"
-    ? ["terminal_reached", "frame_closed", "graph_call_closed", "run_closed"]
-    : ["terminal_reached", "frame_closed", "graph_call_closed"];
-  const stringKeys = expectedKeys.filter((key) =>
-    key !== "eventKindRefs" && key !== "closureScope"
-  );
-  if (
-    stringKeys.some((key) =>
-      typeof value[key] !== "string" || (value[key] as string).length === 0
-    ) ||
-    !canonicalEquals(value.eventKindRefs, expectedKinds) ||
-    value.closureContractRef !== executionBasis.closureContractRef ||
-    value.predicateRef !== executionBasis.terminalPredicateRef ||
-    value.evidenceContractRef !== executionBasis.evidenceContractRef ||
-    value.resultContractRef !== executionBasis.resultContractRef ||
-    value.refusalContractRef !== executionBasis.refusalContractRef ||
-    value.refusalValueKind !== executionBasis.refusalValueKind ||
-    value.judgmentContractRef !== executionBasis.judgmentContractRef ||
-    value.rejectionContractRef !== executionBasis.rejectionContractRef ||
-    value.transitionContractRef !== executionBasis.transitionContractRef ||
-    value.replayProjectionRef !== executionBasis.replayProjectionRef ||
-    sha256Canonical(value) !== executionBasis.closureContractDigest
-  ) return null;
-  return value as unknown as Readonly<ClosureContract>;
-}
-
-export function validateExactFhResumeOwnerRelationAtPrefix(
-  authorityPrefix: ValidatedRuntimeEventPrefix,
-  resumeEvent: RuntimeEvent,
-): boolean;
-/** @internal */
-export function validateExactFhResumeOwnerRelationAtPrefix(
-  authorityPrefix: RuntimeEventPrefix,
-  resumeEvent: RuntimeEvent,
-): boolean;
-export function validateExactFhResumeOwnerRelationAtPrefix(
-  authorityPrefix: RuntimeEventPrefix,
-  resumeEvent: RuntimeEvent,
-): boolean {
-  try {
-    const ownerAuthorityPrefix = validatedRuntimeEventPrefixThroughEvent(
-      authorityPrefix,
-      resumeEvent.eventId,
-    );
-    const authorityEvents = runtimeEventBodiesAtPrefix(
-      ownerAuthorityPrefix,
-    );
-    // Gap-free order is an envelope fact; an owned cut reads its recorded
-    // physical predecessor instead of slicing bodies.
-    let expectedOrdinal = 0, gapFree = true;
-    for (const envelope of runtimeEventEnvelopesAtPrefix(ownerAuthorityPrefix)) {
-      if (envelope.admissionOrdinal !== ++expectedOrdinal) { gapFree = false; break; }
-    }
-    const ownedAuthority = isOwnedRuntimeEventPrefix(ownerAuthorityPrefix) ? ownerAuthorityPrefix.selection : undefined;
-    if (
-      !gapFree ||
-      resumeEvent.kind !== "fh_interaction_resume_admitted" ||
-      resumeEvent.runId === undefined ||
-      !isRecord(resumeEvent.payload)
-    ) return false;
-    const ownerRunPrefix = selectValidatedRuntimeEventPrefix(
-      authorityEvents,
-      { runId: resumeEvent.runId },
-    );
-    runtimeEventBodiesAtPrefix(ownerRunPrefix);
-    const exactResume = indexedRuntimeEvents(ownerRunPrefix, "id:" + resumeEvent.eventId).find((event) =>
-      event.eventId === resumeEvent.eventId
-    );
-    if (
-      exactResume === undefined ||
-      !canonicalEquals(
-        exactResume,
-        resumeEvent,
-      )
-    ) return false;
-    const payload = resumeEvent.payload;
-    const continuationRef = stringField(resumeEvent, "continuationRef");
-    const openedEventRef = stringField(resumeEvent, "openedEventRef");
-    const respondedEventRef = stringField(resumeEvent, "respondedEventRef");
-    const publicOperationEventRef = stringField(
-      resumeEvent,
-      "publicOperationEventRef",
-    );
-    const opened = indexedRuntimeEvents(ownerRunPrefix, "id:" + openedEventRef).find((event) => event.eventId === openedEventRef);
-    const responded = indexedRuntimeEvents(ownerRunPrefix, "id:" + respondedEventRef).find((event) =>
-      event.eventId === respondedEventRef
-    );
-    const publicOperation = indexedRuntimeEvents(ownerAuthorityPrefix, "id:" + publicOperationEventRef).find(
-      (event) => event.eventId === publicOperationEventRef,
-    );
-    if (
-      continuationRef === null ||
-      opened?.kind !== "fh_interaction_opened" ||
-      responded?.kind !== "fh_interaction_responded" ||
-      publicOperation?.kind !== "public_operation_admitted" ||
-      !isRecord(opened.payload) ||
-      !isRecord(publicOperation.payload) ||
-      publicOperation.payload.operationId !== "abg.operation.run.continue" ||
-      publicOperation.payload.continuationRef !== continuationRef ||
-      publicOperation.admissionOrdinal + 1 !== resumeEvent.admissionOrdinal ||
-      resumeEvent.causationEventRefs.length !== 2 ||
-      resumeEvent.causationEventRefs[0] !== responded.eventId ||
-      resumeEvent.causationEventRefs[1] !== publicOperation.eventId ||
-      resumeEvent.eventTime !== publicOperation.eventTime ||
-      resumeEvent.correlationId !== publicOperation.correlationId
-    ) return false;
-    const predecessorCount = publicOperation.admissionOrdinal - 1;
-    const durablePrefixDigest = digestField(resumeEvent, "durablePrefixDigest");
-    if (
-      durablePrefixDigest === null ||
-      (ownedAuthority !== undefined
-        ? runtimeEventPhysicalPrefix(ownedAuthority.cut(predecessorCount))
-        : runtimeEventPhysicalPrefix(authorityEvents.slice(0, predecessorCount))).digest !== durablePrefixDigest
-    ) return false;
-    const respondedAuthorityPrefix = validatedRuntimeEventPrefixThroughEvent(
-      ownerAuthorityPrefix,
-      responded.eventId,
-    );
-    const respondedRunPrefix = selectValidatedRuntimeEventPrefix(
-      runtimeEventBodiesAtPrefix(respondedAuthorityPrefix),
-      { runId: resumeEvent.runId },
-    );
-    const respondedContinuation = projectFhContinuations(
-      respondedRunPrefix,
-      deriveRuntimeHeldFluentProjection(respondedRunPrefix),
-      respondedAuthorityPrefix,
-    ).find((candidate) => candidate.continuationRef === continuationRef);
-    if (
-      respondedContinuation === undefined ||
-      respondedContinuation.status !== "responded"
-    ) return false;
-    const prefixThroughOperation = validatedRuntimeEventPrefixThroughEvent(
-      ownerAuthorityPrefix,
-      publicOperation.eventId,
-    );
-    const executionBasisRef = stringField(opened, "executionBasisRef");
-    const executionBasis = executionBasisRef === null
-      ? null
-      : rehydrateExecutionBasisAtPrefix(
-          prefixThroughOperation,
-          executionBasisRef,
-        );
-    if (executionBasis === null) return false;
-    const closureContract = exactClosureContract(
-      payload.closureContract,
-      executionBasis,
-    );
-    const successorInputRef = stringField(resumeEvent, "successorInputRef");
-    const successorInputDigest = digestField(
-      resumeEvent,
-      "successorInputDigest",
-    );
-    const successorInputValue = isRecord(payload.successorInputValue)
-      ? payload.successorInputValue
-      : null;
-    const successorInputContractRef = payload.successorInputContractRef;
-    const successorInputValueKind = payload.successorInputValueKind;
-    const successorCursor = isRecord(payload.successorCursor)
-      ? payload.successorCursor as unknown as TraversalCursorCandidate
-      : null;
-    if (
-      closureContract === null ||
-      successorInputRef === null ||
-      successorInputDigest === null ||
-      successorInputValue === null ||
-      !(
-        (successorInputContractRef === null && successorInputValueKind === null) ||
-        (typeof successorInputContractRef === "string" &&
-          successorInputContractRef.length > 0 &&
-          typeof successorInputValueKind === "string" &&
-          successorInputValueKind.length > 0)
-      ) ||
-      successorCursor === null ||
-      !isTraversalCursorCandidate(successorCursor) ||
-      payload.successorCursorRef !== successorCursor.cursorRef ||
-      payload.successorCursorDigest !== successorCursor.cursorDigest
-    ) return false;
-    const suppliedInput: FhResumeSuccessorInput = deepFreeze({
-      kind: "fh_resume_successor_input" as const,
-      schemaVersion: "5.0.0" as const,
-      disposition: "admitted" as const,
-      inputRef: successorInputRef,
-      inputDigest: successorInputDigest,
-      inputValue: successorInputValue,
-      inputContractRef: successorInputContractRef as string | null,
-      inputValueKind: successorInputValueKind as string | null,
-    });
-    const expectedInput = deriveFhResumeSuccessorInputAtPrefix(
-      prefixThroughOperation,
-      respondedContinuation,
-      { admissionEventRef: publicOperation.eventId },
-      executionBasis,
-      closureContract,
-      {
-        inputContractRef: suppliedInput.inputContractRef,
-        inputValueKind: suppliedInput.inputValueKind,
-      },
-    );
-    const heldCursor = isRecord(opened.payload.heldCursor)
-      ? opened.payload.heldCursor as unknown as TraversalCursorCandidate
-      : null;
-    return canonicalEquals(
-      suppliedInput,
-      expectedInput,
-    ) &&
-      heldCursor !== null &&
-      isTraversalCursorCandidate(heldCursor) &&
-      isInteractionResumeCursorSuccessorAtPrefix(
-        prefixThroughOperation,
-        heldCursor,
-        expectedInput,
-        successorCursor,
-      );
-  } catch {
-    return false;
-  }
-}
-
 export function projectFhContinuations(
   prefix: ValidatedRuntimeEventPrefix,
   eventCalculus: RuntimeEventCalculusProjection,
-  authorityPrefix?: ValidatedRuntimeEventPrefix ,
 ): readonly ReplayContinuationState[];
 /** @internal */
 export function projectFhContinuations(
   prefix: RuntimeEventPrefix,
   eventCalculus: RuntimeHeldFluentProjection,
-  authorityPrefix?: RuntimeEventPrefix ,
 ): readonly ReplayContinuationState[];
 export function projectFhContinuations(
   prefix: RuntimeEventPrefix,
   eventCalculus: RuntimeHeldFluentProjection,
-  authorityPrefix: RuntimeEventPrefix = prefix,
 ): readonly ReplayContinuationState[] {
   const events = indexedRuntimeEvents(prefix, "type:" + "continuation").filter((event) =>
     event.aggregateType === "continuation" && (!isRecord(event.payload) || !isConstructionContinuationKind(event.payload.continuationKind))
   );
   const refs = [...new Set(events.map((event) => event.aggregateId))];
   return refs.map((continuationRef) => {
+    // A 5.0 F_H continuation has exactly one lifecycle row: its opening.
     const rows = events.filter((event) => event.aggregateId === continuationRef);
-    const openedRows = rows.filter((event) => event.kind === "fh_interaction_opened");
-    const respondedRows = rows.filter((event) =>
-      event.kind === "fh_interaction_responded"
-    );
-    const resumedRows = rows.filter((event) =>
-      event.kind === "fh_interaction_resume_admitted"
-    );
-    const opened = openedRows[0];
-    const responded = respondedRows[0];
-    const resumed = resumedRows[0];
-    const abandoned = rows.find((event) => event.kind === "continuation_abandoned");
-    const superseded = rows.find((event) => event.kind === "continuation_superseded");
-    const dispositionRows = rows.filter((event) =>
-      event.kind === "continuation_abandoned" ||
-      event.kind === "continuation_superseded"
-    );
+    const opened = rows[0];
     if (
-      opened === undefined || openedRows.length !== 1 ||
-      respondedRows.length > 1 || resumedRows.length > 1 ||
-      dispositionRows.length > 1 ||
-      (resumed !== undefined && dispositionRows.length !== 0) ||
-      (resumed !== undefined && responded === undefined) ||
-      (responded !== undefined &&
-        responded.admissionOrdinal <= opened.admissionOrdinal) ||
-      (resumed !== undefined &&
-        resumed.admissionOrdinal <= (responded?.admissionOrdinal ?? 0))
+      opened === undefined || rows.length !== 1 ||
+      opened.kind !== "fh_interaction_opened"
     ) throw new TypeError(`continuation ${continuationRef} has an invalid event lifecycle`);
     const openedBasis = exactOpenedBasis(prefix, opened, continuationRef);
     const continuationDigest = openedBasis?.continuationDigest ?? null;
@@ -612,144 +272,11 @@ export function projectFhContinuations(
       requestContractRef === null || responseContractRef === null ||
       heldCursorRef === null || heldCursorDigest === null
     ) throw new TypeError(`continuation ${continuationRef} has incomplete opening truth`);
-    const respondedPayload = responded !== undefined && isRecord(responded.payload)
-      ? responded.payload
-      : null;
-    const resumedPayload = resumed !== undefined && isRecord(resumed.payload)
-      ? resumed.payload
-      : null;
-    const respondedPublicOperation = responded === undefined ||
-        respondedPayload === null
-      ? null
-      : exactPublicOperation(
-          prefix,
-          continuationRef,
-          respondedPayload.publicOperationEventRef,
-          "abg.operation.interaction.respond",
-          respondedPayload.actorRef,
-          respondedPayload.capabilityRef,
-          opened,
-          responded,
-        );
-    if (responded !== undefined && (
-      respondedPayload === null ||
-      !exactLifecycleEnvelope(responded, opened, continuationRef) ||
-      respondedPayload.continuationRef !== continuationRef ||
-      respondedPayload.actorRef === undefined ||
-      respondedPayload.capabilityRef !== actorCapabilityRef ||
-      respondedPayload.responseContractRef !== responseContractRef ||
-      !isRecord(respondedPayload.responseValue) ||
-      sha256Canonical(respondedPayload.responseValue) !==
-        respondedPayload.responseDigest ||
-      respondedPayload.responseRef !==
-        `interaction-response://abiogenesis/${
-          String(respondedPayload.responseDigest).slice("sha256:".length)
-        }` ||
-      responded.causationEventRefs[0] !== opened.eventId ||
-      respondedPublicOperation === null
-    )) throw new TypeError(`continuation ${continuationRef} has invalid response truth`);
-    const resumedPublicOperation = resumed === undefined ||
-        resumedPayload === null || responded === undefined
-      ? null
-      : exactPublicOperation(
-          prefix,
-          continuationRef,
-          resumedPayload.publicOperationEventRef,
-          "abg.operation.run.continue",
-          resumedPayload.actorRef,
-          resumedPayload.capabilityRef,
-          responded,
-          resumed,
-        );
-    const successorInputContractRef = resumedPayload?.successorInputContractRef;
-    const successorInputValueKind = resumedPayload?.successorInputValueKind;
-    if (resumed !== undefined && (
-      resumedPayload === null || responded === undefined ||
-      respondedPayload === null ||
-      !exactLifecycleEnvelope(resumed, opened, continuationRef) ||
-      resumedPayload.continuationRef !== continuationRef ||
-      resumedPayload.actorRef === undefined ||
-      resumedPayload.capabilityRef !== actorCapabilityRef ||
-      resumedPayload.openedEventRef !== opened.eventId ||
-      resumedPayload.respondedEventRef !== responded.eventId ||
-      resumedPayload.responseRef !== respondedPayload.responseRef ||
-      resumedPayload.responseDigest !== respondedPayload.responseDigest ||
-      !isRecord(resumedPayload.responseValue) ||
-      sha256Canonical(resumedPayload.responseValue) !==
-        resumedPayload.responseDigest ||
-      !isRecord(resumedPayload.successorInputValue) ||
-      sha256Canonical(resumedPayload.successorInputValue) !==
-        resumedPayload.successorInputDigest ||
-      typeof resumedPayload.successorInputRef !== "string" ||
-      typeof resumedPayload.successorCursorRef !== "string" ||
-      typeof resumedPayload.successorCursorDigest !== "string" ||
-      !(
-        (successorInputContractRef === null &&
-          successorInputValueKind === null) ||
-        (typeof successorInputContractRef === "string" &&
-          successorInputContractRef.length > 0 &&
-          typeof successorInputValueKind === "string" &&
-          successorInputValueKind.length > 0)
-      ) ||
-      (openedBasis.constructionIntentRef !== null &&
-        successorInputValueKind !== "action_evaluation_basis") ||
-      typeof resumedPayload.durablePrefixDigest !== "string" ||
-      !resumedPayload.durablePrefixDigest.startsWith("sha256:") ||
-      resumed.causationEventRefs[0] !== responded.eventId ||
-      resumedPublicOperation === null ||
-      !validateExactFhResumeOwnerRelationAtPrefix(authorityPrefix, resumed)
-    )) throw new TypeError(`continuation ${continuationRef} has invalid resume truth`);
-    const disposition = dispositionRows[0];
-    const dispositionPayload = disposition !== undefined &&
-        isRecord(disposition.payload)
-      ? disposition.payload
-      : null;
-    const dispositionPredecessor = responded ?? opened;
-    if (disposition !== undefined && (
-      dispositionPayload === null ||
-      !exactLifecycleEnvelope(
-        disposition,
-        opened,
-        dispositionPredecessor.basisId,
-      ) ||
-      disposition.graphFunctionRef !== dispositionPredecessor.graphFunctionRef ||
-      disposition.materializationRef !==
-        dispositionPredecessor.materializationRef ||
-      dispositionPayload.continuationRef !== continuationRef ||
-      dispositionPayload.continuationDigest !== continuationDigest ||
-      dispositionPayload.continuationKind !== "fh_interaction" ||
-      dispositionPayload.terminalDisposition !==
-        (disposition.kind === "continuation_abandoned"
-          ? "abandoned"
-          : "superseded") ||
-      dispositionPayload.causedByEventRef !== dispositionPredecessor.eventId ||
-      disposition.causationEventRefs.length !== 1 ||
-      disposition.causationEventRefs[0] !== dispositionPredecessor.eventId ||
-      disposition.admissionOrdinal <= dispositionPredecessor.admissionOrdinal
-    )) throw new TypeError(
-      `continuation ${continuationRef} has invalid terminal disposition truth`,
-    );
     const open = holdsAt(eventCalculus, constructRuntimeFluent({
       name: "continuation_open",
       identity: continuationRef,
     }));
-    const responseAvailable = holdsAt(eventCalculus, constructRuntimeFluent({
-      name: "continuation_response_available",
-      identity: continuationRef,
-    }));
-    const terminated = holdsAt(eventCalculus, constructRuntimeFluent({
-      name: "continuation_terminated",
-      identity: continuationRef,
-    }));
-    const disposed = abandoned !== undefined || superseded !== undefined;
-    if (
-      (terminated && (open || responseAvailable || resumed === undefined)) ||
-      (disposed && (open || responseAvailable)) ||
-      (!terminated && !disposed && responded !== undefined &&
-        (!open || !responseAvailable || resumed !== undefined)) ||
-      (!terminated && !disposed && responded === undefined &&
-        (!open || responseAvailable))
-    ) throw new TypeError(
+    if (!open) throw new TypeError(
       `continuation ${continuationRef} differs from Event Calculus lifecycle truth`,
     );
     return deepFreeze({
@@ -769,48 +296,23 @@ export function projectFhContinuations(
       heldCursorDigest,
       constructionIntentRef: openedBasis.constructionIntentRef,
       constructionIntentDigest: openedBasis.constructionIntentDigest,
-      responseRef: responded === undefined
-        ? null
-        : stringField(responded, "responseRef"),
-      responseDigest: responded === undefined
-        ? null
-        : digestField(responded, "responseDigest"),
-      responseValue: respondedPayload?.responseValue ?? null,
-      successorInputRef: resumed === undefined
-        ? null
-        : stringField(resumed, "successorInputRef"),
-      successorInputDigest: resumed === undefined
-        ? null
-        : digestField(resumed, "successorInputDigest"),
-      successorInputValue: resumedPayload?.successorInputValue ?? null,
-      successorInputContractRef: resumed === undefined
-        ? null
-        : successorInputContractRef as string | null,
-      successorInputValueKind: resumed === undefined
-        ? null
-        : successorInputValueKind as string | null,
-      successorCursorRef: resumed === undefined
-        ? null
-        : stringField(resumed, "successorCursorRef"),
-      successorCursorDigest: resumed === undefined
-        ? null
-        : digestField(resumed, "successorCursorDigest"),
+      responseRef: null,
+      responseDigest: null,
+      responseValue: null,
+      successorInputRef: null,
+      successorInputDigest: null,
+      successorInputValue: null,
+      successorInputContractRef: null,
+      successorInputValueKind: null,
+      successorCursorRef: null,
+      successorCursorDigest: null,
       openedEventRef: opened.eventId,
-      respondedEventRef: responded?.eventId ?? null,
-      respondedPublicOperationEventRef:
-        respondedPublicOperation?.eventId ?? null,
-      resumedEventRef: resumed?.eventId ?? null,
-      resumedPublicOperationEventRef: resumedPublicOperation?.eventId ?? null,
-      terminalEventRef: dispositionRows[0]?.eventId ?? resumed?.eventId ?? null,
-      status: abandoned !== undefined
-        ? "abandoned" as const
-        : superseded !== undefined
-          ? "superseded" as const
-          : terminated
-            ? "resolved" as const
-            : responseAvailable
-              ? "responded" as const
-              : "open" as const,
+      respondedEventRef: null,
+      respondedPublicOperationEventRef: null,
+      resumedEventRef: null,
+      resumedPublicOperationEventRef: null,
+      terminalEventRef: null,
+      status: "open" as const,
     });
   });
 }
@@ -826,7 +328,8 @@ export function projectFhEffectfulPublicInvocationFacts(
   prefix: RuntimeEventPrefix,
 ): FhEffectfulPublicInvocationFactProjection {
   // The shared public-operation classification selects both F_H operation
-  // families; this owner's predicate is unchanged.
+  // families. Human response and resumption are reserved to 5.1, so no F_H
+  // operation has an owner row in 5.0: each one is an orphan.
   const publicEvents = [
     ...indexedRuntimeEvents(prefix, "public-operation:" + "abg.operation.interaction.respond"),
     ...indexedRuntimeEvents(prefix, "public-operation:" + "abg.operation.run.continue"),
@@ -838,14 +341,7 @@ export function projectFhEffectfulPublicInvocationFacts(
       event.payload.operationId === "abg.operation.run.continue"
     )
   );
-  // Both owner kinds in admission order, selected through the kind index.
-  const ownerEvents = [
-    ...indexedRuntimeEvents(prefix, "kind:" + "fh_interaction_responded"),
-    ...indexedRuntimeEvents(prefix, "kind:" + "fh_interaction_resume_admitted"),
-  ].sort((left, right) => left.admissionOrdinal - right.admissionOrdinal);
-  const relevantEventRefs = [...publicEvents, ...ownerEvents]
-    .map((event) => event.eventId)
-    .sort();
+  const relevantEventRefs = publicEvents.map((event) => event.eventId).sort();
   let continuationHistories: readonly Readonly<{
     authorityPrefix: RuntimeEventPrefix;
     continuation: ReplayContinuationState;
@@ -861,11 +357,7 @@ export function projectFhEffectfulPublicInvocationFacts(
       const rows = continuationEvents.filter((event) =>
         event.aggregateId === continuationRef
       );
-      const ownerRows = rows.filter((event) =>
-        event.kind === "fh_interaction_responded" ||
-        event.kind === "fh_interaction_resume_admitted"
-      );
-      const boundary = ownerRows.at(-1) ?? rows.at(-1);
+      const boundary = rows.at(-1);
       if (boundary === undefined) {
         throw new TypeError(
           `continuation ${continuationRef} has no historical owner boundary`,
@@ -890,7 +382,6 @@ export function projectFhEffectfulPublicInvocationFacts(
       const continuation = projectFhContinuations(
         ownerRunPrefix,
         deriveRuntimeHeldFluentProjection(ownerRunPrefix),
-        ownerAuthorityPrefix,
       ).find((candidate) =>
         candidate.continuationRef === continuationRef
       );
@@ -910,7 +401,6 @@ export function projectFhEffectfulPublicInvocationFacts(
       eventRefs: relevantEventRefs,
     });
   }
-  const facts: FhEffectfulPublicInvocationFact[] = [];
   for (const history of continuationHistories) {
     const { continuation } = history;
     const openedAt = runtimeEventAtPrefix(history.authorityPrefix, continuation.openedEventRef);
@@ -979,143 +469,8 @@ export function projectFhEffectfulPublicInvocationFacts(
         eventRefs: relevantEventRefs,
       });
     }
-    const coordinates = [
-      continuation.respondedEventRef === null ||
-          continuation.respondedPublicOperationEventRef === null
-        ? null
-        : {
-            operationId: "abg.operation.interaction.respond" as const,
-            ownerKind: "fh_interaction_responded" as const,
-            publicOperationEventRef:
-              continuation.respondedPublicOperationEventRef,
-            admissionEventRef: continuation.respondedEventRef,
-          },
-      continuation.resumedEventRef === null ||
-          continuation.resumedPublicOperationEventRef === null
-        ? null
-        : {
-            operationId: "abg.operation.run.continue" as const,
-            ownerKind: "fh_interaction_resume_admitted" as const,
-            publicOperationEventRef:
-              continuation.resumedPublicOperationEventRef,
-            admissionEventRef: continuation.resumedEventRef,
-          },
-    ].filter((coordinate) => coordinate !== null);
-    for (const coordinate of coordinates) {
-      const publicEvent = runtimeEventAtPrefix(history.authorityPrefix, coordinate.publicOperationEventRef);
-      const ownerEvent = runtimeEventAtPrefix(history.authorityPrefix, coordinate.admissionEventRef);
-      const publicPayload = publicEvent !== undefined &&
-          isRecord(publicEvent.payload)
-        ? publicEvent.payload
-        : null;
-      const ownerPayload = ownerEvent !== undefined && isRecord(ownerEvent.payload)
-        ? ownerEvent.payload
-        : null;
-      const invocationRef = publicPayload?.invocationRef;
-      const invocationPayloadDigest = publicPayload?.invocationPayloadDigest;
-      const invocationDigest = publicPayload?.invocationDigest;
-      const capabilityGrantRefs = publicPayload?.capabilityGrantRefs;
-      const capabilityGrantRef = Array.isArray(capabilityGrantRefs) &&
-          capabilityGrantRefs.length === 1
-        ? capabilityGrantRefs[0]
-        : null;
-      const capabilityGrant = typeof capabilityGrantRef === "string"
-        ? rootInvocation.capabilityGrants.filter((grant) =>
-            grant.grantRef === capabilityGrantRef
-          )
-        : [];
-      const expectedVariant = coordinate.operationId ===
-          "abg.operation.interaction.respond"
-        ? new Set(["select", "approve", "reject", "assess", "answer_escalation"])
-        : new Set(["current_intent", "selected_action"]);
-      if (
-        publicEvent?.kind !== "public_operation_admitted" ||
-        publicEvent.aggregateType !== "workspace" ||
-        publicEvent.aggregateId !== rootInvocation.workspaceBindingId ||
-        publicEvent.basisId !== rootInvocation.authorityRef ||
-        publicEvent.workflowVersion !== "5.0.0" ||
-        publicEvent.scopeClass !== "workspace" ||
-        publicPayload === null ||
-        publicPayload.operationId !== coordinate.operationId ||
-        typeof publicPayload.variant !== "string" ||
-        !expectedVariant.has(publicPayload.variant) ||
-        publicPayload.memberKey !== publicPayload.variant ||
-        publicPayload.continuationRef !== continuation.continuationRef ||
-        typeof invocationRef !== "string" ||
-        invocationRef.length === 0 ||
-        publicEvent.parentAggregateId !== invocationRef ||
-        typeof invocationPayloadDigest !== "string" ||
-        !/^sha256:[a-f0-9]{64}$/u.test(invocationPayloadDigest) ||
-        !isExactOperationInvocationCoordinate({
-          operationId: coordinate.operationId,
-          memberKey: publicPayload.memberKey,
-          definitionDigest: publicPayload.definitionDigest,
-          invocationRef,
-          invocationPayloadDigest,
-          invocationDigest,
-        }) ||
-        publicPayload.actorRef !== rootInvocation.actorRef ||
-        publicPayload.authorityRef !== rootInvocation.authorityRef ||
-        publicPayload.authorityDigest !== rootInvocation.authorityDigest ||
-        publicPayload.workspaceBindingId !==
-          rootInvocation.workspaceBindingId ||
-        publicPayload.workspaceBindingDigest !==
-          rootInvocation.workspaceBindingDigest ||
-        publicPayload.catalogBasisRef !== rootInvocation.catalogBasisRef ||
-        publicPayload.catalogBasisDigest !== rootInvocation.catalogBasisDigest ||
-        publicPayload.catalogViewId !== rootInvocation.catalogViewId ||
-        publicPayload.catalogViewDigest !== rootInvocation.catalogViewDigest ||
-        publicPayload.programRef !== rootInvocation.programRef ||
-        publicPayload.programDigest !== rootInvocation.programDigest ||
-        publicPayload.graphFunctionRef !== rootInvocation.graphFunctionRef ||
-        publicPayload.graphFunctionDigest !==
-          rootInvocation.graphFunctionDigest ||
-        publicPayload.policyRef !== rootInvocation.policyRef ||
-        publicPayload.policyDigest !== rootInvocation.policyDigest ||
-        typeof publicPayload.capabilityRef !== "string" ||
-        capabilityGrant.length !== 1 ||
-        capabilityGrant[0]!.actorRef !== publicPayload.actorRef ||
-        capabilityGrant[0]!.operationId !== coordinate.operationId ||
-        capabilityGrant[0]!.capabilityRef !== publicPayload.capabilityRef ||
-        capabilityGrant[0]!.policyRef !== rootInvocation.policyRef ||
-        capabilityGrant[0]!.policyDigest !== rootInvocation.policyDigest ||
-        !rootInvocation.capabilityGrantRefs.includes(
-          capabilityGrant[0]!.grantRef,
-        ) ||
-        ownerEvent?.kind !== coordinate.ownerKind ||
-        ownerPayload === null ||
-        ownerPayload.continuationRef !== continuation.continuationRef ||
-        ownerPayload.publicOperationEventRef !== publicEvent.eventId ||
-        ownerEvent.eventTime !== publicEvent.eventTime ||
-        ownerEvent.correlationId !== publicEvent.correlationId
-      ) {
-        return deepFreeze({
-          disposition: "invalid_history" as const,
-          eventRefs: relevantEventRefs,
-        });
-      }
-      facts.push(deepFreeze({
-        operationId: coordinate.operationId,
-        publicInvocationRef: invocationRef,
-        ownerInvocationRef: invocationRef,
-        ownerInvocationDigest: invocationDigest as Sha256Digest,
-        publicOperationEventRef: publicEvent.eventId,
-        admissionEventRef: ownerEvent.eventId,
-      }));
-    }
   }
-  const factPublicRefs = new Set(
-    facts.map((fact) => fact.publicOperationEventRef),
-  );
-  const factOwnerRefs = new Set(facts.map((fact) => fact.admissionEventRef));
-  if (
-    factPublicRefs.size !== facts.length ||
-    factOwnerRefs.size !== facts.length ||
-    publicEvents.length !== facts.length ||
-    ownerEvents.length !== facts.length ||
-    publicEvents.some((event) => !factPublicRefs.has(event.eventId)) ||
-    ownerEvents.some((event) => !factOwnerRefs.has(event.eventId))
-  ) {
+  if (publicEvents.length !== 0) {
     return deepFreeze({
       disposition: "invalid_history" as const,
       eventRefs: relevantEventRefs,
@@ -1123,6 +478,6 @@ export function projectFhEffectfulPublicInvocationFacts(
   }
   return deepFreeze({
     disposition: "valid" as const,
-    facts,
+    facts: [] as const,
   });
 }

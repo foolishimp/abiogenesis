@@ -2,7 +2,6 @@ export {
   applyAdmittedRoute,
   deriveCompletedTraversalCursor,
   deriveGraphSpanReentryCursor,
-  deriveInteractionSuccessorInputCarrierRef,
   deriveRetryTraversalCursor,
   resolveTraversalTerm,
   rehydrateHeldInteractionCursor,

@@ -715,12 +715,10 @@ export function runtimeHistorySelectorKeys(event: RuntimeEvent): readonly string
         (event.kind === "actor_invocation_failed" && payload.failureClass === "transport_exception"))
       keys.push("worksite-observation-dependency");
     const cursorRef = event.kind === "traversal_cursor_entered" ? payload.cursorRef
-      : event.kind === "traversal_route_admitted" ? payload.targetCursorRef
-      : event.kind === "fh_interaction_resume_admitted" ? payload.successorCursorRef : undefined;
+      : event.kind === "traversal_route_admitted" ? payload.targetCursorRef : undefined;
     if (typeof cursorRef === "string") keys.push("cursor-origin:" + cursorRef);
     const bound = payload.boundInput, reentry = payload.graphSpanReentryProjection;
     const inputRef = event.kind === "c_call_result_admitted" ? payload.resultRef
-      : event.kind === "fh_interaction_resume_admitted" ? payload.successorInputRef
       : event.kind === "fan_out_completion_admitted" ? payload.outputVectorRef
       : event.kind === "retry_attempt_opened" ? payload.inputRef
       : event.kind === "traversal_route_admitted" && record(bound) ? bound.admissionRef

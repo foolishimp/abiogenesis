@@ -12,9 +12,7 @@ import {
   constructScopedRetryFluent,
   deriveRuntimeHeldFluentProjection,
   holdsAt,
-  type RuntimeHeldFluentProjection,
 } from "./event_calculus.js";
-import { projectFhContinuations } from "./fh_continuation_projection.js";
 import { projectExactFanOutCompletion } from "./fan_out_projection.js";
 import {
   WORKER_TRANSPORT_FAILURE_CLASS_VALUES,
@@ -81,14 +79,12 @@ type RetryCompletedProgressAdmissionBase = RetryProgressAdmissionBase & {
 export type RetrySuccessCompletionClass =
   | "judged_success"
   | "fan_out_success"
-  | "fh_resume_success"
   | "structural_identity_success";
 
 export type RetryCCallCompletedProgressAdmission = RetryCompletedProgressAdmissionBase & {
   readonly completionClass:
     | "judged_success"
-    | "fan_out_success"
-    | "fh_resume_success";
+    | "fan_out_success";
   readonly cCallRef: string;
   readonly resultRef: string;
   readonly judgmentRef: string;
@@ -183,8 +179,7 @@ export function progressBody(
   }
   if (
     payload.completionClass !== "judged_success" &&
-    payload.completionClass !== "fan_out_success" &&
-    payload.completionClass !== "fh_resume_success"
+    payload.completionClass !== "fan_out_success"
   ) return null;
   const terminal = !Object.hasOwn(payload, "targetCursorRef") &&
     !Object.hasOwn(payload, "targetCursorDigest");
@@ -474,10 +469,7 @@ function exactSourceCursorEvent(
         candidate.payload.cursorDigest === sourceCursorDigest) ||
       (candidate.kind === "traversal_route_admitted" &&
         candidate.payload.targetCursorRef === sourceCursorRef &&
-        candidate.payload.targetCursorDigest === sourceCursorDigest) ||
-      (candidate.kind === "fh_interaction_resume_admitted" &&
-        candidate.payload.successorCursorRef === sourceCursorRef &&
-        candidate.payload.successorCursorDigest === sourceCursorDigest);
+        candidate.payload.targetCursorDigest === sourceCursorDigest);
   });
   return rows.length === 1 && rows[0]!.admissionOrdinal < cCallEvent.admissionOrdinal
     ? rows[0]!
@@ -497,30 +489,19 @@ function exactCursorCarrierEvent(
   ) return null;
   const candidate = prior.find((event) => event.eventId === witnessEventRef);
   if (candidate === undefined || !isRecord(candidate.payload)) return null;
-  const candidatePayload = candidate.payload;
-  const materializationRef = candidate.kind === "fh_interaction_resume_admitted"
-    ? prior.find((event) =>
-        event.kind === "fh_interaction_opened" &&
-        event.aggregateId === candidate.aggregateId &&
-        event.eventId === candidatePayload.openedEventRef
-      )?.materializationRef
-    : candidate.materializationRef;
   if (
     candidate.workflowVersion !== "5.0.0" ||
     candidate.scopeClass !== "run" || candidate.runId !== progress.runId ||
     candidate.graphCallId !== progress.graphCallId ||
     candidate.frameId !== progress.frameId ||
-    materializationRef !== progress.materializationRef
+    candidate.materializationRef !== progress.materializationRef
   ) return null;
   const matches = (candidate.kind === "traversal_cursor_entered" &&
       candidate.payload.cursorRef === sourceCursorRef &&
       candidate.payload.cursorDigest === sourceCursorDigest) ||
     (candidate.kind === "traversal_route_admitted" &&
       candidate.payload.targetCursorRef === sourceCursorRef &&
-      candidate.payload.targetCursorDigest === sourceCursorDigest) ||
-    (candidate.kind === "fh_interaction_resume_admitted" &&
-      candidate.payload.successorCursorRef === sourceCursorRef &&
-      candidate.payload.successorCursorDigest === sourceCursorDigest);
+      candidate.payload.targetCursorDigest === sourceCursorDigest);
   return matches ? candidate : null;
 }
 
@@ -561,45 +542,6 @@ function exactFanOutCompletionWitness(
       witness.causationEventRefs.includes(judgmentEvent.eventId)
     ? witness
     : null;
-}
-
-function exactFhResumeCompletionWitness(
-  prefix: RuntimeEventPrefix,
-  calculus: RuntimeHeldFluentProjection,
-  authorityPrefix: RuntimeEventPrefix,
-  body: Readonly<Record<string, JsonValue>>,
-  cCallEvent: RuntimeEvent,
-  fibreEvent: RuntimeEvent,
-  resultEvent: RuntimeEvent,
-  judgmentEvent: RuntimeEvent,
-): RuntimeEvent | null {
-  if (
-    !isRecord(cCallEvent.payload) || !isRecord(fibreEvent.payload) ||
-    !isRecord(resultEvent.payload) || !isRecord(judgmentEvent.payload) ||
-    fibreEvent.payload.cCallRef !== body.cCallRef ||
-    fibreEvent.payload.callClass !== "leaf" ||
-    fibreEvent.payload.regime !== "F_H" ||
-    resultEvent.payload.resultClass !== "pending" ||
-    judgmentEvent.payload.judgment !== "pending"
-  ) return null;
-  const continuation = projectFhContinuations(
-    prefix,
-    calculus,
-    authorityPrefix,
-  ).find((row) =>
-    row.status === "resolved" &&
-    row.cCallRef === body.cCallRef &&
-    row.resumedEventRef === body.completionWitnessEventRef &&
-    row.successorCursorRef === body.sourceCursorRef &&
-    row.successorCursorDigest === body.sourceCursorDigest
-  );
-  if (continuation === undefined || continuation.resumedEventRef === null) {
-    return null;
-  }
-  return indexedRuntimeEvents(prefix, "id:" + continuation.resumedEventRef).find((event) =>
-    event.kind === "fh_interaction_resume_admitted" &&
-    event.eventId === continuation.resumedEventRef
-  ) ?? null;
 }
 
 function projectRetryProgressAt(
@@ -652,9 +594,9 @@ function projectRetryProgressAt(
     prefix,
     events.at(eventIndex - 1)!.eventId,
   );
-  let priorAuthorityPrefix: RuntimeEventPrefix;
+  // The authority prefix holds the same predecessor cut.
   try {
-    priorAuthorityPrefix = validatedRuntimeEventPrefixThroughEvent(
+    validatedRuntimeEventPrefixThroughEvent(
       authorityPrefix,
       events.at(eventIndex - 1)!.eventId,
     );
@@ -846,7 +788,6 @@ function projectRetryProgressAt(
     if (
       completionClass !== "judged_success" &&
       completionClass !== "fan_out_success" &&
-      completionClass !== "fh_resume_success" &&
       completionClass !== "structural_identity_success"
     ) return null;
     let sourceCursorEvent: RuntimeEvent | null = null;
@@ -867,41 +808,27 @@ function projectRetryProgressAt(
         judgmentPayload === null || cCallRef === null || resultRef === null ||
         judgmentRef === null
       ) return null;
-      if (completionClass === "fh_resume_success") {
-        completionWitness = exactFhResumeCompletionWitness(
-          priorPrefix,
-          priorCalculus,
-          priorAuthorityPrefix,
-          body,
-          cCallEvent,
-          fibreEvent,
-          resultEvent,
-          judgmentEvent,
-        );
-        sourceCursorEvent = completionWitness;
-      } else {
-        sourceCursorEvent = exactSourceCursorEvent(
-          prior,
-          cCallEvent,
-          body.sourceCursorRef,
-          body.sourceCursorDigest,
-        );
-        completionWitness = completionClass === "fan_out_success"
-          ? exactFanOutCompletionWitness(
-              priorPrefix,
-              prior,
-              event,
-              body,
-              cCallEvent,
-              resultEvent,
-              judgmentEvent,
-            )
-          : body.completionWitnessEventRef === judgmentEvent.eventId &&
-              resultPayload.resultClass === "success" &&
-              judgmentPayload.judgment === "advance"
-            ? judgmentEvent
-            : null;
-      }
+      sourceCursorEvent = exactSourceCursorEvent(
+        prior,
+        cCallEvent,
+        body.sourceCursorRef,
+        body.sourceCursorDigest,
+      );
+      completionWitness = completionClass === "fan_out_success"
+        ? exactFanOutCompletionWitness(
+            priorPrefix,
+            prior,
+            event,
+            body,
+            cCallEvent,
+            resultEvent,
+            judgmentEvent,
+          )
+        : body.completionWitnessEventRef === judgmentEvent.eventId &&
+            resultPayload.resultClass === "success" &&
+            judgmentPayload.judgment === "advance"
+          ? judgmentEvent
+          : null;
     }
     const targetPairValid =
       (body.targetCursorRef === null && body.targetCursorDigest === null) ||

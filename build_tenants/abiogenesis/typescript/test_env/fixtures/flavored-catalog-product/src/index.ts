@@ -253,9 +253,6 @@ export const FLAVORED_CATALOG_PRODUCT_SEMANTICS = Object.freeze({
     }
     return null;
   },
-  evaluateInteractionResponse() {
-    return null;
-  },
   validateContractValue(
     valueKind: string,
     value: unknown,

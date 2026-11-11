@@ -141,7 +141,6 @@ export {
 export { installProduct, installedProductContentMatches } from "./install_product.js";
 export {
   admitInstalledProductInput,
-  evaluateInstalledInteractionResponse,
   hasInstalledPublicResultProjection,
   loadInstalledProductSemantics,
   projectInstalledLeafSemantics,

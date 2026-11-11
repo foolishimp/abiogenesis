@@ -226,27 +226,6 @@ function unresolvedCandidate(subjectRef = "ticket://abiogenesis/T-276") {
   };
 }
 
-function unresolvedResolution(subjectRef = "ticket://abiogenesis/T-276") {
-  const result = unresolvedCandidate(subjectRef);
-  const body = {
-    kind: "consensus_resolution",
-    resolutionKind: "round_decision",
-    schemaVersion: "5.0.0",
-    outcome: result.terminalOutcome,
-    result,
-    resolutionTerminal: false,
-  };
-  const decisionDigest = product.sha256Canonical(body);
-  return {
-    ...body,
-    decisionRef:
-      `consensus-round-decision://abg/${
-        decisionDigest.slice("sha256:".length)
-      }`,
-    decisionDigest,
-  };
-}
-
 function escalationDecision(
   roundDecision,
   humanActorRef = ACTOR,
@@ -1274,38 +1253,6 @@ test("S05 lets distinct reviewer profiles share one exact instruction contract",
   assert.equal(shared.panel.profiles.length, 2);
   assert.equal(shared.instructions.length, 1);
   assert.equal(gtl.isConsensusInvocation(shared), true);
-});
-
-test("S05 Product response semantics bind the exact pending result and acting actor", () => {
-  const pending = unresolvedResolution();
-  const basis = {
-    requestContractRef: gtl.CONSENSUS_IDS.resolutionContractRef,
-    responseContractRef: gtl.CONSENSUS_IDS.escalationDecisionContractRef,
-    requestValue: pending,
-    actingActorRef: ACTOR,
-  };
-  assert.notEqual(
-    ABI5_SYSTEM_PRODUCT_SEMANTICS.evaluateInteractionResponse(
-      basis,
-      escalationDecision(pending),
-    ),
-    null,
-  );
-  const other = unresolvedResolution("ticket://abiogenesis/T-276/other");
-  assert.equal(
-    ABI5_SYSTEM_PRODUCT_SEMANTICS.evaluateInteractionResponse(
-      basis,
-      escalationDecision(other),
-    ),
-    null,
-  );
-  assert.equal(
-    ABI5_SYSTEM_PRODUCT_SEMANTICS.evaluateInteractionResponse(
-      basis,
-      escalationDecision(pending, `${ACTOR}/other`),
-    ),
-    null,
-  );
 });
 
 test("S05 round reduction and same-Run human finalization form one total Product algebra", async () => {

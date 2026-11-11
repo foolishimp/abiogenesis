@@ -41,7 +41,6 @@ import type {
   CCallPhaseProjection,
   CCallRuntimeFailureSource,
 } from "./c_call.js";
-import type { FhInteractionResumeAdmission } from "./continuation.js";
 import type { CompleteFanOutAdmission } from "./fan_out.js";
 import { projectExactFanOutCompletion } from "./fan_out_projection.js";
 import {
@@ -109,7 +108,6 @@ import {
   constructTraversalCursorCandidate,
   deriveAdmittedCContinuationTarget,
   hasAdmittedTraversalCursorAtPrefix,
-  isInteractionResumeCursorSuccessorAtPrefix,
   isTraversalCursorCandidate,
   traversalCursorAdmissionEventRefAtPrefix,
   type TraversalCursorCandidate,
@@ -131,7 +129,7 @@ import {
   WORKER_TRANSPORT_FAILURE_CLASS_VALUES,
   type WorkerTransportFailureClass,
 } from "./transport_contracts.js";
-import { canonicalEquals, presentMember, writeCanonicalRecord } from "../shared/value/index.js";
+import { canonicalEquals, writeCanonicalRecord } from "../shared/value/index.js";
 import { admitJson } from "../shared/admit/index.js";
 import { checkExactRecord, onlyExactMatch, resolveExactMatch, type ExactMatch, type RecordCheck } from "../shared/select/index.js";
 import { ok, type Outcome, type StructuralRefusal } from "../shared/refusal.js";
@@ -273,13 +271,6 @@ export type RetrySuccessfulExitEvidence =
     result: AdmittedCCallResult;
     judgment: AdmittedCCallJudgment;
     completion: CompleteFanOutAdmission;
-  }>
-  | Readonly<{
-    completionClass: "fh_resume_success";
-    cCall: CCall;
-    result: AdmittedCCallResult;
-    judgment: AdmittedCCallJudgment;
-    resume: FhInteractionResumeAdmission;
   }>
   | Readonly<{
     completionClass: "structural_identity_success";
@@ -1846,93 +1837,6 @@ function projectUniqueStructuralAdvanceLineage(
   return null;
 }
 
-function projectExactInteractionResumeSuccessorAtPrefix(
-  prefix: RuntimeEventPrefix,
-  heldCursor: TraversalCursorCandidate,
-): Readonly<{
-  readonly cursor: TraversalCursorCandidate;
-  readonly resumeEventRef: string;
-}> | null {
-  if (!isTraversalCursorCandidate(heldCursor)) return null;
-  const events = runtimeEventBodiesAtPrefix(prefix);
-  const projections = events.flatMap((resumeEvent) => {
-    if (
-      resumeEvent.kind !== "fh_interaction_resume_admitted" ||
-      resumeEvent.runId !== heldCursor.runId ||
-      resumeEvent.graphCallId !== heldCursor.graphCallId ||
-      resumeEvent.frameId !== heldCursor.frameId ||
-      !isRecord(resumeEvent.payload) ||
-      !nonEmptyString(resumeEvent.payload.openedEventRef) ||
-      !nonEmptyString(resumeEvent.payload.continuationRef) ||
-      resumeEvent.payload.continuationRef !== resumeEvent.aggregateId ||
-      !nonEmptyString(resumeEvent.payload.successorInputRef) ||
-      !digestValue(resumeEvent.payload.successorInputDigest) ||
-      !nonEmptyString(resumeEvent.payload.successorCursorRef) ||
-      !digestValue(resumeEvent.payload.successorCursorDigest)
-    ) return [];
-    const resumePayload = resumeEvent.payload;
-    const successorInputRef = resumePayload.successorInputRef as string;
-    const successorInputDigest =
-      resumePayload.successorInputDigest as Sha256Digest;
-    const successorCursorRef = resumePayload.successorCursorRef as string;
-    const successorCursorDigest =
-      resumePayload.successorCursorDigest as Sha256Digest;
-    const opened = indexedRuntimeEvents(prefix, "id:" + resumePayload.openedEventRef).filter((event) =>
-      event.kind === "fh_interaction_opened" &&
-      event.eventId === resumePayload.openedEventRef &&
-      event.aggregateId === resumeEvent.aggregateId &&
-      event.runId === heldCursor.runId &&
-      event.graphCallId === heldCursor.graphCallId &&
-      event.frameId === heldCursor.frameId &&
-      event.admissionOrdinal < resumeEvent.admissionOrdinal &&
-      isRecord(event.payload) &&
-      event.payload.continuationRef === event.aggregateId &&
-      event.payload.heldCursorRef === heldCursor.cursorRef &&
-      event.payload.heldCursorDigest === heldCursor.cursorDigest &&
-      canonicalEquals(
-        presentMember(event.payload.heldCursor),
-        heldCursor,
-      )
-    );
-    if (opened.length !== 1) return [];
-    const body = {
-      programRef: heldCursor.programRef,
-      executionBasisRef: heldCursor.executionBasisRef,
-      traversalScopeRef: heldCursor.traversalScopeRef,
-      runId: heldCursor.runId,
-      graphCallId: heldCursor.graphCallId,
-      frameId: heldCursor.frameId,
-      graphRef: heldCursor.graphRef,
-      inputRef: successorInputRef,
-      inputDigest: successorInputDigest,
-      currentNodeRef: heldCursor.currentNodeRef,
-      position: heldCursor.position,
-      termPath: heldCursor.termPath,
-      taskOrdinal: heldCursor.taskOrdinal,
-      attempt: heldCursor.attempt,
-      retryPath: heldCursor.retryPath,
-    };
-    const cursor = constructTraversalCursorCandidate(body);
-    return cursor.cursorRef !== heldCursor.cursorRef &&
-        cursor.cursorDigest !== heldCursor.cursorDigest &&
-        cursor.cursorRef === successorCursorRef &&
-        cursor.cursorDigest === successorCursorDigest &&
-        isInteractionResumeCursorSuccessorAtPrefix(
-          prefix,
-          heldCursor,
-          {
-            inputRef: successorInputRef,
-            inputDigest: successorInputDigest,
-          },
-          cursor,
-        ) &&
-        hasAdmittedTraversalCursorAtPrefix(prefix, cursor)
-      ? [deepFreeze({ cursor, resumeEventRef: resumeEvent.eventId })]
-      : [];
-  });
-  return exactOrNull(onlyExactMatch(projections));
-}
-
 export function projectDeclaredCRetryFrontier(
   prefix: ValidatedRuntimeEventPrefix,
   graph: Readonly<GtlGraph>,
@@ -2561,20 +2465,10 @@ function deriveDeclaredCRetryFrontier(
             latestCall.phase !== "judged"
           ? "workflow_pending" as const
           : "attempt_active" as const;
-      const resumed = pending === "fh_pending"
-        ? projectExactInteractionResumeSuccessorAtPrefix(
-            prefix,
-            latestCall.sourceCursor,
-          )
-        : null;
-      if (resumed !== null && (
-        resumed.cursor.cursorRef !== cursor.cursorRef ||
-        resumed.cursor.cursorDigest !== cursor.cursorDigest
-      )) return exit("active_attempt_mismatch");
       rows.push(deepFreeze({
         ...rowBase,
         kind: "declared_c_retry_active_c_call_attempt" as const,
-        currentCursor: resumed?.cursor ?? latestCall.sourceCursor,
+        currentCursor: latestCall.sourceCursor,
         cCalls: Object.freeze([...exactCCalls]),
         structuralAdvanceLineage:
           Object.freeze([...structuralAdvanceLineage]),
@@ -2813,9 +2707,7 @@ function deriveDeclaredCRetryFrontier(
       exactTerminalCall?.phase !== "judged" ||
       exactTerminalCall.result.resultRef !== progress.resultRef ||
       exactTerminalCall.judgment.judgmentRef !== progress.judgmentRef ||
-      (progress.completionClass === "fh_resume_success"
-        ? exactTerminalCall.judgment.judgment !== "pending"
-        : exactTerminalCall.judgment.judgment !== "advance")
+      exactTerminalCall.judgment.judgment !== "advance"
     ) return exit("progress_row_mismatch");
     rows.push(deepFreeze({
       ...rowBase,
@@ -5182,9 +5074,7 @@ function planCompletedRetryProgressFromHistory(
     ? completion.completionWitnessEventRef
     : completion.completionClass === "fan_out_success"
       ? completion.completion.admissionEventRef
-      : completion.completionClass === "fh_resume_success"
-        ? completion.resume.admissionEventRef
-        : completion.judgment.admissionEventRef;
+      : completion.judgment.admissionEventRef;
   let retained: ReturnType<typeof deriveRetainedCCallInputAtPrefix> = null;
   if (completion.completionClass === "judged_success") {
     try {
@@ -5209,12 +5099,7 @@ function planCompletedRetryProgressFromHistory(
         inputRef: completion.completion.outputVectorRef,
         inputDigest: completion.completion.outputVectorDigest,
       }
-    : completion.completionClass === "fh_resume_success"
-      ? {
-          inputRef: completion.resume.successorInputRef,
-          inputDigest: completion.resume.successorInputDigest,
-        }
-      : completion.completionClass === "structural_identity_success"
+    : completion.completionClass === "structural_identity_success"
         ? {
             inputRef: sourceCursor.inputRef,
             inputDigest: sourceCursor.inputDigest,
@@ -5289,10 +5174,7 @@ function planCompletedRetryProgressFromHistory(
       sameNumbers(cCall.retryPath, sourceCursor.retryPath) &&
       sourceContextCount !== null &&
       cCall.retryPath.length === sourceContextCount &&
-      (completion.completionClass === "fh_resume_success"
-        ? cCall.regime === "F_H" && result.resultClass === "pending" &&
-          judgment.judgment === "pending"
-        : result.resultClass === "success" && judgment.judgment === "advance");
+      result.resultClass === "success" && judgment.judgment === "advance";
   const fanOutApplication = completion.completionClass === "fan_out_success"
     ? graph.template.applications.find(
         (application): application is Readonly<FanOutApplication> =>
@@ -5326,10 +5208,7 @@ function planCompletedRetryProgressFromHistory(
       projectedFanOutCompletion.taskRows.at(-1)?.cCallRef === cCall?.cCallRef &&
       projectedFanOutCompletion.taskRows.at(-1)?.resultRef === result?.resultRef &&
       projectedFanOutCompletion.taskRows.at(-1)?.judgmentRef === judgment?.judgmentRef
-    : completion.completionClass === "fh_resume_success"
-      ? completion.resume.successorCursorRef === sourceCursor.cursorRef &&
-        completion.resume.successorCursorDigest === sourceCursor.cursorDigest
-      : completion.completionClass === "structural_identity_success"
+    : completion.completionClass === "structural_identity_success"
         ? traversalCursorAdmissionEventRefAtPrefix(prefix, sourceCursor) ===
           completionWitnessEventRef
         : completionWitnessEventRef === judgment?.admissionEventRef;
@@ -5476,23 +5355,9 @@ function planCompletedRetryProgressFromHistory(
   const directCursorMatches = directRow !== null &&
     directRow.currentCursor.cursorRef === sourceCursor.cursorRef &&
     directRow.currentCursor.cursorDigest === sourceCursor.cursorDigest;
-  const directResume = directPhase === null
-    ? null
-    : projectExactInteractionResumeSuccessorAtPrefix(
-        prefix,
-        directPhase.sourceCursor,
-      );
-  const directPhaseSourceMatches = directPhase !== null && (
-    (
-      directPhase.sourceCursor.cursorRef === sourceCursor.cursorRef &&
-      directPhase.sourceCursor.cursorDigest === sourceCursor.cursorDigest
-    ) || (
-      completion.completionClass === "fh_resume_success" &&
-      directResume?.resumeEventRef === completion.resume.admissionEventRef &&
-      directResume.cursor.cursorRef === sourceCursor.cursorRef &&
-      directResume.cursor.cursorDigest === sourceCursor.cursorDigest
-    )
-  );
+  const directPhaseSourceMatches = directPhase !== null &&
+    directPhase.sourceCursor.cursorRef === sourceCursor.cursorRef &&
+    directPhase.sourceCursor.cursorDigest === sourceCursor.cursorDigest;
   const directCompletionOwned = completion.completionClass ===
       "structural_identity_success"
     ? directRow?.kind === "declared_c_retry_pre_c_call_attempt" &&

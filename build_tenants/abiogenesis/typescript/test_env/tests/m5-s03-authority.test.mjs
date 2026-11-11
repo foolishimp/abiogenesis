@@ -26,44 +26,14 @@ const packageRoot = resolve(dirname(fileURLToPath(import.meta.url)), "../..");
 // file; each opens its own store, workspace and scratch root on it.
 const sharedInstall = installOncePerFile(() => installTenantOnce(packageRoot));
 
-// The operation basis is an exact operation invocation coordinate
-// (shared/operation_definition_coordinate.ts) plus its authority scope.
-function operationBasis(operationId, memberKey, workspace, invocationRef) {
-  const invocationPayloadDigest = product.sha256Canonical({});
-  const definitionDigest = product.sha256Canonical({
-    operationId,
-    memberKey,
-    schemaVersion: "5.0.0",
-  });
-  return {
-    operationId,
-    memberKey,
-    definitionDigest,
-    authorityScopeRef: workspace.bindingId,
-    authorityScopeDigest: workspace.bindingDigest,
-    invocationRef,
-    invocationPayloadDigest,
-    invocationDigest: product.sha256Canonical({
-      operationId,
-      memberKey,
-      definitionDigest,
-      invocationRef,
-      invocationPayloadDigest,
-    }),
-    correlationId: "correlation://developer.example/s03-unit",
-    eventTime: "2026-07-25T00:00:00.000Z",
-    causationEventRefs: [],
-  };
-}
-
 // A capability grant is bound to an installed Product's capability definition
 // graph row and a fixed definition packet (product/invocation.ts), and root
 // invocation carries exactly the one direct-invoke grant
 // (abg/invocation_admission.ts). Retired: the developer capability
 // (capability://developer.example/review@5) granted over a synthetic workspace
 // and Program, and three interaction grants at invocation; no installed graph
-// projects a developer capability. Both cases are restated over the installed
-// root environment.
+// projects a developer capability. The invocation case is restated over the
+// installed root environment; the continuation response grant is reserved to 5.1.
 test("S03 invocation capability basis is exact over the admitted Program, actor and direct grant", async (context) => {
   const environment = await setupInstalledRootExecutionBasis(context, packageRoot, { install: await sharedInstall() });
   const { abg: installedAbg, product: installedProduct, policy, actorRef, capabilityGrant, program,
@@ -92,63 +62,6 @@ test("S03 invocation capability basis is exact over the admitted Program, actor 
     policy.interactionCapabilities, [...policy.allowedComputeRegimes, surplusRegime]);
   assert.equal(installedAbg.validateInvocationCapabilityBasis({ ...exact, policy: surplus })?.code,
     "capability_mismatch", "a Program must reject surplus compute-fibre authority");
-});
-
-test("S03 continuation operation authority requires the exact admitted grant and lifecycle state", async (context) => {
-  const environment = await setupInstalledRootExecutionBasis(context, packageRoot, { install: await sharedInstall() });
-  const { abg: installedAbg, product: installedProduct, policy, actorRef, workspaceBinding, admittedInstalls } = environment;
-  const { INTERACTION_OPERATION_CONTRACTS } = await import(pathToFileURL(join(environment.installedRoot,
-    "build/code/src/product/interaction_operation_contracts.js")).href);
-  const fixedPacket = INTERACTION_OPERATION_CONTRACTS.respond.approve;
-  const [capabilityRef] = fixedPacket.metadata.capabilityRefs;
-  const responseGrant = installedProduct.constructCapabilityGrant(policy, actorRef,
-    "abg.operation.interaction.respond", capabilityRef, { admittedInstalls, workspaceBinding, fixedPacket });
-  const rootInvocation = {
-    actorRef,
-    workspaceBindingId: workspaceBinding.bindingId,
-    workspaceBindingDigest: workspaceBinding.bindingDigest,
-    capabilityGrants: [responseGrant],
-    capabilityGrantRefs: [responseGrant.grantRef],
-  };
-  const basis = operationBasis(
-    "abg.operation.interaction.respond",
-    "approve",
-    workspaceBinding,
-    "invocation://developer.example/s03-unit/respond",
-  );
-  const exact = {
-    rootInvocation,
-    continuation: {
-      continuationRef: "continuation://developer.example/s03-unit",
-      status: "open",
-    },
-    operation: "abg.operation.interaction.respond",
-    variant: "approve",
-    actorRef,
-    capabilityRef,
-    basis,
-  };
-  assert.equal(
-    installedAbg.resolveContinuationPublicOperationGrant(exact)?.grantRef,
-    responseGrant.grantRef,
-  );
-  assert.equal(
-    installedAbg.resolveContinuationPublicOperationGrant({
-      ...exact,
-      actorRef: "actor://developer.example/substituted",
-    }),
-    null,
-  );
-  assert.equal(
-    installedAbg.resolveContinuationPublicOperationGrant({
-      ...exact,
-      continuation: {
-        ...exact.continuation,
-        status: "responded",
-      },
-    }),
-    null,
-  );
 });
 
 test("S03 HoG accepts one Product-sealed projection and rejects its forged twin", async (context) => {
@@ -239,8 +152,6 @@ test("S03 HoG accepts one Product-sealed projection and rejects its forged twin"
 });
 
 test("S03 Product semantics requires a loaded provider and is absent from HoG's public port", () => {
-  assert.equal(typeof product.evaluateInstalledInteractionResponse, "function");
-  assert.equal("evaluateInstalledInteractionResponse" in hog, false);
   assert.equal("admitInstalledProductInput" in hog, false);
   assert.equal("bindInstalledLeafInvocationPort" in hog, false);
 
@@ -251,28 +162,9 @@ test("S03 Product semantics requires a loaded provider and is absent from HoG's 
     packageName: "@developer-example/forged",
     packageVersion: "5.0.0",
     admitInput: (_contractRef, value) => value,
-    evaluateInteractionResponse(_basis, response) {
-      return response;
-    },
     validateContractValue: () => true,
     resolveJudgmentRelation: () => null,
   };
-  const response = { kind: "unit_response", schemaVersion: "5.0.0" };
-  assert.throws(
-    () =>
-      product.evaluateInstalledInteractionResponse(
-        provider,
-        {
-          requestContractRef: "contract://unit/request",
-          responseContractRef: "contract://unit/response",
-          requestValue: {},
-          constructionIntent: null,
-          nextActionBasis: null,
-        },
-        response,
-      ),
-    /exact loaded Product semantics provider/u,
-  );
   assert.throws(
     () => product.projectInstalledLeafSemantics(provider),
     /exact loaded Product semantics provider/u,

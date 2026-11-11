@@ -1291,7 +1291,7 @@ function deriveReplayPrefixFacts(
   ).values()] : [];
 
   const runOpen = indexedRuntimeEvents(prefix, "kind:run_segment_opened")[0];
-  const fhContinuations = projectFhContinuations(prefix, eventCalculus, authorityPrefix);
+  const fhContinuations = projectFhContinuations(prefix, eventCalculus);
   const intentContinuations = projectConstructionIntentContinuations(authorityPrefix, runOpen?.runId ?? "");
   const selectedContinuations = projectSelectedActionContinuations(authorityPrefix, runOpen?.runId ?? "");
   const continuations = routeOnly === undefined
@@ -1456,9 +1456,7 @@ function deriveReplayPrefixFacts(
           : invocationRefused !== undefined
             ? "refused" as const
             : continuations.some(
-                (continuation) =>
-                  continuation.status === "open" ||
-                  continuation.status === "responded",
+                (continuation) => continuation.status === "open",
               )
               ? "held" as const
             : runOpen?.runId !== undefined && holdsAt(
@@ -1634,15 +1632,6 @@ const EVENT_TYPED_REFERENCE_PATHS: Partial<
     { path: ["payload", "pendingResult", "admissionEventRef"] },
     { path: ["payload", "pendingJudgment", "admissionEventRef"] },
   ],
-  fh_interaction_responded: [{
-    path: ["payload", "publicOperationEventRef"],
-  }],
-  fh_interaction_resume_admitted: [
-    { path: ["payload", "openedEventRef"] },
-    { path: ["payload", "respondedEventRef"] },
-    { path: ["payload", "publicOperationEventRef"] },
-  ],
-  continuation_abandoned: [{ path: ["payload", "causedByEventRef"] }],
   continuation_superseded: [{ path: ["payload", "causedByEventRef"] }],
   frame_closed: [{ path: ["payload", "terminalReachedEventRef"] }],
   graph_call_closed: [{ path: ["payload", "frameClosedEventRef"] }],
@@ -1660,29 +1649,10 @@ function isSemanticRecord(
   return typeof value === "object" && value !== null && !Array.isArray(value);
 }
 
-const ACTION_EVALUATION_BASIS_REFERENCE_PATHS = Object.freeze([
-  ["constructionIntent", "admissionEventRef"],
-  ["admittedEvidence", "*", "admissionEventRef"],
-  ["runtimeEvidenceEventRefs", "*"],
-] as const);
-
 function typedReferencePathsForEvent(
   event: RuntimeEvent,
 ): readonly ClosedTypedReferencePath[] {
-  const fixed = EVENT_TYPED_REFERENCE_PATHS[event.kind] ?? [];
-  if (!isSemanticRecord(event.payload)) return fixed;
-  const valueField = event.kind === "fh_interaction_resume_admitted" &&
-      event.payload.successorInputValueKind === "action_evaluation_basis"
-    ? "successorInputValue"
-    : null;
-  return valueField === null
-    ? fixed
-    : Object.freeze([
-        ...fixed,
-        ...ACTION_EVALUATION_BASIS_REFERENCE_PATHS.map((path) => ({
-          path: ["payload", valueField, ...path],
-        })),
-      ]);
+  return EVENT_TYPED_REFERENCE_PATHS[event.kind] ?? [];
 }
 
 function locateClosedTypedReferences(
@@ -1874,16 +1844,6 @@ function semanticPayloadDigest(
   externalIntentRef?: string,
 ): Sha256Digest {
   let payload = event.payload;
-  if (event.kind === "fh_interaction_resume_admitted") {
-    if (!isSemanticRecord(payload)) {
-      throw new TypeError(
-        "run semantic relation requires one F_H resume payload",
-      );
-    }
-    const { durablePrefixDigest: _physicalPrefixDigest, ...semanticPayload } =
-      payload;
-    payload = semanticPayload;
-  }
   for (const spec of typedReferencePathsForEvent(event)) {
     if (spec.path[0] !== "payload") {
       throw new TypeError("run semantic relation requires one payload-rooted path");

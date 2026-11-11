@@ -1,4 +1,3 @@
-import { projectFhContinuations } from "./fh_continuation_projection.js";
 import type { RuntimeEventScan } from "./runtime_history.js";
 import { runtimeEventPrefixLastEnvelope, indexedRuntimeEvents, selectOwnedRuntimeEventPrefix, selectRuntimeEventPrefixFromStore, runtimeEventPrefixExtent,
   readOwnedRuntimeEventPrefixAtDurablePrefix, runtimeEventAtPrefix } from "./event_prefix.js";
@@ -35,7 +34,6 @@ import { deepFreeze } from "../shared/immutable.js";
 import {
   projectAdmittedCCallOutcomeAtPrefix,
   projectCCallCarrierPhaseAtPrefix,
-  projectPendingInteractionCarrier,
   type AdmittedCCallJudgment,
   type AdmittedCCallResult,
   type CCall,
@@ -43,7 +41,6 @@ import {
 } from "./c_call.js";
 import type { FanOutCompletionAdmission } from "./fan_out.js";
 import { projectExactFanOutCompletion } from "./fan_out_projection.js";
-import type { FhInteractionResumeAdmission } from "./continuation.js";
 import {
   declaresFailedChildFoldback,
   isAdmittedApplicationChildFoldbackAtPrefix,
@@ -86,7 +83,6 @@ import { indexedRuntimeEventEnvelopes, runtimeEventPrefixDigest, isOwnedRuntimeE
 } from "./event_prefix.js";
 import {
   constructRuntimeFluent,
-  deriveRuntimeHeldFluentProjection,
   runtimeFluentHoldsAtPrefix,
 } from "./event_calculus.js";
 import {
@@ -472,16 +468,6 @@ export type HoldRouteAdmissionEvidence = {
   readonly cCall: CCall;
   readonly result: AdmittedCCallResult;
   readonly judgment: AdmittedCCallJudgment;
-};
-
-export type InteractionResumeRouteAdmissionEvidence = {
-  readonly evidenceClass: "interaction_resume";
-  readonly graphFunction: Readonly<GraphFunction>;
-  readonly cCall: CCall;
-  readonly result: AdmittedCCallResult;
-  readonly judgment: AdmittedCCallJudgment;
-  readonly resume: FhInteractionResumeAdmission;
-  readonly completedProgresses: readonly RetryCompletedProgressAdmission[];
 };
 
 export type RetryRouteAdmissionEvidence = {
@@ -2414,36 +2400,6 @@ function constructionDeltaForAdvance(
   const semanticEvidenceAssetRefs = [
     ...new Set(ledger.rows.flatMap((row) => row.evidenceAssetRefs)),
   ];
-  const opened = indexedRuntimeEvents(prefix, "kind:" + "fh_interaction_opened").find(
-    (event) =>
-      event.kind === "fh_interaction_opened" &&
-      isRecord(event.payload) &&
-      event.payload.constructionIntentRef ===
-        evaluation.constructionIntentRef,
-  );
-  const continuationRef = opened !== undefined && isRecord(opened.payload)
-    ? opened.payload.continuationRef
-    : null;
-  const responded = typeof continuationRef === "string"
-    ? indexedRuntimeEvents(prefix, "kind:" + "fh_interaction_responded").find(
-        (event) =>
-          event.kind === "fh_interaction_responded" &&
-          isRecord(event.payload) &&
-          event.payload.continuationRef === continuationRef,
-      )
-    : undefined;
-  const resumed = typeof continuationRef === "string"
-    ? indexedRuntimeEvents(prefix, "kind:" + "fh_interaction_resume_admitted").find(
-        (event) =>
-          event.kind === "fh_interaction_resume_admitted" &&
-          isRecord(event.payload) &&
-          event.payload.continuationRef === continuationRef,
-      )
-    : undefined;
-  const interactionEvaluationBasis =
-    resumed !== undefined && isRecord(resumed.payload)
-      ? actionEvaluationBasis(resumed.payload.successorInputValue)
-      : null;
   const graphFunctionEvaluationBasisEvent = indexedRuntimeEvents(prefix, "payload:resultRef:" + sourceCursor.inputRef).find(
     (event) =>
       intent?.actionKind === "invoke_graph_function" &&
@@ -2462,9 +2418,12 @@ function constructionDeltaForAdvance(
           graphFunctionEvaluationBasisEvent.payload.value,
         )
       : null;
+  // An interaction action's evaluation basis and response arrive through human
+  // response and resumption, which are reserved to 5.1: in 5.0 only a Graph
+  // Function action carries them.
   const evaluationBasis = intent?.actionKind === "invoke_graph_function"
     ? graphFunctionEvaluationBasis
-    : interactionEvaluationBasis;
+    : null;
   const basisEvidenceRefs =
     evaluationBasis !== null &&
       Array.isArray(evaluationBasis.admittedEvidence)
@@ -2498,12 +2457,6 @@ function constructionDeltaForAdvance(
         (entry): entry is string => typeof entry === "string",
       )
       : [];
-  const interactionResponseValue =
-    responded !== undefined &&
-      isRecord(responded.payload) &&
-      isRecord(responded.payload.responseValue)
-      ? responded.payload.responseValue
-      : null;
   const graphFunctionResponseValue =
     evaluationBasis !== null &&
       Array.isArray(evaluationBasis.admittedEvidence) &&
@@ -2514,7 +2467,7 @@ function constructionDeltaForAdvance(
       : null;
   const responseValue = intent?.actionKind === "invoke_graph_function"
     ? graphFunctionResponseValue
-    : interactionResponseValue;
+    : null;
   const responseCorrectionDisposition =
     responseValue !== null &&
       [
@@ -2577,33 +2530,10 @@ function constructionDeltaForAdvance(
     graphFunctionRuntimeEvents[4]?.kind === "graph_call_closed" &&
     graphFunctionRuntimeEvents[4]?.graphFunctionRef ===
       intent.selectedGraphFunctionRef;
-  const interactionRuntimeBasisValid =
-    intent?.actionKind !== "invoke_graph_function" &&
-    opened !== undefined &&
-    responded !== undefined &&
-    resumed !== undefined &&
-    canonicalEquals(
-      basisRuntimeEventRefs,
-      [
-        intent?.admissionEventRef ?? "",
-        opened?.eventId ?? "",
-        String(
-          responded !== undefined && isRecord(responded.payload)
-            ? responded.payload.publicOperationEventRef
-            : "",
-        ),
-        responded?.eventId ?? "",
-        String(
-          resumed !== undefined && isRecord(resumed.payload)
-            ? resumed.payload.publicOperationEventRef
-            : "",
-        ),
-      ],
-    );
   if (
     intent === null ||
     actionRow === undefined ||
-    (!graphFunctionRuntimeBasisValid && !interactionRuntimeBasisValid) ||
+    !graphFunctionRuntimeBasisValid ||
     responseValue === null ||
     evaluationBasis === null ||
     basisEvidenceRefs.length === 0 ||
@@ -2613,10 +2543,6 @@ function constructionDeltaForAdvance(
     intent.constructionCompositionDigest !==
       composition.compositionDigest ||
     !constructionIntentAppliesToBasis(intent, executionBasis, sourceCursor) ||
-    (
-      intent.actionKind !== "invoke_graph_function" &&
-      sourceCursor.inputRef !== evaluationBasis.basisRef
-    ) ||
     sourceCursor.inputDigest !==
       sha256Canonical(evaluationBasis) ||
     evaluation.actionEvaluationBasisRef !== evaluationBasis.basisRef ||
@@ -2848,9 +2774,7 @@ function hasGovernedConstructionClosure(
   executionBasis: ExecutionBasis,
   graph: Readonly<GtlGraph>,
   sourceCursor: TraversalCursorCandidate,
-  evidence:
-    | InteractionResumeRouteAdmissionEvidence
-    | RouteAdmissionEvidence,
+  evidence: RouteAdmissionEvidence,
 ): boolean {
   const events = runtimeEventBodiesAtPrefix(prefix);
   const composition = admittedConstructionComposition(executionBasis, graph);
@@ -2884,7 +2808,6 @@ function hasGovernedConstructionClosure(
           event.payload.constructionIntentDigest === executionBasis.constructionContinuationUse.constructionIntentDigest)),
   );
   if (intentEvents.length === 0) return executionBasis.constructionContinuationUse === undefined;
-  if (evidence.evidenceClass === "interaction_resume") return false;
   const projection = convergedNextActionProjection(evidence.result.value);
   if (projection === null) return false;
   const intentEvent = intentEvents.find(
@@ -3153,7 +3076,7 @@ export function projectDeclaredStructuralAdvanceAtPrefix(
 
 type CompletedRetryProgressExpectation =
   | Readonly<{
-    completionClass: "judged_success" | "fan_out_success" | "fh_resume_success";
+    completionClass: "judged_success" | "fan_out_success";
     completionWitnessEventRef: string;
     cCallRef: string;
     resultRef: string;
@@ -3540,112 +3463,6 @@ function hasHoldRouteEvidence(
     candidate.contractRef === outcome.cCall.continuationContractRef;
 }
 
-function hasInteractionResumeRouteEvidence(
-  prefix: RuntimeEventPrefix,
-  executionBasis: ExecutionBasis,
-  graph: Readonly<GtlGraph>,
-  sourceCursor: TraversalCursorCandidate,
-  targetCursor: TraversalCursorCandidate | null,
-  candidate: RouteCandidate,
-  evidence: InteractionResumeRouteAdmissionEvidence | null,
-  authorityPrefix: RuntimeEventPrefix = prefix,
-): evidence is InteractionResumeRouteAdmissionEvidence {
-  if (evidence === null) return false;
-  const completedProgresses = evidence.completedProgresses ?? [];
-  const term = resolveCProgramTermAtSourcePath(
-    graph.template,
-    sourceCursor.currentNodeRef,
-    sourceCursor.termPath,
-  );
-  const continuation = projectFhContinuations(prefix, deriveRuntimeHeldFluentProjection(prefix)).find(
-    (row) => row.continuationRef === evidence.resume.continuationRef,
-  );
-  const resumeEvent = indexedRuntimeEvents(authorityPrefix, "id:" + evidence.resume.admissionEventRef).find(
-    (event) => event.eventId === evidence.resume.admissionEventRef,
-  );
-  const projectedPending = projectPendingInteractionCarrier(
-    prefix,
-    evidence.cCall,
-    evidence.result,
-    evidence.judgment,
-  );
-  return term.kind !== "c_source_path_refusal" &&
-    isInteractionCLeaf(term) &&
-    projectedPending !== null &&
-    canonicalEquals(
-      projectedPending.cCall,
-      evidence.cCall,
-    ) &&
-    canonicalEquals(
-      projectedPending.result,
-      evidence.result,
-    ) &&
-    canonicalEquals(
-      projectedPending.judgment,
-      evidence.judgment,
-    ) &&
-    evidence.cCall.basisId === executionBasis.basisRef &&
-    evidence.cCall.regime === "F_H" &&
-    evidence.cCall.frameId === sourceCursor.frameId &&
-    evidence.cCall.graphCallId === sourceCursor.graphCallId &&
-    evidence.cCall.programLocusRef === term.programLocusRef &&
-    evidence.result.cCallRef === evidence.cCall.cCallRef &&
-    evidence.result.resultClass === "pending" &&
-    evidence.judgment.cCallRef === evidence.cCall.cCallRef &&
-    evidence.judgment.resultRef === evidence.result.resultRef &&
-    evidence.judgment.resultDigest === evidence.result.resultDigest &&
-    evidence.judgment.judgment === "pending" &&
-    continuation?.continuationKind === "fh_interaction" && continuation.status === "resolved" &&
-    continuation.cCallRef === evidence.cCall.cCallRef &&
-    continuation.responseRef === evidence.resume.responseRef &&
-    continuation.responseDigest === evidence.resume.responseDigest &&
-    continuation.successorCursorRef === sourceCursor.cursorRef &&
-    continuation.successorCursorDigest === sourceCursor.cursorDigest &&
-    resumeEvent?.kind === "fh_interaction_resume_admitted" &&
-    resumeEvent.runId === sourceCursor.runId &&
-    resumeEvent.graphCallId === sourceCursor.graphCallId &&
-    resumeEvent.frameId === sourceCursor.frameId &&
-    sourceCursor.cursorRef === evidence.resume.successorCursorRef &&
-    sourceCursor.cursorDigest === evidence.resume.successorCursorDigest &&
-    sourceCursor.inputRef === evidence.resume.successorInputRef &&
-    sourceCursor.inputDigest === evidence.resume.successorInputDigest &&
-    hasCompletedRetryProgressChain(
-      prefix,
-      graph,
-      evidence.graphFunction,
-      sourceCursor,
-      targetCursor,
-      completedProgresses,
-      {
-        completionClass: "fh_resume_success",
-        completionWitnessEventRef: evidence.resume.admissionEventRef,
-        cCallRef: evidence.cCall.cCallRef,
-        resultRef: evidence.result.resultRef,
-        judgmentRef: evidence.judgment.judgmentRef,
-      },
-      authorityPrefix,
-    ) &&
-    candidate.cCallRef === evidence.cCall.cCallRef &&
-    candidate.judgmentRef === evidence.judgment.judgmentRef &&
-    canonicalEquals(
-      candidate.consumedAvailabilityRefs,
-      [
-        evidence.judgment.judgmentRef,
-        evidence.resume.admissionEventRef,
-        ...completedProgresses.map((progress) => progress.progressRef),
-      ],
-    ) &&
-    candidate.contractRef === evidence.cCall.transitionContractRef &&
-    isDeclaredInteractionResumeTarget(
-      prefix,
-      graph,
-      sourceCursor,
-      targetCursor,
-      candidate,
-      evidence.resume,
-    );
-}
-
 function hasRetryRouteEvidence(
   prefix: RuntimeEventPrefix,
   executionBasis: ExecutionBasis,
@@ -4028,20 +3845,6 @@ function hasGraphSpanReentryRouteEvidence(
   return priorApplications < application.maxApplications;
 }
 
-function isDeclaredInteractionResumeTarget(
-  prefix: RuntimeEventPrefix,
-  graph: Readonly<GtlGraph>,
-  source: TraversalCursorCandidate,
-  target: TraversalCursorCandidate | null,
-  candidate: RouteCandidate,
-  resume: FhInteractionResumeAdmission,
-): boolean {
-  return isDeclaredContinuationTarget(prefix, graph, source, target, candidate, {
-    inputRef: resume.successorInputRef,
-    inputDigest: resume.successorInputDigest,
-  });
-}
-
 function recursionRouteCausation(input: Readonly<{
   executionBasis: ExecutionBasis;
   graph: Readonly<GtlGraph>;
@@ -4391,9 +4194,6 @@ function admitRoute(
   const holdEvidence = evidenceClass === "hold"
     ? evidence as HoldRouteAdmissionEvidence
     : null;
-  const interactionResumeEvidence = evidenceClass === "interaction_resume"
-    ? evidence as InteractionResumeRouteAdmissionEvidence
-    : null;
   const judgedRouteEvidence = evidenceClass === "judged"
     ? evidence as RouteAdmissionEvidence
     : null;
@@ -4422,18 +4222,14 @@ function admitRoute(
     (event) => event.runId === sourceCursor.runId && event.frameId === sourceCursor.frameId,
   );
   const latestCursorEvent = frameEvents.slice().reverse().find(
-    (event) =>
-      event.kind === "fh_interaction_resume_admitted" ||
-      event.kind === "traversal_route_admitted",
+    (event) => event.kind === "traversal_route_admitted",
   );
   const initialCursorEvent = frameEvents.slice().reverse().find(
     (event) => event.kind === "traversal_cursor_entered",
   );
   const currentCursorRef = latestCursorEvent !== undefined &&
       isRecord(latestCursorEvent.payload)
-    ? latestCursorEvent.kind === "fh_interaction_resume_admitted"
-      ? latestCursorEvent.payload.successorCursorRef
-      : latestCursorEvent.payload.targetCursorRef
+    ? latestCursorEvent.payload.targetCursorRef
     : initialCursorEvent !== undefined && isRecord(initialCursorEvent.payload)
       ? initialCursorEvent.payload.cursorRef
       : null;
@@ -4499,99 +4295,51 @@ function admitRoute(
     if (typeof recursionCausation !== "string") return recursionCausation;
     causationEventRef = recursionCausation;
   } else if (candidate.routeKind === "terminal") {
-    const resumeEvidence = interactionResumeEvidence;
     const judgedEvidence = judgedRouteEvidence;
-    if (resumeEvidence !== null) {
-      if (!hasInteractionResumeRouteEvidence(
-        prefix,
-        executionBasis,
-        graph,
-        sourceCursor,
-        null,
-        candidate,
-        resumeEvidence,
-        authorityPrefix,
-      )) {
-        return refusal(
-          "judgment_mismatch",
-          "terminal F_H route requires the exact admitted response and resume cursor",
-        );
-      }
-      if (
-        !hasGovernedConstructionClosure(
-          constructionPrefix,
-          executionBasis,
-          graph,
-          sourceCursor,
-          resumeEvidence,
-        )
-      ) {
-        return refusal(
-          "judgment_mismatch",
-          "terminal construction closure requires an admitted evidence fold and refreshed convergence projection",
-        );
-      }
-      const routeCausation = deriveCompletedProgressRouteCausation(
-        resumeEvidence.completedProgresses ?? [],
-        resumeEvidence.resume.admissionEventRef,
+    if (!hasJudgedRouteEvidence(
+      prefix,
+      executionBasis,
+      graph,
+      sourceCursor,
+      null,
+      candidate,
+      judgedEvidence,
+      authorityPrefix,
+    )) {
+      return refusal(
+        "judgment_mismatch",
+        "terminal route requires this cursor's admitted CCall advance judgment",
       );
-      causationEventRef = routeCausation.causationEventRef;
-      additionalCausationEventRefs =
-        routeCausation.additionalCausationEventRefs;
-    } else {
-      if (!hasJudgedRouteEvidence(
-        prefix,
-        executionBasis,
-        graph,
-        sourceCursor,
-        null,
-        candidate,
-        judgedEvidence,
-        authorityPrefix,
-      )) {
-        return refusal(
-          "judgment_mismatch",
-          "terminal route requires this cursor's admitted CCall advance judgment",
-        );
-      }
-      if (
-        !hasGovernedConstructionClosure(
-          constructionPrefix,
-          executionBasis,
-          graph,
-          sourceCursor,
-          judgedEvidence,
-        )
-      ) {
-        return refusal(
-          "judgment_mismatch",
-          "terminal construction closure requires an admitted evidence fold and refreshed convergence projection",
-        );
-      }
-      const routeCausation = deriveCompletedProgressRouteCausation(
-        judgedEvidence.completedProgresses ?? [],
-        judgedEvidence.judgment.admissionEventRef,
-      );
-      causationEventRef = routeCausation.causationEventRef;
-      additionalCausationEventRefs =
-        routeCausation.additionalCausationEventRefs;
     }
-    const terminalCompleted = resumeEvidence !== null
-      ? {
-          inputRef: resumeEvidence.resume.successorInputRef,
-          inputDigest: resumeEvidence.resume.successorInputDigest,
-        }
-      : judgedEvidence === null
-        ? null
-        : {
-            inputRef: judgedEvidence.result.resultRef,
-            inputDigest: judgedEvidence.result.valueDigest,
-          };
+    if (
+      !hasGovernedConstructionClosure(
+        constructionPrefix,
+        executionBasis,
+        graph,
+        sourceCursor,
+        judgedEvidence,
+      )
+    ) {
+      return refusal(
+        "judgment_mismatch",
+        "terminal construction closure requires an admitted evidence fold and refreshed convergence projection",
+      );
+    }
+    const routeCausation = deriveCompletedProgressRouteCausation(
+      judgedEvidence.completedProgresses ?? [],
+      judgedEvidence.judgment.admissionEventRef,
+    );
+    causationEventRef = routeCausation.causationEventRef;
+    additionalCausationEventRefs =
+      routeCausation.additionalCausationEventRefs;
+    const terminalCompleted = {
+      inputRef: judgedEvidence.result.resultRef,
+      inputDigest: judgedEvidence.result.valueDigest,
+    };
     if (
       targetCursor !== null ||
       candidate.targetCursorRef !== null ||
       candidate.targetCursorDigest !== null ||
-      terminalCompleted === null ||
       !isDeclaredContinuationTarget(
         authorityPrefix,
         graph,
@@ -4681,32 +4429,6 @@ function admitRoute(
       const routeCausation = deriveCompletedProgressRouteCausation(
         structuralIdentityEvidence.completedProgresses,
         structuralIdentityEvidence.completionWitnessEventRef,
-      );
-      causationEventRef = routeCausation.causationEventRef;
-      additionalCausationEventRefs =
-        routeCausation.additionalCausationEventRefs;
-    } else if (interactionResumeEvidence !== null) {
-      if (
-        candidate.routeKind !== "advance" ||
-        !hasInteractionResumeRouteEvidence(
-          prefix,
-          executionBasis,
-          graph,
-          sourceCursor,
-          targetCursor,
-          candidate,
-          interactionResumeEvidence,
-          authorityPrefix,
-        )
-      ) {
-        return refusal(
-          "judgment_mismatch",
-          "F_H advance route requires the exact admitted response and declared target",
-        );
-      }
-      const routeCausation = deriveCompletedProgressRouteCausation(
-        interactionResumeEvidence.completedProgresses ?? [],
-        interactionResumeEvidence.resume.admissionEventRef,
       );
       causationEventRef = routeCausation.causationEventRef;
       additionalCausationEventRefs =

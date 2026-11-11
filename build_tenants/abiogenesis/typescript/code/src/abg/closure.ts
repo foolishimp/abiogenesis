@@ -48,8 +48,6 @@ import {
   type AdmittedRoute,
 } from "./traversal_route.js";
 import { projectTraversalRouteBody } from "./traversal_transition.js";
-import { projectFhContinuations } from "./continuation.js";
-import type { FhInteractionResumeAdmission } from "./continuation.js";
 import { canonicalEquals } from "../shared/value/index.js";
 
 export interface ScopeClosureAdmission {
@@ -192,22 +190,13 @@ function isExactPreClosureQuiescence(
     quiescence.terminalCCallRef === cCall.cCallRef;
 }
 
-export type ScopeClosureSubject =
-  | Readonly<{
-      kind: "ordinary";
-      scope: OpenedTraversalScope;
-      cCall: CCall;
-      result: AdmittedCCallResult;
-      judgment: AdmittedCCallJudgment;
-    }>
-  | Readonly<{
-      kind: "interaction";
-      scope: OpenedTraversalScope;
-      cCall: CCall;
-      pendingResult: AdmittedCCallResult;
-      pendingJudgment: AdmittedCCallJudgment;
-      resume: FhInteractionResumeAdmission;
-    }>;
+export type ScopeClosureSubject = Readonly<{
+  kind: "ordinary";
+  scope: OpenedTraversalScope;
+  cCall: CCall;
+  result: AdmittedCCallResult;
+  judgment: AdmittedCCallJudgment;
+}>;
 
 interface CurrentClosureTruth {
   readonly activeFluents: readonly string[];
@@ -241,7 +230,6 @@ function projectCurrentClosureTruth(
   result: AdmittedCCallResult,
   judgment: AdmittedCCallJudgment,
   route: AdmittedRoute,
-  resume: FhInteractionResumeAdmission | null = null,
 ): CurrentClosureTruth | null {
   const eventCalculus = deriveRuntimeHeldFluentProjection(prefix);
   const cCallTruth = projectReplayCCallGuardAtPrefix(prefix, cCall.cCallRef);
@@ -277,18 +265,6 @@ function projectCurrentClosureTruth(
   };
   const exactRouteBody = projectTraversalRouteBody(route);
   if (exactRouteBody === null) return null;
-  const resumeTruth = resume === null
-    ? null
-    : projectFhContinuations(prefix, eventCalculus, authorityPrefix).find(
-        (candidate) =>
-          candidate.continuationRef === resume.continuationRef &&
-          candidate.continuationKind === "fh_interaction" && candidate.status === "resolved" &&
-          candidate.resumedEventRef === resume.admissionEventRef &&
-          candidate.responseRef === resume.responseRef &&
-          candidate.responseDigest === resume.responseDigest &&
-          candidate.successorCursorRef === resume.successorCursorRef &&
-          candidate.successorCursorDigest === resume.successorCursorDigest,
-      );
   if (
     cCallTruth?.status !== "judged" ||
     cCallTruth.resultRef !== result.resultRef ||
@@ -339,8 +315,7 @@ function projectCurrentClosureTruth(
         name: "terminal_route_available",
         identity: route.routeRef,
       }),
-    ) ||
-    (resume !== null && resumeTruth === null)
+    )
   ) return null;
   return { activeFluents: eventCalculus.holds.map(runtimeFluentKey) };
 }
@@ -355,12 +330,8 @@ export function admitOwnedScopeClosure(
   basis: RuntimeAdmissionBasis,
 ): OwnedScopeClosureAdmissionResult {
   const sourceCCall = subject.cCall;
-  const sourceResult = subject.kind === "interaction"
-    ? subject.pendingResult
-    : subject.result;
-  const sourceJudgment = subject.kind === "interaction"
-    ? subject.pendingJudgment
-    : subject.judgment;
+  const sourceResult = subject.result;
+  const sourceJudgment = subject.judgment;
   const exactPrefix = selectExactClosurePrefix(
     store,
     predecessorPrefix,
@@ -402,9 +373,8 @@ export function admitOwnedScopeClosure(
   const cCall = projectedCCall.cCall;
   const result = projectedCCall.result;
   const judgment = projectedCCall.judgment;
-  const resume = subject.kind === "interaction" ? subject.resume : null;
   const childScope = scopeClass === "child" ? exactScope : null;
-  const resultRef = resume?.responseRef ?? result.resultRef;
+  const resultRef = result.resultRef;
   const closureContractDigest = sha256Canonical(
     closureContract,
   );
@@ -416,19 +386,7 @@ export function admitOwnedScopeClosure(
     judgment.resultRef === result.resultRef &&
     route.judgmentRef === judgment.judgmentRef &&
     route.routeKind === "terminal";
-  const subjectOutcomeIsExact = subject.kind === "interaction"
-    ? cCall.regime === "F_H" &&
-      cCall.responseContractRef !== null &&
-      cCall.continuationContractRef !== null &&
-      result.resultClass === "pending" &&
-      judgment.judgment === "pending" &&
-      resume !== null &&
-      resume.responseDigest === sha256Canonical(
-        resume.responseValue,
-      ) &&
-      route.sourceCursorRef === resume.successorCursorRef &&
-      route.sourceCursorDigest === resume.successorCursorDigest
-    : judgment.judgment === "advance";
+  const subjectOutcomeIsExact = judgment.judgment === "advance";
   if (!commonOutcomeIsExact || !subjectOutcomeIsExact) {
     return refuseClosureWithoutEffects(
       "runtime_basis_mismatch",
@@ -484,7 +442,6 @@ export function admitOwnedScopeClosure(
     result,
     judgment,
     route,
-    resume,
   );
   if (currentTruth === null) {
     return refuseClosureWithoutEffects(
@@ -493,12 +450,8 @@ export function admitOwnedScopeClosure(
     );
   }
 
-  const expectedResultContractRef = subject.kind === "interaction"
-    ? cCall.responseContractRef
-    : result.contractRef;
-  const expectedJudgmentContractRef = subject.kind === "interaction"
-    ? cCall.continuationContractRef
-    : judgment.contractRef;
+  const expectedResultContractRef = result.contractRef;
+  const expectedJudgmentContractRef = judgment.contractRef;
   const expectedScope: ScopeClosureAdmission["scopeClass"] = scopeClass === "child" ? "graph_call" : "run";
   const expectedEventKinds = scopeClass === "child"
     ? ["terminal_reached", "frame_closed", "graph_call_closed"]

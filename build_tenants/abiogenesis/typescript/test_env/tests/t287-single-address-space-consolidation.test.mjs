@@ -1054,19 +1054,21 @@ test('maintained SDK setup holds one acquired resource, borrows every history ca
     boundCallComparison: [...coldRows, reopened, ...borrowedRows].map(summary)};
 });
 
-test('RAW F_H response pair: an explicit conditional root grant and one exact basis/Run/pending/hold/open seed let the actual preparers yield one six-field response fact and its combined prior admission, refused as an orphan or with a crossed source, ref, digest or order, alike over repeated reads, historical cuts, a fresh frozen clone and unrelated growth', async t => {
+test('RAW F_H hold seed: an explicit conditional root grant and one exact basis/Run/pending/hold/open seed hold at their actual gates, the open seed has no F_H response fact, and the owners keep their values over repeated reads, a fresh frozen clone and unrelated growth', async t => {
   // Conditional immutable RAW reader data: every row is stamped by the actual
   // projector and selected by the actual validator. This is not Event Store or
-  // current root admission, held or owned authority, Public commit/resume, a
-  // physical cold reopen or installed F_H qualification.
+  // current root admission, held or owned authority, Public commit, a physical
+  // cold reopen or installed F_H qualification. Human response and resumption
+  // are reserved to 5.1; the orphan response operation is refused by the
+  // complete-pair case above.
   const load = name => import(pathToFileURL(join(packageRoot, 'build/code/src', name + '.js')).href);
-  const [abg, store, prefixes, digests, fh, effectful, invocations, calculus, cCalls, cursors, family, interaction, product, capabilities, coordinates,
+  const [abg, store, prefixes, digests, fh, effectful, invocations, calculus, cCalls, cursors, family, interaction, product, capabilities,
     values] = await Promise.all(['abg/index', 'abg/event_store', 'abg/event_prefix', 'shared/digests', 'abg/fh_continuation_projection',
     'abg/effectful_invocation_truth', 'abg/invocation_execution_truth', 'abg/event_calculus', 'abg/c_call', 'abg/traversal_cursor',
     'public/binding/public_function_family', 'product/interaction_operation_contracts', 'product/index', 'shared/capability_contracts',
-    'shared/operation_definition_coordinate', 'shared/value/index'].map(load));
+    'shared/value/index'].map(load));
   const hash = digests.sha256Canonical, modules = {store, digests, family, interaction, capabilities, values, cursors};
-  const seed = rawFhResponseSeed(modules), {events: seeded} = seed;
+  const seed = rawFhResponseSeed(modules);
   const select = rows => prefixes.selectValidatedRuntimeEventPrefix(freezeRaw([...rows]));
   const runCut = rows => prefixes.selectValidatedRuntimeEventPrefix(freezeRaw([...rows]), {runId: seed.runId});
   const fluent = (projection, name, identity) => calculus.holdsAt(projection, calculus.constructRuntimeFluent({name, identity}));
@@ -1081,7 +1083,7 @@ test('RAW F_H response pair: an explicit conditional root grant and one exact ba
       return ['continuation_open', 'interaction_pending'].every(name => fluent(projection, name, seed.continuationRef)) &&
         fluent(projection, 'frame_held', seed.frameId) && !fluent(projection, 'continuation_response_available', seed.continuationRef) || null; }],
     ['openContinuation', seed.cuts.opened, rows => { const prefix = runCut(rows);
-      const open = fh.projectFhContinuations(prefix, calculus.deriveRuntimeHeldFluentProjection(prefix), select(rows));
+      const open = fh.projectFhContinuations(prefix, calculus.deriveRuntimeHeldFluentProjection(prefix));
       return open.length === 1 && open[0].status === 'open' ? open[0] : null; }]];
   const gateRows = gates.map(([gate, at, read]) => {
     assert.equal(read(seed.rows.slice(0, at - 1)), null, gate + ' is absent before its last row');
@@ -1111,120 +1113,78 @@ test('RAW F_H response pair: an explicit conditional root grant and one exact ba
   assert.deepEqual(before.truth.map(value => [value.disposition, value.invocationRef]), [['available', responseRef], ['available', unusedRef], ['duplicate', seed.invocationRef]]);
   assert.deepEqual(before.truth[2].priorAdmission, before.run.facts[0], 'the RAW root pair is its own complete prior admission');
   assert.deepEqual(before.fh, {disposition: 'valid', facts: []}, 'the open seed has no F_H response fact');
-  // The actual pure preparers: one Public operation, then its response.
-  const responseValue = freezeRaw({responseKind: 'approve', decision: 'approved'});
-  const time = {eventTime: '2026-11-04T00:00:01.000Z', correlationId: 'correlation://single-address-space/raw-fh/respond'};
-  const basis = freezeRaw({...coordinates.constructExactOperationInvocationCoordinate({...seed.definitionKey, definitionDigest: seed.definitionDigest},
-    responseRef, hash({continuationRef: seed.continuationRef, responseValue})), authorityScopeRef: seed.workspace.workspaceBindingId,
-    authorityScopeDigest: seed.workspace.workspaceBindingDigest, ...time, causationEventRefs: []});
-  const prepare = (prefix, invocation, open, actorRef = seed.actorRef) => abg.prepareContinuationPublicOperation(prefix, invocation,
-    'abg.operation.interaction.respond', open, 'approve', actorRef, seed.capabilityRef, basis);
-  const operation = prepare(P, root, continuation);
-  assert.equal(operation.kind, 'prepared_continuation_public_operation');
-  assert.deepEqual(operation.operation, {kind: 'continuation_public_operation_admission', schemaVersion, disposition: 'admitted',
-    operationId: 'abg.operation.interaction.respond', continuationRef: seed.continuationRef, invocationRef: responseRef, actorRef: seed.actorRef,
-    capabilityRef: seed.capabilityRef, capabilityGrantRef: grant.grantRef, admissionEventRef: operation.event.eventId});
-  assert.deepEqual([operation.event.kind, operation.event.admissionOrdinal, operation.event.parentAggregateId, operation.event.payload.capabilityGrantRefs,
-    operation.event.payload.invocationDigest], ['public_operation_admitted', seed.rows.length + 1, responseRef, [grant.grantRef], basis.invocationDigest]);
-  assert.deepEqual([...prefixes.runtimeEventBodiesAtPrefix(operation.projectedPrefix)], [...seed.rows, operation.event]);
-  const response = abg.prepareFhInteractionResponse(operation, continuation, seed.responseContractRef, responseValue, {...time, causationEventRefs: []});
-  assert.equal(response.kind, 'prepared_fh_interaction_response');
-  assert.deepEqual(response.publicOperation, operation);
-  assert.deepEqual([response.response.disposition, response.event.kind, response.event.admissionOrdinal, response.event.causationEventRefs,
-    response.event.payload.publicOperationEventRef, response.event.payload.responseDigest], ['responded', 'fh_interaction_responded', seed.rows.length + 2,
-    [seeded.opened.eventId, operation.event.eventId], operation.event.eventId, hash(responseValue)]);
-  assert.deepEqual([...prefixes.runtimeEventBodiesAtPrefix(response.projectedPrefix)], [...seed.rows, operation.event, response.event]);
-  const vectors = {seed: seed.rows, operationOnly: [...seed.rows, operation.event], completed: [...seed.rows, operation.event, response.event]};
-  const warm = Object.fromEntries(Object.entries(vectors).map(([label, rows]) => [label, owners(select(rows))]));
-  // The completed pair: one nonempty six-field fact, and the combined owner
-  // names exactly that fact as the response ref's prior admission.
-  const fact = {operationId: 'abg.operation.interaction.respond', publicInvocationRef: responseRef, ownerInvocationRef: responseRef,
-    ownerInvocationDigest: basis.invocationDigest, publicOperationEventRef: operation.event.eventId, admissionEventRef: response.event.eventId};
-  assert.deepEqual(warm.completed.fh, {disposition: 'valid', facts: [fact]});
-  assert.deepEqual(Object.keys(warm.completed.fh.facts[0]).sort(), Object.keys(fact).sort());
-  assert.deepEqual(warm.completed.truth.map(value => [value.disposition, value.invocationRef]), [['duplicate', responseRef], ['available', unusedRef], ['duplicate', seed.invocationRef]]);
-  assert.deepEqual(warm.completed.truth[0].priorAdmission, fact, 'the combined owner returns the exact F_H fact');
-  assert.deepEqual(warm.completed.truth[2].priorAdmission, before.run.facts[0]);
-  assert.deepEqual(owners(response.projectedPrefix), warm.completed, 'the prepared projected prefix reads as the fresh selection');
-  const responded = (rows => { const prefix = runCut(rows); return fh.projectFhContinuations(prefix, calculus.deriveRuntimeHeldFluentProjection(prefix), select(rows)); })(vectors.completed);
-  assert.deepEqual(responded.map(value => [value.continuationRef, value.status, value.respondedEventRef, value.respondedPublicOperationEventRef, value.responseDigest]),
-    [[seed.continuationRef, 'responded', response.event.eventId, operation.event.eventId, hash(responseValue)]]);
-  // The operation alone is an orphan: every requested ref is refused alike.
-  const refusal = (cut, eventRefs, label) => assert.deepEqual(cut.truth.map(value => [value.kind, value.disposition, value.code, value.eventRefs, value.artifactTruthCode]),
-    cut.truth.map(() => ['effectful_public_invocation_truth_invalid_history', 'invalid_history', 'invocation_pair_invalid', eventRefs, null]), label);
-  refusal(warm.operationOnly, [operation.event.eventId], 'operation-only orphan');
-  assert.deepEqual(warm.operationOnly.fh, {disposition: 'invalid_history', eventRefs: [operation.event.eventId]});
-  // The preparers keep their exact guards: the used ref returns the combined
-  // owner's value instead of a second event; a root without the response
-  // grant, a foreign actor and a foreign response contract are refused.
-  assert.deepEqual(prepare(select(vectors.completed), root, continuation), warm.completed.truth[0]);
-  assert.deepEqual(prepare(select(vectors.operationOnly), root, continuation), warm.operationOnly.truth[0]);
+  // A root without the response grant still opens the same hold.
   const ungranted = rawFhResponseSeed(modules, {responseGrant: false});
   const ungrantedRoot = abg.rehydrateInvocationAdmissionAtPrefix(select(ungranted.rows), ungranted.invocationAdmissionRef);
-  const ungrantedOpen = (prefix => fh.projectFhContinuations(prefix, calculus.deriveRuntimeHeldFluentProjection(prefix), select(ungranted.rows)))(
+  const ungrantedOpen = (prefix => fh.projectFhContinuations(prefix, calculus.deriveRuntimeHeldFluentProjection(prefix)))(
     prefixes.selectValidatedRuntimeEventPrefix(ungranted.rows, {runId: ungranted.runId}));
   assert.deepEqual([ungrantedRoot.capabilityGrants, ungrantedOpen.map(value => value.status)], [[], ['open']]);
-  assert.throws(() => prepare(select(ungranted.rows), ungrantedRoot, ungrantedOpen[0]), /exact admitted run authority/);
-  assert.throws(() => prepare(P, root, continuation, 'actor://single-address-space/raw-fh/foreign'), /exact admitted run authority/);
-  assert.throws(() => abg.prepareFhInteractionResponse(operation, continuation, 'ref://single-address-space/raw-fh/foreign-response-contract', responseValue,
-    {...time, causationEventRefs: []}), /one exact prefix-projected operation and open continuation/);
-  // Crossed pairs: one field restamped through the actual projector. The
-  // unchanged restamp reproduces the prepared events exactly.
-  const candidateOf = event => { const value = structuredClone(event);
-    for (const key of ['admissionOrdinal', 'eventId', 'payloadDigest', 'eventContractDigest']) delete value[key]; return value; };
-  const crossed = (operationEdit, responseEdit) => {
-    const op = candidateOf(operation.event); operationEdit(op);
-    const stampedOperation = store.projectRuntimeEventFromValidatedHistory(seed.rows, op);
-    const reply = candidateOf(response.event);
-    Object.assign(reply, {causationEventRefs: [seeded.opened.eventId, stampedOperation.eventId]});
-    reply.payload.publicOperationEventRef = stampedOperation.eventId;
-    responseEdit(reply, stampedOperation);
-    const rows = freezeRaw([...seed.rows, stampedOperation]);
-    const stampedResponse = store.projectRuntimeEventFromValidatedHistory(rows, reply);
-    return {operationEventRef: stampedOperation.eventId, responseEventRef: stampedResponse.eventId, owners: owners(select([...rows, stampedResponse]))};
-  };
-  const same = crossed(() => {}, () => {});
-  assert.deepEqual([same.operationEventRef, same.responseEventRef, same.owners], [operation.event.eventId, response.event.eventId, warm.completed]);
-  const controls = {
-    source: crossed(op => { op.payload.capabilityGrantRefs = ['capability-grant://abiogenesis/' + hash('foreign-grant').slice(7)]; }, () => {}),
-    ref: crossed(() => {}, reply => { reply.payload.publicOperationEventRef = seeded.invoke.eventId; }),
-    digest: crossed(op => { op.payload.invocationDigest = hash('foreign-invocation-digest'); }, () => {}),
-    order: crossed(() => {}, (reply, op) => { reply.causationEventRefs = [op.eventId, seeded.opened.eventId]; })};
-  for (const [label, control] of Object.entries(controls)) {
-    const eventRefs = [control.operationEventRef, control.responseEventRef].sort();
-    refusal(control.owners, eventRefs, label);
-    assert.deepEqual(control.owners.fh, {disposition: 'invalid_history', eventRefs}, label);
-  }
-  // RAW reconstruction: repeated reads, historical cuts of the completed
-  // vector, a fresh deeply frozen clone and allowed unrelated growth.
-  const comparisons = Object.entries(vectors).map(([label, rows]) => {
-    assert.deepEqual(owners(select(rows)), warm[label], label + ': a repeated read is equal');
-    assert.deepEqual(owners(select(vectors.completed.slice(0, rows.length))), warm[label], label + ': the historical cut is equal');
-    const clone = freezeRaw(structuredClone([...rows]));
-    assert.notEqual(clone[0], rows[0]);
-    assert.deepEqual(owners(select(clone)), warm[label], label + ': a fresh frozen clone is equal');
-    return {label, prefixLength: rows.length};
-  });
-  const unrelated = store.projectRuntimeEventFromValidatedHistory(freezeRaw([...vectors.completed]), unrelatedWorkspaceEvent(hash, 'raw-fh-unrelated'));
-  const grown = owners(select([...vectors.completed, unrelated]));
+  // RAW reconstruction of the seed: a repeated read, a fresh deeply frozen
+  // clone and allowed unrelated growth keep the exact owner values.
+  assert.deepEqual(owners(select(seed.rows)), before, 'a repeated read is equal');
+  const clone = freezeRaw(structuredClone([...seed.rows]));
+  assert.notEqual(clone[0], seed.rows[0]);
+  assert.deepEqual(owners(select(clone)), before, 'a fresh frozen clone is equal');
+  const unrelated = store.projectRuntimeEventFromValidatedHistory(freezeRaw([...seed.rows]), unrelatedWorkspaceEvent(hash, 'raw-fh-unrelated'));
+  const grown = owners(select([...seed.rows, unrelated]));
   const withoutPrefix = ({prefix: _prefix, ...value}) => value;
-  assert.deepEqual([grown.fh, grown.run, grown.truth.map(withoutPrefix)], [warm.completed.fh, warm.completed.run, warm.completed.truth.map(withoutPrefix)],
+  assert.deepEqual([grown.fh, grown.run, grown.truth.map(withoutPrefix)], [before.fh, before.run, before.truth.map(withoutPrefix)],
     'unrelated RAW growth keeps the exact values');
   const view = cut => ({truth: cut.truth.map(value => ({disposition: value.disposition, code: value.code ?? null, eventRefs: value.eventRefs ?? null,
     priorAdmission: value.priorAdmission ?? null})), fh: cut.fh});
-  proof.cases.fhResponsePair = {premise: 'conditional immutable RAW reader data stamped by the actual projector; the explicit response grant is test-owned',
-    limits: ['No Event Store or current root admission produced the seed or its grant.', 'No held or owned resource, Public commit, dispatch or resume.',
+  proof.cases.fhHoldSeed = {premise: 'conditional immutable RAW reader data stamped by the actual projector; the explicit response grant is test-owned',
+    limits: ['No Event Store or current root admission produced the seed or its grant.', 'No held or owned resource, Public commit or dispatch.',
       'A fresh frozen clone is RAW reconstruction, not a physical cold reopen.', 'No installed F_H qualification or release claim.'],
     seed: {prefixLength: seed.rows.length, kinds: seed.rows.map(event => event.kind), eventRefs: seed.rows.map(event => event.eventId), grantRef: grant.grantRef,
       grantDigest: grant.grantDigest, invocationAdmissionRef: seed.invocationAdmissionRef, basisRef: seed.basisRef, runId: seed.runId,
       continuationRef: seed.continuationRef, gates: gateRows},
-    prepared: {operationEventRef: operation.event.eventId, responseEventRef: response.event.eventId, responseInvocationRef: responseRef,
-      responseInvocationDigest: basis.invocationDigest},
-    fact, cuts: Object.fromEntries(Object.entries(warm).map(([label, cut]) => [label, view(cut)])),
-    controls: Object.fromEntries(Object.entries(controls).map(([label, control]) => [label, {operationEventRef: control.operationEventRef,
-      responseEventRef: control.responseEventRef, ...view(control.owners)}])),
-    comparisons: {cuts: comparisons, unrelatedGrowth: {eventRef: unrelated.eventId, prefixLength: vectors.completed.length + 1}}};
-  t.diagnostic(JSON.stringify(proof.cases.fhResponsePair));
+    owners: view(before), unrelatedGrowth: {eventRef: unrelated.eventId, prefixLength: seed.rows.length + 1}};
+  t.diagnostic(JSON.stringify(proof.cases.fhHoldSeed));
+});
+
+test('RAW F_H hold seed: a hand-built response, resume, abandonment or F_H supersession on the open hold is refused by the fold and the F_H fact owner, never folded as if absent', async t => {
+  // The four kinds stay declared for 5.1 and have no 5.0 reader. Each log is
+  // the seed plus one contract-valid row stamped by the actual projector.
+  const load = name => import(pathToFileURL(join(packageRoot, 'build/code/src', name + '.js')).href);
+  const [store, prefixes, digests, fh, calculus, cursors, family, interaction, capabilities, values] = await Promise.all(['abg/event_store',
+    'abg/event_prefix', 'shared/digests', 'abg/fh_continuation_projection', 'abg/event_calculus', 'abg/traversal_cursor',
+    'public/binding/public_function_family', 'product/interaction_operation_contracts', 'shared/capability_contracts', 'shared/value/index'].map(load));
+  const hash = digests.sha256Canonical, seed = rawFhResponseSeed({store, digests, family, interaction, capabilities, values, cursors});
+  const select = rows => prefixes.selectValidatedRuntimeEventPrefix(freezeRaw([...rows]));
+  const runCut = rows => prefixes.selectValidatedRuntimeEventPrefix(freezeRaw([...rows]), {runId: seed.runId});
+  const {opened} = seed.events;
+  // The seed alone folds, projects its open hold and has no F_H fact.
+  assert.deepEqual(fh.projectFhContinuations(runCut(seed.rows), calculus.deriveRuntimeHeldFluentProjection(runCut(seed.rows))).map(row => row.status), ['open']);
+  assert.deepEqual(fh.projectFhEffectfulPublicInvocationFacts(select(seed.rows)), {disposition: 'valid', facts: []});
+  const envelope = {eventTime: '2026-11-04T00:00:02.000Z', correlationId: opened.correlationId, workflowVersion: opened.workflowVersion,
+    scopeClass: opened.scopeClass, basisId: opened.basisId, runId: opened.runId, graphCallId: opened.graphCallId, frameId: opened.frameId,
+    graphFunctionRef: opened.graphFunctionRef, materializationRef: opened.materializationRef, aggregateType: 'continuation',
+    aggregateId: seed.continuationRef, parentAggregateId: opened.parentAggregateId, causationEventRefs: [opened.eventId]};
+  const responseValue = {responseKind: 'approve', decision: 'approved'}, responseDigest = hash(responseValue);
+  const response = {actorRef: seed.actorRef, capabilityRef: seed.capabilityRef, continuationRef: seed.continuationRef, responseDigest,
+    responseRef: 'interaction-response://abiogenesis/' + responseDigest.slice(7), responseValue};
+  const successorInputValue = {subject: 'resumed'}, terminal = disposition => ({candidateDigest: hash(['candidate', disposition]),
+    candidateRef: 'candidate://single-address-space/raw-fh/' + disposition, causedByEventRef: opened.eventId, continuationDigest: opened.payload.continuationDigest,
+    continuationKind: 'fh_interaction', continuationRef: seed.continuationRef, terminalDisposition: disposition});
+  const kinds = {
+    fh_interaction_responded: {...response, publicOperationEventRef: opened.eventId, responseContractRef: seed.responseContractRef},
+    fh_interaction_resume_admitted: {...response, closureContract: {closureContractRef: 'closure://single-address-space/raw-fh'},
+      durablePrefixDigest: hash('prefix'), openedEventRef: opened.eventId, publicOperationEventRef: opened.eventId, respondedEventRef: opened.eventId,
+      successorCursor: opened.payload.heldCursor, successorCursorRef: opened.payload.heldCursorRef, successorCursorDigest: opened.payload.heldCursorDigest,
+      successorInputContractRef: null, successorInputValueKind: null, successorInputRef: 'input://single-address-space/raw-fh/resumed',
+      successorInputDigest: hash(successorInputValue), successorInputValue},
+    continuation_abandoned: terminal('abandoned'),
+    continuation_superseded: terminal('superseded')};
+  const refused = new RegExp('continuation ' + seed.continuationRef.replace(/[/.]/g, '\\$&') + ' has an invalid event lifecycle');
+  const rows = {};
+  for (const [kind, payload] of Object.entries(kinds)) await t.test(kind, () => {
+    const event = store.projectRuntimeEventFromValidatedHistory(freezeRaw([...seed.rows]), {kind, ...envelope, payload});
+    const log = [...seed.rows, event];
+    assert.throws(() => calculus.deriveRuntimeHeldFluentProjection(runCut(log)), refused, kind + ': the fold refuses it');
+    assert.deepEqual(fh.projectFhEffectfulPublicInvocationFacts(select(log)), {disposition: 'invalid_history', eventRefs: []}, kind);
+    rows[kind] = event.eventId;
+  });
+  t.diagnostic(JSON.stringify({ruling4: {seedLength: seed.rows.length, refused: rows}}));
 });
 
 // The owned prefix of the complete retained history, as the revision and
@@ -1398,7 +1358,7 @@ test('semantic stage authentication borrows the owned prefix: the retired materi
 // the retained-history cases when their evidence is present. The record goes
 // to the diagnostics, as each case's measurements do; no proof file is written.
 test('single-address-space proof records every measured case', async t => {
-  const ran = ['installedPath', 'qualificationCut', 'completePairControls', 'maintainedSetup', 'fhResponsePair',
+  const ran = ['installedPath', 'qualificationCut', 'completePairControls', 'maintainedSetup', 'fhHoldSeed',
     ...(retained.kind === 'present' ? ['retainedHistory', 'livenessFork', 'publicOperationClassification', 'globalRunInvocationPairs',
       'historicalCut', 'semanticAdapter'] : [])];
   for (const key of ran) assert.ok(proof.cases[key], key + ' completed');

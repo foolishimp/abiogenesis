@@ -24,7 +24,7 @@ function valid(valueKind, value) {
 export const semantics = Object.freeze({ kind: "product_semantics_provider", schemaVersion: "5.0.0",
   bindingRef: "product-semantics://abi5-tests/language-fixtures@5", packageName: owner.packageName, packageVersion: owner.packageVersion,
   admitInput(contractRef, value) { return contractRef === ids.inputContractRef && valid("hello_world_input", value) ? Object.freeze({ ...value }) : null; },
-  evaluateInteractionResponse() { return null; }, validateContractValue: valid,
+  validateContractValue: valid,
   resolveJudgmentRelation(predicateRef) { return predicateRef === ids.judgmentPredicateRef ? Object.freeze({ predicateRef,
     advanceReasonRef: "reason://abi5-tests/language-smoke/valid", rejectionReasonRef: "reason://abi5-tests/language-smoke/invalid",
     evaluate: evaluateLanguageTestResult }) : null; },

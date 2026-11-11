@@ -72,7 +72,6 @@ export type RouteProposalRefusal = {
     | "graph_span_reentry_not_declared"
     | "judgment_not_advance"
     | "judgment_not_pending"
-    | "resume_not_admitted"
     | "retry_progress_missing"
     | "structural_step_missing"
     | "terminal_not_declared";

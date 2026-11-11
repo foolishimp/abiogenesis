@@ -28,11 +28,9 @@ import type {
   ReenterApplication,
   RecurseApplication,
 } from "../gtl/contracts.js";
-import { isInteractionCLeaf } from "../gtl/c_algebra.js";
 import { isMaterializedGtlGraph } from "../gtl/materialize.js";
 import {
   deriveCContinuationTarget,
-  deriveCSourceContinuation,
   deriveCRetryTarget,
   deriveCStructuralTarget,
   rootCSourcePath,
@@ -381,55 +379,6 @@ export function deriveRetryTraversalCursor(
     "at_term",
     target,
   );
-}
-
-export function deriveInteractionSuccessorInputCarrierRef(
-  graph: Readonly<GtlGraph>,
-  heldCursor: TraversalCursor,
-): string | null {
-  if (
-    !isMaterializedGtlGraph(graph) ||
-    !isTraversalCursorCandidate(heldCursor) ||
-    heldCursor.graphRef !== graph.materializationRef ||
-    heldCursor.position !== "at_term"
-  ) {
-    throw new TypeError(
-      "F_H successor carrier requires one exact materialized Graph and held cursor",
-    );
-  }
-  const source = resolveCProgramTermAtSourcePath(
-    graph.template,
-    heldCursor.currentNodeRef,
-    heldCursor.termPath,
-  );
-  if (
-    source.kind === "c_source_path_refusal" ||
-    source.kind !== "c_of" ||
-    source.fibre !== "F_H" ||
-    !isInteractionCLeaf(source)
-  ) {
-    throw new TypeError(
-      "F_H successor carrier requires the exact held c_of F_H interaction term",
-    );
-  }
-  const continuation = deriveCSourceContinuation(graph.template, heldCursor.currentNodeRef, heldCursor.termPath);
-  if (continuation.kind === "c_source_path_refusal") {
-    throw new TypeError(
-      `F_H successor carrier derivation refused: ${continuation.code}: ${continuation.message}`,
-    );
-  }
-  if (continuation.disposition === "terminal") return null;
-  const target = resolveCProgramTermAtSourcePath(
-    graph.template,
-    continuation.targetPath![1]!,
-    continuation.targetPath!,
-  );
-  if (target.kind === "c_source_path_refusal") {
-    throw new TypeError(
-      `F_H successor carrier target refused: ${target.code}: ${target.message}`,
-    );
-  }
-  return target.inputCarrierRef;
 }
 
 export function deriveGraphSpanReentryCursor(

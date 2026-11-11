@@ -207,10 +207,10 @@ export function projectEffectfulPublicInvocationTruthAtPrefix(
       continuationFacts.eventRefs,
     );
   }
-  facts.push(...continuationFacts.facts);
-  // F_H claims every other run.continue operation; the construction-continuation
-  // owner validates each of its closed kinds. A kind-crossed (mixed-arm) payload
-  // fails its owner's projection and refuses the whole history.
+  // F_H claims every other run.continue operation and has no fact in 5.0; the
+  // construction-continuation owner validates each of its closed kinds. A
+  // kind-crossed (mixed-arm) payload fails its owner's projection and refuses
+  // the whole history.
   const constructionIntentFact = (operation: RuntimeEvent): EffectfulPublicInvocationPriorAdmission | null => {
     const p = operation.payload;
     const bases = indexedRuntimeEvents(validatedPrefix, "construction-operation:" + operation.eventId).filter(e => e.kind === "basis_admitted" &&

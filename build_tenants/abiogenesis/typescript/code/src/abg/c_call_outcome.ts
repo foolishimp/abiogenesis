@@ -1799,30 +1799,17 @@ export function admitOwnedCCallCompletion(
             throw new TypeError("terminal CCall completion requires a judged outcome");
           }
           const { cCall, result, judgment } = input.outcome.admitted;
-          const interactionResume = input.candidate!.evidence?.evidenceClass ===
-              "interaction_resume"
-            ? input.candidate!.evidence.resume
-            : null;
           const closureBasis = stageBasis(input.basis, "closure");
           const admittedClosure = admitOwnedScopeClosure(
             input.store,
             input.predecessorPrefix,
-            interactionResume !== null
-              ? {
-                  kind: "interaction",
-                  scope: input.openedTraversalScope,
-                  cCall,
-                  pendingResult: result,
-                  pendingJudgment: judgment,
-                  resume: interactionResume,
-                }
-              : {
-                  kind: "ordinary",
-                  scope: input.openedTraversalScope,
-                  cCall,
-                  result,
-                  judgment,
-                },
+            {
+              kind: "ordinary",
+              scope: input.openedTraversalScope,
+              cCall,
+              result,
+              judgment,
+            },
             staged.route,
             input.closureContract,
             closureBasis,
