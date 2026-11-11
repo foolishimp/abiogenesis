@@ -10,7 +10,7 @@ This is a Writer Return to the Executive and is commentary only. Worktree `/priv
 ## C2 stop: counterexample
 - **The replay digest includes frame liveness.** `replay.ts:1368-1370` puts `nativeLiveness` in the replay body, and `:1447` digests that body.
 - **The digest is persisted.** A successor invocation over a failed, stopped or blocked source Run is admitted under `inactiveRetainedWork` (`invocation_admission.ts:547-549`). Its basis persists the source Run's guard digest as `sourceReplayDigest` (`:439`, `:591`).
-- **Ordinary reads re-check it.** Every Public read of the successor goes `project_read_ports.ts:731/1211` → `projectRunSemanticReplay` → `projectOwnerFacts` (`replay.ts:1947-1963`). That path re-derives the basis, requires it to be equal, and otherwise throws "run semantic relation requires one exact admitted external source-result basis". `execution_basis.ts:756/812` re-derive it as well.
+- **Ordinary reads re-check it.** Public reads of the successor via `project_read_ports.ts:731/1211` go → `projectRunSemanticReplay` → `projectOwnerFacts` (`replay.ts:1947-1963`). That path re-derives the basis, requires it to be equal, and otherwise throws "run semantic relation requires one exact admitted external source-result basis". `execution_basis.ts:756/812` re-derive it as well.
 - **Measured** with `X/l2/cross-build-read.mjs` on the baseline management-supervision store (old build, 252 events). The C1+C2 build was built once for this and then reverted.
 
 | Run | Old build guard digest | C1+C2 build | Frame dispositions |
