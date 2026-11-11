@@ -102,7 +102,7 @@ test("retry-only process rows remain archived without renewing the observer leas
   assert.equal(await readFile(result.artifacts.stdout.path, "utf8"), result.stdout);
 });
 
-test("native lease contains a silent actor at inactivity before its hard cap without a no-progress classification under unknown coverage; an active blocked child reaches Public unchanged", { timeout: 600000 }, async () => {
+test("native lease contains a silent actor at inactivity before its hard cap without a no-progress classification under unknown coverage; an active blocked child reaches Public unchanged, also across status-heartbeat-only intervals longer than its lease", { timeout: 600000 }, async () => {
   const environment = await setupInstalledRootCatalog({ after() {} }, root, {
     candidateBasisSource: "packed_artifact", workspaceProductIndex: 1,
     prepareAdditionalProducts: async basis => [await prepareGenericJobIntakeProduct({ ...basis, declarationFactory: genericLifecyclePublicationData })],
@@ -119,14 +119,17 @@ test("native lease contains a silent actor at inactivity before its hard cap wit
   const command = join(environment.scratch, "semantic-worker.mjs");
   await writeFile(command, await readFile(join(fixtures, "semantic-worker.mjs")), { flag: "wx" }); await chmod(command, 0o755);
   // The worker's `hard_cap` mode is silent after its prompt; the active worker
-  // emits within every lease interval of the longer blocked-mode lease.
-  for (const [mode, workerMode] of [["blocked", "blocked"], ["silent", "hard_cap"]]) {
+  // emits within every lease interval of the longer blocked-mode lease; the
+  // `heartbeat` worker emits only CLI status rows for more than two leases.
+  for (const [mode, workerMode] of [["blocked", "blocked"], ["heartbeat", "heartbeat"], ["silent", "hard_cap"]]) {
+    const active = mode !== "silent";
     const eventResource = { kind: "reopen_abg_event_resource", schemaVersion: "5.0.0", closeHandoff: closed, handoffDigest: product.sha256Canonical(closed) };
     const input = ordinaryJob(product, gtl, "Build a program that prints Hello World and an independent verifier.");
     const { call } = await constructGenericIntakeStart({ environment, publicApi, eventResource, input, identity: "supervision-" + mode });
     await writeFile(join(environment.scratch, mode + "-call.json"), JSON.stringify(call, null, 2) + "\n", { flag: "wx" });
     const settings = { ABG_TS_CLAUDE_COMMAND: command, ABG_TS_FP_TIMEOUT_MS: mode === "silent" ? "100" : "3000",
-      ABG_TS_FP_ABSOLUTE_TIMEOUT_MS: mode === "silent" ? "10000" : "5000", ABG_TS_FP_TERMINATION_GRACE_MS: "50", T287_SUPERVISION_MODE: workerMode };
+      ABG_TS_FP_ABSOLUTE_TIMEOUT_MS: mode === "silent" ? "10000" : mode === "heartbeat" ? "30000" : "5000", ABG_TS_FP_TERMINATION_GRACE_MS: "50",
+      T287_SUPERVISION_MODE: workerMode };
     const prior = Object.fromEntries(Object.keys(settings).map(key => [key, process.env[key]]));
     Object.assign(process.env, settings);
     let outcome;
@@ -141,12 +144,20 @@ test("native lease contains a silent actor at inactivity before its hard cap wit
       assert.ok(probes.some(event => event.payload.probeContract.source === source && event.payload.observation.coverage === "unavailable"), `missing unavailable ${source}`);
     }
     const timeouts = events.filter(event => event.kind === "actor_process_timeout_observed");
-    if (mode === "blocked") {
+    if (active) {
       assert.equal(timeouts.length, 0);
       assert.equal(events.filter(event => event.kind === "actor_invocation_closed").length, 2);
       assert.equal(events.filter(event => event.kind === "child_foldback_admitted" && event.payload.childDisposition === "blocked").length, 1);
       assert.equal(outcome.ownerOutput.value.disposition, "blocked", JSON.stringify(outcome.ownerOutput));
       assert.ok(events.some(event => event.kind === "run_stopped" && event.payload.disposition === "blocked"));
+      if (mode === "heartbeat") {
+        // Each actor's stdout activity is admitted past two leases of status rows only, and neither was contained.
+        const stdoutActivity = probes.filter(event => event.payload.probeContract.source === "stdout" && event.payload.observation.signal === "activity");
+        const actors = [...new Set(stdoutActivity.map(event => event.payload.probeContract.scope.actorInvocationRef))];
+        assert.equal(actors.length, 2);
+        for (const actor of actors) assert.ok(Math.max(...stdoutActivity.filter(event => event.payload.probeContract.scope.actorInvocationRef === actor)
+          .map(event => event.payload.observation.elapsedMs)) >= 7000, "the actor worked more than two leases without model progress");
+      }
     } else {
       assert.equal(timeouts.length, 1);
       assert.deepEqual([timeouts[0].payload.timeoutClass, timeouts[0].payload.timeoutMs], ["inactivity", 100], "the lease, not the cap, contains");
@@ -170,13 +181,13 @@ test("native lease contains a silent actor at inactivity before its hard cap wit
     const causes = new Set();
     const visit = ref => { if (causes.has(ref)) return; causes.add(ref); for (const cause of byId.get(ref)?.causationEventRefs ?? []) visit(cause); };
     visit(outcome.ownerOutput.value.stop.ref);
-    if (mode === "blocked") {
+    if (active) {
       const judged = events.find(event => event.kind === "c_call_judged" && event.payload.judgment === "blocked");
       assert.ok(judged && causes.has(judged.eventId), "Public block must reach the original child judgment");
     } else assert.ok(causes.has(timeouts[0].eventId), "Public failure must reach its actual inactivity observation");
     const reads = await readSupervisionThroughFreshPublic({ scratch: environment.scratch, installedRoot: environment.installedRoot,
       artifactPath: environment.artifactPath, call, outcome, mode });
-    assert.equal(reads.run_status.status, mode === "blocked" ? "blocked" : "failed");
+    assert.equal(reads.run_status.status, active ? "blocked" : "failed");
     assert.equal(reads.run_status.nativeLiveness.invocations.some(row => ["no_output", "progress_without_result"].includes(row.disposition.reason)), false,
       "unknown coverage withholds every no-progress classification");
     assert.equal(reads.run_replay.status, reads.run_status.status);

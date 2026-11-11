@@ -1344,12 +1344,12 @@ async function invokeActorProcessWithAssembly(
   const classifyStdoutChunk = (chunk: string): WorkerStdoutChunkClass => {
     const elapsedMs = elapsed();
     if (governedEndpoint !== null) governedStdout.push(chunk);
-    if (plan.parser !== "claude_stream_json") return { elapsedMs, progress: chunk.length > 0, result: false, turnBoundary: false };
+    if (plan.parser !== "claude_stream_json") return { elapsedMs, progress: chunk.length > 0, heartbeat: false, result: false, turnBoundary: false };
     // Segments end at the chunk's completed turn boundaries, each classified
     // by its own records: a noise-only tail after a boundary is not activity.
     const segments = stdoutObserver.classifyChunk(chunk);
-    return { elapsedMs, progress: segments.some(row => row.progress), result: segments.some(row => row.result),
-      turnBoundary: segments.some(row => row.turnBoundary), segments };
+    return { elapsedMs, progress: segments.some(row => row.progress), heartbeat: segments.some(row => row.heartbeat),
+      result: segments.some(row => row.result), turnBoundary: segments.some(row => row.turnBoundary), segments };
   };
   const admitStdoutWindow = (text: string, window: WorkerStdoutWindow): void => {
     const interrupted = supervisionInterrupted;
