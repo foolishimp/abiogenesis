@@ -216,34 +216,7 @@ test('terminal route-only retains cold and hot malformed-history refusals',termi
  t.diagnostic(JSON.stringify({controls:reports,limit:'Controlled malformed histories use canonical envelopes/prefix owners; no rejected row is an admitted current UAT fact.'}));
 });
 
-test('retained native outputs and exact pre-basis historical owner facts are conserved',enabled,async()=>{
- const {rows,runId}=await retained(),source=new RuntimeDerivationSource();
- const oldRoot=process.env.P0_PREDECESSOR_INSTALLED_ROOT;
- const oldPrefix=await import(pathToFileURL(join(oldRoot,'build/code/src/abg/event_prefix.js')));
- const oldReplay=await import(pathToFileURL(join(oldRoot,'build/code/src/abg/replay.js')));
- const reports=[];
- for(const ordinal of [654,886,894,1144]){
-  const selected=select(source,rows.slice(0,ordinal),runId), oldAuthority=oldPrefix.selectValidatedRuntimeEventPrefix(Object.freeze(rows.slice(0,ordinal)));
-  const before=work(),state=replay.replayValidatedRuntimeEventPrefix(selected.run,selected.authority);
-  const expected=oldReplay.replayValidatedRuntimeEventPrefix(oldPrefix.selectRuntimeEventPrefixFromAuthority(oldAuthority,{runId}),oldAuthority);
-  assert.deepEqual(state,expected,'exact native replay at '+ordinal);
-  reports.push({ordinal,replayDigest:state.replayDigest,work:diff(before,work())});
- }
- const full=select(source,rows,runId);
- calculus.deriveRuntimeEventCalculusProjection(full.authority);calculus.deriveRuntimeEventCalculusProjection(full.run);
- const basis=rows.find(e=>e.kind==='basis_admitted'&&e.payload.rawInputValue?.kind==='worksite_command_execution_task');assert.ok(basis);
- const before=work(),cut=prefix.validatedRuntimeEventPrefixBeforeEvent(full.authority,basis.eventId);
- assert.equal(cut.events.at(-1).admissionOrdinal,basis.admissionOrdinal-1);
- const projected=calculus.deriveRuntimeEventCalculusProjection(cut);
- const scoped=prefix.selectRuntimeEventPrefixFromAuthority(cut,{runId});
- calculus.deriveRuntimeEventCalculusProjection(scoped);
- const historicalWork=diff(before,work());
- if(globalThis.p0Work){assert.equal(historicalWork.ecOwners??0,0);assert.equal(historicalWork.ecSuffixRows??0,0);}
- assert.deepEqual(projected,calculus.deriveRuntimeEventCalculusProjection(cold(rows.slice(0,basis.admissionOrdinal-1))));
- const beforeFirst=prefix.validatedRuntimeEventPrefixBeforeEvent(full.authority,rows[0].eventId);assert.equal(beforeFirst.events.length,0);
- assert.throws(()=>prefix.validatedRuntimeEventPrefixBeforeEvent(full.authority,'event://foreign'));
- console.log(JSON.stringify({kind:'retained_native_historical_conservation',reports,historicalWork,cutOrdinal:cut.events.at(-1).admissionOrdinal}));
-});
+// Retired (T-292 TD-60): retained native outputs and pre-basis owner facts are conserved against a predecessor root; input the retained native scratch holding full-outcome.json not recorded
 
 test('route facts ignore unrelated growth and preserve relevant source, cursor and intent changes',enabled,async()=>{
  const {rows,runId}=await retained(),route=rows.find(e=>e.kind==='traversal_route_admitted'&&e.payload.boundInput);assert.ok(route);
