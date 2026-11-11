@@ -267,3 +267,23 @@ Where the old catalog and contract values are named:
 - **Unverified lanes:** the skips in section 3 are environment gates with no recorded value here; this package changes no gate.
 - **Qualification inventory:** member digests move again (five source files, the manifest, the capability graph, the candidate basis, and now the catalog). As at TD-35 and TD-36, the refresh is a cut-level step.
 - `lint:evidence` was not run: its input is outside the sparse checkout.
+
+## Executive completion (2026-11-12)
+
+The Executive merged the branch at `52afade26` and removed the worktree before
+the Writer's last edit to this Return. The Writer's hand-back adds three points
+that the text above does not carry:
+
+- The recorded-history walk also rescanned files that contain U+FEFF with
+  JavaScript trim semantics: 0 values fail. In the sparse checkout 0 of 3
+  candidates fail (Python trim only).
+- The Public code `root_mismatch` for the bind-door refusal is read from the
+  mapping in `bindRefusalCode`; the lane exercises the bind port, which returns
+  `invalid_declared_root`.
+- On the `33f5ded46` build the Writer reran 23 files and `test:r2`; all pass,
+  and the skips are unset environment gates.
+
+Executive rerun on `main` after the merge, on the tree that also holds TD-47:
+the three new files 13/13, `t292-workspace-binding-extra-key` 3/3,
+`t292-binding-row-owner-differential` 5/5, `r1`, `r2`, `r3` and
+`t287-continuation-causation` pass, with no tracked change.
