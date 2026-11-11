@@ -1237,7 +1237,7 @@ review; a Reviewer performs no repair.
 ## Fixed Basis
 
 - Intent direction, the fifteen selected feature-family identities and exact
-  release subjects are conserved. Product Release Boundaries owns
+  release subjects are conserved. Product Release Boundaries owns Consensus,
   human-response and whole-run oversight applicability; this is not a claim
   that every earlier requirement or public-operation roster remains selected.
 - [`stdo_abiogenesis.json`](../stdo_abiogenesis.json),
@@ -1255,7 +1255,8 @@ review; a Reviewer performs no repair.
 - Immutable `v4.6.0-rc.5` remains the semantic conservation reference.
 - Effect `3.22.1` remains exact-pinned inside its accepted composition
   boundary.
-- `A5-F12`/`ABG5-S04` (whole-run oversight) remains planned 5.1 work.
+- `A5-F08`/`ABG5-S05` (standalone Consensus) and `A5-F12`/`ABG5-S04`
+  (whole-run oversight) remain planned 5.1 work.
 
 The selected 5.0 family scope is `A5-F01` through `A5-F07`, `A5-F09` through
 `A5-F11`, and `A5-F13` through `A5-F17`; `ABG5-S01`, `ABG5-S02`, `ABG5-S03`, `ABG5-S06`, and
@@ -1263,7 +1264,7 @@ The selected 5.0 family scope is `A5-F01` through `A5-F07`, `A5-F09` through
 shape-preserving fibre-substitution differential. Product owns the required
 behavioral coverage and retained/deferred boundaries. The current contraction
 removes fixed proof-row execution granularity; it does not restore 5.1
-response or executive-oversight obligations or waive retained outcomes.
+Consensus, response or executive-oversight obligations or waive retained outcomes.
 
 ## Feature-Wave Status
 

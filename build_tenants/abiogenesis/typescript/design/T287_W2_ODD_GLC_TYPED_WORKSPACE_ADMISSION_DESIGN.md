@@ -438,7 +438,7 @@ out-of-scope. `*` marks one of dev.286's exact 17 absent installed locators.
 |---|---|---|---|---|
 | `workspace.create` | `clean` | — | `imported` | — |
 | `workspace.open` | `open` | — | — | — |
-| `project.read` | `catalog_list`, `catalog_describe`, `run_status`, `run_result`, `run_evidence`, `run_replay` | `graph_call_status`, `graph_call_result`, `graph_call_evidence`, `result_evidence`, `install_evidence`, `graph_call_replay`, `continuation_replay`, `c_call_replay` | `workspace_status`, `run_gaps`, `run_lawful_actions` | `assessment_evidence`, `witness_evidence`, `release_evidence*`, `workspace_replay`, `interaction_replay`, `workspace_gaps` |
+| `project.read` | `catalog_list`, `catalog_describe`, `run_status`, `run_result`, `run_evidence`, `run_replay` | `graph_call_status`, `graph_call_result`, `graph_call_evidence`, `result_evidence`, `install_evidence`, `graph_call_replay`, `continuation_replay`, `c_call_replay` | `workspace_status`, `run_gaps`, `run_lawful_actions` | `assessment_evidence`, `witness_evidence`, `release_evidence*`, `workspace_replay`, `interaction_replay`, `workspace_gaps`, `ticket_consensus` |
 | `product.verify` | `verify` | — | — | — |
 | `product.resolve` | `resolve` | — | — | — |
 | `product.install` | `install` | — | — | — |

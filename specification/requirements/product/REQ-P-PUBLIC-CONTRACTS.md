@@ -147,11 +147,22 @@ identity, version, digest, authority refs, and locator:
 - `abg.schema.tenant-conformance-manifest`
 - `abg.schema.self-conformance-result`
 - `abg.schema.exact-candidate-qualification`
+- `abg.schema.consensus-subject`
+- `abg.schema.consensus-panel`
+- `abg.schema.consensus-reviewer-profile`
+- `abg.schema.review-findings`
+- `abg.schema.review-rulings`
+- `abg.schema.consensus-round-policy`
+- `abg.schema.consensus-round-outcome`
+- `abg.schema.consensus-result`
+- `abg.schema.ticket-consensus-projection`
 - `abg.schema.release-snapshot`
 - `abg.schema.a5-r1-release-manifest`
 - `abg.vocabulary.runtime-event-kind`
 - `abg.vocabulary.gtl-program-diagnostic-id`
 - `abg.vocabulary.gtl-program-repair-edit-class`
+- `abg.vocabulary.review-ruling-kind`
+- `abg.vocabulary.consensus-round-outcome`
 - `abg.asset.gtl.language-conformance-corpus`
 
 Canonical schema documents and addressable schema projections shall derive
@@ -265,6 +276,9 @@ catalog contribution and GraphFunction invocation, node-type and overlay
 application, seven-term C execution, F_P result admission/materialization,
 runtime events/replay/continuation, the complete public operator contract,
 installed-product binding and qualification-bound self-conformance.
+Consensus capability publication is optional in 5.0 under
+[Product Release Boundaries](../../PRODUCT.md#50-and-51-release-boundaries);
+an actual published claim still binds its exact function and declared contract.
 
 The mandatory ABIogenesis 5.0 capability identities are:
 
@@ -283,6 +297,10 @@ The mandatory ABIogenesis 5.0 capability identities are:
 - `abg.capability.operator.public-contract@5`
 - `abg.capability.install.bind-products@5`
 - `abg.capability.qualification.self-conformance@5`
+
+`abg.capability.graph-function.consensus@5` retains its stable identity for an
+optional published Consensus claim and the dedicated 5.1 qualification. Its
+absence is not a 5.0 mandatory-capability gap.
 
 The mandatory identities shall derive from one capability-definition graph
 whose rows bind the owning public contract identities and dependencies.

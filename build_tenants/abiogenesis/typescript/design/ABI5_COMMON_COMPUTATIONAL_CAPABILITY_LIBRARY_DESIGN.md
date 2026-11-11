@@ -1300,7 +1300,7 @@ For method assessment, declare the predicate and support first. A valid evaluati
 | A5-F16 | `admit`, `value`, `select`, `binding`; resolution; history, `calculus`; store; effect, `process` | Immutable publication, installed-RC proof and actual human acceptance. |
 | A5-F17 | every library module and owner route, as traversed | Original source→working outcome→independent evaluation→consequential correction. |
 
-This routes coverage without claiming every occurrence consolidated or every family qualified. F12, native human response/resume and other [reserved 5.1 behavior](../../../../specification/PRODUCT.md#50-and-51-release-boundaries) are not reintroduced. Full Data Mapper delivery and all seven sandbox workloads are not additional library or 5.0 release gates.
+This routes coverage without claiming every occurrence consolidated or every family qualified. F08/F12, native human response/resume and other [reserved 5.1 behavior](../../../../specification/PRODUCT.md#50-and-51-release-boundaries) are not reintroduced. Full Data Mapper delivery and all seven sandbox workloads are not additional library or 5.0 release gates.
 
 ## 13. Conformance claimed and not claimed
 

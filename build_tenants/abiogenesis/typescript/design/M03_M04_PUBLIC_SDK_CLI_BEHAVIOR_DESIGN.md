@@ -28,7 +28,7 @@
   the current pending, responded, held, or resume-admitted interaction.
 - **Explicit exclusions**: consuming a response as a `TraversalUnit`, applying
   traversal effects, selecting a private frontier, deciding closure, returning
-  escalation as graph success, a feature-specific CLI verb, a shell-owned
+  escalation as graph success, a Consensus-specific CLI verb, a shell-owned
   continuation, an automatic wake controller, scheduler, watcher, or ticket
   mutation.
 - **Successor boundary**: T-267 owns traversal-result conservation and may
@@ -351,7 +351,7 @@ T-258 implementation acceptance requires:
 
 1. exact request, result, refusal, invocation, schema, operation, capability, and
    package-export publication for the five F_H operations and `run.resume`;
-2. one generic fixture proving open, project, respond, resume, and
+2. one generic non-Consensus fixture proving open, project, respond, resume, and
    replay through public SDK and CLI-equivalent request construction;
 3. negative tests for unknown interaction, stale basis, undeclared operation or
    choice, wrong response contract, missing actor, capability mismatch, missing
@@ -359,7 +359,7 @@ T-258 implementation acceptance requires:
    response, and a non-resume-eligible operation;
 4. exact idempotent replay behavior for repeated equivalent submissions;
 5. T-252 structural invocation of the public interaction path while preserving
-   the unchanged GTL body digest;
+   the unchanged Consensus GTL body digest;
 6. no private runner import from the CLI, no second event reader, no scheduler,
    no watcher, and no post-resume traversal before T-267;
 7. focused, semantic, GTL, T-223, publication, packed-export, Mermaid, lint,

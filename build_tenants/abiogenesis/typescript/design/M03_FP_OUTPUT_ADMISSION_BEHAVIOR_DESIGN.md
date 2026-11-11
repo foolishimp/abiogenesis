@@ -41,7 +41,8 @@ continuation, or closure.
 - hostile in-process object forgery or filesystem tamper resistance;
 - semantic truth inferred from worker prose;
 - traversal-result conservation, owned by `T-267`;
-- F_H interaction, owned by `T-258`.
+- F_H interaction, owned by `T-258`;
+- any Consensus-specific parser, schema, controller, or runtime branch.
 
 ## Design Decisions
 
@@ -473,7 +474,7 @@ Closure requires all of the following:
 
 1. one generic admission family serves both standard profiles and produces two
    profile-specific projections;
-2. one generic F_P fixture exercises that atom;
+2. one non-Consensus F_P fixture exercises that atom;
 3. every canonical T-252 F_P stage invokes the same atom against its compiled
    target result-contract compatibility surface;
 4. T-252 body bytes remain at
@@ -497,6 +498,7 @@ Closure requires all of the following:
 T-257 proves the closed external wire boundary only. The 2026-07-19 audit
 corrected its former evidence/target conflation: T-270 owns integration with the
 already accepted T-255/T-256 target admission and T-271 traversal interpreter.
+This design does not claim that the canonical Consensus graph has run.
 
 ## 2026-07-19 Bounded Conformance Amendment
 
@@ -525,7 +527,7 @@ not a second wire field, is the evaluator-locus target candidate.
 ## Design Verdict
 
 `accepted`. G1-G5 and the bounded evidence/target correction are resolved at
-design level without introducing a feature-specific runtime, a second wire
+design level without introducing a Consensus-specific runtime, a second wire
 admission authority, or a local target-schema path. Cross-view consistency now
 requires a distinct target candidate and downstream compiler-selected target
 admission. Delegated F_H authority authorizes the T-270 realization against

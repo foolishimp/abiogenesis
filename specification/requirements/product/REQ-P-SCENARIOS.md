@@ -11,13 +11,14 @@
 
 ## Purpose
 
-Define the six end-to-end scenarios that operationalize the ABIogenesis 5.0
+Define the seven end-to-end scenarios that operationalize the ABIogenesis 5.0
 Product. These requirements decompose the stable scenario identities in
 `PRODUCT.md`; they do not define another product boundary.
 
 Every scenario inherits [Product Release Boundaries](../../PRODUCT.md#50-and-51-release-boundaries).
-Mandatory host parity, native human response/resume and the dedicated F12/S04
-observer/tuner Product are reserved for 5.1. Selected framed Executive/default-library composition, local recursion,
+Standalone Consensus qualification, mandatory host parity, native human
+response/resume and the dedicated F12/S04 observer/tuner Product are reserved
+for 5.1. Selected framed Executive/default-library composition, local recursion,
 automatic progression, correction and truthful blocked handoff remain 5.0.
 
 ## General Scenario Law
@@ -162,6 +163,19 @@ mutation. Full-tree visibility or child success alone supplies no authority
 or parent closure. Deferral of this scenario shall not defer or weaken 5.0
 self-conformance under `REQ-P-SELF-CONFORMANCE` and `REQ-P-QUAL-060`.
 
+### `ABG5-S05` - Consensus Free Construction
+
+**REQ-P-SCENARIOS-012**: `ABG5-S05` is reserved for 5.1 and is not a 5.0 gate.
+Its selected installed candidate invokes the
+SYSTEM-owned Consensus GraphFunction through the ordinary catalog, admitted
+GTL, HoG, ABG, and CLI path over one real ticket and at least two differently
+attributed reviewer profiles. It shall prove agreement closure, dispute
+recursion, and round-limit or unresolved-dispute typed block/handoff to `F_H` in an
+existing workspace, an alternate workspace, and a clean temporary workspace.
+Every result and continuation shall be typed and replay-derived. No shell,
+plugin, fixture, or product-local service may own panel orchestration or ticket
+mutation. Native human response/resume after that handoff is reserved for 5.1.
+
 ### `ABG5-S06` - Native And Downstream Portability
 
 **REQ-P-SCENARIOS-013**: `ABG5-S06` completes one public-contract
@@ -241,7 +255,7 @@ governor.
 `ABG5-S01`, `ABG5-S02`, `ABG5-S03`, and `ABG5-S06` before RC
 eligibility. `ABG5-S07` then owns the release lifecycle across its distinct
 subjects. The complete S06 lifecycle witness is required pre-RC evidence;
-bounded intermediate threads shall not substitute for it. `ABG5-S04`, a
+bounded intermediate threads shall not substitute for it. `ABG5-S04`, `ABG5-S05`, a
 separately scoped post-5.0 odd_glc maturation campaign, 5.0.1 self-use campaign,
 fixed-point proof, operation count, atom count, ticket roster, or
 implementation census is successor or derived evidence, not an additional

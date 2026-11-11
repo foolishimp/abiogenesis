@@ -41,6 +41,8 @@ ABIogenesis retains one catalog.
   membership, target, and contributor basis in a branded application
   candidate. ABG consumes the candidate once. Structural similarity, another
   store, or a second admission cannot mint or reuse that authority.
+- The canonical Consensus disagreement rule needs no overlay. An alternative
+  ruling exists only when its concrete overlay is applied.
 - ABG verifies and admits the operation-local application carrier without
   appending a runtime or generic artifact event.
 
@@ -49,6 +51,7 @@ inheritance mechanism. Catalog row selection remains exact.
 
 ## Rejected Alternatives
 
+- a Consensus-specific catalog or policy registry;
 - a caller-supplied value reference and digest without the value preimage;
 - a structural value or receipt that did not pass the row-owning installed
   Product validator;

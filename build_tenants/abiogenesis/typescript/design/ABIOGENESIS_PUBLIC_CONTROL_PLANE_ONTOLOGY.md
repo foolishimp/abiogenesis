@@ -39,7 +39,8 @@ authority.
 | `REQ-P-PUBLIC-CONTRACTS.md` | `eed6bfd474d8e572a82d25a7e227f5e1e447f0f78f75933a32fdaf3ed7c43764` | current identities, invocation descriptors, capabilities, and publication law |
 | `REQ-P-CATALOG.md` | `af273d059574c4e8e19a9599005956683372db88ba0d8e57d5c5b14a58ff3c84` | product descriptors, contribution manifests, kinds, application, and allowlist law |
 | `REQ-P-INSTALL.md` | `72b09080ed9b47643a73e762a8a43622b798f5b0c7d55d31906947432b783e74` | product, artifact, install, toolchain, workspace, and binding law |
-| `REQ-P-SCENARIOS.md` | `a7430bb1468f6d26d46bfdd41be43c81220954e793ff47052488b206b54b0562` | installed operator behavior |
+| `REQ-P-CONSENSUS.md` | `d6e92b75cd52fb9f2063d0a6ff99d36a7617a52c997ff165236cb2571c9fd36d` | reference GraphFunction consumer and workspace applications |
+| `REQ-P-SCENARIOS.md` | `a7430bb1468f6d26d46bfdd41be43c81220954e793ff47052488b206b54b0562` | installed operator and Consensus behavior |
 | `REQ-P-QUAL.md` | `bebedefb749e6cb6be3111bbadb8a342aca396b88456947bbe0dde1cb5b4b6dd` | exact candidate, malformed-output, manifest, and release evidence |
 | `REQ-P-SELF-CONFORMANCE.md` | `a1f7e53a0bf5ec8516d2fecb0a720e2580fd18d72b49e94bc44f38f68e935349` | exact-candidate self-conformance evaluator and release-gate law |
 | `REQ-L-GTL3-CONTRACT-LAW-API.md` | `c2380d7798e1bd8eec80b7b603ca2a3dba963a9ab5ba337d9ce28649f7118473` | public GTL contract-law and conformance boundary |
@@ -1461,7 +1462,7 @@ its current `abg.operation.*` identity must survive.
 
 ### T-244 Retained-Feature No-Silence Check
 
-T-244 is a derived planning basis, not authority. Its retained feature rows
+T-244 is a derived planning basis, not authority. Its 17 retained feature rows
 must nevertheless remain accounted for so compression cannot silently delete
 accepted release scope.
 
@@ -1474,6 +1475,7 @@ accepted release scope.
 | `A5-F05` addressable contracts/schemas/capabilities/publication | `PublicFunctionDefinition<K>`, `CapabilityDefinition`, `PublicContractCatalog`, `TenantConformanceManifest`, `AF-24`, `AF-27` | retained and Prime-contracted to one definition register and schema projector while keeping realized-claim publication distinct; exact-candidate qualification publishes one schema identity/document with five addressable subordinate definitions |
 | `A5-F06` SDK and thin CLI graph shell | public operation projection below | retained as adapters over the derived operation family; no adapter controller |
 | `A5-F07` interactive operator loop | `AF-03`, `AF-11..AF-18`, supervised-root and interactive compositions | retained; the operator observes, responds, and continues through One Surface without adapter-owned selection |
+| `A5-F08` bounded Consensus GraphFunction | public One Surface/runtime atoms plus existing GTL composition | retained as the first free construction; it creates no Consensus-specific engine atom or private invocation path |
 | `A5-F09` list/describe/apply by catalog kind | `AF-03`, `AF-10`, `AF-15` | retained; `node_type|overlay` application is public and non-callable, GraphFunction alone invokes |
 | `A5-F10` runtime/replay/provenance/continuation truth | existing ABG Ontology, `AF-03`, `AF-11..AF-20` | retained; no public event store, closure evaluator, action selector, or continuation truth is introduced |
 | `A5-F11` ABIogenesis self-conformance | `AF-22 evaluateConformance(self_conformance, ...)`, `AF-27` | retained; exact candidate inventory, realized-claim manifest, and negative proof remain DS-6 work |
@@ -1490,9 +1492,9 @@ candidate Ontology has not lost the current retained set by silence.
 
 ### Capability Projection No-Silence Check
 
-The 15 current capability identities remain independently addressable
-`CapabilityDefinition` projections from `AF-24`; they do not become 15 runtime
-authorities or 15 authored registries.
+The 16 current capability identities remain independently addressable
+`CapabilityDefinition` projections from `AF-24`; they do not become 16 runtime
+authorities or 16 authored registries.
 
 | Current capability identity | Owning Ontology carrier |
 |---|---|
@@ -1511,6 +1513,7 @@ authorities or 15 authored registries.
 | `abg.capability.operator.public-contract@5` | accepted public definition family and its 19 projected operation identities |
 | `abg.capability.install.bind-products@5` | `AF-04..AF-09` installed-workspace composition |
 | `abg.capability.qualification.self-conformance@5` | `AF-22(self_conformance)` under its distinct qualification law |
+| `abg.capability.graph-function.consensus@5` | pure GTL Consensus construction over ordinary published atoms |
 
 Capability availability still does not admit actor-specific execution. An
 effect-bearing invocation requires exact `CapabilityGrant` rows in its
