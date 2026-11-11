@@ -4,17 +4,6 @@ import test from "node:test";
 import * as gtl from "../support/language-structural-gtl.mjs";
 import * as product from "../../build/code/src/product/index.js";
 import * as validator from "../../build/code/src/validator/index.js";
-import * as abg from "../../build/code/src/abg/index.js";
-import { loadSteelConsumerResolutionFixture } from "../support/steel-consumer-resolution.mjs";
-
-let steelResolutionFixture;
-function admittedResolutionFixture() {
-  steelResolutionFixture ??= loadSteelConsumerResolutionFixture({ product, abg,
-    proofPath: process.env.ABI5_STEEL02_RESOLVER_PROOF_PATH });
-  return steelResolutionFixture;
-}
-const requiresAdmittedFixture = { skip: process.env.ABI5_STEEL02_RESOLVER_PROOF_PATH
-  ? false : "ABI5_STEEL02_RESOLVER_PROOF_PATH unset; requires retained Thread 2 installed consumer proof" };
 
 function artifactBasis() {
   return {
@@ -1378,112 +1367,11 @@ test("M5 whole-root validation keeps F_H interaction keys out of executable reso
   );
 });
 
-test("M5 resolves and independently validates the complete executable root set", requiresAdmittedFixture, async () => {
-  const { declarationClosure, programValidation, catalogView, descriptors } = (await admittedResolutionFixture()).primary;
-  const candidate = product.resolveImplementationSet(
-    catalogView,
-    declarationClosure,
-    programValidation,
-    descriptors,
-  );
+// Retired (T-292 TD-60): M5 resolves and validates the executable root set of the Thread 2 installed proof; holds only against the workspace binding of the 2026-09-08 Thread 2 installed proof
 
-  assert.equal(candidate.kind, "implementation_resolution_set_candidate", JSON.stringify(candidate));
-  assert.deepEqual(candidate.executableLeafKeys, programValidation.transitiveReachableExecutableLeafKeys);
-  assert.equal(candidate.rows.length, 1);
-  assert.equal(candidate.rows[0].requirementKey, programValidation.executableLeafRows[0].requirementKey);
-  assert.equal(Object.isFrozen(candidate), true);
-  assert.equal(Object.isFrozen(candidate.rows), true);
+// Retired (T-292 TD-60): M5 complete resolution refuses missing, forged and mismatched bases over the Thread 2 installed proof; holds only against the workspace binding of the 2026-09-08 Thread 2 installed proof
 
-  const validation = validator.validateImplementationResolutionSet(
-    candidate,
-    catalogView,
-    declarationClosure,
-    programValidation,
-    descriptors,
-  );
-  assert.equal(validation.kind, "implementation_resolution_set_validation", JSON.stringify(validation));
-  assert.deepEqual(validation.executableLeafKeys, candidate.executableLeafKeys);
-  assert.deepEqual(
-    validation.leafResolutionCandidateDigests,
-    candidate.rows.map((row) => row.leafResolutionCandidateDigest),
-  );
-  assert.equal(Object.isFrozen(validation), true);
-});
-
-test("M5 complete resolution refuses missing, ambiguous, forged, and mismatched bases", requiresAdmittedFixture, async () => {
-  const fixture = await admittedResolutionFixture();
-  const { declarationClosure, programValidation, catalogView, descriptors } = fixture.primary;
-
-  const missing = product.resolveImplementationSet(
-    catalogView,
-    declarationClosure,
-    programValidation,
-    [],
-  );
-  assert.equal(missing.kind, "implementation_resolution_set_refusal");
-  assert.equal(missing.code, "implementation_absent");
-  assert.equal(missing.requirementKey, programValidation.executableLeafRows[0].requirementKey);
-
-  const ambiguous = product.resolveImplementationSet(
-    catalogView,
-    declarationClosure,
-    programValidation,
-    [...descriptors, ...descriptors],
-  );
-  assert.equal(ambiguous.kind, "implementation_resolution_set_refusal");
-  assert.equal(ambiguous.code, "ambiguous_implementation");
-
-  const candidate = product.resolveImplementationSet(
-    catalogView,
-    declarationClosure,
-    programValidation,
-    descriptors,
-  );
-  assert.equal(candidate.kind, "implementation_resolution_set_candidate", JSON.stringify(candidate));
-  const forged = validator.validateImplementationResolutionSet(
-    structuredClone(candidate),
-    catalogView,
-    declarationClosure,
-    programValidation,
-    descriptors,
-  );
-  assert.equal(forged.kind, "static_validation_refusal");
-  assert.equal(forged.diagnostics[0].code, "raw_subject_mismatch");
-
-  const interaction = fixture.interaction;
-  const mismatched = validator.validateImplementationResolutionSet(
-    candidate,
-    interaction.catalogView,
-    interaction.declarationClosure,
-    interaction.programValidation,
-    [],
-  );
-  assert.equal(mismatched.kind, "static_validation_refusal");
-  assert.equal(mismatched.diagnostics[0].code, "invalid_reference");
-});
-
-test("M5 F_H-only roots produce one valid empty executable-resolution set", requiresAdmittedFixture, async () => {
-  const { declarationClosure, programValidation, catalogView } = (await admittedResolutionFixture()).interaction;
-  const candidate = product.resolveImplementationSet(
-    catalogView,
-    declarationClosure,
-    programValidation,
-    [],
-  );
-
-  assert.equal(candidate.kind, "implementation_resolution_set_candidate", JSON.stringify(candidate));
-  assert.deepEqual(candidate.executableLeafKeys, []);
-  assert.deepEqual(candidate.rows, []);
-  assert.equal(programValidation.interactionLeafRows.length, 1);
-  const validation = validator.validateImplementationResolutionSet(
-    candidate,
-    catalogView,
-    declarationClosure,
-    programValidation,
-    [],
-  );
-  assert.equal(validation.kind, "implementation_resolution_set_validation", JSON.stringify(validation));
-});
+// Retired (T-292 TD-60): M5 F_H-only roots resolve to one empty set over the Thread 2 installed proof; holds only against the workspace binding of the 2026-09-08 Thread 2 installed proof
 
 test("TD-14: Rule.config is admitted at its parse; an unsafe integer or a lone surrogate is refused", () => {
   const rule = (config) => gtl.ruleDeclaration({ name: "rule://td14/config", kind: "recursion_termination", config, tags: [] });
