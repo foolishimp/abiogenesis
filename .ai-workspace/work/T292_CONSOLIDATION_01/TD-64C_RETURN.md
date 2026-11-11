@@ -1,8 +1,191 @@
 # TD-64C Return: constitution history move
 
-**Status:** stopped before cutting. A hand-back condition holds: section 5.6.3 is cited from outside the constitution as authority. 0 lines moved. The constitution and `T/design` are unchanged, and this Return is the only file on the branch. The branch is `claude/td64c-constitution-history` in `/private/tmp/abg-td64c`, from `675b5e90f`.
+**Status:** cut, by the second Writer under the Executive's ruling (option 1). Sections 5.6.2, 5.6.2A, 5.6.2B, 5.6.4 and 15 (1,265 lines) are verbatim in `T/design/history/ABI5_REALIZATION_CONSTITUTION__RETIRED_SECTIONS.md`. Each keeps its heading in the constitution with one pointer paragraph. Section 5.6.3 stays whole, and record 16.16 is added. The constitution goes from 4,456 to 3,251 lines. All checks pass, and nothing needs a ruling.
 
-`T` is `build_tenants/abiogenesis/typescript`. Change class: `design_reframe` with no realization change, as planned. Nothing was cut.
+**First Writer's status:** stopped before cutting. A hand-back condition holds: section 5.6.3 is cited from outside the constitution as authority. 0 lines moved. The constitution and `T/design` are unchanged, and this Return is the only file on the branch. The branch is `claude/td64c-constitution-history` in `/private/tmp/abg-td64c`, from `675b5e90f`. Nothing was cut.
+
+`T` is `build_tenants/abiogenesis/typescript`. Change class: `design_reframe` with no realization change, as planned.
+
+## Completion after the Executive's ruling
+
+### Ruling
+
+The Executive chose option 1. Section 5.6.3 stays whole and unedited. Its Table 5.6.3-B rows `N01` to `N13` are catalog law: the common-library design uses them, and record 16.14 amends them. The other five sections move. Splitting 5.6.3, or moving its rows into Section 10, is not part of this package.
+
+### Rule 3 re-verification
+
+`refs.py` and `idents.py` were re-run with 5.6.3 counted as kept text (`refs5.py`, `idents5.py`), and `terms5.py` was added. Every reference from kept text into a moved section is evidence, provenance or supersession. No moved section is a dependency. Line numbers are at `675b5e90f`.
+
+| Moved section | Kept references | Role |
+|---|---|---|
+| 5.6.2 | 681; 1852; 3026; 4237; 4292 | 681 is the stale pointer noted below the first table; 3026 is evidence on evidence; the rest are supersession |
+| 5.6.2A | 1852; 2248; 3150 (term); 4292 | supersession |
+| 5.6.2B | 1852; 2424; 2909-2914; 2958-2962; 4258, 4261, 4276; 4292-4293 | supersession, evidence and provenance; see the two additions below |
+| 5.6.4 | 2432; 2498; 2980; 3022-3026; 3148; T-287 4704, 4718 | evidence; T-287 is provenance under its retained-history preface at line 4694 |
+| 15 | 4311; 4401 | provenance |
+
+The first Writer's fallback table did not list two passages in kept 5.6.3. Both are evidence on evidence:
+
+- **2909-2914.** Table 5.6.3-D maps its slot classes onto 5.6.2B's `T0`-`T9` forms ("`V = T0`, `C[S] = T1`, …"). The 5.6.3 banner (2432), 5.6.2C line 2424 ("the former `T0-T9` forms remain classification, conservation, trace, and proof maps only") and 16.7 (4293) make those forms evidence.
+- **2958-2962.** These lines use 5.6.2B's intrinsic arm digest and family digest: "D6 must fail construction if a loaded binding omits or adds a slot …". Line 3149-3150 says "No C1F, C2, D6, `PublicExecutionCandidate`, topology-arm, or generic provider stage retains implementation or advancement authority."
+
+Three further checks found no dependency:
+
+- **Table 5.6.3-B (2561-2685).** It shares no backticked term with the moved text except `3.22.1` and the leaf identifiers `X02` and `X04`, which the table defines itself. `N13`'s "installed definition family" is Section 9's term (line 3481).
+- **3022-3026.** These lines define `bindingKind` `static_composition` as calling the leaves "in the fixed expression order in Section 5.6.4". `static_composition` does not occur in `T/code`, `T/contracts`, `T/scripts` or `T/test_env`. The test files that match `bindingKind` name an unrelated destructured `kind` field. Kept Tables 5.6.3-A and 5.6.3-C state the expressions and their ordered traces.
+- **Section 15.** Section 5.6.5 restates the W2-05 partition itself (3183-3200, "`11 + 2 + 5 + 1 = 19`"), so the moved Section 15 is a duplicate record.
+
+### What moved
+
+| Section | Range at `675b5e90f` | Lines | Heading now at | Lines in the retired file |
+|---|---|---:|---:|---|
+| 5.6.2 Installed definition-binding ABI | 707-1018 | 312 | 707 | 3-314 |
+| 5.6.2A Canonical resource-transition algebra | 1019-1612 | 594 | 716 | 315-908 |
+| 5.6.2B Intrinsic topology and installed-binding identity | 1613-1849 | 237 | 726 | 909-1145 |
+| 5.6.4 Exact 56-key functional factorization map | 3077-3145 | 69 | 1963 | 1146-1214 |
+| 15. Pre-Baseline ABIogenesis Application (Historical Selection) | 4086-4138 | 53 | 2913 | 1215-1267 |
+| total | | 1,265 | | |
+
+- **Subsection headings.** None of the five ranges has one, so only the five section headings stay.
+- **Retired file.** It has 1,267 lines. Line 1 is its first paragraph: "Cut from `build_tenants/abiogenesis/typescript/design/ABI5_REALIZATION_CONSTITUTION.md` at commit `675b5e90f`, lines 707-1018 (Section 5.6.2), 1019-1612 (Section 5.6.2A), 1613-1849 (Section 5.6.2B), 3077-3145 (Section 5.6.4), 4086-4138 (Section 15), verbatim. Relative links inside the moved text resolve against the pre-move layout and are not repaired." Line 2 is blank, and lines 3 onward are the ranges in order with nothing between them.
+- **Links in the moved text.** It contains none.
+- **Constitution length.** It goes from 4,456 lines to 3,240 after the move: 1,265 lines leave and 49 come in, which are the five heading, pointer and blank-line blocks. It reaches 3,251 with record 16.16, which adds 11 lines: one blank line and the ten record lines starting at line 3242.
+
+### Pointer paragraphs as written
+
+```markdown
+#### 5.6.2 Installed definition-binding ABI
+
+This subsection specified the `PublicExecutionCandidate` execution carrier,
+resource-topology arms, generic providers and installed-binding construction.
+Section 16.7 supersedes it in full as implementation authority; Section 5.6.2C
+is the sole operative installed definition-binding law. Its text is historical
+classification and constructability evidence. Section 16.16 moves it to
+[design history](history/ABI5_REALIZATION_CONSTITUTION__RETIRED_SECTIONS.md#562-installed-definition-binding-abi).
+
+#### 5.6.2A Canonical resource-transition algebra
+
+This subsection specified the closed canonical resource-topology arm family of
+each definition in the 18-operation/56-key family, with its resource forms,
+provider relations and transition carriers. Section 16.7 supersedes it in full
+as implementation authority; Section 5.6.2C replaces its implementation
+interpretation. Its text is evidence about owner effects and durability
+boundaries only. Section 16.16 moves it to
+[design history](history/ABI5_REALIZATION_CONSTITUTION__RETIRED_SECTIONS.md#562a-canonical-resource-transition-algebra).
+
+#### 5.6.2B Intrinsic topology and installed-binding identity
+
+This subsection defined the reusable topology forms `T0-T9` and the
+family/arm/load identities over the fixed 18/56 census. Section 16.7 supersedes
+it in full as implementation authority; Section 5.6.2C replaces it for
+implementation. The `T0-T9` forms remain a historical proof partition, which
+Table 5.6.3-D and Sections 5.6.2C and 16.7 cite as evidence. Section 16.16
+moves its text to
+[design history](history/ABI5_REALIZATION_CONSTITUTION__RETIRED_SECTIONS.md#562b-intrinsic-topology-and-installed-binding-identity).
+
+#### 5.6.4 Exact 56-key functional factorization map
+
+This subsection mapped each of the 56 exact definition keys to its entity and
+class, canonical operator expression, semantic owners and static composition,
+and the callable loci and effect gaps of that time. Sections 5.6.3 and 5.6.5
+name it classification and proof evidence; its map cannot select runtime
+carrier types, combinators, wrapper bodies or construction budgets. Section
+16.16 moves its text to
+[design history](history/ABI5_REALIZATION_CONSTITUTION__RETIRED_SECTIONS.md#564-exact-56-key-functional-factorization-map).
+
+## 15. Pre-Baseline ABIogenesis Application (Historical Selection)
+
+This section recorded the earlier W2-05 selection: the Wave 1 frozen artifact
+and interface receipt, the Wave 2 binding disposition of the 56 definitions and
+a construction order under Section 5.6.2C. Its selection and advancement
+language is non-operative and grants no implementation, repair, acceptance or
+release effect; Section 16.13 classifies it as non-operative history. Section
+16.16 moves its text to
+[design history](history/ABI5_REALIZATION_CONSTITUTION__RETIRED_SECTIONS.md#15-pre-baseline-abiogenesis-application-historical-selection).
+```
+
+### Record 16.16 as written
+
+```markdown
+### 16.16 T-292 Design-History Retirement Record
+
+| Field | Record |
+|---|---|
+| **reason** | Historical and superseded text leaves the operative surface (T-292, register entry TD-64). Sections 5.6.2, 5.6.2A and 5.6.2B are superseded by their own banners and Section 16.7; Section 5.6.4 is classification and proof evidence by Sections 5.6.3 and 5.6.5; Section 15 is non-operative history by its own banner and Section 16.13. |
+| **upstream basis** | The workspace method: active surfaces stay present tense, and historical material belongs in design history. |
+| **superseded clause** | None. No clause changes. |
+| **affected catalog/entity rows** | None. |
+| **migration consequence** | The five sections' headings remain in place, each with a pointer; their text (1,265 lines) is in `history/ABI5_REALIZATION_CONSTITUTION__RETIRED_SECTIONS.md`. References by number and anchor resolve as before. |
+| **change class** | `design_reframe` of this surface's text only. Product, requirements, entities, catalog, stack and method selection are unchanged. |
+```
+
+Two changes from the proposal keep it exact:
+
+- **reason.** The proposal said all five sections are superseded or evidence-only "by their own banners and Sections 16.7 and 16.13". 5.6.4 has no banner; its status comes from the 5.6.3 banner (2432) and from 5.6.5 (3148). The reason now names the source of each section's status.
+- **migration consequence.** It gains the line count.
+
+Section 16's body is unchanged. Its sentence on Sections 16.1 through 16.12 stays true.
+
+### Other files
+
+- **`T/design/history/README.md`.** The "Retired sections" list goes from 5 entries to 26: every `__RETIRED_SECTIONS.md` file in `history/`, including the new one. The five existing entries are unchanged and the list stays in alphabetical order. Each source note is a live note in `T/design`. Nothing else in the file changes.
+- **`T/design/README.md`.** Unchanged. Its line 8 ("local realization authority: module and owner tables, technology stack, common-library catalog, amendment rule") is still true.
+- **Mirrors.** No mirror was edited.
+  - `T/test_env/qualification/inventory.json` member 505 pins the constitution at `sha256:68577ff6…`, 391,566 bytes. The base bytes already differed from that pin: `sha256:43ce5cca…`, 396,214 bytes. The constitution's bytes change again in this package, to `sha256:6df35a30…`, 321,797 bytes.
+  - `recipe/verification-recipe.json` names the constitution by path at line 1698.
+  - Neither mirror lists the history README or any `__RETIRED_SECTIONS.md` file.
+
+### Checks after the cut
+
+**Script check** (`verify.py --with-record`, 36 of 36 pass). It reads the original from `git show 675b5e90f:…` and checks:
+
+- the retired file's line 1;
+- the retired file's body against the original lines of the five ranges;
+- the constitution as the original with each range replaced by heading, blank line, one paragraph and blank line, and record 16.16 appended. The `difflib` opcodes are the five replacements plus one insert at the end;
+- that the heading list is the original 82 headings plus 16.16;
+- that each pointer link names the retired file and a heading slug in it;
+- that each moved section's number has exactly one heading.
+
+`cut.py` builds the files, and `verify.py` checks them independently.
+
+**Anchors** (`anchors.py HEAD`).
+
+- Totals: 932 anchor links into the constitution, 0 unresolved.
+- The two above the base 930 are this Return's quotations of the library design's `#table-563-b---selected-leaf-instance-catalog` links. The set of anchor links from every other file is unchanged.
+- The constitution has 0 in-file anchor links.
+- The five pointer links resolve to the retired file's heading slugs.
+- Every "Section N", "§N" or "N.N.N" reference to a moved section names a heading that is still present.
+
+**Link check** (`linkcheck.py --all`). No new dangling link.
+
+| Scope and form | Before | After |
+|---|---|---|
+| design-live rel | 491, 39 dangling | 496, 39 dangling (the five pointer links) |
+| design-live repo | 37, 1 dangling | 37, 1 dangling |
+| design-hist rel | 876, 186 dangling | 918, 186 dangling (21 new README entries, two links each) |
+| design-hist bare | 133, 103 dangling | 134, 103 dangling (the retired file's line 1) |
+| all other scopes | unchanged | unchanged |
+
+**Realization diff.** `git diff --stat 675b5e90f -- T/code T/contracts T/scripts T/test_env T/package.json T/product-toolchain-manifest.json specification` is empty. `git diff --stat 675b5e90f` lists four files: the constitution, the retired file, the history README and this Return.
+
+### Commits
+
+| Commit | Content |
+|---|---|
+| `c1eb397e4` | move: constitution pointers and the retired file |
+| `f88a5a9a0` | record 16.16 |
+| `8afe96fff` | history README list |
+| this Return | last |
+
+The pointers at `c1eb397e4` cite Section 16.16, which `f88a5a9a0` adds.
+
+### Residuals
+
+- **Line 681** (unchanged, still 681). 5.6.1A law 3 names "5.6.2" where its operative referent is 5.6.2C. It now resolves to the 5.6.2 pointer, which names 5.6.2C.
+- **The 5.6.3 banner** (now line 1318). It still calls 5.6.5 "non-executable classification and proof evidence".
+- **History README line 5.** It still says the `__RETIRED_SECTIONS.md` files come from "five kept notes in commit `4e405ff08`". Rule 6 limits the edit to the list, so the line was not changed.
+- **Inventory digest.** The constitution's pin was stale before this package and is stale after it. Refreshing it belongs to qualification. No retired-section file is an inventory member.
+- **Carried from the first Writer:** the TD-64R map errors and the `E22` label.
 
 ## Why the package stopped
 
