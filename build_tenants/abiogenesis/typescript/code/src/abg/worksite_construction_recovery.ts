@@ -19,7 +19,7 @@ import { WORKSITE_PRESERVED_RESULT_IDS as ids, WORKSITE_PRESERVED_RESULT_IMPLEME
 import { constructWorksiteObservation } from "../product/worksite_effect.js";
 import { type JsonValue } from "../shared/canonical_json.js";
 import { sha256Bytes, sha256Canonical } from "../shared/digests.js";
-import { classifyPathRelation, pathStrictlyConfined } from "../shared/path_confinement.js";
+import { classifyPathRelation, pathStrictlyWithin } from "../shared/path_confinement.js";
 import { admitIJsonText } from "../shared/i_json.js";
 import { deepFreeze } from "../shared/immutable.js";
 import { projectActorProcessLifecycle, validateActorProcessCarrierPair } from "./actor_process.js";
@@ -151,7 +151,7 @@ function currentTaskPhysical(task: WorksiteConstructionTask): boolean {
   if (resolve(root) !== root || realpathSync(root) !== root || lstatSync(root).isSymbolicLink()) return false;
   for (const target of task.targets) {
     const path = fileURLToPath(target.subject.subjectUri), rel = relative(root, path);
-    if (rel !== target.subject.relativePath || !pathStrictlyConfined(classifyPathRelation(rel))) return false;
+    if (rel !== target.subject.relativePath || !pathStrictlyWithin(classifyPathRelation(rel))) return false;
     let observation;
     try {
       if (realpathSync(path) !== path) return false;

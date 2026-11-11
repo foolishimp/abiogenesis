@@ -19,7 +19,7 @@ import { types } from "node:util";
 import { rehydrateInvocationAdmissionAtPrefix } from "../abg/invocation_admission.js";
 import { isNativeWorkspaceWorkTask, nativeWorkspaceWorkAuthorityMatches, nativeWorkspaceWorkGraphFunctionRef, NATIVE_WORKSPACE_WORK_IDS as nativeIds } from "../product/native_workspace_work.js";
 import { isRecord } from "../shared/admission_predicates.js";
-import { pathRelation, pathStrictlyConfined } from "../shared/path_confinement.js";
+import { pathRelation, pathStrictlyWithin } from "../shared/path_confinement.js";
 import { SELF_CONFORMANCE_IDS } from "../gtl/self_conformance.js";
 import { QUALIFICATION_IMPLEMENTATION_REFS, projectQualificationConsumer, projectNativeRuntimeAssessment, projectExactCandidateQualification, qualificationAssessorEligibility } from "../abg/qualification_proof.js";
 import { qualificationResultRelation } from "../validator/self_conformance_semantics.js";
@@ -1096,7 +1096,7 @@ export async function constructAdmittedLeafInvocationPort(authority: AdmittedLea
       throw new TypeError("leaf implementation lacks its selected owner");
     }
     const exactPath = resolve(owner.install.installedRoot, resolution.modulePath);
-    if (!pathStrictlyConfined(pathRelation(owner.install.installedRoot, exactPath))) {
+    if (!pathStrictlyWithin(pathRelation(owner.install.installedRoot, exactPath))) {
       throw new TypeError("leaf implementation module escapes the admitted Product install");
     }
     let loaded = modules.get(exactPath);

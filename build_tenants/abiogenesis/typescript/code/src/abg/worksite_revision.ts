@@ -12,7 +12,7 @@ import { isWorksiteFileParentsSuccess } from "../product/worksite_effect.js";
 /** D2's single prefix-owned observation projection. No caller grants or ledger. */
 import { canonicalJson, type JsonValue } from "../shared/canonical_json.js";
 import { sha256Bytes, sha256Canonical, type Sha256Digest } from "../shared/digests.js";
-import { pathRelation, pathStrictlyConfined } from "../shared/path_confinement.js";
+import { pathRelation, pathStrictlyWithin } from "../shared/path_confinement.js";
 import { constructWorksiteObservation, isWorksiteObservation, type WorksiteObservation, type WorksiteSubject } from "../product/worksite_effect.js";
 import { isSemanticStageEnvelope, projectSemanticWorksiteCoordinates, type SemanticWorksiteBasis } from "../product/semantic_stage.js";
 import { isSemanticRevisionEnvelope, isSemanticRevisionRequest, isSemanticRevisionSelectionInput, isSemanticRevisionSelection,
@@ -792,7 +792,7 @@ export function worksiteRevisionPhysicalMatches(current: SemanticWorksiteBasis):
     if (resolve(root) !== root || realpathSync(root) !== root) return false;
     return current.targets.every(row => {
       const path = resolve(root, row.target.subject.relativePath);
-      if (!pathStrictlyConfined(pathRelation(root, path))) return false;
+      if (!pathStrictlyWithin(pathRelation(root, path))) return false;
       let cursor = root;
       for (const part of row.target.subject.relativePath.split("/").slice(0, -1)) {
         cursor = resolve(cursor, part);
@@ -820,7 +820,7 @@ export function retainedWorksitePhysicalMatches(authority:WorkspaceAuthorityBasi
     if(resolve(root)!==root||realpathSync(root)!==root)return false;
     return rows.every(row=>{
       const target=resolve(root,row.subject.relativePath);
-      if(!pathStrictlyConfined(pathRelation(root,target))||row.observation.state!=="file")return false;
+      if(!pathStrictlyWithin(pathRelation(root,target))||row.observation.state!=="file")return false;
       let cursor=root;
       for(const part of row.subject.relativePath.split("/").slice(0,-1)){
         cursor=resolve(cursor,part);const stat=lstatSync(cursor);

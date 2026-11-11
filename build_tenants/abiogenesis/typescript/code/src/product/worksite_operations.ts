@@ -73,7 +73,7 @@ import {
   type WorksiteContextObservation,
 } from "./worksite_effect.js";
 import { canonicalEquals } from "../shared/value/index.js";
-import { pathConfined, pathRelation, pathWithin } from "../shared/path_confinement.js";
+import { pathRelation, pathWithin } from "../shared/path_confinement.js";
 
 export interface WorksiteFileReplaceInput {
   /** Admitted owner roots supplied only by the guarded internal writer. */
@@ -218,7 +218,7 @@ async function resolveWorksiteTarget(
       canonicalRoot,
       ...subject.relativePath.split("/"),
     );
-    if (!pathConfined(pathRelation(canonicalRoot, targetPath)) || targetPath === canonicalRoot) {
+    if (!pathWithin(pathRelation(canonicalRoot, targetPath)) || targetPath === canonicalRoot) {
       return worksiteRefusal(
         "invalid_relative_path",
         "worksite subject escapes the WorkspaceAuthorityBasis canonical root",
@@ -614,7 +614,7 @@ export async function replaceWorksiteFile(
     target.canonicalRoot,
     ...territory.relativeRoot.split("/"),
   );
-  if (!pathConfined(pathRelation(target.canonicalRoot, territoryPath)) ||
+  if (!pathWithin(pathRelation(target.canonicalRoot, territoryPath)) ||
     target.protectedRoots.some((root) => pathWithin(pathRelation(root, territoryPath))) ||
     !pathWithin(pathRelation(territoryPath, target.targetPath))) {
     return worksiteRefusal(
@@ -959,7 +959,7 @@ async function worksiteReadRoots(input: WorksiteReadBasis): Promise<WorksiteEffe
 function checkedWorksitePath(root: string, protectedRoots: readonly string[], path: string): string | WorksiteEffectRefusal {
   if (normalizeWorksiteRelativePath(path, true) !== path) return worksiteRefusal("invalid_relative_path", "worksite path must be normalized and relative");
   const target = resolve(root, ...path.split("/"));
-  if (!pathConfined(pathRelation(root, target)) || protectedRoots.some(protectedRoot => pathWithin(pathRelation(protectedRoot, target)))) {
+  if (!pathWithin(pathRelation(root, target)) || protectedRoots.some(protectedRoot => pathWithin(pathRelation(protectedRoot, target)))) {
     return worksiteRefusal("subject_outside_territory", "worksite path escapes A or enters a protected install/runtime root");
   }
   return target;
@@ -1004,7 +1004,7 @@ export async function checkWorksiteWriteRoots(input: WorksiteWriteRootsInput): P
     } catch (error) {
       return worksiteRefusal("invalid_coordinate", `worksite write root cannot be resolved: ${String(error)}`, null, errnoCode(error));
     }
-    if (!pathConfined(pathRelation(resolved.root, planned)) ||
+    if (!pathWithin(pathRelation(resolved.root, planned)) ||
       resolved.protectedRoots.some(protectedRoot => pathWithin(pathRelation(protectedRoot, planned)) ||
         pathWithin(pathRelation(planned, protectedRoot)))) return overlap();
   }

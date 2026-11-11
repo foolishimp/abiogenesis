@@ -58,7 +58,7 @@ import {
   type Sha256Digest,
 } from "../shared/digests.js";
 import { admitIJsonValue } from "../shared/i_json.js";
-import { classifyPathRelation, pathConfined, pathRelation, pathStrictlyConfined, pathWithin } from "../shared/path_confinement.js";
+import { classifyPathRelation, pathRelation, pathStrictlyWithin, pathWithin } from "../shared/path_confinement.js";
 import { deepFreeze } from "../shared/immutable.js";
 import { admitJson, hasExactKeys } from "../shared/admit/index.js";
 import type {
@@ -330,7 +330,7 @@ function observeWorksiteSubjectSync(
     throw new TypeError("canonical worksite root changed before Worker dispatch");
   }
   const target = resolve(declaredRoot, ...subject.relativePath.split("/"));
-  if (target === declaredRoot || !pathConfined(pathRelation(declaredRoot, target))) {
+  if (target === declaredRoot || !pathWithin(pathRelation(declaredRoot, target))) {
     throw new TypeError("protected subject escapes the canonical worksite root");
   }
   const protectedRoots = Object.values(task.workspaceBinding.roots)
@@ -468,8 +468,8 @@ function assertArchiveExecutionBoundary(
     );
     const canonicalCandidate = plannedCanonicalPath(path);
     const canonicalLexicalCandidate = resolve(archiveRoot, lexicalRelation);
-    if (!pathStrictlyConfined(classifyPathRelation(lexicalRelation)) ||
-      !pathConfined(pathRelation(archiveRoot, canonicalCandidate)) ||
+    if (!pathStrictlyWithin(classifyPathRelation(lexicalRelation)) ||
+      !pathWithin(pathRelation(archiveRoot, canonicalCandidate)) ||
       canonicalCandidate !== canonicalLexicalCandidate) {
       throw new TypeError("command execution attempt path escapes its archive root");
     }

@@ -31,7 +31,7 @@ import {
   type CapabilityGrant,
 } from "./invocation.js";
 import { canonicalEquals } from "../shared/value/index.js";
-import { classifyPathRelation, pathConfined, pathRelation, pathWithin } from "../shared/path_confinement.js";
+import { pathRelation, pathWithin } from "../shared/path_confinement.js";
 
 export const WORKSITE_FILE_REPLACE_EFFECT_URI =
   "effect://abiogenesis/worksite/file.replace/v1" as const;
@@ -616,7 +616,6 @@ export function normalizeWorksiteRelativePath(
     normalized.startsWith("../") ||
     normalized.includes("/../") ||
     normalized.endsWith("/..") ||
-    !pathConfined(classifyPathRelation(normalized)) ||
     (!allowRoot && (normalized === "." || normalized.length === 0))
   ) return null;
   return normalized.length === 0 ? "." : normalized;

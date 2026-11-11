@@ -12,7 +12,7 @@ import { validSemanticProgramOwners } from "../gtl/semantic_stage.js";
 import type { SemanticStageDeclaration } from "../gtl/semantic_stage.js";
 import type { JsonValue } from "../shared/canonical_json.js";
 import { sha256Canonical } from "../shared/digests.js";
-import { pathRelation, pathStrictlyConfined } from "../shared/path_confinement.js";
+import { pathRelation, pathStrictlyWithin } from "../shared/path_confinement.js";
 import { deepFreeze } from "../shared/immutable.js";
 import { rehydrateExecutionBasisAtPrefix, authenticateOwnedNativeInstructionAssemblyBasis, constructNativeInstructionAssemblyBasis, type ExecutionBasis } from "./execution_basis.js";
 import { type DurablePrefixCoordinate, type RuntimeEvent } from "./event_store.js";
@@ -292,7 +292,7 @@ export function projectSemanticWorksitePreparation(basis: SemanticStageNativeBas
     if (resolve(root) !== root || realpathSync(root) !== root || lstatSync(root).isSymbolicLink()) return null;
     for (const row of worksite.targets) {
       const target = resolve(root, row.target.subject.relativePath);
-      if (!pathStrictlyConfined(pathRelation(root, target))) return null;
+      if (!pathStrictlyWithin(pathRelation(root, target))) return null;
       const expected = row.target.predecessorObservation;
       let cursor = root;
       for (const segment of row.target.subject.relativePath.split("/").slice(0, -1)) {
@@ -379,7 +379,7 @@ export function projectSemanticEvidenceInput(basis: SemanticStageNativeBasis, in
     if (resolve(root) !== root || realpathSync(root) !== root || lstatSync(root).isSymbolicLink()) return null;
     const artifacts = input.snapshotMembers.map(member => {
       const path = resolve(root, member.relativePath);
-      if (!pathStrictlyConfined(pathRelation(root, path)) || realpathSync(path) !== path) throw new TypeError("snapshot path crossed native locus");
+      if (!pathStrictlyWithin(pathRelation(root, path)) || realpathSync(path) !== path) throw new TypeError("snapshot path crossed native locus");
       const stat = lstatSync(path); const bytes = readFileSync(path);
       if (!stat.isFile() || stat.isSymbolicLink() || stat.nlink !== 1 || bytes.length !== member.byteLength || sha256Bytes(bytes) !== member.digest) throw new TypeError("snapshot content differs from admitted C2");
       const currentTarget = expected.constructionTask.targets.find(t => t.targetRef === member.sourceMemberRef);

@@ -4,7 +4,7 @@ import { readFileSync } from "node:fs";
 import { fileURLToPath } from "node:url";
 import { resolve } from "node:path";
 import { sha256Bytes, sha256Canonical } from "../shared/digests.js";
-import { pathConfined, pathRelation } from "../shared/path_confinement.js";
+import { pathRelation, pathWithin } from "../shared/path_confinement.js";
 import type { JsonValue } from "../shared/canonical_json.js";
 import { deepFreeze } from "../shared/immutable.js";
 import { resolveQualificationAssessments, qualificationTenantClaimsMatch, resolveQualificationExecutionMaterial } from "../abg/qualification_proof.js";
@@ -183,7 +183,7 @@ export function evaluateSelfConformance(rawInput: SelfConformanceInput, owner: S
     const coordinate = { ref: member.ref, path: member.path, digest: member.digest, byteCount: member.byteCount };
     // Module-relative path; the bytes are bound to the admitted catalog's source digest below.
     const path = resolve(packageRoot, source.path);
-    if (!pathConfined(pathRelation(packageRoot, path))) throw new TypeError("catalog source path escapes owner asset inventory");
+    if (!pathWithin(pathRelation(packageRoot, path))) throw new TypeError("catalog source path escapes owner asset inventory");
     const published = readFileSync(path);
     if (!canonicalEquals(coordinate, source) || raw.toString("base64") !== member.contentBase64 || sha256Bytes(raw) !== source.digest || raw.length !== source.byteCount || sha256Bytes(published) !== source.digest)
       add("authority_member_digest_mismatch", "failed", "Selected and packaged law member bytes do not agree.", [source.ref], null, source.ref);
