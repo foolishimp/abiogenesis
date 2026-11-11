@@ -30,7 +30,6 @@ export interface StoppedRetryProgressBridgeCoordinates {
 const COMPLETED_RETRY_PROGRESS_CLASSES = Object.freeze([
   "judged_success",
   "fan_out_success",
-  "fh_resume_success",
 ] as const);
 
 function sharesBridgeScope(
