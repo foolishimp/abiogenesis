@@ -1,26 +1,11 @@
-import test from 'node:test';import assert from 'node:assert/strict';import fs from 'node:fs';import {join} from 'node:path';import {pathToFileURL} from 'node:url';
+import test from 'node:test';import assert from 'node:assert/strict';import fs from 'node:fs';import {join} from 'node:path';
 const out=process.env.ABI5_PREDECESSOR_PROOF_ROOT,selected=Boolean(process.env.ABI5_PREDECESSOR_PRIOR_ROOT&&out&&process.env.ABI5_PREDECESSOR_OLD_PACKAGE_ROOT);
 const options={skip:!selected&&'ABI5_PREDECESSOR_PRIOR_ROOT, ABI5_PREDECESSOR_PROOF_ROOT or ABI5_PREDECESSOR_OLD_PACKAGE_ROOT unset; requires the exact preserved original1B evidence, its proof root and the predecessor package'};
-const {root,prior,load,semantic,hash,sha256Bytes,input,stage,failed,raw,source,eventsPath,originalBytes,retainedBasis,componentAssembly,assertIdentities}=selected?await import('../support/t287-predecessor-context.mjs'):{};
+const {root,load,semantic,hash,input,stage,raw,source,retainedBasis,componentAssembly,assertIdentities}=selected?await import('../support/t287-predecessor-context.mjs'):{};
 if(selected)fs.mkdirSync(out,{recursive:true});
 const report={scope:'pure and native-assembly rederivation only; no new runtime admission or actor',checks:[]};
 const record=(name,details)=>{report.checks.push({name,...details});fs.writeFileSync(join(out,'result.json'),JSON.stringify(report,null,2)+'\n');};
-test('empty eligibility, exact retained counterexample and unchanged consumer acceptance',options,async()=>{
-  assert.deepEqual(semantic.semanticPredecessorStatementRefs(input),[]);
-  assert.equal(semantic.isSemanticAssetCandidate(failed),true);
-  assert.equal(semantic.deriveSemanticAsset(input,stage.declarationRef,failed,source('failure')),null);
-  for(const link of ['statement://same-response','statement://unknown','statement://historical-only'])assert.equal(semantic.deriveSemanticAsset(input,stage.declarationRef,raw('statement://same-response',[link]),source('author')),null);
-  const before=await import(pathToFileURL(join(process.env.ABI5_PREDECESSOR_OLD_PACKAGE_ROOT,'build/code/src/product/semantic_stage.js')).href);
-  const good=raw('statement://pure/current');const authored=semantic.deriveSemanticAsset(input,stage.declarationRef,good,source('author'));assert.ok(authored);
-  assert.deepEqual(authored,before.deriveSemanticAsset(input,stage.declarationRef,good,source('author')));
-  const assessment={kind:'semantic_stage_assessment_candidate',schemaVersion:'5.0.0',criteria:stage.rubric.map(c=>({criterionRef:c.criterionRef,disposition:'indeterminate',explanation:'Structural discriminator only.',sourceQuotes:[],statementRefs:['statement://pure/current']})),pressure:[]};
-  assert.ok(semantic.deriveSemanticAssessment(authored,stage.declarationRef,assessment,source('assessor')));
-  assert.deepEqual(semantic.deriveSemanticAssessment(authored,stage.declarationRef,assessment,source('assessor')),before.deriveSemanticAssessment(authored,stage.declarationRef,assessment,source('assessor')));
-  assert.deepEqual(semantic.semanticWorkerResultSchema('assessor',[]),before.semanticWorkerResultSchema('assessor',[]));
-  const schema=structuredClone(semantic.semanticWorkerResultSchema('author',[]));assert.match(schema.properties.statements.items.properties.predecessorStatementRefs.description,/Historical|historical/);delete schema.properties.statements.items.properties.predecessorStatementRefs.description;
-  assert.deepEqual(schema,before.semanticWorkerResultSchema('author',[]),'description only; schema acceptance grammar unchanged');
-  record('empty and retained failure',{invalidLinks:failed.statements.flatMap(s=>s.predecessorStatementRefs).length,assessorCurrentCandidate:true});
-});
+// Retired (T-292 TD-60): the current package reproduces the retained empty-eligibility counterexample of the old package; input the RC7 combined-qualification install recorded value gone
 test('all active assets remain eligible, not just declared predecessor stages; exact nonempty native rendering',options,async()=>{
   const gtl=await load('gtl/semantic_stage');
   const second=structuredClone(stage);second.declarationRef+='-second';second.graphFunctionRef+='-second';second.assembly.graphFunctionRef=second.graphFunctionRef;second.predecessorStageRefs=[];
@@ -46,24 +31,4 @@ test('all active assets remain eligible, not just declared predecessor stages; e
   assert.deepEqual(assembly.envelope.sections.task.taskData,input.taskData);assert.deepEqual(assembly.envelope.sections.task.rubric,third.rubric);
   record('nonempty component',{lookupAndInputAuthenticationDoubled:true,eligible:semantic.semanticPredecessorStatementRefs(value),historicalOnlyRef:historicalOnly.candidate.statements[0].statementRef,historicalRevisionAdmissionNotExercised:true,promptDigest:assembly.manifest.promptDigest});
 });
-test('complete actual retained native owner authenticates empty author assembly; deterministic identities and old bytes conserved',options,async()=>{
-  const {basis,authenticated,count}=await retainedBasis();
-  const instructions=await load('abg/instruction_assembly');
-  const assembly=instructions.evaluateNativeInstructionAssembly(basis,input);assertIdentities(assembly);
-  assert.deepEqual(instructions.constructNativeInstructionAssembly(basis,input),assembly);
-  const old=await import(pathToFileURL(join(process.env.ABI5_PREDECESSOR_OLD_PACKAGE_ROOT,'build/code/src/abg/instruction_assembly.js')).href);
-  const previous=old.constructNativeInstructionAssembly(basis,input);assert.ok(previous);
-  assert.deepEqual(assembly.plan,previous.plan);assert.equal(assembly.request.inputDigest,previous.request.inputDigest);
-  assert.deepEqual(assembly.envelope.sections.role.stdo,previous.envelope.sections.role.stdo);
-  for(const name of ['source','obligations','predecessors','worksite','evidence','task'])assert.deepEqual(assembly.envelope.sections[name],previous.envelope.sections[name],name);
-  assert.match(assembly.envelope.sections.role.native,/Eligible predecessor statement refs: \[\]/);
-  assert.match(assembly.envelope.sections.role.native,/every predecessorStatementRefs array must be \[\]/);
-  assert.match(assembly.envelope.sections.role.native,/Do not reference statements introduced in this response/);
-  assert.equal(assembly.envelope.inputDigest,hash(input));assert.equal(authenticated.inputDigest,hash(input));
-  assert.notEqual(assembly.envelopeDigest,previous.envelopeDigest);assert.notEqual(assembly.manifestDigest,previous.manifestDigest);assert.notEqual(assembly.manifest.promptDigest,previous.manifest.promptDigest);
-  const archived=fs.readFileSync(join(prior,'live-01/run/workspace/archives/fp-42c04b85e5509386-prompt.txt'));
-  assert.equal(sha256Bytes(archived),'sha256:61edcb312122f359fa4db706204ba0f40f42157fae76a38d7304962bb7824fd4');
-  assert.deepEqual(fs.readFileSync(eventsPath),originalBytes);
-  fs.writeFileSync(join(out,'assembly-empty.json'),JSON.stringify(assembly,null,2)+'\n');
-  record('actual retained native assembly',{basisDoubles:false,prefixCount:count,planDigest:assembly.planDigest,inputDigest:assembly.request.inputDigest,responseSchemaDigest:assembly.manifest.responseSchemaDigest,envelopeDigest:assembly.envelopeDigest,manifestDigest:assembly.manifestDigest,promptDigest:assembly.manifest.promptDigest,oldArchivesUnchanged:true});
-});
+// Retired (T-292 TD-60): the retained native owner authenticates the empty author assembly of the old package; input the RC7 combined-qualification install recorded value gone
