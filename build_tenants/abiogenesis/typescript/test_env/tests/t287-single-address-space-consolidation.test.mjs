@@ -1086,7 +1086,7 @@ test('RAW F_H hold seed: an explicit conditional root grant and one exact basis/
       return ['continuation_open', 'interaction_pending'].every(name => fluent(projection, name, seed.continuationRef)) &&
         fluent(projection, 'frame_held', seed.frameId) && !fluent(projection, 'continuation_response_available', seed.continuationRef) || null; }],
     ['openContinuation', seed.cuts.opened, rows => { const prefix = runCut(rows);
-      const open = fh.projectFhContinuations(prefix, calculus.deriveRuntimeHeldFluentProjection(prefix), select(rows));
+      const open = fh.projectFhContinuations(prefix, calculus.deriveRuntimeHeldFluentProjection(prefix));
       return open.length === 1 && open[0].status === 'open' ? open[0] : null; }]];
   const gateRows = gates.map(([gate, at, read]) => {
     assert.equal(read(seed.rows.slice(0, at - 1)), null, gate + ' is absent before its last row');
@@ -1119,7 +1119,7 @@ test('RAW F_H hold seed: an explicit conditional root grant and one exact basis/
   // A root without the response grant still opens the same hold.
   const ungranted = rawFhResponseSeed(modules, {responseGrant: false});
   const ungrantedRoot = abg.rehydrateInvocationAdmissionAtPrefix(select(ungranted.rows), ungranted.invocationAdmissionRef);
-  const ungrantedOpen = (prefix => fh.projectFhContinuations(prefix, calculus.deriveRuntimeHeldFluentProjection(prefix), select(ungranted.rows)))(
+  const ungrantedOpen = (prefix => fh.projectFhContinuations(prefix, calculus.deriveRuntimeHeldFluentProjection(prefix)))(
     prefixes.selectValidatedRuntimeEventPrefix(ungranted.rows, {runId: ungranted.runId}));
   assert.deepEqual([ungrantedRoot.capabilityGrants, ungrantedOpen.map(value => value.status)], [[], ['open']]);
   // RAW reconstruction of the seed: a repeated read, a fresh deeply frozen

@@ -279,7 +279,7 @@ function projectCurrentClosureTruth(
   if (exactRouteBody === null) return null;
   const resumeTruth = resume === null
     ? null
-    : projectFhContinuations(prefix, eventCalculus, authorityPrefix).find(
+    : projectFhContinuations(prefix, eventCalculus).find(
         (candidate) =>
           candidate.continuationRef === resume.continuationRef &&
           candidate.continuationKind === "fh_interaction" && candidate.status === "resolved" &&

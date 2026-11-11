@@ -585,7 +585,6 @@ function exactFhResumeCompletionWitness(
   const continuation = projectFhContinuations(
     prefix,
     calculus,
-    authorityPrefix,
   ).find((row) =>
     row.status === "resolved" &&
     row.cCallRef === body.cCallRef &&

@@ -1291,7 +1291,7 @@ function deriveReplayPrefixFacts(
   ).values()] : [];
 
   const runOpen = indexedRuntimeEvents(prefix, "kind:run_segment_opened")[0];
-  const fhContinuations = projectFhContinuations(prefix, eventCalculus, authorityPrefix);
+  const fhContinuations = projectFhContinuations(prefix, eventCalculus);
   const intentContinuations = projectConstructionIntentContinuations(authorityPrefix, runOpen?.runId ?? "");
   const selectedContinuations = projectSelectedActionContinuations(authorityPrefix, runOpen?.runId ?? "");
   const continuations = routeOnly === undefined
