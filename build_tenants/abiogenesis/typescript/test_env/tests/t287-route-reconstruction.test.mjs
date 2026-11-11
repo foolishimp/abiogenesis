@@ -23,6 +23,7 @@ import {constructTraversalCursorCandidate} from '../../build/code/src/abg/traver
 import {projectTraversalRouteBody} from '../../build/code/src/abg/traversal_transition.js';
 import {proposeJudgmentCandidate} from '../../build/code/src/hog/judgment.js';
 import {eventsInput as s01EventsInput,s01Skip} from '../fixtures/r10-projection-family/s01-store.mjs';
+import {unrelatedWorkspaceEvent} from '../support/single-address-space-consolidation.mjs';
 const enabled={skip:!process.env.P0_RETAINED_NATIVE_SCRATCH&&'P0_RETAINED_NATIVE_SCRATCH unset; requires the retained native scratch holding full-outcome.json',timeout:180000};
 const work=()=>({...globalThis.p0Work});
 const diff=(a,b)=>Object.fromEntries([...new Set([...Object.keys(a),...Object.keys(b)])].map(k=>[k,(b[k]??0)-(a[k]??0)]));
@@ -546,7 +547,10 @@ test('drop complete output then selected route does not retain decoded historica
  let authority=prefix.selectRuntimeEventPrefixFromStore(held.store),run=prefix.selectRuntimeEventPrefixFromAuthority(authority,{runId});
  if(global.gc)global.gc();const operationalHeap=process.memoryUsage().heapUsed;
  const requested=()=>new Promise(resolve=>setImmediate(()=>{
-  let full=held.store.readAll(),explicit=prefix.selectValidatedRuntimeEventPrefix(full),input=full.find(e=>e.kind==='basis_admitted').payload.rawInputValue;
+  // The observed body is a non-basis row's value: a basis body is kept only
+  // while a run operation scope holds its invocation (RC10 O1 lifetime,
+  // runtime_history.ts #basisHolds; t287-held-basis-lifetime owns that claim).
+  let full=held.store.readAll(),explicit=prefix.selectValidatedRuntimeEventPrefix(full),input=full.find(e=>e.kind==='c_call_result_admitted').payload.value;
   // Requested immutable complete output remains exact until this caller drops
   // all of it. Only the weak reference and scalar measurements leave this scope.
   assert.equal(prefix.runtimeEventsFromValidatedPrefix(explicit).length,78);
@@ -582,16 +586,14 @@ test('drop complete output then selected route does not retain decoded historica
 // reads them by row location and digest. A rollback changes the generation and
 // drops them; a reopened store has a fresh history and reads cold. The fold law
 // is the proof: a cold read and a cold fold at every cut equal the warm read.
+// Every body here is a non-basis body: a basis body is kept only while a run
+// operation scope holds its invocation (RC10 O1 lifetime, runtime_history.ts
+// #basisHolds), and its release is t287-held-basis-lifetime's claim.
 test('held history generation projection: verified bodies decode once per generation; cold reads and folds at every cut equal the warm read',async t=>{
- const f=terminalOwner(t,4),o=ownedTerminal(t,f),owner=RuntimeHistorySelection.owner(o.authority.selection);
+ const f=terminalOwner(t,0),o=ownedTerminal(t,f),owner=RuntimeHistorySelection.owner(o.authority.selection);
  const read=async(action,selection)=>{const before={...owner.work};const observed=await observedBodies(action,selection);return {...observed,work:diff(before,owner.work)};};
  const current=()=>prefix.selectRuntimeEventPrefixFromStore(o.store);
- const basis=label=>{const value=deepFreeze({kind:'body_fixture_input',text:'generation '+label});
-  const body={basisClass:'root',rawInputValue:value,rawInputDigest:sha256Canonical(value),invocationRef:'invocation://component/generation/'+label};
-  const basisDigest=sha256Canonical(body),basisRef='execution-basis://abiogenesis/'+basisDigest.slice(7);
-  return {eventTime:'2026-10-10T00:00:00.000Z',correlationId:'correlation://component/generation',workflowVersion:'5.0.0',kind:'basis_admitted',
-   aggregateType:'workspace',aggregateId:'workspace://component/history',parentAggregateId:null,causationEventRefs:[],scopeClass:'workspace',basisId:basisRef,
-   payload:{...body,basisRef,basisDigest}};};
+ const unrelated=label=>unrelatedWorkspaceEvent(sha256Canonical,'generation-'+label);
  // (1) A selected route: the first read runs the global checks and decodes each
  // body it reads once; a warm read twice gives equal values and body rows and
  // decodes nothing.
@@ -615,7 +617,7 @@ test('held history generation projection: verified bodies decode once per genera
  const generation=owner.generation;
  let tentative;
  assert.throws(()=>store.admitRuntimeEventTransactionAtDurablePrefix(o.store,store.selectHeldEventStoreDurablePrefix(o.store),()=>{
-  store.admitRuntimeEvent(o.store,basis('refused'));
+  store.admitRuntimeEvent(o.store,unrelated('refused'));
   const before={...owner.work};const rows=o.store.readAll();tentative={rows:rows.length,work:diff(before,owner.work)};
   throw new Error('fixed rollback discriminator');}),/fixed rollback discriminator/);
  assert.equal(tentative.rows,all.value.length+1);assert.equal(tentative.work.bodyDecodes,0,'a tentative row reads from its staged body');
@@ -629,7 +631,7 @@ test('held history generation projection: verified bodies decode once per genera
  // log once, at its committed location, and then from the kept projection.
  const committedBefore={...owner.work};
  const admitted=store.admitNonEmptyRuntimeEventTransactionAtDurablePrefix(o.store,store.selectHeldEventStoreDurablePrefix(o.store),
-  ()=>store.admitRuntimeEvent(o.store,basis('committed')));
+  ()=>store.admitRuntimeEvent(o.store,unrelated('committed')));
  const transactionWork=diff(committedBefore,owner.work);
  const located=current().selection,row=located.row(located.length-1);
  assert.equal(row.envelope.eventId,admitted.value.eventId);assert.notEqual(row.body.offset,-1);
@@ -659,7 +661,7 @@ test('held history generation projection: verified bodies decode once per genera
  assert.deepEqual(coldRead.value,rows);assert.equal(diff(coldBefore,reopenedOwner.work).bodyDecodes,rows.length);assert.equal(coldRead.reads.length,rows.length);
  t.diagnostic(JSON.stringify({events:rows.length,routeFirst:first.work,routeWarm:second.work,routeRepeat:third.work,completeFirst:all.work,completeRepeat:again.work,
   tentative:tentative.work,afterRollback:afterRollback.work,afterRollbackRepeat:settled.work,transaction:transactionWork,committedFirst:once.work,committedRepeat:twice.work,
-  coldReopen:diff(coldBefore,reopenedOwner.work),limit:'Controlled terminal history with four basis bodies; counters of the held owner, not a capacity proof.'}));
+  coldReopen:diff(coldBefore,reopenedOwner.work),limit:'Controlled terminal history with no basis body and one unrelated workspace operation per transaction; counters of the held owner, not a capacity proof.'}));
 });
 
 // TD-15. The three canonical record writers route their envelope through
