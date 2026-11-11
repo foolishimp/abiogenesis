@@ -1,14 +1,10 @@
 import assert from "node:assert/strict";
 import { join, resolve } from "node:path";
-import { readFile, writeFile, lstat, mkdir, mkdtemp } from "node:fs/promises";
-import fs from "node:fs";
-import { syncBuiltinESMExports } from "node:module";
-import { tmpdir } from "node:os";
+import { readFile, writeFile, lstat, mkdir } from "node:fs/promises";
 import { pathToFileURL } from "node:url";
 import test from "node:test";
 import * as Effect from "effect/Effect";
-import { genericRevisionPublicationData, genericRevisionIds, observeGenericJobRevisionWorksite,
-  readRetainedGenericRevisionBridge } from "../support/t287-generic-job-revision.mjs";
+import { genericRevisionPublicationData, genericRevisionIds, observeGenericJobRevisionWorksite } from "../support/t287-generic-job-revision.mjs";
 import { nativePublications } from "../support/d2-frame-fixture.mjs";
 import { setupInstalledRootCatalog } from "../support/root-installed-environment.mjs";
 import { prepareGenericJobIntakeProduct, constructGenericIntakeStart, ordinaryJob } from "../support/t287-generic-job-intake.mjs";
@@ -48,175 +44,9 @@ test("one generic publication declares native initial, selection and correction 
   assert.equal(Object.hasOwn(data, "semanticLifecycle"), false);
 });
 
-test("saved native revision bridge preserves revision discriminants and selected-retained ownership", {
-  skip: !process.env.ABI5_GENERIC_JOB_REVISION_PREFIX_ROOT && "ABI5_GENERIC_JOB_REVISION_PREFIX_ROOT unset; requires the saved native revision bridge prefix root", timeout: 180000,
-}, async () => {
-  const [product, gtl, revision, preparation, meaning, origins] = await Promise.all([
-    "product/index", "gtl/index", "abg/semantic_revision", "product/worksite_preparation", "product/semantic_job", "abg/worksite_revision",
-  ].map(load));
-  const saved = await readRetainedGenericRevisionBridge({ scratch: process.env.ABI5_GENERIC_JOB_REVISION_PREFIX_ROOT, packageRoot });
-  const { basis, input } = saved, hash = product.sha256Canonical;
-  const old = await import(pathToFileURL(join(saved.installedRoot, "build/code/src/abg/semantic_revision.js")).href);
-  assert.equal(old.projectJobRevisionPreparation(basis, input), null, "actual installed owner retains the original bridge refusal");
-  assert.equal(revision.semanticJobRevisionInputMatchesBasis(basis, input), true);
-  const subject = revision.projectOwnedJobRevisionSubject(basis, input, true); assert.ok(subject, "all source, authority, origin and physical checks pass");
-  const entry = revision.projectJobRevisionPreparation(basis, input); assert.ok(entry);
-  assert.equal(entry.kind, "worksite_revision_command_preparation_input"); assert.equal(entry.schemaVersion, "5.0.0");
-  assert.equal(Object.hasOwn(entry, "readDependencyBasis"), false, "initial-job read basis becomes authenticated retained origins, not a revision field");
-  assert.deepEqual(preparation.admitWorksitePreparationInput(product.WORKSITE_REVISION_IDS.inputContractRef, entry), entry);
-  assert.equal(revision.semanticJobRevisionResultMatchesBasis(basis, input, entry), true);
-  const selected = preparation.selectWorksiteConstructionTask(entry);
-  assert.deepEqual(selected.targets.map(t => t.subject.relativePath), ["app/main.mjs"]);
-  assert.equal(product.isWorksiteConstructionTask(selected), true);
-  assert.deepEqual(entry.dependencyObservations.map(row => row.subject.relativePath), ["app/check.mjs", "shared/lib.mjs"]);
-  assert.deepEqual(entry.dependencyObservations.map(row => row.origin.kind), ["admitted_replacement", "admitted_initial_job_bridge"]);
-  for (const row of entry.dependencyObservations) assert.equal(origins.worksiteRevisionOriginSurvives(subject.owner.prefix, row), true);
-  const ordinary = meaning.deriveSemanticJobPreparation(input.current, subject.currentWorksite, { selectedPaths: ["app/main.mjs"],
-    feedback: { selection: input.revisionBasis.selection, causes: subject.causes, historicalAssets: input.revisionBasis.historicalAssets } });
-  assert.ok(ordinary);
-  const { kind, schemaVersion, readDependencyBasis, ...configuration } = ordinary;
-  const { kind: revisionKind, schemaVersion: revisionSchema, revisionBasisRef, revisionBasisDigest,
-    snapshotTargetRefs, dependencyObservations, ...retainedConfiguration } = entry;
-  assert.deepEqual(retainedConfiguration, configuration, "every meaningful configuration value survives the projection unchanged");
-  assert.throws(() => preparation.constructWorksiteRevisionCommandPreparationInput({ ...configuration, kind, schemaVersion,
-    revisionBasisRef, revisionBasisDigest, snapshotTargetRefs, dependencyObservations }), /invalid D2 worksite preparation input/,
-    "ordinary carrier discriminant remains illegal at the unchanged strict revision constructor");
-  assert.deepEqual(preparation.constructWorksiteRevisionCommandPreparationInput({ ...configuration,
-    revisionBasisRef, revisionBasisDigest, snapshotTargetRefs, dependencyObservations }), entry);
-  assert.deepEqual(snapshotTargetRefs, [...subject.priorWorksite.targets.map(row => row.target.targetRef),
-    ...readDependencyBasis.members.map(row => row.sourceMemberRef)]);
-  assert.throws(() => preparation.constructWorksiteRevisionCommandPreparationInput({ ...configuration,
-    revisionBasisRef, revisionBasisDigest, snapshotTargetRefs: [...snapshotTargetRefs, snapshotTargetRefs[0]], dependencyObservations }), /invalid D2/);
-  for (const mutate of [value => { value.current.job.members[0].base64 = Buffer.from("another ordinary job").toString("base64"); },
-    value => { value.revisionBasis.request.selection.resultDigest = hash("crossed-selection"); },
-    value => { value.current.worksite.targets[0].target.predecessorObservation.fileDigest = hash("changed-current-file"); }]) {
-    const crossed = structuredClone(input); mutate(crossed);
-    assert.equal(revision.projectJobRevisionPreparation(basis, crossed), null, "changed job, selection or observation cannot reuse admitted input");
-  }
-  const crossedOrigin = structuredClone(entry); crossedOrigin.dependencyObservations[1].origin.resultAdmissionEventRef = "event://unadmitted-read-origin";
-  assert.equal(revision.semanticJobRevisionResultMatchesBasis(basis, input, crossedOrigin), false);
-  const oldConstruction = saved.events.find(e => e.kind === "c_call_result_admitted" && product.isWorksiteConstructionResult(e.payload.value)).payload.value;
-  const retention = preparation.constructRetainedWorksiteInput(product.worksiteRevisionRetentionBinding(), entry, oldConstruction);
-  assert.throws(() => preparation.prepareWorksiteCommandTask(retention), /construction result does not cover original targets/,
-    "an old two-target C1 cannot stand in for the still-unexecuted selected C1");
-  assert.equal(revision.projectRevisionEvidenceInput(basis, entry), null, "a preparation is not an admitted revision C2 result");
-  const repairWorksite = basis.declarationGraphFunctions.find(g => g.inputs[0] === product.WORKSITE_REVISION_IDS.inputContractRef &&
-    g.outputs[0] === product.WORKSITE_REVISION_IDS.observationContractRef && g.template.nodes.length === 4); assert.ok(repairWorksite);
-  assert.deepEqual(repairWorksite.template.edges[1].inputBinding, product.worksiteRevisionRetentionBinding());
-  assert.ok(basis.declarationGraphFunctions.some(g => g.inputs[0] === product.WORKSITE_REVISION_IDS.observationContractRef &&
-    g.outputs[0] === gtl.SEMANTIC_REVISION_IDS.envelopeContractRef), "declared Evidence consumes revision observation, not ordinary C2");
-  assert.deepEqual(await readFile(saved.eventLogPath), saved.originalBytes, "all retained event bytes remain unchanged");
-  console.log(JSON.stringify({ scope: "saved-prefix owner reconstruction, not admission or execution", selectedOrdinal: saved.selected.admissionOrdinal,
-    cut: saved.cut.coordinateDigest, oldRefusal: true, repairedCarrier: revisionKind, selectedPaths: selected.targets.map(t => t.subject.relativePath),
-    retainedPaths: dependencyObservations.map(row => row.subject.relativePath), retainedOrigins: dependencyObservations.map(row => row.origin.kind),
-    configurationConserved: true, downstreamNativeExecution: "unexecuted", paidCalls: 0 }));
-});
+// Retired (T-292 TD-60): a saved revision bridge preserves its discriminants and retained ownership; input the saved native revision bridge prefix root output of a native Run
 
-test("saved revision Evidence separates historical origins from checked successor state", {
-  skip: !process.env.ABI5_GENERIC_JOB_REVISION_EVIDENCE_PREFIX_ROOT && "ABI5_GENERIC_JOB_REVISION_EVIDENCE_PREFIX_ROOT unset; requires the saved revision Evidence prefix root", timeout: 600000,
-}, async t => {
-  const [product, revision, meaning, assembly, implementation, origins] = await Promise.all([
-    "product/index", "abg/semantic_revision", "product/semantic_revision", "abg/instruction_assembly",
-    "implementation/semantic_revision", "abg/worksite_revision",
-  ].map(load));
-  const saved = await readRetainedGenericRevisionBridge({ scratch: process.env.ABI5_GENERIC_JOB_REVISION_EVIDENCE_PREFIX_ROOT,
-    packageRoot, role: "author" });
-  const { basis, input, owner } = saved, hash = product.sha256Canonical;
-  const old = await import(pathToFileURL(join(saved.installedRoot, "build/code/src/abg/instruction_assembly.js")).href);
-  assert.equal(old.evaluateNativeInstructionAssembly(basis, input).cause, "stale_basis", "the actual frozen owner retains its historical refusal");
-  assert.equal(revision.semanticJobRevisionInputMatchesBasis(basis, input), true);
-  const subject = revision.projectOwnedJobRevisionSubject(basis, input, true); assert.ok(subject);
-  const observation = input.current.evidence.executionObservation;
-  assert.deepEqual(subject.currentWorksite.targets.map(row => row.target.subject.relativePath), ["app/main.mjs", "app/check.mjs"]);
-  assert.notDeepEqual(subject.currentWorksite.targets[0].target.predecessorObservation, input.current.worksite.targets[0].target.predecessorObservation);
-  assert.deepEqual(subject.currentWorksite.targets[1], input.current.worksite.targets[1], "retained verifier has no invented successor");
-  for (const [ordinal, row] of subject.currentWorksite.targets.entries()) {
-    const source = observation.task.snapshotSources.find(s => s.subject.subjectRef === row.target.subject.subjectRef);
-    assert.deepEqual(row.target.predecessorObservation, source.observation);
-    assert.equal(origins.worksiteRevisionOriginSurvives(owner.prefix, { subject: row.target.subject,
-      observation: row.target.predecessorObservation, origin: subject.origins[ordinal] }), true);
-  }
-  assert.equal(origins.worksiteExecutionSourcesCurrent(owner.prefix, observation.task), true);
-  assert.equal(origins.worksiteRevisionPhysicalMatches(input.current.worksite), false, "pre-repair main is genuinely stale");
-  const exact = assembly.requireNativeInstructionAssembly(basis, input);
-  assert.deepEqual(exact.envelope.sections.worksite.currentRevisionTargets.map(row => row.target.predecessorObservation),
-    subject.currentWorksite.targets.map(row => row.target.predecessorObservation));
-  assert.equal(exact.envelope.sections.worksite.observationRole, "historical_pre_construction_context");
-  assert.deepEqual(exact.envelope.sections.worksite.observation.entries.map(({ textView, ...row }) => row), input.current.context.entries);
-  const roots = [subject.currentWorksite.workspaceAuthorityBasis.canonicalRoot, observation.provenance.helperPlan.sandboxRoot];
-  const originals = { readFileSync: fs.readFileSync, lstatSync: fs.lstatSync, realpathSync: fs.realpathSync };
-  let forbiddenReads = 0;
-  try {
-    for (const name of Object.keys(originals)) t.mock.method(fs, name, (path, ...args) => {
-      if (typeof path === "string" && roots.some(root => path === root || path.startsWith(root + "/"))) {
-        forbiddenReads++; throw new Error("cold reconstruction cannot read workspace or C2 snapshot");
-      }
-      return originals[name](path, ...args);
-    });
-    syncBuiltinESMExports();
-    assert.deepEqual(assembly.constructNativeInstructionAssembly(basis, input), exact);
-    assert.equal(forbiddenReads, 0, "cold request rederivation uses admitted artifact bytes only");
-  } finally { t.mock.restoreAll(); syncBuiltinESMExports(); }
-  const disposable = await mkdtemp(join(tmpdir(), "abi-revision-physical-drift-"));
-  for (const [ordinal, source] of observation.task.snapshotSources.entries()) {
-    const actual = resolve(subject.currentWorksite.workspaceAuthorityBasis.canonicalRoot, source.subject.relativePath);
-    const copy = join(disposable, String(ordinal) + ".mjs");
-    await writeFile(copy, Buffer.concat([await readFile(actual), Buffer.from("\n// unexplained changed bytes\n")]), { flag: "wx" });
-    try {
-      t.mock.method(fs, "readFileSync", (path, ...args) => originals.readFileSync(path === actual ? copy : path, ...args));
-      syncBuiltinESMExports();
-      assert.throws(() => assembly.requireNativeInstructionAssembly(basis, input), /stale_basis/,
-        `physical mode refuses ${source.subject.relativePath} drift; only disposable bytes are changed`);
-    } finally { t.mock.restoreAll(); syncBuiltinESMExports(); }
-  }
-  for (const mutate of [v => { v.current.evidence.executionResultDigest = hash("crossed-execution"); },
-    v => { v.current.evidence.artifacts[0].base64 = Buffer.from("unadmitted successor").toString("base64"); }]) {
-    const changed = structuredClone(input); mutate(changed);
-    assert.equal(revision.projectOwnedJobRevisionSubject(basis, changed, false), null);
-  }
-  // There is no admitted post-repair actor exchange in this saved prefix.
-  // Exercise the existing preparation/completion and Product suffix without
-  // pretending that these counterfactual candidates have native admission.
-  const previous = input.revisionBasis.historicalAssets.findLast(a => a.stageRef === owner.stage.declarationRef); assert.ok(previous);
-  const prepared = implementation.realizeSemanticRevisionAuthor(input, { semanticStageBasis: basis, cCallRef: owner.call.cCallRef });
-  assert.deepEqual(prepared.workerRequest, exact.request);
-  const candidate = prepared.complete({ request: exact.request, observation: { disposition: "success", toolCallCount: 0,
-    promptDigest: exact.manifest.promptDigest, inputDigest: owner.inputDigest, implementationRef: owner.call.implementationRef,
-    actorRef: exact.request.actorRef, workerBindingRef: exact.request.workerBindingRef, transportLane: exact.request.transportLane,
-    finalOutput: JSON.stringify(previous.candidate), actorInvocationRef: "actor-invocation://counterfactual/revision-author",
-    transportDigest: hash("unadmitted diagnostic transport") } });
-  assert.equal(candidate.disposition, "success"); const authored = candidate.resultCandidate;
-  assert.equal(revision.semanticJobRevisionResultMatchesBasis(basis, input, authored), true, "pure author result relation");
-  assert.equal(assembly.semanticInstructionResultMatches(basis, input, authored), false, "no native transport evidence was invented");
-  assert.equal(revision.semanticJobRevisionInputMatchesBasis(basis, authored), false, "enriched input cannot borrow the author's admission");
-  const raw = { kind: "semantic_stage_assessment_candidate", schemaVersion: "5.0.0",
-    criteria: owner.stage.rubric.map(criterion => ({ criterionRef: criterion.criterionRef, disposition: "satisfied",
-      explanation: "Counterfactual Product relation only, not an admitted assessor.",
-      sourceQuotes: previous.candidate.asset.statements[0].sourceQuotes,
-      statementRefs: authored.current.assets.at(-1).candidate.asset.statements.map(row => row.statementRef) })), pressure: [] };
-  const source = { cCallRef: "c-call://counterfactual/revision-assessor", inputDigest: hash(authored),
-    actorInvocationRef: "actor-invocation://counterfactual/revision-assessor", promptDigest: hash("unassembled assessor request"),
-    transportDigest: hash("unadmitted assessor transport") };
-  const assessed = meaning.deriveJobRevisionAssessment(authored, owner.stage.declarationRef, raw, source); assert.ok(assessed);
-  assert.equal(assessed.current.assets.at(-1).assessment.disposition, "satisfied");
-  assert.deepEqual(assessed.current.assets.slice(0, -1), input.current.assets);
-  assert.deepEqual(assessed.current.bindingVersions, input.current.bindingVersions);
-  assert.deepEqual(assessed.revisionBasis, input.revisionBasis); assert.deepEqual(assessed.current.evidence, input.current.evidence);
-  const wrongDomain = structuredClone(raw);
-  wrongDomain.criteria[0].statementRefs = [authored.current.assets[0].candidate.asset.statements[0].statementRef];
-  assert.equal(meaning.deriveJobRevisionAssessment(authored, owner.stage.declarationRef, wrongDomain, source), null);
-  const selectionOrdinal = saved.events.find(e => e.eventId === input.revisionBasis.request.selection.resultAdmissionEventRef).admissionOrdinal;
-  const outputs = saved.events.filter(e => e.admissionOrdinal > selectionOrdinal && e.kind === "c_call_result_admitted" && e.payload.value?.kind === "worksite_file_replace_output");
-  assert.equal(outputs.filter(e => saved.events.find(o => o.kind === "c_call_opened" && o.aggregateId === e.aggregateId).payload.callClass === "leaf").length, 1);
-  assert.equal(outputs.filter(e => saved.events.find(o => o.kind === "c_call_opened" && o.aggregateId === e.aggregateId).payload.callClass === "workflow").length, 1);
-  assert.deepEqual(outputs[0].payload.value, outputs[1].payload.value);
-  assert.deepEqual(await readFile(saved.eventLogPath), saved.originalBytes);
-  for (const row of observation.task.snapshotSources) {
-    const path = resolve(subject.currentWorksite.workspaceAuthorityBasis.canonicalRoot, row.subject.relativePath), stat = await lstat(path);
-    assert.equal(product.sha256Bytes(await readFile(path)), row.observation.fileDigest);
-    assert.equal(`${stat.dev}:${stat.ino}`, row.observation.fileIdentity, "retained workspaces were never mutated");
-  }
-});
+// Retired (T-292 TD-60): saved revision Evidence separates historical origins from successor state; input the saved revision Evidence prefix root output of a native Run
 
 test("native correction consumes an actual failed verifier and preserves the unselected file", {
   timeout: 7200000, skip: process.env.ABI5_GENERIC_JOB_CORRECTION_NATIVE !== "1" && "ABI5_GENERIC_JOB_CORRECTION_NATIVE is not '1'; selects the native correction run over an actual failed verifier" }, async () => {

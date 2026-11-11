@@ -1,64 +1,13 @@
 import assert from "node:assert/strict";
 import { readFile } from "node:fs/promises";
-import { join, resolve } from "node:path";
-import { pathToFileURL, fileURLToPath } from "node:url";
+import { resolve } from "node:path";
+import { pathToFileURL } from "node:url";
 import { genericLifecyclePublicationData } from "./t287-generic-job-lifecycle.mjs";
 
 export const genericRevisionIds = Object.freeze({
   selectionProgramRef: "program://generic-job-mechanics.example/selection@5",
   repairProgramRef: "program://generic-job-mechanics.example/repair@5",
 });
-
-/** Reconstruct the actually selected revision bridge with existing native
- * readers. This reads closed evidence; it does not reopen, append or dispatch. */
-export async function readRetainedGenericRevisionBridge({ scratch, packageRoot, role = "bridge" }) {
-  assert.ok(["bridge", "author", "assessor"].includes(role));
-  const load = name => import(pathToFileURL(join(packageRoot, "build/code/src", name + ".js")).href);
-  const [product, abg, gtl, calls, cursors, traversal, jobs] = await Promise.all([
-    "product/index", "abg/index", "gtl/index", "abg/c_call", "abg/traversal_cursor", "hog/traversal", "abg/semantic_job",
-  ].map(load));
-  const [call, outcome] = await Promise.all(["correction-repair-call.json", "correction-repair-outcome.json"].map(async name =>
-    JSON.parse(await readFile(join(scratch, name), "utf8"))));
-  const durable = outcome.resources.eventResource.closeHandoff.prefix;
-  const originalBytes = await readFile(fileURLToPath(durable.eventLogRef));
-  const events = abg.readRuntimeEventsAtDurablePrefix(durable);
-  const selected = events.findLast(e => e.kind === "c_call_fibre_selected" &&
-    e.payload.implementationRef === gtl.SEMANTIC_REVISION_IDS[role + "ImplementationRef"]);
-  assert.ok(selected);
-  const prefixBytes = Buffer.from(originalBytes.subarray(0, durable.prefixLength).toString("utf8").split("\n")
-    .slice(0, selected.admissionOrdinal).join("\n") + "\n");
-  const body = { kind: "durable_prefix_coordinate", schemaVersion: "5.0.0", eventLogRef: durable.eventLogRef,
-    prefixLength: prefixBytes.length, prefixDigest: product.sha256Bytes(prefixBytes), storeIdentity: durable.storeIdentity };
-  const cut = { ...body, coordinateDigest: product.sha256Canonical(body) };
-  const before = abg.readRuntimeEventsAtDurablePrefix(cut), prefix = abg.selectValidatedRuntimeEventPrefix(before);
-  assert.throws(() => abg.readRuntimeEventsAtDurablePrefix(cut, { requireCurrent: true }),
-    "the historical cut does not confer current dispatch authority");
-  const opened = before.find(e => e.kind === "c_call_opened" && e.aggregateId === selected.aggregateId); assert.ok(opened);
-  const executionBasis = abg.rehydrateExecutionBasisAtPrefix(prefix, opened.basisId); assert.ok(executionBasis);
-  const publications = call.resources.catalog.boundPublications;
-  const publication = publications.find(p => p.programs.some(p => p.programRef === executionBasis.programRef)); assert.ok(publication);
-  const declarationGraphFunctions = publications.flatMap(p => p.graphFunctions);
-  const graphFunction = declarationGraphFunctions.find(g => g.name === executionBasis.graphFunctionRef); assert.ok(graphFunction);
-  const graph = gtl.materializeGraph(graphFunction, { invocationAdmissionRef: executionBasis.invocationAdmissionRef,
-    admittedInputRef: executionBasis.rawInputAdmissionRef, admittedInputDigest: executionBasis.rawInputDigest,
-    admittedInput: executionBasis.rawInputValue });
-  const cCall = calls.projectOpenedCCallCarrierAtPrefix(prefix, graph, opened.aggregateId); assert.ok(cCall);
-  const entered = before.find(e => e.kind === "traversal_cursor_entered" && e.basisId === opened.basisId && e.graphCallId === opened.graphCallId);
-  assert.ok(entered); const cp = entered.payload;
-  let cursor = cursors.constructTraversalCursorCandidate({ programRef: cp.programRef, executionBasisRef: cp.executionBasisRef,
-    traversalScopeRef: cp.traversalScopeRef, runId: entered.runId, graphCallId: entered.graphCallId, frameId: entered.frameId,
-    graphRef: cp.materializationRef, inputRef: cp.inputRef, inputDigest: cp.inputDigest, currentNodeRef: graph.template.startNodeRef,
-    position: "at_term", termPath: cp.termPath, taskOrdinal: cp.taskOrdinal, attempt: cp.attempt, retryPath: cp.retryPath });
-  assert.equal(cursor.cursorDigest, cp.cursorDigest);
-  if (cursor.cursorDigest !== opened.payload.cursorDigest)
-    cursor = traversal.deriveStructuralTargetCursor(graph, cursor, graph.template.nodes[0].term);
-  assert.equal(cursor.cursorDigest, opened.payload.cursorDigest);
-  const basis = { publication, lifecyclePublication: publication, sourcePublication: publication, graph, graphFunction,
-    declarationGraphFunctions, executionBasis, cCall, cursor, predecessorPrefix: cut };
-  const owner = jobs.authenticateOwnedSemanticJobBasis(basis); assert.ok(owner);
-  return { basis, input: owner.inputValue, owner, events, cut, durable, selected, originalBytes,
-    eventLogPath: fileURLToPath(durable.eventLogRef), installedRoot: join(scratch, "consumer/node_modules/@abiogenesis/typescript-tenant") };
-}
 
 /** Add ordinary native D2 Programs to the same generic installed declaration.
  * No job, requirement, layout or actor answer is an argument or member. */
