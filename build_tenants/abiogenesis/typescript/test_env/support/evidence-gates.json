@@ -572,7 +572,7 @@
     }
    ],
    "producer": null,
-   "observed": "root-set run of the file (ABI5_EVIDENCE_ROOT set)",
+   "observed": "root-set run of the file (ABI5_EVIDENCE_ROOT set) (525 s): 12/12 pass",
    "note": "ruling 7: row only; the file is not edited. No suite2 skip (gate added after the suite base).",
    "ruling7": true
   },
