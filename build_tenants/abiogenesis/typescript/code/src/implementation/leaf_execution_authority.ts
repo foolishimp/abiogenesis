@@ -1,5 +1,6 @@
 import { isRecord, isNonblankNulFreeString as nonEmptyString } from "../shared/admission_predicates.js";
-import { admitJson } from "../shared/admit/index.js";
+import { hasExactDataFields } from "../shared/admit/record.js";
+import { isExactAdmittedImplementationRow } from "../abg/execution_basis.js";
 import { validateDurablePrefixCoordinate } from "../abg/event_store.js";
 import { isSha256Digest, sha256Canonical } from "../shared/digests.js";
 import { deepFreeze, isDeeplyFrozen } from "../shared/immutable.js";
@@ -53,59 +54,6 @@ const LEAF_EXECUTION_AUTHORITY_FIELDS = Object.freeze([
   "executionBasis",
 ] as const);
 
-const ADMITTED_IMPLEMENTATION_RESOLUTION_FIELDS = Object.freeze([
-  "catalogBasisDigest",
-  "catalogViewDigest",
-  "computeRegime",
-  "disposition",
-  "failureContractRef",
-  "graphFunctionDigest",
-  "graphFunctionOwnerProductId",
-  "graphFunctionPublicationDigest",
-  "graphFunctionRef",
-  "implementationBindingDigest",
-  "implementationBindingRef",
-  "implementationDescriptorDigest",
-  "implementationOwnerProductId",
-  "implementationPublicationDigest",
-  "implementationRef",
-  "inputContractRef",
-  "kind",
-  "leafResolutionCandidateDigest",
-  "leafResolutionCandidateRef",
-  "modulePath",
-  "namedSymbol",
-  "nodeRef",
-  "outputContractRef",
-  "packageName",
-  "packageVersion",
-  "programLocusRef",
-  "programValidationRef",
-  "publicationDigest",
-  "refusalContractRef",
-  "requirementKey",
-  "requirementKeyDigest",
-  "schemaVersion",
-] as const);
-
-function hasExactDataFields(
-  value: Readonly<Record<string, unknown>>,
-  fields: readonly string[],
-): boolean {
-  const keys = Reflect.ownKeys(value);
-  if (keys.some((key) => typeof key !== "string")) return false;
-  const actual = (keys as string[]).sort();
-  const expected = [...fields].sort();
-  return actual.length === expected.length &&
-    actual.every((key, index) => key === expected[index]) &&
-    actual.every((key) => {
-      const descriptor = Object.getOwnPropertyDescriptor(value, key);
-      return descriptor !== undefined &&
-        Object.hasOwn(descriptor, "value") &&
-        descriptor.enumerable === true;
-    });
-}
-
 function leafExecutionAuthorityBody(
   value: LeafExecutionAuthority,
 ): LeafExecutionAuthorityBody {
@@ -117,67 +65,6 @@ function leafExecutionAuthorityBody(
     ...body
   } = value;
   return body;
-}
-
-function isExactAdmittedImplementationResolution(value: unknown): boolean {
-  if (
-    !isRecord(value) ||
-    !hasExactDataFields(value, ADMITTED_IMPLEMENTATION_RESOLUTION_FIELDS) ||
-    value.kind !== "admitted_implementation_resolution_row" ||
-    value.schemaVersion !== "5.0.0" ||
-    value.disposition !== "admitted" ||
-    (value.computeRegime !== "F_D" && value.computeRegime !== "F_P")
-  ) return false;
-  const stringFields = [
-    value.leafResolutionCandidateRef,
-    value.requirementKey,
-    value.catalogBasisDigest,
-    value.catalogViewDigest,
-    value.programValidationRef,
-    value.graphFunctionRef,
-    value.graphFunctionOwnerProductId,
-    value.nodeRef,
-    value.programLocusRef,
-    value.implementationBindingRef,
-    value.implementationRef,
-    value.packageName,
-    value.packageVersion,
-    value.modulePath,
-    value.namedSymbol,
-    value.inputContractRef,
-    value.outputContractRef,
-    value.failureContractRef,
-    value.refusalContractRef,
-    value.implementationOwnerProductId,
-  ];
-  const digestFields = [
-    value.leafResolutionCandidateDigest,
-    value.requirementKeyDigest,
-    value.publicationDigest,
-    value.graphFunctionDigest,
-    value.graphFunctionPublicationDigest,
-    value.implementationBindingDigest,
-    value.implementationDescriptorDigest,
-    value.implementationPublicationDigest,
-  ];
-  if (
-    !stringFields.every(nonEmptyString) ||
-    !digestFields.every(isSha256Digest)
-  ) return false;
-  const {
-    kind: _kind,
-    schemaVersion: _schemaVersion,
-    disposition: _disposition,
-    leafResolutionCandidateRef: _candidateRef,
-    leafResolutionCandidateDigest: _candidateDigest,
-    ...body
-  } = value;
-  const admittedBody = admitJson(body);
-  if (admittedBody.kind !== "ok") return false;
-  const digest = sha256Canonical(admittedBody.value);
-  return value.leafResolutionCandidateDigest === digest &&
-    value.leafResolutionCandidateRef ===
-      `leaf-resolution-candidate://abiogenesis/${digest.slice("sha256:".length)}`;
 }
 
 export function constructLeafExecutionAuthority(
@@ -245,7 +132,7 @@ export function isLeafExecutionAuthority(
       !isSha256Digest(value.leafResolutionCandidateDigest) ||
       !nonEmptyString(value.implementationResolutionRef) ||
       !isSha256Digest(value.implementationResolutionDigest) ||
-      !isExactAdmittedImplementationResolution(value.implementationResolution) ||
+      !isExactAdmittedImplementationRow(value.implementationResolution) ||
       !nonEmptyString(value.implementationBindingRef) ||
       !isSha256Digest(value.implementationBindingDigest) ||
       !nonEmptyString(value.implementationRef) ||

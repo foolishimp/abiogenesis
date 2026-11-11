@@ -3,7 +3,8 @@ import { validateDurablePrefixCoordinate, type DurablePrefixCoordinate } from ".
 import { isAbgHistoricalDeclarationProof, isAbgHistoricalDeclarationReference,
   type AbgHistoricalDeclarationProof, type AbgHistoricalDeclarationReference } from "../abg/terminal_result_contracts.js";
 import { isWorksiteContextObservation, worksiteContextIdentityEntry, type WorksiteContextObservation } from "./worksite_effect.js";
-import { isRecord, hasExactKeys as exactKeys } from "../shared/admission_predicates.js";
+import { isRecord, hasExactKeys as exactKeys,
+  isTrimmedNonblankNulFreeString as nonempty } from "../shared/admission_predicates.js";
 import {
   delimiter as pathDelimiter,
   dirname,
@@ -31,12 +32,14 @@ import { admitIJsonValue } from "../shared/i_json.js";
 import { admitJson } from "../shared/admit/index.js";
 import { deepFreeze } from "../shared/immutable.js";
 import {
+  exactWorkspaceAuthorityJoin,
+  isExactWorkspaceBinding,
   isWorkspaceAuthorityBasis,
   type WorkspaceAuthorityBasis,
   type WorkspaceBinding,
 } from "./environment.js";
 import {
-  isCapabilityGrantValue,
+  isExactDirectGrant,
   type CapabilityGrant,
 } from "./invocation.js";
 import {
@@ -728,11 +731,6 @@ export interface WorksiteCommandExecutionFailure {
   readonly diagnosticRef: string;
 }
 
-function nonempty(value: unknown): value is string {
-  return typeof value === "string" && value.trim().length > 0 &&
-    value.trim() === value && !value.includes("\0");
-}
-
 function same(left: JsonValue, right: JsonValue): boolean {
   if (left === right || isDeepStrictEqual(left, right)) return true;
   return canonicalEquals(left, right);
@@ -830,68 +828,6 @@ export function isWorksiteCommandExecutionHelperPlan(
   } catch {
     return false;
   }
-}
-
-function isExactWorkspaceBinding(value: unknown): value is WorkspaceBinding {
-  if (!isRecord(value) || !exactKeys(value, [
-    "admissionEventRef", "authorityBasisDigest", "authorityBasisId",
-    "authorizedActorRef", "bindingDigest", "bindingId", "kind", "lockDigest",
-    "lockId", "productSetDigest", "productSetId", "roots", "schemaVersion",
-    "workspaceId",
-  ]) || value.kind !== "workspace_binding" || value.schemaVersion !== SCHEMA_VERSION ||
-    !nonempty(value.bindingId) || !isSha256Digest(value.bindingDigest) ||
-    !nonempty(value.workspaceId) || !nonempty(value.authorityBasisId) ||
-    !isSha256Digest(value.authorityBasisDigest) || !nonempty(value.authorizedActorRef) ||
-    !nonempty(value.productSetId) || !isSha256Digest(value.productSetDigest) ||
-    !nonempty(value.lockId) || !isSha256Digest(value.lockDigest) ||
-    !nonempty(value.admissionEventRef) || !isRecord(value.roots) ||
-    !exactKeys(value.roots, [
-      "archiveRoot", "eventLogRoot", "productRoot", "projectionRoot",
-      "runtimeStateRoot", "toolchainRoot",
-    ]) || Object.values(value.roots).some((root) =>
-      !nonempty(root) || !isAbsolute(root)
-    )) return false;
-  const body = {
-    workspaceId: value.workspaceId,
-    authorityBasisId: value.authorityBasisId,
-    authorityBasisDigest: value.authorityBasisDigest,
-    authorizedActorRef: value.authorizedActorRef,
-    productSetId: value.productSetId,
-    productSetDigest: value.productSetDigest,
-    lockId: value.lockId,
-    lockDigest: value.lockDigest,
-    roots: value.roots,
-  };
-  const admittedBody = admitJson(body);
-  if (admittedBody.kind !== "ok") return false;
-  const digest = sha256Canonical(admittedBody.value);
-  return value.bindingDigest === digest &&
-    value.bindingId === identity("workspace-binding://abiogenesis", digest);
-}
-
-function exactWorkspaceAuthorityJoin(
-  authority: WorkspaceAuthorityBasis,
-  workspace: WorkspaceBinding,
-): boolean {
-  return isWorkspaceAuthorityBasis(authority) &&
-    isExactWorkspaceBinding(workspace) &&
-    authority.workspaceId === workspace.workspaceId &&
-    authority.authorityBasisId === workspace.authorityBasisId &&
-    authority.authorityBasisDigest === workspace.authorityBasisDigest &&
-    authority.authorizedActorRef === workspace.authorizedActorRef;
-}
-
-function isExactDirectGrant(
-  value: unknown,
-  workspace: WorkspaceBinding,
-): value is CapabilityGrant {
-  return isCapabilityGrantValue(value) &&
-    value.operationId === "abg.operation.run.invoke" &&
-    value.definitionKey.operationId === "abg.operation.run.invoke" &&
-    (value.definitionKey.memberKey === "invoke" || value.definitionKey.memberKey === "start") &&
-    value.actorRef === workspace.authorizedActorRef &&
-    value.scopeRef === workspace.bindingId &&
-    value.scopeDigest === workspace.bindingDigest;
 }
 
 function safeRelativePath(value: unknown): value is string {

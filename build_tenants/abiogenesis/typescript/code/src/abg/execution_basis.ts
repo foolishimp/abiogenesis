@@ -66,10 +66,12 @@ import {
   compareUnicodeCodeUnits,
   type JsonValue,
 } from "../shared/canonical_json.js";
-import { sha256Canonical } from "../shared/digests.js";
+import { isSha256Digest, sha256Canonical } from "../shared/digests.js";
 import type { Sha256Digest } from "../shared/digests.js";
 import { deepFreeze } from "../shared/immutable.js";
 import { admitJson, isRecord } from "../shared/admit/index.js";
+import { hasExactDataFields } from "../shared/admit/record.js";
+import { isNonblankNulFreeString } from "../shared/admission_predicates.js";
 import {
   isGraphValidation,
   type GraphValidation,
@@ -1254,6 +1256,110 @@ export function selectAdmittedImplementationResolution(
       row.programLocusRef === selection.programLocusRef &&
       row.implementationBindingRef === selection.implementationBindingRef);
   return match.kind === "one" ? match.value ?? null : null;
+}
+
+const ADMITTED_IMPLEMENTATION_RESOLUTION_ROW_FIELDS = Object.freeze([
+  "catalogBasisDigest",
+  "catalogViewDigest",
+  "computeRegime",
+  "disposition",
+  "failureContractRef",
+  "graphFunctionDigest",
+  "graphFunctionOwnerProductId",
+  "graphFunctionPublicationDigest",
+  "graphFunctionRef",
+  "implementationBindingDigest",
+  "implementationBindingRef",
+  "implementationDescriptorDigest",
+  "implementationOwnerProductId",
+  "implementationPublicationDigest",
+  "implementationRef",
+  "inputContractRef",
+  "kind",
+  "leafResolutionCandidateDigest",
+  "leafResolutionCandidateRef",
+  "modulePath",
+  "namedSymbol",
+  "nodeRef",
+  "outputContractRef",
+  "packageName",
+  "packageVersion",
+  "programLocusRef",
+  "programValidationRef",
+  "publicationDigest",
+  "refusalContractRef",
+  "requirementKey",
+  "requirementKeyDigest",
+  "schemaVersion",
+] as const);
+
+/**
+ * @internal One row of an admitted implementation set, as the execution-basis
+ * admission writes it: exactly its own enumerable data fields, nonblank
+ * NUL-free strings, sha256 digests, and the leaf-resolution candidate digest
+ * and identity of its body admitted as I-JSON.
+ */
+export function isExactAdmittedImplementationRow(
+  value: unknown,
+): value is AdmittedImplementationResolutionRow {
+  if (
+    !isRecord(value) ||
+    !hasExactDataFields(value, ADMITTED_IMPLEMENTATION_RESOLUTION_ROW_FIELDS) ||
+    value.kind !== "admitted_implementation_resolution_row" ||
+    value.schemaVersion !== "5.0.0" ||
+    value.disposition !== "admitted" ||
+    (value.computeRegime !== "F_D" && value.computeRegime !== "F_P")
+  ) return false;
+  const stringFields = [
+    value.leafResolutionCandidateRef,
+    value.requirementKey,
+    value.catalogBasisDigest,
+    value.catalogViewDigest,
+    value.programValidationRef,
+    value.graphFunctionRef,
+    value.graphFunctionOwnerProductId,
+    value.nodeRef,
+    value.programLocusRef,
+    value.implementationBindingRef,
+    value.implementationRef,
+    value.packageName,
+    value.packageVersion,
+    value.modulePath,
+    value.namedSymbol,
+    value.inputContractRef,
+    value.outputContractRef,
+    value.failureContractRef,
+    value.refusalContractRef,
+    value.implementationOwnerProductId,
+  ];
+  const digestFields = [
+    value.leafResolutionCandidateDigest,
+    value.requirementKeyDigest,
+    value.publicationDigest,
+    value.graphFunctionDigest,
+    value.graphFunctionPublicationDigest,
+    value.implementationBindingDigest,
+    value.implementationDescriptorDigest,
+    value.implementationPublicationDigest,
+  ];
+  if (
+    !stringFields.every(isNonblankNulFreeString) ||
+    !digestFields.every(isSha256Digest)
+  ) return false;
+  const {
+    kind: _kind,
+    schemaVersion: _schemaVersion,
+    disposition: _disposition,
+    leafResolutionCandidateRef: _candidateRef,
+    leafResolutionCandidateDigest: _candidateDigest,
+    ...body
+  } = value;
+  const admittedBody = admitJson(body);
+  if (admittedBody.kind !== "ok") return false;
+  const digest = sha256Canonical(admittedBody.value);
+  return value.leafResolutionCandidateDigest === digest &&
+    value.leafResolutionCandidateRef ===
+      `leaf-resolution-candidate://abiogenesis/${digest.slice("sha256:".length)}`;
 }
 
 export function selectAdmittedInteractionContract(

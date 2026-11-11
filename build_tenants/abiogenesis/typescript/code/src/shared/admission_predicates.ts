@@ -10,6 +10,12 @@ export function isNonblankNulFreeString(value: unknown): value is string {
     !value.includes("\0");
 }
 
+/** @internal A nonblank NUL-free string without leading or trailing whitespace. */
+export function isTrimmedNonblankNulFreeString(value: unknown): value is string {
+  return typeof value === "string" && value.trim().length > 0 &&
+    value.trim() === value && !value.includes("\0");
+}
+
 export function isNonEmptyJsonString(value: JsonValue | undefined): value is string {
   return typeof value === "string" && value.length > 0;
 }

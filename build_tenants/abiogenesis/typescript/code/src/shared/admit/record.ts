@@ -23,3 +23,23 @@ export function hasExactKeys(value: object, keys: readonly string[]): boolean {
   return actual.length === expected.length &&
     actual.every((key, index) => key === expected[index]);
 }
+
+/**
+ * @internal Exact own data fields: every own key (`Reflect.ownKeys`) is a
+ * string, the own keys equal `fields` as a set, and each is an enumerable data
+ * property. A symbol, non-enumerable or accessor member refuses.
+ */
+export function hasExactDataFields(value: object, fields: readonly string[]): boolean {
+  const keys = Reflect.ownKeys(value);
+  if (keys.some((key) => typeof key !== "string")) return false;
+  const actual = (keys as string[]).sort();
+  const expected = [...fields].sort();
+  return actual.length === expected.length &&
+    actual.every((key, index) => key === expected[index]) &&
+    actual.every((key) => {
+      const descriptor = Object.getOwnPropertyDescriptor(value, key);
+      return descriptor !== undefined &&
+        Object.hasOwn(descriptor, "value") &&
+        descriptor.enumerable === true;
+    });
+}
