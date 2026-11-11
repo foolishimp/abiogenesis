@@ -284,9 +284,26 @@ test('a declared foldback survives Public module publication, catalog parsing an
   // Run quiescence, the owner reader that closure consumes, reads them as historical.
   const cold=env.abg.reopenEventStore(structuredClone(handoff.reopenAuthority));assert.equal(cold.kind,'reopened_event_store_context');
   const reads=await load('abg/project_read_ports'),runId=events.find(e=>e.kind==='run_closed').runId;
-  const owner=reads.prepareRunReadAtDurablePrefix(cold.prefix,'run_status',runId).project();cold.store.projectReopenAuthorityAndClose();
+  const owner=reads.prepareRunReadAtDurablePrefix(cold.prefix,'run_status',runId).project();
+  const childSources=probes.map(p=>reads.prepareRunReadAtDurablePrefix(cold.prefix,'graph_call_replay',p.fold.payload.childGraphCallId).source);
+  cold.store.projectReopenAuthorityAndClose();
   assert.equal(owner.disposition,'projected');assert.equal(owner.value.replayDigest,replay.replay.digest);
   assert.deepEqual([owner.value.quiescence.disposition,owner.value.quiescence.blockingFluents],['quiescent_for_close',[]]);
+  // The Public graph-call read of each folded child reads it closed, with no
+  // terminal result. The child has no graph_call_closed and its graph_call_active
+  // ended at the foldback, so the status is the closed Run's own status.
+  const children=[];
+  for(const [index,source] of childSources.entries()){
+    const identity='foldback-child-'+index;
+    const {call}=constructInstalledRunReadCall({environment:env,publicApi,memberKey:'graph_call_replay',selector:{kind:'ordinal_page',fromOrdinal:0,limit:2048},source,eventResource:resource(),identity});
+    const output=await runInstalledCliRequest({scratch:env.scratch,installedRoot:env.installedRoot,identity,acquisition:{kind:'reopen',closeHandoff:handoff},call,expectedExitCode:0});
+    assert.equal(output.output.receipt.ownerOutput.outcomeKind,'result',JSON.stringify(output.output.receipt.ownerOutput));
+    const projection=output.output.receipt.ownerOutput.value.projection;
+    const kinds=[...new Set(events.filter(e=>e.graphCallId===source.ref||e.payload?.graphCallId===source.ref||e.aggregateId===source.ref).map(e=>e.kind))];
+    children.push({graphCallId:source.ref,status:projection.status,terminalResult:projection.terminalResult,graphCallOpened:kinds.includes('graph_call_opened'),graphCallClosed:kinds.includes('graph_call_closed')});
+  }
+  for(const child of children)assert.deepEqual([child.status,child.terminalResult,child.graphCallOpened,child.graphCallClosed],['closed',null,true,false]);
+  t.diagnostic(JSON.stringify({publicChildGraphCallReplay:children}));
   t.diagnostic(JSON.stringify({publicRunStatus:{status:status.status,replay:status.replay.ref,folded},ownerQuiescence:owner.value.quiescence,
     proofLimit:'Installed packed build, Public start and reads through the installed CLI; disclosed process-local invocation counter in the fixture child; no provider or network.'}));
 });
