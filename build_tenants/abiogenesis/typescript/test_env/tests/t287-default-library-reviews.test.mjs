@@ -7,7 +7,7 @@ import {pathToFileURL} from 'node:url';
 import * as product from '../../build/code/src/product/index.js';
 import * as gtl from '../support/language-test-gtl.mjs';
 import {loadWorksiteOwner,worksiteFixture} from '../support/t287-generic-job-worksite.mjs';
-import {setupInstalledRootCatalog} from '../support/root-installed-environment.mjs';
+import {installOncePerFile,installTenantOnce,openCaseEnvironment} from '../support/root-installed-environment.mjs';
 import {prepareRegisteredSelectionProduct,constructInstalledStartCall,runInstalledCliRequest} from '../support/registered-graph-selection.mjs';
 import {libraryConsumerDeclaration,libraryEnvironment,witnessInput,witnessRef,assessmentContract,assessmentSchema,schemaPath} from '../support/default-library.mjs';
 import {prepareFulfillmentSeed,fulfillmentWitnessInput} from '../support/default-library-fulfillment.mjs';
@@ -412,21 +412,29 @@ if('interpretation' in props){
  emit('assess:'+(review===undefined?'uat':JSON.parse(review.slice('Declared review: '.length)).reviewRef),{kind,disposition:met?'satisfied':'unmet',reason:'Scripted assessment of '+basis.candidate.path+'.',unresolvedCriteria:met?[]:['output']},{candidate:basis.candidate.path});
 }
 `;
+// The two Public starts share one packed, verified and installed Product (the
+// tenant and the consumer fixture Product) for this file; each Run opens its own
+// store, workspace and scratch root on it.
+const reviewsInstall=installOncePerFile(async()=>{
+  const selected={},install=await installTenantOnce(packageRoot,{candidateBasisSource:'packed_artifact',rootPublicationKind:'worksite_construction',
+    prepareAdditionalProducts:async setup=>{
+      selected.environment=await libraryEnvironment({...setup,packageRoot:setup.bootstrapPackage});
+      const library=setup.gtl.constructDefaultGovernanceLibraryModulePublication({...basis,packageName:setup.abiPublication.productSemanticsBinding.packageName,packageVersion:setup.abiPublication.productSemanticsBinding.packageVersion});
+      const schema=join(setup.scratch,'assessment.schema.json');await writeFile(schema,JSON.stringify(assessmentSchema)+'\n');
+      return [await prepareRegisteredSelectionProduct({...setup,abiPackageArchivePath:setup.abiPackageArchivePath,
+        declarationFactory:g=>libraryConsumerDeclaration(g,library,selected.environment.declaration,{purposes:['construction','testing','review','uat'],bound:12}),
+        fixtureFiles:[{path:'build/index.mjs',source:new URL('../fixtures/default-library-product/index.mjs',import.meta.url)}],
+        schemaAssets:[{path:schemaPath,source:schema,contractId:witnessRef('contract','assessment'),requirementAuthorityRefs:[witnessRef('support','complete-source-outcome')]}]})];
+    }});
+  return {install,selectedEnvironment:selected.environment,dispose:()=>install.dispose()};
+});
 // One installed Public start of the library with two required reviews and the
 // scripted actor. `touch` seeds one more path in the read scope, grants it to
 // Construction and adds it to review A's readFirst only.
 async function publicReviewsRun(t,{identity,touch=null}){
   const selection=JSON.parse(await readFile(join(witnessRoot,'selection.json'),'utf8'));let selectedEnvironment;
-  const env=await setupInstalledRootCatalog(t,packageRoot,{candidateBasisSource:'packed_artifact',rootPublicationKind:'worksite_construction',workspaceProductIndex:1,additionalCorePublicationConstructors:constructors,
-    prepareAdditionalProducts:async setup=>{
-      selectedEnvironment=await libraryEnvironment({...setup,packageRoot:setup.bootstrapPackage});
-      const library=setup.gtl.constructDefaultGovernanceLibraryModulePublication({...basis,packageName:setup.abiPublication.productSemanticsBinding.packageName,packageVersion:setup.abiPublication.productSemanticsBinding.packageVersion});
-      const schema=join(setup.scratch,'assessment.schema.json');await writeFile(schema,JSON.stringify(assessmentSchema)+'\n');
-      return [await prepareRegisteredSelectionProduct({...setup,abiPackageArchivePath:setup.abiPackageArchivePath,
-        declarationFactory:g=>libraryConsumerDeclaration(g,library,selectedEnvironment.declaration,{purposes:['construction','testing','review','uat'],bound:12}),
-        fixtureFiles:[{path:'build/index.mjs',source:new URL('../fixtures/default-library-product/index.mjs',import.meta.url)}],
-        schemaAssets:[{path:schemaPath,source:schema,contractId:witnessRef('contract','assessment'),requirementAuthorityRefs:[witnessRef('support','complete-source-outcome')]}]})];
-    }});
+  const shared=await reviewsInstall();selectedEnvironment=shared.selectedEnvironment;
+  const env=await openCaseEnvironment(t,shared.install,{workspaceProductIndex:1,additionalCorePublicationConstructors:constructors});
   const proof=join(env.scratch,identity);await mkdir(proof);
   const actor=join(proof,'review-actor.mjs'),actorLog=join(proof,'review-actor.jsonl');
   await writeFile(actor,'#!'+process.execPath+'\n'+REVIEW_ACTOR);await chmod(actor,0o755);
