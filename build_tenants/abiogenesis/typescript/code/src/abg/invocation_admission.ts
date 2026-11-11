@@ -20,7 +20,10 @@ import type {
   ModulePublication,
 } from "../gtl/contracts.js";
 import type { CProgramNode } from "../gtl/c_algebra.js";
-import { resolveProgramStart } from "../gtl/public_start.js";
+import {
+  graphFunctionStartRefusal,
+  resolveProgramStart,
+} from "../gtl/public_start.js";
 import { sampleNativeEventTime } from "./native_event_time.js";
 import {
   resolveCProgramTermAtSourcePath,
@@ -1142,9 +1145,15 @@ function admitInvocationWithRequest(
         input.program.programRef,
       )
     : null;
+  // A graph_function start passes the Program's start law before its lookup.
   const graphFunctionStartRow = input.invocation.variant === "start" &&
+      exactRequest !== null &&
       exactStartTarget !== null &&
-      "graphFunctionHandle" in exactStartTarget
+      "graphFunctionHandle" in exactStartTarget &&
+      graphFunctionStartRefusal(input.program, {
+        scope: exactRequest.scope as "program",
+        until: exactRequest.until as "converged",
+      }) === null
     ? lookupGraphFunction(
         input.catalogView,
         exactStartTarget.graphFunctionHandle,

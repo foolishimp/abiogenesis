@@ -38,16 +38,50 @@ function refusal(
   };
 }
 
+function scopeRefusal(
+  request: Pick<ProgramStartRequest, "scope">,
+): ProgramStartRefusal | null {
+  return request.scope === "program" ? null : refusal(
+    "unsupported_control",
+    "public start scope must name the admitted Program",
+  );
+}
+
+const DIRECT_START_REFUSAL =
+  "direct public control requires next or asset target with until converged and no caller-selected start";
+
+// The direct start law (REQ-P-POLICY-013): until converged, no caller-selected
+// start, and a Program whose root-mode policy is direct. An absent policy is
+// the supervised default.
+function directStartRefusal(
+  program: Readonly<GtlProgram>,
+  request: Pick<ProgramStartRequest, "until" | "startRef">,
+): ProgramStartRefusal | null {
+  return request.until !== "converged" ||
+      request.startRef !== undefined ||
+      program.policies["abg.root_mode"] !== "direct"
+    ? refusal("unsupported_control", DIRECT_START_REFUSAL)
+    : null;
+}
+
+/** @internal A `graph_function` start target selects one callable member as a
+ * direct start, so it passes the same direct start law as `next` and asset
+ * targets; the Product and ABG admission both call this owner. The caller's
+ * stated root mode is recorded as stated and not read here. */
+export function graphFunctionStartRefusal(
+  program: Readonly<GtlProgram>,
+  request: Pick<ProgramStartRequest, "scope" | "until">,
+): ProgramStartRefusal | null {
+  return scopeRefusal(request) ??
+    directStartRefusal(program, { until: request.until });
+}
+
 export function resolveProgramStart(
   program: Readonly<GtlProgram>,
   request: ProgramStartRequest,
 ): ResolvedProgramStart | ProgramStartRefusal {
-  if (request.scope !== "program") {
-    return refusal(
-      "unsupported_control",
-      "public start scope must name the admitted Program",
-    );
-  }
+  const outOfScope = scopeRefusal(request);
+  if (outOfScope !== null) return outOfScope;
   if (
     request.until === "converged" &&
     request.rootMode === "supervised" &&
@@ -70,17 +104,10 @@ export function resolveProgramStart(
           "supervised start must resolve one exact declared Program start",
         );
   }
-  if (
-    request.until !== "converged" ||
-    request.rootMode !== "direct" ||
-    request.startRef !== undefined ||
-    program.policies["abg.root_mode"] !== "direct"
-  ) {
-    return refusal(
-      "unsupported_control",
-      "direct public control requires next or asset target with until converged and no caller-selected start",
-    );
-  }
+  const notDirect = request.rootMode === "direct"
+    ? directStartRefusal(program, request)
+    : refusal("unsupported_control", DIRECT_START_REFUSAL);
+  if (notDirect !== null) return notDirect;
   if (request.target === "next") {
     const defaultStartRef = program.policies["abg.default_start_ref"];
     const matches = program.starts.filter(
