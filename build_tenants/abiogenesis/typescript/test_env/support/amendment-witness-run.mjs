@@ -5,7 +5,7 @@ import {readFile,writeFile,cp,chmod,readdir} from 'node:fs/promises';
 import {join,relative} from 'node:path';
 import {pathToFileURL} from 'node:url';
 import * as product from '../../build/code/src/product/index.js';
-import {setupInstalledRootCatalog} from './root-installed-environment.mjs';
+import {setupInstalledRootCatalog,installTenantOnce,openCaseEnvironment} from './root-installed-environment.mjs';
 import {prepareRegisteredSelectionProduct,constructInstalledStartCall,runInstalledCliRequest} from './registered-graph-selection.mjs';
 import {libraryConsumerDeclaration,libraryEnvironment,witnessRef,schemaPath} from './default-library.mjs';
 import {amendmentWitnessInput,amendmentPrerequisites,amendmentRef,witnessFixtureRoot} from './amendment-witness.mjs';
@@ -29,20 +29,43 @@ export const within=(path,roots)=>roots.some(r=>r===path||path.startsWith(r+'/')
 export async function standInActor(dir){
   const actor=join(dir,'amendment-actor.mjs');await writeFile(actor,`#!${process.execPath}\nimport ${JSON.stringify(pathToFileURL(actorModule).href)};\n`);await chmod(actor,0o755);return actor;
 }
-/** One installed Public start. Returns this Run's admitted events, the whole
- * admitted log (`allEvents`) and the worksite; the caller supplies the actor. */
-export async function runWitness(t,{amendment,actorEnvironment,keep=false,accounting,adjust=input=>input,bound=BOUND}){
-  const definition=await json(definitionPath);let selectedEnvironment;
-  const env=await setupInstalledRootCatalog(keep?{after:()=>{}}:t,packageRoot,{candidateBasisSource:'packed_artifact',rootPublicationKind:'worksite_construction',workspaceProductIndex:1,
-    ...(accounting?{setupAccounting:accounting}:{}),additionalCorePublicationConstructors:constructors,
+// What is installed: the tenant and the consumer fixture Product, whose
+// declaration depends on the process definition and the recursion bound.
+function witnessInstallOptions(definition,bound,selected){
+  return {candidateBasisSource:'packed_artifact',rootPublicationKind:'worksite_construction',
     prepareAdditionalProducts:async setup=>{
-      selectedEnvironment=await libraryEnvironment({...setup,packageRoot:setup.bootstrapPackage});
+      selected.environment=await libraryEnvironment({...setup,packageRoot:setup.bootstrapPackage});
       const library=setup.gtl.constructDefaultGovernanceLibraryModulePublication({...basis,packageName:setup.abiPublication.productSemanticsBinding.packageName,packageVersion:setup.abiPublication.productSemanticsBinding.packageVersion});
       return [await prepareRegisteredSelectionProduct({...setup,abiPackageArchivePath:setup.abiPackageArchivePath,
-        declarationFactory:g=>libraryConsumerDeclaration(g,library,selectedEnvironment.declaration,{purposes:PURPOSES,bound,prerequisites:amendmentPrerequisites(definition)}),
+        declarationFactory:g=>libraryConsumerDeclaration(g,library,selected.environment.declaration,{purposes:PURPOSES,bound,prerequisites:amendmentPrerequisites(definition)}),
         fixtureFiles:[{path:'build/index.mjs',source:new URL('../fixtures/default-library-product/index.mjs',import.meta.url)}],
         schemaAssets:[{path:schemaPath,source:join(seed,definition.acceptance.resultSchema),contractId:witnessRef('contract','assessment'),requirementAuthorityRefs:[amendmentRef('support','amended-requirement-realized')]}]})];
-    }});
+    }};
+}
+const caseOptions={workspaceProductIndex:1,additionalCorePublicationConstructors:constructors};
+/** One install for the witness Runs of a test file at one recursion bound:
+ * the tenant and the consumer fixture Product, packed, verified and installed
+ * once (installOncePerFile). Each Run still opens its own store, workspace and
+ * scratch root on it. */
+export async function installWitnessTenant({bound=BOUND}={}){
+  const selected={},install=await installTenantOnce(packageRoot,witnessInstallOptions(await json(definitionPath),bound,selected));
+  return {install,bound,selectedEnvironment:selected.environment,dispose:()=>install.dispose()};
+}
+/** One installed Public start. Returns this Run's admitted events, the whole
+ * admitted log (`allEvents`) and the worksite; the caller supplies the actor.
+ * With `shared` (bound => the file's install for that bound) the Run opens its
+ * own environment on the shared install; otherwise it installs for itself. */
+export async function runWitness(t,{amendment,actorEnvironment,keep=false,accounting,adjust=input=>input,bound=BOUND,shared}){
+  const definition=await json(definitionPath),selected={};let env,selectedEnvironment;
+  if(shared===undefined){
+    env=await setupInstalledRootCatalog(keep?{after:()=>{}}:t,packageRoot,{...caseOptions,
+      ...(accounting?{setupAccounting:accounting}:{}),...witnessInstallOptions(definition,bound,selected)});
+    selectedEnvironment=selected.environment;
+  }else{
+    assert.ok(!keep&&accounting===undefined,'a kept or accounted Run installs for itself');
+    const witnessInstall=await shared(bound);assert.equal(witnessInstall.bound,bound);
+    env=await openCaseEnvironment(t,witnessInstall.install,caseOptions);selectedEnvironment=witnessInstall.selectedEnvironment;
+  }
   const worksite=env.workspaceBinding.canonicalRoot??env.workspaceAuthority?.canonicalRoot??join(env.scratch,'workspace');
   const preexisting=await tree(worksite);
   await cp(seed,worksite,{recursive:true});

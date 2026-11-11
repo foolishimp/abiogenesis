@@ -7,7 +7,7 @@ import { dirname, join, resolve } from "node:path";
 import { fileURLToPath, pathToFileURL } from "node:url";
 import { promisify } from "node:util";
 import test from "node:test";
-import { setupInstalledRootExecutionBasis } from "../support/root-installed-environment.mjs";
+import { installOncePerFile, installTenantOnce, setupInstalledRootExecutionBasis } from "../support/root-installed-environment.mjs";
 import { constructInstalledPublicDefinitionCall } from "../support/installed-public-definition-call.mjs";
 import { proveFreshProcessRuntimeProjectionEquality } from "../support/fresh-process-runtime-proof.mjs";
 
@@ -629,6 +629,14 @@ async function executeHelper(plan, proof = null) {
   return result;
 }
 
+// The installed cases share one packed, verified and installed Product for this
+// file; each case opens its own store, workspace, scratch root and C1 source
+// Run on it. The selected installed proof (ABG_T287_C2_PROOF_CONFIG) installs
+// per case from its frozen artifact.
+const c2Install = installOncePerFile(() => installTenantOnce(packageRoot, {
+  candidateBasisSource: "packed_artifact", rootPublicationKind: "worksite_construction",
+}));
+
 async function installedC2Case(context, helperFailure = null) {
   const proof = await selectedInstalledProof();
   let environment;
@@ -664,7 +672,7 @@ async function installedC2Case(context, helperFailure = null) {
   let sourcePath;
   environment = await setupInstalledRootExecutionBasis(
     proof === null ? context : { after: (hook) => proof.deferredHooks.push(hook) }, packageRoot, {
-    ...(proof === null ? {} : { frozenArtifact: proof.frozenArtifact }),
+    ...(proof === null ? { install: await c2Install() } : { frozenArtifact: proof.frozenArtifact }),
     candidateBasisSource: "packed_artifact",
     rootPublicationKind: "worksite_construction",
     authorizedActorRef: OWNER_ACTOR_REF,
@@ -1193,7 +1201,8 @@ test("T-287 C2 compact acknowledgment preserves installed large-log observation 
 
 // One C1 source admits one C2 invocation: the source basis is re-derived at the
 // entry prefix and at the source Run's closure, and after a first C2 Run they
-// differ. The helper-failure run therefore has its own installed setup and C1.
+// differ. The helper-failure run therefore has its own case environment (store,
+// workspace and C1) on the file's shared install.
 test("T-287 C2 helper failure after launch reaches result admission with its subject inline", {
   timeout: 180_000, skip: process.env.ABG_T287_C2_PROOF_CONFIG !== undefined && "ABG_T287_C2_PROOF_CONFIG set; the selected installed proof runs only the compact acknowledgment case",
 }, (context) => installedC2Case(context, "command_cleanup_unresolved"));

@@ -8,13 +8,18 @@ import * as product from '../../build/code/src/product/index.js';
 import {projectWorksiteCommandExecutionBudget} from '../../build/code/src/product/worksite_command_execution.js';
 import {witnessRef,assessmentSchema} from '../support/default-library.mjs';
 import {amendmentWitnessInput,amendmentPrerequisites,amendmentRef,parseExamples,assessUnderRubric,summarizeActorCalls} from '../support/amendment-witness.mjs';
-import {seed,standIn,json,definitionPath,amendmentPath,tree,within,standInActor,runWitness,changedPaths} from '../support/amendment-witness-run.mjs';
+import {seed,standIn,json,definitionPath,amendmentPath,tree,within,standInActor,runWitness,changedPaths,installWitnessTenant} from '../support/amendment-witness-run.mjs';
+import {installOncePerFile} from '../support/root-installed-environment.mjs';
 // The amendment witness: an accepted specification and a working system exist;
 // a person changes one business rule; one governed Public start does the
 // affected work, preserves what the amendment does not authorize changing and
 // closes only when acceptance and every required review hold for the current
 // candidate. The process is defined once (process-definition.json); the
 // amendment is the only per-task input.
+// The installed Runs share one packed, verified and installed Product per
+// recursion bound (W5's smaller bound is a second install); each Run still has
+// its own store, workspace and scratch root. The live Run installs for itself.
+const sharedInstall=installOncePerFile(bound=>installWitnessTenant({bound}));
 const ref=p=>product.governanceRef('graph-function',p),IMPACT=amendmentRef('review','impact'),PRESERVATION=amendmentRef('review','preservation');
 const cleanEnv=()=>Object.fromEntries(Object.entries(process.env).filter(([k])=>k!=='NODE_TEST_CONTEXT'));
 const nodeTest=(cwd,files)=>{const r=spawnSync(process.execPath,['--test',...files],{cwd,encoding:'utf8',env:cleanEnv()});return {status:r.status,out:r.stdout+r.stderr};};
@@ -189,7 +194,7 @@ async function assertWitnessOutcome(run){
 test('one Public start builds the amendment: impact review once and current, preservation adverse then corrected, closure only when acceptance and both reviews hold',{timeout:900_000},async t=>{
   const proof=await mkdtemp(join(tmpdir(),'amendment-proof-'));t.after(()=>rm(proof,{recursive:true,force:true}));
   const actor=await standInActor(proof),actorLog=join(proof,'actor.jsonl');
-  const run=await runWitness(t,{amendment:await json(amendmentPath('approval-threshold')),actorEnvironment:{ABG_TS_CLAUDE_COMMAND:actor,ABI5_AMENDMENT_ACTOR_LOG:actorLog,ABI5_AMENDMENT_STAND_IN:standIn}});
+  const run=await runWitness(t,{amendment:await json(amendmentPath('approval-threshold')),shared:sharedInstall,actorEnvironment:{ABG_TS_CLAUDE_COMMAND:actor,ABI5_AMENDMENT_ACTOR_LOG:actorLog,ABI5_AMENDMENT_STAND_IN:standIn}});
   const {receipt,events,results,input,worksite}=run;
   const log=(await readFile(actorLog,'utf8').catch(()=>'')).trim().split('\n').filter(Boolean).map(l=>JSON.parse(l));
   if(process.env.ABI5_AMENDMENT_WITNESS_DUMP){await mkdir(process.env.ABI5_AMENDMENT_WITNESS_DUMP,{recursive:true});
@@ -260,7 +265,7 @@ const actorRows=async path=>(await readFile(path,'utf8').catch(()=>'')).trim().s
 async function failureRun(t,name,actorEnvironment,options={}){
   const proof=await mkdtemp(join(tmpdir(),'amendment-'+name+'-'));t.after(()=>rm(proof,{recursive:true,force:true}));
   const actor=await standInActor(proof),actorLog=join(proof,'actor.jsonl');
-  const run=await runWitness(t,{amendment:await json(amendmentPath('approval-threshold')),...options,
+  const run=await runWitness(t,{amendment:await json(amendmentPath('approval-threshold')),shared:sharedInstall,...options,
     actorEnvironment:{ABG_TS_CLAUDE_COMMAND:actor,ABI5_AMENDMENT_ACTOR_LOG:actorLog,ABI5_AMENDMENT_STAND_IN:standIn,...actorEnvironment}});
   const log=await actorRows(actorLog),{events,receipt}=run;
   const recursion=events.filter(e=>e.kind==='child_foldback_admitted'&&typeof e.payload.applicationRef==='string');
@@ -391,7 +396,7 @@ test('W6: after a restated design makes impact stale, construction is refused ag
 test('a task that omits a review its Program names is refused at selection intake: no actor call, no write; the event log names the review',{timeout:900_000},async t=>{
   const proof=await mkdtemp(join(tmpdir(),'amendment-intake-'));t.after(()=>rm(proof,{recursive:true,force:true}));
   const actor=await standInActor(proof),actorLog=join(proof,'actor.jsonl');
-  const run=await runWitness(t,{amendment:await json(amendmentPath('approval-threshold')),actorEnvironment:{ABG_TS_CLAUDE_COMMAND:actor,ABI5_AMENDMENT_ACTOR_LOG:actorLog,ABI5_AMENDMENT_STAND_IN:standIn},
+  const run=await runWitness(t,{amendment:await json(amendmentPath('approval-threshold')),shared:sharedInstall,actorEnvironment:{ABG_TS_CLAUDE_COMMAND:actor,ABI5_AMENDMENT_ACTOR_LOG:actorLog,ABI5_AMENDMENT_STAND_IN:standIn},
     adjust:state=>product.constructGovernanceWorkState({...state.original,reviews:state.original.reviews.filter(r=>r.reviewRef!==PRESERVATION)})});
   const {receipt,events}=run;
   assert.equal(await readFile(actorLog,'utf8').catch(()=>''),'');assert.equal(events.some(e=>e.kind==='actor_invocation_started'),false);
