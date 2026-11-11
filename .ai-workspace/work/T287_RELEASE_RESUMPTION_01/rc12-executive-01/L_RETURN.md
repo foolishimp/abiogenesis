@@ -12,48 +12,36 @@ Notation: T = `build_tenants/abiogenesis/typescript`. X = `qualification-scratch
 **Exact failure (bound).** Silent stand-in (`X/before/silent/`): init line, then silence. Policy is startup = inactivity 6000 ms, absolute 12000 ms, grace 1500 ms.
 - **Process start (ord 139).** Start probes 140-147: `stdout`, `stderr` and `process_lifecycle` are `observed`; `structured_output`, `tool_progress`, `api_progress`, `archive` and `result_artifact` are `unavailable`. The last activity is elapsed 4.
 - **Inactivity wake (ord 148).** At wall 6008 ms the wake flushes a noise window (`lastQualifyingElapsedMs: null`). So the supervisor did ask at the deadline.
-- **The relation's answer at the deadline.** Recomputed over cut ≤148 at sample 6004:
-  - `leaseExpired: true`, `hardCapReached: false`
-  - coverage 3 observed / 5 unknown
-  - `continue_waiting` / `unknown_required_coverage`
+- **The relation's answer at the deadline** (recomputed over cut ≤148 at sample 6004): `leaseExpired: true`, `hardCapReached: false`, coverage 3 observed / 5 unknown, `continue_waiting` / `unknown_required_coverage`.
 - **Only threshold.** `actor_process_timeout_observed` `absolute` at ord 149, wall 12000 ms (elapsed 12004), followed by the interruption (150), SIGTERM (151) and `actor_invocation_failed` `transport_failure` (154). No inactivity fact.
-- **Late stand-in** (`X/before/late/`): genuine `assistant` progress rows give stdout activity up to elapsed 1864.
-  - At the lease deadline 7864: `continue_waiting` / `unknown_required_coverage`.
-  - Run ends at `absolute` (ord 160, elapsed 12002).
-- **Heartbeat** (`X/before/heartbeat/`): 47 activity probes; ends at `absolute` (ord 226, 12003), as it should.
+- **Late** (`X/before/late/`): genuine `assistant` progress rows give stdout activity up to elapsed 1864; at the lease deadline 7864 the projection is `continue_waiting` / `unknown_required_coverage`, and the run ends `absolute` at ord 160 (elapsed 12002).
+- **Heartbeat** (`X/before/heartbeat/`): 47 activity probes; it ends `absolute` at ord 226 (elapsed 12003), as it should.
+
+**Is "no output for the declared interval" knowable without full coverage?**
+- Yes, on the observed boundaries (`stdout`, `stderr`, `process_lifecycle`): the relation already computes `leaseExpired: true` at 6004 from admitted facts.
+- What is not knowable without the five unknown sources is whether unreported tool or API work is still running.
 
 **Violated relation.**
-- REQ-R-ABG3-TRANSPORT-027: liveness is governed by an inactivity lease over admitted probe activity.
-- TRANSPORT-028: the hard cap exists only as outer safety evidence.
-- TRANSPORT-030: the inactivity lease is preferred over a flat timeout.
+- REQ-R-ABG3-TRANSPORT-027 (liveness is governed by an inactivity lease over admitted probe activity), TRANSPORT-028 (the hard cap exists only as outer safety evidence), TRANSPORT-030 (the lease is preferred over a flat timeout).
 - Design `T287_NATIVE_LIVENESS_CONSERVATION_DESIGN.md` §4: "An inactivity policy termination and an external absolute safety interruption keep distinct causes."
-- Today the absolute ceiling is the only effective bound for every native actor; RC11 ran with 900 s absolute and 180 s inactivity.
-- Downstream symptom: no `inactivity` class ever reaches the RETRY-008 mapping.
+- Today the absolute ceiling is the only effective bound for every native actor (RC11: 900 s absolute, 180 s inactivity). Downstream, no `inactivity` class ever reaches the RETRY-008 mapping.
 
-**Local cause.** `T/code/src/abg/calculus/liveness.ts:771` defines `completeCoverage` over all required probes. Line 803 gates two different things on it:
-- containment: `controlled_terminate`, `inactivity_expired` / `startup_expired` (:804);
-- the no-progress classification (:805-808).
+**Local cause.** `T/code/src/abg/calculus/liveness.ts:771` defines `completeCoverage` over all required probes. Line 803 gates both containment (`controlled_terminate`, `inactivity_expired` / `startup_expired`, :804) and the no-progress classification (:805-808) on it; otherwise the disposition falls to `unknown_required_coverage` (:809).
 
-Otherwise the disposition falls to `unknown_required_coverage` (:809).
-
-**Reading (ii) is closed by code: a real `claude` stream completes coverage no more than the stand-in does.**
+**Stand-in sub-case of reading (ii) excluded by code: a real `claude` stream completes coverage no more than the stand-in does.** Reading (ii) itself (coverage is a precondition; the defect lies elsewhere) survives as C2/R2 below, so the choice is (i)/R1 versus (ii)/R2.
 - These are all the actor probe producers:
   - the start loop (`actor_process.ts:1501-1503`);
-  - legacy stdout and stderr (`:1530`, `:1541-1542`, `:1564`);
+  - the unwindowed stdout and stderr probes (`:1530`, `:1541-1542`, `:1564`);
   - the result asset (`:1313-1339`), which returns with nothing on ENOENT or an empty file;
   - `result_artifact` admitted or rejected (`:1456`);
   - the absolute interruption (`:1475`);
   - stdout windows (`runtime_liveness.ts:422-423`).
 - None of them ever emits `observed` coverage for `tool_progress`, `api_progress` or `archive`, under either parser.
 - Therefore `completeCoverage` is false throughout every actor's life, and :803 is unreachable for the stand-in and for real workers alike. Nothing in the stand-in is missing that a real stream would supply.
-- Corroboration, not run here because the pinned metadata is absent locally: across the 24 recorded real actors, the HS03 oracle test asserts exactly one threshold, and that one is `absolute` (`t287-calculus-fold.test.mjs:1380-1383`).
+- Corroboration: across 24 recorded real actors, the HS03 oracle test asserts exactly one threshold, and it is `absolute` (`t287-calculus-fold.test.mjs:1380-1383`; not run here).
 
 **Supported causes (alternatives; the evidence fits both).**
-- **C1. The calculus applies coverage to containment.**
-  - Design §3: the threshold observation "does not by itself establish … no-output".
-  - §4 rule 1: "Unknown coverage cannot produce no-progress".
-  - Rule 5 keeps `no_output` behind its preconditions.
-  - On that reading, coverage should gate classification but not containment.
+- **C1. The calculus applies coverage to containment.** Design §3: the threshold observation "does not by itself establish … no-output"; §4 rule 1: "Unknown coverage cannot produce no-progress"; rule 5 keeps `no_output` behind its preconditions. On that reading, coverage gates classification, not containment.
 - **C2. The producer realization is incomplete.** Three declared sources have a boundary that is never observed. Repairing this needs a design for what establishes tool, API and archive coverage.
 
 **Why prior checks missed it.**
@@ -100,7 +88,7 @@ Otherwise the disposition falls to `unknown_required_coverage` (:809).
 | | Reading |
 |---|---|
 | T1 consumers | **Unchanged.**<br>`runtime_liveness.ts:457/483` threshold admission and re-check: R1 admits `inactivity` when the lease expires on a live process.<br>`actor_process.ts:1467-1487` and `worker_transport.ts:518-536` rearm or contain: R1 contains at the lease instead of rearming.<br>`calculus/liveness.ts:610-621` event validation: `timeoutClass` follows `hardCapReached`, as it already does.<br>`retry.ts:4131` and `:4480-4481` read post-`actorDone` state only: no R1 change.<br>Public reads render the projection. |
-| T2 timeout class | Produced by `runtime_liveness.ts:458-474` (native) and `actor_process.ts:1567-1579` (legacy L).<br>Validated by `liveness.ts:619-620` and `event_store.ts:631-642`.<br>Consumed by `c_call.ts:2082-2087` and `:1903-1924`, `replay.ts:2437`, `actor_process.ts:1474`, `worker_transport.ts:534-536` and `:683`, and `worksite_construction_recovery.ts:79`. |
+| T2 timeout class | Produced by `runtime_liveness.ts:458-474` (native) and `actor_process.ts:1567-1579` (legacy L). Validated by `liveness.ts:619-620` and `event_store.ts:631-642`. Consumed at 7 sites: `c_call.ts` (2), `replay.ts`, `actor_process.ts`, `worker_transport.ts` (2), `worksite_construction_recovery.ts`. |
 | T3 old instances | **No change.**<br>Under R1, completed recorded Runs replay the same way: a recorded absolute threshold has `hardCapReached`, which precedes the changed branch, and done actors take the budget branch.<br>Only an as-of read of a live actor past its lease changes. |
 | T4 identities/pins | None changed. The build regenerated `contracts/capabilities/capability-definition-graph.json` and `product-toolchain-manifest.json`; both left uncommitted. |
 | T5 tests | None edited or added (E3 not reached). |
