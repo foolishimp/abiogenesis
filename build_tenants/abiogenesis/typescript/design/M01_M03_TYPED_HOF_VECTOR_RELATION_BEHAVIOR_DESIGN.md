@@ -239,7 +239,7 @@ classDiagram
   }
   class Scenario09FanOutFixture {
     <<downstream>>
-    +nonConsensus_A_to_B
+    +generic_A_to_B
   }
   class AbgHofRuntimeInterpreter {
     <<deferred>>
@@ -477,7 +477,7 @@ sequenceDiagram
   participant Serializer as Canonical GTL Serializer
   participant Raw as M01 Raw GTL Admission
   participant Compiler as M03 HOF Relation Compiler
-  participant Fixture as Scenario 09 Non-Consensus Fixture
+  participant Fixture as Scenario 09 Fixture
 
   Author->>Typecheck: compile child and invariant over into witnesses
   alt statically knowable types mismatch or witness shape is forged
@@ -509,7 +509,7 @@ sequenceDiagram
         Compiler-->>Author: semantic_not_realized HofRelationDiagnostic
       end
     end
-    Fixture->>Typecheck: compile non-Consensus A to B child and explicit vectors
+    Fixture->>Typecheck: compile generic A to B child and explicit vectors
     Typecheck->>Native: same statically admitted witness relation
     Native->>Builder: same admitted invariant relation
     Builder-->>Fixture: same typed HofUnaryRef with derived wrapper and declaration
@@ -544,7 +544,7 @@ Sequence invariants:
   missing membership or type law.
 - M03 resolves identity and equality globally, then reports the absence of a
   runtime consumer. T-253 neither publishes nor invokes the derived function.
-- The Scenario 09 fixture uses the same API and diagnostics as Consensus will;
+- The Scenario 09 fixture uses the same API and diagnostics as every consumer;
   no feature-specific branch exists.
 
 ## Lifecycle State Machine
@@ -644,7 +644,7 @@ the semantic carrier model.
 | Native and raw truth agree | witnesses bind canonical declaration fields | serialize and raw admit same relation | canonical bytes precede raw admission | `pass` |
 | Compiler uses structure, not names | M03 reads HofApplicationDeclaration | name/tag alone leaves an ordinary function unobserved as HOF; existing feature-coverage conformance owns contradictory manifest claims | OrdinaryFunction is terminal when no declaration exists | `pass` |
 | Runtime absence is honest | runtime interpreter is deferred | T-253 reports the gap and does not publish or invoke | semantic gap terminates slice | `pass` |
-| Relation is generic | Scenario 09 is a downstream consumer | same path and diagnostics | no Consensus state exists | `pass` |
+| Relation is generic | Scenario 09 is a downstream consumer | same path and diagnostics | no feature-specific state exists | `pass` |
 
 ## Cross-View Axiom Matrix
 
@@ -659,7 +659,7 @@ the semantic carrier model.
 | ordinal and cardinality law is explicit | HOF-001/007 | closed fields for fan-out | Builder records, never schedules | no completion-order state exists | closed literal variants | M03 validates variant-owned values | `pass` | T-253 |
 | no name tag cast or promote creates HOF truth | HOF-004/005/006; LANGUAGE-009 | no such field owns relation | names/tags alone remain ordinary; existing feature-coverage conformance owns contradictory claims | OrdinaryFunction is terminal without a declaration | API requires opaque refs | structural declaration is sole HOF evidence | `pass` | T-253 |
 | missing runtime semantics is typed non-success | PRODUCT atom criterion; ODD method | deferred runtime is separate | compiler reports the gap; T-253 does not publish or invoke | CompilerSemanticGap is terminal evidence | no runtime API in witnesses | `semantic_not_realized` diagnostic | `pass` | later generic HOF runtime leaf |
-| non-Consensus demand proves genericity | PRODUCT atom criterion; scenario 09 | fixture is downstream, not owner | same relation path | no feature-specific state | same public M01 API | same M03 diagnostics | `pass` | T-253 fixture |
+| Scenario 09 demand proves genericity | PRODUCT atom criterion; scenario 09 | fixture is downstream, not owner | same relation path | no feature-specific state | same public M01 API | same M03 diagnostics | `pass` | T-253 fixture |
 | F_P/F_H output admission | not exercised by authoring/compiler slice | no F_P/F_H carrier exists | no worker or human participant | no probabilistic/human state | not applicable to pure declaration path | no effect handler entered | `not_applicable` | later runtime design owns effects |
 | every sequence message crosses a declared semantic boundary | DESIGN_MODULE_METHOD 5E | participant classes, foreign raw candidate, and refusal/result carriers are explicit | participant mapping names every sender and receiver; canonical and foreign raw paths are distinct | corresponding typecheck, native, raw-candidate, compiler, or ordinary state exists | typed API and existing admission own native messages | raw admission or M03 owns downstream messages | `pass` | T-253 |
 | every lifecycle transition has a carrier and owner | DESIGN_MODULE_METHOD 5E | candidate, typed call, witnesses, declarations, bytes, and diagnostics are modeled | the same owners perform each transition | lifecycle mapping names every state family; transition labels name the owner | TypeScript or M01 owns pre-serialization transitions | serializer, raw admission, or M03 owns later transitions | `pass` | T-253 |
@@ -670,7 +670,7 @@ the semantic carrier model.
 |---|---|---|
 | upstream intent and requirement | answered by PRODUCT atom criterion and ratified HOF-001 | F_H-ratified `REQ-L-GTL3-HOF`; design did not self-ratify |
 | build / realization | M01 typed witnesses, wrapper builder, declaration law and M03 compiler validation in the TypeScript tenant | T-253 accepted design and named code scope |
-| assurance / proof | native positive/negative type lane, raw mutation pins, compiler diagnostics, Scenario 09 non-Consensus fixture, full semantic regression | TypeScript tenant test surfaces; tests prove but do not define law |
+| assurance / proof | native positive/negative type lane, raw mutation pins, compiler diagnostics, Scenario 09 fixture, full semantic regression | TypeScript tenant test surfaces; tests prove but do not define law |
 | release / packaging | included in the ordinary ABIogenesis 5.0 TypeScript package; no new package or artifact kind | T-248 later proves package census and exact candidate |
 | deployment / install | no service deployment exists; the exported language/compiler API arrives through the ordinary installed package | `not_applicable` to a separate deployment mechanism; existing install law owns package installation |
 | live usage / invocation | **Gap:** generic HOF runtime interpretation is absent; T-253 reports `semantic_not_realized` and does not publish or invoke | later census-driven generic runtime leaf after T-252 body probe |
@@ -687,7 +687,6 @@ the semantic carrier model.
 | prior compiler trusted names and emitted no HOF diagnostic | replaced by exact structural M03 validation and typed diagnostics | closed by T-253 Phase C |
 | HOF runtime interpretation | explicitly absent; valid declarations end semantic-not-realized | census-driven generic successor after T-252 probe |
 | `workflow.C`, `C.batch`, retry, recursion execution | unrelated generic atoms | later singular accepted designs |
-| Consensus body | no code in this ticket | T-252 re-entry after T-253 closure |
 | `promote` semantics | no redesign here | separate requirement/design re-entry if independently demanded |
 | global generic GraphFunction/Node types | rejected as disproportionate | new evidence would require separate design |
 
@@ -696,4 +695,4 @@ the semantic carrier model.
 `accepted_and_realized`. Direct F_H acceptance on 2026-07-12 admitted T-253
 Phase A, then Phase B, then Phase C with a self-review after each. The relation,
 authority, failure classes, and non-runtime boundary remain binding. Closure
-does not authorize HOF runtime execution or Consensus implementation.
+does not authorize HOF runtime execution.

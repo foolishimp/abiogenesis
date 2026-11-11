@@ -67,7 +67,7 @@ runtime later. It never proves that an attempt ran or closed.
 
 ### Explicit Exclusions
 
-- changing the T-252 Consensus body or its selected C declarations;
+- changing the T-252 body or its selected C declarations;
 - lowering a complete C program back to a flat HoG compatibility projection;
 - synthesizing missing `transform.C`, `evaluate.C`, or `consequence.C` stages;
 - treating a domain role as an engine compute-stage category or renaming it;
@@ -297,14 +297,14 @@ T-270 must consume the exact T-267 admission together with the T-255 handoff,
 T-271 plan, and exact declared execution contexts. A stale per-stage request
 or the old startup block alone cannot open whole-program execution.
 
-### D10. Canonical and non-Consensus proofs use the same compiler
+### D10. Canonical and generic proofs use the same compiler
 
 The unchanged T-252 body must produce one exact T-267 bundle for every selected
 GraphVector and the selector-free fan-out boundary. The proof compares the
 complete plan's authored node and invoking-locus inventories with the emitted
 rows; it does not count only result-bearing stages.
 
-A non-Consensus fixture must include a mixed program with repeated
+A generic fixture must include a mixed program with repeated
 composition roles, a structural constructor, an intermediate non-result
 stage, and one result-bearing stage. A recurse fixture must prove that C-plan
 identity and outer recurse relation identity remain distinct and both are
@@ -572,7 +572,7 @@ stateDiagram-v2
 | blocked truth | unrelated issues, capability absence, and the T270 boundary remain no-effect outcomes |
 | replay-safe identity | repeated compilation is byte-equivalent; stale source, plan, authority, bundle, report, or startup block fails |
 | canonical T252 | body digest unchanged; all selected plans and outer application relations are conserved; only T268 remains |
-| non-Consensus reuse | one mixed/nested program and one recurse application use the same compiler and gate |
+| generic reuse | one mixed/nested program and one recurse application use the same compiler and gate |
 | package surface | packed consumer sees public source, compile, and admission carriers but no private constructor or controller |
 
 ## Non-Closure
@@ -598,7 +598,7 @@ stateDiagram-v2
 |---|---|
 | upstream authority | active requirements plus completed T-255, T-257 through T-262, T-269, and T-271 carriers |
 | realization | one source projector, per-locus static authority admission, whole-program compiler, and gate |
-| proof | canonical and non-Consensus fixtures, recurse identity negative, existing conformance suite, packed API, full semantic suite |
+| proof | canonical and generic fixtures, recurse identity negative, existing conformance suite, packed API, full semantic suite |
 | release/package | public M03 contract exports and regenerated publication inventory |
 | install | existing ABG package; no CLI or service added |
 | live use | blocked until T-268 capability and T-270 public routing close; static admission never means runtime closure |

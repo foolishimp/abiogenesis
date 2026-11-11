@@ -720,7 +720,7 @@ route, event, or runtime decision.
 | analyzer is subordinate | publisher proposes while verifier/resolver independently recompute through private machinery | Product package exports analyzer/evidence type or accepts a publisher receipt |
 | install follows resolve | exact lock installs/binds | unresolved Product creates no target |
 | JSON Pointer remains canonical | object/array pointers resolve | malformed `~`, `~2`, or out-of-range pointer |
-| accepted behavior conserved | S03, S05, S06, M4, external, package gates | retained S05 authority mutation stays sensitive |
+| accepted behavior conserved | S03, S06, M4, external, package gates | retained authority mutation stays sensitive |
 
 Helper tests may supplement but not replace these module laws.
 
@@ -743,7 +743,7 @@ schema/generation, and S06 proof. Public operation identities, variants, and
 dispatch semantics are unchanged. The native locator, public-contract catalog,
 resolved-lock payload, and their serialized schemas do change and must retain
 SDK/CLI parity. The catalog authority, GTL, validator, HoG, ABG, Codex shell,
-S03, S05, and S04 have no semantic delta.
+S03 and S04 have no semantic delta.
 
 If accepted, this file refines M04 native inventory and supersedes only the
 native-contract part of M05 Section 14. It preserves the accepted four S06

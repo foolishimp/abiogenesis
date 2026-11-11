@@ -506,7 +506,7 @@ handler inventory. Separate counts expose those declaration families.
 | static reachability | declaration inventory coexists with source-import closure evidence | declaration count used as call/no-call evidence fails |
 | capability honesty | effect requirement rows remain matchable and profile gap explicit | name/package/plugin based compatibility pass is impossible |
 | T-252 oracle | body digest remains fixed; T-264 families leave active census after implementation | traversal/C/HOF/runtime families remain owned and visible |
-| non-Consensus proof | broad fixture uses optional and present families together | hard-coded Consensus feature exception is absent |
+| generic proof | broad fixture uses optional and present families together | hard-coded feature exception is absent |
 
 ## Cross-View Axiom Matrix
 
@@ -542,8 +542,8 @@ T-264 does not own:
 
 Accept this boundary only with the three-owner split: T-264 projects exact
 requirements, DS-4 publishes the exact profile, and T-255 admits the profile and
-decides compatibility. Do not add a local effect/capability mapping to Consensus
-or infer one from strings.
+decides compatibility. Do not add a local effect/capability mapping to a
+product or infer one from strings.
 
 ## Closure Conditions
 
@@ -557,14 +557,14 @@ or infer one from strings.
    inventoried separately with exact host/path evidence.
 7. T-252 loses only T-264-owned scope/inventory gaps; its real generic gaps and
    canonical body digest remain.
-8. A broad non-Consensus fixture proves both lawful omission and mandatory
+8. A broad generic fixture proves both lawful omission and mandatory
    inventory failure.
 9. Conformance execution remains effect-free.
 
 ## Non-Closure
 
 - deleting full-root conformance or targeting zero issues;
-- hard-coding T-252/Consensus exceptions;
+- hard-coding T-252 exceptions;
 - keeping implicit scope based only on whichever optional fields happen to be
   present;
 - requiring every known feature family to have nonzero inventory;
@@ -575,7 +575,7 @@ or infer one from strings.
 - treating declarations as execution/non-execution evidence;
 - inferring effect identity or capability compatibility from names, URI
   spelling, package presence, plugin refs, or tests;
-- adding a Consensus-specific compiler branch or changing T-252 body bytes.
+- adding a feature-specific compiler branch or changing T-252 body bytes.
 
 ## Non-Scope
 

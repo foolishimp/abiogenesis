@@ -30,12 +30,11 @@ It derives from:
 - `REQ-P-POLICY-022..064`;
 - `REQ-P-INSTALL-043..060`;
 - `REQ-P-CATALOG-019..030`;
-- `REQ-P-CONSENSUS-012..015`;
 - `REQ-R-ABG3-PROJECTION-023`;
 - `REQ-R-ABG3-WITNESS-009`;
 - accepted M03 `EnvironmentBasis`, `InvocationBasis`,
   `ReplayProjectionFamily`, and ABG runtime authority; and
-- accepted S05 Consensus and S06 native-contract designs.
+- accepted S06 native-contract designs.
 
 This file is the sole current design asset for the affected S06 delta. It:
 
@@ -107,7 +106,6 @@ Excluded:
 | `REQ-P-POLICY-023..040`, `-049..061` | every operation binds its owning complete semantic function | Section 4.2.1 exact owner references plus Section 4.4 owner relations | copied payload, metadata, handler, or prose supplies an absent relation |
 | clarified `REQ-P-POLICY-049..050` | packed verification precedes linked resolution; installed verification consumes an existing lock | `ProductVerifyPacket`, NCC-F01/F02, and authority-slot matrix | verify constructs a lock or F01 admits linked meaning |
 | `REQ-P-CATALOG-019..030`; `REQ-R-ABG3-PROJECTION-023` | project reads and catalog relations are closed and pure | Section 4.3 and catalog rows in Section 4.4 | free projection string, widened view, or read effect |
-| `REQ-P-CONSENSUS-012..015` | Consensus uses ordinary start/respond/continue/read members | start, interaction, continuation, result/replay, and ticket-consensus definitions | Consensus-specific operation or missing public projection |
 | `REQ-P-INSTALL-043..060` | verify, resolve, install, bind, create, and open remain distinct | operation packets and authority-slot matrix | resolve/install cycle, implicit binding, or hidden install |
 | accepted `M05_S06_NATIVE_CONTRACT_CLOSURE_DESIGN.md` | compiler and direct Product dependencies own native closure | Sections 5.1..5.3 | text/flag heuristic, transitive authority, or ambient package meaning |
 | `DESIGN_MODULE_METHOD.md` | Ontology precedes IACS and realization | Sections 6..12 | code must choose an entity, function, authority, lifecycle, or module relation |
@@ -1339,7 +1337,6 @@ non-terminal outcome.
 | `workspace_gaps` | WorkspaceBinding | GapProjection<WorkspaceBinding> | exactly one | exact admitted gap basis |
 | `run_gaps` | Run | GapProjection<Run> | exactly one | empty |
 | `run_lawful_actions` | Run | LawfulActionProjection | exactly one | exact NextActionProjection |
-| `ticket_consensus` | ConsensusResult | TicketConsensusProjection | exactly one | ticket, output authority, replay basis |
 
 `PROJECT_READ_OWNER_PORTS` is exact:
 
@@ -1358,7 +1355,6 @@ non-terminal outcome.
 | `interaction_replay` | `ABG.InteractionProjectionPort.replay` |
 | `continuation_replay` | `ABG.ContinuationProjectionPort.replay` |
 | `c_call_replay` | `ABG.CCallProjectionPort.replay` |
-| `ticket_consensus` | `Product.ConsensusProjectionPort.ticketConsensus` |
 
 The result schema source for each case is exactly
 `PROJECT_READ_CONTRACTS[C].resultSchema`; that member wraps the projection
@@ -1399,11 +1395,6 @@ SelectorOf<C> =
     ? { kind: "workspace_gap_basis", gapBasis: RD<GapProjectionBasis> }
   : C is "run_lawful_actions"
     ? { kind: "next_action", projection: RD<NextActionProjection> }
-  : C is "ticket_consensus"
-    ? { kind: "ticket_consensus",
-        ticket: RD<Ticket>,
-        outputAuthority: RD<ConsensusOutputAuthority>,
-        replayBasis: RD<ReplayProjectionBasis> }
   : NoSelector
 ```
 
@@ -2288,9 +2279,8 @@ stack, CLI-only status, or adapter-local result is not a public outcome.
 
 Project-read capability selection is exact:
 
-- catalog, workspace status, workspace gaps, witness evidence, release
-  evidence, and ticket Consensus use
-  `abg.capability.operator.public-contract@5`;
+- catalog, workspace status, workspace gaps, witness evidence, and release
+  evidence use `abg.capability.operator.public-contract@5`;
 - Run, GraphCall, result, replay, run gaps, lawful actions, interaction,
   continuation, and C-call cases use
   `abg.capability.runtime.replay-continuation@5`;
@@ -3361,8 +3351,8 @@ primitive is implemented.
   class, native/schema contract, attempt digest, and refusal digest reproduce;
 - all 24 read cases derive from admitted owner truth and append no event;
 - native SDK, CLI, and Codex produce the same deterministic S06 outcome;
-- retained S03/S05 invocation, continuation, Consensus, and reads remain
-  indexed members of the family;
+- retained S03 invocation, continuation, and reads remain indexed members of
+  the family;
 - self-package subordinate roots resolve without invented contracts;
 - exact default, named, namespace, star, import-type, type-query, shadowing,
   type-reference, and import-equals relations link under direct dependency

@@ -51,7 +51,6 @@ canonical data; that identity parity is the only raw/native parity claimed.
 
 ### Explicit exclusions
 
-- no Consensus domain entity or body;
 - no JSON Schema publication, decoder certification, or catalog expansion;
 - no runtime, worker, plugin, handler, effect, event, archive, or replay work;
 - no mandatory `typeRef` and no globally generic Node or GraphFunction; and
@@ -545,7 +544,7 @@ classDiagram
   }
   class Scenario09LabFixture {
     <<downstream>>
-    +non Consensus scalar vector tuple proof
+    +scalar vector tuple proof
   }
   class M01TypedNodeConstructor {
     <<authoritative>>
@@ -737,7 +736,7 @@ No state represents runtime execution or closure. Every state carrier appears
 in the domain model, and every transition names its constructor, admission, or
 compiler owner.
 
-## Non-Consensus Generic Proof
+## Generic Proof
 
 Scenario 09 provides the second-consumer proof:
 
@@ -787,9 +786,6 @@ Required negative compile/admission fixtures:
     either branded interface; and
 15. raw GTL with a mutated Node contract, ordered interface, C carrier ref, or
     HOF relation ref.
-
-The proof must not contain Consensus vocabulary in generic carrier,
-constructor, diagnostic, or compiler names.
 
 ## Cross-View Invariants
 

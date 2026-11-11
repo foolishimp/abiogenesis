@@ -199,7 +199,7 @@ part of the discriminator, not a documentation-only claim.
 Reuse external publication/readiness from
 `test_env/support/developer-mini-product.mjs`, installed Public execution from
 `test_env/support/root-cli-environment.mjs`, and ordinary child-result/readback
-joins from the installed external Product/consensus tests. Build once/pack once
+joins from the installed external Product tests. Build once/pack once
 under the next grant; use `candidateBasisSource: "packed_artifact"` and frozen
 artifact/install support. Direct HoG/private owner hooks prove only integration.
 

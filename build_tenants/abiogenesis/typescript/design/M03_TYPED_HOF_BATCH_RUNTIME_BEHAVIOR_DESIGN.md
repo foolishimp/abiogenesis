@@ -49,7 +49,7 @@ and recursive applications remain blocked by T-262.
 
 ### Explicit exclusions
 
-- a Consensus dispatcher, reviewer loop, panel cardinality, or product term;
+- a dispatcher, reviewer loop, panel cardinality, or product term;
 - parallel scheduling, leases, concurrency policy, cancellation, or
   compensation;
 - fixed tuple cardinality or task generation from display names or tags;
@@ -681,7 +681,7 @@ T-260 closure requires:
 5. empty direct batches, non-`C.of` direct task programs, mixed unsupported
    batches, task carrier mismatch, result-cardinality mismatch, and child
    semantic gaps fail closed;
-6. a non-Consensus Scenario 09 fixture projects at least three runtime members
+6. a Scenario 09 fixture projects at least three runtime members
    to exact ordered tasks without fixed-cardinality implementation logic;
 7. each task emits exactly one C-call spine carrying its ordinal and shared
    grouping batchRef, while batchRef emits no rival spine;

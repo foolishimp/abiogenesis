@@ -62,7 +62,7 @@ must not treat `C.retry` as a semantic round.
 
 ### Explicit Exclusions
 
-- a Consensus controller, round service, prompt loop, or product-specific
+- a product controller, round service, prompt loop, or product-specific
   interpreter;
 - any use of `C.retry` to represent a semantic round;
 - an interpreter-owned default budget, termination predicate, foldback map, or
@@ -335,7 +335,7 @@ T-262 removes only `typed_recurse_policy_and_runtime` from the T-252 census.
 The canonical execution handoff remains `published_startup_blocked` until
 T-267 admits result-interface and traversal conservation. T-268 still owns the
 canonical tenant-conformance manifest. T-262 proof may execute isolated
-generic and canonical-structure fixtures, but it cannot claim public Consensus
+generic and canonical-structure fixtures, but it cannot claim public product
 effects, result publication, or release readiness.
 
 ## Irreducible Architectural Carrier Set
@@ -657,7 +657,7 @@ T-262 closure requires:
     or runtime-failed truth returns blocked and never retries;
 11. replay of terminal history performs no child, evaluator, foldback, or
     parent effect; dangling histories resume the exact stage and refs;
-12. one non-Consensus recursive fixture folds B to A once, re-evaluates the
+12. one generic recursive fixture folds B to A once, re-evaluates the
     parent, and terminates on the second child application;
 13. the unchanged T-252 body digest remains exact; its recurse path is proven
     to originate only from the post-submitter typed disposition; a positive

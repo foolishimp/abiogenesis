@@ -6,7 +6,7 @@
 
 ## Product frame and decision
 
-The fixed sixteen-family ABIogenesis 5.0 Product remains the target. This is
+The fixed fifteen-family ABIogenesis 5.0 Product remains the target. This is
 the F04 result-integrity / F10 event-truth seam needed to continue D1 from its
 four assessed stages to the retained application. GTL declares, HoG traverses,
 ABG authenticates and admits, C1 owns construction, and C0 alone writes files.

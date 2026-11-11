@@ -513,7 +513,7 @@ cases, not executed evidence or permission to mutate a retained store.
 
 Qualification includes every selected fifteen-family outcome, complete F17/S06,
 S01 R1–R10, conservation and self-conformance under Product’s release boundaries;
-reserved Consensus, human response/resume and host-parity portions are not restored by this HOW. Mechanical
+reserved human response/resume and host-parity portions are not restored by this HOW. Mechanical
 checks, this HOW, a source review, a bounded installed test or release tooling
 presence cannot close D5/D6. Implementation and publication require separate
 operation grants; human acceptance and 5.0 closure require their actual owning

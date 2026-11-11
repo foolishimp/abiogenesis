@@ -303,9 +303,7 @@ For an ODD-shaped GTL/ABG boundary, the three views must additionally prove:
 Failure of any applicable calibration check blocks acceptance. Use `rejected`
 when the proposed boundary is the wrong category and should not be retained;
 use `blocked` when a potentially lawful boundary has an explicit unsatisfied
-axiom or realization dependency. These checks
-are calibrated by the reverted `945b5a2` Consensus implementation documented
-in [M03_CONSENSUS_REJECTED_AS_BUILT_BEHAVIOR_DESIGN.md](./M03_CONSENSUS_REJECTED_AS_BUILT_BEHAVIOR_DESIGN.md).
+axiom or realization dependency.
 
 ### GTL/ABG Executable Design Gate
 

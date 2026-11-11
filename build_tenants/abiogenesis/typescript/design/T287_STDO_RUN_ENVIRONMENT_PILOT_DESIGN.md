@@ -640,8 +640,8 @@ under GOAL-035 and
 [T-287's course correction](../../../../.ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md#stdo-run-environment-course-correction).
 The decomposition is `requirement_reprice` plus `design_reframe`, not another
 Product or feature family. The affected existing families are F02/F04/F07/F10/F17.
-F08, F12, whole-run Executive oversight and native human-response resumption
-retain their 5.1 boundaries.
+F12, whole-run Executive oversight and native human-response resumption retain
+their 5.1 boundaries.
 
 The slice is one ordinary installed public Program invocation whose declared
 STDO environment is physically resolved, whose required `a_c` retrieval really

@@ -46,8 +46,7 @@ immediate operand object retains its own declaration. Consequently
 layer's semantics without duplicate declaration keys or flattened config.
 
 The live demand remains the 15 source-hosted composition mismatches found by
-the T-252 probe. Consensus is not part of this atom's vocabulary or compiler
-path. It is one later consumer.
+the T-252 probe.
 
 ## Canonical Relations
 
@@ -199,7 +198,7 @@ EligibleCompositionOwners(R) = { R.id } union ApplicationLineage(R).operandGraph
     path is invalid. M03 reports the missing relation without inventing an
     operator kind.
 13. **GA-13 - Generic proof is structural.** T-252 supplies demand. Scenario 09
-    supplies non-Consensus same-kind and mixed-kind applications, both
+    supplies same-kind and mixed-kind applications, both
     vector-local and GraphFunction-local composition, and names different from
     opaque ids through the same M01/M02/M03 path.
 14. **GA-14 - No execution effects.** Authoring, raw admission, application
@@ -335,7 +334,7 @@ classDiagram
     +completeHostJoins()
   }
   class Scenario09ApplicationFixture {
-    <<non Consensus proof>>
+    <<generic proof>>
     +sameKindChains
     +mixedKindChain
     +vectorAndFunctionDefaults
@@ -549,7 +548,7 @@ sequenceDiagram
   participant Operand as Admitted Operand GraphFunction
   participant Composition as Eligible Composition Owner Resolver
   participant Handoff as Deferred T255 Join
-  participant Fixture as Scenario 09 Non Consensus Fixture
+  participant Fixture as Scenario 09 Fixture
 
   Author->>Algebra: operand GraphFunction plus closed operator arguments
   Algebra->>App: exact admitted operand value and arguments
@@ -694,7 +693,7 @@ remain absent as the state machine requires.
 | Owner and execution subject may equal or differ | eligible owner set contains result plus operands | resolver returns current-local or inherited owner to outer compiler | outside-set owner reaches CompositionOwnerRefused | no runtime binding | exact containment or operand-chain membership; provisional join only | `pass` |
 | Composition precedence is unchanged | application has no selector fields | existing source resolver is called after lineage | no application selection state | closed fields exclude precedence | existing precedence path | `pass` |
 | FN-COMP admission is not overclaimed | final binding belongs to T255 | sequence stops before Handoff | RuntimeGap is terminal | no final binding API | provisional status and pending joins | `pass` |
-| Genericity is non-Consensus | Scenario09ApplicationFixture is a domain entity | same public path for fixtures | same states and diagnostics | same constructors | same admission/compiler code | `pass` |
+| Genericity is structural | Scenario09ApplicationFixture is a domain entity | same public path for fixtures | same states and diagnostics | same constructors | same admission/compiler code | `pass` |
 | Declared effects differ from execution | applied result preserves exact possibly non-empty operand effects | no runtime participant receives a call | RuntimeGap terminates with zero execution effects | effect equation adds none | exact effect equality plus no event/archive/workspace output | `pass` |
 
 Every row is backed by accepted design, implementation evidence, the T-265
@@ -736,11 +735,9 @@ Realization must pin at least:
 15. cross-host composition without an admitted application path fails without
     operator inference;
 16. an `owning_declaration_ref` mismatch remains provisional/non-realized and
-    cannot become a final execution binding before T-255;
+    cannot become a final execution binding before T-255; and
 17. the T-252 recurse and fan-in demands use the public atom with no special
-    branch; and
-18. Scenario 09 fixtures contain zero Consensus identity, schema, route, policy,
-    diagnostic, or helper vocabulary.
+    branch.
 
 ## Non-Scope
 
@@ -750,8 +747,7 @@ Realization must pin at least:
 - fan-in reduction, gate evaluation, recurse foldback execution, recursion
   runtime, `workflow.C`, typed batch runtime, or `C.retry`;
 - changing composition precedence or C-program selection;
-- topology-changing graph substitution/zoom or symbolic `promote`;
-- Consensus-specific code or a Consensus-specific declaration family; and
+- topology-changing graph substitution/zoom or symbolic `promote`; and
 - public CLI, SDK, catalog, scheduler, ticket mutation, or workspace behavior.
 
 ## Design Verdict

@@ -370,7 +370,7 @@ reach canonical serialization or M03 compilation.
 10. **RM-10 - Stable body.** T-252 unknown-field mutation changes from accepted
     and dropped to refusal while its canonical body and body digest remain
     unchanged.
-11. **RM-11 - Generic proof.** One non-Consensus Module exercises root and nested
+11. **RM-11 - Generic proof.** One generic Module exercises root and nested
     unknown fields, duplicate decoded names, malformed values, semantic
     duplicates, and exact canonical round-trip.
 12. **RM-12 - Proportional trust.** The slice rejects malformed serialized GTL.
@@ -426,9 +426,9 @@ for open siblings on Module, Graph, Node, or any other carrier.
 
 | Proof family | Positive case | Negative case |
 |---|---|---|
-| text syntax | canonical serialized non-Consensus Module text admits | malformed JSON, comment, trailing comma, lone surrogate, non-finite number refuse |
+| text syntax | canonical serialized generic Module text admits | malformed JSON, comment, trailing comma, lone surrogate, non-finite number refuse |
 | duplicate text names | unique decoded names admit | literal duplicate and escaped-equivalent duplicate refuse before object reconstruction |
-| root closure | canonical T-252 and non-Consensus Module roots admit | unknown root key refuses at `Module.<key>` |
+| root closure | canonical T-252 and generic Module roots admit | unknown root key refuses at `Module.<key>` |
 | recursive M02 closure | canonical jobs, roles, boundaries, families, imports admit | one unknown field at each M02 carrier refuses |
 | recursive M01 closure | maximal graph/function/vector/node/operator/evaluator/rule/context/attrs shapes admit | unknown nested field at every M01 carrier/variant refuses |
 | optional/default law | declared optional omission normalizes through existing defaults | missing required field and malformed present optional field refuse |
@@ -466,7 +466,7 @@ for open siblings on Module, Graph, Node, or any other carrier.
    canonical Module.
 6. T-252 canonical bytes and body digest remain unchanged; its unknown-field
    mutation becomes typed refusal and only T-263's gap disappears.
-7. A non-Consensus maximal Module proves root, nested, variant, duplicate,
+7. A generic maximal Module proves root, nested, variant, duplicate,
    malformed, optional/default, and canonical parity behavior.
 8. M01/M02 admission source closure reaches no runtime or product effect module.
 
@@ -483,14 +483,14 @@ for open siblings on Module, Graph, Node, or any other carrier.
 - rejecting all omitted optional fields merely to make parity easy;
 - accepting unknown keys because the reconstructed Module digest is stable;
 - moving whole-program reachability or runtime realization judgments into M02;
-- adding Consensus vocabulary, body mutation, runtime execution, publication,
+- adding body mutation, runtime execution, publication,
   hostile-desktop hardening, or cryptographic proof.
 
 ## Non-Scope
 
 - T-264 proportional conformance inventory;
 - T-255 execution handoff and all DS-2/DS-3 runtime atoms;
-- DS-4 public schemas, catalog publication, or installed Consensus scenarios;
+- DS-4 public schemas, catalog publication, or installed scenarios;
 - changes to Module ontology, field names, identity equations, or optionality;
 - typed non-throwing diagnostic result families; and
 - hostile in-process object forgery or filesystem tamper defense.

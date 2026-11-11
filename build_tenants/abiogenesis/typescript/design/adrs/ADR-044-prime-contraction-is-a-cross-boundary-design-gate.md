@@ -341,7 +341,7 @@ Stop and re-enter before implementation when a proposed contraction:
 
 Positive:
 
-- later 5.0 features extend one operation, capability, Consensus, and proof
+- later 5.0 features extend one operation, capability, and proof
   authoring structure instead of rebuilding local rosters
 - public identities remain explicit while maintenance surfaces contract
 - recurrence review becomes executable rather than rhetorical

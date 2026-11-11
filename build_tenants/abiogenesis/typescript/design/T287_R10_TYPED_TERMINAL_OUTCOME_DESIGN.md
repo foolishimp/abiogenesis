@@ -6,7 +6,7 @@
 
 ## 1. Product frame and scope
 
-The fixed sixteen-family ABIogenesis 5.0 Product is unchanged. F05/F09/F13 and
+The fixed fifteen-family ABIogenesis 5.0 Product is unchanged. F05/F09/F13 and
 S01 require the source-blind installed path from published Program and
 GraphFunction through HoG, admitted ABG result and closure to fresh replay and
 the actual CLI typed output. F12/S04 remains 5.1.

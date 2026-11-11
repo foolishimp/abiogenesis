@@ -254,10 +254,9 @@ program.
 
 HoG's target realization is small carrier and sum types, primitive algebra and
 laws, derived combinators, one Effect fold/interpreter, and exact owner ports.
-Pure case-specific traversal, route, retry, workflow, recursion, fan-out,
-consensus, or continuation coordination is not irreducible merely because it
-is pure. A retained imperative coordinator wrapped by Effect is not this
-evaluator.
+Pure case-specific traversal, route, retry, workflow, recursion, fan-out, or
+continuation coordination is not irreducible merely because it is pure. A
+retained imperative coordinator wrapped by Effect is not this evaluator.
 
 HoG may derive invocation-local execution state such as frames, cursors, work
 queues, resolved bindings, and caches. Such state remains subordinate to one
@@ -346,7 +345,7 @@ terminal projection
 
 One traversal law covers deterministic workflows, LLM work, human work,
 recursion, and mixed programs. Feature-specific controllers are unnecessary.
-Retry, workflow, recursion, fan-out, consensus, and continuation are derived
+Retry, workflow, recursion, fan-out, and continuation are derived
 frame-transition patterns over this same algebra, not independent imperative
 engines.
 
@@ -1064,19 +1063,6 @@ they are not additional semantic authorities. The public SDK and CLI start or
 continue the program; they do not implement its loop. In 5.0, a required human
 response yields a truthful blocked handoff; native response/resume is 5.1.
 
-### Consensus
-
-Dedicated Consensus qualification is reserved for 5.1. Existing ordinary
-GraphFunctions remain reusable; their presence does not claim S05 acceptance.
-
-Consensus is a bounded standard-library GraphFunction expressed through
-ordinary GTL composition. It demonstrates attributed parallel work, fan-out,
-fan-in, disagreement, bounded retry or recursion, mechanical validation,
-probabilistic evaluation, human escalation, typed results, and replay.
-
-Consensus has no special runner, scheduler, CLI command, event family, ticket
-mutation authority, or closure path.
-
 ### Planned 5.1 Observer And Tuner
 
 The observer and tuner read ABG replay truth and produce attributed diagnostic
@@ -1143,8 +1129,8 @@ declared invocation; the library does not reproduce that loop in another engine.
 
 This section owns release applicability for the feature, scenario, requirement,
 design and qualification surfaces. Fifteen feature families are selected for
-5.0. F08 and F12 retain their identities as reserved 5.1 outcomes; the selected
-families exclude the reserved portions below.
+5.0. F12 retains its identity as a reserved 5.1 outcome; the selected families
+exclude the reserved portions below.
 Historical or lower-level text does not restore a deferred release obligation.
 
 **Owner-selected development RC1 preview.**
@@ -1201,7 +1187,6 @@ planner or runtime and is not assigned a release by this definition.
 | Same-edge yield | Existing admitted continuation, restart/recovery and typed stop behavior remain required; no `yield_continuation` production claim. | Production of the conserved `yield_continuation` disposition from an admitted same-edge continuation fact. |
 | Human boundary | Required human input produces typed block/hold and a human-readable handoff; external entry outside the current admitted traversal requires F_H authority. | Native response admission and response-driven same-run resumption, including evaluation of changed basis and lawful re-entry. |
 | Observation | Progress, timeout, interruption, causal events and replay-derived liveness/disposition remain required runtime truth. Selected governance graphs consume bounded event/workspace observations under their declared frames. | Dedicated observer/tuner drafts, ratification and public surfaces under A5-F12/S04. |
-| Consensus | Ordinary composition, recursion, attribution, admission and replay remain generic runtime obligations. Existing Consensus code and exact evidence are preserved without a dedicated release-complete claim. | Standalone F08/S05 qualification, including agreement/dispute and multi-workspace campaigns. |
 | Host projection | Native SDK/CLI independence and the single Public authority are required. Any retained host adapter is a thin projection with truthful supported claims. Native worker transport remains required. | Additional host-adapter work and mandatory Codex/native parity qualification. |
 
 The full original Data Mapper is an independently owned upper-bound capability
@@ -1349,10 +1334,10 @@ counts.
 | `A5-F16` | **Immutable RC and accepted 5.0 release.** The qualified pre-RC subject authorizes one immutable RC; that exact installed RC is qualified; actual human Product authority accepts or withholds that same unchanged RC. The immutable RC tag, package, manifest, checksums and post-publication install identify the accepted Product. The version-line selector advances to the highest published RC independently of acceptance or consumer adoption; acceptance creates no second cut, final-version rename or replacement package. |
 | `A5-F17` | **Specification-driven downstream lifecycle.** A prospectively selected real specification progresses through Intent/Product, Requirements, Design, working application behavior, admitted evidence and targeted revision through only installed public ABIogenesis contracts. The witness preserves original source, selected and excluded obligations, newly discovered obligations and residuals; satisfies every mandatory outcome of the selected contract; and owns no local runtime or controller. S06 owns qualification of this contract class. Full original Data Mapper upper-bound evaluation and any complete downstream application-delivery claim retain their distinct independently owned outcomes. |
 
-`A5-F08`, standalone Consensus free-construction qualification, and
-`A5-F12`, the dedicated replay-grounded observer/tuner Product,
-retain their stable identities as planned ABIogenesis 5.1 outcomes. They are excluded from required 5.0 realization,
-qualification, and release rather than silently weakened or renumbered. Ordinary
+`A5-F12`, the dedicated replay-grounded observer/tuner Product, retains its
+stable identity as a planned ABIogenesis 5.1 outcome. It is excluded from
+required 5.0 realization, qualification, and release rather than silently
+weakened or renumbered. Ordinary
 recursive Executive governance and the default library have the selected
 allocation in [Release Boundaries](#50-and-51-release-boundaries).
 The human-response portions of F03/F06/F07/F10 and their public contracts are
@@ -1368,8 +1353,8 @@ closure.
 One exact installed `pre_rc_candidate` must pass the four selected pre-RC
 scenarios `ABG5-S01`, `ABG5-S02`, `ABG5-S03`, and `ABG5-S06` and
 become eligible to authorize an RC. `ABG5-S07` then preserves the distinct
-subjects of the release lifecycle. `ABG5-S04` and `ABG5-S05` retain their identities
-as planned 5.1 scenarios and are not 5.0 gates. Every selected scenario uses the
+subjects of the release lifecycle. `ABG5-S04` retains its identity as a planned
+5.1 scenario and is not a 5.0 gate. Every selected scenario uses the
 same public product path; no scenario may introduce a feature-specific harness
 or alternate authority.
 
@@ -1425,19 +1410,6 @@ input requiring reconciliation with the release boundaries before realization.
 ABIogenesis 5.0 self-conformance remains mandatory under `A5-F11` and the
 qualification family. Deferring this scenario does not defer, weaken, or merge
 self-conformance.
-
-### `ABG5-S05`: Consensus Free Construction
-
-This dedicated scenario is reserved for 5.1. Preserved code or a cheap smoke
-result supplies no claim of complete Consensus qualification.
-
-Invoke the packed candidate's SYSTEM-owned Consensus GraphFunction through the
-ordinary catalog and CLI path over one real ticket and at least two differently
-attributed reviewer profiles. Prove agreement closure, dispute recursion, and
-round-limit or unresolved-dispute typed block/handoff to `F_H` in existing, alternate, and
-temporary workspace applications. Every result and continuation must be typed
-and replay-derived, with no shell-owned orchestration or ticket mutation.
-Native response admission and resumption after that handoff are 5.1 proof.
 
 ### `ABG5-S06`: Native And Downstream Portability
 
@@ -1593,7 +1565,7 @@ ABIogenesis 5.0 does not include:
 - native human response admission or response-driven same-run resumption;
 - the dedicated F12/S04 observer/tuner Product or autonomous upstream/out-of-traversal
   A.0 routing, as distinct from selected graph-based Executive governance;
-- standalone Consensus qualification or mandatory host-adapter parity;
+- mandatory host-adapter parity;
 - full original Data Mapper completion as an ABIogenesis release prerequisite;
 - a new GTL source language, parser, compiler pipeline, bytecode, or executable
   intermediate representation;
@@ -1602,8 +1574,8 @@ ABIogenesis 5.0 does not include:
 - a generated HoG program, compiled execution plan, or runtime-program catalog
   distinct from admitted GTL;
 - hidden default programs, selectors, stages, instructions, or topology;
-- controller authority in an SDK, CLI, installer, fixture, worker, plugin,
-  Consensus, or One Surface surface;
+- controller authority in an SDK, CLI, installer, fixture, worker, plugin, or
+  One Surface surface;
 - a second event stream, result ledger, retry loop, continuation model, or
   closure authority;
 - a recursive-LLM-specific runtime or compute regime;
@@ -1724,7 +1696,7 @@ satisfies all of the following:
    `ABG5-S02`, `ABG5-S03`, and `ABG5-S06` pass on one exact
    installed `pre_rc_candidate`; `ABG5-S07` preserves the distinct pre-RC, RC,
    installed-RC, same-RC acceptance and post-publication evidence boundaries
-   while using the same product contracts. `A5-F08`/`ABG5-S05`, `A5-F12`/`ABG5-S04`
+   while using the same product contracts. `A5-F12`/`ABG5-S04`
    and the host and human-response portions named in [Release Boundaries](#50-and-51-release-boundaries)
    remain excluded planned 5.1 work.
 10. Malformed GTL, malformed probabilistic output, invalid authority, basis

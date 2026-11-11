@@ -314,9 +314,10 @@ continuation owns the current selected HOW; the accepted handoff is its input.
 
 ## Product frame and selected outcome
 
-The target remains ABIogenesis 5.0's fixed sixteen families, F01–F11 and
-F13–F17. F12/S04 remains 5.1. F02 supplies GTL declarations, F03 the direct
-seven-C calculus, F04 probabilistic leaves, F05/F06 Public contracts/projections,
+The target remains ABIogenesis 5.0's fixed fifteen families, F01–F07,
+F09–F11 and F13–F17. F12/S04 remains 5.1. F02 supplies GTL declarations, F03
+the direct seven-C calculus, F04 probabilistic leaves, F05/F06 Public
+contracts/projections,
 F07 complete One Surface,
 F10 native runtime truth, and F17/S06 the required installed lifecycle witness.
 GTL declares; HoG traverses; ABG admits and replays. Product wraps supported

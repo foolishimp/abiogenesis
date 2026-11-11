@@ -103,7 +103,7 @@ function.
 - a second selector, direct catalog selection, or AF-14 re-ranking;
 - a second event store, replay store, session controller, execution basis, or
   mutable current-binding pointer;
-- Consensus-specific types, branches, prompts, policies, or proof shortcuts;
+- feature-specific types, branches, prompts, policies, or proof shortcuts;
 - hostile in-process forgery defense, filesystem tamper resistance, or
   cryptographic session machinery on the trusted desktop; and
 - interpreting a missing semantic authority as an empty successful function.
@@ -621,7 +621,7 @@ Malformed, incomplete, contradictory, or unattributed F_P output never becomes
 accepted evidence and can never create `close`. A typed admitted failure may
 support a governed `block`; stdout or worker prose remains diagnostic only.
 
-### D10. Non-Consensus Genericity Is Structural
+### D10. Genericity Is Structural
 
 The implementation proof includes `Scenario09LabOneSurfaceProgram`, using the
 existing lab domain vocabulary:
@@ -635,7 +635,7 @@ observation or research finding, AF-13 selects one published lab GraphFunction,
 AF-14 admits its intent, and AF-16 evaluates an exact admitted fixture evidence
 set. The fixture proves pre-effect intent and post-effect action evaluation
 separately until T-270 supplies AF-15 integration. It uses the same
-definition/admission/compiler path and contains no Consensus vocabulary.
+definition/admission/compiler path.
 
 ### D11. Defensive Work Is Proportional
 
@@ -1449,7 +1449,7 @@ T-272 integration and T-276 installed proof close.
 | A10 AF16 alone creates closure | FPC-011E | ledger and decision derive only from AF16 | only Action emits decision event | ActionEvaluating required | owner-only constructors/admitters | no single-evidence or worker-success path | pass | none |
 | A11 recursion uses existing algebra | FPC-001/014; INTERPRET-030 | T262 relation owns termination foldback and rebind | Recurse returns to compiled application | Recursing returns to ModelEvaluating | existing T262 typed relation | nested composition and foldback checks | pass | none |
 | A12 public ingress and projection are transport/read only | FPC-004C/015 | projection derived from prime results | ingress hands off and later transports | no ingress lifecycle control state | request/result carriers exclude semantic authority | mutation/no-recompute tests | pass | none |
-| A13 non-Consensus consumer proves genericity | PRODUCT atom criterion | lab program uses same family | same compiler/function participants | same lifecycle | zero Consensus-specific types | fixture and name scan | pass | none |
+| A13 lab consumer proves genericity | PRODUCT atom criterion | lab program uses same family | same compiler/function participants | same lifecycle | zero feature-specific types | fixture and name scan | pass | none |
 | A14 defensive scope is proportional | trusted-desktop boundary | immutable admitted carriers trusted | validation at foreign/type/basis edges only | no hostile-local states | TypeScript nominal/discriminated interfaces | GTL/raw F_P/admission negatives | pass | none |
 | A15 no public operation grows | ratified Ontology 19 operations | no operation entity added | run ingress and project read remain external | no public-operation state | no operation definition in T280 | 19-operation parity scan | pass | none |
 | A16 plugins and handlers own interiors only | FN-COMP-014/019; ODD law | function definitions bind hosts but ABG owns outputs | every host result returns through ABG admission | no plugin-authored runtime state | host API returns candidate result only | event/ledger/decision constructors remain ABG-owned | pass | none |
@@ -1503,7 +1503,7 @@ T-272 integration and T-276 installed proof close.
    cross-intent, cross-binding, stale-policy, or single-row closure proposals.
 10. `Scenario09LabOneSurfaceProgram` compiles through the same generic path,
     reaches AF-14 pre-effect intent, and separately proves AF-16 over exact
-    admitted evidence. It has no Consensus vocabulary.
+    admitted evidence.
 11. Nested lab refinement applies the same visible four-authority composition;
     omission at the inner boundary yields `one_surface_refinement_incomplete`.
 12. A hard-break scan proves no imperative One Surface controller, second

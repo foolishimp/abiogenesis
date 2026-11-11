@@ -24,7 +24,7 @@ module; the child ref resolves once inside that digest-bound module.
 
 This ticket realizes constructor-level workflow semantics and makes the five
 unchanged T-252 workflow handoffs statically compilable. It does not remove the
-T-267 startup fence, authorize effects, or claim that Consensus has traversed.
+T-267 startup fence, authorize effects, or claim that T-252 has traversed.
 
 ### Requirements
 
@@ -35,7 +35,7 @@ T-267 startup fence, authorize effects, or claim that Consensus has traversed.
 
 ### Explicit exclusions
 
-- a Consensus dispatcher, round loop, reviewer vocabulary, or product branch;
+- a product dispatcher, round loop, reviewer vocabulary, or product branch;
 - promotion of a module-contained helper to an independent catalog entry;
 - name, tag, or effect inference in place of an exact GraphFunction ref;
 - flattening child vectors or child HoG stages into the parent program;
@@ -202,7 +202,7 @@ sub-traversal evidence and fails before the parent C-call closes as success.
 T-259 makes workflow handoffs structurally compilable and supplies the generic
 runtime atom. The canonical T-255 handoff still carries
 `startup_blocked_awaiting_t267`, and no T-252 handoff may enter traversal or
-cause effects. The non-Consensus fixture invokes the constructor atom directly
+cause effects. The generic fixture invokes the constructor atom directly
 to prove its relation; it is not evidence of product startup admission.
 
 ## Irreducible Architectural Carrier Set
@@ -534,7 +534,7 @@ T-259 closure requires:
    mismatch fail closed;
 4. the exact selected module authority is preserved at runtime without a child
    catalog entry or all-catalog search;
-5. one non-Consensus fixture proves completed, blocked, held, malformed, and
+5. one generic fixture proves completed, blocked, held, malformed, and
    throwing child outcomes through the same generic resolver;
 6. completed foldback emits one ordered C-call spine with `sub_traversal`
    evidence and exact payload carrier identity;

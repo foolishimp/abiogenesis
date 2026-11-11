@@ -402,7 +402,7 @@ actual projection against the same delivered contract. A cast, an all-optional
 projection type or candidate-derived metadata cannot establish conservation.
 Each delivered lineage field equals the corresponding admitted field; the
 attempt coordinate comes from the exact C call. No field is reconstructed
-from the judgment candidate. Existing native-work and Consensus consumers
+from the judgment candidate. Existing native-work consumers
 retain their delivered subset and existing guards.
 
 The integration frame binds these workspace variables: the raw transport

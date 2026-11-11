@@ -106,7 +106,6 @@ families in the first slice.
 | F_P worker transport and B-001 conservation | before the first F_P Product slice |
 | F_H hold, response, and same-run continuation | ABG5-S03 |
 | One Surface recursive supervision | ABG5-S03 after generic continuation |
-| Consensus | ABG5-S05 through ordinary GTL and runtime paths |
 | complete public operation family | after the root contract is stable; no new controller |
 | qualification and release | M6 and M7 |
 
@@ -682,7 +681,7 @@ classDiagram
       <<deferred>>
       -F_P worker transport
       -F_H continuation
-      -One Surface and Consensus
+      -One Surface
       -qualification and release
     }
     class VerifiedProductArtifact {
@@ -1269,8 +1268,8 @@ LeafRealizationCandidate and still crosses evidence, result, and judgment
 admission. It cannot become a direct runtime Failed state.
 
 No future GTL, ABG, GLC, registry, or external service capability is required
-for the root. Live F_P workers, Consensus, and selected-method qualification are
-later Product slices and do not block native construction of this boundary.
+for the root. Live F_P workers and selected-method qualification are later
+Product slices and do not block native construction of this boundary.
 
 ## 12. ABI5-ROOT-001 Design Mapping
 

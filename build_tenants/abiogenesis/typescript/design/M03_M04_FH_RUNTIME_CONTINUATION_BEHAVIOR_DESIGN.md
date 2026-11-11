@@ -14,7 +14,7 @@
 **Change class**: `design_reframe`
 **Method authority**: `stdo://releases/v2.5.0-rc.6/standards/DESIGN_MODULE_METHOD.md`
 **Prime authority**: [ADR-044](./adrs/ADR-044-prime-contraction-is-a-cross-boundary-design-gate.md)
-**Product authority**: `REQ-P-CONSENSUS-008..018`, `REQ-R-ABG3-CONTINUATION`, `REQ-R-ABG3-EVENTS`, and the accepted 19-operation One Surface
+**Product authority**: `REQ-R-ABG3-CONTINUATION`, `REQ-R-ABG3-EVENTS`, and the accepted 19-operation One Surface
 **Prerequisite design**: [M03-M04 Public Catalog Invocation Authority Behavior Design](./M03_M04_PUBLIC_CATALOG_INVOCATION_AUTHORITY_BEHAVIOR_DESIGN.md), including the pending T-270 contracts-owned held-execution checkpoint basis
 
 ## Boundary
@@ -60,40 +60,6 @@ The admitted GTL program still owns graph order and recursion. ABG owns the held
 receipt, interaction events, response admission, run-local continuation,
 same-coordinate replacement, interpreter re-entry, replay, and projection.
 
-## Canonical Consensus Correction
-
-The canonical Consensus body has two `F_H` leaves:
-
-- `graph-vector://abg/consensus/fh-initial`; and
-- `graph-vector://abg/consensus/fh-post-submitter`.
-
-Both leaves have `ConsensusRoundDisposition` as their declared target and
-selected result contract. `FhPendingInteraction` is not a GTL node, graph
-target, result, or foldback value. Pending/responded state is the existing ABG
-interaction event/projection truth while the leaf receipt remains held.
-
-T-275 supplies the declared interaction subject, policy basis, allowed response
-shape, and `ConsensusRoundDisposition` result-contract binding through the
-existing `FhInteractionBinding`. The accepted T-252 source/key family and later
-T-274B native-definition delivery own the graph-private schema identities and
-definitions. T-275 supplies neither those schema authorities nor an
-`interactionRef`. ABG derives the interaction identity from the execution
-basis, graph call, frame, vector, C-call, held receipt, and declared request
-digest.
-
-The bounded-round recurse law is exhaustive:
-
-| Admitted `ConsensusRoundDisposition.outcome` | Recurse disposition |
-|---|---|
-| `closed_done` | terminate |
-| `escalate_fh` | terminate after the held F_H result is admitted |
-| `recurse_next_round` | apply the declared next-round foldback and recurse |
-
-No other value is admissible. Foldback is impossible for `closed_done` and
-`escalate_fh`; termination is impossible for `recurse_next_round`. An open F_H
-interaction is not `escalate_fh`: the latter exists only after an admitted
-`ConsensusRoundDisposition` replaces the held receipt.
-
 ## Contracts-Owned Held-Execution Event Basis
 
 T-270 supplies the one canonical `FhHeldExecutionCheckpointBasis`: a
@@ -108,7 +74,7 @@ checkpoint content.
 
 The canonical value is defined with primitive readonly fields and
 `IJsonValue`. It imports no runner, declared-execution-context, public-ingress,
-Consensus, or product-specific type. Rows are frozen, ordered by admitted
+or product-specific type. Rows are frozen, ordered by admitted
 ordinal, unique by ordinal and carrier identity, and contain the canonical
 I-JSON body that was actually admitted. Refs without bodies are insufficient.
 
@@ -294,7 +260,7 @@ linked member of the same aggregate family.
 - graph restart, root invocation, post-action selection, or AF-13/AF-14 work;
 - caller-authored plan, node, cursor, C-call, input lineage, checkpoint basis,
   result contract, continuation, or interaction identity;
-- `FhPendingInteraction` as a Consensus graph value;
+- `FhPendingInteraction` as a GTL graph value;
 - a response handler that directly calls the interpreter;
 - runner or declared-execution-context types in the replay carrier;
 - a checkpoint ref, checkpoint-owned digest, second environment digest, store, lookup
@@ -307,8 +273,6 @@ linked member of the same aggregate family.
 - same-run correction/supersession or a `superseded` status emitted by T-272;
 - inferring schema bodies or admitted values from refs;
 - changing an F_H vector's target after the hold;
-- folding `closed_done` or `escalate_fh`, or terminating
-  `recurse_next_round`;
 - exposing `run.resume` or any `abg.operation.fh.*` compatibility identity; and
 - product-specific orchestration in M04 or the CLI.
 
@@ -316,7 +280,7 @@ linked member of the same aggregate family.
 
 | Carrier | Authority | Independent role |
 |---|---|---|
-| `GtlProgram` | admitted GTL declaration | owns graph order, the two F_H leaves, and recurse/foldback law |
+| `GtlProgram` | admitted GTL declaration | owns graph order, F_H leaves, and recurse/foldback law |
 | `PublicFunctionDefinition<K>` | accepted public definition family | governs exact respond/continue variants and contracts |
 | `PublicInvocation<K>` | public ingress | immutable respond or continue invocation |
 | `InvocationAuthority<K>` | operation-indexed admission | actor, grants, policy, and stable authority |
@@ -324,7 +288,6 @@ linked member of the same aggregate family.
 | `ExecutionBasis` | M03 runtime authority | exact basis shared by held and replacement receipts |
 | `ConstructionIntent` | One Surface intent authority | current intent containing the held execution |
 | `DeclaredFhInteractionRequest` | declared F_H contract | T-275 subject, policy, response, and result-contract binding truth; no schema identity |
-| `ConsensusRoundDisposition` | Consensus contract family | exact result type for both F_H leaves and recurse decision |
 | `CProgramAtomReceipt` | T-271 interpreter truth | held predecessor and admitted same-coordinate successor |
 | `Continuation` | existing run-local replay aggregate | open and typed terminal obligation truth over the held coordinate |
 | `FhInteractionOpenedEvent` | canonical runtime event | opens derived interaction truth with embedded contracts-owned checkpoint basis |
@@ -355,7 +318,6 @@ identity, lifecycle, or selector role.
     "ExecutionBasis",
     "ConstructionIntent",
     "DeclaredFhInteractionRequest",
-    "ConsensusRoundDisposition",
     "CProgramAtomReceipt",
     "Continuation",
     "FhInteractionOpenedEvent",
@@ -374,7 +336,6 @@ identity, lifecycle, or selector role.
     "ExecutionBasis",
     "ConstructionIntent",
     "DeclaredFhInteractionRequest",
-    "ConsensusRoundDisposition",
     "CProgramAtomReceipt",
     "Continuation",
     "FhInteractionOpenedEvent",
@@ -405,7 +366,6 @@ identity, lifecycle, or selector role.
     {"candidate":"ExecutionBasis","verdict":"promote","reason":"Held and replacement receipts independently match one runtime authority."},
     {"candidate":"ConstructionIntent","verdict":"promote","reason":"The held execution belongs to one independently admitted current intent."},
     {"candidate":"DeclaredFhInteractionRequest","verdict":"promote","reason":"Response and result admission independently match the declared contract."},
-    {"candidate":"ConsensusRoundDisposition","verdict":"promote","reason":"Both F_H leaves and recurse independently match its closed outcome domain."},
     {"candidate":"CProgramAtomReceipt","verdict":"promote","reason":"Replay and the interpreter independently match held and successor receipt truth."},
     {"candidate":"Continuation","verdict":"promote","reason":"The run-local open obligation has an independent replay lifecycle."},
     {"candidate":"FhInteractionOpenedEvent","verdict":"promote","reason":"Replay independently opens the exact held interaction and embeds reconstruction truth."},
@@ -579,7 +539,7 @@ sequenceDiagram
     Replay-->>Fh: canonical event bodies in admitted order
     Fh->>Fh: verify coordinates, canonical I-JSON rows, constituent digests, and one seal
     Fh->>Fh: reconstruct only after exact projection verification
-    Fh->>Fh: admit ConsensusRoundDisposition result contract
+    Fh->>Fh: admit the declared result contract
     Fh->>Replay: append resume event naming old and successor receipts
     Replay->>Ordinal: re-admit full replay order
     Ordinal-->>EC: ordered effect input
@@ -689,13 +649,11 @@ stateDiagram-v2
   refuses abandonment;
 - this slice emits no `superseded` status; correction/supersession remains on
   the required terminate-old/open-new-run path;
-- a held interaction cannot satisfy `ConsensusRoundDisposition`;
-- `closed_done` and `escalate_fh` cannot enter foldback;
-- `recurse_next_round` cannot terminate or project a terminal result;
+- a held interaction cannot satisfy the declared result contract;
 - a later hold at the same effective coordinate is a duplicate and refuses;
 - a later hold at a different lawful coordinate stays in the same Continuation
   aggregate family;
-- no M04 or CLI module imports a Consensus runtime controller; and
+- no M04 or CLI module imports a feature runtime controller; and
 - P2 publication contains no `run.resume` or `abg.operation.fh.*` definition,
   schema, SDK method, CLI route, alias, or fallback.
 
@@ -705,14 +663,9 @@ stateDiagram-v2
    identity-free checkpoint basis from the same admitted runtime values used
    for initial execution. Prove the upper adapter is absent from event and
    replay dependency closures.
-2. Correct the T-252 canonical body: both F_H targets become
-   `ConsensusRoundDisposition`; pending interaction leaves GTL data; recurse
-   terminates on `closed_done | escalate_fh` and folds only
-   `recurse_next_round`; and the Module derives exact flat reachable-schema
-   metadata rows from the closed T-252 public/private source-key family.
-3. Admit T-275's subject, policy, response, and result-contract binding without
+2. Admit T-275's subject, policy, response, and result-contract binding without
    an authored interaction identity.
-4. Extend the existing opened/responded/resume event fields and declare their
+3. Extend the existing opened/responded/resume event fields and declare their
    Event Calculus effects over the existing `continuation_open` and
    `continuation_terminated` fluents. Before calculus, call the existing strict
    replay-ordinal admission. Add one subordinate
@@ -722,19 +675,19 @@ stateDiagram-v2
    status/cause rows from the same trace. Add no ids to `run_stopped`, and no
    new authority, fluent family, event family, aggregate, or store. Keep retry
    events and new-run supersession law unchanged.
-5. Implement schema-only `interaction.respond` and exact same-coordinate
+4. Implement schema-only `interaction.respond` and exact same-coordinate
    `run.continue` replacement through the existing T-271 interpreter.
-6. At P2, remove all legacy F_H public identities atomically with the accepted
+5. At P2, remove all legacy F_H public identities atomically with the accepted
    19-operation catalog/SDK/CLI publication.
-7. Prove converge, recurse, F_H hold/respond/continue, duplicate continue,
+6. Prove converge, recurse, F_H hold/respond/continue, duplicate continue,
    malformed response, forged coordinate, F_H and retry abandonment, ordinal
    permutation/collision, and source-blind installed paths.
 
-Closure requires one installed Consensus F_H case to hold at a real T-271 leaf,
-record a typed response without execution, continue from the same coordinate,
-verify the exact opened-event checkpoint projection before reconstruction,
-produce an admitted `ConsensusRoundDisposition`, and either terminate or fold
-according to the exhaustive recurse table. Replay must derive open and
+Closure requires one installed F_H case to hold at a real T-271 leaf, record a
+typed response without execution, continue from the same coordinate, verify the
+exact opened-event checkpoint projection before reconstruction, produce an
+admitted declared result, and either terminate or fold according to the
+declared recurse law. Replay must derive open and
 resolved truth from declared effects and all-kind abandoned truth from the one
 strictly ordered effect-row algorithm, with exact status/cause projection
 parity. Generic
