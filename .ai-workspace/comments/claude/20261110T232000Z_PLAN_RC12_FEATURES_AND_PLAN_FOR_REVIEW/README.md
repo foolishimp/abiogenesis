@@ -153,3 +153,41 @@ The feature list keeps its shape. The framing fixes what the features are for: t
 6. **Intent:** `specification/INTENT.md` states the mechanism-level problem and does not state this use or agent independence. The branch carries a short proposed intent amendment for the owner to ratify at merge.
 
 Not added to RC12: the user-facing amendment application, release automation, and the published process-definition contract.
+
+## 10. Failure trace and the Executive's rulings (2026-11-11)
+
+The read-only trace is `.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc12-executive-01/B1_TRACE.md` in the worktree (commit `62fd17271`), with event tables from seven scripted Runs through the Public start.
+
+**What happens today.** Every child failure (process exit, time ceiling, invalid report, write outside the grant, assessor exit) lifts through the wrapper and the step to the Executive parent and ends the Run as `runtime_failed`, with no failure class in the Public outcome. No continuation exists and `run.continue` is refused. A new start is a new Run whose selector sees no observations and repeats the choice. The failed worker's changed paths are in its failure Result but nothing shows them to the selector. No retry is declared anywhere in the library. At the step limit the Run stops `blocked` with only `bound-exhausted`; a limit of N admits N−1 steps.
+
+**The Executive's hypothesis failed.** A declared `re_enter` from the failed wrapper back to selection is refused by the validator, the executor and admission, and the parent recursion would end the Run anyway.
+
+**Ruling on package B (route R of the trace):**
+
+1. The `recurse` application's foldback gains one optional declared member naming recoverable failure classes. When a recursion child ends failed with an originating class in that set, admission accepts the existing `failed` child disposition and the parent re-evaluates over its prior admitted input. With nothing declared, behaviour is unchanged.
+2. The library's `executive` declares process exit, time ceiling and invalid report as recoverable. A write outside the grant and every integrity class are not.
+3. After a recoverable failure the parent also requires, from the event log, that the attempt's effects are attributable: the failure Result carries its post-work observation and no unconfirmed-termination or unknown-effect fact exists. Otherwise the Run stops.
+4. Failed steps consume the step limit. There is one limit and one bounded stop.
+5. No failure row enters the work state. Selection preparation folds the Run's failed attempts from the event log into the selection task: the graph chosen, the originating class, the timeout class, the attributed changed paths and the failure Result reference. Those references join the selector's admissible evidence.
+6. A preparation refusal never re-enters. It stops the Run with its stage and relation readable.
+7. Public readback: a failed or blocked outcome carries its originating class and reason, and for the Executive the unresolved obligations and review standing of the last admitted parent Result, after cold reopen. A stop never reads as completion.
+
+**Ruling on E8, process prerequisites:**
+
+1. The library publication takes a process declaration: per registered purpose, the reviews that must be satisfied and current before that purpose may be selected. It is carried on that purpose's wrapper GraphFunction, so it is part of the admitted Program and its digest.
+2. One relation decides whether a registered target is permitted in a state. The selector's offered choices, its response schema, the strict binder and the deterministic choice projection all apply it, so a non-permitted choice is refused before the wrapper is entered.
+3. A task whose Program requires a review it does not declare is refused at intake.
+4. A refused choice is a recoverable failure of the selection step, so the Executive selects again with the refusal visible, within the step limit.
+5. The selector view shows, per target, whether it is permitted and which prerequisite is missing. `dependsOn` stays advisory.
+6. RC12 does not use the `gate` application. The Executive found validator and serialization handling for it but no execution in the executor directory; that reading is unverified.
+
+**Defects the trace found, with dispositions:**
+
+| Defect | Disposition |
+|---|---|
+| The inactivity timeout never fires for a silent worker; only the absolute ceiling does. The cause is a reading, not yet captured at the threshold | Own package with root-cause triage first |
+| The Public failure outcome is generic | Package B, ruling 7 |
+| The step-limit stop names no obligations | Package B, ruling 7 |
+| Liveness reports `continue_waiting` on a failed Run | Fixed with ruling 7 if it falls out of the same projection; otherwise recorded |
+
+Order now: A2 (running) → B recoverable failure → E8 → Public readback and the inactivity defect → Consensus → amendment witness, cut, install, demonstration.
