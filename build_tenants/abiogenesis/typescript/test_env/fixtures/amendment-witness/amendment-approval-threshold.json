@@ -1,0 +1,4 @@
+{
+  "statement": "Raise the order total that needs manager approval from 5,000 to 10,000.",
+  "text": "# REQ-ORDER-APPROVAL: Manager approval for large orders\n\nAn order whose total is above 10,000 requires manager approval. An order\nwhose total is 10,000 or less does not. The total is the amount the customer\npays after any discount under REQ-ORDER-DISCOUNT.\n\n## Examples\n\n| Order lines | Total | Manager approval |\n|---|---|---|\n| 1 × 7,500.00 | 7,500.00 | no |\n| 1 × 10,000.00 | 10,000.00 | no |\n| 1 × 10,000.01 | 10,000.01 | yes |\n| 10 × 1,040.00 | 9,880.00 | no |\n"
+}
