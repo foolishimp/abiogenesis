@@ -338,6 +338,66 @@ canonical tenant-conformance manifest. T-262 proof may execute isolated
 generic and canonical-structure fixtures, but it cannot claim public Consensus
 effects, result publication, or release readiness.
 
+### D11. Declared failed-child foldback
+
+Owner: `REQ-L-GTL3-RECURSE-009`; route R of the RC12 B1 trace
+(`.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc12-executive-01/B1_TRACE.md`).
+This note narrows D6 for declared classes only.
+
+- **Path and outcome.** A failed recursion child whose failure class the
+  `recurse` foldback declares in `failedChildDiagnosticClassRefs` folds back
+  with the existing `failed` child disposition. The parent locus is re-entered
+  at the next attempt over its prior admitted input and evaluates again under
+  the same bound. An undeclared class, a recursion without the member, and a
+  Run already failed by `runtime_failure_observed` keep D6 unchanged.
+- **Typed handoffs.** HoG authenticates the failed child return
+  (`projectFailedRecursionChildTruth`) and proposes; ABG admits
+  `child_foldback_admitted` with `childDisposition: "failed"`, then the
+  recursion `advance` route whose target cursor is the source cursor's term at
+  `attempt + 1` with the source cursor's `inputRef` and `inputDigest`. Cold
+  cursor ancestry reads the same relation from the consumed foldback.
+  `FOLDBACK_DECLARATION_SCHEMA` is the one foldback definition: GraphFunction
+  admission and the Public `run.invoke` request schema (module publications and
+  catalog entries) both consume it.
+- **Declared computations.** The failure class is the failed child's judgment
+  `reasonRef`, which every lift preserves from the first failure-class Result;
+  a retained diagnostic contributes its subject's `diagnosticClassRef`. Foldback
+  and route admission each check that class against the declaration.
+- **Preserved invariants.** No new event kind, payload class, failure class or
+  continuation. Failure Results stay failure-class; no Result is lifted to
+  success. A parent's own failure never reaches the recursion
+  (`application_ready` requires a success Result). The bound counts parent
+  evaluations as before and stops with `bound-exhausted`. Retry and recursion
+  remain different sorts: the child is not repeated; the parent is re-evaluated.
+- **Run quiescence.** A child frame ends at its admitted stopped (`blocked` or
+  `failed`) foldback. Run quiescence (`projectRunQuiescence`, the closure gate)
+  reads that frame's `runtime_invocation_active` probe as historical, at every
+  depth. The axioms are unchanged: the derived probe fluent still holds, so
+  replay digests and the derived liveness of recorded Runs stay the same. A
+  closed Run's Public `run_status` therefore still lists the probe in
+  `activeFluents`, and the frame's native liveness keeps `frame_progress`
+  active. A frame without an admitted stopped foldback keeps blocking
+  quiescence.
+- **Effect grant.** None. The relation admits runtime truth only.
+- **Exit proof.** `t287-recursive-failure-foldback.test.mjs`: a declared class
+  fails once and the Run closes; each folded frame probe blocks quiescence until
+  its foldback is admitted; a declared class that always fails stops at the
+  bound; an undeclared class fails the Run; a parent failure does not fold back;
+  the declaration survives Public module publication, catalog parsing and a
+  Public start that completes; cold reopen replays the same projection.
+  `t287-recursive-registered-selection` keeps its undeclared failure assertion
+  unedited.
+
+```mermaid
+sequenceDiagram
+    participant HoG as HoG recursion
+    participant ABG as ABG owners
+    HoG->>ABG: Authenticated failed child with declared class
+    ABG-->>HoG: child_foldback_admitted, childDisposition failed
+    HoG->>ABG: advance route to the parent term, attempt + 1, prior input
+    ABG-->>HoG: Admitted route; parent evaluates again under the bound
+```
+
 ## Irreducible Architectural Carrier Set
 
 | Carrier | Visibility | Authority | Role |

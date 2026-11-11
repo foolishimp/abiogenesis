@@ -326,6 +326,8 @@ bounded C interior under one declared retry policy and attempt lineage.
 Graph recursion and `C.retry` are not substitutes. Recursion reapplies a
 GraphFunction under declared termination, foldback, parent re-evaluation, and
 lineage. Retry repeats an attempt without changing the declared graph relation.
+A recursion may declare the child failure classes that fold back for parent
+re-evaluation; an undeclared child failure fails the recursion.
 
 ### Traversal Monad
 
