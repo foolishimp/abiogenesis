@@ -1,8 +1,9 @@
-import { isAbsolute, relative, resolve, sep } from "node:path";
+import { resolve } from "node:path";
 import { pathToFileURL } from "node:url";
 
 import type { ProductInstall } from "./environment.js";
 import { installedProductContentMatches } from "./install_product.js";
+import { pathRelation, pathStrictlyWithin } from "../shared/path_confinement.js";
 
 export type InstalledModuleLoadResult =
   | Readonly<{
@@ -51,13 +52,7 @@ async function loadModuleWithinProduct(
   modulePath: string,
 ): Promise<InstalledModuleLoadResult> {
   const exactPath = resolve(install.installedRoot, modulePath);
-  const relation = relative(install.installedRoot, exactPath);
-  if (
-    relation.length === 0 ||
-    relation === ".." ||
-    relation.startsWith(`..${sep}`) ||
-    isAbsolute(relation)
-  ) {
+  if (!pathStrictlyWithin(pathRelation(install.installedRoot, exactPath))) {
     return Object.freeze({
       kind: "refused",
       code: "path_escape",

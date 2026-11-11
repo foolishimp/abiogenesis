@@ -1,9 +1,10 @@
 import { execFile } from "node:child_process";
 import { access, lstat, mkdir, readFile, readdir, writeFile } from "node:fs/promises";
-import { isAbsolute, join, relative, resolve, sep } from "node:path";
+import { join, relative, resolve, sep } from "node:path";
 import { createRequire } from "node:module";
 
 import { canonicalJson } from "../shared/canonical_json.js";
+import { pathRelation, pathWithin } from "../shared/path_confinement.js";
 import {
   serializeCapabilityDefinitionGraph,
   isCapabilityDefinitionGraph,
@@ -232,9 +233,8 @@ async function managedDependencyRoot(
     if (!await exists(candidate)) continue;
     // Match the first actual Node package location, never substitute an ambient
     // or later search-path copy for a missing/crossed selected managed Product.
-    const relation = relative(resolve(targetRoot), candidate);
     const stat = await lstat(candidate);
-    return !isAbsolute(relation) && relation !== ".." && !relation.startsWith(`..${sep}`) &&
+    return pathWithin(pathRelation(targetRoot, candidate)) &&
         !stat.isSymbolicLink() && stat.isDirectory()
       ? candidate
       : null;

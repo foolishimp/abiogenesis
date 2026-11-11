@@ -1,7 +1,7 @@
 import * as Effect from "effect/Effect";
 import * as v from "valibot";
 import { mkdir,writeFile } from "node:fs/promises";
-import { join,resolve,relative,isAbsolute } from "node:path";
+import { join } from "node:path";
 import { acquireAbgEventResource,closeAbgEventResource,abandonAbgEventResource,validateAbgEventResourceAssertion,validateAbgEventResourceReceipt,
  type AbgEventResourceAssertion,type AbgEventResourceReceipt,type AcquiredAbgEventResource } from "../abg/definition_event_resource.js";
 import { admitArtifact,projectExactPrefixWorkspaceEnvironment } from "../abg/environment_admission.js";
@@ -10,6 +10,7 @@ import { projectOwnedPrefixArtifactTruth } from "../abg/artifact_truth.js";
 import type { Sha256Digest } from "../shared/digests.js";
 import { canonicalJson,type JsonValue } from "../shared/canonical_json.js";
 import { deepFreeze } from "../shared/immutable.js";
+import { pathRelation,pathWithin } from "../shared/path_confinement.js";
 import { constructExactOperationInvocationCoordinate } from "../shared/operation_definition_coordinate.js";
 import { bindExactPrefixTransition } from "../abg/exact_prefix_bindings.js";
 import { definitionFault,isDefinitionFault,sameJson } from "../public/binding/definition_binding_mechanics.js";
@@ -33,7 +34,7 @@ export const RELEASE_PUBLICATION_RECEIPT_SCHEMA=v.strictObject({kind:v.literal("
  artifact:v.nullable(refDigestSchema),artifactPath:v.nullable(nonblankSchema),admissionEventRef:v.nullable(nonblankSchema)});
 export type ReleasePublicationReceipt=v.InferOutput<typeof RELEASE_PUBLICATION_RECEIPT_SCHEMA>;
 type Packet=typeof RELEASE_OPERATION_CONTRACTS.snapshot.published_rc;
-const within=(root:string,path:string)=>{const rel=relative(resolve(root),resolve(path));return rel===""||(!isAbsolute(rel)&&rel!==".."&&!rel.startsWith("../"));};
+const within=(root:string,path:string)=>pathWithin(pathRelation(root,path));
 const owner=(call:Parameters<ExactDefinitionCallable<Packet,ReleasePublicationResources,ReleasePublicationReceipt>>[0],approved:AdmissionAuthorityResource,heldResource:AcquiredAbgEventResource|null):ReturnType<ExactDefinitionCallable<Packet,ReleasePublicationResources,ReleasePublicationReceipt>>=>Effect.tryPromise({try:async()=>{
  let acquired:AcquiredAbgEventResource|undefined,observation:ReleasePhysicalObservation|null=null,artifact:ReturnType<typeof releaseArtifactCoordinate>|null=null,artifactPath:string|null=null,admissionEventRef:string|null=null,phase="resource_acquisition";
  try{

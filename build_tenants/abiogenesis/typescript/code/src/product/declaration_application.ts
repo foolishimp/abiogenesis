@@ -1,11 +1,12 @@
 import { readFileSync } from "node:fs";
-import { isAbsolute, relative, resolve } from "node:path";
+import { resolve } from "node:path";
 import * as v from "valibot";
 import { Ajv2020 } from "ajv/dist/2020.js";
 import addFormats from "ajv-formats";
 import { canonicalJson, compareUnicodeCodeUnits, type JsonValue } from "../shared/canonical_json.js";
 import { sha256Bytes, sha256Canonical } from "../shared/digests.js";
 import { deepFreeze } from "../shared/immutable.js";
+import { pathRelation, pathWithin } from "../shared/path_confinement.js";
 import { onlyExactMatch, type ExactMatch } from "../shared/select/index.js";
 import { isRecord, sameJson } from "../public/binding/definition_binding_mechanics.js";
 import { jsonValueSchema, nonblankSchema } from "../shared/public_function_contracts.js";
@@ -103,8 +104,7 @@ export function admitInstalledSchemaAsset(
   if (locator === undefined || locator.mediaType !== "application/schema+json" ||
       (expected.contractVersion !== undefined && row.contractVersion !== expected.contractVersion)) return { kind: "refused", check: "locator" };
   const path = resolve(install.installedRoot, locator.path);
-  const within = relative(install.installedRoot, path);
-  if (isAbsolute(within) || within === ".." || within.startsWith("../")) return { kind: "refused", check: "locus" };
+  if (!pathWithin(pathRelation(install.installedRoot, path))) return { kind: "refused", check: "locus" };
   if (expected.suppliedBytes === null) return { kind: "refused", check: "bytes" };
   const bytes = expected.suppliedBytes ?? readFileSync(path);
   if (sha256Bytes(bytes) !== locator.contentDigest || sha256Bytes(bytes) !== row.contractDigest ||
