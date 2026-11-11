@@ -1136,6 +1136,14 @@ function constructWorkspaceBindingWithSetCheck(
   if (
     !isWorkspaceAuthorityBasis(authority) ||
     !checkSet(productSet, lock) ||
+    // The admitted binding's string rule (`isExactWorkspaceBinding`) at its door.
+    ![
+      authority.workspaceId,
+      authority.authorityBasisId,
+      authority.authorizedActorRef,
+      productSet.productSetId,
+      lock.lockId,
+    ].every((field) => exactString(field)) ||
     !isRecord(roots) ||
     !hasExactKeys(roots, [
       "archiveRoot",
@@ -1146,7 +1154,7 @@ function constructWorkspaceBindingWithSetCheck(
       "toolchainRoot",
     ]) ||
     Object.values(roots).some(
-      (root) => typeof root !== "string" || !isAbsolute(root),
+      (root) => !exactString(root) || !isAbsolute(root),
     )
   ) {
     return refusal(
@@ -1223,13 +1231,13 @@ function workspaceBindingCandidateMatches(
     ]) ||
     value.kind !== "workspace_binding_candidate" ||
     value.schemaVersion !== "5.0.0" ||
-    !nonEmptyString(value.bindingId) ||
+    !exactString(value.bindingId) ||
     !isSha256Digest(value.bindingDigest) ||
-    !nonEmptyString(value.workspaceId) ||
-    !nonEmptyString(value.authorityBasisId) ||
+    !exactString(value.workspaceId) ||
+    !exactString(value.authorityBasisId) ||
     !isSha256Digest(value.authorityBasisDigest) ||
-    !nonEmptyString(value.authorizedActorRef) ||
-    !nonEmptyString(value.productSetId) ||
+    !exactString(value.authorizedActorRef) ||
+    !exactString(value.productSetId) ||
     !isSha256Digest(value.productSetDigest) ||
     !(productSet === undefined
       ? checkLock(lock)
@@ -1246,7 +1254,7 @@ function workspaceBindingCandidateMatches(
       "toolchainRoot",
     ]) ||
     Object.values(value.roots).some(
-      (root) => !nonEmptyString(root) || !isAbsolute(root),
+      (root) => !exactString(root) || !isAbsolute(root),
     ) ||
     (
       productSet !== undefined &&
