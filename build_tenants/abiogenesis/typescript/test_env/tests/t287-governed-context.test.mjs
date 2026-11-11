@@ -813,7 +813,15 @@ test("GC03 real owner allowed denied cold tamper", { timeout: 1_800_000 }, async
   // observation into its own Result).
   const construction = one(at("c_call_result_admitted").filter(e => e.payload.value?.kind === "native_workspace_work_observation" && e.payload.resultClass === "success" &&
     e.aggregateId === e.payload.value.provenance.cCallRef && e.graphFunctionRef === env.product.NATIVE_WORKSPACE_WORK_IDS.graphFunctionRef), "one admitted native Construction leaf Result");
-  const provenance = construction.payload.value.provenance, nativeTask = construction.payload.value.task;
+  // The Result binds its admitted task by `inputDigest`, the raw input of its own execution basis; since RC7 it
+  // carries no task copy (product/native_workspace_work.ts, abg/native_worksite_execution.ts).
+  const provenance = construction.payload.value.provenance;
+  const resultBasis = one(storeOwner.readRuntimeEventsAtDurablePrefix(handoff.prefix).filter(e => e.kind === "basis_admitted" && e.payload.basisRef === construction.basisId),
+    "one admitted execution basis of the Construction Result");
+  const nativeTask = resultBasis.payload.rawInputValue;
+  assert.deepEqual([resultBasis.payload.rawInputDigest, resultBasis.payload.graphFunctionRef], [construction.payload.value.inputDigest, construction.graphFunctionRef],
+    "the Construction Result binds the raw input of its own execution basis");
+  assert.equal(env.product.sha256Canonical(nativeTask), construction.payload.value.inputDigest, "the bound digest is the task's own digest");
   assert.ok(env.product.isNativeWorkspaceWorkTask(nativeTask) && nativeTask.assessment === undefined, "admitted native Construction task");
   const binding = one(at("actor_transport_binding_admitted").filter(e => e.aggregateId === provenance.transportBindingRef), "admitted transport binding of the Result");
   assert.deepEqual([binding.payload.transportBindingRef, binding.payload.transportBindingDigest], [provenance.transportBindingRef, provenance.transportBindingDigest]);
