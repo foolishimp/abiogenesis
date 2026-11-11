@@ -16,7 +16,7 @@ Writer: Claude Opus 5.5. Worktree `/private/tmp/abg-rc12-liveness-20261111`, bra
 | `T/release-claim.md` | `5.0.0-rc.7` claim, stale since RC8; an rc.1 qualification resource | Executive decision; not stamped |
 | `T/test_env/qualification/**`, test literals `5.0.0-rc.1`/`dev.286`/`dev.287`, `installs/5.0.0-rc.6` path, fixture producer `5.0.0-rc.10`, `GOALS.md` RC11 dispositions, `release_snapshots/4.1.0-*` | history or fixture data | stay |
 
-No other pin: a grep of tracked files outside `.ai-workspace` for the current graph, catalog, content, contribution and manifest digests finds only the two generated files; the Public family digest in `contracts/public-*` is version-independent. `.ai-workspace` holds no tracked `5.0.0-rc.11`.
+No other pin: a grep of tracked files outside `.ai-workspace` for the current graph, catalog, content, contribution and manifest digests finds only the two generated files; the Public family digest in `contracts/public-*` is version-independent. `.ai-workspace` held no tracked `5.0.0-rc.11` at `8454926d9`; this package's scripts and Return now name it.
 
 ## D2 Scripts (`.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc12-executive-01/cut/`)
 
@@ -36,24 +36,46 @@ Each requires exactly one of `--dry-run`/`--apply`, refuses missing arguments, w
 - Refusals exercised: unstamped commit, existing output, scratch stamp outside scratch, wrong packlist branch, existing install host, existing smoke report, no mode, missing argument.
 - Hidden-lock dry-run (donor copy with a touched hidden lock): 5,329 members (CHANGELOGs kept), artifact `sha256:19e9c9ed…42a5`.
 
-These digests belong to a scratch-stamped tree; the real cut's commit (stamp + regenerated files) gives other digests.
+- Real-path rehearsal without `--scratch-stamp`, in a throwaway repo under scratch. The stamped tree was built with `npm run build` on a copied donor (package-files), committed with its regenerated files (`git add -f` for the manifest, which T's `.gitignore` lists), then cut with `--dry-run`. Result: `generatedEqual:true`, `outputAbsent:true`, and the same artifact `sha256:6e1b49b8…`. This covers the version gate, the generated-file gate and the separate-locations rule.
+
+These digests belong to `8454926d9` plus the stamp. The integrated branch will give other digests.
 
 ## D3 Lint at `8454926d9` and after
 
 | Lint | Before | After | Cause |
 |---|---|---|---|
-| `lint` (no argument) | `TypeError [ERR_INVALID_ARG_TYPE]` (exit 1) | unchanged | Not a defect: the script takes the recipe; the declared command passes `test_env/qualification/recipe/verification-recipe.json`. A default would be a hidden default; `package.json` is outside the grant |
+| `lint` (no argument) | red, exit 1 (L0) | unchanged | Not a defect: the script takes the recipe; the declared command passes `test_env/qualification/recipe/verification-recipe.json`. A default would be a hidden default; `package.json` is outside the grant |
 | `lint -- <recipe>` | `passed: true`, 72 files | same | — |
-| `lint:imports` | 29 modules …; 3 forbidden owner pair(s) hold | same | — |
-| `lint:lifecycle` | `owned_process_state.ts:109,137,144,167`; `4 offender(s), 0 stale allow-list entries` | `291 modules under code/src; 7 allow-listed site(s), no offender` | (i) Phase 2 (`e134103a2`) split the owner's facts into its pure reducer; the four reads are `directExit`/`scopeAbsence` of `OwnedProcessState`, imported only by `owned_process_lifetime.ts`. Fix: add the file to `PROCESS_FACT_OWNERS` |
-| `lint:evidence` | `2 mirror root(s)` (`rc3-dogfood-01/recovery-001/{frozen,original}`) and `3 tracked path(s)` over 6,000,000 bytes (`T287_RC5_LOCAL_EVIDENCE_01/{campaign-evidence.tar.gz,operator-inputs.tar.gz,runtime.events.jsonl.gz}`) | unchanged; this package adds no offender | Pre-existing tracked content (`78615cee1` 2026-11-01, `f49e7533e` 2026-11-04) after the inventory was last written (`5b793c65e` 2026-10-30); not an environment condition. Stop: not repaired |
-| `lint:calculus` | 6 modules …, no offender | same | — |
+| `lint:imports` | green (L1) | same | — |
+| `lint:lifecycle` | red, exit 1 (L2) | green, exit 0 (L3) | (i) Phase 2 (`e134103a2`) split the owner's facts into its pure reducer; the four reads are `directExit`/`scopeAbsence` of `OwnedProcessState`, imported only by `owned_process_lifetime.ts`. Fix: add the file to `PROCESS_FACT_OWNERS` |
+| `lint:evidence` | red, exit 1 (L4) | identical output after commit `7212f3312`; no new offender | Pre-existing tracked content (`78615cee1` 2026-11-01, `f49e7533e` 2026-11-04) after the inventory was last written (`5b793c65e` 2026-10-30); not an environment condition. Stop: not repaired |
+| `lint:calculus` | green (L5) | same | — |
+
+```text
+L0 TypeError [ERR_INVALID_ARG_TYPE]: The "path" argument must be of type string or an instance of Buffer or URL. Received undefined
+L1 check-import-direction: 29 modules under code/src/shared/ import only code/src/shared/ and packages
+   check-import-direction: 3 forbidden owner pair(s) hold
+L2 code/src/shared/owned_process_state.ts:109: : timing.platform === "win32" ? (s.directExit === null ? "unknown" : "absent")
+   code/src/shared/owned_process_state.ts:137: if (draining.scopeAbsence !== "absent") return notifyThen(draining, { kind: "unconfirmed" }, [{ kind: "notified", after: "unconfirmed" }]);
+   code/src/shared/owned_process_state.ts:144: if (s.scopeAbsence === "absent") return step(s);
+   code/src/shared/owned_process_state.ts:167: const gone = input.absence === "absent" && (recorded.directExit !== null || noChild(recorded, at));
+   check-lifecycle-boundary: 4 offender(s), 0 stale allow-list entries
+L3 check-lifecycle-boundary: 291 modules under code/src; 7 allow-listed site(s), no offender
+L4 .ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/recovery-001/frozen: 11 tracked path(s), not inventoried
+   .ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/recovery-001/original: 10 tracked path(s), not inventoried
+   .ai-workspace/work/T287_RC5_LOCAL_EVIDENCE_01/campaign-evidence.tar.gz: 109019162 bytes, over the 6000000-byte bound, not listed under oversize
+   .ai-workspace/work/T287_RC5_LOCAL_EVIDENCE_01/operator-inputs.tar.gz: 28687710 bytes, over the 6000000-byte bound, not listed under oversize
+   .ai-workspace/work/T287_RC5_LOCAL_EVIDENCE_01/runtime.events.jsonl.gz: 107045868 bytes, over the 6000000-byte bound, not listed under oversize
+   check-evidence-mirrors: 2 mirror root(s) under .ai-workspace hold tracked paths the inventory does not list, a new copy; name the cut by commit hash and each input by path and digest instead
+   check-evidence-mirrors: 3 tracked path(s) exceed the 6000000-byte bound and are not listed under oversize; keep the bytes under the evidence root and name them by path and digest instead
+L5 check-calculus-boundary: 6 modules under code/src/abg/calculus/; 0 allow-listed import(s), no offender
+```
 
 For `lint:evidence`, the cut packs only T's `files`, so the archive is unaffected. The cut must keep archives, extracted trees and anything over 6 MB out of tracked `.ai-workspace` paths. Records go in the release root.
 
 ## D4 Generated files
 
-Both are written by `scripts/generate-product-manifest.mjs` (the last step of `npm run build`). It overwrites them with placeholders, takes the payload from `npm pack --dry-run`, then writes final bytes. `clean.mjs` removes the manifest only. Nothing reads the committed copies. The build overwrites them before use, the archive carries the regenerated bytes, and runtime reads the copy beside the executing `build/` (`declaration_exports.ts:516`) or in the installed root. They drift for two reasons. The last commit (`db9cf974a`) predates `owned_process_state`, and every payload change moves `productContentDigest`. The second reason is npm's packlist branch. When `node_modules/.package-lock.json` is newer than every package directory, npm packs bundled dependencies from it and keeps `fast-check`/`pure-rand` `CHANGELOG.md`. Otherwise it reads each package's `files` and drops them. This worktree's `node_modules` takes the second branch (its directories date from 11-11, its lock from 09-21). The committed copies came from the first branch. The worktree `npm run build` equals the cut build on all 5,325 locators except the four version-bearing files (`package.json`, `product/contracts.{js,d.ts}`, `builtin_semantics.d.ts`). The cut therefore stamps, runs `npm run build` in the worktree, and commits the stamp with both regenerated files. It then cuts that commit; the cut refuses unless the regenerated copies equal the committed ones and the donor tree's branch equals `--npm-packlist`.
+Both are written by `scripts/generate-product-manifest.mjs` (the last step of `npm run build`). It overwrites them with placeholders, takes the payload from `npm pack --dry-run`, then writes final bytes. `clean.mjs` removes the manifest only. Nothing reads the committed copies. The build overwrites them before use, the archive carries the regenerated bytes, and runtime reads the copy beside the executing `build/` (`declaration_exports.ts:516`) or in the installed root. They drift for two reasons. The last commit (`db9cf974a`) predates `owned_process_state`, and every payload change moves `productContentDigest`. The second reason is npm's packlist branch. When `node_modules/.package-lock.json` is newer than every package directory, npm packs bundled dependencies from it and keeps `fast-check`/`pure-rand` `CHANGELOG.md`. Otherwise it reads each package's `files` and drops them. This worktree's `node_modules` takes the second branch (its directories date from 11-11, its lock from 09-21). The committed copies came from the first branch. The worktree `npm run build` equals the cut build on all 5,325 locators except the four version-bearing files (`package.json`, `product/contracts.{js,d.ts}`, `builtin_semantics.d.ts`). The cut therefore stamps, runs `npm run build` in the worktree, and commits the stamp with both regenerated files. It then cuts that commit; the cut refuses unless the regenerated copies equal the committed ones and the donor tree's branch equals `--npm-packlist`. The E3 rehearsal of exactly this route gave `generatedEqual:true`.
 
 ## E1/E4
 
@@ -61,7 +83,7 @@ Both are written by `scripts/generate-product-manifest.mjs` (the last step of `n
 
 ## D6 Cut checklist (integrated branch)
 
-Set `W` = the worktree, `T=$W/build_tenants/abiogenesis/typescript`, `C=$W/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc12-executive-01/cut`, `AS="$HOME/Library/Application Support/ABIogenesis"`, `S=/private/tmp/abg-rc12-cut-NN` (new, short), `INV=/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc10-retention-01/native-01/DEPENDENCY_INVENTORY.json`, `R="$AS/releases/5.0.0-rc.12"`.
+Set `W` = the worktree, `T=$W/build_tenants/abiogenesis/typescript`, `C=$W/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc12-executive-01/cut`, `AS="$HOME/Library/Application Support/ABIogenesis"`, `S=/private/tmp/abg-rc12-cut-NN` (new and short; `mkdir -p $S/tmp`), `INV=/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc10-retention-01/native-01/DEPENDENCY_INVENTORY.json`, `R="$AS/releases/5.0.0-rc.12"`.
 1. Preconditions. The integrated head is Executive-selected, and `git status --short` shows nothing beyond the two generated files and untracked scratch. `$R` and `$AS/installs/5.0.0-rc.12` are absent, there is at least 4 GiB free, and node is v24.7.0 with npm 11.5.1. The Executive has chosen the packlist branch. Check the donor with `node --input-type=module -e "import('$C/cut-common.mjs').then(c=>console.log(c.npmPacklistBranch('$T').branch))"`; for `hidden-lock`, `touch $T/node_modules/.package-lock.json` first.
 2. Lint in T (`TMPDIR=$S/tmp`): `npm run lint -- test_env/qualification/recipe/verification-recipe.json` (`"passed":true`), `lint:imports`, `lint:lifecycle`, `lint:calculus` must be green. `lint:evidence` must show exactly the five known offenders unless the Executive has disposed of them. Any other offender: stop.
 3. `node $C/stamp-rc12.mjs --dry-run --root $W --scratch $S/stamp`, then `--apply`. Expect `changed` = 4 sites, `regeneratedByBuild` = 2. A refusal means census drift: stop.
