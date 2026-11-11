@@ -4,16 +4,15 @@
 // read historical evidence under ABI5_EVIDENCE_ROOT and skip with the reason
 // without it; every other case has no optional skip.
 import assert from 'node:assert/strict';
-import {execFile} from 'node:child_process';
 import {createHash} from 'node:crypto';
 import {access, mkdir, mkdtemp, readFile, realpath, rm} from 'node:fs/promises';
 import fs from 'node:fs';
 import {tmpdir} from 'node:os';
 import {dirname, join} from 'node:path';
 import {fileURLToPath, pathToFileURL} from 'node:url';
-import {promisify} from 'node:util';
 import {SourceTextModule, SyntheticModule} from 'node:vm';
 import test from 'node:test';
+import {packProduct} from '../../scripts/product-payload.mjs';
 import {runInstalledLanguageTest} from '../support/installed-language-test.mjs';
 import {constructInstalledStartCall} from '../support/registered-graph-selection.mjs';
 import {prepareLanguageStructuralFixture} from '../support/language-structural-fixture.mjs';
@@ -59,7 +58,6 @@ const retained = (() => {
   return {kind: 'present', resources, baseline, eventLogPath: log.path, eventLogIdentity};
 })();
 const RETAINED = {skip: retained.kind === 'absent' ? retained.reason : false};
-const execFileAsync = promisify(execFile);
 const proof = {kind: 'single_address_space_consolidation_proof', schemaVersion, sourcePreimage: 'f49e7533ebedff0946383cb0c5380a6ecac7889d',
   packageRoot, startedUtc: new Date().toISOString(), cases: {},
   limits: ['Same-process measurements of the actual candidate owners; inspector coverage perturbs absolute durations.',
@@ -932,10 +930,9 @@ test('maintained SDK setup holds one acquired resource, borrows every history ca
   }
   assert.ok(npm, 'setup requires an npm executable on PATH');
   await mkdir(join(scratch, 'artifacts'));
-  // Local pack only: no lifecycle scripts and no registry update check.
-  const {stdout} = await execFileAsync(npm, ['pack', '--ignore-scripts', '--json', '--pack-destination', join(scratch, 'artifacts')],
-    {cwd: packageRoot, maxBuffer: 16 * 1024 * 1024, env: {...process.env, npm_config_update_notifier: 'false'}});
-  const artifactPath = join(scratch, 'artifacts', JSON.parse(stdout)[0].filename);
+  // The Product archive: exactly the payload rule's members, packed with no lifecycle scripts.
+  const [packed] = await packProduct(packageRoot, join(scratch, 'artifacts'));
+  const artifactPath = join(scratch, 'artifacts', packed.filename);
   const setupTmp = join(scratch, 'setup-tmp');
   await mkdir(setupTmp);
   const inherited = ['HOME', 'LANG', 'LC_ALL', 'NPM_CONFIG_CACHE', 'npm_config_cache'].filter(key => process.env[key] !== undefined);
