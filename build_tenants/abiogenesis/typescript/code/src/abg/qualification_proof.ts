@@ -510,8 +510,9 @@ export function nativeRuntimeAssessmentHasNativeOwner(proof: QualificationProofR
 }
 export function projectQualificationRulingForConsumer(_basis: QualificationNativeBasis, _input: unknown, _requireCurrent = false, _resources?: QualificationResources,
   _catalogs?: QualificationCatalogs): Readonly<QualificationOwnerRuling> | null {
-  // An owner ruling is a human response, reserved to 5.1: no 5.0 history
-  // carries one.
+  // An owner ruling arrives as a human response, which 5.0 reserves to 5.1: no
+  // 5.0 history carries one, so this returns null. What becomes of the ruling
+  // leaf of the self-conformance Program is TD-29's decision.
   return null;
 }
 function proofWithin(proof: QualificationProofResource, consumer: QualificationNativeBasis): boolean {
@@ -617,8 +618,9 @@ export function projectQualificationJudgment(proof: QualificationProofResource, 
 export function projectQualificationOwnerRuling(_proof: QualificationProofResource, _plan: QualificationAssessmentPlan,
   _selection: Extract<QualificationEvidenceSelection, { kind: "ruling_selection" }>, _resources?: QualificationResources,
   _catalogs?: QualificationCatalogs): Readonly<QualificationOwnerRuling> | null {
-  // An owner ruling is a human response, reserved to 5.1: no 5.0 history
-  // carries one.
+  // An owner ruling arrives as a human response, which 5.0 reserves to 5.1: no
+  // 5.0 history carries one, so this returns null. What becomes of the ruling
+  // leaf of the self-conformance Program is TD-29's decision.
   return null;
 }
 /** The configured selection of one admitted occurrence's transport evidence,
