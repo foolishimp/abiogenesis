@@ -4,7 +4,11 @@ import { pathToFileURL } from "node:url";
 import test from "node:test";
 
 import { acquireNewEmptyAppendSinkFixture } from "../support/new-empty-append-sink.mjs";
-import { setupInstalledRootCatalog } from "../support/root-installed-environment.mjs";
+import { installOncePerFile, installTenantOnce, openCaseEnvironment } from "../support/root-installed-environment.mjs";
+
+// The installed cases share one packed, verified and installed Product for this
+// file; each opens its own store, workspace and scratch root on it.
+const sharedInstall = installOncePerFile(() => installTenantOnce(process.cwd()));
 
 function candidate(kind, runId, causationEventRefs = []) {
   const digest = `sha256:${"1".repeat(64)}`;
@@ -37,7 +41,7 @@ function candidate(kind, runId, causationEventRefs = []) {
 }
 
 test("ABG rejects cross-run causation before scoped replay", async (context) => {
-  const environment = await setupInstalledRootCatalog(context, process.cwd());
+  const environment = await openCaseEnvironment(context, await sharedInstall());
   const internal = await import(pathToFileURL(join(
     environment.installedRoot,
     "build/code/src/abg/event_store.js",
@@ -64,7 +68,7 @@ test("ABG rejects cross-run causation before scoped replay", async (context) => 
 });
 
 test("ABG replay fails closed when a failure follows a close", async (context) => {
-  const environment = await setupInstalledRootCatalog(context, process.cwd());
+  const environment = await openCaseEnvironment(context, await sharedInstall());
   const internal = await import(pathToFileURL(join(
     environment.installedRoot,
     "build/code/src/abg/event_store.js",
