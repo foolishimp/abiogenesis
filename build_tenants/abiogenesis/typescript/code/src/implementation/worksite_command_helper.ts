@@ -8,10 +8,10 @@ import * as Scope from "effect/Scope";
 import { runEffectProgram } from "../shared/effect_definition.js";
 import { createMonotonicDeadline, createOwnedProcessLifetime, type OwnedProcessFacts } from "../shared/owned_process_lifetime.js";
 import { classifyOwnedProcessTerminal, encodeOwnedProcessFacts } from "../shared/process/index.js";
-import { hasExactKeys as exactKeys } from "../shared/admission_predicates.js";
+import { hasExactKeys as exactKeys, isTrimmedNonblankNulFreeString as exactString } from "../shared/admission_predicates.js";
 import { classifyPathRelation, pathRelation, pathStrictlyWithin, pathWithin } from "../shared/path_confinement.js";
-import { WORKSITE_REVISION_IDS } from "../product/worksite_revision.js";
-import { WORKSITE_COMMAND_FORWARD_IDS } from "../product/worksite_command_forward_identity.js";
+import { constructWorksiteCommandExecutionLaunchManifest, isAuthorityFreeWorksiteCommandOccurrence,
+  type WorksiteCommandExecutionLaunchManifest } from "../product/worksite_command_launch.js";
 import { isExecutableWorksiteCommandTask as isWorksiteExecutionTask,
   executableWorksiteCommandSources as worksiteExecutionSources, executableWorksiteCommandLocus as worksiteExecutionLocus,
   executableWorksiteCommandImplementationRef as worksiteExecutionImplementationRef,
@@ -40,12 +40,7 @@ import {
   isSha256Digest,
   sha256Bytes,
   sha256Canonical,
-  type Sha256Digest,
 } from "../shared/digests.js";
-import {
-  ABI5_PACKAGE_NAME,
-  ABI5_PACKAGE_VERSION,
-} from "../product/contracts.js";
 import {
   WORKSITE_COMMAND_EXECUTION_IDS,
   constructWorksiteExecutionHelperArtifact,
@@ -82,85 +77,9 @@ class WorksiteHelperFailure extends TypeError {
   }
 }
 
-type AuthorityFreeWorksiteCommandExecutionOccurrence = {
-  readonly cCallRef: string;
-  readonly runId: string;
-  readonly graphCallId: string;
-  readonly frameId: string;
-  readonly programLocusRef: string;
-  readonly taskOrdinal: number | null;
-  readonly attempt: number;
-  readonly executionAuthority: null;
-};
-
-interface WorksiteCommandExecutionLaunchManifest {
-  readonly kind: "worksite_command_execution_launch_manifest";
-  readonly schemaVersion: "5.0.0";
-  readonly launchManifestRef: string;
-  readonly launchManifestDigest: Sha256Digest;
-  readonly taskRef: string;
-  readonly taskDigest: Sha256Digest;
-  readonly taskManifestPath: string;
-  readonly taskManifestDigest: Sha256Digest;
-  readonly taskManifestByteLength: number;
-  readonly occurrence: AuthorityFreeWorksiteCommandExecutionOccurrence;
-  readonly occurrenceDigest: Sha256Digest;
-  readonly attemptRef: string;
-  readonly attemptDigest: Sha256Digest;
-  readonly archiveRoot: string;
-  readonly attemptRoot: string;
-  readonly launchManifestPath: string;
-  readonly helperModulePath: string;
-  readonly implementationRef: typeof WORKSITE_COMMAND_EXECUTION_IDS.implementationRef;
-  readonly implementationBindingRef:
-    typeof WORKSITE_COMMAND_EXECUTION_IDS.implementationBindingRef;
-  readonly packageName: typeof ABI5_PACKAGE_NAME;
-  readonly packageVersion: typeof ABI5_PACKAGE_VERSION;
-}
-
-function nonempty(value: unknown): value is string {
-  return typeof value === "string" && value.trim().length > 0 &&
-    value.trim() === value && !value.includes("\0");
-}
-
-function occurrenceIdentity(value: unknown): value is string {
-  return typeof value === "string" && value.trim().length > 0;
-}
-
-function isAuthorityFreeOccurrence(
-  value: unknown,
-): value is AuthorityFreeWorksiteCommandExecutionOccurrence {
-  return typeof value === "object" && value !== null && !Array.isArray(value) &&
-    exactKeys(value as Readonly<Record<string, unknown>>, [
-      "attempt", "cCallRef", "executionAuthority", "frameId", "graphCallId",
-      "programLocusRef", "runId", "taskOrdinal",
-    ]) && occurrenceIdentity((value as Readonly<Record<string, unknown>>).cCallRef) &&
-    occurrenceIdentity((value as Readonly<Record<string, unknown>>).runId) &&
-    occurrenceIdentity((value as Readonly<Record<string, unknown>>).graphCallId) &&
-    occurrenceIdentity((value as Readonly<Record<string, unknown>>).frameId) &&
-    [(WORKSITE_COMMAND_EXECUTION_IDS.nodeRef as string), WORKSITE_REVISION_IDS.nodeRef, WORKSITE_COMMAND_FORWARD_IDS.nodeRef].includes((value as Readonly<Record<string, unknown>>).programLocusRef as string) &&
-    ((value as Readonly<Record<string, unknown>>).taskOrdinal === null ||
-      Number.isSafeInteger((value as Readonly<Record<string, unknown>>).taskOrdinal) &&
-      Number((value as Readonly<Record<string, unknown>>).taskOrdinal) >= 0) &&
-    Number.isSafeInteger((value as Readonly<Record<string, unknown>>).attempt) &&
-    Number((value as Readonly<Record<string, unknown>>).attempt) >= 1 &&
-    (value as Readonly<Record<string, unknown>>).executionAuthority === null;
-}
-
-function worksiteCommandExecutionAttemptRef(
-  occurrence: AuthorityFreeWorksiteCommandExecutionOccurrence,
-): string {
-  const digest = sha256Canonical({
-    cCallRef: occurrence.cCallRef,
-    runId: occurrence.runId,
-    graphCallId: occurrence.graphCallId,
-    frameId: occurrence.frameId,
-    taskOrdinal: occurrence.taskOrdinal,
-    attempt: occurrence.attempt,
-  });
-  return `worksite-command-attempt://abiogenesis/${digest.slice("sha256:".length)}`;
-}
-
+/** The helper re-admits the Worker's launch manifest from disk: the exact member
+ * set, the members the owner copies through, then equality with the owner's
+ * manifest over those members. */
 function isWorksiteCommandExecutionLaunchManifest(
   value: unknown,
 ): value is WorksiteCommandExecutionLaunchManifest {
@@ -173,61 +92,26 @@ function isWorksiteCommandExecutionLaunchManifest(
       "taskManifestByteLength", "taskManifestDigest", "taskManifestPath", "taskRef",
     ])) return false;
   const candidate = value as Readonly<Record<string, unknown>>;
-  if (candidate.kind !== "worksite_command_execution_launch_manifest" ||
-    candidate.schemaVersion !== "5.0.0" ||
-    !isAuthorityFreeOccurrence(candidate.occurrence) ||
-    !isSha256Digest(candidate.launchManifestDigest) ||
-    !isSha256Digest(candidate.taskDigest) ||
-    !isSha256Digest(candidate.taskManifestDigest) ||
-    !isSha256Digest(candidate.occurrenceDigest) ||
-    !isSha256Digest(candidate.attemptDigest) ||
-    !nonempty(candidate.launchManifestRef) || !nonempty(candidate.taskRef) ||
-    !nonempty(candidate.taskManifestPath) || !nonempty(candidate.attemptRef) ||
-    !nonempty(candidate.archiveRoot) || !nonempty(candidate.attemptRoot) ||
-    !nonempty(candidate.launchManifestPath) || !nonempty(candidate.helperModulePath) ||
+  if (!isAuthorityFreeWorksiteCommandOccurrence(candidate.occurrence) ||
+    !isSha256Digest(candidate.taskDigest) || !isSha256Digest(candidate.taskManifestDigest) ||
+    !exactString(candidate.taskRef) || !exactString(candidate.taskManifestPath) ||
+    !exactString(candidate.archiveRoot) || !exactString(candidate.attemptRoot) ||
+    !exactString(candidate.launchManifestPath) || !exactString(candidate.helperModulePath) ||
     typeof candidate.taskManifestByteLength !== "number" ||
     !Number.isSafeInteger(candidate.taskManifestByteLength) ||
-    Number(candidate.taskManifestByteLength) < 1 ||
-    typeof candidate.implementationRef !== "string" ||
-    typeof candidate.implementationBindingRef !== "string" ||
-    candidate.implementationRef !== (candidate.occurrence.programLocusRef === WORKSITE_COMMAND_FORWARD_IDS.nodeRef ? WORKSITE_COMMAND_FORWARD_IDS.implementationRef : candidate.occurrence.programLocusRef === WORKSITE_COMMAND_EXECUTION_IDS.nodeRef
-      ? WORKSITE_COMMAND_EXECUTION_IDS.implementationRef : WORKSITE_REVISION_IDS.implementationRef) ||
-    candidate.implementationBindingRef !== (candidate.occurrence.programLocusRef === WORKSITE_COMMAND_FORWARD_IDS.nodeRef ? WORKSITE_COMMAND_FORWARD_IDS.implementationBindingRef : candidate.occurrence.programLocusRef === WORKSITE_COMMAND_EXECUTION_IDS.nodeRef
-      ? WORKSITE_COMMAND_EXECUTION_IDS.implementationBindingRef : WORKSITE_REVISION_IDS.implementationBindingRef) ||
-    candidate.packageName !== ABI5_PACKAGE_NAME ||
-    candidate.packageVersion !== ABI5_PACKAGE_VERSION) return false;
-  const occurrence = candidate.occurrence;
-  const occurrenceDigest = sha256Canonical(occurrence);
-  const attemptRef = worksiteCommandExecutionAttemptRef(occurrence);
-  const attemptDigest = sha256Canonical({ attemptRef });
-  const body = {
-    kind: "worksite_command_execution_launch_manifest" as const,
-    schemaVersion: "5.0.0" as const,
+    Number(candidate.taskManifestByteLength) < 1) return false;
+  const expected = constructWorksiteCommandExecutionLaunchManifest({
     taskRef: candidate.taskRef,
     taskDigest: candidate.taskDigest,
     taskManifestPath: candidate.taskManifestPath,
     taskManifestDigest: candidate.taskManifestDigest,
     taskManifestByteLength: candidate.taskManifestByteLength,
-    occurrence,
-    occurrenceDigest,
-    attemptRef,
-    attemptDigest,
+    occurrence: candidate.occurrence,
     archiveRoot: candidate.archiveRoot,
     attemptRoot: candidate.attemptRoot,
     launchManifestPath: candidate.launchManifestPath,
     helperModulePath: candidate.helperModulePath,
-    implementationRef: candidate.implementationRef,
-    implementationBindingRef: candidate.implementationBindingRef,
-    packageName: ABI5_PACKAGE_NAME,
-    packageVersion: ABI5_PACKAGE_VERSION,
-  } as const;
-  const launchManifestDigest = sha256Canonical(body);
-  const expected = {
-    ...body,
-    launchManifestRef:
-      `worksite-command-launch-manifest://abiogenesis/${launchManifestDigest.slice("sha256:".length)}`,
-    launchManifestDigest,
-  };
+  });
   const admitted = admitJson(value);
   return admitted.kind === "ok" && canonicalEquals(admitted.value, expected);
 }
