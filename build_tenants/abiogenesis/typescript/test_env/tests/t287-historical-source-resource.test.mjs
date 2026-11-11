@@ -78,7 +78,9 @@ test('actual R10 ancestry, declaration and leaf proof owners return borrowed his
  const read=(prefix,resource=f.resource)=>leaf.nativeJudgmentProofOperations('predicate://generic/consumer',{},null,prefix,resource).historicalGraphCallSource();
  const result=read(f.prefix);assert.ok(result);assert.equal(counts.catalog,1);
  assert.deepEqual(result.terminalResult,f.terminal);assert.deepEqual(result.publication,f.publication);
- assert.strictEqual(result.input.value,f.ancestor.rawInputValue,'exact existing basis body is borrowed');
+ // Design §10.12 O1 lifetime (RC10): a completed historical call keeps equality
+ // and refusal, not strict reference identity, of the basis body.
+ assert.deepEqual(result.input.value,f.ancestor.rawInputValue,'exact existing basis body is selected');
  assert.deepEqual(result.input,{...f.resource.input,value:f.ancestor.rawInputValue});
  assert.strictEqual(read(f.prefix),result);assert.equal(counts.catalog,1,'same resource in live scope performs no second declaration or source walk');
  assert.equal(read(undefined),null,'HoG prefix is mandatory');

@@ -321,7 +321,7 @@
   {
    "gate": "d2-continuation-09-store-borrowed-ancestry",
    "class": "A",
-   "status": "failing_with_input_present",
+   "status": "runs_with_root",
    "variables": [],
    "cases": [
     {
@@ -348,8 +348,8 @@
     }
    ],
    "producer": null,
-   "observed": "root-set run of the file (ABI5_EVIDENCE_ROOT set) (236 s): fails at t287-historical-source-resource.test.mjs:72 (\"exact existing basis body is borrowed\")",
-   "note": "class A lane: it gates on evidenceInput, so it runs and fails whenever the root is set. Reading not decided: borrowing expectation versus the current basis owner (stale test or regression)"
+   "observed": "root-set run of the file (ABI5_EVIDENCE_ROOT set) (333 s): 4/4 pass; root unset: 1 pass, 3 skip (TD-60T)",
+   "note": "class A lane: it gates on evidenceInput. TD-60T restated the basis-body assertion from strict identity to equality under the RC10 O1 lifetime (library design §10.12: strict reference identity for completed historical calls is not retained, equality and refusal are); it failed from rc.10 (93a0de75a) and passed at rc.9 (e30ac16b4)"
   },
   {
    "gate": "r10-child-proof-d2-s01",
