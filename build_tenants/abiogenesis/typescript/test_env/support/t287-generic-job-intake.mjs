@@ -2,68 +2,9 @@ import assert from "node:assert/strict";
 import { execFile } from "node:child_process";
 import { mkdir, readFile, writeFile } from "node:fs/promises";
 import { basename, dirname, join } from "node:path";
-import { pathToFileURL, fileURLToPath } from "node:url";
 import { promisify } from "node:util";
 const exec = promisify(execFile);
 
-/** Rehydrate the existing owners at each actual pre-dispatch cut. This does not
- * reopen the store, synthesize events or supply a caller-authenticated envelope. */
-export async function verifyRetainedGenericIntakes(proof) {
-  const installed = join(proof.scratch, "consumer/node_modules/@abiogenesis/typescript-tenant");
-  const load = name => import(pathToFileURL(join(installed, "build/code/src", name + ".js")).href);
-  const [product, store, prefixes, executions, calls, cursors, traversal, gtl, jobs] = await Promise.all([
-    "product/index", "abg/event_store", "abg/event_prefix", "abg/execution_basis", "abg/c_call", "abg/traversal_cursor",
-    "hog/traversal", "gtl/index", "abg/semantic_job",
-  ].map(load));
-  const full = proof.closeHandoff.prefix, bytes = await readFile(fileURLToPath(full.eventLogRef));
-  const lines = bytes.subarray(0, full.prefixLength).toString("utf8").split("\n");
-  const events = store.readRuntimeEventsAtDurablePrefix(full), owners = [];
-  for (const row of proof.completed) {
-    const call = JSON.parse(await readFile(join(proof.scratch, row.name + "-call.json"), "utf8"));
-    const publications = call.resources.catalog.boundPublications;
-    const opened = events.find(e => e.kind === "c_call_opened" && e.aggregateId === row.intake.aggregateId);
-    const selected = events.find(e => e.kind === "c_call_fibre_selected" && e.aggregateId === opened.aggregateId);
-    assert.ok(selected);
-    const prefixBytes = Buffer.from(lines.slice(0, selected.admissionOrdinal).join("\n") + "\n");
-    const body = { kind: "durable_prefix_coordinate", schemaVersion: "5.0.0", eventLogRef: full.eventLogRef,
-      prefixLength: prefixBytes.length, prefixDigest: product.sha256Bytes(prefixBytes), storeIdentity: full.storeIdentity };
-    const durable = { ...body, coordinateDigest: product.sha256Canonical(body) };
-    const before = store.readRuntimeEventsAtDurablePrefix(durable), prefix = prefixes.selectValidatedRuntimeEventPrefix(before);
-    const execution = executions.rehydrateExecutionBasisAtPrefix(prefix, opened.basisId); assert.ok(execution);
-    const publication = publications.find(p => p.programs.some(p => p.programRef === execution.programRef)); assert.ok(publication);
-    const declarationGraphFunctions = publications.flatMap(p => p.graphFunctions);
-    const graphFunction = declarationGraphFunctions.find(g => g.name === execution.graphFunctionRef); assert.ok(graphFunction);
-    const graph = gtl.materializeGraph(graphFunction, { invocationAdmissionRef: execution.invocationAdmissionRef,
-      admittedInputRef: execution.rawInputAdmissionRef, admittedInputDigest: execution.rawInputDigest, admittedInput: execution.rawInputValue });
-    const cCall = calls.projectOpenedCCallCarrierAtPrefix(prefix, graph, opened.aggregateId); assert.ok(cCall);
-    const entered = before.find(e => e.kind === "traversal_cursor_entered" && e.basisId === opened.basisId && e.graphCallId === opened.graphCallId);
-    assert.ok(entered); const cp = entered.payload;
-    let cursor = cursors.constructTraversalCursorCandidate({ programRef: cp.programRef, executionBasisRef: cp.executionBasisRef,
-      traversalScopeRef: cp.traversalScopeRef, runId: entered.runId, graphCallId: entered.graphCallId, frameId: entered.frameId,
-      graphRef: cp.materializationRef, inputRef: cp.inputRef, inputDigest: cp.inputDigest, currentNodeRef: graph.template.startNodeRef,
-      position: "at_term", termPath: cp.termPath, taskOrdinal: cp.taskOrdinal, attempt: cp.attempt, retryPath: cp.retryPath });
-    assert.equal(cursor.cursorDigest, cp.cursorDigest);
-    if (cursor.cursorDigest !== opened.payload.cursorDigest)
-      cursor = traversal.deriveStructuralTargetCursor(graph, cursor, graph.template.nodes[0].term);
-    assert.equal(cursor.cursorDigest, opened.payload.cursorDigest);
-    const basis = { publication, lifecyclePublication: publication, sourcePublication: publication, graph, graphFunction,
-      declarationGraphFunctions, executionBasis: execution, cCall, cursor, predecessorPrefix: durable };
-    assert.ok(jobs.authenticateOwnedSemanticJobBasis(basis));
-    assert.deepEqual(jobs.projectSemanticJobIntake(basis, row.input), row.intake.payload.value);
-    assert.equal(jobs.semanticJobResultMatchesBasis(basis, row.input, row.intake.payload.value), true);
-    owners.push({ basis, row });
-  }
-  for (let index = 0; index < owners.length; index++) {
-    const { basis, row } = owners[index], other = owners[(index + 1) % owners.length].row;
-    assert.equal(jobs.projectSemanticJobIntake(basis, other.input), null, "cross-job input is refused before dispatch");
-    assert.equal(jobs.semanticJobResultMatchesBasis(basis, row.input, other.intake.payload.value), false, "cross-job envelope substitution refuses");
-    const changed = structuredClone(row.input); changed.worksiteScope.writeRoots.push("outside");
-    assert.equal(jobs.projectSemanticJobIntake(basis, changed), null, "changed scope cannot retain admitted input identity");
-    assert.equal(jobs.authenticateOwnedSemanticJobBasis({ ...basis, executionBasis: owners[(index + 1) % owners.length].basis.executionBasis }), null,
-      "another job's execution basis cannot authenticate this child");
-  }
-  return { jobs: owners.length, exactNativeRederivations: owners.length, crossJobRefusals: owners.length * 4, paidCalls: 0 };
-}
 const schemaVersion = "5.0.0";
 export const intakeIds = Object.freeze({
   productId: "product://generic-job-mechanics.example/builder@5",

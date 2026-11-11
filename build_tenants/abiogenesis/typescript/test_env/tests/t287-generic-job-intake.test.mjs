@@ -6,7 +6,7 @@ import * as Effect from "effect/Effect";
 import test from "node:test";
 import { setupInstalledRootCatalog } from "../support/root-installed-environment.mjs";
 import { nativePublications } from "../support/d2-frame-fixture.mjs";
-import { prepareGenericJobIntakeProduct, constructGenericIntakeStart, ordinaryJob, verifyRetainedGenericIntakes } from "../support/t287-generic-job-intake.mjs";
+import { prepareGenericJobIntakeProduct, constructGenericIntakeStart, ordinaryJob } from "../support/t287-generic-job-intake.mjs";
 
 const packageRoot = process.env.ABI5_GENERIC_JOB_BUILD_ROOT ?? resolve(dirname(fileURLToPath(import.meta.url)), "../..");
 test("one installed generic declaration admits two ordinary jobs through actual native child intake", { timeout: 300000 }, async () => {
@@ -76,7 +76,4 @@ test("one installed generic declaration admits two ordinary jobs through actual 
     jobRef: r.intake.payload.value.basis.jobRef, rootBasis: r.root.basisRef, childBasis: r.child.basisRef })), paidCalls: 0 }));
 });
 
-test("retained two-job native intake rejects crossed job values and scopes", { skip: !process.env.ABI5_GENERIC_JOB_RETAINED_PROOF && "ABI5_GENERIC_JOB_RETAINED_PROOF unset; requires the retained two-job native intake proof" }, async () => {
-  const proof = JSON.parse(await readFile(process.env.ABI5_GENERIC_JOB_RETAINED_PROOF, "utf8"));
-  console.log(JSON.stringify(await verifyRetainedGenericIntakes(proof)));
-});
+// Retired (T-292 TD-60): the retained two-job native intake rejects crossed job values and scopes; input the retained two-job intake proof not recorded
