@@ -172,8 +172,8 @@ Release allocation follows [Product Release Boundaries](PRODUCT.md#50-and-51-rel
 The directional human-work capability remains. The selected recursive Executive
 overlay and default graph library govern work within declared Program authority
 in 5.0. The separate observer/tuner Product, autonomous out-of-traversal routing,
-native human response/resume and mandatory host parity retain the release
-allocations owned by Product.
+native human response/resume, standalone Consensus qualification and mandatory
+host parity retain the release allocations owned by Product.
 Declared recursion, local correction, truthful blocking and attributed human
 authority remain part of the direction and the selected 5.0 boundary.
 
