@@ -293,10 +293,9 @@
     {
      "file": "tests/t287-cross-cut-public-read.test.mjs",
      "titles": [
-      "different-cut native Definition reads keep blocked absence and exact historical child result/replay",
-      "late child proof preserves only the exact acquired prefix; copies and closed owners reconstruct, changed bytes refuse"
+      "different-cut native Definition reads keep blocked absence and exact historical child result/replay"
      ],
-     "suiteSkips": 2
+     "suiteSkips": 1
     }
    ],
    "input": "the D2 installed-continuation-09 runtime event log and program-ready record",
@@ -315,8 +314,41 @@
     }
    ],
    "producer": null,
-   "observed": "root-set run of the file (ABI5_EVIDENCE_ROOT set) (1051 s): \"different-cut native Definition reads\" fails its read-count assertion (run_status decodes the extent in bounded chunks and reads each body once by location, :121); \"late child proof\" fails at :207: after one byte of the scratch copy is changed, a prepared historical read projects (abg_project_read_projection) where the case expects abg_project_read_refusal",
-   "note": "class A lane: it gates on evidenceInput, so it runs and fails whenever the root is set. Reading not decided: the read-count case looks like a stale operational expectation; the changed-bytes case is an apparent Product defect unless the held-read design now lets a prepared read keep its acquired facts"
+   "observed": "root-set run of the file (ABI5_EVIDENCE_ROOT set) (1051 s): \"different-cut native Definition reads\" fails its read-count assertion (run_status decodes the extent in bounded chunks and reads each body once by location, :121)",
+   "note": "class A lane: it gates on evidenceInput, so it runs and fails whenever the root is set. TD-60T: Product defect, registered as TD-50 (closure: the body-read counter is at most the row count) and TD-51; every non-basis body is read once, and the 37 basis bodies are re-read 11,461 times (run members) and 92,732 times (graph-call members) by the event-calculus dependency selections. Passed at rc.9 (e30ac16b4), fails from rc.10 (93a0de75a, the O1 basis lifetime). Split from the late-child-proof case (row d2-continuation-09-store-late-child-proof)"
+  },
+  {
+   "gate": "d2-continuation-09-store-late-child-proof",
+   "class": "A",
+   "status": "runs_with_root",
+   "variables": [],
+   "cases": [
+    {
+     "file": "tests/t287-cross-cut-public-read.test.mjs",
+     "titles": [
+      "late child proof preserves only the exact acquired prefix; copies and closed owners reconstruct, changed bytes refuse"
+     ],
+     "suiteSkips": 1
+    }
+   ],
+   "input": "the D2 installed-continuation-09 runtime event log and program-ready record",
+   "inputs": [
+    {
+     "name": "events",
+     "path": "comments/codex/20260911_D2_BOUNDED_REPAIR/installed-continuation-09/installed-frame-01/events-01/runtime.events.jsonl",
+     "sha256": "f841bba98385cb572a944edf1793634fcf10baf59a74331110042bcb200f8e82",
+     "bytes": 19058361
+    },
+    {
+     "name": "ready",
+     "path": "comments/codex/20260911_D2_BOUNDED_REPAIR/installed-continuation-09/installed-frame-01/attempt-01/program-ready-16.json",
+     "sha256": "2147862a16f8526d546ca918563b8d8b8094e684d8f629784b256e4803d3fc02",
+     "bytes": 12781893
+    }
+   ],
+   "producer": null,
+   "observed": "root-set run of the file (ABI5_EVIDENCE_ROOT set) (827 s): the case passes, the file 4 pass, 1 fail (the read-count case, row d2-continuation-09-store-cross-cut-reads); root unset: the case skips (TD-60T)",
+   "note": "class A lane: it gates on evidenceInput. Split from d2-continuation-09-store-cross-cut-reads by TD-60T. TD-60T restated :207: after the owner closes, a prepared historical read is served by the exact coordinate's retained authenticated selection (library design §10.4, RC6), so it projects after a byte changes; the next explicit fresh preparation refuses. Last passing rc.5 (f49e7533e), first failing rc.6 (e7179b19b)"
   },
   {
    "gate": "d2-continuation-09-store-borrowed-ancestry",
