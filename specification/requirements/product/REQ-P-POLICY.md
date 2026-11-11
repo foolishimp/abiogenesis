@@ -5,7 +5,7 @@
 packed/installed verification clarification
 **Category**: Governance
 **Date**: 2026-04-19
-**Updated**: 2026-09-28
+**Updated**: 2026-11-11
 **Derives from**: [INTENT.md](../../INTENT.md) INT-001 and INT-005,
 [PRODUCT.md](../../PRODUCT.md)
 **Wave**: 3; ABG 5.0 public operator contract
@@ -527,6 +527,44 @@ mutation class, typed refusals, disposition, and adapter exit classification.
 CLI flags, SDK overloads, and host projections bind those rows; they do not
 complete or reinterpret an absent row. Legacy operation identities and a
 parallel compatibility register shall fail publication and conformance.
+
+## Stopped Run Readback
+
+**REQ-P-POLICY-065**: The runtime-status variant of
+`abg.operation.project.read` for an admitted Run that stopped without
+completing shall carry one stop reading. The reading shall identify the
+admitted stop event, its typed disposition and reason reference, the
+originating Result of the stop, and the last admitted evaluation Result of the
+Run's root GraphCall. It shall be folded at read time from the Run's admitted
+events and shall not require a new event kind, a change to a stop event, or a
+stored copy. An item the admitted record does not establish shall read as typed
+absence; the reading shall not infer an item from a matching label or
+reference. The runtime-status value of a Run that has not stopped shall not
+carry a stop reading.
+
+**REQ-P-POLICY-066**: The stopping C-call is the C-call of the route a route
+stop names, or of the one failed route that caused a runtime failure. The
+originating Result shall be found by descending from the stopping C-call's
+Result through each admitted failed or blocked child foldback to the child
+Result it records, until no such foldback exists. When a failure caused the
+stop, the reading shall report the originating Result's reference, its own
+failure class and diagnostic reference, and the timeout class recorded by its
+admitted C-call evidence. A class relabelled by a parent lift shall not replace
+the originating class.
+
+**REQ-P-POLICY-067**: For a blocked stop, including recursion-bound
+exhaustion, the reading shall report the stop's reason reference and the
+reference and admitted value of the last admitted evaluation Result. The
+generic read shall carry that value without interpreting Product-owned
+obligation fields. When the originating Result is a registered-selection gap
+choice, the reading shall report its missing support references and reason.
+
+**REQ-P-POLICY-068**: No Public read shall present a stopped Run as completed.
+The result variant for a stopped Run shall not return a successful terminal
+result. The stop reading shall include a plain-words statement of the
+disposition, the reason, the originating failure class, and the unresolved
+items or the evaluation Result that records them, derived from the same fold,
+so that `abg.cli` output states them without adapter-local interpretation.
 
 ## Public Operation Acceptance
 

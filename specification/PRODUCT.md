@@ -1023,6 +1023,11 @@ continue admitted work under existing specification, constraints and authority
 run conformance and installed-product proof
 ```
 
+A Run that stops without completing reads back from the admitted record alone:
+its typed disposition, the reason for the stop, the originating failure class
+where a failure caused it, and the unresolved obligations its last admitted
+evaluation recorded. A stop is never presented as completion.
+
 The public surface derives from one typed contract and catalog authority. Exact
 operation names, schemas, and capability projections are frozen for the release,
 but their count does not define the engine or create separate semantic owners.

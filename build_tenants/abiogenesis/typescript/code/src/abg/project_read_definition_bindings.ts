@@ -35,7 +35,7 @@ import {
 } from "./environment_admission.js";
 import { projectOwnedPrefixArtifactTruth } from "./artifact_truth.js";
 import type { DurablePrefixCoordinate } from "./event_store.js";
-import { ABG_PROJECT_READ_CONTRACTS } from "./project_read_operation_contracts.js";
+import { ABG_PROJECT_READ_CONTRACTS, ABG_RUN_STOP_READING_SCHEMA } from "./project_read_operation_contracts.js";
 import { ABG_HISTORICAL_DECLARATION_PROOF_SCHEMA, isAbgTypedTerminalResult, type AbgHistoricalDeclarationProof } from "./terminal_result_contracts.js";
 import {
   ABG_PROJECT_READ_OWNER_PORTS,
@@ -314,6 +314,12 @@ function nativeLivenessFields(value: Readonly<Record<string, JsonValue>>): Reado
   return { nativeLiveness: value.nativeLiveness };
 }
 
+function runStopFields(value: Readonly<Record<string, JsonValue>>): Readonly<Record<string, JsonValue>> {
+  if (value.stop === undefined) return {};
+  if (!v.is(ABG_RUN_STOP_READING_SCHEMA, value.stop)) throw new TypeError("read owner returned an invalid Run stop reading");
+  return { stop: value.stop };
+}
+
 function statusProjection(
   memberKey: "run_status" | "graph_call_status",
   request: Readonly<Record<string, JsonValue>>,
@@ -355,6 +361,7 @@ function statusProjection(
       const digest = sha256Canonical(admittedRow.value);
       return reference(fluentRef, digest);
     }),
+    ...(memberKey === "run_status" ? runStopFields(value) : {}),
   };
 }
 
