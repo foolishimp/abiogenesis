@@ -4,7 +4,6 @@ import {promisify} from 'node:util';
 import {mkdir,mkdtemp,readFile,writeFile,rm,chmod,realpath} from 'node:fs/promises';
 import {join,resolve,dirname} from 'node:path';
 import {tmpdir} from 'node:os';
-import {fileURLToPath,pathToFileURL} from 'node:url';
 import test,{after} from 'node:test';
 import * as Effect from 'effect/Effect';
 import * as product from '../../build/code/src/product/index.js';
@@ -112,14 +111,4 @@ test('changed generic artifact ingress refuses malformed release and wrong membe
   assert.equal(artifact.projectExactPrefixArtifactTruth(prefix).kind,'exact_prefix_artifact_truth_projection');
  }finally{store.projectReopenAuthorityAndClose();}
 });
-test('retained installed archive remains verified under its owner; successor refuses its older Public catalog',{skip:!process.env.ABI5_RELEASE_RETAINED_INSTALL_COORDINATE&&'ABI5_RELEASE_RETAINED_INSTALL_COORDINATE unset; requires the exact retained installed-coordinate selection'},async()=>{
- const coordinatePath=process.env.ABI5_RELEASE_RETAINED_INSTALL_COORDINATE;assert.ok(coordinatePath,'exact retained installed-coordinate selection required');
- const c=JSON.parse(await readFile(coordinatePath,'utf8'));
- const installedPackage=JSON.parse(await readFile(join(c.installedRoot,'package.json'),'utf8'));
- const retainedProduct=await import(pathToFileURL(join(c.installedRoot,installedPackage.exports['./product'].import)).href);
- const request={artifactPath:c.artifactPath,artifactRef:pathToFileURL(c.artifactPath).href,expectedArtifactDigest:c.artifactDigest,expectedProductContentDigest:c.productContentDigest,expectedManifestDigest:c.manifestDigest,expectedProductId:c.productId,expectedPackageName:c.packageName,expectedPackageVersion:c.packageVersion};
- const verified=await retainedProduct.verifyProduct(request);assert.equal(verified.kind,'verified_product_artifact',JSON.stringify(verified));
- const lock=product.constructResolvedProductLock([verified]);assert.equal(lock.kind,'environment_refusal');assert.equal(lock.code,'incompatible_dependency');
- const current=await product.verifyProduct(request);assert.equal(current.kind,'product_verification_refusal');assert.equal(current.code,'catalog_mismatch');
- await save('retained-catalog-boundary',{retainedCoordinate:coordinatePath,artifactDigest:c.artifactDigest,verified:{kind:verified.kind,verificationRef:verified.verificationRef,verificationDigest:verified.verificationDigest},lock,current,claim:'No install operation. A positive changed-catalog install/bind check requires a later archive of this successor; the prior archive is not relabeled as compatible.'});
-});
+// Retired (T-292 TD-60): a retained installed archive verifies under its own owner and its successor refuses it; input the retained installed-coordinate selection not recorded
