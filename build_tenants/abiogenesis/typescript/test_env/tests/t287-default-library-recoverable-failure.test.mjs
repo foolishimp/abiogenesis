@@ -164,8 +164,10 @@ test('the selector completion: an exchange identity mismatch throws; every other
   assert.throws(()=>prepared.complete({request:{...assembly.request,prompt:'q'},observation}),/native selector exchange mismatch/);
   assert.deepEqual(typed(complete({disposition:'failure',failureClass:'transport_failure',timeoutClass:'inactivity'})),
     ['selector_process_ended',{actorInvocationRef:'actor-invocation:x',failureClass:'transport_failure',timeoutClass:'inactivity'}]);
-  assert.deepEqual(typed(complete({toolCallCount:1})),['response_refused',{graphFunctionRef:null,reviewRef:null}]);
-  assert.deepEqual(typed(complete({finalOutput:'not json'})),['response_refused',{graphFunctionRef:null,reviewRef:null}]);
+  // A malformed or non-JSON answer reaches the completion as the transport delivers it: a failed process with the contract failure class.
+  // A tool call in the closed selection lane delivers no completion; response_refused is the strict binder refusing a well-formed response (below).
+  assert.deepEqual(typed(complete({disposition:'failure',failureClass:'contract_failure',finalOutput:'not json'})),
+    ['selector_process_ended',{actorInvocationRef:'actor-invocation:x',failureClass:'contract_failure',timeoutClass:null}]);
   const early=JSON.stringify({interpretation:'Early',contributions:[],gaps:[],nextGraphFunctionRef:ref('construction'),nextReason:'Early',nextEvidenceRefs:[],subjectEvidenceRef:null,
     revisionReason:'Early',revisionEvidenceRefs:[],reviewRef:null});
   assert.deepEqual(typed(complete({finalOutput:early})),['target_not_permitted',{graphFunctionRef:ref('construction'),reviewRef:null,missingReviews:IMPACT,staleReviews:null,missingSelectedPaths:null}]);

@@ -28,7 +28,11 @@ consume the recursion bound; at the bound the existing blocked stop occurs.
   `selector_process_ended` {actorInvocationRef, failureClass, timeoutClass};
   `target_not_permitted` {graphFunctionRef, reviewRef, missingReviews,
   staleReviews, missingSelectedPaths}; `response_refused` {graphFunctionRef,
-  reviewRef}, including tool calls and non-I-JSON output.
+  reviewRef}, the strict binder refusing a well-formed response. On the
+  installed path a malformed or non-JSON answer ends the selector process with
+  the contract failure class and folds back as `selector_process_ended`; a tool
+  call in the closed selection lane never completes, and the Run stops blocked
+  with an evidence contract mismatch.
 - Selection task `failedAttempts` (exactOptional, non-empty, present exactly
   when this Run has a failed step): per step in order `{graphFunctionRef,
   reviewRef?, failureClassRef, timeoutClass, changedPaths, refusal?: {relation,
