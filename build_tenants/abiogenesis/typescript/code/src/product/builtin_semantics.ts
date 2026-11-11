@@ -180,14 +180,6 @@ export const ABI5_PRODUCT_SEMANTICS = Object.freeze({
   packageName: ABI5_PACKAGE_NAME,
   packageVersion: ABI5_PACKAGE_VERSION,
   admitInput,
-  evaluateInteractionResponse(
-    basis: Parameters<
-      ProductSemanticsProvider["evaluateInteractionResponse"]
-    >[0],
-    responseCandidate: unknown,
-  ) {
-    return admitInput(basis.responseContractRef, responseCandidate);
-  },
   validateContractValue(
     valueKind: string,
     value: unknown,
@@ -636,37 +628,6 @@ export const ABI5_SYSTEM_PRODUCT_SEMANTICS = Object.freeze({
   packageVersion: ABI5_PACKAGE_VERSION,
   publicResultProjectionKinds: ["result", "ticket.consensus"] as const,
   admitInput: admitSystemInput,
-  evaluateInteractionResponse(
-    basis: Parameters<
-      ProductSemanticsProvider["evaluateInteractionResponse"]
-    >[0],
-    responseCandidate: unknown,
-  ) {
-    if (
-      basis.requestContractRef ===
-        CONSENSUS_IDS.resolutionContractRef &&
-      basis.responseContractRef ===
-        CONSENSUS_IDS.escalationDecisionContractRef
-    ) {
-      if (
-        !isConsensusEscalationRequest(basis.requestValue) ||
-        !isConsensusEscalationDecision(responseCandidate) ||
-        responseCandidate.humanActorRef !== basis.actingActorRef ||
-        responseCandidate.roundDecision.decisionRef !==
-          basis.requestValue.decisionRef ||
-        responseCandidate.roundDecision.decisionDigest !==
-          basis.requestValue.decisionDigest ||
-        !canonicalEquals(
-          responseCandidate.roundDecision,
-          basis.requestValue,
-        )
-      ) {
-        return null;
-      }
-      return deepFreeze(responseCandidate);
-    }
-    return admitSystemInput(basis.responseContractRef, responseCandidate);
-  },
   validateContractValue: validateSystemContractValue,
   resolveCatalogApplicationValue: resolveSystemCatalogApplicationValue,
   resolveJudgmentRelation: resolveConsensusJudgmentRelation,
@@ -791,7 +752,6 @@ export const ABI5_REQUIREMENT_HANDOFF_PRODUCT_SEMANTICS: ProductSemanticsProvide
     return contractRef === REQUIREMENT_HANDOFF_IDS.inputContractRef && isRequirementHandoffInput(value)
       ? deepFreeze(value) : null;
   },
-  evaluateInteractionResponse() { return null; },
   validateContractValue(valueKind: string, value: unknown): value is Readonly<Record<string, JsonValue>> {
     return valueKind === "requirement_handoff_input" ? isRequirementHandoffInput(value)
       : valueKind === "requirement_handoff_output" && isRequirementHandoffOutput(value);

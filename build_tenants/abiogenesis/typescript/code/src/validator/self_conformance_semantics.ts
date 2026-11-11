@@ -115,10 +115,6 @@ export const ABI5_SELF_CONFORMANCE_PRODUCT_SEMANTICS: ProductSemanticsProvider =
     const kind = inputs.get(contractRef);
     return kind !== undefined && isQualificationContractValue(kind, value, providerCatalogs) ? deepFreeze(value) : null;
   },
-  evaluateInteractionResponse(basis, value) {
-    return basis.requestContractRef === q.rulingRequest && basis.responseContractRef === q.rulingResponse &&
-      qualificationRulingMatches(basis.requestValue, value, basis.actingActorRef) ? deepFreeze(value) : null;
-  },
   validateContractValue(valueKind: string, value: unknown): value is Readonly<Record<string, JsonValue>> {
     return isQualificationContractValue(valueKind, value, providerCatalogs);
   },

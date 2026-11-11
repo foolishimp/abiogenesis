@@ -35,7 +35,6 @@ export const SEMANTICS = Object.freeze({kind:'product_semantics_provider',schema
     return (contractRef === contract('request') && value?.kind === 'selection_request' && typeof value.choice === 'string' && typeof value.payload === 'string' && Array.isArray(value.catalog)) ||
       (contractRef === contract('child-input') && validChild(value)) ? value : null;
   },
-  evaluateInteractionResponse() { return null; },
   resolveProbabilisticWorkerContracts(basis) { return {instructionContractRef:basis.inputContractRef,resultContractRef:basis.outputContractRef}; },
   validateContractValue(kind,value) {
     if (kind === 'registered_graph_choice') return value?.kind === kind;

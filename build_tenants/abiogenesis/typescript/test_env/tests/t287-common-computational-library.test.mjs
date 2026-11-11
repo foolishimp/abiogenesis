@@ -346,30 +346,6 @@ test('O-TYPE: sameJson admits both sides; a function member or a cycle is never 
   assert.equal(sameJson(cycle, cycle), false, 'a cycle is refused, with no identity shortcut');
 });
 
-test('O-SCHEMA: the Product boundary admits an interaction response candidate to I-JSON before the provider evaluates it', async () => {
-  const seen = [];
-  const provider = Object.freeze({ ...product.ABI5_DEFAULT_LIBRARY_PRODUCT_SEMANTICS,
-    evaluateInteractionResponse(_basis, candidate) { seen.push(candidate); return candidate; } });
-  const install = { installId: 'install://t287/o-schema-response', packageName: provider.packageName, packageVersion: provider.packageVersion,
-    productContentDigest: 'sha256:' + '4'.repeat(64), manifestDigest: 'sha256:' + '5'.repeat(64) };
-  const binding = { kind: 'product_semantics_binding', bindingRef: provider.bindingRef, packageName: provider.packageName,
-    packageVersion: provider.packageVersion, modulePath: 'build/index.mjs', namedSymbol: 'SEMANTICS' };
-  const loaded = await productSemanticsFromModules({ install, verifyInstallAdmission: () => true,
-    publicationDigest: 'sha256:' + '6'.repeat(64), productSemanticsBinding: binding },
-  { kind: 'installed_product_module_loading', install, load: async () => ({ kind: 'loaded', module: { SEMANTICS: provider } }) });
-  const basis = { requestContractRef: 'contract://t287/request', responseContractRef: 'contract://t287/response',
-    requestValue: {}, actingActorRef: 'actor://t287/human', constructionIntent: null, nextActionBasis: null };
-  const parsed = JSON.parse('{"decision":"accept","notes":["a",{"n":1}]}');
-  const answered = product.evaluateInstalledInteractionResponse(loaded, basis, parsed);
-  assert.equal(seen.length, 1);
-  assert.notStrictEqual(seen[0], parsed, 'the provider receives the detached admitted value');
-  assert.ok(Object.isFrozen(seen[0]) && Object.isFrozen(seen[0].notes[1]));
-  assert.deepEqual(answered, parsed);
-  const hidden = { decision: 'accept', notes: ['a', { hidden: () => 7 }] };
-  assert.equal(product.evaluateInstalledInteractionResponse(loaded, basis, hidden), null, 'a refused candidate takes the null channel');
-  assert.equal(seen.length, 1, 'a refused candidate never reaches the provider');
-});
-
 const CONTEXT_OWNER_REFUSAL = Object.freeze({ kind: 'structural_refusal', stage: 'validate', code: 'owner_mismatch',
   path: Object.freeze([]), evidence: Object.freeze({}) });
 /** A contextual owner check: the owner and the digest are typed context data. */

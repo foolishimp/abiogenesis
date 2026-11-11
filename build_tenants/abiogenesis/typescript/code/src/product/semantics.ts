@@ -154,17 +154,6 @@ export interface ProductSemanticsProvider {
     contractRef: string,
     value: unknown,
   ) => Readonly<Record<string, JsonValue>> | null;
-  readonly evaluateInteractionResponse: (
-    basis: Readonly<{
-      readonly requestContractRef: string;
-      readonly responseContractRef: string;
-      readonly requestValue: Readonly<Record<string, JsonValue>>;
-      readonly actingActorRef: string;
-      readonly constructionIntent: Readonly<Record<string, JsonValue>> | null;
-      readonly nextActionBasis: Readonly<Record<string, JsonValue>> | null;
-    }>,
-    responseCandidate: unknown,
-  ) => Readonly<Record<string, JsonValue>> | null;
   readonly validateContractValue: (
     valueKind: string,
     value: unknown,
@@ -446,7 +435,6 @@ async function loadProductSemantics(
     value.packageName !== binding.packageName ||
     value.packageVersion !== binding.packageVersion ||
     typeof value.admitInput !== "function" ||
-    typeof value.evaluateInteractionResponse !== "function" ||
     typeof value.validateContractValue !== "function" ||
     typeof value.resolveJudgmentRelation !== "function" ||
     (
@@ -576,24 +564,6 @@ export function admitInstalledProductInput(
   // value takes the method's refusal, null. A value this owner already
   // admitted is that detached value (§10.11 X2).
   return admitInstalledProductInputValue(semantics, contractRef, value)?.admitted ?? null;
-}
-
-export function evaluateInstalledInteractionResponse(
-  semantics: ProductSemanticsProvider,
-  basis: Parameters<ProductSemanticsProvider["evaluateInteractionResponse"]>[0],
-  responseCandidate: unknown,
-): Readonly<Record<string, JsonValue>> | null {
-  if (!loadedProductSemantics.has(semantics)) {
-    throw new TypeError(
-      "Product response evaluation requires the exact loaded Product semantics provider",
-    );
-  }
-  // O-SCHEMA: the raw owner boundary admits the response candidate to I-JSON
-  // before the Product's evaluation, which receives the detached admitted value;
-  // a refused candidate takes the method's refusal, null.
-  const admitted = admitJson(responseCandidate);
-  if (admitted.kind !== "ok") return null;
-  return semantics.evaluateInteractionResponse(basis, admitted.value);
 }
 
 export function validateInstalledInvocationBasis(

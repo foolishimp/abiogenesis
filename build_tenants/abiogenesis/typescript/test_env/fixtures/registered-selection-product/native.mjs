@@ -36,7 +36,6 @@ export const executeA=input=>realize('A',input,{kind:'selection_rendered_record'
 export const executeB=input=>realize('B',input,{kind:'selection_rendered_record',schemaVersion:version,child:'B',rendered:Object.entries(input.record).map(([k,v])=>`${k}: ${v}`).join('\n')});
 export const SEMANTICS={kind:'product_semantics_provider',schemaVersion:version,bindingRef:ref('semantics','product'),packageName,packageVersion:version,
   admitInput(contractRef,value){return contractRef===contract('request')&&isNativeRegisteredSelectionTask(value)||contractRef===contract('child-input')&&validChild(value)?value:null;},
-  evaluateInteractionResponse(){return null;},
   resolveProbabilisticWorkerContracts(basis){return {instructionContractRef:basis.inputContractRef,resultContractRef:contract('native-response')};},
   validateContractValue(kind,value){
     if(kind==='registered_selection_task')return isNativeRegisteredSelectionTask(value);

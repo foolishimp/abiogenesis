@@ -152,8 +152,6 @@ test("S03 HoG accepts one Product-sealed projection and rejects its forged twin"
 });
 
 test("S03 Product semantics requires a loaded provider and is absent from HoG's public port", () => {
-  assert.equal(typeof product.evaluateInstalledInteractionResponse, "function");
-  assert.equal("evaluateInstalledInteractionResponse" in hog, false);
   assert.equal("admitInstalledProductInput" in hog, false);
   assert.equal("bindInstalledLeafInvocationPort" in hog, false);
 
@@ -164,28 +162,9 @@ test("S03 Product semantics requires a loaded provider and is absent from HoG's 
     packageName: "@developer-example/forged",
     packageVersion: "5.0.0",
     admitInput: (_contractRef, value) => value,
-    evaluateInteractionResponse(_basis, response) {
-      return response;
-    },
     validateContractValue: () => true,
     resolveJudgmentRelation: () => null,
   };
-  const response = { kind: "unit_response", schemaVersion: "5.0.0" };
-  assert.throws(
-    () =>
-      product.evaluateInstalledInteractionResponse(
-        provider,
-        {
-          requestContractRef: "contract://unit/request",
-          responseContractRef: "contract://unit/response",
-          requestValue: {},
-          constructionIntent: null,
-          nextActionBasis: null,
-        },
-        response,
-      ),
-    /exact loaded Product semantics provider/u,
-  );
   assert.throws(
     () => product.projectInstalledLeafSemantics(provider),
     /exact loaded Product semantics provider/u,
