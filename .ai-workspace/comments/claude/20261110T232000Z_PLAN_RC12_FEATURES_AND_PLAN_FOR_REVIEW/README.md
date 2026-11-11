@@ -207,3 +207,20 @@ Owner: "i should lean into an ABG configuration that is an out of the box implem
 5. The intent and Product draft on the branch names this configuration.
 
 **Not in RC12:** selecting different STDO material per review through the run environment (in RC12 review types differ by their declared frame statement and rubric); applicability decided by an admitted Executive judgment at intake instead of by the task declaration; rebinding to a later STDO release; release bindings.
+
+## 12. Parallel phase and the inactivity ruling (2026-11-11)
+
+The owner allowed one worker per parallel task. Four lines run in their own worktrees, all from `62fd17271`:
+
+| Line | Worktree | Branch | Work |
+|---|---|---|---|
+| Main | `/private/tmp/abg-rc12-executive-20261111` | `claude/rc12-executive` | Package A2 repairs, then recoverable failure, then process prerequisites |
+| Consensus | `/private/tmp/abg-rc12-consensus-20261111` | `claude/rc12-consensus` | Consensus retirement; a short intent amendment in the owner's words as its own commit |
+| Liveness | `/private/tmp/abg-rc12-liveness-20261111` | `claude/rc12-liveness` | Inactivity liveness |
+| Witness | `/private/tmp/abg-rc12-witness-20261111` | `claude/rc12-witness` | Amendment witness, test-side only |
+
+**Inactivity triage** (`L_RETURN.md` on the liveness branch, commit `aebc02fdd`). The cause is established and affects every native actor, real or scripted. `abg/calculus/liveness.ts` lets the inactivity outcome happen only under complete probe coverage, and no producer reports coverage for tool progress, API progress or archive. The absolute ceiling is therefore the only effective bound, and a declared inactivity value does nothing. A green test, `t287-management-supervision`, encodes that behaviour.
+
+**Ruling.** REQ-R-ABG3-TRANSPORT-027 says runtime liveness is governed by an inactivity lease over admitted probe activity, and TRANSPORT-028 says the hard cap exists only as outer safety evidence. Requirements outrank the test. Unknown coverage protects the no-progress classification; it does not protect a live actor whose lease has expired. Containment happens at lease expiry regardless of coverage, with the existing inactivity cause. The test's claims are corrected. A host must declare an inactivity longer than the longest interval in which a working actor emits no admitted activity, because tool, API and archive progress have no producer.
+
+**Second ruling.** On a failed or stopped Run, frames report `continue_waiting`. An admitted interruption is a fact and outranks an absent frame policy, so those frames report the blocked disposition.
