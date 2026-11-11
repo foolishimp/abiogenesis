@@ -1,5 +1,4 @@
 import { WORKSITE_REVISION_IDS } from "../product/worksite_revision.js";
-import { WORKSITE_COMMAND_FORWARD_IDS } from "../product/worksite_command_forward_identity.js";
 import { isExecutableWorksiteCommandTask as isWorksiteExecutionTask,
   executableWorksiteCommandSources as worksiteExecutionSources, executableWorksiteCommandLocus as worksiteExecutionLocus,
   executableWorksiteCommandImplementationRef as worksiteExecutionImplementationRef,
@@ -25,12 +24,14 @@ import { basename, dirname, isAbsolute, relative, resolve } from "node:path";
 
 import { selectedWorksiteCommandExecutionLimits, type ActorProcessCarrierValidation } from "../abg/actor_process.js";
 import { authenticateOwnedNativeInstructionAssemblyBasis } from "../abg/execution_basis.js";
-import { requireWorksiteNativeInstructionAssembly, type NativeInstructionAssembly, worksiteCommandExecutionAttemptRef } from "../abg/instruction_assembly.js";
+import { requireWorksiteNativeInstructionAssembly, type NativeInstructionAssembly } from "../abg/instruction_assembly.js";
 import {
   ABI5_PACKAGE_NAME,
   ABI5_PACKAGE_VERSION,
 } from "../product/contracts.js";
 import type { PackagedLeafImplementationDescriptor } from "../product/implementation_resolution.js";
+import { constructWorksiteCommandExecutionLaunchManifest, isAuthorityFreeWorksiteCommandOccurrence, worksiteCommandExecutionAttemptRef,
+  type AuthorityFreeWorksiteCommandExecutionOccurrence, type WorksiteCommandExecutionLaunchManifest } from "../product/worksite_command_launch.js";
 import {
   WORKSITE_COMMAND_EXECUTION_IDS,
   constructWorksiteExecutionObservation,
@@ -60,7 +61,7 @@ import {
 import { admitIJsonValue } from "../shared/i_json.js";
 import { classifyPathRelation, pathRelation, pathStrictlyWithin, pathWithin } from "../shared/path_confinement.js";
 import { deepFreeze } from "../shared/immutable.js";
-import { admitJson, hasExactKeys } from "../shared/admit/index.js";
+import { admitJson } from "../shared/admit/index.js";
 import type {
   LeafExecutionOccurrence,
   LeafRealizationCandidate,
@@ -89,41 +90,6 @@ export const WORKSITE_COMMAND_EXECUTION_IMPLEMENTATION_DESCRIPTOR = deepFreeze({
   ...descriptorBody,
 }) satisfies PackagedLeafImplementationDescriptor;
 
-type AuthorityFreeWorksiteCommandExecutionOccurrence = {
-  readonly cCallRef: string;
-  readonly runId: string;
-  readonly graphCallId: string;
-  readonly frameId: string;
-  readonly programLocusRef: string;
-  readonly taskOrdinal: number | null;
-  readonly attempt: number;
-  readonly executionAuthority: null;
-};
-
-type WorksiteCommandExecutionLaunchManifest = {
-  readonly kind: "worksite_command_execution_launch_manifest";
-  readonly schemaVersion: "5.0.0";
-  readonly launchManifestRef: string;
-  readonly launchManifestDigest: Sha256Digest;
-  readonly taskRef: string;
-  readonly taskDigest: Sha256Digest;
-  readonly taskManifestPath: string;
-  readonly taskManifestDigest: Sha256Digest;
-  readonly taskManifestByteLength: number;
-  readonly occurrence: AuthorityFreeWorksiteCommandExecutionOccurrence;
-  readonly occurrenceDigest: Sha256Digest;
-  readonly attemptRef: string;
-  readonly attemptDigest: Sha256Digest;
-  readonly archiveRoot: string;
-  readonly attemptRoot: string;
-  readonly launchManifestPath: string;
-  readonly helperModulePath: string;
-  readonly implementationRef: string;
-  readonly implementationBindingRef: string;
-  readonly packageName: typeof ABI5_PACKAGE_NAME;
-  readonly packageVersion: typeof ABI5_PACKAGE_VERSION;
-};
-
 type WorksiteCommandExecutionLaunchPlan = {
   readonly helperPlan: WorksiteCommandExecutionHelperPlan;
   readonly occurrence: AuthorityFreeWorksiteCommandExecutionOccurrence;
@@ -150,18 +116,7 @@ function exactAuthorityFreeOccurrence(
       owner.call.programLocusRef !== occurrence.programLocusRef || owner.call.taskOrdinal !== occurrence.taskOrdinal ||
       owner.call.attempt !== occurrence.attempt) throw new TypeError("C2 assembly companion differs from admitted occurrence");
   }
-  if (!hasExactKeys(coordinates, [
-    "attempt", "cCallRef", "executionAuthority", "frameId", "graphCallId",
-    "programLocusRef", "runId", "taskOrdinal",
-  ]) ||
-    typeof occurrence.cCallRef !== "string" || occurrence.cCallRef.trim() === "" ||
-    typeof occurrence.runId !== "string" || occurrence.runId.trim() === "" ||
-    typeof occurrence.graphCallId !== "string" || occurrence.graphCallId.trim() === "" ||
-    typeof occurrence.frameId !== "string" || occurrence.frameId.trim() === "" ||
-    ![WORKSITE_COMMAND_EXECUTION_IDS.nodeRef as string, WORKSITE_REVISION_IDS.nodeRef, WORKSITE_COMMAND_FORWARD_IDS.nodeRef].includes(occurrence.programLocusRef) ||
-    !(occurrence.taskOrdinal === null || Number.isSafeInteger(occurrence.taskOrdinal) &&
-      Number(occurrence.taskOrdinal) >= 0) || !Number.isSafeInteger(occurrence.attempt) ||
-    occurrence.attempt < 1 || occurrence.executionAuthority !== null) {
+  if (!isAuthorityFreeWorksiteCommandOccurrence(coordinates)) {
     throw new TypeError("command execution requires one exact authority-free C2 occurrence");
   }
   return admitIJsonValue(
@@ -176,41 +131,20 @@ function constructWorksiteCommandExecutionLaunchPlan(
 ): WorksiteCommandExecutionLaunchPlan {
   const occurrence = exactAuthorityFreeOccurrence(rawOccurrence);
   if (occurrence.programLocusRef !== worksiteExecutionLocus(task)) throw new TypeError("C2 occurrence crosses task arm");
-  const attemptRef = worksiteCommandExecutionAttemptRef(occurrence);
-  const helperPlan = worksiteCommandExecutionHelperPlan(task, attemptRef);
-  const occurrenceDigest = sha256Canonical(occurrence);
-  const attemptDigest = sha256Canonical({ attemptRef });
+  const helperPlan = worksiteCommandExecutionHelperPlan(task, worksiteCommandExecutionAttemptRef(occurrence));
   const attemptRoot = dirname(helperPlan.taskManifestPath);
-  const launchManifestPath = resolve(attemptRoot, "launch.json");
-  const body = {
-    kind: "worksite_command_execution_launch_manifest" as const,
-    schemaVersion: "5.0.0" as const,
+  const launchManifest = deepFreeze(constructWorksiteCommandExecutionLaunchManifest({
     taskRef: task.taskRef,
     taskDigest: task.taskDigest,
     taskManifestPath: helperPlan.taskManifestPath,
     taskManifestDigest: helperPlan.taskManifestDigest,
     taskManifestByteLength: helperPlan.taskManifestByteLength,
     occurrence,
-    occurrenceDigest,
-    attemptRef,
-    attemptDigest,
     archiveRoot: task.workspaceBinding.roots.archiveRoot,
     attemptRoot,
-    launchManifestPath,
+    launchManifestPath: resolve(attemptRoot, "launch.json"),
     helperModulePath: helperPlan.helperModulePath,
-    implementationRef: worksiteExecutionImplementationRef(task),
-    implementationBindingRef: task.kind === "worksite_command_forward_task" ? WORKSITE_COMMAND_FORWARD_IDS.implementationBindingRef
-      : task.kind === "worksite_command_execution_task" ? WORKSITE_COMMAND_EXECUTION_IDS.implementationBindingRef : WORKSITE_REVISION_IDS.implementationBindingRef,
-    packageName: ABI5_PACKAGE_NAME,
-    packageVersion: ABI5_PACKAGE_VERSION,
-  } as const;
-  const launchManifestDigest = sha256Canonical(body);
-  const launchManifest = deepFreeze({
-    ...body,
-    launchManifestRef:
-      `worksite-command-launch-manifest://abiogenesis/${launchManifestDigest.slice("sha256:".length)}`,
-    launchManifestDigest,
-  });
+  }));
   const bytes = Buffer.from(
     `${canonicalJson(launchManifest)}\n`,
     "utf8",
@@ -218,12 +152,12 @@ function constructWorksiteCommandExecutionLaunchPlan(
   return deepFreeze({
     helperPlan,
     occurrence,
-    attemptDigest,
+    attemptDigest: launchManifest.attemptDigest,
     attemptRoot,
     launchManifest,
-    launchManifestPath,
+    launchManifestPath: launchManifest.launchManifestPath,
     launchManifestRef: launchManifest.launchManifestRef,
-    launchManifestDigest,
+    launchManifestDigest: launchManifest.launchManifestDigest,
     launchManifestByteDigest: sha256Bytes(bytes),
     launchManifestByteLength: bytes.byteLength,
   });

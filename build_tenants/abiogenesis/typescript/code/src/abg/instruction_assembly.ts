@@ -4,6 +4,7 @@ import { isFramedSynthesisTask, bindFramedSynthesisResult, framedSynthesisRespon
   governanceTarget, governancePrerequisites, governancePrerequisitesUndeclared } from "../product/default_library.js";
 import { rootCSourcePath } from "../gtl/source_path.js";
 import { isNativeWorksiteCommandExecutionObservation } from "../product/worksite_command_execution.js";
+import { worksiteCommandExecutionAttemptRef as launchAttemptRef } from "../product/worksite_command_launch.js";
 import { resolveNativeWorkspaceAssessmentDependency } from "../product/native_workspace_assessment.js";
 import { SEMANTIC_REVISION_IDS } from "../gtl/semantic_revision_identity.js";
 import { NATIVE_WORKSPACE_WORK_IDS as nativeIds, isNativeWorkspaceWorkTask, renderNativeWorkspaceWorkOrder,
@@ -128,10 +129,7 @@ function selectedNativeContextRole(basis: SemanticStageNativeBasis, locus: strin
 export function worksiteCommandExecutionAttemptRef(occurrence: Readonly<{
   cCallRef: string; runId: string; graphCallId: string; frameId: string; taskOrdinal: number | null; attempt: number;
 }>): string {
-  const digest = sha256Canonical({ cCallRef: occurrence.cCallRef, runId: occurrence.runId,
-    graphCallId: occurrence.graphCallId, frameId: occurrence.frameId,
-    taskOrdinal: occurrence.taskOrdinal, attempt: occurrence.attempt });
-  return `worksite-command-attempt://abiogenesis/${digest.slice(7)}`;
+  return launchAttemptRef(occurrence);
 }
 
 /** The Run's declared prompt bound: the governance original's `maxPromptBytes`
