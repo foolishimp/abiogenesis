@@ -1,5 +1,80 @@
 # T-287 Default Governance Library
 
+## Declared process prerequisites — 2026-11-11
+
+RC12 package P, `design_reframe` of this library HOW/contract under Product
+[Default Governance And Lifecycle Library](../../../../specification/PRODUCT.md#default-governance-and-lifecycle-library);
+requirements unchanged.
+
+**Path and outcome.** A consumer Program declares, through the library's graph
+construction, the reviews each registered purpose requires. The selector is
+offered only permitted work. A choice whose prerequisites do not hold is
+refused at binding or at the choice projection, before its wrapper is entered.
+A task that omits a review its Program names is refused at selection intake.
+Without a declaration every definition, digest, prompt, schema and binding is
+unchanged.
+
+**Typed handoffs.**
+- `defaultGovernanceGraphFunctions({ prerequisites })`: `{ [purpose]: reviewRef[] }`
+  over registered purposes other than `review`, each list non-empty and unique;
+  `review` must be registered. The executive step carries the canonical JSON as
+  `abg.default_library_prerequisites`, so the step digest, the Program and its
+  catalog row bind it. Wrappers and the parent are unchanged.
+- `FramedSynthesisTarget.requiredReviews`: present on every target exactly when
+  the step declares prerequisites. `governanceTarget` alone builds a target from
+  a wrapper definition, for the assembly and the projection.
+- Selector view `prerequisites` (present exactly with a declaration): per offered
+  target `{graphFunctionRef, purpose, requiredReviews, permitted, missingReviews}`
+  and one meaning sentence. `testingPrerequisites` reads the same relation.
+- Refusals keep their classes. Intake and projection use the existing
+  `missing-owned-<operation>` diagnostics: stage `selection_intake`, relation
+  `process_review_undeclared`, or stage `choice_projection`, relation
+  `target_not_permitted`, with the refs. The selector's binding exception
+  message names the next member and its missing reviews.
+
+**Declared computations.**
+- `governanceTargetPermission(task, target)` is the one permitted relation. It
+  returns `offered` (the review wrapper only with declared reviews) and
+  `permitted`: offered; for Testing every original selected path is an observed
+  file; each required review that the task declares as required has a row in
+  `state.reviewStanding`, as the parent computed it, satisfied and current. It
+  computes no currentness and names `missingSelectedPaths` and `missingReviews`;
+  a Program-named review the task does not declare is missing.
+- Readings: assembly choices and the contribution domain of binder and schema
+  use `offered`; the schema's next-member enum, the binder's next member and
+  `projectGovernanceChoice` use `permitted`. A non-permitted target stays
+  plannable as a contribution; `dependsOn` remains advisory.
+- `governancePrerequisitesUndeclared(original, prerequisites)` names the
+  Program's reviews the task does not declare; selection preparation, its result
+  match and the selector assembly refuse when it is non-empty. A review declared
+  with `required: false` is declared and never gates.
+- `projectGovernanceChoice` resolves the selector's admitted input task by its
+  ref and digest and applies the relation to the chosen target.
+
+**Invariants, effect and proof.** No admitted choice names a non-permitted
+target. A refused choice opens no wrapper call and causes no effect; the Run
+stops at the failed selection, as any failed selection does. No event kind,
+application, operation, binding, role, failure class or Public member is added;
+the declared `gate` application is not used. Proof:
+`t287-default-library-prerequisites.test.mjs` and the amendment witness.
+
+```mermaid
+sequenceDiagram
+  participant P as Parent
+  participant S as Executive step
+  participant B as Binder and projection
+  participant W as Wrapper
+  P->>S: state with review standing
+  S->>S: intake: every Program-named review declared
+  S->>B: proposed choice
+  B->>B: governanceTargetPermission(task, target)
+  alt permitted
+    B->>W: admitted registered choice
+  else not permitted
+    B-->>S: refusal before the wrapper; the Run stops
+  end
+```
+
 ## Declared framed reviews — 2026-11-11
 
 RC12 packages A and A2, `design_reframe` of this library HOW/contract under

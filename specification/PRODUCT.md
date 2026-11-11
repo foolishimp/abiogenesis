@@ -1132,6 +1132,13 @@ Executive proposes the next work under its frame; applicability, conflict,
 dependency and sufficiency remain its judgment. It cannot select completion or
 override this computation.
 
+A Program may declare, for a registered purpose, the reviews that must be
+satisfied and current before that purpose is selected. The Executive is offered
+only permitted work, and a choice whose prerequisites do not hold is refused
+before the work is entered. A task declares every review its Program names, as
+required or as not applicable; a prerequisite binds only a required review. The
+selector's stated dependencies remain advisory.
+
 Governance preserves the original task, required outcomes and authority while
 selecting or revising the choice of preregistered graph work in response to
 current evidence. Selection uses the declared purposes and contracts under
