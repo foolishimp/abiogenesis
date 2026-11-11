@@ -2003,12 +2003,7 @@ function runCurrentIntentOwner(call: DefinitionCall<ContinuePacket, RunInvocatio
     if (truth.kind !== "abg_run_truth_projection")
       return yield* finish(call, resource, finalPrefix, { outcomeKind: "refusal", value: { code: "replay_mismatch", issuePaths: ["/run"], evidenceRefs: [] } } as OwnerSemanticOutput<ContinuePacket>, null, prepared.invocation, null);
     const successor = { ref: continued.continuation.continuationRef, digest: continued.continuation.continuationDigest };
-    const ownerOutput: OwnerSemanticOutput<ContinuePacket> = truth.runtimeStatus === "held" || truth.runtimeStatus === "gap_stopped"
-      ? { outcomeKind: "nonterminal", value: { continuationKind: "current_intent", disposition: truth.runtimeStatus === "held" ? "held" : "gap_stop",
-          run: truth.run, continuation: successor, evidence: [...truth.evidence], replay: truth.replay } }
-      : { outcomeKind: "result", value: { continuationKind: "current_intent", run: truth.run, graphCall: truth.graphCall,
-          admittedIntent: null, successor, disposition: truth.runtimeStatus === "closed" ? "completed" : truth.runtimeStatus === "blocked" ? "blocked" : "runtime_failed",
-          evidence: [...truth.evidence], replay: truth.replay } };
+    const ownerOutput = continuationOutcome<ContinuePacket>("current_intent", truth, successor, null);
     return yield* finish(call, resource, finalPrefix, ownerOutput, null, prepared.invocation, truth);
   }));
 }
@@ -2077,15 +2072,27 @@ function runSelectedActionOwner(call: DefinitionCall<SelectedActionPacket, RunIn
     if (truth.kind !== "abg_run_truth_projection") return yield* finish(call, resource, finalPrefix,
       { outcomeKind: "refusal", value: { code: "replay_mismatch", issuePaths: ["/run"], evidenceRefs: [] } } as OwnerSemanticOutput<SelectedActionPacket>, null, use.invocation, null);
     const successor = { ref: use.current.continuationRef, digest: use.current.continuationDigest };
-    const ownerOutput: OwnerSemanticOutput<SelectedActionPacket> = truth.runtimeStatus === "held" || truth.runtimeStatus === "gap_stopped"
-      ? { outcomeKind: "nonterminal", value: { continuationKind: "selected_action", disposition: truth.runtimeStatus === "held" ? "held" : "gap_stop",
-          run: truth.run, continuation: successor, evidence: [...truth.evidence], replay: truth.replay } }
-      : { outcomeKind: "result", value: { continuationKind: "selected_action", run: truth.run, graphCall: truth.graphCall,
-          admittedIntent: { ref: prepared.intent.constructionIntentRef, digest: prepared.intent.constructionIntentDigest }, successor,
-          disposition: truth.runtimeStatus === "closed" ? "completed" : truth.runtimeStatus === "blocked" ? "blocked" : "runtime_failed",
-          evidence: [...truth.evidence], replay: truth.replay } };
+    const ownerOutput = continuationOutcome<SelectedActionPacket>("selected_action", truth, successor,
+      { ref: prepared.intent.constructionIntentRef, digest: prepared.intent.constructionIntentDigest });
     return yield* finish(call, resource, finalPrefix, ownerOutput, null, use.invocation, truth);
   }));
+}
+
+/** One continuation outcome over the Run's admitted truth. A Run that stops
+ * states its `run_status` stop statement, from the same fold (REQ-P-POLICY-068). */
+function continuationOutcome<P extends ContinuePacket | SelectedActionPacket>(
+  continuationKind: "current_intent" | "pending_execution" | "selected_action",
+  truth: AbgRunTruthProjection,
+  successor: Readonly<{ ref: string; digest: Sha256Digest }>,
+  admittedIntent: Readonly<{ ref: string; digest: Sha256Digest }> | null,
+): OwnerSemanticOutput<P> {
+  const stopped = truth.stopStatement === null ? {} : { stopStatement: truth.stopStatement };
+  return (truth.runtimeStatus === "held" || truth.runtimeStatus === "gap_stopped"
+    ? { outcomeKind: "nonterminal", value: { continuationKind, disposition: truth.runtimeStatus === "held" ? "held" : "gap_stop",
+        run: truth.run, continuation: successor, evidence: [...truth.evidence], replay: truth.replay, ...stopped } }
+    : { outcomeKind: "result", value: { continuationKind, run: truth.run, graphCall: truth.graphCall, admittedIntent, successor,
+        disposition: truth.runtimeStatus === "closed" ? "completed" : truth.runtimeStatus === "blocked" ? "blocked" : "runtime_failed",
+        evidence: [...truth.evidence], replay: truth.replay, ...stopped } }) as OwnerSemanticOutput<P>;
 }
 
 /** The `pending_execution` alternative of the current-execution member:
@@ -2160,13 +2167,7 @@ function runPendingExecutionOwner(call: DefinitionCall<ContinuePacket, RunInvoca
     if (truth.kind !== "abg_run_truth_projection") return yield* finish(call, resource, finalPrefix,
       { outcomeKind: "refusal", value: { code: "replay_mismatch", issuePaths: ["/run"], evidenceRefs: [] } } as OwnerSemanticOutput<ContinuePacket>, null, use.invocation, null);
     const successor = { ref: use.source.continuationRef, digest: use.source.continuationDigest };
-    const ownerOutput: OwnerSemanticOutput<ContinuePacket> = truth.runtimeStatus === "held" || truth.runtimeStatus === "gap_stopped"
-      ? { outcomeKind: "nonterminal", value: { continuationKind: "pending_execution", disposition: truth.runtimeStatus === "held" ? "held" : "gap_stop",
-          run: truth.run, continuation: successor, evidence: [...truth.evidence], replay: truth.replay } }
-      : { outcomeKind: "result", value: { continuationKind: "pending_execution", run: truth.run, graphCall: truth.graphCall,
-          admittedIntent: null, successor,
-          disposition: truth.runtimeStatus === "closed" ? "completed" : truth.runtimeStatus === "blocked" ? "blocked" : "runtime_failed",
-          evidence: [...truth.evidence], replay: truth.replay } };
+    const ownerOutput = continuationOutcome<ContinuePacket>("pending_execution", truth, successor, null);
     return yield* finish(call, resource, finalPrefix, ownerOutput, null, use.invocation, truth);
   }));
 }
