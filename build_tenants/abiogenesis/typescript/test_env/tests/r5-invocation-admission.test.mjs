@@ -5,12 +5,17 @@ import { fileURLToPath } from "node:url";
 import test from "node:test";
 
 import {
+  installOncePerFile,
+  installTenantOnce,
+  openCaseEnvironment,
   publicOperationBasis,
   requireRawAdmission,
-  setupInstalledRootCatalog,
 } from "../support/root-installed-environment.mjs";
 
 const root = resolve(dirname(fileURLToPath(import.meta.url)), "../..");
+// The installed cases share one packed, verified and installed Product for this
+// file; each opens its own store, workspace and scratch root on it.
+const sharedInstall = installOncePerFile(() => installTenantOnce(root));
 
 // Retired: "W2-03 request selection is owned only by ProductExecutionResolutionPort"
 // sliced public/operations.ts (removed) and product/execution_resolution.ts by
@@ -45,7 +50,7 @@ function readinessCatalogView(environment, allowlist) {
 }
 
 test("non-root alias selection admits a distinct catalogHandle for one exact definition", async (context) => {
-  const environment = await setupInstalledRootCatalog(context, root);
+  const environment = await openCaseEnvironment(context, await sharedInstall());
   const {
     product,
     abg,
@@ -563,7 +568,7 @@ test("non-root alias selection admits a distinct catalogHandle for one exact def
 });
 
 test("R5 start admission resolves one exact Product start before its catalog definition", async (context) => {
-  const environment = await setupInstalledRootCatalog(context, root);
+  const environment = await openCaseEnvironment(context, await sharedInstall());
   const {
     product,
     abg,
