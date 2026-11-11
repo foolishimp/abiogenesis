@@ -772,59 +772,7 @@ const preparationCallPath = process.env.ABI5_PREPARATION_RESOLVE_CALL;
 const retainedPreparation = preparationCallPath
   ? readFile(preparationCallPath, 'utf8').then(JSON.parse) : null;
 
-test('preparation resolution retains its established native link and raw lock refusals', {
-  skip: !retainedPreparation && 'ABI5_PREPARATION_RESOLVE_CALL unset; requires the retained preparation resolve call',
-}, async t => {
-  const call = await retainedPreparation;
-  const declarations = await import('../../build/code/src/product/declaration_exports.js');
-  let links = 0;
-  const environment = await observedSource('product/environment', {
-    './declaration_exports.js': { linkNativeContractSet(...args) {
-      links++; return declarations.linkNativeContractSet(...args);
-    } },
-  });
-  // Exercise the actual fixed resolver/projection; external grant admission is
-  // already covered by the retained call and is not a claim of this component check.
-  const definitions = await observedSource('product/environment_definition_bindings', {
-    './environment.js': environment,
-    './admission_authority.js': { withAdmissionAuthority: (_packet, owner) => owner },
-  });
-  const { admissionAuthority, ...resources } = call.resources;
-  const value = await Effect.runPromise(definitions.PRODUCT_ENVIRONMENT_DEFINITION_BINDINGS.resolve({
-    ...call, resources,
-  }));
-  assert.equal(links, 1, 'one actual link, reused by the output projection');
-  // The genuine setup proof retains the call's returned source receipt beside it.
-  const receiptPath = preparationCallPath.replace(/-call\.json$/u, '-receipt.json');
-  assert.notEqual(receiptPath, preparationCallPath, 'retained call requires its sibling returned receipt');
-  const prior = JSON.parse(await readFile(receiptPath, 'utf8'));
-  assert.deepEqual(value.ownerOutput, prior.receipt.ownerOutput);
-  assert.deepEqual(value.resources, prior.receipt.resources);
-  const artifacts = resources.verifiedPreimages.map(x => x.verifiedArtifact);
-  const environmentModule = await import('../../build/code/src/product/environment.js');
-  // The resolution takes the executing identity as an input: one read.
-  const executing = declarations.installedToolchainProductContentDigest();
-  const resolved = environment.resolveProductArtifacts(artifacts, executing);
-  assert.equal(resolved.kind, 'resolved_product_environment');
-  assert.equal(environmentModule.isResolvedProductLock(structuredClone(resolved.lock)), true);
-  assert.equal(environmentModule.verifiedArtifactMatchesResolvedLock(artifacts[0], resolved.lock), true);
-  const wrongLock = structuredClone(resolved.lock);
-  wrongLock.rows[0].productContentDigest = sha256Canonical('foreign Product');
-  assert.equal(environmentModule.verifiedArtifactMatchesResolvedLock(artifacts[0], wrongLock), false);
-  const forged = structuredClone(artifacts[0]); forged.verificationDigest = sha256Canonical('foreign body');
-  assert.equal(environment.resolveProductArtifacts([forged], executing).code, 'lock_mismatch');
-  const install = await import('../../build/code/src/product/install_product.js');
-  assert.equal((await install.installProduct({verifiedArtifact:artifacts[0],resolvedLock:wrongLock})).code,
-    'dependency_lock_mismatch', 'bad basis refuses before any physical install');
-  const crossed = { ...resources, nativeContractClosure: { ...resources.nativeContractClosure,
-    occurrences: [] } };
-  // Force a genuinely different carrier even if this particular closure has no occurrences.
-  crossed.nativeContractClosure.selectorDispositions = [{foreign:true}];
-  await assert.rejects(Effect.runPromise(definitions.PRODUCT_ENVIRONMENT_DEFINITION_BINDINGS.resolve({
-    ...call, resources:crossed,
-  })), /resolved native closure differs/);
-  t.diagnostic('Actual native link and owner projection equal retained successful output; external grants/history not reacquired.');
-});
+// Retired (T-292 TD-60): the resolver reproduces a retained receipt's owner output and resources; input the retained preparation resolve call output of a native Run
 
 test('preparation module loading shares one physical basis and reacquires changed content', async t => {
   const {writeFile} = await import('node:fs/promises');
