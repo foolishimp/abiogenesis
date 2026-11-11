@@ -27,6 +27,7 @@ leaves no tracked change.
 | `e21f76af1` | conversion: `t287-qualification-producer-acquisition-reuse` (1 skip) |
 | `37567db1c` | conversion: `w2-steel-single-start-closure` (1 skip) |
 | `a541ebd86` | catalogue: observed consolidation root-set run |
+| `1b2920dbf` | catalogue: pins for the failing and input-present rows |
 | this commit | this Return |
 
 ## 1. The catalogue and the owner
@@ -35,7 +36,7 @@ leaves no tracked change.
 gate name, class, gating `variables`, the `alsoReads` the case body needs,
 its cases (file, titles, suite2 skip count), the input in words, the root
 `inputs` (path, sha256, bytes) when the input is retained under the root,
-the producer, the recorded values with their records, the observed result
+the producer (null wherever none is established), the recorded values with their records, the observed result
 and its status. Converted rows carry `conversion: done` and list their
 `formerVariables`. Rows for ruling-7 files carry `ruling7: true`.
 
@@ -54,8 +55,28 @@ and fails on an unplaced skip or variable.
 - `verifyEvidenceGateCatalogue()` checks every pinned input of every row.
   It needs the root set. Run it from `T`:
   `ABI5_EVIDENCE_ROOT=<root> node -e "import('./test_env/support/evidence-root.mjs').then(m=>console.log(m.verifyEvidenceGateCatalogue()))"`.
-  At the close it reports `{gates: 137, rowsWithInputs: 21, inputsChecked:
-  26}`.
+  At the close it reports `{gates: 137, rowsWithInputs: 40, inputsChecked:
+  239}`.
+
+Which rows pin inputs:
+
+- The 17 `runs_with_root` rows (11 class A, 6 converted class C) pin the
+  inputs their lanes read. `evidenceGate` reads only these rows.
+- The 22 failing rows and the declaration-baseline row pin what the traced
+  pre-check (section 3) read under the root. A file value pins itself, so
+  both recorded F11 carrier fixtures and both parent-alias bindings are
+  separate inputs. A directory value pins the regular files the pre-check
+  read under it: 20 files of the qual-raw baseline tenant, 2 of the S02
+  fixture, and 170 of the declaration-baseline install tree. Output roots
+  (`ABI207_PROOF_ROOT`, `ABI5_DECLARATION_PROOF_ROOT`) are not pinned.
+  Other root files a lane read beside its value, such as files the value
+  names, are in the scratch traces and are not pinned.
+- Two inputs are not pinned:
+  - The F_P baseline tenant (`f11-fp-assessment-packet`). Its pre-check
+    failed before reading any file under it.
+  - The S03 evidence directory (`s03-evidence-directory`). It was not
+    pre-checked, because Phase A's write would have been refused, so there
+    is no traced file list.
 
 Counts per class:
 
@@ -199,7 +220,10 @@ unconverted file at `72ac59366`; suite2 gives the same unset picture at
 | `t287-qualification-producer-acquisition-reuse` | 0 / 1 / 0 | 0 / 1 / 0 | 0 / 1 / 0 | 3 / 0 / 0 |
 | `w2-steel-single-start-closure` | 0 / 8 / 0 | 0 / 8 / 0 | 0 / 8 / 0 | 1 / 7 / 0 |
 
-No case that passed before fails after. Each converted skip reason begins
+No case that passed before fails after. After the failing rows were
+pinned, I reran these five files with the root set and got the same
+After/set figures. `t287-governed-context` gave 14 / 1 / 0, the one skip
+being GC03. Each converted skip reason begins
 with `evidence gate <row>:`. No file under `T/test_env` reads a removed
 variable; `rg` finds the names only in the catalogue's `formerVariables` and
 `recorded` fields.
@@ -351,8 +375,9 @@ their gating variables, or for a companion the case needs:
 - seven `w2-steel-single-start-closure` cases, `w2-steel-single-start`;
 - the ruling-7 row `historical-liveness-log`.
 
-Most of these inputs are retained native Run outputs, so regenerating them
-would need a native run.
+For these rows the catalogue does not establish a producer, so `producer`
+is null. Whether an input could be regenerated without a native run is not
+established.
 
 The GC03 row (`gc03-native-profile-basis`, class D, ruling 5) stands apart.
 It needs a GC03 release that defines a native profile for the Product
@@ -413,8 +438,22 @@ with a file-write call (not each one read in full):
 
 ## 7. Ruling-7 rows
 
-These files were not edited. Each has rows only. I observed them by running
-the files read-only, and wrote nothing under the root.
+These files were not edited. Each has rows only. The class C rows were
+observed through the traced pre-check, with the root unset and the guarded
+preload refusing writes under the root. No write was attempted. Three sets
+of runs had the root set and went through the plain runner, which has no
+write guard: `t287-single-address-space-consolidation`, the other class A
+sweeps, and the converted-file sweeps.
+
+To check that the runs left the root unchanged, I ran `find -newermt
+'2026-11-12 08:10'` over the whole root (the package started at 08:10). It
+lists 10 paths: `TECHNICAL_DEBT_REGISTER.md`, the T-292 ticket,
+`work/T292_CONSOLIDATION_01` with three other packages' files in it, and
+`work/TECH_DEBT_REGISTER_02/census/out` with three coverage files. These
+belong to other packages. None is a test output, and none lies in a
+directory that holds a pinned input. A `find -newer` from a stamp taken
+before the post-pin rerun of the converted files and `t287-governed-context`
+lists nothing. `verifyEvidenceGateCatalogue()` passes after all runs.
 
 | File | Row | Status | Observation |
 | --- | --- | --- | --- |
@@ -476,8 +515,15 @@ now reads this file.
   profile for the current basis. Its skip reason begins `gate
   gc03-native-profile-basis:`, not `evidence gate`, because it is not an
   evidence-root input.
-- **Ruling-7 runs.** I ran the ruling-7 files read-only so that their row
-  statuses are observed, not inferred.
+- **Ruling-7 runs.** I ran the ruling-7 files without editing them, so
+  that their row statuses are observed, not inferred (section 7).
+- **Pins on rows that do not run.** Ruling 1 asks for the input path,
+  sha256 and bytes on every row that has a root input. The failing rows and
+  the declaration-baseline row therefore pin what their pre-check read
+  (section 1), although `evidenceGate` does not resolve them.
+  `verifyEvidenceGateCatalogue()` checks these pins with the others, so an
+  input that has drifted shows up before anyone reads the row's
+  observation.
 
 ## 10. Residuals
 
