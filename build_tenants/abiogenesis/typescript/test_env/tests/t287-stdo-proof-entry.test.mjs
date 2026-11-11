@@ -5,17 +5,23 @@ import {pathToFileURL} from "node:url";
 import test from "node:test";
 import {resolveFreshSdkReplayModule,selectPreservedCatalogReceipt,readRetainedStdoSourceEvidence,validateRetainedStdoSourceEvidence} from "../support/stdo-environment-pilot.mjs";
 import {importInstalledPackageExport} from "../support/root-cli-environment.mjs";
+import {evidenceGate} from "../support/evidence-root.mjs";
 
 const cliHost=process.env.ABI5_WAVE1_FROZEN_INSTALL_HOST;
-const retained=process.env.ABI5_ENV_RUN_ROOT;
-const enabled=Boolean(cliHost&&retained);
+// The retained RC7 task 1B call 9 and receipt 9 resolve through catalogue row
+// stdo-proof-entry-run-nine under ABI5_EVIDENCE_ROOT. The frozen install host
+// stays a private variable (row stdo-proof-entry-install-host): its recorded
+// install no longer holds the installed package.
+const runNine=evidenceGate("stdo-proof-entry-run-nine");
+const retained={skip:runNine.kind==="absent"&&runNine.reason};
+const installed={skip:(!cliHost&&"ABI5_WAVE1_FROZEN_INSTALL_HOST unset; requires the frozen install host (evidence gate catalogue row stdo-proof-entry-install-host)")||retained.skip};
 const readJson=async path=>JSON.parse(await readFile(path,"utf8"));
 const retainedPair=async()=>({
-  call:(await readJson(join(retained,"attempt-01/call-9.jsonl"))).invocation,
-  receipt:(await readJson(join(retained,"attempt-01/receipt-9.json"))).receipt,
+  call:JSON.parse(runNine.inputs.call.bytes.toString("utf8")).invocation,
+  receipt:JSON.parse(runNine.inputs.receipt.bytes.toString("utf8")).receipt,
 });
 
-test("SDK proof resolves and imports the installed declared import-only public export",{skip:!enabled&&"ABI5_WAVE1_FROZEN_INSTALL_HOST or ABI5_ENV_RUN_ROOT unset; requires the frozen install host and the retained run root"},async()=>{
+test("SDK proof resolves and imports the installed declared import-only public export",installed,async()=>{
   const root=join(cliHost,"node_modules/@abiogenesis/typescript-tenant");
   const manifest=await readJson(join(root,"package.json"));
   assert.equal(manifest.exports["./abg"].require,undefined);
@@ -31,14 +37,14 @@ test("SDK proof resolves and imports the installed declared import-only public e
   assert.ok(events.every(row=>row.kind==="public_operation_artifact_admitted"));
 });
 
-test("successful receipt nine is retained without changing its request or receipt",{skip:!enabled&&"ABI5_WAVE1_FROZEN_INSTALL_HOST or ABI5_ENV_RUN_ROOT unset; requires the frozen install host and the retained run root"},async()=>{
+test("successful receipt nine is retained without changing its request or receipt",retained,async()=>{
   const {call,receipt}=await retainedPair(),before=JSON.stringify({call,receipt});
   const selected=selectPreservedCatalogReceipt(call,receipt);
   assert.equal(selected.preservedCatalogReceipt,receipt);
   assert.equal(JSON.stringify({call,receipt}),before);
 });
 
-test("retained success rejects mismatched invocation, catalog or physical handoff",{skip:!enabled&&"ABI5_WAVE1_FROZEN_INSTALL_HOST or ABI5_ENV_RUN_ROOT unset; requires the frozen install host and the retained run root"},async()=>{
+test("retained success rejects mismatched invocation, catalog or physical handoff",retained,async()=>{
   const {call,receipt}=await retainedPair();
   for(const alter of [
     value=>value.invocationRef+="/foreign",
@@ -50,7 +56,7 @@ test("retained success rejects mismatched invocation, catalog or physical handof
   }
 });
 
-test("the existing conservation refusal remains a non-retained catalog branch",{skip:!enabled&&"ABI5_WAVE1_FROZEN_INSTALL_HOST or ABI5_ENV_RUN_ROOT unset; requires the frozen install host and the retained run root"},async()=>{
+test("the existing conservation refusal remains a non-retained catalog branch",retained,async()=>{
   const {call,receipt}=await retainedPair();
   // A synthetic negative control only, never persisted or used as runtime evidence.
   const refused=structuredClone(receipt);

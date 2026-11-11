@@ -7,6 +7,7 @@ import assert from 'node:assert/strict';
 import { createHash } from 'node:crypto';
 import { nativeJoinFixture, inputFixture, coverage, ids, hash, identity, publication } from '../support/malformed-gtl-native-fixture.mjs';
 import { constructLanguageTestInput } from '../support/language-test-gtl.mjs';
+import { evidenceGate } from '../support/evidence-root.mjs';
 import { render as renderLanguageTest } from '../fixtures/language-smoke/leaf.mjs';
 import { isNativeRuntimeAssessmentInput, evaluateMalformedGtlAssessment, parseQualificationCatalogs } from '../../build/code/src/validator/qualification.js';
 const catalogs = parseQualificationCatalogs(fs.readFileSync(new URL('../../contracts/qualification/coverage.json', import.meta.url)),
@@ -91,11 +92,14 @@ test('same-valued duplicate witness after assessment invalidates current consump
   assert.equal(assess(altered).candidate.disposition, 'failure');
 });
 
+// The retained full declaration body resolves through evidence gate catalogue
+// row owned-proof-declaration under ABI5_EVIDENCE_ROOT.
+const ownedDeclaration=evidenceGate('owned-proof-declaration');
 // Full retained declaration body; native install/admission/terminal lookup facts
 // remain the fixture's explicit lower-owner assumptions. No runtime is opened.
 test('material native proof survives Result clone, successor foldback and next consumer without irrelevant owner reconstruction',
-  {skip:!process.env.ABI5_OWNED_PROOF_DECLARATION&&'ABI5_OWNED_PROOF_DECLARATION unset; requires the retained full declaration proof body'}, async t => {
-  const donor=JSON.parse(fs.readFileSync(process.env.ABI5_OWNED_PROOF_DECLARATION,'utf8'));
+  {skip:ownedDeclaration.kind==='absent'&&ownedDeclaration.reason}, async t => {
+  const donor=JSON.parse(ownedDeclaration.inputs.declaration.bytes.toString('utf8'));
   const declarationProof=donor.proof.declarations[0],begin=performance.now();
   const f=await witnessFixture({declarationProof}),a=assess(f);
   assert.equal(a.candidate.disposition,'success');const value=a.candidate.resultCandidate;

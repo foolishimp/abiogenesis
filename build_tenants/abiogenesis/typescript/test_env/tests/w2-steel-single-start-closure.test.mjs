@@ -23,6 +23,7 @@ import { projectRetainedWorksiteInputAtPrefix } from "../../build/code/src/abg/w
 import { routeCandidateBody } from "../../build/code/src/abg/traversal_transition.js";
 import { proposeJudgedRoute } from "../../build/code/src/hog/route_proposal.js";
 import { rawAdmitValue } from "../../build/code/src/validator/raw_admission.js";
+import { evidenceGate } from "../support/evidence-root.mjs";
 
 const retainedC2Root = process.env.ABI5_STEEL03_RETAINED_C2_ROOT;
 test("same-Run C2 source and failed semantic replay preserve immutable historical cuts", {
@@ -308,7 +309,10 @@ test("declared fan-out output validates independently of leaf output slots", {
       limits: "Pure candidate projection and exact installed owner value checks over the retained successful C0 history. No event append, physical effect or live continuation; the next installed thread exercises the changed HoG caller." }, null, 2) + "\n", { flag: "wx" });
 });
 
-const callPath = process.env.ABI5_STEEL03_RETAINED_CALL_PATH;
+// The retained installed conformance call resolves through evidence gate
+// catalogue row steel03-retained-call under ABI5_EVIDENCE_ROOT.
+const retainedCall = evidenceGate("steel03-retained-call");
+const callPath = retainedCall.kind === "present" ? retainedCall.inputs.call.path : undefined;
 const c0Root = process.env.ABI5_STEEL03_RETAINED_C0_ROOT;
 
 test("C0 authentic immutable Program publication witness binds raw and installed semantic identities", {
@@ -499,7 +503,7 @@ test("worksite Program owner binds raw publication separately from installed sem
 });
 
 test("consumer callable membership resolves exact borrowed owners without contributor membership rewriting", {
-  skip: !callPath && "ABI5_STEEL03_RETAINED_CALL_PATH unset; requires the retained installed conformance call",
+  skip: retainedCall.kind === "absent" && retainedCall.reason,
 }, async () => {
   const call = JSON.parse(await readFile(callPath, "utf8")).invocation;
   const resources = call.resources;
