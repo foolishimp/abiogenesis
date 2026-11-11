@@ -5,6 +5,7 @@ import path from 'node:path';
 import {pathToFileURL} from 'node:url';
 import {SourceTextModule,SyntheticModule} from 'node:vm';
 import {syncBuiltinESMExports} from 'node:module';
+import {evidenceGate} from '../support/evidence-root.mjs';
 
 const root=process.env.ABG_GOVERNANCE_COVERED_BUILD_ROOT??path.resolve('build/code/src');
 const load=name=>import(pathToFileURL(path.join(root,name+'.js')).href);
@@ -12,9 +13,15 @@ const p=await load('product/index'),gtl=await load('gtl/index'),semantics=await 
 const prefixOwner=await load('abg/event_prefix'),eventOwner=await load('abg/event_store'),truth=await load('abg/invocation_execution_truth');
 const terminal=await load('abg/terminal_result_contracts'),decl=await load('product/declaration_closure');
 const freeze=(await load('shared/immutable')).deepFreeze,hash=p.sha256Canonical;
-const fixturePath=process.env.ABG_GOVERNANCE_COVERED_FIXTURE;
-const fixtureOptions={skip:!fixturePath&&'ABG_GOVERNANCE_COVERED_FIXTURE unset; requires the frozen bounded captured34 fixture (reader 5 is reached through it)'};
-const declarationPairPath=process.env.ABG_GOVERNANCE_COVERED_DECLARATION_PAIR;
+// The retained captured34 fixture and the frozen176 declaration pair resolve
+// through their evidence gate catalogue rows under ABI5_EVIDENCE_ROOT. The
+// completed-work case fails over the same fixture bytes (row
+// governance-covered-fixture-completed-work) and keeps its private variable.
+const fixtureGate=evidenceGate('governance-covered-fixture');
+const fixtureOptions={skip:fixtureGate.kind==='absent'&&fixtureGate.reason};
+const completedFixturePath=process.env.ABG_GOVERNANCE_COVERED_FIXTURE;
+const completedFixtureOptions={skip:!completedFixturePath&&'ABG_GOVERNANCE_COVERED_FIXTURE unset; requires the frozen bounded captured34 fixture (reader 5 is reached through it)'};
+const declarationPair=evidenceGate('governance-declaration-pair');
 const c2MaterialPath=process.env.ABG_GOVERNANCE_COVERED_C2_MATERIAL_SELECTORS;
 const proofRoot=process.env.ABG_GOVERNANCE_COVERED_PROOF_ROOT;
 const clone=value=>JSON.parse(JSON.stringify(value));
@@ -100,8 +107,8 @@ test('complete canonical declarations permit only publication identity consequen
 });
 
 test('frozen176 selected declarations compare across artifact and manifest hash-order reversal',
-  {skip:!declarationPairPath&&'ABG_GOVERNANCE_COVERED_DECLARATION_PAIR unset; requires the frozen176 selected declaration pair'},t=>{
-  const pair=JSON.parse(fs.readFileSync(declarationPairPath,'utf8'));
+  {skip:declarationPair.kind==='absent'&&declarationPair.reason},t=>{
+  const pair=JSON.parse(declarationPair.inputs.pair.bytes.toString('utf8'));
   assert.equal(pair.kind,'frozen_selected_declaration_pair');
   assert.equal(pair.historical.length,4);assert.equal(pair.current.length,4);
   const before=JSON.stringify(pair),forward=semantics.compareGovernanceDeclarationPublications(pair.historical,pair.current);
@@ -254,7 +261,10 @@ test('actual installed C2 material correspondence preserves consumed content and
 // Current physical environment, occurrence and witnessed cover lookups in the
 // following component proof are explicitly controlled premises. They do not
 // establish an installed transition, an admitted DataMapper Run or UAT success.
-function captured(){assert.ok(fixturePath,'select the frozen bounded fixture');return JSON.parse(fs.readFileSync(fixturePath,'utf8'));}
+function captured(source){
+  if(source==='completed'){assert.ok(completedFixturePath,'select the frozen bounded fixture');return JSON.parse(fs.readFileSync(completedFixturePath,'utf8'));}
+  assert.equal(fixtureGate.kind,'present','the frozen bounded fixture resolves through its gate');return JSON.parse(fixtureGate.inputs.fixture.bytes.toString('utf8'));
+}
 function eventsFixture(){const rows=[];return {rows,append(kind,payload,extra={}){
   const candidate={kind,payload,eventTime:'2026-10-09T01:00:00.000Z',aggregateType:'workspace',aggregateId:'workspace://covered-test',parentAggregateId:null,
     causationEventRefs:[],correlationId:'correlation://covered-test',workflowVersion:'5.0.0',scopeClass:'workspace',basisId:'authority://covered-test',...extra};
@@ -281,8 +291,8 @@ function invokeRow(f,fields){
   const admission=f.append('invocation_admitted',{...body,invocationAdmissionRef:admissionRef,invocationAdmissionDigest:admissionDigest},{...common,basisId:admissionRef,causationEventRefs:[operation.eventId]});
   return {operation,admission,body};
 }
-async function coveredFixture(){
-  const c=captured(),old={kind:'abg_historical_declaration_proof',schemaVersion:'5.0.0',catalog:c.oldCatalog,catalogView:c.oldView};
+async function coveredFixture(fixtureSource){
+  const c=captured(fixtureSource),old={kind:'abg_historical_declaration_proof',schemaVersion:'5.0.0',catalog:c.oldCatalog,catalogView:c.oldView};
   const readiness=c.oldCatalog.readinessBasis,oldCandidate=readiness.workspaceBinding;
   const nextReady=clone(readiness),authority=c.authority;
   // This controlled binding transition has the same A/root and installed
@@ -384,8 +394,8 @@ test('covered use binds exact original state, complete canonical Catalog and col
     privateComparisonBytes:Buffer.byteLength(JSON.stringify(use)),extraAdmissionBytes:0,owners:use.declarationOwners.map(o=>({moduleRef:o.moduleRef,historicalPublicationDigest:o.historicalPublicationDigest,currentPublicationDigest:o.currentPublicationDigest})),installedContinuation:false}));
 });
 
-test('later completed work follows actual admitted covered-source ancestry without root or value guesses',fixtureOptions,async t=>{
-  const x=await coveredFixture();
+test('later completed work follows actual admitted covered-source ancestry without root or value guesses',completedFixtureOptions,async t=>{
+  const x=await coveredFixture('completed');
   const replay={runId:x.result.runId,runtimeStatus:'blocked',runClosedEventRef:null,runStoppedEventRef:'event://controlled-source-stop',runtimeFailureEventRef:null,
     replayRef:'replay://controlled-source',replayDigest:hash('controlled semantic replay'),actorProcesses:[],cCalls:[{
       cCallRef:x.result.aggregateId,status:'judged',judgment:'advance',judgmentRef:x.judgment.payload.judgmentRef,

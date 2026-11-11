@@ -2132,7 +2132,7 @@
    "gate": "governance-declaration-pair",
    "class": "C",
    "status": "runs_with_root",
-   "conversion": "pending",
+   "conversion": "done",
    "variables": [
     "ABG_GOVERNANCE_COVERED_DECLARATION_PAIR"
    ],
@@ -2175,7 +2175,7 @@
    "gate": "governance-covered-fixture",
    "class": "C",
    "status": "runs_with_root",
-   "conversion": "pending",
+   "conversion": "done",
    "variables": [
     "ABG_GOVERNANCE_COVERED_FIXTURE"
    ],
