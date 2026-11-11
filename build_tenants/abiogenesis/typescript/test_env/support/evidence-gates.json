@@ -4231,7 +4231,7 @@
      "recordCount": null
     }
    ],
-   "note": "ruling 7: row only, not run. The history exists under the root; the recorded predecessor is a test_runs directory of the main checkout (outside the root)",
+   "note": "ruling 7: row only, not run. The history exists under the root; the recorded predecessor is a test_runs directory of the main checkout, outside the root and gone",
    "ruling7": true
   },
   {
