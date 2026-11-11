@@ -224,3 +224,27 @@ The owner allowed one worker per parallel task. Four lines run in their own work
 **Ruling.** REQ-R-ABG3-TRANSPORT-027 says runtime liveness is governed by an inactivity lease over admitted probe activity, and TRANSPORT-028 says the hard cap exists only as outer safety evidence. Requirements outrank the test. Unknown coverage protects the no-progress classification; it does not protect a live actor whose lease has expired. Containment happens at lease expiry regardless of coverage, with the existing inactivity cause. The test's claims are corrected. A host must declare an inactivity longer than the longest interval in which a working actor emits no admitted activity, because tool, API and archive progress have no producer.
 
 **Second ruling.** On a failed or stopped Run, frames report `continue_waiting`. An admitted interruption is a fact and outranks an absent frame policy, so those frames report the blocked disposition.
+
+## 13. Independent reviews 2 and 3, and the Executive's dispositions (2026-11-11)
+
+Both reviewers are Claude Opus 5.5 at maximum effort, fresh contexts, same model family as the authors. Review files: `/private/tmp/abg-rv1-tmp/RV1_REVIEW.md` and `/private/tmp/abg-rv2-tmp/RV2_REVIEW.md`.
+
+**Review 2: inactivity repair and cut preparation.** Verdict: accept with repairs. It confirms the inactivity ruling as the lawful reading.
+
+| Finding | Disposition |
+|---|---|
+| A working agent can be ended for inactivity. ABG counts only model progress as activity and ignores the agent CLI's 30-second status heartbeat. In 24 recorded real runs every silent stretch of a minute or more was a context compaction of 89–129 seconds with that heartbeat running. A 60-second inactivity would end 5 of the 24; 180 seconds ends none | Repair running (package H): the status heartbeat renews the lease and is not progress; retry rows keep their meaning |
+| REQ-R-ABG3-RETRY-008 maps inactivity to `no_output`; the design forbids that claim without probe coverage and the code gives `transport_failure` | Requirement repriced to the ratified design, in package H |
+| Stale `release-claim.md` (rc.7) and candidate basis (rc.4) | Fixed in the cut's stamp commit |
+| Inactivity containment is an as-of reading that output during the termination grace can flip; the startup timeout is unreachable for real agents | Recorded |
+
+**Review 3: readable stops and the package A repairs.** Readable stops: accept with repairs. Package A repairs: changes requested.
+
+| Finding | Disposition |
+|---|---|
+| **The Testing-command invalidation rests on a false premise.** A command Result's `worksiteDelta` describes the helper's sandbox under the attempt root, not the worksite. The reviewer ran the real helper: the worksite file stayed byte-identical and the rule still returned invalidated | Withdrawn. The Executive accepted the outside review's finding after checking only that the rule ignored command Results, not what the delta denotes. The planned extension to revision and forward command kinds is cancelled |
+| The Product and design text promise more than the code keeps for command effects | Corrected with the withdrawal |
+| Three different file sets govern one verdict: the producer's whole after-state at preparation, everything in the read roots for the assessor, the declared set for currentness. "Only declared material" is prompt text | Recorded as a limit. Enforcing it means restricting what an assessor can read, which belongs with unobserved writes outside read roots |
+| The test of a stale review after a `readFirst`-only change stubs the invalidation owner | The case moves into an end-to-end scripted Run over a real event log |
+| Readable stops: the statement asserts unresolved obligations for any last Result; an operator stop's recorded reason reads as absent; the origin of a stop is found by position, so a handled child failure could be named as the cause of a later stop; the start command's output carries no statement | Repairs running (package RR), with the origin established by causal references |
+| A closed Run with a handled failed foldback still presents the folded frames as live | Package RR applies the quiescence reader rule in the Public read, on condition that no recorded Run's replay digest changes |
