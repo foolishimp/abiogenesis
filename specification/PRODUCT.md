@@ -1058,7 +1058,7 @@ same public GTL, catalog, HoG, and ABG path as downstream consumers.
 
 ### System And One Surface
 
-The standard system program composes exactly four semantic authorities:
+A system program composes exactly four semantic authorities:
 
 ```text
 synthesizeModel -> evalGap -> evaluateNext -> evaluateAction
@@ -1340,7 +1340,7 @@ counts.
 | `A5-F04` | **Probabilistic result integrity.** Every `F_P` call receives declared instructions and contracts; malformed, incomplete, contradictory, or unattributed output refuses before effect or closure. |
 | `A5-F05` | **One public contract authority.** Catalog, SDK, CLI, schemas, capabilities, handlers, and documentation derive from one typed definition surface and agree exactly at release. |
 | `A5-F06` | **Thin public SDK and CLI.** Native consumers inspect, validate, publish, invoke, start, read, continue admitted automatic work and inspect truthful blocked handoffs without a public adapter becoming a controller. Native human response/resume is reserved for 5.1. |
-| `A5-F07` | **Complete One Surface loop.** The standard system program orders the four distinct semantic authorities `synthesizeModel`, `evalGap`, `evaluateNext`, and `evaluateAction`; ABG separately owns intent admission, invocation, evidence admission, and continuation. Fresh evidence refreshes model, gap, next-action, and action-result truth before the next step. |
+| `A5-F07` | **Complete One Surface loop.** A system program orders the four distinct semantic authorities `synthesizeModel`, `evalGap`, `evaluateNext`, and `evaluateAction`; ABG separately owns intent admission, invocation, evidence admission, and continuation. Fresh evidence refreshes model, gap, next-action, and action-result truth before the next step. |
 | `A5-F09` | **Catalog semantics.** Consumers inspect and purely narrow the one reconstructible GraphFunction catalog, apply non-callable declarations deterministically, call only exact published GraphFunctions, and start only exact published programs. |
 | `A5-F10` | **Event-sourced runtime truth.** Invocation, result, evidence, consequence, correction, retry, recursive child traversal, yield, human hold, escalation, continuation, typed failure, block, non-admission, closure, workspace transformation, and their runtime projections form one causal ABG episode. One transition authority resolves competing execution pressure; replay, not caller memory, derives the result, next execution state, and explanation of workspace change. |
 | `A5-F11` | **Self-conformance.** The exact 5.0 candidate evaluates its own applicable specification, design, contract, realization, proof, qualification, and release obligations without exemption or self-minted assurance. |
