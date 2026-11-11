@@ -89,11 +89,11 @@ test('a recurse foldback without failedChildDiagnosticClassRefs keeps its base b
   assert.equal(fixture.digest,'sha256:0e991ec0d71beba210c18eba0593b7baff44bca2f026e599a4474a1d9784520e');assert.equal(product.sha256Bytes(Buffer.from(fixture.bytes)),fixture.digest);
   const executive=gtl.defaultGovernanceGraphFunctions().find(f=>f.template.applications.some(a=>a.relationKind==='recurse'));
   const executiveApp=executive.template.applications.find(a=>a.relationKind==='recurse');
-  assert.equal(executiveApp.foldbackRef,app.foldbackRef);
-  assert.equal(executiveApp.applicationRef,'graph-function-application://abiogenesis/ac6f1ba5135bcd521859934f3f5589fd89cc9016ec20f376f17e2f93035b2e70');
-  assert.equal(product.sha256Canonical(executive),'sha256:235f8c59d9b4186f17b4f834288890e0dc56bb6f63238ed95a04194789d5f86b');
+  assert.equal(executiveApp.foldbackRef,'foldback://abiogenesis/1f184e200905b22d6a49ab76ccae7d363fe7a4f71c434913e3511a4633ea8eec');
+  assert.equal(executiveApp.applicationRef,'graph-function-application://abiogenesis/b4ec9b6512e13015eb2d681b49c8ed49a188a51a142c7904aab3ff902f79550a');
+  assert.equal(product.sha256Canonical(executive),'sha256:e297debd7a30cbcb0153b94dd83ec4de3174c806a5e21bc47f866a38808c2781');
   const library=roundTrip(executive);assert.equal(library.again,library.bytes);
-  assert.equal(library.digest,'sha256:ca78eb2f9cb5f3bfd25f7f64578bb378503c1b0d158dea03db4d09d98a1f3397');assert.equal(product.sha256Bytes(Buffer.from(library.bytes)),library.digest);
+  assert.equal(library.digest,'sha256:f933a2fef4c03805b0eeb221bd39adcb72effb4ea8af5b261d0f6aa335b934be');assert.equal(product.sha256Bytes(Buffer.from(library.bytes)),library.digest);
 });
 
 test('failedChildDiagnosticClassRefs is declared, validated for form and round-trips',()=>{
@@ -268,18 +268,18 @@ test('a declared foldback survives Public module publication, catalog parsing an
   const status=read.run_status,result=read.run_result,replay=read.run_replay;
   assert.deepEqual([status.status,replay.status],['closed','closed']);assert.equal(result.terminalResult.value.terminal,true);
   assert.deepEqual([status.replay,result.replay],[replay.replay,replay.replay],'one replay identity across the reads');
-  // The Public reads of the closed Run: the axioms are unchanged, so each folded
-  // child frame keeps its derived probe fluent and its native frame activity.
+  // The Public reads of the closed Run apply the reader rule Run quiescence
+  // applies (REQ-P-POLICY-068): a frame ended by its stopped foldback is not
+  // presented live. The axioms are unchanged; the derived probe fluent still
+  // holds in the owner calculus (asserted in the first test).
   const fluents=status.activeFluents.map(f=>f.ref),liveness=status.nativeLiveness.invocations;
-  const folded=probes.map(p=>{
-    const frame=liveness.find(i=>product.sha256Canonical(i.scope)===p.scopeDigest);
-    return {frameId:p.fold.payload.childFrameId,probeFluentHeld:fluents.includes(p.key),
-      lifecycleFluents:fluents.filter(f=>f.endsWith('('+p.fold.payload.childFrameId+')')||f.endsWith('('+p.fold.payload.childGraphCallId+')')),
-      nativeFrame:{disposition:frame.disposition.disposition,reason:frame.disposition.reason,activeSystems:frame.activeSystems}};
-  });
+  const folded=probes.map(p=>({frameId:p.fold.payload.childFrameId,probeFluentHeld:fluents.includes(p.key),
+    lifecycleFluents:fluents.filter(f=>f.endsWith('('+p.fold.payload.childFrameId+')')||f.endsWith('('+p.fold.payload.childGraphCallId+')')),
+    nativeFrame:liveness.find(i=>product.sha256Canonical(i.scope)===p.scopeDigest)??null}));
   for(const row of folded){
-    assert.equal(row.probeFluentHeld,true);assert.deepEqual(row.lifecycleFluents,[],'no frame or graph-call lifecycle fluent of a folded child');
-    assert.deepEqual(row.nativeFrame,{disposition:'continue_waiting',reason:'unknown_watchdog_policy',activeSystems:[row.frameId+'/frame_progress']});
+    assert.equal(row.probeFluentHeld,false,'the ended frame probe is not presented active');
+    assert.deepEqual(row.lifecycleFluents,[],'no frame or graph-call lifecycle fluent of a folded child');
+    assert.equal(row.nativeFrame,null,'no native invocation of an ended frame');
   }
   // Run quiescence, the owner reader that closure consumes, reads them as historical.
   const cold=env.abg.reopenEventStore(structuredClone(handoff.reopenAuthority));assert.equal(cold.kind,'reopened_event_store_context');
@@ -289,9 +289,9 @@ test('a declared foldback survives Public module publication, catalog parsing an
   cold.store.projectReopenAuthorityAndClose();
   assert.equal(owner.disposition,'projected');assert.equal(owner.value.replayDigest,replay.replay.digest);
   assert.deepEqual([owner.value.quiescence.disposition,owner.value.quiescence.blockingFluents],['quiescent_for_close',[]]);
-  // The Public graph-call read of each folded child reads it closed, with no
+  // The Public graph-call read of each folded child reads it failed, with no
   // terminal result. The child has no graph_call_closed and its graph_call_active
-  // ended at the foldback, so the status is the closed Run's own status.
+  // ended at the foldback, so the status is its stopped foldback's disposition.
   const children=[];
   for(const [index,source] of childSources.entries()){
     const identity='foldback-child-'+index;
@@ -302,7 +302,7 @@ test('a declared foldback survives Public module publication, catalog parsing an
     const kinds=[...new Set(events.filter(e=>e.graphCallId===source.ref||e.payload?.graphCallId===source.ref||e.aggregateId===source.ref).map(e=>e.kind))];
     children.push({graphCallId:source.ref,status:projection.status,terminalResult:projection.terminalResult,graphCallOpened:kinds.includes('graph_call_opened'),graphCallClosed:kinds.includes('graph_call_closed')});
   }
-  for(const child of children)assert.deepEqual([child.status,child.terminalResult,child.graphCallOpened,child.graphCallClosed],['closed',null,true,false]);
+  for(const child of children)assert.deepEqual([child.status,child.terminalResult,child.graphCallOpened,child.graphCallClosed],['failed',null,true,false]);
   t.diagnostic(JSON.stringify({publicChildGraphCallReplay:children}));
   t.diagnostic(JSON.stringify({publicRunStatus:{status:status.status,replay:status.replay.ref,folded},ownerQuiescence:owner.value.quiescence,
     proofLimit:'Installed packed build, Public start and reads through the installed CLI; disclosed process-local invocation counter in the fixture child; no provider or network.'}));

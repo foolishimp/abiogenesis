@@ -6,6 +6,11 @@
 // - assessor: the declared review line, the assessment basis and the worksite.
 // The assessor never branches on a path: it applies the delivered rubric's
 // criteria to the candidate and sources (assessUnderRubric).
+// ABI5_AMENDMENT_ACTOR_FAIL scripts failures: comma-separated
+// `<role>:<mode>[:<times>]`, role `select` or a worker step, mode `exit`
+// (a worker first writes part of its step), `silent`, `scope` (a write
+// outside the grant, then exit) or `scope-success`; times defaults to 1.
+// Each scripted failure is logged as `fail:<role>`.
 import {readFileSync,writeFileSync,existsSync,appendFileSync,mkdirSync} from 'node:fs';
 import {spawnSync} from 'node:child_process';
 import {join,dirname} from 'node:path';
@@ -22,6 +27,10 @@ const out=row=>process.stdout.write(JSON.stringify(row)+'\n');
 const emit=(role,output,extra={})=>{record({role,...extra});out({type:'system',subtype:'init',model:MODEL});
   out({type:'result',subtype:'success',is_error:false,result:JSON.stringify(output),structured_output:output,modelUsage:{[MODEL]:{inputTokens:0,outputTokens:0}}});process.exit(0);};
 const lineAfter=label=>{const l=prompt.split('\n').find(x=>x.startsWith(label));return l===undefined?undefined:l.slice(label.length);};
+const prior=log&&existsSync(log)?readFileSync(log,'utf8').trim().split('\n').filter(Boolean).map(l=>JSON.parse(l)):[];
+const scripted=(process.env.ABI5_AMENDMENT_ACTOR_FAIL??'').split(',').filter(Boolean).map(x=>{const [role,mode,times='1']=x.split(':');return {role,mode,times:Number(times)};});
+const failing=role=>scripted.find(f=>f.role===role&&prior.filter(r=>r.role==='fail:'+role).length<f.times);
+const hang=()=>{out({type:'system',subtype:'init',model:MODEL});setInterval(()=>{},1e9);};
 
 // Testing (C2): run the runtime's own command helper, as the template actor does.
 const tasks=prompt.split('\n\n').filter(x=>x.startsWith('## task\n')).map(x=>x.slice('## task\n'.length));let c2=null;
@@ -39,17 +48,35 @@ if('interpretation' in props){
   // writes its candidate. Missing reviews are read from the offered targets'
   // declared prerequisites. ABI5_AMENDMENT_ACTOR_EARLY names a stage proposed
   // as soon as design is done, prerequisites or not.
+  // Failed steps of this Run (failedAttempts): a failed stage is retried until a
+  // prior judgment answers its failure Result in revisionEvidenceRefs; a refused
+  // choice is not proposed again. ABI5_AMENDMENT_ACTOR_REDESIGN reruns design
+  // once after the impact review holds, then proposes construction once.
   const view=JSON.parse(tasks[0]),rows=view.observations,orders=view.workOrders,reviews=view.reviews?.declared??[];
-  const last=p=>rows.findLastIndex(r=>r.purpose===p),latest=p=>rows.findLast(r=>r.purpose===p);
-  const ok=r=>r.standing.satisfied&&r.standing.current,early=process.env.ABI5_AMENDMENT_ACTOR_EARLY;
+  const failed=view.failedAttempts?.attempts??[],answered=new Set(view.priorJudgment?.judgment.revisionEvidenceRefs??[]);
+  const purposeOf=g=>typeof g==='string'?g.replace(/^.*\/([^/@]+)@[^/]*$/,'$1'):null;
+  const open=failed.filter(a=>a.refusal===undefined&&!answered.has(a.resultRef)).at(-1);
+  const refused=p=>failed.some(a=>a.refusal?.relation==='target_not_permitted'&&purposeOf(a.graphFunctionRef)===p);
+  if(failing('select')){record({role:'fail:select',failed});const f=failing('select');if(f.mode==='silent')hang();else{out({type:'system',subtype:'init',model:MODEL});process.stderr.write('scripted selector failure\n');process.exit(3);}}
+  else{
+  const last=p=>rows.findLastIndex(r=>r.purpose===p),latest=p=>rows.findLast(r=>r.purpose===p),count=p=>rows.filter(r=>r.purpose===p).length;
+  const ok=r=>r.standing.satisfied&&r.standing.current,early=process.env.ABI5_AMENDMENT_ACTOR_EARLY,redesign=process.env.ABI5_AMENDMENT_ACTOR_REDESIGN==='1';
   const producer=r=>Object.keys(orders).find(p=>orders[p].writeRoots.includes(r.candidatePath))??'construction';
   const missing=p=>(view.prerequisites?.targets.find(t=>t.purpose===p)?.missingReviews??[]).map(m=>reviews.find(r=>r.reviewRef===m.reviewRef)).filter(Boolean);
   const review=r=>['review',r.reviewRef,latest(producer(r))?.resultRef??null];
   const adverse=reviews.find(r=>r.standing.resultRef!==null&&r.standing.current&&!r.standing.satisfied);
+  const impact=reviews.find(r=>/\/impact@/.test(r.reviewRef));
   let next=null,reviewRef=null,subject=null;
-  if(last('induction')<0)next='induction';
+  if(open!==undefined){const p=purposeOf(open.graphFunctionRef);
+    if(p==='review')[next,reviewRef,subject]=review(reviews.find(r=>r.reviewRef===open.reviewRef));
+    else if(p==='testing')[next,subject]=['testing',latest('construction').resultRef];
+    else if(p==='uat')[next,subject]=['uat',latest('testing').resultRef];
+    else next=p;}
+  else if(last('induction')<0)next='induction';
   else if(last('design')<0)next='design';
-  else if(early&&last(early)<0)next=early;
+  else if(redesign&&count('design')===1&&impact&&ok(impact)&&last('construction')<0)next='design';
+  else if(redesign&&count('design')===2&&!refused('construction')&&last('construction')<0)next='construction';
+  else if(early&&last(early)<0&&!refused(early))next=early;
   else if(adverse)next=producer(adverse);
   else if(last('construction')<0){const pending=missing('construction')[0];if(pending)[next,reviewRef,subject]=review(pending);else next='construction';}
   else if(last('testing')<last('construction'))[next,subject]=['testing',latest('construction').resultRef];
@@ -61,8 +88,10 @@ if('interpretation' in props){
   const items=props.contributions.items.properties.supportRefs.items,support=items&&Array.isArray(items.enum)?[...items.enum]:[],target=next===null?null:graph(next);
   emit('select:'+(next??'gap')+(reviewRef?':'+reviewRef:''),{interpretation:'Scripted amendment selector.',
     contributions:[{graphFunctionRef:target??graph('construction'),contribution:'Scripted '+(next??'gap')+' contribution.',reason:'Declared stage order and prerequisites.',supportRefs:support,evidenceRefs:[],dependsOn:[]}],
-    gaps:next===null?[{supportRefs:support.slice(0,1),reason:'Scripted gap.',evidenceRefs:[]}]:[],nextGraphFunctionRef:target,nextReason:'Declared stage order and prerequisites.',nextEvidenceRefs:[],
-    subjectEvidenceRef:subject,revisionReason:'Scripted.',revisionEvidenceRefs:[],...('reviewRef' in props?{reviewRef}:{})},{standing:reviews.map(r=>({reviewRef:r.reviewRef,...r.standing}))});
+    gaps:next===null?[{supportRefs:support.slice(0,1),reason:'Scripted gap.',evidenceRefs:[]}]:[],nextGraphFunctionRef:target,nextReason:'Declared stage order and prerequisites.',
+    nextEvidenceRefs:open===undefined?[]:[open.resultRef],subjectEvidenceRef:subject,revisionReason:'Scripted.',revisionEvidenceRefs:failed.map(a=>a.resultRef),...('reviewRef' in props?{reviewRef}:{})},
+    {standing:reviews.map(r=>({reviewRef:r.reviewRef,...r.standing})),failed});
+  }
 }else if('summary' in props&&'gaps' in props){
   // Worker: the step whose files all lie in the permitted write scope; the
   // correction when an admitted review is adverse with unresolved criteria.
@@ -74,8 +103,21 @@ if('interpretation' in props){
   const fitting=Object.keys(steps).filter(s=>Object.keys(steps[s]).every(p=>scope.includes(p)));
   const step=fitting.length===1?fitting[0]:unresolved.length?'correction':'construction';
   if(!root||!fitting.includes(step)){process.stderr.write('stand-in worker has no step for '+JSON.stringify(scope)+'\n');process.exit(1);}
-  for(const [path,source] of Object.entries(steps[step])){mkdirSync(dirname(join(root,path)),{recursive:true});writeFileSync(join(root,path),readFileSync(join(standIn,source)));}
-  emit('native:'+step,{summary:`Scripted ${step}.`,gaps:[]},{actingOn:unresolved});
+  const write=(path,bytes)=>{mkdirSync(dirname(join(root,path)),{recursive:true});writeFileSync(join(root,path),bytes);};
+  const f=failing(step);
+  if(f){record({role:'fail:'+step,mode:f.mode});
+    // Part of the step: its second file (its only file when it has one), then the scripted end.
+    if(f.mode==='exit'){const entries=Object.entries(steps[step]),[path,source]=entries[1]??entries[0];write(path,readFileSync(join(standIn,source)));out({type:'system',subtype:'init',model:MODEL});process.stderr.write('scripted worker failure\n');process.exit(3);}
+    if(f.mode==='silent')hang();
+    else{write('design/impact-assessment.md','Written outside the permitted write scope.\n');
+      if(f.mode==='scope'){out({type:'system',subtype:'init',model:MODEL});process.stderr.write('scripted worker failure after an out-of-scope write\n');process.exit(3);}
+      emit('native:'+step,{summary:`Scripted ${step} with an out-of-scope write.`,gaps:[]},{actingOn:unresolved});}
+  }else{
+  // A design restated after an admitted design writes different bytes.
+  const restated=step==='impact-assessment'&&observed.some(o=>o.purpose==='design');
+  for(const [path,source] of Object.entries(steps[step]))write(path,Buffer.concat([readFileSync(join(standIn,source)),Buffer.from(restated?'\nRestated after the impact review.\n':'')]));
+  emit('native:'+step+(restated?':restated':''),{summary:`Scripted ${step}.`,gaps:[]},{actingOn:unresolved});
+  }
 }else{
   // Assessor: the delivered frame and rubric decide the verdict.
   const declared=lineAfter('Declared review: '),review=declared===undefined?null:JSON.parse(declared);

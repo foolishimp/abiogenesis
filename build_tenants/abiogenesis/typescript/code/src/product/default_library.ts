@@ -20,6 +20,14 @@ export type GovernancePurpose = typeof GOVERNANCE_PURPOSES[number];
 export const GOVERNANCE_OPERATIONS = ["prepare-selection", "select", "evaluate-parent", "prepare-native", "prepare-testing", "fold", "project-choice"] as const;
 export type GovernanceOperation = typeof GOVERNANCE_OPERATIONS[number];
 export const GOVERNANCE_IMPLEMENTATION_REFS = GOVERNANCE_OPERATIONS.map(n => governanceRef("implementation", n));
+/** The selection leaf's typed refusals: the strict binder refused the response,
+ * the proposed next member is not permitted, or the selector's process ended. */
+export const GOVERNANCE_SELECTION_REFUSALS = ["response_refused", "target_not_permitted", "selector_process_ended"] as const;
+/** The failure classes with which a failed Executive step returns to its parent
+ * by default: the native work transport and report contract failures, and a
+ * typed selection refusal. */
+export const GOVERNANCE_RECOVERABLE_FAILURE_CLASSES: readonly string[] = Object.freeze(["diagnostic://abiogenesis/worksite/native-work/transport_failure@5",
+  "diagnostic://abiogenesis/worksite/native-work/contract_failure@5", governanceRef("diagnostic", "missing-owned-select")]);
 export const DEFAULT_LIBRARY_POLICY = `Ordinary conditional governance capabilities. Preserve the complete original task, source, selected authority, valid work and unresolved outcomes. Reuse sufficient existing artifacts without rerunning their authors. Missing capability or authority remains an explicit gap. Open interpretation, suitability and sufficiency are native F_P judgments; deterministic adapters only project declared data and admitted observations. A completed child or successful measurement does not establish application success. Testing records actual commands, streams and predicates, including failures. UAT independently assesses the original source, exact candidate, rubric and current admitted execution evidence. Only the parent projects the independent verdict into its declared termination rule. No mandatory stage order, caller loop, invented source, claimed execution file or generated runtime graph.\n`;
 export const GOVERNANCE_POLICIES: Readonly<Record<GovernancePurpose, string>> = deepFreeze({
   induction: "Establish the task model from complete source: outcome, users, constraints, modality, conflicts, assumptions and unknowns. Preserve unresolved questions; distinguish source statements from interpretation.",
@@ -231,6 +239,11 @@ export function governanceVerdicts(state: GovernanceWorkState) {
     }) };
 }
 
+const scalar = v.nullable(v.union([v.string(), v.number(), v.boolean()]));
+// One failed step of this Run, folded from the admitted record at selection preparation.
+const failedAttemptSchema = v.strictObject({ graphFunctionRef: v.nullable(text), reviewRef: v.exactOptional(text), failureClassRef: text,
+  timeoutClass: v.nullable(text), changedPaths: texts, refusal: v.exactOptional(v.strictObject({ relation: text, selectors: v.record(text, scalar) })), resultRef: text });
+export type FramedSynthesisFailedAttempt = v.InferOutput<typeof failedAttemptSchema>;
 export type FramedSynthesisJudgment = v.InferOutput<typeof judgmentSchema>;
 export type FramedSynthesisBasis = v.InferOutput<typeof synthesisBasisSchema>;
 export type FramedSynthesisTarget = { readonly graphFunctionRef: string; readonly definitionDigest: `sha256:${string}`; readonly purpose: GovernancePurpose;
@@ -238,6 +251,7 @@ export type FramedSynthesisTarget = { readonly graphFunctionRef: string; readonl
 export type FramedSynthesisTask = {
   readonly kind: "framed_synthesis_task"; readonly schemaVersion: "5.0.0";
   readonly state: GovernanceWorkState; readonly context: WorksiteContextObservation;
+  readonly failedAttempts?: readonly FramedSynthesisFailedAttempt[];
 };
 export type FramedSynthesisResult = {
   readonly kind: "framed_synthesis_result"; readonly schemaVersion: "5.0.0";
@@ -256,7 +270,9 @@ export function isFramedSynthesisJudgment(value: unknown): value is FramedSynthe
 }
 export function isFramedSynthesisTask(value: unknown): value is FramedSynthesisTask {
   return v.is(v.strictObject({ kind: v.literal("framed_synthesis_task"), schemaVersion: v.literal("5.0.0"),
-    state: v.custom<GovernanceWorkState>(isGovernanceWorkState), context: v.custom<WorksiteContextObservation>(isWorksiteContextObservation) }), value) && !value.state.terminal;
+    state: v.custom<GovernanceWorkState>(isGovernanceWorkState), context: v.custom<WorksiteContextObservation>(isWorksiteContextObservation),
+    failedAttempts: v.exactOptional(v.pipe(v.array(failedAttemptSchema), v.minLength(1))) }), value) && !value.state.terminal &&
+    unique((value.failedAttempts ?? []).map(a => a.resultRef));
 }
 export function isFramedSynthesisResult(value: unknown): value is FramedSynthesisResult {
   if (typeof value !== "object" || value === null || !hasExactKeys(value, ["kind", "schemaVersion", "state", "basis", "judgment"])) return false;
@@ -267,7 +283,7 @@ export function isFramedSynthesisResult(value: unknown): value is FramedSynthesi
 }
 export function framedSynthesisEvidenceRefs(task: FramedSynthesisTask): readonly string[] {
   return [task.state.original.taskRef, task.context.observationRef, ...task.state.observations.map(o => o.resultRef),
-    ...(task.state.synthesis === null ? [] : [task.state.synthesis.resultRef])];
+    ...(task.state.synthesis === null ? [] : [task.state.synthesis.resultRef]), ...(task.failedAttempts ?? []).map(a => a.resultRef)];
 }
 /** Typed source candidates only; native owners still establish Result identity,
  * authority and currentness before consuming the complete producer value. */
@@ -464,6 +480,7 @@ export function projectFramedSynthesisPromptTask(task: FramedSynthesisTask,
     }), meaning: "Only permitted work can be selected next: a target is permitted when its declared prerequisites hold, including every review its Program requires that this task declares as required being satisfied and current, while stated dependencies remain advisory planning and a target that is not permitted may still appear as future work." } }),
     fulfillment, observations: evidence, planningEvidenceMeaning: "A strict UTF-8 stream of at most 8192 bytes is shown whole as one exact excerpt marked complete. Longer or non-UTF-8 streams and detailed predicate proof are explicitly omitted from this selector view, with byte counts, and remain in the cited admitted Result. Field paths are relative to that Result value; metadata grants no lookup authority or automatic external read. Excerpts are bounded literal diagnostics at exact UTF-8 byte ranges, not interpreted failure names or verdicts. All original criteria and unresolved outcomes remain governing. C2 success is a measurement observation, never application acceptance.", unresolvedSupportRefs: state.unresolvedSupportRefs,
     priorJudgment: state.synthesis === null ? null : { resultRef: state.synthesis.resultRef, judgment: state.synthesis.judgment },
+    ...(task.failedAttempts === undefined ? {} : { failedAttempts: { attempts: task.failedAttempts, meaning: "Each step of this Run that failed and returned here, in order, left the work state unchanged: the graph its selection chose (null when no choice was admitted), the originating failure class, the timeout class when its process was contained, the worksite paths the failed attempt left changed, the typed refusal when the selection itself was refused, and the failure Result ref, which is admissible evidence." } }),
   });
   if (view.kind !== "ok" || !isRecord(view.value)) throw new TypeError("framed synthesis selector view is not I-JSON");
   return view.value;

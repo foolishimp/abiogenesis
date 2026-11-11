@@ -1,42 +1,25 @@
 import assert from 'node:assert/strict';
 import test from 'node:test';
-import {readFile,writeFile,mkdir,cp,rm,chmod,mkdtemp,readdir,copyFile} from 'node:fs/promises';
+import {readFile,writeFile,mkdir,cp,rm,mkdtemp,copyFile} from 'node:fs/promises';
 import {join,relative} from 'node:path';
 import {tmpdir} from 'node:os';
 import {spawnSync} from 'node:child_process';
-import {pathToFileURL} from 'node:url';
 import * as product from '../../build/code/src/product/index.js';
-import {setupInstalledRootCatalog} from '../support/root-installed-environment.mjs';
-import {prepareRegisteredSelectionProduct,constructInstalledStartCall,runInstalledCliRequest} from '../support/registered-graph-selection.mjs';
-import {libraryConsumerDeclaration,libraryEnvironment,witnessRef,assessmentSchema,schemaPath} from '../support/default-library.mjs';
-import {amendmentWitnessInput,amendmentPrerequisites,amendmentRef,witnessFixtureRoot,parseExamples,assessUnderRubric,summarizeActorCalls} from '../support/amendment-witness.mjs';
+import {projectWorksiteCommandExecutionBudget} from '../../build/code/src/product/worksite_command_execution.js';
+import {witnessRef,assessmentSchema} from '../support/default-library.mjs';
+import {amendmentWitnessInput,amendmentPrerequisites,amendmentRef,parseExamples,assessUnderRubric,summarizeActorCalls} from '../support/amendment-witness.mjs';
+import {seed,standIn,json,definitionPath,amendmentPath,tree,within,standInActor,runWitness,changedPaths} from '../support/amendment-witness-run.mjs';
 // The amendment witness: an accepted specification and a working system exist;
 // a person changes one business rule; one governed Public start does the
 // affected work, preserves what the amendment does not authorize changing and
 // closes only when acceptance and every required review hold for the current
 // candidate. The process is defined once (process-definition.json); the
 // amendment is the only per-task input.
-const packageRoot=new URL('../..',import.meta.url).pathname;
-const seed=join(witnessFixtureRoot,'seed'),standIn=join(witnessFixtureRoot,'stand-in');
-const actorModule=new URL('../support/amendment-witness-actor.mjs',import.meta.url).pathname;
-const basis={productId:product.ABI5_PRODUCT_ID,packageName:'@abiogenesis/typescript-tenant',packageVersion:product.ABI5_PACKAGE_VERSION,artifactDigest:'sha256:'+'1'.repeat(64),productContentDigest:'sha256:'+'2'.repeat(64),productManifestDigest:'sha256:'+'3'.repeat(64)};
-const constructors=['constructDefaultGovernanceLibraryModulePublication','constructNativeWorkspaceWorkModulePublication','constructWorksiteCommandExecutionModulePublication'];
-const PURPOSES=['induction','design','construction','testing','review','uat'],BOUND=16;
 const ref=p=>product.governanceRef('graph-function',p),IMPACT=amendmentRef('review','impact'),PRESERVATION=amendmentRef('review','preservation');
-const json=async path=>JSON.parse(await readFile(path,'utf8'));
-const definitionPath=join(witnessFixtureRoot,'process-definition.json');
-const amendmentPath=name=>join(witnessFixtureRoot,`amendment-${name}.json`);
 const cleanEnv=()=>Object.fromEntries(Object.entries(process.env).filter(([k])=>k!=='NODE_TEST_CONTEXT'));
 const nodeTest=(cwd,files)=>{const r=spawnSync(process.execPath,['--test',...files],{cwd,encoding:'utf8',env:cleanEnv()});return {status:r.status,out:r.stdout+r.stderr};};
 const SEED_TESTS=['test/approval.test.mjs','test/discount.test.mjs'];
 async function scratchCopy(t){const dir=await mkdtemp(join(tmpdir(),'amendment-witness-'));t.after(()=>rm(dir,{recursive:true,force:true}));await cp(seed,dir,{recursive:true});return dir;}
-async function tree(root,prefix=''){
-  const out=new Map();
-  for(const e of await readdir(join(root,prefix),{withFileTypes:true})){const rel=prefix?prefix+'/'+e.name:e.name;
-    if(e.isDirectory())for(const [k,v] of await tree(root,rel))out.set(k,v);else if(e.isFile())out.set(rel,product.sha256Bytes(await readFile(join(root,rel))));}
-  return out;
-}
-const within=(path,roots)=>roots.some(r=>r===path||path.startsWith(r+'/'));
 
 test('seed system: its tests pass on the seed; the amended boundary tests fail until the realization changes',async t=>{
   const dir=await scratchCopy(t),onSeed=nodeTest(dir,SEED_TESTS);
@@ -131,9 +114,6 @@ function assessmentPrompt({root,review,assessment,digests}){
       producer:{resultRef:'result:producer',resultDigest:'sha256:'+'0'.repeat(64),cCallRef:'call:producer',actorInvocationRef:'actor:producer'},resultContract:assessment.resultContract})}`,
     'Instructions:',`Declared review: ${JSON.stringify({reviewRef:review.reviewRef,frame:review.frame,required:review.required})}`].join('\n');
 }
-async function standInActor(dir){
-  const actor=join(dir,'amendment-actor.mjs');await writeFile(actor,`#!${process.execPath}\nimport ${JSON.stringify(pathToFileURL(actorModule).href)};\n`);await chmod(actor,0o755);return actor;
-}
 function runActor(actor,prompt,log){
   const r=spawnSync(actor,['--json-schema',JSON.stringify(assessmentSchema)],{input:prompt,encoding:'utf8',env:{...cleanEnv(),ABI5_AMENDMENT_ACTOR_LOG:log}});
   assert.equal(r.status,0,r.stderr);const rows=r.stdout.trim().split('\n').map(l=>JSON.parse(l));return rows.find(x=>x.type==='result').structured_output;
@@ -164,43 +144,6 @@ test('the stand-in assessor is discriminating: one candidate, different verdicts
     ['assess:'+PRESERVATION,'Preservation','src/order.mjs','unmet'],['assess:'+IMPACT,'Impact revie','src/order.mjs','indeterminate']]);
 });
 
-// One installed Public start over the default-library topology. Returns the
-// admitted events and the worksite; the caller supplies the actor.
-async function runWitness(t,{amendment,actorEnvironment,keep=false,accounting,adjust=input=>input}){
-  const definition=await json(definitionPath);let selectedEnvironment;
-  const env=await setupInstalledRootCatalog(keep?{after:()=>{}}:t,packageRoot,{candidateBasisSource:'packed_artifact',rootPublicationKind:'worksite_construction',workspaceProductIndex:1,
-    ...(accounting?{setupAccounting:accounting}:{}),additionalCorePublicationConstructors:constructors,
-    prepareAdditionalProducts:async setup=>{
-      selectedEnvironment=await libraryEnvironment({...setup,packageRoot:setup.bootstrapPackage});
-      const library=setup.gtl.constructDefaultGovernanceLibraryModulePublication({...basis,packageName:setup.abiPublication.productSemanticsBinding.packageName,packageVersion:setup.abiPublication.productSemanticsBinding.packageVersion});
-      return [await prepareRegisteredSelectionProduct({...setup,abiPackageArchivePath:setup.abiPackageArchivePath,
-        declarationFactory:g=>libraryConsumerDeclaration(g,library,selectedEnvironment.declaration,{purposes:PURPOSES,bound:BOUND,prerequisites:amendmentPrerequisites(definition)}),
-        fixtureFiles:[{path:'build/index.mjs',source:new URL('../fixtures/default-library-product/index.mjs',import.meta.url)}],
-        schemaAssets:[{path:schemaPath,source:join(seed,definition.acceptance.resultSchema),contractId:witnessRef('contract','assessment'),requirementAuthorityRefs:[amendmentRef('support','amended-requirement-realized')]}]})];
-    }});
-  const worksite=env.workspaceBinding.canonicalRoot??env.workspaceAuthority?.canonicalRoot??join(env.scratch,'workspace');
-  const preexisting=await tree(worksite);
-  await cp(seed,worksite,{recursive:true});
-  const joined=await amendmentWitnessInput({processDefinition:definition,amendment,seedRoot:worksite,product}),input=adjust(joined.state),derivation=joined.derivation;
-  const initialTree=await tree(worksite);
-  env.catalogView=env.product.narrowGraphFunctionCatalog(env.catalog,env.additionalPublications[0].programs[0].callableMembership);assert.equal(env.catalogView.kind,'graph_function_catalog_view');
-  const load=async path=>import(pathToFileURL(join(env.installedRoot,`build/code/src/${path}.js`)).href);
-  const publicApi=await load('public/index'),storeOwner=await load('abg/event_store');
-  let handoff=env.store.projectReopenAuthorityAndClose();const before=storeOwner.readRuntimeEventsAtDurablePrefix(handoff.prefix).length;
-  const resource=()=>({kind:'reopen_abg_event_resource',schemaVersion:'5.0.0',closeHandoff:handoff,handoffDigest:product.sha256Canonical(handoff)});
-  const start=await constructInstalledStartCall({environment:env,publicApi,eventResource:resource(),input,identity:'amendment-witness',runEnvironmentResourceFactory:selectedEnvironment.resources});
-  const execution=await runInstalledCliRequest({scratch:env.scratch,installedRoot:env.installedRoot,identity:'amendment-witness-start',acquisition:{kind:'reopen',closeHandoff:handoff},call:start.call,expectedExitCode:null,
-    environment:{...process.env,...actorEnvironment}});
-  const receipt=execution.output?.receipt;assert.ok(receipt,JSON.stringify(execution).slice(0,4000));
-  if(receipt.resources?.eventResource?.closeHandoff)handoff=receipt.resources.eventResource.closeHandoff;
-  const events=storeOwner.readRuntimeEventsAtDurablePrefix(handoff.prefix).slice(before);
-  return {env,worksite,definition,input,derivation,preexisting,initialTree,execution,receipt,events,results:events.filter(e=>e.kind==='c_call_result_admitted')};
-}
-/** Worksite paths a Run changed: framework entries present before the seed copy and the declared archive root excluded. */
-async function changedPaths(run){
-  const archives=[...new Set(run.events.filter(e=>e.kind==='actor_transport_binding_admitted').map(e=>relative(run.worksite,e.payload.archiveRoot)))],finalTree=await tree(run.worksite);
-  return [...new Set([...run.initialTree.keys(),...finalTree.keys()])].filter(p=>!run.preexisting.has(p)&&!within(p,archives)&&run.initialTree.get(p)!==finalTree.get(p)).sort();
-}
 const diagnosticSubject=ref=>JSON.parse(decodeURIComponent(ref.slice(ref.indexOf(',')+1)));
 /** Facts every witness Run must show, scripted or live. */
 async function assertWitnessOutcome(run){
@@ -300,23 +243,144 @@ test('one Public start builds the amendment: impact review once and current, pre
   t.diagnostic(JSON.stringify({roles:log.map(r=>r.role),parents:parents.length,events:events.length,changed}));
 });
 
-// The stand-in selector proposes construction as soon as design is done, before the impact review has run.
-test('a choice whose prerequisites do not hold is refused before its stage runs: no construction call or write; the event log names the missing review',{timeout:900_000},async t=>{
-  const proof=await mkdtemp(join(tmpdir(),'amendment-early-'));t.after(()=>rm(proof,{recursive:true,force:true}));
+// Recoverable step failure (W1-W6). A failed step of a declared recoverable
+// class returns to the Executive in the same Run; the next selection task
+// carries it as a failed attempt; a write outside the grant stops the Run.
+const MAIN=['select:induction','native:intake-triage','select:design','native:impact-assessment','select:review:'+IMPACT,'assess:'+IMPACT,
+  'select:construction','native:construction','select:testing','c2','select:review:'+PRESERVATION,'assess:'+PRESERVATION,
+  'select:construction','native:correction','select:testing','c2','select:review:'+PRESERVATION,'assess:'+PRESERVATION,'select:uat','assess:uat'];
+const SELECT_CLASS=product.governanceRef('diagnostic','missing-owned-select'),TRANSPORT='diagnostic://abiogenesis/worksite/native-work/transport_failure@5';
+const actorRows=async path=>(await readFile(path,'utf8').catch(()=>'')).trim().split('\n').filter(Boolean).map(l=>JSON.parse(l));
+async function failureRun(t,name,actorEnvironment,options={}){
+  const proof=await mkdtemp(join(tmpdir(),'amendment-'+name+'-'));t.after(()=>rm(proof,{recursive:true,force:true}));
   const actor=await standInActor(proof),actorLog=join(proof,'actor.jsonl');
-  const run=await runWitness(t,{amendment:await json(amendmentPath('approval-threshold')),actorEnvironment:{ABG_TS_CLAUDE_COMMAND:actor,ABI5_AMENDMENT_ACTOR_LOG:actorLog,ABI5_AMENDMENT_STAND_IN:standIn,ABI5_AMENDMENT_ACTOR_EARLY:'construction'}});
-  const {receipt,events}=run,log=(await readFile(actorLog,'utf8')).trim().split('\n').map(l=>JSON.parse(l));
-  assert.deepEqual(log.map(r=>r.role),['select:induction','native:intake-triage','select:design','native:impact-assessment','select:construction']);
-  assert.equal(events.some(e=>e.kind==='c_call_opened'&&e.graphFunctionRef===ref('construction')),false,'the construction wrapper is never entered');
-  assert.equal(events.some(e=>e.payload?.value?.kind==='registered_graph_choice'&&e.payload.value.graphFunctionRef===ref('construction')),false,'no construction choice is admitted');
-  assert.deepEqual(await changedPaths(run),['design/impact-assessment.md','work/intake-triage.md'],'no construction write');
-  const failures=events.filter(e=>e.kind==='runtime_failure_observed');assert.equal(failures.length,1);
-  const subject=diagnosticSubject(failures[0].payload.diagnosticRef);
-  assert.deepEqual([failures[0].payload.stage,subject.computeRegime,subject.diagnosticClassRef,subject.implementationRef,subject.stage,subject.reason,subject.cause.errorClass,subject.cause.message],
-    ['route','F_P','diagnostic://abiogenesis/implementation/implementation-exception@5',product.governanceRef('implementation','select'),'implementation_completion','thrown','TypeError',
-      `native selector choice binding refused: ${ref('construction')} requires satisfied and current ${IMPACT}`]);
-  assert.equal(receipt.ownerOutput.value.disposition,'runtime_failed');
-  t.diagnostic(JSON.stringify({stage:failures[0].payload.stage,diagnosticClassRef:subject.diagnosticClassRef,reason:subject.reason,message:subject.cause.message}));
+  const run=await runWitness(t,{amendment:await json(amendmentPath('approval-threshold')),...options,
+    actorEnvironment:{ABG_TS_CLAUDE_COMMAND:actor,ABI5_AMENDMENT_ACTOR_LOG:actorLog,ABI5_AMENDMENT_STAND_IN:standIn,...actorEnvironment}});
+  const log=await actorRows(actorLog),{events,receipt}=run;
+  const recursion=events.filter(e=>e.kind==='child_foldback_admitted'&&typeof e.payload.applicationRef==='string');
+  const failedSteps=recursion.filter(e=>e.payload.childDisposition==='failed');
+  const result=resultRef=>events.find(e=>e.kind==='c_call_result_admitted'&&e.payload.resultRef===resultRef);
+  const parents=run.results.filter(e=>e.graphFunctionRef===witnessRef('graph-function','executive')&&e.payload.value?.kind==='governance_work_state');
+  const stops=events.filter(e=>e.kind==='runtime_failure_observed'||e.kind==='run_stopped');
+  const diagnostic=()=>JSON.stringify({disposition:receipt.ownerOutput?.value?.disposition,roles:log.map(r=>r.role),
+    stops:stops.map(e=>({kind:e.kind,stage:e.payload.stage,reasonRef:e.payload.reasonRef,subject:typeof e.payload.diagnosticRef==='string'&&e.payload.diagnosticRef.startsWith('data:')?diagnosticSubject(e.payload.diagnosticRef):e.payload.diagnosticRef}))}).slice(0,6000);
+  return {...run,log,recursion,failedSteps,result,parents,stops,diagnostic};
+}
+const selections=run=>run.log.filter(r=>r.role.startsWith('select:'));
+const closes=async(run)=>{assert.equal(run.receipt.failure,null,run.diagnostic());assert.equal(run.receipt.ownerOutput.value.disposition,'completed',run.diagnostic());
+  assert.equal(run.events.filter(e=>e.kind==='run_closed').length,1);assert.equal(run.events.some(e=>e.kind==='runtime_failure_observed'),false);return assertWitnessOutcome(run);};
+
+test('W1: a choice whose prerequisites do not hold is refused before its stage runs; the typed refusal returns to the Executive, the lawful order follows and the Run closes',{timeout:900_000},async t=>{
+  const run=await failureRun(t,'early',{ABI5_AMENDMENT_ACTOR_EARLY:'construction'});
+  assert.deepEqual(run.log.map(r=>r.role),[...MAIN.slice(0,4),'select:construction',...MAIN.slice(4)],run.diagnostic());
+  await closes(run);
+  assert.equal(run.failedSteps.length,1);
+  const refused=run.result(run.failedSteps[0].payload.childResultRef),subject=diagnosticSubject(refused.payload.value.diagnosticRef);
+  assert.equal(refused.payload.resultClass,'failure');
+  assert.deepEqual([subject.diagnosticClassRef,subject.computeRegime,subject.implementationRef,subject.stage,subject.relation,subject.selectors,subject.cause],
+    [SELECT_CLASS,'F_P',product.governanceRef('implementation','select'),'selector_completion','target_not_permitted',
+      {graphFunctionRef:ref('construction'),reviewRef:null,missingReviews:IMPACT,staleReviews:null,missingSelectedPaths:null},null]);
+  // Refused before effect: no construction wrapper call opens before the impact review is admitted.
+  const firstConstruction=run.events.find(e=>e.kind==='c_call_opened'&&e.graphFunctionRef===ref('construction'));
+  assert.ok(firstConstruction.admissionOrdinal>run.failedSteps[0].admissionOrdinal);
+  // The next selection sees the failed attempt from the admitted record; the one before saw none.
+  const seen=selections(run).map(r=>r.failed);
+  assert.deepEqual(seen.slice(0,3),[[],[],[]]);
+  assert.deepEqual(seen[3],[{graphFunctionRef:ref('construction'),failureClassRef:SELECT_CLASS,timeoutClass:null,changedPaths:[],
+    refusal:{relation:'target_not_permitted',selectors:subject.selectors},resultRef:refused.payload.resultRef}]);
+  assert.ok(seen.slice(3).every(f=>f.length===1));
+  t.diagnostic(JSON.stringify({relation:subject.relation,selectors:subject.selectors,selections:seen.length}));
+});
+
+test('W2: a worker that writes part of its change and exits non-zero returns its attempt with the changed path; the touched review is not current; construction is selected again and the Run closes',{timeout:900_000},async t=>{
+  const run=await failureRun(t,'partial',{ABI5_AMENDMENT_ACTOR_FAIL:'correction:exit'});
+  assert.deepEqual(run.log.map(r=>r.role),[...MAIN.slice(0,13),'fail:correction','select:construction',...MAIN.slice(13)],run.diagnostic());
+  const {final}=await closes(run);
+  assert.equal(run.failedSteps.length,1);
+  const step=run.failedSteps[0],attempt=selections(run)[7].failed;
+  const leaf=run.result(attempt[0].resultRef),value=leaf.payload.value;
+  assert.deepEqual([leaf.graphFunctionRef,value.kind,value.failureClass,value.changedPaths,value.after!==null],
+    [product.NATIVE_WORKSPACE_WORK_IDS.graphFunctionRef,'native_workspace_work_failure','transport_failure',['src/order.mjs'],true]);
+  assert.deepEqual(attempt,[{graphFunctionRef:ref('construction'),failureClassRef:TRANSPORT,timeoutClass:null,changedPaths:['src/order.mjs'],resultRef:attempt[0].resultRef}]);
+  // Preservation's subject is src/order.mjs: adverse and current before the failed attempt, stale after it.
+  const standing=p=>p.payload.value.reviewStanding.find(r=>r.reviewRef===PRESERVATION);
+  const before=run.parents.filter(p=>p.admissionOrdinal<step.admissionOrdinal).at(-1),after=run.parents.find(p=>p.admissionOrdinal>step.admissionOrdinal);
+  assert.deepEqual([standing(before).satisfied,standing(before).current],[false,true]);
+  assert.deepEqual([standing(after).satisfied,standing(after).current],[false,false]);
+  assert.deepEqual(after.payload.value.observations,before.payload.value.observations,'no failure row enters the work state');
+  // The retry cites the failure Result as admissible evidence.
+  const retry=run.results.filter(e=>e.payload.value?.kind==='registered_graph_choice'&&e.admissionOrdinal>step.admissionOrdinal)[0].payload.value;
+  assert.deepEqual([retry.graphFunctionRef,retry.evidenceRefs],[ref('construction'),[attempt[0].resultRef]]);
+  assert.equal(final.observations.filter(o=>o.purpose==='construction').length,2);
+  t.diagnostic(JSON.stringify({attempt,before:standing(before),after:standing(after)}));
+});
+
+test('W3: a silent worker is contained at inactivity; its failed attempt carries the timeout class; the Run continues and closes',{timeout:900_000},async t=>{
+  const dir=await scratchCopy(t),{state}=await amendmentWitnessInput({processDefinition:await json(definitionPath),amendment:await json(amendmentPath('approval-threshold')),seedRoot:dir,product});
+  const budget=projectWorksiteCommandExecutionBudget(state.original.testing).requiredExecutionBudgetMs,inactivity=budget+5000;
+  const run=await failureRun(t,'silent',{ABI5_AMENDMENT_ACTOR_FAIL:'construction:silent',ABG_TS_FP_TIMEOUT_MS:String(inactivity),ABG_TS_FP_ABSOLUTE_TIMEOUT_MS:String(inactivity*4)});
+  assert.deepEqual(run.log.map(r=>r.role),[...MAIN.slice(0,7),'fail:construction','select:construction',...MAIN.slice(7)],run.diagnostic());
+  await closes(run);
+  const attempt=selections(run)[4].failed;
+  assert.deepEqual(attempt,[{graphFunctionRef:ref('construction'),failureClassRef:TRANSPORT,timeoutClass:'inactivity',changedPaths:[],resultRef:attempt[0].resultRef}]);
+  assert.equal(run.result(attempt[0].resultRef).payload.value.failureClass,'transport_failure');
+  t.diagnostic(JSON.stringify({inactivityMs:inactivity,attempt}));
+});
+
+test('W4: a write outside the grant stops the Run; nothing folds back into a selection',{timeout:1_800_000},async t=>{
+  // The worker writes outside its grant and exits non-zero: the class is declared, the step folds back
+  // failed, and the parent refuses at re-entry from the admitted changed paths.
+  const exited=await failureRun(t,'scope-exit',{ABI5_AMENDMENT_ACTOR_FAIL:'construction:scope'});
+  assert.deepEqual(exited.log.map(r=>r.role),[...MAIN.slice(0,7),'fail:construction'],exited.diagnostic());
+  assert.equal(exited.receipt.ownerOutput.value.disposition,'runtime_failed',exited.diagnostic());
+  assert.equal(exited.failedSteps.length,1,exited.diagnostic());
+  // The parent's own evaluation is the refused leaf: its failure Result carries the typed refusal.
+  const tail=JSON.stringify(exited.events.slice(-14).map(e=>[e.kind,e.graphFunctionRef,e.payload?.resultClass??e.payload?.stage??null]));
+  const refusedParent=exited.results.filter(e=>e.graphFunctionRef===witnessRef('graph-function','executive')&&e.payload.resultClass==='failure');
+  assert.equal(refusedParent.length,1,exited.diagnostic()+tail);
+  const subject=diagnosticSubject(refusedParent[0].payload.value.diagnosticRef);
+  assert.deepEqual([subject.diagnosticClassRef,subject.computeRegime,subject.stage,subject.relation,subject.selectors],
+    [product.governanceRef('diagnostic','missing-owned-evaluate-parent'),'F_D','parent_reentry','failure_write_outside_grant',{failureResultRef:exited.failedSteps[0].payload.childResultRef}]);
+  assert.ok(selections(exited).every(r=>r.failed.length===0));
+  const leaf=exited.events.find(e=>e.kind==='c_call_result_admitted'&&e.graphFunctionRef===product.NATIVE_WORKSPACE_WORK_IDS.graphFunctionRef&&e.payload.resultClass==='failure').payload.value;
+  assert.deepEqual([leaf.failureClass,leaf.changedPaths.includes('design/impact-assessment.md')],['transport_failure',true]);
+  // The worker writes outside its grant and reports success: the undeclared class stops the Run at the route.
+  const reported=await failureRun(t,'scope-success',{ABI5_AMENDMENT_ACTOR_FAIL:'construction:scope-success'});
+  assert.deepEqual(reported.log.map(r=>r.role),[...MAIN.slice(0,7),'fail:construction','native:construction'],reported.diagnostic());
+  assert.equal(reported.failedSteps.length,0);assert.equal(reported.receipt.ownerOutput.value.disposition,'runtime_failed');
+  const route=reported.events.filter(e=>e.kind==='runtime_failure_observed');assert.equal(route.length,1);
+  const routeClass=route[0].payload.diagnosticRef.startsWith('data:')?diagnosticSubject(route[0].payload.diagnosticRef).diagnosticClassRef:route[0].payload.diagnosticRef;
+  assert.deepEqual([route[0].payload.stage,routeClass],['route','diagnostic://abiogenesis/worksite/native-work/write_scope_violation@5'],reported.diagnostic());
+  t.diagnostic(JSON.stringify({reentry:subject.relation,route:routeClass}));
+});
+
+test('W5: with a small limit and an always-failing worker, failed steps consume the limit and the Run ends at the blocked stop',{timeout:900_000},async t=>{
+  // Bound 4 admits four parent evaluations and so three steps (REQ-L-GTL3-RECURSE-007).
+  const run=await failureRun(t,'limit',{ABI5_AMENDMENT_ACTOR_FAIL:'intake-triage:exit:99'},{bound:4});
+  assert.deepEqual(run.log.map(r=>r.role),['select:induction','fail:intake-triage','select:induction','fail:intake-triage','select:induction','fail:intake-triage'],run.diagnostic());
+  assert.equal(run.receipt.ownerOutput.value.disposition,'blocked',run.diagnostic());
+  assert.deepEqual(run.stops.map(e=>[e.kind,e.payload.reasonRef]),[['run_stopped','reason://abiogenesis/recursion/bound-exhausted@5']]);
+  assert.deepEqual(run.recursion.map(e=>e.payload.childDisposition),['failed','failed','failed']);
+  const seen=selections(run).map(r=>r.failed);
+  assert.deepEqual(seen.map(f=>f.length),[0,1,2]);
+  assert.deepEqual(seen[2].map(a=>[a.graphFunctionRef,a.failureClassRef,a.changedPaths]),[[ref('induction'),TRANSPORT,['work/intake-triage.md']],[ref('induction'),TRANSPORT,[]]]);
+  t.diagnostic(JSON.stringify({stops:run.stops.length,failedSteps:run.failedSteps.length}));
+});
+
+test('W6: after a restated design makes impact stale, construction is refused again until impact is re-satisfied, then the Run closes',{timeout:900_000},async t=>{
+  const run=await failureRun(t,'stale',{ABI5_AMENDMENT_ACTOR_REDESIGN:'1'});
+  assert.deepEqual(run.log.map(r=>r.role),[...MAIN.slice(0,6),'select:design','native:impact-assessment:restated','select:construction','select:review:'+IMPACT,'assess:'+IMPACT,...MAIN.slice(6)],run.diagnostic());
+  await closes(run);
+  assert.equal(run.failedSteps.length,1);
+  const refused=run.result(run.failedSteps[0].payload.childResultRef),subject=diagnosticSubject(refused.payload.value.diagnosticRef);
+  assert.deepEqual([subject.diagnosticClassRef,subject.relation,subject.selectors],[SELECT_CLASS,'target_not_permitted',
+    {graphFunctionRef:ref('construction'),reviewRef:null,missingReviews:null,staleReviews:IMPACT,missingSelectedPaths:null}]);
+  const impact=p=>p.payload.value.reviewStanding.find(r=>r.reviewRef===IMPACT);
+  const atRefusal=run.parents.filter(p=>p.admissionOrdinal<run.failedSteps[0].admissionOrdinal).at(-1);
+  assert.deepEqual([impact(atRefusal).satisfied,impact(atRefusal).current],[true,false]);
+  const reviews=run.parents.at(-1).payload.value.observations.filter(o=>o.reviewRef===IMPACT);
+  assert.equal(reviews.length,2);assert.ok(reviews.every(o=>o.value.disposition==='satisfied'));
+  t.diagnostic(JSON.stringify({relation:subject.relation,selectors:subject.selectors}));
 });
 test('a task that omits a review its Program names is refused at selection intake: no actor call, no write; the event log names the review',{timeout:900_000},async t=>{
   const proof=await mkdtemp(join(tmpdir(),'amendment-intake-'));t.after(()=>rm(proof,{recursive:true,force:true}));
@@ -354,7 +418,7 @@ system. It exercises the relations below and no others.
 | Design records and modules | stdo://releases/v3.0.4/standards/DESIGN_MODULE.md | no | the impact assessment is the only design output |
 | Release and qualification | stdo://releases/v3.0.4/standards/RELEASE.md | no | no release cut |
 | Human decision and re-entry above Requirements | stdo://releases/v3.0.4/standards/SPEC_METHOD.md#universal-intake-triage | no | ABIogenesis 5.0 has no human-response path; zero interventions holds by construction |
-| Prerequisite order between stages | process-definition.json prerequisites | yes | declared on the consumer Program's executive step; only permitted work is offered and admitted, and an early choice is refused before its stage runs |
+| Prerequisite order between stages | process-definition.json prerequisites | yes | declared on the consumer Program's executive step; only permitted work can be selected next, and an early choice is refused before its stage runs and returns to the Executive |
 `;
 test('live: the same amendment witness against a real provider writes its evidence',{timeout:3_600_000,skip:process.env.ABI5_AMENDMENT_WITNESS_LIVE!=='1'&&"ABI5_AMENDMENT_WITNESS_LIVE is not '1'; selects the live amendment witness"},async t=>{
   const evidence=process.env.ABI5_AMENDMENT_WITNESS_EVIDENCE_ROOT??await mkdtemp(join(tmpdir(),'abi5-amendment-witness-'));

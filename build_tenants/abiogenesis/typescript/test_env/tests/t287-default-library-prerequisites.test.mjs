@@ -50,7 +50,7 @@ const synthesisBasis=(task,inputRef='input:synthesis')=>({inputRef,inputDigest:h
   frameEvidenceDigest:h('frame'),frameRefs:['frame:fixed'],contextRef:task.context.observationRef,previousResultRef:null});
 
 // Head 3a02bb52f digests of the same constructions (computed against that build).
-const HEAD_PINS={graphs:'sha256:d29a3c03a28b2f10d64dfe0171cea257cd08e8a7cb6bfb6579f8f837cef0f779',library:'sha256:30d2ea23ee66155bd507483aae238e511096eaf4ad46d2816465ad62f7459c82',
+const HEAD_PINS={graphs:'sha256:b8d87f1b0257c54798496456a67f14957700afcd3a5ae0b31cc5abe9b7a8ae80',library:'sha256:d47c2c6a0fd7ca3a80637a07fd9cf07f1aede26954af2f776869996414a6aa95',
   bindings:'sha256:903382114338af04a61b17f6306316fa5e586298b5562974f11a50e406c0fc23',environment:'sha256:6a089e94985d54e96c82a2c8de4bc2e10938d4ba31f36dc8031e752bd9080e32',
   reviewed:'sha256:fc520d836a81eda8f36b56610d0e0ad2e51cdd5d50ebf6bb4c3664a3cfffa0ba',view:'sha256:1fd0cc97a81bebb1f281c2ce7d1dec058dfcc136492429426ebd0fb7e463f8d7',
   schema:'sha256:c2e7b76317fc6707d6701f601dbb93cedb40faf6a15594304c084b7dc9cded5d'};

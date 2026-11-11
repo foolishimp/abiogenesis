@@ -80,7 +80,7 @@ else if('interpretation' in props){
 }
 `;
 
-async function stoppedRun(t,{name,role='',mode='',bound=12,limits={}}){
+async function stoppedRun(t,{name,role='',mode='',bound=12,limits={},failedChildDiagnosticClassRefs}){
   const selection=JSON.parse(await readFile(join(witnessRoot,'selection.json'),'utf8'));let selectedEnvironment;
   const env=await setupInstalledRootCatalog(t,packageRoot,{candidateBasisSource:'packed_artifact',rootPublicationKind:'worksite_construction',workspaceProductIndex:1,additionalCorePublicationConstructors:constructors,
     prepareAdditionalProducts:async setup=>{
@@ -88,7 +88,7 @@ async function stoppedRun(t,{name,role='',mode='',bound=12,limits={}}){
       const library=setup.gtl.constructDefaultGovernanceLibraryModulePublication({...basis,packageName:setup.abiPublication.productSemanticsBinding.packageName,packageVersion:setup.abiPublication.productSemanticsBinding.packageVersion});
       const schema=join(setup.scratch,'assessment.schema.json');await writeFile(schema,JSON.stringify(assessmentSchema)+'\n');
       return [await prepareRegisteredSelectionProduct({...setup,abiPackageArchivePath:setup.abiPackageArchivePath,
-        declarationFactory:g=>libraryConsumerDeclaration(g,library,selectedEnvironment.declaration,{purposes:['construction','testing','review','uat'],bound}),
+        declarationFactory:g=>libraryConsumerDeclaration(g,library,selectedEnvironment.declaration,{purposes:['construction','testing','review','uat'],bound,failedChildDiagnosticClassRefs}),
         fixtureFiles:[{path:'build/index.mjs',source:new URL('../fixtures/default-library-product/index.mjs',import.meta.url)}],
         schemaAssets:[{path:schemaPath,source:schema,contractId:witnessRef('contract','assessment'),requirementAuthorityRefs:[COMPLETE]}]})];
     }});
@@ -175,13 +175,13 @@ function assertFailureOrigin(run,timeoutClass){
 }
 
 test('worker exit failure reads back its originating failure class, reason and last root Result cold',{timeout:900_000},async t=>{
-  const run=await stoppedRun(t,{name:'exit',role:'native',mode:'exit'});
+  const run=await stoppedRun(t,{name:'exit',role:'native',mode:'exit',failedChildDiagnosticClassRefs:[]});
   assert.deepEqual(run.roles,['select:construction','native:exit']);
   t.diagnostic(assertFailureOrigin(run,null).statement);
 });
 
 test('absolute time ceiling reads back the originating failure with its timeout class cold',{timeout:900_000},async t=>{
-  const run=await stoppedRun(t,{name:'absolute',role:'native',mode:'absolute',limits:TIME_LIMITS});
+  const run=await stoppedRun(t,{name:'absolute',role:'native',mode:'absolute',limits:TIME_LIMITS,failedChildDiagnosticClassRefs:[]});
   assert.deepEqual(run.roles,['select:construction','native:absolute']);
   t.diagnostic(assertFailureOrigin(run,'absolute').statement);
 });

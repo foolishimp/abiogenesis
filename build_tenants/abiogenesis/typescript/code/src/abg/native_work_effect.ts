@@ -38,7 +38,9 @@ export function nativeWorkImpactOverlaps(impact: NativeWorkImpact, path: string)
   });
 }
 
-function causeActor(event: RuntimeEvent): string | null {
+/** @internal The actor invocation an unknown-effect cause names: an unconfirmed
+ * process termination or a transport exception; null for every other event. */
+export function nativeWorkUnknownEffectActor(event: RuntimeEvent): string | null {
   if (!isRecord(event.payload) || typeof event.payload.actorInvocationRef !== "string" ||
     typeof event.payload.processRef !== "string") return null;
   if (event.kind === "actor_process_termination_unconfirmed") return event.aggregateType === "process" &&
@@ -53,7 +55,7 @@ function causeActor(event: RuntimeEvent): string | null {
 /** @internal Select causal support only for the actual cause at this cut. Keys
  * narrow acquisition; the task projector below owns authentication. */
 export function nativeWorkUnknownEffectDependencies(prefix: RuntimeEventPrefix, event: RuntimeEvent): readonly RuntimeEvent[] {
-  const actorRef = causeActor(event);
+  const actorRef = nativeWorkUnknownEffectActor(event);
   if (actorRef === null || !isDeepStrictEqual(runtimeEventAtPrefix(prefix, event.eventId), event)) return [];
   const before = validatedRuntimeEventPrefixBeforeEvent(prefix, event.eventId);
   const selected = new Map<string, RuntimeEvent>();
@@ -101,7 +103,7 @@ const checkedEventOrNull = (checked: CheckedRecord<RuntimeEvent, unknown>): Runt
  * pure candidate-effect calculation, not event admission. */
 export function projectNativeWorkUnknownEffectTask(event: RuntimeEvent, priorEvents: readonly RuntimeEvent[],
   ownedPrefix?: RuntimeEventPrefix): NativeWorkspaceWorkTask | null {
-  const actorRef = causeActor(event);
+  const actorRef = nativeWorkUnknownEffectActor(event);
   if (actorRef === null || !isRecord(event.payload) || typeof event.basisId !== "string" ||
     typeof event.runId !== "string" || typeof event.graphCallId !== "string" || typeof event.frameId !== "string" ||
     typeof event.graphFunctionRef !== "string" || sha256Canonical(event.payload) !== event.payloadDigest) return null;

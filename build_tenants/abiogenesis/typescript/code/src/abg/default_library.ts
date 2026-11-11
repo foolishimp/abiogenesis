@@ -33,6 +33,12 @@ import { governanceFulfillmentSelection, initialGovernanceFulfillment, governanc
 import { framedSynthesisEvidenceRefs, governanceSubjectEvidenceRefs, projectGovernanceObservationFacts, governanceDirectFixedState as directFixedState,
   GOVERNANCE_DIRECT_PURPOSES as DIRECT_PURPOSES, GOVERNANCE_DIRECT_WRAPPERS as DIRECT_WRAPPERS } from "../product/default_library.js";
 import { onlyExactMatch, type ExactMatch } from "../shared/select/index.js";
+import { GOVERNANCE_SELECTION_REFUSALS, type FramedSynthesisFailedAttempt } from "../product/default_library.js";
+import { NATIVE_WORKSPACE_WORK_IDS } from "../product/native_workspace_work_identity.js";
+import { isNativeWorkspaceWorkFailure, nativeWorkspaceScopeViolations } from "../product/native_workspace_work.js";
+import { failedChildDiagnosticClassRef } from "./graph_application.js";
+import { readRuntimeFailureDiagnosticSubject } from "./runtime_failure.js";
+import { nativeWorkUnknownEffectActor } from "./native_work_effect.js";
 /** Owner boundary: `absent` and `many` map to `null`. */
 const exactOrNull = <T>(match: ExactMatch<T>): T | null => match.kind === "one" ? match.value : null;
 /** Owner boundary: `absent` and `many` map to `undefined`. */
@@ -143,12 +149,108 @@ function selectionIntake(basis: NativeInstructionAssemblyBasis, state: Governanc
   refusal?.("selection_intake", undeclared === null ? "process_declaration" : "process_review_undeclared", undeclared === null ? {} : { reviewRefs: undeclared.join(" ") });
   return false;
 }
-/** Selection task construction over the admitted context; reads no worksite. */
+/** Native work classes no declaration makes recoverable: a write outside the
+ * grant and the two integrity classes. */
+const UNRECOVERABLE_NATIVE_CLASSES: readonly string[] = ["write_scope_violation", "transport_identity_mismatch", "assessment_independence_mismatch"];
+type Scalars = Readonly<Record<string, string | number | boolean | null>>;
+export type GovernanceFailedStepReading = Readonly<{ attempt: FramedSynthesisFailedAttempt; relation: null } | { attempt: null; relation: string }>;
+/**
+ * One failed step of this Run, read from the admitted record alone. The
+ * recursion foldback names the step's failed Result; failed workflow foldbacks
+ * under each failed CCall lead down to the originating leaf Result. The step
+ * continues (`relation` null) only when the origin is the selector with a typed
+ * refusal whose relation the record carries (a process end also needs its
+ * `actor_invocation_failed` fact), or native work or assessment whose effects
+ * are attributable: an `after` observation, no write outside the grant, no
+ * unrecoverable class and no unknown-effect fact for its actor invocation.
+ * Every other reading names the relation the parent refuses with.
+ */
+export function projectGovernanceFailedStepAtPrefix(prefix: RuntimeEventPrefix, runId: string, foldback: RuntimeEvent): GovernanceFailedStepReading {
+  const refuse = (relation: string) => ({ attempt: null, relation }), p = foldback.payload;
+  if (foldback.kind !== "child_foldback_admitted" || foldback.runId !== runId || !record(p) || p.childDisposition !== "failed" || typeof p.childGraphCallId !== "string" ||
+    typeof p.childResultRef !== "string" || typeof p.childResultDigest !== "string" || typeof p.childReasonRef !== "string") return refuse("failure_record_unresolved");
+  const failed = (resultRef: JsonValue | undefined, resultDigest: JsonValue | undefined, graphCallId: JsonValue | undefined) =>
+    typeof resultRef !== "string" ? null : exactOrNull(onlyExactMatch(indexedRuntimeEvents(prefix, "payload:resultRef:" + resultRef).filter(e =>
+      e.kind === "c_call_result_admitted" && e.runId === runId && e.graphCallId === graphCallId && record(e.payload) && e.payload.resultClass === "failure" && e.payload.resultDigest === resultDigest)));
+  const classRef = failedChildDiagnosticClassRef(p.childReasonRef);
+  let origin = failed(p.childResultRef, p.childResultDigest, p.childGraphCallId);
+  // Each lifted failure was folded back from the last failed child of its CCall before it.
+  for (let depth = 0; origin !== null && depth < 8; depth++) {
+    const at = origin.admissionOrdinal, down = indexedRuntimeEvents(prefix, "payload:parentCCallRef:" + origin.aggregateId).filter(e => e.kind === "child_foldback_admitted" &&
+      e.runId === runId && e.admissionOrdinal < at && record(e.payload) && e.payload.childDisposition === "failed").at(-1);
+    if (down === undefined) break;
+    const d = down.payload as Readonly<Record<string, JsonValue>>;
+    origin = failed(d.childResultRef, d.childResultDigest, d.childGraphCallId);
+  }
+  if (origin === null || classRef === null || !record(origin.payload) || typeof origin.payload.resultRef !== "string") return refuse("failure_record_unresolved");
+  const cCallRef = origin.aggregateId, value = origin.payload.value;
+  const loci = new Set(indexedRuntimeEvents(prefix, "related:" + cCallRef).flatMap(e => e.kind === "c_call_opened" && e.runId === runId && record(e.payload) ? [e.payload.programLocusRef] : []));
+  const locus = loci.size === 1 ? [...loci][0] : undefined;
+  const evidenced = indexedRuntimeEvents(prefix, "related:" + cCallRef).filter(e => e.kind === "c_call_evidenced" && e.runId === runId && e.admissionOrdinal < origin!.admissionOrdinal).at(-1);
+  const timeoutClass = record(evidenced?.payload) && typeof evidenced.payload.timeoutClass === "string" ? evidenced.payload.timeoutClass : null;
+  const common = { failureClassRef: classRef, timeoutClass, resultRef: origin.payload.resultRef };
+  if (origin.graphCallId === p.childGraphCallId && locus === ref("node", "select")) {
+    let subject: JsonValue | null = null;
+    try { subject = record(value) && typeof value.diagnosticRef === "string" ? readRuntimeFailureDiagnosticSubject(value.diagnosticRef) : null; } catch { subject = null; }
+    const relation = record(subject) ? subject.relation : undefined, selectors = record(subject) ? subject.selectors : undefined;
+    if (!record(subject) || subject.diagnosticClassRef !== classRef || classRef !== ref("diagnostic", "missing-owned-select") || !record(subject.occurrence) ||
+      subject.occurrence.cCallRef !== cCallRef || typeof relation !== "string" || !(GOVERNANCE_SELECTION_REFUSALS as readonly string[]).includes(relation) || !record(selectors) ||
+      !Object.values(selectors).every(x => x === null || ["string", "number", "boolean"].includes(typeof x))) return refuse("selection_failure_not_recoverable");
+    // A process end continues only beside the transport's own record of that end for this call.
+    const actor = selectors.actorInvocationRef;
+    if (relation === "selector_process_ended" && (typeof actor !== "string" || !indexedRuntimeEvents(prefix, "related:" + actor).some(e => e.kind === "actor_invocation_failed" &&
+      e.runId === runId && e.aggregateId === actor && e.parentAggregateId === cCallRef && record(e.payload) && e.payload.cCallRef === cCallRef))) return refuse("selection_failure_not_recoverable");
+    return { attempt: { graphFunctionRef: typeof selectors.graphFunctionRef === "string" ? selectors.graphFunctionRef : null,
+      ...(typeof selectors.reviewRef === "string" ? { reviewRef: selectors.reviewRef } : {}), ...common, changedPaths: [],
+      refusal: { relation, selectors: selectors as Scalars } }, relation: null };
+  }
+  const ids = NATIVE_WORKSPACE_WORK_IDS;
+  if (!(origin.graphFunctionRef === ids.graphFunctionRef && locus === ids.nodeRef || origin.graphFunctionRef === ids.assessmentGraphFunctionRef && locus === ids.assessmentNodeRef) ||
+    !isNativeWorkspaceWorkFailure(value) || value.provenance.cCallRef !== cCallRef || failedChildDiagnosticClassRef(value.diagnosticRef) !== classRef) return refuse("failure_origin_not_recoverable");
+  if (UNRECOVERABLE_NATIVE_CLASSES.includes(value.failureClass)) return refuse("failure_class_not_recoverable");
+  const actor = value.provenance.actorInvocationRef, task = projectNativeWorkspaceWorkResultTaskAtPrefix(prefix, origin);
+  if (task === null) return refuse("failure_record_unresolved");
+  if (value.after === null || [...indexedRuntimeEvents(prefix, "related:" + actor), ...indexedRuntimeEvents(prefix, "invocation:" + actor)]
+    .some(e => nativeWorkUnknownEffectActor(e) === actor)) return refuse("failure_effects_unattributed");
+  if (nativeWorkspaceScopeViolations(task, value.after).length !== 0) return refuse("failure_write_outside_grant");
+  // The step's own admitted choice names the graph and review the failed attempt ran.
+  const choice = exactOrNull(onlyExactMatch(indexedRuntimeEvents(prefix, "graph-call:" + p.childGraphCallId).filter(e => e.kind === "c_call_result_admitted" &&
+    e.runId === runId && record(e.payload) && e.payload.resultClass === "success" && record(e.payload.value) && e.payload.value.kind === "registered_graph_choice" &&
+    e.payload.value.disposition === "selected")));
+  const chosen = record(choice?.payload) && record(choice.payload.value) ? choice.payload.value : null;
+  const synthesis = record(chosen?.input) && record(chosen.input.value) ? chosen.input.value.synthesis : null;
+  const reviewRef = record(synthesis) && record(synthesis.judgment) ? synthesis.judgment.reviewRef : null;
+  if (chosen === null || typeof chosen.graphFunctionRef !== "string") return refuse("failure_record_unresolved");
+  return { attempt: { graphFunctionRef: chosen.graphFunctionRef, ...(typeof reviewRef === "string" ? { reviewRef } : {}), ...common,
+    changedPaths: [...value.changedPaths ?? []] }, relation: null };
+}
+/** This Run's recursion foldbacks under one executive basis, in order. */
+function recursionFoldbacks(prefix: RuntimeEventPrefix, runId: string, parentBasisRef: string): readonly RuntimeEvent[] {
+  return indexedRuntimeEvents(prefix, "basis:" + parentBasisRef).filter(e => e.kind === "child_foldback_admitted" && e.runId === runId &&
+    e.basisId === parentBasisRef && record(e.payload) && typeof e.payload.applicationRef === "string");
+}
+/** Every failed step of this Run under one executive basis, in order; null when
+ * any one of them does not continue, which its parent already refused. */
+export function projectGovernanceFailedAttemptsAtPrefix(prefix: RuntimeEventPrefix, runId: string, parentBasisRef: string): readonly FramedSynthesisFailedAttempt[] | null {
+  const attempts: FramedSynthesisFailedAttempt[] = [];
+  for (const foldback of recursionFoldbacks(prefix, runId, parentBasisRef)) {
+    if (!record(foldback.payload) || foldback.payload.childDisposition !== "failed") continue;
+    const reading = projectGovernanceFailedStepAtPrefix(prefix, runId, foldback);
+    if (reading.attempt === null) return null;
+    attempts.push(reading.attempt);
+  }
+  return attempts;
+}
+/** Selection task construction over the admitted context and this Run's failed
+ * steps; reads no worksite. No failed step enters the work state. */
 function selectionTask(o: Owner, state: GovernanceWorkState, context: WorksiteContextObservation): FramedSynthesisTask | null {
   if (state.original.fulfillment !== undefined && state.synthesis === null &&
     !governanceFulfillmentSourceMatches(state.original.fulfillment, context, bodies(o, context))) return null;
   if (state.terminal) throw new TypeError("completed parent cannot select work");
-  return { kind: "framed_synthesis_task", schemaVersion: "5.0.0", state, context };
+  const parent = o.execution.parentExecutionBasisRef;
+  const failedAttempts = parent === null ? [] : projectGovernanceFailedAttemptsAtPrefix(o.prefix, o.call.runId, parent);
+  if (failedAttempts === null) return null;
+  return { kind: "framed_synthesis_task", schemaVersion: "5.0.0", state, context, ...(failedAttempts.length === 0 ? {} : { failedAttempts }) };
 }
 export function projectGovernanceChoice(basis: NativeInstructionAssemblyBasis, input: unknown, refusal?: GovernanceTestingRefusal) {
   const o = owner(basis, input); if (o === null || !isFramedSynthesisResult(input)) return null;
@@ -418,8 +520,16 @@ export function projectGovernanceFold(basis: NativeInstructionAssemblyBasis, inp
   return { ...input.entry, observations: [...input.entry.observations, { ...observation, fulfillmentEvidence: fact }], fulfillment,
     terminal: false, unresolvedSupportRefs: fulfillment.coverage.filter(r => r.disposition !== "eligible").map(r => r.obligationRef) };
 }
-export function projectGovernanceParent(basis: NativeInstructionAssemblyBasis, input: unknown): GovernanceWorkState | null {
+export function projectGovernanceParent(basis: NativeInstructionAssemblyBasis, input: unknown, refusal?: GovernanceTestingRefusal): GovernanceWorkState | null {
   const o = owner(basis, input); if (o === null || !isGovernanceWorkState(input)) return null;
+  // Re-entry after a failed step: the parent continues only over a step its own
+  // admitted record shows to be recoverable; otherwise the Run stops here.
+  const latest = recursionFoldbacks(o.prefix, o.call.runId, o.execution.basisRef).at(-1);
+  if (latest !== undefined && record(latest.payload) && latest.payload.childDisposition === "failed") {
+    const reading = projectGovernanceFailedStepAtPrefix(o.prefix, o.call.runId, latest);
+    if (reading.relation !== null) return testingRefused(refusal, "parent_reentry", reading.relation,
+      { failureResultRef: typeof latest.payload.childResultRef === "string" ? latest.payload.childResultRef : null });
+  }
   // One authentication of an admitted assessment row: its exact Result, producer actor and use.
   const admitted = (row: GovernanceObservation) => {
     const event = result(o, row.resultRef, row.resultDigest);

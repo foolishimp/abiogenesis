@@ -7,7 +7,7 @@ import { graphInputRetentionBinding, RETAINED_GRAPH_INPUT_CONTRACT } from "../pr
 import { NATIVE_WORKSPACE_WORK_IDS as native } from "../product/native_workspace_work_identity.js";
 import { WORKSITE_COMMAND_EXECUTION_IDS as c2 } from "../product/worksite_command_execution_identity.js";
 import { DEFAULT_LIBRARY_POLICY, GOVERNANCE_POLICIES, GOVERNANCE_PURPOSES, GOVERNANCE_OPERATIONS, governanceRef as ref,
-  governanceContract as contract, GOVERNANCE_FULFILLMENT_PROFILE, GOVERNANCE_PREREQUISITES_DECLARATION, governancePrerequisites,
+  governanceContract as contract, GOVERNANCE_FULFILLMENT_PROFILE, GOVERNANCE_PREREQUISITES_DECLARATION, governancePrerequisites, GOVERNANCE_RECOVERABLE_FAILURE_CLASSES,
   type GovernanceOperation, type GovernancePurpose, type GovernancePrerequisites } from "../product/default_library.js";
 import { canonicalJson, type JsonValue } from "../shared/canonical_json.js";
 import { sha256Bytes, sha256Canonical } from "../shared/digests.js";
@@ -52,8 +52,9 @@ function wrapper(purpose: GovernancePurpose): GraphFunction {
       edges: [graphEdge({ fromNodeRef: nodes[0]!.nodeRef, toNodeRef: nodes[1]!.nodeRef }), graphEdge({ fromNodeRef: nodes[1]!.nodeRef,
         toNodeRef: nodes[2]!.nodeRef, inputBinding: graphInputRetentionBinding(state, output) })], applications: [] } };
 }
-export function defaultGovernanceGraphFunctions(options: { purposes?: readonly GovernancePurpose[]; recursionBound?: number; prerequisites?: GovernancePrerequisites } = {}): readonly GraphFunction[] {
-  const purposes = options.purposes ?? GOVERNANCE_PURPOSES, process = options.prerequisites;
+export function defaultGovernanceGraphFunctions(options: { purposes?: readonly GovernancePurpose[]; recursionBound?: number; prerequisites?: GovernancePrerequisites;
+  failedChildDiagnosticClassRefs?: readonly string[] } = {}): readonly GraphFunction[] {
+  const purposes = options.purposes ?? GOVERNANCE_PURPOSES, process = options.prerequisites, recoverable = options.failedChildDiagnosticClassRefs ?? GOVERNANCE_RECOVERABLE_FAILURE_CLASSES;
   if (!purposes.length || new Set(purposes).size !== purposes.length || purposes.some(p => !GOVERNANCE_PURPOSES.includes(p))) throw new TypeError("explicit unique registered purposes required");
   // The process declaration is the executive step's: it names registered purposes and is satisfied through the registered review wrapper.
   const declared = process === undefined ? {} : { [GOVERNANCE_PREREQUISITES_DECLARATION]: canonicalJson(process as unknown as JsonValue) };
@@ -71,7 +72,9 @@ export function defaultGovernanceGraphFunctions(options: { purposes?: readonly G
         evaluatorRef: ref("evaluator", "project-choice"), ruleRef: ref("rule", "project-choice") })] } };
   const recursion = recurseApplication({ inputContractRef: state, outputContractRef: state, graphFunctionRef: name,
     terminationRuleRef: ref("rule", "parent"), terminationEvaluatorRefs: [ref("evaluator", "parent")], terminationFieldRef: "$.terminal",
-    foldback: { mode: "rebind", binding: "$", requiresParentEvaluation: true }, bound: options.recursionBound ?? 12 });
+    // An empty list declares none: the foldback keeps its bytes and a failed step stops the Run.
+    foldback: { mode: "rebind", binding: "$", requiresParentEvaluation: true, ...(recoverable.length === 0 ? {} : { failedChildDiagnosticClassRefs: recoverable }) },
+    bound: options.recursionBound ?? 12 });
   const parentNode = leaf("evaluate-parent", ref("node", "parent"), recursion.applicationRef);
   const parent: GraphFunction = { ...step, name: ref("graph-function", "executive"),
     declarations: { ...declarations, "abg.closure_contract": contract("closure-run"), "abg.judgment_predicate": ref("predicate", "evaluate-parent"),
