@@ -70,10 +70,13 @@ before retry eligibility is computed:
 
 | T-106 timeout class | Runtime failure class | Retry allowlist result |
 |---|---|---|
-| `inactivity_timeout` | `no_output` | retryable by default |
+| `inactivity_timeout` | `transport_failure`, carrying the inactivity timeout class | retryable by default |
 | `hard_timeout` | `transport_failure` | retryable by default |
 | `transport_exit` | `transport_failure` | retryable by default |
 | deterministic payload/report rejection | `contract_failure` | retryable by default |
+
+No timeout class maps to `no_output`. It classifies a worker process that ended
+normally, without a timeout, with empty final output.
 
 `runtime_unavailable`, `capability_missing`, `runtime_failure`, and
 `payload_contract_failure` are not introduced by traversal no-progress. If they
