@@ -4,6 +4,8 @@
 **Governs**: M03 runtime liveness, actor/process supervision, retry/watchdog disposition  
 **Requirement authority**:
 
+Retired sections: [history/M03_SYSTEM_PROBE_OBSERVER_LIVENESS_DERIVATION__RETIRED_SECTIONS.md](history/M03_SYSTEM_PROBE_OBSERVER_LIVENESS_DERIVATION__RETIRED_SECTIONS.md).
+
 - `REQ-R-ABG3-TRANSPORT-025` through `REQ-R-ABG3-TRANSPORT-030`
 - `REQ-R-ABG3-EVENTS-022` and `REQ-R-ABG3-EVENTS-023`
 - `REQ-R-ABG3-PROJECTION-016` and `REQ-R-ABG3-PROJECTION-017`
@@ -92,12 +94,3 @@ Public start, gaps, live status, watchdog, retry, and downstream harness
 surfaces may render or relay liveness truth. They shall not compute separate
 liveness authority from elapsed time, child process state, transcript text, or
 file polling, local mutable controller state, or an asset-specific sidecar.
-
-## First Slice
-
-The first TypeScript slice publishes the carriers, event admission, Event
-Calculus effects, and pure replay projection. Existing actor/process events
-feed the observer projection directly. Transport paths may still emit their
-existing actor/process events while the projection normalizes them. Runtime
-runner replacement of every flat timeout call site is follow-on closure work
-under T-129 until public and downstream live proof agree.
