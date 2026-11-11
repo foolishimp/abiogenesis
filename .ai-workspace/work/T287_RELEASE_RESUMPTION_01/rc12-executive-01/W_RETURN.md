@@ -88,7 +88,10 @@ mismatch is indeterminate. The live case skips unless
   test_env/tests/t287-amendment-witness.test.mjs`: `tests 6, pass 5,
   fail 0, skipped 1` (live), 117 s. Commit `12f86d05e`.
 - E4 `node --experimental-vm-modules --test --test-concurrency=1
-  test_env/tests/t287-default-library-reviews.test.mjs`: E4_RESULT
+  test_env/tests/t287-default-library-reviews.test.mjs`: `tests 7, pass 7,
+  fail 0`, 90 s (7/7 before the change too). The build leaves
+  `T/contracts/capabilities/capability-definition-graph.json` and
+  `T/product-toolchain-manifest.json` modified; both uncommitted.
 
 ## What a later package must add
 
