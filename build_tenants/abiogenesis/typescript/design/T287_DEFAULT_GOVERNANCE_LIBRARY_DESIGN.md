@@ -15,9 +15,11 @@ consume the recursion bound; at the bound the existing blocked stop occurs.
 
 **Typed handoffs.**
 - `defaultGovernanceGraphFunctions({ failedChildDiagnosticClassRefs })`, default
-  `GOVERNANCE_RECOVERABLE_FAILURE_CLASSES`:
+  `GOVERNANCE_RECOVERABLE_FAILURE_CLASSES`, four declared classes:
   `diagnostic://abiogenesis/worksite/native-work/transport_failure@5`,
   `diagnostic://abiogenesis/worksite/native-work/contract_failure@5`,
+  `diagnostic://abiogenesis/worksite/native-work/no_output@5` (a worker that
+  ended normally, without a timeout, with empty final output),
   `diagnostic://abiogenesis/default-library/missing-owned-select@5`. An empty
   list omits the member: every definition, digest, prompt, schema and task byte
   is unchanged and a failed step stops the Run.
@@ -59,9 +61,11 @@ Otherwise the parent refuses at stage `parent_reentry` with
 `failure_effects_unattributed` or `failure_write_outside_grant`, selector
 `failureResultRef`, and the Run stops. The parent reads only its latest
 recursion foldback; selection preparation folds all of them and admission
-re-derives the task from the same prefix. Undeclared classes (a write outside
-the grant, preparation and projection refusals, command helper mismatches) are
-never folded back and stop the Run at the route.
+re-derives the task from the same prefix. Every other failure stops the Run,
+among them a write outside the grant, an unattributable effect, an unconfirmed
+termination and a failed deterministic computation. An undeclared class (a
+write outside the grant, preparation and projection refusals, command helper
+mismatches) is never folded back and stops the Run at the route.
 
 ```mermaid
 sequenceDiagram

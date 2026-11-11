@@ -9,7 +9,8 @@
 // ABI5_AMENDMENT_ACTOR_FAIL scripts failures: comma-separated
 // `<role>:<mode>[:<times>]`, role `select` or a worker step, mode `exit`
 // (a worker first writes part of its step), `silent`, `scope` (a write
-// outside the grant, then exit) or `scope-success`; times defaults to 1.
+// outside the grant, then exit), `scope-success` or `empty` (a worker ends
+// normally with an empty final output); times defaults to 1.
 // Each scripted failure is logged as `fail:<role>`.
 import {readFileSync,writeFileSync,existsSync,appendFileSync,mkdirSync} from 'node:fs';
 import {spawnSync} from 'node:child_process';
@@ -108,6 +109,7 @@ if('interpretation' in props){
   if(f){record({role:'fail:'+step,mode:f.mode});
     // Part of the step: its second file (its only file when it has one), then the scripted end.
     if(f.mode==='exit'){const entries=Object.entries(steps[step]),[path,source]=entries[1]??entries[0];write(path,readFileSync(join(standIn,source)));out({type:'system',subtype:'init',model:MODEL});process.stderr.write('scripted worker failure\n');process.exit(3);}
+    if(f.mode==='empty'){out({type:'system',subtype:'init',model:MODEL});out({type:'result',subtype:'success',is_error:false,result:'',modelUsage:{[MODEL]:{inputTokens:0,outputTokens:0}}});process.exit(0);}
     if(f.mode==='silent')hang();
     else{write('design/impact-assessment.md','Written outside the permitted write scope.\n');
       if(f.mode==='scope'){out({type:'system',subtype:'init',model:MODEL});process.stderr.write('scripted worker failure after an out-of-scope write\n');process.exit(3);}

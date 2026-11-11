@@ -18,15 +18,16 @@ import {standIn,json,definitionPath,amendmentPath,standInActor,runWitness,PURPOS
 // re-entry conditions and the failed-attempt fold over one admitted record.
 const h=product.sha256Canonical,ref=p=>product.governanceRef('graph-function',p),IMPACT=amendmentRef('review','impact');
 const TRANSPORT='diagnostic://abiogenesis/worksite/native-work/transport_failure@5',CONTRACT='diagnostic://abiogenesis/worksite/native-work/contract_failure@5';
+const NO_OUTPUT='diagnostic://abiogenesis/worksite/native-work/no_output@5';
 const SELECT_CLASS='diagnostic://abiogenesis/default-library/missing-owned-select@5',EXCEPTION='diagnostic://abiogenesis/implementation/implementation-exception@5';
 const executiveOf=graphs=>graphs.find(f=>f.template.applications.some(a=>a.relationKind==='recurse'));
 const recurseOf=graphs=>executiveOf(graphs).template.applications.find(a=>a.relationKind==='recurse');
 
-test('the executive recursion declares the three recoverable classes by default; an option overrides them; an empty list keeps every old-instance byte',()=>{
-  assert.deepEqual(product.GOVERNANCE_RECOVERABLE_FAILURE_CLASSES,[TRANSPORT,CONTRACT,SELECT_CLASS]);
+test('the executive recursion declares the four recoverable classes by default; an option overrides them; an empty list keeps every old-instance byte',()=>{
+  assert.deepEqual(product.GOVERNANCE_RECOVERABLE_FAILURE_CLASSES,[TRANSPORT,CONTRACT,NO_OUTPUT,SELECT_CLASS]);
   assert.equal(product.GOVERNANCE_RECOVERABLE_FAILURE_CLASSES.includes(EXCEPTION),false,'a thrown implementation exception is never recoverable');
   assert.deepEqual(product.GOVERNANCE_SELECTION_REFUSALS,['response_refused','target_not_permitted','selector_process_ended']);
-  assert.deepEqual(recurseOf(gtl.defaultGovernanceGraphFunctions()).foldback,{mode:'rebind',binding:'$',requiresParentEvaluation:true,failedChildDiagnosticClassRefs:[TRANSPORT,CONTRACT,SELECT_CLASS]});
+  assert.deepEqual(recurseOf(gtl.defaultGovernanceGraphFunctions()).foldback,{mode:'rebind',binding:'$',requiresParentEvaluation:true,failedChildDiagnosticClassRefs:[TRANSPORT,CONTRACT,NO_OUTPUT,SELECT_CLASS]});
   assert.deepEqual(recurseOf(gtl.defaultGovernanceGraphFunctions({failedChildDiagnosticClassRefs:[TRANSPORT]})).foldback.failedChildDiagnosticClassRefs,[TRANSPORT]);
   const empty=gtl.defaultGovernanceGraphFunctions({failedChildDiagnosticClassRefs:[]}),app=recurseOf(empty);
   assert.deepEqual(Object.keys(app.foldback).sort(),['binding','mode','requiresParentEvaluation']);
@@ -139,6 +140,28 @@ test('the parent continues only over a recoverable origin with attributable effe
     assert.equal(projectGovernanceFailedAttemptsAtPrefix(prefixOf(events),s.runId,s.parentBasis),null,name+': the fold refuses with the parent');
   }
   t.diagnostic(JSON.stringify(cases.map(([name,,,relation])=>[name,relation])));
+});
+
+test('a worker that ends normally with an empty final output fails with the native no_output class; the Run continues and the next selection shows the attempt',{timeout:900_000},async t=>{
+  const proof=await mkdtemp(join(tmpdir(),'recoverable-no-output-'));
+  const actor=await standInActor(proof),actorLog=join(proof,'actor.jsonl');
+  const run=await runWitness({after:()=>{}},{amendment:await json(amendmentPath('approval-threshold')),
+    actorEnvironment:{ABG_TS_CLAUDE_COMMAND:actor,ABI5_AMENDMENT_ACTOR_LOG:actorLog,ABI5_AMENDMENT_STAND_IN:standIn,ABI5_AMENDMENT_ACTOR_FAIL:'construction:empty'}});
+  const log=(await readFile(actorLog,'utf8')).trim().split('\n').map(l=>JSON.parse(l));
+  await rm(proof,{recursive:true,force:true});
+  const all=run.allEvents,leaves=all.filter(e=>e.kind==='c_call_result_admitted'&&e.graphFunctionRef===product.NATIVE_WORKSPACE_WORK_IDS.graphFunctionRef&&e.payload.value?.kind==='native_workspace_work_failure');
+  t.diagnostic(JSON.stringify({roles:log.map(r=>r.role),failures:leaves.map(e=>[e.payload.value.failureClass,e.payload.value.diagnosticRef])}));
+  assert.equal(run.receipt.ownerOutput.value.disposition,'completed');
+  assert.deepEqual(leaves.map(e=>[e.payload.value.failureClass,e.payload.value.diagnosticRef]),[['no_output',NO_OUTPUT]]);
+  const failed=all.filter(e=>e.kind==='child_foldback_admitted'&&typeof e.payload.applicationRef==='string'&&e.payload.childDisposition==='failed');
+  assert.equal(failed.length,1);
+  const rows=projectGovernanceFailedAttemptsAtPrefix(prefixOf(all),failed[0].runId,failed[0].basisId);
+  assert.deepEqual(rows,[{graphFunctionRef:ref('construction'),failureClassRef:NO_OUTPUT,timeoutClass:null,changedPaths:[],resultRef:leaves[0].payload.resultRef}]);
+  // The next selection's task and view carry the attempt; the step is retried and the Run closes.
+  const at=log.findIndex(r=>r.role==='fail:construction'),next=log.slice(at+1).find(r=>r.role.startsWith('select:'));
+  assert.deepEqual([next.role,next.failed],['select:construction',rows]);
+  const tasks=all.filter(e=>e.kind==='c_call_result_admitted'&&e.payload.value?.kind==='framed_synthesis_task');
+  assert.deepEqual(tasks.at(-1).payload.value.failedAttempts,rows);
 });
 
 test('the selector completion: an exchange identity mismatch throws; every other unbound completion is a typed missing-owned-select refusal',{timeout:900_000},async t=>{

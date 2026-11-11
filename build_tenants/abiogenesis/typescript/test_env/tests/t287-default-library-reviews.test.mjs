@@ -51,7 +51,7 @@ const verdict=disposition=>({kind:'consumer_outcome_assessment',disposition,reas
 // Baseline b7cf409fc pins for a task without reviews, computed by the same
 // construction before the review purpose existed (only the binder digest,
 // which binds a fresh context ref, is compared structurally instead).
-const OLD_INSTANCE_PINS={witness:'sha256:04b646eec3ea980eeb073e8c0cf77568509358267997a9b2490f5a54fda4f094',gtl3:'sha256:610e07824bf49251e08426991fb90aa022586cd07798648bd60c864060a6bb4b',
+const OLD_INSTANCE_PINS={witness:'sha256:04b646eec3ea980eeb073e8c0cf77568509358267997a9b2490f5a54fda4f094',gtl3:'sha256:61ca414590d3b3adedc7fd6e886b54e77515a08eafce4a7bcec3f0f46e6ef940',
   environment:'sha256:6a089e94985d54e96c82a2c8de4bc2e10938d4ba31f36dc8031e752bd9080e32',view0:'sha256:f4708d77df28b80560f3de91768839e725eb400314949530a54f0563a87ad2ba',
   schema0:'sha256:fd8f35c89984377428e15ae4601fc5cb7efe0a6209f26d2894a1349d19042e67',viewP:'sha256:9c43e7c948ad4208252aa7738704536347644fb2340f87ef81280bf3a4bd817f',
   schemaP:'sha256:7ab32a60a506ddec853f37b0ad061b64e8e8a66f27649b3ced579c96e4a3ea5a',facts:'sha256:f0f58ab251190720e98db2cc8af7aee4ea86ddea05807e3c6b1bb00d18d8c07d',

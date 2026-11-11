@@ -1153,9 +1153,10 @@ review. The selector's stated dependencies remain advisory.
 A step that fails with a declared recoverable class returns to the Executive in
 the same Run: the parent is re-evaluated, and the next selection sees the failed
 attempts from the admitted record, with the changes each attempt left in the
-worksite. A refused choice returns the same way. A write outside the grant, an
-unattributable effect, an unconfirmed termination or a failed deterministic
-computation stops the Run. Failed steps count against the declared limit.
+worksite. A refused choice returns the same way. Every other failure stops the
+Run, among them a write outside the grant, an unattributable effect, an
+unconfirmed termination and a failed deterministic computation. Failed steps
+count against the declared limit.
 
 Governance preserves the original task, required outcomes and authority while
 selecting or revising the choice of preregistered graph work in response to

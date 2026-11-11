@@ -24,10 +24,11 @@ export const GOVERNANCE_IMPLEMENTATION_REFS = GOVERNANCE_OPERATIONS.map(n => gov
  * the proposed next member is not permitted, or the selector's process ended. */
 export const GOVERNANCE_SELECTION_REFUSALS = ["response_refused", "target_not_permitted", "selector_process_ended"] as const;
 /** The failure classes with which a failed Executive step returns to its parent
- * by default: the native work transport and report contract failures, and a
- * typed selection refusal. */
+ * by default: the native work transport and report contract failures, a native
+ * worker that ended normally with empty output, and a typed selection refusal. */
 export const GOVERNANCE_RECOVERABLE_FAILURE_CLASSES: readonly string[] = Object.freeze(["diagnostic://abiogenesis/worksite/native-work/transport_failure@5",
-  "diagnostic://abiogenesis/worksite/native-work/contract_failure@5", governanceRef("diagnostic", "missing-owned-select")]);
+  "diagnostic://abiogenesis/worksite/native-work/contract_failure@5", "diagnostic://abiogenesis/worksite/native-work/no_output@5",
+  governanceRef("diagnostic", "missing-owned-select")]);
 export const DEFAULT_LIBRARY_POLICY = `Ordinary conditional governance capabilities. Preserve the complete original task, source, selected authority, valid work and unresolved outcomes. Reuse sufficient existing artifacts without rerunning their authors. Missing capability or authority remains an explicit gap. Open interpretation, suitability and sufficiency are native F_P judgments; deterministic adapters only project declared data and admitted observations. A completed child or successful measurement does not establish application success. Testing records actual commands, streams and predicates, including failures. UAT independently assesses the original source, exact candidate, rubric and current admitted execution evidence. Only the parent projects the independent verdict into its declared termination rule. No mandatory stage order, caller loop, invented source, claimed execution file or generated runtime graph.\n`;
 export const GOVERNANCE_POLICIES: Readonly<Record<GovernancePurpose, string>> = deepFreeze({
   induction: "Establish the task model from complete source: outcome, users, constraints, modality, conflicts, assumptions and unknowns. Preserve unresolved questions; distinguish source statements from interpretation.",

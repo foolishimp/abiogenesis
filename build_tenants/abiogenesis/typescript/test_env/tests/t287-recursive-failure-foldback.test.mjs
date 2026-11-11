@@ -89,11 +89,11 @@ test('a recurse foldback without failedChildDiagnosticClassRefs keeps its base b
   assert.equal(fixture.digest,'sha256:0e991ec0d71beba210c18eba0593b7baff44bca2f026e599a4474a1d9784520e');assert.equal(product.sha256Bytes(Buffer.from(fixture.bytes)),fixture.digest);
   const executive=gtl.defaultGovernanceGraphFunctions().find(f=>f.template.applications.some(a=>a.relationKind==='recurse'));
   const executiveApp=executive.template.applications.find(a=>a.relationKind==='recurse');
-  assert.equal(executiveApp.foldbackRef,'foldback://abiogenesis/1f184e200905b22d6a49ab76ccae7d363fe7a4f71c434913e3511a4633ea8eec');
-  assert.equal(executiveApp.applicationRef,'graph-function-application://abiogenesis/b4ec9b6512e13015eb2d681b49c8ed49a188a51a142c7904aab3ff902f79550a');
-  assert.equal(product.sha256Canonical(executive),'sha256:e297debd7a30cbcb0153b94dd83ec4de3174c806a5e21bc47f866a38808c2781');
+  assert.equal(executiveApp.foldbackRef,'foldback://abiogenesis/3ecc27c2a0989da5d929b2ad9fc65a06a69254e27115f9be18c33c00aa760b48');
+  assert.equal(executiveApp.applicationRef,'graph-function-application://abiogenesis/03ffe21ac89f20a9f8c4bc530b0ce6c26d2da491ba437cac7f867d4a4fc42dff');
+  assert.equal(product.sha256Canonical(executive),'sha256:8b4b06c886ee72b3e8f83c0ed2f47bf2bc8cae4ab12e18f509f089e031970fed');
   const library=roundTrip(executive);assert.equal(library.again,library.bytes);
-  assert.equal(library.digest,'sha256:f933a2fef4c03805b0eeb221bd39adcb72effb4ea8af5b261d0f6aa335b934be');assert.equal(product.sha256Bytes(Buffer.from(library.bytes)),library.digest);
+  assert.equal(library.digest,'sha256:40a2a777d44648e3ecbc48b43531b65022b2b7d6627c041f0bb6ffc3beb2ba53');assert.equal(product.sha256Bytes(Buffer.from(library.bytes)),library.digest);
 });
 
 test('failedChildDiagnosticClassRefs is declared, validated for form and round-trips',()=>{
