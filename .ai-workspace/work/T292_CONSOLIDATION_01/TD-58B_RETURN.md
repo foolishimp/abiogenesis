@@ -12,10 +12,14 @@ realization_refactor, test side only. No push, no tag.
 - No `assert` line and no `test(` declaration is removed or added. This was
   checked over `git diff ebeeaf5e0 HEAD`.
 
-**Status: all eleven conversions committed. Before and after runs are done for
-all eleven, with equal titles and counts. The reversed-order runs were still
-running in the chain when this Return was written; section 4 gives the state
-per file at that moment. The Executive reruns `verdict.py` for the final state.**
+**Status: done. All eleven conversions are committed and verified.** Each
+file gives the same titles and counts before the change, after it, and with
+its cases in reversed order. Every run exited 0. No hook failed. Each after
+run ran the committed blob. No shared install root was left behind in TMPDIR.
+
+Installs per run across the eleven files went from 27 to 13. Measured under
+load, the eleven files took 1,482 s before and 1,040 s after (wall), and
+1,832 s and 1,204 s CPU.
 
 ## 1. Census of what is left
 
@@ -186,23 +190,51 @@ The commit for each file is in the table in section 4.
 
 ## 4. Verification chain
 
-State when this Return was written (`python3 /private/tmp/abg-td58b-runs/verdict.py`):
+Final state, after the runner exited (`python3 /private/tmp/abg-td58b-runs/verdict.py`).
+All eleven files are verified.
 
-| file | commit | titles before=after | reversed vs after | before t/p/f/s | after t/p/f/s | reversed t/p/f/s | s before | s after | cpu s before | cpu s after | hook | after blob = commit | verdict |
-|---|---|---|---|---|---|---|---|---|---|---|---|---|---|
-| r7-graph-validation-basis | 88a939d1f | equal | same set | 1/1/0/0 | 1/1/0/0 | 1/1/0/0 | 153 | 50 | 203 | 62 | ok | yes | accept |
-| m5-s03-authority | 75c71be6a | equal | same set | 5/5/0/0 | 5/5/0/0 | 5/5/0/0 | 121 | 45 | 157 | 58 | ok | yes | accept |
-| t287-worksite-construction | 6165a6a56 | equal | running | 3/3/0/0 | 3/3/0/0 | running | 93 | 61 | 118 | 74 | ok | yes | pending |
-| t287-worksite-branch-construction | d7ce7d040 | equal | pending | 2/2/0/0 | 2/2/0/0 | pending | 189 | 152 | 211 | 167 | ok | yes | pending |
-| r5-invocation-admission | 9763a2077 | equal | pending | 2/2/0/0 | 2/2/0/0 | pending | 77 | 46 | 104 | 58 | ok | yes | pending |
-| r9-causal-result-closure | 8614d15d2 | equal | pending | 2/2/0/0 | 2/2/0/0 | pending | 75 | 42 | 100 | 56 | ok | yes | pending |
-| runtime-scope-regressions | ac1f1b5f2 | equal | pending | 2/2/0/0 | 2/2/0/0 | pending | 73 | 41 | 99 | 55 | ok | yes | pending |
-| t287-c0-correction-regressions | 51622696a | equal | pending | 4/4/0/0 | 4/4/0/0 | pending | 82 | 46 | 108 | 60 | ok | yes | pending |
-| t287-default-library-reviews | 855b0054d | equal | pending | 10/10/0/0 | 10/10/0/0 | pending | 170 | 136 | 202 | 155 | ok | yes | pending |
-| t287-default-library-recoverable-failure | 542c5ef62 | equal | pending | 5/5/0/0 | 5/5/0/0 | pending | 225 | 196 | 258 | 215 | ok | yes | pending |
-| t287-readable-stops | 3a0cb2c8f | equal | pending | 5/5/0/0 | 5/5/0/0 | pending | 224 | 225 | 272 | 244 | ok | yes | pending |
+| file | commit | titles before=after | reversed vs after | before t/p/f/s | after t/p/f/s | reversed t/p/f/s | s before | s after | cpu s before | cpu s after | hook | exit | after blob = commit | verdict |
+|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|
+| r7-graph-validation-basis | 88a939d1f | equal | same set | 1/1/0/0 | 1/1/0/0 | 1/1/0/0 | 153 | 50 | 203 | 62 | ok | 0 | yes | accept |
+| m5-s03-authority | 75c71be6a | equal | same set | 5/5/0/0 | 5/5/0/0 | 5/5/0/0 | 121 | 45 | 157 | 58 | ok | 0 | yes | accept |
+| t287-worksite-construction | 6165a6a56 | equal | same set | 3/3/0/0 | 3/3/0/0 | 3/3/0/0 | 93 | 61 | 118 | 74 | ok | 0 | yes | accept |
+| t287-worksite-branch-construction | d7ce7d040 | equal | same set | 2/2/0/0 | 2/2/0/0 | 2/2/0/0 | 189 | 152 | 211 | 167 | ok | 0 | yes | accept |
+| r5-invocation-admission | 9763a2077 | equal | same set | 2/2/0/0 | 2/2/0/0 | 2/2/0/0 | 77 | 46 | 104 | 58 | ok | 0 | yes | accept |
+| r9-causal-result-closure | 8614d15d2 | equal | same set | 2/2/0/0 | 2/2/0/0 | 2/2/0/0 | 75 | 42 | 100 | 56 | ok | 0 | yes | accept |
+| runtime-scope-regressions | ac1f1b5f2 | equal | same set | 2/2/0/0 | 2/2/0/0 | 2/2/0/0 | 73 | 41 | 99 | 55 | ok | 0 | yes | accept |
+| t287-c0-correction-regressions | 51622696a | equal | same set | 4/4/0/0 | 4/4/0/0 | 4/4/0/0 | 82 | 46 | 108 | 60 | ok | 0 | yes | accept |
+| t287-default-library-reviews | 855b0054d | equal | same set | 10/10/0/0 | 10/10/0/0 | 10/10/0/0 | 170 | 136 | 202 | 155 | ok | 0 | yes | accept |
+| t287-default-library-recoverable-failure | 542c5ef62 | equal | same set | 5/5/0/0 | 5/5/0/0 | 5/5/0/0 | 225 | 196 | 258 | 215 | ok | 0 | yes | accept |
+| t287-readable-stops | 3a0cb2c8f | equal | same set | 5/5/0/0 | 5/5/0/0 | 5/5/0/0 | 224 | 225 | 272 | 244 | ok | 0 | yes | accept |
 
 Files with both times: 1482 s before, 1040 s after (wall); 1832 s before, 1204 s after (user plus sys CPU).
+
+Notes on the table:
+
+- **Seconds.** `s` is wall-clock time. `cpu s` is user plus system time of the
+  waited process tree, from `/usr/bin/time -l`.
+- **`t287-readable-stops`: the saving is CPU only.**
+  - Wall time went from 224 s to 225 s. CPU went from 272 s to 244 s.
+  - Case 2 (absolute ceiling), the second case on the shared bound-12 install,
+    went from 65 s to 30 s. It took 51 s in the reversed run, where it is the
+    first user of that install.
+  - Cases 3 and 4 do the same install work before and after, yet rose by about
+    10 s each. That is load noise.
+  - Under this load, no wall-time saving showed for this file. The Executive may
+    weigh a 4-to-3 conversion on CPU alone.
+- **Exit codes.** Every `.meta` file of the 33 runs records `exit 0`
+  (`grep -L "^exit 0" *.meta` lists none).
+- **TMPDIR after the runner exited.**
+  - No `abi5-root-install-*` directory was left, so the dispose guard kept no
+    install root.
+  - Two kinds of directory were left, both from
+    `t287-default-library-recoverable-failure`, whose two Runs pass
+    `{ after() {} }` and so never remove their scratch:
+    - two `abi5-root-env-*`, from its before run;
+    - four `abi5-root-case-*`, from its after and reversed runs.
+  - That is the same leak as before the change, now limited to the case roots.
+  - I removed these directories after recording them.
+- **Worktree.** No `zz-before-*` or `zz-rev-*` copy is left in it.
 
 ### How the chain ran
 
