@@ -1,8 +1,7 @@
 import assert from "node:assert/strict";
 import { mkdtemp, readFile, rm, writeFile } from "node:fs/promises";
-import { readFileSync, statSync } from "node:fs";
+import { statSync } from "node:fs";
 import { join, resolve } from "node:path";
-import { pathToFileURL } from "node:url";
 import test from "node:test";
 import { createWorkerTransportOutputObserver, runWorkerTransport } from "../../build/code/src/abg/worker_transport.js";
 import { constructKnownWorkerTransportContract } from "../../build/code/src/abg/transport_contracts.js";
@@ -90,35 +89,7 @@ test("finite producer drain with slow observation exposes producer-side truncati
   assert.equal(result.failureClass, "no_output");
 });
 
-test("retained native durable-prefix validation reproduces blocking consumer pressure", {
-  skip: process.env.T287_STREAM_RETAINED_EVENT_LOG === undefined && "T287_STREAM_RETAINED_EVENT_LOG unset; requires the retained native event log",
-}, async () => {
-  // Read-only localization of an actual dependency called by the actor's
-  // append/probe path. This is NOT a complete native owner/admission test and
-  // does not claim to know the original CLI's exact drain deadline.
-  const path = process.env.T287_STREAM_RETAINED_EVENT_LOG;
-  const bytes = readFileSync(path), stat = statSync(path);
-  const last = JSON.parse(bytes.toString("utf8").trim().split("\n").at(-1));
-  const body = { kind: "durable_prefix_coordinate", schemaVersion: "5.0.0",
-    eventLogRef: pathToFileURL(path).href, prefixLength: bytes.length, prefixDigest: sha256Bytes(bytes),
-    storeIdentity: { device: stat.dev, inode: stat.ino, eventContractDigest: last.eventContractDigest } };
-  const coordinate = { ...body, coordinateDigest: sha256Canonical(body) };
-  const timings = [];
-  const fast = await exercise({ mode: "finite_drain" });
-  assert.equal(fast.result.finalOutput, fast.expected);
-  const slow = await exercise({ mode: "finite_drain", observe() {
-    const start = performance.now();
-    assert.equal(readRuntimeEventsAtDurablePrefix(coordinate).length, last.admissionOrdinal);
-    timings.push(performance.now() - start);
-  } });
-  assert.equal(slow.producer.reason, "drain_deadline");
-  assert.ok(slow.producer.queuedBytes > 0);
-  assert.equal(slow.producer.expectedBytes, fast.producer.expectedBytes);
-  assert.ok(fast.result.stdout.startsWith(slow.result.stdout));
-  assert.equal(slow.result.finalOutput, "");
-  assert.equal(slow.result.failureClass, "no_output");
-  console.log(JSON.stringify({ dependency: "readRuntimeEventsAtDurablePrefix", coordinate, timings }));
-});
+// Retired (T-292 TD-60): retained durable-prefix validation reproduces blocking consumer pressure; input the retained native event log not recorded
 
 test("an incomplete terminal row does not become a result because exit is zero", async () => {
   const { result } = await exercise({ mode: "incomplete" });
