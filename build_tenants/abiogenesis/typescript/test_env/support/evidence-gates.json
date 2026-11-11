@@ -447,7 +447,7 @@
   {
    "gate": "s01-program-selection-store-malformed-liveness",
    "class": "A",
-   "status": "failing_with_input_present",
+   "status": "runs_with_root",
    "variables": [],
    "cases": [
     {
@@ -474,8 +474,8 @@
     }
    ],
    "producer": null,
-   "observed": "root-set run of the file (ABI5_EVIDENCE_ROOT set): fails at r10-projection-contracts.test.mjs:111: expected refusal code 'invalid_history', actual undefined",
-   "note": "class A lane: it gates on evidenceInput, so it runs and fails whenever the root is set. Reading not decided: the case injects rows through a private-owner stub of ./event_store.js; either the read owner no longer takes its rows from that import (stale test) or it admits a malformed liveness event (apparent Product defect)"
+   "observed": "root-set run of the file (ABI5_EVIDENCE_ROOT set) (4 s): 11/11 pass; root unset: 1 pass, 10 skip (TD-60T)",
+   "note": "class A lane: it gates on evidenceInput. TD-60T: since RC6 (e7179b19b) the read owner's preparation takes its rows from readOwnedRuntimeEventPrefixAtDurablePrefix (./event_prefix.js), not from ./event_store.js, so the old stub intercepted nothing; the premise is now supplied there and the owner refuses the malformed liveness event with invalid_history. Last passing rc.5 (f49e7533e), first failing rc.6"
   },
   {
    "gate": "s7-pending-consumer-intent",

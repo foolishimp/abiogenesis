@@ -112,9 +112,13 @@ test('a prefix holding a malformed liveness event is not admitted history: Run a
   // Component boundary: supply the authenticated immutable-event premise to
   // the read owner. These current-profile variants are unadmitted test data;
   // physical decoding/stamps are exercised by the decoder and body-codec tests.
+  // Since RC6 the read owner's preparation takes its rows from the explicit
+  // fresh read readOwnedRuntimeEventPrefixAtDurablePrefix (library design
+  // §10.4, "Runtime history prefixes and held event resources"), so the
+  // premise is supplied there.
   const nativeEvents=deepFreeze(events.map(event=>({...event,eventContractDigest:ROOT_EVENT_CONTRACT_DIGEST})));
   const reader=rows=>privateOwner('abg/project_read_ports.js',['prepareRead'],{
-    './event_store.js':{readRuntimeEventsAtDurablePrefix:()=>rows},
+    './event_prefix.js':{readOwnedRuntimeEventPrefixAtDurablePrefix:()=>selectValidatedRuntimeEventPrefix(rows)},
   });
   const original=await reader(nativeEvents);
   const expected=original.RunProjectionPort.run_result(packet('run_result'));
