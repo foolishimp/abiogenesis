@@ -90,7 +90,7 @@ test("ST-2A-G publishes one exact immutable capability graph", async () => {
   })), true);
   assert.equal(graph.graphId, product.CAPABILITY_DEFINITION_GRAPH_ID);
   assert.equal(graph.graphVersion, product.CAPABILITY_DEFINITION_GRAPH_VERSION);
-  assert.equal(graph.rows.length, 15);
+  assert.equal(graph.rows.length, 16);
   assert.deepEqual(
     product.constructCapabilityDefinitionGraph(uniqueOwnerCoordinates(graph)),
     graph,
@@ -224,6 +224,7 @@ test("ST-2A-G publishes one exact immutable capability graph", async () => {
     run_replay: "abg.capability.runtime.replay-continuation@5",
     run_result: "abg.capability.runtime.replay-continuation@5",
     run_status: "abg.capability.runtime.replay-continuation@5",
+    ticket_consensus: "abg.capability.operator.public-contract@5",
     witness_evidence: "abg.capability.operator.public-contract@5",
     workspace_gaps: "abg.capability.operator.public-contract@5",
     workspace_replay: "abg.capability.runtime.replay-continuation@5",
@@ -346,25 +347,25 @@ test("ST-2A-G rejects crossed catalog coordinates, selectors, dependencies, and 
     /crossed operation definition ref|incomplete operation definition slots/u,
   );
 
-  const dependentIndex = graph.rows.findIndex(
+  const consensusIndex = graph.rows.findIndex(
     ({ capabilityId }) =>
-      capabilityId === "abg.capability.runtime.replay-continuation@5",
+      capabilityId === "abg.capability.graph-function.consensus@5",
   );
-  assert.notEqual(dependentIndex, -1);
+  assert.notEqual(consensusIndex, -1);
   const crossedRows = structuredClone(graph.rows);
-  const dependent = crossedRows[dependentIndex];
-  assert.ok(dependent.dependentCapabilities.length > 0);
+  const consensus = crossedRows[consensusIndex];
+  assert.ok(consensus.dependentCapabilities.length > 0);
   const wrongTarget = graph.rows.find(
     ({ capabilityId }) =>
-      capabilityId !== dependent.dependentCapabilities[0].capabilityId,
+      capabilityId !== consensus.dependentCapabilities[0].capabilityId,
   );
   assert.ok(wrongTarget);
-  dependent.dependentCapabilities[0] = {
+  consensus.dependentCapabilities[0] = {
     capabilityId: wrongTarget.capabilityId,
     capabilityDefinitionRef: wrongTarget.capabilityDefinitionRef,
     capabilityDefinitionDigest: wrongTarget.capabilityDefinitionDigest,
   };
-  crossedRows[dependentIndex] = rehashRow(dependent);
+  crossedRows[consensusIndex] = rehashRow(consensus);
   const crossedDependencyGraph = rehashGraph(graph, crossedRows);
   assert.equal(
     product.isCapabilityDefinitionGraph(crossedDependencyGraph),

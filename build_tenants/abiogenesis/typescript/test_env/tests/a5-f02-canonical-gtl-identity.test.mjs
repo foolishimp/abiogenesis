@@ -19,42 +19,8 @@ function publication() {
   return gtl.constructStructuralModulePublication(ARTIFACT_BASIS);
 }
 
-const ACTION_PROGRAM_REF = gtl.FAN_OUT_IDS.programRef;
-
-// One Program action catalog row binding the structural fan-out Program's
-// root GraphFunction as an invoke_graph_function locus.
-function actionPublication() {
-  const modulePublication = structuredClone(publication());
-  const program = requireBy(
-    modulePublication.programs,
-    (candidate) => candidate.programRef === ACTION_PROGRAM_REF,
-    "action Program",
-  );
-  const catalogBody = {
-    kind: "action_catalog",
-    schemaVersion: "5.0.0",
-    rows: [{
-      kind: "action_catalog_row",
-      actionRef: "action://abiogenesis/a5-f02/primary@5",
-      actionKind: "invoke_graph_function",
-      programRef: ACTION_PROGRAM_REF,
-      graphFunctionRef: gtl.FAN_OUT_IDS.graphFunctionRef,
-      targetProgramLocusRef: gtl.FAN_OUT_IDS.graphFunctionRef,
-      targetObligationRefs: ["obligation://abiogenesis/a5-f02/primary@5"],
-      inputAssetRefs: ["asset://abiogenesis/a5-f02/input-primary@5"],
-      outputAssetRefs: ["asset://abiogenesis/a5-f02/output-primary@5"],
-      expectedDeltaRef: "delta://abiogenesis/a5-f02/primary@5",
-      progressConditionRef: "condition://abiogenesis/a5-f02/progress-primary@5",
-      stopConditionRef: "condition://abiogenesis/a5-f02/stop-primary@5",
-    }],
-  };
-  const catalogDigest = sha256Canonical(catalogBody);
-  program.actionCatalog = {
-    ...catalogBody,
-    catalogRef: `action-catalog://product/${catalogDigest.slice("sha256:".length)}`,
-    catalogDigest,
-  };
-  return modulePublication;
+function consensusPublication() {
+  return gtl.constructConsensusModulePublication(ARTIFACT_BASIS);
 }
 
 function requireRaw(value, subjectKind) {
@@ -254,15 +220,16 @@ function validRichPublication() {
 }
 
 function twoRowActionPublication() {
-  const modulePublication = actionPublication();
+  const modulePublication = structuredClone(consensusPublication());
   const program = requireBy(
     modulePublication.programs,
-    (candidate) => candidate.programRef === ACTION_PROGRAM_REF,
-    "action Program",
+    (candidate) =>
+      candidate.programRef === gtl.CONSENSUS_IDS.oneSurfaceProgramRef,
+    "Consensus One Surface Program",
   );
-  assert.ok(program.actionCatalog, "Program action catalog");
+  assert.ok(program.actionCatalog, "Consensus Program action catalog");
   const first = program.actionCatalog.rows[0];
-  assert.ok(first, "Program action row");
+  assert.ok(first, "Consensus action row");
   first.targetObligationRefs = [
     ...first.targetObligationRefs,
     "obligation://abiogenesis/a5-f02/ordered-secondary@5",
@@ -427,16 +394,16 @@ test("A5-F02 canonicalizes every selected authored set inventory", () => {
 test("A5-F02 canonicalizes Program action candidates and rederives their catalog identity", () => {
   const authoredModule = twoRowActionPublication();
   const permutedModule = structuredClone(authoredModule);
-  const programRef = ACTION_PROGRAM_REF;
+  const programRef = gtl.CONSENSUS_IDS.oneSurfaceProgramRef;
   const authoredProgram = requireBy(
     authoredModule.programs,
     (candidate) => candidate.programRef === programRef,
-    "authored action Program",
+    "authored Consensus Program",
   );
   const permutedProgram = requireBy(
     permutedModule.programs,
     (candidate) => candidate.programRef === programRef,
-    "permuted action Program",
+    "permuted Consensus Program",
   );
   permutedProgram.actionCatalog.rows.reverse();
 
@@ -866,7 +833,8 @@ test("A5-F02 retains decision-exact duplicate refusal for every selected set", (
   const actionCandidate = twoRowActionPublication();
   const actionProgram = requireBy(
     actionCandidate.programs,
-    (candidate) => candidate.programRef === ACTION_PROGRAM_REF,
+    (candidate) =>
+      candidate.programRef === gtl.CONSENSUS_IDS.oneSurfaceProgramRef,
     "duplicate action Program",
   );
   const duplicateActionRef = actionProgram.actionCatalog.rows[0].actionRef;

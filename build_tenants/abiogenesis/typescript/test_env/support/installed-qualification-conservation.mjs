@@ -135,7 +135,7 @@ export async function setup(caller) {
   assert.equal(resolvedLock.kind, 'resolved_product_lock', resolvedLock.code);
   state.resolvedLock = resolvedLock;
   const lock = {ref: resolvedLock.lockId, digest: resolvedLock.lockDigest};
-  const constructors = [
+  const constructors = ['constructConsensusModulePublication',
     'constructDefaultGovernanceLibraryModulePublication', 'constructSelfConformanceModulePublication',
     'constructRequirementHandoffModulePublication', 'constructSemanticRevisionModulePublication',
     'constructSemanticStageModulePublication', 'constructWorksiteCommandExecutionModulePublication',
@@ -347,7 +347,7 @@ async function restoreSetup(caller, {originalRoot, old, started}) {
   assert.equal(v.productContentDigest, install.productContentDigest);
   assert.equal(v.manifestDigest, install.manifestDigest);
   assert.equal(v.productId, install.productId); assert.equal(v.packageVersion, install.packageVersion);
-  const constructors = [
+  const constructors = ['constructConsensusModulePublication',
     'constructDefaultGovernanceLibraryModulePublication', 'constructSelfConformanceModulePublication',
     'constructRequirementHandoffModulePublication', 'constructSemanticRevisionModulePublication',
     'constructSemanticStageModulePublication', 'constructWorksiteCommandExecutionModulePublication',

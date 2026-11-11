@@ -34,7 +34,7 @@ import type * as ProductOwnerModule from "../../product/index.js";
 import type * as ValidatorOwnerModule from "../../validator/index.js";
 
 export const EXACT_OWNER_CONTRACT_KEY_SET_DIGEST =
-  "sha256:08ae1818dcb4c32c4869193881cb995e12c720ad9f94457c338b383bb80e0707" as const;
+  "sha256:61077d017dbbe0bd071f312066d27bc6535a732aa9da00cd543a70506ec24a4f" as const;
 
 const OWNER_BINDING_PACKAGE_NAME = "@abiogenesis/typescript-tenant";
 const SELECTED_DEFINITION_FRAME =
@@ -689,8 +689,8 @@ const distinctKeys = new Set(
 
 if (
   operationCount !== 18 ||
-  OWNER_CONTRACT_SOURCES.length !== 55 ||
-  distinctKeys.size !== 55 ||
+  OWNER_CONTRACT_SOURCES.length !== 56 ||
+  distinctKeys.size !== 56 ||
   OWNER_CONTRACT_KEY_SET_DIGEST !== EXACT_OWNER_CONTRACT_KEY_SET_DIGEST
 ) {
   throw new TypeError(

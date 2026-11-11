@@ -51,6 +51,14 @@ import {
   resolveNativeDeclarationClosures,
 } from "../build/code/src/product/declaration_exports.js";
 import {
+  CONSENSUS_FH_DECISION_VALUES,
+  CONSENSUS_ROUND_OUTCOME_VALUES,
+  CONSENSUS_PUBLIC_SCHEMA,
+  CONSENSUS_SCHEMA_ASSET_BINDINGS,
+  REVIEW_RULING_KIND_VALUES,
+} from "../build/code/src/gtl/consensus_schema.js";
+import {
+  constructConsensusModulePublication,
   constructWorksiteConstructionModulePublication,
   constructWorksiteCommandExecutionModulePublication,
   WORKSITE_COMMAND_EXECUTION_CONTEXT_INVENTORY,
@@ -151,6 +159,7 @@ if (
   throw new Error("package metadata and exported ABI5 Product identity disagree");
 }
 
+const consensusSchemaPath = "contracts/schemas/consensus.schema.json";
 const nativeRuntimeContractPath = "contracts/schemas/native-runtime-observation.json";
 const nativeRuntimeContractBytes = Buffer.from(JSON.stringify({
   kind: "native_runtime_observation_contract", schemaVersion: "5.0.0",
@@ -164,6 +173,12 @@ const nativeRuntimeContractBytes = Buffer.from(JSON.stringify({
 const nativeRuntimeContractDigest = sha256Bytes(nativeRuntimeContractBytes);
 const publicOperationSchemaPath =
   PUBLIC_PROJECTION_PAYLOADS.commonSchemaAsset.path;
+const reviewRulingVocabularyPath =
+  "contracts/vocabularies/review-ruling-kind.json";
+const consensusRoundOutcomeVocabularyPath =
+  "contracts/vocabularies/consensus-round-outcome.json";
+const consensusFhDecisionVocabularyPath =
+  "contracts/vocabularies/consensus-fh-decision.json";
 
 function closedVocabulary(vocabularyId, values) {
   return {
@@ -174,7 +189,10 @@ function closedVocabulary(vocabularyId, values) {
   };
 }
 
-await mkdir(join(root, "contracts/vocabularies"), { recursive: true });
+await Promise.all([
+  mkdir(dirname(join(root, consensusSchemaPath)), { recursive: true }),
+  mkdir(dirname(join(root, reviewRulingVocabularyPath)), { recursive: true }),
+]);
 
 await Promise.all([
   rm(join(root, "contracts/public-functions"), { force: true, recursive: true }),
@@ -280,6 +298,11 @@ for (const entry of await readdir(typescriptLibRoot)) {
 await Promise.all([
   writeFile(join(root, nativeRuntimeContractPath), nativeRuntimeContractBytes),
   writeFile(
+    join(root, consensusSchemaPath),
+    `${JSON.stringify(CONSENSUS_PUBLIC_SCHEMA, null, 2)}\n`,
+    "utf8",
+  ),
+  writeFile(
     join(root, publicOperationSchemaPath),
     PUBLIC_PROJECTION_PAYLOADS.commonSchemaAsset.bytes,
     "utf8",
@@ -287,6 +310,30 @@ await Promise.all([
   writeFile(
     join(root, catalogSchemaPath),
     `${JSON.stringify(catalogSchema, null, 2)}\n`,
+    "utf8",
+  ),
+  writeFile(
+    join(root, reviewRulingVocabularyPath),
+    `${JSON.stringify(closedVocabulary(
+      "abg.vocabulary.review-ruling-kind",
+      REVIEW_RULING_KIND_VALUES,
+    ), null, 2)}\n`,
+    "utf8",
+  ),
+  writeFile(
+    join(root, consensusRoundOutcomeVocabularyPath),
+    `${JSON.stringify(closedVocabulary(
+      "abg.vocabulary.consensus-round-outcome",
+      CONSENSUS_ROUND_OUTCOME_VALUES,
+    ), null, 2)}\n`,
+    "utf8",
+  ),
+  writeFile(
+    join(root, consensusFhDecisionVocabularyPath),
+    `${JSON.stringify(closedVocabulary(
+      "abg.vocabulary.consensus-fh-decision",
+      CONSENSUS_FH_DECISION_VALUES,
+    ), null, 2)}\n`,
     "utf8",
   ),
 ]);
@@ -502,8 +549,18 @@ const productContentDigest = payloadInventoryDigest(payloadInventory);
 const manifestSchemaPath = "contracts/schemas/product-toolchain-manifest.schema.json";
 const catalogSchemaDigest = await sha256File(join(root, catalogSchemaPath));
 const manifestSchemaDigest = await sha256File(join(root, manifestSchemaPath));
+const consensusSchemaDigest = await sha256File(join(root, consensusSchemaPath));
 const publicOperationSchemaDigest = await sha256File(
   join(root, publicOperationSchemaPath),
+);
+const reviewRulingVocabularyDigest = await sha256File(
+  join(root, reviewRulingVocabularyPath),
+);
+const consensusRoundOutcomeVocabularyDigest = await sha256File(
+  join(root, consensusRoundOutcomeVocabularyPath),
+);
+const consensusFhDecisionVocabularyDigest = await sha256File(
+  join(root, consensusFhDecisionVocabularyPath),
 );
 const declarationSources = await Promise.all(
   productRelativeLocators
@@ -576,6 +633,61 @@ function nativeTypedLocator(inventory, namedSymbol) {
   };
 }
 
+const consensusContractRows = CONSENSUS_SCHEMA_ASSET_BINDINGS.map(
+  ([contractId, definitionName]) => ({
+  contractId,
+  contractVersion: "5.0.0",
+  contractDigest: consensusSchemaDigest,
+  contractKind: "schema_asset",
+  owningProduct: productId,
+  requirementAuthorityRefs: [
+    "specification/requirements/product/REQ-P-CONSENSUS.md#REQ-P-CONSENSUS-004",
+  ],
+  capabilityIdentities: capabilityRefsForContract(contractId),
+  assetLocator: {
+    path: consensusSchemaPath,
+    mediaType: "application/schema+json",
+    schemaVersion: "5.0.0",
+    contentDigest: consensusSchemaDigest,
+    definitionRef: `#/$defs/${definitionName}`,
+  },
+}));
+
+const consensusVocabularyRows = [
+  [
+    "abg.vocabulary.review-ruling-kind",
+    reviewRulingVocabularyPath,
+    reviewRulingVocabularyDigest,
+    "specification/requirements/product/REQ-P-CONSENSUS.md#REQ-P-CONSENSUS-007",
+  ],
+  [
+    "abg.vocabulary.consensus-round-outcome",
+    consensusRoundOutcomeVocabularyPath,
+    consensusRoundOutcomeVocabularyDigest,
+    "specification/requirements/product/REQ-P-CONSENSUS.md#REQ-P-CONSENSUS-008",
+  ],
+  [
+    "abg.vocabulary.consensus-fh-decision",
+    consensusFhDecisionVocabularyPath,
+    consensusFhDecisionVocabularyDigest,
+    "specification/requirements/product/REQ-P-CONSENSUS.md#REQ-P-CONSENSUS-004",
+  ],
+].map(([contractId, path, digest, requirementAuthorityRef]) => ({
+  contractId,
+  contractVersion: "5.0.0",
+  contractDigest: digest,
+  contractKind: "vocabulary_asset",
+  owningProduct: productId,
+  requirementAuthorityRefs: [requirementAuthorityRef],
+  capabilityIdentities: capabilityRefsForContract(contractId),
+  assetLocator: {
+    path,
+    mediaType: "application/json",
+    schemaVersion: "5.0.0",
+    contentDigest: digest,
+  },
+}));
+
 const extantRows = [
   ...[
     ["abg.schema.gtl-graph-function", "GraphFunction", "./gtl/m01", "GTL_GRAPH_FUNCTION_SERIALIZATION_API"],
@@ -631,6 +743,8 @@ const extantRows = [
     };
   }),
   ...constructSelfConformanceAssetRows({ productId, schemaBytes: selfConformanceSchemaBytes, catalogBytes: selfConformanceCatalogBytes, nativeLocator: nativeTypedLocator(validatorNativeInventory, "QualificationRuleCatalog") }),
+  ...consensusContractRows,
+  ...consensusVocabularyRows,
   {
     contractId: "abg.contract.product.verification",
     contractVersion: "5.0.0",
@@ -1088,6 +1202,7 @@ const publicationBasis = {
 };
 const modulePublications = [
   constructDefaultGovernanceLibraryModulePublication(publicationBasis),
+  constructConsensusModulePublication(publicationBasis),
   constructWorksiteConstructionModulePublication(publicationBasis),
   constructWorksiteCommandExecutionModulePublication(publicationBasis),
   constructNativeWorkspaceWorkModulePublication(publicationBasis),

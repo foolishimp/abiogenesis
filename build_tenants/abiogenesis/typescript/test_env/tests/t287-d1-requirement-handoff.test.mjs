@@ -600,7 +600,8 @@ test("D1 installed fixed-source obligation handoff remains non-closing", async t
     const artifactBasis = { productId: abiArtifact.productId, artifactDigest: abiArtifact.artifactDigest,
       productContentDigest: abiArtifact.productContentDigest, productManifestDigest: abiArtifact.manifestDigest,
       packageName: abiArtifact.packageName, packageVersion: abiArtifact.packageVersion };
-    const publications = [gtl.constructWorksiteConstructionModulePublication(artifactBasis), gtl.constructWorksiteCommandExecutionModulePublication(artifactBasis),
+    const publications = [gtl.constructConsensusModulePublication(artifactBasis),
+      gtl.constructWorksiteConstructionModulePublication(artifactBasis), gtl.constructWorksiteCommandExecutionModulePublication(artifactBasis),
       fixture.nativePublication, consumerPublication];
     const boundSlots = { workspace_binding: bound.ownerOutput.value.binding, product_set: environment.productInstalls.map(product.productInstallCoordinate),
       dependency_lock: lock, actor: actorAuthority(product) };
@@ -866,7 +867,8 @@ test("D1 retained catalog continuation reaches admitted handoff and replay", asy
     artifactDigest: consumerIdentity.artifactDigest, productContentDigest: consumerIdentity.productContentDigest,
     productManifestDigest: consumerIdentity.manifestDigest, contributions: consumerData.contributions.map(row =>
       ({ ...row, provenanceRefs: [consumerIdentity.artifactDigest, consumerIdentity.manifestDigest] })) });
-  const publications = [gtl.constructWorksiteConstructionModulePublication(artifactBasis), gtl.constructWorksiteCommandExecutionModulePublication(artifactBasis),
+  const publications = [gtl.constructConsensusModulePublication(artifactBasis),
+    gtl.constructWorksiteConstructionModulePublication(artifactBasis), gtl.constructWorksiteCommandExecutionModulePublication(artifactBasis),
     gtl.constructRequirementHandoffModulePublication(artifactBasis), consumerPublication];
   const fixed = bindIndependentSource(product, gtl, JSON.parse(await readFile(process.env.ABI5_D1_SOURCE_FIXTURE, "utf8")));
   assert.deepEqual(consumerPublication.requirementHandoffs, [fixed.declaration]);
