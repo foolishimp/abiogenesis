@@ -591,41 +591,80 @@ or J, mismatched producer/evidence, and stale or uncovered sources refuse.
 ## 2026-11-11 readable stops
 
 Path/outcome: a Run that stops without completing reads back its stop through
-`project.read run_status`. Owners: [REQ-P-POLICY-065–068](../../../../specification/requirements/product/REQ-P-POLICY.md#stopped-run-readback),
-this projection section and the existing replay stop truth. Runtime and events
-are unchanged.
+`project.read run_status`, and the `run.invoke` and `run.continue` output of
+that Run states the same reading. Owners: [REQ-P-POLICY-065–068](../../../../specification/requirements/product/REQ-P-POLICY.md#stopped-run-readback),
+this projection section and the existing replay stop truth. Runtime, events,
+axioms and derived fluents are unchanged.
 
 ```text
 run_status read -> canonicalRunContext(stop = runStoppedEventRef ?? runtimeFailureEventRef)
-  -> stopping C-call: route run_stopped.routeRef | the one failed route in failure causation
-  -> origin: C-call Result, then each failed|blocked child_foldback (parentCCallRef) -> childResultRef
-  -> evaluation: last success Result of the root GraphCall before the stop
-  -> optional run_status_projection.stop
+  -> stopping route: run_stopped.routeRef among its causes | the one failed route among failure causes
+  -> first Result: child Result of the stopped foldback the route consumes (cause + consumed foldbackRef)
+                   | else the Result its judgment names (run_stopped.judgmentRef must agree)
+  -> each lifted Result: cited sub_traversal evidence -> foldbackEventRef (failed|blocked, in the
+     evidence's causes, parentCCallRef = the Result's C-call) -> childResultRef + childResultDigest
+  -> origin: the first Result citing no stopped foldback | not_admitted{missingLink}
+  -> lastRootResult: last success Result of the root GraphCall before the stop (kind, ref, contract)
+  -> nextActions: run_lawful_actions over the same context
+  -> run_status_projection.stop; truth.stopStatement -> run.invoke / run.continue stopStatement
 ```
 
 Handoff: native `projectRunStatus` adds `stop`; the definition binding passes it
 unchanged into `run_status_projection.stop` (`ABG_RUN_STOP_READING_SCHEMA`), and
-output admission checks it. Computation: indexed `id:`, `related:`,
-`graph-call:`, `payload:routeRef:`, `payload:parentCCallRef:` and
-`payload:resultRef:` lookups at the Run's read prefix, only when a stop event
-exists. Origin is `failure` (own
-`failureClass`, `diagnosticRef`, `timeoutClass` from its `c_call_evidenced`),
-`gap` (registered-selection gap choice: `missingSupportRefs`, `reason`),
-`result`, or `not_admitted`. The evaluation value is carried uninterpreted.
-`statement` renders these fields in words and always says the Run did not
-complete.
+output admission checks it. `projectRunTruthAtDurablePrefix` carries the
+statement as `stopStatement`; `constructRunInvocationOutcome` and the
+continuation outcome add it to the result or non-terminal value only when it is
+not null. Computation: indexed `id:`, `related:`, `graph-call:`,
+`payload:routeRef:` and `payload:resultRef:` lookups at the Run's read prefix,
+only when a stop event exists. Each link is admitted strictly before the event
+citing it. Origin is `failure` (own `failureClass`, `diagnosticRef`,
+`timeoutClass` from its `c_call_evidenced`), `gap` (registered-selection gap
+choice: `missingSupportRefs` admitted as the GTL predicate admits them, any
+non-empty string, and `reason`), `result`, or `not_admitted` naming
+`stopping_route`, `judged_result`, `lifted_foldback` or `child_result`. A
+handled failure is consumed by a recursion advance and cited by no stopping
+route or lifted Result, so it is never an origin. An operator stop reads its
+`reasonKind`, `reasonDetail` and `operatorActorRef`. Its next lawful actions
+are the Run's `run_lawful_actions`; the native `run-resumed` act has no Public
+definition binding, so the reading names none. The root Result value is
+carried uninterpreted; the statement names its kind, reference and contract and
+claims nothing about its content.
+
+Ended frames: a child frame whose failed or blocked foldback is admitted has
+ended. Run quiescence reads its frame probe (`runtime_invocation_active`, no
+C-call, no actor) as historical; the Public reads apply the same rule.
+`run_status.activeFluents` omits that probe fluent; `nativeLiveness` omits that
+frame-scope invocation (each invocation stays sealed); a GraphCall with no
+`graph_call_closed`, no `graph_call_active` and one stopped foldback reads that
+foldback's disposition (`failed` or `blocked`). The derived fluent, the replay
+value and every replay digest are unchanged.
 
 Invariants: no event kind, stop-event change, failure class, stored copy or
 runtime mechanism. An ambiguous or missing link reads `not_admitted`; nothing is
-chosen by diagnostic or class label. Completed, active and held Runs carry no
-`stop`, so their values and digests are unchanged. `run_result` keeps `not_found`
-for a stopped Run; `run_gaps` keeps the HoG gap frontier. A registered-selection
-gap is a `blocked` stop with reason `default-library/gap@5`, not `gap_stopped`.
-Effect grant: none; read only. The added optional member changes the
-`run_status` definition digest; that change is an explicit supersession under
-REQ-P-PUBLIC-CONTRACTS-004 within the same operation identity.
+chosen by diagnostic, class label or position. A completed Run with no stopped
+foldback reads byte-identically. `run_result` keeps `not_found` for a stopped
+Run; `run_gaps` keeps the HoG gap frontier. A registered-selection gap is a
+`blocked` stop with reason `default-library/gap@5`, not `gap_stopped`. Effect
+grant: none; read only.
+
+Contract identity (REQ-P-PUBLIC-CONTRACTS-004 supersession within each
+operation identity): `run_status` result schema changes (`lastRootResult`
+replaces `evaluation`; `operator`, `nextActions` and `missingLink` are added;
+gap support refs admit any non-empty string). `run.invoke` `start` and `invoke`
+and `run.continue` `current_intent` and `selected_action` gain one optional
+`stopStatement` in their result and non-terminal schemas. Digest movement rule:
+the Run read definitions share one source-module digest, so `run_result`,
+`run_replay`, `run_gaps`, `run_evidence` and `run_lawful_actions` move their
+definition digests with no schema change; the family, catalog, adapter
+projection, capability-definition graph and toolchain manifest move with them.
+The exact014 baseline-package pin of the `run_status` slot
+(`t287-framework-handoff-types`) is superseded by this change.
 
 Proof: `t287-readable-stops` starts scripted default-library Runs through the
 Public CLI (worker exit failure, absolute timeout, recursion bound 2, selection
-gap), reopens cold, and asserts `run_status.stop`, `run_result` refusal and
-`run_replay` status. Existing Public-read tests rerun unchanged.
+gap), reopens cold, and asserts `run_status.stop`, the start output's
+`stopStatement`, `run_result` refusal and `run_replay` status; an operator stop
+reads through the Public binding. `t287-readable-stops-foldback` starts a
+declared-foldback Product three times (handled failure then close, handled
+failures to the bound, undeclared failure) and asserts origin, statement and
+ended frames. Recorded Runs replay to equal digests on head and branch.
