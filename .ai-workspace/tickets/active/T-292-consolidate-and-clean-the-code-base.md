@@ -8,7 +8,7 @@
 - parent: T-287
 - updated_at: 2026-11-12
 - current_activation: T292_CONSOLIDATION_01
-- current_package: TD-69 (deterministic product payload), in flight
+- current_package: TD-35 (start law) and TD-58 (one install per test file), in flight
 - change_class: realization_refactor
 - derived_change_classes: design_reframe, requirement_reprice and product_reprice, each only for a register entry the owner decides
 - re_entry_point: specification/GOALS.md, the selection block of 2026-11-12
@@ -74,4 +74,4 @@ attribution alone does not close it.
 
 | Package | Register entry | Subject | Disposition | Evidence | Carried forward |
 |---|---|---|---|---|---|
-| TD-69 | The product's identity depends on npm's private state | `claude/td69-payload-rule`, from `59fbaf8a0` | In flight | Cause confirmed by experiment before activation: touching `node_modules/.package-lock.json` changes the payload from 5,325 to 5,327 locators and the product digest | |
+| TD-69 | The product's identity depends on npm's private state | `claude/td69-payload-rule` `59fbaf8a0..6d4ff287c`, merged at `5e326fd41` | Accepted 2026-11-12 after Executive diff review and rerun | Build leaves no tracked change in both hidden-lockfile states and on `main`: 5,325 locators, `sha256:dcfbcf42…`, archive `sha256:db80a5da…`; new `t292-product-payload-rule` 1/1; Writer: `test:r1`, `test:r2`, the W2-05 generator test and six other pack consumers pass | The cut script outside the tenant must pack through `scripts/product-payload.mjs` (TD-71). `m5-s06-prime` and three pack consumers were not rerun. A sparse worktree needs `.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/default-library-witness/` for the default-library tests, which read their seed from there (TD-61) |
