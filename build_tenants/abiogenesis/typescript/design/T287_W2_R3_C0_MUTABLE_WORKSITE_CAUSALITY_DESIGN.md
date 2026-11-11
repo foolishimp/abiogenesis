@@ -2,6 +2,8 @@
 
 # T-287 W2-R3-C0 Mutable-Worksite Causality
 
+Retired sections: [history/T287_W2_R3_C0_MUTABLE_WORKSITE_CAUSALITY_DESIGN__RETIRED_SECTIONS.md](history/T287_W2_R3_C0_MUTABLE_WORKSITE_CAUSALITY_DESIGN__RETIRED_SECTIONS.md).
+
 ## Proposed assessed-file parent prerequisite
 
 Status: Executive-accepted at the ABI5_GENERIC_JOB_DESIGN_01 freeze after the
@@ -797,12 +799,3 @@ The increment fails if any of these occur:
   or generic resource framework appears; or
 - C0 evidence is reported as closure of broad R2/R3, R4, typed URI admission,
   full traversal, odd_glc, S1 P0, a Product version, qualification, or release.
-
-## Stop And Return
-
-This Worker stops at exact design/docs bytes for independent review. I/E,
-builds, tests, model/live runs, package/manifests, Product/requirements,
-odd_glc, version, and release remain unselected. A need for Product meaning,
-new public contract, event kind, widened effect family, pre-binding authority,
-or multi-file/compensating transaction returns to the Executive at the owning
-re-entry.
