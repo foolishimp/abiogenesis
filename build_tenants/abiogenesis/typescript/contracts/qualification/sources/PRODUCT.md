@@ -326,6 +326,8 @@ bounded C interior under one declared retry policy and attempt lineage.
 Graph recursion and `C.retry` are not substitutes. Recursion reapplies a
 GraphFunction under declared termination, foldback, parent re-evaluation, and
 lineage. Retry repeats an attempt without changing the declared graph relation.
+A recursion may declare the child failure classes that fold back for parent
+re-evaluation; an undeclared child failure fails the recursion.
 
 ### Traversal Monad
 
@@ -1024,6 +1026,15 @@ continue admitted work under existing specification, constraints and authority
 run conformance and installed-product proof
 ```
 
+A Run that stops without completing reads back from the admitted record alone:
+its typed disposition, the reason for the stop, the Result the stop originated
+from with its failure class where a failure caused it, the last admitted Result
+of its root, which for an Executive records its unresolved obligations and
+review standing, and the next lawful action where the record establishes one.
+The start and continue output of a stopped Run state the same reading. A stop
+is never presented as completion, and a child ended by a handled failure is
+never presented as live or closed.
+
 The public surface derives from one typed contract and catalog authority. Exact
 operation names, schemas, and capability projections are frozen for the release,
 but their count does not define the engine or create separate semantic owners.
@@ -1106,13 +1117,45 @@ or product feature family.
 ### Default Governance And Lifecycle Library
 
 The default library publishes a recursive Executive overlay and reusable
-GraphFunctions for induction, specification, design, testing and UAT through
-the same module/catalog path as user declarations. They are explicitly selected,
-replaceable compositions. Induction establishes the task model, governing
-context, assumptions and unknowns. Construction uses the declared coding-worker
-capability. Applicable work, depth and repetition follow framed evaluation and
-policy; the library imposes no unconditional lifecycle or mandatory hierarchy
-of Executive, auditor and strategic roles.
+GraphFunctions for induction, specification, design, testing, framed review and
+UAT through the same module/catalog path as user declarations. They are
+explicitly selected, replaceable compositions. Induction establishes the task
+model, governing context, assumptions and unknowns. Construction uses the
+declared coding-worker capability. Applicable work, depth and repetition follow
+framed evaluation and policy; the library imposes no unconditional lifecycle or
+mandatory hierarchy of Executive, auditor and strategic roles.
+
+The library also publishes framed review. A task declares its reviews. Each
+declared review names its reference frame, its exact subject, its governing
+sources and criteria, its result contract and whether it is required. One
+assessor GraphFunction serves every declared review; a review's type is its
+declared frame, not a separate graph, role or runner. The Executive selects a
+declared review as it selects any registered work. A review binds only its
+declared frame: it neither establishes nor replaces acceptance of the full
+original outcome.
+
+Parent completion is a declared computation over admitted verdicts. It requires
+the acceptance verdict and every required review verdict to be satisfied and
+current. A verdict is current while no later admitted effect touches its subject
+or the declared inputs its assessment depends on. An adverse, missing or stale
+required verdict keeps the parent open and remains visible as unresolved. The
+Executive proposes the next work under its frame; applicability, conflict,
+dependency and sufficiency remain its judgment. It cannot select completion or
+override this computation.
+
+A Program may declare, for a registered purpose, the reviews that must be
+satisfied and current before that purpose is selected. Only permitted work can
+be selected next, and a choice whose prerequisites do not hold is refused before
+the work is entered. A task declares every review its Program names, as required
+or, with a stated reason, as not applicable; a prerequisite binds only a required
+review. The selector's stated dependencies remain advisory.
+
+A step that fails with a declared recoverable class returns to the Executive in
+the same Run: the parent is re-evaluated, and the next selection sees the failed
+attempts from the admitted record, with the changes each attempt left in the
+worksite. A refused choice returns the same way. A write outside the grant, an
+unattributable effect, an unconfirmed termination or a failed deterministic
+computation stops the Run. Failed steps count against the declared limit.
 
 Governance preserves the original task, required outcomes and authority while
 selecting or revising the choice of preregistered graph work in response to
