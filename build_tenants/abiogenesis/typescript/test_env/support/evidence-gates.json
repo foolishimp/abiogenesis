@@ -2133,7 +2133,8 @@
    "class": "C",
    "status": "runs_with_root",
    "conversion": "done",
-   "variables": [
+   "variables": [],
+   "formerVariables": [
     "ABG_GOVERNANCE_COVERED_DECLARATION_PAIR"
    ],
    "cases": [
@@ -2176,7 +2177,8 @@
    "class": "C",
    "status": "runs_with_root",
    "conversion": "done",
-   "variables": [
+   "variables": [],
+   "formerVariables": [
     "ABG_GOVERNANCE_COVERED_FIXTURE"
    ],
    "cases": [
@@ -2262,8 +2264,9 @@
    "gate": "stdo-proof-entry-run-nine",
    "class": "C",
    "status": "runs_with_root",
-   "conversion": "pending",
-   "variables": [
+   "conversion": "done",
+   "variables": [],
+   "formerVariables": [
     "ABI5_ENV_RUN_ROOT"
    ],
    "cases": [
@@ -3220,9 +3223,6 @@
     "ABI5_WAVE1_FROZEN_INSTALL_HOST",
     "ABI5_ENV_SOURCE_EVIDENCE"
    ],
-   "alsoReads": [
-    "ABI5_ENV_RUN_ROOT"
-   ],
    "cases": [
     {
      "file": "tests/t287-stdo-proof-entry.test.mjs",
@@ -3311,62 +3311,10 @@
       "comments/codex/20260915_ABG5_RC7_SOURCE_CONTINUATION/execution-01/launch.json"
      ],
      "recordCount": 2
-    },
-    {
-     "variable": "ABI5_ENV_RUN_ROOT",
-     "value": "<root>/comments/codex/20260916_ABG5_RC7_COMBINED_QUALIFICATION/controlled-01/execution-01/run",
-     "exists": true,
-     "underRoot": true,
-     "records": [
-      "comments/codex/20260916_ABG5_RC7_COMBINED_QUALIFICATION/controlled-01/execution-01/launch.json"
-     ],
-     "recordCount": 1
-    },
-    {
-     "variable": "ABI5_ENV_RUN_ROOT",
-     "value": "<root>/comments/codex/20260916_ABG5_RC7_COMBINED_QUALIFICATION/controlled-01/run",
-     "exists": false,
-     "underRoot": true,
-     "records": [
-      "comments/codex/20260916_ABG5_RC7_COMBINED_QUALIFICATION/controlled-01/launch.json"
-     ],
-     "recordCount": 1
-    },
-    {
-     "variable": "ABI5_ENV_RUN_ROOT",
-     "value": "<root>/comments/codex/20260916_ABG5_RC7_ORIGINAL_1B_01/live-01/run",
-     "exists": true,
-     "underRoot": true,
-     "records": [
-      "comments/codex/20260916_ABG5_RC7_ORIGINAL_1B_01/records/live-launch.json"
-     ],
-     "recordCount": 1
-    },
-    {
-     "variable": "ABI5_ENV_RUN_ROOT",
-     "value": "<root>/comments/codex/20260915_ABG5_RC7_TASK_1B/execution-01/run",
-     "exists": true,
-     "underRoot": true,
-     "records": [
-      "comments/codex/20260915_ABG5_RC7_PROOF_CONTINUATION/continuation-plan.json",
-      "comments/codex/20260915_ABG5_RC7_PROOF_CONTINUATION/execution-01/launch.json",
-      "comments/codex/20260915_ABG5_RC7_SOURCE_CONTINUATION/continuation-plan.json"
-     ],
-     "recordCount": 4
-    },
-    {
-     "variable": "ABI5_ENV_RUN_ROOT",
-     "value": "<root>/comments/codex/20260916_ABG5_RC7_OBSERVATION_REPAIR/frame-completion/proof/preparation-01/run",
-     "exists": true,
-     "underRoot": true,
-     "records": [
-      "comments/codex/20260916_ABG5_RC7_OBSERVATION_REPAIR/frame-completion/proof/preparation-01/launch.json"
-     ],
-     "recordCount": 1
     }
    ],
    "observed": "pre-check: the unconverted lane, root unset, its variables set to the recorded values, writes under the root refused: both cases fail ENOENT on <root>/comments/codex/20260915_ABG5_RC7_TASK_1A/install/node_modules/@abiogenesis/typescript-tenant/package.json",
-   "note": "the install host directory exists but its installed package is gone; the source evidence file exists. A fresh install of that frozen artifact would be a new install, not the retained one"
+   "note": "the install host directory exists but its installed package is gone; the source evidence file exists. A fresh install of that frozen artifact would be a new install, not the retained one. The SDK case also resolves the run-nine records through row stdo-proof-entry-run-nine"
   },
   {
    "gate": "d1-positive-proof",
