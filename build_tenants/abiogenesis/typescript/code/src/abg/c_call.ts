@@ -2597,10 +2597,7 @@ function projectOpenedLeafCCallCarrier(
       event.payload.cursorDigest === openedCursorDigest) ||
       (event.kind === "traversal_route_admitted" &&
         event.payload.targetCursorRef === openedCursorRef &&
-        event.payload.targetCursorDigest === openedCursorDigest) ||
-      (event.kind === "fh_interaction_resume_admitted" &&
-        event.payload.successorCursorRef === openedCursorRef &&
-        event.payload.successorCursorDigest === openedCursorDigest))
+        event.payload.targetCursorDigest === openedCursorDigest))
   );
   if (cursorCause === undefined || opened.parentAggregateId !== opened.frameId ||
     !exactEventBody(opened, "c_call_opened", locusBody)) return null;
@@ -4345,10 +4342,9 @@ export function projectWorkflowCCallInputDigestAtPrefix(
     !event.causationEventRefs.includes(foldback.eventId) ||
     !(foldback.admissionOrdinal < event.admissionOrdinal && event.admissionOrdinal < result.admissionOrdinal) ||
     !Array.isArray(result.payload.evidenceRefs) || !result.payload.evidenceRefs.includes(evidenceRef)) return null;
-  // Entry and resume also carry a direct input witness; conserve that join.
+  // Entry also carries a direct input witness; conserve that join.
   if (!isRecord(origin.payload) ||
-    (origin.kind === "traversal_cursor_entered" && origin.payload.inputDigest !== payload.inputDigest) ||
-    (origin.kind === "fh_interaction_resume_admitted" && origin.payload.successorInputDigest !== payload.inputDigest)) return null;
+    (origin.kind === "traversal_cursor_entered" && origin.payload.inputDigest !== payload.inputDigest)) return null;
   return payload.inputDigest as Sha256Digest;
 }
 
@@ -6435,8 +6431,7 @@ export function undispatchedOwnerEvidenceMatches(
     // Routes retain the target identity, not a duplicate input body. Raw
     // admission below checks the actual cursor/input; cold result checking
     // consumes the exact evidence that admission established.
-    if ((origin.kind === "traversal_cursor_entered" && origin.payload.inputDigest !== expectedInputDigest) ||
-        (origin.kind === "fh_interaction_resume_admitted" && origin.payload.successorInputDigest !== expectedInputDigest)) return false;
+    if (origin.kind === "traversal_cursor_entered" && origin.payload.inputDigest !== expectedInputDigest) return false;
     // Link actor/process children through the actual binding and invocation,
     // not an assumption that every process event repeats payload.cCallRef.
     const bindings = indexedRuntimeEvents(prefix, "kind:" + "actor_transport_binding_admitted").filter(event => event.kind === "actor_transport_binding_admitted" &&
