@@ -204,3 +204,24 @@ ends.
 - Measurement noise: a concurrent suite run and my own composition checks and
   guard measurement overlapped the baselines. The C0 witness baseline started
   at a 1-minute load of 15.6.
+
+## Executive completion (2026-11-12)
+
+The Writer's run ended before its measurement chain did. The chain then finished, and the Executive tabulated its result files (`runs/` in the session scratchpad; titles compared from the TAP output). Every converted file gives the same titles and the same counts before the change, after it, and with its cases in reversed order.
+
+| File | Tests, pass, fail, skip (before = after = reversed) | Before | After | Peak resident memory before | After |
+|---|---|---|---|---|---|
+| `t287-c0-post-publication-failure` | 16, 16, 0, 0 | 694 s | 163 s | 4.48 GB | 3.24 GB |
+| `t287-c0-post-publication-failure-owner-admission-close` | 15, 15, 0, 0 | 726 s | 160 s | 4.30 GB | 2.38 GB |
+| `t287-amendment-witness` | 13, 12, 0, 1 | 828 s | 611 s | 4.47 GB | 3.70 GB |
+| `t287-default-library` | 37, 34, 0, 3 | 319 s | 258 s | 3.89 GB | not read |
+| `t287-worksite-command-execution` | 12, 12, 0, 0 | 311 s | 157 s | 4.01 GB | 3.28 GB |
+| `t287-recursive-registered-selection` | 7, 6, 0, 1 | 243 s | 76 s | 3.72 GB | 3.47 GB |
+| `t287-recursive-failure-foldback` | 8, 8, 0, 0 | 237 s | 98 s | 3.75 GB | 3.67 GB |
+| `m5-event-calculus-runtime` | 19, 18, 0, 1 | 188 s | 49 s | 3.87 GB | 3.16 GB |
+
+The eight files go from 3,546 s to 1,572 s. The runs shared the machine with a coverage run and two other packages, so the times are under load on both sides.
+
+The uncommitted conversions removed no `assert` line and no `test(` declaration (diff counted by the Executive). They are committed as one commit after this check, and the reversed-order copies (`zz-rev-*.test.mjs`) are deleted.
+
+Not done in this slice: the other installer files (about 70), the fixed shared output paths that block running files in parallel, and `t287-readable-stops` (three install variants for four cases).
