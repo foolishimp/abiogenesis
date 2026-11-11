@@ -2,8 +2,6 @@ import assert from 'node:assert/strict';
 import { access, lstat, mkdir, mkdtemp, readFile, readdir, realpath, rename, rm, stat, symlink, writeFile } from 'node:fs/promises';
 import fs from 'node:fs';
 import { createRequire, syncBuiltinESMExports } from 'node:module';
-import { execFile } from 'node:child_process';
-import { promisify } from 'node:util';
 import { tmpdir } from 'node:os';
 import { dirname, join } from 'node:path';
 import { fileURLToPath, pathToFileURL } from 'node:url';
@@ -14,6 +12,7 @@ import * as c2 from '../../build/code/src/product/worksite_command_execution.js'
 import * as abg from '../../build/code/src/abg/index.js';
 import * as storeOwner from '../../build/code/src/abg/event_store.js';
 import * as gtl from '../../build/code/src/gtl/index.js';
+import { packProduct } from '../../scripts/product-payload.mjs';
 import { assessmentSelection, consumerDeclaration, IDS } from './consumer.mjs';
 import { constructLifecycleCall, installedModules, populateSandbox, publicCaller, verifyArtifact } from './public-setup.mjs';
 import { acquireArchivedScenario, acquireScenario, constructWorkloadInput, digest, fixturePath, loadScenarios, selectScenarios, snapshotScenario } from './scenarios.mjs';
@@ -842,9 +841,7 @@ test('Maintained setup retains actual owner verification through ten native call
   // The candidate is this built tenant, freshly packed; its identity is the
   // packed bytes and the built manifest, never a persisted earlier basis.
   const packed=join(root,'candidate-artifact');await mkdir(packed);
-  const {stdout:packOutput}=await promisify(execFile)(realNpm,['pack','--ignore-scripts','--json','--pack-destination',packed],
-    {cwd:tenantRoot,maxBuffer:10*1024*1024});
-  const [packResult]=JSON.parse(packOutput),packagePath=join(packed,packResult.filename);
+  const [packResult]=await packProduct(tenantRoot,packed),packagePath=join(packed,packResult.filename);
   const candidateManifest=JSON.parse(await readFile(join(tenantRoot,'product-toolchain-manifest.json'),'utf8'));
   const basis={artifactDigest:digest(await readFile(packagePath)),productContentDigest:candidateManifest.productContentDigest,
     manifestDigest:candidateDigest(candidateManifest),productId:candidateManifest.productId,
