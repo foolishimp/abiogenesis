@@ -3,6 +3,8 @@
 **Status**: Accepted S05 realization basis at `283325aa`; bounded
 catalog-application clarification pending exact-cut review
 
+Retired sections: [history/M05_S05_CONSENSUS_GLOBAL_TO_LOCAL_DESIGN__RETIRED_SECTIONS.md](history/M05_S05_CONSENSUS_GLOBAL_TO_LOCAL_DESIGN__RETIRED_SECTIONS.md).
+
 **Owner**: T-270
 
 **Product outcome**: `ABG5-S05`
@@ -806,19 +808,3 @@ stateDiagram-v2
 `test:m5:consensus` remains downstream installed scenario proof. It cannot
 replace the module-owned lane. No new test script, ticket, event family, or
 proof product is required; the existing lanes absorb the derived cases.
-
-## Design Acceptance Predicate
-
-Independent review determines whether:
-
-- the requirement projection is complete and Product-consistent;
-- the Ontology, Prime contraction, IACS, module mapping, three views, and
-  cross-view axioms form one satisfiable constraint network;
-- the round, occurrence, failure, ruling, F_H, workspace, and public-read
-  algebras are total and singular; and
-- implementation can project this design without choosing Product meaning,
-  authority, topology, lifecycle, failure, or closure.
-
-Direct human acceptance must separately affirm REQ-P-CONSENSUS-015A's
-same-Run F_H topology. The worker performs no semantic self-review. Before
-handoff it runs only mechanical checks, binds one exact subject, and stops.

@@ -3,6 +3,8 @@
 **Status**: Active
 **Ticket**: T-120
 
+Retired sections: [history/ABG_EVENT_CALCULUS_IACS__RETIRED_SECTIONS.md](history/ABG_EVENT_CALCULUS_IACS__RETIRED_SECTIONS.md).
+
 ## Irreducible Carrier Set
 
 | Carrier | Owner | Role |
@@ -48,10 +50,15 @@ They only map admitted event truth to replay-derived fluent truth.
 
 ## Proof Surface
 
-`test_t120_event_calculus_runtime_law.test.mjs` proves initiation, inertia,
-clipping, undeclared-kind rejection, malformed fluent rejection, duplicate
-axiom rejection, contradictory effect rejection, and projection parity for
-vector closure.
+`m5-event-calculus-runtime.test.mjs` ("closed typed Event Calculus law refuses
+missing, duplicate, malformed, and contradictory input") proves rejection of a
+missing axiom kind and a duplicate axiom kind
+(`validateRuntimeEventCalculusAxiomKindsForModuleTest`), a fluent pattern that
+constrains neither name nor identity (`constructRuntimeFluentPattern`), an
+effect that both initiates and terminates one fluent
+(`validateRuntimeEventCalculusEffectForModuleTest`, `abg/calculus/axioms.ts`)
+and a prefix that is not a nominal validated prefix
+(`deriveRuntimeEventCalculusProjection`, `abg/event_calculus.ts`).
 
 For every admitted prefix, `RuntimeEventCalculusDerivation.advance` and the pure
 `foldStep` fold yield identical `holds`, `clippedFluentRefs` and

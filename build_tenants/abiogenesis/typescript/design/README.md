@@ -18,7 +18,7 @@ Superseded, stale and record notes, and the sections cut from mixed notes, are i
 
 - [M03_DIRECT_GTL_TRAVERSAL_BEHAVIOR_DESIGN](M03_DIRECT_GTL_TRAVERSAL_BEHAVIOR_DESIGN.md): direct GTL validation, traversal, runtime admission, replay and public projection. Realized by `hog/traversal.ts`, `hog/child_traversal.ts`, `validator/validation.ts`, `abg/replay.ts`.
 - [M05_DIRECT_GTL_TRAVERSAL_EXPANSION_DESIGN](M05_DIRECT_GTL_TRAVERSAL_EXPANSION_DESIGN.md): the `CProgramTerm` and its direct fold, the One Surface evidence fold, the ordinary-path Consensus and native portability. Realized by `gtl/c_algebra.ts`, `hog/traversal.ts`, `abg/traversal_route.ts`, `gtl/consensus.ts`.
-- [M03_TYPED_RECURSE_RUNTIME_BEHAVIOR_DESIGN](M03_TYPED_RECURSE_RUNTIME_BEHAVIOR_DESIGN.md): recurse application: child failure, termination, foldback and declared failed-child foldback. Realized by `hog/recursion_lifecycle.ts`, `gtl/serialization_contracts.ts`, `abg/graph_application.ts`.
+- [M03_TYPED_RECURSE_RUNTIME_BEHAVIOR_DESIGN](M03_TYPED_RECURSE_RUNTIME_BEHAVIOR_DESIGN.md): recurse application: child preparation, child failure, bounded termination, foldback admission, parent re-entry and declared failed-child foldback. Realized by `hog/recursion_lifecycle.ts`, `hog/child_traversal.ts`, `gtl/serialization_contracts.ts`, `abg/graph_application.ts`, `abg/traversal_route.ts`.
 - [T287_REGISTERED_GRAPH_SELECTION_DESIGN](T287_REGISTERED_GRAPH_SELECTION_DESIGN.md): selection among registered graphs and route proposal. Realized by `hog/route_proposal.ts`, `hog/child_traversal.ts`, `gtl/contracts.ts`, `gtl/source_path.ts`.
 
 ## ABG
@@ -27,7 +27,7 @@ Superseded, stale and record notes, and the sections cut from mixed notes, are i
 - [ABG_EVENT_CALCULUS_RUNTIME_LAW_DERIVATION](ABG_EVENT_CALCULUS_RUNTIME_LAW_DERIVATION.md): runtime law as Event Calculus axioms and `HoldsAt` folds. Realized by `abg/calculus/axioms.ts`, `abg/calculus/fold.ts`.
 - [M03_PAYLOAD_LEDGER_EVENT_TOPOLOGY_DERIVATION](M03_PAYLOAD_LEDGER_EVENT_TOPOLOGY_DERIVATION.md): native definition material in durable event rows. Realized by `abg/event_body_encoding.ts`.
 - [M03_INSTRUCTION_ASSEMBLY_DERIVATION](M03_INSTRUCTION_ASSEMBLY_DERIVATION.md): native binding and material lifetime of instruction assembly. Realized by `abg/instruction_assembly.ts`.
-- [M03_SYSTEM_PROBE_OBSERVER_LIVENESS_DERIVATION](M03_SYSTEM_PROBE_OBSERVER_LIVENESS_DERIVATION.md): system probes, watchdog policy and the liveness observer projection. Realized by `abg/runtime_liveness_contracts.ts`, `abg/runtime_liveness.ts`.
+- [M03_SYSTEM_PROBE_OBSERVER_LIVENESS_DERIVATION](M03_SYSTEM_PROBE_OBSERVER_LIVENESS_DERIVATION.md): system probes, watchdog policy, the liveness observer projection and its disposition rules. Realized by `abg/runtime_liveness_contracts.ts`, `abg/runtime_liveness.ts`, `abg/calculus/liveness.ts`.
 - [M03_TRAVERSAL_NON_PROGRESS_CONTINUATION_DERIVATION](M03_TRAVERSAL_NON_PROGRESS_CONTINUATION_DERIVATION.md): timeout-to-failure mapping, artifact salvage and composition with liveness. Realized by `abg/transport_contracts.ts`, `abg/runtime_liveness.ts`.
 - [T287_NATIVE_LIVENESS_CONSERVATION_DESIGN](T287_NATIVE_LIVENESS_CONSERVATION_DESIGN.md): native liveness conservation. Realized by `abg/runtime_liveness_contracts.ts`, `abg/event_contract_profiles.ts`.
 - [T287_NATIVE_EVENT_CONTRACT_COMPATIBILITY_DESIGN](T287_NATIVE_EVENT_CONTRACT_COMPATIBILITY_DESIGN.md): event-contract compatibility profiles. Realized by `abg/event_contract_profiles.ts`.

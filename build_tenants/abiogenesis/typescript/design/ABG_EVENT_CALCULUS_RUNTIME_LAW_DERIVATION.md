@@ -4,6 +4,8 @@
 **Date**: 2026-05-06
 **Tickets**: T-120, T-119
 
+Retired sections: [history/ABG_EVENT_CALCULUS_RUNTIME_LAW_DERIVATION__RETIRED_SECTIONS.md](history/ABG_EVENT_CALCULUS_RUNTIME_LAW_DERIVATION__RETIRED_SECTIONS.md).
+
 ## Claim
 
 ABG runtime truth is declared as Event Calculus law over admitted events.
@@ -20,15 +22,6 @@ transition authority.
   fluents.
 - Product policy and provider state do not create runtime truth unless ABG
   admits an event.
-
-## First Slice
-
-The first declared event set covers basis, graph call, frame, vector plan,
-vector evaluation, vector closure, retry repair, continuation repair, reset,
-and the temporal timer/scheduled-continuation extension needed by T-119.
-
-The aggregate projection now checks vector closure through the declared EC
-effect for `vector_closed` before applying its existing ordering law.
 
 ## Non-Authority
 
