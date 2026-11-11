@@ -4,13 +4,15 @@ Writer: Claude Opus 5.5. Branch `claude/td64-design-history` from local `main`
 at `ebeeaf5e0`, worktree `/private/tmp/abg-td64`. Change class:
 design_reframe. No push, no tag.
 
-Status: done, with deviations. 50 current notes stay in `design/`, indexed by
-a new present-tense `design/README.md`; 268 notes, the 8 ADRs and the old
-README moved unchanged to `design/history/`; five mixed notes lost 1,280 lines
-of stale sections to `history/*__RETIRED_SECTIONS.md`. No file under `code`,
-`contracts`, `package.json` or `product-toolchain-manifest.json` changed, and
-no specification file changed. Live design notes still hold 42 dangling links,
-all present before the move (Section 5); the move caused none.
+Status: not fully met. One verification condition fails: live design notes
+hold 42 dangling links where the brief requires zero; all 42 were present
+before the move, and the move caused none (Section 5). The rest is complete:
+50 current notes stay in `design/`, indexed by a new present-tense
+`design/README.md`; 268 notes, the 8 ADRs and the old README moved unchanged
+to `design/history/`; five mixed notes lost 1,280 lines of stale sections to
+`history/*__RETIRED_SECTIONS.md`. No file under `code`, `contracts`,
+`package.json` or `product-toolchain-manifest.json` changed, and no
+specification file changed.
 
 | Commit | Content |
 | --- | --- |
@@ -19,7 +21,8 @@ all present before the move (Section 5); the move caused none.
 | `4e405ff08` | mixed-note cuts |
 | `8ce7ad97b` | `design/README.md` and `design/history/README.md` |
 | `09d7f03e1` | inbound references: 14 kept notes, `classification.json`, inventory, recipe, one lint comment |
-| this commit | this Return |
+| `8757bd231` | this Return |
+| this commit | status line and two verification statements in this Return |
 
 No specification commit: no specification file cites a moved note by a
 repository path (Section 5).
@@ -127,9 +130,10 @@ Five notes mix live and stale sections. Each cut is whole sections, moved
 verbatim to `history/<NAME>__RETIRED_SECTIONS.md`, whose first line names the
 note, commit `e1516b5f1` and the cut line ranges. Each kept note gains one
 pointer line; `M03_INSTRUCTION_ASSEMBLY_DERIVATION` also has its surviving
-`###` heading promoted to `##`. A check by script confirms that each retired
-file holds exactly the original line ranges and that the only added lines are
-the pointer, one blank line and that heading.
+`###` heading promoted to `##`. Two checks by script: each retired file holds
+exactly the original line ranges; and each kept note equals the original's
+kept ranges once the pointer line is removed, the heading is restored and
+runs of blank lines are collapsed to one.
 
 | Note | Lines before -> after | Cut | Kept |
 | --- | --- | --- | --- |
@@ -192,7 +196,7 @@ The new active-ticket bare dangling path is
 which names `design/T287_W2_ODD_GLC_TYPED_WORKSPACE_ADMISSION_DESIGN.md`;
 tickets are outside this package's edit list, so it is left. History notes are
 not repaired: their relative links resolve against the pre-move layout, as
-`history/README.md` says.
+`history/README.md` says. `history/README.md` itself has no dangling link.
 
 Specification: the 10 design notes it names by repository path all stay. The
 two `GOALS.md:45,47` links to the refactor plan point at an absolute path in
