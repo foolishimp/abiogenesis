@@ -1,11 +1,9 @@
-import { execFile } from "node:child_process";
 import { createHash } from "node:crypto";
 import { mkdir, readFile, writeFile } from "node:fs/promises";
 import { dirname, join, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
-import { promisify } from "node:util";
+import { packProduct } from "./product-payload.mjs";
 
-const execFileAsync = promisify(execFile);
 const root = resolve(dirname(fileURLToPath(import.meta.url)), "..");
 const artifacts = join(root, "artifacts");
 const basisPath = join(
@@ -14,12 +12,7 @@ const basisPath = join(
 );
 
 await mkdir(artifacts, { recursive: true });
-const { stdout } = await execFileAsync(
-  "npm",
-  ["pack", "--ignore-scripts", "--json", "--pack-destination", artifacts],
-  { cwd: root, maxBuffer: 10 * 1024 * 1024 },
-);
-const [packed] = JSON.parse(stdout);
+const [packed] = await packProduct(root, artifacts);
 const archive = await readFile(join(artifacts, packed.filename));
 const manifest = JSON.parse(
   await readFile(join(root, "product-toolchain-manifest.json"), "utf8"),

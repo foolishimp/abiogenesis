@@ -1,10 +1,9 @@
 import assert from "node:assert/strict";
-import { execFile } from "node:child_process";
 import { mkdir, mkdtemp, readFile, rm } from "node:fs/promises";
 import { tmpdir } from "node:os";
 import { dirname, join, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
-import { promisify } from "node:util";
+import { packProduct } from "../../scripts/product-payload.mjs";
 import test from "node:test";
 
 import * as product from "../../build/code/src/product/index.js";
@@ -14,7 +13,6 @@ import {
 } from "../../build/code/src/public/binding/public_function_family.js";
 
 const root = resolve(dirname(fileURLToPath(import.meta.url)), "../..");
-const execFileAsync = promisify(execFile);
 const graphPath = join(
   root,
   product.CAPABILITY_DEFINITION_GRAPH_ASSET_PATH,
@@ -405,12 +403,7 @@ test("ST-2A-G conserves the graph through packed verification, lock, install, an
   context.after(() => rm(scratch, { force: true, recursive: true }));
   const artifacts = join(scratch, "artifacts");
   await mkdir(artifacts);
-  const { stdout } = await execFileAsync(
-    "npm",
-    ["pack", "--ignore-scripts", "--json", "--pack-destination", artifacts],
-    { cwd: root, maxBuffer: 10 * 1024 * 1024 },
-  );
-  const [packed] = JSON.parse(stdout);
+  const [packed] = await packProduct(root, artifacts);
   const artifactPath = join(artifacts, packed.filename);
   const manifest = JSON.parse(await readFile(manifestPath, "utf8"));
   const verified = await product.verifyProduct({

@@ -4,6 +4,7 @@ import { tmpdir } from "node:os";
 import { basename, isAbsolute, join, relative, resolve, sep } from "node:path";
 import { pathToFileURL } from "node:url";
 import { promisify } from "node:util";
+import { packProduct } from "../../scripts/product-payload.mjs";
 
 import { readCandidateBasis } from "./candidate-basis.mjs";
 import { prepareLanguageSmokeFixture } from "./language-smoke-fixture.mjs";
@@ -100,12 +101,7 @@ export async function setupInstalledCliHarness(context, packageRoot, options = {
   if (frozenArtifact === null) {
     const artifacts = join(scratch, "artifacts");
     await mkdir(artifacts);
-    const { stdout: packStdout } = await execFileAsync(
-      "npm",
-      ["pack", "--ignore-scripts", "--json", "--pack-destination", artifacts],
-      { cwd: packageRoot, maxBuffer: 10 * 1024 * 1024 },
-    );
-    const [packResult] = JSON.parse(packStdout);
+    const [packResult] = await packProduct(packageRoot, artifacts);
     artifactPath = join(artifacts, packResult.filename);
     cliHost = join(scratch, "cli-host");
     await mkdir(cliHost);

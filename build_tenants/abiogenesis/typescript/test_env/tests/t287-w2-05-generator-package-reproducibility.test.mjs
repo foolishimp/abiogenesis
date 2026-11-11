@@ -12,6 +12,7 @@ import { tmpdir } from "node:os";
 import { basename, dirname, join, relative, resolve } from "node:path";
 import { fileURLToPath, pathToFileURL } from "node:url";
 import { promisify } from "node:util";
+import { packProduct } from "../../scripts/product-payload.mjs";
 import test from "node:test";
 
 const execFileAsync = promisify(execFile);
@@ -340,12 +341,7 @@ test("W2-05 generator is reproducible and the real pack verifies 18/56", async (
   const artifacts = join(root, "artifacts");
   await rm(artifacts, { recursive: true, force: true });
   await mkdir(artifacts, { recursive: true });
-  const { stdout } = await execFileAsync(
-    "npm",
-    ["pack", "--ignore-scripts", "--json", "--pack-destination", artifacts],
-    { cwd: root, maxBuffer: 64 * 1024 * 1024 },
-  );
-  const [packResult] = JSON.parse(stdout);
+  const [packResult] = await packProduct(root, artifacts);
   assert.equal(typeof packResult.filename, "string");
   const artifactPath = join(artifacts, packResult.filename);
   const extractRoot = await mkdtemp(join(tmpdir(), "abi5-w2-05-pack-"));

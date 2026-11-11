@@ -5,6 +5,7 @@ import { tmpdir } from "node:os";
 import { join } from "node:path";
 import { fileURLToPath } from "node:url";
 import { promisify } from "node:util";
+import { packProduct } from "../../scripts/product-payload.mjs";
 import test from "node:test";
 
 const execFileAsync = promisify(execFile);
@@ -31,9 +32,7 @@ test("the minimal language test has no production authority or package entry", a
   context.after(async () => rm(scratch, { recursive: true, force: true }));
   let archive = process.env.ABI5_WAVE1_FROZEN_ARTIFACT_PATH;
   if (archive === undefined) {
-    const { stdout } = await execFileAsync("npm", ["pack", "--ignore-scripts", "--json", "--pack-destination", scratch],
-      { cwd: root, maxBuffer: 10 * 1024 * 1024 });
-    const [pack] = JSON.parse(stdout);
+    const [pack] = await packProduct(root, scratch);
     archive = join(scratch, pack.filename);
   }
   const members = (await execFileAsync("tar", ["-tzf", archive])).stdout.trim().split("\n");

@@ -5,6 +5,7 @@ import { tmpdir } from "node:os";
 import { dirname, join, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 import { promisify } from "node:util";
+import { packProduct } from "../../scripts/product-payload.mjs";
 import test from "node:test";
 
 const execFileAsync = promisify(execFile);
@@ -21,12 +22,7 @@ test("W2-05 packed ./product exports both release snapshot definition bindings",
 
   const packDirectory = join(scratch, "pack");
   await mkdir(packDirectory, { recursive: true });
-  const { stdout: packStdout } = await execFileAsync(
-    "npm",
-    ["pack", "--ignore-scripts", "--json", "--pack-destination", packDirectory],
-    { cwd: root, maxBuffer: 10 * 1024 * 1024 },
-  );
-  const [packResult] = JSON.parse(packStdout);
+  const [packResult] = await packProduct(root, packDirectory);
   assert.equal(typeof packResult.filename, "string");
 
   const extractRoot = join(scratch, "extract");
