@@ -373,11 +373,13 @@ This note narrows D6 for declared classes only.
   `failed`) foldback. Run quiescence (`projectRunQuiescence`, the closure gate)
   reads that frame's `runtime_invocation_active` probe as historical, at every
   depth. The axioms are unchanged: the derived probe fluent still holds, so
-  replay digests and the derived liveness of recorded Runs stay the same. A
-  closed Run's Public `run_status` therefore still lists the probe in
-  `activeFluents`, and the frame's native liveness keeps `frame_progress`
-  active. A frame without an admitted stopped foldback keeps blocking
-  quiescence.
+  replay digests and the derived liveness of recorded Runs stay the same. The
+  Public reads consume the same owner, `projectEndedChildFrames` in
+  `replay.ts`: `run_status` omits an ended frame's probe from `holdsAt`, the
+  `nativeLiveness` that the status, replay, gaps and lawful-actions reads carry
+  omits its frame invocation, and the frame's graph-call status, when that
+  graph call is neither closed nor active, reads as its stopped disposition. A
+  frame without an admitted stopped foldback keeps blocking quiescence.
 - **Effect grant.** None. The relation admits runtime truth only.
 - **Exit proof.** `t287-recursive-failure-foldback.test.mjs`: a declared class
   fails once and the Run closes; each folded frame probe blocks quiescence until
