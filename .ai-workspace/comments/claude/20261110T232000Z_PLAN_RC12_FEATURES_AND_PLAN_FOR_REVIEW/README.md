@@ -248,3 +248,17 @@ Both reviewers are Claude Opus 5.5 at maximum effort, fresh contexts, same model
 | The test of a stale review after a `readFirst`-only change stubs the invalidation owner | The case moves into an end-to-end scripted Run over a real event log |
 | Readable stops: the statement asserts unresolved obligations for any last Result; an operator stop's recorded reason reads as absent; the origin of a stop is found by position, so a handled child failure could be named as the cause of a later stop; the start command's output carries no statement | Repairs running (package RR), with the origin established by causal references |
 | A closed Run with a handled failed foldback still presents the folded frames as live | Package RR applies the quiescence reader rule in the Public read, on condition that no recorded Run's replay digest changes |
+
+## 14. Independent review 4: the Consensus retirement is backed out of RC12 (2026-11-11)
+
+Review file: `/private/tmp/abg-rv4-tmp/RV4_REVIEW.md`. Verdict: changes requested.
+
+**Blocking finding.** The retirement's dependency cone is open. "The standard system program" is required at three sites: `specification/PRODUCT.md` section "System And One Surface", the feature row `A5-F07`, and REQ-P-POLICY-023. Its only shipped realization was `program://abg/system/consensus-one-surface@5` in the removed Consensus module. After the removal the default `supervised` start mode has no shipped target. Scenario `ABG5-S03` can be met by a consumer's program, and its tests run on consumer fixtures; the feature and the requirement cannot.
+
+**The Executive's ruling was wrong.** In section 8 and later the Executive accepted the removal and reworded two Product sentences to "A system program". That is a Product reprice of a selected 5.0 feature. It needs the owner's own decision.
+
+**Disposition.** The retirement is backed out of the RC12 line (package CB, running). RC12 keeps Consensus exactly as the base had it. The retirement stays prepared on branch `claude/rc12-consensus` at `9c086294b`, with the review's repairs listed in `C_RETURN.md`.
+
+**Owner decision needed before the retirement proceeds:** how `A5-F07` is realized and proved once the Consensus program is gone, and what the default start mode targets. Two lawful routes: re-home the standard system program onto the Executive, with the four One Surface authorities; or reprice the feature to a law without a shipped program and choose the default start mode explicitly.
+
+**Other findings accepted.** The intent amendment's "as the default experience" conflicts with the Product's rule that a Program adopts the STDO environment explicitly; it becomes "out of the box", adopted explicitly. Change authority for RC12's Product and requirement edits is not recorded in a tracked authority surface; the Product header gains it at the close of the integration line.
