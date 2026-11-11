@@ -510,7 +510,10 @@ test("released GC03 bridge: owner-held {id,sha256} retained resolver, exact late
 // Declared B05 GC03 recipe (make-gc03-candidate.py, make-activation-template.py):
 // pinned host prerequisites, the released method profile, the native work
 // identities and the custody digests of its released STDO and operator sources.
+// The recipe resolves its own method release, the one its profile names, and
+// never the Product's current STDO basis.
 const GC03_RECIPE = Object.freeze({
+  methodRelease: "stdo://releases/v3.0.2/",
   python: "/Library/Frameworks/Python.framework/Versions/3.12/bin/python3.12",
   pythonSha256: "a7f5b535d61d1c7326824204ac80f045a97a652abb154421e2c74fcc365a3539", pythonVersion: "3.12.8",
   release: join(homedir(), ".local/share/a_c/development-supplements/gc03-adb3d8ee-1"),
@@ -711,6 +714,16 @@ test("GC03 real owner allowed denied cold tamper", { timeout: 1_800_000 }, async
   const stdoRoot = realpathSync(resolved.path), manifest = await readFile(join(stdoRoot, "manifest.json"));
   assert.equal(sha(manifest), "sha256:" + basis.manifest_sha256, "resolved STDO manifest is the pinned Product basis");
   assert.ok(manifest.equals(await readFile(join(packageRoot, "contracts/default-library/stdo/manifest.json"))), "resolved manifest is the packaged pinned manifest");
+  // The GC03 recipe's method sources come from its own released method, resolved
+  // through the same toolchain; without that release on this host the lane skips.
+  let method;
+  try { method = JSON.parse(execFileSync("stdo", ["resolve", GC03_RECIPE.methodRelease], { encoding: "utf8", stdio: ["ignore", "pipe", "pipe"] })); }
+  catch (error) {
+    t.skip(`${GC03_RECIPE.methodRelease} is not resolvable by stdo on this host (${String(error.stderr ?? error.message).trim().slice(0, 200)}); the GC03 recipe pins its method sources`);
+    return;
+  }
+  assert.equal(method.uri, GC03_RECIPE.methodRelease, "stdo resolves the recipe's method release");
+  const methodRoot = realpathSync(method.path);
   const original = path => ({ path, digest: "sha256:" + selection.seedFiles[path].sha256 });
   const task = original("source/original-basic-cli.txt"), rubric = original("source/basic-cli.oracle.json");
   let selectedEnvironment, governed;
@@ -727,7 +740,7 @@ test("GC03 real owner allowed denied cold tamper", { timeout: 1_800_000 }, async
       const adapterPath = realpathSync(join(setup.bootstrapPackage, packaged.adapter.path)), adapterDigest = sha(await readFile(adapterPath));
       assert.equal(adapterDigest, packaged.adapter.sha256); assert.equal(adapterDigest, sha(await readFile(trackedAdapterPath)));
       assert.deepEqual(packaged.gc03, { ...gc.GC03_SELECTED_RELEASE });
-      const recipe = await materializeGc03Recipe({ root: join(local, "gc03"), repoRoot, stdoRoot, adapterPath, product, ids: product.NATIVE_WORKSPACE_WORK_IDS, task, rubric });
+      const recipe = await materializeGc03Recipe({ root: join(local, "gc03"), repoRoot, stdoRoot: methodRoot, adapterPath, product, ids: product.NATIVE_WORKSPACE_WORK_IDS, task, rubric });
       const basisRef = "support://abiogenesis/governed-context/", contextRef = "context://abiogenesis/governed-context";
       const files = [["governed-context/activation.json", recipe.template], ["governed-context/policy.json", recipe.privateMember]];
       const members = files.map(([path, bytes]) => ({ digest: product.sha256Bytes(bytes), path, target: null, type: "file" }));
@@ -800,7 +813,15 @@ test("GC03 real owner allowed denied cold tamper", { timeout: 1_800_000 }, async
   // observation into its own Result).
   const construction = one(at("c_call_result_admitted").filter(e => e.payload.value?.kind === "native_workspace_work_observation" && e.payload.resultClass === "success" &&
     e.aggregateId === e.payload.value.provenance.cCallRef && e.graphFunctionRef === env.product.NATIVE_WORKSPACE_WORK_IDS.graphFunctionRef), "one admitted native Construction leaf Result");
-  const provenance = construction.payload.value.provenance, nativeTask = construction.payload.value.task;
+  // The Result binds its admitted task by `inputDigest`, the raw input of its own execution basis; since RC7 it
+  // carries no task copy (product/native_workspace_work.ts, abg/native_worksite_execution.ts).
+  const provenance = construction.payload.value.provenance;
+  const resultBasis = one(storeOwner.readRuntimeEventsAtDurablePrefix(handoff.prefix).filter(e => e.kind === "basis_admitted" && e.payload.basisRef === construction.basisId),
+    "one admitted execution basis of the Construction Result");
+  const nativeTask = resultBasis.payload.rawInputValue;
+  assert.deepEqual([resultBasis.payload.rawInputDigest, resultBasis.payload.graphFunctionRef], [construction.payload.value.inputDigest, construction.graphFunctionRef],
+    "the Construction Result binds the raw input of its own execution basis");
+  assert.equal(env.product.sha256Canonical(nativeTask), construction.payload.value.inputDigest, "the bound digest is the task's own digest");
   assert.ok(env.product.isNativeWorkspaceWorkTask(nativeTask) && nativeTask.assessment === undefined, "admitted native Construction task");
   const binding = one(at("actor_transport_binding_admitted").filter(e => e.aggregateId === provenance.transportBindingRef), "admitted transport binding of the Result");
   assert.deepEqual([binding.payload.transportBindingRef, binding.payload.transportBindingDigest], [provenance.transportBindingRef, provenance.transportBindingDigest]);

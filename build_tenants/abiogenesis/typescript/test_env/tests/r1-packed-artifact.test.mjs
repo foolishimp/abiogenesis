@@ -9,13 +9,21 @@ import { packProduct } from "../../scripts/product-payload.mjs";
 import test from "node:test";
 
 import {
+  candidateBasisSource,
+  expectedCandidateBasis,
   expectedVerificationIdentity,
-  readCandidateBasis,
 } from "../support/candidate-basis.mjs";
 
 const execFileAsync = promisify(execFile);
 const root = resolve(dirname(fileURLToPath(import.meta.url)), "../..");
 
+// The expected identity has two sources (support/candidate-basis.mjs). By
+// default it is derived from the fresh pack itself: this lane then proves the
+// pack is self-consistent and that a tampered or self-consistently substituted
+// archive is refused. With ABI5_CANDIDATE_BASIS_SOURCE=committed it is the
+// committed basis fixture: the lane then also proves the pack equals that
+// separately recorded identity, the external check the cut runs after writing
+// the basis. Both refusals are asserted in both modes.
 test("R1 verifies exact packed bytes without a source import", async (context) => {
   const artifacts = join(root, "artifacts");
   await rm(artifacts, { force: true, recursive: true });
@@ -31,9 +39,10 @@ test("R1 verifies exact packed bytes without a source import", async (context) =
 
   const productRoot = join(extractRoot, "package");
   const packageJson = JSON.parse(await readFile(join(productRoot, "package.json"), "utf8"));
-  const candidateBasis = await readCandidateBasis(root);
   const productModulePath = join(productRoot, "build/code/src/product/index.js");
   const product = await import(`${pathToFileURL(productModulePath).href}?artifact=${Date.now()}`);
+  const candidateBasis = await expectedCandidateBasis(root, { artifactPath, productRoot, product });
+  context.diagnostic(`candidate basis source: ${candidateBasisSource()}`);
 
   const request = {
     artifactPath,

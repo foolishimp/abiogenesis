@@ -1103,8 +1103,9 @@ test('C-12c fold law: a probe citing a basis_admitted whose basisDigest is wrong
 });
 
 // RC7 HS03 (design §10.10): bounded stdout windows and the pre-decision flush.
-// The actual-stream cases read the pinned historical metadata projection named
-// by ABI5_HS03_STREAM_METADATA as an external oracle only: recorded chunk byte
+// The actual-stream cases read the pinned historical metadata projection, named
+// under ABI5_EVIDENCE_ROOT by path, sha256 and bytes (evidence-root.mjs; without
+// the root both cases skip with the reason), as an external oracle only: recorded chunk byte
 // lengths, qualifying stdout and result probe instants, start probes, policies,
 // parsers and decisions. No historical row is admitted or relabelled; each
 // replay admits its own events through the current owners. The oracle has no
@@ -1124,8 +1125,13 @@ import { tmpdir as hs03Tmpdir } from 'node:os';
 import { join as hs03Join } from 'node:path';
 import hs03Process from 'node:process';
 import { fileURLToPath as hs03FilePath } from 'node:url';
+import { evidenceInput as hs03EvidenceInput } from '../support/evidence-root.mjs';
 
 const HS03_METADATA_PIN = Object.freeze({ bytes: 46_684_229, sha256: '2c9328e4abb8e25f8fbfc7a1e4574e481fb5889bf17bc04108f2571d2d3536b9' });
+// The RC12 H liveness oracle (an identical copy is under liveness-l2/oracle/).
+const HS03_METADATA = hs03EvidenceInput({ path: 'work/T287_RELEASE_RESUMPTION_01/rc12-executive-01-evidence/liveness-h/oracle/hs03-metadata.json',
+  ...HS03_METADATA_PIN });
+const HS03_ACTUAL_STREAM = { skip: HS03_METADATA.kind === 'absent' ? HS03_METADATA.reason : false };
 const HS03_WINDOW_MS = 30_000;
 const HS03_TIME = '2026-11-07T00:00:00.000Z';
 const hs03Hash = value => hs03Contracts.runtimeLivenessDigest(value);
@@ -1191,9 +1197,7 @@ function hs03Chronology(m) {
 let hs03Loaded = null;
 function hs03Metadata() {
   if (hs03Loaded !== null) return hs03Loaded;
-  const path = hs03Process.env.ABI5_HS03_STREAM_METADATA;
-  assert.equal(typeof path, 'string', 'the lane supplies the pinned metadata oracle');
-  const bytes = hs03Read(path);
+  const bytes = HS03_METADATA.bytes;
   assert.equal(bytes.length, HS03_METADATA_PIN.bytes, 'the metadata oracle keeps its pinned length');
   assert.equal(hs03CreateHash('sha256').update(bytes).digest('hex'), HS03_METADATA_PIN.sha256, 'the metadata oracle keeps its pinned digest');
   const m = JSON.parse(bytes.toString('utf8'));
@@ -1353,7 +1357,7 @@ function hs03DeclareActor(store, { tag, policy, parser, archive = null }) {
     observation, probe, chunkRow, stageWindow, commitWindow, threshold, projection, exit, deterministicCall, envelope };
 }
 
-test('RC7 HS03 actual-stream: the pinned metadata declares each recorded actor, policy, start and qualifying chronology, and a recorded per-chunk prefix admits through the current owners', async t => {
+test('RC7 HS03 actual-stream: the pinned metadata declares each recorded actor, policy, start and qualifying chronology, and a recorded per-chunk prefix admits through the current owners', HS03_ACTUAL_STREAM, async t => {
   const loading = performance.now();
   const chronology = hs03Metadata();
   const loadedMs = performance.now() - loading;
@@ -1543,7 +1547,7 @@ async function hs03ReplayDecisions(t, scope, tally) {
     discriminating: decisionOracle !== durableActivity };
 }
 
-test('RC7 HS03 actual-stream: recorded chunk cadence closes bounded archive windows in the real transport, and each recorded actor keeps its qualifying lastActivity, decision and durable successor', async t => {
+test('RC7 HS03 actual-stream: recorded chunk cadence closes bounded archive windows in the real transport, and each recorded actor keeps its qualifying lastActivity, decision and durable successor', HS03_ACTUAL_STREAM, async t => {
   const chronology = hs03Metadata();
   // (A) The real transport over a bounded recorded chunk run.
   const replay = hs03SelectReplay(chronology.scopes);

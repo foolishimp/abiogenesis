@@ -9,13 +9,18 @@ import { packProduct } from "../../scripts/product-payload.mjs";
 import test from "node:test";
 
 import {
+  candidateBasisSource,
+  expectedCandidateBasis,
   expectedVerificationIdentity,
-  readCandidateBasis,
 } from "../support/candidate-basis.mjs";
 
 const execFileAsync = promisify(execFile);
 const root = resolve(dirname(fileURLToPath(import.meta.url)), "../..");
 
+// The verified identity comes from support/candidate-basis.mjs: by default the
+// fresh pack's own identity, with ABI5_CANDIDATE_BASIS_SOURCE=committed the
+// committed basis fixture (the cut's external check). The install claims are
+// the same in both modes.
 test("R2 installs the verified artifact into an empty source-blind consumer", async (context) => {
   const scratch = await mkdtemp(join(tmpdir(), "abi5-r2-"));
   context.after(async () => rm(scratch, { force: true, recursive: true }));
@@ -33,7 +38,8 @@ test("R2 installs the verified artifact into an empty source-blind consumer", as
     `${pathToFileURL(join(bootstrapPackage, "build/code/src/product/index.js")).href}?artifact=${Date.now()}`
   );
   const packageJson = JSON.parse(await readFile(join(bootstrapPackage, "package.json"), "utf8"));
-  const candidateBasis = await readCandidateBasis(root);
+  const candidateBasis = await expectedCandidateBasis(root, { artifactPath, productRoot: bootstrapPackage, product });
+  context.diagnostic(`candidate basis source: ${candidateBasisSource()}`);
   const verificationRequest = {
     artifactPath,
     artifactRef: basename(artifactPath),

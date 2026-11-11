@@ -9,9 +9,14 @@ import { promisify } from "node:util";
 import { packProduct } from "../../scripts/product-payload.mjs";
 import test from "node:test";
 
+// The verified identity comes from support/candidate-basis.mjs: by default the
+// fresh pack's own identity, with ABI5_CANDIDATE_BASIS_SOURCE=committed the
+// committed basis fixture (the cut's external check). The binding claims are
+// the same in both modes.
 import {
+  candidateBasisSource,
+  expectedCandidateBasis,
   expectedVerificationIdentity,
-  readCandidateBasis,
 } from "../support/candidate-basis.mjs";
 import { acquireNewEmptyAppendSinkFixture } from "../support/new-empty-append-sink.mjs";
 
@@ -111,7 +116,8 @@ test("R3 admits one immutable WorkspaceBinding over the exact ProductSet", async
     `${pathToFileURL(join(bootstrapPackage, "build/code/src/product/index.js")).href}?artifact=${Date.now()}`
   );
   const packageJson = JSON.parse(await readFile(join(bootstrapPackage, "package.json"), "utf8"));
-  const candidateBasis = await readCandidateBasis(root);
+  const candidateBasis = await expectedCandidateBasis(root, { artifactPath, productRoot: bootstrapPackage, product: bootstrapProduct });
+  context.diagnostic(`candidate basis source: ${candidateBasisSource()}`);
   const verified = await bootstrapProduct.verifyProduct({
     artifactPath,
     artifactRef: basename(artifactPath),

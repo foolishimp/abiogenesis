@@ -3,17 +3,14 @@
 import assert from 'node:assert/strict';
 import fs from 'node:fs';
 import {createHash} from 'node:crypto';
-import {mkdir, readFile, stat, writeFile} from 'node:fs/promises';
+import {stat} from 'node:fs/promises';
 import {Session} from 'node:inspector';
 import {syncBuiltinESMExports} from 'node:module';
-import {dirname, join, resolve} from 'node:path';
+import {resolve} from 'node:path';
 import {fileURLToPath, pathToFileURL} from 'node:url';
 
 export const schemaVersion = '5.0.0';
-export const tenantRoot = fileURLToPath(new URL('../../', import.meta.url));
-export const proofPath = join(tenantRoot, 'artifacts/single-address-space-proof.json');
 
-export const sha256Bytes = bytes => createHash('sha256').update(bytes).digest('hex');
 export async function fileSha256(path) {
   const hash = createHash('sha256');
   for await (const chunk of fs.createReadStream(path)) hash.update(chunk);
@@ -23,19 +20,6 @@ export async function fileIdentity(path) {
   const value = await stat(path, {bigint: true});
   return {device: Number(value.dev), inode: Number(value.ino), size: Number(value.size),
     mtimeNs: value.mtimeNs.toString(), ctimeNs: value.ctimeNs.toString()};
-}
-
-/** The operator-declared inputs: the explicit environment selection, else the
- * worksite's declared input directory. Absence fails; it never skips. */
-export async function consolidationInputs() {
-  const root = process.env.ABI5_CONSOLIDATION_INPUTS ?? resolve(tenantRoot, '../../../consolidation-inputs/native-02');
-  const read = async name => {
-    const path = join(root, name), bytes = await readFile(path);
-    return {path, bytes: bytes.length, sha256: sha256Bytes(bytes), value: JSON.parse(bytes)};
-  };
-  const [resources, baseline] = await Promise.all([read('EXTERNAL_READ_RESOURCES.json'), read('MEASURED_BASELINE.json')]);
-  assert.equal(resources.value.readOnly, true, 'the retained event log is a read-only resource');
-  return {root, resources, baseline};
 }
 
 // Owner functions whose call counts discriminate repeated full-history work:
@@ -344,11 +328,4 @@ export function observeSetupCaller(caller, watchPath) {
     return result;
   };
   return {observed, authorizations, rows, lifecycle};
-}
-
-export async function writeProof(value) {
-  await mkdir(dirname(proofPath), {recursive: true});
-  const bytes = Buffer.from(JSON.stringify(value, null, 2) + '\n');
-  await writeFile(proofPath, bytes, {flag: 'wx'});
-  return {path: proofPath, bytes: bytes.length, sha256: sha256Bytes(bytes)};
 }

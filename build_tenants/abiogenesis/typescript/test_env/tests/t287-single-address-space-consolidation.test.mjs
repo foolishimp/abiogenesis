@@ -1,6 +1,8 @@
 // T-287 single-address-space consolidation: the migrated callers use the
 // existing owned prefix, held resource and digest owners. Every case runs the
-// actual candidate owners over real history; no case has an optional skip.
+// actual candidate owners over real history. The six retained-history cases
+// read historical evidence under ABI5_EVIDENCE_ROOT and skip with the reason
+// without it; every other case has no optional skip.
 import assert from 'node:assert/strict';
 import {execFile} from 'node:child_process';
 import {createHash} from 'node:crypto';
@@ -18,10 +20,45 @@ import {prepareLanguageStructuralFixture} from '../support/language-structural-f
 import {GRAPH_EDGE_IDS, STRUCTURAL_IDS, constructStructuralInput} from '../fixtures/language-structural/program.mjs';
 import {installedModules, populateSandbox, publicCaller, verifyArtifact} from '../uat/public-setup.mjs';
 import {commandRecorder, exclusiveRecord} from '../uat/runner.mjs';
-import {consolidationInputs, fileIdentity, fileSha256, freezeRaw, observeSetupCaller, openMeasurer, rawFhResponseSeed, schemaVersion,
-  unrelatedWorkspaceEvent, writeProof} from '../support/single-address-space-consolidation.mjs';
+import {fileIdentity, fileSha256, freezeRaw, observeSetupCaller, openMeasurer, rawFhResponseSeed, schemaVersion,
+  unrelatedWorkspaceEvent} from '../support/single-address-space-consolidation.mjs';
+import {evidenceInput} from '../support/evidence-root.mjs';
 
 const packageRoot = fileURLToPath(new URL('../..', import.meta.url));
+// The retained RC5 history (25,016 rows) and the two native-02 records that
+// name it and its measured RC4 context are historical evidence under
+// ABI5_EVIDENCE_ROOT, each named by path, sha256 and bytes. The records exist
+// only in the archived native-02 sandbox of the consolidation work record.
+// Without the root the retained-history cases skip with the reason; with it,
+// other bytes fail. The log is hashed once per file run, here; the gate keeps
+// its path and its file identity (device, inode, size, mtime, ctime) at the
+// hash, and each case checks that identity before and after its own reads
+// instead of hashing the log again. Nothing is written under the root.
+const NATIVE_02 = 'work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/runtime-001/resources/archives/worksite-command-execution/'
+  + '2b3dea4f262c179014aac48d5344bc5daf58762f843c02980fe1ff40bb503097/306d3afdae96a036435944bf0a420e059512a2a5bb0a7f30f42328e1ad073643/'
+  + 'sandbox/consolidation-inputs/native-02/';
+const RC5_LOG = {path: 'work/T287_RELEASE_RESUMPTION_01/rc5-performance-01/runtime-001/resources/events/runtime.events.jsonl',
+  sha256: '532079454749d20def4aa6c02bac7bf591a369ef01cb5152462eaf07fa1cf20c', bytes: 586_361_364};
+const retained = (() => {
+  const record = (name, sha256, bytes) => {
+    const input = evidenceInput({path: NATIVE_02 + name, sha256, bytes});
+    return input.kind === 'absent' ? input : {kind: 'present', path: input.path, bytes, sha256, value: JSON.parse(input.bytes)};
+  };
+  const resources = record('EXTERNAL_READ_RESOURCES.json', '5934e0091ba7a7c0e19c740c4c9d90cbf0ed5c95bece381c5ac7764294cf4eac', 1105);
+  const baseline = record('MEASURED_BASELINE.json', '774df7457d5c10945f6d58ea144747bc051bca36e88624680f6f17c056ec5a06', 5575);
+  const log = evidenceInput(RC5_LOG);
+  const absent = [resources, baseline, log].find(input => input.kind === 'absent');
+  if (absent) return {kind: 'absent', reason: absent.reason};
+  // The records name the same log bytes by their recorded absolute path.
+  assert.equal(resources.value.readOnly, true, 'the retained event log is a read-only resource');
+  assert.deepEqual([resources.value.eventLogSha256, resources.value.eventLogBytes], [RC5_LOG.sha256, RC5_LOG.bytes], 'the records name the retained RC5 log');
+  const stat = fs.statSync(log.path, {bigint: true});
+  const eventLogIdentity = {device: Number(stat.dev), inode: Number(stat.ino), size: Number(stat.size),
+    mtimeNs: stat.mtimeNs.toString(), ctimeNs: stat.ctimeNs.toString()};
+  assert.equal(eventLogIdentity.size, RC5_LOG.bytes, 'the hashed log is the file the cases read');
+  return {kind: 'present', resources, baseline, eventLogPath: log.path, eventLogIdentity};
+})();
+const RETAINED = {skip: retained.kind === 'absent' ? retained.reason : false};
 const execFileAsync = promisify(execFile);
 const proof = {kind: 'single_address_space_consolidation_proof', schemaVersion, sourcePreimage: 'f49e7533ebedff0946383cb0c5380a6ecac7889d',
   packageRoot, startedUtc: new Date().toISOString(), cases: {},
@@ -53,10 +90,12 @@ const prefixBindings = (value, out = []) => {
 };
 // Retained history keeps its own exact profile: the measured coordinate of the
 // same log bytes names it. The current W profile never labels these bytes.
+// The two records agree on the log's recorded path; the cases read the log at
+// its evidence-root path, which holds the same bytes.
 const retainedProfile = (resources, baseline, events) => {
-  const {eventLogPath, eventLogSha256, eventLogBytes} = resources.value, {logSha256, coordinate} = baseline.value;
+  const {eventLogPath: recordedPath, eventLogSha256, eventLogBytes} = resources.value, {logSha256, coordinate} = baseline.value;
   assert.equal(logSha256, eventLogSha256);
-  assert.equal(coordinate.eventLogRef, pathToFileURL(eventLogPath).href);
+  assert.equal(coordinate.eventLogRef, pathToFileURL(recordedPath).href);
   assert.equal(coordinate.prefixLength, eventLogBytes);
   assert.equal(coordinate.prefixDigest, 'sha256:' + eventLogSha256);
   const profile = coordinate.storeIdentity.eventContractDigest;
@@ -64,12 +103,12 @@ const retainedProfile = (resources, baseline, events) => {
   return profile;
 };
 
-test('retained RC5 history: the owned prefix of the migrated liveness callers preserves the measured context with fewer event-log bytes, no full snapshot and no immutability walk', {timeout: 600_000}, async t => {
-  const {resources, baseline} = await consolidationInputs();
-  const {eventLogPath, eventLogSha256, eventLogBytes} = resources.value, measured = baseline.value;
+test('retained RC5 history: the owned prefix of the migrated liveness callers preserves the measured context with fewer event-log bytes, no full snapshot and no immutability walk', {...RETAINED, timeout: 600_000}, async t => {
+  const {resources, baseline, eventLogPath, eventLogIdentity} = retained;
+  const {eventLogSha256, eventLogBytes} = resources.value, measured = baseline.value;
   const identityBefore = await fileIdentity(eventLogPath);
   assert.equal(identityBefore.size, eventLogBytes);
-  assert.equal(await fileSha256(eventLogPath), eventLogSha256, 'retained log identity before reads');
+  assert.deepEqual(identityBefore, eventLogIdentity, 'retained log identity before reads: the file the gate hashed');
   const load = name => import(pathToFileURL(join(packageRoot, 'build/code/src', name + '.js')).href);
   const [events, prefixes, liveness, derivation, digests] = await Promise.all(
     ['abg/event_store', 'abg/event_prefix', 'abg/runtime_liveness', 'abg/runtime_derivation', 'shared/digests'].map(load));
@@ -134,7 +173,7 @@ test('retained RC5 history: the owned prefix of the migrated liveness callers pr
 
   const identityAfter = await fileIdentity(eventLogPath);
   assert.deepEqual(identityAfter, identityBefore);
-  assert.equal(await fileSha256(eventLogPath), eventLogSha256, 'retained log identity after reads');
+  assert.deepEqual(identityAfter, eventLogIdentity, 'retained log identity after reads: the file the gate hashed');
   proof.cases.retainedHistory = {eventLog: {path: eventLogPath, bytes: eventLogBytes, sha256Before: eventLogSha256,
     sha256After: eventLogSha256, identityUnchanged: true, appends: 0, storeAcquisitions: 0},
   measuredBaseline: {path: baseline.path, sha256: baseline.sha256, runtime: measured.packageRoot, contextDigest: measured.contextDigest},
@@ -142,24 +181,25 @@ test('retained RC5 history: the owned prefix of the migrated liveness callers pr
   measurements: [cold, owned, expanded, expandedContext, repeat].map(summary)};
 });
 
-test('liveness candidate validation forks its admitted base: equal decisions and context, isolated siblings, unchanged base, no per-candidate rebuild', {timeout: 600_000}, async t => {
-  const {resources, baseline} = await consolidationInputs();
-  const {eventLogPath, eventLogSha256} = resources.value;
+test('liveness candidate validation forks its admitted base: equal decisions and context, isolated siblings, unchanged base, no per-candidate rebuild', {...RETAINED, timeout: 600_000}, async t => {
+  const {resources, baseline, eventLogPath, eventLogIdentity} = retained;
+  const {eventLogSha256} = resources.value;
   const load = name => import(pathToFileURL(join(packageRoot, 'build/code/src', name + '.js')).href);
   const [events, prefixes, liveness, digests, immutable] = await Promise.all(
     ['abg/event_store', 'abg/event_prefix', 'abg/runtime_liveness', 'shared/digests', 'shared/immutable'].map(load));
   const bytes = await readFile(eventLogPath);
-  assert.equal(sha256Hex(bytes), eventLogSha256);
+  assert.deepEqual([bytes.length, await fileIdentity(eventLogPath)], [RC5_LOG.bytes, eventLogIdentity], 'the read bytes are the file the gate hashed');
   // The full log and its physical cut carry the retained profile; each keeps
-  // its own file identity, selected length and digest.
+  // its own file identity, selected length and digest. The full log's digest
+  // is the one the gate verified.
   const eventContractDigest = retainedProfile(resources, baseline, events);
-  const coordinateOf = async (path, selected) => {
+  const coordinateOf = async (path, selected, selectedSha256 = sha256Hex(selected)) => {
     const identity = await fileIdentity(path);
     const body = {kind: 'durable_prefix_coordinate', schemaVersion, eventLogRef: pathToFileURL(path).href, prefixLength: selected.length,
-      prefixDigest: 'sha256:' + sha256Hex(selected), storeIdentity: {device: identity.device, inode: identity.inode, eventContractDigest}};
+      prefixDigest: 'sha256:' + selectedSha256, storeIdentity: {device: identity.device, inode: identity.inode, eventContractDigest}};
     return {...body, coordinateDigest: digests.sha256Canonical(body)};
   };
-  const full = prefixes.readOwnedRuntimeEventPrefixAtDurablePrefix(await coordinateOf(eventLogPath, bytes));
+  const full = prefixes.readOwnedRuntimeEventPrefixAtDurablePrefix(await coordinateOf(eventLogPath, bytes, eventLogSha256));
   // The owner's index selects the earliest admitted actor activity probe.
   const target = prefixes.indexedRuntimeEvents(full, 'kind:runtime_activity_probe_observed')
     .find(event => event.kind === 'runtime_activity_probe_observed' && typeof event.payload.actorInvocationRef === 'string');
@@ -267,13 +307,13 @@ test('liveness candidate validation forks its admitted base: equal decisions and
   t.diagnostic(JSON.stringify(proof.cases.livenessFork.work));
 });
 
-test('shared public-operation classification equals the complete class predicates of the retained history, with orphan and mixed-arm facts kept', {timeout: 600_000}, async t => {
-  const {resources, baseline} = await consolidationInputs();
-  const {eventLogPath, eventLogSha256} = resources.value;
+test('shared public-operation classification equals the complete class predicates of the retained history, with orphan and mixed-arm facts kept', {...RETAINED, timeout: 600_000}, async t => {
+  const {resources, baseline, eventLogPath, eventLogIdentity} = retained;
+  const {eventLogSha256} = resources.value;
   const load = name => import(pathToFileURL(join(packageRoot, 'build/code/src', name + '.js')).href);
   const [events, prefixes, digests] = await Promise.all(['abg/event_store', 'abg/event_prefix', 'shared/digests'].map(load));
   const bytes = await readFile(eventLogPath), identity = await fileIdentity(eventLogPath);
-  assert.equal(sha256Hex(bytes), eventLogSha256);
+  assert.deepEqual([bytes.length, identity], [RC5_LOG.bytes, eventLogIdentity], 'the read bytes are the file the gate hashed');
   const body = {kind: 'durable_prefix_coordinate', schemaVersion, eventLogRef: pathToFileURL(eventLogPath).href, prefixLength: bytes.length,
     prefixDigest: 'sha256:' + eventLogSha256, storeIdentity: {device: identity.device, inode: identity.inode, eventContractDigest: retainedProfile(resources, baseline, events)}};
   const cold = prefixes.readOwnedRuntimeEventPrefixAtDurablePrefix({...body, coordinateDigest: digests.sha256Canonical(body)});
@@ -313,14 +353,13 @@ test('shared public-operation classification equals the complete class predicate
   t.diagnostic(JSON.stringify(proof.cases.publicOperationClassification));
 });
 
-test('global run-invocation pairs stay history-wide on real earlier cuts, and a foreign Run stays distinct from a missing one', {timeout: 600_000}, async t => {
-  const {resources, baseline} = await consolidationInputs();
-  const {eventLogPath, eventLogSha256} = resources.value;
+test('global run-invocation pairs stay history-wide on real earlier cuts, and a foreign Run stays distinct from a missing one', {...RETAINED, timeout: 600_000}, async t => {
+  const {resources, baseline, eventLogPath, eventLogIdentity} = retained;
   const load = name => import(pathToFileURL(join(packageRoot, 'build/code/src', name + '.js')).href);
   const [events, prefixes, digests, invocations] = await Promise.all(
     ['abg/event_store', 'abg/event_prefix', 'shared/digests', 'abg/invocation_execution_truth'].map(load));
   const bytes = await readFile(eventLogPath), identity = await fileIdentity(eventLogPath);
-  assert.equal(sha256Hex(bytes), eventLogSha256);
+  assert.deepEqual([bytes.length, identity], [RC5_LOG.bytes, eventLogIdentity], 'the read bytes are the file the gate hashed');
   // Every cut is a same-log durable prefix of the read-only retained resource
   // and carries that history's retained profile.
   const eventContractDigest = retainedProfile(resources, baseline, events);
@@ -1194,14 +1233,14 @@ test('RAW F_H response pair: an explicit conditional root grant and one exact ba
 // The owned prefix of the complete retained history, as the revision and
 // semantic owners hold it, with the history owner's body-work counters.
 async function retainedOwnedPrefix(t) {
-  const {resources, baseline} = await consolidationInputs();
-  const {eventLogPath, eventLogSha256, eventLogBytes} = resources.value;
+  const {resources, baseline, eventLogPath, eventLogIdentity} = retained;
+  const {eventLogSha256, eventLogBytes} = resources.value;
   const load = name => import(pathToFileURL(join(packageRoot, 'build/code/src', name + '.js')).href);
   const [events, prefixes, history, digests] = await Promise.all(
     ['abg/event_store', 'abg/event_prefix', 'abg/runtime_history', 'shared/digests'].map(load));
   const identity = await fileIdentity(eventLogPath);
   assert.equal(identity.size, eventLogBytes);
-  assert.equal(await fileSha256(eventLogPath), eventLogSha256, 'retained log identity before reads');
+  assert.deepEqual(identity, eventLogIdentity, 'retained log identity before reads: the file the gate hashed');
   const body = {kind: 'durable_prefix_coordinate', schemaVersion, eventLogRef: pathToFileURL(eventLogPath).href,
     prefixLength: identity.size, prefixDigest: 'sha256:' + eventLogSha256,
     storeIdentity: {device: identity.device, inode: identity.inode, eventContractDigest: retainedProfile(resources, baseline, events)}};
@@ -1215,14 +1254,13 @@ async function retainedOwnedPrefix(t) {
     return {...row, ownerWork: Object.fromEntries(Object.keys(after).map(key => [key, after[key] - before[key]]))};
   };
   const unchanged = async () => {
-    assert.deepEqual(await fileIdentity(eventLogPath), identity);
-    assert.equal(await fileSha256(eventLogPath), eventLogSha256, 'retained log identity after reads');
+    assert.deepEqual(await fileIdentity(eventLogPath), identity, 'retained log identity after reads: the file the gate hashed');
   };
   return {load, prefixes, history, digests, coordinate, owned, measured, unchanged, eventLog: {path: eventLogPath, bytes: eventLogBytes, sha256: eventLogSha256}};
 }
 const caseRow = row => ({measurement: row.measurement, ownerWork: row.ownerWork});
 
-test('historical revision cuts: the shared before-event owner selects the replaced full-history filter\'s exact exclusive prefix with no body pass, immutability walk or cold revalidation', {timeout: 600_000}, async t => {
+test('historical revision cuts: the shared before-event owner selects the replaced full-history filter\'s exact exclusive prefix with no body pass, immutability walk or cold revalidation', {...RETAINED, timeout: 600_000}, async t => {
   const {prefixes, history, owned, measured, unchanged, eventLog} = await retainedOwnedPrefix(t);
   const extent = prefixes.runtimeEventPrefixExtent(owned);
   // Each migrated cut ends before an admitted CCall result: the revision
@@ -1278,7 +1316,7 @@ test('historical revision cuts: the shared before-event owner selects the replac
     io: row.measurement.io, calls: row.measurement.ownerCalls, ownerWork: row.ownerWork}))));
 });
 
-test('semantic stage authentication borrows the owned prefix: the retired materializing adapter\'s exact owner facts with no materialization or cold revalidation', {timeout: 600_000}, async t => {
+test('semantic stage authentication borrows the owned prefix: the retired materializing adapter\'s exact owner facts with no materialization or cold revalidation', {...RETAINED, timeout: 600_000}, async t => {
   const {load, prefixes, digests, coordinate, owned, measured, unchanged, eventLog} = await retainedOwnedPrefix(t);
   const [ids, product] = await Promise.all(['gtl/semantic_stage_identity', 'product/index'].map(load));
   // Component premises: the lower owned assembly authentication returns this
@@ -1359,9 +1397,15 @@ test('semantic stage authentication borrows the owned prefix: the retired materi
     io: row.measurement.io, calls: row.measurement.ownerCalls, ownerWork: row.ownerWork}))));
 });
 
-test('single-address-space proof records every measured case', async () => {
-  for (const key of ['retainedHistory', 'installedPath', 'qualificationCut', 'completePairControls', 'maintainedSetup', 'fhResponsePair',
-    'historicalCut', 'semanticAdapter']) assert.ok(proof.cases[key], key + ' completed');
-  const written = await writeProof({...proof, endedUtc: new Date().toISOString(), qualified: false, published: false});
-  assert.ok(written.bytes > 0);
+// Every case that ran recorded its result: the installed and RAW cases always,
+// the retained-history cases when their evidence is present. The record goes
+// to the diagnostics, as each case's measurements do; no proof file is written.
+test('single-address-space proof records every measured case', async t => {
+  const ran = ['installedPath', 'qualificationCut', 'completePairControls', 'maintainedSetup', 'fhResponsePair',
+    ...(retained.kind === 'present' ? ['retainedHistory', 'livenessFork', 'publicOperationClassification', 'globalRunInvocationPairs',
+      'historicalCut', 'semanticAdapter'] : [])];
+  for (const key of ran) assert.ok(proof.cases[key], key + ' completed');
+  const {cases, ...record} = proof;
+  t.diagnostic(JSON.stringify({...record, endedUtc: new Date().toISOString(), cases: Object.keys(cases), retainedEvidence: retained.kind,
+    qualified: false, published: false}));
 });
