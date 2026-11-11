@@ -93,8 +93,8 @@ admission, and conservation requirements remain unchanged.
 - T-264 owns static declaration inventory and matchable effect requirements.
 - T-267 owns the result-interface and bind-conservation authority required
   before any published handoff can traverse or cause effects.
-- T-268 owns DS-4 publication of ABG 5.0 tenant-conformance-manifest
-  coverage.
+- T-268 owns DS-4 publication of ABG 5.0 tenant-conformance-manifest coverage
+  including Consensus.
 
 The earlier inference that direct continuation admitted implementation was
 invalid. T-252, T-263, and T-264 received explicit F_H acceptance on 2026-07-13.
@@ -127,6 +127,7 @@ The compiler target is not `all 35 execute`. It is:
 5 workflow selections remain workflow gaps
 1 retry selection remains a retry gap
 1 selector-free structural HOF vector remains a HOF runtime gap
+0 Consensus handoffs are published before DS-4 publishes exact manifest coverage
 0 published handoffs traverse or cause effects before T-267 closes the TraversalUnit
 ```
 
@@ -564,10 +565,10 @@ application code. The compatibility result preserves manifest and catalog
 identities and digests; it does not republish either source or treat a
 digest-only assertion as resolved catalog evidence.
 
-DS-4, tracked by T-268, publishes ABG 5.0 tenant-conformance-manifest
-coverage. T-255 can close its generic admission relation using
-canonical-manifest, missing-manifest, incompatible-manifest, and no-effect
-fixtures. Until T-268 lands, the 28 flat T-252 handoffs terminate as
+DS-4, tracked by T-268, publishes ABG 5.0 tenant-conformance-manifest coverage
+including Consensus. T-255 can close its generic admission relation using
+non-Consensus canonical-manifest, missing-manifest, incompatible-manifest, and
+no-effect fixtures. Until T-268 lands, the 28 flat T-252 handoffs terminate as
 `blocked_missing_exact_manifest`; they are not published with a deferred
 status. Any handoff published after capability admission remains startup-blocked
 until T-267 closes its traversal authority.
@@ -696,7 +697,7 @@ stateDiagram-v2
 | unresolved traversal semantics block effects | T-267 owns the closeable TraversalUnit | startup fence receives every published handoff | no handoff becomes runtime-addressable in T-255 | pending F_H |
 | successor constructors remain visible | workflow/batch/retry are deferred variants | typed diagnostic returns | `SuccessorBlocked` is terminal here | pass |
 | structural HOF vector remains selector-free | structural-only outcome exists | no selector is synthesized | `StructuralOnly` is terminal here | pass |
-| no product-specific path | all carriers are generic GTL/M03 identities | no product-specific participant exists | no product-specific state exists | pass |
+| no product-specific path | all carriers are generic GTL/M03 identities | no Consensus participant exists | no Consensus state exists | pass |
 
 ## Axiom Evaluation
 
@@ -717,16 +718,17 @@ stateDiagram-v2
 
 | Proof | Required evidence |
 |---|---|
-| ordinary flat program | generic one-stage and multi-stage programs compile without fixed triple coercion |
+| ordinary flat program | non-Consensus one-stage and multi-stage programs compile without fixed triple coercion |
 | identity exclusion | standalone identity cannot become an executable handoff or fake stage |
 | vector selection | mutated host/vector/program refs fail before handoff |
 | direct composition | vector-local precedence and owner identity are exact |
 | inherited composition | T-265 applied lineage admits exact owner and rejects copied or ambiguous owner |
 | target/default repair | installed generic defaults satisfy existing target-row law without a second validator or test-only row builder |
 | target/closure | all T-252 vectors project one exact canonical target row and edge contract from the admitted binding |
-| manifest admission | M04 admits canonical generic manifest input; missing manifest blocks effect-bearing publication; malformed/incompatible manifest stops before M03 |
+| manifest admission | M04 admits canonical non-Consensus manifest input; missing manifest blocks effect-bearing publication; malformed/incompatible manifest stops before M03 |
 | coverage projection | every M03 capability row preserves admitted manifest and catalog identity/version/digest; projection cannot be admitted independently |
 | enforcement manifest | missing carrier classification, applicable rule identity, causal predecessor, or required proof ref fails M04 manifest admission |
+| Consensus capability boundary | all 28 flat T-252 candidates remain manifest-blocked until T-268 publishes DS-4 coverage; none carries deferred publication |
 | successor blocking | workflow and retry preserve their current diagnostic ids and owners |
 | structural vector | selector-free HOF wrapper remains structural-only |
 | T-267 startup fence | every published handoff reaches a typed startup block; no traversal, worker/plugin invocation, archive write, successful assessment, or closure truth occurs |
@@ -735,6 +737,7 @@ stateDiagram-v2
 ## Non-Closure
 
 - changing T-252 body bytes;
+- adding a Consensus branch;
 - selecting a program from GraphFunction-global `abg.hog_program_ref`;
 - inferring composition from program selection or vice versa;
 - accepting authored `owning_declaration_ref` without compiler-derived host
@@ -763,7 +766,7 @@ stateDiagram-v2
 |---|---|
 | upstream authority | active requirements, accepted T-252 census, and completed T-263/T-264 admission foundations |
 | realization | M04 manifest admission, M03 compiled handoff publication, and T-267 startup fence |
-| proof | module tests, T-252 recompile, generic fixtures, full semantic and packed gates |
+| proof | module tests, T-252 recompile, non-Consensus fixtures, full semantic and packed gates |
 | release/package | generated public M03 declaration inventory and product publication |
 | install | existing ABG product install; no new product-local carrier |
 | live use | none before T-267; published handoffs remain startup-blocked, and T-252 remains manifest-blocked before DS-4 |
@@ -776,7 +779,7 @@ T-255 is an incremental strangler step, not a runtime rewrite. It introduces
 one per-vector compiled handoff but does not migrate effectful runtime
 consumption before T-267. It closes only relations available from current
 admitted inputs and blocks when required canonical-manifest truth is absent.
-T-268 owns DS-4 publication of ABG 5.0 tenant-conformance-manifest coverage.
-T-267 remains the explicit final static `TraversalUnit`
+T-268 owns DS-4 publication of ABG 5.0 tenant-conformance-manifest coverage
+including Consensus. T-267 remains the explicit final static `TraversalUnit`
 closeability and runtime re-entry owner, and T-259 through T-262 retain
 constructor-specific runtime semantics.

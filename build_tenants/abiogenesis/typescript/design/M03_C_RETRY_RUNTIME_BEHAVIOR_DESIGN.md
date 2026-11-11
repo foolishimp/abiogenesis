@@ -55,7 +55,7 @@ T-268 still owns tenant-conformance publication.
 
 ### Explicit exclusions
 
-- a product branch or retry default;
+- a Consensus reviewer loop, panel term, product branch, or retry default;
 - a second retryable-failure allowlist or copied policy value home;
 - retry because semantic findings disagree, remain open, or fail to converge;
 - inference of failure class from prose, missing fields, null payload, or
@@ -281,7 +281,7 @@ T-261 removes only `c_retry_runtime_and_policy_join` from the T-252 census.
 Typed recurse remains a T-262 gap. Every canonical handoff remains
 `startup_blocked_awaiting_t267`, and T-261 proof invokes only isolated generic
 fixtures. Tenant conformance coverage remains T-268 work. No generated proof
-may claim product traversal completion from this local atom.
+may claim product traversal or Consensus completion from this local atom.
 
 ## Irreducible Architectural Carrier Set
 
@@ -652,7 +652,7 @@ T-261 closure requires:
 10. each attempt preserves the same stage and carrier pair, uses fresh attempt
     refs, emits exactly one C-call spine, and retains policy and failure
     evidence;
-11. a generic correction fixture fails once with an admitted retryable
+11. a non-Consensus correction fixture fails once with an admitted retryable
     class, regenerates current attempt truth, then completes on the second
     attempt;
 12. the existing graph retry-repair unit lane remains green and no duplicate

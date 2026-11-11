@@ -137,6 +137,14 @@ A helper need not be separately catalog-published. A caller-supplied program,
 display-name lookup, reconstructed program body, or second helper invocation
 authority is invalid.
 
+This permits the T-252 Consensus `Module` bytes to remain unchanged. Consensus
+field maps and protocol declarations are product data in a separately admitted
+companion Module. The same generic compiler is proved with a non-Consensus
+fixture. The Consensus catalog entry is reissued with the companion module ref
+added to its ordered `declarationSourceRefs`; its declaration digest therefore
+changes and must be regenerated. That catalog-data change does not change the
+T-252 GTL body digest.
+
 ## Irreducible Architectural Carrier Set
 
 | Carrier | Owner | Role | Visibility |
@@ -1395,7 +1403,7 @@ exact T-267 block.
 | Runtime effects remain blocked | every request retains T-255's T-267 startup fence | `pass` |
 | Stage choice is not hidden orchestration | the caller supplies an exact declared stage basis; T-256 validates but does not choose order or advance the C program | `pass` |
 | Derived projection cannot become traversal control | the existing complete-C interpreter supplies an already-selected locus; the projector cannot select a stage, resolve or invoke a plugin, emit events, bind consequences, or advance the program | `pass` |
-| Product-specific success is unrepresentable | the projector is M03-owned, accepts neutral carriers only, and has no Hello identity, field, branch, or fallback | `pass` |
+| Product-specific success is unrepresentable | the projector is M03-owned, accepts neutral carriers only, and has no Hello or Consensus identity, field, branch, or fallback | `pass` |
 
 ## Axiom Evaluation
 
@@ -1419,6 +1427,8 @@ exact T-267 block.
 | Dependency sufficiency before target dispatch | INSTRUCTION-ASSEMBLY-016 | canonical plan consumes existing dependency and proof-depth truth | missing or open target-work dependency truth rejects canonical compilation | PromptPlanBlocked or StartupBlocked terminates | request cannot author dependency closure or dispatch | existing dependency compiler input remains mandatory and T-256 cannot synthesize it | `pass` | T-256 adapter plus existing instruction compiler |
 | Worker response is admitted before truth | INSTRUCTION-ASSEMBLY-014 | T-257 is deferred and distinct | no response message exists | no result state exists | no response field on request outcome | T-257 owns admission | `not_applicable` | T-257 |
 | F_H act and resume | COMPUTE-NOTATION-017 | F_H request is distinct from human act | request returns to caller without act | no act/resume state here | variant lacks authority methods | T-258 admission required | `not_applicable` | T-258 |
+| Consensus remains a free construction | PRODUCT atom criterion; CONSENSUS-009/-010 | companion Module is product data over generic profiles | generic compiler has no Consensus participant | generic states only | no feature-specific M03 type | non-Consensus fixture required | `pass` | T-256 realization |
+| Actor identity cannot select worker/backend | CONSENSUS-005/-011 | selection contract and actor/subject are separate slots | request preserves but does not resolve backend | no worker-selected state | F_P and F_H variants differ | contradictory slot use rejects | `pass` | T-256 realization |
 
 `pass` evaluates the candidate design shape only; it is not implementation
 evidence. `not_applicable` marks law whose operative transform is outside the
@@ -1451,7 +1461,7 @@ T-256 boundary and names its retained owner.
 | request identity | changing stage identity, any field value, source digest, protocol content, target contract, capability basis, canonical plan/admission/envelope identity, or startup block changes request digest |
 | startup-block identity | every constructed request preserves the exact T-255 TraversalStartupBlock and its digest; capability-blocked input constructs no request |
 | no fallback | deleting a declaration, carrier field, canonical T-183 compiler input, or startup-admission input blocks; M03 does not call `defaultInstructionSectionText` or read `FpTransportConfig.prompt` |
-| genericity | one generic single-stage fixture and one multi-source fixture compile without feature branches |
+| genericity | one non-Consensus single-stage fixture and one multi-source fixture compile without feature branches |
 | T-252 preservation | canonical body digest remains `sha256:e1344106d4e90c8883f72c6e1490742b98a839433b89855315fec4b571ca8695`; the catalog declaration digest changes when its ordered companion source ref is admitted; the census invokes the real join for every F_P/F_H capability-blocked consumer and closes the two T-256 families only when field and protocol-role closure are observed; the same 28 paths remain T-268 capability blocks |
 | no effects | source closure reaches no runner, plugin, worker, transport, event, archive, continuation, or closure module |
 | packed publication | public exports and packed install preserve the same request and diagnostic surfaces without private imports |
@@ -1476,11 +1486,13 @@ T-256 boundary and names its retained owner.
 5. Adapt the F_P branch into the existing T-183 Rule constructor, compiler,
    startup admission, and envelope binder; only then add the read-only F_P
    request projection and the distinct F_H interaction request.
-6. Publish a generic declaration Module and fixtures.
-7. Rebind the 5.0-reachable instruction startup path to the compiled contract.
-8. Remove or make unreachable code-owned protocol synthesis and
+6. Publish a non-Consensus declaration Module and fixtures.
+7. Publish the Consensus companion declaration Module as product data without
+   changing T-252 body bytes or adding Consensus logic to M03.
+8. Rebind the 5.0-reachable instruction startup path to the compiled contract.
+9. Remove or make unreachable code-owned protocol synthesis and
    `FpTransportConfig.prompt` on the supported path.
-9. Recompute the T-252 census, regenerate packed/public inventories, run all
+10. Recompute the T-252 census, regenerate packed/public inventories, run all
    focused and full gates, and perform an authority-first self-review.
 
 Inside-out migration is mandatory. A mixed path where compiled declarations
@@ -1505,7 +1517,7 @@ exist but code-owned text can still dispatch is non-closure.
   caller-supplied declaration Module;
 - instruction or response protocol inferred from stage role, vector name,
   tags, schema spelling, actor identity, worker identity, or code defaults;
-- product field names or product branches in M03;
+- product field names or Consensus branches in M03;
 - source schema, source type, or active regime authored in a projection Rule;
 - camel-case wire aliases or snake-case/native dual truth after profile decode;
 - retaining a local Rule/Node index or widening M02

@@ -175,7 +175,7 @@ evidence, continuation, and closure truth.
 
 When `root_mode = direct`, `start` selects one admitted entry traversal without
 requiring One Surface, `evaluateNext`, or a `ConstructionIntent`. When
-`root_mode = supervised`, it selects an admitted system program and
+`root_mode = supervised`, it selects the admitted standard system program and
 that program owns One Surface semantic ordering and action topology;
 Product-owned GraphFunctions own the four synthesis and evaluation contracts,
 and ABG separately admits selected-action and construction-intent truth. Neither

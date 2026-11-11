@@ -267,7 +267,8 @@ function nativePublications(gtl, abiArtifact) {
   const basis = { productId: abiArtifact.productId, artifactDigest: abiArtifact.artifactDigest,
     productContentDigest: abiArtifact.productContentDigest, productManifestDigest: abiArtifact.manifestDigest,
     packageName: abiArtifact.packageName, packageVersion: abiArtifact.packageVersion };
-  return [gtl.constructWorksiteConstructionModulePublication, gtl.constructWorksiteCommandExecutionModulePublication,
+  return [gtl.constructConsensusModulePublication,
+    gtl.constructWorksiteConstructionModulePublication, gtl.constructWorksiteCommandExecutionModulePublication,
     gtl.constructWorksiteCommandForwardModulePublication,gtl.constructRequirementHandoffModulePublication,gtl.constructSemanticStageModulePublication,
     gtl.constructSemanticRevisionModulePublication,gtl.constructSelfConformanceModulePublication].map(fn => fn(basis));
 }

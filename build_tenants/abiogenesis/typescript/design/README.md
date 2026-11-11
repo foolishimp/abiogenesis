@@ -47,9 +47,9 @@ blocked handoff and native liveness remain 5.0. This allocation does not defer
 an entire mixed design because it contains `F_H`, `supervised` or `recursive`.
 It grants no code change and does not relabel earlier accepted evidence.
 
-Mandatory host-parity qualification is also 5.1 scope. Its working
-implementation remains reusable under its declared contract; presence supplies
-no dedicated qualification claim. F17/S06 uses the
+Dedicated Consensus/F08/S05 and mandatory host-parity qualification are also
+5.1 scope. Their working implementations remain reusable under their declared
+contracts; presence supplies no dedicated qualification claim. F17/S06 uses the
 complete prospectively selected witness contract, with original source and
 excluded downstream obligations preserved. Data Mapper-specific HOW and gate
 rosters require applicability reconciliation before their next execution;
@@ -497,7 +497,8 @@ and I/E selection authorizes neither the adapter nor E00.
   remains the accepted one-Catalog realization. Catalog is outside S1.
 - [T-287 Terminal-Quiescence Owner Network Accepted Design](./T287_TERMINAL_QUIESCENCE_OWNER_NETWORK_ACCEPTED_DESIGN.md)
   remains the accepted A5-F10 runtime-truth composition. Runtime is outside S1.
-- Accepted M03 and M05 Sections 1 through 12 at S03 candidate `8865ccff`
+- Accepted M03 and M05 Sections 1 through 12 at S03 candidate `8865ccff` and
+  [M05 S05 Consensus Global-To-Local Design](./M05_S05_CONSENSUS_GLOBAL_TO_LOCAL_DESIGN.md)
   remain predecessor design.
 - [ADR-045 Global Design Constraints Survive Local Projection](./adrs/ADR-045-global-design-constraints-survive-local-projection.md)
   remains global-to-local rationale.

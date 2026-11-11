@@ -79,7 +79,7 @@ row is the flat strict
 `graphFunctionId + nodeRef + symbolicSchemaRef + contractId + contractVersion`
 tuple. It contains no `PublicContractCoordinate`, projection digest, locator,
 witness, or callable. The T-252/M03 owner source is one closed schema-key/source
-family covering every reachable public or private Node schema,
+family covering every reachable public or private Consensus Node schema,
 including vector schemas;
 the existing `moduleDigest` seals the
 serialized entry because Module serialization already includes `metadata`.
@@ -206,12 +206,12 @@ truth only.
 - raw public `input` crossing M04 into M03, schema content not loaded from the
   exact bound installed asset, or inferred decomposition across multiple input
   Nodes;
-- M03 filesystem/schema reads, native product decoder shortcuts,
+- M03 filesystem/schema reads, native Consensus decoder shortcuts,
   callback-authored schemas, or ref-to-body schema lookup;
 - function-name, product-name, profile-name, or payload-shape runtime routing;
 - a router- or leaf-adapter-owned C-call around an existing runtime C-call;
 - a compatibility, fallback, profile-free, or second start route;
-- a feature-specific compiler, router, or runtime branch;
+- a Consensus-specific compiler, router, or runtime branch;
 - T-270 capability inference or ownership of the final T-268 manifest;
 - F_H response or continuation, owned by T-272; and
 - direct raw interpreter result to public terminal projection.
@@ -290,11 +290,11 @@ truth only.
   contract coordinate and conserved definition carrier are the same. Its sealed basis contains only primitive and
   canonical I-JSON-compatible coordinate/witness facts; its undigested
   admission function is explicit bounded engine input. The T-252/M03 closed
-  schema-key/source family derives the canonical Module's flat rows
+  schema-key/source family derives the canonical Module's flat Consensus rows
   for every reachable public/private/vector Node schema; T-274B packages that
   exact Module and derives/supplies its opaque native definitions
   through the same M04 call site to the neutral constructor, and
-  Scenario-09 supplies the same inputs for the generic proof;
+  Scenario-09 supplies the same inputs for the non-Consensus proof;
 - one separate undigested `RuntimeSchemaAdmissionEngineInput` envelope carrying
   those capabilities into AF-15; it is outside admitted ingress and every
   stable-hashed carrier;
@@ -562,11 +562,11 @@ GraphFunction, T-270 calls the shared T-267 compiler core once and exact-matches
 every reachable Node/symbolic ref to one capability basis before witness or
 basis admission. Zero, multiple, extra, or mismatched native definitions refuse
 before capability construction. The T-252/M03 closed schema-key/source family
-owns rows for every reachable public or private Node schema,
+owns rows for every reachable public or private Consensus Node schema,
 including vector schemas. T-274B packages that exact Module, derives and
 delivers the matching full native definitions, and publishes only T-274A's nine
 existing public assets. Scenario-09 supplies the same two carrier kinds as the
-generic proof. Generic T-270 imports neither product family and cannot
+non-Consensus proof. Generic T-270 imports neither product family and cannot
 infer a row from a schema string, product name, or payload shape.
 
 M04 constructs the existing `AdmittedInvocationCarrierSet` only after the
@@ -731,7 +731,7 @@ interaction owners remain the only interior selectors.
 
 T-270 owns the generic F_D resolver, schema-binding resolver, immutable
 environment, and target-carrier extension rule. The T-252/M03 closed
-schema-key/source family owns every reachable public or private Node
+schema-key/source family owns every reachable public or private Consensus Node
 schema, including vector schemas, and derives the canonical Module's flat
 contract-key metadata rows. T-274B packages that exact Module and
 derives/supplies the matching opaque native contract definitions through M04;
@@ -739,7 +739,7 @@ it publishes only T-274A's existing nine public assets. T-275 owns only the SYST
 stdlib implementation, profile, and result bindings required by the motivating
 program; metadata does not publish a private coordinate into the installed
 public catalog. T-270 proves genericity with the
-generic Scenario-09 function, its lab-family metadata/native-definition
+non-Consensus Scenario-09 function, its lab-family metadata/native-definition
 pair, and a minimal engine-delivery implementation fixture. Until T-274B
 delivers the exact Module/native-definition pair and T-275 supplies its exact
 stdlib/profile/result bindings, those leaves remain
@@ -1415,7 +1415,7 @@ Replay or continuation re-entry without the exact
 event-contained F_H checkpoint remains `semantic_not_realized` at the named
 rehydration gap; this design does not pretend refs are bodies or invent a store.
 
-The generic constructability fixture is the existing Scenario-09 lab
+The non-Consensus constructability fixture is the existing Scenario-09 lab
 program: `LabObservation -> NormalizedObservation -> ResearchFinding`. It must
 exercise an ordinary complete-C path plus a mixed/nested HOF or recurse path,
 using the same router and leaf callback. A generic-entity and runtime-source
@@ -1812,8 +1812,8 @@ not the relation. Admitted ingress receives
 only ordered sealed neutral structural bases. AF-15 separately receives the
 identity-free process-local engine-input envelope, asserts the neutral carrier
 brand, and exact-matches every capability basis one-to-one to those admitted
-bases before invoking the bounded admission function. One T-252/M03
-closed schema-key/source family covers every reachable public or
+bases before invoking the bounded admission function. For Consensus, one
+T-252/M03 closed schema-key/source family covers every reachable public or
 private Node schema, including vector schemas, and derives the canonical
 Module's flat rows. T-274B packages that Module and derives/delivers the full
 opaque definitions while publishing only T-274A's nine existing public assets.
@@ -1953,10 +1953,10 @@ risk:
 | malformed or wrong-contract F_P output | high | false progression or opaque retry | strict locus contract, envelope admission, actual-value schema/digest check, typed blocked result |
 | missing exact F_D implementation or lost predecessor output value | high for the retained canonical graph | false construction or inability to execute internal joins | exact Operator.binding match, total I-JSON function, immutable environment, exact F_H-held checkpoint, and named gap for unsupported general re-entry; no evaluator/handler substitution or ref-to-body inference |
 | stale, malformed, or cross-locus F_H checkpoint | medium | resume at the wrong atom or with wrong admitted values | one contracts-owned neutral body inside existing opened-event truth; existing `interactionBasisDigest` covers its complete coordinates and ordered I-JSON rows; exact invocation/basis/graph-call/plan/receipt/locus verification; typed no-effect continuation refusal |
-| missing or misbound graph-private schema admission | high for first end-to-end execution | malformed F_D/F_P/child output can enter the value environment or lawful output blocks | one closed flat module-metadata tuple-to-contract-key declaration plus one asserted opaque native definition; exact catalog/program/Node/key/coordinate/witness join; zero-or-many rows refuse; complete public/private/vector coverage and Scenario-09 prove genericity |
+| missing or misbound graph-private schema admission | high for first end-to-end execution | malformed F_D/F_P/child output can enter the value environment or lawful output blocks | one closed flat module-metadata tuple-to-contract-key declaration plus one asserted opaque native definition; exact catalog/program/Node/key/coordinate/witness join; zero-or-many rows refuse; complete public/private/vector Consensus coverage and Scenario-09 prove genericity |
 | malformed GTL or incomplete compiler structure | medium | wrong route or missing child | semantic compiler rejection, exhaustive native discriminants, `semantic_not_realized` for an unimplemented admitted constructor |
 | stale/cross-locus payload, plan, intent, or replay truth | medium | execution under wrong authority | exact nominal refs/digests, T-267 locus checks, current-observation fold, zero-effect refusal |
-| accidental duplicate C-call or feature-specific routing during integration | medium | split lineage or counterfeit genericity | one callback signature, structural route scan, C-call-count negatives, generic fixture |
+| accidental duplicate C-call or feature-specific routing during integration | medium | split lineage or counterfeit genericity | one callback signature, structural route scan, C-call-count negatives, non-Consensus fixture |
 | hostile in-process mutation, forged local files, or archive tampering | low for the current trusted desktop | forensic corruption | out of scope; no signatures, locks, tamper-proof archive, or hostile-plugin sandbox in T-270 |
 
 Misplaced hardening would add stores, locks, signatures, or duplicate archives
@@ -2472,13 +2472,13 @@ classDiagram
     -profileBindings
     -resultBindings
   }
-  class T252Module {
+  class T252ConsensusModule {
     <<existing authoritative>>
     -closedSchemaKeySourceFamily
     -publicPrivateVectorCoverage
     -flatRuntimeSchemaAdmissionBindings
   }
-  class T274BSchemaDelivery {
+  class T274BConsensusSchemaDelivery {
     <<downstream>>
     -packagedExactModule
     -opaqueNativeDefinitions
@@ -2643,10 +2643,10 @@ classDiagram
   AdmittedAtomLeafExecutor --> StructureDerivedProgramRouter : nested workflow child
   StructureDerivedProgramRouter --> DeclaredTargetValueAdmission : child output before parent use
   AdmittedRuntimeValueEnvironmentProjection ..> RuntimeValueEnvironmentRehydrationGap : unsupported general reentry
-  T252Module *-- M04RuntimeSchemaAdmissionMetadataRow : derives all public private vector key rows
-  T274BSchemaDelivery --> T252Module : packages exact Module later
-  T252Module --> T274BSchemaDelivery : supplies closed schema sources
-  T274BSchemaDelivery --> NativeContractDefinition : derives and supplies full definitions to M04 later
+  T252ConsensusModule *-- M04RuntimeSchemaAdmissionMetadataRow : derives all public private vector key rows
+  T274BConsensusSchemaDelivery --> T252ConsensusModule : packages exact Module later
+  T252ConsensusModule --> T274BConsensusSchemaDelivery : supplies closed schema sources
+  T274BConsensusSchemaDelivery --> NativeContractDefinition : derives and supplies full definitions to M04 later
   T275SystemStdlibDelivery --> FdOperatorImplementationBinding : supplies motivating rows later
   T275SystemStdlibDelivery --> DeclaredTargetValueAdmission : supplies profile and result bindings later
   T271Interpreter --> T270ProgramRouteOutcome : wraps actual C outcome
@@ -3199,7 +3199,7 @@ delta without reopening unchanged accepted rows above.
    Operator or non-null operator projection is compiler-invalid; an ordinary
    or workflow locus with a null projection is likewise invalid. The structural
    child compiles independently.
-10. A generic Scenario-09 mixed/nested program and the unchanged
+10. A non-Consensus Scenario-09 mixed/nested program and the unchanged
     motivating program use the same compiler, structural router, complete-C
     interpreter, and leaf adapter. T-271 retains `C.batch` and `C.retry`; only
     graph-level structural HOF fan-out reaches `resolveCBatch`.

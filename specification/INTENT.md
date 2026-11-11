@@ -172,8 +172,8 @@ Release allocation follows [Product Release Boundaries](PRODUCT.md#50-and-51-rel
 The directional human-work capability remains. The selected recursive Executive
 overlay and default graph library govern work within declared Program authority
 in 5.0. The separate observer/tuner Product, autonomous out-of-traversal routing,
-native human response/resume and mandatory host parity retain the release
-allocations owned by Product.
+native human response/resume, standalone Consensus qualification and mandatory
+host parity retain the release allocations owned by Product.
 Declared recursion, local correction, truthful blocking and attributed human
 authority remain part of the direction and the selected 5.0 boundary.
 
@@ -204,12 +204,13 @@ contract is bound before execution; full original Data Mapper and GLC Product
 delivery remain separately owned downstream beta work. The witness does not
 qualify or release the GLC Product.
 
-The supplied configuration implements the selected STDO release as the default
-experience. The method arrives ready as declared process, reference frames,
-evidence rules and completion conditions; a project supplies its bindings; a
-task supplies its amendment. The configuration determines the applicable work
-and evidence for each amendment and does not force every amendment through every
-stage or reviewer. A GTL Program remains free to declare another method.
+ABIogenesis supplies a configuration that implements the selected STDO release
+out of the box. A Program adopts it explicitly. The method arrives ready as
+declared process, reference frames, evidence rules and completion conditions; a
+project supplies its bindings; a task supplies its amendment. The configuration
+determines the applicable work and evidence for each amendment and does not
+force every amendment through every stage or reviewer. A GTL Program remains
+free to declare another method.
 
 ## Established Directional Constraints
 

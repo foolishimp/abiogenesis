@@ -47,9 +47,9 @@ test('the retained S01 log is the historical S01 prefix: the owner coordinate ke
   assert.equal(current.code,'invalid_event_history');
 });
 
-test('six current owner outputs preserve the same admitted terminal carrier and the 18/55 Public roster',{skip},()=>{
+test('six current owner outputs preserve the same admitted terminal carrier and the 18/56 Public roster',{skip},()=>{
   assert.equal(PUBLIC_OPERATION_CONTRACT_PROJECTIONS.length,18);
-  assert.equal(PUBLIC_FUNCTION_DEFINITION_FAMILY.definitions.length,55);
+  assert.equal(PUBLIC_FUNCTION_DEFINITION_FAMILY.definitions.length,56);
   for(const [member,port,target] of [['run_result',RunProjectionPort.run_result,run],['run_replay',RunProjectionPort.run_replay,run],['graph_call_result',GraphCallProjectionPort.graph_call_result,graph],['graph_call_replay',GraphCallProjectionPort.graph_call_replay,graph]]) {
     const actual=port(packet(member,target));assert.equal(actual.kind,'abg_project_read_projection');
     const output=projectAbgReadOutput(ABG_PROJECT_READ_CONTRACTS[member],projection(member),member,actual);

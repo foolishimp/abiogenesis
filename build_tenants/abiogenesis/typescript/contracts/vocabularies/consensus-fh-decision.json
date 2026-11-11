@@ -1,0 +1,9 @@
+{
+  "kind": "closed_vocabulary",
+  "schemaVersion": "5.0.0",
+  "vocabularyId": "abg.vocabulary.consensus-fh-decision",
+  "values": [
+    "accept_with_dissent",
+    "reject"
+  ]
+}

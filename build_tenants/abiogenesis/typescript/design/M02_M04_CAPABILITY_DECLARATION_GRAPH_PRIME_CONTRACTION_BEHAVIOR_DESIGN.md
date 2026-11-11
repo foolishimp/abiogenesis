@@ -17,7 +17,7 @@
 The existing `DS1_CAPABILITY_CONTRACT_REGISTER` is the Prime realization
 carrier for capability identity and required-contract edges. It already
 generates capability assets and public-catalog rows, and product verification
-already consumes it. T-268 extends that register with capability,
+already consumes it. T-268 extends that register with Consensus capability,
 dependency, effect-binding, and manifest-projection data. It does not create a
 second capability graph, manifest roster, engine, DSL, or registry.
 

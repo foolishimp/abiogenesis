@@ -60,6 +60,7 @@ that relation into a C node.
 
 ### Explicit exclusions
 
+- Consensus-specific stage names, reviewer policy, panel control, or routes;
 - a controller, service loop, prompt shell, or second graph traversal loop;
 - parsing or repairing authored C syntax after execution starts;
 - synthesis of transform/evaluate/consequence stages not present in the C
@@ -402,7 +403,7 @@ the `complete_c_program_interpreter` gap. It does not make the program publicly
 invocable. T-267 must prove every authored locus and interpreter bind is
 conserved. T-270 must connect the admitted plan to the one public catalog/start
 router. T-268 must admit product capability coverage before effect-bearing
-execution.
+Consensus execution.
 
 ## Domain Model
 
@@ -767,7 +768,7 @@ requires these tests against module-owned carriers rather than helper layout:
 | Replay negative | Stale plan, cursor, attempt, task, child frame, or predecessor outcome cannot resume. |
 | Role negative | Undeclared role or handler binding cannot invoke an atom. |
 | Recursive-shape negative | Self or mutual workflow lift stops before effects; the separate admitted graph-recurse relation remains unchanged. |
-| Canonical consumer | T-252 loses only `complete_c_program_interpreter`; no product branch or body-byte change is introduced. |
+| Canonical consumer | T-252 loses only `complete_c_program_interpreter`; no Consensus branch or body-byte change is introduced. |
 | Governance | Strict TypeScript, semantic suite, GTL law, three-view Mermaid, DS governance, publication, and `git diff --check` pass. |
 
 ## Design Verdict

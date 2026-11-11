@@ -108,7 +108,8 @@ test('declared independent answer oracle', () => assert.equal(answer(), 42));
 
 export function nativePublications(gtl, artifact) {
   const basis = { ...artifact, productManifestDigest: artifact.manifestDigest };
-  return [gtl.constructWorksiteConstructionModulePublication, gtl.constructWorksiteCommandExecutionModulePublication,
+  return [gtl.constructConsensusModulePublication,
+    gtl.constructWorksiteConstructionModulePublication, gtl.constructWorksiteCommandExecutionModulePublication,
     gtl.constructWorksiteCommandForwardModulePublication, gtl.constructRequirementHandoffModulePublication,
     gtl.constructSemanticStageModulePublication, gtl.constructSemanticRevisionModulePublication,
     gtl.constructSelfConformanceModulePublication].map(construct => construct(basis));

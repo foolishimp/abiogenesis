@@ -76,7 +76,7 @@ does not execute that authority.
 
 Phase A is a private mechanism checkpoint. It proves one Valibot-native
 contract definition/projector, the exact common authority/invocation/outcome
-packets, and a schema-only generic fixture. It exports no product
+packets, and a schema-only non-Consensus fixture. It exports no product
 contract, calls no handler, and claims neither the 19-row family nor the hard
 break.
 
@@ -108,7 +108,8 @@ source/package/install absence. Only that P2 cutover earns the hard break.
 - `PRODUCT.md` Public Operator Contract and hard-break law;
 - ratified T-278 public control-plane Ontology;
 - accepted T-270 `run.invoke` authority design;
-- accepted T-272 F_H response and continuation design; and
+- accepted T-272 F_H response and continuation design;
+- accepted T-275 Consensus domain design's pure `ticket_consensus` read; and
 - ADR-044 plus census rows `PC-004` and `PC-005`.
 
 ### Explicit Exclusions
@@ -124,7 +125,7 @@ source/package/install absence. Only that P2 cutover earns the hard break.
 - unchecked `as unknown as`, permissive index signatures, or untyped generic
   dispatch used to erase `K`;
 - a permissive optional-field mega-schema across variants;
-- feature-specific operation identity, request, router, or handler law;
+- Consensus-specific operation identity, request, router, or handler law;
 - hostile-workstation signing or tamper resistance; and
 - legacy aliases, facades, defaults, fallbacks, or parallel public registers;
 - Phase A product exports, handler calls, filesystem effects, publication, or
@@ -234,6 +235,7 @@ outcome.
 | `observer_report` | `WorkspaceBinding` plus admitted runtime/evidence basis | `ObserverReportProjection` | `exactly_one` | `abg.capability.operator.public-contract@5` |
 | `observer_drafts` | `WorkspaceBinding` plus `ObserverObservables` basis | `ObserverDraftProjection` | `exactly_one` | `abg.capability.operator.public-contract@5` |
 | `tuning_report` | `WorkspaceBinding` plus tuning draft basis | `TuningReportProjection` | `exactly_one` | `abg.capability.operator.public-contract@5` |
+| `ticket_consensus` | admitted `ConsensusResult` plus exact ticket, output-authority, and replay basis | `TicketConsensusProjection` | `exactly_one` | `abg.capability.operator.public-contract@5` |
 
 `ProjectReadRequest<C>` is a discriminated union indexed by this case key.
 `sourceRef`, `sourceDigest`, and any handle or cursor fields use the source and
@@ -254,6 +256,13 @@ Prime families: catalog list/describe, workspace status, `Status<S>`,
 `Result<S>`, `Evidence<S>`, `Replay<S>`, `Gap<S>`, lawful actions,
 observer report/drafts, and tuning report. Concrete schema applications stay
 with their semantic owners; only native structural constructors are shared.
+
+`ticket_consensus` remains the twenty-seventh projection. P1 consumes the exact
+T-274A
+`CONSENSUS_PUBLIC_CONTRACT_SOURCES.ticket_consensus_projection.schema`;
+T-281 does not copy or re-export it as new owner truth. Like every other case,
+the generic T-281 wrapper composes that owner projection into the final
+`ProjectReadResult<C>` contract.
 
 #### Structural Request And Refusal
 
@@ -306,7 +315,7 @@ from the outer structural key, the admitted request source, and the exact
 case-indexed selector, then requires both the supplied ref and digest to match.
 The selector therefore names every source-side basis that can affect the read;
 no ambient observation, replay window, catalog view, manifest, gap basis,
-action projection, observer basis, or tuning basis can be
+action projection, observer basis, tuning basis, or Consensus basis can be
 omitted. Owner projection schemas and their request-to-projection relations
 retain semantic truth; central P1 alone derives the wrapped result contract.
 
@@ -321,6 +330,7 @@ retain semantic truth; central P1 alone derives the wrapped result contract.
 | `result_evidence`, `assessment_evidence`, `witness_evidence` | `RuntimeResult`, `ResultAssessment`, `WitnessedAct` respectively |
 | `install_evidence`, `release_evidence` | `InstalledProduct`, `ReleaseCut` respectively |
 | `interaction_replay`, `continuation_replay`, `c_call_replay` | `FhInteraction`, `Continuation`, `CProgramAtomReceipt` respectively |
+| `ticket_consensus` | `ConsensusResult` |
 
 `ProjectReadSelector<C>` is a closed conditional sum:
 
@@ -338,6 +348,7 @@ retain semantic truth; central P1 alone derives the wrapped result contract.
 | `observer_report` | `{ observationBasis: RefDigest<ObserverObservables>, sourceProjectionRefs: NonEmptyUnique<Ref> }` |
 | `observer_drafts` | `{ observerObservables: RefDigest<ObserverObservables> }` |
 | `tuning_report` | `{ tuningTelemetryBasis: RefDigest<TuningTelemetryBasis> }` |
+| `ticket_consensus` | `{ ticket: RefDigest<Ticket>, outputAuthority: RefDigest<ConsensusOutputAuthority>, replayBasis: RefDigest<ConsensusReplayBasis> }` |
 | all other cases | strict empty object `{}` |
 
 Replay has one bounded HOW grammar: `fromOrdinal + limit`. There is no range
@@ -493,6 +504,16 @@ Explicit absent non-terminal truth stays in the definition family.
 | lawful actions | `REQ-P-POLICY-030`, POLICY digest above | `abg/m03/contracts/one_surface_operation_contracts.js` / `ONE_SURFACE_NATIVE_CONTRACT_SOURCES` / `[project_read, run_lawful_actions, result, schema]` |
 | observer report/drafts | `REQ-P-POLICY-036`, POLICY digest above | `abg/m03/contracts/observer_operation_contracts.js` / `OBSERVER_PROJECT_READ_NATIVE_CONTRACT_SOURCES` / `[project_read, caseKey, result, schema]` |
 | tuning report | `REQ-R-ABG3-TUNER-002..003`, `sha256:8c3fb81bcdc831f7f4b1c5dc7b640e9bc9a18c64a57bb54df80c23a0ee0a5c0f` | `abg/m03/contracts/tuner_operation_contracts.js` / `TUNER_PROJECT_READ_NATIVE_CONTRACT_SOURCES` / `[project_read, tuning_report, result, schema]` |
+
+The unchanged T-274A locator is
+`abg/m03/contracts/consensus_contract_family.js` /
+`CONSENSUS_PUBLIC_CONTRACT_SOURCES` /
+`[ticket_consensus_projection, schema]`, under
+`REQ-P-CONSENSUS-004/-008A/-012` at
+`sha256:d6e92b75cd52fb9f2063d0a6ff99d36a7617a52c997ff165236cb2571c9fd36d`.
+It selects `family_registry` with export
+`CONSENSUS_NATIVE_CHECK_REGISTRY` and an empty member path. T-281 creates no
+Consensus check, registry, branch, or replacement result schema.
 
 Shared static Valibot functions may factor the displayed structures but accept
 only exact literal subject kinds and return actual strict schemas. Concrete
@@ -1205,7 +1226,7 @@ NativeSchemaProjectionWitness = {
 `namedChecks` is required, never optional. `none` has no other fields.
 `family_registry` supplies only an export and zero-or-more member path relative
 to the schema locator's compiled module; an empty path addresses a top-level
-registry export. The fixed-root
+registry export such as `CONSENSUS_NATIVE_CHECK_REGISTRY`. The fixed-root
 resolver imports and hashes that module once, resolves recursively immutable
 schema and registry own-data values, and mints the only opaque carrier.
 `defineNativeContract` accepts identity plus that carrier, never a schema,
@@ -1524,8 +1545,8 @@ binding rule, and exact capabilities. T-281 owns the generic Req/Ref/Res
 wrappers, projection-basis seal, and absent non-terminal; each owner supplies
 only its projection schema and same-basis relation. A raw projection is never
 `ResultSchemaOf<K>`: central P1 wraps it and preserves owner authority.
-Missing projection/relation truth is a typed P1 gap; prose, path heuristics,
-and 4.6 interfaces cannot fill it.
+`ticket_consensus` reuses T-274A identically. Missing projection/relation truth
+is a typed P1 gap; prose, path heuristics, and 4.6 interfaces cannot fill it.
 
 ## P1 Constructor Boundary And Constructability
 
@@ -1850,6 +1871,7 @@ P1 reuses the following sources without re-authoring their semantic truth:
 | canonical native-schema projection | `code/src/shared/validation/canonical_native_schema_projector.ts` | One neutral projector derives canonical schema bytes and a witness from the actual Valibot schema; M03 and M04 consume the same result without cross-layer imports. |
 | neutral request-to-projection relation | `code/src/shared/validation/` bounded addition beside the native-schema projector | One fixed-root resolver correlates an owner-located typed relation action with the exact projection schema module and semantic-owner basis. Ten Prime result-family constructors supply the relation; T-281 receives only an opaque typed carrier and never authors 27 predicates. |
 | native contract mechanism and common packets | `code/src/app/m04/public_contracts/native_contract_phase_a.ts` | M04 coordinate/catalog owner delegates projection mechanics to the shared projector; no new constructor language. |
+| Consensus contract family | `code/src/abg/m03/contracts/consensus_contract_family.ts` | T-274A reuses the existing schema plus same-module `CONSENSUS_NATIVE_CHECK_REGISTRY`; T-281 adds no Consensus branch or registry. |
 | legacy public carrier and admission evidence | `code/src/app/m04/public_sdk/carriers.ts`, `operation_admission.ts`, `carrier_admission.ts` | Field and refusal evidence only. These files cannot validate or generate the P1 family. |
 | workspace behavior | `code/src/app/m04/workspace/operations.ts` | Existing semantic owner; target-native contract slots must resolve independently. |
 | product intake behavior | `code/src/app/m04/product_intake/verify.ts`, `resolve.ts`, `install.ts` | Existing semantic owners; no shared mega-handler or copied admitter. |
@@ -2141,6 +2163,7 @@ classDiagram
     +fiftyFourStructuralRequestRefusalSources
     +twentySevenOwnerProjectionSources
     +tenPrimeRelationConstructors
+    +ticketConsensusExactProjectionAndRelation
     +twentySevenDerivedWrappedResults
     +noNonterminal
   }
@@ -2289,7 +2312,10 @@ sequenceDiagram
   end
 ```
 
-The constructor-ready packet above
+T-274A has independently closed the `ticket_consensus` projection source by
+proving that its neutral schema coordinate admits through the shared closed
+projector and Phase A binding. It has not closed the final wrapped result
+contract or request-to-projection relation. The constructor-ready packet above
 fixes the generic request/refusal/result wrapper, explicit absent non-terminal,
 structural-key constructor, and all 27 projection-source placements. The typed
 gap denotes the remaining owner relations, central wrapper composition, exact
@@ -2566,7 +2592,7 @@ retain distinct behavior owners.
 | Every public operation derives from accepted Ontology functionality | exact matrix maps all 19 rows to AF-01..AF-25 or admitted One Surface composition | pass |
 | One definition family owns the operation-indexed binding/projection relation while payload semantics remain owner-owned | P1 domain owner-input edge, binding shape, and source-delta proof | pass as P1 design |
 | Native type, raw admission, digest, and schema derive from one value | strict Valibot schema plus inferred type, `v.parse`, and pinned projector | pass as Phase A design |
-| Schema/registry closure has one source authority | required `none | family_registry`, same-module resolution (including empty member path for a top-level export), opaque carrier, and registry-free `defineNativeContract`; malformed coordinates, cross-module selection, mutable/missing/invalid registries, unregistered exact actions, caller registries, and copied owner sources refuse | repaired design; realization proof pending |
+| Schema/registry closure has one source authority | required `none | family_registry`, same-module resolution (including empty member path for a top-level export), opaque carrier, and registry-free `defineNativeContract`; malformed coordinates, cross-module selection, mutable/missing/invalid registries, unregistered exact actions, caller registries, and copied Consensus sources refuse | repaired design; realization proof pending |
 | Missing owner truth is typed rather than invented | P1 closed resolution sum, gap sequence branch, and terminal `OwnerGapObserved` state | pass as P1 design |
 | P1 adds one authoring source and no public or semantic authority | Prime source delta plus private projection relation | pass as P1 design |
 | M03 does not depend on M04 public carriers | module direction fence, neutral owner-input edge, and negative import-graph proof | pass as P1 design |
@@ -2578,7 +2604,7 @@ retain distinct behavior owners.
 | Malformed output cannot become public truth | indexed admission receives the full admitted invocation, parses the wrapped result, executes the project-read relation over the admitted request and candidate projection, and emits internal `relation_mismatch` before any outcome digest/truth | repaired design; realization proof pending |
 | No partial public surface is published after P1 | P1 sequence yields typed gaps or private projections; `P1Ready` is terminal | pass as P1 design |
 | Hard break removes rival public truth | outside P1; P2 remains separately gated on exact family and handler parity | target only; P2 proof pending |
-| Generic proof prevents consumer-shaped infrastructure | schema-only `workspace.create(clean)` fixture with no handler/effect | pass as Phase A design |
+| Non-Consensus proof prevents consumer-shaped infrastructure | schema-only `workspace.create(clean)` fixture with no handler/effect | pass as Phase A design |
 
 ## Axiom Evaluation
 
@@ -2638,7 +2664,8 @@ P1 then shall:
 5. derive the private `project.read` relation from one closed 27-case map, one
    generic request/refusal/result wrapper, explicit absent non-terminal truth,
    27 owner projection schemas, and 27 same-owner relation witnesses; central
-   P1 derives the wrapped result contracts;
+   P1 derives the wrapped result contracts and consumes T-274A's
+   Phase-A-compatible `ticket_consensus` projection without duplicating it;
 6. retain each project-read opaque executable relation in
    `ResultContractBindingOf<K>`, pass the full admitted invocation to indexed
    outcome admission, and prove related positive plus relation-mismatch

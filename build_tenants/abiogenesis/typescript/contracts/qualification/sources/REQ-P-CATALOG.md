@@ -92,9 +92,10 @@ replay, and closure.
 
 **REQ-P-CATALOG-009A**: The ABIogenesis product may publish SYSTEM-owned reusable
 GraphFunctions in its own native catalog when PRODUCT names them as product
-capabilities. Downstream products may bind declared subject contracts,
-policies, and overlays to such a function, but shall not republish or shadow
-its canonical handle, graph body, outer contracts, or SYSTEM ownership.
+capabilities. The canonical Consensus function is such a row. Downstream
+products may bind declared reviewer profiles, subject contracts, policies, and
+overlays to that function, but shall not republish or shadow its canonical
+handle, graph body, outer contracts, or SYSTEM ownership.
 
 ## Dependencies And Resolved Locks
 

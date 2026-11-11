@@ -16,8 +16,8 @@ The test and qualification infrastructure is a product surface with its own corr
 This requirement establishes the constitutional rules for the qualification infrastructure itself — transport readiness, failure mode separation, artifact integrity, timeout contracts, and forensic evidence. Every test that validates product behavior must itself satisfy these requirements.
 
 Gate applicability follows [Product Release Boundaries](../../PRODUCT.md#50-and-51-release-boundaries).
-Mandatory host parity, native human response/resume and the dedicated F12/S04
-observer/tuner Product are 5.1 qualification claims. Their
+Standalone Consensus, mandatory host parity, native human response/resume and
+the dedicated F12/S04 observer/tuner Product are 5.1 qualification claims. Their
 deferral does not waive retained local traversal, truthful blocking, runtime
 liveness, complete selected F17/S06 outcomes or actual human RC acceptance.
 The selected ordinary governance/default-library discriminator follows
@@ -310,6 +310,17 @@ qualification described by this clause is not applicable to the ABIogenesis
 5.0 candidate, qualification basis, gate inventory, RC, or release. Deferral
 does not affect the real-tree and seeded-negative self-conformance required by
 `REQ-P-QUAL-060`.
+
+**REQ-P-QUAL-061**: Dedicated Consensus qualification is reserved for 5.1.
+It satisfies `REQ-P-CONSENSUS` by invoking the selected installed candidate's
+published SYSTEM-owned
+Consensus GraphFunction through `abg.cli` over one real ticket and at least two
+differently attributed reviewer profiles. It proves agreement closure, dispute
+recursion, and round-limit or unresolved-dispute typed block/handoff to F_H
+without requiring native response/resume, exercises the
+existing, alternate and temporary workspace applications, and exposes the typed
+result and replay without source import, feature-specific engine code, or
+shell-owned orchestration.
 
 **REQ-P-QUAL-062**: The real specification-driven lifecycle witness defined by
 Product F17/S06 and `REQ-P-SCENARIOS-013` shall be required ABIogenesis 5.0

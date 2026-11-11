@@ -415,7 +415,7 @@ async function runScenario(t, variantId) {
     const artifactBasis = { productId: abiArtifact.productId, artifactDigest: abiArtifact.artifactDigest,
       productContentDigest: abiArtifact.productContentDigest, productManifestDigest: abiArtifact.manifestDigest,
       packageName: abiArtifact.packageName, packageVersion: abiArtifact.packageVersion };
-    const publications = [harness.rootPublication,
+    const publications = [harness.rootPublication, gtl.constructConsensusModulePublication(artifactBasis),
       gtl.constructWorksiteConstructionModulePublication(artifactBasis), gtl.constructWorksiteCommandExecutionModulePublication(artifactBasis), consumerPublication];
     const boundSlots = { workspace_binding: bound.ownerOutput.value.binding, product_set: environment.productInstalls.map(product.productInstallCoordinate),
       dependency_lock: lock, actor: actorAuthority(product) };

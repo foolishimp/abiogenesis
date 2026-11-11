@@ -116,7 +116,7 @@ selection; it remains lawful only through the unchanged GraphFunction plan.
 8. **GV-C-08 - No runtime claim.** A valid vector selection is
    `semantic_not_realized` until a vector-indexed compiled plan is consumed by
    an accepted generic runtime design.
-9. **GV-C-09 - Generic proof.** A Scenario 09 function with two
+9. **GV-C-09 - Generic proof.** A non-Consensus Scenario 09 function with two
    vectors selecting different programs proves the atom.
 10. **GV-C-10 - Effect freedom.** Authoring, raw admission, and semantic
     compilation invoke no worker, plugin, archive, event, traversal, or replay
@@ -552,12 +552,12 @@ State invariants:
 | Outer invalidity and inner unrealized semantics remain mutually exclusive | C-ALGEBRA-013/-014/-016 | RawCProgramCandidate retains declaration key and catalog index before binding | M03 validates the outer relation before compiling the selected term exactly once | only CompiledBinding reaches NestedTermCompilation | no native claim of catalog admission | staged selected-member pass plus combined carrier-mismatch/unrealized negative | `pass` | T-254 realization |
 | Lawful but unrealized semantics remain explicit | C-ALGEBRA-014/-016 | deferred runtime plan is visible | sequence ends semantic-not-realized | RuntimeSelectionGap terminates | native relation remains intact | exact stable diagnostic | `pass` | later vector-indexed runtime design |
 | Plugins and handlers do not author or repair selection | ODD method; HANDLERS | no plugin/handler carrier exists | no plugin/handler participant exists | no plugin-owned state exists | APIs expose no plugin shortcut | compiler refuses unresolved relation | `pass` | none |
-| Generic atom has a Scenario 09 consumer | PRODUCT atom criterion; Scenario 09 | Scenario09LabFunction selects two programs | same generic compiler path applies | same lifecycle for both vectors | no feature-specific type or name required | tests prove two distinct bindings | `pass` | T-254 proof |
+| Generic atom has a non-Consensus consumer | PRODUCT atom criterion; Scenario 09 | Scenario09LabFunction selects two programs | same generic compiler path applies | same lifecycle for both vectors | no Consensus type or name required | tests prove two distinct bindings | `pass` | T-254 proof |
 | Runtime consumes vector-indexed compiled selection | C-ALGEBRA-016; CCALL runtime law | GraphFunctionProgramPlan is deferred | no runtime handoff message exists | RuntimeSelectionGap is terminal | not applicable to authoring | current runtime is GraphFunction-wide | `not_applicable` | later T-252 census successor; explicitly outside T-254 |
 
 ## Generic Proof Fixture
 
-Scenario 09 supplies one generic function:
+Scenario 09 supplies one non-Consensus function:
 
 ```text
 LabObservation
@@ -581,13 +581,16 @@ first GraphVector selects `normalize_program`; its second selects
 - one combined precedence negative: a locally selected unrealized `C.batch`
   program with mismatched outer carriers yields only the exact catalog-indexed
   `invalid_program` carrier-mismatch issue and no `semantic_not_realized` issue;
-- the exact semantic-not-realized diagnostic for each lawful local selector; and
+- the exact semantic-not-realized diagnostic for each lawful local selector;
+- zero Consensus vocabulary in generic M01/M03 implementation and fixture; and
 - zero worker, plugin, event, archive, traversal, replay, or workspace effects.
 
 ## Non-Scope
 
 - runtime consumption of vector-indexed program plans;
 - `workflow.C`, `C.batch`, `C.retry`, HOF, fan-in, or recursion execution;
+- Consensus body code, schemas, profiles, prompts, reducers, routing, CLI, or
+  workspace invocation;
 - a second selector key or a vector-local program/catalog/handler/plugin body;
 - `abg.fn_composition` redesign;
 - GraphVector public invocation or helper-GraphFunction topology rewrites;
@@ -619,13 +622,15 @@ acceptance of this three-view design. T-254 then closes only when:
    vector-selection semantic gap;
 7. lawful relations return the exact semantic-not-realized diagnostic without
    effects;
-8. the Scenario 09 two-vector/two-program proof and negative corpus pass;
+8. the Scenario 09 two-vector/two-program proof and negative corpus pass with no
+   Consensus vocabulary in generic code;
 9. focused, full semantic, declaration-law, generated-publication, lint, and
    design-render gates pass; and
-10. a phase self-review confirms no runtime, plugin, or topology drift.
+10. a phase self-review confirms no runtime, plugin, Consensus, or topology drift.
 
 ## Candidate Verdict
 
 `closed_as_designed`. The realization closes existing constitutional law at the
 smallest generic M01/M03 boundary and retains `semantic_not_realized` as its
-truthful runtime boundary. It authorizes no runtime work.
+truthful runtime boundary. It authorizes no runtime work; T-252 may now re-enter
+its separately accepted Consensus body-authoring and compiler-census boundary.

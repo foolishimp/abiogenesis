@@ -143,3 +143,36 @@ management, generic-job, rp2, continuation) pass with env-gated skips only.
    qualification after packages A and B land. Not regenerated here.
 3. Whether F07 needs a shipped standard system Program.
 4. Restage the INTENT mirror once the amendment is accepted.
+
+## Standing after independent review
+
+The retirement is not on the RC12 line: package CB reverted `f4aad7d5e`,
+`fb86974e3` and the dependent `da1d589a9` and `a61231c6a`, so RC12 keeps
+standalone Consensus as base `62fd17271` had it. The retirement is prepared on
+branch `claude/rc12-consensus` at `9c086294b`.
+
+It needs the owner's Product decision on how the One Surface feature (`A5-F07`,
+PRODUCT.md section "System And One Surface", REQ-P-POLICY-023) is realized and
+proved without the Consensus program, and what the default start mode
+(`rootMode` `supervised`) targets.
+
+Repairs from review RV4 to apply when it proceeds:
+
+1. The three specification sites that require a shipped standard system
+   program: PRODUCT.md "System And One Surface", the `A5-F07` feature row, and
+   REQ-P-POLICY-023 (supervised start "selects the admitted standard system
+   program") (F1).
+2. The lost executing test of the non-callable-row contract reference law in
+   `validator/validation.ts`: a non-callable contribution whose
+   `declarationOrContractRef` is not a published contract is refused. Its only
+   test was in the deleted `m5-consensus-module` (F2).
+3. The dead projection seams and exports: `product/semantics.ts`
+   `publicResultProjectionKinds`, `projectPublicResult` and the three
+   `*PublicResultProjection` functions exported through `./product`;
+   `public/run_projection_authority.ts` and its type export (F7).
+4. The T-287 lines that would contradict the tree: `CONSENSUS-QUAL-5.1`
+   ("Preserve existing ordinary Consensus GraphFunction"), the F07 row ("One
+   Surface code exists around Consensus") and the F08 row ("Preserve existing
+   ordinary GTL code") (F4).
+5. The change authority recorded in the Product header: the owner's ruling with
+   its quote and date (F4).

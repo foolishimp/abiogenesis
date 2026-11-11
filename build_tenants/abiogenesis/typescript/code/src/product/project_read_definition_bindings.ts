@@ -45,6 +45,7 @@ import { deepFreeze } from "../shared/immutable.js";
 import type { OwnerSemanticOutput } from
   "../shared/public_function_contracts.js";
 import type { ReferenceDigest } from "../shared/public_invocation.js";
+import { ABI5_SYSTEM_PRODUCT_SEMANTICS } from "./builtin_semantics.js";
 import type {
   GraphFunctionCatalogView,
   ReadyGraphFunctionCatalog,
@@ -58,6 +59,7 @@ import { PRODUCT_PROJECT_READ_CONTRACTS } from
   "./project_read_operation_contracts.js";
 import {
   CatalogProjectionPort,
+  ConsensusProjectionPort,
   InstallProjectionPort,
   WorkspaceProjectionPort,
   type CatalogDescribeProjectReadPacket,
@@ -65,6 +67,7 @@ import {
   type InstallEvidenceProjectReadPacket,
   type ProductProjectReadRefusal,
   type ReleaseEvidenceProjectReadPacket,
+  type TicketConsensusProjectReadPacket,
   type WorkspaceStatusProjectReadPacket,
 } from "./project_read_ports.js";
 import {
@@ -77,7 +80,8 @@ type ProjectReadPacket =
   | CatalogDescribeProjectReadPacket
   | WorkspaceStatusProjectReadPacket
   | InstallEvidenceProjectReadPacket
-  | ReleaseEvidenceProjectReadPacket;
+  | ReleaseEvidenceProjectReadPacket
+  | TicketConsensusProjectReadPacket;
 
 type ProjectReadContract =
   (typeof PRODUCT_PROJECT_READ_CONTRACTS)[keyof typeof PRODUCT_PROJECT_READ_CONTRACTS];
@@ -861,6 +865,135 @@ const install_evidence: ExactDefinitionCallable<
     : fault(call, "owner_execution_failure", String(cause)),
 });
 
+const ticket_consensus: ExactDefinitionCallable<
+  typeof PRODUCT_PROJECT_READ_CONTRACTS.ticket_consensus,
+  ProductProjectReadResourceAssertion<TicketConsensusProjectReadPacket>,
+  ProductProjectReadResourceAssertion<TicketConsensusProjectReadPacket>
+> = (call) => Effect.try({
+  try: (): DefinitionReturn<
+    typeof PRODUCT_PROJECT_READ_CONTRACTS.ticket_consensus,
+    ProductProjectReadResourceAssertion<TicketConsensusProjectReadPacket>
+  > => {
+    if (!validResources<TicketConsensusProjectReadPacket>(call.resources, [
+      "artifactTruth",
+      "runtime",
+    ])) {
+      throw fault(call, "invalid_resource_assertion", "ticket consensus requires one exact typed owner packet");
+    }
+    const packet = call.resources.packet;
+    const runtime = call.resources.runtime!;
+    const artifactTruth = call.resources.artifactTruth!;
+    if (!exactDefinitionCallMatches(
+      call,
+      PRODUCT_PROJECT_READ_CONTRACTS.ticket_consensus,
+    )) {
+      throw fault(call, "call_identity_mismatch", "ticket consensus call differs from its fixed definition, contracts, request digest, or authority topology");
+    }
+    const authorityBinding = admittedAuthorityBinding(
+      call as DefinitionCall<ProjectReadContract, unknown>,
+      artifactTruth,
+    );
+    const truth = projectRunTruthAtDurablePrefix(runtime.prefix, runtime.runId);
+    const graphResult = AbgGraphCallProjectionPort.graph_call_result({
+      kind: "abg_project_read_packet",
+      schemaVersion: "5.0.0",
+      memberKey: "graph_call_result",
+      prefix: runtime.prefix,
+      targetRef: runtime.graphCallId,
+    });
+    const graphReplay = AbgGraphCallProjectionPort.graph_call_replay({
+      kind: "abg_project_read_packet",
+      schemaVersion: "5.0.0",
+      memberKey: "graph_call_replay",
+      prefix: runtime.prefix,
+      targetRef: runtime.graphCallId,
+    });
+    const resultValue = graphResult.kind === "abg_project_read_projection" &&
+        isRecord(graphResult.value)
+      ? graphResult.value
+      : null;
+    const admittedResult = resultValue !== null &&
+        isRecord(resultValue.admittedResult)
+      ? resultValue.admittedResult
+      : null;
+    const replayValue = graphReplay.kind === "abg_project_read_projection" &&
+        isRecord(graphReplay.value)
+      ? graphReplay.value
+      : null;
+    const runOpenAtom = replayValue !== null &&
+        Array.isArray(replayValue.eventAtoms)
+      ? replayValue.eventAtoms.find((atom: unknown) =>
+        isRecord(atom) && atom.eventKind === "run_segment_opened" &&
+        atom.aggregateId === runtime.runId
+      )
+      : undefined;
+    const productResult = admittedResult !== null &&
+        typeof admittedResult.resultRef === "string" &&
+        typeof admittedResult.resultContractRef === "string" &&
+        admittedResult.resultValue !== null
+      ? ABI5_SYSTEM_PRODUCT_SEMANTICS.projectPublicResult({
+        value: admittedResult.resultValue as never,
+        admittedResultRef: admittedResult.resultRef,
+        admittedResultContractRef: admittedResult.resultContractRef,
+        replayRef: truth.kind === "abg_run_truth_projection"
+          ? truth.replay.ref
+          : "",
+        projectionKind: "result",
+      })
+      : null;
+    if (
+      !baseRelationMatches(call) ||
+      !sameJson(call.invocation.request.selector, packet.selector) ||
+      !sameJson(artifactTruth.prefix, runtime.prefix) ||
+      authorityBinding === null ||
+      truth.kind !== "abg_run_truth_projection" ||
+      truth.graphCall?.ref !== runtime.graphCallId ||
+      truth.result === null ||
+      graphResult.kind !== "abg_project_read_projection" ||
+      graphReplay.kind !== "abg_project_read_projection" ||
+      graphResult.prefixCoordinateDigest !== runtime.prefix.coordinateDigest ||
+      graphReplay.prefixCoordinateDigest !== runtime.prefix.coordinateDigest ||
+      admittedResult === null ||
+      admittedResult.resultRef !== truth.result.ref ||
+      admittedResult.resultDigest !== truth.result.digest ||
+      resultValue?.runId !== runtime.runId ||
+      replayValue?.runId !== runtime.runId ||
+      replayValue?.replayRef !== truth.replay.ref ||
+      replayValue?.replayDigest !== truth.replay.digest ||
+      !isRecord(runOpenAtom) ||
+      runOpenAtom.parentAggregateId !== authorityBinding.bindingId ||
+      productResult === null ||
+      !sameJson(productResult.value, packet.consensusResult) ||
+      !sameCoordinate(packet.selector.outputAuthority, truth.result) ||
+      !sameCoordinate(packet.selector.replayBasis, truth.replay)
+    ) {
+      throw fault(call, "resource_relation_mismatch", "ticket consensus packet differs from the public source, basis, or selector coordinates");
+    }
+    const output = ConsensusProjectionPort.ticketConsensus(packet);
+    if (output.kind === "product_project_read_refusal") {
+      return deepFreeze({
+        ownerOutput: nativeRefusal(PRODUCT_PROJECT_READ_CONTRACTS.ticket_consensus, output),
+        resources: call.resources,
+      });
+    }
+    const projection = output.projection;
+    const ownerOutput = commonResult(call, PRODUCT_PROJECT_READ_CONTRACTS.ticket_consensus, {
+      kind: "ticket_consensus_projection",
+      ticket: call.invocation.request.selector.ticket,
+      consensus: truth.result,
+      outputAuthority: call.invocation.request.selector.outputAuthority,
+      replayBasis: call.invocation.request.selector.replayBasis,
+      evidence: [reference(projection.projectionRef, projection.projectionDigest)],
+    });
+    return deepFreeze({ ownerOutput, resources: call.resources });
+  },
+  catch: (cause) => isDefinitionFault(cause)
+    ? cause as DefinitionExecutionFault<
+      typeof PRODUCT_PROJECT_READ_CONTRACTS.ticket_consensus.definitionKey
+    >
+    : fault(call, "owner_execution_failure", String(cause)),
+});
+
 type ReleaseReadAssertion=Extract<AbgEventResourceAssertion,{kind:"reopen_abg_event_resource"}>;
 type ReleaseReadReceipt=AbgEventResourceReceipt&{readonly acquisitionKind:"reopen"};
 const releaseReadResourcesSchema=v.strictObject({kind:v.literal("release_evidence_resources"),schemaVersion:v.literal("5.0.0"),
@@ -889,4 +1022,5 @@ export const PRODUCT_PROJECT_READ_DEFINITION_BINDINGS = Object.freeze({
   workspace_status,
   install_evidence,
   release_evidence,
+  ticket_consensus,
 });
