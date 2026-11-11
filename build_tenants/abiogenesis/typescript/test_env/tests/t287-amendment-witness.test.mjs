@@ -9,7 +9,7 @@ import * as product from '../../build/code/src/product/index.js';
 import {setupInstalledRootCatalog} from '../support/root-installed-environment.mjs';
 import {prepareRegisteredSelectionProduct,constructInstalledStartCall,runInstalledCliRequest} from '../support/registered-graph-selection.mjs';
 import {libraryConsumerDeclaration,libraryEnvironment,witnessRef,assessmentSchema,schemaPath} from '../support/default-library.mjs';
-import {amendmentWitnessInput,amendmentRef,witnessFixtureRoot,parseExamples,assessUnderRubric,summarizeActorCalls} from '../support/amendment-witness.mjs';
+import {amendmentWitnessInput,amendmentPrerequisites,amendmentRef,witnessFixtureRoot,parseExamples,assessUnderRubric,summarizeActorCalls} from '../support/amendment-witness.mjs';
 // The amendment witness: an accepted specification and a working system exist;
 // a person changes one business rule; one governed Public start does the
 // affected work, preserves what the amendment does not authorize changing and
@@ -83,8 +83,12 @@ test('joining function: the amendment is the only per-task input; the input is d
     for(const uri of definition.reviews[i].frame.authority.filter(s=>s.startsWith('stdo://')))assert.ok(review.frame.includes(uri),uri);
     assert.ok(review.order.instructions.some(s=>s.startsWith('Applicability: ')),'applicability is explicit');
   }
-  assert.ok(original.workOrders.construction.instructions.includes(`Prerequisite: the impact review (${IMPACT}) is satisfied and current before this stage.`));
-  assert.ok(original.workOrders.uat.instructions.includes(`Prerequisite: the preservation review (${PRESERVATION}) is satisfied and current before this stage.`));
+  // Prerequisites are the consumer Program's declaration, not instruction text.
+  assert.deepEqual(amendmentPrerequisites(definition),{construction:[IMPACT],uat:[PRESERVATION]});
+  assert.equal(Object.values(original.workOrders).some(o=>o.instructions.some(s=>s.startsWith('Prerequisite'))),false);
+  assert.deepEqual(product.governancePrerequisitesUndeclared(original,amendmentPrerequisites(definition)),[]);
+  for(const [purpose,requiredReviews] of Object.entries(amendmentPrerequisites(definition)))
+    assert.equal(product.governanceTargetPermission({state},{purpose,requiredReviews}).permitted,false,purpose+' waits for its review');
   assert.deepEqual(JSON.parse(await readFile(join(seed,'review/assessment-result.schema.json'),'utf8')),assessmentSchema,'the seed result schema is the consumer assessment contract');
   assert.equal(Buffer.from(original.assessment.schemaAsset.bytesBase64,'base64').toString(),JSON.stringify(assessmentSchema)+'\n');
   assert.equal(original.testing.commands.length,1);assert.deepEqual(original.testing.outcomePredicates.map(p=>[p.predicateKind,p.declaration.equals]),[['process_exit',0]]);
@@ -107,13 +111,15 @@ test('reuse: the same process definition gives a valid input for a discount amen
   for(const path of [...original.sources.map(s=>s.path),...Object.values(original.workOrders).flatMap(o=>o.readFirst),original.assessment.candidatePath,original.assessment.rubricPath,...original.assessment.sources,
     ...original.reviews.flatMap(r=>[r.assessment.candidatePath==='design/impact-assessment.md'?null:r.assessment.candidatePath,r.assessment.rubricPath,...r.assessment.sources]).filter(Boolean),...original.testing.selectedPaths])assert.ok(files.has(path),path);
   for(const s of original.sources)assert.equal(files.get(s.path),s.digest,s.path);
-  // Wording only: the examples are unchanged, so preservation is not applicable and UAT keeps no prerequisite on it.
+  // Wording only: the examples are unchanged, so preservation is declared not applicable and does not gate UAT.
   const wordingDir=await scratchCopy(t),seedText=await readFile(join(seed,'specification/requirements/REQ-ORDER-APPROVAL.md'),'utf8');
   const reworded=seedText.replace('An order whose total is above 5,000 requires manager approval.','Manager approval is required for an order whose total is above 5,000.');
   assert.notEqual(reworded,seedText);assert.deepEqual(parseExamples(reworded),parseExamples(seedText));
   const wording=await amendmentWitnessInput({processDefinition:definition,amendment:{statement:'Reword the approval rule.',text:reworded},seedRoot:wordingDir,product});
-  assert.deepEqual([wording.derivation.examplesChanged,wording.derivation.notApplicable,wording.state.original.reviews.map(r=>r.reviewRef)],[false,['preservation'],[IMPACT]]);
-  assert.equal(wording.state.original.workOrders.uat.instructions.some(s=>s.startsWith('Prerequisite:')),false);
+  assert.deepEqual([wording.derivation.examplesChanged,wording.derivation.notApplicable,wording.state.original.reviews.map(r=>[r.reviewRef,r.required])],[false,['preservation'],[[IMPACT,true],[PRESERVATION,false]]]);
+  const prerequisites=amendmentPrerequisites(definition),gates=(purpose,state)=>!product.governanceTargetPermission({state},{purpose,requiredReviews:prerequisites[purpose]}).permitted;
+  assert.deepEqual(product.governancePrerequisitesUndeclared(wording.state.original,prerequisites),[],'intake admits the not-applicable declaration');
+  assert.equal(gates('uat',wording.state),false,'a review declared not applicable does not gate UAT');assert.equal(gates('construction',wording.state),true,'impact still gates construction');
 });
 
 // The actual stand-in actor binary, given an assessment task: the declared
@@ -160,7 +166,7 @@ test('the stand-in assessor is discriminating: one candidate, different verdicts
 
 // One installed Public start over the default-library topology. Returns the
 // admitted events and the worksite; the caller supplies the actor.
-async function runWitness(t,{amendment,actorEnvironment,keep=false,accounting}){
+async function runWitness(t,{amendment,actorEnvironment,keep=false,accounting,adjust=input=>input}){
   const definition=await json(definitionPath);let selectedEnvironment;
   const env=await setupInstalledRootCatalog(keep?{after:()=>{}}:t,packageRoot,{candidateBasisSource:'packed_artifact',rootPublicationKind:'worksite_construction',workspaceProductIndex:1,
     ...(accounting?{setupAccounting:accounting}:{}),additionalCorePublicationConstructors:constructors,
@@ -168,14 +174,14 @@ async function runWitness(t,{amendment,actorEnvironment,keep=false,accounting}){
       selectedEnvironment=await libraryEnvironment({...setup,packageRoot:setup.bootstrapPackage});
       const library=setup.gtl.constructDefaultGovernanceLibraryModulePublication({...basis,packageName:setup.abiPublication.productSemanticsBinding.packageName,packageVersion:setup.abiPublication.productSemanticsBinding.packageVersion});
       return [await prepareRegisteredSelectionProduct({...setup,abiPackageArchivePath:setup.abiPackageArchivePath,
-        declarationFactory:g=>libraryConsumerDeclaration(g,library,selectedEnvironment.declaration,{purposes:PURPOSES,bound:BOUND}),
+        declarationFactory:g=>libraryConsumerDeclaration(g,library,selectedEnvironment.declaration,{purposes:PURPOSES,bound:BOUND,prerequisites:amendmentPrerequisites(definition)}),
         fixtureFiles:[{path:'build/index.mjs',source:new URL('../fixtures/default-library-product/index.mjs',import.meta.url)}],
         schemaAssets:[{path:schemaPath,source:join(seed,definition.acceptance.resultSchema),contractId:witnessRef('contract','assessment'),requirementAuthorityRefs:[amendmentRef('support','amended-requirement-realized')]}]})];
     }});
   const worksite=env.workspaceBinding.canonicalRoot??env.workspaceAuthority?.canonicalRoot??join(env.scratch,'workspace');
   const preexisting=await tree(worksite);
   await cp(seed,worksite,{recursive:true});
-  const {state:input,derivation}=await amendmentWitnessInput({processDefinition:definition,amendment,seedRoot:worksite,product});
+  const joined=await amendmentWitnessInput({processDefinition:definition,amendment,seedRoot:worksite,product}),input=adjust(joined.state),derivation=joined.derivation;
   const initialTree=await tree(worksite);
   env.catalogView=env.product.narrowGraphFunctionCatalog(env.catalog,env.additionalPublications[0].programs[0].callableMembership);assert.equal(env.catalogView.kind,'graph_function_catalog_view');
   const load=async path=>import(pathToFileURL(join(env.installedRoot,`build/code/src/${path}.js`)).href);
@@ -190,6 +196,12 @@ async function runWitness(t,{amendment,actorEnvironment,keep=false,accounting}){
   const events=storeOwner.readRuntimeEventsAtDurablePrefix(handoff.prefix).slice(before);
   return {env,worksite,definition,input,derivation,preexisting,initialTree,execution,receipt,events,results:events.filter(e=>e.kind==='c_call_result_admitted')};
 }
+/** Worksite paths a Run changed: framework entries present before the seed copy and the declared archive root excluded. */
+async function changedPaths(run){
+  const archives=[...new Set(run.events.filter(e=>e.kind==='actor_transport_binding_admitted').map(e=>relative(run.worksite,e.payload.archiveRoot)))],finalTree=await tree(run.worksite);
+  return [...new Set([...run.initialTree.keys(),...finalTree.keys()])].filter(p=>!run.preexisting.has(p)&&!within(p,archives)&&run.initialTree.get(p)!==finalTree.get(p)).sort();
+}
+const diagnosticSubject=ref=>JSON.parse(decodeURIComponent(ref.slice(ref.indexOf(',')+1)));
 /** Facts every witness Run must show, scripted or live. */
 async function assertWitnessOutcome(run){
   const {worksite,input,derivation,preexisting,initialTree,results}=run;
@@ -207,7 +219,7 @@ async function assertWitnessOutcome(run){
   // worksite during the Run. That archive holds no seed path.
   const archives=[...new Set(run.events.filter(e=>e.kind==='actor_transport_binding_admitted').map(e=>relative(worksite,e.payload.archiveRoot)))];
   assert.equal(archives.length,1);assert.ok(!archives[0].startsWith('..')&&![...initialTree.keys()].some(p=>within(p,archives)&&!preexisting.has(p)),'the archive root holds no seed path');
-  const finalTree=await tree(worksite),changed=[...new Set([...initialTree.keys(),...finalTree.keys()])].filter(p=>!preexisting.has(p)&&!within(p,archives)&&initialTree.get(p)!==finalTree.get(p)).sort();
+  const changed=await changedPaths(run);
   assert.deepEqual(changed.filter(p=>!within(p,derivation.writeRoots)),[],'changes outside the write roots: '+changed.join(', '));
   for(const row of final.observations.filter(o=>Array.isArray(o.value.changedPaths)))
     assert.ok(row.value.changedPaths.every(p=>within(p,input.original.workOrders[row.purpose].writeRoots)),row.purpose+' changed '+row.value.changedPaths.join(', '));
@@ -243,6 +255,10 @@ test('one Public start builds the amendment: impact review once and current, pre
   const {parents,final,changed,choices,pairs,testing}=await assertWitnessOutcome(run);
   assert.deepEqual(choices.map(c=>[c.graphFunctionRef,c.input.value.synthesis.judgment.reviewRef]),[[ref('induction'),null],[ref('design'),null],[ref('review'),IMPACT],[ref('construction'),null],
     [ref('testing'),null],[ref('review'),PRESERVATION],[ref('construction'),null],[ref('testing'),null],[ref('review'),PRESERVATION],[ref('uat'),null]]);
+  // Each admitted choice of a stage with declared prerequisites was permitted by the standing it was chosen over.
+  const prerequisites=amendmentPrerequisites(run.definition);
+  for(const c of choices){const purpose=Object.keys(prerequisites).find(p=>c.graphFunctionRef===ref(p));
+    if(purpose!==undefined)assert.equal(product.governanceTargetPermission({state:c.input.value},{purpose,requiredReviews:prerequisites[purpose]}).permitted,true,purpose);}
   assert.equal(events.filter(e=>e.kind==='c_call_opened'&&e.graphFunctionRef===product.NATIVE_WORKSPACE_WORK_IDS.assessmentGraphFunctionRef).length,4,'both frames and acceptance run on the one assessor');
   // Intake triage recorded the change class and the affected surfaces.
   const triage=await readFile(join(worksite,'work/intake-triage.md'),'utf8');
@@ -284,6 +300,40 @@ test('one Public start builds the amendment: impact review once and current, pre
   t.diagnostic(JSON.stringify({roles:log.map(r=>r.role),parents:parents.length,events:events.length,changed}));
 });
 
+// The stand-in selector proposes construction as soon as design is done, before the impact review has run.
+test('a choice whose prerequisites do not hold is refused before its stage runs: no construction call or write; the event log names the missing review',{timeout:900_000},async t=>{
+  const proof=await mkdtemp(join(tmpdir(),'amendment-early-'));t.after(()=>rm(proof,{recursive:true,force:true}));
+  const actor=await standInActor(proof),actorLog=join(proof,'actor.jsonl');
+  const run=await runWitness(t,{amendment:await json(amendmentPath('approval-threshold')),actorEnvironment:{ABG_TS_CLAUDE_COMMAND:actor,ABI5_AMENDMENT_ACTOR_LOG:actorLog,ABI5_AMENDMENT_STAND_IN:standIn,ABI5_AMENDMENT_ACTOR_EARLY:'construction'}});
+  const {receipt,events}=run,log=(await readFile(actorLog,'utf8')).trim().split('\n').map(l=>JSON.parse(l));
+  assert.deepEqual(log.map(r=>r.role),['select:induction','native:intake-triage','select:design','native:impact-assessment','select:construction']);
+  assert.equal(events.some(e=>e.kind==='c_call_opened'&&e.graphFunctionRef===ref('construction')),false,'the construction wrapper is never entered');
+  assert.equal(events.some(e=>e.payload?.value?.kind==='registered_graph_choice'&&e.payload.value.graphFunctionRef===ref('construction')),false,'no construction choice is admitted');
+  assert.deepEqual(await changedPaths(run),['design/impact-assessment.md','work/intake-triage.md'],'no construction write');
+  const failures=events.filter(e=>e.kind==='runtime_failure_observed');assert.equal(failures.length,1);
+  const subject=diagnosticSubject(failures[0].payload.diagnosticRef);
+  assert.deepEqual([failures[0].payload.stage,subject.computeRegime,subject.diagnosticClassRef,subject.implementationRef,subject.stage,subject.reason,subject.cause.errorClass,subject.cause.message],
+    ['route','F_P','diagnostic://abiogenesis/implementation/implementation-exception@5',product.governanceRef('implementation','select'),'implementation_completion','thrown','TypeError',
+      `native selector choice binding refused: ${ref('construction')} requires satisfied and current ${IMPACT}`]);
+  assert.equal(receipt.ownerOutput.value.disposition,'runtime_failed');
+  t.diagnostic(JSON.stringify({stage:failures[0].payload.stage,diagnosticClassRef:subject.diagnosticClassRef,reason:subject.reason,message:subject.cause.message}));
+});
+test('a task that omits a review its Program names is refused at selection intake: no actor call, no write; the event log names the review',{timeout:900_000},async t=>{
+  const proof=await mkdtemp(join(tmpdir(),'amendment-intake-'));t.after(()=>rm(proof,{recursive:true,force:true}));
+  const actor=await standInActor(proof),actorLog=join(proof,'actor.jsonl');
+  const run=await runWitness(t,{amendment:await json(amendmentPath('approval-threshold')),actorEnvironment:{ABG_TS_CLAUDE_COMMAND:actor,ABI5_AMENDMENT_ACTOR_LOG:actorLog,ABI5_AMENDMENT_STAND_IN:standIn},
+    adjust:state=>product.constructGovernanceWorkState({...state.original,reviews:state.original.reviews.filter(r=>r.reviewRef!==PRESERVATION)})});
+  const {receipt,events}=run;
+  assert.equal(await readFile(actorLog,'utf8').catch(()=>''),'');assert.equal(events.some(e=>e.kind==='actor_invocation_started'),false);
+  assert.deepEqual(await changedPaths(run),[]);
+  const failures=events.filter(e=>e.kind==='runtime_failure_observed');assert.equal(failures.length,1);
+  const subject=diagnosticSubject(failures[0].payload.diagnosticRef);
+  assert.deepEqual([subject.computeRegime,subject.diagnosticClassRef,subject.implementationRef,subject.stage,subject.relation,subject.selectors],
+    ['F_D',product.governanceRef('diagnostic','missing-owned-prepare-selection'),product.governanceRef('implementation','prepare-selection'),'selection_intake','process_review_undeclared',{reviewRefs:PRESERVATION}]);
+  assert.equal(receipt.ownerOutput.value.disposition,'runtime_failed');
+  t.diagnostic(JSON.stringify({stage:failures[0].payload.stage,diagnosticClassRef:subject.diagnosticClassRef,relation:subject.relation,selectors:subject.selectors}));
+});
+
 const STDO_COVERAGE=`# STDO relations exercised by the amendment witness
 
 Basis: stdo://releases/v3.0.4/. This is one amendment workflow on a small
@@ -304,7 +354,7 @@ system. It exercises the relations below and no others.
 | Design records and modules | stdo://releases/v3.0.4/standards/DESIGN_MODULE.md | no | the impact assessment is the only design output |
 | Release and qualification | stdo://releases/v3.0.4/standards/RELEASE.md | no | no release cut |
 | Human decision and re-entry above Requirements | stdo://releases/v3.0.4/standards/SPEC_METHOD.md#universal-intake-triage | no | ABIogenesis 5.0 has no human-response path; zero interventions holds by construction |
-| Prerequisite order between stages | process-definition.json prerequisites | declared only | rendered into stage instructions; the runtime does not enforce it in this version |
+| Prerequisite order between stages | process-definition.json prerequisites | yes | declared on the consumer Program's executive step; only permitted work is offered and admitted, and an early choice is refused before its stage runs |
 `;
 test('live: the same amendment witness against a real provider writes its evidence',{timeout:3_600_000,skip:process.env.ABI5_AMENDMENT_WITNESS_LIVE!=='1'&&"ABI5_AMENDMENT_WITNESS_LIVE is not '1'; selects the live amendment witness"},async t=>{
   const evidence=process.env.ABI5_AMENDMENT_WITNESS_EVIDENCE_ROOT??await mkdtemp(join(tmpdir(),'abi5-amendment-witness-'));

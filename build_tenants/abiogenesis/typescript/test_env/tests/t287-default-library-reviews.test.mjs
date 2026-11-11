@@ -87,7 +87,7 @@ test('a task without reviews keeps its prior state, selector view, response sche
   assert.equal(product.bindFramedSynthesisResult(realTask,full,bindBasis,{...raw,reviewRef:null}),null,'reviewRef is absent without declared reviews');
   const selectReview={...raw,contributions:[{...raw.contributions[0],graphFunctionRef:ref('review')}],nextGraphFunctionRef:ref('review')};
   assert.equal(product.bindFramedSynthesisResult(realTask,full,bindBasis,selectReview),null,'the review wrapper is unselectable without declared reviews');
-  assert.equal(product.governanceTargetSelectable(state,'review'),false);assert.equal(product.governanceTargetSelectable(state,'uat'),true);
+  assert.equal(product.governanceTargetPermission(task0,{purpose:'review'}).offered,false);assert.equal(product.governanceTargetPermission(task0,{purpose:'uat'}).permitted,true);
   assert.equal(product.governanceAssessmentContract(state,'review'),null);assert.deepEqual(product.governanceAssessmentContract(state,'uat'),state.original.assessment);
 });
 
@@ -283,8 +283,10 @@ test('parent evaluation: acceptance and every required review must be satisfied 
   const reworked=await x.construct(closed);out=evaluated(reworked);assert.equal(out.terminal,false,'later work retires acceptance');
   assert.deepEqual(standing(out),[[REVIEW_B,ref(B),true,true],[REVIEW_A,ref(closed),true,true]],'work that changes no declared subject keeps both verdicts current');
   // A's verdict is stale once its declared subject changed: only A loses currentness.
+  const gates=state=>product.governanceTargetPermission({state},{purpose:'uat',requiredReviews:[REVIEW_A]}).permitted;assert.equal(gates(evaluated(closed)),true);
   x.stale.add(a.assessment.candidatePath);out=evaluated(closed);x.stale.clear();
   assert.equal(out.terminal,false);assert.deepEqual(standing(out),[[REVIEW_B,ref(B),true,true],[REVIEW_A,ref(closed),true,false]]);
+  assert.equal(gates(out),false,'a declared prerequisite reads this standing: the stale review gates again');
   x.stale.add(b.assessment.rubricPath);out=evaluated(closed);x.stale.clear();
   assert.equal(out.terminal,false);assert.deepEqual(standing(out),[[REVIEW_B,ref(B),true,false],[REVIEW_A,ref(closed),true,true]]);
   assert.ok(x.checked.some(c=>JSON.stringify(c)===JSON.stringify({roots:product.governanceAssessmentDependencies(a.order,a.assessment)})),'currentness reads the dependency set in the read-roots form');

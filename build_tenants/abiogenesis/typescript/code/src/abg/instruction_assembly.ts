@@ -1,6 +1,7 @@
 import { isDeepStrictEqual as sameSynthesis } from "node:util";
-import { isFramedSynthesisTask, bindFramedSynthesisResult, framedSynthesisResponseSchema, GOVERNANCE_PURPOSES, governanceRef, type FramedSynthesisTarget, type FramedSynthesisBasis,
-  governanceFulfillmentSelection, governanceFulfillmentContractsMatch, projectFramedSynthesisPromptTask, isGovernanceWorkState, governanceTargetSelectable } from "../product/default_library.js";
+import { isFramedSynthesisTask, bindFramedSynthesisResult, framedSynthesisResponseSchema, governanceRef, type FramedSynthesisTarget, type FramedSynthesisBasis,
+  governanceFulfillmentSelection, governanceFulfillmentContractsMatch, projectFramedSynthesisPromptTask, isGovernanceWorkState, governanceTargetPermission,
+  governanceTarget, governancePrerequisites, governancePrerequisitesUndeclared } from "../product/default_library.js";
 import { rootCSourcePath } from "../gtl/source_path.js";
 import { isNativeWorksiteCommandExecutionObservation } from "../product/worksite_command_execution.js";
 import { resolveNativeWorkspaceAssessmentDependency } from "../product/native_workspace_assessment.js";
@@ -388,6 +389,9 @@ function synthesisContext(basis: NativeInstructionAssemblyBasis, input: unknown,
   if (domain === null || contract(owner.call.inputContractRef)?.valueKind !== "framed_synthesis_task" ||
     contract(owner.call.outputContractRef)?.valueKind !== "framed_synthesis_result" || rawContractRef === undefined ||
     contract(rawContractRef)?.valueKind !== "framed_synthesis_response") return null;
+  // The step's process declaration binds every review it names to this task at intake.
+  const prerequisites = governancePrerequisites(basis.graphFunction.declarations);
+  if (prerequisites === null || governancePrerequisitesUndeclared(input.state.original, prerequisites).length > 0) return null;
   const bindings: FramedSynthesisTarget[] = [], choices: JsonValue[] = [];
   for (const node of domain.targets) {
     if (node?.term.kind !== "c_workflow") return null;
@@ -397,13 +401,13 @@ function synthesisContext(basis: NativeInstructionAssemblyBasis, input: unknown,
     const definitions = basis.declarationGraphFunctions.filter(g => g.name === ref);
     if (definitions.length !== 1 || digest === undefined || !owner.program.callableMembership.includes(ref) ||
       bindings.some(b => b.graphFunctionRef === ref)) return null;
-    const definition = definitions[0]!, purpose = definition.declarations["abg.default_library_purpose"];
+    const definition = definitions[0]!, target = governanceTarget(definition, digest, prerequisites);
     const description = definition.declarations["abg.functional_purpose"], conditions = definition.declarations["abg.conditions_for_use"];
     const contracts = [...definition.inputs, ...definition.outputs].map(ref => contract(ref));
-    if (!GOVERNANCE_PURPOSES.includes(purpose as FramedSynthesisTarget["purpose"]) || !description?.trim() || !conditions?.trim() || contracts.some(c => c === null)) return null;
-    bindings.push({ graphFunctionRef: ref, definitionDigest: digest, purpose: purpose as FramedSynthesisTarget["purpose"] });
-    // The registered domain stays whole; the product binder and schema apply the same selectable rule.
-    if (governanceTargetSelectable(input.state, purpose as FramedSynthesisTarget["purpose"])) choices.push({ graphFunctionRef: ref, purpose: description, conditionsForUse: conditions, contracts, effects: definition.effects });
+    if (target === null || !description?.trim() || !conditions?.trim() || contracts.some(c => c === null)) return null;
+    bindings.push(target);
+    // The registered domain stays whole; the product binder and schema apply the same permitted relation.
+    if (governanceTargetPermission(input, target).offered) choices.push({ graphFunctionRef: ref, purpose: description, conditionsForUse: conditions, contracts, effects: definition.effects });
   }
   return { owner, role, profile, bindings, choices, rawContractRef, input };
 }
@@ -474,7 +478,7 @@ export function evaluateFramedSynthesisInstructionAssembly(basis: NativeInstruct
       carrierResponseSchemaDigest: sha256Canonical(carrier) };
     const sections = { role: { role: "selector", frameRefs: role.frameRefs, policy: role.policy, sourceContent: role.sourceContent,
       instruction: "Apply this declared Executive frame to the conserved problem. Return a compact interpretation and selected registered contributions, their reasons, support and dependencies, remaining gaps, and one explicitly chosen next member. Preserve valid supplied work. Judge the next contribution against actual observations and previous judgment; dependencies are your semantic judgment, never an automatic schedule. Include at most one contribution row per graphFunctionRef. Every dependsOn reference must name a different contribution row in THIS response; no self-dependency. Cite prior completed work outside this current mapping through admitted evidenceRefs, not dependsOn. nextGraphFunctionRef must name a current contribution row, or be null with nonempty gaps and null subjectEvidenceRef. Including a contribution never requires it to run; only your explicit next member executes. Purpose/membership confers no permission or success. For UAT, subjectEvidenceRef must select the exact current native-work or C2 measurement Result to assess; a C2 measurement is observation provenance, not authorship. For Testing, optionally select a current native-work Result, or use null to observe supplied files. For other work or a gap, subjectEvidenceRef must be null. Do not execute tools, rewrite original task/authority, or invent observed success. The task section is an owned judgment projection: originalTask contains the complete original task. File contentIn originalTask and sourceRanges locate exact text already presented in this prompt; no external read is needed. Other file content is supplied directly. Each work order also applies the original task; only exact repeated source text is omitted from its instructions. currentAtContext and staleDependencies describe byte correspondence only, never semantic adequacy. Return only the closed response JSON." },
-      choices, task: projectFramedSynthesisPromptTask(task, worksiteContextBodyReaderAtPrefix(owner.prefix, task.context, bodyUse)),
+      choices, task: projectFramedSynthesisPromptTask(task, worksiteContextBodyReaderAtPrefix(owner.prefix, task.context, bodyUse), bindings),
       binding, evidence: { declaredAccess: role.accessContent }, response };
     const plan = { variant: "framed-synthesis", projectionLocus: context.profile.projection.nodeRef, runEnvironment, ...responseSchemas,
       rendererRef: governanceRef("renderer", "synthesis"), instructionContractRef: owner.call.inputContractRef, resultContractRef: rawContractRef,

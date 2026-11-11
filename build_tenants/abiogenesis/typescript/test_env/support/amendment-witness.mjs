@@ -35,6 +35,10 @@ export function renderFrame(name,f){
     `Admissible evidence: ${f.evidence} Excluded: ${f.excluded} Capability: ${f.capability} Result: ${f.result} Return: ${f.return}`;
 }
 
+/** The process's prerequisites as the consumer Program declares them on its executive step: purpose to review refs. */
+export function amendmentPrerequisites(def){
+  return Object.fromEntries(Object.entries(def.prerequisites).filter(([k])=>k!=='meaning').map(([purpose,names])=>[purpose,names.map(n=>amendmentRef('review',n))]));
+}
 /**
  * Applies the amendment to the requirement file under seedRoot (a worksite copy,
  * never the fixture) and returns the governance input. No model call. The
@@ -62,9 +66,7 @@ export async function amendmentWitnessInput({processDefinition:def,amendment,see
   const examplesChanged=!isDeepStrictEqual(parseExamples(before),parseExamples(amendment.text));
   const applies=a=>a.applies==='always'||a.applies==='examples-changed'&&examplesChanged;
   const declared=def.reviews.filter(r=>applies(r.applicability)),reviewRefOf=name=>amendmentRef('review',name);
-  const prerequisites=purpose=>(def.prerequisites[purpose]??[]).filter(n=>declared.some(r=>r.name===n))
-    .map(n=>`Prerequisite: the ${n} review (${reviewRefOf(n)}) is satisfied and current before this stage.`);
-  const workOrders=Object.fromEntries(def.stages.map(s=>[s.purpose,{outcome:s.outcome,instructions:[...s.instructions,...prerequisites(s.purpose)],
+  const workOrders=Object.fromEntries(def.stages.map(s=>[s.purpose,{outcome:s.outcome,instructions:[...s.instructions],
     readFirst:resolve(s.readFirst),writeRoots:resolve(s.writeRoots),checks:[]}]));
   const writeRoots=new Set(Object.values(workOrders).flatMap(o=>o.writeRoots));
   const protectedPaths=def.system.files.filter(p=>!writeRoots.has(p));
@@ -82,7 +84,8 @@ export async function amendmentWitnessInput({processDefinition:def,amendment,see
       outcomePredicates:plan.predicates.map(p=>({predicateId:amendmentRef('predicate',p.id),predicateKind:p.kind,declaration:{validationCommandId:commandId(p.command),equals:p.equals}})),
       allowedWriteTerritories:plan.writeTerritories},
     assessment:assessment(def.acceptance.candidate,def.acceptance.rubric,def.acceptance.sources),
-    reviews:declared.map(r=>({reviewRef:reviewRefOf(r.name),frame:renderFrame(r.name,r.frame),required:r.required,
+    // Every review the process names is declared; one that does not apply to this amendment is declared not required.
+    reviews:def.reviews.map(r=>({reviewRef:reviewRefOf(r.name),frame:renderFrame(r.name,r.frame),required:r.required&&declared.includes(r),
       order:{outcome:r.outcome,instructions:[...r.instructions,`Applicability: ${r.applicability.notApplicable}`],readFirst:[r.rubric],writeRoots:[],checks:[]},
       assessment:assessment(r.candidate,r.rubric,r.sources)}))};
   const state=product.constructGovernanceWorkState(original);

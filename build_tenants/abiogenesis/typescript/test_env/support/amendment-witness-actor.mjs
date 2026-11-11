@@ -1,7 +1,7 @@
 // Model-free stand-in for every native role of the amendment witness, run as
 // the actor process. It reads only what its own task delivers:
 // - selector: its selector view (observations, declared reviews with standing,
-//   work orders with their prerequisite lines);
+//   each offered target's declared prerequisites and missing reviews);
 // - worker: its permitted write scope and the admitted observations;
 // - assessor: the declared review line, the assessment basis and the worksite.
 // The assessor never branches on a path: it applies the delivered rubric's
@@ -32,29 +32,32 @@ if(c2){out({type:'system',subtype:'init',model:MODEL});out({type:'assistant',mes
 
 const schema=at<0?{}:JSON.parse(args[at+1]),props=schema.properties??{};
 if('interpretation' in props){
-  // Selector. Order: intake triage, impact assessment, then each prerequisite
-  // review of construction, construction, testing over the latest construction,
-  // each prerequisite review of UAT and any other required review, UAT over the
+  // Selector. Order: intake triage, impact assessment, then each review
+  // construction is missing, construction, testing over the latest construction,
+  // each review UAT is missing and any other required review, UAT over the
   // latest testing. An adverse current review sends work back to the stage that
-  // writes its candidate. Prerequisites are read from the work-order lines.
+  // writes its candidate. Missing reviews are read from the offered targets'
+  // declared prerequisites. ABI5_AMENDMENT_ACTOR_EARLY names a stage proposed
+  // as soon as design is done, prerequisites or not.
   const view=JSON.parse(tasks[0]),rows=view.observations,orders=view.workOrders,reviews=view.reviews?.declared??[];
   const last=p=>rows.findLastIndex(r=>r.purpose===p),latest=p=>rows.findLast(r=>r.purpose===p);
-  const ok=r=>r.standing.satisfied&&r.standing.current;
+  const ok=r=>r.standing.satisfied&&r.standing.current,early=process.env.ABI5_AMENDMENT_ACTOR_EARLY;
   const producer=r=>Object.keys(orders).find(p=>orders[p].writeRoots.includes(r.candidatePath))??'construction';
-  const prerequisites=p=>(orders[p]?.instructions??[]).flatMap(s=>{const m=/^Prerequisite: .*\((review:\/\/[^)]+)\)/.exec(s);return m?[m[1]]:[];})
-    .map(ref=>reviews.find(r=>r.reviewRef===ref)).filter(Boolean);
+  const missing=p=>(view.prerequisites?.targets.find(t=>t.purpose===p)?.missingReviews??[]).map(m=>reviews.find(r=>r.reviewRef===m.reviewRef)).filter(Boolean);
   const review=r=>['review',r.reviewRef,latest(producer(r))?.resultRef??null];
   const adverse=reviews.find(r=>r.standing.resultRef!==null&&r.standing.current&&!r.standing.satisfied);
   let next=null,reviewRef=null,subject=null;
   if(last('induction')<0)next='induction';
   else if(last('design')<0)next='design';
+  else if(early&&last(early)<0)next=early;
   else if(adverse)next=producer(adverse);
-  else if(last('construction')<0){const pending=prerequisites('construction').find(r=>!ok(r));if(pending)[next,reviewRef,subject]=review(pending);else next='construction';}
+  else if(last('construction')<0){const pending=missing('construction')[0];if(pending)[next,reviewRef,subject]=review(pending);else next='construction';}
   else if(last('testing')<last('construction'))[next,subject]=['testing',latest('construction').resultRef];
-  else{const pending=[...prerequisites('uat'),...reviews.filter(r=>r.required)].find(r=>!ok(r));
+  else{const pending=[...missing('uat'),...reviews.filter(r=>r.required&&!ok(r))][0];
     if(pending)[next,reviewRef,subject]=review(pending);
     else if(last('uat')<last('testing'))[next,subject]=['uat',latest('testing').resultRef];}
-  const graph=p=>(props.nextGraphFunctionRef.enum??[]).find(g=>typeof g==='string'&&g.includes('/'+p+'@'));
+  // Every offered target is a contribution; only a permitted one is in the next domain.
+  const graph=p=>(props.contributions.items.properties.graphFunctionRef.enum??[]).find(g=>typeof g==='string'&&g.includes('/'+p+'@'));
   const items=props.contributions.items.properties.supportRefs.items,support=items&&Array.isArray(items.enum)?[...items.enum]:[],target=next===null?null:graph(next);
   emit('select:'+(next??'gap')+(reviewRef?':'+reviewRef:''),{interpretation:'Scripted amendment selector.',
     contributions:[{graphFunctionRef:target??graph('construction'),contribution:'Scripted '+(next??'gap')+' contribution.',reason:'Declared stage order and prerequisites.',supportRefs:support,evidenceRefs:[],dependsOn:[]}],

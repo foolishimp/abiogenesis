@@ -1,12 +1,13 @@
 import { framedSynthesisAtLocus } from "../gtl/stdo_run_environment.js";
 import { resolveRegisteredSelection } from "../gtl/registered_selection.js";
-import { isFramedSynthesisTask, isFramedSynthesisResult, type FramedSynthesisTask } from "../product/default_library.js";
+import { isFramedSynthesisTask, isFramedSynthesisResult, governancePrerequisites, governancePrerequisitesUndeclared, governanceTarget,
+  governanceTargetPermission, type FramedSynthesisTask } from "../product/default_library.js";
 import { isDeepStrictEqual as same } from "node:util";
 import { resolve } from "node:path";
 import { pathToFileURL } from "node:url";
 import { authenticateOwnedNativeInstructionAssemblyBasis, rehydrateExecutionBasisAtPrefix, type NativeInstructionAssemblyBasis } from "./execution_basis.js";
 import { reuseWorksiteContextBodiesAtPrefix, worksiteContextBodyReaderAtPrefix, type RuntimeEventPrefix } from "./event_prefix.js";
-import { sha256Bytes } from "../shared/digests.js";
+import { sha256Bytes, sha256Canonical } from "../shared/digests.js";
 import { projectExactInvocationAdmissionAtPrefix, projectExactExecutionBasisAtPrefix, hasAdmittedGovernanceSourceUse,
   hasAdmittedGovernanceCoveredSourceUse, governanceContextBodyUse } from "./invocation_execution_truth.js";
 import { indexedRuntimeEvents } from "./event_prefix.js";
@@ -133,6 +134,15 @@ function sourceResult(o: Owner, input: unknown) {
 function bodies(o: Owner, context: WorksiteContextObservation) {
   return worksiteContextBodyReaderAtPrefix(o.prefix, context, governanceContextBodyUse(o.invocation, o.call.runId));
 }
+/** Selection intake: the executive step's process declaration is valid and the
+ * task declares, as required or not, every review it names. */
+function selectionIntake(basis: NativeInstructionAssemblyBasis, state: GovernanceWorkState, refusal?: GovernanceTestingRefusal): boolean {
+  const prerequisites = governancePrerequisites(basis.graphFunction.declarations);
+  const undeclared = prerequisites === null ? null : governancePrerequisitesUndeclared(state.original, prerequisites);
+  if (undeclared?.length === 0) return true;
+  refusal?.("selection_intake", undeclared === null ? "process_declaration" : "process_review_undeclared", undeclared === null ? {} : { reviewRefs: undeclared.join(" ") });
+  return false;
+}
 /** Selection task construction over the admitted context; reads no worksite. */
 function selectionTask(o: Owner, state: GovernanceWorkState, context: WorksiteContextObservation): FramedSynthesisTask | null {
   if (state.original.fulfillment !== undefined && state.synthesis === null &&
@@ -140,7 +150,7 @@ function selectionTask(o: Owner, state: GovernanceWorkState, context: WorksiteCo
   if (state.terminal) throw new TypeError("completed parent cannot select work");
   return { kind: "framed_synthesis_task", schemaVersion: "5.0.0", state, context };
 }
-export function projectGovernanceChoice(basis: NativeInstructionAssemblyBasis, input: unknown) {
+export function projectGovernanceChoice(basis: NativeInstructionAssemblyBasis, input: unknown, refusal?: GovernanceTestingRefusal) {
   const o = owner(basis, input); if (o === null || !isFramedSynthesisResult(input)) return null;
   const profile = framedSynthesisAtLocus(basis.graphFunction, basis.graphFunction.declarations["abg.framed_synthesis_locus"] ?? "");
   const event = o.inputOrigin.event;
@@ -151,16 +161,17 @@ export function projectGovernanceChoice(basis: NativeInstructionAssemblyBasis, i
     e.runId === o.call.runId && e.basisId === o.execution.basisRef && record(e.payload) && e.payload.programLocusRef === profile.node.nodeRef);
   if (opened.length !== 1) return null;
   const j = input.judgment, common = { kind: "registered_graph_choice", schemaVersion: "5.0.0", reason: j.nextReason, evidenceRefs: j.nextEvidenceRefs };
+  // The selector's actual admitted input owns this context and standing. Do not
+  // reread a mutable worksite or reconstruct the proposal from arbitrary payloads.
+  const inputEvents = indexedRuntimeEvents(o.prefix, "payload:resultRef:" + input.basis.inputRef)
+    .filter(e => e.kind === "c_call_result_admitted" && e.runId === o.call.runId && e.basisId === event.basisId &&
+      record(e.payload) && e.payload.valueDigest === input.basis.inputDigest && isFramedSynthesisTask(e.payload.value));
+  const inputEvent = exactOrUndefined(onlyExactMatch(inputEvents));
+  const task = record(inputEvent?.payload) && isFramedSynthesisTask(inputEvent.payload.value) ? inputEvent.payload.value : null;
+  if (task === null || !same(task.state, input.state)) return null;
   let projected = input.state;
   if (input.state.original.fulfillment !== undefined) {
-    // The selector's actual admitted input owns this context. Do not reread a
-    // mutable worksite or reconstruct the proposal from arbitrary payloads.
-    const inputEvents = indexedRuntimeEvents(o.prefix, "payload:resultRef:" + input.basis.inputRef)
-      .filter(e => e.kind === "c_call_result_admitted" && e.runId === o.call.runId && e.basisId === event.basisId &&
-        record(e.payload) && e.payload.valueDigest === input.basis.inputDigest && isFramedSynthesisTask(e.payload.value));
-    const inputEvent = exactOrUndefined(onlyExactMatch(inputEvents));
-    const task = record(inputEvent?.payload) && isFramedSynthesisTask(inputEvent.payload.value) ? inputEvent.payload.value : null;
-    if (task === null || j.requirementProposals === undefined || !same(task.state, input.state)) return null;
+    if (j.requirementProposals === undefined) return null;
     const fulfillment = deriveGovernanceObligations(input.state.original.fulfillment, input.state.fulfillment!, j.requirementProposals,
       input.state.original.taskRef, o.inputRef, task.context, framedSynthesisEvidenceRefs(task), bodies(o, task.context));
     if (fulfillment === null) return null;
@@ -172,14 +183,20 @@ export function projectGovernanceChoice(basis: NativeInstructionAssemblyBasis, i
     basis: input.basis, judgment: j } };
   // An unregistered target has no definition digest and is no selection.
   const definitionDigest = o.execution.registeredSelectionDefinitionDigests?.[j.nextGraphFunctionRef];
-  if (definitionDigest === undefined) return null;
+  const definition = exactOrNull(onlyExactMatch(basis.declarationGraphFunctions.filter(g => g.name === j.nextGraphFunctionRef && sha256Canonical(g) === definitionDigest)));
+  const prerequisites = governancePrerequisites(basis.graphFunction.declarations);
+  if (definitionDigest === undefined || definition === null || prerequisites === null) return null;
+  // The product's permitted relation over the admitted standing; no currentness is recomputed.
+  const target = governanceTarget(definition, definitionDigest, prerequisites), permission = target === null ? null : governanceTargetPermission(task, target);
+  if (!permission?.permitted) return testingRefused(refusal, "choice_projection", "target_not_permitted",
+    { graphFunctionRef: j.nextGraphFunctionRef, missingReviews: permission?.missingReviews.map(m => m.reviewRef).join(" ") ?? null });
   const choice = { ...common, disposition: "selected", graphFunctionRef: j.nextGraphFunctionRef,
     definitionDigest, input: { contractRef: contract("state"), value: next } };
   try { return resolveRegisteredSelection(o.graph.template, basis.cursor, o.call.outputContractRef, choice,
     o.execution.registeredSelectionDefinitionDigests ?? {})?.disposition === "selected" ? choice : null; } catch { return null; }
 }
-export async function projectGovernanceSelection(basis: NativeInstructionAssemblyBasis, input: unknown) {
-  const o = owner(basis, input); if (o === null || !isGovernanceWorkState(input)) return null;
+export async function projectGovernanceSelection(basis: NativeInstructionAssemblyBasis, input: unknown, refusal?: GovernanceTestingRefusal) {
+  const o = owner(basis, input); if (o === null || !isGovernanceWorkState(input) || !selectionIntake(basis, input, refusal)) return null;
   const observation = await observeGovernanceWorksite(o, input, []);
   return observation === null ? null : selectionTask(o, input, observation.context);
 }
@@ -450,7 +467,7 @@ export function governanceResultMatches(basis: NativeInstructionAssemblyBasis, i
     if (implementation === ref("implementation", "evaluate-parent")) return same(output, projectGovernanceParent(basis, input));
     if (implementation === ref("implementation", "project-choice")) return same(output, projectGovernanceChoice(basis, input));
     if (!isGovernanceWorkState(input)) return false;
-    if (implementation === ref("implementation", "prepare-selection")) return isFramedSynthesisTask(output) &&
+    if (implementation === ref("implementation", "prepare-selection")) return isFramedSynthesisTask(output) && selectionIntake(basis, input) &&
       contextMatches(o, input, output.context) && same(output, selectionTask(o, input, output.context));
     if (implementation === ref("implementation", "prepare-native")) return isNativeWorkspaceWorkTask(output) && same(output,
       nativeTask(o, input, basis.graphFunction.declarations["abg.default_library_purpose"] as GovernancePurpose, output.context));

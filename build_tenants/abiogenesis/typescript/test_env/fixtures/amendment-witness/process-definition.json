@@ -176,7 +176,7 @@
     }
   ],
   "prerequisites": {
-    "meaning": "Declared order only. The runtime does not enforce it in this version; the joining function renders it into the stage instructions.",
+    "meaning": "Declared on the consumer Program's executive step: a stage is offered and admitted only while each review it names that the amendment declares required is satisfied and current.",
     "construction": ["impact"],
     "uat": ["preservation"]
   }
