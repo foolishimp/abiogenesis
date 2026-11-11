@@ -179,15 +179,21 @@ export function projectStdoRoleEvidence(events: readonly {kind: string; payload:
 }
 
 const observedMemberSchema = v.strictObject({ path: ref, type: v.picklist(["file", "symlink"]), digest, target: v.nullable(ref) });
+const accessEntries = { accessRef: ref, command: v.strictObject({ executablePath: ref,
+  executableDigest: digest, arguments: v.array(v.string()), cwd: ref }),
+  bindings: jsonValueSchema, exitCode: v.literal(0), stdout: bytes,
+  projection: jsonValueSchema, projectionDigest: digest,
+  startedAt: ref, completedAt: ref, durationMs: v.pipe(v.number(), v.minValue(0)) };
 export const RUN_ENVIRONMENT_EVIDENCE_SCHEMA = v.strictObject({
   kind: v.literal("run_environment_evidence"), schemaVersion: v.literal("5.0.0"), declaration: RUN_ENVIRONMENT_SCHEMA,
   environmentDigest: digest, programRef: ref, programDigest: digest,
   authority: v.strictObject({ authorityRef: ref, authorityDigest: digest, actorRef: ref }), resources: jsonValueSchema,
   dependencies: v.array(v.strictObject({ dependencyRef: ref, record: bytes, members: v.array(observedMemberSchema) })),
-  contexts: STDO_ENVIRONMENT_EVIDENCE_SCHEMA.entries.contexts,
+  contexts: v.array(v.strictObject({ contextRef: ref, members: v.array(v.strictObject({
+    memberRef: ref, path: ref, ...bytes.entries })) })),
   corpusDocuments: v.nullable(v.strictObject({ program: bytes, map: bytes,
     pythonRuntime: v.strictObject({ executablePath: ref, executableDigest: digest, reportedVersion: ref }) })),
-  accesses: v.array(v.strictObject({ ...STDO_ENVIRONMENT_EVIDENCE_SCHEMA.entries.accesses.item.entries, output: v.nullable(bytes) })),
+  accesses: v.array(v.strictObject({ ...accessEntries, output: v.nullable(bytes) })),
   evidenceDigest: digest,
 });
 export type RunEnvironmentEvidence = v.InferOutput<typeof RUN_ENVIRONMENT_EVIDENCE_SCHEMA>;

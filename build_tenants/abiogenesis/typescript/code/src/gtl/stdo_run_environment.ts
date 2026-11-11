@@ -159,6 +159,12 @@ const dependencySchema = v.strictObject({ dependencyRef: ref, basisRef: ref, rec
   recordFormat: v.picklist(["member_inventory@1", "stdo_source_manifest@1", "release_record@1"]),
   inventoryDigest: digest, members: v.pipe(v.array(member), v.minLength(1)) });
 const contextPolicySchema = v.strictObject({ policyRef: ref, selectors: v.pipe(v.array(v.picklist(CONTEXT_SELECTORS)), v.minLength(1)) });
+// Role entries in their declared order; the schema below overrides `role` and
+// `accessRefs` in place with the run environment's own law.
+const roleEntries = { graphFunctionRef: ref, programLocusRef: ref, role: v.picklist(["author", "assessor", "constructor", "command_executor"]),
+  frameRefs: v.pipe(v.array(ref), v.minLength(1)), policy: v.strictObject({ policyRef: ref, text: ref, digest }),
+  accessRefs: v.pipe(v.array(ref), v.minLength(1)),
+  sourceBindings: REQUIREMENT_TERM_SCHEMA.entries.sourceBindings };
 export const RUN_ENVIRONMENT_SCHEMA = v.strictObject({
   kind: v.literal("run_environment_declaration"), schemaVersion: v.literal("5.0.0"), declarationRef: ref,
   dependencies: v.pipe(v.array(dependencySchema), v.minLength(1)),
@@ -169,7 +175,7 @@ export const RUN_ENVIRONMENT_SCHEMA = v.strictObject({
   accesses: v.array(v.strictObject({ accessRef: ref, operation: v.picklist(["validate", "project"]),
     mode: v.picklist(["validation", "materialized"]), frameIndexRefs: v.array(ref), maxOutputBytes: bound,
     timeoutMs: v.pipe(v.number(), v.integer(), v.minValue(1), v.maxValue(60_000)) })),
-  roles: v.pipe(v.array(v.strictObject({ ...STDO_RUN_ENVIRONMENT_SCHEMA.entries.roles.item.entries,
+  roles: v.pipe(v.array(v.strictObject({ ...roleEntries,
     role: v.picklist(["author", "assessor", "constructor", "command_executor", "selector"]),
     accessRefs: v.array(ref), contextPolicy: contextPolicySchema })), v.minLength(1)),
 });
