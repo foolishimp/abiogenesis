@@ -6,10 +6,16 @@ import test from "node:test";
 
 import { proveFreshProcessRuntimeProjectionEquality } from
   "../support/fresh-process-runtime-proof.mjs";
-import { setupInstalledRootExecutionBasis } from
+import { installOncePerFile, installTenantOnce, setupInstalledRootExecutionBasis } from
   "../support/root-installed-environment.mjs";
 
 const root = resolve(dirname(fileURLToPath(import.meta.url)), "../..");
+// The two installed C1 cases share one packed, verified and installed Product
+// for this file; each opens its own store, workspace and scratch root on it.
+const sharedInstall = installOncePerFile(() => installTenantOnce(root, {
+  candidateBasisSource: "packed_artifact",
+  rootPublicationKind: "worksite_construction",
+}));
 const ACTOR_REF = "actor://abiogenesis/worksite/construction-worker@5";
 const PROMPT = [
   "Return the declared worksite construction worker result.",
@@ -382,6 +388,7 @@ test("T-287 C1 traverses one installed fake-Claude candidate through C0 and fres
   let task;
   let predecessorObservation;
   const environment = await setupInstalledRootExecutionBasis(context, root, {
+    install: await sharedInstall(),
     candidateBasisSource: "packed_artifact",
     rootPublicationKind: "worksite_construction",
     authorizedActorRef: ACTOR_REF,
@@ -710,6 +717,7 @@ test("T-287 C1 retains an exact partial prefix when a later C0 member refuses", 
   const predecessorObservations = [];
   let task;
   const environment = await setupInstalledRootExecutionBasis(context, root, {
+    install: await sharedInstall(),
     candidateBasisSource: "packed_artifact",
     rootPublicationKind: "worksite_construction",
     authorizedActorRef: ACTOR_REF,
