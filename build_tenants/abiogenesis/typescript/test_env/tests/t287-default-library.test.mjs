@@ -15,7 +15,7 @@ import * as canonicalProduct from '../../build/code/src/product/index.js';
 import * as validator from '../../build/code/src/validator/index.js';
 import {observedGovernanceTaskMatches} from '../../build/code/src/abg/default_library.js';
 import {projectObservedWorksiteCommandChildAtPrefix} from '../../build/code/src/abg/worksite_input_provenance.js';
-import {setupInstalledRootCatalog,requirePublicationValidations} from '../support/root-installed-environment.mjs';
+import {setupInstalledRootCatalog,requirePublicationValidations,installOncePerFile,installTenantOnce,openCaseEnvironment} from '../support/root-installed-environment.mjs';
 import {prepareRegisteredSelectionProduct,constructInstalledStartCall,constructInstalledRunReadCall,runInstalledCliRequest,
   pendingExecutionUseRequest,constructInstalledPendingCall} from '../support/registered-graph-selection.mjs';
 import {libraryConsumerDeclaration,libraryEnvironment,witnessInput,witnessRef,assessmentSchema,schemaPath} from '../support/default-library.mjs';
@@ -71,6 +71,22 @@ const governanceRoot=new URL('../../../../../.ai-workspace/comments/codex/202609
 const witnessRoot=join(governanceRoot,'default-library-witness');
 const basis={productId:product.ABI5_PRODUCT_ID,packageName:'@abiogenesis/typescript-tenant',packageVersion:product.ABI5_PACKAGE_VERSION,artifactDigest:'sha256:'+'1'.repeat(64),productContentDigest:'sha256:'+'2'.repeat(64),productManifestDigest:'sha256:'+'3'.repeat(64)};
 const constructors=['constructDefaultGovernanceLibraryModulePublication','constructNativeWorkspaceWorkModulePublication','constructWorksiteCommandExecutionModulePublication'];
+// The three Public Runs over the default library (pending Testing, retained
+// source, assessment dependency) share one packed, verified and installed
+// Product (the tenant and the consumer fixture Product) for this file; each Run
+// opens its own store, workspace and scratch root on it.
+const libraryInstall=installOncePerFile(async()=>{
+  const selected={},install=await installTenantOnce(packageRoot,{candidateBasisSource:'packed_artifact',rootPublicationKind:'worksite_construction',
+    prepareAdditionalProducts:async setup=>{
+      selected.environment=await libraryEnvironment({...setup,packageRoot:setup.bootstrapPackage});
+      const library=setup.gtl.constructDefaultGovernanceLibraryModulePublication({...basis,packageName:setup.abiPublication.productSemanticsBinding.packageName,packageVersion:setup.abiPublication.productSemanticsBinding.packageVersion});
+      const schema=join(setup.scratch,'assessment.schema.json');await writeFile(schema,JSON.stringify(assessmentSchema)+'\n');
+      return [await prepareRegisteredSelectionProduct({...setup,abiPackageArchivePath:setup.abiPackageArchivePath,declarationFactory:g=>libraryConsumerDeclaration(g,library,selected.environment.declaration),
+        fixtureFiles:[{path:'build/index.mjs',source:new URL('../fixtures/default-library-product/index.mjs',import.meta.url)}],
+        schemaAssets:[{path:schemaPath,source:schema,contractId:witnessRef('contract','assessment'),requirementAuthorityRefs:[witnessRef('support','complete-source-outcome')]}]})];
+    }});
+  return {install,selectedEnvironment:selected.environment,dispose:()=>install.dispose()};
+});
 function validation(publication,program,publications){
   requirePublicationValidations(validator,publications);
   const raw=(v,k)=>{const r=validator.rawAdmitValue(v,k,'contract:fixture');assert.equal(r.kind,'raw_admitted_value',JSON.stringify(r));return r;};
@@ -2108,17 +2124,11 @@ test('default-library Run interrupted at the durable entered Testing cursor resu
   const selection=JSON.parse(await readFile(join(witnessRoot,'selection.json'),'utf8'));let selectedEnvironment;
   // The consumer Program is validated over its Product-resolved declaration
   // closure at Public start; the helper validates the core root publication.
-  const env=await setupInstalledRootCatalog(t,packageRoot,{candidateBasisSource:'packed_artifact',rootPublicationKind:'worksite_construction',workspaceProductIndex:1,additionalCorePublicationConstructors:constructors,
-    prepareAdditionalProducts:async setup=>{
-      selectedEnvironment=await libraryEnvironment({...setup,packageRoot:setup.bootstrapPackage});
-      const library=setup.gtl.constructDefaultGovernanceLibraryModulePublication({...basis,packageName:setup.abiPublication.productSemanticsBinding.packageName,packageVersion:setup.abiPublication.productSemanticsBinding.packageVersion});
-      const schema=join(setup.scratch,'assessment.schema.json');await writeFile(schema,JSON.stringify(assessmentSchema)+'\n');
-      return [await prepareRegisteredSelectionProduct({...setup,abiPackageArchivePath:setup.abiPackageArchivePath,declarationFactory:g=>libraryConsumerDeclaration(g,library,selectedEnvironment.declaration),
-        fixtureFiles:[{path:'build/index.mjs',source:new URL('../fixtures/default-library-product/index.mjs',import.meta.url)}],
-        schemaAssets:[{path:schemaPath,source:schema,contractId:witnessRef('contract','assessment'),requirementAuthorityRefs:[witnessRef('support','complete-source-outcome')]}]})];
-    }});
-  // Disposable installation and worksite stay in env.scratch (context-owned); an
-  // explicit evidence root, when supplied, keeps compact receipts outside it.
+  const shared=await libraryInstall();selectedEnvironment=shared.selectedEnvironment;
+  const env=await openCaseEnvironment(t,shared.install,{workspaceProductIndex:1,additionalCorePublicationConstructors:constructors});
+  // The worksite stays in env.scratch (context-owned) and the installation is
+  // the file's shared install; an explicit evidence root, when supplied, keeps
+  // compact receipts outside both.
   const proof=join(env.scratch,'pending-testing');await mkdir(proof);
   const evidence=process.env.ABI5_PENDING_TESTING_EVIDENCE_ROOT??null;if(evidence)await mkdir(evidence,{recursive:true});
   const keep=async(n,v)=>{if(evidence)await writeFile(join(evidence,n),JSON.stringify(v,null,2)+'\n');};
@@ -2287,15 +2297,8 @@ test('default-library Run interrupted at the durable entered Testing cursor resu
 // selected native Result declares them. The model is the scripted stand-in above.
 test('retained-source B continued cold after its Testing entry reads A-held declared source bodies only through its admitted source use',async t=>{
   const selection=JSON.parse(await readFile(join(witnessRoot,'selection.json'),'utf8'));let selectedEnvironment;
-  const env=await setupInstalledRootCatalog(t,packageRoot,{candidateBasisSource:'packed_artifact',rootPublicationKind:'worksite_construction',workspaceProductIndex:1,additionalCorePublicationConstructors:constructors,
-    prepareAdditionalProducts:async setup=>{
-      selectedEnvironment=await libraryEnvironment({...setup,packageRoot:setup.bootstrapPackage});
-      const library=setup.gtl.constructDefaultGovernanceLibraryModulePublication({...basis,packageName:setup.abiPublication.productSemanticsBinding.packageName,packageVersion:setup.abiPublication.productSemanticsBinding.packageVersion});
-      const schema=join(setup.scratch,'assessment.schema.json');await writeFile(schema,JSON.stringify(assessmentSchema)+'\n');
-      return [await prepareRegisteredSelectionProduct({...setup,abiPackageArchivePath:setup.abiPackageArchivePath,declarationFactory:g=>libraryConsumerDeclaration(g,library,selectedEnvironment.declaration),
-        fixtureFiles:[{path:'build/index.mjs',source:new URL('../fixtures/default-library-product/index.mjs',import.meta.url)}],
-        schemaAssets:[{path:schemaPath,source:schema,contractId:witnessRef('contract','assessment'),requirementAuthorityRefs:[witnessRef('support','complete-source-outcome')]}]})];
-    }});
+  const shared=await libraryInstall();selectedEnvironment=shared.selectedEnvironment;
+  const env=await openCaseEnvironment(t,shared.install,{workspaceProductIndex:1,additionalCorePublicationConstructors:constructors});
   const proof=join(env.scratch,'retained-source'),prompts=join(proof,'prompts');await mkdir(prompts,{recursive:true});
   const evidence=process.env.ABI5_RETAINED_SOURCE_EVIDENCE_ROOT??null;if(evidence)await mkdir(evidence,{recursive:true});
   const keep=async(n,v)=>{if(evidence)await writeFile(join(evidence,n),JSON.stringify(v,null,2)+'\n');};
@@ -2674,15 +2677,8 @@ test('RC7 fixed admission: a Public direct Testing state Result admits direct UA
 // calls an owner that gates dispatch; none starts an actor.
 test('RC7 assessment dependency: exact admitted consumer selection, refusals and cold preimage',{timeout:280_000},async t=>{
   const selection=JSON.parse(await readFile(join(witnessRoot,'selection.json'),'utf8'));let selectedEnvironment;
-  const env=await setupInstalledRootCatalog(t,packageRoot,{candidateBasisSource:'packed_artifact',rootPublicationKind:'worksite_construction',workspaceProductIndex:1,additionalCorePublicationConstructors:constructors,
-    prepareAdditionalProducts:async setup=>{
-      selectedEnvironment=await libraryEnvironment({...setup,packageRoot:setup.bootstrapPackage});
-      const library=setup.gtl.constructDefaultGovernanceLibraryModulePublication({...basis,packageName:setup.abiPublication.productSemanticsBinding.packageName,packageVersion:setup.abiPublication.productSemanticsBinding.packageVersion});
-      const schema=join(setup.scratch,'assessment.schema.json');await writeFile(schema,JSON.stringify(assessmentSchema)+'\n');
-      return [await prepareRegisteredSelectionProduct({...setup,abiPackageArchivePath:setup.abiPackageArchivePath,declarationFactory:g=>libraryConsumerDeclaration(g,library,selectedEnvironment.declaration),
-        fixtureFiles:[{path:'build/index.mjs',source:new URL('../fixtures/default-library-product/index.mjs',import.meta.url)}],
-        schemaAssets:[{path:schemaPath,source:schema,contractId:witnessRef('contract','assessment'),requirementAuthorityRefs:[witnessRef('support','complete-source-outcome')]}]})];
-    }});
+  const shared=await libraryInstall();selectedEnvironment=shared.selectedEnvironment;
+  const env=await openCaseEnvironment(t,shared.install,{workspaceProductIndex:1,additionalCorePublicationConstructors:constructors});
   const subcases=[],subcase=async(name,body)=>{try{await body();}catch(error){error.message=name+': '+error.message;throw error;}subcases.push(name);};
   const load=async path=>import(pathToFileURL(join(env.installedRoot,`build/code/src/${path}.js`)).href);
   const publicApi=await load('public/index'),readContracts=await load('abg/project_read_operation_contracts'),storeOwner=await load('abg/event_store');

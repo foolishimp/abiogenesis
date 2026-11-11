@@ -17,9 +17,12 @@ import {
 import { sha256Canonical } from "../../build/code/src/shared/digests.js";
 
 import { acquireNewEmptyAppendSinkFixture } from "../support/new-empty-append-sink.mjs";
-import { setupInstalledRootExecutionBasis } from "../support/root-installed-environment.mjs";
+import { installOncePerFile, installTenantOnce, setupInstalledRootExecutionBasis } from "../support/root-installed-environment.mjs";
 
 const root = resolve(dirname(fileURLToPath(import.meta.url)), "../..");
+// The installed cases share one packed, verified and installed Product for this
+// file; each environment opens its own store, workspace and scratch root on it.
+const sharedInstall = installOncePerFile(() => installTenantOnce(root));
 
 test("nominal prefix reuse preserves full historical EC and replay including fresh process", {
   skip: !process.env.ABI5_PREFIX_REUSE_OBSERVATIONS && "ABI5_PREFIX_REUSE_OBSERVATIONS unset; requires the retained prefix-reuse observation record",
@@ -229,7 +232,7 @@ function runProjection(abg, prefixModule, store, runId) {
 
 
 test("A5-F10 exact CCall opening accepts rehydrated carriers and refuses repeat or stale prefixes with zero append", async (context) => {
-  const environment = await setupInstalledRootExecutionBasis(context, root);
+  const environment = await setupInstalledRootExecutionBasis(context, root, { install: await sharedInstall() });
   const {
     abg,
     store,
@@ -300,7 +303,7 @@ test("A5-F10 exact CCall opening accepts rehydrated carriers and refuses repeat 
   assert.equal(stalePrefix.kind, "c_call_open_refusal", JSON.stringify(stalePrefix));
   assert.equal(store.readAll().length, beforeRepeat);
 
-  const staleEnvironment = await setupInstalledRootExecutionBasis(context, root);
+  const staleEnvironment = await setupInstalledRootExecutionBasis(context, root, { install: await sharedInstall() });
   const staleOpened = staleEnvironment.abg.openTraversalScope(
     staleEnvironment.store,
     staleEnvironment.durablePrefix,
@@ -1350,7 +1353,7 @@ test("terminal projection rows realize static locus law for the exact Run and pr
 });
 
 test("run HoldsAt truth survives durable reopen and a lawful closure", async (context) => {
-  const environment = await setupInstalledRootExecutionBasis(context, root);
+  const environment = await setupInstalledRootExecutionBasis(context, root, { install: await sharedInstall() });
   const { abg, executionBasis } = environment;
   const first = abg.openTraversalScope(
     environment.store,
@@ -1450,7 +1453,7 @@ test("run HoldsAt truth survives durable reopen and a lawful closure", async (co
 });
 
 test("runtime_failure_observed terminates the exact active Run", async (context) => {
-  const environment = await setupInstalledRootExecutionBasis(context, root);
+  const environment = await setupInstalledRootExecutionBasis(context, root, { install: await sharedInstall() });
   const { abg, executionBasis } = environment;
   const opened = abg.openTraversalScope(
     environment.store,
@@ -1496,7 +1499,7 @@ test("runtime_failure_observed terminates the exact active Run", async (context)
 });
 
 test("run_stopped makes runtime failure throw before memory or durable append", async (context) => {
-  const environment = await setupInstalledRootExecutionBasis(context, root);
+  const environment = await setupInstalledRootExecutionBasis(context, root, { install: await sharedInstall() });
   const { abg, executionBasis } = environment;
   const eventLogPath = fileURLToPath(environment.durablePrefix.eventLogRef);
   const opened = abg.openTraversalScope(

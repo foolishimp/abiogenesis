@@ -1,6 +1,7 @@
 import test from "node:test";
 
-import { runCase } from "../support/c0-post-publication-failure.mjs";
+import { installOncePerFile } from "../support/root-installed-environment.mjs";
+import { installC0Tenant, runCase } from "../support/c0-post-publication-failure.mjs";
 
 // B04-04, B04-05, B04-07 and B04-C01; B04-06 through B04-03 are in t287-c0-post-publication-failure.test.mjs.
 const cases = [
@@ -20,4 +21,7 @@ const cases = [
   ["B04-C01 owner-read-close", { modes: ["owner_read_close"] }],
   ["B04-C01 close-only", { modes: ["successor_close"] }],
 ];
-for (const [name, options] of cases) test(`${name}: installed owner, ABG admission and fresh replay`, context => runCase(context, name.replaceAll(" ", "-"), options));
+// The cases share one packed, verified and installed Product for this file;
+// each case opens its own store, workspace and scratch root on it.
+const sharedInstall = installOncePerFile(installC0Tenant);
+for (const [name, options] of cases) test(`${name}: installed owner, ABG admission and fresh replay`, context => runCase(context, name.replaceAll(" ", "-"), options, sharedInstall));

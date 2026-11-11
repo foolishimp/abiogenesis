@@ -8,7 +8,7 @@ import * as gtl from '../../build/code/src/gtl/index.js';
 import * as m01 from '../../build/code/src/gtl/m01.js';
 import * as product from '../../build/code/src/product/index.js';
 import * as validator from '../../build/code/src/validator/index.js';
-import {setupInstalledRootCatalog,setupInstalledRootExecutionBasis} from '../support/root-installed-environment.mjs';
+import {setupInstalledRootCatalog,setupInstalledRootExecutionBasis,installOncePerFile,installTenantOnce} from '../support/root-installed-environment.mjs';
 import {prepareRegisteredSelectionProduct,constructInstalledStartCall,constructInstalledRunReadCall,runInstalledCliRequest} from '../support/registered-graph-selection.mjs';
 import {declarations,initialState,ref,contract,hash} from '../fixtures/registered-selection-product/recursive.mjs';
 const packageRoot=new URL('../..',import.meta.url).pathname;
@@ -114,12 +114,28 @@ test('failedChildDiagnosticClassRefs is declared, validated for form and round-t
 });
 
 const fixtureFiles=fixturePath=>[...['index','native','recursive'].map(n=>({path:'build/'+n+'.mjs',source:new URL('../fixtures/registered-selection-product/'+n+'.mjs',import.meta.url)})),{path:'build/foldback.mjs',source:fixturePath}];
+const scenarioInput=scenario=>{const input=initialState();input.task={...input.task,scenario};input.taskDigest=hash(input.task);return input;};
 async function scenarioFixture(t,scenario){
   const fixtureRoot=await mkdtemp(join(tmpdir(),'abi5-recursive-failure-foldback-'));t.after(()=>rm(fixtureRoot,{force:true,recursive:true}));
   const fixturePath=join(fixtureRoot,'foldback.mjs');await writeFile(fixturePath,foldbackFixtureSource);
-  const input=initialState();input.task={...input.task,scenario};input.taskDigest=hash(input.task);
-  return {fixturePath,input};
+  return {fixturePath,input:scenarioInput(scenario)};
 }
+// The direct scenario cases share one packed, verified and installed Product
+// (the tenant and the foldback fixture Product) for this file; each scenario
+// opens its own store, workspace and scratch root on it. The Public start case
+// installs for itself.
+const scenarioInstall=installOncePerFile(async()=>{
+  const fixtureRoot=await mkdtemp(join(tmpdir(),'abi5-recursive-failure-foldback-')),removeFixture=()=>rm(fixtureRoot,{force:true,recursive:true});
+  try{
+    const fixturePath=join(fixtureRoot,'foldback.mjs');await writeFile(fixturePath,foldbackFixtureSource);
+    const install=await installTenantOnce(packageRoot,{candidateBasisSource:'packed_artifact',
+      prepareAdditionalProducts:async basis=>{
+        const artifact=join(basis.scratch,'artifacts',(await readdir(join(basis.scratch,'artifacts'))).find(p=>p.endsWith('.tgz')));
+        return [await prepareRegisteredSelectionProduct({...basis,abiPackageArchivePath:artifact,declarationFactory:foldbackDeclarations,fixtureFiles:fixtureFiles(fixturePath)})];
+      }});
+    return {install,dispose:async()=>{try{await install.dispose();}finally{await removeFixture();}}};
+  }catch(error){await removeFixture();throw error;}
+});
 // The frame probe (no C_Call, no actor) of each child frame that folded back failed.
 function failedFoldProbes(runEvents){
   return runEvents.filter(e=>e.kind==='child_foldback_admitted'&&e.payload.childDisposition==='failed').map(fold=>{
@@ -130,13 +146,9 @@ function failedFoldProbes(runEvents){
   });
 }
 async function runScenario(t,scenario){
-  const {fixturePath,input}=await scenarioFixture(t,scenario);
-  const env=await setupInstalledRootExecutionBasis(t,packageRoot,{candidateBasisSource:'packed_artifact',workspaceProductIndex:1,
-    programRef:ref('program','root'),graphFunctionRef:ref('graph-function','recursive-parent'),input,
-    prepareAdditionalProducts:async basis=>{
-      const artifact=join(basis.scratch,'artifacts',(await readdir(join(basis.scratch,'artifacts'))).find(p=>p.endsWith('.tgz')));
-      return [await prepareRegisteredSelectionProduct({...basis,abiPackageArchivePath:artifact,declarationFactory:foldbackDeclarations,fixtureFiles:fixtureFiles(fixturePath)})];
-    }});
+  const input=scenarioInput(scenario);
+  const env=await setupInstalledRootExecutionBasis(t,packageRoot,{install:(await scenarioInstall()).install,candidateBasisSource:'packed_artifact',workspaceProductIndex:1,
+    programRef:ref('program','root'),graphFunctionRef:ref('graph-function','recursive-parent'),input});
   const load=relative=>import(pathToFileURL(join(env.installedRoot,'build/code/src',relative+'.js')).href);
   assert.deepEqual(env.graph.template.applications[0].foldback.failedChildDiagnosticClassRefs,[declared],'the installed Program carries the declaration');
   const graph=await load('hog/graph_execute'),reads=await load('abg/project_read_ports'),cursors=await load('abg/traversal_cursor'),stores=await load('abg/event_store');

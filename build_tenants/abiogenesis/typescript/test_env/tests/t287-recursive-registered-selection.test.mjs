@@ -9,7 +9,7 @@ import * as gtl from '../../build/code/src/gtl/index.js';
 import * as product from '../../build/code/src/product/index.js';
 import * as validator from '../../build/code/src/validator/index.js';
 import * as v from 'valibot';
-import {setupInstalledRootCatalog,setupInstalledRootExecutionBasis,publicOperationBasis} from '../support/root-installed-environment.mjs';
+import {setupInstalledRootCatalog,setupInstalledRootExecutionBasis,publicOperationBasis,installOncePerFile,installTenantOnce} from '../support/root-installed-environment.mjs';
 import {prepareRegisteredSelectionProduct,constructInstalledStartCall,constructInstalledRunReadCall,runInstalledCliRequest,pendingExecutionUseRequest,constructInstalledPendingCall} from '../support/registered-graph-selection.mjs';
 import {stdo3RunEnvironment} from '../support/stdo3-run-environment.mjs';
 import {NATIVE_SELECTION_STDO3_ROLE} from '../fixtures/registered-selection-product/native.mjs';
@@ -102,6 +102,22 @@ export const SEMANTICS={...original,resolveJudgmentRelation(predicateRef){
  return {predicateRef,advanceReasonRef:ref('reason','valid'),rejectionReasonRef:ref('reason','unresolved'),evaluate(input,output){return hash(output)===hash(executeA(input).resultCandidate);}};
 }};
 `;
+// The failure-fixture cases share one packed, verified and installed Product
+// (the tenant and the failure fixture Product) for this file; each environment
+// opens its own store, workspace and scratch root on it.
+const failureFixtureInstall=installOncePerFile(async()=>{
+  const fixtureRoot=await mkdtemp(join(tmpdir(),'abi5-recursive-failure-source-')),removeFixture=()=>rm(fixtureRoot,{force:true,recursive:true});
+  try{
+    const fixturePath=join(fixtureRoot,'failure.mjs');await writeFile(fixturePath,failureFixtureSource);
+    const install=await installTenantOnce(packageRoot,{candidateBasisSource:'packed_artifact',
+      prepareAdditionalProducts:async basis=>{
+        const artifact=process.env.ABI5_WAVE1_FROZEN_ARTIFACT_PATH??join(basis.scratch,'artifacts',(await readdir(join(basis.scratch,'artifacts'))).find(p=>p.endsWith('.tgz')));
+        return [await prepareRegisteredSelectionProduct({...basis,abiPackageArchivePath:artifact,declarationFactory:failureDeclarations,
+          fixtureFiles:[...['index','native','recursive'].map(n=>({path:'build/'+n+'.mjs',source:new URL('../fixtures/registered-selection-product/'+n+'.mjs',import.meta.url)})),{path:'build/failure.mjs',source:fixturePath}]})];
+      }});
+    return {install,fixtureRoot,dispose:async()=>{try{await install.dispose();}finally{await removeFixture();}}};
+  }catch(error){await removeFixture();throw error;}
+});
 async function linkedOwner(environment,relative,code,overrides={},expose=[]){
   const built=join(environment.installedRoot,'build/code/src',relative+'.js');
   const module=new SourceTextModule(code+(expose.length?'\nexport {'+expose.join(',')+'};':''),{identifier:built});
@@ -145,9 +161,7 @@ async function retainedDiagnosticCCallOwner(env,load,diagnosticRef){
     {'../implementation/leaf_invocation_port.js':{...leafOwner,controlledDeterministicRealizer}});
 }
 test('authenticated recursive child failure preserves its diagnostic, prior work and cold failed truth',async t=>{
-  let prepared;const fixtureRoot=await mkdtemp(join(tmpdir(),'abi5-recursive-failure-source-'));
-  t.after(()=>rm(fixtureRoot,{force:true,recursive:true}));
-  const fixturePath=join(fixtureRoot,'failure.mjs');await writeFile(fixturePath,failureFixtureSource);
+  const shared=await failureFixtureInstall(),prepared=shared.install.additionalProducts[0],fixtureRoot=shared.fixtureRoot;
   const sourceCode=await readFile(join(packageRoot,'build/code/src/hog/recursion_lifecycle.js'),'utf8');
   const opaqueDiagnostic='diagnostic://registered-selection/original-child-failure@5',mismatch='diagnostic://abiogenesis/hog/application-foldback-mismatch@5';
   const cases=[];
@@ -156,16 +170,8 @@ test('authenticated recursive child failure preserves its diagnostic, prior work
   // preserves the child diagnostic, which every failure scenario asserts.
   for(const scenario of ['failure','retained-diagnostic','retained-null','success']){
     const input=initialState();input.task={...input.task,scenario:scenario==='success'?'success':'failure'};input.taskDigest=hash(input.task);
-    const env=await setupInstalledRootExecutionBasis(t,packageRoot,{candidateBasisSource:'packed_artifact',workspaceProductIndex:1,
-      programRef:ref('program','root'),graphFunctionRef:ref('graph-function','recursive-parent'),input,
-      prepareAdditionalProducts:async basis=>{
-        if(!prepared){
-          const artifact=process.env.ABI5_WAVE1_FROZEN_ARTIFACT_PATH??join(basis.scratch,'artifacts',(await readdir(join(basis.scratch,'artifacts'))).find(p=>p.endsWith('.tgz')));
-          prepared=await prepareRegisteredSelectionProduct({...basis,abiPackageArchivePath:artifact,declarationFactory:failureDeclarations,
-            fixtureFiles:[...['index','native','recursive'].map(n=>({path:'build/'+n+'.mjs',source:new URL('../fixtures/registered-selection-product/'+n+'.mjs',import.meta.url)})),{path:'build/failure.mjs',source:fixturePath}]});
-        }
-        return [prepared];
-      }});
+    const env=await setupInstalledRootExecutionBasis(t,packageRoot,{install:shared.install,candidateBasisSource:'packed_artifact',workspaceProductIndex:1,
+      programRef:ref('program','root'),graphFunctionRef:ref('graph-function','recursive-parent'),input});
     const load=relative=>import(pathToFileURL(join(env.installedRoot,'build/code/src',relative+'.js')).href);
     const diagnosticOwner=await load('abg/runtime_failure'),profiles=await load('abg/event_contract_profiles');
     const retained=scenario.startsWith('retained-');
@@ -372,19 +378,9 @@ test('one installed Public start revises native choice from child evidence and r
 // One controlled interruption shared by the owner-path and Public-path tests:
 // the process boundary stops before the second workflow leaf opens its call.
 async function interruptedRecursiveRun(t){
-  const fixtureRoot=await mkdtemp(join(tmpdir(),'abi5-pending-execution-source-'));
-  t.after(()=>rm(fixtureRoot,{force:true,recursive:true}));
-  const fixturePath=join(fixtureRoot,'failure.mjs');await writeFile(fixturePath,failureFixtureSource);
   const input=initialState();input.task={...input.task,scenario:'success'};input.taskDigest=hash(input.task);
-  let prepared;
-  const env=await setupInstalledRootExecutionBasis(t,packageRoot,{candidateBasisSource:'packed_artifact',workspaceProductIndex:1,
-    programRef:ref('program','root'),graphFunctionRef:ref('graph-function','recursive-parent'),input,
-    prepareAdditionalProducts:async basis=>{
-      const artifact=process.env.ABI5_WAVE1_FROZEN_ARTIFACT_PATH??join(basis.scratch,'artifacts',(await readdir(join(basis.scratch,'artifacts'))).find(p=>p.endsWith('.tgz')));
-      prepared??=await prepareRegisteredSelectionProduct({...basis,abiPackageArchivePath:artifact,declarationFactory:failureDeclarations,
-        fixtureFiles:[...['index','native','recursive'].map(n=>({path:'build/'+n+'.mjs',source:new URL('../fixtures/registered-selection-product/'+n+'.mjs',import.meta.url)})),{path:'build/failure.mjs',source:fixturePath}]});
-      return [prepared];
-    }});
+  const env=await setupInstalledRootExecutionBasis(t,packageRoot,{install:(await failureFixtureInstall()).install,candidateBasisSource:'packed_artifact',workspaceProductIndex:1,
+    programRef:ref('program','root'),graphFunctionRef:ref('graph-function','recursive-parent'),input});
   const load=relative=>import(pathToFileURL(join(env.installedRoot,'build/code/src',relative+'.js')).href);
   const cc=await load('abg/construction_continuation'),storeOwner=await load('abg/event_store');
   const ccall=await load('hog/ccall_lifecycle');let interrupted=0;
