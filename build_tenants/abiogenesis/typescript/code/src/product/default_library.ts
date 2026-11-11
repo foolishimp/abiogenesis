@@ -1,6 +1,6 @@
 import * as v from "valibot";
 import { isDeepStrictEqual } from "node:util";
-import type { JsonValue } from "../shared/canonical_json.js";
+import { canonicalJson, type JsonValue } from "../shared/canonical_json.js";
 import { deepFreeze } from "../shared/immutable.js";
 import { sha256Bytes } from "../shared/digests.js";
 import { admitJson, hasExactKeys, isRecord } from "../shared/admit/index.js";
@@ -154,15 +154,66 @@ export function governanceSelectedReview(state: GovernanceWorkState): Governance
 }
 /** The one owner of which assessment declaration an assessment wrapper applies:
  * full-original acceptance for `uat`, the selected declared review for `review`. */
-export function governanceAssessmentContract(state: GovernanceWorkState, purpose: "uat" | "review" = "uat") {
+export function governanceAssessmentContract(state: GovernanceWorkState, purpose: "uat" | "review") {
   const assessment = purpose === "uat" ? state.original.assessment : governanceSelectedReview(state)?.assessment;
   return assessment === undefined ? null : assessment as unknown as { sources: readonly string[]; candidatePath: string; rubricPath: string;
     resultContract: NativeWorkspaceAssessmentSelection["resultContract"]; schemaAsset: NativeWorkspaceAssessmentSelection["schemaAsset"];
     verdictField: string; satisfiedValue: string };
 }
-/** A review wrapper is selectable only for a task that declares reviews. */
-export function governanceTargetSelectable(state: GovernanceWorkState, purpose: GovernancePurpose): boolean {
-  return purpose !== "review" || state.original.reviews !== undefined;
+/** The one owner of an assessment's material dependency set: every mandatory
+ * input its preparation binds as read-first material. The candidate is the
+ * subject; the rest are the declared inputs its verdict depends on. The order's
+ * readFirst stays as declared (preparation refuses a duplicate there); each
+ * assessment input not already present is added once. */
+export function governanceAssessmentDependencies(order: { readonly readFirst: readonly string[] },
+  assessment: { readonly sources: readonly string[]; readonly candidatePath: string; readonly rubricPath: string }): readonly string[] {
+  const dependencies = [...order.readFirst];
+  for (const path of [...assessment.sources, assessment.candidatePath, assessment.rubricPath])
+    if (!dependencies.includes(path)) dependencies.push(path);
+  return dependencies;
+}
+/** A Program's process declaration on its executive step: for each registered
+ * purpose, the declared reviews that must be satisfied and current before it
+ * is selected. A review purpose names none: it would gate its own prerequisite. */
+export type GovernancePrerequisites = Readonly<Partial<Record<Exclude<GovernancePurpose, "review">, readonly string[]>>>;
+export const GOVERNANCE_PREREQUISITES_DECLARATION = "abg.default_library_prerequisites";
+const prerequisitesSchema = v.record(v.picklist(GOVERNANCE_PURPOSES.filter(p => p !== "review")), v.pipe(texts, v.minLength(1)));
+/** The step's declared prerequisites: undefined when none is declared, null when the declaration is not its canonical form. */
+export function governancePrerequisites(declarations: Readonly<Record<string, string>>): GovernancePrerequisites | null | undefined {
+  const declared = declarations[GOVERNANCE_PREREQUISITES_DECLARATION];
+  if (declared === undefined) return undefined;
+  let value: unknown;
+  try { value = JSON.parse(declared); } catch { return null; }
+  return v.is(prerequisitesSchema, value) && Object.keys(value).length > 0 && Object.values(value).every(refs => unique(refs!)) &&
+    canonicalJson(value as JsonValue) === declared ? value : null;
+}
+/** Intake: the reviews the Program names that the task does not declare, as required or not. */
+export function governancePrerequisitesUndeclared(original: GovernanceOriginal, prerequisites: GovernancePrerequisites | undefined): readonly string[] {
+  return [...new Set(Object.values(prerequisites ?? {}).flat())].filter(ref => !original.reviews?.some(r => r.reviewRef === ref));
+}
+/** The one construction of a registered target from its wrapper definition. */
+export function governanceTarget(definition: { readonly name: string; readonly declarations: Readonly<Record<string, string>> },
+  definitionDigest: `sha256:${string}`, prerequisites: GovernancePrerequisites | undefined): FramedSynthesisTarget | null {
+  const purpose = definition.declarations["abg.default_library_purpose"] as GovernancePurpose;
+  if (!GOVERNANCE_PURPOSES.includes(purpose)) return null;
+  return { graphFunctionRef: definition.name, definitionDigest, purpose,
+    ...(prerequisites === undefined ? {} : { requiredReviews: purpose === "review" ? [] : prerequisites[purpose] ?? [] }) };
+}
+/** The one permitted relation over a registered target. `offered`: the target is
+ * in the selector's domain (the review wrapper only for a task that declares
+ * reviews). `permitted`: it may be the next member: offered, every original
+ * selected path is an observed file for Testing, and each review its Program
+ * requires that the task declares as required is satisfied and current in the
+ * standing the parent computed for this step. An undeclared review is missing. */
+export function governanceTargetPermission(task: FramedSynthesisTask, target: Pick<FramedSynthesisTarget, "purpose" | "requiredReviews">) {
+  const state = task.state, offered = target.purpose !== "review" || state.original.reviews !== undefined;
+  const missingSelectedPaths = target.purpose === "testing" ? framedSynthesisMissingTestingPaths(task) : [];
+  const missingReviews = (target.requiredReviews ?? []).flatMap(reviewRef => {
+    const row = state.reviewStanding?.find(r => r.reviewRef === reviewRef);
+    return row !== undefined && (!row.required || row.satisfied && row.current) ? [] :
+      [{ reviewRef, satisfied: row?.satisfied ?? false, current: row?.current ?? false }];
+  });
+  return { offered, permitted: offered && missingSelectedPaths.length === 0 && missingReviews.length === 0, missingSelectedPaths, missingReviews };
 }
 /** Declared scalar verdicts only: acceptance is the latest `uat` row that only
  * `review` rows follow; each declared review takes its own latest row. The owned
@@ -182,7 +233,8 @@ export function governanceVerdicts(state: GovernanceWorkState) {
 
 export type FramedSynthesisJudgment = v.InferOutput<typeof judgmentSchema>;
 export type FramedSynthesisBasis = v.InferOutput<typeof synthesisBasisSchema>;
-export type FramedSynthesisTarget = { readonly graphFunctionRef: string; readonly definitionDigest: `sha256:${string}`; readonly purpose: GovernancePurpose };
+export type FramedSynthesisTarget = { readonly graphFunctionRef: string; readonly definitionDigest: `sha256:${string}`; readonly purpose: GovernancePurpose;
+  readonly requiredReviews?: readonly string[] };
 export type FramedSynthesisTask = {
   readonly kind: "framed_synthesis_task"; readonly schemaVersion: "5.0.0";
   readonly state: GovernanceWorkState; readonly context: WorksiteContextObservation;
@@ -335,9 +387,10 @@ export function projectGovernanceObservationFacts(state: GovernanceWorkState, co
 }
 /** Presentation over the already-bound task; canonical proof stays in its owner.
  * Declared source bodies are read through the task context's reader; an
- * unavailable body refuses the presentation rather than omitting the source. */
+ * unavailable body refuses the presentation rather than omitting the source.
+ * Offered targets under a process declaration state their permission. */
 export function projectFramedSynthesisPromptTask(task: FramedSynthesisTask,
-  read: WorksiteContextBodyReader = inlineWorksiteContextBody): Readonly<Record<string, JsonValue>> {
+  read: WorksiteContextBodyReader = inlineWorksiteContextBody, offered: readonly FramedSynthesisTarget[] = []): Readonly<Record<string, JsonValue>> {
   const { state, context } = task, original = state.original;
   const declaredSourcePaths = new Set([...original.sources.map(source => source.path),
     ...(original.fulfillment?.context.members.map(member => member.path) ?? [])]);
@@ -393,7 +446,7 @@ export function projectFramedSynthesisPromptTask(task: FramedSynthesisTask,
     testing: original.testing,
     subjectEvidenceDomains: { testing: governanceSubjectEvidenceRefs(state, "testing"), uat: governanceSubjectEvidenceRefs(state, "uat"),
       ...(original.reviews === undefined ? {} : { review: governanceSubjectEvidenceRefs(state, "review") }) },
-    testingPrerequisites: { missingSelectedPaths: framedSynthesisMissingTestingPaths(task),
+    testingPrerequisites: { missingSelectedPaths: governanceTargetPermission(task, { purpose: "testing" }).missingSelectedPaths,
       meaning: "Immediate Testing requires every original selected path to be an observed file. Missing paths are prerequisites; a future Testing contribution remains allowed, but partial-probe prose cannot change the full declared selected-file, command or predicate plan. Presence does not prove adequacy or completion." },
     assessment: { sources: original.assessment.sources, candidatePath: original.assessment.candidatePath,
       rubricPath: original.assessment.rubricPath, resultContract: original.assessment.resultContract,
@@ -403,7 +456,12 @@ export function projectFramedSynthesisPromptTask(task: FramedSynthesisTask,
       return { reviewRef: review.reviewRef, frame: review.frame, required: review.required, outcome: review.order.outcome,
         candidatePath: review.assessment.candidatePath, rubricPath: review.assessment.rubricPath, sources: review.assessment.sources,
         standing: { resultRef: standing.resultRef, satisfied: standing.satisfied, current: standing.current } };
-    }), meaning: "Required reviews gate parent completion together with acceptance: each counts only while its admitted verdict is satisfied and its declared subject unchanged, binds only its declared frame, never replaces acceptance, and is selected through the review wrapper by its reviewRef with subject evidence from the review domain." } }),
+    }), meaning: "Required reviews gate parent completion together with acceptance: each counts only while its admitted verdict is satisfied and no later admitted effect touches its subject or the declared inputs its assessment depends on, binds only its declared frame, never replaces acceptance, and is selected through the review wrapper by its reviewRef with subject evidence from the review domain." } }),
+    ...(!offered.some(t => t.requiredReviews !== undefined) ? {} : { prerequisites: { targets: offered.flatMap(target => {
+      const permission = governanceTargetPermission(task, target);
+      return permission.offered ? [{ graphFunctionRef: target.graphFunctionRef, purpose: target.purpose, requiredReviews: target.requiredReviews ?? [],
+        permitted: permission.permitted, missingReviews: permission.missingReviews }] : [];
+    }), meaning: "Only permitted work can be selected next: a target is permitted when its declared prerequisites hold, including every review its Program requires that this task declares as required being satisfied and current, while stated dependencies remain advisory planning and a target that is not permitted may still appear as future work." } }),
     fulfillment, observations: evidence, planningEvidenceMeaning: "A strict UTF-8 stream of at most 8192 bytes is shown whole as one exact excerpt marked complete. Longer or non-UTF-8 streams and detailed predicate proof are explicitly omitted from this selector view, with byte counts, and remain in the cited admitted Result. Field paths are relative to that Result value; metadata grants no lookup authority or automatic external read. Excerpts are bounded literal diagnostics at exact UTF-8 byte ranges, not interpreted failure names or verdicts. All original criteria and unresolved outcomes remain governing. C2 success is a measurement observation, never application acceptance.", unresolvedSupportRefs: state.unresolvedSupportRefs,
     priorJudgment: state.synthesis === null ? null : { resultRef: state.synthesis.resultRef, judgment: state.synthesis.judgment },
   });
@@ -417,7 +475,7 @@ export function bindFramedSynthesisResult(task: FramedSynthesisTask, offered: re
   if (!isFramedSynthesisTask(task) || !isFramedSynthesisJudgment(raw) || !v.is(synthesisBasisSchema, basis) ||
     basis.taskRef !== task.state.original.taskRef || basis.contextRef !== task.context.observationRef ||
     basis.previousResultRef !== (task.state.synthesis?.resultRef ?? null) || !unique(offered.map(t => t.graphFunctionRef))) return null;
-  const targets = offered.filter(t => governanceTargetSelectable(task.state, t.purpose)), reviews = task.state.original.reviews;
+  const targets = offered.filter(t => governanceTargetPermission(task, t).offered), reviews = task.state.original.reviews;
   const evidence = framedSynthesisEvidenceRefs(task), supports = task.state.unresolvedSupportRefs;
   if (task.state.original.fulfillment === undefined ? raw.requirementProposals !== undefined : raw.requirementProposals === undefined ||
     deriveGovernanceObligations(task.state.original.fulfillment, task.state.fulfillment!, raw.requirementProposals,
@@ -430,18 +488,18 @@ export function bindFramedSynthesisResult(task: FramedSynthesisTask, offered: re
   const next = targets.find(t => t.graphFunctionRef === raw.nextGraphFunctionRef);
   if (reviews === undefined ? raw.reviewRef !== undefined : raw.reviewRef === undefined ||
     (next?.purpose === "review" ? !reviews.some(r => r.reviewRef === raw.reviewRef) : raw.reviewRef !== null)) return null;
-  if (next?.purpose === "testing" && framedSynthesisMissingTestingPaths(task).length > 0) return null;
+  if (next !== undefined && !governanceTargetPermission(task, next).permitted) return null;
   if (!governanceSubjectEvidenceRefs(task.state, next?.purpose ?? null).includes(raw.subjectEvidenceRef)) return null;
   return deepFreeze({ kind: "framed_synthesis_result", schemaVersion: "5.0.0", state: task.state, basis, judgment: raw });
 }
 export function framedSynthesisResponseSchema(task: FramedSynthesisTask, offered: readonly FramedSynthesisTarget[]): Readonly<Record<string, JsonValue>> {
-  const targets = offered.filter(t => governanceTargetSelectable(task.state, t.purpose)), reviews = task.state.original.reviews?.map(r => r.reviewRef);
+  const targets = offered.filter(t => governanceTargetPermission(task, t).offered), reviews = task.state.original.reviews?.map(r => r.reviewRef);
   const textSchema = { type: "string", minLength: 1 };
   const reference = (domain: readonly string[]) => domain.length ? { type: "string", enum: [...domain] } : false;
   const array = (domain: readonly string[]) => ({ type: "array", uniqueItems: true, items: reference(domain) });
   const object = (properties: Readonly<Record<string, JsonValue>>) => ({ type: "object", additionalProperties: false, properties, required: Object.keys(properties) });
   const graphs = targets.map(t => t.graphFunctionRef), evidence = framedSynthesisEvidenceRefs(task), support = task.state.unresolvedSupportRefs;
-  const immediateGraphs = targets.filter(t => t.purpose !== "testing" || framedSynthesisMissingTestingPaths(task).length === 0).map(t => t.graphFunctionRef);
+  const immediateGraphs = targets.filter(t => governanceTargetPermission(task, t).permitted).map(t => t.graphFunctionRef);
   const subjects = targets.map(target => ({ graphFunctionRef: target.graphFunctionRef, purpose: target.purpose, refs: governanceSubjectEvidenceRefs(task.state, target.purpose) }));
   const response = object({ interpretation: textSchema,
     contributions: { type: "array", maxItems: graphs.length, description: "At most one contribution row per graphFunctionRef in this current mapping.", items: object({ graphFunctionRef: reference(graphs), contribution: textSchema, reason: textSchema,

@@ -87,8 +87,8 @@ test('a task without reviews keeps its prior state, selector view, response sche
   assert.equal(product.bindFramedSynthesisResult(realTask,full,bindBasis,{...raw,reviewRef:null}),null,'reviewRef is absent without declared reviews');
   const selectReview={...raw,contributions:[{...raw.contributions[0],graphFunctionRef:ref('review')}],nextGraphFunctionRef:ref('review')};
   assert.equal(product.bindFramedSynthesisResult(realTask,full,bindBasis,selectReview),null,'the review wrapper is unselectable without declared reviews');
-  assert.equal(product.governanceTargetSelectable(state,'review'),false);assert.equal(product.governanceTargetSelectable(state,'uat'),true);
-  assert.equal(product.governanceAssessmentContract(state,'review'),null);assert.deepEqual(product.governanceAssessmentContract(state),state.original.assessment);
+  assert.equal(product.governanceTargetPermission(task0,{purpose:'review'}).offered,false);assert.equal(product.governanceTargetPermission(task0,{purpose:'uat'}).permitted,true);
+  assert.equal(product.governanceAssessmentContract(state,'review'),null);assert.deepEqual(product.governanceAssessmentContract(state,'uat'),state.original.assessment);
 });
 
 test('declared reviews: strict original, parent-owned standing, invariants and refusal of the fixed direct route',async t=>{
@@ -125,7 +125,7 @@ test('declared reviews: strict original, parent-owned standing, invariants and r
   const selected=(reviewRef,next=ref('review'))=>({...populated,synthesis:{resultRef:'result:synthesis:9',resultDigest:h('s'),basis:{inputRef:'input:s',inputDigest:h('i'),taskRef:original.taskRef,environmentRef:'environment:s',environmentDigest:h('e'),frameEvidenceDigest:h('f'),frameRefs:['frame:s'],contextRef:'context:s',previousResultRef:null},
     judgment:{interpretation:'R',contributions:[{graphFunctionRef:next,contribution:'R',reason:'R',supportRefs:[],evidenceRefs:[],dependsOn:[]}],gaps:[],nextGraphFunctionRef:next,nextReason:'R',nextEvidenceRefs:[],subjectEvidenceRef:C.resultRef,revisionReason:'R',revisionEvidenceRefs:[],reviewRef}}});
   assert.equal(product.governanceSelectedReview(selected(REVIEW_A)),a);assert.equal(product.governanceAssessmentContract(selected(REVIEW_A),'review'),a.assessment);
-  assert.equal(product.governanceAssessmentContract(selected(REVIEW_A)),original.assessment,'UAT keeps full-original acceptance');
+  assert.equal(product.governanceAssessmentContract(selected(REVIEW_A),'uat'),original.assessment,'UAT keeps full-original acceptance');
   for(const s of [selected('review://foreign/x@5'),selected(null),selected(REVIEW_A,ref('uat'))])assert.equal(product.governanceAssessmentContract(s,'review'),null);
   assert.deepEqual(product.governanceSubjectEvidenceRefs(populated,'review'),product.governanceSubjectEvidenceRefs(populated,'uat'),'a review chooses from the UAT subject domain');
   assert.equal(product.governanceSubjectEvidenceRefs(populated,'uat').includes(B.resultRef),false,'a review verdict is never a subject');
@@ -181,12 +181,16 @@ async function reviewOwner(f,initial,{program}={}){
   const execution={basisRef:'basis:wrapper',invocationRef:invocation.invocationRef,parentExecutionBasisRef:'basis:root',invocationAdmissionRef:invocation.invocationAdmissionRef,rootImplementationSetRef:'set:reviews',workspaceBindingId:f.workspaceBinding.bindingId,workspaceBindingDigest:f.workspaceBinding.bindingDigest};
   const root={kind:'basis_admitted',payload:{basisClass:'root',basisRef:'basis:root',invocationAdmissionRef:invocation.invocationAdmissionRef,implementationSetRef:execution.rootImplementationSetRef,rawInputValue:initial}};
   const owned={program:program??library.programs[0],prefix:{},events:rows,execution,environment:{kind:'exact_prefix_workspace_environment',workspaceAuthorityBasis:f.workspaceAuthorityBasis,workspaceBinding:f.workspaceBinding,productInstalls:[]},call:{runId:'run:reviews'},inputValue:null,inputRef:'input:reviews',inputOrigin:{}};
-  const x={nativeOwner,rows,owned,invocation,stale:new Set(),checked:[]};
+  const x={nativeOwner,rows,owned,invocation,stale:new Set(),changes:[],checked:[]};
   const index=(_p,key)=>key==='invocation:'+invocation.invocationRef?[root]:rows.filter(e=>key==='payload:resultRef:'+e.payload.resultRef||key==='related:'+e.aggregateId);
   const rootBasis=(_p,r)=>r===root.payload.basisRef?{...execution,basisRef:r,parentExecutionBasisRef:null,rawInputValue:root.payload.rawInputValue}:null;
   const file=resolve(packageRoot,'build/code/src/abg/default_library.js'),m=new SourceTextModule(await readFile(file,'utf8'),{identifier:file});
-  // Currentness premise: a selected-path set is invalidated when it names a stale path; '*' invalidates the read roots.
-  const invalidated=(_p,_ordinal,_root,paths)=>{x.checked.push(paths);return paths.length===0?x.stale.has('*'):paths.some(p=>x.stale.has(p));};
+  // Currentness premise over the owner's two query forms: selected paths match exactly, read roots at
+  // or under a root. A stale path changed after every ordinal, '*' everywhere; an admitted native effect
+  // {path,at} after its ordinal. A C2 command delta is not a cause.
+  const invalidated=(_p,ordinal,_root,paths,roots)=>{x.checked.push(roots===undefined?{paths}:{roots});
+    const hit=p=>roots===undefined?paths.includes(p):roots.some(r=>r==='.'||p===r||p.startsWith(r+'/'));
+    return x.stale.has('*')||[...x.stale].some(hit)||x.changes.some(c=>c.at>ordinal&&hit(c.path));};
   await m.link(async specifier=>{const actual=await import(specifier.startsWith('node:')?specifier:pathToFileURL(resolve(dirname(file),specifier)).href);
     const replacements=specifier==='./execution_basis.js'?{authenticateOwnedNativeInstructionAssemblyBasis:()=>owned}:specifier==='./invocation_execution_truth.js'?{projectExactInvocationAdmissionAtPrefix:()=>invocation,projectExactExecutionBasisAtPrefix:()=>({...execution})}:
       specifier==='./event_prefix.js'?{indexedRuntimeEvents:index}:specifier==='./semantic_job.js'?await rootProjection(index,rootBasis):
@@ -221,6 +225,7 @@ test('declared review preparation and fold: the selected review order, frame and
   const s=x.synth(built,'review',C.resultRef,REVIEW_A),{b:prepared,task}=await x.prepare(s,'review');
   assert.ok(x.nativeOwner.isNativeWorkspaceWorkTask(task));assert.equal(task.outcome,a.order.outcome,'the review keeps its declared outcome over the planner contribution');
   assert.deepEqual(task.writeRoots,[]);assert.deepEqual(task.readFirst,[...a.order.readFirst,'source/witness-contract.md',a.assessment.candidatePath,a.assessment.rubricPath]);
+  assert.deepEqual(task.readFirst,product.governanceAssessmentDependencies(a.order,a.assessment),'preparation binds exactly the dependency set');
   assert.deepEqual([task.assessment.candidate.path,task.assessment.rubric.path,task.assessment.sources.map(s=>s.path),task.assessment.resultContract,task.assessment.producer.resultRef],
     [a.assessment.candidatePath,a.assessment.rubricPath,a.assessment.sources,a.assessment.resultContract,C.resultRef]);
   const i=task.instructions.indexOf('Declared review: '+JSON.stringify({reviewRef:REVIEW_A,frame:a.frame,required:true}));assert.ok(i>0);
@@ -279,11 +284,13 @@ test('parent evaluation: acceptance and every required review must be satisfied 
   const reworked=await x.construct(closed);out=evaluated(reworked);assert.equal(out.terminal,false,'later work retires acceptance');
   assert.deepEqual(standing(out),[[REVIEW_B,ref(B),true,true],[REVIEW_A,ref(closed),true,true]],'work that changes no declared subject keeps both verdicts current');
   // A's verdict is stale once its declared subject changed: only A loses currentness.
+  const gates=state=>product.governanceTargetPermission({state},{purpose:'uat',requiredReviews:[REVIEW_A]}).permitted;assert.equal(gates(evaluated(closed)),true);
   x.stale.add(a.assessment.candidatePath);out=evaluated(closed);x.stale.clear();
   assert.equal(out.terminal,false);assert.deepEqual(standing(out),[[REVIEW_B,ref(B),true,true],[REVIEW_A,ref(closed),true,false]]);
+  assert.equal(gates(out),false,'a declared prerequisite reads this standing: the stale review gates again');
   x.stale.add(b.assessment.rubricPath);out=evaluated(closed);x.stale.clear();
   assert.equal(out.terminal,false);assert.deepEqual(standing(out),[[REVIEW_B,ref(B),true,false],[REVIEW_A,ref(closed),true,true]]);
-  assert.ok(x.checked.some(p=>JSON.stringify(p)===JSON.stringify([...a.assessment.sources,a.assessment.candidatePath,a.assessment.rubricPath])),'currentness reads the declared subject paths');
+  assert.ok(x.checked.some(c=>JSON.stringify(c)===JSON.stringify({roots:product.governanceAssessmentDependencies(a.order,a.assessment)})),'currentness reads the dependency set in the read-roots form');
   // A required review that never ran blocks closure.
   const unreviewed=(await x.assess(B,'uat',C,'satisfied')).folded;out=evaluated(unreviewed);
   assert.equal(out.terminal,false);assert.deepEqual(standing(out)[1],[REVIEW_A,null,false,false]);
@@ -308,16 +315,64 @@ test('parent evaluation: acceptance and every required review must be satisfied 
   z.stale.add('*');assert.equal(z.parent(zState).terminal,false);
 });
 
+test('review currentness covers every mandatory input: a change only in a review readFirst keeps the parent open after a fresh UAT; an unaffected review stays current',async t=>{
+  const {f,witness}=await seeded(t),[b,a]=declaredReviews(),TEST_DESIGN='design/test-design.md';
+  assert.deepEqual(product.governanceAssessmentDependencies({readFirst:['x','c']},{sources:['x','s'],candidatePath:'c',rubricPath:'r'}),['x','c','s','r'],'declared readFirst, then each assessment input once');
+  assert.deepEqual(product.governanceAssessmentDependencies({readFirst:['x','x']},{sources:['s'],candidatePath:'c',rubricPath:'r'}),['x','x','s','c','r'],'a duplicate declared readFirst stays for preparation to refuse');
+  const run=async requiredA=>{
+    const initial=product.constructGovernanceWorkState({...witness.original,reviews:[b,{...a,required:requiredA,order:{...a.order,readFirst:[...a.order.readFirst,TEST_DESIGN]}}]});
+    const x=await reviewOwner(f,initial),A=initial.original.reviews[1];
+    assert.deepEqual(product.governanceAssessmentDependencies(A.order,A.assessment),['source/original-basic-cli.txt',TEST_DESIGN,'source/witness-contract.md',A.assessment.candidatePath,A.assessment.rubricPath]);
+    assert.equal([...A.assessment.sources,A.assessment.candidatePath,A.assessment.rubricPath,...product.governanceAssessmentDependencies(b.order,b.assessment)].includes(TEST_DESIGN),false,
+      'the changed input is only in A readFirst: the old subject set and review B never name it');
+    const built=await x.construct(initial),C=built.observations.at(-1).resultRef;
+    const {folded:reviewed,task}=await x.assess((await x.assess(built,'review',C,'satisfied',REVIEW_B)).folded,'review',C,'satisfied',REVIEW_A);
+    assert.ok(task.readFirst.includes(TEST_DESIGN),'the review assessor was bound to read it');
+    // Construction changes only that file; a fresh UAT over the new Construction is satisfied.
+    const rebuilt=await x.construct(reviewed);x.changes.push({path:TEST_DESIGN,at:x.rows.at(-1).admissionOrdinal});
+    const accepted=(await x.assess(rebuilt,'uat',rebuilt.observations.at(-1).resultRef,'satisfied')).folded,out=x.parent(accepted);
+    assert.ok(out);assert.equal(product.isGovernanceWorkState(out),true);
+    return {x,accepted,out,subject:rebuilt.observations.at(-1).resultRef};
+  };
+  const {x,accepted,out,subject}=await run(true);
+  assert.equal(out.terminal,false,'the stale required review keeps the parent open');
+  assert.deepEqual(out.reviewStanding.map(r=>[r.reviewRef,r.satisfied,r.current]),[[REVIEW_B,true,true],[REVIEW_A,true,false]],'only the review whose input changed is stale');
+  const rerun=(await x.assess(accepted,'review',subject,'satisfied',REVIEW_A)).folded,closed=x.parent(rerun);
+  assert.equal(closed.terminal,true,'rerunning the stale review closes over the same acceptance');
+  assert.deepEqual(closed.reviewStanding.map(r=>[r.reviewRef,r.satisfied,r.current]),[[REVIEW_B,true,true],[REVIEW_A,true,true]]);
+  // Control: the same UAT is current; with A not required the parent closes and A stays visibly stale.
+  const control=await run(false);
+  assert.equal(control.out.terminal,true,'the fresh UAT is current and B is unaffected');
+  assert.deepEqual(control.out.reviewStanding.map(r=>[r.reviewRef,r.required,r.satisfied,r.current]),[[REVIEW_B,true,true,true],[REVIEW_A,false,true,false]]);
+});
+
+test('authority selections travel with every prepared native work and assessment task beside the conserved original task; an empty list adds no instruction',async t=>{
+  const {f,witness}=await seeded(t),reviewed=withReviews(witness),refs=reviewed.original.authorityRefs,label='Conserved original authority selections: ';
+  assert.ok(refs.length>0,'the witness selects authority');
+  const tasks=async initial=>{const x=await reviewOwner(f,initial),construction=(await x.prepare(x.synth(initial,'construction'),'construction')).task;
+    const built=await x.construct(initial),C=built.observations.at(-1).resultRef;
+    return {construction,uat:(await x.prepare(x.synth(built,'uat',C),'uat')).task,review:(await x.prepare(x.synth(built,'review',C,REVIEW_A),'review')).task};};
+  const selected=await tasks(reviewed),empty=await tasks(product.constructGovernanceWorkState({...reviewed.original,authorityRefs:[]}));
+  for(const role of ['construction','uat','review']){
+    const i=selected[role].instructions.indexOf(label+JSON.stringify(refs));assert.ok(i>0,role);
+    assert.ok(selected[role].instructions[i-1].startsWith('Conserved original task: '),role+' beside the conserved original task');
+    assert.equal(empty[role].instructions.some(s=>s.startsWith(label)),false,role+' no authority instruction without selections');
+  }
+  assert.deepEqual(selected.construction.instructions.filter(s=>!s.startsWith(label)),empty.construction.instructions,'the one line is the only difference');
+});
+
 // Model-free stand-in for every native role. The selector reads only its
 // delivered selector view: Construction first and after a current adverse
 // review; each required review never run, in declaration order; Testing over
 // the latest Construction; UAT over that Testing; then each required review
 // whose verdict is not satisfied and current. The constructor first writes a
 // wrong greeting, then the declared one. The assessor reads the declared
-// candidate: the CLI is satisfied only with the declared greeting.
+// candidate: the CLI is satisfied only with the declared greeting. With
+// ABI5_REVIEW_ACTOR_TOUCH the first Construction writes the declared greeting,
+// a second Construction follows the reviews and rewrites only that path.
 const REVIEW_ACTOR=`
 import {readFileSync,writeFileSync,existsSync,appendFileSync} from 'node:fs';import {spawnSync} from 'node:child_process';import {join} from 'node:path';
-const args=process.argv.slice(2),at=args.indexOf('--json-schema'),prompt=readFileSync(0,'utf8'),log=process.env.ABI5_REVIEW_ACTOR_LOG;
+const args=process.argv.slice(2),at=args.indexOf('--json-schema'),prompt=readFileSync(0,'utf8'),log=process.env.ABI5_REVIEW_ACTOR_LOG,touch=process.env.ABI5_REVIEW_ACTOR_TOUCH;
 const prior=existsSync(log)?readFileSync(log,'utf8').trim().split('\\n').filter(Boolean).map(l=>JSON.parse(l)):[];
 const emit=(role,output,extra={})=>{appendFileSync(log,JSON.stringify({role,...extra})+'\\n');console.log(JSON.stringify({type:'system',subtype:'init'}));
  console.log(JSON.stringify({type:'result',subtype:'success',is_error:false,result:JSON.stringify(output),structured_output:output}));process.exit(0);};
@@ -336,6 +391,7 @@ if('interpretation' in props){
  let next=null,subject=null,reviewRef=null;
  if(!construction||adverse)next='construction';
  else if(unrun)[next,reviewRef,subject]=['review',unrun.reviewRef,construction.resultRef];
+ else if(touch&&rows.filter(r=>r.purpose==='construction').length===1&&testing===undefined)next='construction';
  else if(!tested)[next,subject]=['testing',construction.resultRef];
  else if(last('uat')<last('testing'))[next,subject]=['uat',testing.resultRef];
  else if(pending)[next,reviewRef,subject]=['review',pending.reviewRef,construction.resultRef];
@@ -345,7 +401,8 @@ if('interpretation' in props){
   revisionReason:'Scripted.',revisionEvidenceRefs:[],...('reviewRef' in props?{reviewRef}:{})},{standing:reviews.map(r=>({reviewRef:r.reviewRef,...r.standing}))});
 }else if('summary' in props&&'gaps' in props){
  if(!existsSync('generated/hello-world.mjs')){process.stderr.write('review actor expects the worksite cwd\\n');process.exit(1);}
- const first=!prior.some(r=>r.role==='native');writeFileSync('generated/hello-world.mjs',first?'console.log("Hello world");\\n':'console.log("Hello, world!");\\n');
+ const first=!prior.some(r=>r.role==='native');if(touch&&!first)writeFileSync(touch,'Revised review input.\\n');
+ else writeFileSync('generated/hello-world.mjs',first&&!touch?'console.log("Hello world");\\n':'console.log("Hello, world!");\\n');
  emit('native',{summary:first?'Scripted first construction.':'Scripted correction.',gaps:[]});
 }else{
  const line=label=>prompt.split('\\n').find(l=>l.startsWith(label)),declared=line('Exact declared response JSON Schema: '),review=line('Declared review: ');
@@ -355,7 +412,10 @@ if('interpretation' in props){
  emit('assess:'+(review===undefined?'uat':JSON.parse(review.slice('Declared review: '.length)).reviewRef),{kind,disposition:met?'satisfied':'unmet',reason:'Scripted assessment of '+basis.candidate.path+'.',unresolvedCriteria:met?[]:['output']},{candidate:basis.candidate.path});
 }
 `;
-test('one Public start with two required framed reviews: each frame runs on the one assessor, adverse or stale review keeps the Run open, only the touched review reruns',{timeout:600_000},async t=>{
+// One installed Public start of the library with two required reviews and the
+// scripted actor. `touch` seeds one more path in the read scope, grants it to
+// Construction and adds it to review A's readFirst only.
+async function publicReviewsRun(t,{identity,touch=null}){
   const selection=JSON.parse(await readFile(join(witnessRoot,'selection.json'),'utf8'));let selectedEnvironment;
   const env=await setupInstalledRootCatalog(t,packageRoot,{candidateBasisSource:'packed_artifact',rootPublicationKind:'worksite_construction',workspaceProductIndex:1,additionalCorePublicationConstructors:constructors,
     prepareAdditionalProducts:async setup=>{
@@ -367,27 +427,35 @@ test('one Public start with two required framed reviews: each frame runs on the 
         fixtureFiles:[{path:'build/index.mjs',source:new URL('../fixtures/default-library-product/index.mjs',import.meta.url)}],
         schemaAssets:[{path:schemaPath,source:schema,contractId:witnessRef('contract','assessment'),requirementAuthorityRefs:[witnessRef('support','complete-source-outcome')]}]})];
     }});
-  const proof=join(env.scratch,'framed-reviews');await mkdir(proof);
+  const proof=join(env.scratch,identity);await mkdir(proof);
   const actor=join(proof,'review-actor.mjs'),actorLog=join(proof,'review-actor.jsonl');
   await writeFile(actor,'#!'+process.execPath+'\n'+REVIEW_ACTOR);await chmod(actor,0o755);
   const worksite=env.workspaceBinding.canonicalRoot??env.workspaceAuthority?.canonicalRoot??join(env.scratch,'workspace');
   await cp(join(witnessRoot,'seed'),worksite,{recursive:true});
-  const witness=await witnessInput({product,selection,seedRoot:worksite}),input=product.constructGovernanceWorkState({...witness.original,reviews:declaredReviews()});
+  const witness=await witnessInput({product,selection,seedRoot:worksite}),[b,a]=declaredReviews();let original=witness.original,reviews=[b,a];
+  if(touch!==null){await writeFile(join(worksite,touch),'Seeded review input.\n');const {construction}=original.workOrders;
+    original={...original,readRoots:[...original.readRoots,touch].sort(),workOrders:{...original.workOrders,construction:{...construction,writeRoots:[...construction.writeRoots,touch]}}};
+    reviews=[b,{...a,order:{...a.order,readFirst:[...a.order.readFirst,touch]}}];}
+  const input=product.constructGovernanceWorkState({...original,reviews});
   env.catalogView=env.product.narrowGraphFunctionCatalog(env.catalog,env.additionalPublications[0].programs[0].callableMembership);assert.equal(env.catalogView.kind,'graph_function_catalog_view');
   const load=async path=>import(pathToFileURL(join(env.installedRoot,`build/code/src/${path}.js`)).href);
   const publicApi=await load('public/index'),storeOwner=await load('abg/event_store');
   let handoff=env.store.projectReopenAuthorityAndClose();const before=storeOwner.readRuntimeEventsAtDurablePrefix(handoff.prefix).length;
   const resource=()=>({kind:'reopen_abg_event_resource',schemaVersion:'5.0.0',closeHandoff:handoff,handoffDigest:product.sha256Canonical(handoff)});
-  const start=await constructInstalledStartCall({environment:env,publicApi,eventResource:resource(),input,identity:'framed-reviews',runEnvironmentResourceFactory:selectedEnvironment.resources});
-  const execution=await runInstalledCliRequest({scratch:proof,installedRoot:env.installedRoot,identity:'framed-reviews-start',acquisition:{kind:'reopen',closeHandoff:handoff},call:start.call,expectedExitCode:null,
-    environment:{...process.env,ABG_TS_CLAUDE_COMMAND:actor,ABI5_REVIEW_ACTOR_LOG:actorLog}});
+  const start=await constructInstalledStartCall({environment:env,publicApi,eventResource:resource(),input,identity,runEnvironmentResourceFactory:selectedEnvironment.resources});
+  const execution=await runInstalledCliRequest({scratch:proof,installedRoot:env.installedRoot,identity:identity+'-start',acquisition:{kind:'reopen',closeHandoff:handoff},call:start.call,expectedExitCode:null,
+    environment:{...process.env,ABG_TS_CLAUDE_COMMAND:actor,ABI5_REVIEW_ACTOR_LOG:actorLog,...(touch===null?{}:{ABI5_REVIEW_ACTOR_TOUCH:touch})}});
   const receipt=execution.output?.receipt;assert.ok(receipt,JSON.stringify(execution).slice(0,4000));assert.equal(receipt.failure,null,JSON.stringify(receipt).slice(0,4000));
   if(receipt.resources?.eventResource?.closeHandoff)handoff=receipt.resources.eventResource.closeHandoff;
   const events=storeOwner.readRuntimeEventsAtDurablePrefix(handoff.prefix).slice(before),results=events.filter(e=>e.kind==='c_call_result_admitted');
   const log=(await readFile(actorLog,'utf8').catch(()=>'')).trim().split('\n').filter(Boolean).map(l=>JSON.parse(l));
-  const diagnostic=()=>JSON.stringify({ownerOutput:receipt.ownerOutput,roles:log.map(r=>r.role),trace:events.filter(e=>['child_preparation_refused','runtime_failure_observed','actor_invocation_failed','run_stopped'].includes(e.kind))
-    .slice(0,6).map(e=>({kind:e.kind,graphFunctionRef:e.graphFunctionRef,payload:JSON.stringify(e.payload).slice(0,600)}))}).slice(0,6000);
+  const diagnostic=()=>JSON.stringify({roles:log.map(r=>r.role),trace:events.filter(e=>['child_preparation_refused','runtime_failure_observed','actor_invocation_failed','run_stopped'].includes(e.kind))
+    .slice(0,6).map(e=>({kind:e.kind,graphFunctionRef:e.graphFunctionRef,payload:JSON.stringify(e.payload).slice(0,600)})),ownerOutput:receipt.ownerOutput}).slice(0,6000);
   assert.equal(receipt.ownerOutput.outcomeKind,'result',diagnostic());assert.equal(receipt.ownerOutput.value.disposition,'completed',diagnostic());
+  return {input,worksite,events,results,log,diagnostic};
+}
+test('one Public start with two required framed reviews: each frame runs on the one assessor, adverse or stale review keeps the Run open, only the touched review reruns',{timeout:600_000},async t=>{
+  const {worksite,events,results,log,diagnostic}=await publicReviewsRun(t,{identity:'framed-reviews'});
   // The order: Construction; review B satisfied; review A adverse; correcting Construction; Testing; UAT satisfied; review A rerun.
   assert.deepEqual(log.map(r=>r.role),['select:construction','native','select:review:'+REVIEW_B,'assess:'+REVIEW_B,'select:review:'+REVIEW_A,'assess:'+REVIEW_A,
     'select:construction','native','select:testing','c2','select:uat','assess:uat','select:review:'+REVIEW_A,'assess:'+REVIEW_A],diagnostic());
@@ -408,5 +476,31 @@ test('one Public start with two required framed reviews: each frame runs on the 
   assert.deepEqual(final.unresolvedSupportRefs,[]);assert.equal(product.isGovernanceWorkState(final),true);
   assert.equal(events.filter(e=>e.kind==='run_closed').length,1);assert.equal(events.some(e=>e.kind==='runtime_failure_observed'),false);
   assert.equal(await readFile(join(worksite,'generated/hello-world.mjs'),'utf8'),'console.log("Hello, world!");\n');
+  t.diagnostic(JSON.stringify({roles:log.map(r=>r.role),choices,parents:parents.length,events:events.length}));
+});
+test('one Public start: a Construction that changes only review A readFirst input retires A through the event-log invalidation owner; B stays current and only A reruns',{timeout:600_000},async t=>{
+  const TOUCH='generated/review-input.md',{input,worksite,events,results,log,diagnostic}=await publicReviewsRun(t,{identity:'framed-reviews-read-first',touch:TOUCH});
+  const [B,A]=input.original.reviews,dependencies=r=>product.governanceAssessmentDependencies(r.order,r.assessment);
+  assert.ok(A.order.readFirst.includes(TOUCH)&&dependencies(A).includes(TOUCH));
+  assert.equal([...A.assessment.sources,A.assessment.candidatePath,A.assessment.rubricPath,...dependencies(B)].includes(TOUCH),false,'only A readFirst names the changed input');
+  // Construction; review B; review A; a Construction that rewrites only that input; Testing; UAT satisfied; review A rerun.
+  assert.deepEqual(log.map(r=>r.role),['select:construction','native','select:review:'+REVIEW_B,'assess:'+REVIEW_B,'select:review:'+REVIEW_A,'assess:'+REVIEW_A,
+    'select:construction','native','select:testing','c2','select:uat','assess:uat','select:review:'+REVIEW_A,'assess:'+REVIEW_A],diagnostic());
+  const choices=results.filter(e=>e.payload.value?.kind==='registered_graph_choice').map(e=>[e.payload.value.graphFunctionRef,e.payload.value.input.value.synthesis.judgment.reviewRef]);
+  assert.deepEqual(choices,[[ref('construction'),null],[ref('review'),REVIEW_B],[ref('review'),REVIEW_A],[ref('construction'),null],[ref('testing'),null],[ref('uat'),null],[ref('review'),REVIEW_A]]);
+  const parents=results.filter(e=>e.graphFunctionRef===witnessRef('graph-function','executive')&&e.payload.value?.kind==='governance_work_state').map(e=>e.payload.value);
+  const final=parents.at(-1),reviewRows=final.observations.filter(o=>o.purpose==='review');
+  assert.deepEqual(final.observations.filter(o=>o.purpose==='construction').map(o=>o.value.changedPaths),[['generated/hello-world.mjs'],[TOUCH]],'the second Construction changed only the readFirst input');
+  assert.deepEqual(reviewRows.map(o=>[o.reviewRef,o.value.disposition]),[[REVIEW_B,'satisfied'],[REVIEW_A,'satisfied'],[REVIEW_A,'satisfied']],'B ran once; only A reran');
+  // After satisfied UAT the parent stays open: A is satisfied, but an admitted native effect changed its readFirst input.
+  const accepted=parents.find(p=>p.observations.at(-1)?.purpose==='uat');
+  assert.equal(accepted.observations.at(-1).value.disposition,'satisfied');assert.equal(accepted.terminal,false);
+  assert.deepEqual(accepted.reviewStanding.map(r=>[r.reviewRef,r.satisfied,r.current]),[[REVIEW_B,true,true],[REVIEW_A,true,false]]);
+  assert.deepEqual(final.reviewStanding.map(r=>[r.reviewRef,r.required,r.resultRef,r.satisfied,r.current]),
+    [[REVIEW_B,true,reviewRows[0].resultRef,true,true],[REVIEW_A,true,reviewRows[2].resultRef,true,true]]);
+  assert.deepEqual(parents.map(p=>p.terminal),[...parents.slice(1).map(()=>false),true],'only the last parent evaluation closes');
+  assert.equal(events.filter(e=>e.kind==='run_closed').length,1);assert.equal(events.some(e=>e.kind==='runtime_failure_observed'),false);
+  assert.equal(await readFile(join(worksite,'generated/hello-world.mjs'),'utf8'),'console.log("Hello, world!");\n');
+  assert.equal(await readFile(join(worksite,TOUCH),'utf8'),'Revised review input.\n');
   t.diagnostic(JSON.stringify({roles:log.map(r=>r.role),choices,parents:parents.length,events:events.length}));
 });

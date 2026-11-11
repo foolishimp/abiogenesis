@@ -1,18 +1,19 @@
 import { framedSynthesisAtLocus } from "../gtl/stdo_run_environment.js";
 import { resolveRegisteredSelection } from "../gtl/registered_selection.js";
-import { isFramedSynthesisTask, isFramedSynthesisResult, type FramedSynthesisTask } from "../product/default_library.js";
+import { isFramedSynthesisTask, isFramedSynthesisResult, governancePrerequisites, governancePrerequisitesUndeclared, governanceTarget,
+  governanceTargetPermission, type FramedSynthesisTask } from "../product/default_library.js";
 import { isDeepStrictEqual as same } from "node:util";
 import { resolve } from "node:path";
 import { pathToFileURL } from "node:url";
 import { authenticateOwnedNativeInstructionAssemblyBasis, rehydrateExecutionBasisAtPrefix, type NativeInstructionAssemblyBasis } from "./execution_basis.js";
 import { reuseWorksiteContextBodiesAtPrefix, worksiteContextBodyReaderAtPrefix, type RuntimeEventPrefix } from "./event_prefix.js";
-import { sha256Bytes } from "../shared/digests.js";
+import { sha256Bytes, sha256Canonical } from "../shared/digests.js";
 import { projectExactInvocationAdmissionAtPrefix, projectExactExecutionBasisAtPrefix, hasAdmittedGovernanceSourceUse,
   hasAdmittedGovernanceCoveredSourceUse, governanceContextBodyUse } from "./invocation_execution_truth.js";
 import { indexedRuntimeEvents } from "./event_prefix.js";
 import { invocationRootAtPrefix } from "./semantic_job.js";
 import { worksiteCommandSourcesInvalidatedAfter, projectNativeWorkspaceWorkSourceAtPrefix, projectNativeWorkspaceWorkResultTaskAtPrefix } from "./native_worksite_execution.js";
-import { isGovernanceWorkState, governanceTestingConfiguration, governanceAssessmentContract, governanceSelectedReview, governanceVerdicts, GOVERNANCE_POLICIES,
+import { isGovernanceWorkState, governanceTestingConfiguration, governanceAssessmentContract, governanceAssessmentDependencies, governanceSelectedReview, governanceVerdicts, GOVERNANCE_POLICIES,
   GOVERNANCE_IMPLEMENTATION_REFS, governanceRef as ref, governanceContract as contract, type GovernanceWorkState, type GovernancePurpose,
   type GovernanceObservation, type GovernanceReviewStanding } from "../product/default_library.js";
 import { isRetainedGraphInput } from "../product/worksite_preparation_contracts.js";
@@ -133,6 +134,15 @@ function sourceResult(o: Owner, input: unknown) {
 function bodies(o: Owner, context: WorksiteContextObservation) {
   return worksiteContextBodyReaderAtPrefix(o.prefix, context, governanceContextBodyUse(o.invocation, o.call.runId));
 }
+/** Selection intake: the executive step's process declaration is valid and the
+ * task declares, as required or not, every review it names. */
+function selectionIntake(basis: NativeInstructionAssemblyBasis, state: GovernanceWorkState, refusal?: GovernanceTestingRefusal): boolean {
+  const prerequisites = governancePrerequisites(basis.graphFunction.declarations);
+  const undeclared = prerequisites === null ? null : governancePrerequisitesUndeclared(state.original, prerequisites);
+  if (undeclared?.length === 0) return true;
+  refusal?.("selection_intake", undeclared === null ? "process_declaration" : "process_review_undeclared", undeclared === null ? {} : { reviewRefs: undeclared.join(" ") });
+  return false;
+}
 /** Selection task construction over the admitted context; reads no worksite. */
 function selectionTask(o: Owner, state: GovernanceWorkState, context: WorksiteContextObservation): FramedSynthesisTask | null {
   if (state.original.fulfillment !== undefined && state.synthesis === null &&
@@ -140,7 +150,7 @@ function selectionTask(o: Owner, state: GovernanceWorkState, context: WorksiteCo
   if (state.terminal) throw new TypeError("completed parent cannot select work");
   return { kind: "framed_synthesis_task", schemaVersion: "5.0.0", state, context };
 }
-export function projectGovernanceChoice(basis: NativeInstructionAssemblyBasis, input: unknown) {
+export function projectGovernanceChoice(basis: NativeInstructionAssemblyBasis, input: unknown, refusal?: GovernanceTestingRefusal) {
   const o = owner(basis, input); if (o === null || !isFramedSynthesisResult(input)) return null;
   const profile = framedSynthesisAtLocus(basis.graphFunction, basis.graphFunction.declarations["abg.framed_synthesis_locus"] ?? "");
   const event = o.inputOrigin.event;
@@ -151,16 +161,17 @@ export function projectGovernanceChoice(basis: NativeInstructionAssemblyBasis, i
     e.runId === o.call.runId && e.basisId === o.execution.basisRef && record(e.payload) && e.payload.programLocusRef === profile.node.nodeRef);
   if (opened.length !== 1) return null;
   const j = input.judgment, common = { kind: "registered_graph_choice", schemaVersion: "5.0.0", reason: j.nextReason, evidenceRefs: j.nextEvidenceRefs };
+  // The selector's actual admitted input owns this context and standing. Do not
+  // reread a mutable worksite or reconstruct the proposal from arbitrary payloads.
+  const inputEvents = indexedRuntimeEvents(o.prefix, "payload:resultRef:" + input.basis.inputRef)
+    .filter(e => e.kind === "c_call_result_admitted" && e.runId === o.call.runId && e.basisId === event.basisId &&
+      record(e.payload) && e.payload.valueDigest === input.basis.inputDigest && isFramedSynthesisTask(e.payload.value));
+  const inputEvent = exactOrUndefined(onlyExactMatch(inputEvents));
+  const task = record(inputEvent?.payload) && isFramedSynthesisTask(inputEvent.payload.value) ? inputEvent.payload.value : null;
+  if (task === null || !same(task.state, input.state)) return null;
   let projected = input.state;
   if (input.state.original.fulfillment !== undefined) {
-    // The selector's actual admitted input owns this context. Do not reread a
-    // mutable worksite or reconstruct the proposal from arbitrary payloads.
-    const inputEvents = indexedRuntimeEvents(o.prefix, "payload:resultRef:" + input.basis.inputRef)
-      .filter(e => e.kind === "c_call_result_admitted" && e.runId === o.call.runId && e.basisId === event.basisId &&
-        record(e.payload) && e.payload.valueDigest === input.basis.inputDigest && isFramedSynthesisTask(e.payload.value));
-    const inputEvent = exactOrUndefined(onlyExactMatch(inputEvents));
-    const task = record(inputEvent?.payload) && isFramedSynthesisTask(inputEvent.payload.value) ? inputEvent.payload.value : null;
-    if (task === null || j.requirementProposals === undefined || !same(task.state, input.state)) return null;
+    if (j.requirementProposals === undefined) return null;
     const fulfillment = deriveGovernanceObligations(input.state.original.fulfillment, input.state.fulfillment!, j.requirementProposals,
       input.state.original.taskRef, o.inputRef, task.context, framedSynthesisEvidenceRefs(task), bodies(o, task.context));
     if (fulfillment === null) return null;
@@ -172,14 +183,20 @@ export function projectGovernanceChoice(basis: NativeInstructionAssemblyBasis, i
     basis: input.basis, judgment: j } };
   // An unregistered target has no definition digest and is no selection.
   const definitionDigest = o.execution.registeredSelectionDefinitionDigests?.[j.nextGraphFunctionRef];
-  if (definitionDigest === undefined) return null;
+  const definition = exactOrNull(onlyExactMatch(basis.declarationGraphFunctions.filter(g => g.name === j.nextGraphFunctionRef && sha256Canonical(g) === definitionDigest)));
+  const prerequisites = governancePrerequisites(basis.graphFunction.declarations);
+  if (definitionDigest === undefined || definition === null || prerequisites === null) return null;
+  // The product's permitted relation over the admitted standing; no currentness is recomputed.
+  const target = governanceTarget(definition, definitionDigest, prerequisites), permission = target === null ? null : governanceTargetPermission(task, target);
+  if (!permission?.permitted) return testingRefused(refusal, "choice_projection", "target_not_permitted",
+    { graphFunctionRef: j.nextGraphFunctionRef, missingReviews: permission?.missingReviews.map(m => m.reviewRef).join(" ") ?? null });
   const choice = { ...common, disposition: "selected", graphFunctionRef: j.nextGraphFunctionRef,
     definitionDigest, input: { contractRef: contract("state"), value: next } };
   try { return resolveRegisteredSelection(o.graph.template, basis.cursor, o.call.outputContractRef, choice,
     o.execution.registeredSelectionDefinitionDigests ?? {})?.disposition === "selected" ? choice : null; } catch { return null; }
 }
-export async function projectGovernanceSelection(basis: NativeInstructionAssemblyBasis, input: unknown) {
-  const o = owner(basis, input); if (o === null || !isGovernanceWorkState(input)) return null;
+export async function projectGovernanceSelection(basis: NativeInstructionAssemblyBasis, input: unknown, refusal?: GovernanceTestingRefusal) {
+  const o = owner(basis, input); if (o === null || !isGovernanceWorkState(input) || !selectionIntake(basis, input, refusal)) return null;
   const observation = await observeGovernanceWorksite(o, input, []);
   return observation === null ? null : selectionTask(o, input, observation.context);
 }
@@ -229,8 +246,10 @@ function nativeTask(o: Owner, state: GovernanceWorkState, purpose: GovernancePur
   const review = purpose === "review" ? governanceSelectedReview(state) : null, assessed = purpose === "uat" || purpose === "review";
   const order = purpose === "review" ? review?.order : state.original.workOrders[purpose];
   if (order === undefined || !contextMatches(o, state, context)) return null;
-  const instructions = [GOVERNANCE_POLICIES[purpose], ...order.instructions,
-    `Conserved original task: ${state.original.task}`, `Unresolved parent outcomes: ${JSON.stringify(state.unresolvedSupportRefs)}`,
+  const authority = state.original.authorityRefs;
+  const instructions = [GOVERNANCE_POLICIES[purpose], ...order.instructions, `Conserved original task: ${state.original.task}`,
+    ...(authority.length === 0 ? [] : [`Conserved original authority selections: ${JSON.stringify(authority)}`]),
+    `Unresolved parent outcomes: ${JSON.stringify(state.unresolvedSupportRefs)}`,
     `Actual admitted observations: ${JSON.stringify(projectGovernanceObservationFacts(state, context))}`,
     "This parent-context view retains admitted causal coordinates, command/report/predicate facts and bounded literal diagnostics. A strict UTF-8 stream of at most 8192 bytes appears whole as one exact excerpt marked complete; longer or non-UTF-8 stream bodies and predicate bodies remain in the cited admitted Result; field paths are relative to its value and confer no additional access. Excerpts are exact byte-range diagnostics, not interpreted verdicts. Reacquire all mandatory selected source and assessment material through the declared reads."];
   const synthesis = state.synthesis, judgment = synthesis?.judgment;
@@ -248,7 +267,7 @@ function nativeTask(o: Owner, state: GovernanceWorkState, purpose: GovernancePur
     "The full original outcome, complete original sources, exact consumer rubric and all current criteria govern this independent assessment, including unmet and unresolved outcomes. Assess the exact declared subject against all of them. Return one consumer assessment object matching the exact declared JSON schema, preserving every unmet or indeterminate criterion. A judgment about only the selected contribution cannot establish full-original satisfaction. The advisory planner selection adds no governing criterion: a condition that appears only there is not an assessment criterion.");
   else if (review !== null) instructions.push(`Declared review: ${JSON.stringify({ reviewRef: review.reviewRef, frame: review.frame, required: review.required })}`,
     `Governing review outcome: ${order.outcome}`, ...(advisory === null ? [] : [advisory]),
-    "The declared reference frame, its declared sources, rubric and result contract govern this independent review. Assess the exact declared subject under that frame only. Return one assessment object matching the exact declared JSON schema, preserving every unmet or indeterminate criterion. This review neither establishes nor replaces full-original acceptance. The advisory planner selection adds no governing criterion: a condition that appears only there is not a review criterion.");
+    "The declared reference frame, its declared sources, rubric and result contract govern this independent review. Assess the exact declared subject under that frame only. Only the declared read-first material, sources, candidate and rubric may support this verdict. Return one assessment object matching the exact declared JSON schema, preserving every unmet or indeterminate criterion. This review neither establishes nor replaces full-original acceptance. The advisory planner selection adds no governing criterion: a condition that appears only there is not a review criterion.");
   else if (advisory !== null) instructions.push(`Supplied purpose outcome (parent context): ${order.outcome}`, advisory,
     "This native task's outcome is the selected bounded contribution. The supplied purpose outcome, conserved original task and unresolved outcomes are parent context. Work within the supplied order and write roots; return a truthful partial report with remaining gaps for parent reassessment when this work unit does not complete the parent obligations.");
   if (state.original.fulfillment !== undefined) instructions.push(`Active source-grounded paired obligations: ${JSON.stringify(governanceFulfillmentActive(state.original.fulfillment, state.fulfillment!))}`);
@@ -284,10 +303,8 @@ function nativeTask(o: Owner, state: GovernanceWorkState, purpose: GovernancePur
     "Select only prior Result refs, roles, paths and command ids from the owned domains below. Do not emit digests, CCall/actor identities or your own future Result ref. The owner attaches this assessment after admission. Realization and verifier artifacts are different selected subjects. Current support must match current dependency bytes. AdverseEvidenceRefs are historical C2 counterevidence for the declared adverse-command criterion, not proof of current behavior.",
     `Selected policy and dynamic domains: ${JSON.stringify({ declaration: state.original.fulfillment,
       active: governanceFulfillmentActive(state.original.fulfillment, state.fulfillment!), evidence: state.observations.map(o => o.fulfillmentEvidence).filter(Boolean) })}`);
-  const readFirst = [...order.readFirst];
-  for (const path of [...selection.sources, selection.candidatePath, selection.rubricPath])
-    if (!readFirst.includes(path)) readFirst.push(path);
-  return constructNativeWorkspaceWorkTask({ ...operating(o), context, ...order, outcome, instructions, readFirst, writeRoots: [],
+  return constructNativeWorkspaceWorkTask({ ...operating(o), context, ...order, outcome, instructions,
+    readFirst: governanceAssessmentDependencies(order, selection), writeRoots: [],
     assessment: { resultContract: selection.resultContract, schemaAsset: selection.schemaAsset, sources: selection.sources.map(asset),
       candidate: asset(selection.candidatePath), rubric: asset(selection.rubricPath), producer: { resultRef: p.event.payload.resultRef,
         resultDigest: p.event.payload.resultDigest as `sha256:${string}`, cCallRef: p.event.aggregateId, actorInvocationRef: p.value.provenance.actorInvocationRef } } });
@@ -422,12 +439,14 @@ export function projectGovernanceParent(basis: NativeInstructionAssemblyBasis, i
     terminal = !retained && !worksiteCommandSourcesInvalidatedAfter(o.prefix, a.event.admissionOrdinal, a.root, [], a.value.after.readRoots);
   }
   // Each declared review's latest verdict is current only in this Run while no
-  // later native work changed its declared subject, sources or rubric.
+  // later admitted change lies at or under a member of its dependency set; the
+  // read-roots form gives every effect branch that subtree reading.
   const rows = input.original.reviews === undefined ? undefined : verdicts.reviews.map(({ review, observation, satisfied }) => {
     if (observation === null) return { reviewRef: review.reviewRef, required: review.required, resultRef: null, satisfied: false, current: false };
-    const a = admitted(observation), { sources, candidatePath, rubricPath } = review.assessment;
+    const a = admitted(observation);
     return a === null ? null : { reviewRef: review.reviewRef, required: review.required, resultRef: observation.resultRef, satisfied,
-      current: a.event.runId === o.call.runId && !worksiteCommandSourcesInvalidatedAfter(o.prefix, a.event.admissionOrdinal, a.root, [...sources, candidatePath, rubricPath]) };
+      current: a.event.runId === o.call.runId && !worksiteCommandSourcesInvalidatedAfter(o.prefix, a.event.admissionOrdinal, a.root, [],
+        governanceAssessmentDependencies(review.order, review.assessment)) };
   });
   if (rows?.includes(null)) return null;
   const standing = rows as GovernanceReviewStanding[] | undefined, reviewStanding = standing === undefined ? {} : { reviewStanding: standing };
@@ -448,7 +467,7 @@ export function governanceResultMatches(basis: NativeInstructionAssemblyBasis, i
     if (implementation === ref("implementation", "evaluate-parent")) return same(output, projectGovernanceParent(basis, input));
     if (implementation === ref("implementation", "project-choice")) return same(output, projectGovernanceChoice(basis, input));
     if (!isGovernanceWorkState(input)) return false;
-    if (implementation === ref("implementation", "prepare-selection")) return isFramedSynthesisTask(output) &&
+    if (implementation === ref("implementation", "prepare-selection")) return isFramedSynthesisTask(output) && selectionIntake(basis, input) &&
       contextMatches(o, input, output.context) && same(output, selectionTask(o, input, output.context));
     if (implementation === ref("implementation", "prepare-native")) return isNativeWorkspaceWorkTask(output) && same(output,
       nativeTask(o, input, basis.graphFunction.declarations["abg.default_library_purpose"] as GovernancePurpose, output.context));

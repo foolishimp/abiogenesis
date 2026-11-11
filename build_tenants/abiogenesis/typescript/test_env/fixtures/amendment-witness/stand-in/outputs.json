@@ -1,0 +1,9 @@
+{
+  "meaning": "Files the scripted stand-in model writes. A step is chosen when all its paths lie in the permitted write scope; of two such steps, correction is chosen when an admitted review is adverse with unresolved criteria.",
+  "steps": {
+    "intake-triage": { "work/intake-triage.md": "intake-triage.md" },
+    "impact-assessment": { "design/impact-assessment.md": "impact-assessment.md" },
+    "construction": { "src/approval.mjs": "approval.mjs", "src/order.mjs": "order-damaged.mjs", "test/approval.test.mjs": "approval-test-first.mjs" },
+    "correction": { "src/approval.mjs": "approval.mjs", "src/order.mjs": "../seed/src/order.mjs", "test/approval.test.mjs": "approval-test-corrected.mjs" }
+  }
+}

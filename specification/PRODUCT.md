@@ -1118,10 +1118,19 @@ original outcome.
 
 Parent completion is a declared computation over admitted verdicts. It requires
 the acceptance verdict and every required review verdict to be satisfied and
-current. A verdict is current while no later admitted effect touches its
-declared subject. An adverse, missing or stale required verdict keeps the parent
-open and remains visible as unresolved. The Executive proposes the next work; it
-never selects completion and never conjoins findings by judgment.
+current. A verdict is current while no later admitted effect touches its subject
+or the declared inputs its assessment depends on. An adverse, missing or stale
+required verdict keeps the parent open and remains visible as unresolved. The
+Executive proposes the next work under its frame; applicability, conflict,
+dependency and sufficiency remain its judgment. It cannot select completion or
+override this computation.
+
+A Program may declare, for a registered purpose, the reviews that must be
+satisfied and current before that purpose is selected. The Executive is offered
+only permitted work, and a choice whose prerequisites do not hold is refused
+before the work is entered. A task declares every review its Program names, as
+required or as not applicable; a prerequisite binds only a required review. The
+selector's stated dependencies remain advisory.
 
 Governance preserves the original task, required outcomes and authority while
 selecting or revising the choice of preregistered graph work in response to

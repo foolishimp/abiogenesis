@@ -7,8 +7,9 @@ import { graphInputRetentionBinding, RETAINED_GRAPH_INPUT_CONTRACT } from "../pr
 import { NATIVE_WORKSPACE_WORK_IDS as native } from "../product/native_workspace_work_identity.js";
 import { WORKSITE_COMMAND_EXECUTION_IDS as c2 } from "../product/worksite_command_execution_identity.js";
 import { DEFAULT_LIBRARY_POLICY, GOVERNANCE_POLICIES, GOVERNANCE_PURPOSES, GOVERNANCE_OPERATIONS, governanceRef as ref,
-  governanceContract as contract, GOVERNANCE_FULFILLMENT_PROFILE, type GovernanceOperation, type GovernancePurpose } from "../product/default_library.js";
-import { canonicalJson } from "../shared/canonical_json.js";
+  governanceContract as contract, GOVERNANCE_FULFILLMENT_PROFILE, GOVERNANCE_PREREQUISITES_DECLARATION, governancePrerequisites,
+  type GovernanceOperation, type GovernancePurpose, type GovernancePrerequisites } from "../product/default_library.js";
+import { canonicalJson, type JsonValue } from "../shared/canonical_json.js";
 import { sha256Bytes, sha256Canonical } from "../shared/digests.js";
 
 const state = contract("state"), task = contract("selection-task"), synthesis = contract("synthesis"), choice = contract("choice");
@@ -51,15 +52,19 @@ function wrapper(purpose: GovernancePurpose): GraphFunction {
       edges: [graphEdge({ fromNodeRef: nodes[0]!.nodeRef, toNodeRef: nodes[1]!.nodeRef }), graphEdge({ fromNodeRef: nodes[1]!.nodeRef,
         toNodeRef: nodes[2]!.nodeRef, inputBinding: graphInputRetentionBinding(state, output) })], applications: [] } };
 }
-export function defaultGovernanceGraphFunctions(options: { purposes?: readonly GovernancePurpose[]; recursionBound?: number } = {}): readonly GraphFunction[] {
-  const purposes = options.purposes ?? GOVERNANCE_PURPOSES;
+export function defaultGovernanceGraphFunctions(options: { purposes?: readonly GovernancePurpose[]; recursionBound?: number; prerequisites?: GovernancePrerequisites } = {}): readonly GraphFunction[] {
+  const purposes = options.purposes ?? GOVERNANCE_PURPOSES, process = options.prerequisites;
   if (!purposes.length || new Set(purposes).size !== purposes.length || purposes.some(p => !GOVERNANCE_PURPOSES.includes(p))) throw new TypeError("explicit unique registered purposes required");
+  // The process declaration is the executive step's: it names registered purposes and is satisfied through the registered review wrapper.
+  const declared = process === undefined ? {} : { [GOVERNANCE_PREREQUISITES_DECLARATION]: canonicalJson(process as unknown as JsonValue) };
+  if (process !== undefined && (!governancePrerequisites(declared) || !purposes.includes("review") ||
+    Object.keys(process).some(p => !purposes.includes(p as GovernancePurpose)))) throw new TypeError("process prerequisites name registered purposes and reviews through the registered review wrapper");
   const wrappers = purposes.map(wrapper), name = ref("graph-function", "executive-step"), select = ref("node", "select"), project = ref("node", "project-choice");
   const nodes = [leaf("prepare-selection", name + "/prepare"), leaf("select", select), leaf("project-choice", project), ...wrappers.map(w => call(w.name + "/invoke", w.name, state, state))];
   const step: GraphFunction = { ...wrappers[0]!, name, tags: ["default-library", "executive"],
     environment: { requires: [state], provides: [state], carries: [state, task, synthesis, choice] },
     declarations: { ...declarations, "abg.raw_result_contract": contract("native-response"), "abg.framed_synthesis_locus": select, "abg.framed_synthesis_projection": project, "abg.functional_purpose": "Map the conserved problem to framed registered contributions, reasons, dependencies and gaps; explicitly choose the next member or gap and revise against actual observations.",
-      "abg.conditions_for_use": "Unresolved original outcomes remain; the permitted domain and framed context are explicit." },
+      "abg.conditions_for_use": "Unresolved original outcomes remain; the permitted domain and framed context are explicit.", ...declared },
     template: { kind: "inline_graph", graphRef: name + "/graph", startNodeRef: nodes[0]!.nodeRef, terminalNodeRefs: nodes.slice(3).map(n => n.nodeRef), nodes,
       edges: [graphEdge({ fromNodeRef: nodes[0]!.nodeRef, toNodeRef: select }), graphEdge({ fromNodeRef: select, toNodeRef: project }), ...nodes.slice(3).map(n => graphEdge({ fromNodeRef: project, toNodeRef: n.nodeRef }))],
       applications: [registeredSelectionApplication({ sourceProgramLocusRef: project, inputContractRef: choice, outputContractRef: state,

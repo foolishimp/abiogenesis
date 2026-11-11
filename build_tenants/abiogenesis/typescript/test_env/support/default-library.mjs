@@ -8,8 +8,8 @@ export const assessmentSchema={$id:assessmentContract.contractRef,type:'object',
   required:['kind','disposition','reason','unresolvedCriteria'],properties:{kind:{const:assessmentContract.valueKind},disposition:{type:'string',enum:['satisfied','unmet','indeterminate']},reason:{type:'string'},unresolvedCriteria:{type:'array',items:{type:'string'}}}};
 export const schemaPath='contracts/assessment.schema.json';
 
-export function libraryConsumerDeclaration(gtl,library,runEnvironment,{purposes=['construction','testing','uat'],bound=8}={}){
-  const graphs=structuredClone(gtl.defaultGovernanceGraphFunctions({purposes,recursionBound:bound}));
+export function libraryConsumerDeclaration(gtl,library,runEnvironment,{purposes=['construction','testing','uat'],bound=8,prerequisites}={}){
+  const graphs=structuredClone(gtl.defaultGovernanceGraphFunctions({purposes,recursionBound:bound,...(prerequisites===undefined?{}:{prerequisites})}));
   const parent=graphs[0],step=graphs[1],oldStep=step.name;
   parent.name=witnessRef('graph-function','executive');parent.template.graphRef=parent.name+'/graph';
   const app=parent.template.applications[0],{applicationRef,_kind,...rest}=app;

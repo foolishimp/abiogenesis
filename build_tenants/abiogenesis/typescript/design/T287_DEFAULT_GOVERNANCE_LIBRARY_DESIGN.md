@@ -1,9 +1,84 @@
 # T-287 Default Governance Library
 
+## Declared process prerequisites — 2026-11-11
+
+RC12 package P, `design_reframe` of this library HOW/contract under Product
+[Default Governance And Lifecycle Library](../../../../specification/PRODUCT.md#default-governance-and-lifecycle-library);
+requirements unchanged.
+
+**Path and outcome.** A consumer Program declares, through the library's graph
+construction, the reviews each registered purpose requires. The selector is
+offered only permitted work. A choice whose prerequisites do not hold is
+refused at binding or at the choice projection, before its wrapper is entered.
+A task that omits a review its Program names is refused at selection intake.
+Without a declaration every definition, digest, prompt, schema and binding is
+unchanged.
+
+**Typed handoffs.**
+- `defaultGovernanceGraphFunctions({ prerequisites })`: `{ [purpose]: reviewRef[] }`
+  over registered purposes other than `review`, each list non-empty and unique;
+  `review` must be registered. The executive step carries the canonical JSON as
+  `abg.default_library_prerequisites`, so the step digest, the Program and its
+  catalog row bind it. Wrappers and the parent are unchanged.
+- `FramedSynthesisTarget.requiredReviews`: present on every target exactly when
+  the step declares prerequisites. `governanceTarget` alone builds a target from
+  a wrapper definition, for the assembly and the projection.
+- Selector view `prerequisites` (present exactly with a declaration): per offered
+  target `{graphFunctionRef, purpose, requiredReviews, permitted, missingReviews}`
+  and one meaning sentence. `testingPrerequisites` reads the same relation.
+- Refusals keep their classes. Intake and projection use the existing
+  `missing-owned-<operation>` diagnostics: stage `selection_intake`, relation
+  `process_review_undeclared`, or stage `choice_projection`, relation
+  `target_not_permitted`, with the refs. The selector's binding exception
+  message names the next member and its missing reviews.
+
+**Declared computations.**
+- `governanceTargetPermission(task, target)` is the one permitted relation. It
+  returns `offered` (the review wrapper only with declared reviews) and
+  `permitted`: offered; for Testing every original selected path is an observed
+  file; each required review that the task declares as required has a row in
+  `state.reviewStanding`, as the parent computed it, satisfied and current. It
+  computes no currentness and names `missingSelectedPaths` and `missingReviews`;
+  a Program-named review the task does not declare is missing.
+- Readings: assembly choices and the contribution domain of binder and schema
+  use `offered`; the schema's next-member enum, the binder's next member and
+  `projectGovernanceChoice` use `permitted`. A non-permitted target stays
+  plannable as a contribution; `dependsOn` remains advisory.
+- `governancePrerequisitesUndeclared(original, prerequisites)` names the
+  Program's reviews the task does not declare; selection preparation, its result
+  match and the selector assembly refuse when it is non-empty. A review declared
+  with `required: false` is declared and never gates.
+- `projectGovernanceChoice` resolves the selector's admitted input task by its
+  ref and digest and applies the relation to the chosen target.
+
+**Invariants, effect and proof.** No admitted choice names a non-permitted
+target. A refused choice opens no wrapper call and causes no effect; the Run
+stops at the failed selection, as any failed selection does. No event kind,
+application, operation, binding, role, failure class or Public member is added;
+the declared `gate` application is not used. Proof:
+`t287-default-library-prerequisites.test.mjs` and the amendment witness.
+
+```mermaid
+sequenceDiagram
+  participant P as Parent
+  participant S as Executive step
+  participant B as Binder and projection
+  participant W as Wrapper
+  P->>S: state with review standing
+  S->>S: intake: every Program-named review declared
+  S->>B: proposed choice
+  B->>B: governanceTargetPermission(task, target)
+  alt permitted
+    B->>W: admitted registered choice
+  else not permitted
+    B-->>S: refusal before the wrapper; the Run stops
+  end
+```
+
 ## Declared framed reviews — 2026-11-11
 
-RC12 package A, `design_reframe` of this library HOW/contract under Product
-[Default Governance And Lifecycle Library](../../../../specification/PRODUCT.md#default-governance-and-lifecycle-library);
+RC12 packages A and A2, `design_reframe` of this library HOW/contract under
+Product [Default Governance And Lifecycle Library](../../../../specification/PRODUCT.md#default-governance-and-lifecycle-library);
 requirements unchanged.
 
 **Path and outcome.** A task declares its reviews. The Executive selects the
@@ -16,47 +91,61 @@ task without reviews keeps its states, prompts, response schema and digests.
 **Typed handoffs.**
 - `original.reviews` (exactOptional, non-empty): strict `{reviewRef, frame,
   required, order, assessment}`; `order` is the work-order shape with empty
-  `writeRoots`, `assessment` the `original.assessment` shape. `reviewRef` is
-  unique, each assessment keeps the distinct-roles rule and `workOrders` has no
-  `review` key.
+  `writeRoots`, `assessment` the `original.assessment` shape; unique
+  `reviewRef`, distinct assessment roles, no `review` key in `workOrders`.
+  `frame` states the evaluation family, its authority, its exclusions and the
+  return relation, or names an exact declared frame whose content is among the
+  review's sources. A label alone declares no frame.
 - Selector `reviewRef` (exactOptional): present exactly when reviews are
   declared; a declared ref when the next member is the review wrapper, else
-  null. The binder and the response schema, including its `anyOf` rows, enforce
-  it. Without declared reviews the review wrapper is no selectable target:
-  assembly choices, schema and binder apply `governanceTargetSelectable`; the
-  registered selection domain stays whole.
-- A `review` observation carries the assessment value and its `reviewRef`,
-  present exactly on `review` rows and naming a declared review.
+  null, enforced by binder and response schema (`anyOf` rows included).
+  Without declared reviews `governanceTargetSelectable` removes the wrapper
+  from assembly choices, schema and binder; the registered domain stays whole.
+- A `review` observation carries the assessment value and its declared
+  `reviewRef`, present exactly on `review` rows.
 - `reviewStanding` (exactOptional, present exactly with declared reviews): one
-  row per declared review in order, `{reviewRef, required, resultRef,
-  satisfied, current}`. Construction emits initial rows, folds carry the rows
-  unchanged and only the parent projection recomputes them.
+  `{reviewRef, required, resultRef, satisfied, current}` row per declared
+  review in order. Construction emits initial rows, folds carry them unchanged
+  and only the parent projection recomputes them.
+- Native work and assessment instructions carry non-empty `original.authorityRefs`
+  beside the conserved original task; an empty list adds no instruction.
 
 **Declared computations.**
 - `governanceAssessmentContract(state, purpose)` alone decides which assessment
   applies: `uat` takes `original.assessment`, `review` the declared review the
   current selection names. Review subject evidence is the UAT domain; review
-  preparation reuses the UAT producer, candidate, dependency and invalidation
-  checks.
+  preparation reuses the UAT producer, candidate and invalidation checks.
+- `governanceAssessmentDependencies(order, assessment)` alone owns the material
+  dependency set: the order's `readFirst` as declared, then each source,
+  candidate and rubric not already present; preparation binds exactly this set
+  as the task's `readFirst` and still refuses a duplicate declared `readFirst`.
+  The candidate is the subject, the rest its verdict's inputs. The admitted
+  Result records no reads, so review instructions admit only declared material.
 - `governanceVerdicts(state)`: acceptance is the latest `uat` row that only
   `review` rows follow; each review takes its latest row.
 - Parent: acceptance and each latest review row pass the existing
   authentication (admitted success Result, equal assessment value, CCall,
   actor, admitted source basis); a mismatch refuses the parent outcome.
-  Acceptance is uninvalidated over the read roots after its ordinal in this
-  Run; a review is current when admitted in this Run and uninvalidated over its
-  candidate, rubric and sources. `terminal` is acceptance, every required review
-  satisfied and current, and fulfillment coverage keyed to the acceptance row.
+  Acceptance is structural: any later work row other than a review retires it,
+  even one with no effect; it also needs this Run and no later admitted change
+  under its read roots. Review currentness is causal: a review admitted in this
+  Run stays current until an admitted change lies at or under a member of its
+  dependency set (read-roots form of `worksiteCommandSourcesInvalidatedAfter`).
+  `terminal` is acceptance, every required review satisfied and current, and
+  fulfillment coverage keyed to the acceptance row.
+- Invalidation interprets C0 replacements and failures and native and unknown
+  native effects. A C2 command Result's `worksiteDelta` is not a cause: it
+  describes the helper's sandbox, not the worksite.
 
-**Preserved invariants and effect.** `terminal` implies every required standing
+**Invariants, effect and proof.** `terminal` implies every required standing
 row is satisfied and current. Another Run's verdict is not current. A review
-fold writes no fulfillment fact. The fixed direct Testing/UAT route refuses
-declared reviews. Fulfillment response instructions stay UAT-only. No effect
-grant is added: a review has empty `writeRoots` under the read-only assessor.
-
-**Proof.** Unit atoms and b7cf409fc no-review digests, then one installed
-Public start with two required reviews of different frames and a scripted
-stand-in model (`t287-default-library-reviews.test.mjs`).
+fold writes no fulfillment fact; fulfillment response instructions stay
+UAT-only; the fixed direct Testing/UAT route refuses declared reviews. No
+effect grant is added: a review has empty `writeRoots`. Proof: unit atoms, the
+no-review digests, and two installed Public starts with two required reviews
+and a scripted stand-in model (`t287-default-library-reviews.test.mjs`); in
+the second, a Construction changes only one review's `readFirst` input, and
+that review alone goes stale and reruns.
 
 ```mermaid
 sequenceDiagram
