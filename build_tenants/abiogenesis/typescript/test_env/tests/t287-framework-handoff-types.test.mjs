@@ -97,15 +97,16 @@ function extract(archive, into) {
 }
 
 /** The candidate is an explicit packed archive, an explicit extracted package
- * root, or a fresh `npm pack --ignore-scripts` of the built tenant. */
+ * root, or a fresh Product pack of the built tenant through its own
+ * `scripts/product-payload.mjs pack` (packProduct). */
 function candidatePackage(t) {
   if (process.env.ABG_FRAMEWORK_HANDOFF_PACKAGE_ROOT !== undefined) return path.resolve(process.env.ABG_FRAMEWORK_HANDOFF_PACKAGE_ROOT);
   const root = scratch(t, 'abg-hc1-candidate-');
   let archive = process.env.ABG_FRAMEWORK_HANDOFF_PACKAGE_ARCHIVE;
   if (archive === undefined) {
     requireHc1Declarations(tenant);
-    const [packed] = JSON.parse(execFileSync('npm', ['pack', '--ignore-scripts', '--json', '--pack-destination', root],
-      {cwd: tenant, encoding: 'utf8', maxBuffer: 1 << 26}));
+    const [packed] = JSON.parse(execFileSync(process.execPath, [path.join(tenant, 'scripts/product-payload.mjs'), 'pack', root],
+      {encoding: 'utf8', maxBuffer: 1 << 26}));
     archive = path.join(root, packed.filename);
   }
   return extract(path.resolve(archive), path.join(root, 'extract'));
