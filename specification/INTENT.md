@@ -204,12 +204,13 @@ contract is bound before execution; full original Data Mapper and GLC Product
 delivery remain separately owned downstream beta work. The witness does not
 qualify or release the GLC Product.
 
-The supplied configuration implements the selected STDO release as the default
-experience. The method arrives ready as declared process, reference frames,
-evidence rules and completion conditions; a project supplies its bindings; a
-task supplies its amendment. The configuration determines the applicable work
-and evidence for each amendment and does not force every amendment through every
-stage or reviewer. A GTL Program remains free to declare another method.
+ABIogenesis supplies a configuration that implements the selected STDO release
+out of the box. A Program adopts it explicitly. The method arrives ready as
+declared process, reference frames, evidence rules and completion conditions; a
+project supplies its bindings; a task supplies its amendment. The configuration
+determines the applicable work and evidence for each amendment and does not
+force every amendment through every stage or reviewer. A GTL Program remains
+free to declare another method.
 
 ## Established Directional Constraints
 
