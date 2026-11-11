@@ -723,6 +723,12 @@ test("GC03 real owner allowed denied cold tamper", { timeout: 1_800_000 }, async
     return;
   }
   assert.equal(method.uri, GC03_RECIPE.methodRelease, "stdo resolves the recipe's method release");
+  // The recipe's native profile admits only its own method basis; a Product
+  // definition on another STDO basis has no GC03 profile, and the lane skips.
+  if (basis.uri !== GC03_RECIPE.methodRelease) {
+    t.skip(`gate gc03-native-profile-basis: the Product definition's STDO basis is ${basis.uri}; the recipe's native profile ${GC03_RECIPE.profile} requires ${GC03_RECIPE.methodRelease}`);
+    return;
+  }
   const methodRoot = realpathSync(method.path);
   const original = path => ({ path, digest: "sha256:" + selection.seedFiles[path].sha256 });
   const task = original("source/original-basic-cli.txt"), rubric = original("source/basic-cli.oracle.json");
