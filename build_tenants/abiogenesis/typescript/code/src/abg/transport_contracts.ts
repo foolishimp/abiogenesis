@@ -1,9 +1,10 @@
 import type { SpawnOptionsWithoutStdio } from "node:child_process";
 import { lstatSync, realpathSync } from "node:fs";
-import { isAbsolute, relative, resolve } from "node:path";
+import { resolve } from "node:path";
 
 import { deepFreeze } from "../shared/immutable.js";
 import { hasExactKeys } from "../shared/admit/index.js";
+import { pathRelation, pathWithin } from "../shared/path_confinement.js";
 import type { JsonValue } from "../shared/canonical_json.js";
 import { sha256Bytes, sha256Canonical, type Sha256Digest } from "../shared/digests.js";
 import type { VerifiedProbabilisticResultContractPreimage } from "../implementation/contracts.js";
@@ -574,8 +575,7 @@ export function sanitizeWorkerTransportEnvironment(
 export function isAdmittedActorArchiveFile(archiveRoot: unknown, path: unknown): path is string {
   if (typeof archiveRoot !== "string" || typeof path !== "string") return false;
   try {
-    if (resolve(path) !== path || realpathSync(path) !== path || relative(archiveRoot, path).startsWith("..") ||
-      isAbsolute(relative(archiveRoot, path))) return false;
+    if (resolve(path) !== path || realpathSync(path) !== path || !pathWithin(pathRelation(archiveRoot, path))) return false;
     const stat = lstatSync(path);
     return stat.isFile() && !stat.isSymbolicLink() && stat.nlink === 1;
   } catch { return false; }

@@ -9,6 +9,7 @@ import { runEffectProgram } from "../shared/effect_definition.js";
 import { createMonotonicDeadline, createOwnedProcessLifetime, type OwnedProcessFacts } from "../shared/owned_process_lifetime.js";
 import { classifyOwnedProcessTerminal, encodeOwnedProcessFacts } from "../shared/process/index.js";
 import { hasExactKeys as exactKeys } from "../shared/admission_predicates.js";
+import { classifyPathRelation, pathRelation, pathStrictlyWithin, pathWithin } from "../shared/path_confinement.js";
 import { WORKSITE_REVISION_IDS } from "../product/worksite_revision.js";
 import { WORKSITE_COMMAND_FORWARD_IDS } from "../product/worksite_command_forward_identity.js";
 import { isExecutableWorksiteCommandTask as isWorksiteExecutionTask,
@@ -251,7 +252,7 @@ function record(value: JsonValue | undefined): Readonly<Record<string, JsonValue
 function contained(root: string, relativePath: string): string {
   const absolute = resolve(root, ...relativePath.replaceAll("\\", "/").split("/"));
   const fromRoot = relative(root, absolute);
-  if (fromRoot === ".." || fromRoot.startsWith(`..${sep}`) || resolve(root, fromRoot) !== absolute) {
+  if (!pathWithin(classifyPathRelation(fromRoot)) || resolve(root, fromRoot) !== absolute) {
     throw new TypeError("relative path escapes its declared root");
   }
   return absolute;
@@ -304,8 +305,7 @@ async function canonicalExistingPathWithinRoot(
     throw new TypeError("helper launch path must be absolute and lexical-canonical");
   }
   const fromRoot = relative(declaredRootValue, candidateValue);
-  if (fromRoot === "" || fromRoot === ".." || fromRoot.startsWith(`..${sep}`) ||
-    isAbsolute(fromRoot)) {
+  if (!pathStrictlyWithin(classifyPathRelation(fromRoot))) {
     throw new TypeError("helper launch path escapes its declared root");
   }
   const rootStatus = await lstat(declaredRootValue);
@@ -344,12 +344,6 @@ async function requireAbsent(path: string, label: string): Promise<void> {
     throw error;
   }
   throw new TypeError(`${label} must be absent before helper execution`);
-}
-
-function containsAbsolutePath(root: string, candidate: string): boolean {
-  const relation = relative(root, candidate);
-  return relation === "" || (!relation.startsWith(`..${sep}`) &&
-    relation !== ".." && !isAbsolute(relation));
 }
 
 async function plannedCanonicalDirectoryPath(path: string): Promise<string> {
@@ -391,8 +385,8 @@ async function assertLaunchArchiveBoundary(
     "projectionRoot",
   ]) {
     const otherRoot = canonicalRoots.get(name);
-    if (otherRoot === undefined || containsAbsolutePath(archiveRoot, otherRoot) ||
-      containsAbsolutePath(otherRoot, archiveRoot)) {
+    if (otherRoot === undefined || pathWithin(pathRelation(archiveRoot, otherRoot)) ||
+      pathWithin(pathRelation(otherRoot, archiveRoot))) {
       throw new TypeError("command execution archive root overlaps a protected workspace root");
     }
   }

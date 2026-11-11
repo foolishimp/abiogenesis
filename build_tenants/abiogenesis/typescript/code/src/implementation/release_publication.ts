@@ -3,9 +3,10 @@ import type { ReferenceDigest } from "../shared/public_invocation.js";
 import { execFile } from "node:child_process";
 import { promisify } from "node:util";
 import { readFile,writeFile,mkdir,readdir,realpath,lstat } from "node:fs/promises";
-import { resolve,relative,isAbsolute,basename,join,dirname } from "node:path";
+import { resolve,isAbsolute,basename,join,dirname } from "node:path";
 import { pathToFileURL } from "node:url";
 import { canonicalJson,type JsonValue } from "../shared/canonical_json.js";
+import { pathRelation,pathStrictlyWithin } from "../shared/path_confinement.js";
 import { sha256Bytes,sha256Canonical } from "../shared/digests.js";
 import { qualificationIdentityDigest, QUALIFICATION_VERIFICATION_MATERIAL_SCHEMA, type ExactCandidateQualification } from "../validator/qualification_contracts.js";
 import { releaseAcceptanceRequest, releaseOwnerRulingCoordinate, resolveReleaseOwnerRuling, type ReleaseOwnerRuling } from "../product/release_acceptance.js";
@@ -34,7 +35,7 @@ export function releaseVerificationSnapshotFields(qualification: ExactCandidateQ
  return {verificationFacts:qualification,verificationMaterial:material,assessmentCitation:qualification.selfConformance};
 }
 function requireRelation(value:unknown,message:string):asserts value{if(!value)throw new TypeError(message);}
-function inside(root:string,path:string){const rel=relative(root,path);return rel!==""&&!isAbsolute(rel)&&rel!==".."&&!rel.startsWith("../");}
+function inside(root:string,path:string){return pathStrictlyWithin(pathRelation(root,path));}
 function safeRelative(path:string){return path!==""&&!isAbsolute(path)&&!path.split(/[\\/]/).some(p=>p===".."||p===".")&&!path.includes("\0");}
 async function git(root:string,args:string[],input?:string){
  if(input===undefined)return (await exec("git",["-C",root,...args],{encoding:"utf8",maxBuffer:4*1024*1024})).stdout.trim();

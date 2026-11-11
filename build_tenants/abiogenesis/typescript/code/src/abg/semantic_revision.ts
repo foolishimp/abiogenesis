@@ -13,6 +13,7 @@ import { isWorksitePreparationInput, rederiveWorksiteCommandTask } from "../prod
 import { selectedSemanticPredecessor } from "./semantic_stage.js";
 import type { JsonValue } from "../shared/canonical_json.js";
 import { sha256Canonical, sha256Bytes } from "../shared/digests.js";
+import { pathRelation, pathStrictlyWithin } from "../shared/path_confinement.js";
 import { deepFreeze } from "../shared/immutable.js";
 import { SEMANTIC_REVISION_IDS as ids } from "../gtl/semantic_revision_identity.js";
 import { SEMANTIC_STAGE_IDS } from "../gtl/semantic_stage_identity.js";
@@ -30,7 +31,7 @@ import { materializeGraph } from "../gtl/materialize.js";
 import { rehydrateInvocationAdmissionAtPrefix } from "./invocation_admission.js";
 import { projectExactPrefixWorkspaceEnvironment } from "./environment_admission.js";
 import { readFileSync, lstatSync, realpathSync } from "node:fs";
-import { resolve, relative, isAbsolute } from "node:path";
+import { resolve } from "node:path";
 import { authenticateOwnedSemanticJobBasis, semanticJobRootAtPrefix, semanticJobConstructionSourceAtPrefix } from "./semantic_job.js";
 import { projectWorksiteRevisionNativeResult } from "./worksite_revision.js";
 import { isSemanticJobEnvelope, deriveSemanticJobPreparation, deriveSemanticJobReadDependencies, projectSemanticJobBindings } from "../product/semantic_job.js";
@@ -961,8 +962,8 @@ export function projectRevisionEvidenceInput(basis: SemanticStageNativeBasis, in
     const root = input.provenance.helperPlan.sandboxRoot;
     if (resolve(root) !== root || realpathSync(root) !== root || lstatSync(root).isSymbolicLink()) return null;
     const artifacts = input.snapshotMembers.map(member => {
-      const path = resolve(root, member.relativePath), rel = relative(root, path);
-      if (!rel || rel.startsWith("..") || isAbsolute(rel) || realpathSync(path) !== path) throw new TypeError("snapshot crossed native locus");
+      const path = resolve(root, member.relativePath);
+      if (!pathStrictlyWithin(pathRelation(root, path)) || realpathSync(path) !== path) throw new TypeError("snapshot crossed native locus");
       const stat = lstatSync(path), bytes = readFileSync(path);
       if (!stat.isFile() || stat.isSymbolicLink() || stat.nlink !== 1 || bytes.length !== member.byteLength || sha256Bytes(bytes) !== member.digest) throw new TypeError("snapshot differs from admitted C2");
       const source = input.task.snapshotSources[member.ordinal];

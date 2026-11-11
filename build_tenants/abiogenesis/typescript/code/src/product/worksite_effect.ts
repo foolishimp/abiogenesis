@@ -1,6 +1,6 @@
 import { isRecord, hasExactKeys, isNonblankNulFreeString as nonEmptyString } from "../shared/admission_predicates.js";
 import { admitJson } from "../shared/admit/index.js";
-import { isAbsolute, posix, relative, resolve, win32 } from "node:path";
+import { isAbsolute, posix, resolve, win32 } from "node:path";
 import { pathToFileURL } from "node:url";
 
 import {
@@ -31,6 +31,7 @@ import {
   type CapabilityGrant,
 } from "./invocation.js";
 import { canonicalEquals } from "../shared/value/index.js";
+import { pathRelation, pathWithin } from "../shared/path_confinement.js";
 
 export const WORKSITE_FILE_REPLACE_EFFECT_URI =
   "effect://abiogenesis/worksite/file.replace/v1" as const;
@@ -446,12 +447,6 @@ function identity(prefix: string, digest: Sha256Digest): string {
   return `${prefix}/${digest.slice("sha256:".length)}`;
 }
 
-function containsPath(root: string, candidate: string): boolean {
-  const relation = relative(resolve(root), resolve(candidate));
-  return relation === "" ||
-    (!isAbsolute(relation) && relation !== ".." && !relation.startsWith("../"));
-}
-
 function protectedWorksitePath(
   authority: WorkspaceAuthorityBasis,
   workspace: WorkspaceBinding,
@@ -459,7 +454,7 @@ function protectedWorksitePath(
 ): boolean {
   const candidate = resolve(authority.canonicalRoot, ...relativePath.split("/"));
   return Object.values(workspace.roots).some((root) =>
-    containsPath(root, candidate)
+    pathWithin(pathRelation(root, candidate))
   );
 }
 
@@ -473,7 +468,7 @@ export function protectedWorksiteWriteRoot(
 ): boolean {
   const candidate = resolve(authority.canonicalRoot, ...relativeRoot.split("/"));
   return protectedWorksitePath(authority, workspace, relativeRoot) ||
-    Object.values(workspace.roots).some((root) => containsPath(candidate, root));
+    Object.values(workspace.roots).some((root) => pathWithin(pathRelation(candidate, root)));
 }
 
 function exactExecutionBasis(value: ExecutionBasis): boolean {
