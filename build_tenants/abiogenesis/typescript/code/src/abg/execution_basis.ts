@@ -9,7 +9,7 @@ import { types } from "node:util";
 import { hasOwnedDeclarationLookups } from "../implementation/leaf_invocation_port.js";
 import type { LeafInvocationPort } from "../implementation/contracts.js";
 import { rehydrateConstructionIntentForCursorAtPrefix } from "./traversal_route.js";
-import { admittedInstallLocksAnswerStrict, projectOwnedPrefixArtifactTruth, runtimePrefixFromOwnedArtifactTruth } from "./artifact_truth.js";
+import { projectOwnedPrefixArtifactTruth, runtimePrefixFromOwnedArtifactTruth } from "./artifact_truth.js";
 import { WORKSITE_REVISION_IDS, isWorksiteExecutionTask, worksiteExecutionImplementationRef } from "../product/worksite_revision.js";
 import { runtimeEventPrefixDigest, validatedRuntimeEventPrefixBeforeEvent } from "./event_prefix.js";
 import { worksiteExecutionSourcesCurrent, worksiteRevisionEntryBindingDisposition } from "./worksite_revision.js";
@@ -589,16 +589,13 @@ function exactWorksiteEnvironmentAtPrefix(
   prefix: DurablePrefixCoordinate,
   carrier: WorksiteAuthorityCarrier,
 ): ExactPrefixWorkspaceEnvironment | null {
+  // Strict: every caller admits work over the carrier's environment, whose
+  // binding need not be the invocation's.
   const environment = projectExactPrefixWorkspaceEnvironment(prefix, {
     ref: carrier.workspaceBindingId,
     digest: carrier.workspaceBindingDigest,
   });
   if (environment.kind !== "exact_prefix_workspace_environment" ||
-    // Every caller admits work over the carrier's environment, whose binding
-    // need not be the invocation's: its lock must be one the fold established
-    // with the strict question.
-    !admittedInstallLocksAnswerStrict(environment.artifactTruth,
-      environment.productInstalls.map((install) => install.admissionEventRef)) ||
     !canonicalEquals(
       environment.workspaceAuthorityBasis,
       carrier.workspaceAuthorityBasis,
@@ -1657,7 +1654,14 @@ export function admitExecutionBasis(
       [diagnosticRef],
       basis,
     );
-  if (!hasAdmittedInvocationAtPrefix(authorityPrefix, input.invocationAdmission)) {
+  // Strict: a root basis runs over the workspace environment its invocation
+  // names, asked here with the strict question; an invocation over a
+  // recorded-only environment is not admitted for work.
+  if (!hasAdmittedInvocationAtPrefix(authorityPrefix, input.invocationAdmission) ||
+    projectExactPrefixWorkspaceEnvironment(predecessorPrefix, {
+      ref: input.invocationAdmission.workspaceBindingId,
+      digest: input.invocationAdmission.workspaceBindingDigest,
+    }).kind !== "exact_prefix_workspace_environment") {
     throw new TypeError("ExecutionBasis requires one exact admitted invocation");
   }
   const rawInputValue = detachJsonRecord(input.rawInputValue);
@@ -2380,6 +2384,13 @@ function admitChildExecutionBasisUsing(
   const current = (() => {
     try {
       const authorityPrefix = readCurrent();
+      // Strict: a child basis continues work over its parent's workspace
+      // environment, asked here with the strict question; a parent over a
+      // recorded-only environment is not a current parent for work.
+      if (projectExactPrefixWorkspaceEnvironment(predecessorPrefix, {
+        ref: input.parentExecutionBasis.workspaceBindingId,
+        digest: input.parentExecutionBasis.workspaceBindingDigest,
+      }).kind !== "exact_prefix_workspace_environment") return null;
       const expectedStorePrefixDigest = runtimeEventPrefixDigest(authorityPrefix);
       if (store.digest() !== expectedStorePrefixDigest) return null;
       const runPrefix = selectRuntimeEventPrefixFromAuthority(authorityPrefix, { runId: input.parentTraversalScope.runId });

@@ -19,7 +19,7 @@ import {
   projectWorkspaceEnvironmentFromArtifactTruth,
   type ExactPrefixWorkspaceEnvironment,
 } from "../abg/environment_admission.js";
-import { admittedInstallLocksAnswerStrict, projectOwnedPrefixArtifactTruth } from "../abg/artifact_truth.js";
+import { projectOwnedPrefixArtifactTruth } from "../abg/artifact_truth.js";
 import { assertDurableRuntimePrefixCurrent, assertHeldEventStoreAtDurablePrefix, captureDurablePrefixCoordinate, validateDurablePrefixCoordinate, type DurablePrefixCoordinate } from "../abg/event_store.js";
 import { isVerifiedProductArtifact, selectOwnedProductVerification, verifyProduct } from "./verify_product.js";
 import { constructAdmissionCapabilityGrants, type CapabilityGrant } from "./invocation.js";
@@ -300,6 +300,8 @@ function observePrefixEnvironment(
   requireCurrent: boolean,
 ) {
   const artifactTruth = projectOwnedPrefixArtifactTruth(prefix);
+  // Strict: an environment whose lock answers only the recorded question is
+  // refused here, so every admission over it is ENVIRONMENT_UNADMITTED.
   const environment = artifactTruth.kind === "exact_prefix_artifact_truth_projection"
     ? projectWorkspaceEnvironmentFromArtifactTruth(artifactTruth, workspaceBinding)
     : null;
@@ -309,17 +311,12 @@ function observePrefixEnvironment(
   return { artifactTruth, environment };
 }
 
-/** Deterministic check over the prefix observation. The environment's lock
- * comes from the fold's facts and must be one the fold established with the
- * strict question; a lock that answers only the recorded question is readable
- * history and admits no work. */
+/** Deterministic check over the prefix observation. */
 function checkPrefixEnvironment(
   observed: ReturnType<typeof observePrefixEnvironment>,
 ): Outcome<ExactPrefixWorkspaceEnvironment> {
   if (observed.artifactTruth.kind !== "exact_prefix_artifact_truth_projection") return ARTIFACT_TRUTH_UNAUTHENTICATED;
-  if (observed.environment?.kind !== "exact_prefix_workspace_environment" ||
-      !admittedInstallLocksAnswerStrict(observed.artifactTruth,
-        observed.environment.productInstalls.map((install) => install.admissionEventRef))) return ENVIRONMENT_UNADMITTED;
+  if (observed.environment?.kind !== "exact_prefix_workspace_environment") return ENVIRONMENT_UNADMITTED;
   return ok(observed.environment);
 }
 

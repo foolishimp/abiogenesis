@@ -25,7 +25,7 @@ import { runtimeEventBodiesAtPrefix, validatedRuntimeEventPrefixBeforeEvent, typ
 import { projectExactExecutionBasisAtPrefix, projectExactInvocationAdmissionAtPrefix } from "./invocation_execution_truth.js";
 import { rehydrateAdmittedImplementationSetAtPrefix } from "./execution_basis.js";
 import { projectAdmittedCCallStateAtPrefix, type RehydratedAdmittedCCallState } from "./c_call.js";
-import { projectArtifactTruth } from "./artifact_truth.js";
+import { admittedInstallLocksAnswerStrictAtPrefix, projectArtifactTruth, type ArtifactTruthRow } from "./artifact_truth.js";
 import { validatePublicOperationBasis } from "./environment_admission.js";
 import { WITNESS_CONTENT_CONTRACTS } from "./witness_admission_operation.js";
 import { SEMANTIC_REVISION_IDS } from "../gtl/semantic_revision_identity.js";
@@ -104,12 +104,21 @@ export function projectWorksiteRevisionNativeResult(prefix: RuntimeEventPrefix,
   } catch { return null; }
 }
 
+/** The one exact admitted binding row of the fold that `match` selects, asked
+ * the strict question: its causal installs' locks must answer it. Every reader
+ * of a binding row in this module selects it here; each feeds revision work. */
+function admittedBindingRow(prefix: RuntimeEventPrefix, match: (row: ArtifactTruthRow) => boolean): ArtifactTruthRow | null {
+  const row = exactOrNull(resolveExactMatch(projectArtifactTruth(prefix).artifacts,
+    r => r.operationId === "abg.operation.workspace.bind" && match(r)));
+  return row !== null && admittedInstallLocksAnswerStrictAtPrefix(prefix, row.causationEventRefs) ? row : null;
+}
+
 /** Artifact truth already reconstructs and validates the causal installs,
  * lock, ProductSet, A and W. This is an exact coordinate selection of it. */
 function nativeBinding(prefix: RuntimeEventPrefix, binding: WorkspaceBinding) {
-  const row = exactOrNull(resolveExactMatch(projectArtifactTruth(prefix).artifacts, r => r.operationId === "abg.operation.workspace.bind" &&
+  const row = admittedBindingRow(prefix, r =>
     r.authorityScopeRef === binding.bindingId && r.authorityScopeDigest === binding.bindingDigest &&
-    r.admissionEventRef === binding.admissionEventRef));
+    r.admissionEventRef === binding.admissionEventRef);
   if (row === null || !record(row.artifact) || !record(row.workspaceAuthorityBasis)) return null;
   const {kind: _kind,...body} = row.artifact;
   return canonicalEquals({kind:"workspace_binding",...body,admissionEventRef:row.admissionEventRef}, binding)
@@ -119,8 +128,7 @@ export function projectAdmittedWorkspaceBindingAtCoordinate(prefix:ValidatedRunt
 /** @internal */
 export function projectAdmittedWorkspaceBindingAtCoordinate(prefix:RuntimeEventPrefix,ref:string,digest:string):WorkspaceBinding|null;
 export function projectAdmittedWorkspaceBindingAtCoordinate(prefix:RuntimeEventPrefix,ref:string,digest:string):WorkspaceBinding|null {
-  const row=exactOrNull(resolveExactMatch(projectArtifactTruth(prefix).artifacts,r=>r.operationId==="abg.operation.workspace.bind"&&
-    r.authorityScopeRef===ref&&r.authorityScopeDigest===digest));
+  const row=admittedBindingRow(prefix,r=>r.authorityScopeRef===ref&&r.authorityScopeDigest===digest);
   if(row===null||!record(row.artifact))return null;
   const {kind:_kind,...body}=row.artifact;
   return {kind:"workspace_binding",...body,admissionEventRef:row.admissionEventRef} as unknown as WorkspaceBinding;
@@ -324,9 +332,8 @@ function observationPhysicalEqual(a:WorksiteObservation,b:WorksiteObservation):b
 function samePhysicalSubject(prefix:RuntimeEventPrefix,a:WorksiteSubject,b:WorksiteSubject):boolean {
   if(a.relativePath!==b.relativePath||a.subjectUri!==b.subjectUri)return false;
   if(a.workspaceBindingIdentity===b.workspaceBindingIdentity&&a.workspaceBindingDigest===b.workspaceBindingDigest)return true;
-  const truth=projectArtifactTruth(prefix).artifacts;
-  const authority=(subject:WorksiteSubject)=>exactOrNull(resolveExactMatch(truth,r=>r.operationId==="abg.operation.workspace.bind"&&
-    r.authorityScopeRef===subject.workspaceBindingIdentity&&r.authorityScopeDigest===subject.workspaceBindingDigest))?.workspaceAuthorityBasis;
+  const authority=(subject:WorksiteSubject)=>admittedBindingRow(prefix,r=>
+    r.authorityScopeRef===subject.workspaceBindingIdentity&&r.authorityScopeDigest===subject.workspaceBindingDigest)?.workspaceAuthorityBasis;
   const left=authority(a),right=authority(b);
   return left!==undefined&&right!==undefined&&canonicalEquals(left, right);
 }
@@ -335,8 +342,8 @@ function samePhysicalSubject(prefix:RuntimeEventPrefix,a:WorksiteSubject,b:Works
 function invalidatedAcrossBindings(prefix:RuntimeEventPrefix,subject:WorksiteSubject,ordinal:number):boolean {
   // Authority identity still owns provenance transfer in samePhysicalSubject.
   // Physical invalidation resolves the admitted root and exact path only.
-  const binding = exactOrNull(resolveExactMatch(projectArtifactTruth(prefix).artifacts, row => row.operationId === "abg.operation.workspace.bind" &&
-    row.authorityScopeRef === subject.workspaceBindingIdentity && row.authorityScopeDigest === subject.workspaceBindingDigest));
+  const binding = admittedBindingRow(prefix, row =>
+    row.authorityScopeRef === subject.workspaceBindingIdentity && row.authorityScopeDigest === subject.workspaceBindingDigest);
   const authority = binding?.workspaceAuthorityBasis;
   const root = record(authority) ? authority.canonicalRoot : undefined;
   return typeof root !== "string" || worksiteCommandSourcesInvalidatedAfter(prefix, ordinal, root, [subject.relativePath]);

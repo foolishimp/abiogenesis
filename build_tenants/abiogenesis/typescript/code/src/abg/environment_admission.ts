@@ -17,6 +17,7 @@ import {
   isProductInstallCandidateInResolvedLock,
   isWorkspaceBindingCandidateInResolvedLock,
 } from "../product/environment.js";
+import type { ProductTruthQuestion } from "../shared/capability_contracts.js";
 import { canonicalJson, type JsonValue } from "../shared/canonical_json.js";
 import type { ReferenceDigest } from "../shared/public_invocation.js";
 import {
@@ -34,7 +35,7 @@ import {
   runtimePrefixFromOwnedArtifactTruth,
   prepareArtifactTruthCandidate,
   admittedInstallLocksAnswerStrict,
-  validateArtifactTruthProjectionValue,
+  ownedArtifactTruth,
   type AdmittedArtifactTruth,
   type ExactPrefixArtifactTruthProjection,
   type ExactPrefixArtifactTruthProjectionRefusal,
@@ -190,6 +191,19 @@ function artifactMemberKey(
   return operationId === "abg.operation.product.install" ? "install" : "bind";
 }
 
+/** The strict question (any value other than `recorded`) requires the fold's
+ * retained strict answer for every named install of the owner's projection;
+ * the recorded question accepts the admitted rows as recorded. */
+function installLocksAnswer(
+  owner: ExactPrefixArtifactTruthProjection,
+  installAdmissionEventRefs: readonly string[],
+  question: ProductTruthQuestion | undefined,
+): boolean {
+  return question === "recorded" || admittedInstallLocksAnswerStrict(owner, installAdmissionEventRefs);
+}
+
+/** The exact row of the owner's projection that `projection` is, with that
+ * owner (a copy is validated once and answered by the owner it equals). */
 function selectExactArtifactTruthRow(
   projection: ExactPrefixArtifactTruthProjection,
   identity: Readonly<{
@@ -201,9 +215,10 @@ function selectExactArtifactTruthRow(
     invocationRef?: string;
     admissionEventRef?: string;
   }>,
-): AdmittedArtifactTruth | null {
-  if (!validateArtifactTruthProjectionValue(projection)) return null;
-  return selectArtifactTruthRow(projection.rows, identity);
+): Readonly<{ owner: ExactPrefixArtifactTruthProjection; row: AdmittedArtifactTruth }> | null {
+  const owner = ownedArtifactTruth(projection);
+  const row = owner === null ? null : selectArtifactTruthRow(owner.rows, identity);
+  return row === null ? null : { owner: owner!, row };
 }
 
 // Pure row relations below consume the immutable owner projection selected at
@@ -228,20 +243,6 @@ function selectArtifactTruthRow(
   return exact && (identity.admissionEventRef === undefined ||
       row.admissionEventRef === identity.admissionEventRef
     ) ? row : null;
-}
-
-function selectExactArtifactTruthRowByInvocation(
-  projection: ExactPrefixArtifactTruthProjection,
-  operationId:
-    | "abg.operation.product.install"
-    | "abg.operation.workspace.bind",
-  invocationRef: string,
-): AdmittedArtifactTruth | null {
-  if (
-    !validateArtifactTruthProjectionValue(projection) ||
-    invocationRef.length === 0
-  ) return null;
-  return selectArtifactTruthRowByInvocation(projection.rows, operationId, invocationRef);
 }
 
 function selectArtifactTruthRowByInvocation(
@@ -275,12 +276,15 @@ export interface RehydratedWorkspaceBindingTruth {
   readonly invocationRef: string;
 }
 
+/** The install row of the owner's projection, rehydrated, under the caller's
+ * question: strict unless the caller states `recorded`. */
 function rehydrateProductInstallRow(
-  projection: ExactPrefixArtifactTruthProjection,
+  owner: ExactPrefixArtifactTruthProjection,
   row: AdmittedArtifactTruth,
+  question: ProductTruthQuestion | undefined,
 ): RehydratedProductInstallTruth | null {
-  if (!validateArtifactTruthProjectionValue(projection)) return null;
-  return rehydrateProductInstallRowFromRows(projection.rows, row);
+  if (!installLocksAnswer(owner, [row.admissionEventRef], question)) return null;
+  return rehydrateProductInstallRowFromRows(owner.rows, row);
 }
 
 function rehydrateProductInstallRowFromRows(
@@ -320,33 +324,49 @@ function rehydrateProductInstallRowFromRows(
   });
 }
 
+// Each accessor below hands out an admitted install, binding or environment
+// from artifact truth. Its exported signature asks the strict question: a fact
+// whose install lock answers only the recorded question is answered as not
+// admitted (null, false or the existing refusal). An accessor that a read of
+// recorded history calls has an internal overload that takes the question; a
+// call site states `recorded` only for such a read.
 export function projectAdmittedProductInstallByInvocationRef(
   projection: ExactPrefixArtifactTruthProjection,
   invocationRef: string,
 ): RehydratedProductInstallTruth | null {
-  const row = selectExactArtifactTruthRowByInvocation(
-    projection,
+  const owner = ownedArtifactTruth(projection);
+  const row = owner === null ? null : selectArtifactTruthRowByInvocation(
+    owner.rows,
     "abg.operation.product.install",
     invocationRef,
   );
-  return row === null ? null : rehydrateProductInstallRow(projection, row);
+  return row === null ? null : rehydrateProductInstallRow(owner!, row, "strict");
 }
 
 export function projectAdmittedProductInstallByAdmissionEventRef(
   projection: ExactPrefixArtifactTruthProjection,
   admissionEventRef: string,
+): RehydratedProductInstallTruth | null;
+/** @internal */
+export function projectAdmittedProductInstallByAdmissionEventRef(
+  projection: ExactPrefixArtifactTruthProjection,
+  admissionEventRef: string,
+  question: ProductTruthQuestion,
+): RehydratedProductInstallTruth | null;
+export function projectAdmittedProductInstallByAdmissionEventRef(
+  projection: ExactPrefixArtifactTruthProjection,
+  admissionEventRef: string,
+  question?: ProductTruthQuestion,
 ): RehydratedProductInstallTruth | null {
-  if (
-    !validateArtifactTruthProjectionValue(projection) ||
-    admissionEventRef.length === 0
-  ) return null;
-  const matches = projection.rows.filter((row) =>
+  const owner = admissionEventRef.length === 0 ? null : ownedArtifactTruth(projection);
+  if (owner === null) return null;
+  const matches = owner.rows.filter((row) =>
     row.operationId === "abg.operation.product.install" &&
     row.admissionEventRef === admissionEventRef
   );
   const match = onlyExactMatch(matches);
   return match.kind === "one"
-    ? rehydrateProductInstallRow(projection, match.value)
+    ? rehydrateProductInstallRow(owner, match.value, question)
     : null;
 }
 
@@ -354,21 +374,33 @@ export function projectAdmittedWorkspaceProductInstall(
   projection: ExactPrefixArtifactTruthProjection,
   workspaceBindingId: string,
   installId: string,
+): RehydratedProductInstallTruth | null;
+/** @internal */
+export function projectAdmittedWorkspaceProductInstall(
+  projection: ExactPrefixArtifactTruthProjection,
+  workspaceBindingId: string,
+  installId: string,
+  question: ProductTruthQuestion,
+): RehydratedProductInstallTruth | null;
+export function projectAdmittedWorkspaceProductInstall(
+  projection: ExactPrefixArtifactTruthProjection,
+  workspaceBindingId: string,
+  installId: string,
+  question?: ProductTruthQuestion,
 ): RehydratedProductInstallTruth | null {
-  if (
-    !validateArtifactTruthProjectionValue(projection) ||
-    workspaceBindingId.length === 0 ||
-    installId.length === 0
-  ) return null;
-  const installRows = projection.rows.filter((row) =>
+  const owner = workspaceBindingId.length === 0 || installId.length === 0
+    ? null
+    : ownedArtifactTruth(projection);
+  if (owner === null) return null;
+  const installRows = owner.rows.filter((row) =>
     row.operationId === "abg.operation.product.install" &&
     row.authorityScopeRef === installId &&
     row.artifactRef === installId
   );
   if (installRows.length !== 1) return null;
-  const install = rehydrateProductInstallRow(projection, installRows[0]!);
+  const install = rehydrateProductInstallRow(owner, installRows[0]!, question);
   if (install === null) return null;
-  const workspaceRows = projection.rows.filter((row) =>
+  const workspaceRows = owner.rows.filter((row) =>
     row.operationId === "abg.operation.workspace.bind" &&
     row.authorityScopeRef === workspaceBindingId &&
     row.artifactRef === workspaceBindingId &&
@@ -382,13 +414,16 @@ export function projectAdmittedWorkspaceBindingByInvocationRef(
   invocationRef: string,
   resolvedLock: ResolvedProductLock,
 ): RehydratedWorkspaceBindingTruth | null {
-  const row = selectExactArtifactTruthRowByInvocation(
-    projection,
+  const owner = ownedArtifactTruth(projection);
+  if (owner === null) return null;
+  const row = selectArtifactTruthRowByInvocation(
+    owner.rows,
     "abg.operation.workspace.bind",
     invocationRef,
   );
-  if (!validateArtifactTruthProjectionValue(projection)) return null;
-  return rehydrateWorkspaceBindingRow(projection.rows, row, invocationRef, resolvedLock);
+  return row === null || !admittedInstallLocksAnswerStrict(owner, row.causationEventRefs)
+    ? null
+    : rehydrateWorkspaceBindingRow(owner.rows, row, invocationRef, resolvedLock);
 }
 
 function rehydrateWorkspaceBindingRow(
@@ -489,6 +524,18 @@ function exactPrefixEnvironmentRefusal(
 export function projectExactPrefixWorkspaceEnvironment(
   prefix: DurablePrefixCoordinate,
   workspaceBindingCoordinate: ReferenceDigest<WorkspaceBinding>,
+): ExactPrefixWorkspaceEnvironmentProjectionResult;
+/** @internal The environment under the caller's question: strict unless the
+ * caller states `recorded`. */
+export function projectExactPrefixWorkspaceEnvironment(
+  prefix: DurablePrefixCoordinate,
+  workspaceBindingCoordinate: ReferenceDigest<WorkspaceBinding>,
+  question: ProductTruthQuestion,
+): ExactPrefixWorkspaceEnvironmentProjectionResult;
+export function projectExactPrefixWorkspaceEnvironment(
+  prefix: DurablePrefixCoordinate,
+  workspaceBindingCoordinate: ReferenceDigest<WorkspaceBinding>,
+  question?: ProductTruthQuestion,
 ): ExactPrefixWorkspaceEnvironmentProjectionResult {
   const artifactTruth = projectOwnedPrefixArtifactTruth(prefix);
   if (artifactTruth.kind !== "exact_prefix_artifact_truth_projection") {
@@ -498,15 +545,30 @@ export function projectExactPrefixWorkspaceEnvironment(
       artifactTruth.eventRefs,
     );
   }
-  return projectWorkspaceEnvironmentFromArtifactTruth(artifactTruth, workspaceBindingCoordinate);
+  return projectWorkspaceEnvironmentFromArtifactTruth(artifactTruth, workspaceBindingCoordinate, question ?? "strict");
 }
 
 /** Pure environment relation over the already authenticated owner projection. */
 export function projectWorkspaceEnvironmentFromArtifactTruth(
   artifactTruth: ExactPrefixArtifactTruthProjection,
   workspaceBindingCoordinate: ReferenceDigest<WorkspaceBinding>,
+): ExactPrefixWorkspaceEnvironmentProjectionResult;
+/** @internal The environment under the caller's question: strict unless the
+ * caller states `recorded`. The environment body is derived and retained
+ * without a question; the strict question then requires the fold's retained
+ * strict answer for its causal installs. */
+export function projectWorkspaceEnvironmentFromArtifactTruth(
+  artifactTruth: ExactPrefixArtifactTruthProjection,
+  workspaceBindingCoordinate: ReferenceDigest<WorkspaceBinding>,
+  question: ProductTruthQuestion,
+): ExactPrefixWorkspaceEnvironmentProjectionResult;
+export function projectWorkspaceEnvironmentFromArtifactTruth(
+  artifactTruth: ExactPrefixArtifactTruthProjection,
+  workspaceBindingCoordinate: ReferenceDigest<WorkspaceBinding>,
+  question?: ProductTruthQuestion,
 ): ExactPrefixWorkspaceEnvironmentProjectionResult {
-  if (!validateArtifactTruthProjectionValue(artifactTruth)) return exactPrefixEnvironmentRefusal(
+  const owner = ownedArtifactTruth(artifactTruth);
+  if (owner === null) return exactPrefixEnvironmentRefusal(
     "artifact_truth_invalid", "workspace environment requires authenticated artifact truth");
   if (
     typeof workspaceBindingCoordinate !== "object" ||
@@ -535,6 +597,10 @@ export function projectWorkspaceEnvironmentFromArtifactTruth(
     facts?.set(key, body);
   }
   if (body.kind === "exact_prefix_workspace_environment_refusal") return body;
+  const installRefs = body.body.productInstalls.map((install) => install.admissionEventRef);
+  if (!installLocksAnswer(owner, installRefs, question)) {
+    return recordedOnlyEnvironmentRefusal(body.body.workspaceBinding.admissionEventRef, installRefs);
+  }
   // One wrapper per requested owner projection carries that cut; every member
   // is already frozen. A copied projection has no owner and gets its own.
   const coordinateKey = `${workspaceBindingCoordinate.ref}:${workspaceBindingCoordinate.digest}`;
@@ -553,6 +619,29 @@ export function projectWorkspaceEnvironmentFromArtifactTruth(
   return wrapper;
 }
 const ENVIRONMENT_WRAPPERS = new WeakMap<ExactPrefixArtifactTruthProjection, Map<string, ExactPrefixWorkspaceEnvironment>>();
+
+/** Under the strict question, an environment whose causal installs hold a lock
+ * that answers only the recorded question is refused with the existing code
+ * for a causal install that is not admitted. */
+const RECORDED_ONLY_REFUSALS = new WeakSet<ExactPrefixWorkspaceEnvironmentRefusal>();
+function recordedOnlyEnvironmentRefusal(
+  bindingAdmissionEventRef: string,
+  installAdmissionEventRefs: readonly string[],
+): ExactPrefixWorkspaceEnvironmentRefusal {
+  const refusal = exactPrefixEnvironmentRefusal(
+    "causal_install_missing",
+    "the admitted WorkspaceBinding has no causal ProductInstall admitted for work: its lock answers only the recorded question",
+    [bindingAdmissionEventRef, ...installAdmissionEventRefs],
+  );
+  RECORDED_ONLY_REFUSALS.add(refusal);
+  return refusal;
+}
+
+/** @internal Whether the strict question refused the environment because its
+ * lock answers only the recorded question. */
+export function isRecordedOnlyEnvironmentRefusal(value: ExactPrefixWorkspaceEnvironmentRefusal): boolean {
+  return RECORDED_ONLY_REFUSALS.has(value);
+}
 
 /** Observation-only environment work counts for the §10.12 body-reuse proof:
  * invariant environment bodies actually derived. They select, cache and change
@@ -691,6 +780,17 @@ function deriveWorkspaceEnvironment(
 export function hasAdmittedProductInstall(
   projection: ExactPrefixArtifactTruthProjection,
   install: ProductInstall,
+): boolean;
+/** @internal */
+export function hasAdmittedProductInstall(
+  projection: ExactPrefixArtifactTruthProjection,
+  install: ProductInstall,
+  question: ProductTruthQuestion,
+): boolean;
+export function hasAdmittedProductInstall(
+  projection: ExactPrefixArtifactTruthProjection,
+  install: ProductInstall,
+  question?: ProductTruthQuestion,
 ): boolean {
   const {
     kind: _kind,
@@ -703,14 +803,16 @@ export function hasAdmittedProductInstall(
     disposition: "materialized" as const,
     ...body,
   };
-  return selectExactArtifactTruthRow(projection, {
+  const selected = selectExactArtifactTruthRow(projection, {
     operationId: "abg.operation.product.install",
     authorityScopeRef: install.installId,
     authorityScopeDigest: install.productContentDigest,
     artifactRef: install.installId,
     artifactDigest: sha256Canonical(candidate),
     admissionEventRef: install.admissionEventRef,
-  }) !== null;
+  });
+  return selected !== null &&
+    installLocksAnswer(selected.owner, [selected.row.admissionEventRef], question);
 }
 
 export function projectAdmittedProductInstall(
@@ -719,7 +821,7 @@ export function projectAdmittedProductInstall(
   invocationRef?: string,
 ): ProductInstall | null {
   const candidateDigest = sha256Canonical(candidate);
-  const row = selectExactArtifactTruthRow(projection, {
+  const selected = selectExactArtifactTruthRow(projection, {
     operationId: "abg.operation.product.install",
     authorityScopeRef: candidate.installId,
     authorityScopeDigest: candidate.productContentDigest,
@@ -727,7 +829,8 @@ export function projectAdmittedProductInstall(
     artifactDigest: candidateDigest,
     ...(invocationRef === undefined ? {} : { invocationRef }),
   });
-  if (row === null) return null;
+  if (selected === null || !admittedInstallLocksAnswerStrict(selected.owner, [selected.row.admissionEventRef])) return null;
+  const row = selected.row;
   const { kind: _kind, disposition: _disposition, ...body } = candidate;
   return deepFreeze({
     kind: "product_install" as const,
@@ -742,7 +845,7 @@ export function projectAdmittedWorkspaceBinding(
   candidate: WorkspaceBindingCandidate,
   invocationRef?: string,
 ): WorkspaceBinding | null {
-  const row = selectExactArtifactTruthRow(projection, {
+  const selected = selectExactArtifactTruthRow(projection, {
     operationId: "abg.operation.workspace.bind",
     authorityScopeRef: candidate.bindingId,
     authorityScopeDigest: candidate.bindingDigest,
@@ -750,7 +853,8 @@ export function projectAdmittedWorkspaceBinding(
     artifactDigest: candidate.bindingDigest,
     ...(invocationRef === undefined ? {} : { invocationRef }),
   });
-  if (row === null) return null;
+  if (selected === null || !admittedInstallLocksAnswerStrict(selected.owner, selected.row.causationEventRefs)) return null;
+  const row = selected.row;
   const { kind: _kind, ...body } = candidate;
   return deepFreeze({
     kind: "workspace_binding" as const,
@@ -1105,19 +1209,30 @@ function admitArtifactFromOwner(
 export function hasAdmittedWorkspaceBinding(
   projection: ExactPrefixArtifactTruthProjection,
   binding: WorkspaceBinding,
+): boolean;
+/** @internal */
+export function hasAdmittedWorkspaceBinding(
+  projection: ExactPrefixArtifactTruthProjection,
+  binding: WorkspaceBinding,
+  question: ProductTruthQuestion,
+): boolean;
+export function hasAdmittedWorkspaceBinding(
+  projection: ExactPrefixArtifactTruthProjection,
+  binding: WorkspaceBinding,
+  question?: ProductTruthQuestion,
 ): boolean {
   // The binding owner is `isExactWorkspaceBinding`; the row is its admission.
-  return (
-    isExactWorkspaceBinding(binding) &&
-    selectExactArtifactTruthRow(projection, {
-      operationId: "abg.operation.workspace.bind",
-      authorityScopeRef: binding.bindingId,
-      authorityScopeDigest: binding.bindingDigest,
-      artifactRef: binding.bindingId,
-      artifactDigest: binding.bindingDigest,
-      admissionEventRef: binding.admissionEventRef,
-    }) !== null
-  );
+  if (!isExactWorkspaceBinding(binding)) return false;
+  const selected = selectExactArtifactTruthRow(projection, {
+    operationId: "abg.operation.workspace.bind",
+    authorityScopeRef: binding.bindingId,
+    authorityScopeDigest: binding.bindingDigest,
+    artifactRef: binding.bindingId,
+    artifactDigest: binding.bindingDigest,
+    admissionEventRef: binding.admissionEventRef,
+  });
+  return selected !== null &&
+    installLocksAnswer(selected.owner, selected.row.causationEventRefs, question);
 }
 
 export function admitProductInstall(
@@ -1317,9 +1432,6 @@ export function admitWorkspaceBinding(
     resolvedLock === undefined ||
     productSet === null ||
     productSet.kind !== "product_set" ||
-    // The lock comes from the fold's facts: it must be one the fold
-    // established with the strict question.
-    !admittedInstallLocksAnswerStrict(predecessorProjection, basis.causationEventRefs) ||
     reconstructedCandidate === null ||
     reconstructedCandidate.kind !== "workspace_binding_candidate" ||
     !isWorkspaceBindingCandidateInResolvedLock(

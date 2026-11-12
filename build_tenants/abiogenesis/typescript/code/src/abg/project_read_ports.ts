@@ -369,15 +369,17 @@ function terminalDeclaration(
   }
   // The read owner's artifact truth is the exact-prefix projection of this
   // same coordinate; without it the environment is projected from the prefix.
+  // The environment and its installs are asked the entry's question: the
+  // recorded reads read recorded history, and the strict entries feed work.
   const environment = prepared.artifactTruth !== undefined && prepared.artifactTruth.prefix === prepared.packet.prefix
     ? projectWorkspaceEnvironmentFromArtifactTruth(prepared.artifactTruth,
-      truthCoordinate(root.workspaceBindingId, root.workspaceBindingDigest))
+      truthCoordinate(root.workspaceBindingId, root.workspaceBindingDigest), prepared.question)
     : projectExactPrefixWorkspaceEnvironment(prepared.packet.prefix,
-      truthCoordinate(root.workspaceBindingId, root.workspaceBindingDigest));
+      truthCoordinate(root.workspaceBindingId, root.workspaceBindingDigest), prepared.question);
   if (environment.kind !== "exact_prefix_workspace_environment") throw new TypeError("historical environment is absent");
   const invocationEvent = exactOrThrow(onlyExactMatch(indexedRuntimeEvents(prefix,"id:"+invocation.admissionEventRef)), "invocation event");
   const installs = environment.productInstalls.map((install) =>
-    projectAdmittedProductInstallByAdmissionEventRef(environment.artifactTruth, install.admissionEventRef));
+    projectAdmittedProductInstallByAdmissionEventRef(environment.artifactTruth, install.admissionEventRef, prepared.question));
   const environmentEventRefs = [...environment.productInstalls.map((row) => row.admissionEventRef),
     environment.workspaceBinding.admissionEventRef];
   if (installs.some((install) => install === null) || environmentEventRefs.some((ref) =>
