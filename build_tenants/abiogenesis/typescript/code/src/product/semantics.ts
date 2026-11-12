@@ -149,7 +149,6 @@ export interface ProductSemanticsProvider {
   readonly bindingRef: string;
   readonly packageName: string;
   readonly packageVersion: string;
-  readonly publicResultProjectionKinds?: readonly string[];
   readonly admitInput: (
     contractRef: string,
     value: unknown,
@@ -456,19 +455,6 @@ async function loadProductSemantics(
     (
       value.projectPublicResult !== undefined &&
       typeof value.projectPublicResult !== "function"
-    ) ||
-    (
-      value.publicResultProjectionKinds !== undefined &&
-      (
-        !Array.isArray(value.publicResultProjectionKinds) ||
-        value.publicResultProjectionKinds.some(
-          (kind) =>
-            typeof kind !== "string" ||
-            kind.trim().length === 0,
-        ) ||
-        new Set(value.publicResultProjectionKinds).size !==
-          value.publicResultProjectionKinds.length
-      )
     )
   ) {
     throw new TypeError(
@@ -584,54 +570,6 @@ export function validateInstalledInvocationBasis(
     return false;
   }
   return semantics.validateInvocationBasis?.(basis) ?? true;
-}
-
-export function hasInstalledPublicResultProjection(
-  semantics: ProductSemanticsProvider,
-): boolean {
-  if (!loadedProductSemantics.has(semantics)) {
-    throw new TypeError(
-      "Product public-result capability requires the exact loaded Product semantics provider",
-    );
-  }
-  return (semantics.publicResultProjectionKinds ?? ["result"]).includes(
-    "result",
-  );
-}
-
-export function supportsInstalledPublicResultProjection(
-  semantics: ProductSemanticsProvider,
-  projectionKind: string,
-): boolean {
-  if (!loadedProductSemantics.has(semantics)) {
-    throw new TypeError(
-      "Product public-result roster requires the exact loaded Product semantics provider",
-    );
-  }
-  const roster = semantics.publicResultProjectionKinds ?? ["result"];
-  return roster.includes(projectionKind);
-}
-
-export function projectInstalledPublicResult(
-  semantics: ProductSemanticsProvider,
-  basis: Parameters<
-    NonNullable<ProductSemanticsProvider["projectPublicResult"]>
-  >[0],
-): ProductPublicResultProjection | null {
-  if (!loadedProductSemantics.has(semantics)) {
-    throw new TypeError(
-      "Product public-result projection requires the exact loaded Product semantics provider",
-    );
-  }
-  const projector = semantics.projectPublicResult;
-  return projector === undefined && basis.projectionKind === "result"
-    ? {
-      kind: "product_public_result_projection",
-      schemaVersion: "5.0.0",
-      contractRef: basis.admittedResultContractRef,
-      value: basis.value,
-    }
-    : projector?.(basis) ?? null;
 }
 
 export function projectInstalledLeafSemantics(

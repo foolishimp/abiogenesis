@@ -308,7 +308,3 @@ export interface InstallProjectionPort {
 export interface ReleaseProjectionPort {
   readonly evidence: ExactOwnerOperationPort<typeof releaseEvidence>;
 }
-
-export interface ConsensusProjectionPort {
-  readonly ticketConsensus: ExactOwnerOperationPort<typeof ticketConsensus>;
-}

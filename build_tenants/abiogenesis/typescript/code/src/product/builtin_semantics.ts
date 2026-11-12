@@ -590,7 +590,6 @@ export const ABI5_SYSTEM_PRODUCT_SEMANTICS = Object.freeze({
   bindingRef: CONSENSUS_IDS.productSemanticsBindingRef,
   packageName: ABI5_PACKAGE_NAME,
   packageVersion: ABI5_PACKAGE_VERSION,
-  publicResultProjectionKinds: ["result", "ticket.consensus"] as const,
   admitInput: admitSystemInput,
   validateContractValue: validateSystemContractValue,
   resolveCatalogApplicationValue: resolveSystemCatalogApplicationValue,
