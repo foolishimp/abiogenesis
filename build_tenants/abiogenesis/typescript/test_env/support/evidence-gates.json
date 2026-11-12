@@ -4402,6 +4402,39 @@
    "input": "the retained exact start resource assertion",
    "producer": null,
    "note": "no recorded path value for ABI5_STEEL03_RETAINED_START_CALL_PATH"
+  },
+  {
+   "gate": "hs03-installed-rc6-owner",
+   "class": "A",
+   "status": "runs_with_root",
+   "variables": [],
+   "cases": [
+    {
+     "file": "tests/m5-event-store-reopen.test.mjs",
+     "titles": [
+      "RC7 HS03 historical: RC6 rows authored by the installed RC6 owner keep their exact 5b35 stamp, eventIds and payloads across current cold reopen, read and fold, and refuse a W window row"
+     ],
+     "suiteSkips": 1
+    }
+   ],
+   "input": "the installed RC6 package's compiled event store (5.0.0-rc.6), imported read only",
+   "inputs": [
+    {
+     "name": "owner",
+     "path": "work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/runtime-001/sandbox/installed/test-consumer/node_modules/@abiogenesis/typescript-tenant/build/code/src/abg/event_store.js",
+     "sha256": "706acaaa7300686eed4bcfa739347c12261c874adb20b3d354c7a9f195627199",
+     "bytes": 198998
+    },
+    {
+     "name": "package",
+     "path": "work/T287_RELEASE_RESUMPTION_01/release-qualification-rc6-01/runtime-001/sandbox/installed/test-consumer/node_modules/@abiogenesis/typescript-tenant/package.json",
+     "sha256": "b3fb3dcdba0f95c46bfd0560e2f09fed78720d6f226cd04379ae5cb9227612da",
+     "bytes": 10003
+    }
+   ],
+   "producer": null,
+   "observed": "root-set run of the file (ABI5_EVIDENCE_ROOT set): 27/27 pass, this case included; root unset: the case skips with the row's reason (25 pass, 2 skipped)",
+   "note": "T-292 TD-32: the case imported the owner from the home install /Users/jim/Library/Application Support/ABIogenesis/installs/5.0.0-rc.6/ (outside the root). The whole packaged build under the root (793 files) is byte-identical to that install (sha256 over the sorted per-file digests 2a59e9a2e8eb4c67de7920a0c6ff626ba1e1f8bd83392a4ad32daf1e6a395d3c); the lane imports the pinned module, which loads its siblings from that build."
   }
  ]
 }

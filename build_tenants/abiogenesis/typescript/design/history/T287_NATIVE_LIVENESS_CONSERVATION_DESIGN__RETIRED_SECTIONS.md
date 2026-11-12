@@ -26,3 +26,20 @@ budget and observation-fold facts for its exact owner source. A historical
 views keep their normal lifetime. The measured cumulative cut-cache retention
 is the selected repair seam; its share of the observed native heap abort and
 whole-run availability remain to be proved on an installed successor.
+
+Cut from `build_tenants/abiogenesis/typescript/design/T287_NATIVE_LIVENESS_CONSERVATION_DESIGN.md` at commit `f921a1c1b`, lines 259-265, 267-272, verbatim.
+
+Old L events/prefixes and uniform-L replay retain exact bytes and meanings.
+Missing old elapsed/probe facts are not backfilled. Historical interruption or
+liveness claims remain limited to evidence actually present. Current-P execution
+uses the declared probes; uniform-P and mixed replay carry the selected profile
+and exact schedule. Crossing profiles still requires the compatibility HOW's genuine native
+quiescent boundary and all existing W/install/reprice checks. New probes cannot
+be appended to an active L store merely because the new code can read it.
+
+[Interrupted event-resource recovery](T287_INTERRUPTED_EVENT_RESOURCE_RECOVERY_DESIGN.md)'s
+physical abandoned-acquisition recovery and run-stopped witness precede
+a profile upgrade where necessary. Liveness does not recover a lock, truncate a
+tail, mint a close handoff or infer a stop witness. P3's undispatched owner
+refusal remains a separate failure arm: no actor/probe evidence is fabricated
+for a CCall that never dispatched.

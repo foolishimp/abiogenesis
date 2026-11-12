@@ -148,11 +148,40 @@ async function retentionOwner(t){
    payload:{invocationDigest:hash({invocationRef,correlationId}),invocationRef,operationId:'abg.operation.project.read',variant:'status'}};};
  return {f,counts,read,candidate};
 }
+// The D2 store is on the legacy profile, which admits no append before its
+// witnessed reprice (REQ-R-ABG3-EVENTS-029, T-292 TD-32): the two reprice rows
+// go first, through the reprice owner, then the later append is on the current profile.
+function repriceProfile(f){
+ const L=eventOwner.LEGACY_ROOT_EVENT_CONTRACT_DIGEST,W=eventOwner.ROOT_EVENT_CONTRACT_DIGEST,d=key=>hash({historicalRetention:key}),eventTime=f.rows.at(-1).eventTime;
+ const invocationRef='invocation://t287/historical-retention/reprice',correlationId='correlation://t287/historical-retention/reprice',basisId='basis://t287/historical-retention';
+ const workspace='workspace-binding://t287/historical-retention',actorRef='actor://t287/historical-retention',envelope={eventTime,aggregateType:'workspace',
+  aggregateId:workspace,parentAggregateId:invocationRef,correlationId,workflowVersion:'5.0.0',scopeClass:'workspace',basisId};
+ const publicCandidate={...envelope,kind:'public_operation_admitted',causationEventRefs:[],payload:{operationId:'abg.operation.witness.admit',memberKey:'reprice',
+  definitionDigest:d('definition'),invocationRef,invocationPayloadDigest:d('payload'),invocationDigest:hash({invocationRef,correlationId}),authorityScopeRef:basisId,
+  authorityScopeDigest:d('scope'),workspaceBindingRef:workspace,workspaceBindingDigest:d('workspace'),productSetRef:'product-set://t287/historical-retention',
+  productSetDigest:d('products'),dependencyLockRef:'dependency-lock://t287/historical-retention',dependencyLockDigest:d('lock'),actorRef,actorDigest:d('actor'),
+  capabilityGrantRef:'capability-grant://t287/historical-retention',capabilityGrantDigest:d('grant')}};
+ const projected=eventOwner.projectRuntimeEventFromValidatedHistory(f.rows,publicCandidate);
+ const value={declarationRef:'declaration://abiogenesis/runtime/root-event-contract-profile@1',beforeDigest:L,afterDigest:W,changeClass:'design_reframe',
+  owningTicketRef:'ticket://T-292',reason:'admit-current-native-event-contract-profile'};
+ const evidence=[{ref:'abg.event-contract.root/p6-stdout-window-witness@1',digest:W}],provenance=[{ref:basisId,digest:d('basis')}];
+ const subject={kind:'basis',ref:basisId,digest:d('basis')},context={kind:'basis',basis:{ref:basisId,digest:d('basis')}};
+ const content={kind:'typed_reason',contractRef:'contract://t287/historical-retention/reprice',contractDigest:d('content'),valueRef:'value://t287/historical-retention/reprice',valueDigest:hash(value),value};
+ const witnessedActDigest=hash({act:'reprice',actor:{ref:actorRef,digest:d('actor')},subject,content,context,evidence,provenance});
+ const {reason,...repriceBody}=value;
+ const repriceCandidate={...envelope,kind:'declaration_reprice_admitted',causationEventRefs:[projected.eventId],payload:{act:'reprice',actorRef,actorDigest:d('actor'),
+  subjectKind:subject.kind,subjectRef:subject.ref,subjectDigest:subject.digest,contentKind:content.kind,contentContractRef:content.contractRef,
+  contentContractDigest:content.contractDigest,contentValueRef:content.valueRef,contentValueDigest:content.valueDigest,contentValue:value,context,evidence,provenance,
+  witnessedActRef:'witnessed-act://abiogenesis/'+witnessedActDigest.slice('sha256:'.length),witnessedActDigest,...value,repriceRef:'declaration-reprice:'+hash(repriceBody),operatorActorRef:actorRef}};
+ const repriced=eventOwner.admitRootEventProfileUpgrade(f.opened.store,f.prefix,publicCandidate,repriceCandidate);
+ assert.equal(repriced.successorPrefix.storeIdentity.eventContractDigest,W);return repriced;
+}
 
 test('a later prefix of the same derivation generation lends the same retained historical source; the count is unchanged',{skip},async t=>{
  const {f,counts,read,candidate}=await retentionOwner(t);
  const result=read(f.prefix);assert.ok(result);assert.equal(counts.catalog,1);
- const appended=eventOwner.admitRuntimeEvent(f.opened.store,candidate('later'));assert.equal(appended.admissionOrdinal,f.rows.length+1);
+ repriceProfile(f);
+ const appended=eventOwner.admitRuntimeEvent(f.opened.store,candidate('later'));assert.equal(appended.admissionOrdinal,f.rows.length+3);
  const later=eventOwner.selectHeldEventStoreDurablePrefix(f.opened.store);
  assert.ok(later.prefixLength>f.prefix.prefixLength);assert.notEqual(later.prefixDigest,f.prefix.prefixDigest);
  assert.strictEqual(read(later),result,'same generation lends the retained object at its later prefix');assert.equal(counts.catalog,1);

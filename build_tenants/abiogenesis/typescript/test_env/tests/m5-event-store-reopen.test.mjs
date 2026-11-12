@@ -2045,13 +2045,16 @@ test("RC7 HS03 archive: cold read through both direct readers, descriptor and by
 });
 
 // RC6 and S2 rows are retained histories under their own exact tables. The
-// installed RC6 owner is the actual packaged compiled event store, read only.
+// installed RC6 owner is the actual packaged compiled event store, read only;
+// it resolves through evidence gate catalogue row hs03-installed-rc6-owner
+// under ABI5_EVIDENCE_ROOT, and without the root the case skips with the row's reason.
 import { projectRootEventProfileSchedule as hs03Schedule } from "../../build/code/src/abg/event_store.js";
 import { selectOwnedRuntimeEventPrefix as hs03OwnedPrefix } from "../../build/code/src/abg/event_prefix.js";
-const HS03_RC6_OWNER = "/Users/jim/Library/Application Support/ABIogenesis/installs/5.0.0-rc.6/node_modules/@abiogenesis/typescript-tenant/build/code/src/abg/event_store.js";
+import { evidenceGate } from "../support/evidence-root.mjs";
+const hs03Rc6Owner = evidenceGate("hs03-installed-rc6-owner");
 const HS03_RC6 = "sha256:5b35ab536188aea5b822c4cdf8e962bbaf0fb609fc6da9e6b554187e8a7e0537";
 const HS03_S2 = "sha256:3bcc8488bcfb9396cbc53c85b944df6973bf99200ab93728949853df62cecac0";
-const hs03Rc6Skip = fs.existsSync(HS03_RC6_OWNER) ? false : "the installed RC6 packaged owner is not present";
+const hs03Rc6Skip = hs03Rc6Owner.kind === "absent" && hs03Rc6Owner.reason;
 // The stream rows of one actor: invocation start, then retained per-chunk stdout.
 const hs03StreamCandidates = tag => {
   const actorInvocationRef = `actor-invocation://rc7-hs03/${tag}`, processRef = `process://rc7-hs03/${tag}`, cCallRef = `c-call://rc7-hs03/${tag}`;
@@ -2066,7 +2069,7 @@ const hs03StreamCandidates = tag => {
 const hs03Witness = { kind: "stdout_archive_window", archiveOffset: 0, firstCaptureElapsedMs: 0, lastCaptureElapsedMs: 10, lastQualifyingElapsedMs: 5 };
 
 test("RC7 HS03 historical: RC6 rows authored by the installed RC6 owner keep their exact 5b35 stamp, eventIds and payloads across current cold reopen, read and fold, and refuse a W window row", { skip: hs03Rc6Skip }, async (t) => {
-  const rc6 = await import(pathToFileURL(HS03_RC6_OWNER).href);
+  const rc6 = await import(pathToFileURL(hs03Rc6Owner.inputs.owner.path).href);
   assert.equal(rc6.ROOT_EVENT_CONTRACT_DIGEST, HS03_RC6, "the packaged owner is the installed RC6 profile");
   const { store } = await acquireNewEmptyAppendSinkFixture(t, rc6.createNewEmptyAppendSink, "abi5-hs03-rc6-");
   for (const candidate of hs03StreamCandidates("rc6"))

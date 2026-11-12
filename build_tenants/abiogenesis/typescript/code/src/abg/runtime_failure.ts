@@ -58,7 +58,6 @@ export interface RuntimeFailureAdmission {
   readonly graphCallId: string;
   readonly frameId: string;
   readonly stage:
-    | "c_call_open"
     | "hog_traversal"
     | "implementation_load"
     | "operation_application"

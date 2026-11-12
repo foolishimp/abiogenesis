@@ -944,11 +944,16 @@ async function invokeActorProcessWithAssembly(
     ...(input.request.responsePresentation === undefined ? {} : { responsePresentation: input.request.responsePresentation }),
     environment,
   });
-  // The binding records the plan's identity once; a legacy-profile binding
-  // records none. A qualification assessment's owner decides over exactly that
-  // recorded selection before its binding or any start. Without the call-bound
-  // owner, or with any decision but eligible/not_required, nothing is admitted.
-  const configuredIdentity = successorPrefix.storeIdentity.eventContractDigest !== ROOT_EVENT_CONTRACT_DIGEST ? null : plan.configuredIdentity;
+  // An actor invocation records its liveness binding, probes and stdout
+  // windows, which only the current profile admits; on any other profile it
+  // is refused here, before its binding or any start.
+  if (successorPrefix.storeIdentity.eventContractDigest !== ROOT_EVENT_CONTRACT_DIGEST)
+    throw new TypeError("liveness admission requires one held current-profile owner context");
+  // The binding records the plan's identity once. A qualification
+  // assessment's owner decides over exactly that recorded selection before its
+  // binding or any start. Without the call-bound owner, or with any decision
+  // but eligible/not_required, nothing is admitted.
+  const configuredIdentity = plan.configuredIdentity;
   if (input.request.implementationRef === QUALIFICATION_IDS.assessImplementation) {
     const decision = dispatchEligibility === undefined || !isQualificationAssessorEligibility(dispatchEligibility)
       ? { disposition: "unknown" as const, reason: "owner_connection_missing" }
@@ -959,16 +964,14 @@ async function invokeActorProcessWithAssembly(
       throw new TypeError(`qualification dispatch refused: ${String(decision.disposition)}: ${"reason" in decision ? String(decision.reason) : "unspecified"}`);
   }
   const transportBindingBody = {
-    ...(successorPrefix.storeIdentity.eventContractDigest !== ROOT_EVENT_CONTRACT_DIGEST ? {} : {
-      livenessBinding: {
-        kind: "runtime_liveness_binding" as const, schemaVersion: "5.0.0" as const,
-        clockOriginRef: `runtime-clock://abiogenesis/${sha256Canonical({ attemptDigest, transportPlanDigest: plan.planDigest }).slice(7)}`,
-        clockKind: "native_monotonic_elapsed" as const,
-        policy: constructRuntimeWatchdogPolicy({ startupMs: plan.timeoutMs, inactivityMs: plan.timeoutMs,
-          hardCapMs: plan.absoluteTimeoutMs, terminationGraceMs: plan.terminationGraceMs }),
-        sources: actorRuntimeProbeSources(plan.parser),
-      },
-    }),
+    livenessBinding: {
+      kind: "runtime_liveness_binding" as const, schemaVersion: "5.0.0" as const,
+      clockOriginRef: `runtime-clock://abiogenesis/${sha256Canonical({ attemptDigest, transportPlanDigest: plan.planDigest }).slice(7)}`,
+      clockKind: "native_monotonic_elapsed" as const,
+      policy: constructRuntimeWatchdogPolicy({ startupMs: plan.timeoutMs, inactivityMs: plan.timeoutMs,
+        hardCapMs: plan.absoluteTimeoutMs, terminationGraceMs: plan.terminationGraceMs }),
+      sources: actorRuntimeProbeSources(plan.parser),
+    },
     ...(instructionAssembly === null ? {} : { instructionAssembly }),
     cCallRef: input.cCall.cCallRef,
     actorRef: input.request.actorRef,
@@ -1072,10 +1075,7 @@ async function invokeActorProcessWithAssembly(
   const { startedEvent } = intentAdmission.value;
   successorPrefix = intentAdmission.successorPrefix;
   let previousEventRef = startedEvent.eventId;
-  let streamOrdinal = 0;
-  let stdoutByteLength = 0;
   let stderrByteLength = 0;
-  const stdoutEventRefs: string[] = [];
   const stderrEventRefs: string[] = [];
   let processStarted = false;
   let processTerminalEvent: ReturnType<typeof append> | null = null;
@@ -1116,7 +1116,6 @@ async function invokeActorProcessWithAssembly(
     previousEventRef = event.eventId;
     return event;
   };
-  const currentProfile = successorPrefix.storeIdentity.eventContractDigest === ROOT_EVENT_CONTRACT_DIGEST;
   const assessNativeResultArtifact = (output: string): NativeWorkerResultAssessment => {
     const owner = input.rawResultOwner;
     if (owner === undefined || !isAdmittedLeafInvocationPort(owner.port) ||
@@ -1144,13 +1143,10 @@ async function invokeActorProcessWithAssembly(
   const clockStart = performance.now();
   const elapsed = () => Math.max(0, performance.now() - clockStart);
   const stdoutObserver = createWorkerTransportOutputObserver(plan.agentKey === "claude" && plan.args.includes("--json-schema"));
-  let observedProgressCount = 0;
-  let observedFinalOutput = "";
   let supervisionInterrupted = false;
   const nativeContext = () => projectActorLivenessContext(selectRuntimeEventPrefixFromStore(input.store), actorInvocationRef);
   const probe = (source: RuntimeProbeSource, event: ReturnType<typeof append>, signal: RuntimeProbeObservation["signal"], elapsedMs: number,
     coverage: RuntimeProbeObservation["coverage"] = "observed") => {
-    if (!currentProfile) return;
     if (supervisionInterrupted && signal !== "artifact_admitted" && signal !== "artifact_rejected") return;
     const context = nativeContext(), declaration = context?.probes.find(row => row.source === source);
     if (context === null || declaration === undefined) throw new TypeError("actor probe lacks its admitted declaration");
@@ -1270,9 +1266,7 @@ async function invokeActorProcessWithAssembly(
       toolCallCount: transport.toolCallCount,
       toolInvocations: transport.toolInvocations,
       apiRetryCount: transport.apiRetryCount,
-      stdoutByteLength: currentProfile
-        ? committedStdoutRows().reduce((total, event) => total + Number((event.payload as Record<string, JsonValue>).byteLength), 0)
-        : stdoutByteLength,
+      stdoutByteLength: committedStdoutRows().reduce((total, event) => total + Number((event.payload as Record<string, JsonValue>).byteLength), 0),
       stderrByteLength,
       artifactDigests,
     };
@@ -1285,14 +1279,14 @@ async function invokeActorProcessWithAssembly(
         cCallRef: input.cCall.cCallRef,
         requestRef,
         requestDigest,
-        // D5: the current profile persists the shared durable projection; L
-        // keeps its original full body. The live observation stays full.
-        ...(currentProfile ? projectDurableActorObservation(observationBody) : observationBody),
+        // D5: the stored artifact is the shared durable projection; the live
+        // observation stays full.
+        ...projectDurableActorObservation(observationBody),
       },
     );
     // Retain the actual committed witness before a subsequent probe can fail.
     admittedArtifact = artifactEvent;
-    if (currentProfile && transport.nativeResultAssessment?.disposition !== "absent") probe("result_artifact", artifactEvent,
+    if (transport.nativeResultAssessment?.disposition !== "absent") probe("result_artifact", artifactEvent,
       transport.nativeResultAssessment?.disposition === "admitted" ? "artifact_admitted" : "artifact_rejected", elapsed());
     return { artifactEvent, observation: deepFreeze(observationBody) as ActorProcessObservation };
   };
@@ -1300,7 +1294,8 @@ async function invokeActorProcessWithAssembly(
   try {
     const transport = await runPreparedWorkerTransport(plan, {
       onResultArtifact: admitTransportArtifact,
-      ...(currentProfile ? { assessNativeResultArtifact, onNativeSupervisionWakeup: () => {
+      assessNativeResultArtifact,
+      onNativeSupervisionWakeup: () => {
         observePendingAsset();
         const sampled = elapsed();
         const decision = admitRuntimeThreshold({ store: input.store, predecessorPrefix: successorPrefix,
@@ -1322,7 +1317,7 @@ async function invokeActorProcessWithAssembly(
         return { projection: p, admittedThresholdEventRef: null, timeoutClass: null,
           nextWakeDelayMs: Math.max(1, Math.min(p.hardDeadlineElapsedMs - sampled,
             p.leaseDeadlineElapsedMs > sampled ? p.leaseDeadlineElapsedMs - sampled : plan.timeoutMs)) };
-      } } : {}),
+      },
       onProcessStarted: (pid) => {
         const sampled = elapsed();
         const event = append(
@@ -1333,50 +1328,16 @@ async function invokeActorProcessWithAssembly(
           { actorInvocationRef, processRef, processId: pid, cCallRef: input.cCall.cCallRef },
         );
         processStarted = true;
-        if (currentProfile) {
-          for (const source of actorRuntimeProbeSources(plan.parser)) probe(source, event,
-            source === "process_lifecycle" ? "activity" : "coverage", sampled,
-            source === "process_lifecycle" || source === "stdout" || source === "stderr" ? "observed" : "unavailable");
-        }
+        for (const source of actorRuntimeProbeSources(plan.parser)) probe(source, event,
+          source === "process_lifecycle" ? "activity" : "coverage", sampled,
+          source === "process_lifecycle" || source === "stdout" || source === "stderr" ? "observed" : "unavailable");
       },
-      ...(currentProfile ? { classifyStdoutChunk, bindStdoutWindow: (flush: () => (() => void) | null) => {
+      classifyStdoutChunk,
+      bindStdoutWindow: (flush: () => (() => void) | null) => {
         unbindStdoutWindow = bindNativeStdoutWindow(input.store, actorInvocationRef, flush);
-      } } : {}),
-      onStdoutObserved: (chunk, window) => {
-        if (window !== undefined) { admitStdoutWindow(chunk, window); return true; }
-        const sampled = elapsed();
-        const byteLength = Buffer.byteLength(chunk);
-        stdoutByteLength += byteLength;
-        const event = append(
-          "actor_process_stdout_observed",
-          "process",
-          processRef,
-          actorInvocationRef,
-          {
-            actorInvocationRef,
-            processRef,
-            streamOrdinal: ++streamOrdinal,
-            byteLength,
-            chunkDigest: sha256Canonical(chunk),
-          },
-        );
-        stdoutEventRefs.push(event.eventId);
-        if (plan.parser !== "claude_stream_json") {
-          probe("stdout", event, "activity", sampled);
-          return true;
-        }
-        const output = stdoutObserver.observe(chunk);
-        const progress = output.progressEventCount > observedProgressCount;
-        const result = output.finalOutput.length > 0 && output.finalOutput !== observedFinalOutput;
-        observedProgressCount = output.progressEventCount;
-        observedFinalOutput = output.finalOutput;
-        // Retry notices and protocol bookkeeping remain raw stream evidence,
-        // not lease-renewing model progress. Partial message rows are activity
-        // only when bytes actually arrive; silence is never inferred progress.
-        if (progress || result) probe("stdout", event, "activity", sampled);
-        if (result) probe("structured_output", event, "artifact_pending", sampled);
-        return progress || result;
       },
+      // Window mode: the transport hands stdout over only as closed windows.
+      onStdoutObserved: (chunk, window) => { admitStdoutWindow(chunk, window!); return true; },
       onStderrObserved: (chunk) => {
         const sampled = elapsed();
         const byteLength = Buffer.byteLength(chunk);
@@ -1390,7 +1351,7 @@ async function invokeActorProcessWithAssembly(
             actorInvocationRef,
             processRef,
             // Windowed stdout rows take their ordinals from the admitted stream rows.
-            streamOrdinal: currentProfile ? nextNativeProcessStreamOrdinal(selectRuntimeEventPrefixFromStore(input.store), processRef) : ++streamOrdinal,
+            streamOrdinal: nextNativeProcessStreamOrdinal(selectRuntimeEventPrefixFromStore(input.store), processRef),
             byteLength,
             chunkDigest: sha256Canonical(chunk),
           },
@@ -1399,20 +1360,6 @@ async function invokeActorProcessWithAssembly(
         probe("stderr", event, "activity", sampled);
         return true;
       },
-      onTimeoutObserved: (timeoutClass) => append(
-        "actor_process_timeout_observed",
-        "process",
-        processRef,
-        actorInvocationRef,
-        {
-          actorInvocationRef,
-          processRef,
-          timeoutClass,
-          timeoutMs: timeoutClass === "inactivity"
-            ? plan.timeoutMs
-            : plan.absoluteTimeoutMs,
-        },
-      ),
       onSignalRequested: (signal) => {
         signalSequence.push(signal);
         append(
@@ -1480,7 +1427,7 @@ async function invokeActorProcessWithAssembly(
           transportBindingDigest,
           transportDigest: transport.artifacts.transport.digest,
           consumedTransportBindingRef: transportBindingRef,
-          consumedStdoutEventRefs: Object.freeze(currentProfile ? committedStdoutRows().map(event => event.eventId) : [...stdoutEventRefs]),
+          consumedStdoutEventRefs: Object.freeze(committedStdoutRows().map(event => event.eventId)),
           consumedStderrEventRefs: Object.freeze([...stderrEventRefs]),
           consumedArtifactEventRef: artifactEvent.eventId,
         },

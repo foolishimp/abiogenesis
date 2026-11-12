@@ -723,8 +723,13 @@ test('Q23 actor_process gates the actual prepared selection before binding or pr
   ['a conflicting captured environment',h.op,{environment:{ANTHROPIC_MODEL:'claude-sonnet-5-5'}},['unknown','assessor_identity_unknown']],
   ['a renamed role actor',h.op,{actorRef:policy.actorRefs[1]},['unknown','call_coordinates_crossed']],
  ])refusedBeforeStart(name,await run(eligibility,options),...expected);
- // A legacy-profile store records no identity, so the assessor stays unknown.
- refusedBeforeStart('a legacy-profile binding',await (await actorGate(h,{current:false}))(h.op),'unknown','assessor_identity_absent');
+ // A store on another profile takes no actor dispatch (T-292 TD-32): refused
+ // before the qualification gate, with no binding and no provider start.
+ {const name='a store on another profile',out=await (await actorGate(h,{current:false}))(h.op);
+  assert.equal(out.effect.kind,'actor_process_effect_refusal',name);assert.equal(out.effect.code,'actor_process_invocation_refused',name);
+  assert.equal(out.effect.message,'liveness admission requires one held current-profile owner context',name);
+  assert.deepEqual(out.effect.successorPrefix,out.effect.predecessorPrefix,name+': nothing admitted');
+  assert.deepEqual(out.transactions,[],name+': no binding or start transaction');assert.deepEqual(out.starts,[],name+': zero provider starts');}
  // Histories whose author, provenance or peer facts refuse.
  for(const [name,options,expected] of [
   ['an author of the assessor family',{author:opus()},['ineligible','author_same_declared_family']],

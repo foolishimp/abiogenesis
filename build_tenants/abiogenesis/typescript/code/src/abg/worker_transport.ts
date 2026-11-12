@@ -798,8 +798,9 @@ async function executeWorkerTransport(
     if (failed) throw firstError;
     throw new TypeError("worker owned process scope remains unconfirmed");
   }
-  // Legacy transports retain their exception contract. Current-profile owners
-  // must assess available candidates before the same original Error is thrown.
+  // A raw transport caller (no native result assessor) receives the original
+  // Error. An assessing owner assesses available candidates before the same
+  // original Error is thrown.
   if (failed && input.observer?.assessNativeResultArtifact === undefined) throw firstError;
   try {
     const structuredOutputExpected = input.contract.agentKey === "claude" && args.includes("--json-schema");
