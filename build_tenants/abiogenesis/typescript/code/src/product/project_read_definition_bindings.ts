@@ -1,5 +1,5 @@
 import * as v from "valibot";
-import { acquireAbgEventResource,closeAbgEventResource,abandonAbgEventResource,validateAbgEventResourceAssertion,validateAbgEventResourceReceipt,type AbgEventResourceAssertion,type AbgEventResourceReceipt } from "../abg/definition_event_resource.js";
+import { acquireAbgEventResource,closeAbgEventResource,abandonAbgEventResource,withAbgOperationHold,validateAbgEventResourceAssertion,validateAbgEventResourceReceipt,type AbgEventResourceAssertion,type AbgEventResourceReceipt } from "../abg/definition_event_resource.js";
 import { bindExactPrefixRead } from "../abg/exact_prefix_bindings.js";
 import { absolutePathSchema } from "../shared/public_function_contracts.js";
 import { projectReleaseEvidence } from "./project_read_ports.js";
@@ -1003,7 +1003,8 @@ const releaseReadReceiptSchema=v.strictObject({kind:v.literal("release_evidence_
 const releaseReadOwner:ExactDefinitionCallable<typeof PRODUCT_PROJECT_READ_CONTRACTS.release_evidence,v.InferOutput<typeof releaseReadResourcesSchema>,v.InferOutput<typeof releaseReadReceiptSchema>>=call=>Effect.try({try:()=>{
  const acquired=acquireAbgEventResource(call.resources.eventResource);
  if(acquired.kind!=="acquired_abg_event_resource")throw definitionFault(call.invocation.definitionKey,"resource_admission",acquired.code,acquired.message);
- try {
+ // The read owns the bodies it selects until it returns.
+ return withAbgOperationHold(acquired.resource,()=>{try {
   const request=call.invocation.request,prefix=acquired.resource.entryPrefix;
   const packet:ReleaseEvidenceProjectReadPacket={kind:"product_project_read_packet",schemaVersion:"5.0.0",memberKey:"release_evidence",sourceRef:request.source.sourceRef,sourceDigest:request.source.sourceDigest,
    projectionBasis:{basisRef:request.projectionBasis.projectionBasisRef,basisDigest:request.projectionBasis.projectionBasisDigest,value:prefix},
@@ -1012,7 +1013,7 @@ const releaseReadOwner:ExactDefinitionCallable<typeof PRODUCT_PROJECT_READ_CONTR
   const ownerOutput=result.kind==="product_project_read_refusal"?nativeRefusal(PRODUCT_PROJECT_READ_CONTRACTS.release_evidence,result):
    validatedOwnerOutput(PRODUCT_PROJECT_READ_CONTRACTS.release_evidence,{outcomeKind:"result",value:{caseKey:"release_evidence",source:{ref:packet.sourceRef,digest:packet.sourceDigest},projectionBasis:{ref:request.projectionBasis.projectionBasisRef,digest:request.projectionBasis.projectionBasisDigest},projection:result.projection as never}},"release evidence");
   return deepFreeze({ownerOutput,resources:{kind:"release_evidence_receipt" as const,schemaVersion:"5.0.0" as const,eventResource:closeAbgEventResource(acquired.resource,prefix) as ReleaseReadReceipt}});
- }catch(error){try{abandonAbgEventResource(acquired.resource);}catch{}throw error;}
+ }catch(error){try{abandonAbgEventResource(acquired.resource);}catch{}throw error;}});
 },catch:error=>isDefinitionFault(error)?error as DefinitionExecutionFault<typeof PRODUCT_PROJECT_READ_CONTRACTS.release_evidence.definitionKey>:definitionFault(call.invocation.definitionKey,"owner_projection","release_read_failure",String(error))});
 const release_evidence=bindExactPrefixRead(PRODUCT_PROJECT_READ_CONTRACTS.release_evidence,releaseReadOwner,releaseReadResourcesSchema,releaseReadReceiptSchema);
 

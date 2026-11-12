@@ -33,13 +33,14 @@ import {
   abgEventResourceOutcomePrefix,
   validateReopenedAbgEventResourceInput,
   validateAbgEventResourceOutcome,
+  withAbgOperationHold,
   type ReopenedAbgEventResourceInput,
   type AbgEventResourceOutcome,
 } from "./definition_event_resource.js";
 import { authenticateRuntimePrefixAncestry,
   LEGACY_ROOT_EVENT_CONTRACT_DIGEST, rootEventContractProfile, type DurablePrefixCoordinate } from "./event_store.js";
 import { ROOT_EVENT_PROFILE_DECLARATION_REF } from "./event_contract_profiles.js";
-import { holdOperationBodies, indexedRuntimeEvents, readOwnedRuntimeEventPrefixAtDurablePrefix, runtimeEventAtPrefixIndex, runtimeEventPrefixExtent,
+import { indexedRuntimeEvents, readOwnedRuntimeEventPrefixAtDurablePrefix, runtimeEventAtPrefixIndex, runtimeEventPrefixExtent,
   runtimeEventProfileScheduleFromValidatedPrefix } from "./event_prefix.js";
 import { projectRunIdentityAtPrefix } from "./replay.js";
 import {
@@ -215,8 +216,7 @@ function witnessOwner(
       }
       const resource = acquired.resource;
       // The admission owns the bodies it selects until it returns.
-      const releaseBodies = holdOperationBodies(resource.entryPrefix);
-      try {
+      return withAbgOperationHold(resource, () => { try {
         const invocation = call.invocation;
         const slots = invocation.invocationAuthority.slots;
         const currentW = slots.workspace_binding;
@@ -358,9 +358,7 @@ function witnessOwner(
       } catch (cause) {
         abandonAbgEventResource(resource);
         throw cause;
-      } finally {
-        releaseBodies();
-      }
+      } });
     },
     catch: (cause) => isDefinitionFault(cause)
       ? cause as DefinitionExecutionFault<SelectedPacket["definitionKey"]>

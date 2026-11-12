@@ -2,7 +2,7 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import fs from 'node:fs';
 import {syncBuiltinESMExports} from 'node:module';
-import {join,resolve,dirname} from 'node:path';
+import {basename,join,resolve,dirname} from 'node:path';
 import {fileURLToPath,pathToFileURL} from 'node:url';
 import {setupInstalledRootCatalog} from '../support/root-installed-environment.mjs';
 import {constructInstalledStartCall,constructInstalledRunReadCall} from '../support/registered-graph-selection.mjs';
@@ -180,4 +180,87 @@ test('TD-51a: a read operation reads each selected body once and holds none afte
   assert.deepEqual(Object.values(counts(afterClosedHold.basis)),basisRows.map(()=>2),'a closed coordinate opens no hold');
   t.diagnostic('TD51A_OPERATION_BODIES '+JSON.stringify({...observations,
     meaning:'per-row counts of physical body reads by location in the store log; secondRun is an observation of a run operation, not asserted'}));
+
+  // TD-51b: the release evidence read and the workspace binding run their
+  // synchronous bodies through the one hold owner. Each acquires the closed
+  // store by its reopen handoff, so the acquisition decode reads every row
+  // once; inside the operation each basis body is read from its location at
+  // most once. Without the hold each artifact-truth consumer reads it again.
+  let handoff=closed.closeHandoff;
+  const hash=product.sha256Canonical,actorRef=env.workspaceBinding.authorizedActorRef;
+  const reopen=()=>({kind:'reopen_abg_event_resource',schemaVersion:'5.0.0',closeHandoff:handoff,handoffDigest:hash(handoff)});
+  const slotsOf=extra=>({workspace_binding:null,product_set:null,dependency_lock:null,catalog_scope:null,execution_program:null,graph_function:null,
+    input_contract:null,session_policy:null,capability_grants:null,actor:null,transport_steering:null,verification_references:null,execution_basis:null,...extra});
+  const grantsOf=(capabilityRefs,grants)=>({requiredCapabilityRefs:[...capabilityRefs],grants:grants.map(g=>({ref:g.grantRef,digest:g.grantDigest}))});
+  const catalogOf=key=>env.verified.definitionContractCoordinates.operations.find(o=>o.operationId===key.operationId)
+    .members.find(m=>m.memberKey===key.memberKey).slots.request.contractCatalog;
+  const transported=async(label,call)=>{
+    const measured=await measureBodyReads(logPath,()=>publicApi.runInstalledDefinitionCallTransport({kind:'reopen',closeHandoff:handoff},call));
+    const outcome=measured.value;
+    assert.equal(outcome.kind,'installed_definition_call_transport_result',label+': '+JSON.stringify(outcome).slice(0,2000));
+    const receipt=outcome.receipt.resources.eventResource;
+    assert.equal(receipt.kind,'abg_event_resource_receipt',label+': the reopened operation closes its resource');
+    handoff=receipt.closeHandoff;
+    assert.ok(measured.basis.size>=1,label+': the operation selects basis bodies: '+JSON.stringify(counts(measured.perRow)));
+    assert.ok(max(measured.basis)<=1,label+': each basis body is read at most once within the operation: '+JSON.stringify(counts(measured.basis)));
+    return {ownerOutput:outcome.receipt.ownerOutput,basis:counts(measured.basis)};
+  };
+  const {PRODUCT_PROJECT_READ_CONTRACTS}=await load('product/project_read_operation_contracts');
+  const releasePacket=PRODUCT_PROJECT_READ_CONTRACTS.release_evidence,releaseKey=releasePacket.definitionKey;
+  const releaseGrants=releasePacket.metadata.capabilityRefs.map(capabilityRef=>product.constructCapabilityGrant(env.workspaceAuthority,actorRef,
+    releaseKey.operationId,capabilityRef,{admittedInstalls:env.admittedInstalls,workspaceBinding:env.workspaceBinding,fixedPacket:releasePacket}));
+  const absent={ref:'release-observation://td51b/absent',digest:hash('td51b absent release observation')};
+  const releaseRead=await transported('release_evidence',publicApi.constructInstalledPublicDefinitionCall({product,installedPublic:publicApi,
+    definitionContractCoordinates:env.verified.definitionContractCoordinates,contractCatalog:catalogOf(releaseKey),...releaseKey,
+    request:{caseKey:'release_evidence',source:{sourceKind:'release_cut',sourceRef:'release-cut://td51b/absent',sourceDigest:hash('td51b absent cut')},
+      projectionBasis:{projectionBasisRef:handoff.prefix.eventLogRef,projectionBasisDigest:hash(handoff.prefix)},
+      selector:{kind:'release_operation_observation',artifact:absent}},
+    slots:slotsOf({capability_grants:grantsOf(releasePacket.metadata.capabilityRefs,releaseGrants)}),
+    resources:{kind:'release_evidence_resources',schemaVersion:'5.0.0',eventResource:reopen(),artifactPath:join(env.scratch,'td51b-absent-release.json')},
+    requestRef:'public-request://td51b/release-evidence',correlationRef:'correlation://td51b/operation-bodies',eventTime:'2026-11-12T00:00:00.000Z',
+    provenanceRefs:['provenance://td51b/operation-bodies']}));
+  assert.equal(releaseRead.ownerOutput.outcomeKind,'refusal');
+  assert.equal(releaseRead.ownerOutput.value.code,'not_ready','the release read projects artifact truth and finds no observation bytes');
+
+  // workspace.bind of a second clean workspace over the admitted installs,
+  // with the trusted-developer admission authority (t287-w2-05 shape).
+  const verifyRequest={artifactPath:env.artifactPaths[0],artifactRef:basename(env.artifactPaths[0]),expectedArtifactDigest:env.verified.artifactDigest,
+    expectedProductContentDigest:env.verified.productContentDigest,expectedManifestDigest:env.verified.manifestDigest,expectedProductId:env.verified.productId,
+    expectedPackageName:env.verified.packageName,expectedPackageVersion:env.verified.packageVersion};
+  const ownerVerified=await product.verifyProduct(verifyRequest);
+  assert.equal(ownerVerified.disposition,'verified',JSON.stringify(ownerVerified).slice(0,2000));
+  const workspaceRoot=join(env.scratch,'td51b-workspace');fs.mkdirSync(workspaceRoot);
+  const created=await product.WorkspaceOperationPort.create({kind:'workspace_create_packet',schemaVersion:'5.0.0',memberKey:'clean',targetRoot:workspaceRoot,scaffoldPolicy:'none'});
+  assert.equal(created.kind,'workspace_create_result',JSON.stringify(created).slice(0,2000));
+  const authorityManifest={workspaceId:created.manifest.workspaceRef,canonicalRoot:created.manifest.canonicalRoot,authorityMode:'trusted_developer',authorizedActorRef:actorRef};
+  const workspaceAuthority=product.constructWorkspaceAuthorityBasis({...authorityManifest,authorityManifestRef:'manifest://td51b/workspace-authority',
+    authorityManifestDigest:hash(authorityManifest)});
+  const lock={ref:env.lock.lockId,digest:env.lock.lockDigest},productSet=env.admittedInstalls.map(product.productInstallCoordinate);
+  const declaredRoots={toolchainRoot:env.consumerRoot,productRoot:env.installedRoots[1],eventLogRoot:dirname(logPath),
+    runtimeStateRoot:join(workspaceRoot,'.ai-workspace/runtime'),projectionRoot:join(workspaceRoot,'.ai-workspace/projections'),archiveRoot:join(workspaceRoot,'.ai-workspace/archive')};
+  const rootFields=[['toolchain','toolchainRoot'],['product','productRoot'],['event_log','eventLogRoot'],['runtime_state','runtimeStateRoot'],['projection','projectionRoot'],['archive','archiveRoot']];
+  const bindRequest={workspaceAuthority:{ref:workspaceAuthority.authorityBasisId,digest:workspaceAuthority.authorityBasisDigest},installedSet:productSet,resolvedLock:lock,
+    declaredRoots:rootFields.map(([rootKind,field])=>({rootKind,path:declaredRoots[field]}))};
+  const bindPacket=product.PRODUCT_ENVIRONMENT_SOURCE_DECLARATIONS.bind,bindKey=bindPacket.definitionKey;
+  const definition=publicApi.PUBLIC_FUNCTION_DEFINITION_FAMILY.definitions.find(d=>d.definitionKey.operationId===bindKey.operationId&&d.definitionKey.memberKey===bindKey.memberKey);
+  const bindResources={kind:'product_workspace_binding_resource_assertion',schemaVersion:'5.0.0',eventResource:reopen(),workspaceAuthority,
+    workspaceManifest:created.manifest,admittedInstalls:env.admittedInstalls,resolvedLock:env.lock,declaredRoots};
+  const bindSlots=slotsOf({product_set:productSet,dependency_lock:lock,actor:{actor:{ref:actorRef,digest:hash({actorRef})},attribution:{ref:'attribution://td51b/operation-bodies',digest:hash('td51b')}}});
+  const data=product.constructAdmissionCapabilityData({fixedPacket:bindPacket,ownerArtifact:{request:verifyRequest,verified:ownerVerified},request:bindRequest,
+    resources:bindResources,authoritySlots:bindSlots,boundEnvironment:null});
+  const authorityValue={actorRef,authorityMode:'trusted_developer'};
+  const approvalValue={decision:'allow',actorRef,definitionRef:definition.definitionRef,definitionDigest:definition.definitionDigest,requestDigest:hash(bindRequest),
+    scopeDigest:product.admissionAuthorityScope(data).digest};
+  const authority={kind:'resolved_admission_authority',schemaVersion:'5.0.0',actorRef,authorityMode:'trusted_developer',
+    authority:{ref:'authority://td51b/developer',digest:hash(authorityValue),value:authorityValue},approval:{ref:'approval://td51b/bind',digest:hash(approvalValue),value:approvalValue}};
+  const bindGrants=await Promise.all(definition.capabilityRefs.map(capabilityRef=>product.constructCapabilityGrant(authority,actorRef,bindKey.operationId,capabilityRef,
+    {kind:'admission_capability_grant_construction_basis',fixedPacket:bindPacket,data})));
+  const bind=await transported('workspace.bind',publicApi.constructInstalledPublicDefinitionCall({product,installedPublic:publicApi,
+    definitionContractCoordinates:env.verified.definitionContractCoordinates,contractCatalog:catalogOf(bindKey),...bindKey,request:bindRequest,
+    slots:{...bindSlots,capability_grants:grantsOf(definition.capabilityRefs,bindGrants)},
+    resources:{...bindResources,admissionAuthority:{basis:data,authority,grants:bindGrants}},requestRef:'public-request://td51b/bind',
+    correlationRef:'correlation://td51b/operation-bodies',eventTime:'2026-11-12T00:00:00.000Z',provenanceRefs:['provenance://td51b/operation-bodies']}));
+  assert.equal(bind.ownerOutput.outcomeKind,'result',JSON.stringify(bind.ownerOutput).slice(0,2000));
+  t.diagnostic('TD51B_OPERATION_BODIES '+JSON.stringify({releaseEvidence:releaseRead.basis,workspaceBind:bind.basis,
+    meaning:'per-row counts of physical basis body reads by location in one reopened operation'}));
 });
