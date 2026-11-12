@@ -94,13 +94,25 @@ export async function witnessMechanics({faultNative=null,transactionFault=false,
   const seedCandidate={kind:'basis_admitted',eventTime:'2026-09-11T00:00:00.000Z',aggregateType:'workspace',aggregateId:oldW.ref,
     parentAggregateId:null,causationEventRefs:[],correlationId:'correlation://mechanical/seed',workflowVersion:schemaVersion,scopeClass:'workspace',basisId:historical.ref,
     payload:{...(operatorRun?basisBody:{basisClass:'root',rawInputValue}),basisRef:historical.ref,basisDigest:historical.digest}};
+  const nativeRun=coord('run://mechanical/operator-stop','operator stop Run');let run=nativeRun;
+  const runCandidate=seed=>({kind:'run_segment_opened',eventTime:seed.eventTime,
+    aggregateType:'run',aggregateId:run.ref,parentAggregateId:newW.ref,causationEventRefs:[seed.eventId],
+    correlationId:seed.correlationId,workflowVersion:schemaVersion,scopeClass:'run',basisId:historical.ref,runId:run.ref,
+    graphFunctionRef:basisBody.graphFunctionRef,
+    payload:{runId:run.ref,runDigest:run.digest,executionBasisRef:historical.ref,executionBasisDigest:historical.digest,
+      ...Object.fromEntries(['invocationAdmissionRef','invocationRef','workspaceBindingId','programRef','graphFunctionRef','graphRef','graphDigest'].map(k=>[k,basisBody[k]]))}});
   let acquired,seed;
   if(legacyProfile){
     // Disposable raw legacy fixture only, using the unchanged native projector;
     // the actual cold owner authenticates it before issuing a genuine handoff.
+    // An operator Run on L is written raw too: a store on L takes no append
+    // before its reprice.
+    assert.equal(closedRun,false);
     const legacy=await privateOwner('abg/event_store.js',['projectRuntimeEventAtContract']);
     seed=legacy.projectRuntimeEventAtContract([],seedCandidate,events.LEGACY_ROOT_EVENT_CONTRACT_DIGEST);
-    const bytes=Buffer.from(canonicalJson(seed)+'\n');writeFileSync(eventLogPath,bytes,{flag:'wx'});
+    const legacyRows=[seed];
+    if(operatorRun)legacyRows.push(legacy.projectRuntimeEventAtContract(legacyRows,runCandidate(seed),events.LEGACY_ROOT_EVENT_CONTRACT_DIGEST));
+    const bytes=Buffer.from(legacyRows.map(row=>canonicalJson(row)+'\n').join(''));writeFileSync(eventLogPath,bytes,{flag:'wx'});
     const stat=statSync(eventLogPath),body={kind:'event_store_reopen_authority',schemaVersion,eventLogPath,device:stat.dev,inode:stat.ino,
       eventLogDigest:'sha256:'+createHash('sha256').update(bytes).digest('hex'),durableByteLength:bytes.length,eventContractDigest:events.LEGACY_ROOT_EVENT_CONTRACT_DIGEST};
     acquired=events.reopenEventStore({...body,authorityDigest:hash(body)});
@@ -109,13 +121,7 @@ export async function witnessMechanics({faultNative=null,transactionFault=false,
     assert.ok('store'in acquired,JSON.stringify(acquired));seed=events.admitRuntimeEvent(acquired.store,seedCandidate);
   }
   assert.ok('store'in acquired,JSON.stringify(acquired));
-  const nativeRun=coord('run://mechanical/operator-stop','operator stop Run');let run=nativeRun;
-  if(operatorRun)events.admitRuntimeEvent(acquired.store,{kind:'run_segment_opened',eventTime:seed.eventTime,
-    aggregateType:'run',aggregateId:run.ref,parentAggregateId:newW.ref,causationEventRefs:[seed.eventId],
-    correlationId:seed.correlationId,workflowVersion:schemaVersion,scopeClass:'run',basisId:historical.ref,runId:run.ref,
-    graphFunctionRef:basisBody.graphFunctionRef,
-    payload:{runId:run.ref,runDigest:run.digest,executionBasisRef:historical.ref,executionBasisDigest:historical.digest,
-      ...Object.fromEntries(['invocationAdmissionRef','invocationRef','workspaceBindingId','programRef','graphFunctionRef','graphRef','graphDigest'].map(k=>[k,basisBody[k]]))}});
+  if(operatorRun&&!legacyProfile)events.admitRuntimeEvent(acquired.store,runCandidate(seed));
   const replayOwner=await loadMechanism('abg/replay.js');
   const readOwner=operatorRun?await loadMechanism('abg/project_read_ports.js',{'./replay.js':replayOwner}):null;
   const readContracts=operatorRun?await loadMechanism('abg/project_read_operation_contracts.js'):null;

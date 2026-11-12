@@ -16,6 +16,8 @@ import { sha256Bytes, sha256Canonical as hash } from '../../build/code/src/share
 import { deepFreeze } from '../../build/code/src/shared/immutable.js';
 import { acquireNewEmptyAppendSinkFixture } from '../support/new-empty-append-sink.mjs';
 import { projectAdmittedTransportEvidenceLifecycle, projectAdmittedTransportEvidenceSelection } from '../../build/code/src/abg/c_call.js';
+import { actorRuntimeProbeSources } from '../../build/code/src/abg/runtime_liveness_contracts.js';
+import { FROZEN_S2_EVENT_CONTRACT_DIGEST, INSTALLED_RC6_EVENT_CONTRACT_DIGEST } from '../../build/code/src/abg/event_contract_profiles.js';
 
 // Component harness of t287-f04a-probabilistic-result-candidate (finalized
 // artifact cases) over this tenant's build, without the installed environment:
@@ -68,15 +70,16 @@ const json = value => JSON.parse(JSON.stringify(value));
 // Case b's error after launch: a stream error after the direct exit.
 const afterExitStreamError = Object.assign(new Error('fixture stdout read failure after exit'), { code: 'EIO' });
 
-// Legacy-profile rows: no eventContractDigest member, so the prefix carries no
-// liveness binding, probes or native result assessment.
-function recorder(label) {
+// Recorder rows. Without a stamp they are L rows (no eventContractDigest
+// member), as recorded L stores hold them; the actor drive stamps every row
+// with the current profile W, the only profile an actor invocation runs on.
+function recorder(label, stamp = null) {
   const rows = [];
   let ordinal = 0;
   const append = candidate => {
     ordinal += 1;
-    const row = deepFreeze({ ...candidate, eventId: `event://t287/carrier/${label}/${ordinal}`,
-      admissionOrdinal: ordinal, payloadDigest: hash(candidate.payload) });
+    const row = deepFreeze({ ...candidate, ...(stamp === null ? {} : { eventContractDigest: stamp }),
+      eventId: `event://t287/carrier/${label}/${ordinal}`, admissionOrdinal: ordinal, payloadDigest: hash(candidate.payload) });
     rows.push(row);
     return row;
   };
@@ -87,14 +90,15 @@ const scope = { runId: 'run://t287/carrier', graphCallId: 'graph-call://t287/car
 const common = { correlationId: 'correlation://t287/carrier', workflowVersion: '5.0.0', scopeClass: 'run',
   basisId: 'basis://t287/carrier', eventTime: time, ...scope };
 
-async function driveActor(t, mode) {
+async function driveActor(t, mode, stamp = events.ROOT_EVENT_CONTRACT_DIGEST) {
   const scratch = await realpath(await mkdtemp(join(tmpdir(), `abi5-carrier-${mode}-`)));
   t.after(() => rm(scratch, { recursive: true, force: true }));
   const archiveRoot = join(scratch, 'workspace', '.abg', 'archives');
   await mkdir(archiveRoot, { recursive: true });
-  const { rows, append } = recorder(mode);
-  let currentPrefix = { storeIdentity: { eventContractDigest: events.LEGACY_ROOT_EVENT_CONTRACT_DIGEST },
-    coordinateDigest: hash(`${mode}:0`) };
+  const { rows, append } = recorder(mode, stamp === events.LEGACY_ROOT_EVENT_CONTRACT_DIGEST ? null : stamp);
+  let currentPrefix = { storeIdentity: { eventContractDigest: stamp }, coordinateDigest: hash(`${mode}:0`) };
+  let spawned = 0;
+  const probes = [];
   let plan = null, finalFacts = null, transportError = null;
   const child = new EventEmitter();
   child.pid = mode === 'spawn_failed' ? undefined : 4242;
@@ -118,23 +122,37 @@ async function driveActor(t, mode) {
     }
   });
   const worker = await component('abg/worker_transport', {
-    'node:child_process': { spawn: () => child },
+    'node:child_process': { spawn: () => { spawned += 1; return child; } },
     '../shared/owned_process_lifetime.js': unknownGroupLifetime,
   });
   const cCallRef = `c-call://t287/carrier/${mode}`;
   const fibre = append({ ...common, kind: 'c_call_fibre_selected', aggregateType: 'c_call', aggregateId: cCallRef,
     parentAggregateId: scope.frameId, causationEventRefs: [], payload: { cCallRef } });
+  // Current-profile premises: the liveness context and probe admission are
+  // named premises (the probe signals are recorded, no probe row is written);
+  // the binding row carries the actor's real liveness binding. The store's
+  // committed prefix is the recorder rows, and no stdout window is bound.
   const actor = await component('abg/actor_process', {
-    './event_prefix.js': { readOwnedRuntimeEventPrefixAtDurablePrefix: () => null, selectRuntimeEventPrefixFromStore: () => null },
+    './event_prefix.js': { readOwnedRuntimeEventPrefixAtDurablePrefix: () => null,
+      selectRuntimeEventPrefixFromStore: () => prefixes.selectValidatedRuntimeEventPrefix(deepFreeze([...rows])) },
     './invocation_admission.js': { rehydrateInvocationAdmissionAtPrefix: () => null },
     './environment_admission.js': { hasAdmittedWorkspaceBinding: () => true },
+    '../implementation/leaf_invocation_port.js': { isAdmittedLeafInvocationPort: () => true },
     './event_store.js': { assertHeldEventStoreAtDurablePrefix: () => {}, admitRuntimeEvent: (_store, candidate) => append(candidate),
+      bindNativeStdoutWindow: () => () => {},
       admitNonEmptyRuntimeEventTransactionAtDurablePrefix: (_store, _prefix, action) => {
         const value = action();
         currentPrefix = { ...currentPrefix, coordinateDigest: hash(`${mode}:${rows.length}`) };
         return { value, successorPrefix: currentPrefix };
       } },
-    './runtime_liveness.js': { captureNativeFrameBoundary: () => ({}), observeNativeFrameLiveness: () => {} },
+    './runtime_liveness.js': { captureNativeFrameBoundary: () => ({}), observeNativeFrameLiveness: () => {},
+      projectActorLivenessContext: (_prefix, actorInvocationRef) => ({ scope: { actorInvocationRef },
+        binding: { clockOriginRef: 'runtime-clock://t287/carrier' }, declarationEventRef: null,
+        probes: actorRuntimeProbeSources(plan.parser).map(source => ({ source, probeRef: `runtime-probe://t287/carrier/${source}` })) }),
+      admitRuntimeActivityProbe: input => {
+        probes.push({ source: input.source, signal: input.observation.signal });
+        return { successorPrefix: currentPrefix, value: rows.find(row => row.eventId === input.observation.underlyingEventRef) };
+      } },
     './worker_transport.js': {
       prepareWorkerTransport: async input => (plan = await worker.prepareWorkerTransport(input)),
       runPreparedWorkerTransport: async (prepared, observer) => {
@@ -163,13 +181,18 @@ async function driveActor(t, mode) {
     expectedInputDigest: request.inputDigest,
     workerContracts: { instructionContractRef: request.instructionContractRef, resultContractRef: request.resultContractRef },
     runtime: { workspaceBinding, artifactTruth: {} }, basis: { correlationId: common.correlationId },
+    rawResultOwner: { port: { isAdmittedResolution: () => true },
+      resolution: { implementationRef: request.implementationRef, outputContractRef: request.resultContractRef },
+      input: { subject: mode } },
   });
-  return { rows, effect, finalFacts, transportError, plan };
+  return { rows, effect, finalFacts, transportError, plan, probes, spawned };
 }
 
 test('worker no-child launch failure: spawn_failed admitted; the bound transport artifact carries processFacts', async t => {
-  const { rows, effect, finalFacts, plan } = await driveActor(t, 'spawn_failed');
+  const { rows, effect, finalFacts, plan, probes } = await driveActor(t, 'spawn_failed');
   assert.notEqual(finalFacts, null);
+  assert.equal(rows.find(row => row.kind === 'actor_transport_binding_admitted').payload.livenessBinding.kind, 'runtime_liveness_binding');
+  assert.deepEqual(probes, [], 'no process start, so no start probe');
   assert.equal(finalFacts.noChildEstablished, true);
   assert.equal(classifyOwnedProcessTerminal(finalFacts), 'spawn_failed');
   const kinds = rows.map(row => row.kind);
@@ -192,23 +215,23 @@ test('worker no-child launch failure: spawn_failed admitted; the bound transport
   assert.equal(body.processFacts.launchFailure.errno, '-2');
   assert.equal(Object.hasOwn(body.processFacts.launchFailure, 'stack'), false);
   // D5: the archive omits the lifecycle copies; its own timeoutClass and
-  // encoded facts determine them. This drive holds an L prefix, so its
-  // artifact event keeps the L copies (a current artifact omits them).
+  // encoded facts determine them. The artifact event records no copy either:
+  // the fold over the process rows supplies them.
   for (const key of ['timedOut', 'exitObserved', 'terminationConfirmed'])
     assert.equal(Object.hasOwn(body, key), false, `the archive omits ${key}`);
   assert.equal(body.timeoutClass, null);
-  assert.equal(observed[0].payload.timedOut, body.timeoutClass !== null);
   assert.equal(classifyOwnedProcessTerminal(body.processFacts), 'spawn_failed');
-  assert.equal(observed[0].payload.exitObserved, false);
-  assert.equal(observed[0].payload.terminationConfirmed, false);
+  for (const key of ['timedOut', 'exitObserved', 'terminationConfirmed', 'signalSequence'])
+    assert.equal(Object.hasOwn(observed[0].payload, key), false, `the current artifact event records no ${key}`);
+  assert.equal(observed[0].payload.nativeResultAssessment.disposition, 'absent', 'empty output assesses as absent');
   assert.equal(rows.some(row => row.kind === 'actor_invocation_failed'), true);
   assert.equal(effect.kind, 'actor_process_effect_receipt');
-  // Derived state over the fold of L.
+  // Derived state over the fold of W.
   const processRef = terminal.aggregateId;
   assert.equal(holds(rows, 'actor_process_spawn_failed', processRef), true);
   assert.equal(holds(rows, 'actor_process_terminated', processRef), false);
   assert.equal(holds(rows, 'actor_process_live', processRef), false);
-  assert.equal(holds(rows, 'terminationConfirmed_copy_disagrees', processRef), false, 'the false copy agrees with the fold');
+  assert.equal(holds(rows, 'terminationConfirmed_copy_disagrees', processRef), false, 'no copy disagrees with the fold');
 });
 
 async function retainAtFailCCall(t, refusal) {
@@ -268,9 +291,32 @@ async function retainAtFailCCall(t, refusal) {
     diagnosticRef: owner.constructRuntimeFailureDiagnosticRef };
 }
 
+// T-292 TD-32: the actor records a liveness binding, probes and stdout
+// windows; only the current profile admits the probes and windows. On L, RC6
+// and S2 it refuses before its binding or any start. (The RC6 and S2 tables
+// admit the binding row itself, so this check is their refusal before a
+// spawn; on L the event store's door also refuses any binding row. This
+// recorder applies no event contract.)
+test('an actor invocation runs only on the current profile: on L, RC6 and S2 it is refused before its binding or any start', async t => {
+  for (const [label, stamp] of [['L', events.LEGACY_ROOT_EVENT_CONTRACT_DIGEST], ['RC6', INSTALLED_RC6_EVENT_CONTRACT_DIGEST],
+    ['S2', FROZEN_S2_EVENT_CONTRACT_DIGEST]]) {
+    const { rows, effect, probes, spawned } = await driveActor(t, `refused-${label}`, stamp);
+    console.log(JSON.stringify({ kind: 'td32_actor_profile_row', profile: label, effect: effect.kind, code: effect.code ?? null,
+      message: effect.message ?? null, kinds: rows.map(row => row.kind), spawned }));
+    assert.equal(effect.kind, 'actor_process_effect_refusal', label);
+    assert.equal(effect.code, 'actor_process_invocation_refused', label);
+    assert.match(effect.message, /liveness admission requires one held current-profile owner context/u, label);
+    assert.deepEqual(rows.map(row => row.kind), ['c_call_fibre_selected'], `${label}: no binding or start row`);
+    assert.equal(spawned, 0, `${label}: no process is spawned`);
+    assert.deepEqual(probes, [], label);
+  }
+});
+
 test('worker error after launch with unresolved cleanup: termination_unconfirmed admitted; the refusal carries processFacts; failCCall retains it', async t => {
-  const { rows, effect, finalFacts, transportError } = await driveActor(t, 'unconfirmed');
+  const { rows, effect, finalFacts, transportError, probes } = await driveActor(t, 'unconfirmed');
   assert.notEqual(finalFacts, null);
+  assert.deepEqual(probes.find(probe => probe.source === 'process_lifecycle'), { source: 'process_lifecycle', signal: 'activity' },
+    'the start probe reaches the liveness owner');
   assert.equal(classifyOwnedProcessTerminal(finalFacts), 'unconfirmed');
   assert.equal(finalFacts.scopeAbsence, 'unknown');
   assert.deepEqual(finalFacts.directExit, { status: 0, signal: null });
