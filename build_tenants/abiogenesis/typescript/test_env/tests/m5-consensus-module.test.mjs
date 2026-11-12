@@ -6,10 +6,8 @@ import {
 } from "node:fs/promises";
 import { resolve } from "node:path";
 import test from "node:test";
-import { pathToFileURL } from "node:url";
 
 import * as abg from "../../build/code/src/abg/index.js";
-import { ROOT_EVENT_CONTRACT_DIGEST } from "../../build/code/src/abg/event_store.js";
 import * as gtl from "../../build/code/src/gtl/index.js";
 import {
   CONSENSUS_REVIEWER_IMPLEMENTATION_DESCRIPTOR,
@@ -22,10 +20,6 @@ import * as product from "../../build/code/src/product/index.js";
 import { PUBLIC_OPERATION_CONTRACT_PROJECTIONS } from "../../build/code/src/public/index.js";
 import { compareUnicodeCodeUnits } from "../../build/code/src/shared/canonical_json.js";
 import * as validator from "../../build/code/src/validator/index.js";
-import {
-  constructPublicRunProjectionAuthority,
-  parsePublicRunProjectionAuthority,
-} from "../../build/code/src/public/run_projection_authority.js";
 
 const packageRoot = resolve(new URL("../..", import.meta.url).pathname);
 const DIGEST = `sha256:${"1".repeat(64)}`;
@@ -2001,7 +1995,9 @@ test("S05 Product judgment binds reviewer and submitter output to the exact inpu
   );
 });
 
-test("S05 public result binds real replay while its authority rejects digest tampering", () => {
+// T-292 TD-26 P1: the Public run projection authority is retired; the
+// replay binding and catalog claims stay.
+test("S05 public result binds real replay", () => {
   const pending = unresolvedCandidate();
   const result = gtl.bindConsensusReplay(
     pending,
@@ -2020,79 +2016,6 @@ test("S05 public result binds real replay while its authority rejects digest tam
     ...catalog.entries.map((entry) => entry.handle),
   ]);
   assert.equal(catalogView.kind, "graph_function_catalog_view");
-
-  const reopenBody = {
-    kind: "event_store_reopen_authority",
-    schemaVersion: "5.0.0",
-    eventLogPath: "/tmp/abiogenesis-module-proof.events.jsonl",
-    device: 1,
-    inode: 1,
-    eventLogDigest: DIGEST,
-    durableByteLength: 0,
-    eventContractDigest: ROOT_EVENT_CONTRACT_DIGEST,
-  };
-  const prefixBody = {
-    kind: "durable_prefix_coordinate",
-    schemaVersion: "5.0.0",
-    eventLogRef: pathToFileURL(reopenBody.eventLogPath).href,
-    prefixLength: reopenBody.durableByteLength,
-    prefixDigest: reopenBody.eventLogDigest,
-    storeIdentity: {
-      device: reopenBody.device,
-      inode: reopenBody.inode,
-      eventContractDigest: reopenBody.eventContractDigest,
-    },
-  };
-  const authority = constructPublicRunProjectionAuthority({
-    prefix: {
-      ...prefixBody,
-      coordinateDigest: product.sha256Canonical(prefixBody),
-    },
-    reopenAuthority: {
-      ...reopenBody,
-      authorityDigest: product.sha256Canonical(reopenBody),
-    },
-    runtimeInvocationRef: "invocation://developer/module-proof",
-    invocationAdmissionRef: "invocation-admission://developer/module-proof",
-    runId: "run://developer/module-proof",
-    graphCallId: "graph-call://developer/module-proof",
-    resultRef: result.resultRef,
-    outputContractRef: gtl.CONSENSUS_IDS.resultCandidateContractRef,
-    install: {
-      kind: "product_install",
-      schemaVersion: "5.0.0",
-      disposition: "admitted",
-      installId: "install://developer/module-proof",
-      installedRoot: "/tmp/abiogenesis-module-proof",
-      productId: artifactBasis().productId,
-      packageName: artifactBasis().packageName,
-      packageVersion: artifactBasis().packageVersion,
-      artifactDigest: DIGEST,
-      productContentDigest: DIGEST,
-      manifestDigest: DIGEST,
-      admissionEventRef: "event://developer/install-admitted",
-    },
-    workspaceId: WORKSPACE,
-    workspaceBindingId: "workspace-binding://developer/module-proof",
-    workspaceBindingDigest: DIGEST,
-    catalogBasisDigest: catalog.basisDigest,
-    catalogReadinessBasis: { kind: "module-proof-readiness-basis" },
-    catalogViewAllowlist: catalogView.allowlist,
-    catalogViewDigest: catalogView.viewDigest,
-    publicationDigests: catalog.publicationDigests,
-    publications: [publication],
-  });
-  assert.notEqual(parsePublicRunProjectionAuthority(authority), null);
-  assert.equal(Object.hasOwn(authority, "catalog"), false);
-  assert.equal(Object.hasOwn(authority, "catalogView"), false);
-  assert.equal(Object.hasOwn(authority, "modulePublication"), false);
-  assert.equal(
-    parsePublicRunProjectionAuthority({
-      ...authority,
-      resultRef: `${result.resultRef}/tampered`,
-    }),
-    null,
-  );
 });
 
 test("S05 generic Public and ABG invocation basis contain no Consensus branch", async () => {
