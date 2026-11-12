@@ -3,7 +3,6 @@ import * as v from "valibot";
 import { capabilityRefsForDefinition } from "../shared/capability_contracts.js";
 
 import {
-  type ExactOwnerOperationPort,
   jsonValueSchema,
   nonemptyRefDigestSetSchema,
   ownerAuthorityDigest,
@@ -159,14 +158,3 @@ export const WITNESS_OPERATION_CONTRACTS = Object.freeze({
     "run-stopped": runStopped,
   }),
 });
-
-export interface WitnessAdmissionPort {
-  readonly admit: ExactOwnerOperationPort<
-    | typeof reprice
-    | typeof attest
-    | typeof hygieneStamp
-    | typeof intake
-    | typeof runResumed
-    | typeof runStopped
-  >;
-}
