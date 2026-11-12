@@ -116,9 +116,6 @@ export const FAN_OUT_APPLICATION_SCHEMA = v.strictObject({
 export const FAN_IN_APPLICATION_SCHEMA = v.strictObject({
   ...applicationBase, relationKind: v.literal("fan_in"), reducerGraphFunctionRef: ref, inputVectorRef: ref,
 });
-export const GATE_APPLICATION_SCHEMA = v.strictObject({
-  ...applicationBase, relationKind: v.literal("gate"), targetRef: ref, ruleRef: ref, evaluatorRefs: refs,
-});
 export const REGISTERED_SELECTION_APPLICATION_SCHEMA = v.strictObject({
   ...applicationBase, relationKind: v.literal("registered_selection"), sourceProgramLocusRef: ref, evaluatorRef: ref, ruleRef: ref,
 });
@@ -133,7 +130,7 @@ export const SAME_OBJECT_APPLICATION_SCHEMA = v.strictObject({
 });
 export const GRAPH_APPLICATION_SCHEMA = v.variant("relationKind", [
   COMPOSE_APPLICATION_SCHEMA, SUBSTITUTE_APPLICATION_SCHEMA, RECURSE_APPLICATION_SCHEMA,
-  FAN_OUT_APPLICATION_SCHEMA, FAN_IN_APPLICATION_SCHEMA, GATE_APPLICATION_SCHEMA, REGISTERED_SELECTION_APPLICATION_SCHEMA,
+  FAN_OUT_APPLICATION_SCHEMA, FAN_IN_APPLICATION_SCHEMA, REGISTERED_SELECTION_APPLICATION_SCHEMA,
   REENTER_APPLICATION_SCHEMA, PROMOTE_APPLICATION_SCHEMA, IDENTITY_APPLICATION_SCHEMA, SAME_OBJECT_APPLICATION_SCHEMA,
 ]);
 export const GRAPH_TEMPLATE_SCHEMA = v.strictObject({

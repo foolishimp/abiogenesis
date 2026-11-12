@@ -402,13 +402,6 @@ function hasExactApplicationShape(
         "inputVectorRef",
         "reducerGraphFunctionRef",
       ]);
-    case "gate":
-      return hasExactKeys(application, [
-        ...base,
-        "evaluatorRefs",
-        "ruleRef",
-        "targetRef",
-      ]);
     case "registered_selection":
       return hasExactKeys(application, [...base, "sourceProgramLocusRef", "evaluatorRef", "ruleRef"]);
     case "re_enter":
@@ -1194,20 +1187,6 @@ function validateProgramSubject(input: ProgramValidationInput): ProgramValidatio
           message: "recurse application requires published termination Rule and Evaluator declarations over its exact decision field",
         });
       }
-      if (
-        application.relationKind === "gate" &&
-        (
-          !publishedRuleRefs.has(application.ruleRef) ||
-          application.evaluatorRefs.length === 0 ||
-          application.evaluatorRefs.some((ref) => !publishedEvaluatorRefs.has(ref))
-        )
-      ) {
-        diagnostics.push({
-          code: "invalid_application",
-          path: `$.graphFunctions[${graphFunction.name}].template.applications[${application.applicationRef}].evaluatorRefs`,
-          message: "gate application requires published Rule and Evaluator declarations",
-        });
-      }
       if (application.relationKind === "registered_selection") {
         const sources = graphFunction.template.nodes.filter(n => n.term.kind === "c_of" && n.term.programLocusRef === application.sourceProgramLocusRef);
         const source = sources.length === 1 ? sources[0] : undefined;
@@ -1237,60 +1216,6 @@ function validateProgramSubject(input: ProgramValidationInput): ProgramValidatio
           });
         if (!valid) diagnostics.push({ code: "invalid_application", path: `$.graphFunctions[${graphFunction.name}].template.applications[${application.applicationRef}]`,
           message: "registered selection requires an exact evaluator/policy source and unique permitted workflow targets with one shared interface and purpose" });
-      }
-      if (application.relationKind === "gate") {
-        const attachedLeaves = graphFunction.template.nodes
-          .flatMap((node) => cLeafTerms(node.term))
-          .filter((leaf) => leaf.compositionRef === application.applicationRef);
-        const workflowTargets = graphFunction.template.nodes
-          .flatMap((node) =>
-            projectCProgramNodeDeclarationReferences(node.term)
-              .graphFunctionRefs
-          );
-        const expectedExecutableBindings = application.evaluatorRefs
-          .flatMap((ref) => {
-            const evaluator = publishedEvaluatorByRef.get(ref);
-            return evaluator === undefined || evaluator.regime === "F_H"
-              ? []
-              : [evaluator.binding];
-          })
-          .sort(compareUnicodeCodeUnits);
-        const attachedExecutableBindings = attachedLeaves
-          .filter(isExecutableCLeaf)
-          .map((leaf) =>
-            bindingByRef.get(leaf.requirement.implementationBindingRef)
-              ?.implementationRef ?? ""
-          )
-          .sort(compareUnicodeCodeUnits);
-        const expectedRegimes = application.evaluatorRefs
-          .map((ref) => publishedEvaluatorByRef.get(ref)?.regime ?? "")
-          .sort(compareUnicodeCodeUnits);
-        const attachedRegimes = attachedLeaves
-          .map((leaf) => leaf.fibre)
-          .sort(compareUnicodeCodeUnits);
-        if (
-          attachedLeaves.length === 0 ||
-          workflowTargets.length !== 1 ||
-          workflowTargets[0] !== application.targetRef ||
-          attachedLeaves.some(
-            (leaf) =>
-              leaf.stageRole !== "evaluate" ||
-              leaf.outputCarrierRef !== application.inputContractRef,
-          ) ||
-          !canonicalEquals(
-            expectedExecutableBindings,
-            attachedExecutableBindings,
-          ) ||
-          !canonicalEquals(expectedRegimes, attachedRegimes)
-        ) {
-          diagnostics.push({
-            code: "invalid_application",
-            path:
-              `$.graphFunctions[${graphFunction.name}].template.applications[${application.applicationRef}]`,
-            message:
-              "gate application requires exact evaluator loci and one matching workflow target",
-          });
-        }
       }
       if (application.relationKind === "re_enter") {
         const source = resolveCProgramLocus(
@@ -1361,8 +1286,6 @@ function validateProgramSubject(input: ProgramValidationInput): ProgramValidatio
       if (
         (application.relationKind === "recurse" &&
           !preservesOuterInterface(application.graphFunctionRef)) ||
-        (application.relationKind === "gate" &&
-          !preservesOuterInterface(application.targetRef)) ||
         (application.relationKind === "substitute" &&
           !preservesOuterInterface(application.outerGraphFunctionRef))
       ) {
