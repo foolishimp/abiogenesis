@@ -164,15 +164,24 @@ guard infers it.
   `constructCapabilityDefinitionGraph` over the graph's own owner coordinates;
   each contract's `capabilityIdentities` equal `capabilityRefsForContract`;
   a lock row or artifact with an empty graph claims no contract the register
-  maps to a capability. `isResolvedProductLock`, `isVerifiedProductArtifact`
-  and `isCapabilityDefinitionGraph` ask this question.
+  maps to a capability.
 - **Recorded.** The value is internally established by what is recorded with
   it and bound by its digests. The register is not read.
 
-Each guard has one body for both questions: `isProductLockFor`
-(`product/environment.ts`), `isVerifiedProductArtifactFor`
-(`product/verify_product.ts`) and `isCapabilityDefinitionGraphFor`
-(`shared/capability_contracts.ts`). Both questions check everything the lock
+`isResolvedProductLock` (`product/environment.ts`), `isVerifiedProductArtifact`
+(`product/verify_product.ts`) and `isCapabilityDefinitionGraph`
+(`shared/capability_contracts.ts`) keep their exported signatures, which ask
+the strict question. An internal overload takes the question as a trailing
+argument; any value other than `"recorded"` (a callback index included) asks
+the strict one. Each guard has one private body for both questions
+(`productLockHolds`, `verifiedProductArtifactHolds`,
+`capabilityDefinitionGraphHolds`). The owners that pass a question on name it
+the same way: `admitGraphFunctionCatalog` (`product/catalog.ts`),
+`reconstructHistoricalDeclarationCatalog` (`product/declaration_closure.ts`),
+`projectWorkspaceStatus` (`product/project_read_ports.ts`),
+`projectAdmittedWorkspaceBindingByInvocationRef`
+(`abg/environment_admission.ts`), `constructCapabilityGrant` and
+`validateCapabilityGrantForProductBasis` (`product/invocation.ts`). Both questions check everything the lock
 guard checks without the register: the lock and row shape and descriptor
 fields; the contribution manifest, its digest and the product, version,
 descriptor, content digest, catalog id and digest and graph coordinate it
@@ -219,21 +228,26 @@ together. The strict question does not recompute the catalog digest.
 | --- | --- | --- |
 | the artifact-truth fold advancing over recorded rows (`RuntimeArtifactFacts.advance`, `abg/artifact_truth.ts`) | recorded | `prepare(row, "recorded")` |
 | the admission candidate (`prepareArtifactTruthCandidate`) | strict | `prepare(…, "strict", establishedLock)` |
-| every admission door and constructor, the reader's own verification and install, catalog admission, run execution resolution, declaration application, run and admission grants, conformance, release qualification, worksite forward, governance coverage, native work reacquisition and a historical source for a new run | strict | the exported guards and owners |
-| the Public run read (`prepareRunRead`, `abg/project_read_ports.ts`): a historical declaration proof and the verified products of its Catalog | recorded | `prepareRead(…, "recorded", …)`; `terminalDeclaration` passes `prepared.question` to `reconstructHistoricalDeclarationCatalogFor` (`product/declaration_closure.ts`) and `admitGraphFunctionCatalogFor` (`product/catalog.ts`) |
-| the run-read authority (`expectedRunReadAuthority` and the run-read kernel, `abg/project_read_definition_bindings.ts`) | recorded | `constructRecordedReadCapabilityGrant`, `validateRecordedReadCapabilityGrant` (`product/invocation.ts`) |
-| `project.read#workspace_status` (`product/project_read_definition_bindings.ts`) | recorded | `projectWorkspaceStatusFor(packet, "recorded")` (`product/project_read_ports.ts`) |
-| the admitted authority of `project.read#ticket_consensus` (`admittedAuthorityBinding`) | recorded | `projectAdmittedWorkspaceBindingByInvocationRefFor(…, "recorded")` (`abg/environment_admission.ts`) |
+| every admission door and constructor, the reader's own verification and install, catalog admission, run execution resolution, declaration application, run and admission grants, conformance, release qualification (`abg/qualification_proof.ts`, which reconstructs its proof Catalog before it reads), worksite forward, governance coverage and native work reacquisition | strict | the exported signatures |
+| the read owner of `abg/project_read_ports.ts`: the Public run read (`prepareRunRead`), the owner read ports (`project`, behind `RunProjectionPort`, `GraphCallProjectionPort` and `ABG_PROJECT_READ_OWNER_PORTS`) and `projectRunTruthAtDurablePrefix`; a supplied historical declaration proof and the verified products of its Catalog | recorded | `prepareRead(…, "recorded")`, also its default; `terminalDeclaration` passes `prepared.question` to `reconstructHistoricalDeclarationCatalog` (`product/declaration_closure.ts`), which passes it to `admitGraphFunctionCatalog` (`product/catalog.ts`) |
+| the read owner's entries whose result feeds new work: a historical source for a new run (`projectHistoricalGraphCallSourceAtDurablePrefix`) and a closed terminal for worksite forward and native work reacquisition (`projectClosedGraphCallTerminalAtDurablePrefix`) | strict | `question: "strict"` at the entry |
+| the run-read authority (`expectedRunReadAuthority` and the run-read kernel, `abg/project_read_definition_bindings.ts`) | recorded | `constructCapabilityGrant(…, "recorded")`, `validateCapabilityGrantForProductBasis(…, "recorded")` (`product/invocation.ts`) |
+| `project.read#workspace_status` (`product/project_read_definition_bindings.ts`) | recorded | `WorkspaceProjectionPort.status(packet, "recorded")` (`product/project_read_ports.ts`) |
+| the admitted authority of `project.read#ticket_consensus` (`admittedAuthorityBinding`) | recorded | `projectAdmittedWorkspaceBindingByInvocationRef(…, "recorded")` (`abg/environment_admission.ts`) |
 
 A read that asks the recorded question of a caller-supplied copy binds the copy
 to recorded history. `workspace_status` requires the packet's binding to be a
 recorded admission (`hasAdmittedWorkspaceBinding`) and the packet's lock to
-reproduce the lock digest that binding names; another lock is `not_ready`. The
-run read requires the proof Catalog's lock, binding and installs to equal the
-recorded environment's (`reconstructHistoricalDeclarationCatalogFor`) and its
-basis digest, which covers the verified products, to equal the recorded root
-basis's `catalogBasisDigest` (`terminalDeclaration`); otherwise the read is
-`invalid_history`. A Catalog admitted under the recorded question is retained
+reproduce the lock digest that binding names; another lock is `not_ready`. A
+read of the read owner requires the proof Catalog's lock, binding and installs
+to equal the recorded environment's (`reconstructHistoricalDeclarationCatalog`)
+and its basis digest, which covers the verified products, to equal the recorded
+root basis's `catalogBasisDigest` (`terminalDeclaration`); otherwise the read
+is `invalid_history`. Release qualification reconstructs its proof Catalog
+under the strict question before it reads the terminal through the owner read
+port, so a proof it accepts also passes the read unless a carrier's catalog
+digest does not recompute from its own contracts, which the strict question
+does not check. A Catalog admitted under the recorded question is retained
 apart from `readyCatalogs` and never enters `ownedCatalogs`, so the owner fact
 `isAdmittedReadyGraphFunctionCatalog`, which run execution trusts, covers strict
 admissions only.
