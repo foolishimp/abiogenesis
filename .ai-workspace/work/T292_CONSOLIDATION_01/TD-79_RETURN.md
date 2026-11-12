@@ -8,19 +8,21 @@ in `public/cli.ts` (register entry TD-79). No push, no tag.
 T = `build_tenants/abiogenesis/typescript`. Scratch: `/private/tmp/abg-td79-work/`.
 Line numbers are at `42eabe9e8` unless marked "now".
 
-**Status: Done, no stop. The CLI exits 2 only when no owning function is
-entered: wrong arguments, a request it cannot read or decode, and the
-transport's typed refusal. A throw out of the transport and an outcome it
-cannot encode exit 70; the CLI catches them in a second `try` block that
-begins once the call is submitted, and the transport is unchanged. Every typed
-refusal arm reachable from the CLI precedes owner entry. `REQ-P-POLICY-022`'s
-status clause is restated in its own commit. The new lane drives the built CLI
-as a process and produces both 70 paths from outside the process with no
-Product seam: 11/11 on the final build, 8/11 at base (the two 70 rows exit 2).
-The 17 kept files run on base and final are identical test by test; the 20
-more reader files run on the final build have no failure. No reader relies on
-2 for a moved path. One item for a ruling (R1): the kept `transport_failure` line is now
-written with both 2 and 70.**
+**Status: Done, no stop, nothing open for a ruling. The CLI exits 2 only when
+no owning function is entered: wrong arguments, a request it cannot read or
+decode, and the transport's typed refusal. A throw out of the transport and an
+outcome it cannot encode exit 70; the CLI catches them in a second `try` block
+that begins once the call is submitted, and the transport is unchanged. Every
+typed refusal arm reachable from the CLI precedes owner entry.
+`REQ-P-POLICY-022`'s status clause is restated in its own commit. R1 is ruled
+and applied (section 16): a request file the CLI cannot read or decode writes
+`invalid_transport_request` with 2, and `transport_failure` is written only
+with 70, after the call is submitted. The lane drives the built CLI as a
+process and produces both 70 paths from outside the process with no Product
+seam: 13/13 on the final build; 9/13 on the build before R1 (the two
+read-failure rows, the code assertion and the parent test fail). No reader outside the lane
+reads the CLI's `transport_failure`, and no reader relies on 2 for a moved
+path.**
 
 "Owner entry" below means the call `selected.callable(call)` at
 `public/installed_definition_call_transport.ts:489`: the transport invokes the
@@ -37,10 +39,10 @@ selected installed callable, and from that point the owning function runs.
 | # | Path | Lines | Line written | Status at base | Can an owning function have been entered before it? |
 | --- | --- | --- | --- | ---: | --- |
 | C1 | the arguments are not `--jsonl <file>` | `:82-87` | `invalid_arguments` | 2 | No. The CLI reads no file and calls no transport. |
-| C2 | reading the request file throws (missing file, a directory, no permission) | `:90`, caught at `:135-140` | `transport_failure` | 2 | No. |
+| C2 | reading the request file throws (missing file, a directory, no permission) | `:90`, caught at `:135-140` | `transport_failure` at base; `invalid_transport_request` after R1 | 2 | No. |
 | C3 | the file does not hold exactly one non-blank line | `:93-98` | `invalid_transport_request` | 2 | No. |
 | C4 | the line is not JSON | `:101-109` | `invalid_json` | 2 | No. |
-| C5 | the value is not one exact CLI transport request (`parseTransportRequest`, `:36-65`); a throw from `validateEventStoreCloseHandoff` at `:62` is caught at `:135-140` | `:110-118` | `invalid_transport_request` (`transport_failure` for a throw) | 2 | No. |
+| C5 | the value is not one exact CLI transport request (`parseTransportRequest`, `:36-65`); a throw from `validateEventStoreCloseHandoff` at `:62` is caught at `:135-140` | `:110-118` | `invalid_transport_request`; for a throw, `transport_failure` at base and `invalid_transport_request` after R1 | 2 | No. |
 | C6 | the transport returns its typed refusal | `:120-131` | the transport refusal | 2 | No. Every refusal arm reachable from the CLI precedes owner entry (table 1.2). |
 | C7 | the transport returns its result | `:128-132` | the transport result | the receipt's `exitCode`: 0, 1, 3 or 70 | Yes. |
 | C8 | the transport throws | `:120-125`, caught at `:135-140` | `transport_failure` | 2 | Not on any path found: the one throw found starts in the transport's call admission, before owner entry, and no throw after owner entry escapes the transport (table 1.2). Ruling 3 gives this path 70 wherever the throw starts. |
@@ -140,24 +142,24 @@ digest and byte count of `build/code/src/public/cli.js`, and
 
 ## 2. Exit status before and after
 
-"Now" lines are in `public/cli.ts` at `0535c1628` (155 lines). The CLI has two
-`try` blocks. The first (`:92-128`) reads and decodes the request file; no
-owning function can be entered inside it. The second (`:132-154`) starts only
+"Now" lines are in `public/cli.ts` at `4acd827a4` (159 lines). The CLI has two
+`try` blocks. The first (`:93-131`) reads and decodes the request file; no
+owning function can be entered inside it. The second (`:136-158`) starts only
 when the first produced a request; it submits the call, encodes the outcome
-and writes it.
+and writes it. "Line written" is the final code.
 
-| # | Path | Lines now | Base | Final | Owner entered before it? |
-| --- | --- | --- | ---: | ---: | --- |
-| C1 | the arguments are not `--jsonl <file>` | `:82-87` | 2 | 2 | No |
-| C2 | reading the request file throws | `:93`, caught at `:122-128` | 2 | 2 | No |
-| C3 | the file does not hold exactly one non-blank line | `:96-101` | 2 | 2 | No |
-| C4 | the line is not JSON | `:103-112` | 2 | 2 | No |
-| C5 | the value is not one exact CLI transport request; a throw from `parseTransportRequest` | `:113-120`, a throw caught at `:122-128` | 2 | 2 | No |
-| C6 | the transport returns its typed refusal | `:134-146` | 2 | 2 | No (table 1.2) |
-| C7 | the transport returns its result | `:134-146` | receipt `exitCode` (0, 1, 3, 70) | the same | Yes |
-| C8 | the transport throws | `:134`, caught at `:147-153` | 2 | **70** | Not on any path found; 70 wherever the throw starts (ruling 3) |
-| C9 | the outcome is not one I-JSON value | `:140-141`, caught at `:147-153` | 2 | **70** | Yes |
-| C10 | writing the line throws | `:142`, caught at `:147-153` | 2 | **70** | Yes when the line is a result; no synchronous throw found |
+| # | Path | Lines now | Line written | Base | Final | Owner entered before it? |
+| --- | --- | --- | --- | ---: | ---: | --- |
+| C1 | the arguments are not `--jsonl <file>` | `:82-87` | `invalid_arguments` | 2 | 2 | No |
+| C2 | reading the request file throws | `:94`, caught at `:123-131` | `invalid_transport_request`, the error text as message (R1) | 2 | 2 | No |
+| C3 | the file does not hold exactly one non-blank line | `:97-102` | `invalid_transport_request` | 2 | 2 | No |
+| C4 | the line is not JSON | `:104-113` | `invalid_json` | 2 | 2 | No |
+| C5 | the value is not one exact CLI transport request; a throw from `parseTransportRequest` | `:114-121`, a throw caught at `:123-131` | `invalid_transport_request`; for a throw, with the error text as message (R1) | 2 | 2 | No |
+| C6 | the transport returns its typed refusal | `:138-150` | the transport refusal | 2 | 2 | No (table 1.2) |
+| C7 | the transport returns its result | `:138-150` | the transport result | receipt `exitCode` (0, 1, 3, 70) | the same | Yes |
+| C8 | the transport throws | `:138`, caught at `:151-157` | `transport_failure` | 2 | **70** | Not on any path found; 70 wherever the throw starts (ruling 3) |
+| C9 | the outcome is not one I-JSON value | `:144-145`, caught at `:151-157` | `transport_failure` | 2 | **70** | Yes |
+| C10 | writing the line throws | `:146`, caught at `:151-157` | `transport_failure` | 2 | **70** | Yes when the line is a result; no synchronous throw found |
 
 The split is by where the failure is caught (ruling 3). No message text is
 matched, and the transport is unchanged: no field, error class or return arm.
@@ -216,21 +218,24 @@ The other sentences of table 1.5 stay true and are not edited.
 
 ## 5. The code
 
-Commit `0535c1628`, `public/cli.ts` only (+36 −23). The base had one `try`
-around reading, decoding, submitting, encoding and writing, and its one
-`catch` set 2. The final source:
+Commit `0535c1628` (+36 −23) splits the block, and commit `4acd827a4` (+7 −3)
+changes the first block's code (section 16); both touch `public/cli.ts` only.
+The base had one `try` around reading, decoding, submitting, encoding and
+writing, and its one `catch` set 2. The final source (lines at `4acd827a4`):
 
-- declares `request` (`:91`) before the first `try`;
-- the first `try` (`:92-121`) reads and decodes the file and sets `request`
-  (`:113`); its `catch` (`:122-128`) writes `transport_failure` and sets 2, as
-  before;
-- the second block (`:132-154`) runs only when `request` is not null. It calls
-  `runInstalledDefinitionCallTransport` (`:134`), admits the outcome with
-  `admitJson` (`:140`), writes it and sets 2 for the transport's typed refusal
-  or the receipt's `exitCode` (`:143-146`). Its `catch` (`:147-153`) writes
-  the same `transport_failure` line and sets 70.
+- declares `request` (`:92`) before the first `try`;
+- the first `try` (`:93-122`) reads and decodes the file and sets `request`
+  (`:114`); its `catch` (`:123-131`) writes `invalid_transport_request` with
+  the error text as its message and sets 2;
+- the second block (`:136-158`) runs only when `request` is not null. It calls
+  `runInstalledDefinitionCallTransport` (`:138`), admits the outcome with
+  `admitJson` (`:144`), writes it and sets 2 for the transport's typed refusal
+  or the receipt's `exitCode` (`:147-150`). Its `catch` (`:151-157`) writes
+  the `transport_failure` line and sets 70. No other path writes
+  `transport_failure`.
 
-Two comments (`:89-90`, `:129-131`) state the rule each block keeps.
+Three comments (`:89-91`, `:124-125`, `:132-135`) state the rule each block
+keeps and what the first `catch` means.
 
 ## 6. What the kept line claims on the 70 path (ruling 4)
 
@@ -253,22 +258,27 @@ What a caller reads from it:
 
 - `kind` `public_transport_refusal`: a line the CLI wrote itself, not an
   outcome of the transport;
-- `code` `transport_failure`: carrying the call or its outcome failed;
+- `code` `transport_failure`: carrying a submitted call or encoding its
+  outcome failed; after R1 no path before submission writes it;
 - `message`: the thrown value as a string, here `RangeError: Maximum call
   stack size exceeded` or `TypeError: transport outcome is not one I-JSON
   value`;
 - `disposition` `refused`: the CLI gives no outcome for the call.
 
-It carries no receipt, no owner output, no fault and no `closeHandoff`. It
-does not say whether the call was submitted or whether an owner ran; the exit
-status says that (2 not submitted, 70 submitted). No requirement, design note
+It carries no receipt, no owner output, no fault and no `closeHandoff`. Its
+code and its status say that the call was submitted; neither says whether an
+owner ran. No requirement, design note
 or contract defines `public_transport_refusal` or states that it means
 nothing was submitted (searched `specification`, `T/design`, `T/code/src`,
 `T/contracts`, `T/test_env/qualification`, `T/package.json`,
 `T/release-claim.md` and the repository's `README.md`, `AGENTS.md` and
-`CLAUDE.md`; the kind exists only in `cli.ts:69`). So ruling 4 does not stop. The same line
-with status 2 (C2, or a throw in C5) means the CLI did not submit the call;
-the line alone no longer tells the two apart (section 15, R1).
+`CLAUDE.md`; the kind exists only in `cli.ts:69`). So ruling 4 does not stop.
+Before R1 the CLI wrote the same line with status 2 for C2 and a throw in C5,
+so the line alone did not tell the two apart. After R1 those paths write
+`invalid_transport_request`. Every line the CLI writes itself with 2 now
+carries a code that means the CLI did not submit the call; the transport's
+typed refusal (C6), also 2, follows submission and precedes owner entry
+(section 16).
 
 ## 7. Readers, text and qualification mirrors (ruling 7)
 
@@ -280,7 +290,8 @@ that ignores the status; no file imports it and its name is outside the test
 glob.
 
 Text (table 1.5): the requirement clause (section 3) and the S06 design
-sentence (section 4) are restated. Every other sentence found stays true.
+sentence (section 4) are restated. Every other sentence found stays true. The
+R1 search for readers of the CLI's codes is in section 16.
 
 Qualification mirrors that this change makes stale; none is edited here
 (rule 8), and the Executive restages them at merge:
@@ -294,8 +305,8 @@ Qualification mirrors that this change makes stale; none is edited here
 
 ## 8. The lane
 
-`T/test_env/tests/t292-td79-cli-exit-classification.test.mjs` (201 lines, new,
-commit `f01990cc2`). It drives `build/code/src/public/cli.js` as a child
+`T/test_env/tests/t292-td79-cli-exit-classification.test.mjs` (new in commit
+`f01990cc2`, 201 lines; 225 lines after commit `4acd827a4`). It drives `build/code/src/public/cli.js` as a child
 process (`node cli.js --jsonl <file>`, empty environment, a scratch working
 directory). It builds the calls with the Public SDK
 (`constructInstalledPublicDefinitionCall`) from the coordinates in
@@ -304,13 +315,16 @@ directory). It builds the calls with the Public SDK
 `closeHeldEventStoreAtDurablePrefix`; every request that names a store names
 this one. The store holds 0 events. Each row asserts the status, that stderr
 is empty, that stdout is exactly one line and what it holds, and that the
-store's bytes and event count are unchanged.
+store's bytes and event count are unchanged. Each row records the status and
+code it observed before its own assertions, and a last subtest asserts over
+those records (section 16).
 
 | Row | Request | Status | Line |
 | --- | --- | ---: | --- |
 | wrong arguments: none | no arguments | 2 | `invalid_arguments` |
 | wrong arguments: one more | `--jsonl <file> --extra` | 2 | `invalid_arguments` |
-| a missing request file | `--jsonl <absent path>` | 2 | `transport_failure`, `Error: ENOENT: ...` |
+| a missing request file | `--jsonl <absent path>` | 2 | `invalid_transport_request`, `Error: ENOENT: ...` |
+| an unreadable request file: a directory | `--jsonl <scratch directory>` | 2 | `invalid_transport_request`, `Error: EISDIR: ...` |
 | a file with no line | `" \n\n"` | 2 | `invalid_transport_request` |
 | a file with two lines | two transport lines | 2 | `invalid_transport_request` |
 | a line that is not JSON | `{"kind":` | 2 | `invalid_json` |
@@ -337,14 +351,24 @@ How the two 70 rows arise from outside the process, with no Product seam:
   acquisition is eventless, so no store is touched; the lane also checks that
   no workspace was written.
 
-At base the lane gives 11 tests, 8 pass, 3 fail: the two 70 rows exit 2 with
-the same `transport_failure` messages, and the parent test fails with them.
-On the final build it gives 11 tests, 11 pass.
+The last subtest, "no line written with 2 carries transport_failure, and every
+line written with 70 does", asserts that 11 rows ran, 9 with status 2 and 2
+with status 70, that no row with 2 observed `transport_failure`, and that no
+row with 70 observed another code.
+
+The lane as first committed (`f01990cc2`, 10 rows) gave 11 tests, 8 pass,
+3 fail at base: the two 70 rows exit 2 with the same `transport_failure`
+messages, and the parent test fails with them; it gave 11/11 on the build
+before R1. The lane after `4acd827a4` gives 13 tests: 9 pass and 4 fail on the
+build before R1 (`3dd7dcef3`: the missing-file and directory rows read
+`transport_failure`, the last subtest names both, and the parent fails with
+them), and 13 pass on the final build.
 
 ## 9. Lanes before and after
 
 Each file ran alone with the brief's command, on the base build (`42eabe9e8`)
-and on the final build (`f01990cc2`). Tests / pass / fail / skip:
+and on the build before R1 (`f01990cc2`, "Final" in this section). Section
+16.4 gives the reruns on the final build after R1. Tests / pass / fail / skip:
 
 | File | Base | Final |
 | --- | --- | --- |
@@ -411,21 +435,23 @@ TAP files: `/private/tmp/abg-td79-work/lanes-base/` and
 
 ## 10. Identity digests and the capability graph
 
-The final build is `npm run build` on `0535c1628` plus the lane file; it
-passes. No generated file is committed; after the build the tracked generated
-files were saved to `/private/tmp/abg-td79-work/final-generated/` and restored
-with `git checkout -- contracts product-toolchain-manifest.json
+The final build is `npm run build` on `4acd827a4`; it passes. The build
+before R1 was `npm run build` on `0535c1628` plus the lane file. No generated
+file is committed; after each build the tracked generated files were saved
+(`/private/tmp/abg-td79-work/final-generated/` before R1,
+`/private/tmp/abg-td79-work/r1-final-generated/` after) and restored with
+`git checkout -- contracts product-toolchain-manifest.json
 test_env/fixtures/abi5-root-candidate-basis.json` before each commit.
 
-| Identity | Base (`42eabe9e8`) | Final |
-| --- | --- | --- |
-| `productContentDigest` | `sha256:80bb4526ac254ac1fed7e6e6ecfa8c1721b150dd972a1824665756b5a0edda05` | `sha256:655368898d8bc9d11b984dde44ac55bd2403f6145f9773dfae23f37390b9a7a1` |
-| `contributionManifestDigest` | `sha256:56f814122447e1897599e92666a38c7730676aa74efd681a0081d922484fb666` | `sha256:820e1f865dc2169ae35fd6fc512ca264d8569f7c4e0f44fe7d82836dfce31cd7` |
-| public contract `catalogDigest` | `sha256:f478d2a141b186475288c313e862ddfd924bb9b83158bf6b7e0d0db8bb0a5ae2` | unchanged |
-| capability graph `graphDigest` | `sha256:7202df5a3c7bb6ab640b792a286c3f4eba2e0c5a5aa5487af84ad05b32e14dc3` | `sha256:3849c10a5fce8ea64e1e7464d718a5be373105b3c48d37b3efcb8bd50f786b7b` |
-| capability graph asset `contentDigest` | `sha256:6548389a0bc84e41a69fd3d16d26769c7d2a0721bb38eb68d8b4f8c0cbd04f06` | `sha256:5c941b8cc34d9a1359be6fdc006fddfa8958fedbe1fcaa5c9c4bffdc452cc7ed` |
+| Identity | Base (`42eabe9e8`) | Before R1 (`f01990cc2`) | Final (`4acd827a4`) |
+| --- | --- | --- | --- |
+| `productContentDigest` | `sha256:80bb4526ac254ac1fed7e6e6ecfa8c1721b150dd972a1824665756b5a0edda05` | `sha256:655368898d8bc9d11b984dde44ac55bd2403f6145f9773dfae23f37390b9a7a1` | `sha256:3f90cbde4d87c15c75b0575240f90888228cf3fc7e3bb7b4d9feb7c8b70fa3cd` |
+| `contributionManifestDigest` | `sha256:56f814122447e1897599e92666a38c7730676aa74efd681a0081d922484fb666` | `sha256:820e1f865dc2169ae35fd6fc512ca264d8569f7c4e0f44fe7d82836dfce31cd7` | `sha256:09d37a1f2426e1df9dc2507d7a106f7934abebd469e0d01632b911a6cf8fa500` |
+| public contract `catalogDigest` | `sha256:f478d2a141b186475288c313e862ddfd924bb9b83158bf6b7e0d0db8bb0a5ae2` | unchanged | unchanged |
+| capability graph `graphDigest` | `sha256:7202df5a3c7bb6ab640b792a286c3f4eba2e0c5a5aa5487af84ad05b32e14dc3` | `sha256:3849c10a5fce8ea64e1e7464d718a5be373105b3c48d37b3efcb8bd50f786b7b` | `sha256:16d75d8b04978b885ab69a9bb07936184dffa80841de77a16de62469be6a6623` |
+| capability graph asset `contentDigest` | `sha256:6548389a0bc84e41a69fd3d16d26769c7d2a0721bb38eb68d8b4f8c0cbd04f06` | `sha256:5c941b8cc34d9a1359be6fdc006fddfa8958fedbe1fcaa5c9c4bffdc452cc7ed` | `sha256:48b06c77f639d68f9077a0480eea4af1fdd5de7a19a94510e54c2ce62edf45dd` |
 
-The capability graph's rows are unchanged: the 16 rows have the same
+The capability graph's rows are unchanged on both builds: the 16 rows have the same
 capability ids in the same order and the same 241 owning contract entries
 (contract id and nested selector). The rows carry no projected-contract field.
 With the product content digest and the capability definition digests and
@@ -455,10 +481,11 @@ and `design`:
 | --- | ---: | ---: |
 | `specification/requirements/product/REQ-P-POLICY.md` | 8 | 6 |
 | `T/design/M05_S06_PUBLIC_FUNCTION_AND_NATIVE_OCCURRENCE_CLOSURE_DESIGN.md` | 5 | 3 |
-| `T/code/src/public/cli.ts` | 36 | 23 |
-| `T/test_env/tests/t292-td79-cli-exit-classification.test.mjs` (new) | 201 | 0 |
+| `T/code/src/public/cli.ts` | 41 | 24 |
+| `T/test_env/tests/t292-td79-cli-exit-classification.test.mjs` (new) | 225 | 0 |
 
-Source: 36 added, 23 removed. Test: 201 added.
+Source: 41 added, 24 removed. Test: 225 added. Of these, R1 (`4acd827a4`)
+adds 7 and removes 3 in `cli.ts`, and adds 26 and removes 2 in the lane.
 
 ## 12. Commits
 
@@ -474,7 +501,11 @@ On `claude/td79-cli-exit-after-owner`, from `42eabe9e8`:
    encoded after the CLI submits the call.
 5. `f01990cc2` Add the TD-79 lane: drive the built CLI as a process over
    every exit-2 row and both exit-70 rows.
-6. The commit after it holds this Return.
+6. `3dd7dcef3` Complete the TD-79 Return: exit table, restated clause, lane,
+   readers, lanes before and after.
+7. `4acd827a4` Write invalid_transport_request for an unreadable request
+   file, so transport_failure always means the call was submitted.
+8. The commit after it holds this Return as updated for R1.
 
 None is pushed or tagged.
 
@@ -483,7 +514,9 @@ None is pushed or tagged.
 1. **Background lanes.** The brief asks for test files in the foreground. The
    tool's foreground limit is 10 minutes, so the long files ran as background
    commands, one file at a time, each waited on before the next began. No two
-   lanes overlapped.
+   lanes overlapped. In the R1 round the tool moved `steel-basic-cli-public`
+   (5 minutes) to the background after 3 minutes; it was waited on before the
+   next file began.
 2. **Twenty reader files ran on the final build only.** The brief asks for
    every file the ruling-7 search names on base and final. The files the
    brief lists and seven reader files (`t287-st1-installed-cross-owner-hello`,
@@ -501,8 +534,9 @@ None is pushed or tagged.
 
 ## 14. Residuals
 
-These were found and are not fixed here: each is a transport or owner change
-outside this brief.
+These were found and are not fixed here. Items 1 to 3 are transport or owner
+changes outside this brief; item 4 is the line's shape, which ruling 4 and R1
+keep.
 
 1. **Request admission is not total.** `admitRuntimeContract`
    (`shared/public_function_contracts.ts:686-703`) runs Valibot with no
@@ -521,13 +555,125 @@ outside this brief.
 3. **No post-append encoding failure was produced.** The encoding row's call
    is eventless, and the store in the lane holds no event, so the lane shows
    the store unchanged but not a store that an owner appended to before a 70.
+4. **The 70 line keeps its refusal kind.** On the exit-70 path the line's
+   kind and disposition still read `public_transport_refusal` and `refused`;
+   the status and the code carry the classification.
 
 ## 15. For a ruling
 
-- **R1. The `transport_failure` line now has two statuses.** It is written
-  with 2 when reading the request fails (C2, C5) and with 70 after the call is
-  submitted (C8 to C10). A caller that reads only the line cannot tell whether
-  the call was submitted; it must read the status. Options: (a) keep it, as
-  done here, since ruling 4 allows it and no reader reads the line alone; (b)
-  give the 70 path its own code in the CLI's line, which is a new code (ruling
-  4 excludes it without a ruling).
+Nothing is open. R1 was raised here and is ruled; section 16 gives the ruling
+and its realization.
+
+- **R1 (ruled). The `transport_failure` line had two statuses.** Before R1 it
+  was written with 2 when reading the request failed (C2, a throw in C5) and
+  with 70 after the call was submitted (C8 to C10), so a caller that read only
+  the line could not tell whether the call was submitted.
+
+## 16. R1 as ruled and how it is realized
+
+### 16.1 The ruling
+
+The line's code tells the two kinds of path apart, with codes the CLI already
+has and no new code or kind. A failure before submission that the first `try`
+catches (reading the file throws; decoding or parsing the request throws)
+writes `invalid_transport_request` with the error text as its message and
+exits 2: it is a request the CLI could not obtain from the file. Only the
+second `try`'s catch, after submission, writes `transport_failure`, with
+exit 70. So `transport_failure` always means the call was submitted. Every
+line the CLI writes itself with 2 carries a code that means the CLI did not
+submit the call; the transport's typed refusal (C6), also written with 2,
+follows submission and precedes owner entry, and its code means no owner was
+entered.
+
+### 16.2 The code
+
+Commit `4acd827a4`, `public/cli.ts` (+7 −3): the first `catch` (`:123-131`)
+writes `invalid_transport_request` with `String(error)` in place of
+`transport_failure`; its status stays 2. The second `catch` (`:151-157`) is
+unchanged. The comment before the first block (`:89-91`) says its line
+carries a code that says the call was not submitted; a comment in the first
+`catch` (`:124-125`) says what it catches; the comment before the second block
+(`:132-135`) says it writes `transport_failure` and no other path does. With
+2 the CLI now writes its own lines with `invalid_arguments`,
+`invalid_transport_request` or `invalid_json`, or the transport's typed
+refusal. With 70 it writes its own line only with `transport_failure`, or the
+transport result whose receipt carries `exitCode` 70 (C7).
+
+### 16.3 Readers and text
+
+Searched `T/code/src`, `T/scripts`, `T/test_env/tests`, `T/test_env/support`,
+`T/test_env/uat`, `T/test_env/falsifiers`, `T/test_env/fixtures`,
+`T/test_env/proof`, `T/test_env/types`, `T/test_env/qualification`,
+`T/contracts`, live `T/design/*.md`, `T/README.md`, `T/test_env/README.md`,
+`T/package.json`, `T/release-claim.md` and `specification/`, for `transport_failure`, `public_transport_refusal`,
+`invalid_transport_request` and for text that states what the CLI writes when
+it cannot read its request file.
+
+- The CLI's `transport_failure` is read only by the TD-79 lane. That lane is
+  the one reader updated (section 16.4).
+- Every other `transport_failure` hit is the worker transport's failure
+  class and does not read the CLI's line: `abg/transport_contracts.ts:94`,
+  `:130`; `implementation/consensus.ts:614-619`,
+  `implementation/worksite_construction.ts:233-236`,
+  `implementation/native_workspace_work.ts:73`,
+  `implementation/semantic_stage.ts:77`; the diagnostic ref in
+  `product/default_library.ts:30` and
+  `design/T287_DEFAULT_GOVERNANCE_LIBRARY_DESIGN.md:21`; the M03 retry table
+  (`design/M03_TRAVERSAL_NON_PROGRESS_CONTINUATION_DERIVATION.md:33-35`);
+  `REQ-P-QUAL-004` and `REQ-R-ABG3-RETRY-008` (the INT-005 failure taxonomy)
+  in `specification/requirements/` and their mirrors in
+  `contracts/qualification/sources/`; the fixture
+  `test_env/fixtures/language-structural/leaf.mjs:21`; and the tests that
+  assert that class (`t287-management-supervision`, `m5-worker-transport`,
+  `t287-default-library-recoverable-failure`, `t287-amendment-witness`,
+  `m5-consensus-module`, `t287-readable-stops`,
+  `t287-f04a-probabilistic-result-candidate`,
+  `t287-native-assessment-evidence`, `t287-liveness-heartbeat`,
+  `m5-retry-lifecycle-authority`, `t287-lifecycle-failure-carrier`).
+- `public_transport_refusal` appears only in `cli.ts:69` and the lane.
+- The readers of table 1.4 submit well-formed request files and read the
+  status or a transport outcome; none reads the code of a read failure.
+- No kept caller outside the tenant's own tests depends on
+  `transport_failure` for an unreadable request file, so the brief's stop
+  does not apply.
+- Text: the `REQ-P-POLICY-022` status clause (section 3) and the S06 design
+  sentence (section 4,
+  `M05_S06_PUBLIC_FUNCTION_AND_NATIVE_OCCURRENCE_CLOSURE_DESIGN.md:2248-2256`)
+  give the status for a request the CLI cannot read and name no code. No
+  sentence in live design or the specification names the code for a read
+  failure. Neither is edited.
+
+The search names no reader file to rerun beyond the brief's list.
+
+### 16.4 The lane and the reruns
+
+Commit `4acd827a4` changes the lane (+26 −2):
+
+- the missing-file row expects `invalid_transport_request` with 2 and an
+  `Error: ENOENT` message;
+- one row is added for an unreadable request file: the CLI is given the
+  scratch directory, and the row expects `invalid_transport_request` with 2
+  and an `Error: EISDIR` message (census C2 names a directory);
+- the two 70 rows still expect `transport_failure`;
+- each row records the status and code it observed before its own
+  assertions, and a last subtest asserts over those records: 11 rows ran, 9
+  with 2 and 2 with 70, no row with 2 observed `transport_failure`, and no row
+  with 70 observed another code. The counts guard against a row that failed
+  before it recorded.
+
+Each file ran alone with the brief's command. Tests / pass / fail / skip:
+
+| File | Before R1 (`3dd7dcef3` build, updated lane) | Final (`4acd827a4`) |
+| --- | --- | --- |
+| `t292-td79-cli-exit-classification` | 13 / 9 / 4 / 0 | 13 / 13 / 0 / 0 |
+| `steel-basic-cli-public` | not rerun | 1 / 1 / 0 / 0 |
+| `test_env/uat/harness` | not rerun | 33 / 33 / 0 / 0 |
+
+On the build before R1 the four failures are the missing-file row and the
+directory row (each reads `transport_failure`), the last subtest (it names
+both rows) and the parent test. `npm run build` and the three lints pass on
+`4acd827a4` with the results of section 10. The other files of section 9 were
+not rerun after R1: R1 changes only the code written on C2 and on a throw in
+C5, and none of them drives either path. TAP files:
+`/private/tmp/abg-td79-work/lanes-r1-pre/` and
+`/private/tmp/abg-td79-work/lanes-r1-final/`.
