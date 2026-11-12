@@ -39,11 +39,11 @@ import { archiveRangeMatchesStreamRow, configuredActorIdentityCorresponds, isAdm
   RETIRED_ACTOR_LIFECYCLE_COPY_KEYS, WORKER_TRANSPORT_FAILURE_CLASS_VALUES } from "./transport_contracts.js";
 import {
   LEGACY_ROOT_EVENT_CONTRACT_DIGEST,
-  ROOT_CURRENT_EVENT_PROFILE_REF,
   ROOT_EVENT_PROFILE_DECLARATION_REF,
   ROOT_EVENT_PROFILE_UPGRADE_REASON,
+  ROOT_RUN_ENVIRONMENT_EVENT_PROFILE_REF,
   ROOT_WINDOW_EVENT_PROFILE_REF,
-  constructRootCurrentEventContractDescriptor,
+  constructRootStampedEventContractDescriptor,
   constructRootEventContractProfiles,
   isUndispatchedOwnerObservation,
   type RootEventContractProfileCapabilities,
@@ -326,6 +326,8 @@ const WITNESSED_ACT_PAYLOAD = payloadKeys(
   "act actorDigest actorRef contentContractDigest contentContractRef contentKind contentValue contentValueDigest contentValueRef context evidence provenance subjectDigest subjectKind subjectRef witnessedActDigest witnessedActRef",
 );
 
+/** The legacy table L, pinned: the base of every stamped table (RC6, S2 and
+ * the current W spread it and change or add kinds). L rows carry no stamp. */
 export const LEGACY_ROOT_EVENT_CONTRACTS = Object.freeze({
   public_operation_artifact_admitted: {
     variants: [WORKSPACE_EVENT],
@@ -1084,19 +1086,20 @@ if (legacyDescriptorDigest !== LEGACY_ROOT_EVENT_CONTRACT_DIGEST) {
 }
 const PROBE_PAYLOAD = payloadKeys("probeContract observation");
 const ACTOR_PROBE_PAYLOAD = combinePayloadKeys(PROBE_PAYLOAD, payloadKeys("actorInvocationRef"));
-const CURRENT_PROBE_CONTRACT: RootEventContract = Object.freeze({
+const STAMPED_PROBE_CONTRACT: RootEventContract = Object.freeze({
   variants: [coupledContractVariant(ACTOR_INVOCATION_EVENT, [0]), coupledContractVariant(GRAPH_CALL_EVENT, [1])],
   payloadVariants: [payloadVariant(ACTOR_PROBE_PAYLOAD), payloadVariant(PROBE_PAYLOAD)],
 });
-// A current binding may record its configured identity once; absence reads as
-// unknown identity, never as an established one. Legacy bindings are unchanged.
+// From S2 on, a binding may record its configured identity once; absence reads
+// as unknown identity, never as an established one. RC6 bindings carry the
+// liveness binding without it; L bindings carry neither.
 const bindingVariants = (added: string) => LEGACY_ROOT_EVENT_CONTRACTS.actor_transport_binding_admitted.payloadVariants.map(variant =>
   payloadVariant(combinePayloadKeys(variant.allowedPayloadKeys, payloadKeys(added)),
     combinePayloadKeys(variant.requiredPayloadKeys, payloadKeys("livenessBinding"))));
-const currentBindingVariants = bindingVariants("livenessBinding configuredIdentity");
-// D5: current probabilistic-transport evidence and current actor artifacts omit
+const configuredIdentityBindingVariants = bindingVariants("livenessBinding configuredIdentity");
+// D5: from S2 on, probabilistic-transport evidence and actor artifacts omit
 // the lifecycle copies the fold derives from the primary process events; a
-// reinserted copy refuses. L keeps its original keys and the fold's copy check.
+// reinserted copy refuses. L and RC6 keep their original keys and the fold's copy check.
 const D5_RETIRED_LIFECYCLE_COPY_KEYS: readonly string[] = RETIRED_ACTOR_LIFECYCLE_COPY_KEYS;
 const withoutPayloadKeys = (keys: readonly string[], retired: readonly string[]): readonly string[] =>
   Object.freeze(keys.filter(key => !retired.includes(key)));
@@ -1168,7 +1171,7 @@ function stampedRootEventContracts(lifecycleCopies: boolean): Readonly<Record<Ro
   },
   actor_transport_binding_admitted: {
     ...LEGACY_ROOT_EVENT_CONTRACTS.actor_transport_binding_admitted,
-    payloadVariants: lifecycleCopies ? bindingVariants("livenessBinding") : currentBindingVariants,
+    payloadVariants: lifecycleCopies ? bindingVariants("livenessBinding") : configuredIdentityBindingVariants,
   },
   actor_process_timeout_observed: {
     ...LEGACY_ROOT_EVENT_CONTRACTS.actor_process_timeout_observed,
@@ -1187,8 +1190,8 @@ function stampedRootEventContracts(lifecycleCopies: boolean): Readonly<Record<Ro
         { evidenceClass: "undispatched_owner_refusal" }),
     ],
   },
-  runtime_activity_probe_observed: CURRENT_PROBE_CONTRACT,
-  runtime_external_interruption_observed: CURRENT_PROBE_CONTRACT,
+  runtime_activity_probe_observed: STAMPED_PROBE_CONTRACT,
+  runtime_external_interruption_observed: STAMPED_PROBE_CONTRACT,
   });
 }
 const INSTALLED_RC6_EVENT_CONTRACTS = stampedRootEventContracts(true);
@@ -1205,16 +1208,16 @@ export const ROOT_EVENT_CONTRACTS: Readonly<Record<RootEventKind, RootEventContr
       payloadVariant(combinePayloadKeys(PROCESS_STREAM_PAYLOAD, payloadKeys("stdoutWindow")))],
   },
 });
-const stampedDescriptor = (eventContracts: Readonly<Record<RootEventKind, RootEventContract>>, profileRef?: string) =>
-  constructRootCurrentEventContractDescriptor({ aggregateTypes: ROOT_EVENT_AGGREGATE_TYPE_VALUES, eventKinds: ROOT_EVENT_KIND_VALUES,
-    eventContracts, ...(profileRef === undefined ? {} : { profileRef }) });
-const currentProfile = stampedDescriptor(ROOT_EVENT_CONTRACTS, ROOT_WINDOW_EVENT_PROFILE_REF);
-export const ROOT_EVENT_CONTRACT_DESCRIPTOR = currentProfile.descriptor;
-export const ROOT_EVENT_CONTRACT_DIGEST = currentProfile.digest;
+const stampedDescriptor = (eventContracts: Readonly<Record<RootEventKind, RootEventContract>>, profileRef: string) =>
+  constructRootStampedEventContractDescriptor({ aggregateTypes: ROOT_EVENT_AGGREGATE_TYPE_VALUES, eventKinds: ROOT_EVENT_KIND_VALUES,
+    eventContracts, profileRef });
+const windowProfile = stampedDescriptor(ROOT_EVENT_CONTRACTS, ROOT_WINDOW_EVENT_PROFILE_REF);
+export const ROOT_EVENT_CONTRACT_DESCRIPTOR = windowProfile.descriptor;
+export const ROOT_EVENT_CONTRACT_DIGEST = windowProfile.digest;
 const ROOT_EVENT_CONTRACT_PROFILES = constructRootEventContractProfiles<Readonly<Partial<Record<RootEventKind, RootEventContract>>>>({
   legacy: { digest: legacyDescriptorDigest, contracts: LEGACY_ROOT_EVENT_CONTRACTS },
-  installed_rc6: { digest: stampedDescriptor(INSTALLED_RC6_EVENT_CONTRACTS).digest, contracts: INSTALLED_RC6_EVENT_CONTRACTS },
-  frozen_s2: { digest: stampedDescriptor(FROZEN_S2_EVENT_CONTRACTS).digest, contracts: FROZEN_S2_EVENT_CONTRACTS },
+  installed_rc6: { digest: stampedDescriptor(INSTALLED_RC6_EVENT_CONTRACTS, ROOT_RUN_ENVIRONMENT_EVENT_PROFILE_REF).digest, contracts: INSTALLED_RC6_EVENT_CONTRACTS },
+  frozen_s2: { digest: stampedDescriptor(FROZEN_S2_EVENT_CONTRACTS, ROOT_RUN_ENVIRONMENT_EVENT_PROFILE_REF).digest, contracts: FROZEN_S2_EVENT_CONTRACTS },
   window: { digest: ROOT_EVENT_CONTRACT_DIGEST, contracts: ROOT_EVENT_CONTRACTS },
 });
 export function isKnownRootEventContractDigest(value: unknown): value is Sha256Digest {

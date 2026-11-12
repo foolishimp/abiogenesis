@@ -44,11 +44,13 @@ Let L be the retained legacy profile:
 - digest preimage remains exactly `{schemaVersion:"5.0.0",aggregateTypes,
   eventKinds,eventContracts}`. Do not insert a new field and call the result L.
 
-Let P be the one current profile, named
-`abg.event-contract.root/p5-run-environment-role-context@1`
-(`abg/event_contract_profiles.ts`, `ROOT_CURRENT_EVENT_PROFILE_REF`). Its
-immutable descriptor, built only by `constructRootCurrentEventContractDescriptor`
-in that owner, binds the profile ref, L, the unchanged aggregate census, the
+Let P be the one current profile, W, named
+`abg.event-contract.root/p6-stdout-window-witness@1`
+(`abg/event_contract_profiles.ts`, `ROOT_WINDOW_EVENT_PROFILE_REF`). Its
+immutable descriptor, built only by `constructRootStampedEventContractDescriptor`
+in that owner (which also builds the retained RC6 and S2 descriptors, both named
+`abg.event-contract.root/p5-run-environment-role-context@1`,
+`ROOT_RUN_ENVIRONMENT_EVENT_PROFILE_REF`), binds the profile ref, L, the unchanged aggregate census, the
 exact current event-kind census including those two liveness kinds, the exact
 current payload table and the current envelope stamp declaration. Compute
 its digest D from the exact implemented canonical descriptor; D must differ

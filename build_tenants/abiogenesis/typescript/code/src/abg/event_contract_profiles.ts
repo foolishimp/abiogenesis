@@ -5,10 +5,13 @@ import { types } from "node:util";
 import { isRecord } from "../shared/admit/index.js";
 import { constructRuntimeFailureDiagnosticRef, readRuntimeFailureDiagnosticSubject } from "./runtime_failure.js";
 
-/** Exact retained profile. New native truth must never be stamped with L. */
+/** L: the legacy table, pinned. It is the base every stamped table (RC6, S2
+ * and the current W) extends, and every stamped descriptor names it as
+ * `legacyProfileDigest`. L rows carry no stamp. */
 export const LEGACY_ROOT_EVENT_CONTRACT_DIGEST =
   "sha256:fc3a635040a6e3d763740ae54b6390944c7ea8cedfa060de110cb36e31ca6e3c" as const;
-export const ROOT_CURRENT_EVENT_PROFILE_REF =
+/** The profile ref the retained RC6 and S2 descriptors carry. */
+export const ROOT_RUN_ENVIRONMENT_EVENT_PROFILE_REF =
   "abg.event-contract.root/p5-run-environment-role-context@1" as const;
 export const ROOT_EVENT_PROFILE_DECLARATION_REF =
   "declaration://abiogenesis/runtime/root-event-contract-profile@1" as const;
@@ -19,7 +22,7 @@ export const INSTALLED_RC6_EVENT_CONTRACT_DIGEST =
   "sha256:5b35ab536188aea5b822c4cdf8e962bbaf0fb609fc6da9e6b554187e8a7e0537" as const;
 export const FROZEN_S2_EVENT_CONTRACT_DIGEST =
   "sha256:3bcc8488bcfb9396cbc53c85b944df6973bf99200ab93728949853df62cecac0" as const;
-/** The successor descriptor W: S2 plus the explicit durable stdout window witness. */
+/** The profile ref of the current profile W: S2 plus the explicit durable stdout window witness. */
 export const ROOT_WINDOW_EVENT_PROFILE_REF =
   "abg.event-contract.root/p6-stdout-window-witness@1" as const;
 
@@ -59,7 +62,7 @@ export function constructRootEventContractProfiles<T>(tables: Readonly<Record<Ro
   if (Object.values(pins).includes(tables.window.digest)) throw new TypeError("the window event-contract profile must have its own identity");
   const capabilities = (name: RootEventContractProfileName): RootEventContractProfileCapabilities => Object.freeze({
     name, digest: tables[name].digest, stamped: name !== "legacy",
-    profileRef: name === "legacy" ? null : name === "window" ? ROOT_WINDOW_EVENT_PROFILE_REF : ROOT_CURRENT_EVENT_PROFILE_REF,
+    profileRef: name === "legacy" ? null : name === "window" ? ROOT_WINDOW_EVENT_PROFILE_REF : ROOT_RUN_ENVIRONMENT_EVENT_PROFILE_REF,
     lifecycleCopies: name === "legacy" || name === "installed_rc6", nativeLiveness: name !== "legacy",
     stdoutWindowWitness: name === "window", current: name === "window" });
   const entries = new Map((["legacy", "installed_rc6", "frozen_s2", "window"] as const).map(name =>
@@ -210,16 +213,17 @@ export function isUndispatchedOwnerObservation(value: unknown): value is Undispa
     (reason === "thrown" || x.errorClass === null && x.errorCode === null) &&
     undispatchedDiagnosticMatches(x, stage, reason);
 }
-export function constructRootCurrentEventContractDescriptor(input: Readonly<{
+/** The descriptor, and its digest, of one stamped profile (RC6, S2 or W). */
+export function constructRootStampedEventContractDescriptor(input: Readonly<{
   aggregateTypes: readonly string[];
   eventKinds: readonly string[];
   eventContracts: JsonValue;
-  profileRef?: string;
+  profileRef: string;
 }>): Readonly<{ descriptor: JsonValue; digest: Sha256Digest }> {
   const descriptor = deepFreeze({
     kind: "root_event_contract_profile",
     schemaVersion: "5.0.0",
-    profileRef: input.profileRef ?? ROOT_CURRENT_EVENT_PROFILE_REF,
+    profileRef: input.profileRef,
     legacyProfileDigest: LEGACY_ROOT_EVENT_CONTRACT_DIGEST,
     aggregateTypes: input.aggregateTypes,
     eventKinds: input.eventKinds,

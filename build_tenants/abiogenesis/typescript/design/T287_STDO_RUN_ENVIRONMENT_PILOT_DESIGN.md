@@ -740,8 +740,10 @@ relation before dependent execution.
 Leave `LEGACY_ROOT_EVENT_CONTRACTS`, its digest preimage and
 `LEGACY_ROOT_EVENT_CONTRACT_DIGEST` byte-for-byte unchanged. No legacy payload
 arm acquires this field. The candidate current profile is explicitly named
-`abg.event-contract.root/p4-stdo-run-environment@1` in
-`event_contract_profiles.ts::ROOT_CURRENT_EVENT_PROFILE_REF`. Its descriptor
+`abg.event-contract.root/p4-stdo-run-environment@1`. No retained profile carries
+this ref or its digest D4; the retained refs are
+`event_contract_profiles.ts::ROOT_RUN_ENVIRONMENT_EVENT_PROFILE_REF` (RC6 and S2)
+and `ROOT_WINDOW_EVENT_PROFILE_REF` (the current W). Its descriptor
 retains the current aggregate/event-kind census, exact existing current arms,
 the two additional invocation arms, L identity and unchanged store-assigned
 stamp contract. Its full digest D4 is computed by the existing canonical
