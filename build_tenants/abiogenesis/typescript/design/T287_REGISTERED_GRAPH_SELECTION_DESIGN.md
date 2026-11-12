@@ -22,14 +22,13 @@ permitted preregistered work; ABG admits the choice; HoG executes that choice.
 F_P owns open suitability judgment; F_D requires an explicit total rule. Purpose
 grants neither permission nor successful completion.
 
-The original proposal was rejected because it made One Surface's model, gap,
-action-evaluation and refresh phases prerequisites for generic selection. Its
-exact bytes are preserved in `registered-selection-design-v1.md` beside the
-execution record (SHA-256
+A registered selection needs no model, gap, action-evaluation or refresh phase
+before it: its source is one ordinary graph computation whose result the
+application resolves to one declared target (`resolveRegisteredSelection`,
+`gtl/registered_selection.ts`). The first proposal for this design is
+preserved in `registered-selection-design-v1.md` beside the execution record
+(SHA-256
 `4af858bc87682e6134d9e50cf6597108ea12bca589dfe92bbcbf6eb65adf627d`).
-Those phases are an optional library pattern. `GtlProgram.constructionComposition`
-and its singular semantics remain unchanged. This design requires none of its
-action catalogue, obligation ledger, priority projection or closure calculus.
 
 ## Existing mechanics and actual gap
 
@@ -39,7 +38,6 @@ Paths below are relative to `build_tenants/abiogenesis/typescript/`.
 |---|---|
 | `code/src/gtl/contracts.ts:309`; `product/catalog.ts:20,294` | GraphFunction declarations and input/output/effect contracts travel in the exact catalogue definition/digest. Purpose needs no registry. |
 | `code/src/gtl/source_path.ts:859`; `hog/route_proposal.ts:550` | Ordinary continuation has one successor. Current result-dependent routing handles re-entry/no-action, not forward selection among fixed workflow nodes. |
-| `code/src/validator/validation.ts:100,1471`; `abg/traversal_route.ts:1532` | ConstructionComposition's eight terms and singleton interaction explain why existing multi-candidate fixtures do not prove two different callees. These owners need no construction-composition change. |
 | `code/src/hog/workflow_lifecycle.ts:396`; `hog/child_traversal.ts:141`; `abg/execution_basis.ts:2112` | Existing child preparation joins input, fixed callee, materialization, Program membership and child basis. Reuse those owners. |
 
 The missing semantics is an explicit choice-result-to-workflow-edge relation at
@@ -141,17 +139,17 @@ There are not two selection algorithms or process-local selection authority.
 
 Reuse existing result, judgment and `traversal_route_admitted` events. The route
 binds application and source-result identity to selected target cursor and child
-input. The source result remains owner of actual value and reason. Add neither
-`construction_intent_selected` nor a selection ledger for this generic route.
+input. The source result remains owner of actual value and reason. Add no
+other event and no selection ledger for this generic route.
 Replay reacquires the binding from those causal facts, never a cached answer.
 
 The existing child-preparation owner reacquires the route-bound input. HoG calls
 the fixed reached workflow term and checks selected callee equality plus exact
 input identity/value/contract before launch. It cannot substitute another callee
-into the term. Keep the existing ConstructionIntent path and guard unchanged;
-the generic route supplies its own admitted input binding at the same child
-preparation seam. Both use ordinary child materialization, validation, admission,
-execution, closure and parent workflow result/judgment. The choice does not
+into the term. The generic route supplies its own admitted input binding at
+the child preparation seam (`prepareWorkflowChildExecutionBasis`,
+`abg/execution_basis.ts`) and uses ordinary child materialization, validation,
+admission, execution, closure and parent workflow result/judgment. The choice does not
 establish successful child work.
 
 Gap follows the existing declared blocked/unresolved C outcome route, never a
@@ -204,11 +202,11 @@ raw response through `framedSynthesisInstructionResultMatches`.
 
 | Owner | Bounded change |
 |---|---|
-| `gtl/contracts.ts`, `gtl/graph_applications.ts`, `gtl/declaration_references.ts`, applicable canonical/raw schema owner and `validator/validation.ts` | Add the application and exact source/evaluator/policy/edge/interface checks. ConstructionComposition and C terms retain meaning; the registered-selection check is one more application arm of `validateProgramSubject` in `validator/validation.ts`. |
+| `gtl/contracts.ts`, `gtl/graph_applications.ts`, `gtl/declaration_references.ts`, applicable canonical/raw schema owner and `validator/validation.ts` | Add the application and exact source/evaluator/policy/edge/interface checks. C terms retain meaning; the registered-selection check is one application arm of `validateProgramSubject` in `validator/validation.ts`. |
 | `gtl/source_path.ts`, `hog/route_proposal.ts`, `hog/ccall_lifecycle.ts` | One target/input-resolution relation and proposal plumbing; ordinary continuation remains outside its declared source/result contract. |
 | `abg/traversal_route.ts` and existing route projection/rehydration consumers | Authenticate and persist the minimal binding in the existing route, including source result and child input. No separate event/state family. |
-| `hog/workflow_lifecycle.ts`, `hog/child_traversal.ts`, `abg/execution_basis.ts` where current input handoff requires it | Reacquire admitted generic binding, retain exact callee/input guards and use ordinary child preparation. Preserve construction-specific semantics. |
-| Existing publication/result-contract owner and small external fixture | Shared choice/gap contract, declared finite selector policy, purpose and distinct A/B definitions. No One Surface prerequisites. |
+| `hog/workflow_lifecycle.ts`, `hog/child_traversal.ts`, `abg/execution_basis.ts` where current input handoff requires it | Reacquire admitted generic binding, retain exact callee/input guards and use ordinary child preparation. |
+| Existing publication/result-contract owner and small external fixture | Shared choice/gap contract, declared finite selector policy, purpose and distinct A/B definitions. |
 
 The implementation grant must name required generated schema/manifest outputs.
 Any new Product semantics, C algebra, event lifecycle or arbitrary contract
@@ -219,14 +217,12 @@ to start this bounded realization after acceptance.
 
 One tiny external Product publishes selector, A and B with common interfaces and
 different result markers. Its total F_D rule selects A or B from a finite mode
-and returns gap for missing support. Its root has no ConstructionComposition,
-action catalogue, obligation ledger or model/gap/refresh nodes. That absence is
-part of the discriminator, not a documentation-only claim.
+and returns gap for missing support.
 
 Reuse external publication/readiness from
 `test_env/support/developer-mini-product.mjs`, installed Public execution from
 `test_env/support/root-cli-environment.mjs`, and ordinary child-result/readback
-joins from the installed external Product/consensus tests. Build once/pack once
+joins from the installed external Product tests. Build once/pack once
 under the next grant; use `candidateBasisSource: "packed_artifact"` and frozen
 artifact/install support. Direct HoG/private owner hooks prove only integration.
 

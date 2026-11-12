@@ -110,9 +110,9 @@ the lease (rules 3 to 6):
    retry, block or failure disposition.
 8. Otherwise the disposition is `continue_waiting`.
 
-## One Surface Rule
+## Single Liveness Surface Rule
 
-Public start, gaps, live status, watchdog, retry, and downstream harness
+Public start, live status, watchdog, retry, and downstream harness
 surfaces may render or relay liveness truth. They shall not compute separate
 liveness authority from elapsed time, child process state, transcript text, or
 file polling, local mutable controller state, or an asset-specific sidecar.

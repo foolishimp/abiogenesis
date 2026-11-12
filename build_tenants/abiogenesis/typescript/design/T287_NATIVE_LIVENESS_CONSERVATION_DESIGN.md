@@ -230,7 +230,7 @@ those budget facts without a cycle: liveness must not call an eligibility
 function that recursively calls liveness. Existing HoG retry/continuation paths
 execute only the selected native transition; they acquire no timer policy.
 
-Existing run/GraphCall status, replay, gaps and lawful-action projections expose
+Existing run/GraphCall status and replay projections expose
 the same referenced liveness/disposition. Publish one strict current-profile
 projection arm through the existing read operations, with full coverage/as-of
 and policy/evidence refs. No new Public operation is needed. Ordinary result/

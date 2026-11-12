@@ -639,3 +639,17 @@ evidence. The next operand invocation performs the actual semantic
 re-evaluation of the parent contract. Child closure and foldback alone never
 certify parent convergence. A held F_H state remains child runtime truth and
 does not arise from structural rebind admission.
+
+---
+
+Cut from `build_tenants/abiogenesis/typescript/design/M03_TYPED_RECURSE_RUNTIME_BEHAVIOR_DESIGN.md` at commit `70320c3f0`, lines 27-27, 130-134, 230-230, verbatim.
+
+- a Consensus controller, round service, prompt loop, or product-specific
+
+(`completeRecursionChildUsing`). In Consensus the round state's `terminal`
+field is the declared termination field (`terminationFieldRef: "$.terminal"`,
+`constructConsensusModulePublication`, `gtl/consensus.ts`): `closed_done`
+terminates, and only `recurse_next_round` continues the recursion
+(`reduceConsensusRound`, `gtl/consensus.ts`).
+
+  `nativeLiveness` that the status, replay, gaps and lawful-actions reads carry

@@ -12,12 +12,11 @@ Superseded, stale and record notes, and the sections cut from mixed notes, are i
 
 - [T287_G2_GTL_SERIALIZATION_PUBLICATION_DESIGN](T287_G2_GTL_SERIALIZATION_PUBLICATION_DESIGN.md): GTL serialization, raw admission and publication of declarations. Realized by `gtl/serialization.ts`, `gtl/serialization_contracts.ts`, `validator/raw_admission.ts`, `validator/validation.ts`.
 - [T287_D1_REQUIREMENT_LIFECYCLE_DESIGN](T287_D1_REQUIREMENT_LIFECYCLE_DESIGN.md): native source and obligation handoff between requirement terms and contract fulfilment. Realized by `gtl/requirement_handoff.ts`, `product/requirement_handoff.ts`, `hog/ccall_lifecycle.ts`.
-- [M05_S05_CONSENSUS_GLOBAL_TO_LOCAL_DESIGN](M05_S05_CONSENSUS_GLOBAL_TO_LOCAL_DESIGN.md): Consensus as an ordinary GTL library with its implementation. Realized by `gtl/consensus.ts`, `gtl/consensus_schema.ts`, `implementation/consensus.ts`.
 
 ## HoG
 
 - [M03_DIRECT_GTL_TRAVERSAL_BEHAVIOR_DESIGN](M03_DIRECT_GTL_TRAVERSAL_BEHAVIOR_DESIGN.md): direct GTL validation, traversal, runtime admission, replay and public projection. Realized by `hog/traversal.ts`, `hog/child_traversal.ts`, `validator/validation.ts`, `abg/replay.ts`.
-- [M05_DIRECT_GTL_TRAVERSAL_EXPANSION_DESIGN](M05_DIRECT_GTL_TRAVERSAL_EXPANSION_DESIGN.md): the `CProgramTerm` and its direct fold, the One Surface evidence fold, the ordinary-path Consensus and native portability. Realized by `gtl/c_algebra.ts`, `hog/traversal.ts`, `abg/traversal_route.ts`, `gtl/consensus.ts`.
+- [M05_DIRECT_GTL_TRAVERSAL_EXPANSION_DESIGN](M05_DIRECT_GTL_TRAVERSAL_EXPANSION_DESIGN.md): the `CProgramTerm` and its direct fold, the F_H hold, the root invocation authority, installed Product semantics, public starts and native portability. Realized by `gtl/c_algebra.ts`, `hog/traversal.ts`, `abg/traversal_route.ts`, `product/invocation.ts`, `product/semantics.ts`, `gtl/public_start.ts`.
 - [M03_TYPED_RECURSE_RUNTIME_BEHAVIOR_DESIGN](M03_TYPED_RECURSE_RUNTIME_BEHAVIOR_DESIGN.md): recurse application: child preparation, child failure, bounded termination, foldback admission, parent re-entry and declared failed-child foldback. Realized by `hog/recursion_lifecycle.ts`, `hog/child_traversal.ts`, `gtl/serialization_contracts.ts`, `abg/graph_application.ts`, `abg/traversal_route.ts`.
 - [T287_REGISTERED_GRAPH_SELECTION_DESIGN](T287_REGISTERED_GRAPH_SELECTION_DESIGN.md): selection among registered graphs and route proposal. Realized by `hog/route_proposal.ts`, `hog/child_traversal.ts`, `gtl/contracts.ts`, `gtl/source_path.ts`, `gtl/registered_selection.ts`.
 

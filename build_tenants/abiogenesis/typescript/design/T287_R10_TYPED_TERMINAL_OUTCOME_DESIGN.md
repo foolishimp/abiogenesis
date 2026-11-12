@@ -1,5 +1,7 @@
 # T-287 R10 Typed Terminal Outcome
 
+Retired sections: [history/T287_R10_TYPED_TERMINAL_OUTCOME_DESIGN__RETIRED_SECTIONS.md](history/T287_R10_TYPED_TERMINAL_OUTCOME_DESIGN__RETIRED_SECTIONS.md).
+
 **Status**: Accepted HOW07 under Executive Review08 and HOW10 under Executive /root Review11. Separate isolated Implementation12 is granted; no runtime grant or R10 acceptance follows.
 **Work**: GOAL-035 / T-287 / D4 / S01, root obligation R10.
 **Re-entry**: design_reframe; Product, requirements, Public membership and runtime authority are conserved.
@@ -206,12 +208,12 @@ the existing event-resource acquisition and close mechanism are unchanged.
 
 The Product outcome maps only native truth as before: `closed` to completed,
 `blocked` to blocked, failure/stopped/refused to their existing runtime-failed
-outcome, and held/gap_stopped to nonterminal. A closed subject lacking the
+outcome, and held to nonterminal. A closed subject lacking the
 required joined terminal result is not a coordinate-only completion; the
 existing owner observation/refusal or execution-fault boundary reports the
 missing relation. No exception is translated into fabricated success.
 
-For result reads, active/held/gap-stopped subject truth gives `not_ready`;
+For result reads, active/held subject truth gives `not_ready`;
 a known terminally stopped/failed subject without a successful terminal result
 gives `not_found`. Missing/invalid source or prefix uses the existing
 `F_READ` relation. Replay can truthfully return active, held, failed or closed
@@ -605,7 +607,6 @@ run_status read -> canonicalRunContext(stop = runStoppedEventRef ?? runtimeFailu
      evidence's causes, parentCCallRef = the Result's C-call) -> childResultRef + childResultDigest
   -> origin: the first Result citing no stopped foldback | not_admitted{missingLink}
   -> lastRootResult: last success Result of the root GraphCall before the stop (kind, ref, contract)
-  -> nextActions: run_lawful_actions over the same context
   -> run_status_projection.stop; truth.stopStatement -> run.invoke / run.continue stopStatement
 ```
 
@@ -624,9 +625,7 @@ non-empty string, and `reason`), `result`, or `not_admitted` naming
 `stopping_route`, `judged_result`, `lifted_foldback` or `child_result`. A
 handled failure is consumed by a recursion advance and cited by no stopping
 route or lifted Result, so it is never an origin. An operator stop reads its
-`reasonKind`, `reasonDetail` and `operatorActorRef`. Its next lawful actions
-are the Run's `run_lawful_actions`; the native `run-resumed` act has no Public
-definition binding, so the reading names none. The root Result value is
+`reasonKind`, `reasonDetail` and `operatorActorRef`. The root Result value is
 carried uninterpreted; the statement names its kind, reference and contract and
 claims nothing about its content.
 
@@ -643,8 +642,10 @@ Invariants: no event kind, stop-event change, failure class, stored copy or
 runtime mechanism. An ambiguous or missing link reads `not_admitted`; nothing is
 chosen by diagnostic, class label or position. A completed Run with no stopped
 foldback reads byte-identically. `run_result` keeps `not_found` for a stopped
-Run; `run_gaps` keeps the HoG gap frontier. A registered-selection gap is a
-`blocked` stop with reason `default-library/gap@5`, not `gap_stopped`. Effect
+Run. A registered-selection gap is a `blocked` stop with reason
+`default-library/gap@5` (`governanceRef("reason", "gap")`,
+`product/default_library_identity.ts`; `resolveJudgmentRelation`,
+`product/builtin_semantics.ts`). Effect
 grant: none; read only.
 
 Contract identity (REQ-P-PUBLIC-CONTRACTS-004 supersession within each
