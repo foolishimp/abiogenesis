@@ -3,7 +3,7 @@
 **Status**: Active
 **Category**: Constraint / Guarantee
 **Date**: 2026-07-11
-**Derives from**: [SPEC_METHOD.md](stdo://releases/v2.5.0-rc.6/standards/SPEC_METHOD.md), [TICKET_METHOD.md](stdo://releases/v2.5.0-rc.6/standards/TICKET_METHOD.md), [INTENT.md](../../INTENT.md) INT-001, [PRODUCT.md](../../PRODUCT.md) (the reflective boundary), [REQ-R-ABG3-EVENTS.md](./REQ-R-ABG3-EVENTS.md), [REQ-R-ABG3-PROJECTION.md](./REQ-R-ABG3-PROJECTION.md), [REQ-R-ABG3-PROVENANCE.md](./REQ-R-ABG3-PROVENANCE.md), [REQ-R-ABG3-FP-CONSCIOUSNESS.md](./REQ-R-ABG3-FP-CONSCIOUSNESS.md), [T-217](../../../.ai-workspace/tickets/completed/T-217-consciousness-wave-higher-order-regulation.md) (absorbing [T-215](../../../.ai-workspace/tickets/completed/T-215-supervisor-as-admitted-actor.md))
+**Derives from**: [SPEC_METHOD.md](stdo://releases/v2.5.0-rc.6/standards/SPEC_METHOD.md), [TICKET_METHOD.md](stdo://releases/v2.5.0-rc.6/standards/TICKET_METHOD.md), [INTENT.md](../../INTENT.md) INT-001, [PRODUCT.md](../../PRODUCT.md) (the reflective boundary), [REQ-R-ABG3-EVENTS.md](./REQ-R-ABG3-EVENTS.md), [REQ-R-ABG3-PROJECTION.md](./REQ-R-ABG3-PROJECTION.md), [REQ-R-ABG3-PROVENANCE.md](./REQ-R-ABG3-PROVENANCE.md), [T-217](../../../.ai-workspace/tickets/completed/T-217-consciousness-wave-higher-order-regulation.md) (absorbing [T-215](../../../.ai-workspace/tickets/completed/T-215-supervisor-as-admitted-actor.md))
 
 ---
 
@@ -19,7 +19,7 @@ it introduces no new runtime store and no supervisor node kind.
 
 ## Acceptance Criteria
 
-**REQ-R-ABG3-WITNESS-001**: ABG shall derive a typed halt-diagnosis projection for any halted or gap-stopped run: the implicated frontier, rejection or failure evidence refs, and attempt history, replay-derived without private diagnostic state.
+**REQ-R-ABG3-WITNESS-001**: ABG shall derive a typed halt-diagnosis projection for any halted run: the implicated frontier, rejection or failure evidence refs, and attempt history, replay-derived without private diagnostic state.
 
 **REQ-R-ABG3-WITNESS-002**: Defect intake from a halt shall be a typed triage record admitted as an event, carrying owner, change_class, and re-entry point per TICKET_METHOD. Ticket drafts shall be generated FROM admitted intake records; intake is the gap-to-intent seam of the reflective loop, and solutioning proceeds up to — never into — action.
 
@@ -47,7 +47,7 @@ it introduces no new runtime store and no supervisor node kind.
 
 **REQ-R-ABG3-WITNESS-014**: Witness event kinds that initiate, terminate, clip, or declip runtime fluent truth shall declare Event Calculus effects before implementation closure. Frozen-law and citability states are replay-derived predicate truth, never primary event authority.
 
-**REQ-R-ABG3-WITNESS-015**: The session's allowed graph-function set shall be an ADMITTED initial condition of the root frame, supplied through the operator grammar: a view restriction over the declared catalog (which remains declared module truth per FPC-004 — never harness-local configuration), enforced at selection/admission, inherited down recursive frames as narrowing only, with violations failing closed as typed selection rejections. Recursive graph-function execution inside the session is bounded by exactly this admitted view.
+**REQ-R-ABG3-WITNESS-015**: The session's allowed graph-function set shall be an ADMITTED initial condition of the root frame, supplied through the operator grammar: a view restriction over the declared catalog (which remains declared module truth — never harness-local configuration), enforced at selection/admission, inherited down recursive frames as narrowing only, with violations failing closed as typed selection rejections. Recursive graph-function execution inside the session is bounded by exactly this admitted view.
 
 **REQ-R-ABG3-WITNESS-016**: Replay-log attestation shall be witness truth: the attestation digest shall chain over the full canonical event content of the attested span in admission-ordinal order, so that insertion, removal, or reorder inside an attested span is tamper-evident under cross-process re-derivation from the log alone. Attestation is admitted via the witness event family (`replay_log_attested`); a digest over event ids, counts, or partial fields shall not satisfy attestation.
 
