@@ -310,8 +310,7 @@ ABIogenesis 5.0 does not include:
 
 - a second GTL source language, executable IR, bytecode, generated HoG program,
   or runtime-program registry;
-- controller authority in an SDK, CLI, installer, fixture, worker, plugin,
-  Consensus surface, or One Surface projection;
+- controller authority in an SDK, CLI, installer, fixture, worker, or plugin;
 - a second event stream, retry loop, continuation model, result ledger, or
   closure authority;
 - an RLM-specific, Consensus-specific, or recursive-agent-specific runtime;
