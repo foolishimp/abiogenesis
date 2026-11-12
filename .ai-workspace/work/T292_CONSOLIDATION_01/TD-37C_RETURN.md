@@ -21,10 +21,13 @@ median start-up time moves by less than 0.4%. All 488 base `.d.ts` files are
 byte-identical and the public contract catalog digest is unchanged; no pin
 moves. The 29 existing lane files keep their counts (249 / 235 / 0 / 14) and
 the new lane passes on both builds. 162 source lines go and 135 come in: net
-27 fewer. The three copies treat every entry the same way; they differ only in their root rule,
-their refusal texts, their row shapes and their calling convention, and each
-site keeps those (section 2). Nothing needs a ruling; one observation is
-listed for the Executive (section 9).**
+27 fewer. The three copies treat every entry the same way; they differ only
+in their root rule, their refusal texts, their row shapes and their calling
+convention, and each site keeps those (section 2). Two items need the Executive's ruling (section
+9): the parent and the file replace use the walker's entry as their row
+(deviation 2), and ruling 4's C2 lanes with recorded inputs cannot run here,
+because no C2 carrier fixture is recorded (deviation 5). One observation is
+listed beside them.**
 
 ## 1. The walker and what each site takes from it
 
@@ -324,11 +327,15 @@ Deviations:
    it carries the step generator, the two step performers and the two drivers
    (about 35 lines) instead of one recursion, and its two types and comments
    (about 30 lines).
-2. **The parent and the file replace take the entry as their row.** Ruling 1
-   has each site derive its own row. These two sites recorded the same row, so
-   the walker's entry has that shape and order and they use it unmapped; the
-   helper derives its own. A separate mapping function for the two would add
-   lines and change nothing.
+2. **The parent and the file replace take the entry as their row (for
+   ruling).** Ruling 1 has the walker yield the entry's fields and each site
+   derive its own row. These two sites recorded the same row, so the walker's
+   entry has that row's fields, order and formatted file identity
+   (`device:inode:links`), and the two sites use it unmapped; the helper
+   derives its own. The alternative is raw device, inode and link count in the
+   entry and one shared mapping for the two sites, about 10 lines more, with no
+   change to any row, digest or byte. An uncommitted draft of this package had
+   that form and gave 0 differences in the same differential.
 3. **The file-replace walk count comes from a lane, not a single operation.**
    `t287-post-binding-worksite-write` runs four file replaces; the sequence in
    section 4 shows two walks around each owner effect. The probe was extended
@@ -340,6 +347,19 @@ Deviations:
 4. **The lane list.** `forward-command-contracts` and `forward-command-owners`
    no longer exist (TD-28d). Added beyond the brief: the files that name the
    helper or file-replace module or the product delta (section 7).
+5. **Ruling 4's C2 lanes with recorded inputs do not run (for ruling).**
+   `steel-basic-cli-c2` skips all six cases on both builds: it needs
+   `ABI5_C2_CARRIER_FIXTURE_PATH`, and no value is recorded
+   (`test_env/support/evidence-gates.json`, gate `c2-carrier-fixture`, status
+   `input_not_found`; TD-60C class D). A name search for a C2 carrier file
+   under the evidence root (`/Users/jim/src/apps/abiogenesis/.ai-workspace`,
+   six levels) finds none. Its six cases check Product source predicates, the
+   prompt, the plan and observation and executable capture; none calls an
+   inventory site. I did not search recorded helper artifacts for product-delta
+   rows; re-deriving them would need the trees they walked. The byte evidence
+   for the helper's rows is the differential (rows, `Map` order, freezing and
+   both delta kinds, through each build's own `worksiteDelta`) and the new
+   lane.
 
 Observation for the Executive (not a stop, no ruling needed for this package):
 the parent's root rule admits a Product root spelled in another letter case on
