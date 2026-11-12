@@ -3,7 +3,7 @@ import {resolve, join} from 'node:path';
 import {pathToFileURL} from 'node:url';
 import test from 'node:test';
 import {constructStructuralPublication, STRUCTURAL_IDS, GRAPH_EDGE_IDS,
-  SUBSTITUTED_IDS, WORKFLOW_IDS, GATE_IDS, RECURSION_IDS, FAN_OUT_IDS}
+  SUBSTITUTED_IDS, WORKFLOW_IDS, RECURSION_IDS, FAN_OUT_IDS}
   from '../fixtures/language-structural/program.mjs';
 import {declarations as registeredSelectionDeclarations, ref as selectionRef,
   packageName as selectionPackageName} from '../fixtures/registered-selection-product/index.mjs';
@@ -160,17 +160,18 @@ test('static sources conserve required contracts and implementation bindings', (
 test('runtime use of a private static source refuses before or after static discovery', () => {
   for (const late of [false, true]) {
     // Explicit untrusted application mutations test closure refusal, not whole
-    // Program validity. The late named gate is already an exported fixture GF;
-    // it names normalize only after that source has been traversed statically.
+    // Program validity. The late named recursion is already an exported fixture
+    // GF; it names normalize only after that source has been traversed statically.
     const pub = publication(), root = pub.graphFunctions.find(g => g.name === GRAPH_EDGE_IDS.graphFunctionRef);
-    const gate = pub.graphFunctions.find(g => g.name === GATE_IDS.graphFunctionRef);
-    const runtime = structuredClone(gate.template.applications[0]);
+    const recursion = pub.graphFunctions.find(g => g.name === RECURSION_IDS.graphFunctionRef);
+    const runtime = structuredClone(recursion.template.applications[0]);
+    assert.equal(runtime.relationKind, 'recurse');
     const reidentify = value => { const {applicationRef, ...body} = value;
       return {...body, applicationRef: gtl.graphFunctionApplicationRef(body)}; };
     if (late) {
-      gate.template.applications[0] = reidentify({...runtime, targetRef: normalizeRef});
-      root.template.applications.push(reidentify({...runtime, targetRef: gate.name}));
-    } else root.template.applications.push(reidentify({...runtime, targetRef: normalizeRef}));
+      recursion.template.applications[0] = reidentify({...runtime, graphFunctionRef: normalizeRef});
+      root.template.applications.push(reidentify({...runtime, graphFunctionRef: recursion.name}));
+    } else root.template.applications.push(reidentify({...runtime, graphFunctionRef: normalizeRef}));
     const basis = fixture([pub]);
     for (const result of [programClosure(basis), executionClosure(basis)]) {
       refused(result, 'absent', normalizeRef);
@@ -179,8 +180,8 @@ test('runtime use of a private static source refuses before or after static disc
   }
 });
 
-test('existing named workflow, gate, recursion and fan-out owner rows remain required', () => {
-  for (const ids of [WORKFLOW_IDS, GATE_IDS, RECURSION_IDS, FAN_OUT_IDS]) {
+test('existing named workflow, recursion and fan-out owner rows remain required', () => {
+  for (const ids of [WORKFLOW_IDS, RECURSION_IDS, FAN_OUT_IDS]) {
     const pub = publication(), basis = fixture([pub]);
     const result = resolved(programClosure(basis, ids.programRef));
     if (baseline) assert.deepEqual(result, baseline.resolveProgramDeclarationClosure(

@@ -1,5 +1,7 @@
 # T-287 Registered Graph Selection
 
+Retired sections: [history/T287_REGISTERED_GRAPH_SELECTION_DESIGN__RETIRED_SECTIONS.md](history/T287_REGISTERED_GRAPH_SELECTION_DESIGN__RETIRED_SECTIONS.md).
+
 Status: accepted S1 HOW under T287_REGISTERED_SELECTION_IMPLEMENT_01 after
 independent RS-D01 correction review. Implementation and execution remain open.
 
@@ -34,7 +36,6 @@ Paths below are relative to `build_tenants/abiogenesis/typescript/`.
 | Owner | Relevant fact |
 |---|---|
 | `code/src/gtl/contracts.ts:309`; `product/catalog.ts:20,294` | GraphFunction declarations and input/output/effect contracts travel in the exact catalogue definition/digest. Purpose needs no registry. |
-| `code/src/validator/validation.ts:1140` | Existing gate applications bind evaluators to one workflow target; they do not route alternative callees. |
 | `code/src/gtl/source_path.ts:859`; `hog/route_proposal.ts:550` | Ordinary continuation has one successor. Current result-dependent routing handles re-entry/no-action, not forward selection among fixed workflow nodes. |
 | `code/src/validator/validation.ts:100,1471`; `abg/traversal_route.ts:1532` | ConstructionComposition's eight terms and singleton interaction explain why existing multi-candidate fixtures do not prove two different callees. These owners need no construction-composition change. |
 | `code/src/hog/workflow_lifecycle.ts:396`; `hog/child_traversal.ts:141`; `abg/execution_basis.ts:2112` | Existing child preparation joins input, fixed callee, materialization, Program membership and child basis. Reuse those owners. |
@@ -177,7 +178,7 @@ and admission. No future library or prompt implementation is designed here.
 
 | Owner | Bounded change |
 |---|---|
-| `gtl/contracts.ts`, `gtl/graph_applications.ts`, `gtl/declaration_references.ts`, applicable canonical/raw schema owner and `validator/validation.ts` | Add the application and exact source/evaluator/policy/edge/interface checks. ConstructionComposition, Gate and C terms retain meaning. |
+| `gtl/contracts.ts`, `gtl/graph_applications.ts`, `gtl/declaration_references.ts`, applicable canonical/raw schema owner and `validator/validation.ts` | Add the application and exact source/evaluator/policy/edge/interface checks. ConstructionComposition and C terms retain meaning; the registered-selection check is one more application arm of `validateProgramSubject` in `validator/validation.ts`. |
 | `gtl/source_path.ts`, `hog/route_proposal.ts`, `hog/ccall_lifecycle.ts` | One target/input-resolution relation and proposal plumbing; ordinary continuation remains outside its declared source/result contract. |
 | `abg/traversal_route.ts` and existing route projection/rehydration consumers | Authenticate and persist the minimal binding in the existing route, including source result and child input. No separate event/state family. |
 | `hog/workflow_lifecycle.ts`, `hog/child_traversal.ts`, `abg/execution_basis.ts` where current input handoff requires it | Reacquire admitted generic binding, retain exact callee/input guards and use ordinary child preparation. Preserve construction-specific semantics. |

@@ -11,7 +11,9 @@
 // invariants. A well-formed caller-supplied Catalog is admitted and reaches the
 // run owner as before. Every case goes through the public native transport.
 // Before TD-34 the first group passed the door and reached the run owner (the
-// Return records that run).
+// Return records that run). A graph application whose `relationKind` is not in
+// the GTL owner's application union (`gate`) is refused by that owner's schema
+// at raw admission, at Catalog admission and at this door.
 import assert from 'node:assert/strict';
 import test from 'node:test';
 import { mkdtemp, readFile, rm } from 'node:fs/promises';
@@ -24,10 +26,10 @@ import { genericIntakePublicationData } from '../support/t287-generic-job-intake
 
 const packageRoot = process.env.ABI5_ENV_TEST_PACKAGE_ROOT ?? resolve(dirname(fileURLToPath(import.meta.url)), '../..');
 const load = path => import(pathToFileURL(join(packageRoot, 'build/code/src', path + '.js')).href);
-const [product, gtl, serialization, publicApi, resourceOwner, operations, family, projections, mechanics] = await Promise.all([
+const [product, gtl, serialization, publicApi, resourceOwner, operations, family, projections, mechanics, validator] = await Promise.all([
   'product/index', 'gtl/index', 'gtl/serialization_contracts', 'public/index', 'abg/definition_event_resource',
   'product/run_operation_contracts', 'public/binding/public_function_family', 'public/binding/public_function_projections',
-  'public/binding/definition_binding_mechanics'].map(load));
+  'public/binding/definition_binding_mechanics', 'validator/index'].map(load));
 
 const schemaVersion = '5.0.0';
 const hash = product.sha256Canonical;
@@ -239,4 +241,37 @@ test('a well-formed caller-supplied Catalog with every optional publication memb
     assert.ok(row.gated >= 1, row.label);
   }
   assert.equal((await readFile(eventLogPath)).length, 0, 'the refused setup appends nothing');
+});
+
+test('a gate graph application is refused at raw admission, at Catalog admission and at the run door', async t => {
+  const { submit } = await door(t);
+  const p = consensus(), g = p.graphFunctions[0];
+  const body = { kind: 'graph_function_application', inputContractRef: g.inputs[0], outputContractRef: g.outputs[0],
+    relationKind: 'gate', targetRef: g.name, ruleRef: 'rule://td27/gate', evaluatorRefs: ['evaluator://td27/gate'] };
+  const application = { ...body, applicationRef: gtl.graphFunctionApplicationRef(body) };
+  g.template.applications.push(application);
+  const schema = { application: v.safeParse(serialization.GRAPH_APPLICATION_SCHEMA, application).success,
+    graphFunction: v.safeParse(serialization.GRAPH_FUNCTION_SCHEMA, g).success,
+    publication: v.safeParse(serialization.MODULE_PUBLICATION_SCHEMA, p).success };
+  const raw = [validator.rawAdmitValue(p, 'module_publication', 'contract://abiogenesis/gtl/module-publication@5'),
+    validator.rawAdmitValue(g, 'graph_function', 'contract://abiogenesis/gtl/graph-function@5')];
+  const admitted = product.CatalogOperationPort.admit({ kind: 'catalog_admit_packet', schemaVersion, memberKey: 'admit', readinessBasis: { publications: [p] } });
+  const observed = [];
+  for (const [label, members] of [['in a publication', { publications: [p] }], ['in a Catalog entry', { catalogEntries: [entry(g)] }],
+    ['in a view entry', { viewEntries: [entry(g)] }]]) observed.push({ label, ...await submit(members) });
+  t.diagnostic('TD27_GATE ' + JSON.stringify({ schema, raw: raw.map(r => r.kind + ':' + r.code), catalog: admitted.kind + '/' + admitted.validation?.kind, observed }));
+  assert.deepEqual(schema, { application: false, graphFunction: false, publication: false }, 'the GTL owner refuses it');
+  for (const result of raw) {
+    assert.equal(result.kind, 'raw_admission_refusal');
+    assert.equal(result.code, 'invalid_kind');
+    assert.match(result.message, /template\/applications\/\d+\/relationKind/u);
+  }
+  assert.equal(admitted.kind, 'catalog_validation_refusal', JSON.stringify(admitted).slice(0, 2000));
+  assert.equal(admitted.validation.kind, 'raw_admission_refusal');
+  assert.equal(admitted.validation.code, 'invalid_kind');
+  for (const row of observed) {
+    assert.equal(row.door, REFUSED, row.label);
+    assert.equal(row.structural, false, row.label + ': structural resource check');
+    assert.ok(row.gated >= 1, row.label);
+  }
 });

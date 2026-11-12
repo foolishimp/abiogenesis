@@ -9,7 +9,6 @@ import type {
   FanInApplication,
   FanOutApplication,
   FoldbackDeclaration,
-  GateApplication,
   RegisteredSelectionApplication,
   GtlEdge,
   GtlEdgeInputBinding,
@@ -214,18 +213,6 @@ export function fanInApplication(
     );
   }
   return constructApplication("fan_in", input);
-}
-
-export function gateApplication(
-  input: ApplicationInput<GateApplication>,
-): GateApplication {
-  requireRef(input.targetRef, "targetRef");
-  requireRef(input.ruleRef, "ruleRef");
-  requireRefs(input.evaluatorRefs, "evaluatorRefs");
-  return constructApplication("gate", {
-    ...input,
-    evaluatorRefs: [...input.evaluatorRefs],
-  });
 }
 
 export function reenterApplication(

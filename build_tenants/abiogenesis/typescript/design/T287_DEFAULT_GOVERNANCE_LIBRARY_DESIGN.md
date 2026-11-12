@@ -1,5 +1,7 @@
 # T-287 Default Governance Library
 
+Retired sections: [history/T287_DEFAULT_GOVERNANCE_LIBRARY_DESIGN__RETIRED_SECTIONS.md](history/T287_DEFAULT_GOVERNANCE_LIBRARY_DESIGN__RETIRED_SECTIONS.md).
+
 ## Recoverable step failure — 2026-11-11
 
 RC12 package B2b, `design_reframe` of this library HOW/contract under Product
@@ -145,8 +147,10 @@ unchanged.
 **Invariants, effect and proof.** No admitted choice names a non-permitted
 target. A refused choice opens no wrapper call and causes no effect; it returns
 to the parent as a recoverable step failure (section above). No event kind,
-application, operation, binding, role, failure class or Public member is added;
-the declared `gate` application is not used. Proof:
+application, operation, binding, role, failure class or Public member is added:
+the library publication carries only its `registered_selection` and `recurse`
+applications (`gtl/default_library.ts`,
+`constructDefaultGovernanceLibraryModulePublication`). Proof:
 `t287-default-library-prerequisites.test.mjs` and the amendment witness.
 
 ```mermaid

@@ -29,8 +29,6 @@ require their own requirement and design before implementation.
 
 **REQ-L-GTL3-HOF-002**: `fan_in(reducer, *, over=node)` shall reduce an explicit vector boundary into one synthesized result.
 
-**REQ-L-GTL3-HOF-003**: `gate(target, *, rule, evaluators)` shall block or allow continuation over an explicit boundary without choosing a candidate or inventing domain pass/fail semantics.
-
 **REQ-L-GTL3-HOF-004**: `promote(source=..., to=...)` shall lift one declared representation boundary into another without changing semantic truth.
 
 **REQ-L-GTL3-HOF-005**: Higher-order operations shall preserve interface and type truth.
