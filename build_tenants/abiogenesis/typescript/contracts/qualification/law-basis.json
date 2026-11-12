@@ -6,7 +6,7 @@
   "memberSetDigest": "sha256:20e9d378f261992e62dd473ef8572b11eb9bec281149ac0ccc754b91c9073466",
   "catalog": {
     "ref": "catalog://abiogenesis/qualification/self-conformance@2",
-    "digest": "sha256:e271d68cf52259576c9ba94b8ce33d9c8e6845786f49f916c245b1735d391a89",
+    "digest": "sha256:aa60040ed9ad17e70827fabcce91b420970c6fd6b63ca15abef1df5dbe538810",
     "ownerRef": "authority://abiogenesis/validator/conformance@5",
     "version": "2",
     "assetPath": "contracts/qualification/rule-catalog.json"
@@ -27,8 +27,8 @@
     {
       "ref": "repo://abiogenesis/specification/PRODUCT.md",
       "path": "contracts/qualification/sources/PRODUCT.md",
-      "digest": "sha256:f04ae4ae82656da941879704b32a25bb5a9ce16d6f1706c9fef07e4e7801ff09",
-      "byteCount": 103942
+      "digest": "sha256:29918ad0da4aef546c3f887645862c05847ff87e3b22c3b98e39db3bab403ebd",
+      "byteCount": 104095
     },
     {
       "ref": "repo://abiogenesis/specification/requirements/00-starter.md",
@@ -501,8 +501,8 @@
     {
       "ref": "repo://abiogenesis/specification/requirements/product/REQ-P-POLICY.md",
       "path": "contracts/qualification/sources/REQ-P-POLICY.md",
-      "digest": "sha256:d360a02c9f2128bcbb5a6b93632ba26c8429023279920f6d82f06f99f6aa84ac",
-      "byteCount": 37040
+      "digest": "sha256:58089384ccffeb1dd1bdb126981ed39428753dbd184e46e120040cb413ee0169",
+      "byteCount": 37551
     },
     {
       "ref": "repo://abiogenesis/specification/requirements/product/REQ-P-PUBLIC-CONTRACTS.md",
@@ -577,6 +577,6 @@
       "byteCount": 94520
     }
   ],
-  "lawBasisRef": "qualification-law://abiogenesis/8d630bd489df74e52e3e1456e0f2ecc1c92ea0297068f13f6aa24e076f5c3fcf",
-  "lawBasisDigest": "sha256:8d630bd489df74e52e3e1456e0f2ecc1c92ea0297068f13f6aa24e076f5c3fcf"
+  "lawBasisRef": "qualification-law://abiogenesis/4b9ff33d72659511ca11895703fb598ed6e1f58a2dff80e1e9539a0e02e0ee64",
+  "lawBasisDigest": "sha256:4b9ff33d72659511ca11895703fb598ed6e1f58a2dff80e1e9539a0e02e0ee64"
 }

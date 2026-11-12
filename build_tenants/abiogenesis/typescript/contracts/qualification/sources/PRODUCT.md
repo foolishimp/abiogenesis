@@ -1060,8 +1060,9 @@ same public GTL, catalog, HoG, and ABG path as downstream consumers.
 
 ### Standard System Program
 
-The standard system program is the default library's Executive, and the
-default `supervised` root mode selects it. Each step prepares a selection
+The standard system program is the default library's Executive. A start with
+target `next` under the default `direct` root mode, over a Program whose
+default start is the Executive, selects it. Each step prepares a selection
 basis, selects one registered graph through one `F_P` selection, applies it as
 a registered selection and folds the returned evidence before the next step. A
 step that finds no lawful selection stops the Run as a typed block whose
@@ -1109,8 +1110,9 @@ The default library publishes a recursive Executive overlay and reusable
 GraphFunctions for induction, specification, design, testing, framed review and
 UAT through the same module/catalog path as user declarations. They are
 explicitly selected, replaceable compositions: the Executive is the standard
-system program, and a start under the default `supervised` root mode selects
-it by naming its declared start. Induction establishes the task
+system program, and a start with target `next` under the default `direct`
+root mode selects it as the default start of the library's Program or of a
+consumer Program that composes it. Induction establishes the task
 model, governing context, assumptions and unknowns. Construction uses the
 declared coding-worker capability. Applicable work, depth and repetition follow
 framed evaluation and policy; the library imposes no unconditional lifecycle or

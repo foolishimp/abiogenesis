@@ -1,15 +1,15 @@
 {
   "kind": "qualification_coverage_catalog",
   "lawBasis": {
-    "ref": "qualification-law://abiogenesis/8d630bd489df74e52e3e1456e0f2ecc1c92ea0297068f13f6aa24e076f5c3fcf",
-    "digest": "sha256:8d630bd489df74e52e3e1456e0f2ecc1c92ea0297068f13f6aa24e076f5c3fcf"
+    "ref": "qualification-law://abiogenesis/4b9ff33d72659511ca11895703fb598ed6e1f58a2dff80e1e9539a0e02e0ee64",
+    "digest": "sha256:4b9ff33d72659511ca11895703fb598ed6e1f58a2dff80e1e9539a0e02e0ee64"
   },
   "authoritySources": [
     {
       "ref": "repo://abiogenesis/specification/PRODUCT.md",
       "path": "contracts/qualification/sources/PRODUCT.md",
-      "digest": "sha256:f04ae4ae82656da941879704b32a25bb5a9ce16d6f1706c9fef07e4e7801ff09",
-      "byteCount": 103942
+      "digest": "sha256:29918ad0da4aef546c3f887645862c05847ff87e3b22c3b98e39db3bab403ebd",
+      "byteCount": 104095
     },
     {
       "ref": "repo://abiogenesis/specification/requirements/product/REQ-P-QUAL.md",
@@ -318,6 +318,6 @@
       ]
     }
   ],
-  "catalogRef": "qualification-coverage://abiogenesis/662992dbe6d43f8719061d209d47f4214b51bde55681518d7dc5794b632e4864",
-  "catalogDigest": "sha256:662992dbe6d43f8719061d209d47f4214b51bde55681518d7dc5794b632e4864"
+  "catalogRef": "qualification-coverage://abiogenesis/0ad760d10af2df62c59f7fd1054f4a0c52d56b4553ed87ee77e3adfd6edbd535",
+  "catalogDigest": "sha256:0ad760d10af2df62c59f7fd1054f4a0c52d56b4553ed87ee77e3adfd6edbd535"
 }
