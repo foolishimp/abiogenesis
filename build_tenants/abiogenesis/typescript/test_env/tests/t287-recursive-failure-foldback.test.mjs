@@ -15,13 +15,6 @@ const packageRoot=new URL('../..',import.meta.url).pathname;
 const declared='diagnostic://registered-selection/declared-child-failure@5',undeclared='diagnostic://registered-selection/undeclared-child-failure@5';
 const boundExhausted='reason://abiogenesis/recursion/bound-exhausted@5';
 
-function environmentDeclaration(){
-  const text='Use the declared frame.',digest=product.sha256Bytes(Buffer.from(text)),member={path:'frame.txt',type:'file',digest,target:null};
-  const contextMember={memberRef:'member:frame',path:member.path,byteCount:Buffer.byteLength(text),digest};
-  return gtl.constructRunEnvironmentDeclaration({kind:'run_environment_declaration',schemaVersion:'5.0.0',declarationRef:'environment:fixture',dependencies:[{dependencyRef:'dependency:frame',basisRef:'generic://frame/',recordRef:'record:frame',recordDigest:digest,recordFormat:'member_inventory@1',inventoryDigest:gtl.stdoInventoryDigest([member]),members:[member]}],
-    contexts:[{contextRef:'context:frame',sourceLocator:'generic://frame/',inventoryDigest:hash([contextMember]),members:[contextMember]}],corpusAccess:null,accesses:[],
-    roles:[{graphFunctionRef:ref('graph-function','root'),programLocusRef:ref('node','select'),role:'selector',frameRefs:['frame:executive'],policy:{policyRef:'policy:frame',text,digest},contextPolicy:{policyRef:'policy:context',selectors:['full_source','active_binding_semantics']},accessRefs:[],sourceBindings:[{contextRef:'context:frame',memberRef:contextMember.memberRef,memberDigest:digest,startByte:0,endByte:Buffer.byteLength(text),spanDigest:digest}]}]});
-}
 // The registered-selection recursive fixture with its recurse foldback given
 // `failedChildDiagnosticClassRefs`; the crafted form bypasses the constructor.
 const declaring=g=>({...g,recurseApplication:input=>g.recurseApplication({...input,foldback:{...input.foldback,failedChildDiagnosticClassRefs:[declared]}})});
@@ -32,14 +25,13 @@ const craftedDeclaring=(g,foldback)=>({...g,recurseApplication(input){
 }});
 // The recursive fixture's Program with A and the parent bound to build/foldback.mjs.
 function foldbackDeclarations(g){
-  const d=declarations(declaring(g),environmentDeclaration()),root=d.graphFunctions[0],A=d.graphFunctions[1],parent=d.graphFunctions.at(-1);
+  const d=declarations(declaring(g)),root=d.graphFunctions[0],A=d.graphFunctions[1],parent=d.graphFunctions.at(-1);
   root.template={kind:'inline_graph',graphRef:ref('graph','root'),startNodeRef:ref('node','call-A'),terminalNodeRefs:[ref('node','call-A')],
     nodes:[{nodeRef:ref('node','call-A'),nodeKind:'c_locus',term:g.workflow.C(g.cGraphFunctionRef({graphFunctionRef:A.name,input:g.cCarrier(contract('recursive-state')),output:g.cCarrier(contract('recursive-state'))}))}],edges:[],applications:[]};
   d.graphFunctions=[root,A,parent];d.contributions=d.contributions.filter(c=>d.graphFunctions.some(f=>f.name===c.handle));
   d.implementationBindings=d.implementationBindings.filter(b=>[ref('binding','A'),ref('binding','parent')].includes(b.bindingRef)).map(b=>({...b,modulePath:'build/foldback.mjs'}));
   d.productSemanticsBinding.modulePath='build/foldback.mjs';d.evaluators=d.evaluators.filter(e=>e.name===ref('evaluator','parent'));d.rules=d.rules.filter(r=>r.name===ref('rule','parent'));
-  d.runEnvironments=[];d.programs[0].callableMembership=d.graphFunctions.map(f=>f.name);d.programs[0].policies['abg.compute_regime']='F_D';delete d.programs[0].policies['abg.run_environment'];
-  for(const f of d.graphFunctions){f.declarations['abg.compute_regime']='F_D';delete f.declarations['abg.raw_result_contract'];}
+  d.programs[0].callableMembership=d.graphFunctions.map(f=>f.name);
   return d;
 }
 // Disclosed controlled stand-in: the parent re-evaluates identical admitted
@@ -78,7 +70,7 @@ const roundTrip=graphFunction=>{const bytes=m01.serializeGraphFunction(graphFunc
 
 test('a recurse foldback without failedChildDiagnosticClassRefs keeps its base bytes, refs and definition digest',()=>{
   // Pinned from base 62fd17271 (built from git archive, same fixture and library).
-  const parent=declarations(gtl,environmentDeclaration()).graphFunctions.at(-1),app=parent.template.applications[0];
+  const parent=declarations(gtl).graphFunctions.at(-1),app=parent.template.applications[0];
   assert.deepEqual(Object.keys(app.foldback).sort(),['binding','mode','requiresParentEvaluation']);
   assert.equal(app.foldbackRef,'foldback://abiogenesis/e7df59cd5dc25a9252febf61e03e386cd22158dca44e9380fab9c984465b9a17');
   assert.equal(app.applicationRef,'graph-function-application://abiogenesis/bab459462f4d8b82cbcd9b3c69416eeaef46de60827bd426f2bfaabb8a9da597');
@@ -107,13 +99,13 @@ test('failedChildDiagnosticClassRefs is declared, validated for form and round-t
   for(const refs of [[],[''],[declared,declared]])
     assert.throws(()=>gtl.recurseApplication({...base,foldback:{mode:'rebind',binding:'$',requiresParentEvaluation:true,failedChildDiagnosticClassRefs:refs}}),/failedChildDiagnosticClassRefs/);
   assert.equal(m01.admitGraphFunction(JSON.parse(m01.serializeGraphFunction(parent).replace(JSON.stringify([declared]),'[]'))).kind!=='raw_admitted_value',true,'the schema refuses an empty list');
-  const duplicate=declarations(craftedDeclaring(gtl,()=>({failedChildDiagnosticClassRefs:[declared,declared]})),environmentDeclaration());
+  const duplicate=declarations(craftedDeclaring(gtl,()=>({failedChildDiagnosticClassRefs:[declared,declared]})));
   const refused=validate({...foldbackDeclarations(gtl),graphFunctions:[...foldbackDeclarations(gtl).graphFunctions.slice(0,-1),duplicate.graphFunctions.at(-1)]});
   const dupApp=duplicate.graphFunctions.at(-1).template.applications[0];
   assert.ok(refused.diagnostics.some(x=>x.code==='invalid_application'&&x.path.endsWith(`applications[${dupApp.applicationRef}].foldback.failedChildDiagnosticClassRefs`)),JSON.stringify(refused.diagnostics));
 });
 
-const fixtureFiles=fixturePath=>[...['index','native','recursive'].map(n=>({path:'build/'+n+'.mjs',source:new URL('../fixtures/registered-selection-product/'+n+'.mjs',import.meta.url)})),{path:'build/foldback.mjs',source:fixturePath}];
+const fixtureFiles=fixturePath=>[...['index','recursive'].map(n=>({path:'build/'+n+'.mjs',source:new URL('../fixtures/registered-selection-product/'+n+'.mjs',import.meta.url)})),{path:'build/foldback.mjs',source:fixturePath}];
 const scenarioInput=scenario=>{const input=initialState();input.task={...input.task,scenario};input.taskDigest=hash(input.task);return input;};
 async function scenarioFixture(t,scenario){
   const fixtureRoot=await mkdtemp(join(tmpdir(),'abi5-recursive-failure-foldback-'));t.after(()=>rm(fixtureRoot,{force:true,recursive:true}));

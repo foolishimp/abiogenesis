@@ -4,7 +4,6 @@ import {mkdtemp,rm,writeFile} from 'node:fs/promises';
 import {join} from 'node:path';
 import {tmpdir} from 'node:os';
 import {pathToFileURL} from 'node:url';
-import * as gtl from '../../build/code/src/gtl/index.js';
 import * as product from '../../build/code/src/product/index.js';
 import {setupInstalledRootCatalog} from '../support/root-installed-environment.mjs';
 import {prepareRegisteredSelectionProduct,constructInstalledStartCall,constructInstalledRunReadCall,runInstalledCliRequest} from '../support/registered-graph-selection.mjs';
@@ -24,23 +23,15 @@ const packageRoot=new URL('../..',import.meta.url).pathname;
 const declared='diagnostic://registered-selection/declared-child-failure@5',undeclared='diagnostic://registered-selection/undeclared-child-failure@5';
 const boundExhausted='reason://abiogenesis/recursion/bound-exhausted@5';
 
-function environmentDeclaration(){
-  const text='Use the declared frame.',digest=product.sha256Bytes(Buffer.from(text)),member={path:'frame.txt',type:'file',digest,target:null};
-  const contextMember={memberRef:'member:frame',path:member.path,byteCount:Buffer.byteLength(text),digest};
-  return gtl.constructRunEnvironmentDeclaration({kind:'run_environment_declaration',schemaVersion:'5.0.0',declarationRef:'environment:fixture',dependencies:[{dependencyRef:'dependency:frame',basisRef:'generic://frame/',recordRef:'record:frame',recordDigest:digest,recordFormat:'member_inventory@1',inventoryDigest:gtl.stdoInventoryDigest([member]),members:[member]}],
-    contexts:[{contextRef:'context:frame',sourceLocator:'generic://frame/',inventoryDigest:hash([contextMember]),members:[contextMember]}],corpusAccess:null,accesses:[],
-    roles:[{graphFunctionRef:ref('graph-function','root'),programLocusRef:ref('node','select'),role:'selector',frameRefs:['frame:executive'],policy:{policyRef:'policy:frame',text,digest},contextPolicy:{policyRef:'policy:context',selectors:['full_source','active_binding_semantics']},accessRefs:[],sourceBindings:[{contextRef:'context:frame',memberRef:contextMember.memberRef,memberDigest:digest,startByte:0,endByte:Buffer.byteLength(text),spanDigest:digest}]}]});
-}
 const declaring=g=>({...g,recurseApplication:input=>g.recurseApplication({...input,foldback:{...input.foldback,failedChildDiagnosticClassRefs:[declared]}})});
 function foldbackDeclarations(g){
-  const d=declarations(declaring(g),environmentDeclaration()),root=d.graphFunctions[0],A=d.graphFunctions[1],parent=d.graphFunctions.at(-1);
+  const d=declarations(declaring(g)),root=d.graphFunctions[0],A=d.graphFunctions[1],parent=d.graphFunctions.at(-1);
   root.template={kind:'inline_graph',graphRef:ref('graph','root'),startNodeRef:ref('node','call-A'),terminalNodeRefs:[ref('node','call-A')],
     nodes:[{nodeRef:ref('node','call-A'),nodeKind:'c_locus',term:g.workflow.C(g.cGraphFunctionRef({graphFunctionRef:A.name,input:g.cCarrier(contract('recursive-state')),output:g.cCarrier(contract('recursive-state'))}))}],edges:[],applications:[]};
   d.graphFunctions=[root,A,parent];d.contributions=d.contributions.filter(c=>d.graphFunctions.some(f=>f.name===c.handle));
   d.implementationBindings=d.implementationBindings.filter(b=>[ref('binding','A'),ref('binding','parent')].includes(b.bindingRef)).map(b=>({...b,modulePath:'build/foldback.mjs'}));
   d.productSemanticsBinding.modulePath='build/foldback.mjs';d.evaluators=d.evaluators.filter(e=>e.name===ref('evaluator','parent'));d.rules=d.rules.filter(r=>r.name===ref('rule','parent'));
-  d.runEnvironments=[];d.programs[0].callableMembership=d.graphFunctions.map(f=>f.name);d.programs[0].policies['abg.compute_regime']='F_D';delete d.programs[0].policies['abg.run_environment'];
-  for(const f of d.graphFunctions){f.declarations['abg.compute_regime']='F_D';delete f.declarations['abg.raw_result_contract'];}
+  d.programs[0].callableMembership=d.graphFunctions.map(f=>f.name);
   return d;
 }
 const foldbackFixtureSource=`
@@ -65,7 +56,7 @@ export const SEMANTICS={...original,resolveJudgmentRelation(predicateRef){
  return {predicateRef,advanceReasonRef:ref('reason','valid'),rejectionReasonRef:ref('reason','unresolved'),evaluate(input,output){return hash(output)===hash(success(input).resultCandidate);}};
 }};
 `;
-const fixtureFiles=fixturePath=>[...['index','native','recursive'].map(n=>({path:'build/'+n+'.mjs',source:new URL('../fixtures/registered-selection-product/'+n+'.mjs',import.meta.url)})),{path:'build/foldback.mjs',source:fixturePath}];
+const fixtureFiles=fixturePath=>[...['index','recursive'].map(n=>({path:'build/'+n+'.mjs',source:new URL('../fixtures/registered-selection-product/'+n+'.mjs',import.meta.url)})),{path:'build/foldback.mjs',source:fixturePath}];
 
 // Each child frame that folded back failed: its frame probe scope (no C_Call,
 // no actor) and its GraphCall.
