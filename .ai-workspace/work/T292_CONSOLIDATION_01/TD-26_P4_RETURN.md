@@ -1,207 +1,349 @@
 # TD-26 P4 Return: the route owner and HoG, write side
 
-**Status:** census only (Return skeleton). The code, tests and results follow
-in later commits on this branch.
+**Status:** done. The write side is gone, the door refuses, kept Runs write
+the same events, the read side reads the same. One item needs a ruling (the
+permissive-Product case below).
 
 Base: local `main` at `e77bd3fa4`. Branch `claude/td26-p4-route-write-side`,
 worktree `/private/tmp/abg-td26p4`. T is `build_tenants/abiogenesis/typescript`.
-Scratch is `/private/tmp/abg-td26p4-work/`; the base build is
-`/private/tmp/abg-td26p4-work/base-root` (`git archive e77bd3fa4` of the
-sparse paths, with `node_modules` copied in, built).
+Scratch: `/private/tmp/abg-td26p4-work/` (base build in `base-root`,
+instrumented base build in `probe-root`). Change class: realization_refactor.
 
-## Census
+## Commits
 
-Searched at base, whole word, for the write-side symbols listed below, the
-refusal codes only they produce (`gap_stop_not_declared`,
-`gap_environment_mismatch`, `gap_projection_mismatch`, `gap_semantics_mismatch`,
-`observation_basis_mismatch`), and by phrase for `gap_stop`, "no-action",
-"construction intent", "next action", "observation snapshot", "action
-catalog" and "construction composition". Script:
-`/private/tmp/abg-td26p4-work/scripts/residue-p4.sh`; base output
-`/private/tmp/abg-td26p4-work/residue-base.txt`.
-
-### Specification
-
-No hit names a removed symbol or code. `specification/PRODUCT.md:416` and
-`:442` keep the `gap_stop` route family and disposition ("Publish unresolved
-pressure as a typed gap or block without false completion or automatic
-retry"). The kept feature set realizes it as the Executive's registered
-selection gap, which stops the Run as a blocked stop with its missing support
-references (`t287-readable-stops`, case "selection gap reads back as a blocked
-stop"). It does not use the `gap_stop` route kind that this package stops
-proposing. No specification edit (brief).
-
-### Kept design notes (listed, not edited)
-
-- `T287_REGISTERED_GRAPH_SELECTION_DESIGN.md:40` cites
-  `hog/route_proposal.ts:550` and says "Current result-dependent routing
-  handles re-entry/no-action". The no-action half is the HoG gap arm this
-  package removes.
-- `M05_S06_PUBLIC_FUNCTION_AND_NATIVE_OCCURRENCE_CLOSURE_DESIGN.md:1654`,
-  `:1692` (`disposition: "held" | "gap_stop"`) and `:1809-1812` (the
-  `gap_stop` non-terminal column and the `selected_action` row): the Product
-  non-terminal contract, P5's and P7's.
-- `ABI5_REALIZATION_CONSTITUTION.md` (not edited, rule 4): `:1437` (`E32`,
-  `run.continue/selected_action`), `:1526` (`L19`, lawful-action projection),
-  `:1557` (`L50`), `:1558` (`L51`, NextActionProjection to ConstructionIntent
-  candidate, cites `traversal_route.ts`), `:1559` (`L52`, ConstructionIntent
-  admission in `admitRoute`), `:1697` (`R32`).
-
-### Source (`T/code/src`)
-
-**`abg/traversal_route.ts`, write side (deleted):**
-
-| Declaration | Lines | Callers |
-|---|---|---|
-| `NEXT_ACTION_PROJECTION_KEYS` | 938-963 | `selectedNextActionProjection` |
-| `nonEmptyStringArray`, `stringArray`, `hasExactTargetObligationBindings` | 1017-1045 | the next-action and evaluation helpers below |
-| `hasAdmittedActionCandidates`, `selectedNextActionProjection` | 1046-1131 | `constructionIntentForAdvance`, `rehydrateConstructionIntentForCursorAtPrefix` |
-| `GAP_STOP_PROJECTION_KEYS`, `noActionNextActionProjection` | 1132-1199 | `noActionProjectionForStopRoute` |
-| `nextActionBasis`, `edgeFulfillmentLedger`, `edgeClosureDecision`, `actionEvaluationProjection`, `actionEvaluationBasis`, `convergedNextActionProjection` | 1200-1479 | the intent, delta and closure functions below |
-| `constructionIntentForAdvance` | 1480-1752 | `admitRoute` |
-| `noActionProjectionForStopRoute` | 1754-2012 | `admitRoute` (`gap_stop` arm) |
-| `rehydrateConstructionIntentForCursorAtDurablePrefix` (exported) | 2014-2022 | none in source; `abg/index.ts:401` |
-| `constructionIntentAppliesToBasis` | 2024-2032 | `constructionDeltaForAdvance` |
-| `rehydrateConstructionIntentForCursorAtPrefix` (exported, 3 signatures) | 2034-2130 | `continuation.ts:121`, `c_call.ts:4107`, `c_call.ts:5771`, `execution_basis.ts:2333`, `deriveGraphFunctionActionEvaluationBasis`; `abg/index.ts:402` |
-| `deriveGraphFunctionActionEvaluationBasis` (exported) | 2132-2265 | `hog/workflow_lifecycle.ts:641`; `abg/index.ts:399` |
-| `ConstructionDeltaAdmissionCandidate`, local `admittedConstructionComposition`, `constructionAuthority`, `constructionIntentFromEvent` | 2267-2335 | the intent, delta and closure functions |
-| `constructionDeltaForAdvance` | 2336-2713 | `admitRoute` |
-| `hasResolvedRunConstructionIntentLineage` (exported, not in `abg/index.ts`) | 2715-2770 | `hasGovernedConstructionClosure` |
-| `hasGovernedConstructionClosure` | 2772-2925 | `admitRoute` (terminal arm) |
-| imports `admittedConstructionComposition as admittedBasisConstructionComposition`, `selectAdmittedConstructionAuthority` | 52, 55 | the functions above |
-
-Possibly left without a user (checked with `tsc --noUnusedLocals` after the
-cut): `NO_ACTION_DISPOSITIONS` (282) and the local types `EdgeFulfillmentLedgerRow`,
-`EdgeFulfillmentLedger`, `EdgeClosureDecision`, `ActionEvaluationProjection`,
-`ConvergedNextActionProjection` (351-421). The exported types
-`NoActionDisposition`, `NextActionProjection`, `ConstructionIntent`,
-`ConstructionIntentAdmission`, the `gap_stop` member of `TraversalRouteKind`
-and the next-action keys of `RouteCandidate` and `AdmittedRoute` are read by
-the route projections, replay and the read ports: P5's (ruling 5).
-
-The `RouteAdmissionRefusal` codes `gap_environment_mismatch`,
-`gap_projection_mismatch` and `gap_semantics_mismatch` (431-433) are produced
-only by `noActionProjectionForStopRoute`.
-
-**`admitRoute` arms (`abg/traversal_route.ts:4141-4902`):**
-
-| Arm | Lines |
+| Commit | Content |
 |---|---|
-| `constructionPrefix` (continued-intent prefix choice) | 4156-4159 |
-| `admittedNoActionStop` declaration | 4281-4284 |
-| terminal arm: `hasGovernedConstructionClosure` | 4314-4327 |
-| `gap_stop` arm | 4533-4580 |
-| construction intent and delta selection | 4657-4701 |
-| the `construction_intent_selected` and `construction_delta_observed` event batches | 4757-4829 |
-| `gap_stop` in the `run_stopped` condition and the no-action `disposition`/`reasonRef` fallbacks | 4833, 4855, 4860 |
-| `routeEventIndex` (1 after a delta batch) | 4866 |
-| returned `constructionIntentRef`, `constructionIntentDigest`, `constructionIntentAdmissionEventRef` | 4875-4880 |
-| `gap_stop` in `runStoppedEventRef` | 4886 |
-| the returned next-action spread | 4891-4899 |
+| `b8062db1c` | census (Return skeleton) |
+| `a33159ee0` | code |
+| `06d095b65` | tests |
+| `d6a4b1801` | tests: the door lane also checks conformance |
+| (this commit) | Return |
 
-`routeDigest = sha256Canonical(body)` (4702) with `body =
-routeCandidateBody(candidate)` (4251); the event payload is `{ routeRef,
-routeDigest, ...body }`. `isAdmittedRoute` (855) compares the returned object
-with `projectAdmittedRouteAtPrefix` (read side, P5) by `canonicalEquals`; the
-projection always emits the three intent keys (null when no intent event), so
-the returned object keeps them, as `null`.
+## Size (`git diff --diff-algorithm=histogram --numstat e77bd3fa4`)
 
-**`abg/execution_basis.ts` (the helpers P3 left, deleted when their last caller goes):**
-
-| Declaration | Lines | Callers |
+| Layer | Added | Removed |
 |---|---|---|
-| `hasExactInvocationObservationBasis` | 1006-1035 | `owner_bindings/run_invocation.ts:921`; `abg/index.ts:109` |
-| `admittedConstructionComposition` | 1149-1163 | `traversal_route.ts` (2146, 2276), `c_call.ts:5767`, the two helpers below; `abg/index.ts:107` |
-| `selectAdmittedConstructionAuthority` | 1165-1177 | `traversal_route.ts:2292`, `c_call.ts:5772`; `abg/index.ts:125` |
-| `isAdmittedConstructionInteractionLocus` | 1179-1188 | `continuation.ts:123`; `abg/index.ts:124` |
-| import `rehydrateConstructionIntentForCursorAtPrefix` and the intent read in `prepareWorkflowChildExecutionBasis` | 11, 2333, 2341 (`intent` key) | `hog/child_traversal.ts:145` |
+| ABG (`code/src/abg`) | 29 | 2,425 |
+| HoG (`code/src/hog`) | 24 | 171 |
+| Owner bindings | 0 | 20 |
+| Tests (`test_env/tests`) | 82 | 239 |
+| Support and fixtures | 0 | 498 |
 
-`admitExecutionBasis` (1634) gains the door (ruling 4).
+`abg/traversal_route.ts` goes from 5,531 to 3,301 lines.
 
-**Shared call paths (plan §3.2):**
+## What left
 
-| Site | Lines | What goes |
+- `abg/traversal_route.ts`: the next-action, edge-ledger, action-evaluation,
+  construction-intent and construction-delta functions (base lines 938-964,
+  1017-2926), their local types (`EdgeFulfillmentLedgerRow`,
+  `EdgeFulfillmentLedger`, `EdgeClosureDecision`, `ActionEvaluationProjection`,
+  `ConvergedNextActionProjection`), `NO_ACTION_DISPOSITIONS`, and the refusal
+  codes `gap_environment_mismatch`, `gap_projection_mismatch`,
+  `gap_semantics_mismatch`. In `admitRoute`: the continued-intent prefix, the
+  governed-closure terminal check, the `gap_stop` arm (a `gap_stop` candidate
+  now gets the existing `route_kind_not_supported`), intent and delta
+  selection with their two event batches, and the no-action fallbacks. The
+  returned route keeps the three intent keys as `null`, because
+  `isAdmittedRoute` compares it with the P5 projection, which always emits
+  them.
+- `abg/execution_basis.ts`: `hasExactInvocationObservationBasis`,
+  `admittedConstructionComposition`, `selectAdmittedConstructionAuthority`,
+  `isAdmittedConstructionInteractionLocus`, and the intent read in
+  `prepareWorkflowChildExecutionBasis`.
+- `abg/continuation.ts` (`admitFhInteractionOpen`): the intent read, its
+  conditions, its causation ref and its payload keys. The hold identity and
+  the return keep `constructionIntentRef: null` (digested).
+- `abg/c_call.ts`: the intent read in `prepareWorkflowChildFoldback`; the
+  composition branch of `workflowOutputContractCorresponds`.
+- `hog/route_proposal.ts`: `proposeGapStopRoute`, the no-action arm of
+  `selectedCCallOutcomeRoute`, the `gap_stop` arms of
+  `deriveSelectedCCallOutcomeTarget` and `proposeCCallOutcomeTransition`, the
+  code `gap_stop_not_declared`, the next-action keys of `GraphRouteExtras`.
+- `hog/workflow_lifecycle.ts`, `hog/child_traversal.ts`: the intent-selected
+  workflow input, the action-evaluation basis and the diagnostic
+  `workflow-action-evaluation-basis-absent`.
+- `owner_bindings/run_invocation.ts`: the observation-snapshot guard
+  (`observation_basis_mismatch`).
+
+**The door:** `admitExecutionBasis` adds
+`input.program.actionCatalog !== undefined || input.program.constructionComposition !== undefined`
+to its existing Program/closure check, which rejects with
+`diagnostic://abiogenesis/execution-basis/closure-mismatch@5`. No new code.
+
+**Codes that leave:** `gap_stop_not_declared`, `gap_projection_mismatch` (both
+on the plan's list), and beyond it `gap_environment_mismatch`,
+`gap_semantics_mismatch`, `observation_basis_mismatch` and the diagnostic
+`workflow-action-evaluation-basis-absent`. None appears in `T/contracts`,
+`T/scripts`, the specification or `T/test_env` at base, apart from the
+deleted multi-candidate lane (`gap_semantics_mismatch`). The regenerated
+`contracts/` differ from base only in the capability graph digests (ruling 1).
+
+## Cut arms (ruling 2)
+
+Reading: probes on an instrumented copy of the base build (`probe-root`,
+`scripts/instrument.py`), one log per lane, over 20 kept lanes:
+`m5-event-calculus-runtime`, `r9-causal-result-closure`,
+`retained-route-cursor-transition`, `t287-continuation-causation`,
+`t287-default-library`, `-prerequisites`, `-reviews`,
+`-recoverable-failure` (stopped part way by the amendment),
+`t287-f09-frontier-handoff`, `t287-native-assessment-evidence`,
+`t287-readable-stops`, `t287-recursive-failure-foldback`,
+`t287-recursive-registered-selection`, `t287-registered-graph-selection`,
+`t287-retry-run-prefix`, `t287-route-reconstruction`,
+`t287-rp2-behavior-carriers`, `w2-steel-single-start`,
+`w2-steel-single-start-closure`. (`t287-default-library-fulfillment` read no
+probe: the probe tree lacked one evidence file at that moment.) The two One
+Surface lanes deleted here (`t287-multi-candidate-admission`,
+`t287-rp2-correction-carriers`) are the only ones that reach any arm.
+
+| Arm | Guard on a kept Run | Reading on kept lanes |
 |---|---|---|
-| `abg/continuation.ts` `admitFhInteractionOpen` | 120-127, 167-186, 219-221, 279-286; imports 32, 58, 60 | the intent read, `requiresConstructionIntent`, the intent conditions, the intent causation ref and payload keys. The hold identity keeps `constructionIntentRef: null` (digested, 205-208) and the return keeps both intent keys as `null` (306-309) |
-| `abg/c_call.ts` `prepareWorkflowChildFoldback` | 4101-4134; import 8 | the intent read and the `invoke_graph_function` branch |
-| `abg/c_call.ts` `workflowOutputContractCorresponds` | 5767-5781; imports 41-42 | the composition branch; ordinary workflows keep `closure.resultContractRef === term.outputCarrierRef` |
-| `hog/child_traversal.ts` `prepareWorkflowChildTraversalAtCursor` | 141-151 | the `intent` key |
-| `hog/workflow_lifecycle.ts` `beginOwnedWorkflowLocus` | 406-432 | the intent-selected input; the input stays `input.value`/`cursor.inputRef`/`cursor.inputDigest` |
-| `hog/workflow_lifecycle.ts` `completeOwnedWorkflowLocus` | 637-662, 688; import 51-53 | the action-evaluation basis and `workflow-action-evaluation-basis-absent` |
-| `owner_bindings/run_invocation.ts` | 48, 921-936 | the observation-snapshot guard (`observation_basis_mismatch`) |
+| `admitRoute` terminal: `hasGovernedConstructionClosure` | basis `constructionComposition === null` returns true | 168 calls, all `true`, all with composition null (10 lanes). Settled (plan "likely") |
+| `admitRoute` `gap_stop` arm | HoG proposes `gap_stop` only for a `next_action_projection` with disposition `no_action` | 0 hits; 530 routes admitted: advance 308, terminal 168, failed 30, retry 13, blocked 10, hold 1 |
+| `constructionIntentForAdvance` | no ActionCatalog on the basis, no intent event | 241 calls, all `null` (plus 2 `null` from the `retained-route` stub basis) |
+| `constructionDeltaForAdvance` | same | 532 calls, all `null` (plus 2 stub) |
+| `noActionProjectionForStopRoute`, `hasResolvedRunConstructionIntentLineage`, `deriveGraphFunctionActionEvaluationBasis` | reached only from the arms above | 0 calls |
+| `rehydrateConstructionIntentForCursorAtPrefix` | no `construction_intent_selected` event | 228 calls, all `null` |
+| `admittedConstructionComposition` / `selectAdmittedConstructionAuthority` | composition null | 3,054 / 941 calls, all `null` |
+| F_H hold: `admitFhInteractionOpen` intent; `isAdmittedConstructionInteractionLocus` | composition null | 1 hold (`t287-f09-frontier-handoff`): intent `null`, locus `false` |
+| Workflow child basis, foldback, begin, complete (intent reads) | no intent event | 115 / 112 / 115 / 112 calls, intent `null` |
+| `workflowOutputContractCorresponds` composition branch | composition null | 230 entries, composition null; branch 0 |
+| `selectedCCallOutcomeRoute` no-action arm; `proposeGapStopRoute` | value kind `next_action_projection` + `no_action` | 717 outcomes, all `null` (value kinds: Executive, native work, selection, greeting; 6 are `registered_graph_choice`/`gap`, the Executive's blocked stop); `proposeGapStopRoute` 0 |
+| Observation guard `hasExactInvocationObservationBasis` | returns true unless input kind is `observation_snapshot` | 26 calls, all `true` (kinds `governance_work_state`, `selection_request`, `recursive_selection_state`, `developer_ticket_work_input`, `developer_greeting_input`). Settled by running: an `observation_snapshot` input to a kept Program is refused `invalid_input` at `/input` by the Product's input contract, on base and final (`t292-td26-p4-basis-door-refused`, case 2) |
+| Door (new): Program fields at `admitExecutionBasis` | kept Programs carry neither key | 49 admissions, `actionCatalog` and `constructionComposition` absent in all |
 
-**HoG gap family:**
+`ccall_lifecycle`'s `gap_stop` completion arm and `c_call_outcome`'s
+`gap_stop` dispositions stay (P5, plan §2.4 read-side table): the completion
+type is shared with the fold. They are unreachable on the write side now,
+because `admitRoute` admits no `gap_stop` route.
 
-| Site | Lines |
+## Event comparison (ruling 3)
+
+Built-in implementations only, no provider. Capture variants write the whole
+event store (`scripts/make-capture-variant*.py`, files in
+`/private/tmp/abg-td26p4-work/events/`). Base ×1, final ×2; the noise floor is
+final against final.
+
+| Subject | Events | Kinds in order | Leaves differing beyond the floor |
+|---|---|---|---|
+| Registered selection with recursion (`t287-recursive-registered-selection`, owner path) | 177 / 177 / 177 | equal | 1,108, all product identity: 1,098 in `public_operation_artifact_admitted`, 5 in `invocation_admitted`, 5 in `public_operation_admitted` |
+| Same, cold Public path | 155 / 155 / 155 | equal | 1,108, the same identity leaves |
+| Default library (`t287-default-library`), whole store at the first pending-execution case | 627 / 627 / 627 | equal | 1,189, all product identity: the artifact admission (1,098) and the capability-grant and publication digests carried inside `invocation_admitted`, `implementation_admitted`, `basis_admitted`, `c_call_result_admitted`, `c_call_evidenced`, `actor_result_artifact_observed`, `public_operation_admitted` and one route's `boundInput` |
+| Same, at the second pending-execution case | 724 / 724 / 724 | equal | 1,221: the same identity leaves, plus one `predecessorPrefix.prefixLength` of an `actor_transport_binding_admitted` (3,798,020 → 3,798,022). That is noise: the two final runs agree there by chance and differ at the other six transport bindings (byte lengths vary by tens of bytes run to run) |
+| Registered selection (`t287-registered-graph-selection`), seven cases: A, B, nonpermitted, stale, wrong-contract, wrong-input, gap. Base is the probe tree's run (base plus probe writes) | 75, 75, 25, 25, 25, 27, 27 (equal per case) | equal | 5 per case, all the capability identity in `invocation_admitted`. The `gap` case is the Executive's blocked stop: one `blocked` route and `run_stopped` `blocked` on both |
+
+Identity leaves: `declarationDigest`, `productContentDigest`, `catalogDigest`,
+`capabilityDefinitionDigest`/`Ref`, `provenanceRef`, `contractDigest`,
+`publicationDigest`, `graphDigest`, `artifactDigest` and the digests built from
+them. They follow the product content, which changes with any source change.
+Noise fields (differ between two runs of one build): event ids, times,
+temporary paths, Run, call, frame and cursor ids and every ref and digest
+built from them, `routeRef`/`routeDigest` among them.
+
+Beyond the floor, route, basis, call, result, judgment, closure and stop
+events differ only in identity values carried inside admitted input and
+result values (capability grants, publication digests). The route payload key
+sets are equal. Neither compared Run holds. The only kept hold is
+`t287-f09-frontier-handoff` (one F_H hold; probe: intent `null`, locus
+`false`); its identity keeps `constructionIntentRef: null`, so its digest
+inputs are unchanged, and the lane passes on final (run for ruling 2's hold
+arm, beyond the amended list).
+
+**routeDigest inputs.** `routeDigest = sha256Canonical(routeCandidateBody(candidate))`
+(`traversal_transition.ts:186`, not edited). Recomputed from every recorded
+`traversal_route_admitted` payload minus `routeRef`/`routeDigest`, with each
+build's own digest function (`scripts/route-digest-inputs.mjs`). Recursive
+selection: 7 of 7 routes match on base and on final, for both paths; the body keys on both are
+`cCallRef, consumedAvailabilityRefs, contractRef, declarationDigest,
+declarationRef, judgmentRef, replayStateDigest, routeKind, sourceCursorDigest,
+sourceCursorRef, targetCursorDigest, targetCursorRef`. Default library: 28 and 32 routes (advance, terminal, blocked), all match on both builds, with the same three body key sets; the one `run_stopped` is `blocked` on both.
+
+## Door table (ruling 4)
+
+Subject: the registered-selection Product with one valid
+`invoke_graph_function` ActionCatalog row on its Program (lane
+`t292-td26-p4-basis-door-refused`, case 1).
+
+| Door | Base | Final |
+|---|---|---|
+| Publication validation | admitted | admitted (the schema arm leaves in P6) |
+| `catalog.admit` | admitted | admitted |
+| Conformance (`evaluateGtlProgramConformance`) | passed | passed |
+| Product resolution | resolves; `actionCatalog` carried | same |
+| Run start | the Run completes (`result`, `completed`) | refusal `invalid_graph_function` at `/execution_basis` (`closure-mismatch@5`); no `basis_admitted`, `graph_call_opened`, route or `run_closed` written |
+| Run continuation (`run.continue#current_intent`, pending execution) | a recorded catalog Run continues from its recorded basis | same; the continuation reuses the recorded basis and does not call `admitExecutionBasis` (read: `run_invocation.ts` `runPendingExecutionOwner`) |
+| Run continuation of a recorded composition Run | `missing_continuation` (`construction_continuation.ts:232` lists no pending position when the root basis has a composition) | same |
+
+The One Surface Program itself (catalog and composition), started supervised
+by the deleted `t287-rp2-correction-carriers` lane, run once on final from
+scratch copies: base reaches the typed correction stop (Public
+`runtime_failed`, `run_stopped` `inspect_runtime_archive`); final refuses
+`invalid_graph_function` at `/execution_basis` with `closure-mismatch@5`. The
+developer-mini One Surface Program's direct and `graph_function` starts are
+refused `invalid_target` at `/program` before the basis on both builds
+(`t287-st1-installed-cross-owner-hello.test.mjs:2302-2390`, read, not run).
+
+The lane is red on base (case 1: `actual: 'result'`, the Run completed) and
+green on final.
+
+## Read side (ruling 5)
+
+| Check | Base | Final |
+|---|---|---|
+| Replay census, 23 logs (`scripts/replay-log.mjs`) | `replay/replay-base.jsonl` | byte-identical |
+| Artifact truth, 25 logs (`scripts/probe-artifact-truth.mjs`) | `truth/truth-base.jsonl` | byte-identical |
+| Resolved-lock reading, 18 rows (`scripts/probe-lock.mjs`) | `truth/lock-base2.jsonl` | byte-identical |
+| Kept read ports on one store copy per log, 25 logs (`scripts/kept-reads-pair.mjs`) | | 25 of 25 identical |
+
+## Exports (ruling 6)
+
+23 (subpath, name) pairs leave; none is added.
+
+| Subpath | Names |
 |---|---|
-| `hog/route_proposal.ts` `proposeGapStopRoute` (exported, 3 signatures) | 523-606; `hog/index.ts:29` |
-| `hog/route_proposal.ts` `selectedCCallOutcomeRoute` no-action arm | 723-742 |
-| `hog/route_proposal.ts` `deriveSelectedCCallOutcomeTarget` `gap_stop` arm | 779 (and the doc comment 744) |
-| `hog/route_proposal.ts` `proposeCCallOutcomeTransition` `gap_stop` arm | 890-894 |
-| `hog/route_proposal.ts` `RouteProposalRefusal` code `gap_stop_not_declared`, `GraphRouteExtras` next-action keys | 71, 101-103 |
-| `hog/ccall_lifecycle.ts` `gap_stop` completion | 315-321 |
-| `hog/traversal_completion.ts` `"gap_stop"` disposition | 59 |
-| `abg/c_call_outcome.ts` `gap_stop` completion payloads and route-kind lists (plan: P5; reached by the compiler once HoG stops producing them) | 652-656, 686-690, 1774-1776, 1841 |
+| `.` (8), `./abg` (7), `./abg/m03` (7) | `admittedConstructionComposition`, `deriveGraphFunctionActionEvaluationBasis`, `hasExactInvocationObservationBasis`, `isAdmittedConstructionInteractionLocus`, `rehydrateConstructionIntentForCursorAtDurablePrefix`, `rehydrateConstructionIntentForCursorAtPrefix`, `selectAdmittedConstructionAuthority` |
+| `.` and `./hog` | `proposeGapStopRoute` |
 
-Kept read side, not touched (P5): `projectHistoricalTraversalRoute`,
-`projectAdmittedRoute` (`traversal_route.ts:600-842`), `abg/replay.ts`,
-`abg/project_read_ports.ts`, `abg/invocation_admission.ts` re-entry,
-`abg/event_store.ts` value lists, `abg/calculus/axioms.ts`,
-`abg/traversal_transition.ts` next-action body keys,
-`abg/construction_continuation.ts`, `owner_bindings/run_invocation.ts:1430`,
-`product/run_invocation_operation.ts:1129`,
-`product/run_operation_contracts.ts:71,270`.
+Manifest pins (`scripts/manifest-cmp.mjs`, `inventory-cmp.mjs`): the Public
+contract catalog (72 rows), the publication bindings (8) and the contribution
+rows (32) are equal apart from identity values; no inventory path is added or
+removed. Declaration inventories change for the edited modules' `.d.ts` and
+for three that only reorder one union literal (`"unbound" | "stale"`) in
+TypeScript's output: `product/workspace_definition_bindings.d.ts`,
+`product/workspace_operation_contracts.d.ts`,
+`public/binding/owner_contract_source_set.d.ts`.
 
-### Kept importers (ruling 7)
+Capability graph (ruling 1): 16 rows on both, no difference beyond
+`capabilityDefinitionDigest`/`Ref`, `catalogDigest`, `productContentDigest`.
+`graphDigest` `sha256:9250588f…` → `sha256:77dc5593…`; asset `contentDigest`
+`sha256:a376666f…` → `sha256:5ff9082d…`. Generated files are restored before
+each commit (not committed here).
 
-| Importer | Imports | Needs after the cut |
+## Kept importers (ruling 7)
+
+| Importer | Imported at base | Needs now |
 |---|---|---|
 | `abg/continuation.ts` | `isAdmittedConstructionInteractionLocus`, `rehydrateConstructionIntentForCursorAtPrefix`, `ConstructionIntentAdmission` | nothing |
-| `abg/c_call.ts` | `rehydrateConstructionIntentForCursorAtPrefix`, `admittedConstructionComposition`, `selectAdmittedConstructionAuthority` | nothing |
-| `abg/execution_basis.ts` | `rehydrateConstructionIntentForCursorAtPrefix` | nothing |
-| `hog/workflow_lifecycle.ts` | `deriveGraphFunctionActionEvaluationBasis` | nothing |
-| `hog/child_traversal.ts` | `preparation.intent` | nothing |
+| `abg/c_call.ts` | `rehydrateConstructionIntentForCursorAtPrefix`, `admittedConstructionComposition`, `selectAdmittedConstructionAuthority`, `deriveCSourceContinuation` | nothing |
+| `abg/execution_basis.ts` | `rehydrateConstructionIntentForCursorAtPrefix`, `projectOwnedRuntimeEventPrefixAtDurablePrefix` | nothing |
+| `hog/workflow_lifecycle.ts` | `deriveGraphFunctionActionEvaluationBasis` | nothing; calls `workflowOutputContractCorresponds({graph, cursor, childGraphFunction, childClosureContract})` |
+| `hog/child_traversal.ts` | `preparation.intent` | nothing; `prepareWorkflowChildTraversalAtCursor(store, basis, prefix, cursor)` is now `prepareWorkflowChildTraversalAtPrefix(store, basis, prefix)` (not exported from `./hog`) |
 | `owner_bindings/run_invocation.ts` | `hasExactInvocationObservationBasis` | nothing |
-| `abg/index.ts`, `hog/index.ts` | re-exports | the names leave (ruling 6) |
 
-### Scripts and package metadata
+No stub. `tsc --noUnusedLocals` gives the same 12 findings as base.
 
-No hit in `T/scripts` or `T/package.json`.
+## Tests (ruling 8)
 
-### Tests, support and fixtures (`T/test_env`, without `test_runs`, `downstream`, `evidence`)
+| File | Action |
+|---|---|
+| `tests/t287-rp2-correction-carriers.test.mjs`, `qualification/fixtures/rp2-correction-product.mjs`, `fixtures/t287-selected-action-product/` | deleted. Every assertion is One Surface (`construction_delta_observed`, a typed no-action stop, an unmet closure); the stopped-Run reading it also checked is covered by `t287-readable-stops` |
+| `tests/t287-multi-candidate-admission.test.mjs`, `support/multi-candidate-admission-owner.mjs` | deleted (deviation): they load the route owner and test only `constructionIntentForAdvance`, `noActionProjectionForStopRoute`, `hasGovernedConstructionClosure`, which are gone; every case has a composition basis |
+| `tests/retained-route-cursor-transition.test.mjs:102` | stub drops `admittedConstructionComposition`, `selectAdmittedConstructionAuthority` |
+| `tests/t287-held-prefix.test.mjs:141`, `tests/t287-runtime-failure-diagnostic.test.mjs:626` | stub of `prepareWorkflowChildFoldback` drops `intent: null` (deviation: not in the plan) |
+| `tests/t287-continuation-causation.test.mjs:8` | the comment no longer names the deleted support |
+| `tests/t292-td26-p4-basis-door-refused.test.mjs` | new: the door (case 1) and the observation input (case 2) |
 
-| File | Use | Plan |
-|---|---|---|
-| `tests/t287-multi-candidate-admission.test.mjs`, `support/multi-candidate-admission-owner.mjs` | load `traversal_route.js` with `export { constructionIntentForAdvance, noActionProjectionForStopRoute, hasGovernedConstructionClosure }` appended and test those three | subject is the removed functions: delete |
-| `tests/t287-rp2-correction-carriers.test.mjs`, `qualification/fixtures/rp2-correction-product.mjs`, `fixtures/t287-selected-action-product/` | installed supervised start of the selected-action Program; asserts `construction_delta_observed`, a `gap_stop` route and a no-action `run_stopped` | delete (brief, ruling 8) |
-| `tests/retained-route-cursor-transition.test.mjs:102` | its `./execution_basis.js` stub supplies `admittedConstructionComposition` and `selectAdmittedConstructionAuthority` | remove the two keys |
-| `tests/t287-rp2-behavior-carriers.test.mjs:30` | narrows the view to `ids.oneSurfaceGraphFunctionRef` among others; starts only the ticket and asset Programs | run; edit only if needed |
-| `tests/t287-st1-installed-cross-owner-hello.test.mjs:2302-2390` | resolves the developer-mini One Surface Program; its direct and `graph_function` starts are refused `invalid_target` `/program` before the basis | listed |
-| `fixtures/developer-mini-product/src/index.ts` (`oneSurfaceProgram`, about `:4646-4670`) | the only kept fixture Program carrying `actionCatalog` and `constructionComposition` | P6; vehicle for the door lane |
-| `support/t287-s03-automatic.mjs`, `tests/t287-s03-automatic.test.mjs`, `fixtures/t287-s03-automatic-product/` | gated (skips unless `ABI5_S03_EVIDENCE_ROOT` is set); One Surface | P6 |
-| `support/single-address-space-consolidation.mjs` | meters read-owner calls; the intent reads removed here are some of them | run `t287-single-address-space-consolidation` base and final |
-| `tests/t287-continuation-causation.test.mjs:8` | comment naming the multi-candidate support's technique | listed |
-| `support/evidence-gates.json` | no row names a file this package deletes | none |
+**Qualification members naming deleted files (listed, not edited):**
+`qualification/inventory.json`: `test_env/fixtures/t287-selected-action-product/index.mjs`,
+`test_env/support/multi-candidate-admission-owner.mjs`,
+`test_env/tests/t287-multi-candidate-admission.test.mjs`.
+`qualification/recipe/verification-recipe.json` (`:3262`, `:3302`, `:3470`,
+`:4026`, `:4246`, `:4645`, `:4853`, `:4869`, `:4905`, `:4951`) and
+`qualification/recipe/declared-commands.json` (`:96`, `:207`, `:337`, `:545`,
+`:561`, `:597`, `:643`) name the two deleted lanes,
+`rp2-correction-product.mjs`, the selected-action fixture and the
+multi-candidate support.
 
-`t287-exact-construction-intent` and its fixture are already gone (P3).
+## Lanes (final build only, by the Executive's amendment)
+
+| Lane | Final |
+|---|---|
+| `t292-td26-p4-basis-door-refused` | 2/2 (base: case 1 fails, `actual: 'result'`; case 2 passes) |
+| `retained-route-cursor-transition` | 1/1 |
+| `t287-continuation-causation` | 1/1 |
+| `t287-held-prefix` | 3 pass, 2 skip (`ABI5_HELD_PREFIX_NATIVE_FIXTURE` unset) |
+| `t287-runtime-failure-diagnostic` | 21/21 |
+| `t287-default-library` | 34 pass, 1 skip (`ABI5_DEFAULT_LIBRARY_LIVE` unset) |
+| `t287-registered-graph-selection` | 1/1 |
+| `t287-recursive-registered-selection` | 7/7 |
+| `t287-route-reconstruction` | 11 pass, 1 skip (`P0_RETAINED_NATIVE_SCRATCH` unset) |
+| `t287-readable-stops` | 5/5 |
+| `m5-event-calculus-runtime` | 18/18 |
+| `t287-framework-handoff-types` | 6/6 |
+| `t287-f09-frontier-handoff` (the hold arm) | 1/1 |
+| `r1-packed-artifact` | 1/1 |
+| `r2-clean-install` | 1/1 |
+
+Also run on final for the comparisons: the two capture variants (×2 each), `t287-registered-graph-selection` once more with saved evidence, and the deleted `t287-rp2-correction-carriers` once from scratch copies (fails on final at the door, as the door table says). Not run, by the amendment: the base lane list, `td36r`/`td36s`.
+
+No failure. `npm run build`, `lint:imports`, `lint:lifecycle` and
+`lint:calculus` pass on final. TAP files: `/private/tmp/abg-td26p4-work/lanes-final/`.
+
+## Residue
+
+`scripts/residue-p4.sh` on final: no removed identifier or code remains in
+`code/src`, `scripts` or `package.json`. Remaining hits are recorded payload
+field names read by P5's owners (`event_store.ts:934`, `:940`,
+`replay.ts:241-1155`), the gated S03 support (`t287-s03-automatic.mjs`, P6),
+recorded fixtures (2 files each for `nextActionBasis`,
+`edgeFulfillmentLedger`, `edgeClosureDecision`) and one design line below.
+
+## Kept design sentences that describe what left (listed, not edited)
+
+- `T287_REGISTERED_GRAPH_SELECTION_DESIGN.md:40`: "Current result-dependent
+  routing handles re-entry/no-action" (`hog/route_proposal.ts:550`); the
+  no-action half is gone.
+- `ABI5_REALIZATION_CONSTITUTION.md:1558` (`L51`, NextActionProjection to
+  ConstructionIntent candidate, cites `traversal_route.ts`) and `:1559`
+  (`L52`, ConstructionIntent admission in `admitRoute`); also `:1557` (`L50`).
+- `M05_S06_PUBLIC_FUNCTION_AND_NATIVE_OCCURRENCE_CLOSURE_DESIGN.md:1654`,
+  `:1692`, `:1809-1812`: the `gap_stop` non-terminal disposition (P5, P7).
+
+Specification: `PRODUCT.md:416`, `:442` keep the `gap_stop` route family; the
+kept feature set realizes it as the Executive's registered-selection gap, a
+blocked stop (`t287-readable-stops`). No specification edit.
 
 ## Recorded history
 
-Files under the evidence root `/Users/jim/src/apps/abiogenesis/.ai-workspace`,
-`T/test_env/proof`, `T/test_env/fixtures` and `T/test_env/uat` (`*.json`,
-`*.jsonl`, `*.ndjson`, `*.txt`, `*.log`; no size cap) that carry each value
-(`scripts/history-scan.sh`, lists in `/private/tmp/abg-td26p4-work/history/`):
+Files under the evidence root and `T/test_env/{proof,fixtures,uat}` carrying
+each value: `construction_intent_selected` 800, `construction_delta_observed`
+626, `"routeKind": "gap_stop"` 18, `"disposition": "gap_stop"` 16,
+`next_action_projection` 481, `observation_snapshot` 0, a string
+`constructionIntentRef` 390. No reader changes here; the read-side checks
+above are identical.
 
-| Value | Files |
-|---|---|
-| `"construction_intent_selected"` | 800 |
-| `"construction_delta_observed"` | 626 |
-| `"routeKind": "gap_stop"` | 18 |
-| `"disposition": "gap_stop"` | 16 |
-| `"kind": "next_action_projection"` | 481 |
-| `"kind": "observation_snapshot"` | 0 |
-| `"constructionIntentRef": "<string>"` | 390 |
+## Deviations
 
-This package removes no reader: recorded logs carrying these values are read
-by the kept projections and replay exactly as before (shown in the replay and
-artifact-truth sections).
+- Commit trailer names Claude Opus 5.5 (the model that ran), not Fable 5.2.
+- The arm probes ran in the background, one lane at a time, on an
+  instrumented copy of base; the amendment stopped the run before
+  `t287-default-library-recoverable-failure` finished and before
+  `steel-basic-cli-public` and `t287-single-address-space-consolidation`.
+- `t287-multi-candidate-admission` and its support deleted (not in the plan).
+- Stubs edited in `t287-held-prefix` and `t287-runtime-failure-diagnostic`.
+- `workflowOutputContractCorresponds` has one signature, and
+  `prepareWorkflowChildTraversalAtCursor` became
+  `prepareWorkflowChildTraversalAtPrefix` without the cursor.
+- Unused after the cut and removed with their last user: the five local
+  types and `NO_ACTION_DISPOSITIONS` in `traversal_route.ts`, and four
+  imports. The plan puts the types in P5; they had no reader left.
+- The `gap_stop` completion arm in `hog/ccall_lifecycle.ts` and the
+  `"gap_stop"` member of `hog/traversal_completion.ts` stay: they narrow
+  `c_call_outcome`'s completion union, which the plan gives to P5.
+- The event comparison takes base ×1 and final ×2 (floor from final), per the
+  amendment.
+
+## Needs a ruling
+
+1. **Permissive Product.** Two refusals left with their arms and no kept Run
+   reaches either. A Product whose input contract admits an
+   `observation_snapshot` for a Program without an ActionCatalog was refused
+   `invalid_input` at `/observation` (`observation_basis_mismatch`) at base;
+   now its Run proceeds. A Product whose leaf returns a
+   `next_action_projection` with disposition `no_action` failed the call at
+   base (`gap_stop_not_declared` at stage `leaf-route-N`, or
+   `gap_projection_mismatch` at `leaf-completion-N`); now the outcome routes
+   as an ordinary result. No shipped or fixture Product other than the One
+   Surface ones admits either value kind. The plan lists both codes as
+   leaving (§4); P6's schema change removes the One Surface Program shapes,
+   not these value kinds.
