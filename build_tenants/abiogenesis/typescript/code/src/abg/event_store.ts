@@ -2145,17 +2145,43 @@ export function assertDurableRuntimePrefixCurrent(prefix: DurablePrefixCoordinat
   if (!validateDurablePrefixCoordinate(prefix)) {
     throw new DurablePrefixReadError("event_envelope_invalid", "ABG durable prefix coordinate is invalid");
   }
-  let status: ReturnType<typeof statSync>;
-  try { status = statSync(fileURLToPath(prefix.eventLogRef)); }
-  catch (error) {
+  assertDurableFileCurrent(fileURLToPath(prefix.eventLogRef), null, prefix.storeIdentity, prefix.prefixLength);
+}
+
+/** The one currentness rule for a durable log file: the file at `path`, and
+ * the file behind `descriptor` when one is given, is a regular file with the
+ * given device and inode, and its length lies from `minLength` to `maxLength`.
+ * It reads no byte and no time field. */
+function assertDurableFileCurrent(
+  path: string, descriptor: number | null,
+  identity: Readonly<{ device: number; inode: number }>, minLength: number, maxLength = minLength,
+): void {
+  let pathStatus: ReturnType<typeof fstatSync>, descriptorStatus: ReturnType<typeof fstatSync>;
+  try {
+    pathStatus = statSync(path);
+    descriptorStatus = descriptor === null ? pathStatus : fstatSync(descriptor);
+  } catch (error) {
     throw new DurablePrefixReadError("file_identity_mismatch", `ABG durable prefix file is unavailable: ${String(error)}`);
   }
-  if (!status.isFile() || status.dev !== prefix.storeIdentity.device || status.ino !== prefix.storeIdentity.inode) {
-    throw new DurablePrefixReadError("file_identity_mismatch", "ABG durable prefix file identity differs from coordinate");
+  for (const status of [pathStatus, descriptorStatus]) {
+    if (!status.isFile() || status.dev !== identity.device || status.ino !== identity.inode) {
+      throw new DurablePrefixReadError("file_identity_mismatch", "ABG durable prefix file identity differs from coordinate");
+    }
   }
-  if (status.size !== prefix.prefixLength) {
-    throw new DurablePrefixReadError("prefix_length_mismatch", "ABG durable prefix is not the current durable event-log prefix");
+  for (const status of [pathStatus, descriptorStatus]) {
+    if (status.size < minLength || status.size > maxLength) {
+      throw new DurablePrefixReadError("prefix_length_mismatch", "ABG durable prefix is not the current durable event-log prefix");
+    }
   }
+}
+
+/** Before a transaction's action and before a write: the held log file is
+ * still the one this store holds, at the length it retains. Otherwise an
+ * append would land in another file or at another offset than the store
+ * records. A same-length change in place is not seen here; reopen and a cold
+ * read of a copied coordinate refuse it. */
+function assertHeldDurableLogCurrent(state: EventStoreState, descriptor: number): void {
+  assertDurableFileCurrent(state.durableLogPath!, descriptor, state.durableFileIdentity!, state.durableByteLength);
 }
 
 /** Pure derivation of the already authenticated immutable owner value. A copied
@@ -2405,6 +2431,9 @@ function appendDurablyBatch(state: EventStoreState, events: readonly RuntimeEven
       prefixByteLength: nextByteLength, prefixDigest: `sha256:${successorHash.copy().digest("hex")}` };
     return { event, bytes, location };
   });
+  // Before the write and outside its rollback: a refusal here writes nothing
+  // and never reaches the truncate below.
+  assertHeldDurableLogCurrent(state, descriptor);
   try {
     for (const { bytes } of rows) {
       let offset = 0;
@@ -2434,8 +2463,14 @@ function appendDurablyBatch(state: EventStoreState, events: readonly RuntimeEven
   } catch (error) {
     state.derivation.invalidate(); state.derivation = new RuntimeDerivationSource();
     runtimeHistoryDerivationSources.set(history, state.derivation); history.disposeBasisRetention();
-    try { ftruncateSync(descriptor, priorByteLength); fsyncSync(descriptor); }
-    catch (rollbackError) {
+    try {
+      // Truncate only the held file, and only when its length lies from the
+      // prior length to the prior length plus this attempt's bytes. Outside
+      // that range the bytes past the prior length are not this attempt's:
+      // truncating would cut another writer's bytes or extend a shortened file.
+      assertDurableFileCurrent(state.durableLogPath!, descriptor, state.durableFileIdentity!, priorByteLength, nextByteLength);
+      ftruncateSync(descriptor, priorByteLength); fsyncSync(descriptor);
+    } catch (rollbackError) {
       try { releaseDurableOwnership(state); } catch { /* Preserve both I/O failures. */ }
       throw new AggregateError([error, rollbackError], "ABG durable event append failed and its owned prefix could not be restored");
     }
@@ -4474,6 +4509,9 @@ function runRuntimeEventTransaction<T>(
   if (state.transactionStartIndex !== null) {
     throw new TypeError("ABG event admission transactions cannot nest");
   }
+  // Before the action and before anything is staged; `appendDurablyBatch`
+  // repeats the check before it writes.
+  if (state.durableDescriptor !== null && !state.durableAppendClosed) assertHeldDurableLogCurrent(state, state.durableDescriptor);
   const priorEvents = state.events;
   const startIndex = currentRuntimeEventCount(state);
   const priorProfile = state.activeEventContractDigest;
