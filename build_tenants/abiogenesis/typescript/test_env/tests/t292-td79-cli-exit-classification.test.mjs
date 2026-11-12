@@ -1,7 +1,10 @@
 // T-292 TD-79, REQ-P-POLICY-022: the CLI's exit status `2` means that the CLI
 // did not submit the call or the transport refused it, so no owning function
 // was entered. A failure after the CLI has handed the call to the transport,
-// other than the transport's typed refusal, exits `70`.
+// other than the transport's typed refusal, exits `70`. The line's code tells
+// the two apart as well: a request the CLI cannot read or decode is written as
+// `invalid_transport_request`, and `transport_failure` is written only with
+// `70`, after the call is submitted.
 //
 // Each row runs the built CLI (`build/code/src/public/cli.js`, the file the
 // package's `abg.cli` bin names) as its own process and pins the exit status,
@@ -122,8 +125,12 @@ test("TD-79 the CLI exits 2 only when no owning function is entered, and 70 for 
     assert.deepEqual([lines.length, lines.at(-1)], [2, ""], "the CLI writes one line");
     return { status, output: JSON.parse(lines[0]) };
   };
+  // The status and code each row observed, recorded before the row's own
+  // assertions so that a failing row is still counted.
+  const observed = [];
   const row = async (name, args, expectedStatus, expectOutput) => t.test(name, async () => {
     const { status, output } = await cli(await args());
+    observed.push({ name, status, code: output.code });
     assert.equal(status, expectedStatus, `${name}: ${JSON.stringify(output)}`);
     expectOutput(output);
     assert.deepEqual(await storeState(), storeBefore, `${name}: the store is unchanged`);
@@ -135,8 +142,12 @@ test("TD-79 the CLI exits 2 only when no owning function is entered, and 70 for 
     ["--jsonl", await requestFile("{}\n"), "--extra"], 2, (output) => assert.deepEqual(output,
     refusal("invalid_arguments", "abg.cli requires exactly --jsonl <explicit-transport-request-file>")));
   await row("a missing request file", async () => ["--jsonl", join(scratch, "absent.jsonl")], 2, (output) => {
-    assert.deepEqual({ ...output, message: null }, refusal("transport_failure", null));
+    assert.deepEqual({ ...output, message: null }, refusal("invalid_transport_request", null));
     assert.match(output.message, /^Error: ENOENT: no such file or directory/u);
+  });
+  await row("an unreadable request file: a directory", async () => ["--jsonl", scratch], 2, (output) => {
+    assert.deepEqual({ ...output, message: null }, refusal("invalid_transport_request", null));
+    assert.match(output.message, /^Error: EISDIR: illegal operation on a directory/u);
   });
   await row("a file with no line", async () => ["--jsonl", await requestFile(" \n\n")], 2, (output) => assert.deepEqual(output,
     refusal("invalid_transport_request", "request file must contain one explicit CLI transport request")));
@@ -198,4 +209,17 @@ test("TD-79 the CLI exits 2 only when no owning function is entered, and 70 for 
     { kind: "eventless" }, unencodable))], 70, (output) =>
     assert.deepEqual(output, refusal("transport_failure", "TypeError: transport outcome is not one I-JSON value")));
   await assert.rejects(lstat(targetRoot), { code: "ENOENT" }, "the refused workspace.create writes no workspace");
+
+  // Over the codes the rows observed: no line written with 2 carries
+  // `transport_failure`, and every line written with 70 carries it.
+  await t.test("no line written with 2 carries transport_failure, and every line written with 70 does", () => {
+    const withStatus = (status) => observed.filter((entry) => entry.status === status);
+    assert.deepEqual({
+      rows: observed.length,
+      exit2: withStatus(2).length,
+      exit70: withStatus(70).length,
+      exit2TransportFailure: withStatus(2).filter((entry) => entry.code === "transport_failure").map((entry) => entry.name),
+      exit70OtherCode: withStatus(70).filter((entry) => entry.code !== "transport_failure").map((entry) => entry.name),
+    }, { rows: 11, exit2: 9, exit70: 2, exit2TransportFailure: [], exit70OtherCode: [] });
+  });
 });
