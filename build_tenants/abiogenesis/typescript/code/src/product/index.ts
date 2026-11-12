@@ -144,7 +144,6 @@ export {
   type InstalledLeafSemanticsProjection,
   type InstalledProductSemanticsBasis,
   type ProductInvocationSourceResultBasis,
-  type ProductPublicResultProjection,
   type ProductSemanticsProvider,
 } from "./semantics.js";
 export {

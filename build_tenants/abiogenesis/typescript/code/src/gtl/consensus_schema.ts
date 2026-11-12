@@ -1,30 +1,5 @@
-import { hasExactKeys, isRecord } from "../shared/admission_predicates.js";
 import type { JsonValue } from "../shared/canonical_json.js";
 import { deepFreeze } from "../shared/immutable.js";
-import { isNonBlankRef } from "../shared/references.js";
-
-export interface ConsensusReviewerCandidate {
-  readonly kind: "consensus_reviewer_candidate";
-  readonly schemaVersion: "5.0.0";
-  readonly recommendation: "accept" | "revise";
-  readonly findings: readonly {
-    readonly findingContractRef: string;
-    readonly findingPayloadRef: string;
-  }[];
-  readonly residualRefs: readonly string[];
-}
-
-export interface ConsensusSubmitterResponseCandidate {
-  readonly kind: "consensus_submitter_response_candidate";
-  readonly schemaVersion: "5.0.0";
-  readonly disposition:
-    | "acknowledge"
-    | "address_findings"
-    | "dispute_findings";
-  readonly responseText: string;
-  readonly addressedFindingRefs: readonly string[];
-  readonly residualFindingRefs: readonly string[];
-}
 
 const consensusReviewerResponseSchema = deepFreeze({
   type: "object",
@@ -202,76 +177,6 @@ const consensusSubmitterResponseRecordSchema = deepFreeze({
     evidenceRefs: { $ref: "#/$defs/RefArray" },
   },
 } as const satisfies JsonValue);
-
-export function isConsensusReviewerCandidate(
-  value: unknown,
-): value is ConsensusReviewerCandidate {
-  if (
-    !isRecord(value) ||
-    !hasExactKeys(value, consensusReviewerResponseSchema.required) ||
-    value.kind !== "consensus_reviewer_candidate" ||
-    value.schemaVersion !== "5.0.0" ||
-    (value.recommendation !== "accept" && value.recommendation !== "revise") ||
-    !Array.isArray(value.findings) ||
-    !Array.isArray(value.residualRefs) ||
-    !value.residualRefs.every(
-      (ref) => isNonBlankRef(ref),
-    ) ||
-    new Set(value.residualRefs).size !== value.residualRefs.length ||
-    !value.findings.every((finding) =>
-      isRecord(finding) &&
-      hasExactKeys(finding, ["findingContractRef", "findingPayloadRef"]) &&
-      isNonBlankRef(finding.findingContractRef) &&
-      isNonBlankRef(finding.findingPayloadRef)
-    )
-  ) {
-    return false;
-  }
-  return value.recommendation === "accept"
-    ? value.findings.length === 0
-    : value.findings.length > 0;
-}
-
-export function isConsensusSubmitterResponseCandidate(
-  value: unknown,
-): value is ConsensusSubmitterResponseCandidate {
-  if (
-    !isRecord(value) ||
-    !hasExactKeys(value, consensusSubmitterResponseSchema.required) ||
-    value.kind !== "consensus_submitter_response_candidate" ||
-    value.schemaVersion !== "5.0.0" ||
-    ![
-      "acknowledge",
-      "address_findings",
-      "dispute_findings",
-    ].includes(String(value.disposition)) ||
-    typeof value.responseText !== "string" ||
-    value.responseText.length === 0 ||
-    !Array.isArray(value.addressedFindingRefs) ||
-    !value.addressedFindingRefs.every(
-      (ref) => isNonBlankRef(ref),
-    ) ||
-    new Set(value.addressedFindingRefs).size !==
-      value.addressedFindingRefs.length ||
-    !Array.isArray(value.residualFindingRefs) ||
-    !value.residualFindingRefs.every(
-      (ref) => isNonBlankRef(ref),
-    ) ||
-    new Set(value.residualFindingRefs).size !==
-      value.residualFindingRefs.length
-  ) {
-    return false;
-  }
-  if (value.disposition === "acknowledge") {
-    return value.addressedFindingRefs.length === 0 &&
-      value.residualFindingRefs.length === 0;
-  }
-  if (value.disposition === "address_findings") {
-    return value.addressedFindingRefs.length > 0 &&
-      value.residualFindingRefs.length === 0;
-  }
-  return value.residualFindingRefs.length > 0;
-}
 
 export const CONSENSUS_PUBLIC_SCHEMA = deepFreeze({
   "$schema": "https://json-schema.org/draft/2020-12/schema",
@@ -1764,19 +1669,6 @@ export const CONSENSUS_PUBLIC_SCHEMA = deepFreeze({
   ],
 } as const satisfies JsonValue);
 
-export const REVIEW_RULING_KIND_VALUES =
-  CONSENSUS_PUBLIC_SCHEMA.$defs.ReviewRulingKind.enum;
-export const CONSENSUS_ROUND_OUTCOME_VALUES =
-  CONSENSUS_PUBLIC_SCHEMA.$defs.ConsensusRoundOutcomeValue.enum;
-export const CONSENSUS_CLASSIFICATION_VALUES =
-  CONSENSUS_PUBLIC_SCHEMA.$defs.ConsensusClassification.enum;
-export const CONSENSUS_FH_DECISION_VALUES =
-  CONSENSUS_PUBLIC_SCHEMA.$defs.ConsensusFhDecision.enum;
-export const CONSENSUS_REVIEWER_RESPONSE_SCHEMA =
-  consensusReviewerResponseSchema;
-export const CONSENSUS_SUBMITTER_RESPONSE_SCHEMA =
-  consensusSubmitterResponseSchema;
-
 export const CONSENSUS_SCHEMA_ASSET_BINDINGS = deepFreeze([
   ["abg.schema.consensus-subject", "ConsensusSubject"],
   ["abg.schema.consensus-panel", "ConsensusPanel"],
@@ -1792,48 +1684,3 @@ export const CONSENSUS_SCHEMA_ASSET_BINDINGS = deepFreeze([
   ["abg.schema.consensus-result", "ConsensusResult"],
   ["abg.schema.ticket-consensus-projection", "TicketConsensusProjection"],
 ] as const);
-
-export const CONSENSUS_SCHEMA_REQUIRED_KEYS = deepFreeze({
-  ConsensusSubject: CONSENSUS_PUBLIC_SCHEMA.$defs.ConsensusSubject.required,
-  ConsensusSubjectMaterialization:
-    CONSENSUS_PUBLIC_SCHEMA.$defs.ConsensusSubjectMaterialization.required,
-  ConsensusReviewerInstruction:
-    CONSENSUS_PUBLIC_SCHEMA.$defs.ConsensusReviewerInstruction.required,
-  ConsensusReviewerProfile:
-    CONSENSUS_PUBLIC_SCHEMA.$defs.ConsensusReviewerProfile.required,
-  ConsensusSubmitterInstruction:
-    CONSENSUS_PUBLIC_SCHEMA.$defs.ConsensusSubmitterInstruction.required,
-  ConsensusSubmitterProfile:
-    CONSENSUS_PUBLIC_SCHEMA.$defs.ConsensusSubmitterProfile.required,
-  ConsensusPanel: CONSENSUS_PUBLIC_SCHEMA.$defs.ConsensusPanel.required,
-  ConsensusRulingOverlay:
-    CONSENSUS_PUBLIC_SCHEMA.$defs.ConsensusRulingOverlay.required,
-  ConsensusRoundPolicy:
-    CONSENSUS_PUBLIC_SCHEMA.$defs.ConsensusRoundPolicy.required,
-  ConsensusReviewerTask:
-    CONSENSUS_PUBLIC_SCHEMA.$defs.ConsensusReviewerTask.required,
-  ConsensusFindingsVector:
-    CONSENSUS_PUBLIC_SCHEMA.$defs.ConsensusFindingsVector.required,
-  ConsensusSubmitterTask:
-    CONSENSUS_PUBLIC_SCHEMA.$defs.ConsensusSubmitterTask.required,
-  ConsensusSubmitterResponseRecord:
-    CONSENSUS_PUBLIC_SCHEMA.$defs.ConsensusSubmitterResponseRecord.required,
-  ConsensusSubmitterResponse:
-    CONSENSUS_PUBLIC_SCHEMA.$defs.ConsensusSubmitterResponse.required,
-  ReviewFinding: CONSENSUS_PUBLIC_SCHEMA.$defs.ReviewFinding.required,
-  ReviewFindings: CONSENSUS_PUBLIC_SCHEMA.$defs.ReviewFindings.required,
-  ReviewRuling: CONSENSUS_PUBLIC_SCHEMA.$defs.ReviewRuling.required,
-  ConsensusRoundOutcome:
-    CONSENSUS_PUBLIC_SCHEMA.$defs.ConsensusRoundOutcome.required,
-  ConsensusResultCandidate:
-    CONSENSUS_PUBLIC_SCHEMA.$defs.ConsensusResultCandidate.required,
-  ConsensusResult: CONSENSUS_PUBLIC_SCHEMA.$defs.ConsensusResult.required,
-  ConsensusRoundDecision:
-    CONSENSUS_PUBLIC_SCHEMA.$defs.ConsensusRoundDecision.required,
-  ConsensusHumanFinalization:
-    CONSENSUS_PUBLIC_SCHEMA.$defs.ConsensusHumanFinalization.required,
-  ConsensusEscalationDecision:
-    CONSENSUS_PUBLIC_SCHEMA.$defs.ConsensusEscalationDecision.required,
-  TicketConsensusProjection:
-    CONSENSUS_PUBLIC_SCHEMA.$defs.TicketConsensusProjection.required,
-});
