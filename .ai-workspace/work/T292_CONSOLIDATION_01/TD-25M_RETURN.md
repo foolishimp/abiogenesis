@@ -7,10 +7,11 @@ local `main` at `b13bdd5c2`, worktree `/private/tmp/abg-td25m`. T is
 **Status: stopped at step 2. Two stop conditions hold. First, recorded
 stores that the kept feature set produces carry the operation in their
 Product install lock, and the withdrawal makes artifact truth refuse them;
-the live rc.12 default-library Run is one of them. Second, a kept Public
-read changes what its caller observes: `project.read#graph_call_result`
-over a retained store returns a value on base and `invalid_history` with
-the change, and three kept lanes lose cases that pass on base:
+the live rc.12 default-library Run is one of them. Second, kept Public
+reads change what they return: the owner port behind
+`project.read#graph_call_result`, over a retained store, returns a value on
+base and `invalid_history` with the change, and three kept lanes lose cases
+that pass on base:
 `r10-child-proof` (10 of 10), `t287-historical-source-resource` (3 of 4) and
 `t287-cross-cut-public-read` (3 of the 4 that pass). No specification,
 design, code or test is edited. Three ruling options are in section 6.**
@@ -20,7 +21,8 @@ Commits on the branch, oldest first:
 | Commit | Content |
 | --- | --- |
 | `beae063d5` | census (Return skeleton) |
-| this commit | the Return: recorded history, the stop, the planned door, the ruling options |
+| `02d880a0d` | the Return: recorded history, the stop, the planned door, the ruling options |
+| this commit | the Return corrected: who rules on each option, the register-removal reach (TD-26), option (b) checked against the recorded graph, section 3.5 scoped to the owner port |
 
 Lines removed: none.
 
@@ -360,13 +362,15 @@ and the two refusals keep their messages ("run_stopped event and
 run_terminal HoldsAt truth disagree", "requires zero or one exact
 run_stopped event"). Only artifact truth refuses.
 
-### 3.5 What a caller of a kept Public read observes
+### 3.5 What the owner port behind a kept Public read returns
 
-`project.read#graph_call_result` over the retained D2 continuation-09 store
-(first 846 lines, the input of `t287-historical-source-resource`), called as
-that lane calls it (`GraphCallProjectionPort.graph_call_result`):
+The owner port behind `project.read#graph_call_result`
+(`GraphCallProjectionPort.graph_call_result`, `abg/project_read_ports.ts`),
+over the retained D2 continuation-09 store (first 846 lines, the input of
+`t287-historical-source-resource`), called directly as that lane calls it.
+The installed transport is not run.
 
-| Build | Caller receives |
+| Build | The port returns |
 | --- | --- |
 | base | the terminal result (`sha256:b5f8503e…`) |
 | simulation | `abg_project_read_refusal`, code `invalid_history`, "ABG project read owner projectors refused the durable event history" |
@@ -407,22 +411,33 @@ No new refusal code is planned. The last row is the stop.
 ## 5. Not done
 
 No specification, design, constitution, code, test or generated-file edit
-is made. No build of the worktree is needed; `git status --short` is clean
-apart from the two commits. The census in section 1 is the plan of record
+is made. `npm run build` ran once in T at the start and left no tracked
+change; `git status --short` is clean apart from the Return commits. The
+base and simulation runs use copies under `/private/tmp/abg-td25m-work/`
+(`base-root`, `exp-root`, `exp-full`); the scripts are in its `scripts/`
+and the per-log results in `many-base.jsonl` and `many-sim.jsonl`. The census in section 1 is the plan of record
 for whichever ruling follows.
 
 ## 6. Items for the Executive's ruling
 
 The stop is general. Any package that removes a contract from the
-capability register meets the same check, so TD-26 (Consensus and One
-Surface) will stop the same way unless the ruling covers it. One ruling for
-all register removals is preferable to one per package.
+capability register, or removes a register row, meets the same check. No
+earlier Return in `T292_CONSOLIDATION_01/` removes a register entry, so this
+is the first time the check is met in this wave. TD-26 (Consensus and One
+Surface) meets it if it removes the register row
+`abg.capability.graph-function.consensus@5` (`shared/capability_contracts.ts:91`)
+or its 13 `abg.schema.consensus-*` and review schema contracts: the rc.12
+lock lists those 13 contracts with that capability, so every rc.12-era
+store would be refused, not only the 118 above. The TD-28 entry names
+library capabilities, not register rows; by reading it does not meet the
+check. One ruling for all register removals is preferable to one per
+package.
 
-| Option | What it means | Consequence |
-| --- | --- | --- |
-| (a) accept | Withdraw the operation as planned and accept that recorded stores whose lock lists it are no longer readable through artifact truth. | Waives two stop conditions: the live rc.12 default-library Run and 118 probed logs become unreadable, and `project.read` callers over them get `invalid_history`. `r10-child-proof`, `t287-historical-source-resource` and `t287-cross-cut-public-read` need new retained inputs or lose cases, which weakens kept assertions; the rules forbid that without a ruling. |
-| (b) reframe first | A `design_reframe` before the withdrawal: a recorded lock row's capability identities are checked against the recorded row's own capability graph (`row.capabilityDefinitionGraph`, which the lock already carries and which `environment.ts:669-672` already compares), not against the reader's current register. Then rerun this package. | Recorded stores stay readable after any register removal, TD-26 included. It changes what a reader accepts as a resolved historical lock; it needs a requirement reading of whether a reader honours a lock whose capabilities it no longer declares. |
-| (c) keep | Keep the five members declared and always refusing with `installed_binding_unavailable`, as on `main`. | No change to recorded history or callers. The register entry's alternative; the surface keeps 18 operations and 56 keys while the specification reserves the operation to 5.1. |
+| Option | What it means | Consequence | Who rules |
+| --- | --- | --- | --- |
+| (a) accept | Withdraw the operation as planned and accept that recorded stores whose lock lists it are no longer readable through artifact truth. | Waives two stop conditions: the live rc.12 default-library Run and 118 probed logs become unreadable, and `project.read` over them refuses with `invalid_history`. `r10-child-proof`, `t287-historical-source-resource` and `t287-cross-cut-public-read` need new retained inputs or lose cases, which weakens kept assertions; the rules forbid that without a ruling. | the Executive: the stop conditions are the Executive's rules |
+| (b) reframe first | A `design_reframe` before the withdrawal: a recorded lock row's capability identities are checked against the recorded row's own capability graph (`row.capabilityDefinitionGraph`), not against the reader's current register (`environment.ts:674-679`, `:764-767`). The rc.12 lock carries that graph (16 rows); its `abg.capability.operator.public-contract@5` and `abg.capability.runtime.replay-continuation@5` rows list the operation in `owningPublicContracts`, so the recorded graph alone can confirm the recorded identities. By reading; not tried. Then rerun this package. | Recorded stores stay readable after any register removal, TD-26 included. It changes what a reader accepts as a resolved historical lock; it needs a requirement reading of whether a reader honours a lock whose capabilities it no longer declares. | the Executive opens the reframe; the owner if the requirement reading changes what a reader accepts |
+| (c) keep | Keep the five members declared and always refusing with `installed_binding_unavailable`, as on `main`. | No change to recorded history or callers. The surface keeps 18 operations and 56 keys while the specification reserves the operation to 5.1. | the owner: it reverses the owner's 2026-11-12 decision to withdraw |
 
 Also open, from the census and unchanged by the stop:
 
