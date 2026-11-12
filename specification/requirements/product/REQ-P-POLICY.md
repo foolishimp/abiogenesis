@@ -118,8 +118,8 @@ install/configuration operation, release operation, or internal-only behavior.
 **REQ-P-POLICY-020**: Each public operation contract row shall define its stable
 operation identity, required and optional inputs, defaults, admitted value
 domains, capability requirements, input and output contract identities,
-successful and non-success dispositions, typed errors or refusals, exit
-semantics, replay or provenance effects, whether it reads or changes truth, and
+successful and non-success dispositions, typed errors or refusals, replay or
+provenance effects, whether it reads or changes truth, and
 the operation-and-variant-indexed workspace-binding requirement
 `forbidden | exactly_one`. No concrete variant shall carry a freely optional
 binding, and no public adapter shall supply missing contract meaning from local
@@ -292,7 +292,7 @@ silently repair or execute an inadmissible program.
 
 **REQ-P-POLICY-039**: `abg.operation.product.materialize` variants,
 `abg.operation.product.install`, and `abg.operation.release.snapshot` shall each
-publish exact request, result, refusal, provenance, and exit contracts. Their
+publish exact request, result, refusal, and provenance contracts. Their
 outputs shall identify the affected workspace, product, configuration, or
 release identities and the manifests or evidence that carry the operation
 result.
@@ -523,7 +523,7 @@ not ingress or an adapter, shall construct the outcome.
 the exact `abg.operation.*` identity and addressable request/result/error/
 invocation schemas defined by `REQ-P-PUBLIC-CONTRACTS`. The operation's
 `PublicFunctionDefinition<K>` row owns its defaults, closed variants and value domains, actor and
-mutation class, typed refusals, disposition, and adapter exit classification.
+mutation class, typed refusals, and disposition.
 CLI flags, SDK overloads, and host projections bind those rows; they do not
 complete or reinterpret an absent row. Legacy operation identities and a
 parallel compatibility register shall fail publication and conformance.
