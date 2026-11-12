@@ -2342,8 +2342,8 @@
      "recordCount": 1
     }
    ],
-   "observed": "TD-60B, head, recorded history: the case fails at :60: admitRuntimeEventTransactionAtExpectedPrefix admits after the log was mutated in place (the history supplies only a run_segment_opened template); the logical-hash case was retired (unknown native profile)",
-   "note": "not a superseded input; left gated for an Executive ruling (possible Product defect)"
+   "observed": "TD-60C, head daaffe796 (after TD-51a), recorded history, root unset, writes under the root refused: the case fails at :41, 'Missing expected exception'. Instrumented: after byte 0 of the log is changed in place, admitRuntimeEventTransactionAtExpectedPrefix reaches its action and appends a fourth event; the durable-prefix variant at :40 also reaches its action, and :40 passes only because that action is assert.fail. The case fails at every tested cut from the file's first commit (ad2a39f40, 2b9e540db, 0b1187c40, rc.5, rc.6, fd38e8227, rc.9, rc.10) and in the recorded run of 2026-10-07 (event-memory-repair-35, commands/focused-prefix-corrected, :59)",
+   "note": "TD-60C reading: not a superseded input (the history supplies only a run_segment_opened template) and not a stale test (the claim held at no committed cut). Apparent product defect, needs a ruling: a held owner does not re-check its log's bytes before an append, so a same-length change in place is found only when a changed body is next read by location. The DurablePrefixCoordinate row of M05_S06_AXIOMATIC_AUTHORITY_AND_EXACT_PUBLIC_CONSTRUCTION_DESIGN ('byte mismatch refuses before append/read result'; 'successor constructed from verified committed bytes') reads as requiring the refusal. Left failing and gated"
   },
   {
    "gate": "qualification-stage-fixtures",
@@ -3557,12 +3557,9 @@
      "file": "tests/t287-held-prefix.test.mjs",
      "titles": [
       "held Run truth/result/replay equal copied and closed-owner cold projections without history reads",
-      "only exact known cuts reuse held history; copied, foreign, forward and wrong coordinates retain authentication",
-      "cold reopen preserves pre-acquisition cuts for ancestry and real R10 projections",
-      "ordinary leaf judgment receives exact Result successor; cold and held candidates agree",
-      "ordinary workflow judgment receives exact Result successor; cold and held candidates agree"
+      "cold reopen preserves pre-acquisition cuts for ancestry and real R10 projections"
      ],
-     "suiteSkips": 5
+     "suiteSkips": 2
     }
    ],
    "input": "the held-prefix native fixture directory",
@@ -3572,6 +3569,12 @@
      "path": "comments/codex/20260921_TRUSTED_DESKTOP_STEEL_THREAD/native-reacquisition-01/held-prefix-01/fixtures/source.json",
      "sha256": "9c5d1dc6f1f1e9c08363706589b590ba90ed6257e1a34bd09096d6874e70fd7f",
      "bytes": 1044
+    },
+    {
+     "name": "fixture:native-hello-prefix.jsonl",
+     "path": "comments/codex/20260921_TRUSTED_DESKTOP_STEEL_THREAD/native-reacquisition-01/held-prefix-01/fixtures/native-hello-prefix.jsonl",
+     "sha256": "d2a677a2201dddb5b6f14d82b1c11e5d3cf95e9d369c30742cd750dac198e56c",
+     "bytes": 2797774
     }
    ],
    "producer": null,
@@ -3589,8 +3592,62 @@
      "recordCount": 4
     }
    ],
-   "observed": "pre-check: the unconverted lane, root unset, its variables set to the recorded values, writes under the root refused: 5 cases fail (first failure: read-count assertion 45 !== 0 at t287-held-prefix.test.mjs:31)",
-   "note": "TD-60B: the fixture reopens under the current event contract; the cases fail on held-read counts (45, 1 and 58 against 0) and, in the two judgment cases, 'event store was not constructed by this ABG module'; not a superseded input; left gated for an Executive ruling, same class as the registered read-count defect of d2-continuation-09-store-cross-cut-reads",
+   "observed": "TD-60C, head daaffe796 (after TD-51a, 36e269eae), fixture present (private variable set, writes under the root refused): cases 1 and 3 fail at their restated O1 bounds, 45 reads where 3 are expected (case 1) and 58 where 21 are expected (case 3); each excess is basis body reads only: 42 and 37 extra reads of the 5,672-byte basis row. Case 1: every read is a body read by location of the one basis_admitted row, 19, 13 and 13 times in its three member reads. Case 3: after the cold reopen each of the 18 other prior bodies is read once and the basis body 40 times. With each member read inside its own operation hold (holdOperationBodies), both cases pass in a scratch copy: case 1 reads 3, case 3 reads 21. The old asserted 0 passes at 727f1dbca for both; case 1 fails at 67c333799, passes from C-10 (457b5632a) to rc.9 (e30ac16b4) and fails from rc.10 (93a0de75a); case 3 fails from 67c333799 (57, then 19 from C-10 to rc.9, 58 from rc.10)",
+   "note": "TD-60C reading: the 0 they asserted is stale and is restated in the file. Under the O1 lifetime (library design section 10.12, RC10) each read operation reads each basis body once by location, and after a cold reopen each prior body is read once by location (operational history representation, since 67c333799). The excess over that bound is the TD-50/TD-51 defect class on a path the first part of TD-51 does not hold: the read ports (projectRunTruthAtDurablePrefix, prepareRunReadAtDurablePrefix) called outside a read owner open no operation hold, so each per-event selection reads the basis body again (REQ-R-ABG3-PROJECTION-025). Left failing and gated, evidence for the second part of TD-51; split from held-prefix-native-fixture-basis-once by TD-60C",
+   "ruling7": true
+  },
+  {
+   "gate": "held-prefix-native-fixture-basis-once",
+   "class": "C",
+   "status": "runs_with_root",
+   "conversion": "done",
+   "variables": [],
+   "formerVariables": [
+    "ABI5_HELD_PREFIX_NATIVE_FIXTURE"
+   ],
+   "cases": [
+    {
+     "file": "tests/t287-held-prefix.test.mjs",
+     "titles": [
+      "only exact known cuts reuse held history; copied, foreign, forward and wrong coordinates retain authentication",
+      "ordinary leaf judgment receives exact Result successor; cold and held candidates agree",
+      "ordinary workflow judgment receives exact Result successor; cold and held candidates agree"
+     ],
+     "suiteSkips": 3
+    }
+   ],
+   "input": "the held-prefix native fixture directory",
+   "inputs": [
+    {
+     "name": "fixture:source.json",
+     "path": "comments/codex/20260921_TRUSTED_DESKTOP_STEEL_THREAD/native-reacquisition-01/held-prefix-01/fixtures/source.json",
+     "sha256": "9c5d1dc6f1f1e9c08363706589b590ba90ed6257e1a34bd09096d6874e70fd7f",
+     "bytes": 1044
+    },
+    {
+     "name": "fixture:native-hello-prefix.jsonl",
+     "path": "comments/codex/20260921_TRUSTED_DESKTOP_STEEL_THREAD/native-reacquisition-01/held-prefix-01/fixtures/native-hello-prefix.jsonl",
+     "sha256": "d2a677a2201dddb5b6f14d82b1c11e5d3cf95e9d369c30742cd750dac198e56c",
+     "bytes": 2797774
+    }
+   ],
+   "producer": null,
+   "recorded": [
+    {
+     "variable": "ABI5_HELD_PREFIX_NATIVE_FIXTURE",
+     "value": "<root>/comments/codex/20260921_TRUSTED_DESKTOP_STEEL_THREAD/native-reacquisition-01/held-prefix-01/fixtures",
+     "exists": true,
+     "underRoot": true,
+     "records": [
+      "comments/codex/20260921_TRUSTED_DESKTOP_STEEL_THREAD/native-reacquisition-01/cold-owned-history-01/checks.json",
+      "comments/codex/20260921_TRUSTED_DESKTOP_STEEL_THREAD/native-reacquisition-01/held-prefix-01/return.md",
+      "comments/codex/20260921_TRUSTED_DESKTOP_STEEL_THREAD/native-reacquisition-01/owned-native-proof-01/checks.json"
+     ],
+     "recordCount": 4
+    }
+   ],
+   "observed": "TD-60C, head daaffe796, root set: the three cases pass (file 3 pass, 2 skip); with the private variable also set the file is 3 pass, 2 fail (cases 1 and 3, row held-prefix-native-fixture); root unset: the three cases skip with this row's reason. Each held read reads only the basis body, once (5,672 bytes)",
+   "note": "TD-60C restated, no other assertion changed: the held read count of case 2 and of cases 4 and 5 (0) is one read of each basis row by location (library design section 10.12, O1 lifetime, RC10; case 2 passes at rc.9 e30ac16b4 and fails from rc.10 93a0de75a). Cases 4 and 5 place their result and judgment receipts at abg/c_call_outcome.js (admitOwnedCCallResult, admitOwnedCCallJudgment), through which both owners admit since 67c333799 (ABI5_STDO3_COMPUTATIONAL_BINDING step 5), and the workflow port supplies contractValueKindByRef, which the workflow owner reads since 0b1187c40. Split from held-prefix-native-fixture",
    "ruling7": true
   },
   {

@@ -5,6 +5,7 @@ import {pathToFileURL} from 'node:url';
 import {runInNewContext} from 'node:vm';
 import {workflowStepHarness} from './d2-workflow-step-harness.mjs';
 import {evidenceInput} from './evidence-root.mjs';
+import {assertContextBinds} from './vm-context-names.mjs';
 export const packageRoot=resolve(import.meta.dirname,'../..');
 const skipOf=input=>input.kind==='absent'&&input.reason;
 // Historical evidence under ABI5_EVIDENCE_ROOT: the D2 installed-continuation-07
@@ -32,12 +33,20 @@ export function retainedRows() {
 // strict native prefix selector. Authentication, CCall/basis lookup, revision
 // preparation and snapshot I/O are explicit assumptions. Synthetic lookup rows
 // are never persisted, admitted, replayed or represented as native history.
+// Every other free name of the extracted source comes from its owner's real
+// module (path confinement among them), and the source is checked against the
+// context before it runs, so a name the context lacks fails by name instead of
+// as the collector's own null.
+// Two private helpers of the semantic-job arm have no export to load. The
+// harness builds a stage-lifecycle basis, so that arm is not reached.
+const JOB_ARM_PRIVATE=['jobRevisionPreparationFromSubject','jobRevisionSubjectAtBasis'];
 export async function collectorHarness() {
   const stage=await load(packageRoot,'abg/semantic_stage');
+  const {authenticateOwnedSemanticJobBasis}=await load(packageRoot,'abg/semantic_job');
   const product=Object.assign({},...await Promise.all([
     'product/semantic_stage','product/semantic_revision','product/worksite_command_execution',
-    'product/worksite_construction','product/worksite_preparation','product/worksite_revision',
-    'shared/digests','shared/immutable','gtl/semantic_stage_identity','gtl/semantic_revision_identity',
+    'product/worksite_construction','product/worksite_preparation','product/worksite_revision','product/worksite_effect',
+    'shared/digests','shared/immutable','shared/path_confinement','gtl/semantic_stage_identity','gtl/semantic_revision_identity',
   ].map(path=>load(packageRoot,path))));
   const prefixes=await load(packageRoot,'abg/event_prefix');
   const {canonicalEquals,presentMember}=await load(packageRoot,'shared/value/index'),{onlyExactMatch}=await load(packageRoot,'shared/select/index');
@@ -79,7 +88,7 @@ export async function collectorHarness() {
     let body=[bodyOf('revisionEvidenceComponentsAtBasis',false),bodyOf(name,true)];
     assert.ok(body.every(Boolean),'one exact compiled collector body and its component selector');body=body.join('\n');
     if(diagnostic){let n=0;body=body.replace(/return null;/g,()=>`{console.error('collector refusal ${++n}');return null;}`).replace(/catch \{/g,"catch(error) { console.error(error.stack);");}
-    const context={...product,console,hash,deepFreeze,canonicalEquals,presentMember,onlyExactMatch,ids:R,record:value=>value!==null&&typeof value==='object'&&!Array.isArray(value),
+    const context={...product,authenticateOwnedSemanticJobBasis,console,hash,deepFreeze,canonicalEquals,presentMember,onlyExactMatch,ids:R,record:value=>value!==null&&typeof value==='object'&&!Array.isArray(value),
       resolve,relative,isAbsolute,realpathSync:path=>path,
       lstatSync:path=>({isSymbolicLink:()=>false,isFile:()=>snapshotBytes.has(path),nlink:1}),
       readFileSync:path=>{assert.ok(snapshotBytes.has(path),'only mapped snapshot bytes');return snapshotBytes.get(path);},
@@ -106,7 +115,9 @@ export async function collectorHarness() {
       },
       admitted:()=>({result:{value:prior}}),
     };
-    return runInNewContext(`${sameInvocation}\n${exactOrNull}\n${stage.selectedSemanticPredecessor.toString()}\n${body}\n${name}`,context,{filename:file});
+    const source=`${sameInvocation}\n${exactOrNull}\n${stage.selectedSemanticPredecessor.toString()}\n${body}\n${name}`;
+    assertContextBinds(source,context,'the extracted revision evidence collector',JOB_ARM_PRIVATE);
+    return runInNewContext(source,context,{filename:file});
   }
   const current=collector();
   return {product,owner,basis,entry,input,original,bridge,alias,construction,command,states,executions,bridgeRef,state,
