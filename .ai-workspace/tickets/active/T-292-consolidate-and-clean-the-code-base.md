@@ -82,6 +82,17 @@ attribution alone does not close it.
 - The whole suite runs with the evidence root at each group close. Between
   closes an evidence-gated lane runs only when a package names it.
 
+## Amendment of 2026-11-13: scope and proof after the independent evaluation
+
+The owner asked for an independent evaluation of the wave on 2026-11-13 (the Executive's explanation is `comments/claude/20261112T154818Z_EXPLANATION_T292_CONSOLIDATION_WAVE_FOR_INDEPENDENT_EVALUATION/README.md`; the evaluation was returned through the owner). It found the source reduction real and the retirements sound on its samples, and found that retirement, consolidation, defect repair and new admission policy had become mixed, with a verification routine out of proportion for routine packages. These rules replace the ones above where they differ.
+
+- **Scope.** The wave completes the decided retirements and what they require: TD-26 P4 to P7, the member withdrawal of TD-25, TD-77, and the equivalent replacement already selected (TD-67). Then one composed verification pass. Every other open register entry is backlog and is not a prerequisite of the next cut.
+- **Correctness defects found by the wave's reviews** stay visible as separate, bounded work: TD-78, TD-82 and the confinement repair of TD-85. They are obligations before reliable operation is claimed for 5.0; a discovery does not add a package to this wave.
+- **Proof per package.** A package runs, on its final build, the checks that discriminate its change: the refusal cases, the types it touches, one real execution path, and a comparison of recorded history when the change can affect how history reads. The baseline is local `main`'s own results; a lane is run on a base build only to attribute a failure.
+- **Proof for the group.** The whole suite, the history comparisons over the full populations and the broad independent review run once, on the composed result. A targeted independent review is kept for a change to admission authority or to the event store's integrity.
+- **Records.** A Return is tables, counts and rulings. One ledger row per package.
+- **Wording.** "Recorded history still reads" means the history of kept features. Recorded One Surface Runs (about 223 Run and evidence files) are refused by the new build from the readers' package on; the installs that wrote them still read them.
+
 ## Sequence
 
 1. Make the clean-up cheap: a deterministic product identity (TD-69), a suite

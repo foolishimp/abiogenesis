@@ -154,3 +154,11 @@ Asked by the owner on 2026-11-13 which remaining items give the most for their c
 | P2 | TD-44 | About 650 lines of declarations nothing reaches; mechanical | Medium; one part needs the owner's decision |
 
 Everything else in section 6 would be backlog: moving Product law between layers (TD-38), merging the remaining duplicated rules, restructuring the test suite, rewriting the requirements, and the low-severity defects (TD-83, TD-84, TD-86).
+
+## 13. Corrections after the independent evaluation (2026-11-13)
+
+- Section 4 says the history comparisons show "that recorded history reads the same". That holds for the history of kept features. Recorded One Surface Runs, about 223 Run and evidence files, are refused by the new build from the readers' package (P5) on; the installs that wrote them still read them.
+- Section 6 and section 12 treat TD-82 as lower in severity after TD-80. The evaluation reproduced it after TD-80 as an integrity defect: two processes with different temp directories both appended, and one acknowledged append could not be reopened.
+- Section 7's last row is withdrawn as a ruling: a blanket rule that `workspace.bind` refuses absent, respelled or overlapping roots is a new admission restriction for the owner to decide. The correctness repair is narrower, at the effect owner.
+- The wave's scope and proof routine were narrowed on the evaluation's advice; the ticket `T-292` carries the amendment.
+
