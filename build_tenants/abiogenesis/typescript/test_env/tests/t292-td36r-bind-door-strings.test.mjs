@@ -4,8 +4,10 @@
 // predicate checked only nonblank strings, so a padded actor, an actor with a
 // NUL and a declared root with a trailing space were bound and admitted, and
 // every consumer of the admitted binding then refused it. The three values
-// are refused at the constructor with the existing `invalid_declared_root`
-// refusal (the Public bind maps it to `root_mismatch`); a candidate minted by
+// are refused at the constructor: the two actors with the existing
+// `invalid_workspace_authority` refusal (Public `workspace_mismatch`, TD-36S),
+// the root with the existing `invalid_declared_root` refusal (Public
+// `root_mismatch`); a candidate minted by
 // the constructor's own formula is refused by the candidate predicate and by
 // admission (`scope_mismatch`). The control is a well-formed binding,
 // admitted on both builds. Set ABG_WORKSITE_BUILD_ROOT to run another
@@ -29,6 +31,8 @@ const environment = await load('product/environment.js');
 
 const REFUSAL = { kind: 'environment_refusal', schemaVersion: '5.0.0', disposition: 'refused', code: 'invalid_declared_root',
   message: 'workspace authority, ProductSet, and every declared root must be exact' };
+const AUTHORITY_REFUSAL = { kind: 'environment_refusal', schemaVersion: '5.0.0', disposition: 'refused',
+  code: 'invalid_workspace_authority', message: 'workspace authority fields must be explicit' };
 
 function artifactBasis(operationId, memberKey, scopeRef, scopeDigest, invocationRef, causationEventRefs = []) {
   const invocationPayloadDigest = product.sha256Canonical({});
@@ -105,21 +109,21 @@ test('the workspace bind door applies the admitted binding string rule', async t
     assert.equal(s.bind('control', controlCandidate, control).kind, 'artifact_owner_result');
   });
 
-  for (const [label, actor, eventLogRoot] of [
-    ['padded-actor', ' actor://t292/td36r/door ', undefined],
-    ['nul-actor', 'actor://t292/td36r/\0door', undefined],
-    ['padded-root', 'actor://t292/td36r/door-root', s.rootsFor().eventLogRoot + ' '],
+  for (const [label, actor, eventLogRoot, expected] of [
+    ['padded-actor', ' actor://t292/td36r/door ', undefined, AUTHORITY_REFUSAL],
+    ['nul-actor', 'actor://t292/td36r/\0door', undefined, AUTHORITY_REFUSAL],
+    ['padded-root', 'actor://t292/td36r/door-root', s.rootsFor().eventLogRoot + ' ', REFUSAL],
   ]) {
     await t.test(`bind refuses ${label}`, () => {
       const authority = s.authorityFor(label, actor);
       assert.equal(authority.kind, 'workspace_authority_basis', `${label}: the authority basis is unchanged`);
       const roots = s.rootsFor(eventLogRoot);
-      assert.deepEqual({ ...product.constructWorkspaceBinding(authority, s.productSet, s.lock, roots) }, REFUSAL, `${label}: constructor`);
+      assert.deepEqual({ ...product.constructWorkspaceBinding(authority, s.productSet, s.lock, roots) }, expected, `${label}: constructor`);
       const packet = { kind: 'workspace_binding_packet', schemaVersion: '5.0.0', memberKey: 'bind', admittedInstalls: [s.installed.value],
         resolvedLock: s.lock, authority: { workspaceId: authority.workspaceId, canonicalRoot: authority.canonicalRoot,
           authorityMode: authority.authorityMode, authorizedActorRef: authority.authorizedActorRef,
           authorityManifestRef: authority.authorityManifestRef, authorityManifestDigest: authority.authorityManifestDigest }, roots };
-      assert.deepEqual({ ...product.ProductEnvironmentPort.bindWorkspace(packet) }, REFUSAL, `${label}: the Public bind port`);
+      assert.deepEqual({ ...product.ProductEnvironmentPort.bindWorkspace(packet) }, expected, `${label}: the Public bind port`);
       const minted = mintedCandidate(authority, s.productSet, s.lock, roots);
       assert.equal(environment.isWorkspaceBindingCandidate(minted, s.lock, s.productSet, authority), false, `${label}: candidate predicate`);
       const admitted = s.bind(label, minted, authority);
