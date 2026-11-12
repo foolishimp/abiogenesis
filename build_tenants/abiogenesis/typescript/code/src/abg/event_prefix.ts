@@ -98,6 +98,24 @@ export function holdOperationBodies(coordinate: DurablePrefixCoordinate): () => 
   const history = activeRuntimeHistoryAtDurablePrefix(coordinate);
   return history === undefined ? () => {} : history.holdOperationBodies();
 }
+/** @internal §10.12 O1 lifetime, operations: the one owner of the operation
+ * hold. `operation` is one synchronous stack. The hold opens on the history it
+ * reads, before it runs, and is released when it returns or throws:
+ * - a durable coordinate names the active held history of an acquired or
+ *   handed resource, and a cold, closed or copied coordinate opens nothing;
+ * - an owned runtime prefix names its own history, the active owner's or the
+ *   cold copy a read port prepared for this call; a validation prefix opens
+ *   nothing.
+ * While the hold is open each basis body the operation selects is read from
+ * its location and authenticated once. Holds nest, and the last release drops
+ * the held bodies, so nothing stays held after the outermost return. Rollback
+ * and physical close dispose the hold, and a later release is inert. It is not
+ * O1 retention, and no O1 gauge counts it. */
+export function withOperationBodies<T>(source: DurablePrefixCoordinate | RuntimeEventPrefix, operation: () => T): T {
+  const release = source.kind === "durable_prefix_coordinate" ? holdOperationBodies(source)
+    : runtimePrefixBasisRetention(source)?.holdOperationBodies();
+  try { return operation(); } finally { release?.(); }
+}
 /** @internal §10.12 O1: the store history whose open scopes may retain a basis
  * row of this owned cut; an array, copied or validation prefix has none. */
 export function runtimePrefixBasisRetention(prefix: RuntimeEventPrefix): RuntimeHistory | undefined {
