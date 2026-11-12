@@ -12,10 +12,10 @@ import {
 import { sha256Canonical, type Sha256Digest } from "../shared/digests.js";
 import { deepFreeze, isDeeplyFrozen } from "../shared/immutable.js";
 import type { ProductInstall, ResolvedProductLock, WorkspaceBindingCandidate } from "./environment.js";
-import { constructProductSet, isProductLockFor, isWorkspaceBindingCandidateInResolvedLock } from "./environment.js";
+import { constructProductSet, isResolvedProductLock, isWorkspaceBindingCandidateInResolvedLock } from "./environment.js";
 import type { ProductInstallCandidate, VerifiedProductArtifact } from "./contracts.js";
 import { modulePublicationSemanticDigest } from "./publication.js";
-import { isVerifiedProductArtifactFor } from "./verify_product.js";
+import { isVerifiedProductArtifact } from "./verify_product.js";
 import type { ProductTruthQuestion } from "../shared/capability_contracts.js";
 import { canonicalEquals } from "../shared/value/index.js";
 
@@ -449,21 +449,23 @@ export function observeCatalogWork(): Readonly<typeof catalogWork> {
 
 export function admitGraphFunctionCatalog(
   basis: CatalogReadinessBasis,
-): ReadyGraphFunctionCatalogResult {
-  return admitGraphFunctionCatalogFor(basis, "strict");
-}
-
+): ReadyGraphFunctionCatalogResult;
 /**
- * @internal One admission for both questions. The caller names the question
- * its readiness basis answers: the strict one for new work, the recorded one
- * for a basis a read binds to recorded history. The question selects the lock
- * and verified-artifact guards and the retention; a recorded result is
- * retained apart and is never an owner-admitted ready Catalog.
+ * @internal One admission for both questions; the exported signature asks the
+ * strict one, for new work. A read that binds its readiness basis to recorded
+ * history names the recorded question. The question selects the lock and
+ * verified-artifact guards and the retention; a recorded result is retained
+ * apart and is never an owner-admitted ready Catalog.
  */
-export function admitGraphFunctionCatalogFor(
+export function admitGraphFunctionCatalog(
   basis: CatalogReadinessBasis,
   question: ProductTruthQuestion,
+): ReadyGraphFunctionCatalogResult;
+export function admitGraphFunctionCatalog(
+  basis: CatalogReadinessBasis,
+  questionValue?: unknown,
 ): ReadyGraphFunctionCatalogResult {
+  const question: ProductTruthQuestion = questionValue === "recorded" ? "recorded" : "strict";
   const retainedCatalogs = question === "strict" ? readyCatalogs : recordedCatalogs;
   const retained = retainedCatalogs.get(basis);
   if (retained !== undefined) return retained;
@@ -485,7 +487,7 @@ export function admitGraphFunctionCatalogFor(
   };
   const { workspaceBinding, resolvedLock, verifiedProducts, installedProducts, publications } = canonicalBasis;
   if (
-    !isProductLockFor(resolvedLock, question) ||
+    !isResolvedProductLock(resolvedLock, question) ||
     !isWorkspaceBindingCandidateInResolvedLock(workspaceBinding, resolvedLock)
   ) {
     return refusal(
@@ -496,7 +498,7 @@ export function admitGraphFunctionCatalogFor(
   if (
     verifiedProducts.length !== resolvedLock.rows.length ||
     verifiedProducts.some((verified) => {
-      if (!isVerifiedProductArtifactFor(verified, question)) return true;
+      if (!isVerifiedProductArtifact(verified, question)) return true;
       const rows = resolvedLock.rows.filter((row) => row.productId === verified.productId);
       return rows.length !== 1 || !canonicalEquals(
         lockComparableProduct(verified),

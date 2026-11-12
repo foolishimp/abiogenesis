@@ -18,7 +18,6 @@ import {
   capabilityRefsForContract,
   constructCapabilityDefinitionGraph,
   isCapabilityDefinitionGraph,
-  isCapabilityDefinitionGraphFor,
   serializeCapabilityDefinitionGraph,
   type CapabilityDefinitionGraph,
   type CapabilityDefinitionGraphCoordinate,
@@ -730,15 +729,19 @@ function isNativeDeclarationEvidence(
 }
 export function isVerifiedProductArtifact(
   value: unknown,
-): value is VerifiedProductArtifact {
-  return isVerifiedProductArtifactFor(value, "strict");
-}
-
-/** @internal The recorded question for a verified artifact carrier. */
-export function isRecordedVerifiedProductArtifact(
+): value is VerifiedProductArtifact;
+/** @internal The entry names the question; the exported signature asks the
+ * strict one, and any second argument other than `"recorded"` (a callback
+ * index) is strict. */
+export function isVerifiedProductArtifact(
   value: unknown,
+  question: ProductTruthQuestion,
+): value is VerifiedProductArtifact;
+export function isVerifiedProductArtifact(
+  value: unknown,
+  question?: unknown,
 ): value is VerifiedProductArtifact {
-  return isVerifiedProductArtifactFor(value, "recorded");
+  return verifiedProductArtifactHolds(value, question === "recorded" ? "recorded" : "strict");
 }
 
 /**
@@ -779,7 +782,7 @@ export function recordedCapabilityIdentitiesHold(carrier: Readonly<{
 }
 
 /**
- * @internal One body for both questions. Both establish the carrier's shape,
+ * One body for both questions. Both establish the carrier's shape,
  * contribution manifest, graph under the same question, graph asset, contract
  * rows, rosters, owner coordinates drawn from the carrier's own contracts and
  * definition coordinates, and verification digest. The strict question adds
@@ -787,7 +790,7 @@ export function recordedCapabilityIdentitiesHold(carrier: Readonly<{
  * coordinates and each contract's identities are the register's. The recorded
  * question adds `recordedCapabilityIdentitiesHold`.
  */
-export function isVerifiedProductArtifactFor(
+function verifiedProductArtifactHolds(
   value: unknown,
   question: ProductTruthQuestion,
 ): value is VerifiedProductArtifact {
@@ -856,7 +859,7 @@ export function isVerifiedProductArtifactFor(
     !isUniqueStringArray(value.declaredCapabilityRefs) ||
     !isNonblankString(value.catalogId) ||
     !isSha256Digest(value.catalogDigest) ||
-    !isCapabilityDefinitionGraphFor(value.capabilityDefinitionGraph, question) ||
+    !isCapabilityDefinitionGraph(value.capabilityDefinitionGraph, question) ||
     !isProductAssetLocator(value.capabilityDefinitionGraphAsset) ||
     value.capabilityDefinitionGraphAsset.path !==
       CAPABILITY_DEFINITION_GRAPH_ASSET_PATH ||

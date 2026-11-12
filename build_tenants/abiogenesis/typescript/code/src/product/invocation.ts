@@ -48,7 +48,7 @@ export const DIRECT_INVOKE_CAPABILITY =
   "abg.capability.catalog.invoke-graph-function@5";
 
 import {
-  isCapabilityDefinitionGraphFor,
+  isCapabilityDefinitionGraph,
   type CapabilityDefinitionGraph,
   type ProductTruthQuestion,
 } from "../shared/capability_contracts.js";
@@ -753,7 +753,7 @@ function selectedCapabilityOwner(
   ] as const;
   const owners = admittedInstalls.flatMap((install) => {
     const graph = install.capabilityDefinitionGraph;
-    if (!isCapabilityDefinitionGraphFor(graph, question)) return [];
+    if (!isCapabilityDefinitionGraph(graph, question)) return [];
     const rows = graph.rows.filter((candidate) =>
       candidate.capabilityId === capabilityRef
     );
@@ -856,12 +856,25 @@ export function constructCapabilityGrant(
   capabilityRef?: string,
   basis?: CapabilityGrantConstructionBasis,
 ): CapabilityGrant;
+/** @internal A read grant over recorded history names the recorded question:
+ * the capability owner is selected among the recorded installs of the read's
+ * own environment. Every grant that starts or continues work asks the strict
+ * question of the exported signatures. */
+export function constructCapabilityGrant(
+  policy: InvocationPolicyBasis | WorkspaceAuthorityBasis,
+  actorRef: string,
+  operationId: CapabilityOperationId,
+  capabilityRef: string,
+  basis: CapabilityGrantConstructionBasis | undefined,
+  question: ProductTruthQuestion,
+): CapabilityGrant;
 export function constructCapabilityGrant(
   policy: InvocationPolicyBasis | WorkspaceAuthorityBasis | ResolvedAdmissionAuthority,
   actorRef: string,
   operationId: CapabilityOperationId = "abg.operation.run.invoke",
   capabilityRef: string = DIRECT_INVOKE_CAPABILITY,
   basis?: CapabilityGrantConstructionBasis | AdmissionCapabilityGrantConstructionBasis,
+  question?: unknown,
 ): CapabilityGrant | Promise<CapabilityGrant> {
   if (policy.kind === "resolved_admission_authority") {
     if (basis === undefined || !("kind" in basis) || operationId !== basis.fixedPacket.definitionKey.operationId) {
@@ -872,27 +885,8 @@ export function constructCapabilityGrant(
   if (basis !== undefined && "kind" in basis) {
     throw new TypeError("invocation grant cannot consume an admission authority basis");
   }
-  return constructInvocationCapabilityGrant(policy, actorRef, operationId, capabilityRef, basis, "strict");
-}
-
-/** @internal A read grant over recorded history: the capability owner is
- * selected among the recorded installs of the read's own environment under
- * the recorded question. Every grant that starts or continues work is
- * `constructCapabilityGrant`'s. */
-export function constructRecordedReadCapabilityGrant(
-  policy: WorkspaceAuthorityBasis,
-  actorRef: string,
-  capabilityRef: string,
-  basis: CapabilityGrantConstructionBasis,
-): CapabilityGrant {
-  return constructInvocationCapabilityGrant(
-    policy,
-    actorRef,
-    basis.fixedPacket.definitionKey.operationId,
-    capabilityRef,
-    basis,
-    "recorded",
-  );
+  return constructInvocationCapabilityGrant(policy, actorRef, operationId, capabilityRef, basis,
+    question === "recorded" ? "recorded" : "strict");
 }
 
 function closeCapabilityDependencies(graph: CapabilityDefinitionGraph, capabilityRef: string): void {
@@ -1064,38 +1058,38 @@ export function validateCapabilityGrantForProductBasis(
   actorRef: string,
   capabilityRef: string,
   basis: CapabilityGrantConstructionBasis,
-): grant is CapabilityGrant {
-  return grantEqualsConstruction(grant, () => constructCapabilityGrant(
-    policy,
-    actorRef,
-    basis.fixedPacket.definitionKey.operationId,
-    capabilityRef,
-    basis,
-  ));
-}
-
-/** @internal The read grant's validation over recorded history; see
- * `constructRecordedReadCapabilityGrant`. */
-export function validateRecordedReadCapabilityGrant(
+): grant is CapabilityGrant;
+/** @internal The read grant's validation over recorded history names the
+ * recorded question; see `constructCapabilityGrant`. */
+export function validateCapabilityGrantForProductBasis(
   grant: unknown,
-  policy: WorkspaceAuthorityBasis,
+  policy: InvocationPolicyBasis | WorkspaceAuthorityBasis,
   actorRef: string,
   capabilityRef: string,
   basis: CapabilityGrantConstructionBasis,
-): grant is CapabilityGrant {
-  return grantEqualsConstruction(grant, () =>
-    constructRecordedReadCapabilityGrant(policy, actorRef, capabilityRef, basis));
-}
-
-function grantEqualsConstruction(
+  question: ProductTruthQuestion,
+): grant is CapabilityGrant;
+export function validateCapabilityGrantForProductBasis(
   grant: unknown,
-  construct: () => CapabilityGrant,
+  policy: InvocationPolicyBasis | WorkspaceAuthorityBasis,
+  actorRef: string,
+  capabilityRef: string,
+  basis: CapabilityGrantConstructionBasis,
+  question?: unknown,
 ): grant is CapabilityGrant {
   if (!isCapabilityGrantValue(grant)) return false;
   try {
+    const expected = constructCapabilityGrant(
+      policy,
+      actorRef,
+      basis.fixedPacket.definitionKey.operationId,
+      capabilityRef,
+      basis,
+      question === "recorded" ? "recorded" : "strict",
+    );
     return canonicalEquals(
       grant,
-      construct(),
+      expected,
     );
   } catch {
     return false;

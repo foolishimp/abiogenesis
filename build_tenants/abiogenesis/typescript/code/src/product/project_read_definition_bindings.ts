@@ -19,7 +19,7 @@ import {
   projectAdmittedProductInstall,
   projectAdmittedProductInstallByAdmissionEventRef,
   projectAdmittedWorkspaceBinding,
-  projectAdmittedWorkspaceBindingByInvocationRefFor,
+  projectAdmittedWorkspaceBindingByInvocationRef,
   projectAdmittedWorkspaceProductInstall,
 } from "../abg/environment_admission.js";
 import { compareUnicodeCodeUnits } from "../shared/canonical_json.js";
@@ -61,7 +61,7 @@ import {
   CatalogProjectionPort,
   ConsensusProjectionPort,
   InstallProjectionPort,
-  projectWorkspaceStatusFor,
+  WorkspaceProjectionPort,
   type CatalogDescribeProjectReadPacket,
   type CatalogListProjectReadPacket,
   type InstallEvidenceProjectReadPacket,
@@ -261,7 +261,7 @@ function admittedAuthorityBinding(
     )
   ) return null;
   // The lock is the recorded install lock of this artifact truth.
-  const binding = projectAdmittedWorkspaceBindingByInvocationRefFor(
+  const binding = projectAdmittedWorkspaceBindingByInvocationRef(
     artifactTruth,
     bindingRow.invocationRef,
     lock,
@@ -716,7 +716,7 @@ const workspace_status: ExactDefinitionCallable<
     }
     // The packet's binding is the recorded admission (above); its lock is
     // asked the recorded question and bound to that binding by digest.
-    const output = projectWorkspaceStatusFor(packet, "recorded");
+    const output = WorkspaceProjectionPort.status(packet, "recorded");
     if (output.kind === "product_project_read_refusal") {
       return deepFreeze({
         ownerOutput: nativeRefusal(PRODUCT_PROJECT_READ_CONTRACTS.workspace_status, output),

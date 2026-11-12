@@ -2,6 +2,7 @@ import {
   constructProductSet,
   isProductInstallCandidate,
   isWorkspaceAuthorityBasis,
+  isWorkspaceBindingCandidate,
   type ProductInstall,
   type ProductInstallCandidate,
   type ProductSet,
@@ -14,7 +15,7 @@ import {
   constructWorkspaceBindingInResolvedLock,
   isExactWorkspaceBinding,
   isProductInstallCandidateInResolvedLock,
-  isProductLockFor,
+  isResolvedProductLock,
   isWorkspaceBindingCandidateInResolvedLock,
 } from "../product/environment.js";
 import type { ProductTruthQuestion } from "../shared/capability_contracts.js";
@@ -381,23 +382,22 @@ export function projectAdmittedWorkspaceBindingByInvocationRef(
   projection: ExactPrefixArtifactTruthProjection,
   invocationRef: string,
   resolvedLock: ResolvedProductLock,
-): RehydratedWorkspaceBindingTruth | null {
-  return projectAdmittedWorkspaceBindingByInvocationRefFor(
-    projection,
-    invocationRef,
-    resolvedLock,
-    "strict",
-  );
-}
-
+): RehydratedWorkspaceBindingTruth | null;
 /** @internal The caller names the question its lock answers: recorded when
  * the lock is the recorded install lock of the same artifact truth, read
- * back; strict when the binding feeds new work. */
-export function projectAdmittedWorkspaceBindingByInvocationRefFor(
+ * back; the exported signature asks the strict one, for a binding that feeds
+ * new work. */
+export function projectAdmittedWorkspaceBindingByInvocationRef(
   projection: ExactPrefixArtifactTruthProjection,
   invocationRef: string,
   resolvedLock: ResolvedProductLock,
   question: ProductTruthQuestion,
+): RehydratedWorkspaceBindingTruth | null;
+export function projectAdmittedWorkspaceBindingByInvocationRef(
+  projection: ExactPrefixArtifactTruthProjection,
+  invocationRef: string,
+  resolvedLock: ResolvedProductLock,
+  question?: unknown,
 ): RehydratedWorkspaceBindingTruth | null {
   const row = selectExactArtifactTruthRowByInvocation(
     projection,
@@ -405,17 +405,12 @@ export function projectAdmittedWorkspaceBindingByInvocationRefFor(
     invocationRef,
   );
   if (!validateArtifactTruthProjectionValue(projection)) return null;
-  return rehydrateWorkspaceBindingRow(
-    projection.rows,
-    row,
-    invocationRef,
-    resolvedLock,
-    undefined,
-    undefined,
-    (value, lock, productSet, authority): value is WorkspaceBindingCandidate =>
-      isProductLockFor(lock, question) &&
-      isWorkspaceBindingCandidateInResolvedLock(value, lock, productSet, authority),
-  );
+  return question === "recorded"
+    ? rehydrateWorkspaceBindingRow(projection.rows, row, invocationRef, resolvedLock, undefined, undefined,
+      (value, lock, productSet, authority): value is WorkspaceBindingCandidate =>
+        isResolvedProductLock(lock, "recorded") &&
+        isWorkspaceBindingCandidateInResolvedLock(value, lock, productSet, authority))
+    : rehydrateWorkspaceBindingRow(projection.rows, row, invocationRef, resolvedLock);
 }
 
 function rehydrateWorkspaceBindingRow(
@@ -423,14 +418,9 @@ function rehydrateWorkspaceBindingRow(
   row: AdmittedArtifactTruth | null,
   invocationRef: string,
   resolvedLock: ResolvedProductLock,
-  productSet: ProductSet | undefined,
-  workspaceAuthorityBasis: WorkspaceAuthorityBasis | undefined,
-  checkCandidate: (
-    value: unknown,
-    lock: ResolvedProductLock,
-    productSet?: ProductSet,
-    authority?: WorkspaceAuthorityBasis,
-  ) => value is WorkspaceBindingCandidate,
+  productSet?: ProductSet,
+  workspaceAuthorityBasis?: WorkspaceAuthorityBasis,
+  checkCandidate = isWorkspaceBindingCandidate,
 ): RehydratedWorkspaceBindingTruth | null {
   if (
     row === null ||

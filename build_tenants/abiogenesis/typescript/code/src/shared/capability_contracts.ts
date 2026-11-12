@@ -406,8 +406,19 @@ export function constructCapabilityDefinitionGraph(
 
 export function isCapabilityDefinitionGraph(
   value: unknown,
+): value is CapabilityDefinitionGraph;
+/** @internal The entry names the question; the exported signature asks the
+ * strict one, and any second argument other than `"recorded"` (a callback
+ * index) is strict. */
+export function isCapabilityDefinitionGraph(
+  value: unknown,
+  question: ProductTruthQuestion,
+): value is CapabilityDefinitionGraph;
+export function isCapabilityDefinitionGraph(
+  value: unknown,
+  question?: unknown,
 ): value is CapabilityDefinitionGraph {
-  return isCapabilityDefinitionGraphFor(value, "strict");
+  return capabilityDefinitionGraphHolds(value, question === "recorded" ? "recorded" : "strict");
 }
 
 /**
@@ -420,20 +431,13 @@ export function isCapabilityDefinitionGraph(
  */
 export type ProductTruthQuestion = "strict" | "recorded";
 
-/** @internal The recorded question for a capability graph. */
-export function isRecordedCapabilityDefinitionGraph(
-  value: unknown,
-): value is CapabilityDefinitionGraph {
-  return isCapabilityDefinitionGraphFor(value, "recorded");
-}
-
 /**
- * @internal One body for both questions. Both establish the strict schema and
- * every relation the constructor guarantees that is stated over the graph
- * alone; the strict question also requires the graph to equal the register's
+ * One body for both questions. Both establish the strict schema and every
+ * relation the constructor guarantees that is stated over the graph alone; the
+ * strict question also requires the graph to equal the register's
  * construction over the graph's own owner coordinates, which implies them.
  */
-export function isCapabilityDefinitionGraphFor(
+function capabilityDefinitionGraphHolds(
   value: unknown,
   question: ProductTruthQuestion,
 ): value is CapabilityDefinitionGraph {

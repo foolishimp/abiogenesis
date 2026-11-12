@@ -6,7 +6,7 @@ import { isAbsolute } from "node:path";
 import {
   serializeCapabilityDefinitionGraph,
   capabilityRefsForContract,
-  isCapabilityDefinitionGraphFor,
+  isCapabilityDefinitionGraph,
   type CapabilityDefinitionGraph,
   type ProductTruthQuestion,
 } from "../shared/capability_contracts.js";
@@ -545,27 +545,31 @@ export function constructResolvedProductLock(
 
 export function isResolvedProductLock(
   value: unknown,
-): value is ResolvedProductLock {
-  return isProductLockFor(value, "strict");
-}
-
-/** @internal The recorded question for a lock read from the event log. */
-export function isRecordedProductLock(
+): value is ResolvedProductLock;
+/** @internal The entry names the question; the exported signature asks the
+ * strict one, and any second argument other than `"recorded"` (a callback
+ * index) is strict. */
+export function isResolvedProductLock(
   value: unknown,
+  question: ProductTruthQuestion,
+): value is ResolvedProductLock;
+export function isResolvedProductLock(
+  value: unknown,
+  question?: unknown,
 ): value is ResolvedProductLock {
-  return isProductLockFor(value, "recorded");
+  return productLockHolds(value, question === "recorded" ? "recorded" : "strict");
 }
 
 /**
- * @internal One body for both questions. Both establish the lock's shape, each
- * row's descriptor fields, contribution manifest, graph under the same
- * question, graph asset, contract rows and rosters, flat owner coordinates,
- * dependency edges and lock digest. The strict question adds the register:
- * each contract's identities are the register's, and an empty graph claims no
+ * One body for both questions. Both establish the lock's shape, each row's
+ * descriptor fields, contribution manifest, graph under the same question,
+ * graph asset, contract rows and rosters, flat owner coordinates, dependency
+ * edges and lock digest. The strict question adds the register: each
+ * contract's identities are the register's, and an empty graph claims no
  * contract the register maps to a capability. The recorded question adds
  * `recordedCapabilityIdentitiesHold` over the row.
  */
-export function isProductLockFor(
+function productLockHolds(
   value: unknown,
   question: ProductTruthQuestion,
 ): value is ResolvedProductLock {
@@ -630,7 +634,7 @@ export function isProductLockFor(
         !nonEmptyString(row.publisherNamespace) ||
         !nonEmptyString(row.catalogId) ||
         !isSha256Digest(row.catalogDigest) ||
-        !isCapabilityDefinitionGraphFor(row.capabilityDefinitionGraph, question) ||
+        !isCapabilityDefinitionGraph(row.capabilityDefinitionGraph, question) ||
         !isRecord(row.capabilityDefinitionGraphAsset) ||
         !nonEmptyString(row.capabilityDefinitionGraphAsset.path) ||
         !nonEmptyString(row.capabilityDefinitionGraphAsset.mediaType) ||

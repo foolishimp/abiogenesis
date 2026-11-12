@@ -24,7 +24,7 @@ import { canonicalJson, compareUnicodeCodeUnits } from
 import { sha256Canonical, type Sha256Digest } from "../shared/digests.js";
 import { deepFreeze, isDeeplyFrozen } from "../shared/immutable.js";
 import {
-  admitGraphFunctionCatalogFor,
+  admitGraphFunctionCatalog,
   narrowGraphFunctionCatalog,
   lookupGraphFunctionDefinition,
   type CatalogReadinessBasis,
@@ -50,14 +50,12 @@ export function reconstructHistoricalDeclarationCatalog(
     resolvedLock: CatalogReadinessBasis["resolvedLock"];
     installedProducts: CatalogReadinessBasis["installedProducts"];
   }>,
-): Readonly<{ catalog: ReadyGraphFunctionCatalog; catalogView: GraphFunctionCatalogView }> {
-  return reconstructHistoricalDeclarationCatalogFor(supplied, environment, "strict");
-}
-
-/** @internal One relation for both questions. A read that binds the result to
- * recorded history by digest asks the recorded question; every entry that
- * uses the result for new work asks the strict one. */
-export function reconstructHistoricalDeclarationCatalogFor(
+): Readonly<{ catalog: ReadyGraphFunctionCatalog; catalogView: GraphFunctionCatalogView }>;
+/** @internal One relation for both questions; the exported signature asks
+ * the strict one, for every entry that uses the result for new work. A read
+ * that binds the result to recorded history by digest names the recorded
+ * question. */
+export function reconstructHistoricalDeclarationCatalog(
   supplied: Readonly<{ catalog: ReadyGraphFunctionCatalog; catalogView: GraphFunctionCatalogView }>,
   environment: Readonly<{
     workspaceBinding: CatalogReadinessBasis["workspaceBinding"];
@@ -65,8 +63,20 @@ export function reconstructHistoricalDeclarationCatalogFor(
     installedProducts: CatalogReadinessBasis["installedProducts"];
   }>,
   question: ProductTruthQuestion,
+): Readonly<{ catalog: ReadyGraphFunctionCatalog; catalogView: GraphFunctionCatalogView }>;
+export function reconstructHistoricalDeclarationCatalog(
+  supplied: Readonly<{ catalog: ReadyGraphFunctionCatalog; catalogView: GraphFunctionCatalogView }>,
+  environment: Readonly<{
+    workspaceBinding: CatalogReadinessBasis["workspaceBinding"];
+    resolvedLock: CatalogReadinessBasis["resolvedLock"];
+    installedProducts: CatalogReadinessBasis["installedProducts"];
+  }>,
+  question?: unknown,
 ): Readonly<{ catalog: ReadyGraphFunctionCatalog; catalogView: GraphFunctionCatalogView }> {
-  const catalog = admitGraphFunctionCatalogFor(supplied.catalog.readinessBasis, question);
+  const catalog = admitGraphFunctionCatalog(
+    supplied.catalog.readinessBasis,
+    question === "recorded" ? "recorded" : "strict",
+  );
   if (catalog.kind !== "graph_function_catalog" || !canonicalEquals(catalog, supplied.catalog) ||
       !canonicalEquals(catalog.readinessBasis.workspaceBinding, environment.workspaceBinding) ||
       !canonicalEquals(catalog.readinessBasis.resolvedLock, environment.resolvedLock) ||

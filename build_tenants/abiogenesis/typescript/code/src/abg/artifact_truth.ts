@@ -15,7 +15,7 @@ import {
 import {
   constructWorkspaceBindingInResolvedLock,
   isProductInstallCandidateInResolvedLock,
-  isProductLockFor,
+  isResolvedProductLock,
   isWorkspaceBindingCandidateInResolvedLock,
   productInstallCoordinate,
 } from "../product/environment.js";
@@ -409,7 +409,7 @@ class RuntimeArtifactFacts {
             return true;
           }
         }
-        if (!isProductLockFor(value, question)) return false;
+        if (!isResolvedProductLock(value, question)) return false;
         checkedLock = value;
         return true;
       };

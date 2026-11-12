@@ -7,7 +7,7 @@ import { projectNativeLivenessRead } from "./runtime_liveness.js";
 import type { RuntimeInvocationScope, RuntimeLivenessReadProjection } from "./runtime_liveness_contracts.js";
 import { constructRuntimeFailureDiagnosticRef, projectRuntimeFailureEvidenceAtPrefix } from "./runtime_failure.js";
 import { modulePublicationSemanticDigest } from "../product/publication.js";
-import { reconstructHistoricalDeclarationCatalogFor, resolveExecutionDeclarationClosure, selectExactClosureContract } from "../product/declaration_closure.js";
+import { reconstructHistoricalDeclarationCatalog, resolveExecutionDeclarationClosure, selectExactClosureContract } from "../product/declaration_closure.js";
 import type { ProductTruthQuestion } from "../shared/capability_contracts.js";
 import { projectExactPrefixWorkspaceEnvironment, projectWorkspaceEnvironmentFromArtifactTruth, projectAdmittedProductInstallByAdmissionEventRef } from "./environment_admission.js";
 import { runtimePrefixFromOwnedArtifactTruth, type ExactPrefixArtifactTruthProjection } from "./artifact_truth.js";
@@ -136,9 +136,10 @@ interface PreparedRead<K extends AbgProjectReadMemberKey> {
   readonly packet: AbgProjectReadPacket<K>;
   readonly fullPrefix: RuntimeEventPrefix;
   /** The question a supplied historical declaration proof answers, set by the
-   * entry: `recorded` for the Public run read, which binds the reconstructed
-   * Catalog to the root basis digest; `strict` for every entry whose result
-   * feeds new work. */
+   * entry: `recorded` for every read, since `terminalDeclaration` binds the
+   * reconstructed Catalog to the recorded environment and root basis digest;
+   * `strict` for every entry whose result feeds new work (a historical source
+   * for a new run, worksite forward, native work reacquisition). */
   readonly question: ProductTruthQuestion;
   /** The read owner's artifact truth over its acquired prefix, when the
    * owner supplied it: the one materialization the preparation reads. */
@@ -382,7 +383,7 @@ function terminalDeclaration(
     indexedRuntimeEvents(prefix,"id:"+ref).filter((event) => event.admissionOrdinal < invocationEvent.admissionOrdinal).length !== 1)) {
     throw new TypeError("declaration proof environment is not historical to the original invocation");
   }
-  const { catalog, catalogView } = reconstructHistoricalDeclarationCatalogFor(proof, {
+  const { catalog, catalogView } = reconstructHistoricalDeclarationCatalog(proof, {
     workspaceBinding: environment.workspaceBindingCandidate, resolvedLock: environment.resolvedProductLock,
     installedProducts: installs.map((install) => install!.candidate),
   }, prepared.question);
@@ -588,6 +589,7 @@ export function projectHistoricalGraphCallSourceAtDurablePrefix(
     if (kept !== undefined && lastOrdinal >= kept.minimumOrdinal) return kept.value;
     const packet: AbgProjectReadPacket<"graph_call_result"> = Object.freeze({ kind: "abg_project_read_packet", schemaVersion: "5.0.0",
       memberKey: "graph_call_result", prefix, targetRef: resource.terminal.producer.graphCallRef, declarationProof: resource.declarationProof });
+    // The source is input to a new run: the strict question.
     const prepared: PreparedRead<"graph_call_result"> = Object.freeze({ packet, events, fullPrefix, question: "strict" as const });
     const runId = runIdForGraphCall(prepared, packet.targetRef);
     const runPrefix = runId === null ? null : selectRuntimeEventPrefixFromAuthority(fullPrefix,{runId});
@@ -617,6 +619,8 @@ export function projectClosedGraphCallTerminalAtDurablePrefix(
   prefix: DurablePrefixCoordinate, graphCallId: string, declarationProof: AbgHistoricalDeclarationProof,
 ): AbgTypedTerminalResult | null {
   try {
+    // Worksite forward and native work reacquisition use the terminal for new
+    // work: the strict question.
     const prepared = prepareRead("graph_call_result", {kind:"abg_project_read_packet",schemaVersion:"5.0.0",
       memberKey:"graph_call_result",prefix,targetRef:graphCallId,declarationProof}, captureDurablePrefixCoordinate(prefix), undefined, "strict");
     if ("disposition" in prepared) return null;
@@ -694,9 +698,10 @@ function prepareRead<K extends AbgProjectReadMemberKey>(
   supplied: AbgProjectReadPacket<K>,
   retainedPrefix?: DurablePrefixCoordinate,
   acquired?: ExactPrefixArtifactTruthProjection,
-  // Every entry in this module names its question; the default keeps a
-  // caller outside it on the strict question.
-  question: ProductTruthQuestion = "strict",
+  // Every entry in this module names its question. The default is the read
+  // owner's own (`project`): a caller outside the module that prepares a read
+  // asks what the read port asks.
+  question: ProductTruthQuestion = "recorded",
 ): PreparedRead<K> | AbgProjectReadRefusal<K> {
   const admitted = admitReadPacket(expectedMemberKey, supplied);
   if ("code" in admitted) return admitted;
@@ -960,7 +965,7 @@ export function projectRunTruthAtDurablePrefix(
 ): AbgRunTruthResult {
   const prepared = prepareRead("run_replay", {
     kind: "abg_project_read_packet", schemaVersion: "5.0.0", memberKey: "run_replay", prefix, targetRef: runId,
-  }, captureDurablePrefixCoordinate(prefix), undefined, "strict");
+  }, captureDurablePrefixCoordinate(prefix), undefined, "recorded");
   if ("code" in prepared) return runTruthRefusal(prefix, runId, prepared.code, prepared.message);
   try {
     const context = canonicalRunContext(prepared as PreparedRead<AbgProjectReadMemberKey>, runId);
@@ -1024,8 +1029,8 @@ function prepareRunRead(
   const graphRead = memberKey === "graph_call_result" || memberKey === "graph_call_replay";
   const sourceMember = graphRead ? "graph_call_replay" : "run_replay";
   // The Public run read: `terminalDeclaration` binds a supplied declaration
-  // proof to the recorded root basis digest, so the proof asks the recorded
-  // question.
+  // proof to the recorded environment and root basis digest, so the proof
+  // asks the recorded question.
   const prepared = prepareRead(sourceMember, {
     kind: "abg_project_read_packet", schemaVersion: "5.0.0", memberKey: sourceMember, prefix, targetRef,
   }, captureDurablePrefixCoordinate(prefix), acquired, "recorded");
@@ -1850,7 +1855,9 @@ function project<K extends AbgProjectReadMemberKey>(
   expectedMemberKey: K,
   packet: AbgProjectReadPacket<K>,
 ): AbgProjectReadResult<K> {
-  const prepared = prepareRead(expectedMemberKey, packet, undefined, undefined, "strict");
+  // The owner read ports: a supplied proof is bound by `terminalDeclaration`
+  // as on the Public run read.
+  const prepared = prepareRead(expectedMemberKey, packet, undefined, undefined, "recorded");
   if ("code" in prepared) return prepared;
   return projectPreparedRead(prepared, () => projectValue(
     prepared as PreparedRead<AbgProjectReadMemberKey>, expectedMemberKey, prepared.packet.targetRef,
