@@ -2,7 +2,24 @@
 
 Writer: Claude Opus 5.5. Branch `claude/td32-event-profile-residue` from local `main` at `e9d870c02`, worktree `/private/tmp/abg-td32`. Part A is a realization_refactor; part B is a requirement_reprice (the owner's decision in "Decisions for the owner": L stores reprice before appending, and the L writer branches retire). No push, no tag. Here `T` is `build_tenants/abiogenesis/typescript` and the evidence root is `/Users/jim/src/apps/abiogenesis/.ai-workspace`.
 
-**Status: pending.** (This skeleton holds the census; the remaining sections are filled in work order.)
+**Status: complete, with 8 items for a ruling (section 13); no stop condition met.**
+
+- Part A: residue removed, renames made with byte-identical values, the home-path input gated, `c_call_open` dropped, W pinned by a lane, profile census done.
+- Part B: one door at `appendDurablyBatch` refuses every append to a store on L except its witnessed reprice, before a byte is written. The actor's L writer branches are deleted. Readers are unchanged.
+- Results: replay and artifact truth are byte-identical over the 11 TD-25R logs, the 18 L actor logs and the rc.12 store. Capability graph rows are identical. Every lane keeps its per-case outcome except the carrier's new case. Three test cases were restated (section 7).
+
+Commits, in work order:
+
+| Commit | Content |
+| --- | --- |
+| `d491b419b` | census skeleton |
+| `fcb4007d2` | part A |
+| `824122e47` | recorded history |
+| `f921a1c1b` | specification |
+| `7c817ac64` | design |
+| `1e1f3b0a7` | code |
+| `e929c74d1`, `9965a3104` | tests |
+| this Return | |
 
 ## 1. Census
 
@@ -114,47 +131,227 @@ Every one of these rows is read by a reader that stays (section 5). On the base 
 
 ## 3. Specification
 
-Pending.
+The requirements that state the event contract are in `specification/requirements/abg/REQ-R-ABG3-EVENTS.md`; the witness reprice is stated as an act in `REQ-P-POLICY-035` and `REQ-P-PUBLIC-CONTRACTS` (`abg.operation.witness.admit` members), and the reprice-before-continuing rule of the witness requirements agrees with the change. No kept requirement says that a store on L continues to take work; `specification/PRODUCT.md` names no event profile.
+
+One edit, `REQ-R-ABG3-EVENTS-029` (identifier unchanged; no requirement removed). Sentences added after "…not a substitute.":
+
+> A store holds its events under one event-contract profile, a version of this contract. A store on the legacy profile (the unstamped base table) moves to the current profile only by the witnessed reprice that records the profile boundary, and it admits no other append: every other operation that would append to it shall be refused, before anything is written, until the store has been repriced. A store on the legacy profile is read and replayed like any other store.
+
+`specification/GOALS.md:887` ("existing witnessed stop under L before P") is a dated work-wave record, not a requirement; it is listed and left (section 13). The contract mirror `T/contracts/qualification/sources/REQ-R-ABG3-EVENTS.md` is staged only by an explicit `--stage-authorities` action and is not edited (TD-27 precedent).
 
 ## 4. Design
 
-Pending.
+Part A (citations of the renamed symbols): `T287_NATIVE_EVENT_CONTRACT_COMPATIBILITY_DESIGN.md` §2, `T287_STDO_RUN_ENVIRONMENT_PILOT_DESIGN.md` (the p4 sentence now says no retained profile carries that ref or its digest D4) and `T287_NATIVE_LIVENESS_CONSERVATION_DESIGN.md` §6.1.
+
+Part B, restated mixed passages (each replaced passage cut verbatim to the note's `history/<NAME>__RETIRED_SECTIONS.md`, with a first line naming the note, commit `f921a1c1b` and the lines):
+
+| Note | Lines cut | Restated to |
+| --- | --- | --- |
+| `T287_NATIVE_EVENT_CONTRACT_COMPATIBILITY_DESIGN.md` §4 | 170-177, 188-192 | the reprice transaction (`admitRootEventProfileUpgrade`, `assertRootEventProfileBoundary`, called from `admitWitnessedAct`); a store with a live or incomplete dispatch is not repriced and its stop or continuation is refused at the door; a store on L admits no append other than the reprice (`appendDurablyBatch`), and the owner reports the thrown refusal through its existing refusal (`sink_unavailable` for the witness owner and `appendCheckedArtifactEvent`) |
+| `T287_NATIVE_LIVENESS_CONSERVATION_DESIGN.md` §6 | 259-265, 267-272 | probes only at the current profile (`admitNativeRuntimeLivenessEvent`); recovery (`recoverInterruptedEventStore`) adopts an L store without appending; a run-stopped witness on L is refused like any other append |
+| `ABI5_COMMON_COMPUTATIONAL_CAPABILITY_LIBRARY_DESIGN.md` E-A, E-E, Deletion | 872, 878, 907-910 | the per-chunk transport path serves raw transport callers (`runWorkerTransport`); the actor dispatches only on the current profile and always declares windows; recorded L per-chunk rows are read as recorded |
+| `T287_D4_D5_NATIVE_QUALIFICATION_DESIGN.md` §3 item 3 | 85 | the binding records `configuredIdentity`; the actor dispatches only on the current profile; recorded L and RC6 bindings carry none; S2 and W variants (`configuredIdentityBindingVariants`) admit the member. New retired file and pointer line. |
+
+No note moved. `ABI5_REALIZATION_CONSTITUTION.md` has no passage that lets a store on L take work (its profile passages, lines 880 and 891, state profile validation only); it is not edited.
 
 ## 5. Code
 
-Pending.
+Part A (`fcb4007d2`), no stored byte changes:
+
+| Rename (`abg/event_contract_profiles.ts`, `abg/event_store.ts`) | Why |
+| --- | --- |
+| `ROOT_CURRENT_EVENT_PROFILE_REF` → `ROOT_RUN_ENVIRONMENT_EVENT_PROFILE_REF` (value `abg.event-contract.root/p5-run-environment-role-context@1` unchanged) | it is the ref RC6 and S2 carry, not the current profile's |
+| `constructRootCurrentEventContractDescriptor` → `constructRootStampedEventContractDescriptor`, `profileRef` required (default removed; every caller passes it) | it builds RC6, S2 and W |
+| `CURRENT_PROBE_CONTRACT` → `STAMPED_PROBE_CONTRACT` | shared by RC6, S2 and W |
+| `currentBindingVariants` → `configuredIdentityBindingVariants` | the S2 and W binding variants |
+| `currentProfile` (local in `event_store.ts`) → `windowProfile`; `stampedDescriptor` takes `profileRef` as a required argument | the local holds W |
+| comments on L, W, the binding variants and D5 | L is the pinned base table every stamped table extends; W is S2 plus the stdout window witness |
+
+The unused import of the p5 ref is gone (A1); `"c_call_open"` leaves the stage union of `abg/runtime_failure.ts` (A4). The string value of every reference is unchanged, and the pinned tables load (their load checks pass on the final build; every lane that opens the store module passes).
+
+Part A source, `git diff --numstat e9d870c02 fcb4007d2 -- T/code/src`: `event_contract_profiles.ts` +11 −7, `event_store.ts` +22 −19, `runtime_failure.ts` +0 −1 (33 added, 27 removed).
+
+Size of the whole package, `git diff --numstat e9d870c02 HEAD` (generated files excluded): `T/code/src` +90 −119; `T/test_env` +321 −37; `T/design` +104 −34, of which +48 are the verbatim retired-section files; `specification` +7 −0.
+
+Part B (`1e1f3b0a7`), source lines removed by file (`git diff --numstat fcb4007d2 1e1f3b0a7`; 57 added, 92 removed):
+
+| File | Added | Removed | What |
+| --- | ---: | ---: | --- |
+| `abg/actor_process.ts` | 35 | 88 | The L writer branches: the null identity off W, the binding without `livenessBinding`, `currentProfile` and every branch on it (probe skip, per-chunk byte count, full artifact body, no native assessment or supervision wakeup, no window classifier or binding, the stderr local ordinal, the per-chunk consumed refs), the per-chunk stdout path (`streamOrdinal`, `stdoutByteLength`, `stdoutEventRefs`, `observedProgressCount`, `observedFinalOutput`), and the `onTimeoutObserved` writer (reached only without the supervision wakeup, that is only off W; on W the timeout row is the threshold owner's, `runtime_liveness.ts` `admitRuntimeThreshold`). Added: one profile check before the binding (section 6, ruling item 1). |
+| `abg/event_store.ts` | 16 | 0 | The door in `appendDurablyBatch` and its predicate `isRootEventProfileRepriceBatch`. |
+| `abg/c_call.ts` | 3 | 2 | Comment only: the lifecycle-copy evidence branch (`admitEvidenceUsingTransport`) serves RC6; on L it is now unreachable. |
+| `abg/worker_transport.ts` | 3 | 2 | Comment only: the exception rule at `runProcess` serves raw transport callers. |
+
+Kept, with the reason:
+
+- `worker_transport.ts` "the exception contract" (`if (failed && assessNativeResultArtifact === undefined) throw firstError`) and the per-chunk `onStdoutObserved(chunk)` path: reached by every raw caller of `runWorkerTransport` (exported from `abg/index.ts`; `m5-worker-transport` drives it, including its EPIPE case), not only by the actor on L. The comment now says so.
+- `c_call.ts` `admitEvidenceUsingTransport` lifecycle copies (`lifecycleCopies !== false`): an RC6 store still takes evidence through a continuation.
+- `runtime_liveness.ts:71`, `:87`, `:144` (skip on a non-W row) and `:320` (probes refuse off W): live for RC6 and S2 rows.
+
+Whole-word search on the final tree. It covers `specification`, `T/code`, `T/test_env`, `T/scripts` and `T/design`, excluding `design/history`, `build`, `test_runs`, `downstream` and `evidence`:
+
+- Zero hits: `ROOT_CURRENT_EVENT_PROFILE_REF`, `constructRootCurrentEventContractDescriptor`, `CURRENT_PROBE_CONTRACT`, `currentBindingVariants`, `c_call_open`, `observedProgressCount`, `observedFinalOutput` and "Legacy transports".
+- Remaining hits, all kept:
+  - `currentProfile`: 2 hits, the parameter of the kept reader `durableActorObservationOfArtifact` (`transport_contracts.ts:79`, `:83`).
+  - `stdoutEventRefs`: 2 hits, a reader's local over `consumedStdoutEventRefs` (`calculus/axioms.ts:1030`, `:1046`).
+  - `onTimeoutObserved`: the transport observer interface (`worker_transport.ts:115`, `:548`) and its raw callers in `m5-worker-transport` and `t287-liveness-heartbeat`.
+  - `streamOrdinal` and `stdoutByteLength`: payload member names of recorded and current rows.
+
+Read paths that handle each deleted writer's shape (all kept):
+
+| Deleted writer | Shape in recorded L stores | Read by |
+| --- | --- | --- |
+| null `configuredIdentity` | binding without the member | `c_call.ts:1798` (selection reads `identity: null`) |
+| binding without `livenessBinding` | L binding | `calculus/liveness.ts:69-70` (no liveness context without a native-liveness binding); `runtime_liveness.ts:71`, `:87`, `:144` |
+| per-chunk stdout | unwindowed `actor_process_stdout_observed` rows | `c_call.ts` `projectAdmittedActorTransportLifecycle` (byte sums against `stdoutByteLength`), `calculus/axioms.ts:1030` (consumed refs), `worksite_construction_recovery.ts:315-324`, `replay.ts` |
+| full artifact body | artifact with the four lifecycle copies | `transport_contracts.ts` `durableActorObservationOfArtifact` and `RETIRED_ACTOR_LIFECYCLE_COPY_KEYS`, `c_call.ts:1983-1988`, `qualification_proof.ts:609`, `worksite_construction_recovery.ts:261` |
+| `onTimeoutObserved` | timeout row without `thresholdObservation` (none recorded on L) | `c_call.ts` `projectAdmittedActorTransportLifecycle` (timeout rows), `calculus/liveness.ts:610`, `replay.ts:2414` |
+| no probes, no windows | absence | nothing to read |
 
 ## 6. The door
 
-Pending.
+One refusal, at the one durable append owner, before anything is written: `appendDurablyBatch` (`abg/event_store.ts`) throws `TypeError("a store on the legacy event profile admits no append before its witnessed reprice")` when the store's identity is on L and the batch is not the reprice pair (`isRootEventProfileRepriceBatch`: exactly two rows, the `public_operation_admitted` row of `abg.operation.witness.admit` member `reprice`, then the profile boundary caused by it). The check reads the store's durable identity, so it holds for every entry above it (`admitRuntimeEventInternal`, `admitRuntimeEventBatch`, the commit of `runRuntimeEventTransaction`), and a transaction stages, throws at commit and rolls back as any failed commit does. The door adds no code of its own: each owner reports the throw through the refusal it already returns for a failed append (ruling item 6). The reprice rows are told apart from every other batch by their kinds, the operation and member, the boundary's declaration and the causal link; an invalid profile reprice (wrong reason, missing profile evidence, an in-flight actor or leaf) is refused before the door by `assertRootEventProfileBoundary` inside `admitRootEventProfileUpgrade`, as before.
+
+Before is the base build `e9d870c02`; after is `1e1f3b0a7`. "Lane" rows are runs of `t292-td32-legacy-store-door` (each prints a `td32_door_row`) and of `t287-lifecycle-failure-carrier` (`td32_actor_profile_row`) on both builds; the same files were copied into a base checkout for the before column. "By reading" marks a Public code derived from the source at the cited lines, not from a run (section 12, deviation 2).
+
+| Row | Driven through | Before (base) | After | Public code after |
+| --- | --- | --- | --- | --- |
+| Run start (`run.invoke`) | Lane, owner: the Run opening row through `admitRuntimeEvent` on a reopened L log. The Public path's first append is `admitExactInvocation` (`abg/invocation_admission.ts:1656-1661`, one `admitNonEmptyRuntimeEventTransactionAtDurablePrefix`) at stage `invocation_admission` (`owner_bindings/run_invocation.ts:949`) | appended (an L row) | thrown, bytes and rows unchanged, the store held at its prefix | `invocation_admission_failure` (stage `invocation_admission`; `syncStage`, `owner_bindings/run_invocation.ts:214-228`, maps a throw to `<stage>_failure`); by reading |
+| Run continuation (`run.continue` `current_intent`, `selected_action`, `pending_execution`) | Lane, owner: a row through `admitNonEmptyRuntimeEventTransactionAtDurablePrefix`. The Public path's first append is at stage `open_call` (`owner_bindings/run_invocation.ts:1561`, `:1624`) | appended | thrown, bytes and rows unchanged | `open_call_failure`; by reading |
+| Traversal and basis batches (inside a Run) | Lane, owner: a row through `admitRuntimeEventBatch` | appended | thrown, bytes and rows unchanged | the stage of the calling Run owner (unreached on L: the Run's first append already refuses) |
+| Actor dispatch | Lane: the actor effect driven over a prefix on L, RC6 and S2 | L: binding without `livenessBinding`, `actor_invocation_started`, `actor_process_started`, one spawn. RC6 and S2: the L-shaped binding row is refused by the store's own table ("current actor binding requires its closed native liveness declaration") before a spawn, `actor_process_invocation_refused` (probe `scripts/rc6-s2-binding.mjs`; the carrier's recorder applies no table) | refused at the profile check before the binding, on L, RC6 and S2: rows `[c_call_fibre_selected]`, no spawn | `actor_process_invocation_refused`, message "liveness admission requires one held current-profile owner context" |
+| Public operation admission (Product install, workspace bind, materialize, release snapshot) | Lane, owner: the artifact row through `appendCheckedArtifactEvent`. Public paths by reading: `admitArtifact` (`abg/environment_admission.ts:1078-1087`) returns `coordinate_refused` | appended | `event_store_append_refusal` `sink_unavailable`, message "TypeError: a store on the legacy event profile admits no append…", bytes and rows unchanged | install `product_install_coordinate_refusal` (`product/install_definition_bindings.ts:324-327`); bind `workspace_binding_coordinate_refusal` (`product/environment_definition_bindings.ts:728-731`); materialize `product_materialization_artifact_refused` (`product/materialization_definition_bindings.ts:420-421`); release snapshot `release_artifact_failure` (`product/release_snapshot_definition_bindings.ts:104-107`); by reading |
+| Catalog admission (`catalog.admit`) | By reading: no append; the owner completes the resource at its entry prefix (`product/catalog_definition_bindings.ts:592`, `:606`, `:635`) | no append | unchanged: no append, no refusal | none (unchanged) |
+| Public read (`project.read`) | Lane `t287-cross-cut-public-read` (Public reads over the D2 L store) and by reading: no append (`abg/project_read_definition_bindings.ts:266`) | 5/5 | 5/5, unchanged | none (unchanged) |
+| Witness act other than the reprice: `reprice` of a declaration | Lane, Public: `runExactDefinition` over the witness binding (`support/witness-reprice-mechanics.mjs`, store on L) | admitted, exit 0, two L rows | exit 70, `sink_unavailable`, the door message, bytes unchanged, the handoff still acquirable | `sink_unavailable` |
+| Witness act other than the reprice: `run-stopped` | Lane, Public, as above, on an L store holding an open operator Run | admitted, exit 0 | exit 70, `sink_unavailable`, the door message, bytes unchanged | `sink_unavailable` |
+| The profile reprice | Lane, Public | admitted, exit 0; the close handoff is on W | admitted, exit 0; the close handoff is on W | none (admitted) |
+| A witness act after the reprice | Lane, Public | admitted | admitted | none (admitted) |
+| Recovery of an interrupted L store | Lane `t287-interrupted-event-resource-recovery` | 8/8 | 8/8 (recovery appends nothing) | unchanged |
 
 ## 7. Tests
 
-Pending.
+| File | Change | Why | Before | After |
+| --- | --- | --- | --- | --- |
+| `t287-lifecycle-failure-carrier` | The actor drive runs on W by default (`driveActor(t, mode, stamp = W)`): the recorder stamps rows with W, the prefix is a validated prefix over the recorder rows, and the W premises are named overrides (leaf port admitted, no stdout window bound, liveness context and probe admission recording the probe signals, the raw result owner). Copy-value asserts on the artifact (the L copies) become: the artifact records no copy, and `nativeResultAssessment.disposition` is `absent`. Added asserts: the binding has a `livenessBinding`; `spawn_failed` records no probe; `termination_unconfirmed` records the start probe. New case: on L, RC6 and S2 the actor is refused before its binding or any start. | The file drove actor work on an L prefix (B6: restate) | 7/7 (new case: fails on base, the L binding is written and one process spawns) | 8/8 |
+| `t287-historical-source-resource` case 3 | The D2 fixture (L) is repriced through `admitRootEventProfileUpgrade` (`repriceProfile`, two hand-built rows) before the case's unchanged later append; the ordinal assert moves from `+1` to `+3`. Case 4 (rollback) is unchanged. | Case 3 appended a synthetic `public_operation_admitted` row (`project.read`, a row no kept flow writes: a Public read appends nothing) to the L store only to obtain a later prefix. After the door it failed with the door message (3/4). B6: restate to reprice first. The 846-row prefix has no open actor or leaf, so the reprice is admitted; retention holds across the profile change (the strict-identity and count asserts pass). | 4/4 | 3/4 before the restatement, 4/4 after |
+| `support/witness-reprice-mechanics.mjs` | With `legacyProfile` and `operatorRun`, the operator Run row is written raw at L with the seed (as recorded L stores hold it) instead of appended through the store. `closedRun` stays unsupported on L. | The append would be refused; only the new door lane uses this combination | n/a | used by the door lane |
+| `t292-td32-legacy-store-door` (new) | The door table rows marked "Lane" above: Public witness rows through `runExactDefinition`, owner rows over a real reopened L log (each asserts the door message, bytes and rows unchanged and the prefix held), and the close and reopen of the refused store. | B6: one new lane showing the door table | 1/3 (fails: base appends) | 3/3 |
+| `t287-qualification-scopes` Q23, the subcase "a legacy-profile binding" (commit `9965a3104`) | Asserted the gate's refusal `qualification dispatch refused: unknown: assessor_identity_absent` for a qualification actor on a store off W. Now asserts the profile refusal (code `actor_process_invocation_refused`, message "liveness admission requires one held current-profile owner context"), nothing admitted, no binding or start transaction, zero provider starts. The other Q23 subcases are unchanged. | The subcase dispatches an actor on a store off W, the retired shape; after B it failed on the message (23/24), since the profile check runs before the gate (deviation 3). The subcase is restated to the refusal; a reprice is not applicable to its mocked store. On W the gate's `identity_absent` stays reachable when a plan has no configured identity (`validator/qualification.ts:505`). | 24/24 | 23/24 before the restatement, 24/24 after |
+| `witness-reprice-definition-binding` | Unchanged (no assertion edited) | | 15/15 | 15/15 |
+
+Qualification inventory members changed (not edited, `T/test_env/qualification/inventory.json`): `t287-lifecycle-failure-carrier`, `t287-historical-source-resource`, `t287-qualification-scopes`, `m5-event-store-reopen` (part A gate), `witness-reprice-mechanics` (support); new files not in the inventory: `t292-td32-current-profile-pin`, `t292-td32-legacy-store-door`. `support/evidence-gates.json` gained the row `hs03-installed-rc6-owner` (part A).
 
 ## 8. Generated contracts and identity digests
 
-Pending.
+Generated files (`T/contracts`, `T/product-toolchain-manifest.json`, `T/test_env/fixtures/abi5-root-candidate-basis.json`) are not committed; every commit was made with them restored to `HEAD`. Identity of each build (`npm run build`, same toolchain):
+
+| Build | productContentDigest | contributionManifestDigest | catalogDigest | capability graphDigest |
+| --- | --- | --- | --- | --- |
+| Base `e9d870c02` (equal to the committed generated files) | `sha256:c2ff705eebeb47f44774f49683d4814ec8fa6ec4c621572227b8cec8f7bf62de` | `sha256:f03912364e3f0416d15645a74eb1d69b8b985ee444b15649888dd9b8c349baba` | `sha256:a51c0fa3aad607063bf405e1939c817e2eb54929e2bc4dbdbd6bc6ce96153068` | `sha256:12ef369f90f6e079ff1fade5cf19e057484c10528df92e7f664f01c1d3fc408f` |
+| Part A `fcb4007d2` | `sha256:1556840043d4d72318b40da749da50f4a26e27813cd261e33b26b1ddc468850e` | `sha256:bb51b7dff2c84fa7c750120589ec67eaaee20b10f9b8041764a730dd00e84c8a` | `sha256:391231013495e09f499b49e72992b78aabee5c9d48fbfab9e414be74d16fb99c` | `sha256:262fec4ca09ff58293053a4ef30b39dbb3548bcd66f5184ef11a29da714c1f3d` |
+| Part B `1e1f3b0a7` (and `e929c74d1`, `9965a3104`, tests only) | `sha256:b8f508e90b1670a8d5ea71bf71c56b83f6995d724f9d95c3ffd4f50e6570380e` | `sha256:938023ab9e6481b706a5026ba7a3bfbf7cc512d484f4f2b415f31b4fd2945a7c` | `sha256:391231013495e09f499b49e72992b78aabee5c9d48fbfab9e414be74d16fb99c` | `sha256:2d21f3bf12f4861f2149b9b1a2e9968026722d6730dc8234fbc1f978fbd075cf` |
+
+Content changes under `T/contracts`: only `contracts/capabilities/capability-definition-graph.json` changes, and in it only digest leaves (the owning contracts' `catalogDigest` and `productContentDigest`, 241 each; the capability definition refs and digests, 16 rows and 18 dependents; `graphDigest`). Its rows (capability ids and versions, owning and dependent ids, selectors, effect and proof refs) are identical across the three builds (section 11). In the manifest, part A changes 21 `contractDigest` and 141 `declarationDigest` leaves (declarations whose source carries the stage union without `c_call_open` or the renamed symbols; inferred from the changed files, not traced leaf by leaf) and the catalog digest with them; part B changes no contract or declaration digest and leaves the catalog digest unchanged (only the product content, the 10 publication binding digests over built code, and the refs derived from them). No digest formula and no recorded ref string changes.
 
 ## 9. Lanes before and after
 
-Pending.
+Each file was run alone, one at a time, from `T` with the rules' command (evidence root set). Before is the base build `e9d870c02`. After is the part B build (the source of `1e1f3b0a7`; the test files as committed at `9965a3104`). Per-case outcomes were compared by test name (`scripts/tapcmp.py`). The only difference is the carrier's new case. The restated `t287-historical-source-resource` and `t287-qualification-scopes` cases keep their names and pass. Build: `npm run build` exit 0; `lint:imports`, `lint:lifecycle` and `lint:calculus` pass ("no offender", "3 forbidden owner pair(s) hold").
+
+| Lane | Before (tests/pass/fail/skip) | After |
+| --- | --- | --- |
+| `t287-default-library` | 35/34/0/1 | 35/34/0/1 |
+| `t287-native-workspace-work` | 43/43/0/0 | 43/43/0/0 |
+| `t287-management-supervision` | 5/5/0/0 | 5/5/0/0 |
+| `t287-qualification-scopes` | 24/24/0/0 | 24/24/0/0 (23/24 before the Q23 restatement) |
+| `t288-instruction-assembly-owner` | 4/4/0/0 | 4/4/0/0 |
+| `t287-lifecycle-failure-carrier` | 7/7/0/0 | 8/8/0/0 (one new case) |
+| `t287-held-basis-lifetime` | 2/1/0/1 | 2/1/0/1 |
+| `t287-held-operation-bodies` | 1/1/0/0 | 1/1/0/0 |
+| `m5-event-store-reopen` | 27/27/0/0 | 27/27/0/0 |
+| `witness-reprice-definition-binding` | 15/15/0/0 | 15/15/0/0 |
+| `r1-packed-artifact` | 1/1/0/0 | 1/1/0/0 |
+| `r2-clean-install` | 1/1/0/0 | 1/1/0/0 |
+| `r3-workspace-binding` | 1/1/0/0 | 1/1/0/0 |
+| `t287-historical-source-resource` | 4/4/0/0 | 4/4/0/0 (3/4 before the case 3 restatement) |
+| `r10-child-proof` | 10/10/0/0 | 10/10/0/0 |
+| `t287-cross-cut-public-read` | 5/5/0/0 | 5/5/0/0 |
+| `t287-selected-action-authority` | 3/2/0/1 | 3/2/0/1 |
+| `t287-native-assessment-evidence` | 4/4/0/0 | 4/4/0/0 |
+| `t292-td60b-evidence-gate-catalogue` | 3/3/0/0 | 3/3/0/0 |
+| `m5-worker-transport` | 39/39/0/0 | 39/39/0/0 |
+| `t287-f04a-probabilistic-result-candidate` | 2/2/0/0 | 2/2/0/0 |
+| `t287-calculus-fold` | 25/25/0/0 | 25/25/0/0 |
+| `t287-interrupted-event-resource-recovery` | 8/8/0/0 | 8/8/0/0 |
+| `t287-cold-record-decoder` | 3/2/0/1 | 3/2/0/1 |
+| `t287-undispatched-diagnostic` | 7/7/0/0 | 7/7/0/0 |
+| `t287-exact-prefix-projection-reuse` | 2/2/0/0 | 2/2/0/0 |
+| `t287-runtime-failure-diagnostic` | 21/21/0/0 | 21/21/0/0 |
+| `t287-liveness-inactivity` | 3/3/0/0 | 3/3/0/0 |
+| `t287-native-frame-observation` | 3/1/0/2 | 3/1/0/2 |
+| `t287-runtime-activity-quiescence` | 1/1/0/0 | 1/1/0/0 |
+| `m5-terminal-quiescence-owner` | 7/7/0/0 | 7/7/0/0 |
+| `t287-management-context` | 13/12/0/1 | 13/12/0/1 |
+| `t287-native-assembly-retained-input` | 1/1/0/0 | 1/1/0/0 |
+| `t287-c2-core-environment` | 7/7/0/0 | 7/7/0/0 |
+| `t287-management-stream-drain` | 7/4/0/3 | 7/4/0/3 |
+| `d2-workflow-step` (consumes an L-log gate) | 8/8/0/0 | 8/8/0/0 |
+| `d2-evidence-owner-lookup` (consumes an L-log gate) | 5/2/3/0 | 5/2/3/0 (the same 3 cases red on base: `h.project()` falsy) |
+| `r10-projection-contracts` (reopens the S01 L store) | 11/11/0/0 | 11/11/0/0 |
+| `t287-route-reconstruction` (reads the S01 L store) | 12/11/0/1 | 12/11/0/1 |
+| `t292-td32-current-profile-pin` (new, part A) | n/a | 1/1/0/0 |
+| `t292-td32-legacy-store-door` (new) | 1/3 with the final file on base (base appends) | 3/3/0/0 |
+
+The 35 listed first are the brief's named lanes and the census-named files. The four marked lanes are the files outside that list whose evidence gates (`support/evidence-gates.json`) name a recorded L log; by reading, none of them appends to a reopened store. No case timed out. The rules' known reds (one case each of `t287-cross-cut-public-read` and `witness-reprice-definition-binding`) did not occur on this machine, before or after.
 
 ## 10. Replay comparison
 
-Pending.
+`scripts/replay-log.mjs` (whole-log replay digest, profile schedule, kind counts, prefix digest, FH continuations and facts, and per-Run replay) was run on the base and final builds over the same inputs, and the outputs were compared byte for byte:
+
+- TD-25R's 11 logs (`replay-logs-base.txt`): identical. 7 replay. 4 refuse identically on both builds at decode: `abi5-root-r10.events.jsonl` ("runtime event payload matches no admitted event-contract variant"), two s02 logs ("durable ABG event log contains a noncanonical event") and one s02 log ("event stamp differs from the exact native profile schedule").
+- The 18 L logs holding actor invocations written on L (section 2): identical, and all 18 replay (73 to 913 rows each).
+
+An actor invocation on W is unchanged: the rc.12 store (W, 14 actor invocations) replays identically, and the W actor lanes named in the brief pass with unchanged per-case outcomes (section 9).
 
 ## 11. Artifact truth over recorded stores
 
-Pending.
+- The five lanes, base then final: `t287-historical-source-resource` 4/4 then 4/4, after case 3's restatement (3/4 before it; deviation 4: the failing step was the case's own append onto L, not a read); `r10-child-proof` 10/10 then 10/10; `t287-cross-cut-public-read` 5/5 then 5/5; `t287-selected-action-authority` 3/2/0/1 then the same; `t287-native-assessment-evidence` 4/4 then 4/4.
+- Artifact truth over a copy of the live rc.12 store (`/private/tmp/abg-td32-work/rc12-store/events.jsonl`, byte-equal to `/private/tmp/abg-demo-tmp/abi5-root-env-hRgyFy/runtime/events.jsonl`; 1,695 rows, 3 artifact admissions): `artifact_truth_projection`, digest `sha256:895b6a682046e0ec8a9bcdb3a4f4d25f912ca6f5f2bd1b061c7b4e08dc26b91f`, on both builds; the outputs are byte-identical.
+- Artifact truth over the 18 L actor logs: `artifact_truth_projection` for all 18 on both builds; the outputs are byte-identical.
+- Capability-definition graph rows (`scripts/graph-rows.py`: capability ids and versions, owning contract ids with catalog and selector, dependent ids, effect and proof refs; digests excluded): 16 rows, identical on base, part A and final.
+
+No projection is refused, no digest changes and no graph row changes. Apart from case 3, discussed above, no case goes from pass to fail.
 
 ## 12. Deviations
 
-Pending.
+1. **The door message is new.** The brief asks the door to return an existing code. It does: each owner reports the thrown refusal through the refusal it already returns for a failed append (`sink_unavailable`, `invocation_admission_failure`, `open_call_failure`, the coordinate refusals; section 6). The message text "a store on the legacy event profile admits no append before its witnessed reprice" is new, so a caller can tell the door from another failed append. Ruling item 7.
+2. **The door table's Public codes for Run start, Run continuation, the environment admissions and catalog admission are by reading.** The new lane drives those rows at the event store's entries (the caller each Public path reaches first) over a real reopened L log, and drives the witness rows through the Public binding. No harness in `test_env` runs `run.invoke`, `run.continue`, `product.install`, `workspace.bind`, `materialize`, `release.snapshot` or `catalog.admit` over a store on L (the witness harness is specific to the witness binding; the others need a workspace, catalog and Program over the store). The cited lines in section 6 carry the mapping.
+3. **One check added in `actor_process` (ruling item 1).** The actor refuses off W before its binding, with the existing message "liveness admission requires one held current-profile owner context". It is needed because the RC6 and S2 tables admit the W-shaped binding row (probe `scripts/rc6-s2-binding.mjs`: the binding with `livenessBinding` is admitted on RC6, S2 and W; the binding without it is refused on all three), so without the check an actor on an RC6 or S2 store would write its binding and spawn before the first probe refused. Before, RC6 and S2 refused at the binding row (the store's table) before a spawn; after, at the check, also before a spawn, with the same code `actor_process_invocation_refused` and a different message. The check now runs before the qualification eligibility check, so a qualification dispatch on a store off W sees the profile refusal instead of the gate's `assessor_identity_absent` (`t287-qualification-scopes` Q23, restated; section 7).
+4. **A case of an artifact-truth lane went from pass to fail and was restated instead of stopping.** `t287-historical-source-resource` case 3 failed under the door (3/4) because it appended a synthetic row to its L fixture to obtain a later prefix (section 7). The rules name a pass-to-fail case of this lane a stop condition ("do not repair the reader, report it"). No reader changed and none was repaired: the failing step is the retired append itself, not an artifact-truth read, and B6 directs a test that drives new work on L to reprice first. The case was restated that way and passes (4/4). Ruling item 8 asks the Executive to confirm this or rule it a stop.
+5. **The legacy-transports exception is kept.** B5 names it for deletion. The rule (`worker_transport.ts`: with no native result assessor, the first callback error is rethrown) and the transport's per-chunk stdout path are reached by every raw caller of the exported `runWorkerTransport`, not only by the actor on L (`m5-worker-transport` drives both, including its EPIPE case), so deleting them would change a kept caller. The actor's legacy stdout path (`actor_process.ts`) is deleted. The transport comment no longer calls the rule a legacy contract. Ruling item 2.
+6. **Before columns for new and restated files** were taken by running copies of the final test files against a base checkout (`/private/tmp/abg-td32-work/base-root`, base build), not by checking out the files at base.
 
 ## 13. Residuals and items for a ruling
 
-Pending.
+Residuals (kept, each with its reason in section 5):
+
+- `worker_transport.ts` exception rule and per-chunk `onStdoutObserved(chunk)` path: served by raw `runWorkerTransport` callers (exported; `m5-worker-transport` covers them, including EPIPE).
+- `c_call.ts` lifecycle-copy evidence (`lifecycleCopies !== false`): serves RC6; unreachable on L now.
+- `runtime_liveness.ts` skips on non-W rows and probe refusal off W: live for RC6 and S2.
+- `transport_contracts.ts` `durableActorObservationOfArtifact(payload, currentProfile)`: a reader parameter, kept (the whole-word search for `currentProfile` finds only it).
+- `tsc --noUnusedLocals` reports three unused locals in `c_call.ts` (`selectValidatedRuntimeEventPrefix`, `runtimeFailurePlanBody`, `runtimeFailureCloseError`); they are unused on base too and are not TD-32's.
+- 579 logs with stamps no profile selects, and the 4 L logs ending at a boundary to `4196aaeb`, are unreadable on base and after (section 1.2, 1.6); not changed here.
+
+Items for a ruling:
+
+1. The actor's profile check before the binding (deviation 3).
+2. The `worker_transport` exception rule and per-chunk path stay for raw transport callers; the brief named "the legacy-transports exception" for deletion. Only its comment changed ("Legacy transports retain their exception contract" no longer appears).
+3. L stores with an unjudged leaf can be neither repriced (refused by `assertRootEventProfileBoundary`, as before) nor stopped (the `run-stopped` witness is now refused by the door; before, it was admitted on L). Three recorded copies are in this state (section 1.6: the two 913-row D2 copies and one store whose failed Run left a leaf unjudged). None is a live store.
+4. `specification/GOALS.md:887` ("existing witnessed stop under L before P") is a dated work-wave record and is left.
+5. Design wording outside the restated passages, not edited: the compatibility note's opening says the supplement "selects exactly two event-contract profiles and one forward transition" (`T287_NATIVE_EVENT_CONTRACT_COMPATIBILITY_DESIGN.md:28`; four tables are retained now, L, RC6, S2 and W), and the pilot note says "Use one successor current descriptor `…/p5-run-environment-role-context@1`" (`T287_STDO_RUN_ENVIRONMENT_PILOT_DESIGN.md:482-483`; the current descriptor is W, p6). Neither lets a store on L take work, so neither is a TD-32 restatement; both are stale history inside live notes.
+6. The door adds no code; the code a caller sees depends on the owner (section 6).
+7. The door's message is new (deviation 1).
+8. `t287-historical-source-resource` case 3 restated to reprice first (deviation 4).
 
 ## Appendix A. Recorded stores whose last row is on L
 
