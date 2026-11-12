@@ -445,9 +445,9 @@ finite no-construction Program and historical-proof marker"). At final the key
 is treated as any unknown `abg.*` declaration key: the closure resolves and the
 Validator returns `program_validation` with no diagnostic, exactly as for the
 control key `abg.probe_unknown_key` (admitted at base and final). No owner
-reads the key, so it has no effect. Refusing it would need either a
-forward-named arm in the closure or a whitelist of declaration keys; this is
-raised as ruling R2 (section 15).
+reads the key, so it has no effect. No existing refusal path reads
+GraphFunction declaration keys by name; this is raised as ruling R2
+(section 15).
 
 ## 8. Tests and fixtures
 
@@ -581,9 +581,19 @@ of the rules (`t287-historical-source-resource`, `r10-child-proof`,
 `t287-cross-cut-public-read`, `t287-selected-action-authority`,
 `t287-native-assessment-evidence`) are the last five rows and are unchanged.
 
-Known reds of the rules: `t287-cross-cut-public-read` passed 5/5 on both
-builds in this run; `witness-reprice-definition-binding` is not in this
-package's lane list and was not run.
+The list (`lane-order.txt` at base, `lane-order-final.txt` at final) is the
+rules' required set: the test files the census names (the two forward subject
+lanes and the kept lanes that imported forward owners or helpers), the lanes of
+the kept features that shared code with forward (C2, the native semantic job
+and revision, generic job, management, instruction assembly), map section 6.4
+(including `test:m4`, `test:public-groups`, `test:installed:language`,
+`test:uat:harness`), `r1-r3`, `t287-default-library`, and the five
+artifact-truth lanes.
+
+**Not run.** The other 124 of the 213 files under `test_env/tests/` are outside that set
+and were not run on either build. None was left out because it needs a live
+provider. Known reds of the rules: `t287-cross-cut-public-read` passed 5/5 on
+both builds in this run; `witness-reprice-definition-binding` is among the 124.
 
 **Skips (27, the same cases at base and final).** Six need a live provider and
 are skipped for that reason (no model call): `t287-declared-testing-capability`
@@ -791,7 +801,13 @@ forward reference or forwarding a value (section 1.3).
 
 ## 15. Residuals and rulings
 
-No residual defect. Two points need a ruling.
+No residual defect. Two points need a ruling, and one needs an owner action.
+
+**Owner action: the qualification mirrors.** `test_env/qualification/inventory.json`,
+`recipe/verification-recipe.json` and `recipe/expected-output-inventory.json`
+still list the deleted and moved members of section 8 (the rules forbid this
+package to edit them). A qualification run reports those members missing, and
+does not see the refusal lane, until their owner updates the three files.
 
 **R1. Recorded history: the map's finding does not hold.** Map 4.5 f says
 forward has no recorded execution. One store holds two forward Runs (section
@@ -807,18 +823,37 @@ can reach.
 
 **R2. The declaration key `abg.worksite_command_forward` is now inert, not
 refused** (section 7). At base the declaration closure refused it on any
-GraphFunction outside the exact forward Program. At final it is an unknown
-`abg.*` key: admitted at every door, read by no owner, exactly as the control
-key. Refusing it needs either a forward-named arm in `product/declaration_closure.ts`
-(the retired name kept in kept code) or a whitelist of declaration keys (a
-design change that refuses every unknown key). TD-28c's retired keys sat in
-run-environment policies, where an existing Validator rule refused them
-(`invalid_reference $.runEnvironments`); no owner lists the admissible
-GraphFunction declaration keys, which is why the control key is admitted at
-base and final. My reading: accept the key as
-inert. If the rule "retired shape refused, not ignored" is meant to cover
-declaration keys, the closed key set is the lawful form, and it is a
-`design_reframe` of declaration admission, outside this package.
+GraphFunction outside the exact forward Program (`wrong_owner`, with a
+forward-only message that leaves with the arm). At final it is an unknown
+`abg.*` GraphFunction declaration key: admitted at every door and read by no
+owner, exactly as the control key `abg.probe_unknown_key` is at base and final.
+This falls short of "retired shape refused, not ignored".
+
+Precedent: TD-31 and TD-28c refuse retired keys by name and keep the key
+strings at the refusal site. `REFUSED_PROGRAM_POLICIES`
+(`code/src/gtl/stdo_run_environment.ts:32`) holds `abg.stdo_run_environment`,
+`abg.governed_context` and `abg.governed_context.activation`;
+`runEnvironmentForProgram` and `selectorRoleFromBoundDeclarations` return
+`false` for a Program that names one, so every door that validates the Program
+refuses it with the existing run-environment refusal. That list reads
+`program.policies` only. This key sits in `graphFunction.declarations`, and no
+owner keeps a list of refused GraphFunction declaration keys, so the precedent
+path does not reach it as it stands.
+
+Options:
+1. Accept the key as inert.
+2. Extend the precedent check to the declarations of the Program's callable
+   GraphFunctions and add `abg.worksite_command_forward` to the list. No new
+   code or message; the cost is that a GraphFunction declaration is refused
+   with the run-environment refusal, which names the run environment rather
+   than the key.
+3. A closure arm under `wrong_owner` needs a new message, which the rules
+   exclude.
+
+My reading: option 2, by the TD-31/TD-28c precedent. It is one check, one list
+entry and one refusal-lane case, but it widens what the run-environment owner
+reads, so I did not make it without a ruling. If ruled, it is a follow-up
+commit with a rebuild, the door probe and the lanes again.
 
 ## 16. Commits
 
