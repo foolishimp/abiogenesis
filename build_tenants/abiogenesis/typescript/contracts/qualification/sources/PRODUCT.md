@@ -211,7 +211,7 @@ GTL owns program meaning:
 
 - graphs, nodes, vectors, contexts, interfaces, and attributes;
 - graph functions, modules, roles, jobs, operators, evaluators, and rules;
-- composition, substitution, recursion, fan-out, fan-in, gates, and promotion;
+- composition, substitution, recursion, fan-out, fan-in, and promotion;
 - compute composition and regime declarations;
 - program starts, callable membership, policy, effects, results, closure, and
   proof obligations; and
@@ -296,7 +296,6 @@ substitute
 recurse
 fan_out
 fan_in
-gate
 promote
 identity
 same_object
@@ -389,7 +388,7 @@ The same traversal monad supports these structural forms:
 | atomic call | One `C.of` leaf executes inside one declared C-call boundary and returns admitted evidence and result. |
 | flat composition | `C.compose` sequences typed calls associatively; anonymous nesting erases and does not create a hidden frame. |
 | edge program | `C.edge` expresses the canonical transform/evaluate/consequence program while allowing other declared open programs. |
-| adaptive declared selection | GTL gates or policy select among named admitted compositions from replay-observed facts; the selected identity becomes replay truth and no HoG-local program catalog or ladder owns the choice. |
+| adaptive declared selection | Selection at a declared GTL structural selection boundary, or policy, chooses among named admitted compositions from replay-observed facts; the selected identity becomes replay truth and no HoG-local program catalog or ladder owns the choice. |
 | batch | `C.batch` preserves every task's identity, result cardinality, evidence, and judgment under one non-authoritative grouping identity. |
 | transparent child traversal | `workflow.C` invokes a named GraphFunction as a child traversal with child graph-call, frame, basis, run, and `sub_traversal` evidence. |
 | graph recursion | A GraphFunction may reapply itself or another GraphFunction under declared termination, foldback, parent re-evaluation, and lineage. |

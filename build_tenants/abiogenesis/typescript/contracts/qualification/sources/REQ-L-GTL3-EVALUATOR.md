@@ -10,13 +10,13 @@
 ## Purpose
 
 Define evaluators as first-class GTL declarations for convergence, attestation,
-and gate-visible assessment.
+and assessment.
 
 ## Acceptance Criteria
 
 **REQ-L-GTL3-EVALUATOR-001**: `Evaluator` shall be a frozen, immutable declaration type with at minimum: `name`, `regime`, `description`, `binding`, and `tags`.
 
-**REQ-L-GTL3-EVALUATOR-002**: Evaluators answer convergence questions such as whether a contract is satisfied, an output has converged, or a gate has passed.
+**REQ-L-GTL3-EVALUATOR-002**: Evaluators answer convergence questions such as whether a contract is satisfied or an output has converged.
 
 **REQ-L-GTL3-EVALUATOR-003**: Evaluators may operate in deterministic, probabilistic, or human regimes.
 

@@ -6,7 +6,7 @@
   "memberSetDigest": "sha256:20e9d378f261992e62dd473ef8572b11eb9bec281149ac0ccc754b91c9073466",
   "catalog": {
     "ref": "catalog://abiogenesis/qualification/self-conformance@2",
-    "digest": "sha256:b42d35b69ad2904727c5265b3fb221c0997126ffd3baf32c9b81bf161f5fd2aa",
+    "digest": "sha256:56d0512fff771aa8585c27255cf5473da07317873112f49e381f08fabfcc8ab1",
     "ownerRef": "authority://abiogenesis/validator/conformance@5",
     "version": "2",
     "assetPath": "contracts/qualification/rule-catalog.json"
@@ -21,14 +21,14 @@
     {
       "ref": "repo://abiogenesis/specification/INTENT.md",
       "path": "contracts/qualification/sources/INTENT.md",
-      "digest": "sha256:4bc5616c5f16eaf6497ceed007965cca571f78c3f75ff514f7d24e6a55e40857",
-      "byteCount": 17458
+      "digest": "sha256:edf4b6ac1df41698ea4cd8cf95df34ccce4d740bbbbe78114fbf12d5dd793934",
+      "byteCount": 17451
     },
     {
       "ref": "repo://abiogenesis/specification/PRODUCT.md",
       "path": "contracts/qualification/sources/PRODUCT.md",
-      "digest": "sha256:ff5e838a8f5d20379d80324fd4d29bfbc2827b21cae61f0ce8f83b670a971295",
-      "byteCount": 104106
+      "digest": "sha256:9f6d492f17ae33ef1b37a74551c8f549bd4f11d2c7d46b805395f5cb873f7d9e",
+      "byteCount": 104145
     },
     {
       "ref": "repo://abiogenesis/specification/requirements/00-starter.md",
@@ -297,14 +297,14 @@
     {
       "ref": "repo://abiogenesis/specification/requirements/gtl/REQ-L-GTL3-CONTRACT-LAW-API.md",
       "path": "contracts/qualification/sources/REQ-L-GTL3-CONTRACT-LAW-API.md",
-      "digest": "sha256:9cb518d14808535181b107d14a92d126f4b40b117343764582235eb318451675",
-      "byteCount": 7701
+      "digest": "sha256:6c468e5dabc8f340857107c61c9cd2ea25391fce273000a08ea4842c68743004",
+      "byteCount": 7693
     },
     {
       "ref": "repo://abiogenesis/specification/requirements/gtl/REQ-L-GTL3-EVALUATOR.md",
       "path": "contracts/qualification/sources/REQ-L-GTL3-EVALUATOR.md",
-      "digest": "sha256:42036bb55c3aad49e6bc215e02842e1841de3b3a999653182becc6ff28b85069",
-      "byteCount": 3326
+      "digest": "sha256:f3cb2f3bd8caec848c2542faa59350b97cc2a7ca577720465e9eb5db8c7003c4",
+      "byteCount": 3293
     },
     {
       "ref": "repo://abiogenesis/specification/requirements/gtl/REQ-L-GTL3-GRAPH.md",
@@ -333,8 +333,8 @@
     {
       "ref": "repo://abiogenesis/specification/requirements/gtl/REQ-L-GTL3-HOF.md",
       "path": "contracts/qualification/sources/REQ-L-GTL3-HOF.md",
-      "digest": "sha256:8a39633b575ac4cf8b0f9d1ae2f9546cb22ea3e4c858ebd101b6ba9bd60c556c",
-      "byteCount": 5096
+      "digest": "sha256:ec13aed9e63b6674d7abd9a70dcb299e9e96fa83da5245feea0599d4772b6e14",
+      "byteCount": 4905
     },
     {
       "ref": "repo://abiogenesis/specification/requirements/gtl/REQ-L-GTL3-HOOKS.md",
@@ -363,8 +363,8 @@
     {
       "ref": "repo://abiogenesis/specification/requirements/gtl/REQ-L-GTL3-LANGUAGE-CAPABILITY-MODEL.md",
       "path": "contracts/qualification/sources/REQ-L-GTL3-LANGUAGE-CAPABILITY-MODEL.md",
-      "digest": "sha256:d71d8b530f6efc1b611dcf0079ee03d8838de0cd083fdea5488c1274b8261c4a",
-      "byteCount": 19343
+      "digest": "sha256:43b821a98c03a9ac54880b60e7a84b084286d98688424aecb4fd4f0e5bccff61",
+      "byteCount": 19337
     },
     {
       "ref": "repo://abiogenesis/specification/requirements/gtl/REQ-L-GTL3-LANGUAGE.md",
@@ -375,8 +375,8 @@
     {
       "ref": "repo://abiogenesis/specification/requirements/gtl/REQ-L-GTL3-LAWS.md",
       "path": "contracts/qualification/sources/REQ-L-GTL3-LAWS.md",
-      "digest": "sha256:8281ee62fe6139caf7e2f2245d2414f7993253f0bad3471bb3e6df00003c5d8f",
-      "byteCount": 9060
+      "digest": "sha256:de52559048dc6dc4e1c6f9a91ad2e89c0254c32005c970759a9b4b52d01d654b",
+      "byteCount": 9054
     },
     {
       "ref": "repo://abiogenesis/specification/requirements/gtl/REQ-L-GTL3-MODULE.md",
@@ -417,8 +417,8 @@
     {
       "ref": "repo://abiogenesis/specification/requirements/gtl/REQ-L-GTL3-RULE.md",
       "path": "contracts/qualification/sources/REQ-L-GTL3-RULE.md",
-      "digest": "sha256:e52d418e515d23a534848000f85900c326bc19a57e03c71708bcf37427b6c2cb",
-      "byteCount": 1722
+      "digest": "sha256:3140b788abeb567fe3b6164b98d65a244b004acd1063d8a3853dbfa129b30f74",
+      "byteCount": 1626
     },
     {
       "ref": "repo://abiogenesis/specification/requirements/gtl/REQ-L-GTL3-SELECTION-BOUNDARY.md",
@@ -583,6 +583,6 @@
       "byteCount": 94520
     }
   ],
-  "lawBasisRef": "qualification-law://abiogenesis/4dd7ebf32df417c22487164ca9643aa67f56200c1020b01d6b2db6f1882fd2e4",
-  "lawBasisDigest": "sha256:4dd7ebf32df417c22487164ca9643aa67f56200c1020b01d6b2db6f1882fd2e4"
+  "lawBasisRef": "qualification-law://abiogenesis/b65209be3cde607835a2c1a5486c435e5325f28c866039de025eb53f6dc6bdef",
+  "lawBasisDigest": "sha256:b65209be3cde607835a2c1a5486c435e5325f28c866039de025eb53f6dc6bdef"
 }
