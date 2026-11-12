@@ -81,7 +81,7 @@ test('cold acquisition receipt detaches caller input and preserves pure, copied,
     raw.prefixLength=0;assert.equal(captured.prefixLength,first.prefixLength,'caller mutation is detached');
     const rows=storeOwner.readRuntimeEventsAtDurablePrefix(captured,{requireCurrent:true});
     const truth=projectOwnedPrefixArtifactTruth(captured);assert.equal(truth.kind,'exact_prefix_artifact_truth_projection');
-    // M05_S06 design :361: "equal prefix reconstructs equal result"; object
+    // M05_S06 design :368: "equal prefix reconstructs equal result"; object
     // identity supports mechanics only (constitution :136), so the pure
     // projections are equal to the acquired rows, not the same vector.
     assert.deepEqual(completeEvents(runtimePrefixFromOwnedArtifactTruth(truth)),rows);

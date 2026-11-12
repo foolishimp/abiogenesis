@@ -25,7 +25,7 @@ test('T287 disposable reuse preserves prefix/profile/file checks and rejects mut
   for(let i=0;i<3;i++){const path=join(scratch,'empty-'+i+'.jsonl');await writeFile(path,'',{flag:'wx'});files.push(await filePrefix(path,Buffer.alloc(0),owners));}
   const first=project(files[0]);assert.equal(first.kind,'exact_prefix_artifact_truth_projection');
   // The design's figure is equality, not identity: "equal prefix reconstructs equal result"
-  // (M05_S06_AXIOMATIC_AUTHORITY_AND_EXACT_PUBLIC_CONSTRUCTION_DESIGN.md:361).
+  // (M05_S06_AXIOMATIC_AUTHORITY_AND_EXACT_PUBLIC_CONSTRUCTION_DESIGN.md:368).
   assert.deepStrictEqual(project(structuredClone(files[0])),first,'equal prefix reconstructs equal result');
   assert.equal(Object.isFrozen(first),true);assert.equal(Object.isFrozen(first.prefix.storeIdentity),true);
   const supplied=structuredClone(first);assert.equal(owners.artifact.validateExactPrefixArtifactTruthProjection(supplied),true);
