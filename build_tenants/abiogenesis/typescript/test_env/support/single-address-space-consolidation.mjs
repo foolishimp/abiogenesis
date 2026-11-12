@@ -32,7 +32,7 @@ const COUNTED = ['readAll', 'materialize', 'snapshot', 'decodeEventBody', 'isImm
   'selectValidatedRuntimeEventPrefix', 'selectOwnedRuntimeEventPrefix', 'validateHistoricalEvents',
   'readAuthenticatedRuntimePrefixBytes', 'sha256Canonical', 'canonicalJson', 'acquireAbgEventResource',
   'closeAbgEventResource', 'runInstalledDefinitionCallWithResource', 'runInstalledDefinitionCallTransport',
-  'admitTraversalFrameCursor', 'admitPendingConstructionIntentContinuation', 'rehydrateParentReturnFrames',
+  'admitTraversalFrameCursor', 'rehydrateParentReturnFrames',
   'readRuntimeEventsAtDurablePrefix', 'projectRuntimeEventsAtDurablePrefix', 'readHeldRuntimeEventsAtDurablePrefix',
   'readActiveRuntimeTransactionAtDurablePrefix', 'selectActiveRuntimeTransactionHistoryAtDurablePrefix',
   'readOwnedRuntimeHistoryAtDurablePrefix', 'projectOwnedRuntimeHistoryAtDurablePrefix',

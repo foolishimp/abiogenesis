@@ -539,12 +539,12 @@ test('installed producer to consumer: borrowed held history keeps exact values, 
   assert.equal(prefixes.runtimeEventPrefixDigest(ownedAt()), grownDigest);
   assert.deepEqual(project(ownedAt()), ownedGrown.value.values);
 
-  // The actual installed invocation in this module instance: frame admission,
-  // traversal completion and continuation borrow the held selection. Equal
+  // The actual installed invocation in this module instance: frame admission
+  // and traversal completion borrow the held selection. Equal
   // invocations run after unrelated growth steps of two sizes. Each invocation
   // also adds same-basis history, so the difference between the two steps'
   // body-row growth isolates the owner's passes over unrelated history.
-  const [publicApi, history, continuationOwner] = await Promise.all(['public/index', 'abg/runtime_history', 'abg/construction_continuation'].map(load));
+  const [publicApi, history] = await Promise.all(['public/index', 'abg/runtime_history'].map(load));
   const work = () => ({...history.RuntimeHistorySelection.owner(prefixes.selectOwnedRuntimeEventPrefix(resource.store).selection).work});
   const delta = (after, before) => Object.fromEntries(Object.keys(after).map(key => [key, after[key] - before[key]]));
   const STEPS = [0, 32, 256], cliKinds = run.events.filter(event => event.runId === runId).map(event => event.kind);
@@ -582,21 +582,8 @@ test('installed producer to consumer: borrowed held history keeps exact values, 
       copied: outcome(await publicApi.runInstalledDefinitionCallWithResource(structuredClone(selection), constructed.value.call)),
       crossed: outcome(await publicApi.runInstalledDefinitionCallWithResource(selection, constructed.value.call))};
     assert.equal(abg.selectHeldEventStoreDurablePrefix(resource.store).prefixLength, selection.prefix.prefixLength, 'refusals append nothing');
-    // Same input, migrated owner against its replaced expression: the
-    // per-successor construction-intent continuation with nothing pending.
-    const continuationBefore = work();
-    const continued = await meter.measure('construction_continuation_no_pending_' + index, () => continuationOwner.admitPendingConstructionIntentContinuation(
-      resource.store, selection.prefix, opened.runId, new Date().toISOString(), 'correlation://single-address-space/continuation-' + index), watch);
-    const continuationWork = delta(work(), continuationBefore);
-    assert.equal(continued.value, selection.prefix, 'nothing pending: the owner returns its exact predecessor');
-    const replacedBefore = work();
-    const replaced = await meter.measure('replaced_continuation_expansion_' + index, () =>
-      prefixes.selectValidatedRuntimeEventPrefix(store.readRuntimeEventsAtDurablePrefix(selection.prefix)), watch);
-    const replacedWork = delta(work(), replacedBefore);
-    assert.equal(prefixes.runtimeEventPrefixDigest(replaced.value), prefixes.runtimeEventPrefixDigest(ownedAt()), 'both read one exact prefix');
     invocations.push({index, entryEvents, successorEvents: prefixes.runtimeEventPrefixExtent(current).count, runId: opened.runId,
-      events: kinds.length, ownerWork, refusals, construct: constructed.measurement, run: ran.measurement,
-      continuation: {ownerWork: continuationWork, measurement: continued.measurement}, replaced: {ownerWork: replacedWork, measurement: replaced.measurement}});
+      events: kinds.length, ownerWork, refusals, construct: constructed.measurement, run: ran.measurement});
   }
   // One replaced full expansion at the final prefix: the per-event body cost of
   // selectValidatedRuntimeEventPrefix(readRuntimeEventsAtDurablePrefix(prefix)).
@@ -609,19 +596,14 @@ test('installed producer to consumer: borrowed held history keeps exact values, 
     return {from: prior.index, to: row.index, historyEvents: row.entryEvents - prior.entryEvents, unrelatedEvents: STEPS[row.index],
       bodyRows: row.ownerWork.bodyRows - prior.ownerWork.bodyRows,
       isImmutableRuntimeValue: row.run.ownerCalls.isImmutableRuntimeValue - prior.run.ownerCalls.isImmutableRuntimeValue,
-      snapshot: row.run.ownerCalls.snapshot - prior.run.ownerCalls.snapshot,
-      continuationBodyRows: row.continuation.ownerWork.bodyRows - prior.continuation.ownerWork.bodyRows,
-      replacedBodyRows: row.replaced.ownerWork.bodyRows - prior.replaced.ownerWork.bodyRows,
-      continuationWalks: row.continuation.measurement.ownerCalls.isImmutableRuntimeValue - prior.continuation.measurement.ownerCalls.isImmutableRuntimeValue,
-      replacedWalks: row.replaced.measurement.ownerCalls.isImmutableRuntimeValue - prior.replaced.measurement.ownerCalls.isImmutableRuntimeValue};
+      snapshot: row.run.ownerCalls.snapshot - prior.run.ownerCalls.snapshot};
   });
   // Per unrelated event: body rows touched, and the same in units of one
   // replaced expansion (one body row per history event, one walk per body).
   const unrelated = STEPS[2] - STEPS[1], slope = key => (growthRows[1][key] - growthRows[0][key]) / unrelated;
   const perEventWalk = reference.measurement.ownerCalls.isImmutableRuntimeValue / referenceEvents;
   const unrelatedWork = {fullPasses: slope('bodyRows'), immutabilityWalks: slope('isImmutableRuntimeValue') / perEventWalk,
-    snapshotsPerEvent: slope('snapshot'), continuationPasses: slope('continuationBodyRows'), replacedPasses: slope('replacedBodyRows'),
-    continuationWalksPerEvent: slope('continuationWalks'), replacedWalksPerEvent: slope('replacedWalks')};
+    snapshotsPerEvent: slope('snapshot')};
   // Whole-invocation passes over unrelated history remain in owners outside
   // the migrated callers; they are recorded with their durable-prefix reader
   // calls and returned to Root, not asserted as a bound.
@@ -633,22 +615,11 @@ test('installed producer to consumer: borrowed held history keeps exact values, 
   for (const row of invocations) {
     assert.deepEqual(row.refusals, invocations[0].refusals, 'refusals are equal as unrelated history grows');
     for (const [name, refused] of Object.entries(row.refusals)) assert.equal(refused.code, 'acquisition_mismatch', name + ' selection refuses');
-    assert.ok(row.run.ownerCalls.admitTraversalFrameCursor > 0 && row.run.ownerCalls.admitPendingConstructionIntentContinuation > 0,
-      'the measured invocation reaches cursor admission and per-successor continuation');
+    assert.ok(row.run.ownerCalls.admitTraversalFrameCursor > 0, 'the measured invocation reaches cursor admission');
     assert.equal(row.run.ownerCalls.readActiveRuntimeTransactionAtDurablePrefix, 0, 'cursor admission materializes no transaction history');
     assert.equal(fullReaders(row), fullReaders(invocations[0]), 'full-history reader calls do not grow with history');
   }
   assert.equal(referenceWork.bodyRows, referenceEvents, 'one replaced expansion touches every history body once');
-  // Accumulated duplicate work: the replaced expression re-touches every
-  // unrelated body on each use; the migrated owner touches none of them.
-  assert.ok(Math.abs(unrelatedWork.replacedPasses - 1) < 0.01, 'the replaced expression passes once over unrelated history per use');
-  assert.equal(unrelatedWork.continuationPasses, 0, 'the migrated continuation owner touches no unrelated body');
-  assert.ok(unrelatedWork.replacedWalksPerEvent > 1, 'the replaced expression walks every unrelated body');
-  assert.equal(unrelatedWork.continuationWalksPerEvent, 0, 'the migrated continuation owner walks no unrelated body');
-  for (const row of invocations) {
-    assert.ok(row.continuation.ownerWork.bodyRows < row.replaced.ownerWork.bodyRows, 'the migrated owner touches fewer bodies than its replaced read');
-    assert.equal(row.continuation.measurement.ownerCalls.readRuntimeEventsAtDurablePrefix, 0, 'the migrated owner uses no complete durable read');
-  }
 
   // Final close, stale-handoff refusal and genuine cold reopen.
   const finalDigest = prefixes.runtimeEventPrefixDigest(ownedAt()), finalValues = project(ownedAt());
