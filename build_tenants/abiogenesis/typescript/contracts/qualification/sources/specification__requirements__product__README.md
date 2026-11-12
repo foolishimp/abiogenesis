@@ -10,7 +10,7 @@ Use these families for the observable product contract that sits above pure lang
 - policy and operational governance
 - addressable public contract, schema, vocabulary, corpus, operation, and capability catalogs
 - catalog-product descriptors, contributions, dependencies, and public reads
-- the SYSTEM-owned agent-invocable Consensus GraphFunction
+- Consensus schema and vocabulary contract rows
 - installed substrate contracts
 - ABIogenesis product self-conformance
 - qualification and evidence expectations

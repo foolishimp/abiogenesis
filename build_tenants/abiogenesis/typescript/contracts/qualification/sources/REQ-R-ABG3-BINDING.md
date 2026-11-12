@@ -22,7 +22,7 @@ aggregates.
 
 **REQ-R-ABG3-BINDING-003**: Execution-scoped binding surfaces shall preserve at minimum admitted program identity and digest, one immutable `WorkspaceBinding` identity and digest, selected graph-function identity and program-membership evidence, semantic job identity when present, runtime run identity, worker identity, role identity, execution basis, and invocation-authority reference.
 
-**REQ-R-ABG3-BINDING-004**: When HoG traverses a published GraphFunction and a selected implementation binding realizes its declared leaf effects, ABG binding truth shall preserve the admitted-program identity, exact selected action or current-intent basis, GraphFunction identity and program-membership evidence, workspace binding, graph-call identity, execution basis, implementation-binding identity, and materialization identity associated with execution.
+**REQ-R-ABG3-BINDING-004**: When HoG traverses a published GraphFunction and a selected implementation binding realizes its declared leaf effects, ABG binding truth shall preserve the admitted-program identity, GraphFunction identity and program-membership evidence, workspace binding, graph-call identity, execution basis, implementation-binding identity, and materialization identity associated with execution.
 
 **REQ-R-ABG3-BINDING-005**: Binding conformance shall be validated against the admitted GTL program, exact workspace binding, published graph-function membership, resolved runtime policy, and exact invocation authority before execution or approval.
 
@@ -48,7 +48,7 @@ aggregates.
 
 **REQ-R-ABG3-BINDING-016**: `WorkspaceAuthorityBasis` shall contain only stable workspace identity, canonical root locator, authority mode, and authority-bearing manifest or configuration truth. `WorkspaceBinding` shall immutably join that basis to the exact installed product set, resolved lock, and declared roots. The workspace identity, authority basis identity, and authorized actor reference that the binding takes from that basis, the identities of its product set and resolved lock, and each of its declared roots are non-blank strings with no leading or trailing whitespace and no NUL character; a bind request that carries any other value is refused. Readiness, runtime projection, replay cursor, worksite observations, and mutable-root content shall not enter either authority identity.
 
-**REQ-R-ABG3-BINDING-017**: Every re-observation of file, process, runtime, replay, readiness, or mutable worksite truth shall create or admit a new `ObservationSnapshot` bound to the same workspace binding when authority is unchanged. A newer observation may stale dependent model, gap, or next-action projections; it shall not mutate the workspace binding or constitute `basis_fork_detected`.
+**REQ-R-ABG3-BINDING-017**: Every re-observation of file, process, runtime, replay, readiness, or mutable worksite truth shall create or admit a new `ObservationSnapshot` bound to the same workspace binding when authority is unchanged. A newer observation shall not mutate the workspace binding or constitute `basis_fork_detected`.
 
 **REQ-R-ABG3-BINDING-018**: A changed workspace authority basis, installed
 product set, resolved lock, or declared root shall require a separately admitted

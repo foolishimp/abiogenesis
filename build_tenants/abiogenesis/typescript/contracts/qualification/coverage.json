@@ -1,27 +1,27 @@
 {
   "kind": "qualification_coverage_catalog",
   "lawBasis": {
-    "ref": "qualification-law://abiogenesis/665ff5006a29f6da0b0802e8febca3f8c944ae1e7436ccd0d6bc515808a40497",
-    "digest": "sha256:665ff5006a29f6da0b0802e8febca3f8c944ae1e7436ccd0d6bc515808a40497"
+    "ref": "qualification-law://abiogenesis/396dffec05ca8dbf0d322b3214671458255e6260f30eddb3683715ca8c795c82",
+    "digest": "sha256:396dffec05ca8dbf0d322b3214671458255e6260f30eddb3683715ca8c795c82"
   },
   "authoritySources": [
     {
       "ref": "repo://abiogenesis/specification/PRODUCT.md",
       "path": "contracts/qualification/sources/PRODUCT.md",
-      "digest": "sha256:9282f62546cc80fb30ed8498108e0224d791eaa2ac2c7a3196f2b24f52ae6c2b",
-      "byteCount": 103994
+      "digest": "sha256:f04ae4ae82656da941879704b32a25bb5a9ce16d6f1706c9fef07e4e7801ff09",
+      "byteCount": 103942
     },
     {
       "ref": "repo://abiogenesis/specification/requirements/product/REQ-P-QUAL.md",
       "path": "contracts/qualification/sources/REQ-P-QUAL.md",
-      "digest": "sha256:ac0e868285c37da143c286fcf1aae18be625707630b3a7f3b3b6085d4f280a28",
-      "byteCount": 36574
+      "digest": "sha256:ef5bdafa8a4c3b37419396b46963df6df8b382bbd09515f2bb2a1534a7e0dcea",
+      "byteCount": 35941
     },
     {
       "ref": "repo://abiogenesis/specification/requirements/product/REQ-P-SCENARIOS.md",
       "path": "contracts/qualification/sources/REQ-P-SCENARIOS.md",
-      "digest": "sha256:5126f116cd64f64b48ccdd9126d3709a73c4090f73251c84320c6ae11c7a36dd",
-      "byteCount": 17479
+      "digest": "sha256:5f9a1512aba9493365c934f04863a7e4b2c5e16f70685e02fe63db61c0c686dd",
+      "byteCount": 16331
     },
     {
       "ref": "repo://abiogenesis/specification/requirements/product/REQ-P-SELF-CONFORMANCE.md",
@@ -318,6 +318,6 @@
       ]
     }
   ],
-  "catalogRef": "qualification-coverage://abiogenesis/f4620efc856e8f5749100eb8d039debac978c94047a1d8f96ae5567373d6f5f7",
-  "catalogDigest": "sha256:f4620efc856e8f5749100eb8d039debac978c94047a1d8f96ae5567373d6f5f7"
+  "catalogRef": "qualification-coverage://abiogenesis/b6190c7a18a6e1054802e3e2b7d3f39d2fbc83e2dbdf5fe45f764349ed6e11d2",
+  "catalogDigest": "sha256:b6190c7a18a6e1054802e3e2b7d3f39d2fbc83e2dbdf5fe45f764349ed6e11d2"
 }

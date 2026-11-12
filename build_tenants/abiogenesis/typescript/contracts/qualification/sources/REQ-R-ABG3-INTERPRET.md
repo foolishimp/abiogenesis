@@ -61,7 +61,7 @@ unresolved runtime law.
 
 **REQ-R-ABG3-INTERPRET-011**: Public ingress shall validate and admit one typed
 invocation, then ignite or continue the admitted GTL program. It shall not
-order One Surface, choose private traversal state, retry, construct
+order the program's steps, choose private traversal state, retry, construct
 continuation, or decide closure.
 
 **REQ-R-ABG3-INTERPRET-012**: HoG next-locus selection shall derive from the
@@ -144,8 +144,8 @@ vectors as public authority, overlays as execution shortcuts, schedule data as
 topology, plugin files as result law, unavailable consequences, adapter route
 selection as bind law, and ambiguous entry candidates.
 
-**REQ-R-ABG3-INTERPRET-030**: The admitted GTL program shall own the One Surface
+**REQ-R-ABG3-INTERPRET-030**: The admitted GTL program shall own its step
 order and every published recursive refinement. HoG shall traverse that order.
-ABG shall preserve the four semantic authorities and distinct intent,
-invocation, evidence, action-result, and continuation admission boundaries.
+ABG shall preserve distinct selection, invocation, evidence, and continuation
+admission boundaries.
 No helper, worker, SDK, CLI, or fixture may become a second controller.
