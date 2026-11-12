@@ -1051,9 +1051,7 @@ The SDK and CLI may parse, type, transport, ignite, and render. They may not:
 - order One Surface; or
 - decide closure.
 
-One bounded Codex projection may delegate to the same public contract. It owns
-no copied program, traversal, event, continuation, or product behavior. Native
-operation must not depend on Codex, Claude, or another marketplace host.
+Native operation must not depend on Codex, Claude, or another marketplace host.
 
 ## Standard GTL Product Constructions
 

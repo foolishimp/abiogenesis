@@ -242,7 +242,7 @@ no independent semantics.
 result, error/refusal, and invocation-descriptor schemas and native symbols. It
 shall declare defaults, closed value domains, actor requirements, read/write or
 attestation class, event-admission behavior, terminal/non-terminal disposition,
-adapter exit classification, and the operation-and-variant-indexed
+and the operation-and-variant-indexed
 `workspaceBindingRequirement` value `forbidden | exactly_one`. No concrete
 variant shall carry a freely optional workspace binding. Prose spelling, CLI
 parsing, prior examples, or adapter convention shall not supply a missing field.
