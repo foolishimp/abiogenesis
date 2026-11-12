@@ -4,24 +4,39 @@ Writer: Claude Opus 5.5. Branch `claude/td77-recorded-lock-truth` from local
 `main` at `c1f655735`, worktree `/private/tmp/abg-td77`. T is
 `build_tenants/abiogenesis/typescript`. No push, no tag, no merge.
 
-**Status: built under C1 to C5; no stop condition holds. The lock,
-verified-artifact and capability-graph guards each have one body with two
-questions: strict (today's guard, unchanged) and recorded (every relation
-within the carrier, the catalog digest recomputed from the carrier's own
-contracts, identities naming rows of its own graph, the graph's own
-relations; no register read). The fold and every read copy bound to recorded
-history ask recorded; the candidate, every door, constructor, verification,
-install and every path that starts or continues work ask strict. Under a
-changed register (the simulated withdrawal of `interaction.respond` and a
-real register edit) artifact truth projects on all 121 stores with the base
-digest, where base refuses all 121. Four lane cases still refuse under a
-changed register because they are work paths that C4 keeps strict
-(conformance evaluation; the historical GraphCall source of a running
-C-call): ruling item 22.1. The 22 TD-77 lanes pass. Before and after, 64 test
-files (387 tests on base) have the same outcome per case on this build; no
-pass to fail. Replay is byte-identical; the catalog digest and the `.d.ts`
-output are unchanged. Items 22.2 and 22.3 record two consequences of C1 for
-the Executive.**
+**Status: built, then stopped on the brief's last stop condition, found by a
+probe after the build; and the evidence at scale misses the brief's
+expectation on four lane cases.**
+
+1. **Stop.** A lock whose catalog digest does not recompute from its own
+   contracts passes the strict question and fails the recorded one. The
+   `./abg` door `admitProductInstall` asks strict and appends it, on base and
+   on this build alike. A cold reopen of that store then folds on base and
+   throws on this build ("Product install inline body requires one resolved
+   lock and no body cause"), so every path that reads that store's artifact
+   truth after a reopen now refuses where it read before. C1 (the catalog
+   recompute) and C2 (the fold asks recorded) produce it together; removing
+   it needs either a check at the door, which C4 forbids, or a change to C1.
+   I did not design around it (16.5, 22.3). No recorded lock is such a lock
+   (186 of 186 recompute).
+2. **Evidence at scale.** Under a changed register (the simulated withdrawal
+   of `interaction.respond` and a real register edit) artifact truth projects
+   on all 121 stores with the base digest, where base refuses all 121; every
+   read in the three named lanes projects. Four cases of those lanes still
+   refuse, where the brief expected the unchanged outcome: they are work
+   paths that C4 keeps strict (conformance evaluation; the historical
+   GraphCall source of a running C-call). Ruling item 22.1.
+
+What holds: the lock, verified-artifact and capability-graph guards each have
+one body with two questions, strict (today's guard, unchanged) and recorded
+(every relation within the carrier, the catalog digest recomputed from the
+carrier's own contracts, identities naming rows of its own graph, the graph's
+own relations; no register read). The fold and every read copy bound to
+recorded history ask recorded; the candidate, every door, constructor,
+verification, install and every path that starts or continues work ask
+strict. The 22 TD-77 lanes pass. Before and after, 64 test files (387 tests on
+base) have the same outcome per case on this build; no pass to fail. Replay
+is byte-identical; the catalog digest and the `.d.ts` output are unchanged.
 
 Commits on the branch, oldest first:
 
@@ -38,7 +53,8 @@ Commits on the branch, oldest first:
 | `48ab252d7` | code: keep each owner's name, the question as an internal overload |
 | `2ea2c0214` | lanes: ask through the overloaded names; a callback index is strict |
 | `939e3e74c` | code: artifact truth imports the lock guard from the Product index, as at base |
-| this commit | the Return |
+| `bb07c9db4` | Return: the build, before the door probe |
+| this commit | Return: the stop the door probe found, lints, status |
 
 Lines changed under `code/src`, `design` and `test_env`: 1117 added, 69
 removed (code 500/66, design 111/3, lanes 506/0); section 20.
@@ -377,7 +393,7 @@ Answered by C1 to C5; section 9 says how each is realized.
 | C1, the recorded question | The lock guard's recorded question keeps every check of today's guard except the three register reads (identities against `capabilityRefsForContract`, the empty-graph branch of `lockRowGraphMatchesCatalog`, and graph equality with `constructCapabilityDefinitionGraph`), and adds `recordedCapabilityIdentitiesHold` (catalog digest recomputed by `productPublicContractCatalogDigest` from the row's own contracts with its own catalog-schema locator; every identity names a row of the row's graph; an empty graph carries no identity) and the graph relations `capabilityGraphRelationsHold` (table 11.2). The strict question is today's guard: its register checks are unchanged and the graph relations it adds are implied by its equality with the register's construction. The shared checks are one body per guard. |
 | C2, who asks which question | The question is a trailing argument of an `@internal` overload; the exported signatures ask the strict question and any value other than `"recorded"` is strict. Table 12 lists every entry and where it sets the question. The fold asks recorded; the candidate asks strict, so the module-level `admitArtifact` refuses before append a lock that fails strict (`artifact_truth_conflict`; `t289-install-event-bodies` unchanged). `admitGraphFunctionCatalog` and `reconstructHistoricalDeclarationCatalog` take the question from their callers. The read copies are bound as section 13 shows. `product/invocation.ts:751` (now `:756`, `selectedCapabilityOwner`) has two callers: the admission grant (`:942`, strict) and grant construction (`constructInvocationCapabilityGrant`, `:968`), reached from `constructCapabilityGrant` and `validateCapabilityGrantForProductBasis`. Of their callers only the run-read authority (`abg/project_read_definition_bindings.ts:631`, `:822`) reads history and asks recorded; the run continuation, admission and invocation callers are new work and stay strict. No caller does both. |
 | C3, the verified-artifact guard | Section 14: the carrier, the digests that bind each part, and the recorded relation (the same `recordedCapabilityIdentitiesHold` and graph relations, plus the artifact's own owner-coordinate, roster and verification-digest relations). The C3 stop does not hold: the catalog digest commits to a verified artifact's identities as to a lock row's, and a verified artifact in a read is bound by lock-row equality and the recorded root basis digest. |
-| C4, reading is not running | Every path that starts or continues work keeps the strict question (table 12). The run-door lane refuses each register variant with `binding_lock_mismatch` at the Catalog stage and `incompatible_or_unproven` at execution resolution, on the base build and on this build, and `workspace_status` under the strict question refuses each with `not_ready` on both (section 15). The four lane cases that still refuse under a changed register are work paths (residual 22.1). |
+| C4, reading is not running | Every path that starts or continues work keeps the strict question (table 12). The run-door lane refuses each register variant with `binding_lock_mismatch` at the Catalog stage and `incompatible_or_unproven` at execution resolution, on the base build and on this build, and `workspace_status` under the strict question refuses each with `not_ready` on both (section 15). The four lane cases that still refuse under a changed register are work paths (residual 22.1). One stop: a door appends a lock that only strict accepts, and this build's fold refuses that store on a cold read (16.5, 22.3). |
 | C5 | No specification sentence is edited. The constitution passages that describe the guard are listed in section 10 and not edited. |
 
 ## 10. Design text
@@ -650,6 +666,34 @@ The register edit changes identities, not the graph, so every graph stays
 strict and every lock with a toolchain row fails the strict identity check.
 The recorded question accepts every recorded lock under both registers.
 
+### 16.5 Probe: a door and a lock that only the strict question accepts
+
+`/private/tmp/abg-td77-work/probe-forged/probe.mjs` (scratch, not a lane;
+outputs `final.json` and `base.json` beside it). It takes the first recorded
+install lock of the rc.10 native-assessment fixture, sets the toolchain row's
+`catalogDigest` to another sha256, carries it into every owner coordinate of
+the graph and the contribution manifest, and reseals the row digests, graph
+digest, graph asset digest, contribution manifest digest and lock digest
+(resealing the unchanged lock reproduces it). It then admits an install of
+that lock through `admitProductInstall` (`abg/environment_admission.ts:1144`)
+into a new empty store, folds the store in process, and folds it cold from
+the appended bytes. Final run on a copy of this build with its generated files
+(`/private/tmp/abg-td77-work/td36r-final`), base run on `base-root`:
+
+| | This build | Base |
+| --- | --- | --- |
+| forged lock, strict | accepted | accepted |
+| forged lock, recorded | refused (catalog digest does not recompute) | base has one question |
+| `admitProductInstall` | `artifact_owner_result`, one event appended | the same |
+| fold in process (the store's owned derivation) | projects | projects |
+| fold cold from the appended bytes | throws "Product install inline body requires one resolved lock and no body cause" | projects |
+| control: the recorded lock, same steps | admitted; both folds project | the same |
+
+The door's own outcome is unchanged; what changes is every later read of that
+store from its bytes. The Public `product.install` operation path
+(`install_definition_bindings.ts`, `install_product.ts`) was not probed: it
+also compares the lock with a verified artifact and an installed root.
+
 ## 17. Lanes before and after
 
 Each file alone, in the foreground order of `/private/tmp/abg-td77-work/battery/lanes.txt`, with
@@ -738,6 +782,16 @@ builds; pass to fail: none. The 32 skips are the same cases on both.
 | `t287-single-address-space-consolidation` | 17/17/0/0 | 17/17/0/0 | same | 515 | 544 |
 | `t292-td77-recorded-product-truth` | absent | 22/22/0/0 | same |  | 41 |
 | `t287-wave2-owner-contract-source-set` | 15/15/0/0 | 15/15/0/0 | same | 0 | 1 |
+
+Build and lints on this build (`939e3e74c`) and on base:
+
+| Check | This build | Base |
+| --- | --- | --- |
+| `npm run build` (`tsc` and the manifest generator) | passes | passes |
+| `lint:imports`, `lint:lifecycle`, `lint:calculus` | pass | pass |
+| `lint` with `test_env/qualification/recipe/verification-recipe.json` | 71 of 72 files pass; `test_env/uat/continuation.test.mjs` is absent from the tree | the same |
+| `lint:evidence` | fails: `.ai-workspace/evidence/TREE_MIRROR_INVENTORY.json` is absent from the worktree | the same |
+| `node --check` on the TD-77 lane file (not in the recipe) | passes | |
 
 ## 18. Replay comparison
 
@@ -841,17 +895,19 @@ committed.
    (recorded). It accepts what both questions accept; they differ only on
    the carrier of item 3. The recorded admission does not hit the strict
    cache, so qualification pays one more full Catalog admission per proof.
-3. **Strict does not imply recorded on one kind of carrier, and C1 makes
-   the fold refuse it.** The strict question never recomputed the catalog
+3. **The stop: strict does not imply recorded on one kind of lock, and a
+   door appends it.** The strict question never recomputed the catalog
    digest, so a lock whose `catalogDigest` is consistent across its
-   contribution manifest and graph coordinates but does not recompute from
-   its own contracts passes strict and fails recorded. On base the fold
-   accepts a store carrying such a lock; on this build the fold (recorded,
-   C2) throws, and every work path that reads that store's artifact truth
-   refuses with it. This follows from C1's catalog recompute and C2's fold
-   question, not from a check added on a work path. No recorded lock is one
-   (186 of 186 recompute, section 16.4). The Executive may rule whether
-   this is C4's concern.
+   contribution manifest and graph coordinates but does not recompute from its
+   own contracts passes strict and fails recorded. `admitProductInstall` checks strict and appends
+   it, on base and on this build; a cold fold of that store throws on this
+   build and projects on base (16.5). That alters what the paths that read
+   that store refuse, which is the brief's last stop condition. It follows
+   from C1's catalog recompute and C2's fold question; the remedies are a
+   recorded check at the door (a new check on a work path, against C4) or
+   dropping the recompute from C1. Not designed around. No recorded lock is
+   such a lock (186 of 186 recompute, section 16.4). For the Executive's
+   ruling.
 4. **The fold's `release.snapshot` branch reads the register.**
    `isReleaseOperationArtifact` (`implementation/release_publication.ts:143`)
    admits the snapshot's bound environment and compares its capability
@@ -894,6 +950,8 @@ committed.
   `"recorded"` by accident.
 - The module-level `admitArtifact` appending a lock that fails strict (the
   candidate at `abg/environment_admission.ts:1090` is strict).
+- Another lock that strict accepts and recorded refuses, beyond the catalog
+  digest of 22.3, and a door that appends it (16.5 has the probe).
 - A read copy whose binding does not refuse a recorded-accepted value that is
   not the recorded one (section 13): for the run read, a supplied proof
   whose Catalog is re-admitted under recorded with a lock or verified set the
