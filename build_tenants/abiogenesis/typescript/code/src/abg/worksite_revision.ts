@@ -32,9 +32,6 @@ import { SEMANTIC_REVISION_IDS } from "../gtl/semantic_revision_identity.js";
 import { SEMANTIC_STAGE_IDS } from "../gtl/semantic_stage_identity.js";
 import type { WorkspaceBinding, WorkspaceAuthorityBasis } from "../product/environment.js";
 import type { GraphFunction } from "../gtl/contracts.js";
-import type { WorksiteCommandExecutionTask } from "../product/worksite_command_execution.js";
-import type { WorksiteCommandForwardRequest, WorksiteCommandForwardSnapshotSource } from "../product/worksite_command_forward.js";
-import { constructWorksiteSubject } from "../product/worksite_effect.js";
 import { projectRuntimeEventFromValidatedHistory, type RuntimeEvent } from "./event_store.js";
 import { projectWorksiteTransitionForResult, deriveRuntimeHeldFluentProjection, holdsAt,
   constructWorksiteObservationCurrentFluent } from "./event_calculus.js";
@@ -335,7 +332,7 @@ function samePhysicalSubject(prefix:RuntimeEventPrefix,a:WorksiteSubject,b:Works
 }
 /** A known native write under any W for this physical subject invalidates an
  * older alias. It never provides a replacement from an unrelated invocation. */
-function invalidatedAcrossBindings(prefix:RuntimeEventPrefix,subject:WorksiteSubject,ordinal:number,work?:RetainedOriginSession):boolean {
+function invalidatedAcrossBindings(prefix:RuntimeEventPrefix,subject:WorksiteSubject,ordinal:number):boolean {
   // Authority identity still owns provenance transfer in samePhysicalSubject.
   // Physical invalidation resolves the admitted root and exact path only.
   const binding = exactOrNull(resolveExactMatch(projectArtifactTruth(prefix).artifacts, row => row.operationId === "abg.operation.workspace.bind" &&
@@ -599,25 +596,13 @@ export function worksiteRevisionSeedMatches(seedBasis: ExecutionBasis, ancestor:
     canonicalEquals(input.worksite.workspaceAuthorityBasis, current.workspaceAuthorityBasis) &&
     canonicalEquals(input.worksite.workspaceBinding, current.workspaceBinding);
 }
-interface RetainedOriginSession {
-  readonly prefix:RuntimeEventPrefix;
-  readonly events:RuntimeEventBodyView;
-  readonly calculus:ReturnType<typeof deriveRuntimeHeldFluentProjection>;
-  readonly transitions:Map<string,ReturnType<typeof projectWorksiteTransitionForResult>>;
-}
-function retainedTransition(work:RetainedOriginSession,event:RuntimeEvent) {
-  if(!work.transitions.has(event.eventId))work.transitions.set(event.eventId,
-    projectWorksiteTransitionForResult(event,work.events.filter(row=>row.admissionOrdinal<event.admissionOrdinal)));
-  return work.transitions.get(event.eventId)!;
-}
-function currentReplacement(prefix: RuntimeEventPrefix, observation: WorksiteObservation, work?:RetainedOriginSession) {
-  if(work!==undefined&&work.prefix!==prefix)return null;
-  const events = work?.events??runtimeEventBodiesAtPrefix(prefix);
-  const calculus = work?.calculus??deriveRuntimeHeldFluentProjection(prefix);
+function currentReplacement(prefix: RuntimeEventPrefix, observation: WorksiteObservation) {
+  const events = runtimeEventBodiesAtPrefix(prefix);
+  const calculus = deriveRuntimeHeldFluentProjection(prefix);
   if (!holdsAt(calculus, constructWorksiteObservationCurrentFluent(observation.observationRef))) return null;
   const candidates = events.flatMap(event => {
     if (event.kind !== "c_call_result_admitted" || !record(event.payload) || event.payload.resultClass !== "success") return [];
-    const transition = work===undefined?projectWorksiteTransitionForResult(event, events.filter(row => row.admissionOrdinal < event.admissionOrdinal)):retainedTransition(work,event);
+    const transition = projectWorksiteTransitionForResult(event, events.filter(row => row.admissionOrdinal < event.admissionOrdinal));
     if (transition?.successorObservation === null || transition === null || !canonicalEquals(transition.successorObservation, observation)) return [];
     const basis = typeof event.basisId === "string" ? projectExactExecutionBasisAtPrefix(prefix, event.basisId) : null;
     const opened = events.filter(row => row.kind === "c_call_fibre_selected" && row.aggregateId === event.aggregateId && row.basisId === event.basisId);
@@ -631,59 +616,6 @@ function currentReplacement(prefix: RuntimeEventPrefix, observation: WorksiteObs
     return [{ basis, event, evidence: evidence[0]! }];
   });
   return candidates.at(-1) ?? null;
-}
-
-type ClosedConstructionRetainedVector=Readonly<{snapshotSources:WorksiteCommandForwardSnapshotSource[];
-  bindingCoverEventRefs:NonNullable<ReturnType<typeof projectWorksiteRevisionBindingCover>>}>|null;
-/** Closed construction seed, separate from D2's semantic-stage seed. Reuses
- * the same native C0 currentness, physical-alias invalidation and cover owners. */
-export function projectClosedConstructionRetainedVector(prefix:ValidatedRuntimeEventPrefix,
-  task:WorksiteCommandExecutionTask,request:WorksiteCommandForwardRequest,bases:readonly ExecutionBasis[]):ClosedConstructionRetainedVector;
-/** @internal The same owner relation over the owner-selected prefix. */
-export function projectClosedConstructionRetainedVector(prefix:RuntimeEventPrefix,
-  task:WorksiteCommandExecutionTask,request:WorksiteCommandForwardRequest,bases:readonly ExecutionBasis[]):ClosedConstructionRetainedVector;
-export function projectClosedConstructionRetainedVector(prefix:RuntimeEventPrefix,
-  task:WorksiteCommandExecutionTask,request:WorksiteCommandForwardRequest,bases:readonly ExecutionBasis[]):ClosedConstructionRetainedVector {
-  try {
-    const current=nativeBinding(prefix,request.workspaceBinding);
-    if(current===null||!canonicalEquals(current.authority, request.workspaceAuthorityBasis)||
-      !canonicalEquals(task.workspaceAuthorityBasis, request.workspaceAuthorityBasis)||
-      task.workspaceBinding.workspaceId!==request.workspaceBinding.workspaceId||
-      task.protectedObservations.length!==request.protectedObservations.length||
-      task.sourceConstructionResult.members.length!==task.protectedObservations.length)return null;
-    const events=runtimeEventBodiesAtPrefix(prefix),sources:WorksiteCommandForwardSnapshotSource[]=[],sourceBases=[...bases];
-    // One invocation-local immutable-prefix session, never a filesystem or
-    // cross-prefix cache. Shared C0 proof queries are not multiplied by N.
-    const work:RetainedOriginSession={prefix,events,calculus:deriveRuntimeHeldFluentProjection(prefix),transitions:new Map()};
-    for(const [ordinal,old] of task.protectedObservations.entries()){
-      const member=task.sourceConstructionResult.members[ordinal],asserted=request.protectedObservations[ordinal];
-      if(member===undefined||asserted===undefined||member.inputMemberRef!==old.sourceMemberRef||
-        !canonicalEquals(member.successorObservation, old.observation))return null;
-      const producer=currentReplacement(prefix,old.observation,work);
-      if(producer===null||!bases.some(b=>b.invocationAdmissionRef===producer.basis.invocationAdmissionRef)||
-        !record(producer.event.payload)||!record(producer.event.payload.value)||
-        producer.event.payload.value.receipt===undefined||!canonicalEquals(producer.event.payload.value.receipt, member.receipt)||
-        invalidatedAcrossBindings(prefix,old.subject,producer.event.admissionOrdinal,work))return null;
-      // The C0 transition owner excludes workflow aliases; genuine producer
-      // multiplicity is still a refusal even when the observed bytes agree.
-      const producers=indexedRuntimeEvents(prefix, "kind:" + "c_call_result_admitted").filter(e=>e.kind==="c_call_result_admitted"&&
-        canonicalEquals((retainedTransition(work,e)?.successorObservation??null), old.observation));
-      if(producers.length!==1||producers[0]!.eventId!==producer.event.eventId)return null;
-      const subject=constructWorksiteSubject({workspaceAuthorityBasis:request.workspaceAuthorityBasis,workspaceBinding:request.workspaceBinding,
-        subjectUri:old.subject.subjectUri,relativePath:old.subject.relativePath});
-      if(subject.kind!=="worksite_subject")return null;
-      const observation=constructWorksiteObservation({subject,state:"file",fileIdentity:old.observation.fileIdentity,
-        fileDigest:old.observation.fileDigest,byteLength:old.observation.byteLength});
-      if(!canonicalEquals({subject,observation}, asserted))return null;
-      sourceBases.push(producer.basis);
-      sources.push({sourceMemberRef:old.sourceMemberRef,subject,observation:observation as typeof old.observation,
-        source:{kind:"retained_construction",resultAdmissionEventRef:producer.event.eventId,evidenceEventRef:producer.evidence.eventId,bindingCoverEventRefs:[]}});
-    }
-    const covers=projectWorksiteRevisionBindingCover(prefix,task.workspaceBinding,request.workspaceBinding,sourceBases);
-    if(covers===null||covers.length===0)return null;
-    return {snapshotSources:sources.map(row=>({...row,source:{...row.source,bindingCoverEventRefs:covers}})),
-      bindingCoverEventRefs:covers};
-  }catch{return null;}
 }
 /** Rehydrates the exact recorded origin and rejects all native supersession. */
 export function worksiteRevisionOriginSurvives(prefix: ValidatedRuntimeEventPrefix,

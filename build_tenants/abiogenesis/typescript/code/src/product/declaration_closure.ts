@@ -33,8 +33,6 @@ import {
   type ReadyGraphFunctionCatalog,
 } from "./catalog.js";
 import { modulePublicationSemanticDigest } from "./publication.js";
-import { isWorksiteCommandForwardGraphFunction } from "../gtl/worksite_command_forward.js";
-import { WORKSITE_COMMAND_FORWARD_IDS as forwardIds } from "./worksite_command_forward_identity.js";
 import { canonicalEquals } from "../shared/value/index.js";
 import { admitJson } from "../shared/admit/index.js";
 import { resolveExactMatch } from "../shared/select/index.js";
@@ -604,15 +602,6 @@ function resolveDeclarationClosure(
       );
     }
     if (graphLocations.has(graphFunctionRef)) continue;
-    const forwardClaim = graphFunction.declarations["abg.worksite_command_forward"] !== undefined ||
-      ([forwardIds.graphFunctionRef,forwardIds.childGraphFunctionRef] as readonly string[]).includes(graphFunctionRef) ||
-      graphFunction.template.nodes.some(node=>projectCProgramNodeDeclarationReferences(node.term).implementationBindingRefs.some(ref=>
-        ref===forwardIds.prepareBindingRef||ref===forwardIds.implementationBindingRef));
-    if(forwardClaim && (!isWorksiteCommandForwardGraphFunction(graphFunction) ||
-      program.programRef!==forwardIds.programRef || program.callableMembership.length!==2 ||
-      ![forwardIds.graphFunctionRef,forwardIds.childGraphFunctionRef].every(ref=>program.callableMembership.includes(ref)))) {
-      return refusal("wrong_owner","forward C2 must retain its exact finite no-construction Program and historical-proof marker");
-    }
     const recoveryClaim = graphFunction.declarations["abg.preserved_result_source"] !== undefined ||
       graphFunction.template.nodes.some(node => projectCProgramNodeDeclarationReferences(node.term).implementationBindingRefs.some(ref =>
         ref === WORKSITE_PRESERVED_RESULT_IDS.authenticateBindingRef || ref === WORKSITE_PRESERVED_RESULT_IDS.deriveBindingRef));

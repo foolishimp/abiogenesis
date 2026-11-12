@@ -56,19 +56,12 @@ import {
   type WorksiteSubject,
 } from "./worksite_effect.js";
 import { WORKSITE_REVISION_IDS, isWorksiteRevisionCommandExecutionTask,
-  isWorksiteRevisionObservationOrigin,
+  isWorksiteRevisionObservationOrigin, isWorksiteExecutionTask, worksiteExecutionSources,
+  worksiteExecutionIdentityPrefix, worksiteExecutionImplementationRef,
+  type WorksiteExecutionTask, type WorksiteExecutionObservation,
+  type WorksiteExecutionHelperArtifact, type WorksiteExecutionSnapshotMember,
   type WorksiteRevisionCommandExecutionTask, type WorksiteRevisionCommandExecutionObservation,
   type WorksiteRevisionCommandHelperArtifact, type WorksiteRevisionSnapshotMember } from "./worksite_revision.js";
-import { isExecutableWorksiteCommandTask as isWorksiteExecutionTask,
-  executableWorksiteCommandSources as worksiteExecutionSources,
-  executableWorksiteCommandIdentityPrefix as worksiteExecutionIdentityPrefix,
-  executableWorksiteCommandImplementationRef as worksiteExecutionImplementationRef,
-  isWorksiteCommandForwardWorkerResult,
-  type ExecutableWorksiteCommandTask as WorksiteExecutionTask,
-  type ExecutableWorksiteCommandObservation as WorksiteExecutionObservation,
-  type ExecutableWorksiteCommandArtifact as WorksiteExecutionHelperArtifact,
-  type ExecutableWorksiteSnapshotMember as WorksiteExecutionSnapshotMember,
-  type WorksiteCommandForwardObservation } from "./worksite_command_forward.js";
 import { isNativeWorkspaceWorkObservation, type NativeWorkspaceWorkObservation } from "./native_workspace_work.js";
 import { canonicalEquals } from "../shared/value/index.js";
 
@@ -1969,8 +1962,7 @@ export function constructWorksiteExecutionHelperArtifact(input: Readonly<Worksit
   };
   const artifactDigest = sha256Canonical(body);
   return deepFreeze({
-    kind: input.task.kind === "worksite_command_forward_task" ? "worksite_command_forward_helper_artifact" as const
-      : input.task.kind === "worksite_command_execution_task" ? "worksite_command_helper_artifact" as const : "worksite_revision_command_helper_artifact" as const,
+    kind: input.task.kind === "worksite_command_execution_task" ? "worksite_command_helper_artifact" as const : "worksite_revision_command_helper_artifact" as const,
     schemaVersion: SCHEMA_VERSION,
     artifactRef: identity(worksiteExecutionIdentityPrefix(input.task, "helper-artifact"), artifactDigest),
     artifactDigest,
@@ -1987,8 +1979,7 @@ export function isWorksiteExecutionHelperArtifact(
     "productDelta", "protectedAfter", "protectedBefore", "schemaVersion", "taskDigest", "taskRef",
     "snapshotDigest", "snapshotMembers", "snapshotRef", "snapshotRoot", "worksiteDelta",
     ...(value.disposition === "failure" ? ["failure"] : []),
-  ]) || value.kind !== (task.kind === "worksite_command_forward_task" ? "worksite_command_forward_helper_artifact"
-    : task.kind === "worksite_command_execution_task" ? "worksite_command_helper_artifact" : "worksite_revision_command_helper_artifact") || value.schemaVersion !== SCHEMA_VERSION ||
+  ]) || value.kind !== (task.kind === "worksite_command_execution_task" ? "worksite_command_helper_artifact" : "worksite_revision_command_helper_artifact") || value.schemaVersion !== SCHEMA_VERSION ||
     value.taskRef !== task.taskRef || value.taskDigest !== task.taskDigest ||
     !isSha256Digest(value.artifactDigest) || !nonempty(value.artifactRef)) return false;
   try {
@@ -2043,8 +2034,7 @@ export function constructWorksiteCommandExecutionWorkerResult(
   helperPlan: WorksiteCommandExecutionHelperPlan,
 ): WorksiteCommandExecutionWorkerResult {
   if (!isWorksiteExecutionTask(task) || !isRecord(rawValue) ||
-    !(task.kind === "worksite_command_forward_task" ? isWorksiteCommandForwardWorkerResult(rawValue)
-      : task.kind === "worksite_command_execution_task" ? isWorksiteCommandExecutionWorkerResult(rawValue)
+    !(task.kind === "worksite_command_execution_task" ? isWorksiteCommandExecutionWorkerResult(rawValue)
       : isWorksiteRevisionCommandExecutionWorkerResult(rawValue)) ||
     !isWorksiteCommandExecutionHelperPlan(task, helperPlan) ||
     rawValue.taskRef !== task.taskRef || rawValue.taskDigest !== task.taskDigest ||
@@ -2171,8 +2161,7 @@ export function constructWorksiteExecutionObservation(
   };
   const observationDigest = sha256Canonical(body);
   return deepFreeze({
-    kind: task.kind === "worksite_command_forward_task" ? "worksite_command_forward_observation" as const
-      : task.kind === "worksite_command_execution_task" ? "worksite_command_execution_observation" as const : "worksite_revision_command_execution_observation" as const,
+    kind: task.kind === "worksite_command_execution_task" ? "worksite_command_execution_observation" as const : "worksite_revision_command_execution_observation" as const,
     schemaVersion: SCHEMA_VERSION,
     observationRef: identity(worksiteExecutionIdentityPrefix(task, "execution-observation"), observationDigest),
     observationDigest,
@@ -2185,8 +2174,7 @@ export function isWorksiteExecutionObservation(value: unknown): value is Worksit
     "commandResults", "helperArtifactDigest", "helperArtifactRef", "kind", "observationDigest", "observationRef",
     "predicateObservations", "productDelta", "provenance", "schemaVersion", "snapshotDigest",
     "snapshotMembers", "snapshotRef", "task", "worksiteDelta",
-  ]) || !isWorksiteExecutionTask(value.task) || value.kind !== (value.task.kind === "worksite_command_forward_task" ? "worksite_command_forward_observation"
-    : value.task.kind === "worksite_command_execution_task" ? "worksite_command_execution_observation" : "worksite_revision_command_execution_observation") || value.schemaVersion !== SCHEMA_VERSION || !isRecord(value.provenance) ||
+  ]) || !isWorksiteExecutionTask(value.task) || value.kind !== (value.task.kind === "worksite_command_execution_task" ? "worksite_command_execution_observation" : "worksite_revision_command_execution_observation") || value.schemaVersion !== SCHEMA_VERSION || !isRecord(value.provenance) ||
     !exactKeys(value.provenance, [
       "actorInvocationRef", "actorProcessRef", "actorRef", "kind", "schemaVersion",
       "helperArtifactByteLength", "helperArtifactDigest", "helperArtifactPath", "helperArtifactRef",
@@ -2364,15 +2352,6 @@ export function resolveWorksiteCommandExecutionJudgmentRelation(
 /** Separate closed D2 rows; the existing old-row guard remains unchanged. */
 function isExecutionSnapshotMember(task: WorksiteExecutionTask, value: unknown, ordinal: number): value is WorksiteExecutionSnapshotMember {
   if (task.kind === "worksite_command_execution_task") return isSnapshotMember(value, ordinal);
-  if (task.kind === "worksite_command_forward_task") {
-    const source = task.snapshotSources[ordinal];
-    return source !== undefined && isRecord(value) && exactKeys(value,["kind","schemaVersion","ordinal","sourceMemberRef","source",
-      "sourceObservationRef","sourceObservationDigest","relativePath","byteLength","digest"]) &&
-      value.kind === "worksite_command_forward_snapshot_member" && value.schemaVersion === SCHEMA_VERSION &&
-      value.ordinal === ordinal && value.sourceMemberRef === source.sourceMemberRef && sameAdmitted(value.source,source.source) &&
-      value.sourceObservationRef === source.observation.observationRef && value.sourceObservationDigest === source.observation.observationDigest &&
-      value.relativePath === source.subject.relativePath && value.byteLength === source.observation.byteLength && value.digest === source.observation.fileDigest;
-  }
   return isRecord(value) && exactKeys(value, ["kind","schemaVersion","ordinal","designTargetRef","source","sourceObservationRef",
     "sourceObservationDigest","relativePath","byteLength","digest"]) && value.kind === "worksite_revision_snapshot_member" &&
     value.schemaVersion === SCHEMA_VERSION && value.ordinal === ordinal && nonempty(value.designTargetRef) &&
@@ -2382,8 +2361,6 @@ function isExecutionSnapshotMember(task: WorksiteExecutionTask, value: unknown, 
       : value.source.kind === "retained_dependency" && exactKeys(value.source, ["kind","origin"]) && isWorksiteRevisionObservationOrigin(value.source.origin));
 }
 function executionSnapshotSourceMatches(member: WorksiteExecutionSnapshotMember, row: ReturnType<typeof worksiteExecutionSources>[number]): boolean {
-  if(member.kind === "worksite_command_forward_snapshot_member") return "sourceMemberRef" in row && "source" in row &&
-    member.sourceMemberRef === row.sourceMemberRef && same(member.source,row.source);
   return member.kind === "worksite_snapshot_member"
     ? "sourceMemberRef" in row && member.sourceMemberRef === row.sourceMemberRef
     : "designTargetRef" in row && member.designTargetRef === row.designTargetRef && same(member.source, row.source);
@@ -2417,9 +2394,6 @@ export function isWorksiteCommandExecutionObservation(value: unknown): value is 
 }
 export function isWorksiteRevisionCommandExecutionObservation(value: unknown): value is WorksiteRevisionCommandExecutionObservation {
   return isRecord(value) && value.kind === "worksite_revision_command_execution_observation" && isWorksiteExecutionObservation(value);
-}
-export function isWorksiteCommandForwardObservation(value: unknown): value is WorksiteCommandForwardObservation {
-  return isRecord(value) && value.kind === "worksite_command_forward_observation" && isWorksiteExecutionObservation(value);
 }
 
 export function isNativeWorksiteCommandExecutionObservation(value: unknown): value is NativeWorksiteCommandExecutionObservation {

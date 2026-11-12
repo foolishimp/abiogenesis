@@ -9,8 +9,6 @@ import { semanticRevisionResultMatchesBasis, projectRevisionWorksitePreparation,
 import { SEMANTIC_IMPLEMENTATION_REFS, SEMANTIC_STAGE_IDS } from "../gtl/semantic_stage_identity.js";
 import { WORKSITE_PRESERVED_RESULT_IMPLEMENTATION_REFS } from "../product/worksite_construction_recovery.js";
 import { worksitePreservedResultMatchesBasis } from "./worksite_construction_recovery.js";
-import { WORKSITE_COMMAND_FORWARD_IDS as forwardIds } from "../product/worksite_command_forward_identity.js";
-import { worksiteCommandForwardResultMatches } from "./worksite_command_forward.js";
 import { semanticLifecycleRefForProgram } from "../gtl/semantic_stage.js";
 import { semanticResultMatchesBasis, projectSemanticWorksitePreparation, projectSemanticEvidenceInput, projectSemanticEnvelopeOutput, type SemanticStageNativeBasis } from "./semantic_stage.js";
 import { semanticInstructionResultMatches, framedSynthesisInstructionResultMatches } from "./instruction_assembly.js";
@@ -1263,10 +1261,6 @@ function stageCCallResult(
                 governanceResultMatches(input.nativeInstructionAssemblyBasis, input.input, value)) &&
               (input.cCall.implementationRef !== nativeIds.implementationRef ||
                 nativeWorkspaceWorkResultMatches(input.input, value, input.cCall.cCallRef, observation)) &&
-              (!([forwardIds.prepareImplementationRef,forwardIds.implementationRef] as readonly string[]).includes(input.cCall.implementationRef??"") ||
-                (input.programPublication !== undefined && worksiteCommandForwardResultMatches({publication:input.programPublication,
-                  graph:input.graph,graphFunction:input.graphFunction,executionBasis:input.executionBasis,cCall:input.cCall,
-                  cursor:input.cursor,predecessorPrefix:input.predecessorPrefix},input.input,value))) &&
               (input.cCall.outputContractRef !== REQUIREMENT_HANDOFF_IDS.outputContractRef ||
                 (input.programPublication !== undefined && requirementHandoffResultMatches({
                   publication: input.programPublication, graph: input.graph, graphFunction: input.graphFunction,

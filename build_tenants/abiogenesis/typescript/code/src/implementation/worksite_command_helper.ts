@@ -12,12 +12,9 @@ import { hasExactKeys as exactKeys, isTrimmedNonblankNulFreeString as exactStrin
 import { classifyPathRelation, pathRelation, pathStrictlyWithin, pathWithin } from "../shared/path_confinement.js";
 import { constructWorksiteCommandExecutionLaunchManifest, isAuthorityFreeWorksiteCommandOccurrence,
   type WorksiteCommandExecutionLaunchManifest } from "../product/worksite_command_launch.js";
-import { isExecutableWorksiteCommandTask as isWorksiteExecutionTask,
-  executableWorksiteCommandSources as worksiteExecutionSources, executableWorksiteCommandLocus as worksiteExecutionLocus,
-  executableWorksiteCommandImplementationRef as worksiteExecutionImplementationRef,
-  executableWorksiteCommandIdentityPrefix as worksiteExecutionIdentityPrefix,
-  type ExecutableWorksiteCommandTask as WorksiteExecutionTask,
-  type ExecutableWorksiteSnapshotMember as WorksiteExecutionSnapshotMember } from "../product/worksite_command_forward.js";
+import { isWorksiteExecutionTask, worksiteExecutionSources, worksiteExecutionLocus,
+  worksiteExecutionImplementationRef, worksiteExecutionIdentityPrefix,
+  type WorksiteExecutionTask, type WorksiteExecutionSnapshotMember } from "../product/worksite_revision.js";
 import { spawn, type ChildProcessByStdio } from "node:child_process";
 import { request as httpRequest } from "node:http";
 import type { Readable } from "node:stream";
@@ -506,9 +503,7 @@ async function materializeSnapshot(
     const published = await readFile(targetPath);
     if (!published.equals(bytes)) throw new TypeError("snapshot member changed after create-only publication");
     members.push(Object.freeze({
-      ...("sourceMemberRef" in protectedRow && "source" in protectedRow
-        ? { kind: "worksite_command_forward_snapshot_member" as const, sourceMemberRef: protectedRow.sourceMemberRef, source: protectedRow.source }
-        : "sourceMemberRef" in protectedRow
+      ...("sourceMemberRef" in protectedRow
         ? { kind: "worksite_snapshot_member" as const, sourceMemberRef: protectedRow.sourceMemberRef }
         : { kind: "worksite_revision_snapshot_member" as const, designTargetRef: protectedRow.designTargetRef, source: protectedRow.source }),
       schemaVersion: "5.0.0" as const,

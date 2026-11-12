@@ -534,10 +534,6 @@ export {
 } from "./witness_definition_bindings.js";
 export { WITNESS_OPERATION_CONTRACTS } from "./witness_operation_contracts.js";
 export { WITNESS_CONTENT_CONTRACTS } from "./witness_admission_operation.js";
-export { projectWorksiteCommandForwardSource, projectWorksiteCommandForwardRelation, worksiteCommandForwardEntryDisposition,
-  worksiteCommandForwardUnconsumed, authenticateWorksiteCommandForwardBasis, constructWorksiteCommandForwardNativeBasis,
-  worksiteCommandForwardChildSourceAtPrefix, worksiteCommandForwardResultMatches } from "./worksite_command_forward.js";
-export type { WorksiteCommandForwardNativeBasis } from "./worksite_command_forward.js";
 export { projectClosedGraphCallTerminalAtDurablePrefix } from "./project_read_ports.js";
 export { projectQualificationConsumer, projectQualificationJudgment, projectQualificationOwnerRuling,
   projectQualificationSelfConformance, resolveQualificationExecutionEvidence, qualificationHasNativeSelfConformance, projectQualificationVerdict, resolveQualificationAssessments,

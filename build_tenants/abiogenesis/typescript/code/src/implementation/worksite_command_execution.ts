@@ -1,8 +1,5 @@
-import { WORKSITE_REVISION_IDS } from "../product/worksite_revision.js";
-import { isExecutableWorksiteCommandTask as isWorksiteExecutionTask,
-  executableWorksiteCommandSources as worksiteExecutionSources, executableWorksiteCommandLocus as worksiteExecutionLocus,
-  executableWorksiteCommandImplementationRef as worksiteExecutionImplementationRef,
-  type ExecutableWorksiteCommandTask as WorksiteExecutionTask } from "../product/worksite_command_forward.js";
+import { WORKSITE_REVISION_IDS, isWorksiteExecutionTask, worksiteExecutionSources, worksiteExecutionLocus,
+  worksiteExecutionImplementationRef, type WorksiteExecutionTask } from "../product/worksite_revision.js";
 import {
   WORKSITE_PREPARATION_IDS, isWorksitePreparationInput, isWorksitePreparationBoundInput,
   selectWorksiteConstructionTask, prepareWorksiteCommandTask,
