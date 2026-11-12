@@ -59,12 +59,16 @@ Those mode families are product-policy truth above the adapter. Literal flags or
 **REQ-P-POLICY-013**: The current public `root_mode` values shall be:
 - `direct`
 - `supervised`
-`supervised` is the default. It selects the admitted system program and session
-policy that own convergence inside GTL/HoG/ABG; it does not authorize a CLI,
-SDK, service, or installer loop around repeated starts. `direct` selects one
-admitted entry traversal without that Product policy overlay. `root_mode` shall
-remain outside `scope + target + until` and shall be lawful only when
-`until = converged`.
+`direct` is the default. It selects one admitted entry traversal of a Program
+whose root-mode policy is `direct`, and the request names no start: the
+Program's default start for target `next`, the declared start that a published
+asset target names, or the named callable member for a `graph_function`
+target. `supervised` selects the one declared start that the request names, of
+a Program whose root-mode policy is `supervised`; such a Program admits no
+other entry. A `graph_function` target is a direct entry whatever root mode the
+request states. Neither mode authorizes a CLI, SDK, service, or installer loop
+around repeated starts. `root_mode` shall remain outside
+`scope + target + until` and shall be lawful only when `until = converged`.
 
 **REQ-P-POLICY-014**: The primary operator workflow shall be an interactive
 loop over the standard system program, an admitted GTL program traversed by
@@ -185,10 +189,12 @@ declared leaf effects, and ABG admits target selection, invocation, result,
 evidence, continuation, and closure truth.
 
 When `root_mode = direct`, `start` selects one admitted entry traversal. When
-`root_mode = supervised`, it selects the admitted standard system program, the
-default library's Executive. Neither the program nor HoG may mint runtime
-truth, and ABG shall not reorder the program's steps, select traversal
-topology, or become a scheduler.
+`root_mode = supervised`, it selects one declared start of a supervised
+Program. The standard system program is the default library's Executive. A
+`start` with target `next` under the default `direct` root mode, over a Program
+whose default start is the Executive, selects it. Neither the program nor HoG
+may mint runtime truth, and ABG shall not reorder the program's steps, select
+traversal topology, or become a scheduler.
 
 **REQ-P-POLICY-024**: `abg.operation.run.continue` shall identify an existing
 admitted run or continuation boundary, the acting operator, and any declared
