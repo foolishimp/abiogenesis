@@ -6810,8 +6810,9 @@ function admitEvidenceUsingTransport(
     processStatus: candidate.processStatus,
     processSignal: candidate.processSignal,
     timeoutClass: candidate.timeoutClass,
-    // D5: only an L store records the lifecycle copies; current evidence
-    // leaves them to the fold over the primary process events.
+    // D5: a store on a profile with lifecycle copies (RC6; a store on L takes
+    // no append but its reprice) records them; S2 and W evidence leaves them to
+    // the fold over the primary process events.
     ...(rootEventContractProfile(selectHeldEventStoreDurablePrefix(store).storeIdentity.eventContractDigest)?.lifecycleCopies === false ? {} : {
       timedOut: candidate.timedOut,
       exitObserved: candidate.exitObserved,

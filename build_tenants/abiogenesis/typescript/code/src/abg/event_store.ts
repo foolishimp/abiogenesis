@@ -2365,6 +2365,14 @@ function stageRuntimeEvent(state: EventStoreState, event: RuntimeEvent): void {
 
 function appendDurablyBatch(state: EventStoreState, events: readonly RuntimeEvent[]): DurablePrefixCoordinate | null {
   if (events.length === 0 || state.durableLogPath === null) return null;
+  // A store on L admits one append, its witnessed reprice: the Public witness
+  // `reprice` admission followed by the profile boundary, as
+  // `admitRootEventProfileUpgrade` commits them. Any other batch is refused
+  // here, before a byte is written.
+  if (state.durableHistory!.prefix.storeIdentity.eventContractDigest === LEGACY_ROOT_EVENT_CONTRACT_DIGEST &&
+      !isRootEventProfileRepriceBatch(events)) {
+    throw new TypeError("a store on the legacy event profile admits no append before its witnessed reprice");
+  }
   const descriptor = ownedDurableDescriptor(state), history = state.history!, prior = state.durableHistory!;
   const committedCount = prior.selection.through, priorByteLength = state.durableByteLength;
   if (prior.prefix.prefixLength !== priorByteLength ||
@@ -3895,6 +3903,14 @@ export type RootEventProfileSchedule = {
 function isRootEventProfileBoundary(event: RuntimeEventCandidate): boolean {
   return event.kind === "declaration_reprice_admitted" && isRecord(event.payload) &&
     event.payload.declarationRef === ROOT_EVENT_PROFILE_DECLARATION_REF;
+}
+/** The two rows of the witnessed reprice, in order: the Public witness
+ * `reprice` admission, then the boundary it causes. */
+function isRootEventProfileRepriceBatch(events: readonly RuntimeEvent[]): boolean {
+  const [admission, boundary] = events;
+  return events.length === 2 && admission!.kind === "public_operation_admitted" && isRecord(admission!.payload) &&
+    admission!.payload.operationId === "abg.operation.witness.admit" && admission!.payload.memberKey === "reprice" &&
+    isRootEventProfileBoundary(boundary!) && boundary!.causationEventRefs.includes(admission!.eventId);
 }
 /** The exact stamped profile a witnessed L boundary names. A retained boundary
  * keeps its original RC6 or S2 target; a new one targets the current profile. */
