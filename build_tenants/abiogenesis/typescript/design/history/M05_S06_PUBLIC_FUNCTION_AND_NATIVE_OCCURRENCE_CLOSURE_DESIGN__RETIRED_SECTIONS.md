@@ -165,3 +165,11 @@ stack, CLI-only status, or adapter-local result is not a public outcome.
 | `release.snapshot` | `abg.capability.operator.public-contract@5`, `abg.capability.qualification.self-conformance@5` | immutable release artifact | terminal_only | `release snapshot <published_rc|tapped_release>` |
 
   same typed common refusal and adapter exit class;
+
+---
+
+Cut from `build_tenants/abiogenesis/typescript/design/M05_S06_PUBLIC_FUNCTION_AND_NATIVE_OCCURRENCE_CLOSURE_DESIGN.md` at commit `8477fbc47`, lines 35-35, 112-112, verbatim.
+
+- `REQ-P-CONSENSUS-012..015`;
+
+| `REQ-P-CONSENSUS-012..015` | Consensus uses ordinary start/respond/continue/read members | start, interaction, continuation, result/replay, and ticket-consensus definitions | Consensus-specific operation or missing public projection |

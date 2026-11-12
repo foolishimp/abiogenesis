@@ -81,3 +81,10 @@ Review must attempt to falsify:
 
 Acceptance authorizes implementation of this boundary. It does not close the
 root, traversal matrix, remaining Product scenarios, qualification, or release.
+
+---
+
+Cut from `build_tenants/abiogenesis/typescript/design/M03_DIRECT_GTL_TRAVERSAL_BEHAVIOR_DESIGN.md` at commit `8477fbc47`, lines 110-111, verbatim.
+
+| One Surface recursive supervision | ABG5-S03 after generic continuation |
+| Consensus | ABG5-S05 through ordinary GTL and runtime paths |

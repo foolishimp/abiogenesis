@@ -39,7 +39,6 @@ Paths below are relative to `build_tenants/abiogenesis/typescript/`.
 |---|---|
 | `code/src/gtl/contracts.ts:309`; `product/catalog.ts:20,294` | GraphFunction declarations and input/output/effect contracts travel in the exact catalogue definition/digest. Purpose needs no registry. |
 | `code/src/gtl/source_path.ts:859`; `hog/route_proposal.ts:550` | Ordinary continuation has one successor. Current result-dependent routing handles re-entry/no-action, not forward selection among fixed workflow nodes. |
-| `code/src/validator/validation.ts:100,1471`; `abg/traversal_route.ts:1532` | ConstructionComposition's eight terms and singleton interaction explain why existing multi-candidate fixtures do not prove two different callees. These owners need no construction-composition change. |
 | `code/src/hog/workflow_lifecycle.ts:396`; `hog/child_traversal.ts:141`; `abg/execution_basis.ts:2112` | Existing child preparation joins input, fixed callee, materialization, Program membership and child basis. Reuse those owners. |
 
 The missing semantics is an explicit choice-result-to-workflow-edge relation at

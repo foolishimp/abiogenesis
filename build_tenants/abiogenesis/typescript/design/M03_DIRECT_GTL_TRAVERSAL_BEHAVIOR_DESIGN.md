@@ -107,8 +107,6 @@ families in the first slice.
 | remaining graph relations and six remaining C constructors | M5 traversal-conservation expansion after root green |
 | F_P worker transport and B-001 conservation | before the first F_P Product slice |
 | F_H hold, response, and same-run continuation | ABG5-S03 |
-| One Surface recursive supervision | ABG5-S03 after generic continuation |
-| Consensus | ABG5-S05 through ordinary GTL and runtime paths |
 | complete public operation family | after the root contract is stable; no new controller |
 | qualification and release | M6 and M7 |
 

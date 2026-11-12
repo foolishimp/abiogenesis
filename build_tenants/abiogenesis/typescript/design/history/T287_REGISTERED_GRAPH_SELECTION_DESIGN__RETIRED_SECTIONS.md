@@ -23,3 +23,9 @@ evidence, response schema and access envelope. Assembly cannot choose an answer
 or invent a frame. Retain actual prompt/manifest, input and raw response. S2's
 finite F_D rule proves mechanics; S3 separately proves real F_P context usability
 and admission. No future library or prompt implementation is designed here.
+
+---
+
+Cut from `build_tenants/abiogenesis/typescript/design/T287_REGISTERED_GRAPH_SELECTION_DESIGN.md` at commit `8477fbc47`, lines 42-42, verbatim.
+
+| `code/src/validator/validation.ts:100,1471`; `abg/traversal_route.ts:1532` | ConstructionComposition's eight terms and singleton interaction explain why existing multi-candidate fixtures do not prove two different callees. These owners need no construction-composition change. |
