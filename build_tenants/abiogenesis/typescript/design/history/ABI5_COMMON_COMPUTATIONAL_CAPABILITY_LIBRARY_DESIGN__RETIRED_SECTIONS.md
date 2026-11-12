@@ -20,3 +20,13 @@ Cut from `build_tenants/abiogenesis/typescript/design/ABI5_COMMON_COMPUTATIONAL_
 profile and raw transport callers, and W keeps the unwitnessed per-chunk
 stdout variant for direct stream owners; an actor window row always carries its
 witness.
+
+---
+
+Cut from `build_tenants/abiogenesis/typescript/design/ABI5_COMMON_COMPUTATIONAL_CAPABILITY_LIBRARY_DESIGN.md` at commit `5c9df5056`, line 635 (two passages of the O-TYPE row) and line 651 (one clause of the runtime-history row), verbatim.
+
+Line 635: ; the forward task's cover vector compares through `canonicalEquals` over the admitted vector.
+
+Line 635: `product/worksite_command_forward.ts` realizes this for `bindingCoverEventRefs` and `snapshotSources` in the task constructor and `protectedObservations` in the request constructor; the class beyond that module is TD-14 of the debt register (`T-290`).
+
+Line 651: worksite command forwarding, whose historical source is a pure projection and whose current relation checks ancestry as the current cut through the source's last event by extent and owned-cut identity or `runtimeEventPrefixDigest`, and selects unique producers through `basis:` envelopes and dispatch, failed-successor and consumption facts through `kind:`, `related:` and `payload:` indexes, and reads the closed-construction retained vector through the worksite revision owner's internal `RuntimeEventPrefix` overload of `projectClosedConstructionRetainedVector`; 

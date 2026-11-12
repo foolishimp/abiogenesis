@@ -100,8 +100,8 @@ Extend the existing role alternative only for the already published C1
 Match exact admitted GraphFunction, locus, implementation and contracts, never
 ticket names, checker names, prompt phrases or desired answers. Every F_P leaf
 in an adopting Program still needs exactly one supported binding. Missing,
-duplicate, mismatched and unsupported coverage refuses. Revision/forward/
-recovery and other leaf classes are not newly supported. Non-adopters retain
+duplicate, mismatched and unsupported coverage refuses. Revision/recovery
+and other leaf classes are not newly supported. Non-adopters retain
 their exact existing behavior.
 
 Reuse frame refs, identified policy text, access refs and Context bindings.
