@@ -1,14 +1,14 @@
 # TD-60B Return: retire the gates that cannot run (second slice)
 
-Writer: Claude Opus 5.5. Branch `claude/td60b-gate-retirement` from `d5c1be89a`, worktree `/private/tmp/abg-td60b`; local `main` merged at `727ec20f3` (fast-forward, before any commit of this package). Change class: realization_refactor, test side only. No push, no tag. Here `T` is `build_tenants/abiogenesis/typescript`.
+Writer: Claude Opus 5.5. Branch `claude/td60b-gate-retirement` from `d5c1be89a`, worktree `/private/tmp/abg-td60b`. Local `main` was merged into the branch at `727ec20f3` (a fast-forward, before the first commit of this package), so the triage package's catalogue rows are kept exactly as `main` has them. Change class: realization_refactor, test side only. No push, no tag. Here `T` is `build_tenants/abiogenesis/typescript`.
 
-**Status: skeleton. The retirement table below is the plan; it becomes the record as each file is committed.**
+**Status: done, with five items for a ruling (section 9).** 94 cases retired: 66 under ruling 1, 28 under ruling 2 (two of them through ruling 3). 21 test files and 2 support modules deleted. The catalogue goes from 138 rows to 69. The new catalogue lane passes in both modes. `git diff 727ec20f3 HEAD` over `T/code`, `T/contracts`, `T/scripts`, `T/package.json` and `T/product-toolchain-manifest.json` is empty.
 
 ## 1. Retirement table
 
-Every confirming run below used the recorded value from the catalogue `recorded` field (or the first slice's run specification), the root unset, writes under the root refused by the guard preload, on `d5c1be89a` with a fresh build. Recorded inputs are read, never copied.
+Every confirming run below used the recorded value from the catalogue `recorded` field (or the first slice's run specification), the root unset, writes under the root refused by the guard preload, on `d5c1be89a` with a fresh build, before the merge of `main`. Recorded inputs are read, never copied. Each tombstone in the tables stands in its file as `// Retired (T-292 TD-60): <tombstone>`; for a deleted file it stands in the body of the deleting commit.
 
-### 1.1 Ruling 1: no usable input (64 cases; 60 suite skips plus the 4 `uat/continuation` cases outside the suite glob)
+### 1.1 Ruling 1: no usable input (66 cases: 60 suite skips, the 4 `uat/continuation` cases outside the suite glob, and 2 uncatalogued cases, rows 64 and 65)
 
 The loop entry in `uat/continuation` is two cases. The four `uat-*` rows gate the same four cases.
 
@@ -77,6 +77,10 @@ The loop entry in `uat/continuation` is two cases. The four `uat-*` rows gate th
 | 61 | `uat/continuation` | `uat-continuation-installed-root` | CLI request framing preserves literal bodies, authority and producer coordinates in one line | `CLI request framing over an installed sandbox UAT root; input the 2026-10-28 sandbox install and its acquisitions outside the evidence root at the main checkout's test_env/test_runs` |
 | 62 | `uat/continuation` | `uat-continuation-installed-root` | Actual changed-pair/unchanged-pair owner verification/resolution precedes history; an unadmitted source refuses and closes unchanged | `owner verification precedes history in the installed continuation (2 cases); input the 2026-10-28 sandbox install and its acquisitions outside the evidence root at the main checkout's test_env/test_runs` |
 | 63 | `uat/continuation` | `uat-continuation-installed-root` | Physical input tampering refuses before verifier, acquisition or dispatch | `physical input tampering refuses before the installed owners; input the 2026-10-28 sandbox install and its acquisitions outside the evidence root at the main checkout's test_env/test_runs` |
+| 64 | `t287-d1-requirement-handoff` | (none) | D1 declarations preserve full independent bytes and refuse invalid source pairing | `D1 declarations of a frozen install keep full independent bytes (returned silently without its input); input the frozen install host and the D1 source fixture outside the evidence root at odd_glc` |
+| 65 | `t287-d1-requirement-handoff` | (none) | D1 retained catalog continuation reaches admitted handoff and replay | `a retained D1 catalog continuation reaches its handoff (returned silently without its input); input the retained epoch run root and frozen install host not recorded` |
+
+Rows 64 and 65 have no catalogue row: without their variables they return before any assertion and report a pass. Their inputs are the same frozen install host and D1 source fixture as rows 54 to 56, so they retire with them, and the file is deleted. The two vacuous passes leave the sweep (section 7).
 
 ### 1.2 Ruling 2: superseded cut (26 cases), and ruling 3's two cases retired under ruling 2
 
@@ -146,14 +150,156 @@ The loop entry in `uat/continuation` is two cases. The four `uat-*` rows gate th
 | `held-prefix-native-fixture` | `t287-held-prefix` | (5 cases) | the fixture reopens under the current event contract; the cases fail on held-read counts (45, 1 and 58 reads where 0 are claimed) and, in the two judgment cases, "event store was not constructed by this ABG module". Same class as the registered read-count defect of t287-cross-cut-public-read. |
 | `owner-history-logical-digest` | `t288-logical-prefix-digest` | store logical digest preserves staged guards, unrelated-run staleness, rollback and physical mutation refusal | the history only supplies a run_segment_opened template; every step before :60 passes; at :60 admitRuntimeEventTransactionAtExpectedPrefix admits after the log was mutated in place (it checks only store.digest(); the durable-prefix variant refuses at :59). Product callers: child_lifecycle.ts:249, c_call.ts:5308 and :7415, open_call.ts:649, execution_basis.ts:2836. t289-install-event-bodies states physical-mutation refusal for reads only (prefix_digest_mismatch). |
 
-## 5. Ruling 5
+## 5. Rulings 3 and 5
 
-`t287-qualification-law`: the retainedRC1 staging case retires (table 1.2). The selectedRC2 and crossed-release cases pass with the recorded `ABG_QUALIFICATION_STAGE_FIXTURES` and stay gated. Their row `qualification-stage-fixtures` takes a new status `input_outside_root`, added to `statuses`: the cases pass with their recorded input, and that input names STDO release directories outside the root.
+Ruling 3: neither case restates in a small change, so both retire under ruling 2 (table 1.2, rows 17 and 18).
 
-## 6. The catalogue lane and the class A rows
+- `native-observation-capture` (`t287-default-library`): the preimage needs `governanceVerdict` from the old product exports; with those supplied, the pre-fix owner returns null over the current lower owners.
+- `parent-alias-bindings` (`t287-qualification-parent-alias`): restated to the current build, the historical owner needs `runtimePrefixFromArtifactTruth`, and the proof log then fails with `event_contract_digest_mismatch`. The file held only this case and is deleted.
 
-Read literally, "every `runs_with_root` row is named by at least one `evidenceGate` call" fails on the current tree: the 14 class A `runs_with_root` rows are read through `evidenceInput` with literal paths and digests, not through `evidenceGate`. The lane therefore counts a `runs_with_root` row as read when an `evidenceGate` call names it or every sha256 it pins appears in test code. This is a deviation that needs a ruling.
+Ruling 5: in `t287-qualification-law`, the retainedRC1 staging case retires (table 1.2, row 13). The selectedRC2 and crossed-release cases stay gated. On head, with the recorded `ABG_QUALIFICATION_STAGE_FIXTURES`, the root unset and writes under the root refused, the file gives 9 pass and 1 skip: the skip is `qualification-source-release-roots`, an exception in section 2. Their row `qualification-stage-fixtures` takes a new status, `input_outside_root`, which is added to `statuses`: the cases pass with their recorded input, but that input names STDO release directories outside the root.
 
-## 7. To come
+## 6. The catalogue and the catalogue lane
 
-Files, support modules and fixtures deleted; catalogue row counts before and after; sweep table; inventory members changed or deleted; deviations; residuals.
+`support/evidence-gates.json` before (merged `main`, `727ec20f3`) and after:
+
+| Class | Rows before | Rows after | Suite skips before | Suite skips after |
+| --- | --- | --- | --- | --- |
+| A | 15 | 15 | 73 | 73 |
+| B | 20 | 20 | 19 | 19 |
+| C | 99 | 33 | 141 | 52 |
+| D | 4 | 1 | 3 | 0 |
+| Total | 138 | 69 | 236 | 144 |
+
+After by status:
+
+- A: `runs_with_root` 14, `failing_with_input_present` 1.
+- B: `opt_in_run` 13, `needs_live_provider` 7.
+- C: `runs_with_root` 7, `input_not_found` 21, `failing_with_input_present` 2, `input_outside_root` 1, `input_present_needs_output_root` 1, `input_present_writes_under_root` 1.
+- D: `input_not_found` 1 (GC03, not changed).
+
+69 rows are removed:
+
+- 67 rows whose every case this package retired;
+- `testing-input-root` and `env-proof-root`, both `retired_since_suite_base`: their reads were removed by TD-31, and `env-proof-root` names two files deleted here.
+
+The status `retired_since_suite_base` is then unused, so it is removed.
+
+10 rows are narrowed to their remaining cases:
+
+- `event-time-history`
+- `native-execution-retained-log`
+- `native-reacquisition-root`
+- `owner-history-logical-digest`
+- `owner-reuse-predecessor`
+- `predecessor-context`
+- `preparation-resolve-call`
+- `qualification-stage-fixtures`
+- `route-native-scratch`
+- `s02-projection-fixture`
+
+`owner-history-logical-digest` and `held-prefix-native-fixture` record the TD-60B observation in `observed` or `note`. The rows that the triage package changed are kept exactly as `main` has them: `d2-continuation-09-store-cross-cut-reads`, `d2-continuation-09-store-late-child-proof`, `governance-covered-fixture-completed-work`, and the historical-source-resource and r10 rows.
+
+Every catalogued title still names a case in its file: the 6 descriptive titles that are not case names were already present at `727ec20f3`, and no new ones were added.
+
+The new lane is `T/test_env/tests/t292-td60b-evidence-gate-catalogue.test.mjs`. It needs no root. It checks that:
+
+- no row is duplicated, and every case file a row names exists;
+- every `evidenceGate('<name>')` call names a row;
+- every `runs_with_root` row is read by the code.
+
+With the root set, it also runs `verifyEvidenceGateCatalogue()` and checks that the result covers every row. The lane passes 2 tests with 1 skip when the root is unset, and 3 tests when it is set; `verifyEvidenceGateCatalogue()` returns 69 gates. Each check fails when it should: a duplicated row, a renamed called row, a `runs_with_root` row with no reader, and a missing case file each turn the lane red. The scan of test code skips `test_runs`, `downstream`, `evidence` and `node_modules`.
+
+Deviation, which needs a ruling: read literally, "every `runs_with_root` row is named by at least one `evidenceGate` call" fails on the current tree. The 14 class A `runs_with_root` rows are read through `evidenceInput` with literal paths and digests, not through `evidenceGate`. The lane therefore counts a `runs_with_root` row as read when either:
+
+- an `evidenceGate` call names it; or
+- every sha256 the row pins appears in test code.
+
+## 7. Sweep
+
+Each changed or deleted test file and the new lane were run one file at a time:
+
+- with `--test-concurrency=1` and `--experimental-vm-modules`;
+- with writes under the root refused by a guard preload;
+- with the root unset and then set.
+
+The runs were made before the retirements (`d5c1be89a`, and again at `727ec20f3`, identical) and after them (final head, after a rebuild with `npm run build` that left no tracked change).
+
+| Mode | Files | Tests | Pass | Fail | Skip |
+| --- | --- | --- | --- | --- | --- |
+| root unset, before | 63 | 376 | 237 | 0 | 139 |
+| root unset, after | 43 | 285 | 237 | 0 | 48 |
+| root set, before | 63 | 376 | 242 | 0 | 134 |
+| root set, after | 43 | 285 | 243 | 0 | 42 |
+
+No passing case fails afterwards.
+
+- In both modes, every file that is kept has the same pass, fail and exit code as before.
+- The pass count changes only because:
+  - the 2 vacuous passes of the deleted `t287-d1-requirement-handoff` (table 1.1, rows 64 and 65) leave;
+  - the new lane adds 2 passes with the root unset and 3 with it set.
+- With the root unset, the skips fall by 91: the 92 retired cases that skip, less the lane's one skip.
+
+`t287-cross-cut-public-read` is not in this sweep. It is not this package's file, and it keeps its registered red case when the root is set.
+
+## 8. Files deleted and changed; qualification mirrors
+
+Deleted test files (ruling 6; one commit each, carrying the tombstones): `tests/steel-basic-cli-projection`, `tests/steel-basic-cli-source-replay`, `tests/steel-consumer-authority`, `tests/t287-authenticated-owner-family`, `tests/t287-d1-requirement-handoff`, `tests/t287-deferred-application-restoration`, `tests/t287-environment-projection-conservation`, `tests/t287-event-calculus-owner-continuation`, `tests/t287-generic-job-parent-audit`, `tests/t287-generic-job-parent-foldback`, `tests/t287-installed-dependency-lock`, `tests/t287-native-semantic-evidence`, `tests/t287-qualification-carrier-resource`, `tests/t287-qualification-fp-proof-delivery`, `tests/t287-qualification-parent-alias`, `tests/t287-qualification-raw-contract-preimage`, `tests/t287-reconstruction-conservation`, `tests/t287-selected-execution-closure`, `tests/t287-stdo-environment-citation`, `tests/t287-stdo-run-environment` (all `.test.mjs`), and `uat/continuation.test.mjs`.
+
+Deleted support modules, each left with no importer in `T/test_env` or `T/scripts`:
+
+- `support/steel-consumer-resolution.mjs`: its only importer was the retired steel02 cases of `m5-c-algebra-validation`.
+- `support/t287-generic-job-parent-audit.mjs`: its only importer was the deleted test of the same name.
+
+No fixture file was read by a retired case: their inputs were all environment variables naming retained evidence.
+
+Support exports removed, each left with no caller by a retirement:
+
+- `support/t287-generic-job-intake.mjs`: `verifyRetainedGenericIntakes`.
+- `support/t287-generic-job-revision.mjs`: `readRetainedGenericRevisionBridge`.
+- `support/t287-predecessor-context.mjs`: the `failed` export (an archive read). `prior`, `eventsPath` and `originalBytes` are no longer exported.
+- `support/stdo-environment-pilot.mjs`: `resolveFreshSdkReplayModule`, `readRetainedStdoSourceEvidence`, `validateRetainedStdoSourceEvidence` and `PILOT_IDS`. The module keeps only `selectPreservedCatalogReceipt`.
+
+Retired cases also left top-level helpers, environment reads and imports unused in their files; these were removed file by file, and each file was checked with the TypeScript unused-name diagnostics against its state at the merge base.
+
+Kept although it has no importer: `uat/continuation.mjs`. See section 9, item 3.
+
+Qualification mirrors (ruling 8: listed, not edited):
+
+- `T/test_env/qualification/inventory.json` (a `complete_claim` inventory):
+  - the 23 deleted files are members, and their entries are now stale;
+  - 39 changed files are members, and their digests and byte counts are stale;
+  - the new lane is not a member;
+  - `support/evidence-gates.json` is not a member, before or after.
+- `T/test_env/qualification/recipe/verification-recipe.json` names all 23 deleted files.
+- `T/test_env/qualification/recipe/declared-commands.json`: the command `command://abiogenesis/qualification/test-uat-continuation` runs the deleted `test_env/uat/continuation.test.mjs`. The same file also names `uat/continuation.mjs` and `uat/continuation.test.mjs` as members.
+
+The 39 changed member files:
+
+- support: `stdo-environment-pilot`, `t287-generic-job-intake`, `t287-generic-job-revision`, `t287-predecessor-context`;
+- tests: `m5-c-algebra-validation`, `m5-event-calculus-runtime`, `t287-authenticated-owner-values`, `t287-d1-semantic-stage`, `t287-default-library`, `t287-event-body-encoding`, `t287-exact-prefix-projection-reuse`, `t287-generic-job-intake`, `t287-generic-job-meaning`, `t287-generic-job-read-dependency`, `t287-generic-job-revision`, `t287-held-prefix`, `t287-management-context`, `t287-management-stream-drain`, `t287-native-assembly-retained-input`, `t287-native-event-time`, `t287-native-frame-observation`, `t287-native-owner-reuse`, `t287-native-work-reacquisition`, `t287-native-worksite-execution`, `t287-native-workspace-work`, `t287-ordered-reconstruction`, `t287-predecessor-context`, `t287-public-terminal-projection`, `t287-qualification-law`, `t287-reacquisition-root-contract`, `t287-release-publication`, `t287-route-reconstruction`, `t287-static-declaration-closure`, `t287-stdo-proof-entry`, `t287-w2-05-static-binding-algebra`, `t288-instruction-assembly-owner`, `t288-logical-prefix-digest`, `w2-steel-single-start-closure`, `w2-steel-single-start`.
+
+## 9. Items for a ruling
+
+1. The lane's sha256 fallback for the class A `runs_with_root` rows (section 6).
+2. `held-prefix-native-fixture` (5 cases) and the remaining `owner-history-logical-digest` case: these fail with their input present, and the input is not superseded (section 4). They may be Product defects. Both stay gated.
+3. `uat/continuation.mjs` now has no importer, so ruling 6 would delete it. It stays, because two surfaces name it as the shared installed UAT continuation helper:
+   - `T/design/ABI5_STDO3_COMPUTATIONAL_BINDING.md:240` links it as "the shared helper ... remains test support";
+   - `T/test_env/README.md:36-81` says future UAT executions use it instead of copying a new preparation algorithm.
+
+   Deleting it would leave a design link dangling, which is a design change outside this test-side package. My notes show that no retired continuation case reached `continuation.mjs:221`.
+4. The new catalogue status `input_outside_root` (ruling 5 asked only that the row say so).
+5. Rows 64 and 65 of table 1.1: two uncatalogued silent cases retired with their file.
+
+## 10. Residuals
+
+- Source functions that lose their only (gated) test, and that have no Product caller (TD-46 class G):
+  - `runtimeFluentMatchesPattern` (`abg/calculus/axioms.ts:1722`): only the abg barrel re-exports it;
+  - `normalizeQualificationScope` (`validator/qualification_resources.ts`): still called by `test_env/qualification/assessment-plan.mjs`.
+
+  `isRunInvocationResourceAssertion` keeps its gated reach through the `steel03-start-call-path` exception.
+- Source functions whose only gated reach is retired, for TD-28, TD-44 and TD-45: `projectNativeWorkReacquisitionTask` (abg barrel only; TD-44), and `admitScopeClosure` and the `admit*RetryTraversalTransition` family (TD-45; `r9-causal-result-closure` still names `admitScopeClosure`). Recorded at triage as class G, `planCompletedRetryProgress` has a Product caller on merged `main` (`hog/retry_lifecycle.ts:128`).
+- Ruling-2 confirmations ran on `d5c1be89a`. The merge of `main` changed source after that; the confirmations were not rerun on `727ec20f3`.
+- The README paragraph at `T/test_env/README.md:36` still describes `uat/continuation.mjs`; it stays true while the helper is kept (item 3).
+- `t287-cross-cut-public-read` keeps its registered red case with the root set. It is not this package's file.
+- Under the V8 coverage run (section 3), `steel-basic-cli-public` failed with "Unexpected end of JSON input". Run plainly on the final head with the root unset, it passes (1/1), so the failure comes from running under coverage, not from this package.
