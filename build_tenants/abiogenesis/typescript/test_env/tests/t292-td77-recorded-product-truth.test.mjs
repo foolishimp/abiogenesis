@@ -15,8 +15,12 @@ import {privateOwner} from '../support/r10-private-owner-harness.mjs';
 // "a Product whose register differs" from a recorded lock (the tracked RC10
 // current-owner fixture) and from the reader's own verified artifact, with
 // every dependent digest recomputed, and tamper cases that leave one relation
-// broken. Only the run-read lane at the end reads the evidence root (the
-// retained D2 store of r10-child-proof); without the root it skips.
+// broken. The recorded question does not recompute the catalog digest, so
+// identities altered among the graph's rows with every carried digest
+// consistent pass it; the lanes show the door and the read-copy bindings that
+// refuse them, and that every value the strict question accepts the recorded
+// question accepts. Only the run-read lane at the end reads the evidence root
+// (the retained D2 store of r10-child-proof); without the root it skips.
 const root = new URL('../../', import.meta.url);
 const built = path => import(new URL(`build/code/src/${path}`, root).href);
 const env = await built('product/environment.js');
@@ -27,6 +31,7 @@ const catalogOwner = await built('product/catalog.js');
 const resolution = await built('product/execution_resolution.js');
 const projectReads = await built('product/project_read_ports.js');
 const truth = await built('abg/artifact_truth.js');
+const admission = await built('abg/environment_admission.js');
 const store = await built('abg/event_store.js');
 const prefixOwner = await built('abg/event_prefix.js');
 const {sha256Canonical, sha256Bytes} = await built('shared/digests.js');
@@ -166,8 +171,13 @@ function lockVariant(change, {skip = [], resealDigest = true} = {}) {
   return lock;
 }
 const changeRow = carrier => { graphRow(carrier, 'abg.capability.gtl.declare@5').effectRefs = sorted([...graphRow(carrier, 'abg.capability.gtl.declare@5').effectRefs, 'effect://td77/changed']); };
+// Identities altered among the rows of the carrier's graph, with the catalog
+// digest left as recorded and every digest that carries it consistent. The
+// recorded question does not detect this (it does not recompute the catalog
+// digest); the strict question refuses it at a door, and a read copy's binding
+// to recorded history refuses it in a read.
+const UNDETECTED = ['identities altered among the graph rows, catalog digest as recorded, every carried digest consistent', addIdentity, {skip: ['catalog']}];
 const TAMPERS = [
-  ['identities changed with the catalog digest stale', addIdentity, {skip: ['catalog']}],
   ['identities changed, catalog digest recomputed, graph coordinates stale', addIdentity, {skip: ['coordinates']}],
   ['an identity that names no row of the graph', carrier => { contract(carrier, ADDED.contractId).capabilityIdentities = ['abg.capability.td77.absent@5']; }, {}],
   ['a graph row changed without its digest', changeRow, {skip: ['rows']}],
@@ -176,6 +186,25 @@ const TAMPERS = [
   ['a dependency cycle', carrier => { const declare = graphRow(carrier, 'abg.capability.gtl.declare@5'); const admit = graphRow(carrier, 'abg.capability.gtl.admit@5'); declare.dependentCapabilities = [{capabilityId: admit.capabilityId, capabilityDefinitionRef: admit.capabilityDefinitionRef, capabilityDefinitionDigest: admit.capabilityDefinitionDigest}]; }, {}],
   ['a row dropped from the graph while a contract still names it', carrier => removeRow(carrier, true), {}],
 ];
+const tamper = name => {
+  const found = TAMPERS.find(([entry]) => entry === name);
+  assert.ok(found, name);
+  return found;
+};
+
+// The probe's carrier: the catalog digest set to a value that does not
+// recompute from the carrier's contracts, carried into the contribution
+// manifest and every owner coordinate, every digest resealed. The strict
+// question does not recompute the catalog digest, so it accepts this carrier;
+// so must the recorded question.
+const FORGED_CATALOG = sha256Canonical({td77: 'forged catalog digest'});
+function forgeCatalog(carrier, kind) {
+  const before = carrier.catalogDigest;
+  carrier.catalogDigest = FORGED_CATALOG;
+  retagCatalog(graphOf(carrier), before, FORGED_CATALOG);
+  if (kind === 'verified') retagCatalog(carrier.definitionContractCoordinates, before, FORGED_CATALOG);
+}
+const forgedLock = () => lockVariant(row => forgeCatalog(row, 'lock'), {skip: ['catalog']});
 
 test('the recorded lock answers both questions under the reader\'s unchanged register', () => {
   assert.equal(env.isResolvedProductLock(recordedLock), true);
@@ -210,15 +239,30 @@ for (const [name, change, options] of TAMPERS) {
 }
 
 test('tamper relations: each refusal is the named relation', () => {
-  const row = index => lockVariant(TAMPERS[index][1], TAMPERS[index][2]).rows[toolchainIndex];
-  // identities with a stale catalog digest, an identity naming no row, a row
-  // dropped while named: the identity relation
-  for (const index of [0, 2, 7]) assert.equal(vp.recordedCapabilityIdentitiesHold(row(index)), false, TAMPERS[index][0]);
+  const row = name => { const [, change, options] = tamper(name); return lockVariant(change, options).rows[toolchainIndex]; };
+  // an identity naming no row, a row dropped while named: the identity relation
+  for (const name of ['an identity that names no row of the graph', 'a row dropped from the graph while a contract still names it'])
+    assert.equal(vp.recordedCapabilityIdentitiesHold(row(name)), false, name);
   // stale coordinates: identities and graph hold, the flat coordinates do not
-  assert.equal(vp.recordedCapabilityIdentitiesHold(row(1)), true);
-  assert.equal(cap.isCapabilityDefinitionGraph(graphOf(row(1)), 'recorded'), true);
+  const stale = row('identities changed, catalog digest recomputed, graph coordinates stale');
+  assert.equal(vp.recordedCapabilityIdentitiesHold(stale), true);
+  assert.equal(cap.isCapabilityDefinitionGraph(graphOf(stale), 'recorded'), true);
   // the graph relations
-  for (const index of [3, 4, 5, 6]) assert.equal(cap.isCapabilityDefinitionGraph(graphOf(row(index)), 'recorded'), false, TAMPERS[index][0]);
+  for (const name of ['a graph row changed without its digest', 'a graph row changed with its row digest but not the graph digest',
+    'a dependency that names no row', 'a dependency cycle'])
+    assert.equal(cap.isCapabilityDefinitionGraph(graphOf(row(name)), 'recorded'), false, name);
+});
+
+test('R1: identities altered among the graph rows with every carried digest consistent pass the recorded question and fail the strict one', () => {
+  const [, change, options] = UNDETECTED;
+  const lock = lockVariant(change, options);
+  const row = lock.rows[toolchainIndex];
+  assert.equal(row.catalogDigest, recordedLock.rows[toolchainIndex].catalogDigest, 'the catalog digest is the recorded one');
+  assert.notEqual(catalogDigestOf(row), row.catalogDigest, 'and does not recompute from the altered contracts');
+  assert.notEqual(lock.lockDigest, recordedLock.lockDigest);
+  assert.equal(vp.recordedCapabilityIdentitiesHold(row), true);
+  assert.equal(env.isResolvedProductLock(lock, 'recorded'), true);
+  assert.equal(env.isResolvedProductLock(lock), false, 'a door asks the strict question');
 });
 
 // The recorded consumer row has an empty graph and no contract; the toolchain
@@ -257,12 +301,16 @@ test('tamper: a stale lock digest is refused by the recorded question', () => {
 // The fold: one recorded install admission whose inline lock is replaced, with
 // the compact install body, scope, artifact digest, payload digest and event
 // identity recomputed as the recorded cut would have written them.
+function candidateFor(lock) {
+  const row = lock.rows.find(entry => entry.productId === recordedEvent.payload.artifact.productId);
+  const installId = `product-install://${row.packageName}/${row.packageVersion}/${digestHex(row.productContentDigest)}/${digestHex(lock.lockDigest)}`;
+  return {...row, kind: 'product_install_candidate', schemaVersion: '5.0.0', disposition: 'materialized',
+    installId, installedRoot: recordedEvent.payload.artifact.installedRoot, resolvedLockId: lock.lockId, resolvedLockDigest: lock.lockDigest};
+}
 function installEvent(lock) {
   const event = clone(recordedEvent);
-  const row = lock.rows.find(entry => entry.productId === event.payload.artifact.productId);
-  const installId = `product-install://${row.packageName}/${row.packageVersion}/${digestHex(row.productContentDigest)}/${digestHex(lock.lockDigest)}`;
-  const candidate = {...row, kind: 'product_install_candidate', schemaVersion: '5.0.0', disposition: 'materialized',
-    installId, installedRoot: event.payload.artifact.installedRoot, resolvedLockId: lock.lockId, resolvedLockDigest: lock.lockDigest};
+  const candidate = candidateFor(lock);
+  const installId = candidate.installId;
   event.payload = {...event.payload, artifact: {...event.payload.artifact, installId}, resolvedLock: lock,
     authorityScopeRef: installId, artifactRef: installId, artifactDigest: sha256Canonical(candidate)};
   event.aggregateId = installId;
@@ -288,9 +336,63 @@ test('fold: artifact truth over an accepted register variant projects; over a ta
     assert.equal(projected.artifacts.length, 1, name);
     assert.deepEqual(projected.artifacts[0].resolvedLock, lock, name);
   }
+  // The recorded question accepts these, so the fold projects them: the
+  // undetected alteration (refused at a door and by a read copy's binding,
+  // below) and the forged catalog digest (accepted by the strict question too).
+  for (const lock of [lockVariant(UNDETECTED[1], UNDETECTED[2]), forgedLock()]) {
+    const projected = foldOver(installEvent(lock));
+    assert.equal(projected.artifacts.length, 1);
+    assert.deepEqual(projected.artifacts[0].resolvedLock, lock);
+  }
   for (const [name, change, options] of TAMPERS) {
     assert.throws(() => foldOver(installEvent(lockVariant(change, options))),
       /Product install inline body requires one resolved lock and no body cause/, name);
+  }
+});
+
+// The ./abg door: admitProductInstall asks the strict question of the
+// candidate's lock before it appends. What it appends, the fold reads after a
+// cold reopen.
+async function admitAtDoor(lock) {
+  const scratch = await mkdtemp(join(tmpdir(), 'td77-door-'));
+  try {
+    const eventLogPath = join(scratch, 'events.jsonl');
+    const sink = store.createNewEmptyAppendSink({kind: 'new_empty_append_sink_request', schemaVersion: '5.0.0', eventLogPath});
+    assert.ok(sink.store, JSON.stringify(sink).slice(0, 300));
+    const payload = recordedEvent.payload;
+    const candidate = candidateFor(lock);
+    const basis = {operationId: payload.operationId, memberKey: payload.memberKey, definitionDigest: payload.definitionDigest,
+      authorityScopeRef: candidate.installId, authorityScopeDigest: candidate.productContentDigest,
+      invocationRef: payload.invocationRef, invocationPayloadDigest: payload.invocationPayloadDigest, invocationDigest: payload.invocationDigest,
+      correlationId: recordedEvent.correlationId, eventTime: recordedEvent.eventTime, predecessorPrefix: sink.prefix, causationEventRefs: []};
+    const result = admission.admitProductInstall(sink.store, candidate, basis, lock);
+    const appended = sink.store.readAll().length;
+    sink.store.closeDurableLog?.();
+    const bytes = new Uint8Array(fs.readFileSync(eventLogPath));
+    const cold = appended === 0 ? null
+      : truth.projectArtifactTruth(prefixOwner.selectValidatedRuntimeEventPrefix(store.validateHistoricalEvents(bytes)));
+    return {result, appended, cold};
+  } finally {
+    await rm(scratch, {recursive: true, force: true});
+  }
+}
+
+test('door: admitProductInstall refuses before append what the strict question refuses; the fold reads what it appends after a cold reopen', async () => {
+  for (const [label, lock] of [['the recorded lock', clone(recordedLock)], ['the forged catalog digest', forgedLock()]]) {
+    assert.equal(env.isResolvedProductLock(lock), true, label);
+    const {result, appended, cold} = await admitAtDoor(lock);
+    assert.equal(result.kind, 'artifact_owner_result', `${label}: ${JSON.stringify(result).slice(0, 300)}`);
+    assert.equal(appended, 1, label);
+    assert.equal(cold.artifacts.length, 1, label);
+    assert.deepEqual(cold.artifacts[0].resolvedLock, lock, label);
+  }
+  for (const [label, lock] of [['the undetected alteration', lockVariant(UNDETECTED[1], UNDETECTED[2])],
+    ...VARIANTS.map(([name, change]) => [name, lockVariant(change)])]) {
+    assert.equal(env.isResolvedProductLock(lock, 'recorded'), true, label);
+    const {result, appended} = await admitAtDoor(lock);
+    assert.equal(result.kind, 'artifact_owner_refusal', label);
+    assert.equal(result.refusal.code, 'scope_mismatch', label);
+    assert.equal(appended, 0, label);
   }
 });
 
@@ -306,8 +408,8 @@ function readinessBasis(lock) {
 test('run door: a readiness basis whose lock is a register variant is refused by the strict Catalog stage', async () => {
   assert.equal(catalogOwner.admitGraphFunctionCatalog(readinessBasis(recordedLock)).code, 'verified_product_mismatch',
     'the recorded lock passes the lock check and the empty verified set is refused after it');
-  for (const [name, change] of VARIANTS) {
-    const basis = readinessBasis(lockVariant(change));
+  for (const [name, change, options] of [...VARIANTS, UNDETECTED]) {
+    const basis = readinessBasis(lockVariant(change, options));
     assert.equal(catalogOwner.admitGraphFunctionCatalog(basis).code, 'binding_lock_mismatch', name);
     const resolved = await resolution.ProductExecutionResolutionPort.resolve({catalog: {readinessBasis: basis}});
     assert.equal(resolved.kind, 'product_execution_resolution_refusal', name);
@@ -340,8 +442,9 @@ test('workspace_status: the recorded question reads the recorded lock and refuse
   assert.equal(recorded.kind, 'product_project_read_result', JSON.stringify(recorded).slice(0, 400));
   assert.deepEqual(projectReads.projectWorkspaceStatus(workspaceStatusPacket(recordedLock)), recorded,
     'under the unchanged register both questions project the same status');
-  for (const [name, change] of VARIANTS) {
-    const lock = lockVariant(change);
+  for (const [name, change, options] of [...VARIANTS, UNDETECTED]) {
+    const lock = lockVariant(change, options);
+    assert.equal(env.isResolvedProductLock(lock, 'recorded'), true, name);
     const refused = projectReads.projectWorkspaceStatus(workspaceStatusPacket(lock), 'recorded');
     assert.equal(refused.kind, 'product_project_read_refusal', name);
     assert.equal(refused.code, 'not_ready', name);
@@ -391,11 +494,16 @@ test('verified artifact: the copied carrier answers both questions', async () =>
 });
 
 test('verified artifact: each register variant is accepted by the recorded question and refused by the strict one', async () => {
-  for (const [name, change] of VARIANTS) {
-    const artifact = await verifiedVariant(change);
+  for (const [name, change, options] of [...VARIANTS, UNDETECTED]) {
+    const artifact = await verifiedVariant(change, options);
     assert.equal(vp.isVerifiedProductArtifact(artifact, 'recorded'), true, name);
     assert.equal(vp.isVerifiedProductArtifact(artifact), false, name);
   }
+  // The forged catalog digest passes both questions, as on the lock.
+  const forged = await verifiedVariant(artifact => forgeCatalog(artifact, 'verified'), {skip: ['catalog']});
+  assert.notEqual(catalogDigestOf(forged), forged.catalogDigest);
+  assert.equal(vp.isVerifiedProductArtifact(forged), true);
+  assert.equal(vp.isVerifiedProductArtifact(forged, 'recorded'), true);
 });
 
 test('verified artifact: each tamper case is refused by the recorded question', async () => {
@@ -413,6 +521,48 @@ test('verified artifact: each tamper case is refused by the recorded question', 
   assert.equal(vp.isVerifiedProductArtifact(emptyWithIdentity, 'recorded'), false, 'an empty graph with an identity');
   const stale = await verifiedVariant(addIdentity, {resealDigest: false});
   assert.equal(vp.isVerifiedProductArtifact(stale, 'recorded'), false, 'a stale verification digest');
+});
+
+// Ruling R2: everything the strict question accepts, the recorded question
+// accepts. Every lock and verified artifact these lanes construct, the forged
+// catalog digest of the door probe among them, and each of their graphs.
+test('strict implies recorded: on every lock, verified artifact and graph the lanes construct', async () => {
+  const locks = [
+    ['the recorded lock', recordedLock],
+    ['the resealed recorded lock', lockVariant(() => {})],
+    ['the toolchain row alone', lockVariant(alone(() => {}))],
+    ['the toolchain row alone with an empty graph', lockVariant(alone(emptyGraph))],
+    ['the toolchain row alone with an empty graph and an identity', lockVariant(alone(carrier => { emptyGraph(carrier); contract(carrier, ADDED.contractId).capabilityIdentities = [ADDED.capabilityId]; }))],
+    ['a stale lock digest', lockVariant(addIdentity, {resealDigest: false})],
+    ['the forged catalog digest', forgedLock()],
+    ...[...VARIANTS, UNDETECTED, ...TAMPERS].map(([name, change, options]) => [name, lockVariant(change, options)]),
+  ];
+  const artifacts = [
+    ['the copied verified artifact', await verified()],
+    ['an empty graph', await verifiedVariant(emptyGraph)],
+    ['an empty graph with an identity', await verifiedVariant(artifact => { emptyGraph(artifact); contract(artifact, ADDED.contractId).capabilityIdentities = [ADDED.capabilityId]; })],
+    ['a stale verification digest', await verifiedVariant(addIdentity, {resealDigest: false})],
+    ['the forged catalog digest', await verifiedVariant(artifact => forgeCatalog(artifact, 'verified'), {skip: ['catalog']})],
+  ];
+  for (const [name, change, options] of [...VARIANTS, UNDETECTED, ...TAMPERS]) artifacts.push([name, await verifiedVariant(change, options)]);
+  const strictAccepted = [];
+  for (const [name, lock] of locks) {
+    const strict = env.isResolvedProductLock(lock);
+    if (strict) strictAccepted.push(`lock: ${name}`);
+    assert.ok(!strict || env.isResolvedProductLock(lock, 'recorded'), `lock: ${name}`);
+    for (const row of lock.rows)
+      assert.ok(!cap.isCapabilityDefinitionGraph(graphOf(row)) || cap.isCapabilityDefinitionGraph(graphOf(row), 'recorded'), `lock graph: ${name}`);
+  }
+  for (const [name, artifact] of artifacts) {
+    const strict = vp.isVerifiedProductArtifact(artifact);
+    if (strict) strictAccepted.push(`verified: ${name}`);
+    assert.ok(!strict || vp.isVerifiedProductArtifact(artifact, 'recorded'), `verified: ${name}`);
+    assert.ok(!cap.isCapabilityDefinitionGraph(graphOf(artifact)) || cap.isCapabilityDefinitionGraph(graphOf(artifact), 'recorded'), `verified graph: ${name}`);
+  }
+  assert.deepEqual(strictAccepted, [
+    'lock: the recorded lock', 'lock: the resealed recorded lock', 'lock: the toolchain row alone', 'lock: the forged catalog digest',
+    'verified: the copied verified artifact', 'verified: the forged catalog digest',
+  ], 'the strict-accepted values the implication is checked on');
 });
 
 // The run-read copy: the Public run read asks the recorded question of a
@@ -469,21 +619,56 @@ test('run read: the recorded question reads a supplied proof bound to the record
     // its installs and binding name.
     const recordedD2 = proof.catalog.readinessBasis.resolvedLock;
     const toolchain = recordedD2.rows.findIndex(row => graphOf(row).rows.length > 0);
-    const variant = clone(recordedD2);
-    const row = variant.rows[toolchain];
-    const projectedOnly = row.publicContracts.find(entry =>
-      !graphOf(row).rows.some(graph => graph.owningPublicContracts.some(owning => owning.flatRow.contractId === entry.contractId)) &&
-      graphOf(row).rows.some(graph => !entry.capabilityIdentities.includes(graph.capabilityId)));
-    const added = graphOf(row).rows.find(graph => !projectedOnly.capabilityIdentities.includes(graph.capabilityId)).capabilityId;
-    projectedOnly.capabilityIdentities = sorted([...projectedOnly.capabilityIdentities, added]);
-    resealCarrier(row, 'lock');
-    resealLock(variant);
-    assert.equal(env.isResolvedProductLock(variant, 'recorded'), true);
-    assert.equal(env.isResolvedProductLock(variant), false);
-    const lockProof = clone(proof);
-    lockProof.catalog.readinessBasis.resolvedLock = variant;
-    assert.throws(() => terminal(lockProof), /declaration Catalog differs from its exact admitted workspace, installs or lock/);
-    assert.equal(read(lockProof).code, 'invalid_history');
+    // One identity added to a projected-only contract, naming a row of the
+    // carrier's own graph.
+    const alterAmongRows = carrier => {
+      const projectedOnly = carrier.publicContracts.find(entry =>
+        !graphOf(carrier).rows.some(graph => graph.owningPublicContracts.some(owning => owning.flatRow.contractId === entry.contractId)) &&
+        graphOf(carrier).rows.some(graph => !entry.capabilityIdentities.includes(graph.capabilityId)));
+      const added = graphOf(carrier).rows.find(graph => !projectedOnly.capabilityIdentities.includes(graph.capabilityId)).capabilityId;
+      projectedOnly.capabilityIdentities = sorted([...projectedOnly.capabilityIdentities, added]);
+    };
+    // The register variant (catalog digest recomputed) and the undetected
+    // alteration (catalog digest as recorded): both pass the recorded question
+    // and fail the strict one, and both differ from the recorded lock that the
+    // installs and binding name.
+    for (const skip of [[], ['catalog']]) {
+      const variant = clone(recordedD2);
+      const row = variant.rows[toolchain];
+      alterAmongRows(row);
+      resealCarrier(row, 'lock', skip);
+      resealLock(variant);
+      assert.equal(row.catalogDigest === recordedD2.rows[toolchain].catalogDigest, skip.length > 0);
+      assert.equal(env.isResolvedProductLock(variant, 'recorded'), true);
+      assert.equal(env.isResolvedProductLock(variant), false);
+      const lockProof = clone(proof);
+      lockProof.catalog.readinessBasis.resolvedLock = variant;
+      assert.throws(() => terminal(lockProof), /declaration Catalog differs from its exact admitted workspace, installs or lock/);
+      assert.equal(read(lockProof).code, 'invalid_history');
+    }
+
+    // The undetected alteration on a verified Product, its lock row as
+    // recorded: the Catalog's verified set must equal the lock rows, so the
+    // re-admission refuses and the read is invalid_history.
+    {
+      const altered = clone(proof.catalog.readinessBasis);
+      const verifiedRow = altered.verifiedProducts.find(entry => graphOf(entry).rows.length > 0);
+      alterAmongRows(verifiedRow);
+      resealCarrier(verifiedRow, 'verified', ['catalog']);
+      resealVerified(verifiedRow);
+      assert.equal(vp.isVerifiedProductArtifact(verifiedRow, 'recorded'), true);
+      assert.equal(vp.isVerifiedProductArtifact(verifiedRow), false);
+      assert.equal(catalogOwner.admitGraphFunctionCatalog(altered, 'recorded').code, 'verified_product_mismatch');
+      const verifiedProof = clone(proof);
+      verifiedProof.catalog.readinessBasis = altered;
+      assert.throws(() => terminal(verifiedProof), /declaration Catalog differs from its exact admitted workspace, installs or lock/);
+      assert.equal(read(verifiedProof).code, 'invalid_history');
+    }
+    // Strict implies recorded on every carrier of this store's proof.
+    assert.equal(env.isResolvedProductLock(recordedD2), true);
+    assert.equal(env.isResolvedProductLock(recordedD2, 'recorded'), true);
+    for (const product of proof.catalog.readinessBasis.verifiedProducts)
+      assert.ok(!vp.isVerifiedProductArtifact(product) || vp.isVerifiedProductArtifact(product, 'recorded'), product.productId);
 
     // Root basis binding: a verified Product changed outside its lock row,
     // resealed, re-admitted under the recorded question with its View narrowed

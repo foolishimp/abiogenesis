@@ -51,7 +51,7 @@ function prefixAt(ordinal){const selected=Buffer.from(lines.slice(0,ordinal).joi
 const close=events.find(e=>e.admissionOrdinal===67),prefix=prefixAt(67);
 const packet={kind:'abg_project_read_packet',schemaVersion:'5.0.0',memberKey:'graph_call_result',prefix,targetRef:close.graphCallId,declarationProof:proof};
 const owner=await privateOwner('abg/project_read_ports.js',['prepareRead','scopeForBasis','terminalContract','graphCallContext','typedTerminalResult']);
-const prepared=owner.prepareRead('graph_call_result',packet);assert.ok(!prepared.code);
+const prepared=owner.prepareRead('graph_call_result',packet,undefined,undefined,'recorded');assert.ok(!prepared.code);
 const basis=projectExactExecutionBasisAtPrefix(prepared.fullPrefix,close.basisId),scope=owner.scopeForBasis(prepared.fullPrefix,basis);
 const contract=owner.terminalContract(prepared,basis,scope);
 assert.equal(contract.ref,'contract://abiogenesis/semantic-stage/envelope@5');
