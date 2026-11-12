@@ -138,11 +138,8 @@ export {
 export { installProduct, installedProductContentMatches } from "./install_product.js";
 export {
   admitInstalledProductInput,
-  hasInstalledPublicResultProjection,
   loadInstalledProductSemantics,
   projectInstalledLeafSemantics,
-  projectInstalledPublicResult,
-  supportsInstalledPublicResultProjection,
   validateInstalledInvocationBasis,
   type InstalledLeafSemanticsProjection,
   type InstalledProductSemanticsBasis,

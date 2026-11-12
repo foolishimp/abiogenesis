@@ -2,9 +2,6 @@ export type {
   PublicGapAuthority,
   PublicGapSource,
 } from "./gap_authority.js";
-export type {
-  PublicRunProjectionAuthority,
-} from "./run_projection_authority.js";
 export {
   isInstalledDefinitionCallCandidate,
   runInstalledDefinitionCallTransport,
