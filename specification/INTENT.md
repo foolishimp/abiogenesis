@@ -92,7 +92,7 @@ GTL declares:
 - graphs, nodes, vectors, contexts, interfaces, and attributes;
 - programs, GraphFunctions, modules, jobs, roles, operators, evaluators, and
   rules;
-- composition, substitution, recursion, fan-out, fan-in, gates, promotion, and
+- composition, substitution, recursion, fan-out, fan-in, promotion, and
   identity;
 - `C` composition and selected `F_D`, `F_P`, and `F_H` regimes;
 - starts, callable membership, policies, effects, result contracts, and proof

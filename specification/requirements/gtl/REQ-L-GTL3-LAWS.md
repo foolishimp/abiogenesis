@@ -31,7 +31,7 @@ State the governing language laws of GTL 3.
 
 **REQ-L-GTL3-LAWS-009**: Recursion with preserved lineage and explicit foldback — recursive graph application preserves explainable lineage and declared rebinding law.
 
-**REQ-L-GTL3-LAWS-010**: Higher-order legality — fan-out, fan-in, gate, and promote preserve interface and type truth.
+**REQ-L-GTL3-LAWS-010**: Higher-order legality — fan-out, fan-in, and promote preserve interface and type truth.
 
 **REQ-L-GTL3-LAWS-011**: Separation from hidden strategic choice — GTL exposes lawful structure, candidates, and hooks, not hidden selection.
 

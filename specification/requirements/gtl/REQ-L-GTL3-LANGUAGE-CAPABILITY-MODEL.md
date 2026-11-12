@@ -55,7 +55,7 @@ interfaces, graph-function boundaries, and stable graph identity.
 
 **graph algebra**: GTL shall declare algebraic graph construction and
 composition capability including edge, identity, compose, substitute, recurse,
-fan-out, fan-in, gate, promote, and same-object identity.
+fan-out, fan-in, promote, and same-object identity.
 
 **graph functions**: GTL shall publish graph functions as reusable workflow
 library functions and callable work contracts. A graph function shall expose an
