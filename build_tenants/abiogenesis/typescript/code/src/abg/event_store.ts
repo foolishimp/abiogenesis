@@ -2927,7 +2927,6 @@ function assertRuntimeEventContract(
           ![
             "judged_success",
             "fan_out_success",
-            "fh_resume_success",
             "structural_identity_success",
           ].includes(String(payload.completionClass)) ||
           (payload.completionClass === "structural_identity_success" &&

@@ -218,6 +218,56 @@ test("stopped retry foldback bridge requires the exact consumed causal suffix", 
   );
 });
 
+test("the store refuses a completed retry progress of class fh_resume_success, at admission and at decode, as any class it does not list", async () => {
+  // Human response and same-Run resumption are reserved to 5.1, so no 5.0
+  // owner completes a retry by resumption and the store's completed-progress
+  // check lists judged, fan-out and structural-identity success only. The
+  // same hand-built payload with a listed class is admitted, and its row,
+  // re-stamped by the store's formula, decodes to the projector's own row.
+  const load = (name) => import(pathToFileURL(join(root, "build/code/src", name + ".js")).href);
+  const [store, digests, json] = await Promise.all(
+    ["abg/event_store", "shared/digests", "shared/canonical_json"].map(load),
+  );
+  const hash = digests.sha256Canonical, tag = "td25s/retry-completion-class";
+  const envelope = {
+    eventTime: "2026-11-12T00:00:00.000Z", correlationId: `correlation://${tag}`, workflowVersion: "5.0.0",
+    scopeClass: "run", basisId: `basis://${tag}`, runId: `run://${tag}`, graphCallId: `graph-call://${tag}`,
+    frameId: `frame://${tag}`, graphFunctionRef: `graph-function://${tag}`, materializationRef: `materialization://${tag}`,
+    aggregateType: "frame", aggregateId: `frame://${tag}`, parentAggregateId: `graph-call://${tag}`, causationEventRefs: [],
+  };
+  const completed = (completionClass) => ({
+    kind: "retry_progress_recorded", ...envelope, payload: {
+      progressRef: `retry-progress://${tag}`, progressDigest: hash(["progress", tag]), progressClass: "completed",
+      attempt: 1, attemptRef: `retry-attempt://${tag}`, retryBoundaryRef: `retry-boundary://${tag}`, retryPath: [1],
+      completedRetryDepth: 1, completionClass, completionWitnessEventRef: `event://${tag}/witness`,
+      cCallRef: `c-call://${tag}`, resultRef: `result://${tag}`, judgmentRef: `judgment://${tag}`,
+      sourceCursorRef: `cursor://${tag}`, sourceCursorDigest: hash(["cursor", tag]), predecessorProgressRef: null,
+    },
+  });
+  const refused = { message: "retry progress payload carries invalid required value types" };
+  const judged = store.projectRuntimeEventFromValidatedHistory(Object.freeze([]), completed("judged_success"));
+  assert.equal(judged.payload.completionClass, "judged_success");
+  assert.throws(
+    () => store.projectRuntimeEventFromValidatedHistory(Object.freeze([]), completed("fh_resume_success")),
+    refused,
+    "admission refuses the class",
+  );
+  const restamp = (completionClass) => {
+    const { eventId: _id, admissionOrdinal, payloadDigest: _digest, eventContractDigest, ...candidate } = judged;
+    const changed = { ...candidate, payload: { ...candidate.payload, completionClass } };
+    const payloadDigest = hash(changed.payload);
+    const eventId = `event://abiogenesis/${hash({ ...changed, eventContractDigest, payloadDigest, admissionOrdinal }).slice("sha256:".length)}`;
+    return { ...changed, eventContractDigest, eventId, admissionOrdinal, payloadDigest };
+  };
+  const log = (row) => new TextEncoder().encode(json.canonicalJson(row) + "\n");
+  assert.deepEqual(store.validateHistoricalEvents(log(restamp("judged_success"))).map((row) => row.eventId), [judged.eventId]);
+  assert.throws(
+    () => store.validateHistoricalEvents(log(restamp("fh_resume_success"))),
+    refused,
+    "decode refuses a log that carries the class",
+  );
+});
+
 // Retired: "CCall retry writes require the exact current declared retry
 // frontier" sliced openCCall's and the retry write owner's text between export
 // markers (openInteractionCCall no longer exists) and asserted ten strings in
