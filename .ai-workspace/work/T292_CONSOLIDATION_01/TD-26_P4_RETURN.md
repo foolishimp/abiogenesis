@@ -26,7 +26,7 @@ instrumented base build in `probe-root`). Change class: realization_refactor.
 | ABG (`code/src/abg`) | 29 | 2,425 |
 | HoG (`code/src/hog`) | 24 | 171 |
 | Owner bindings | 0 | 20 |
-| Tests (`test_env/tests`) | 82 | 239 |
+| Tests (`test_env/tests`) | 87 | 239 |
 | Support and fixtures | 0 | 498 |
 
 `abg/traversal_route.ts` goes from 5,531 to 3,301 lines.
@@ -171,7 +171,7 @@ Subject: the registered-selection Product with one valid
 | Conformance (`evaluateGtlProgramConformance`) | passed | passed |
 | Product resolution | resolves; `actionCatalog` carried | same |
 | Run start | the Run completes (`result`, `completed`) | refusal `invalid_graph_function` at `/execution_basis` (`closure-mismatch@5`); no `basis_admitted`, `graph_call_opened`, route or `run_closed` written |
-| Run continuation (`run.continue#current_intent`, pending execution) | a recorded catalog Run continues from its recorded basis | same; the continuation reuses the recorded basis and does not call `admitExecutionBasis` (read: `run_invocation.ts` `runPendingExecutionOwner`) |
+| Run continuation (`run.continue#current_intent`, pending execution) | a recorded catalog Run continues from its recorded basis | same; the continuation reuses the recorded basis and does not call `admitExecutionBasis` (read: `run_invocation.ts` `runPendingExecutionOwner`). No such Run is recorded: 326 files carry a `catalogRef`; their `basis_admitted` events with a catalog and no composition number 0 (357 with both) (`scripts/catalog-basis-scan.py`) |
 | Run continuation of a recorded composition Run | `missing_continuation` (`construction_continuation.ts:232` lists no pending position when the root basis has a composition) | same |
 
 The One Surface Program itself (catalog and composition), started supervised
