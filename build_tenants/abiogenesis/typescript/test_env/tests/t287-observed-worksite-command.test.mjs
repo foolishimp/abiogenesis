@@ -233,13 +233,17 @@ async function sourceGate(f, t) {
     prior => event('c_call_fibre_selected', { cCallRef: scope.aggregateId, callClass: 'leaf', armId: ids.armId, regime: 'F_P', implementationRef: ids.implementationRef,
       implementationBindingRef: ids.implementationBindingRef }, { ...scope, causationEventRefs: [prior.at(-1).eventId] })]);
   // Exact environment/invocation/execution rehydration are explicit supplied lower-owner premises.
+  // That the supplied environment's lock answers the strict question is a supplied premise too.
   // Real held-prefix acquisition, Product predicates, gate, admitted invalidators and files execute.
   const file = resolve(import.meta.dirname, '../../build/code/src/abg/execution_basis.js');
   const m = new SourceTextModule(fs.readFileSync(file, 'utf8'), { identifier: file });
+  const strictTruth = Object.freeze({ premise: 'the supplied environment lock answers the strict question' });
   const replacements = {
     './invocation_execution_truth.js': { projectExactExecutionBasisAtPrefix: (_prefix, ref) => ref === basis.basisRef ? basis : null },
     './invocation_admission.js': { rehydrateInvocationAdmissionAtPrefix: (_prefix, ref) => ref === inv.invocationAdmissionRef ? inv : null },
-    './environment_admission.js': { projectExactPrefixWorkspaceEnvironment: () => ({ kind: 'exact_prefix_workspace_environment', workspaceAuthorityBasis: f.workspaceAuthorityBasis, workspaceBinding: f.workspaceBinding }) },
+    './environment_admission.js': { projectExactPrefixWorkspaceEnvironment: () => ({ kind: 'exact_prefix_workspace_environment', workspaceAuthorityBasis: f.workspaceAuthorityBasis, workspaceBinding: f.workspaceBinding,
+      artifactTruth: strictTruth, productInstalls: [] }) },
+    './artifact_truth.js': { admittedInstallLocksAnswerStrict: truth => truth === strictTruth },
   };
   await m.link(async specifier => {
     const actual = await import(specifier.startsWith('node:') ? specifier : pathToFileURL(resolve(dirname(file), specifier)).href);
