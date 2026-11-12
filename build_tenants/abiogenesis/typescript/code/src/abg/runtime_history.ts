@@ -78,6 +78,11 @@ export class RuntimeHistory {
   readonly #basisRows = new Map<string, Map<string, Readonly<{ value: unknown; payloadBytes: number }>>>();
   readonly #basisBodies = new Map<string, Map<number, number>>();
   #basisEpoch = 0;
+  // §10.12 O1 lifetime, read operations: while an operation hold is open, a
+  // basis body that no run scope holds stays selected for that operation; the
+  // last release drops it. Disposable computation, never O1 retention.
+  readonly #operationBodies = new Map<number, Readonly<{ body: RuntimeEventBodyLocation; event: RuntimeEvent }>>();
+  #operationHolds = 0;
   readonly work = { bodyRows: 0, bodyDecodes: 0, scopeRows: 0, membershipComparisons: 0, selectorRows: 0 };
   #canonicalHash = createHash("sha256").update("[");
   #committedHash: Hash = this.#canonicalHash.copy();
@@ -319,7 +324,7 @@ export class RuntimeHistory {
     const row = this.#rows[index];
     if (row === undefined) throw new TypeError("selected history row is absent");
     this.work.bodyRows++;
-    const kept = this.#verifiedBodies.get(index), committed = row.body.offset !== -1;
+    const kept = this.#verifiedBodies.get(index) ?? this.#operationBodies.get(index), committed = row.body.offset !== -1;
     const current = kept !== undefined && kept.body.offset === row.body.offset &&
       kept.body.byteLength === row.body.byteLength && kept.body.physicalDigest === row.body.physicalDigest;
     if (!current && committed) this.work.bodyDecodes++;
@@ -329,7 +334,8 @@ export class RuntimeHistory {
       throw new TypeError("selected body differs from its authenticated envelope");
     if (!current && committed) {
       // A basis body is kept only while an open scope holds its invocation;
-      // otherwise it lives in the consumer-local selected-body map.
+      // otherwise it lives in the selected bodies of the open operation, or
+      // in the consumer-local selected-body map when no operation holds it.
       const invocationRef = basisInvocationRef(value);
       if (invocationRef === undefined) this.#verifiedBodies.set(index, { body: row.body, event: value });
       else if (this.#basisHolds.has(invocationRef)) {
@@ -337,9 +343,27 @@ export class RuntimeHistory {
         let bodies = this.#basisBodies.get(invocationRef);
         if (bodies === undefined) { bodies = new Map(); this.#basisBodies.set(invocationRef, bodies); }
         bodies.set(index, rawInputBytes(value.payload));
-      }
+      } else if (this.#operationHolds !== 0) this.#operationBodies.set(index, { body: row.body, event: value });
     }
     return value;
+  }
+
+  /** @internal §10.12 O1 lifetime, read operations: one operation's hold on
+   * the bodies it selects. While a hold is open, a basis body outside every
+   * run scope is read from its location once and authenticated as on any
+   * first read; the returned release is the operation's finalizer, and the
+   * last release drops those bodies. Rollback and physical close dispose it. */
+  holdOperationBodies(): () => void {
+    if (this.#validation !== undefined) return () => {};
+    const epoch = this.#basisEpoch;
+    this.#operationHolds++;
+    let open = true;
+    return () => {
+      if (!open) return;
+      open = false;
+      if (epoch !== this.#basisEpoch) return;
+      if (--this.#operationHolds === 0) this.#operationBodies.clear();
+    };
   }
 
   /** @internal §10.12 O1: open one run operation scope's retention of the
@@ -379,6 +403,7 @@ export class RuntimeHistory {
     this.#basisEpoch++;
     for (const bodies of this.#basisBodies.values()) for (const index of bodies.keys()) this.#verifiedBodies.delete(index);
     this.#basisHolds.clear(); this.#basisRows.clear(); this.#basisBodies.clear();
+    this.#operationHolds = 0; this.#operationBodies.clear();
   }
   /** @internal Owner gauges; recorded byte lengths are summed, rows are not reserialized. */
   observeBasisRetention(): Readonly<{ openHandles: number; retainedRows: number; retainedPayloadBytes: number;
