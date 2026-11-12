@@ -17,7 +17,6 @@ import {
   replayPageSchema,
   safeNonNegativeIntegerSchema,
   safePositiveIntegerSchema,
-  TERMINAL_ONLY_ADAPTER_EXIT_MAP,
 } from "../shared/public_function_contracts.js";
 
 export const ABG_PROJECT_READ_CASES = Object.freeze([
@@ -367,7 +366,6 @@ function abgReadContract<
       },
       sdkCoordinate: `sdk.project.read.${input.caseKey}`,
       cliCoordinate: `project read ${input.caseKey}`,
-      adapterExitMap: TERMINAL_ONLY_ADAPTER_EXIT_MAP,
     }),
   );
 }

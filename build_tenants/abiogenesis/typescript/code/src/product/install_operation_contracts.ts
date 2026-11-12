@@ -11,7 +11,6 @@ import {
   ownerMetadata,
   refDigestSchema,
   refusalSchema,
-  TERMINAL_ONLY_ADAPTER_EXIT_MAP,
 } from "../shared/public_function_contracts.js";
 
 const INSTALL_AUTHORITY =
@@ -74,7 +73,6 @@ const install = ownerContractPacket(
     },
     sdkCoordinate: "sdk.product.install",
     cliCoordinate: "product install",
-    adapterExitMap: TERMINAL_ONLY_ADAPTER_EXIT_MAP,
   }),
 );
 

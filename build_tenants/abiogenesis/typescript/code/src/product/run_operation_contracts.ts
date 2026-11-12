@@ -16,7 +16,6 @@ import {
   refSetSchema,
   refusalSchema,
   requestDependentAuthoritySlot,
-  RUNTIME_NONTERMINAL_ADAPTER_EXIT_MAP,
   sourceBasisSchema,
 } from "../shared/public_function_contracts.js";
 
@@ -121,7 +120,6 @@ function runMetadata(member: "invoke" | "start") {
       : {},
     sdkCoordinate: "sdk.run.invoke",
     cliCoordinate: `run ${member}`,
-    adapterExitMap: RUNTIME_NONTERMINAL_ADAPTER_EXIT_MAP,
   });
 }
 
@@ -312,7 +310,6 @@ function continueContract<const TMember extends
       closedDomains: { continuationKind: [...kinds] },
       sdkCoordinate: "sdk.run.continue",
       cliCoordinate: `run continue --mode ${member}`,
-      adapterExitMap: RUNTIME_NONTERMINAL_ADAPTER_EXIT_MAP,
     }),
   );
 }

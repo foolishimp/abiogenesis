@@ -13,7 +13,6 @@ import {
   refDigestSchema,
   refDigestSetSchema,
   refusalSchema,
-  TERMINAL_ONLY_ADAPTER_EXIT_MAP,
   typedResidualSetSchema,
   uniqueArray,
 } from "../shared/public_function_contracts.js";
@@ -203,7 +202,6 @@ function productReadContract<
       },
       sdkCoordinate: `sdk.project.read.${input.caseKey}`,
       cliCoordinate: `project read ${input.caseKey}`,
-      adapterExitMap: TERMINAL_ONLY_ADAPTER_EXIT_MAP,
     }),
   );
 }

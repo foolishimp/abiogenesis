@@ -13,7 +13,6 @@ import {
   ownerMetadata,
   refDigestSchema,
   refusalSchema,
-  TERMINAL_ONLY_ADAPTER_EXIT_MAP,
   typedResidualSetSchema,
 } from "../shared/public_function_contracts.js";
 
@@ -65,7 +64,6 @@ function materializationMetadata(
     closedDomains: { materializationKind: [materializationKind] },
     sdkCoordinate: "sdk.product.materialize",
     cliCoordinate: `product materialize ${materializationKind}`,
-    adapterExitMap: TERMINAL_ONLY_ADAPTER_EXIT_MAP,
   });
 }
 

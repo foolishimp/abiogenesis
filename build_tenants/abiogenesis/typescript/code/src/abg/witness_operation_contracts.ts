@@ -10,7 +10,6 @@ import {
   ownerMetadata,
   refDigestSchema,
   refusalSchema,
-  TERMINAL_ONLY_ADAPTER_EXIT_MAP,
 } from "../shared/public_function_contracts.js";
 
 export const WITNESS_ACTS = Object.freeze([
@@ -136,7 +135,6 @@ function witnessContract<const TAct extends WitnessAct>(act: TAct) {
       closedDomains: { act: [act], subjectKind: [subjectKind] },
       sdkCoordinate: "sdk.witness.admit",
       cliCoordinate: `witness admit ${act}`,
-      adapterExitMap: TERMINAL_ONLY_ADAPTER_EXIT_MAP,
     }),
   );
 }

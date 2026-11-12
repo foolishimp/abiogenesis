@@ -15,7 +15,6 @@ import {
   refDigestSchema,
   refSetSchema,
   refusalSchema,
-  TERMINAL_ONLY_ADAPTER_EXIT_MAP,
   typedResidualSetSchema,
   uniqueArray,
 } from "../shared/public_function_contracts.js";
@@ -239,7 +238,6 @@ const admit = ownerContractPacket(
     },
     sdkCoordinate: "sdk.catalog.admit",
     cliCoordinate: "catalog admit",
-    adapterExitMap: TERMINAL_ONLY_ADAPTER_EXIT_MAP,
   }),
 );
 
@@ -288,7 +286,6 @@ const allowlist = ownerContractPacket(
     closedDomains: {},
     sdkCoordinate: "sdk.catalog.view",
     cliCoordinate: "catalog view",
-    adapterExitMap: TERMINAL_ONLY_ADAPTER_EXIT_MAP,
   }),
 );
 
@@ -360,7 +357,6 @@ function applyContract<const TKind extends "node_type" | "overlay">(
       closedDomains: { applicationKind: [applicationKind] },
       sdkCoordinate: "sdk.catalog.apply",
       cliCoordinate: `catalog apply ${applicationKind}`,
-      adapterExitMap: TERMINAL_ONLY_ADAPTER_EXIT_MAP,
     }),
   );
 }
