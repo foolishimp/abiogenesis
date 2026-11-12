@@ -32,9 +32,10 @@ import { rehydrateInvocationAdmissionAtPrefix } from "./invocation_admission.js"
 import { runtimeEventBodiesAtPrefix, type ValidatedRuntimeEventPrefix } from "./event_prefix.js";
 import { sha256Canonical, sha256Bytes } from "../shared/digests.js";
 import { pathRelation, pathStrictlyWithin } from "../shared/path_confinement.js";
+import { spelledAsStored } from "../shared/stored_spelling.js";
 import type { JsonValue } from "../shared/canonical_json.js";
 import { deepFreeze } from "../shared/immutable.js";
-import { readFileSync, lstatSync, realpathSync, readdirSync } from "node:fs";
+import { readFileSync, lstatSync, readdirSync } from "node:fs";
 import { resolve } from "node:path";
 import { pathToFileURL } from "node:url";
 import type { SemanticWorksiteBasis } from "../product/semantic_stage.js";
@@ -216,7 +217,7 @@ export function semanticJobContextCurrent(basis: SemanticStageNativeBasis, input
       const path = resolve(root, entry.relativePath);
       try {
         const stat = lstatSync(path);
-        if (entry.state === "absent" || stat.isSymbolicLink() || realpathSync(path) !== path || `${stat.dev}:${stat.ino}` !== entry.fileIdentity) return false;
+        if (entry.state === "absent" || stat.isSymbolicLink() || !spelledAsStored(path) || `${stat.dev}:${stat.ino}` !== entry.fileIdentity) return false;
         if (entry.state === "directory") return stat.isDirectory() && canonicalEquals(readdirSync(path).sort(), entry.members);
         const bytes = readFileSync(path);
         const inline = inlineWorksiteContextBytes(entry);
@@ -398,10 +399,10 @@ export function projectSemanticJobEvidence(basis: SemanticStageNativeBasis, inpu
     if (!canonicalEquals(rederiveWorksiteCommandTask({ kind: "worksite_command_preparation_bound_input", schemaVersion: "5.0.0", entry: expected, source: input.task.sourceConstructionResult },
       input.task), input.task)) return null;
     const root = input.provenance.helperPlan.sandboxRoot;
-    if (resolve(root) !== root || realpathSync(root) !== root || lstatSync(root).isSymbolicLink()) return null;
+    if (resolve(root) !== root || !spelledAsStored(root) || lstatSync(root).isSymbolicLink()) return null;
     const artifacts = input.snapshotMembers.map(member => {
       const path = resolve(root, member.relativePath);
-      if (!pathStrictlyWithin(pathRelation(root, path)) || realpathSync(path) !== path) throw new TypeError("snapshot locus mismatch");
+      if (!pathStrictlyWithin(pathRelation(root, path)) || !spelledAsStored(path)) throw new TypeError("snapshot locus mismatch");
       const stat = lstatSync(path), bytes = readFileSync(path), target = worksite.targets.find(t => t.target.targetRef === member.sourceMemberRef);
       const protectedRow = input.task.protectedObservations.find(row => row.sourceMemberRef === member.sourceMemberRef);
       if (!stat.isFile() || stat.isSymbolicLink() || stat.nlink !== 1 || bytes.length !== member.byteLength || sha256Bytes(bytes) !== member.digest || protectedRow === undefined) throw new TypeError("snapshot identity mismatch");

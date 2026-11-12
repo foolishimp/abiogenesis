@@ -1,4 +1,4 @@
-import { lstatSync, readFileSync, realpathSync } from "node:fs";
+import { lstatSync, readFileSync } from "node:fs";
 import { relative, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 import type { GraphFunction, GtlGraph, ModulePublication } from "../gtl/contracts.js";
@@ -20,6 +20,7 @@ import { constructWorksiteObservation } from "../product/worksite_effect.js";
 import { type JsonValue } from "../shared/canonical_json.js";
 import { sha256Bytes, sha256Canonical } from "../shared/digests.js";
 import { classifyPathRelation, pathStrictlyWithin } from "../shared/path_confinement.js";
+import { spelledAsStored } from "../shared/stored_spelling.js";
 import { admitIJsonText } from "../shared/i_json.js";
 import { deepFreeze } from "../shared/immutable.js";
 import { projectActorProcessLifecycle, validateActorProcessCarrierPair } from "./actor_process.js";
@@ -148,13 +149,13 @@ function taskBridge(prefix: RuntimeEventPrefix, execution: ExecutionBasis, task:
 }
 function currentTaskPhysical(task: WorksiteConstructionTask): boolean {
   const root = task.workspaceAuthorityBasis.canonicalRoot;
-  if (resolve(root) !== root || realpathSync(root) !== root || lstatSync(root).isSymbolicLink()) return false;
+  if (resolve(root) !== root || !spelledAsStored(root) || lstatSync(root).isSymbolicLink()) return false;
   for (const target of task.targets) {
     const path = fileURLToPath(target.subject.subjectUri), rel = relative(root, path);
     if (rel !== target.subject.relativePath || !pathStrictlyWithin(classifyPathRelation(rel))) return false;
     let observation;
     try {
-      if (realpathSync(path) !== path) return false;
+      if (!spelledAsStored(path)) return false;
       const stat = lstatSync(path);
       if (!stat.isFile() || stat.isSymbolicLink() || stat.nlink !== 1) return false;
       const bytes = readFileSync(path);

@@ -1,11 +1,12 @@
 import type { RuntimeEventPrefix } from "./event_prefix.js";
 import { extendRuntimeEventPrefixForValidation, indexedRuntimeEvents, runtimeEventPrefixDigest, runtimeEventPrefixIsExactExtension,
   runtimeEventPrefixExtent, selectOwnedRuntimeEventPrefix, selectRuntimeEventPrefixFromStore } from "./event_prefix.js";
-import { readFileSync, lstatSync, realpathSync, type BigIntStats } from "node:fs";
+import { readFileSync, lstatSync, type BigIntStats } from "node:fs";
 import { dirname } from "node:path";
 import { performance } from "node:perf_hooks";
 import type { JsonValue } from "../shared/canonical_json.js";
 import { sha256Bytes, type Sha256Digest } from "../shared/digests.js";
+import { spelledAsStored } from "../shared/stored_spelling.js";
 import { deepFreeze } from "../shared/immutable.js";
 import { runtimeEventEnvelopesAtPrefix, runtimeEventProfileScheduleFromValidatedPrefix, unscopedRuntimeEventPrefix, type ValidatedRuntimeEventPrefix } from "./event_prefix.js";
 import { constructRuntimeFluent, runtimeFluentHoldsAtPrefix } from "./event_calculus.js";
@@ -339,7 +340,7 @@ function stageProbe(input: RuntimeActivityProbeInput, durableOnly: boolean): Run
     let sourceRevisionDigest: Sha256Digest | null = null;
     try {
       const node = lstatSync(probe.sourceRef, { bigint: true });
-      if (!node.isFile() || node.isSymbolicLink() || node.nlink !== 1n || realpathSync(dirname(probe.sourceRef)) !== dirname(probe.sourceRef)) throw new TypeError("bound native asset is not one canonical file");
+      if (!node.isFile() || node.isSymbolicLink() || node.nlink !== 1n || !spelledAsStored(dirname(probe.sourceRef))) throw new TypeError("bound native asset is not one canonical file");
       bytes = readFileSync(probe.sourceRef);
       const after = lstatSync(probe.sourceRef, { bigint: true });
       sourceRevisionDigest = runtimeAssetRevisionDigest(node);
