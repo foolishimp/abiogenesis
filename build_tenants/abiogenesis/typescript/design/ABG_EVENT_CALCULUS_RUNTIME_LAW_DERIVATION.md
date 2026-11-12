@@ -75,8 +75,10 @@ The default library and every GTL Program use their admitted evaluation,
 registered-choice and call owners under Product: the Executive's `select`
 F_P chooses one registered graph (`selectGovernanceWork`,
 `implementation/default_library.ts`), its `project-choice` F_D projects that
-choice (`projectGovernanceChoice`, `abg/default_library.ts`), and the
-registered-selection route admits it (`hog/route_proposal.ts`). Public
+choice (`projectGovernanceChoice`, `abg/default_library.ts`). HoG proposes
+the selected route (`proposeJudgedRoute`, `hog/route_proposal.ts`), and ABG
+admits it after resolving the same selection again (`admitRoute`,
+`registeredSelectionContinuationMatches`, `abg/traversal_route.ts`). Public
 ingress never substitutes for semantic next-work selection. Reuse of the same
 obligation ref is not a request to resume an earlier execution, and a fresh
 start cannot impersonate that request.
