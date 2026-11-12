@@ -8,7 +8,8 @@
 - Scratch evidence is under `/private/tmp/abg-td26ps-work/`:
   - `trace-start-law.mjs` with `trace-start-law.base.json` and `.flipped.json`;
   - `probe-consumer-policy.mjs` with `.base.json` and `.flipped.json`;
-  - `probe-rc7-fixed-admission.base.tap` and `.flipped.tap`.
+  - `probe-rc7-fixed-admission.base.tap` and `.flipped.tap`;
+  - `probe-option-d.mjs` with `probe-option-d.base.txt`.
 
 ## 1. Start table (ruling 2)
 
@@ -163,8 +164,9 @@ No lane starts the library's own Program through a Public start. Only the new la
    |---|---|---|
    | (a) Add a `direct` Program for the fixed route | The library publication declares a second Program with `direct` policy that hosts the fixed wrapper route. The wrapper rows' `programMembershipRefs` name it. | A design_reframe of F2-PROGRAM-001 and the RC7 section. It moves the library publication and its catalog rows. `uat/public-setup.mjs` `SETUP_PROGRAMS.library` and `libraryProgram` select the new Program. The recorded fixed-route log stays on the old Program reference. |
    | (a') The reverse of (a) | `…/default@5` stays `direct` for the fixed route, and a new Program declares `supervised` and the Executive start. | The same scope as (a), with the recorded log keeping its Program's meaning. |
-   | (b) Change the guards | The direct-invocation guards (`product/invocation.ts:1155-1162`, `abg/invocation_admission.ts:958-966`) admit a direct `invoke` under a supervised Program. | A law change outside ruling 1. Whether REQ-P-POLICY-013 ("`direct` selects one admitted entry traversal without that Product policy overlay") permits a direct invoke under a supervised Program is a requirement reading. It touches no Program identity. |
+   | (b) Change the guards | The direct-invocation guards (`product/invocation.ts:1155-1162`, `abg/invocation_admission.ts:958-966`) admit a direct `invoke` under a supervised Program, but only of a callable member that is not a declared start's GraphFunction. Admitting any member would admit the Executive itself and leave `supervised` without effect. | A law change outside ruling 1. Whether REQ-P-POLICY-013 ("`direct` selects one admitted entry traversal without that Product policy overlay") permits a direct invoke under a supervised Program is a requirement reading. It touches no Program identity. |
    | (c) Retire the route | Retire the RC7 fixed route. | A feature decision: "Product makes the Executive optional" leaves the design note. It removes the `constructFixed*` callers and the two cases. No UAT runner path uses the route. |
+   | (d) Declare starts for the wrappers | The library Program declares two more starts, one for the Testing wrapper and one for the UAT wrapper. The fixed route moves from `invoke` to supervised `declared_start` starts, under the start law as it stands. | Probed (`probe-option-d.mjs`): on the supervised Program with the two starts added, `resolveProgramStart` resolves `start://abiogenesis/default-library/testing@5` and `…/uat@5` to their wrappers, both callable members, and still resolves the Executive start. It touches the Program body and so the library publication digest. It is a design_reframe of F2-PROGRAM-001 and the RC7 section. `constructFixed*` moves from `invoke` to start, and a fixed Run's recorded `publicStart` reads `supervised` with its own start. Open question: POLICY-013 and PRODUCT say `supervised` selects the system program, so a supervised start of a Testing wrapper is a requirement reading. Two places read, and neither reads the invocation variant: the retained-state declared-entry clause (`abg/invocation_admission.ts:1507-1530`) and the opening of the direct-route owner (`abg/default_library.ts:52-72`). The rest of the route was not traced for variant sensitivity. |
 
 2. **What "a default start selects the standard system program" covers.**
    - Under ruling 4 every Executive Run in use today stays a `direct` start of a consumer copy: the witness fixture, the sandbox-UAT lifecycle and the registered-selection fixtures.
