@@ -10,7 +10,7 @@ import {declarations,ref,hash} from '../fixtures/registered-selection-product/in
 // T-292 TD-26 P4: execution-basis admission refuses a Program that carries an
 // ActionCatalog with its existing basis refusal, which Public reports as
 // invalid_graph_function at /execution_basis. Publication validation, catalog
-// admission and Product resolution still admit the Program, so the start
+// admission, conformance and Product resolution still admit the Program, so the start
 // reaches the Run owner and is refused there before any basis is admitted.
 // An observation-snapshot input to a kept Program is refused by the Product's
 // input contract. No refusal code is new.
@@ -42,7 +42,12 @@ async function setup(declarationFactory){
 
 test('a start of a Program carrying an ActionCatalog is refused at execution-basis admission and opens nothing',async()=>{
   const {e,publicApi,catalog,handoff,eventResource}=await setup(withActionCatalog);
-  assert.equal(e.additionalPublications[0].programs[0].actionCatalog.rows.length,1,'publication validation and catalog admission keep the catalog');
+  const publication=e.additionalPublications[0];
+  assert.equal(publication.programs[0].actionCatalog.rows.length,1,'publication validation and catalog admission keep the catalog');
+  const conformanceOwner=await import(pathToFileURL(join(e.installedRoot,'build/code/src/validator/conformance_operation.js')).href);
+  const conformance=conformanceOwner.evaluateGtlProgramConformance({kind:'conformance_evaluate_packet',schemaVersion:'5.0.0',
+    memberKey:'gtl_program',program:publication.programs[0],publication});
+  assert.equal(conformance.kind,'gtl_program_conformance_result',JSON.stringify(conformance).slice(0,2000));
   const {call,resolution}=await constructInstalledStartCall({environment:e,publicApi,eventResource,identity:'td26p4-door',
     input:{kind:'selection_request',choice:'A',payload:'door',catalog}});
   assert.equal(resolution.program.actionCatalog.rows.length,1,'Product resolution admits the Program');
