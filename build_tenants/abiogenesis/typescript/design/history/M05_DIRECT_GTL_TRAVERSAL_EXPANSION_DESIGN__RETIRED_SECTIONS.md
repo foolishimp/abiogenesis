@@ -350,3 +350,16 @@ run identity, projection store, or mutable current-run pointer.
 
 From a fresh public context, `project.read` may consume that exact authority to
 render:
+
+---
+
+Cut from `build_tenants/abiogenesis/typescript/design/M05_DIRECT_GTL_TRAVERSAL_EXPANSION_DESIGN.md` at commit `b13bdd5c2`, lines 123-123, 410-410, 416-417, 1068-1068, verbatim.
+
+| `GraphFunctionApplication` | `GtlDeclarationFamily` | GTL | One declared graph relation for composition, substitution, recursion, fan-out, fan-in, gate, promote, identity, or same-object identity. |
+
+| `gate` | target, rule, and evaluator refs | admit block or advance from evaluator truth; never select a candidate |
+
+GTL value. Recursion, fan-out, fan-in, and gate retain explicit runtime-visible
+application declarations because they govern child traversal or admission.
+
+| `traversal_route_admitted` | `frame`; route ref/digest, route kind from `advance`, `retry`, `hold`, `blocked`, `failed`, or `terminal`, declaration ref/digest, source and optional target cursor refs/digests, applicable CCall/judgment and consumed-availability refs | current opened scope plus the judgment, child refusal/foldback, fan-out completion, gate result, retry progress, or structural declaration that permits the route | every variant terminates `locus_active(sourceCursorRef)` and any named consumed-availability fluent; `advance` and `retry` initiate `locus_active(targetCursorRef)`; `hold` terminates `frame_active` and initiates `hold_route_admitted(routeRef)`; `blocked` and `failed` terminate `frame_active` plus exact active retry/hold fluents and initiate `frame_blocked(frameId)` or `frame_failed(frameId)`; `terminal` initiates `terminal_route_available(routeRef)` |

@@ -1,4 +1,5 @@
 module: M01-gtl-core
+# Retired sections: ../history/M01-gtl-core__RETIRED_SECTIONS.md
 status: held_pending_t283_rederivation
 authority_note: >-
   Prior-basis structural evidence only. Not current ABIogenesis 5.0 design
@@ -50,7 +51,6 @@ interfaces:
   - recurse(graph_function, termination)
   - fan_out(f, over)
   - fan_in(reducer, over)
-  - gate(target, rule, evaluators)
   - promote(source, to)
   - identity(interface)
   - same_object(left, right)
@@ -62,7 +62,7 @@ invariants:
   - GraphFunction outer contracts remain stable across composition, substitution, and recursion
   - interface satisfaction is structural over node name, schema, and markov conditions rather than name-only matching
   - graph-function publication truth is symbolic and replayable rather than anonymous runtime closure state
-  - structured higher-order semantics such as recursion termination, gate obligations, and governance hook attachment remain inspectable on GTL declarations
+  - structured higher-order semantics such as recursion termination and governance hook attachment remain inspectable on GTL declarations
   - algebraic operators may change realized structure but must preserve declared outer contract where the law requires it
   - RefinementBoundary and CandidateFamily are selection/refinement/publication carriers, not core graph algebra operators
   - GTL core does not depend on ABG runtime types or interpreter state
@@ -74,4 +74,4 @@ test_obligations:
   - composition law tests for interface preservation, structural contract matching, and fail-closed mismatch handling
   - substitution law tests for outer-boundary preservation and refined-structure exposure
   - recursion law tests for bounded recursion, inspectable termination declarations, and lineage-preserving outer-contract stability
-  - higher-order operator tests for explicit `over` boundaries, inspectable gate declarations, and no hidden strategy in GTL core
+  - higher-order operator tests for explicit `over` boundaries and no hidden strategy in GTL core
