@@ -31,7 +31,7 @@ import {
 import { dirname, isAbsolute, join, relative, resolve, sep } from "node:path";
 import { fileURLToPath, pathToFileURL } from "node:url";
 
-import { canonicalJson, type JsonValue } from "../shared/canonical_json.js";
+import { canonicalJson, compareUnicodeCodeUnits, type JsonValue } from "../shared/canonical_json.js";
 import {
   isSha256Digest,
   sha256Bytes,
@@ -408,7 +408,7 @@ function worksiteDelta(
   after: ReadonlyMap<string, WorksitePathObservation>,
   authorizeSnapshotTerritories = true,
 ): readonly WorksitePathDelta[] {
-  const paths = [...new Set([...before.keys(), ...after.keys()])].sort((left, right) => left.localeCompare(right));
+  const paths = [...new Set([...before.keys(), ...after.keys()])].sort(compareUnicodeCodeUnits);
   const rows: WorksitePathDelta[] = [];
   for (const relativePath of paths) {
     const prior = before.get(relativePath) ?? null;
@@ -882,7 +882,7 @@ async function walkFiles(root: string, base = root, rows: string[] = []): Promis
     if ((error as NodeJS.ErrnoException).code === "ENOENT") return rows;
     throw error;
   }
-  for (const entry of entries.sort((left, right) => left.name.localeCompare(right.name))) {
+  for (const entry of entries.sort((left, right) => compareUnicodeCodeUnits(left.name, right.name))) {
     const absolute = resolve(root, entry.name);
     if (entry.isDirectory()) await walkFiles(absolute, base, rows);
     else if (entry.isFile()) rows.push(relative(base, absolute).split(sep).join("/"));
