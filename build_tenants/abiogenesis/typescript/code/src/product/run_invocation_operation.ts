@@ -378,7 +378,7 @@ function constructRunInvocationAuthorityBasis<M extends RunInvocationMemberKey>(
 
 type RunOperationKey =
   | Readonly<{ operationId: "abg.operation.run.invoke"; memberKey: RunInvocationMemberKey }>
-  | Readonly<{ operationId: "abg.operation.run.continue"; memberKey: "current_intent" | "selected_action" }>;
+  | Readonly<{ operationId: "abg.operation.run.continue"; memberKey: "current_intent" }>;
 
 type Coordinate = Readonly<{ ref: string; digest: Sha256Digest }>;
 
@@ -443,7 +443,7 @@ export function expectedRunOperationAuthoritySlots(
 }
 
 export function runOperationAuthorityMatches(
-  invocation: ExactDirectRunInvocation | ExactStartRunInvocation | import("../shared/effect_definition.js").DefinitionCall<typeof RUN_OPERATION_CONTRACTS.continue.current_intent, unknown>["invocation"] | import("../shared/effect_definition.js").DefinitionCall<typeof RUN_OPERATION_CONTRACTS.continue.selected_action, unknown>["invocation"],
+  invocation: ExactDirectRunInvocation | ExactStartRunInvocation | import("../shared/effect_definition.js").DefinitionCall<typeof RUN_OPERATION_CONTRACTS.continue.current_intent, unknown>["invocation"],
   resources: ProductRunInvocationResourceAssertion,
   resolution: LoadedProductExecutionResolution,
   workspaceBinding: WorkspaceBinding,
@@ -470,9 +470,7 @@ export function runOperationAuthorityMatches(
   // The public binder authenticates slot syntax/digests; this owner joins the
   // exact asserted input to the selected request, just as the other coordinates.
   const exactInputAuthority = inputSlot !== null && (isContinue
-    ? invocation.definitionKey.memberKey === "selected_action"
-      ? inputSlot.valueDigest === sha256Canonical(inputSlot.value) // exact selected cursor/input joins in its owner
-      : isRecord(authorityRequest.continuationInput) && inputSlot.valueDigest === authorityRequest.continuationInput.digest
+    ? isRecord(authorityRequest.continuationInput) && inputSlot.valueDigest === authorityRequest.continuationInput.digest
     : invocation.definitionKey.memberKey === "start"
     ? authorityRequest.input !== undefined &&
       canonicalEquals(inputSlot, authorityRequest.input)

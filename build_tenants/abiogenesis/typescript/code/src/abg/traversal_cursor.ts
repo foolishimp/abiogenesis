@@ -670,7 +670,6 @@ function admitTraversalFrameCursor(
   graphValidation: GraphValidation,
   cursor: TraversalCursorCandidate,
   basis: RuntimeAdmissionBasis,
-  continuedFrom?: TraversalCursorCandidate,
 ): TraversalCursorAdmissionResult {
   // One native sample at this transaction's opening. The caller's basis can
   // carry the traversal's clock seed.
@@ -703,14 +702,6 @@ function admitTraversalFrameCursor(
   ) {
     return refusal("graph_mismatch", "cursor admission requires the exact validated original GTL Graph");
   }
-  const origin = continuedFrom === undefined ? undefined : {
-    cursorRef: continuedFrom.cursorRef, cursorDigest: continuedFrom.cursorDigest,
-    executionBasisRef: continuedFrom.executionBasisRef, runId: continuedFrom.runId,
-    graphCallId: continuedFrom.graphCallId, frameId: continuedFrom.frameId,
-  };
-  const source = origin === undefined ? null : continuedCursorOrigin(authorityPrefix, graph, executionBasis.basisRef, origin);
-  if (origin !== undefined && (source === null || source.cursorDigest !== continuedFrom!.cursorDigest))
-    return refusal("cursor_mismatch", "continued cursor lacks exact admitted intent, source position and input");
   const expectedDigest = sha256Canonical(cursorBody(cursor));
   if (
     cursor.kind !== "traversal_cursor" ||
@@ -725,21 +716,21 @@ function admitTraversalFrameCursor(
     cursor.graphCallId !== scope.graphCallId ||
     cursor.frameId !== scope.frameId ||
     cursor.graphRef !== graph.materializationRef ||
-    cursor.inputRef !== (source?.inputRef ?? executionBasis.rawInputAdmissionRef) ||
-    cursor.inputDigest !== (source?.inputDigest ?? executionBasis.rawInputDigest)
+    cursor.inputRef !== executionBasis.rawInputAdmissionRef ||
+    cursor.inputDigest !== executionBasis.rawInputDigest
   ) {
     return refusal("cursor_mismatch", "cursor identity or opened lineage differs from the admitted basis");
   }
   if (
-    cursor.position !== (source?.position ?? "at_term") ||
-    cursor.currentNodeRef !== (source?.currentNodeRef ?? graph.template.startNodeRef) ||
+    cursor.position !== "at_term" ||
+    cursor.currentNodeRef !== graph.template.startNodeRef ||
     !canonicalEquals(
       cursor.termPath,
-      (source?.termPath ?? ["node", graph.template.startNodeRef, "c"]),
+      ["node", graph.template.startNodeRef, "c"],
     ) ||
-    cursor.taskOrdinal !== (source?.taskOrdinal ?? null) ||
-    cursor.attempt !== (source?.attempt ?? 1) ||
-    !sameCoordinates(cursor.retryPath, source?.retryPath ?? [])
+    cursor.taskOrdinal !== null ||
+    cursor.attempt !== 1 ||
+    !sameCoordinates(cursor.retryPath, [])
   ) {
     return refusal("cursor_not_initial", "initial cursor must name the exact root C term and initial coordinates");
   }
@@ -791,7 +782,6 @@ function admitTraversalFrameCursor(
     frameId: scope.frameId,
     frameLineageId: scope.frameLineageId,
     payload: {
-      ...(origin === undefined ? {} : { continuedFrom: origin }),
       cursorRef: cursor.cursorRef,
       cursorDigest: cursor.cursorDigest,
       programRef: executionBasis.programRef,
@@ -840,17 +830,12 @@ function admitTraversalFrameCursor(
   return admission;
 }
 
-export function admitInitialTraversalCursor(...args: Parameters<typeof admitTraversalFrameCursor>): TraversalCursorAdmissionResult {
-  if (args[8] !== undefined) return refusal("cursor_mismatch", "initial cursor does not accept a continuation origin");
-  return admitTraversalFrameCursor(...args);
-}
-
-export function admitContinuedTraversalCursor(store: AbgEventStore, prefix: DurablePrefixCoordinate,
-  basis: ExecutionBasis, scope: OpenedTraversalScope, graph: Readonly<GtlGraph>, validation: GraphValidation,
-  source: TraversalCursorCandidate, admissionBasis: RuntimeAdmissionBasis) {
-  const { kind: _kind, schemaVersion: _schema, cursorRef: _ref, cursorDigest: _digest, ...body } = source;
-  const cursor = constructTraversalCursorCandidate({ ...body, executionBasisRef: basis.basisRef,
-    traversalScopeRef: scope.scopeRef, runId: scope.runId, graphCallId: scope.graphCallId, frameId: scope.frameId });
-  const admission = admitTraversalFrameCursor(store, prefix, basis, scope, graph, validation, cursor, admissionBasis, source);
-  return admission.kind === "traversal_cursor_admission" ? Object.freeze({ kind: "continued_traversal_cursor" as const, cursor, admission }) : admission;
+/** The initial cursor of one opened frame. A ninth argument names a
+ * continuation origin; the initial cursor refuses one. */
+export function admitInitialTraversalCursor(
+  ...args: [...Parameters<typeof admitTraversalFrameCursor>, continuedFrom?: unknown]
+): TraversalCursorAdmissionResult {
+  const [store, predecessorPrefix, executionBasis, scope, graph, graphValidation, cursor, basis, continuedFrom] = args;
+  if (continuedFrom !== undefined) return refusal("cursor_mismatch", "initial cursor does not accept a continuation origin");
+  return admitTraversalFrameCursor(store, predecessorPrefix, executionBasis, scope, graph, graphValidation, cursor, basis);
 }
