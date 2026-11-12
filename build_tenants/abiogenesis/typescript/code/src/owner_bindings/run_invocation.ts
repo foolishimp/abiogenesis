@@ -45,7 +45,6 @@ import {
 import {
   admitExecutionBasis,
   admitInvocationRefusal,
-  hasExactInvocationObservationBasis,
 } from "../abg/execution_basis.js";
 import {
   admitRuntimeFailure,
@@ -918,25 +917,6 @@ function runInvocationOwner<TPacket extends InvocationPacket>(
     const prepared = preparedResult as PreparedProductRunInvocation<
       RunInvocationMemberKey
     >;
-    if (!hasExactInvocationObservationBasis(
-      prepared.admittedInput,
-      setup.workspaceBinding.bindingId,
-      setup.workspaceBinding.bindingDigest,
-      prepared.resolution.program,
-    )) {
-      return yield* finish(
-        call,
-        resource,
-        entryPrefix,
-        ProductRunInvocationPort.projectOwnerRefusal(
-          call.invocation.definitionKey.memberKey,
-          { stage: "observation", code: "observation_basis_mismatch" },
-        ) as OwnerSemanticOutput<TPacket>,
-        prepared,
-        null,
-        null,
-      );
-    }
     const admitted = yield* syncStage(call, "invocation_admission", () =>
       admitExactInvocation(
         resource.store,

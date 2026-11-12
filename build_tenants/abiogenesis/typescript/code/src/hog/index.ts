@@ -26,7 +26,6 @@ export {
   proposeBlockedRoute,
   proposeFailedRoute,
   proposeFanOutRoute,
-  proposeGapStopRoute,
   proposeGraphSpanReentryRoute,
   proposeHoldRoute,
   proposeJudgedRoute,

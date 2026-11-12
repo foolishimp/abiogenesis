@@ -623,7 +623,7 @@ test('lifecycle failure subjects carry each outcome receipt\'s own cut through b
   const failureRoute = await sourceOwner('hog/traversal_failure', { '../abg/index.js': { admitRuntimeFailure: g.owner.admitRuntimeFailure } });
   const workflow = await sourceOwner('hog/workflow_lifecycle', {
     './traversal_failure.js': failureRoute,
-    '../abg/c_call.js': { prepareWorkflowChildFoldback: () => ({ intent: null, admit: () => ({ kind: 'child_foldback_admission',
+    '../abg/c_call.js': { prepareWorkflowChildFoldback: () => ({ admit: () => ({ kind: 'child_foldback_admission',
       childDisposition: 'blocked', childReasonRef: null, successorPrefix: gAt.coordinate }) }) },
     '../abg/c_call_outcome.js': { admitOwnedCCallResult: () => workflowReceipt },
   });

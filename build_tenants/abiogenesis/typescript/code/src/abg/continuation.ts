@@ -29,7 +29,6 @@ function graphFunctionCatalogViewRef(view: GraphFunctionCatalogView): string {
 import {
   hasAdmittedExecutionBasisAtPrefix,
   hasAdmittedInteractionSetAtPrefix,
-  isAdmittedConstructionInteractionLocus,
   type AdmittedInteractionSet,
   type ExecutionBasis,
   type RuntimeAdmissionBasis,
@@ -55,9 +54,7 @@ import {
 import {
   isAdmittedRoute,
   admitTraversalTransitionInActiveTransaction,
-  rehydrateConstructionIntentForCursorAtPrefix,
   type AdmittedRoute,
-  type ConstructionIntentAdmission,
 } from "./traversal_route.js";
 import type { TraversalTransitionCandidate } from "./traversal_transition.js";
 import {
@@ -117,14 +114,6 @@ export function admitFhInteractionOpen(
 ): FhInteractionContinuation {
   const prefix = selectRuntimeEventPrefixFromStore(store);
   const cCall = pending.cCall;
-  const constructionIntent: ConstructionIntentAdmission | null =
-    rehydrateConstructionIntentForCursorAtPrefix(prefix, cursor);
-  const requiresConstructionIntent =
-    isAdmittedConstructionInteractionLocus(
-      executionBasis,
-      cCall.programLocusRef,
-      cCall.compositionRef,
-    );
   if (
     !hasAdmittedExecutionBasisAtPrefix(prefix, executionBasis) ||
     !hasOpenedTraversalScopeAtPrefix(prefix, scope) ||
@@ -163,27 +152,7 @@ export function admitFhInteractionOpen(
     productBasis.programValidation.validationRef !==
       executionBasis.programValidationRef ||
     productBasis.graphValidation.validationRef !==
-      executionBasis.graphValidationRef ||
-    (
-      requiresConstructionIntent &&
-      (
-        constructionIntent === null ||
-        constructionIntent.executionBasisRef !== executionBasis.basisRef ||
-        constructionIntent.executionBasisDigest !== executionBasis.basisDigest ||
-        constructionIntent.programRef !== executionBasis.programRef ||
-        constructionIntent.graphFunctionRef !== executionBasis.graphFunctionRef ||
-        constructionIntent.workspaceBindingId !==
-          executionBasis.workspaceBindingId ||
-        constructionIntent.workspaceBindingDigest !==
-          executionBasis.workspaceBindingDigest ||
-        constructionIntent.runId !== scope.runId ||
-        constructionIntent.graphCallId !== scope.graphCallId ||
-        constructionIntent.frameId !== scope.frameId ||
-        constructionIntent.targetCursorRef !== cursor.cursorRef ||
-        constructionIntent.targetCursorDigest !== cursor.cursorDigest ||
-        constructionIntent.targetProgramLocusRef !== cCall.programLocusRef
-      )
-    )
+      executionBasis.graphValidationRef
   ) {
     throw new TypeError(
       "F_H continuation requires one exact admitted pending interaction basis",
@@ -202,8 +171,7 @@ export function admitFhInteractionOpen(
     actorCapabilityRef: cCall.actorCapabilityRef,
     responseContractRef: cCall.responseContractRef,
     executionBasisRef: executionBasis.basisRef,
-    constructionIntentRef:
-      constructionIntent?.constructionIntentRef ?? null,
+    constructionIntentRef: null,
   };
   const continuationDigest = sha256Canonical(identity);
   const continuationRef =
@@ -216,9 +184,6 @@ export function admitFhInteractionOpen(
     parentAggregateId: scope.frameId,
     causationEventRefs: [
       route.admissionEventRef,
-      ...(constructionIntent === null
-        ? []
-        : [constructionIntent.admissionEventRef]),
       ...basis.causationEventRefs,
     ],
     correlationId: basis.correlationId,
@@ -276,14 +241,6 @@ export function admitFhInteractionOpen(
       workspaceBindingDigest: productBasis.workspaceBinding.bindingDigest,
       catalogViewId: graphFunctionCatalogViewRef(productBasis.catalogView),
       catalogViewDigest: productBasis.catalogView.viewDigest,
-      ...(constructionIntent === null
-        ? {}
-        : {
-            constructionIntentRef:
-              constructionIntent.constructionIntentRef,
-            constructionIntentDigest:
-              constructionIntent.constructionIntentDigest,
-          }),
     },
   });
   return deepFreeze({
@@ -303,10 +260,8 @@ export function admitFhInteractionOpen(
     requestDigest: pending.requestDigest,
     heldCursorRef: cursor.cursorRef,
     heldCursorDigest: cursor.cursorDigest,
-    constructionIntentRef:
-      constructionIntent?.constructionIntentRef ?? null,
-    constructionIntentDigest:
-      constructionIntent?.constructionIntentDigest ?? null,
+    constructionIntentRef: null,
+    constructionIntentDigest: null,
     openedEventRef: event.eventId,
   });
 }

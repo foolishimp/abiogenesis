@@ -5,7 +5,7 @@ import {tmpdir} from 'node:os';
 import {join} from 'node:path';
 import {registerHooks} from 'node:module';
 import {evidenceInput} from '../support/evidence-root.mjs';
-// Same test-only export technique as multi-candidate-admission-owner.mjs:
+// Test-only export of the owner's own function:
 // no copied predicate, no dependency mocking, no public production test port.
 const ownerUrl=new URL('../../build/code/src/abg/construction_continuation.js',import.meta.url).href;
 const hook=registerHooks({load(url,context,next){const loaded=next(url,context);return url===ownerUrl?{...loaded,format:'module',source:loaded.source+'\nexport { constructionContinuationOperationCandidate };\n'}:loaded;}});

@@ -99,7 +99,7 @@ test('route-origin workflow cursor stages, replays, commits and cold-projects ex
  // Continuation derivation now belongs to the cursor owner. Supply the same
  // existing declaration premise at that seam; cursor/provenance checks stay real.
  const declaredCursor=await owner('abg/traversal_cursor.js',{'../gtl/source_path.js':sourcePath});
- const makeRouteOwner=projectionReplay=>owner('abg/traversal_route.js',{'./invocation_execution_truth.js':lookup,'./replay.js':projectionReplay,'./execution_basis.js':{hasAdmittedExecutionBasisAtPrefix:()=>true,rehydrateExecutionBasisAtPrefix:lookup.projectExactExecutionBasisAtPrefix,admittedConstructionComposition:()=>null,selectAdmittedConstructionAuthority:()=>null},
+ const makeRouteOwner=projectionReplay=>owner('abg/traversal_route.js',{'./invocation_execution_truth.js':lookup,'./replay.js':projectionReplay,'./execution_basis.js':{hasAdmittedExecutionBasisAtPrefix:()=>true,rehydrateExecutionBasisAtPrefix:lookup.projectExactExecutionBasisAtPrefix},
   './traversal_cursor.js':{deriveAdmittedCContinuationTarget:declaredCursor.deriveAdmittedCContinuationTarget},
   '../gtl/materialize.js':{isMaterializedGtlGraph:()=>true},'../gtl/source_path.js':sourcePath,
   './runtime_liveness.js':{captureNativeFrameBoundary:()=>null,observeNativeFrameLiveness:()=>{}},
