@@ -746,7 +746,7 @@ RunStartRequest = {
 
 RunStartDefaults = {
   fhMode: "direct"
-  rootMode: "supervised"
+  rootMode: "direct"
 }
 
 InteractionRespondRequest<R> = {
@@ -815,7 +815,9 @@ members require `choice: null`. All five require a contract-admitted value.
 The six witness members use the exact context relation above; no optional
 context bag is lawful. `run.invoke(invoke)` has no `fhMode`, `rootMode`,
 `scope`, or `until` field. `run.invoke(start)` has exactly the modes and
-defaults above.
+defaults above. Its owner, `RUN_OPERATION_CONTRACTS.invoke.start` in
+`product/run_operation_contracts.ts`, states each default twice: as the request
+schema's optional default and in `metadata.defaults`.
 
 For WITNESS018, the existing `project.read(run_status)` projection includes the
 required `executionBasis: RD<ExecutionBasis>` coordinate of the Run's admitted
