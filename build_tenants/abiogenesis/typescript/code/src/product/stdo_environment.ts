@@ -163,12 +163,12 @@ export async function observeRunEnvironment(input: {
   let outcome: RunEnvironmentObservation;
   try {
     const d = runEnvironmentForProgram(input.publication, input.program);
+    if (d === false || !validRunEnvironmentProgram(input.publication, input.program, input.graphFunctions))
+      throw new ObservationFailure("unsupported_declaration", "/program/runEnvironment");
     if (d === null) {
       if (input.resources !== undefined) throw new ObservationFailure("access_not_permitted", "/runEnvironmentResources");
       return deepFreeze({ kind: "run_environment_observed", evidence: null });
     }
-    if (d === false || !validRunEnvironmentProgram(input.publication, input.program, input.graphFunctions))
-      throw new ObservationFailure("unsupported_declaration", "/program/runEnvironment");
     if (input.resources === undefined) throw new ObservationFailure("missing_binding", "/runEnvironmentResources");
     const r = input.resources, p = r.permission;
     if (!v.is(RUN_ENVIRONMENT_RESOURCES_SCHEMA, r) || p.authorityRef !== input.authority.authorityRef ||
