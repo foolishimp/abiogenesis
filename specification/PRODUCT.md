@@ -1019,7 +1019,7 @@ validate a GTL program
 publish or admit a lawful module
 call a published GraphFunction
 start a published GTL program
-read state, result, evidence, gaps, and replay
+read state, result, evidence, and replay
 inspect a typed human-required block and its handoff
 continue admitted work under existing specification, constraints and authority
 run conformance and installed-product proof
@@ -1027,9 +1027,9 @@ run conformance and installed-product proof
 
 A Run that stops without completing reads back from the admitted record alone:
 its typed disposition, the reason for the stop, the Result the stop originated
-from with its failure class where a failure caused it, the last admitted Result
-of its root, which for an Executive records its unresolved obligations and
-review standing, and the next lawful action where the record establishes one.
+from with its failure class where a failure caused it or its missing support
+where a gap caused it, and the last admitted Result of its root, which for an
+Executive records its unresolved obligations and review standing.
 The start and continue output of a stopped Run state the same reading. A stop
 is never presented as completion, and a child ended by a handled failure is
 never presented as live or closed.
@@ -1048,7 +1048,7 @@ The SDK and CLI may parse, type, transport, ignite, and render. They may not:
 - resolve implementations outside admitted catalog authority;
 - invoke workers directly;
 - construct execution bases, events, retries, or continuations;
-- order One Surface; or
+- order the Executive's steps; or
 - decide closure.
 
 Native operation must not depend on Codex, Claude, or another marketplace host.
@@ -1058,32 +1058,24 @@ Native operation must not depend on Codex, Claude, or another marketplace host.
 5.0 publishes product capabilities that prove the general engine by using the
 same public GTL, catalog, HoG, and ABG path as downstream consumers.
 
-### System And One Surface
+### Standard System Program
 
-The standard system program composes exactly four semantic authorities:
-
-```text
-synthesizeModel -> evalGap -> evaluateNext -> evaluateAction
-```
-
-Intent admission, GraphFunction invocation, evidence admission, and
-continuation are distinct ABG boundaries between and around those authorities;
-they are not additional semantic authorities. The public SDK and CLI start or
-continue the program; they do not implement its loop. In 5.0, a required human
-response yields a truthful blocked handoff; native response/resume is 5.1.
+The standard system program is the default library's Executive, and the
+default `supervised` root mode selects it. Each step prepares a selection
+basis, selects one registered graph through one `F_P` selection, applies it as
+a registered selection and folds the returned evidence before the next step. A
+step that finds no lawful selection stops the Run as a typed block whose
+reading reports the gap and its missing support, with a human-readable
+handoff. Invocation, selection admission, evidence admission and continuation
+are distinct ABG boundaries around each step; they are not additional semantic
+authorities. The public SDK and CLI start or continue the program; they do not
+implement its loop. In 5.0, a required human response yields a truthful
+blocked handoff; native response/resume is 5.1.
 
 ### Consensus
 
-Dedicated Consensus qualification is reserved for 5.1. Existing ordinary
-GraphFunctions remain reusable; their presence does not claim S05 acceptance.
-
-Consensus is a bounded standard-library GraphFunction expressed through
-ordinary GTL composition. It demonstrates attributed parallel work, fan-out,
-fan-in, disagreement, bounded retry or recursion, mechanical validation,
-probabilistic evaluation, human escalation, typed results, and replay.
-
-Consensus has no special runner, scheduler, CLI command, event family, ticket
-mutation authority, or closure path.
+Consensus, a bounded GraphFunction over ordinary GTL composition, is the
+planned 5.1 outcome `A5-F08`. 5.0 ships no Consensus GraphFunction.
 
 ### Planned 5.1 Observer And Tuner
 
@@ -1116,7 +1108,9 @@ or product feature family.
 The default library publishes a recursive Executive overlay and reusable
 GraphFunctions for induction, specification, design, testing, framed review and
 UAT through the same module/catalog path as user declarations. They are
-explicitly selected, replaceable compositions. Induction establishes the task
+explicitly selected, replaceable compositions: the Executive is the standard
+system program, and a start under the default `supervised` root mode selects
+it by naming its declared start. Induction establishes the task
 model, governing context, assumptions and unknowns. Construction uses the
 declared coding-worker capability. Applicable work, depth and repetition follow
 framed evaluation and policy; the library imposes no unconditional lifecycle or
@@ -1226,7 +1220,7 @@ planner or runtime and is not assigned a release by this definition.
 | Same-edge yield | Existing admitted continuation, restart/recovery and typed stop behavior remain required; no `yield_continuation` production claim. | Production of the conserved `yield_continuation` disposition from an admitted same-edge continuation fact. |
 | Human boundary | Required human input produces typed block/hold and a human-readable handoff; external entry outside the current admitted traversal requires F_H authority. | Native response admission and response-driven same-run resumption, including evaluation of changed basis and lawful re-entry. |
 | Observation | Progress, timeout, interruption, causal events and replay-derived liveness/disposition remain required runtime truth. Selected governance graphs consume bounded event/workspace observations under their declared frames. | Dedicated observer/tuner drafts, ratification and public surfaces under A5-F12/S04. |
-| Consensus | Ordinary composition, recursion, attribution, admission and replay remain generic runtime obligations. Existing Consensus code and exact evidence are preserved without a dedicated release-complete claim. | Standalone F08/S05 qualification, including agreement/dispute and multi-workspace campaigns. |
+| Consensus | Ordinary composition, recursion, attribution, admission and replay remain generic runtime obligations. 5.0 ships no Consensus GraphFunction. | Standalone F08/S05 qualification, including agreement/dispute and multi-workspace campaigns. |
 | Host projection | Native SDK/CLI independence and the single Public authority are required. Any retained host adapter is a thin projection with truthful supported claims. Native worker transport remains required. | Additional host-adapter work and mandatory Codex/native parity qualification. |
 
 The full original Data Mapper is an independently owned upper-bound capability
@@ -1283,8 +1277,8 @@ evaluation supplies judgment, Consequence proposes, ABG admits, and HoG
 executes. Wider visibility alone grants no permission to mutate, reprice,
 re-enter or close. Reserved owner rulings remain with their owner.
 
-5.0 retains automatic current-intent continuation, newly selected action
-admission, local recursion, declared local correction and fresh replay. Native
+5.0 retains same-Run continuation of a replay-derived pending execution, local
+recursion, declared local correction and fresh replay. Native
 human response deferral does not defer these relations, the complete selected
 F17/S06 witness, self-conformance, or actual human acceptance of the same
 qualified RC. Future runtime response and release acceptance are distinct.
@@ -1364,7 +1358,7 @@ counts.
 | `A5-F04` | **Probabilistic result integrity.** Every `F_P` call receives declared instructions and contracts; malformed, incomplete, contradictory, or unattributed output refuses before effect or closure. |
 | `A5-F05` | **One public contract authority.** Catalog, SDK, CLI, schemas, capabilities, handlers, and documentation derive from one typed definition surface and agree exactly at release. |
 | `A5-F06` | **Thin public SDK and CLI.** Native consumers inspect, validate, publish, invoke, start, read, continue admitted automatic work and inspect truthful blocked handoffs without a public adapter becoming a controller. Native human response/resume is reserved for 5.1. |
-| `A5-F07` | **Complete One Surface loop.** The standard system program orders the four distinct semantic authorities `synthesizeModel`, `evalGap`, `evaluateNext`, and `evaluateAction`; ABG separately owns intent admission, invocation, evidence admission, and continuation. Fresh evidence refreshes model, gap, next-action, and action-result truth before the next step. |
+| `A5-F07` | **Executive system program.** The standard system program is the default library's Executive. Each step selects one registered graph through one `F_P` selection over a prepared basis, applies it as a registered selection and folds the returned evidence into the next step's basis; ABG separately owns invocation, selection admission, evidence admission, and continuation. No lawful selection yields a typed block and human-readable handoff. |
 | `A5-F09` | **Catalog semantics.** Consumers inspect and purely narrow the one reconstructible GraphFunction catalog, apply non-callable declarations deterministically, call only exact published GraphFunctions, and start only exact published programs. |
 | `A5-F10` | **Event-sourced runtime truth.** Invocation, result, evidence, consequence, correction, retry, recursive child traversal, yield, human hold, escalation, continuation, typed failure, block, non-admission, closure, workspace transformation, and their runtime projections form one causal ABG episode. One transition authority resolves competing execution pressure; replay, not caller memory, derives the result, next execution state, and explanation of workspace change. |
 | `A5-F11` | **Self-conformance.** The exact 5.0 candidate evaluates its own applicable specification, design, contract, realization, proof, qualification, and release obligations without exemption or self-minted assurance. |
@@ -1419,20 +1413,20 @@ and a transparent child traversal. Prove malformed GTL and malformed
 probabilistic output refuse before effect, event admission, foldback, or
 closure.
 
-### `ABG5-S03`: One Surface, Local Correction And Truthful Blocking
+### `ABG5-S03`: Executive Steps, Local Correction And Truthful Blocking
 
-Admit one public invocation and prove that the GTL program orders
-`synthesizeModel -> evalGap -> evaluateNext -> intent admission -> invoke or
-continue -> evidence admission -> evaluateAction`. After admitted evidence it
-must refresh model, gap, lawful next action, and action-result truth. Observe a
-truthful stop, hold, or gap and inspect the replay-derived frontier. Prove one
+Admit one public invocation of the standard system program and prove that each
+Executive step prepares a selection basis, selects one registered graph through
+one `F_P` selection, applies it as a registered selection and folds the
+admitted evidence into the next step's basis. Observe a truthful stop, hold, or
+gap and read its stop reading. Prove one
 lawful bounded correction under established specification and authority, with
 automatic progression, evidence refresh and preserved unaffected work, reaching
 the declared completion condition. Also
 prove that absence of a lawful next step produces a typed block and
 human-readable handoff, without fabricated completion. Native human
 response/resume and the dedicated F12/S04 observer/tuner Product are not S03 gates. The
-SDK, CLI, fixture and worker do not select or order the loop. Exercise the
+SDK, CLI, fixture and worker do not select or order the Executive's steps. Exercise the
 retained 5.0 portions of the consequence routes and runtime dispositions,
 including local graph-span re-entry, and explicitly account for deferred
 portions in the conservation matrix under
@@ -1453,8 +1447,8 @@ self-conformance.
 
 ### `ABG5-S05`: Consensus Free Construction
 
-This dedicated scenario is reserved for 5.1. Preserved code or a cheap smoke
-result supplies no claim of complete Consensus qualification.
+This dedicated scenario is reserved for 5.1. A cheap smoke result supplies no
+claim of complete Consensus qualification.
 
 Invoke the packed candidate's SYSTEM-owned Consensus GraphFunction through the
 ordinary catalog and CLI path over one real ticket and at least two differently
@@ -1627,8 +1621,8 @@ ABIogenesis 5.0 does not include:
 - a generated HoG program, compiled execution plan, or runtime-program catalog
   distinct from admitted GTL;
 - hidden default programs, selectors, stages, instructions, or topology;
-- controller authority in an SDK, CLI, installer, fixture, worker, plugin,
-  Consensus, or One Surface surface;
+- controller authority in an SDK, CLI, installer, fixture, worker, or plugin
+  surface;
 - a second event stream, result ledger, retry loop, continuation model, or
   closure authority;
 - a recursive-LLM-specific runtime or compute regime;

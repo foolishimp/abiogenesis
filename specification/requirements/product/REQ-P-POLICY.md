@@ -40,7 +40,7 @@ validator and HoG kernel do not invent domain priorities or frame semantics.
 
 **REQ-P-POLICY-007**: The proof-hold identity shall be keyed by `edge`, `work_key`, `spec_hash`, and `workflow_version`. Hold projection shall survive process restart and shall clear only by lawful replay-visible causes: proof success on the same identity, identity supersession by new `spec_hash` or `workflow_version`, or an explicit scoped `reset` over the held boundary.
 
-**REQ-P-POLICY-008**: Product-layer advancement and observation surfaces shall consume the same proof-hold projection. `start`, `gaps`, and live run status may report hold, but they shall not redefine ABG run lifecycle truth in order to do so.
+**REQ-P-POLICY-008**: Product-layer advancement and observation surfaces shall consume the same proof-hold projection. `start` and live run status may report hold, but they shall not redefine ABG run lifecycle truth in order to do so.
 
 **REQ-P-POLICY-009**: `start` traversal request truth shall be expressed as `scope + target + until`. Supervision, F_H proxying, and similar recovery behavior shall be modeled as orthogonal product-policy control modes outside that traversal request grammar.
 
@@ -67,8 +67,8 @@ remain outside `scope + target + until` and shall be lawful only when
 `until = converged`.
 
 **REQ-P-POLICY-014**: The primary operator workflow shall be an interactive
-One Surface loop declared by an admitted GTL program, traversed by HoG, and
-admitted as runtime truth by ABG. An
+loop over the standard system program, an admitted GTL program traversed by
+HoG and admitted as runtime truth by ABG. An
 operator shall be able to define or refine current assets, invoke or start
 admitted work, receive one truthful stop, hold, or gap signal, remove one
 ambiguity or roadblock through the interactive agentic coder surface, inspect
@@ -84,7 +84,7 @@ or `gemini` are bindings of that same product law, not rival control models.
 **REQ-P-POLICY-016**: Product-layer stop, hold, and gap reporting for the
 interactive operator workflow shall be explicit enough that an operator can
 decide the next lawful action: continue by restarting `start`, inspect
-with `gaps`, remove an ambiguity, satisfy a missing capability, or supply
+the stop reading, remove an ambiguity, satisfy a missing capability, or supply
 human decision. Downstream wrappers shall not need to reconstruct that next
 step from hidden controller-local state.
 
@@ -137,8 +137,8 @@ all of the following product behavior:
   non-callable node-type and overlay application, and GraphFunction invocation;
 - start and invoke through one run-invocation function, plus replay-derived
   continuation through one run-continuation function;
-- status, result, evidence, replay, gap, and lawful-action reads through one
-  typed projection function;
+- status, result, evidence, and replay reads through one typed projection
+  function;
 - F_H selection, approval, rejection, assessment, and escalation response;
 - result assessment and witnessed-act admission;
 - GTL-program conformance evaluation; and
@@ -184,21 +184,18 @@ static relations, HoG traverses it, selected implementation bindings realize
 declared leaf effects, and ABG admits target selection, invocation, result,
 evidence, continuation, and closure truth.
 
-When `root_mode = direct`, `start` selects one admitted entry traversal without
-requiring One Surface, `evaluateNext`, or a `ConstructionIntent`. When
-`root_mode = supervised`, it selects the admitted standard system program and
-that program owns One Surface semantic ordering and action topology;
-Product-owned GraphFunctions own the four synthesis and evaluation contracts,
-and ABG separately admits selected-action and construction-intent truth. Neither
-the program nor HoG may mint runtime truth, and ABG shall not reorder semantic
-authorities, select traversal topology, or become a scheduler.
+When `root_mode = direct`, `start` selects one admitted entry traversal. When
+`root_mode = supervised`, it selects the admitted standard system program, the
+default library's Executive. Neither the program nor HoG may mint runtime
+truth, and ABG shall not reorder the program's steps, select traversal
+topology, or become a scheduler.
 
 **REQ-P-POLICY-024**: `abg.operation.run.continue` shall identify an existing
 admitted run or continuation boundary, the acting operator, and any declared
 continuation input. ABG shall validate substrate, admitted-program, binding, and
 declaration compatibility and resolve the lawful frontier. The caller shall not
 construct, select, or mutate private frame, frontier, continuation, traversal,
-retry, intent, or action-selection state.
+retry, or selection state.
 
 **REQ-P-POLICY-025**: Repeated use of the `start` variant over the same admitted
 program, immutable workspace binding, and public target may continue the primary
@@ -226,21 +223,7 @@ identity. Its ordering, cursor or range, event identities, source identities,
 and projection basis shall be explicit. It shall not re-execute probabilistic
 work or mutate runtime truth.
 
-## Gap, Action, And Human Interaction Operations
-
-**REQ-P-POLICY-029**: The gaps variant of
-`abg.operation.project.read` shall be a read-only replay-derived projection. It
-shall expose typed stop, hold, gap, missing-capability, unresolved-observation,
-and pending-human-interaction truth with implicated asset, GraphFunction,
-reason, evidence, and replay references sufficient for the operator to choose a
-lawful next interaction. Reading gaps shall not run `evalGap` or `evaluateNext`.
-
-**REQ-P-POLICY-030**: The lawful-actions variant of
-`abg.operation.project.read` shall project the current replay-derived
-`NextActionProjection` at an admitted frontier. Each row shall identify its
-action kind, public target or pending-interaction identity, eligibility or
-blocker, required input or capability, provenance, and replay basis. Querying
-actions shall not run `evaluateNext`, select, admit, or execute one.
+## Human Interaction Operations
 
 **REQ-P-POLICY-031**: Reserved for 5.1 native human interaction. The closed `select | approve | reject | assess |
 answer_escalation` variants of `abg.operation.interaction.respond` shall support
@@ -257,13 +240,14 @@ events, or decide closure outside ABG projection law.
 
 **REQ-P-POLICY-033**: The 5.0 public workflow uses the shared contract:
 `run.invoke(start)` reaches automatic progression, a truthful stop/hold/gap or
-terminal result, and `project.read` exposes the admitted frontier. Consequence
+terminal result, and `project.read` exposes the admitted status and stop
+reading. Consequence
 may propose useful declared work while carrying unresolved obligations only
 when that work's prerequisites, constraints and authority remain valid. If no
 lawful next step exists within declared limits, the result is a typed block
 and human-readable handoff. Routine work under established specification does
-not require a human approval stage. Automatic current-intent continuation and
-new-action admission remain distinct; neither belongs to an adapter.
+not require a human approval stage. Automatic continuation of a pending
+execution does not belong to an adapter.
 
 Native `interaction.respond` and response-driven same-run resumption are 5.1
 scope. A human clarification that changes the basis requires evaluation of
@@ -315,18 +299,16 @@ only; it shall not qualify itself or serve as candidate-freeze input.
 
 ## Read, Mutation, And Adapter Boundaries
 
-**REQ-P-POLICY-041**: Every 5.0 catalog, runtime, evidence, replay, gap, and
-lawful-action variant of
+**REQ-P-POLICY-041**: Every 5.0 catalog, runtime, evidence, and replay variant of
 `abg.operation.project.read` shall be a pure public read. A read shall admit no
 runtime mutation event and shall not change installed, bound, catalog, run,
-continuation, draft, assessment, intent, selection, or closure truth.
+continuation, draft, assessment, selection, or closure truth.
 
 **REQ-P-POLICY-042**: `run.invoke`, `run.continue`,
 `interaction.respond`, `result.assess`, and `witness.admit` shall route through
 one typed public-invocation admission boundary. Every accepted variant that
 changes or attests runtime truth shall produce actor-attributed admitted event
-truth. Admission shall not make ingress the owner of One Surface
-orchestration.
+truth. Admission shall not make ingress the owner of program orchestration.
 
 **REQ-P-POLICY-043**: Install, configuration, and release operations shall
 produce typed manifest or provenance truth appropriate to their product
@@ -436,16 +418,10 @@ eligibility, immutable workspace binding, session policy and capability, and
 invocation authority before beginning one GraphCall. ABG shall not reinterpret
 or recompute the validator's static GTL judgment. The `invoke` variant shall
 neither accept nor require `root_mode`, `until`, or any other `start`-only
-traversal grammar. That direct path does not require or synthesize
-`evaluateNext`, One Surface, or a `ConstructionIntent`.
-
-When the invocation instead realizes an action selected by `evaluateNext`
-inside the admitted One Surface program, the exact function shall narrow the
-program-published `ActionCatalog` and bind the admitted selected construction
-intent. That governed path shall not bypass `evaluateNext`. Both paths shall
-return the call, run, result or stop, evidence, and replay references required
-by the GraphFunction contract, shall not treat the function as the whole
-program, and shall not invoke any non-GraphFunction catalog kind.
+traversal grammar. It shall return the call, run, result or stop, evidence,
+and replay references required by the GraphFunction contract, shall not treat
+the function as the whole program, and shall not invoke any non-GraphFunction
+catalog kind.
 
 **REQ-P-POLICY-055**: The evidence variant of
 `abg.operation.project.read` shall be a read-only projection for a supported
@@ -546,9 +522,8 @@ parallel compatibility register shall fail publication and conformance.
 completing shall carry one stop reading. The reading shall identify the
 admitted stop event, its typed disposition and reason reference; for an
 operator stop, the recorded reason kind, reason detail and operator actor; the
-originating Result of the stop; the last admitted success Result of the Run's
-root GraphCall by reference, contract and value kind; and the next lawful
-actions the admitted record establishes. It shall be folded at read time from
+originating Result of the stop; and the last admitted success Result of the
+Run's root GraphCall by reference, contract and value kind. It shall be folded at read time from
 the Run's admitted events and shall not require a new event kind, a change to
 a stop event, or a stored copy. An item the admitted record does not establish
 shall read as typed absence; the reading shall not infer an item from a
@@ -587,8 +562,8 @@ The result variant for a stopped Run shall not return a successful terminal
 result. The stop reading shall include a plain-words statement of the
 disposition; the reason, and for an operator stop its kind, detail and actor;
 the originating Result with its failure class or gap, or the link the record
-does not establish; the last admitted Result of the root GraphCall by kind,
-reference and contract; and the next lawful action, or that none is admitted.
+does not establish; and the last admitted Result of the root GraphCall by kind,
+reference and contract.
 The statement shall be derived from the same fold and shall state nothing the
 admitted record does not show. The `abg.operation.run.invoke` and
 `abg.operation.run.continue` output of a Run that stops shall carry the same
@@ -613,7 +588,8 @@ consumer can use the SDK and CLI to:
 - invoke or start an admitted GTL program and program-owned GraphFunction
   through `run.invoke`, then inspect status, result, evidence, and replay through
   `project.read`;
-- inspect gaps and lawful actions;
+- read a blocked Run's stop reading, including a gap origin and its missing
+  support;
 - submit an `interaction.respond` variant against a pending interaction;
 - continue or restart the same lawful operator workflow to convergence;
 - use result assessment, witness, conformance, install, materialization, and
