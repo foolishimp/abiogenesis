@@ -2140,10 +2140,13 @@ OutcomeProjectionRefusal<K> = {
 ```
 
 This member appears in the common outcome native symbol and schema and in
-every indexed operation row. Its adapter exit class is exactly
-`adapterFailure = 70`. Result, common `owner_refusal`, and non-terminal exits
-are `0`, `1`, and `3`; pre-index common-envelope, family-lookup, and indexed
-admission refusals exit `2`. A projection refusal contains no owner result or
+every indexed operation row. A contract-invalid owner output is the execution
+fault `invalid_owner_output` (`public/binding/static_definition_bindings.ts`),
+to which `runExactDefinition` (`shared/effect_definition.ts`) gives exit code
+`70`. Result, common `owner_refusal`, and non-terminal outcomes exit `0`, `1`,
+and `3` there; pre-index common-envelope, family-lookup, and indexed admission
+refusals are transport refusals, on which `public/cli.ts` exits `2`. A
+projection refusal contains no owner result or
 refusal truth and does not append a runtime event.
 
 ## 10. Exact Source And Dependency Construction Map

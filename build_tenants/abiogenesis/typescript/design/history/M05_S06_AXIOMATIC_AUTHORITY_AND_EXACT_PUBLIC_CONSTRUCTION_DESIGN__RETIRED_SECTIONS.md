@@ -88,3 +88,12 @@ Cut from `build_tenants/abiogenesis/typescript/design/M05_S06_AXIOMATIC_AUTHORIT
 | `D12` | `abg/witness_admission_operation.ts`: `WITNESS_OPERATION_CONTRACTS`, `WitnessAdmissionPort` | ABG witness/event store/calculus/replay and shared canonical JSON/digests/references |
 
 | 46-51 | `witness.admit / reprice, attest, hygiene-stamp, intake, run-resumed, run-stopped` | `WITNESS_OPERATION_CONTRACTS.admit[key]` -> `WitnessAdmissionPort.admit` | `abg/witness_admission_operation.ts` / `D12` | exact witnessed ABG event |
+
+---
+
+Cut from `build_tenants/abiogenesis/typescript/design/M05_S06_AXIOMATIC_AUTHORITY_AND_EXACT_PUBLIC_CONSTRUCTION_DESIGN.md` at commit `c615c2f4d`, lines 2143-2146, verbatim.
+
+every indexed operation row. Its adapter exit class is exactly
+`adapterFailure = 70`. Result, common `owner_refusal`, and non-terminal exits
+are `0`, `1`, and `3`; pre-index common-envelope, family-lookup, and indexed
+admission refusals exit `2`. A projection refusal contains no owner result or

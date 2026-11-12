@@ -65,7 +65,7 @@ boundary.
 | Every key has a constructable external contract packet and loadable binding specification. | The closed source map fixes exact owner contract, metadata, authority, and declarative binding specifications; admitted owner contracts supply fields, domains, and defaults. Installation proves each specification resolves under the admitted lock to one real direct, statically composed, or projection callable. | The join copies 56 payload families, builds 56 bespoke implementations, accepts a string/interface/specification as executable authority, or completes an unresolved reference by convention. |
 | Relational request laws are structural. | Exact sums encode all-or-none, exactly-one, conditional, and ref/digest laws in both native and serialized contracts. | Optional fields type-check while parser or handler later rejects their relation. |
 | Outcomes are operation indexed. | `PublicOutcome<K>` contains only `ResultOf<K>`, `NonTerminalOf<K>`, `RefusalOf<K>`, or the common typed projection-refusal member. | `JsonValue`, `{}`, a generic result envelope, or handler-local check supplies operation meaning. |
-| Adapters are projections. | SDK and CLI coordinates (`sdkCoordinate`, `cliCoordinate` in `public/binding/public_function_family.ts`) derive from the exact family and transport the same invocation/outcome. | An adapter owns a variant roster, default, parser, result shape, exit map, or semantic branch. |
+| Adapters are projections. | SDK and CLI coordinates (`sdkCoordinate`, `cliCoordinate` in `public/binding/public_function_family.ts`) derive from the exact family and transport the same invocation/outcome. | An adapter owns a variant roster, default, parser, result shape, or semantic branch. |
 | Publication is a read model. | Native symbols, schemas, operation rows and their declared capability references, SDK members, CLI grammar, and docs derive from one family digest. Capability graph nodes, owners, and dependencies derive only from an accepted Product graph basis outside S06. | Aggregate schemas exist without addressable operation rows, parallel registers disagree, or S06 authors capability graph truth. |
 | Public identity is staged and acyclic. | Pre-family owner identity and definition digests close first, then the intrinsic family and package projections, then Product content identity, and only then the S06-bound flat manifest catalog plus exact 44-row diagnostic. | A definition preimage contains a generated asset, family digest, or Product content digest, or generation uses a seed, zero digest, loader-order fallback, post-hoc reevaluation, or replacement catalog. |
 | Physical TypeScript syntax is not a semantic occurrence. | Parser/checker relations remain subordinate evidence. | One raw import/re-export identity becomes the unit of contract authority or binding cardinality. |
@@ -105,7 +105,7 @@ Excluded:
 | `REQ-P-PUBLIC-CONTRACTS-001..002A`, `-004` | public identity is exact and acyclic | pre-family owner/definition identity, family identity, PFC-F07 payload projection, Product-content digest, then PFC-F08 S06 flat catalog | self-reference, later-stage input, replacement carrier, placeholder digest, or generated/runtime divergence |
 | `REQ-P-PUBLIC-CONTRACTS-006A` | the 44-row roster is visible without claiming release closure | exact `MandatorySchemaVocabularyCorpusGapSet` emitted only by PFC-F08 | the diagnostic is omitted, applied to an unrelated Product, or treated as complete publication proof |
 | `REQ-P-PUBLIC-CONTRACTS-009..010`; `REQ-P-POLICY-062..064` | one indexed request/result/refusal/non-terminal authority | Sections 4.2, 4.4, and 4.5 | native/parser/schema/runtime disagreement or generic payload/outcome |
-| `REQ-P-POLICY-022`, `-044..045` | SDK and CLI are projections | PFC-F07 plus exact adapter exit maps | adapter-specific roster, validation, semantics, or outcome |
+| `REQ-P-POLICY-022`, `-044..045` | SDK and CLI are projections | PFC-F07 (`constructPayloads` in `public/binding/public_function_projections.ts`); exit codes come from `runExactDefinition` (`shared/effect_definition.ts`) and `public/cli.ts` | adapter-specific roster, validation, semantics, or outcome |
 | `REQ-P-POLICY-023..040`, `-049..061` | every operation binds its owning complete semantic function | Section 4.2.1 exact owner references plus Section 4.4 owner relations | copied payload, metadata, handler, or prose supplies an absent relation |
 | clarified `REQ-P-POLICY-049..050` | packed verification precedes linked resolution; installed verification consumes an existing lock | `ProductVerifyPacket`, NCC-F01/F02, and authority-slot matrix | verify constructs a lock or F01 admits linked meaning |
 | `REQ-P-CATALOG-019..030`; `REQ-R-ABG3-PROJECTION-023` | project reads and catalog relations are closed and pure | Section 4.3 and catalog rows in Section 4.4 | free projection string, widened view, or read effect |
@@ -185,7 +185,7 @@ PFC-F07 DerivePublicProjections(
    + public-operation contract projections
    + flat public-contract catalog-row proposals
    + SDK members
-   + CLI grammar and exit maps
+   + CLI grammar
    + documentation inventory
 
 PFC-F08 BindS06PublicFunctionCatalog(
@@ -376,7 +376,6 @@ IntrinsicPublicFunctionDefinition<K> = {
   schemaCoordinates
   sdkCoordinate
   cliCoordinate
-  adapterExitMap
   definitionDigest
 }
 
@@ -472,7 +471,6 @@ OwnerDefinitionMetadata<K> = {
   closedDomains
   sdkCoordinate
   cliCoordinate
-  adapterExitMap
 }
 ```
 
@@ -858,7 +856,6 @@ IntrinsicDefinitionDigestProjection<K> = {
   defaults and closed domains
   deterministic schema IDs, definition refs, native member paths,
     SDK coordinates, and CLI coordinates
-  adapter exit map
 }
 
 definitionDigest(K) =
@@ -1860,8 +1857,9 @@ Classification is total:
 - held, gap-stop, responded, retry, and assessment-blocked states declared by
   the matrix are `NonTerminalOf<K>`.
 
-An owner cannot report the same disposition in two slots. The adapter exit map
-classifies the public slot, not a free-form disposition string.
+An owner cannot report the same disposition in two slots. The host receipt's
+exit code classifies the public slot, not a free-form disposition string
+(`runExactDefinition`, `shared/effect_definition.ts`).
 
 Successful release snapshot execution remains blocked until M7 supplies its
 exact qualification authority. The function, contracts, handler binding, and
@@ -2131,23 +2129,27 @@ content addressed from that digest.
 
 `PublicFamilyLookupRefusal` is a family-level pre-index result of PFC-F03B. It
 is not `PublicOutcome<K>` because no `K`, admitted invocation, or semantic owner
-exists. SDK and CLI project it through the common invocation contract with
-`invalidInvocation = 2`; an adapter cannot reinterpret it as an indexed owner
+exists. SDK and CLI project it through the common invocation contract, and the
+CLI exits `2` on it (`public/cli.ts`); an adapter cannot reinterpret it as an indexed owner
 admission refusal or owner refusal. PFC-F03B runs only after PFC-F03A has
 admitted the operation and member identities as strings.
 
 `IndexedInvocationAdmissionRefusal<K>` is the only PFC-F04 refusal. Exact `K`
 exists, but no public invocation has been admitted. SDK and CLI project it
-through the common invocation contract with `invalidInvocation = 2`. It cannot
+through the common invocation contract, and the CLI exits `2` on it
+(`public/cli.ts`). It cannot
 enter `PublicOutcome<K>` or use `RefusalContractOf<K>`. Only `RefusalOf<K>`
 returned by the invoked owner may occupy the `PublicOutcome<K>` refusal member.
 
 `OutcomeProjectionRefusal<K>` is the final member above. It carries no owner
 result truth and cannot be reclassified as `RefusalOf<K>`. It is published in
 the common outcome native symbol and schema, appears in every operation row,
-and has adapter exit class `adapterFailure = 70`. Result, owner-semantic
-refusal, and non-terminal exits remain `0`, `1`, and `3`; common-envelope,
-family-lookup, and indexed admission refusals remain `2`.
+and has no producer at head: a contract-invalid owner output is the execution
+fault `invalid_owner_output` (`public/binding/static_definition_bindings.ts`),
+to which `runExactDefinition` (`shared/effect_definition.ts`) gives exit code
+`70`. Result, owner-semantic refusal, and non-terminal outcomes exit `0`, `1`,
+and `3` there; common-envelope, family-lookup, and indexed admission refusals
+are transport refusals, on which `public/cli.ts` exits `2`.
 
 Invocation authority is a dependent structural sum, not an optional bag:
 
@@ -2242,51 +2244,33 @@ wraps it without changing meaning. A contract-invalid output produces only the
 exact `projection_refusal` member. `operations.ts` or any successor ingress
 module cannot be a second contract or composition surface.
 
-Adapter profiles are:
-
-```text
-terminal_only = {
-  acceptedTerminal: 0
-  refused: 1
-  invalidInvocation: 2
-  acceptedNonTerminal: not_applicable
-  adapterFailure: 70
-}
-
-runtime_nonterminal = {
-  acceptedTerminal: 0
-  refused: 1
-  invalidInvocation: 2
-  acceptedNonTerminal: 3
-  adapterFailure: 70
-}
-```
-
-SDK and CLI expose these exact outcomes. A thrown parse error, raw
+SDK and CLI expose the same outcome and exit code: the CLI prints the transport
+outcome and exits with the host receipt's `exitCode` (`public/cli.ts`,
+`runExactDefinition` in `shared/effect_definition.ts`). A thrown parse error, raw
 stack, CLI-only status, or adapter-local result is not a public outcome.
 
 ### 4.6 Capability, Event, And Adapter Metadata
 
-| Operation | Capability refs | Event/artifact admission | Adapter profile | CLI coordinate |
-|---|---|---|---|---|
-| `workspace.create` | `abg.capability.operator.public-contract@5` | immutable workspace artifact | terminal_only | `workspace create --policy <clean|imported>` |
-| `workspace.open` | `abg.capability.operator.public-contract@5` | none | terminal_only | `workspace open` |
-| `project.read` | case-indexed operator, runtime, result-admission, install, or release capability | none | terminal_only | `project read <case>` |
-| `product.verify` | `abg.capability.install.bind-products@5` | verification attestation only | terminal_only | `product verify` |
-| `product.resolve` | `abg.capability.install.bind-products@5` | resolved lock | terminal_only | `product resolve` |
-| `product.install` | `abg.capability.install.bind-products@5` | immutable install artifacts | terminal_only | `product install` |
-| `workspace.bind` | `abg.capability.install.bind-products@5` | immutable binding artifact | terminal_only | `workspace bind` |
-| `catalog.admit` | `abg.capability.catalog.contribute@5` | none; deterministic readiness validation/construction | terminal_only | `catalog admit` |
-| `catalog.view` | `abg.capability.operator.public-contract@5` | none; deterministic view | terminal_only | `catalog view` |
-| `catalog.apply` | variant selects `abg.capability.catalog.apply-node-type@5` or `abg.capability.catalog.apply-overlay@5` | none; deterministic application construction | terminal_only | `catalog apply <node_type|overlay>` |
-| `run.invoke` | `abg.capability.catalog.invoke-graph-function@5`, `abg.capability.runtime.execute-seven-term-c@5` | ABG runtime events | runtime_nonterminal | `run <invoke|start>` |
-| `run.continue` | `abg.capability.runtime.replay-continuation@5` | ABG continuation/runtime events | runtime_nonterminal | `run continue --mode <current_intent|selected_action>` |
-| `interaction.respond` | `abg.capability.operator.public-contract@5`, `abg.capability.runtime.replay-continuation@5` | F_H response event | runtime_nonterminal | `interaction respond <member>` |
-| `result.assess` | `abg.capability.runtime.admit-fp-result@5` | result-assessment event | runtime_nonterminal | `result assess` |
-| `witness.admit` | `abg.capability.operator.public-contract@5` | witnessed-act event | terminal_only | `witness admit <member>` |
-| `conformance.evaluate` | `abg.capability.gtl.typecheck@5` | conformance assessment, no execution | terminal_only | `conformance evaluate gtl-program` |
-| `product.materialize` | `abg.capability.install.bind-products@5` | immutable product artifact | terminal_only | `product materialize <context_bootstrap|configuration>` |
-| `release.snapshot` | `abg.capability.operator.public-contract@5`, `abg.capability.qualification.self-conformance@5` | immutable release artifact | terminal_only | `release snapshot <published_rc|tapped_release>` |
+| Operation | Capability refs | Event/artifact admission | CLI coordinate |
+|---|---|---|---|
+| `workspace.create` | `abg.capability.operator.public-contract@5` | immutable workspace artifact | `workspace create --policy <clean|imported>` |
+| `workspace.open` | `abg.capability.operator.public-contract@5` | none | `workspace open` |
+| `project.read` | case-indexed operator, runtime, result-admission, install, or release capability | none | `project read <case>` |
+| `product.verify` | `abg.capability.install.bind-products@5` | verification attestation only | `product verify` |
+| `product.resolve` | `abg.capability.install.bind-products@5` | resolved lock | `product resolve` |
+| `product.install` | `abg.capability.install.bind-products@5` | immutable install artifacts | `product install` |
+| `workspace.bind` | `abg.capability.install.bind-products@5` | immutable binding artifact | `workspace bind` |
+| `catalog.admit` | `abg.capability.catalog.contribute@5` | none; deterministic readiness validation/construction | `catalog admit` |
+| `catalog.view` | `abg.capability.operator.public-contract@5` | none; deterministic view | `catalog view` |
+| `catalog.apply` | variant selects `abg.capability.catalog.apply-node-type@5` or `abg.capability.catalog.apply-overlay@5` | none; deterministic application construction | `catalog apply <node_type|overlay>` |
+| `run.invoke` | `abg.capability.catalog.invoke-graph-function@5`, `abg.capability.runtime.execute-seven-term-c@5` | ABG runtime events | `run <invoke|start>` |
+| `run.continue` | `abg.capability.runtime.replay-continuation@5` | ABG continuation/runtime events | `run continue --mode <current_intent|selected_action>` |
+| `interaction.respond` | `abg.capability.operator.public-contract@5`, `abg.capability.runtime.replay-continuation@5` | F_H response event | `interaction respond <member>` |
+| `result.assess` | `abg.capability.runtime.admit-fp-result@5` | result-assessment event | `result assess` |
+| `witness.admit` | `abg.capability.operator.public-contract@5` | witnessed-act event | `witness admit <member>` |
+| `conformance.evaluate` | `abg.capability.gtl.typecheck@5` | conformance assessment, no execution | `conformance evaluate gtl-program` |
+| `product.materialize` | `abg.capability.install.bind-products@5` | immutable product artifact | `product materialize <context_bootstrap|configuration>` |
+| `release.snapshot` | `abg.capability.operator.public-contract@5`, `abg.capability.qualification.self-conformance@5` | immutable release artifact | `release snapshot <published_rc|tapped_release>` |
 
 Project-read capability selection is exact:
 
@@ -3339,7 +3323,7 @@ primitive is implemented.
 - many nested contracts may share one operation row while every nested
   coordinate remains unique;
 - native unknown values and exact JSONL bytes admit one common envelope or the
-  same typed common refusal and adapter exit class;
+  same typed common refusal and exit code;
 - unknown operation/member identities refuse before indexed invocation
   admission;
 - every indexed admission refusal carries one stable attempt identity and no

@@ -90,3 +90,78 @@ SDK, CLI, and Codex expose these exact outcomes. A thrown parse error, raw
 Cut from `build_tenants/abiogenesis/typescript/design/M05_S06_PUBLIC_FUNCTION_AND_NATIVE_OCCURRENCE_CLOSURE_DESIGN.md` at commit `db93b3c50`, lines 644-644, verbatim.
 
 | `abg.operation.witness.admit(reprice|attest|hygiene-stamp|intake|run-resumed|run-stopped)` | `ABG.WitnessAdmission` | `WITNESS_OPERATION_CONTRACTS.admit[member]` | `WitnessAdmissionPort.admit` | `WitnessAdmitPacket<member>` |
+
+---
+
+Cut from `build_tenants/abiogenesis/typescript/design/M05_S06_PUBLIC_FUNCTION_AND_NATIVE_OCCURRENCE_CLOSURE_DESIGN.md` at commit `c615c2f4d`, lines 68-68, 108-108, 188-188, 379-379, 475-475, 861-861, 1863-1864, 2134-2135, 2140-2141, 2148-2150, 2245-2266, 2270-2289, 3342-3342, verbatim.
+
+| Adapters are projections. | SDK and CLI coordinates (`sdkCoordinate`, `cliCoordinate` in `public/binding/public_function_family.ts`) derive from the exact family and transport the same invocation/outcome. | An adapter owns a variant roster, default, parser, result shape, exit map, or semantic branch. |
+
+| `REQ-P-POLICY-022`, `-044..045` | SDK and CLI are projections | PFC-F07 plus exact adapter exit maps | adapter-specific roster, validation, semantics, or outcome |
+
+   + CLI grammar and exit maps
+
+  adapterExitMap
+
+  adapterExitMap
+
+  adapter exit map
+
+An owner cannot report the same disposition in two slots. The adapter exit map
+classifies the public slot, not a free-form disposition string.
+
+exists. SDK and CLI project it through the common invocation contract with
+`invalidInvocation = 2`; an adapter cannot reinterpret it as an indexed owner
+
+exists, but no public invocation has been admitted. SDK and CLI project it
+through the common invocation contract with `invalidInvocation = 2`. It cannot
+
+and has adapter exit class `adapterFailure = 70`. Result, owner-semantic
+refusal, and non-terminal exits remain `0`, `1`, and `3`; common-envelope,
+family-lookup, and indexed admission refusals remain `2`.
+
+Adapter profiles are:
+
+```text
+terminal_only = {
+  acceptedTerminal: 0
+  refused: 1
+  invalidInvocation: 2
+  acceptedNonTerminal: not_applicable
+  adapterFailure: 70
+}
+
+runtime_nonterminal = {
+  acceptedTerminal: 0
+  refused: 1
+  invalidInvocation: 2
+  acceptedNonTerminal: 3
+  adapterFailure: 70
+}
+```
+
+SDK and CLI expose these exact outcomes. A thrown parse error, raw
+stack, CLI-only status, or adapter-local result is not a public outcome.
+
+| Operation | Capability refs | Event/artifact admission | Adapter profile | CLI coordinate |
+|---|---|---|---|---|
+| `workspace.create` | `abg.capability.operator.public-contract@5` | immutable workspace artifact | terminal_only | `workspace create --policy <clean|imported>` |
+| `workspace.open` | `abg.capability.operator.public-contract@5` | none | terminal_only | `workspace open` |
+| `project.read` | case-indexed operator, runtime, result-admission, install, or release capability | none | terminal_only | `project read <case>` |
+| `product.verify` | `abg.capability.install.bind-products@5` | verification attestation only | terminal_only | `product verify` |
+| `product.resolve` | `abg.capability.install.bind-products@5` | resolved lock | terminal_only | `product resolve` |
+| `product.install` | `abg.capability.install.bind-products@5` | immutable install artifacts | terminal_only | `product install` |
+| `workspace.bind` | `abg.capability.install.bind-products@5` | immutable binding artifact | terminal_only | `workspace bind` |
+| `catalog.admit` | `abg.capability.catalog.contribute@5` | none; deterministic readiness validation/construction | terminal_only | `catalog admit` |
+| `catalog.view` | `abg.capability.operator.public-contract@5` | none; deterministic view | terminal_only | `catalog view` |
+| `catalog.apply` | variant selects `abg.capability.catalog.apply-node-type@5` or `abg.capability.catalog.apply-overlay@5` | none; deterministic application construction | terminal_only | `catalog apply <node_type|overlay>` |
+| `run.invoke` | `abg.capability.catalog.invoke-graph-function@5`, `abg.capability.runtime.execute-seven-term-c@5` | ABG runtime events | runtime_nonterminal | `run <invoke|start>` |
+| `run.continue` | `abg.capability.runtime.replay-continuation@5` | ABG continuation/runtime events | runtime_nonterminal | `run continue --mode <current_intent|selected_action>` |
+| `interaction.respond` | `abg.capability.operator.public-contract@5`, `abg.capability.runtime.replay-continuation@5` | F_H response event | runtime_nonterminal | `interaction respond <member>` |
+| `result.assess` | `abg.capability.runtime.admit-fp-result@5` | result-assessment event | runtime_nonterminal | `result assess` |
+| `witness.admit` | `abg.capability.operator.public-contract@5` | witnessed-act event | terminal_only | `witness admit <member>` |
+| `conformance.evaluate` | `abg.capability.gtl.typecheck@5` | conformance assessment, no execution | terminal_only | `conformance evaluate gtl-program` |
+| `product.materialize` | `abg.capability.install.bind-products@5` | immutable product artifact | terminal_only | `product materialize <context_bootstrap|configuration>` |
+| `release.snapshot` | `abg.capability.operator.public-contract@5`, `abg.capability.qualification.self-conformance@5` | immutable release artifact | terminal_only | `release snapshot <published_rc|tapped_release>` |
+
+  same typed common refusal and adapter exit class;
