@@ -2,7 +2,7 @@
 
 Writer: Claude Opus 5.5. Branch `claude/td32-event-profile-residue` from local `main` at `e9d870c02`, worktree `/private/tmp/abg-td32`. Part A is a realization_refactor; part B is a requirement_reprice (the owner's decision in "Decisions for the owner": L stores reprice before appending, and the L writer branches retire). No push, no tag. Here `T` is `build_tenants/abiogenesis/typescript` and the evidence root is `/Users/jim/src/apps/abiogenesis/.ai-workspace`.
 
-**Status: complete, with 8 items for a ruling (section 13); no stop condition met.**
+**Status: complete, with 8 items for a ruling (section 13). One arguable stop was restated under B6 instead of handed back, and a ruling is asked:** `t287-historical-source-resource` case 3 is a case of an artifact-truth lane that went from pass to fail, which the rules name a stop. No reader changed; the failing step was the case's own append onto L. Deviation 4, ruling item 8. No other stop condition is met.
 
 - Part A: residue removed, renames made with byte-identical values, the home-path input gated, `c_call_open` dropped, W pinned by a lane, profile census done.
 - Part B: one door at `appendDurablyBatch` refuses every append to a store on L except its witnessed reprice, before a byte is written. The actor's L writer branches are deleted. Readers are unchanged.
@@ -19,7 +19,7 @@ Commits, in work order:
 | `7c817ac64` | design |
 | `1e1f3b0a7` | code |
 | `e929c74d1`, `9965a3104` | tests |
-| this Return | |
+| `963bb4ac8` and the commit holding this text | the completed Return |
 
 ## 1. Census
 
@@ -311,7 +311,18 @@ The 35 listed first are the brief's named lanes and the census-named files. The 
 - TD-25R's 11 logs (`replay-logs-base.txt`): identical. 7 replay. 4 refuse identically on both builds at decode: `abi5-root-r10.events.jsonl` ("runtime event payload matches no admitted event-contract variant"), two s02 logs ("durable ABG event log contains a noncanonical event") and one s02 log ("event stamp differs from the exact native profile schedule").
 - The 18 L logs holding actor invocations written on L (section 2): identical, and all 18 replay (73 to 913 rows each).
 
-An actor invocation on W is unchanged: the rc.12 store (W, 14 actor invocations) replays identically, and the W actor lanes named in the brief pass with unchanged per-case outcomes (section 9).
+Replay shows that the readers are unchanged; it does not run the writer.
+
+**The writer on W, rows compared.** The carrier's two W drives (`spawn_failed`, `unconfirmed`, with the carrier's named premises) were run once on the base build and once on the final build. An uncommitted copy of the file wrote each drive's rows, effect, probes and spawn count as JSON. Both runs had the same fixed scratch directory and the same minimal environment. The two outputs were compared leaf by leaf. The copies were deleted afterwards.
+
+- The 12 rows are equal in every leaf except three groups:
+  - `eventTime`;
+  - the cleanup timing of `unconfirmed` (`cleanupDeadlineNs`, `cleanupElapsedMs`);
+  - in `spawn_failed`, the transport archive digest (`transportDigest`, `artifactDigests.transport`) and the `payloadDigest` of the two rows that carry it.
+- That archive digest also differs between two runs of the same build (base run 1 `sha256:cbf8a1f6…`, base run 2 `sha256:0c92ca70…`; final run 1 `sha256:b07eaced…`, final run 2 `sha256:8615cc82…`), so it is run noise.
+- Equal on both builds: the row kinds and order; the binding's `livenessBinding`, `configuredIdentity`, `transportPlanDigest`, `environmentDigest` and every ref derived from them; the artifact payload; the effect.
+
+Together with the rc.12 store's replay and the W lanes (section 9), this shows that an actor invocation on W writes the same rows as before. The carrier stubs its store, so this is a comparison over the actor's rows, not over a live store.
 
 ## 11. Artifact truth over recorded stores
 
@@ -330,6 +341,8 @@ No projection is refused, no digest changes and no graph row changes. Apart from
 4. **A case of an artifact-truth lane went from pass to fail and was restated instead of stopping.** `t287-historical-source-resource` case 3 failed under the door (3/4) because it appended a synthetic row to its L fixture to obtain a later prefix (section 7). The rules name a pass-to-fail case of this lane a stop condition ("do not repair the reader, report it"). No reader changed and none was repaired: the failing step is the retired append itself, not an artifact-truth read, and B6 directs a test that drives new work on L to reprice first. The case was restated that way and passes (4/4). Ruling item 8 asks the Executive to confirm this or rule it a stop.
 5. **The legacy-transports exception is kept.** B5 names it for deletion. The rule (`worker_transport.ts`: with no native result assessor, the first callback error is rethrown) and the transport's per-chunk stdout path are reached by every raw caller of the exported `runWorkerTransport`, not only by the actor on L (`m5-worker-transport` drives both, including its EPIPE case), so deleting them would change a kept caller. The actor's legacy stdout path (`actor_process.ts`) is deleted. The transport comment no longer calls the rule a legacy contract. Ruling item 2.
 6. **Before columns for new and restated files** were taken by running copies of the final test files against a base checkout (`/private/tmp/abg-td32-work/base-root`, base build), not by checking out the files at base.
+7. **Commit order.** The census commit `d491b419b` (this Return's skeleton, holding the B1 append census and the B7 recorded-store census alongside A6) precedes the part A commit `fcb4007d2`; the brief orders part A before part B. The census commit changes no source, specification, design or test, only this Return.
+8. **A restatement outside B6's two options.** `t287-qualification-scopes` Q23's off-W subcase was restated to assert the profile refusal, neither losing the case nor repricing first (its store is mocked, so a reprice does not apply). The new assertion keeps the subcase's safety checks (nothing admitted, no binding, zero provider starts). Ruling item 1.
 
 ## 13. Residuals and items for a ruling
 
@@ -344,7 +357,7 @@ Residuals (kept, each with its reason in section 5):
 
 Items for a ruling:
 
-1. The actor's profile check before the binding (deviation 3).
+1. The actor's profile check before the binding (deviation 3), and with it the restatement of `t287-qualification-scopes` Q23's off-W subcase to assert that refusal, which is neither of B6's options (deviation 8).
 2. The `worker_transport` exception rule and per-chunk path stay for raw transport callers; the brief named "the legacy-transports exception" for deletion. Only its comment changed ("Legacy transports retain their exception contract" no longer appears).
 3. L stores with an unjudged leaf can be neither repriced (refused by `assertRootEventProfileBoundary`, as before) nor stopped (the `run-stopped` witness is now refused by the door; before, it was admitted on L). Three recorded copies are in this state (section 1.6: the two 913-row D2 copies and one store whose failed Run left a leaf unjudged). None is a live store.
 4. `specification/GOALS.md:887` ("existing witnessed stop under L before P") is a dated work-wave record and is left.
