@@ -12,7 +12,9 @@ exit values has its condition, its code site and a lane that observes it
 (section 15); exit `3` had no observer and gains one assertion. `code/src` +2
 −169, unchanged by the ruling. Lanes are unchanged before and after apart from
 the two new refusal checks and the exit `3` check; replay and artifact truth
-over recorded stores are identical on both builds.
+over recorded stores are identical on both builds. The packed product carries
+the base requirement text until the qualification source mirror is restaged
+(section 13).
 
 T = `build_tenants/abiogenesis/typescript`. Line numbers are at `b13bdd5c2`.
 
@@ -181,20 +183,20 @@ retired code to decode or replay (section 10).
 | 2, ruling 1 | `REQ-P-POLICY-022` | extended with the CLI's exit classification, quoted below |
 | 3 | none | the residue had no specification |
 
-`REQ-P-POLICY-022` keeps its two sentences and gains this one
+`REQ-P-POLICY-022` keeps its two sentences and gains these two
 (`specification/requirements/product/REQ-P-POLICY.md:160-170`):
 
-> The SDK returns the outcome that the CLI writes and sets no process exit
-> status; the CLI's exit status classifies that outcome by one rule for every
-> operation: `0` when the owning semantic function returns its terminal result;
-> `1` when it returns its typed refusal; `2` when the CLI's arguments do not name
-> one request file, the file does not hold one exact transport request, the
-> transport refuses the call, or reading the file, carrying the call or encoding
-> its outcome fails; `3` when the owning semantic function returns a non-terminal
-> outcome, which only an operation that declares a non-terminal contract can
-> return; and `70` when the operation's execution fails with a typed execution
-> fault, including an owner output that its contract does not admit, or with a
-> defect or interruption.
+> For a call it submits, the CLI writes the outcome that the SDK returns for the
+> same call, and the SDK sets no process exit status. The CLI's exit status
+> classifies what the CLI writes by one rule for every operation: `0` when the
+> owning semantic function returns its terminal result; `1` when it returns its
+> typed refusal; `2` when the CLI's arguments do not name one request file, the
+> file does not hold one exact transport request, the transport refuses the call,
+> or reading the file, carrying the call or encoding its outcome fails; `3` when
+> the owning semantic function returns a non-terminal outcome, which only an
+> operation that declares a non-terminal contract can return; and `70` when the
+> operation's execution fails with a typed execution fault, including an owner
+> output that its contract does not admit, or with a defect or interruption.
 
 Line numbers from here to the end of this section are at `5ca60bd9b`. The
 values and conditions come from the code at head (section 15). They agree
@@ -205,7 +207,9 @@ contract-invalid owner output, which head realizes as the typed fault
 `invalid_owner_output`). The code is wider than the Return's earlier summary
 of exit `2` in one respect: `public/cli.ts:135-140` catches any failure while
 reading the file, carrying the call or encoding the outcome, so the sentence
-names those three.
+names those three. The last of them happens after execution: when the outcome
+is not one I-JSON value (`:126-127`), the owner has already run and may have
+appended events, and the CLI still exits `2` (section 12).
 
 A non-terminal output from an operation without a non-terminal contract does
 not reach exit `3`: `validatedOwnerOutput`
@@ -216,9 +220,12 @@ and a rejected output is the fault `invalid_owner_output`
 
 The SDK (`runInstalledDefinitionCallTransport`, `./public`) returns the
 transport refusal or the transport result whose host receipt carries `exitCode`
-0, 1, 3 or 70 as data; the CLI writes that outcome as one JSON line
-(`public/cli.ts:126-128`) and sets the process status from it. The SDK sets no
-process status, so the requirement's equivalence sentence holds.
+0, 1, 3 or 70 as data; for a call it submits, the CLI writes that outcome as
+one JSON line (`public/cli.ts:126-128`) and sets the process status from it.
+For an argument, file or JSON failure the CLI writes its own
+`public_transport_refusal`, which has no SDK counterpart; the requirement's
+first new sentence is scoped to submitted calls for that reason (`bcd8191c7`).
+The SDK sets no process status, so the equivalence sentence holds.
 
 Second statements of CLI exit behaviour: none. `PRODUCT.md` "SDK And CLI"
 (`:1009-1055`) and the Hello root path (`:1571-1598`), `REQ-P-POLICY-044`,
@@ -373,13 +380,24 @@ manifest locators for item 1).
 Generated files were restored after every build (`git checkout -- contracts
 product-toolchain-manifest.json test_env/fixtures/abi5-root-candidate-basis.json`).
 
-Ruling 1 moves no identity. The build at the ruling's test commit
-(`5ca60bd9b`) generates `T/contracts` identical to the item 2 final build
-(`diff -rq` against `/private/tmp/abg-td28a-work/contracts-final`: no
-difference) and a byte-identical `product-toolchain-manifest.json` (`cmp`
-against `manifest-final.json`). The Final column above stands:
-`npm run build` does not mirror requirement text into the generated contracts
-or the manifest.
+The ordinary build moves no identity for ruling 1. The build at the ruling's
+test commit (`5ca60bd9b`), and again after the scoped wording (`bcd8191c7`),
+generates `T/contracts` identical to the item 2 final build (`diff -rq`
+against `/private/tmp/abg-td28a-work/contracts-final`: no difference) and a
+byte-identical `product-toolchain-manifest.json` (`cmp` against
+`manifest-final.json`). The Final column above stands, and the three lanes of
+section 15 ran on that same build output. `npm run build` does not stage
+requirement text.
+
+The packed product does carry requirement text: `package.json` `files`
+selects `contracts/**`, and the manifest's `productRelativeLocators` list the
+95 files under `contracts/qualification/sources/`, among them
+`REQ-P-POLICY.md`, `REQ-P-PUBLIC-CONTRACTS.md` and `PRODUCT.md`
+(`scripts/product-payload.mjs:1-4`: that list is digested into
+`productContentDigest`). Those copies hold the base text (next list), so the
+product built from this branch ships the four row-owned exit clauses and not
+the new `REQ-P-POLICY-022` sentence until the mirror is restaged. Restaging
+moves `productContentDigest` and the identities that depend on it.
 
 Qualification mirrors, not edited. Rows that no longer match:
 
@@ -426,6 +444,8 @@ On `claude/td28a-codex-cli-and-exit-metadata`, oldest first:
 | `bafaabe78` | ruling 1, specification (`REQ-P-POLICY-022`) |
 | `0cf62af12` | ruling 1, design (the two exit-code passages cite `REQ-P-POLICY-022`) |
 | `5ca60bd9b` | ruling 1, test (exit `3` through the installed CLI) |
+| `9cd22c87f` | this Return, ruling 1 |
+| `bcd8191c7` | ruling 1, specification: the SDK clause scoped to calls the CLI submits |
 | the next commit | this Return, final |
 
 ## 9. Lanes before and after
@@ -461,9 +481,9 @@ The main CLI's behaviour is unchanged on the four lanes the brief names
 (steel, public groups, hello boundary, UAT harness).
 
 These lanes, the replay comparison (section 10) and the artifact-truth
-section (section 11) stand after ruling 1: `git diff --stat ba25c3521` lists
-only `REQ-P-POLICY.md` (+11), the public-function design note (+8 −4) and
-`t287-required-operation-bindings.test.mjs` (+22 −4), no file under
+section (section 11) stand after ruling 1: besides this Return,
+`git diff --stat ba25c3521` lists only `REQ-P-POLICY.md`, the public-function
+design note and `t287-required-operation-bindings.test.mjs`, no file under
 `code/src`, and the build's generated contracts and manifest are unchanged
 (section 7). The only pinned product digest outside the generated contracts is
 the candidate-basis fixture already listed in section 10.
@@ -572,10 +592,18 @@ refuses nor changes digest on the final build. No stop condition.
   carry the classification, so they had to change with it. Correspondence
   checked first: all 56 maps were fixed by the runner and the declared
   non-terminal contract. Accepted as ruling 1 (section 14).
-- The ruling's four lanes ran one at a time, each as a background command
+- The ruling's three lanes ran one at a time, each as a background command
   waited on to its exit before the next started, because a lane can exceed the
   600-second limit of a foreground command (the steel lane took 387 s on
   the item 2 run).
+- Exit `2` after execution. `public/cli.ts:126-127` throws when the transport
+  outcome is not one I-JSON value; the catch at `:135-140` writes
+  `transport_failure` and exits `2`. By then `runExactDefinition` has run the
+  owner, which may have appended events. So exit `2` does not always mean that
+  nothing ran, although every other exit-`2` path precedes the owner. The
+  requirement states the code as it is ("encoding its outcome fails"); giving
+  that case `70`, the slot the retired maps called `adapterFailure`, would be a
+  source change outside this package. For the Executive to rule on if wanted.
 
 ## 13. Residuals
 
@@ -598,9 +626,12 @@ refuses nor changes digest on the final build. No stop condition.
   TD-25S did for its two.
 - The qualification authority mirror `T/contracts/qualification/sources/`
   (`PRODUCT.md`, `REQ-P-POLICY.md`, `REQ-P-PUBLIC-CONTRACTS.md`) still holds
-  the base specification text; restage it on main with
+  the base specification text, and it is product content: until it is
+  restaged, a product packed from this branch ships the four row-owned exit
+  clauses and not the `REQ-P-POLICY-022` exit rule. Restage it on main with
   `scripts/generate-qualification-rule-catalog.mjs --stage-authorities` with
-  the other qualification mirrors (section 7).
+  the other qualification mirrors; that moves `productContentDigest` (section
+  7).
 - Exit `2` is observed through a transport refusal only (section 15). The
   CLI's own refusals (`invalid_arguments`, `invalid_transport_request`,
   `invalid_json`, `transport_failure`, `public/cli.ts:82-117`, `:135-140`)
@@ -649,7 +680,8 @@ No lane observed exit `3` before the ruling (searched `T/test_env/tests`,
 CLI's own exit-`2` refusals have no lane (section 13).
 
 Lanes on the final build (`5ca60bd9b`, built with its generated contracts in
-place), one file at a time, the rules' command with `ABI5_EVIDENCE_ROOT` set;
+place; the build at `bcd8191c7` produces the same contracts and manifest,
+section 7), one file at a time, the rules' command with `ABI5_EVIDENCE_ROOT` set;
 TAP in `/private/tmp/abg-td28a-work/lanes-td28a2/`:
 
 | Lane | Tests | Pass | Fail | Skip |
