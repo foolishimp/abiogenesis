@@ -6,7 +6,7 @@
   "memberSetDigest": "sha256:20e9d378f261992e62dd473ef8572b11eb9bec281149ac0ccc754b91c9073466",
   "catalog": {
     "ref": "catalog://abiogenesis/qualification/self-conformance@2",
-    "digest": "sha256:cccba24d81a830df181c6391497bbe1d97043b34fd5b64457b1fd510ee0c6674",
+    "digest": "sha256:8e4ea56216f0a9610817720e174067f7ac81c697ec8a9d352fba7e6ab8b83b63",
     "ownerRef": "authority://abiogenesis/validator/conformance@5",
     "version": "2",
     "assetPath": "contracts/qualification/rule-catalog.json"
@@ -57,8 +57,8 @@
     {
       "ref": "repo://abiogenesis/specification/requirements/abg/REQ-R-ABG3-BINDING.md",
       "path": "contracts/qualification/sources/REQ-R-ABG3-BINDING.md",
-      "digest": "sha256:2a0fc5559673a860c2b7ff16091ba2ba37da3b1fe1337141c2faa639d6ca1e64",
-      "byteCount": 7870
+      "digest": "sha256:c7ed453c61a3158922d80dc4044f6dca1958ab109562969aab8f9edd64b9f9a3",
+      "byteCount": 8214
     },
     {
       "ref": "repo://abiogenesis/specification/requirements/abg/REQ-R-ABG3-CCALL.md",
@@ -583,6 +583,6 @@
       "byteCount": 94520
     }
   ],
-  "lawBasisRef": "qualification-law://abiogenesis/9165390823d7c4bc4290b9e378cc9f4abdd71ccd1dc96fc1c849f468035bacf1",
-  "lawBasisDigest": "sha256:9165390823d7c4bc4290b9e378cc9f4abdd71ccd1dc96fc1c849f468035bacf1"
+  "lawBasisRef": "qualification-law://abiogenesis/665ff5006a29f6da0b0802e8febca3f8c944ae1e7436ccd0d6bc515808a40497",
+  "lawBasisDigest": "sha256:665ff5006a29f6da0b0802e8febca3f8c944ae1e7436ccd0d6bc515808a40497"
 }
