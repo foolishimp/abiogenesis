@@ -78,3 +78,9 @@ reacquisition, revision and forward source laws are unchanged.
 
 the existing `territory_mismatch` disposition. The shared native, observed,
 construction-result and forward task owners preserve this same declaration.
+
+---
+
+Cut from `build_tenants/abiogenesis/typescript/design/T287_W2_R3_C2_WORKSITE_COMMAND_EXECUTION_DESIGN.md` at commit `5c9df5056`, line 1076, verbatim.
+
+C2 already receives the owner's native assembly preparation operation. Its accompanying occurrence check must also run at that invoking owner, comparing every existing occurrence coordinate to the authenticated assembly CCall. The installed command implementation still constructs and supervises its declared helper/acknowledgment. No command, actor policy, effect scope or output relation changes. Legacy semantic-stage/forward/preserved-result paths are not generalized by this selection.
