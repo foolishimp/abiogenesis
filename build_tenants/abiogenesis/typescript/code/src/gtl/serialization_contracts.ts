@@ -1,6 +1,6 @@
 import * as v from "valibot";
 import type { JsonValue } from "../shared/canonical_json.js";
-import { nonblankSchema, digestSchema } from "../shared/public_function_contracts.js";
+import { nonblankSchema, digestSchema, recordSchema } from "../shared/public_function_contracts.js";
 import type { CProgramNode } from "./c_algebra.js";
 import { REQUIREMENT_HANDOFF_DECLARATION_SCHEMA, type GtlRequirementHandoffDeclaration } from "./requirement_handoff.js";
 import { SEMANTIC_LIFECYCLE_SCHEMA, type SemanticLifecycleDeclaration } from "./semantic_stage.js";
@@ -31,7 +31,7 @@ const digest = digestSchema;
 const jsonReference = v.lazy(() => jsonValueSchema) as unknown as v.GenericSchema<unknown, JsonReference>;
 const jsonValueSchema = v.union([
   v.null(), v.boolean(), v.string(), v.pipe(v.number(), v.finite()),
-  v.array(jsonReference), v.record(v.string(), jsonReference),
+  v.array(jsonReference), recordSchema(v.string(), jsonReference),
 ]);
 const syntaxReference = v.lazy(() => C_PROGRAM_SYNTAX_SCHEMA) as unknown as v.GenericSchema<unknown, SyntaxReference>;
 
@@ -84,7 +84,7 @@ export const EVALUATOR_DECLARATION_SCHEMA = v.strictObject({
   name: ref, regime: v.picklist(["F_D", "F_P", "F_H"]), description: v.string(),
   binding: ref, consumedFieldRefs: refs, tags: refs,
 });
-export const RULE_DECLARATION_SCHEMA = v.strictObject({ name: ref, kind: ref, config: v.record(v.string(), jsonReference), tags: refs });
+export const RULE_DECLARATION_SCHEMA = v.strictObject({ name: ref, kind: ref, config: recordSchema(v.string(), jsonReference), tags: refs });
 export const NODE_SCHEMA = v.strictObject({ nodeRef: ref, nodeKind: v.literal("c_locus"), term: syntaxReference });
 export const EDGE_INPUT_BINDING_SCHEMA = v.strictObject({
   kind: v.literal("retain_graph_input"), entryContractRef: ref, sourceContractRef: ref, targetContractRef: ref,
@@ -140,7 +140,7 @@ export const GRAPH_TEMPLATE_SCHEMA = v.strictObject({
 export const GRAPH_FUNCTION_SCHEMA = v.strictObject({
   kind: v.literal("graph_function"), name: ref, version, environment: ENVIRONMENT_SCHEMA,
   inputs: refs, outputs: refs, template: GRAPH_TEMPLATE_SCHEMA, effects: refs,
-  declarations: v.record(v.string(), v.string()), tags: refs,
+  declarations: recordSchema(v.string(), v.string()), tags: refs,
 });
 export const IMPLEMENTATION_BINDING_SCHEMA = v.strictObject({
   kind: v.literal("implementation_binding"), bindingRef: ref, implementationRef: ref,
@@ -191,7 +191,7 @@ export const CONSTRUCTION_COMPOSITION_SCHEMA = v.strictObject({
 });
 export const GTL_PROGRAM_SCHEMA = v.strictObject({
   kind: v.literal("gtl_program"), programRef: ref, version, moduleRef: ref,
-  starts: v.array(PROGRAM_START_SCHEMA), callableMembership: refs, closureContractRef: ref, policies: v.record(v.string(), v.string()),
+  starts: v.array(PROGRAM_START_SCHEMA), callableMembership: refs, closureContractRef: ref, policies: recordSchema(v.string(), v.string()),
   publicAssetTargets: v.optional(v.array(PROGRAM_PUBLIC_ASSET_TARGET_SCHEMA)),
   actionCatalog: v.optional(ACTION_CATALOG_SCHEMA), constructionComposition: v.optional(CONSTRUCTION_COMPOSITION_SCHEMA),
 });

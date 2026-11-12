@@ -145,6 +145,55 @@ export const safePositiveIntegerSchema = v.pipe(
   v.minValue(1),
 );
 
+// Valibot's `record` skips an own member under one of these names: it never
+// checks the value and leaves the member out of its output.
+const SKIPPED_RECORD_KEYS = ["__proto__", "constructor", "prototype"] as const;
+const recordArraySchema = v.custom<never>(() => false, "Invalid type: Expected Object but received Array");
+type RecordKeySchema<TKey extends v.BaseSchema<string, string, v.BaseIssue<unknown>>> = v.SchemaWithPipe<
+  readonly [TKey, v.NotValuesAction<v.InferOutput<TKey>, readonly v.InferOutput<TKey>[], undefined>]>;
+
+/**
+ * @internal A record whose keys a caller supplies, written where `v.record`
+ * would be. Valibot's `record` skips the names `__proto__`, `constructor` and
+ * `prototype` and admits an array as a record, so its output can differ from
+ * the caller's value without an issue. This schema refuses both before the
+ * record runs: a skipped name with the key rule's issue at that key, an array
+ * with a type issue at the record. Every other value gets the record's own
+ * result. The key rule is `key` piped into a refusal of the three names, and
+ * it projects as the record's `propertyNames`.
+ */
+export function recordSchema<
+  const TKey extends v.BaseSchema<string, string, v.BaseIssue<unknown>>,
+  const TValue extends v.GenericSchema,
+>(key: TKey, value: TValue): v.RecordSchema<RecordKeySchema<TKey>, TValue, undefined> {
+  const keyRule: RecordKeySchema<TKey> = v.pipe(key,
+    v.notValues(SKIPPED_RECORD_KEYS as unknown as readonly v.InferOutput<TKey>[]));
+  const record = v.record(keyRule, value);
+  type Dataset = ReturnType<typeof record["~run"]>;
+  return {
+    ...record,
+    "~run"(dataset, config): Dataset {
+      const input = dataset.value;
+      // The record's issue type names no custom issue; this one only refuses.
+      if (Array.isArray(input)) return recordArraySchema["~run"]({ value: input }, config) as unknown as Dataset;
+      const members = typeof input === "object" && input !== null ? input as Record<string, unknown> : null;
+      const name = members === null ? undefined : SKIPPED_RECORD_KEYS.find((skipped) => Object.hasOwn(members, skipped));
+      const refused = name === undefined ? undefined : keyRule["~run"]({ value: name }, config).issues;
+      if (members === null || name === undefined || refused === undefined) return record["~run"](dataset, config);
+      const atKey = <TIssue extends v.BaseIssue<unknown>>(issue: TIssue): TIssue =>
+        ({ ...issue, path: [{ type: "object", origin: "key", input: members, key: name, value: members[name] }] });
+      const [first, ...rest] = refused;
+      return { typed: false, value: input, issues: [atKey(first), ...rest.map(atKey)] };
+    },
+    get "~standard"() {
+      const run = this["~run"].bind(this);
+      return { version: 1 as const, vendor: "valibot",
+        validate: (candidate: unknown) => run({ value: candidate }, v.getGlobalConfig()) } as unknown as
+        v.RecordSchema<RecordKeySchema<TKey>, TValue, undefined>["~standard"];
+    },
+  };
+}
+
 /** @internal */
 export const jsonValueSchema: v.GenericSchema<JsonValue, JsonValue> = v.lazy(() => jsonValueDefinition);
 // One recursive definition; lazy resolves recursion without rebuilding schemas per value.
