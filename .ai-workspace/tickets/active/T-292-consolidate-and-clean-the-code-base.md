@@ -91,6 +91,7 @@ The owner asked for an independent evaluation of the wave on 2026-11-13 (the Exe
 - **Proof per package.** A package runs, on its final build, the checks that discriminate its change: the refusal cases, the types it touches, one real execution path, and a comparison of recorded history when the change can affect how history reads. The baseline is local `main`'s own results; a lane is run on a base build only to attribute a failure.
 - **Proof for the group.** The whole suite, the history comparisons over the full populations and the broad independent review run once, on the composed result. A targeted independent review is kept for a change to admission authority or to the event store's integrity.
 - **Records.** A Return is tables, counts and rulings. One ledger row per package.
+- **Reviews are QA (the owner, 2026-11-13: "dont pause for reviews, treat them like QA, triage the bugs append them to single ticket with their severity and priority and then schedule them").** No merge waits for a review. A review of merged work adds rows to ticket T-293, where each finding gets a severity, a priority and a slot. The owner also ruled that TD-78, TD-82 and the confinement repair of TD-85 are fixed before the cut; they are P1 rows of T-293.
 - **Wording.** "Recorded history still reads" means the history of kept features. Recorded One Surface Runs (about 223 Run and evidence files) are refused by the new build from the readers' package on; the installs that wrote them still read them.
 
 ## Sequence
