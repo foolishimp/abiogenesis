@@ -271,6 +271,7 @@ multi-candidate support.
 | `m5-event-calculus-runtime` | 18/18 |
 | `t287-framework-handoff-types` | 6/6 |
 | `t287-f09-frontier-handoff` (the hold arm) | 1/1 |
+| `t287-single-address-space-consolidation` (beyond the list; the probe run had not reached it) | 17/17. A first run failed 5 with `product_content_mismatch`: the generated files were back at base while `build/` held final; rerun with the final generated files in place |
 | `r1-packed-artifact` | 1/1 |
 | `r2-clean-install` | 1/1 |
 
@@ -318,7 +319,8 @@ above are identical.
 - The arm probes ran in the background, one lane at a time, on an
   instrumented copy of base; the amendment stopped the run before
   `t287-default-library-recoverable-failure` finished and before
-  `steel-basic-cli-public` and `t287-single-address-space-consolidation`.
+  `steel-basic-cli-public` and `t287-single-address-space-consolidation`
+  (the latter then run on final only, green).
 - `t287-multi-candidate-admission` and its support deleted (not in the plan).
 - Stubs edited in `t287-held-prefix` and `t287-runtime-failure-diagnostic`.
 - `workflowOutputContractCorresponds` has one signature, and
