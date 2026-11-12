@@ -363,3 +363,41 @@ GTL value. Recursion, fan-out, fan-in, and gate retain explicit runtime-visible
 application declarations because they govern child traversal or admission.
 
 | `traversal_route_admitted` | `frame`; route ref/digest, route kind from `advance`, `retry`, `hold`, `blocked`, `failed`, or `terminal`, declaration ref/digest, source and optional target cursor refs/digests, applicable CCall/judgment and consumed-availability refs | current opened scope plus the judgment, child refusal/foldback, fan-out completion, gate result, retry progress, or structural declaration that permits the route | every variant terminates `locus_active(sourceCursorRef)` and any named consumed-availability fluent; `advance` and `retry` initiate `locus_active(targetCursorRef)`; `hold` terminates `frame_active` and initiates `hold_route_admitted(routeRef)`; `blocked` and `failed` terminate `frame_active` plus exact active retry/hold fluents and initiate `frame_blocked(frameId)` or `frame_failed(frameId)`; `terminal` initiates `terminal_route_available(routeRef)` |
+
+---
+
+Cut from `build_tenants/abiogenesis/typescript/design/M05_DIRECT_GTL_TRAVERSAL_EXPANSION_DESIGN.md` at commit `882b71e64`, lines 3278-3278, 3405-3407, 3433-3459, verbatim.
+
+  -> the same invocation through a bounded Codex delegate
+
+SDK owns the common parse boundary; the native CLI and Codex delegate submit
+serialized values to it and do not implement another parser or operation
+roster. Canonical JSON schemas for `PublicInvocation`, `PublicOutcome`, and
+
+
+### 14.2 Bounded Codex projection
+
+The Codex projection is a transport adapter over the installed `abg.cli`
+contract. It accepts only:
+
+- the exact installed `abg.cli` executable path; and
+- one explicit JSONL public-invocation transcript path.
+
+It invokes `abg.cli --jsonl <transcript>`, forwards stdout, stderr, and exit
+status, and adds no interpretation. It imports no GTL, validator, HoG, ABG,
+Product, implementation, or Public runtime module. It carries no Program,
+catalog, event, continuation, worker, retry, or closure type.
+
+The delegate resolves the submitted CLI path and the installed sibling path,
+requires identity, and spawns the resolved installed sibling. The submitted
+path is not retained as the executable path after verification.
+
+The prior Python Codex build tenant is an alternate implementation and runtime,
+not this projection. It is retired transactionally when the bounded delegate
+lands. The native SDK and CLI remain independently executable with no Codex or
+marketplace dependency.
+
+Projection proof compares one fixed-result invocation through native SDK,
+native CLI, and the Codex delegate. Native and delegated CLI output must match
+byte-for-byte for the deterministic fixture. A source scan proves the delegate
+contains only process transport and no copied Product or runtime semantics.

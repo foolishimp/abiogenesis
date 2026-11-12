@@ -36,30 +36,6 @@ export type PublicEventAdmission =
   | "none"
   | "owning_semantic_authority"
   | "immutable_artifact_boundary";
-export type PublicAdapterProfile = "terminal_only" | "runtime_nonterminal";
-export type PublicAdapterExitMap = {
-  readonly acceptedTerminal: 0;
-  readonly refused: 1;
-  readonly invalidInvocation: 2;
-  readonly acceptedNonTerminal: 3 | null;
-  readonly adapterFailure: 70;
-};
-
-export const TERMINAL_ONLY_ADAPTER_EXIT_MAP = Object.freeze({
-  acceptedTerminal: 0,
-  refused: 1,
-  invalidInvocation: 2,
-  acceptedNonTerminal: null,
-  adapterFailure: 70,
-} as const satisfies PublicAdapterExitMap);
-
-export const RUNTIME_NONTERMINAL_ADAPTER_EXIT_MAP = Object.freeze({
-  acceptedTerminal: 0,
-  refused: 1,
-  invalidInvocation: 2,
-  acceptedNonTerminal: 3,
-  adapterFailure: 70,
-} as const satisfies PublicAdapterExitMap);
 export type PublicAuthoritySlot =
   | "workspace_binding"
   | "product_set"
@@ -448,7 +424,6 @@ export interface OwnerContractSourceDeclaration<
     closedDomains: Readonly<Record<string, readonly JsonValue[]>>;
     sdkCoordinate: string;
     cliCoordinate: string;
-    adapterExitMap: PublicAdapterExitMap;
   }>;
 }
 
@@ -652,7 +627,6 @@ export function ownerMetadata(
         Object.freeze([...values]),
       ]),
     )),
-    adapterExitMap: Object.freeze({ ...input.adapterExitMap }),
   });
 }
 

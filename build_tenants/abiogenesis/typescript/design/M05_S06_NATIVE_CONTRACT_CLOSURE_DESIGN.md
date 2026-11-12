@@ -1,5 +1,7 @@
 # M05 S06 Native Contract Closure Design
 
+Retired sections: [history/M05_S06_NATIVE_CONTRACT_CLOSURE_DESIGN__RETIRED_SECTIONS.md](history/M05_S06_NATIVE_CONTRACT_CLOSURE_DESIGN__RETIRED_SECTIONS.md).
+
 **Status**: Bounded replacement design candidate; realization held
 **Date**: 2026-07-29
 **Change class**: `design_reframe`
@@ -742,8 +744,8 @@ verification, resolution, root-operation state, installation, publication
 schema/generation, and S06 proof. Public operation identities, variants, and
 dispatch semantics are unchanged. The native locator, public-contract catalog,
 resolved-lock payload, and their serialized schemas do change and must retain
-SDK/CLI parity. The catalog authority, GTL, validator, HoG, ABG, Codex shell,
-S03, S05, and S04 have no semantic delta.
+SDK/CLI parity. The catalog authority, GTL, validator, HoG, ABG, S03, S05,
+and S04 have no semantic delta.
 
 If accepted, this file refines M04 native inventory and supersedes only the
 native-contract part of M05 Section 14. It preserves the accepted four S06

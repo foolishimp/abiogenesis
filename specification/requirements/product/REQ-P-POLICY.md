@@ -118,8 +118,8 @@ install/configuration operation, release operation, or internal-only behavior.
 **REQ-P-POLICY-020**: Each public operation contract row shall define its stable
 operation identity, required and optional inputs, defaults, admitted value
 domains, capability requirements, input and output contract identities,
-successful and non-success dispositions, typed errors or refusals, exit
-semantics, replay or provenance effects, whether it reads or changes truth, and
+successful and non-success dispositions, typed errors or refusals, replay or
+provenance effects, whether it reads or changes truth, and
 the operation-and-variant-indexed workspace-binding requirement
 `forbidden | exactly_one`. No concrete variant shall carry a freely optional
 binding, and no public adapter shall supply missing contract meaning from local
@@ -157,6 +157,17 @@ public operation family.
 semantics. Given the same admitted inputs and bound product identities, they
 shall preserve the same operation identity, validation, defaults, disposition,
 typed result or refusal, event or provenance effects, and exit classification.
+For a call it submits, the CLI writes the outcome that the SDK returns for the
+same call, and the SDK sets no process exit status. The CLI's exit status
+classifies what the CLI writes by one rule for every operation: `0` when the
+owning semantic function returns its terminal result; `1` when it returns its
+typed refusal; `2` when the CLI's arguments do not name one request file, the
+file does not hold one exact transport request, the transport refuses the call,
+or reading the file, carrying the call or encoding its outcome fails; `3` when
+the owning semantic function returns a non-terminal outcome, which only an
+operation that declares a non-terminal contract can return; and `70` when the
+operation's execution fails with a typed execution fault, including an owner
+output that its contract does not admit, or with a defect or interruption.
 
 ## Traversal And Run Operations
 
@@ -292,7 +303,7 @@ silently repair or execute an inadmissible program.
 
 **REQ-P-POLICY-039**: `abg.operation.product.materialize` variants,
 `abg.operation.product.install`, and `abg.operation.release.snapshot` shall each
-publish exact request, result, refusal, provenance, and exit contracts. Their
+publish exact request, result, refusal, and provenance contracts. Their
 outputs shall identify the affected workspace, product, configuration, or
 release identities and the manifests or evidence that carry the operation
 result.
@@ -523,7 +534,7 @@ not ingress or an adapter, shall construct the outcome.
 the exact `abg.operation.*` identity and addressable request/result/error/
 invocation schemas defined by `REQ-P-PUBLIC-CONTRACTS`. The operation's
 `PublicFunctionDefinition<K>` row owns its defaults, closed variants and value domains, actor and
-mutation class, typed refusals, disposition, and adapter exit classification.
+mutation class, typed refusals, and disposition.
 CLI flags, SDK overloads, and host projections bind those rows; they do not
 complete or reinterpret an absent row. Legacy operation identities and a
 parallel compatibility register shall fail publication and conformance.

@@ -83,7 +83,6 @@ export type PublicSdkMemberProjection = {
 export type PublicCliGrammarProjection = {
   readonly definitionKey: Readonly<{ operationId: string; memberKey: string }>;
   readonly cliCoordinate: string;
-  readonly adapterExitMap: IntrinsicPublicFunctionDefinition["adapterExitMap"];
 };
 
 export type PublicDocumentationInventoryRow = {
@@ -735,7 +734,6 @@ function constructPayloads(): PublicProjectionPayloads {
     (definition) => deepFreeze({
       definitionKey: definition.definitionKey,
       cliCoordinate: definition.cliCoordinate,
-      adapterExitMap: definition.adapterExitMap,
     }),
   );
   const documentationInventory = PUBLIC_FUNCTION_DEFINITION_FAMILY.definitions.map(

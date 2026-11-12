@@ -6,7 +6,7 @@ import { type JsonValue } from "../shared/canonical_json.js";
 import { sha256Canonical } from "../shared/digests.js";
 import { deepFreeze } from "../shared/immutable.js";
 import { absolutePathSchema, digestSchema, jsonValueSchema, nonblankSchema, refDigestSchema,
-  ownerAuthorityDigest, ownerContractPacket, ownerMetadata, TERMINAL_ONLY_ADAPTER_EXIT_MAP } from "../shared/public_function_contracts.js";
+  ownerAuthorityDigest, ownerContractPacket, ownerMetadata } from "../shared/public_function_contracts.js";
 import { EXACT_CANDIDATE_QUALIFICATION_BASIS_SCHEMA, QUALIFICATION_PROOF_RESOURCE_SCHEMA,
   QUALIFICATION_SELECTION_SCHEMA, QUALIFICATION_INVENTORY_SCHEMA, QUALIFICATION_PREFIX_SCHEMA,
   type QualificationProofResource, type QualificationEvidenceSelection } from "../validator/qualification_contracts.js";
@@ -82,7 +82,7 @@ function metadata(member:ReleaseSnapshotMember){return ownerMetadata({authorityC
  eventAdmission:"immutable_artifact_boundary",actorRequirement:"required",workspaceBindingRequirement:"exactly_one",
  authoritySlotRequirements:["capability_grants","workspace_binding","product_set","dependency_lock","actor"],
  capabilityRefs:capabilityRefsForDefinition({operationId:"abg.operation.release.snapshot",memberKey:member}),defaults:{},closedDomains:{snapshotKind:[member]},
- sdkCoordinate:"sdk.release.snapshot",cliCoordinate:`release snapshot ${member}`,adapterExitMap:TERMINAL_ONLY_ADAPTER_EXIT_MAP});}
+ sdkCoordinate:"sdk.release.snapshot",cliCoordinate:`release snapshot ${member}`});}
 const authority="authority://abiogenesis/product/release-snapshot@5";
 const owner=(member:ReleaseSnapshotMember)=>({abstractModule:"Product.ReleaseSnapshot",exportName:"RELEASE_OPERATION_CONTRACTS",memberPath:["snapshot",member],authorityRef:authority,authorityDigest:ownerAuthorityDigest(authority)});
 export const RELEASE_OPERATION_CONTRACTS=Object.freeze({snapshot:Object.freeze({

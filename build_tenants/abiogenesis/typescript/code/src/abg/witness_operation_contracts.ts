@@ -3,7 +3,6 @@ import * as v from "valibot";
 import { capabilityRefsForDefinition } from "../shared/capability_contracts.js";
 
 import {
-  type ExactOwnerOperationPort,
   jsonValueSchema,
   nonemptyRefDigestSetSchema,
   ownerAuthorityDigest,
@@ -11,7 +10,6 @@ import {
   ownerMetadata,
   refDigestSchema,
   refusalSchema,
-  TERMINAL_ONLY_ADAPTER_EXIT_MAP,
 } from "../shared/public_function_contracts.js";
 
 export const WITNESS_ACTS = Object.freeze([
@@ -137,7 +135,6 @@ function witnessContract<const TAct extends WitnessAct>(act: TAct) {
       closedDomains: { act: [act], subjectKind: [subjectKind] },
       sdkCoordinate: "sdk.witness.admit",
       cliCoordinate: `witness admit ${act}`,
-      adapterExitMap: TERMINAL_ONLY_ADAPTER_EXIT_MAP,
     }),
   );
 }
@@ -159,14 +156,3 @@ export const WITNESS_OPERATION_CONTRACTS = Object.freeze({
     "run-stopped": runStopped,
   }),
 });
-
-export interface WitnessAdmissionPort {
-  readonly admit: ExactOwnerOperationPort<
-    | typeof reprice
-    | typeof attest
-    | typeof hygieneStamp
-    | typeof intake
-    | typeof runResumed
-    | typeof runStopped
-  >;
-}

@@ -3279,7 +3279,6 @@ independently packed flavored Product
   -> publisher-owned, manifest-bound ModulePublication carried by the caller
   -> catalog.admit -> catalog.view -> catalog.apply
   -> run.invoke through native SDK and CLI
-  -> the same invocation through a bounded Codex delegate
   -> direct HoG traversal
   -> ABG events and replay-derived result
 ```
@@ -3406,10 +3405,12 @@ unknown host value
 `product.resolve` is a distinct public operation. `product.install` does not
 construct or alter a lock and accepts only the exact immutable result of one
 prior resolve operation in the same opaque root-operation context. The native
-SDK owns the common parse boundary; the native CLI and Codex delegate submit
-serialized values to it and do not implement another parser or operation
-roster. Canonical JSON schemas for `PublicInvocation`, `PublicOutcome`, and
-`PublicInvocationRefusal` are Product assets and bind the same operation roster
+SDK owns the common parse boundary; the native CLI (`public/cli.ts`) submits
+serialized values to it through `runInstalledDefinitionCallTransport`
+(`public/installed_definition_call_transport.ts`) and does not implement
+another parser or operation roster. Canonical JSON schemas for
+`PublicInvocation`, `PublicOutcome`, and `PublicInvocationRefusal` are Product
+assets and bind the same operation roster
 as the native types. Root-operation state and verified Product, lock,
 installation, binding, catalog, and application carriers are opaque and deeply
 immutable after admission. A caller cannot mutate or substitute remembered
@@ -3434,30 +3435,3 @@ refuses because callability remains owned by `run.invoke`.
 The installed scenario applies both independent declarations, invokes the
 fixture's GraphFunction, and derives the same typed result from the native SDK,
 native CLI, and ABG replay.
-
-### 14.2 Bounded Codex projection
-
-The Codex projection is a transport adapter over the installed `abg.cli`
-contract. It accepts only:
-
-- the exact installed `abg.cli` executable path; and
-- one explicit JSONL public-invocation transcript path.
-
-It invokes `abg.cli --jsonl <transcript>`, forwards stdout, stderr, and exit
-status, and adds no interpretation. It imports no GTL, validator, HoG, ABG,
-Product, implementation, or Public runtime module. It carries no Program,
-catalog, event, continuation, worker, retry, or closure type.
-
-The delegate resolves the submitted CLI path and the installed sibling path,
-requires identity, and spawns the resolved installed sibling. The submitted
-path is not retained as the executable path after verification.
-
-The prior Python Codex build tenant is an alternate implementation and runtime,
-not this projection. It is retired transactionally when the bounded delegate
-lands. The native SDK and CLI remain independently executable with no Codex or
-marketplace dependency.
-
-Projection proof compares one fixed-result invocation through native SDK,
-native CLI, and the Codex delegate. Native and delegated CLI output must match
-byte-for-byte for the deterministic fixture. A source scan proves the delegate
-contains only process transport and no copied Product or runtime semantics.

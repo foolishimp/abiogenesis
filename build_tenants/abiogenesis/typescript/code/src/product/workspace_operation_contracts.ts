@@ -12,7 +12,6 @@ import {
   refDigestSchema,
   refSetSchema,
   refusalSchema,
-  TERMINAL_ONLY_ADAPTER_EXIT_MAP,
 } from "../shared/public_function_contracts.js";
 
 const WORKSPACE_AUTHORITY =
@@ -44,7 +43,6 @@ function workspaceCreateMetadata(createPolicy: "clean" | "imported") {
     closedDomains: { createPolicy: [createPolicy] },
     sdkCoordinate: "sdk.workspace.create",
     cliCoordinate: "workspace create --policy <clean|imported>",
-    adapterExitMap: TERMINAL_ONLY_ADAPTER_EXIT_MAP,
   });
 }
 
@@ -150,7 +148,6 @@ const open = ownerContractPacket(
     },
     sdkCoordinate: "sdk.workspace.open",
     cliCoordinate: "workspace open",
-    adapterExitMap: TERMINAL_ONLY_ADAPTER_EXIT_MAP,
   }),
 );
 

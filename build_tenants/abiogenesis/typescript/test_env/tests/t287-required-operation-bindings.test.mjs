@@ -145,21 +145,21 @@ test('T-287 R2-b result.assess through the installed transport: the declared res
   const contractRows = c.e.admittedInstalls.flatMap(i => i.publicContracts).filter(r => r.contractId === 'abg.operation.result.assess');
   assert.equal(contractRows.length, 1);
   const assessmentContract = { ref: contractRows[0].contractId, digest: contractRows[0].contractDigest };
-  const assessRequest = suppliedEvidence => {
-    const value = { kind: 'result_assessment_value', schemaVersion: '5.0.0', expectedResult, disposition: 'admitted', closureEligible: true, residuals: [] };
+  const assessRequest = (suppliedEvidence, decision = { disposition: 'admitted', closureEligible: true, residuals: [] }) => {
+    const value = { kind: 'result_assessment_value', schemaVersion: '5.0.0', expectedResult, ...decision };
     const valueDigest = hash(value);
     return { expectedResult, assessmentContract,
       assessment: { kind: 'contract_admitted_assessment_value', schemaVersion: '5.0.0', contract: assessmentContract,
         valueRef: `assessment-value://abiogenesis/${valueDigest.slice('sha256:'.length)}`, valueDigest, value },
       evidence: suppliedEvidence, currentBasis };
   };
-  const run = async (identity, request) => {
+  const run = async (identity, request, expectedExitCode = null) => {
     const made = await authorizedAssessCall(c, handoff, request, identity);
     assert.equal(made.call.resources.kind, 'result_assess_resource_assertion');
     assert.equal(made.call.resources.eventResource.kind, 'reopen_abg_event_resource');
     const before = await readFile(new URL(handoff.prefix.eventLogRef));
     const output = (await runInstalledCliRequest({ scratch: c.e.scratch, installedRoot: c.e.installedRoot, identity,
-      acquisition: { kind: 'reopen', closeHandoff: handoff }, call: made.call, expectedExitCode: null })).output;
+      acquisition: { kind: 'reopen', closeHandoff: handoff }, call: made.call, expectedExitCode })).output;
     assert.equal(output.kind, 'installed_definition_call_transport_result', JSON.stringify(output));
     const receipt = output.receipt;
     assert.equal(receipt.failure, null, JSON.stringify(receipt));
@@ -214,6 +214,24 @@ test('T-287 R2-b result.assess through the installed transport: the declared res
     assert.equal(assessed.payload.capabilityGrantRef, `capability-grant://abiogenesis/${grantDigest.slice('sha256:'.length)}`);
     assert.equal(assessed.payload.invocationRef, made.call.invocation.invocationRef);
     assert.equal(assessed.payload.executionBasisRef, currentBasis.ref);
+  });
+
+  // REQ-P-POLICY-022: result.assess declares a non-terminal contract; its non-terminal outcome exits 3.
+  await t.test('a retry assessment is the declared non-terminal outcome: the installed CLI exits 3 and admits one assessed event', async () => {
+    const residual = { kind: 'typed_residual', code: 'residual://t287-r2b/retry', subjectRef: expectedResult.ref, message: 'the result needs another attempt' };
+    const { receipt, entry } = await run('assess-nonterminal',
+      assessRequest(evidence, { disposition: 'retry', closureEligible: false, residuals: [residual] }), 3);
+    assert.equal(receipt.exitCode, 3);
+    assert.equal(receipt.ownerOutput.outcomeKind, 'nonterminal');
+    const value = receipt.ownerOutput.value;
+    assert.deepEqual(Object.keys(value).sort(), ['assessment', 'closureEligible', 'disposition', 'evidence', 'residuals']);
+    assert.deepEqual([value.disposition, value.closureEligible, value.residuals, value.evidence], ['retry', false, [residual], evidence]);
+    const prior = c.events.readRuntimeEventsAtDurablePrefix(entry.prefix);
+    const current = c.events.readRuntimeEventsAtDurablePrefix(handoff.prefix);
+    assert.equal(current.length, prior.length + 1);
+    const assessed = current.at(-1);
+    assert.equal(assessed.kind, 'assessed');
+    assert.deepEqual([assessed.payload.assessmentRef, assessed.payload.disposition], [value.assessment.ref, 'retry']);
   });
 
   // T-287 R2-c: product.materialize through the same transport and log.
