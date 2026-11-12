@@ -47,7 +47,7 @@ Superseded, stale and record notes, and the sections cut from mixed notes, are i
 - [T287_W2_R3_SINGLE_START_CONSTRUCTION_EXECUTION_DESIGN](T287_W2_R3_SINGLE_START_CONSTRUCTION_EXECUTION_DESIGN.md): single-start construction and execution. Realized by `product/worksite_preparation.ts`, `product/worksite_preparation_contracts.ts`.
 - [T287_D2_REQUIREMENT_LIFECYCLE_DESIGN](T287_D2_REQUIREMENT_LIFECYCLE_DESIGN.md): the evidence-bound affected lifecycle successor. Realized by `product/semantic_revision.ts`, `abg/semantic_revision.ts`.
 - [T287_DECLARED_TESTING_CAPABILITY_DESIGN](T287_DECLARED_TESTING_CAPABILITY_DESIGN.md): declared testing-capability reuse. Realized by `product/semantic_stage.ts`, `abg/semantic_stage.ts`.
-- [T287_PACKAGE_OWNED_NATIVE_DECLARATIONS_DESIGN](T287_PACKAGE_OWNED_NATIVE_DECLARATIONS_DESIGN.md): package-owned bundled native declarations and the recorded and strict questions of Product truth. Realized by `product/declaration_exports.ts`, `product/verify_product.ts`, `product/environment.ts`, `shared/capability_contracts.ts`, `abg/artifact_truth.ts`, `abg/environment_admission.ts`, `product/admission_authority.ts`, `abg/execution_basis.ts`.
+- [T287_PACKAGE_OWNED_NATIVE_DECLARATIONS_DESIGN](T287_PACKAGE_OWNED_NATIVE_DECLARATIONS_DESIGN.md): package-owned bundled native declarations and the recorded and strict questions of Product truth. Realized by `product/declaration_exports.ts`, `product/verify_product.ts`, `product/environment.ts`, `shared/capability_contracts.ts`, `abg/artifact_truth.ts`, `abg/environment_admission.ts`, `product/admission_authority.ts`, `abg/execution_basis.ts`, `abg/worksite_revision.ts`.
 
 ## Implementation
 

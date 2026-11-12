@@ -237,9 +237,11 @@ recomputes over the carrier. The recorded question does not detect identities
 altered among the rows of the carrier's graph with every digest recomputed. A
 door that receives such a value asks the strict question of it and refuses it.
 The fold reads a store that holds such a lock, and retains that the lock
-answers only the recorded question; every entry that appends, admits or grants
-on a lock it takes from the fold's facts refuses it (below). A read copy
-refuses such a value by its binding to recorded history (below).
+answers only the recorded question. The accessors that hand out the fold's
+facts ask the strict question unless their caller states `recorded`, so no
+entry that appends, admits, grants, starts or continues work receives such a
+lock (below). A read copy refuses such a value by its binding to recorded
+history (below).
 
 Everything the strict question accepts, the recorded question accepts. The two
 bodies differ only where the strict question reads the register, and each such
@@ -250,9 +252,14 @@ non-empty graph that equals the construction, because a non-empty construction
 has a row for every register capability; the strict empty-graph rule leaves no
 identity on an empty-graph carrier; and `capabilityDefinitionGraphAssetBytes`
 returns `serializeCapabilityDefinitionGraph` of a graph the strict guard
-accepts. So the fold reads every store whose locks a door admitted.
+accepts. So every lock a door admitted answers the recorded question, and the
+fold reads every install, binding and materialization row of a store whose
+locks a door admitted. A `release.snapshot` row is the exception: its branch
+asks the strict question (below), so the fold refuses a store whose snapshot
+names an environment or a proof that the reader's register no longer
+constructs.
 
-### What the fold retains, and the entries that require it
+### What the fold retains, and the accessors that hand it out
 
 The fold (`RuntimeArtifactFacts`, `abg/artifact_truth.ts`) asks each inline
 install lock the strict question first and the recorded question only where
@@ -261,7 +268,8 @@ the answer with the install fact (`AdmittedInstallFact.lockAnswersStrict`). An
 install that names its lock by a compact reference takes its source install's
 answer. A lock that a door passes in (`establishedLock`) answers the strict
 question, because every door that passes one has asked it of that lock. The
-exported `admitArtifact` passes none. Three paths in
+module export `admitArtifact` of `abg/environment_admission.ts`, which no
+package entry exports, passes none. Three paths in
 `abg/environment_admission.ts` pass one:
 - `admitArtifactFromOwner` sets it for an inline install only after
   `isProductInstallCandidate`;
@@ -276,26 +284,76 @@ the current build constructs, the fold evaluates each inline lock's guard once,
 and no later requirement evaluates a guard; a lock that answers only the
 recorded question costs two evaluations.
 
-One internal accessor reads the retained answer:
-`admittedInstallLocksAnswerStrict(artifactTruth, admissionEventRefs)`
-(`abg/artifact_truth.ts`) is true when every named install's lock answers the
-strict question. It answers from the owner's projection (`ArtifactTruthDerivation`);
-a copied projection answers false. The answer is not copied into an event, a
+Two internal functions of `abg/artifact_truth.ts` read the retained answer.
+`admittedInstallLocksAnswerStrict(artifactTruth, admissionEventRefs)` is true
+when every named install's lock answers the strict question, and
+`admittedInstallLocksAnswerStrictAtPrefix(prefix, admissionEventRefs)` gives the
+same answer over the fold of one runtime prefix. The first answers from the
+owner's projection (`ArtifactTruthDerivation`). A copy of a projection gets the
+answer of the owner's projection of the copy's prefix when the copy equals it
+(`ownedArtifactTruth`, which re-projects the prefix and compares the two
+canonically); any other value gets false. A standalone caller, such as the
+actor process, passes such a copy. The answer is not copied into an event, a
 projection row or a published type.
 
-Every entry that appends, admits or grants on a lock it takes from the fold's
-facts requires the strict answer:
+**The strict question is the default at the accessors.** Every function through
+which a caller obtains, from artifact truth, an admitted install, an admitted
+workspace binding or a workspace environment asks the strict question unless
+its caller states `recorded`. Under the strict question it answers a fact whose
+install lock answers only the recorded question as it answers a fact that is
+not admitted. An exported signature asks strict and takes no question; where a
+read needs `recorded`, an `@internal` overload takes it.
 
-| Entry | What it takes from the fold's facts | Refusal |
+| Accessor (`abg/environment_admission.ts` unless named) | Question | Answer under the strict question for a recorded-only lock |
 | --- | --- | --- |
-| candidate preparation under the strict question (`prepareArtifactTruthCandidate` → `RuntimeArtifactFacts.prepare`) | the source install of a compact install reference; a workspace binding's causal installs; a materialization's environment (`materializationArtifactCorresponds`) | the candidate throws, and `admitArtifact` refuses `artifact_truth_conflict` before the append |
-| `admitWorkspaceBinding` (`abg/environment_admission.ts`) | the causal installs and their lock | `artifact_owner_refusal` with `scope_mismatch`; nothing is appended |
-| `checkPrefixEnvironment` in `admitCapabilityEnvironmentOutcome` (`product/admission_authority.ts`): every `withAdmissionAuthority` owner that takes a bound environment, through `validateAdmissionCapabilityBasis`, and `admitCapabilityEnvironment` | the bound environment's installs and lock | `environment_unadmitted` |
-| `exactWorksiteEnvironmentAtPrefix` (`abg/execution_basis.ts`): root and child execution-basis admission and the worksite command leaf source | the environment of the worksite carrier's binding | the admission's existing refusal (`worksite-environment-authority-mismatch`, `child_input_mismatch`); the leaf source is absent |
+| `hasAdmittedProductInstall`, `hasAdmittedWorkspaceBinding` | strict; `@internal` overload takes `recorded` | false |
+| `projectAdmittedWorkspaceProductInstall`, `projectAdmittedProductInstallByAdmissionEventRef` (through the row rehydration `rehydrateProductInstallRow`) | strict; `@internal` overload takes `recorded` | null |
+| `projectExactPrefixWorkspaceEnvironment`, `projectWorkspaceEnvironmentFromArtifactTruth` | strict; `@internal` overload takes `recorded` | the refusal `causal_install_missing` ("the admitted WorkspaceBinding has no causal ProductInstall admitted for work"); the environment body is derived and cached without a question, and the question is asked after it |
+| `projectAdmittedProductInstallByInvocationRef`, `projectAdmittedWorkspaceBindingByInvocationRef`, `projectAdmittedProductInstall`, `projectAdmittedWorkspaceBinding` | strict only | null |
+| `projectAdmittedWorkspaceBindingAtCoordinate` and every binding-row selection of `abg/worksite_revision.ts` (`admittedBindingRow`) | strict only | null |
 
-The fold's `release.snapshot` branch reaches the third row through
-`isReleaseOperationArtifact`, and it asks the strict question of the rest of
-its relation, at the fold and at the candidate alike (below).
+Each entry that admits or continues work takes its install, binding or
+environment through one of these accessors and keeps the refusal it gives for a
+fact that is not admitted: `admitWorkspaceBinding` (`scope_mismatch`), the
+admission environment of every `withAdmissionAuthority` owner
+(`environment_unadmitted`), the worksite execution environment of root and
+child execution-basis admission and of the worksite command leaf source,
+`./abg admitInvocation` (`workspace_not_admitted`), `invokeActorProcess`
+(`actor_process_invocation_refused`, before a process starts),
+`admitFhInteractionHold` (its pending-interaction refusal) and
+`admitProbabilisticResultCandidate` (`unadmitted_contract_capability`). Root
+execution-basis admission also asks the environment its invocation names
+("ExecutionBasis requires one exact admitted invocation"), and child admission
+asks its parent's (`parent_basis_mismatch`, "child traversal requires one exact
+current workflow or deferred-application parent"); neither took a fact from the
+fold before.
+
+Candidate preparation under the strict question (`prepareArtifactTruthCandidate`
+→ `RuntimeArtifactFacts.prepare`) reads the fold's install map without an
+accessor, so its own checks stay: a compact install reference requires a source
+whose lock answers the strict question, and a workspace binding whose causes
+are all admitted installs requires it of each of them. The materialization
+branch takes its environment through `projectExactPrefixWorkspaceEnvironment`
+with the candidate's question, and when that question refuses an environment
+whose lock answers only the recorded question it throws its own text
+("materialization candidate requires an environment whose installs' lock
+answers the strict question"). `admitArtifact` refuses each with
+`artifact_truth_conflict` before the append.
+
+**`recorded` only for a read of recorded history.** A call site states
+`recorded` only when what it returns is a read, or a comparison that binds a
+supplied copy to recorded history, and nothing is appended, admitted, granted,
+started or continued from it. The call sites below are the complete set of
+exceptions; every other call site asks strict by stating no question.
+
+| Call site | Accessor | Why it is a read |
+| --- | --- | --- |
+| the fold's advance, `prepare(row, "recorded")` (`RuntimeArtifactFacts.advance`, `abg/artifact_truth.ts`); its materialization branch passes the question to `projectExactPrefixWorkspaceEnvironment` | the materialization's environment | the fold reads recorded history and retains the strict answer for the accessors |
+| `populateRunReadAtDurablePrefix` (`abg/project_read_definition_bindings.ts`) | `projectWorkspaceEnvironmentFromArtifactTruth` | the run read populates a projection of recorded history |
+| `runReadKernel` (`abg/project_read_definition_bindings.ts`) | `projectExactPrefixWorkspaceEnvironment` | the run read compares the supplied packet with the recorded environment |
+| `project.read#workspace_status` (`product/project_read_definition_bindings.ts`) | `projectAdmittedWorkspaceProductInstall`, `hasAdmittedWorkspaceBinding` | the status read binds the packet's binding and installs to their recorded admissions |
+| `project.read#install_evidence` (`product/project_read_definition_bindings.ts`) | `hasAdmittedProductInstall` | the evidence read binds the packet's install to its recorded admission |
+| `terminalDeclaration` (`abg/project_read_ports.ts`), with `prepared.question`, which states `recorded` at `projectRunTruthAtDurablePrefix`, the Public run read and the owner read ports (`project`) | `projectWorkspaceEnvironmentFromArtifactTruth`, `projectExactPrefixWorkspaceEnvironment`, `projectAdmittedProductInstallByAdmissionEventRef` | the read binds a supplied declaration proof to the recorded environment; the closed terminal for native work reacquisition states `strict` |
 
 The requirement sits at what each entry relies on, not on the whole fold. A
 store whose first install's lock answers only the recorded question and whose
@@ -344,8 +402,13 @@ establishes the snapshot's environment through the fold itself:
 the bound environment with `admitCapabilityEnvironment`
 (`product/admission_authority.ts`), which projects artifact truth at the entry
 prefix and the workspace environment with the `…InResolvedLock` forms, which
-ask no guard again, and requires the strict answer the fold retained for the
-environment's installs (`checkPrefixEnvironment`). It establishes the
+ask no guard again, through `projectWorkspaceEnvironmentFromArtifactTruth`
+under the strict question, so it requires the strict answer the fold retained
+for the environment's installs. `isReleaseOperationArtifact` has two callers
+that read recorded history, and both ask the strict question through it: the
+fold's `release.snapshot` branch, and `projectReleaseEvidence`
+(`product/project_read_ports.ts`, the `release_evidence` read) through
+`readReleaseArtifactBytes`. It establishes the
 qualification proof through release qualification: `projectReleaseQualification`
 and `projectReleaseAcceptance` reach `projectQualificationVerdict`
 (`abg/qualification_proof.ts`), whose `deriveGraphOwner` reconstructs the proof
@@ -366,8 +429,8 @@ projection; it appends, admits and grants nothing. Every path that starts or
 continues work takes its lock in one of three ways, and each way requires the
 strict answer:
 
-- **From the fold's facts.** The entries of the table above require the
-  retained answer.
+- **From the fold's facts.** The accessors above ask the strict question,
+  and a call site that states `recorded` is a read in the list above.
 - **From the run's Catalog.** `resolveProductExecution`
   (`product/execution_resolution.ts`) admits the run's Catalog with
   `admitGraphFunctionCatalog` under the strict question. `projectSetupTruth`
