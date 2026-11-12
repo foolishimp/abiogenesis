@@ -29,7 +29,7 @@ import {
   writeFile,
 } from "node:fs/promises";
 import { dirname, isAbsolute, join, relative, resolve, sep } from "node:path";
-import { fileURLToPath, pathToFileURL } from "node:url";
+import { fileURLToPath } from "node:url";
 
 import { canonicalJson, compareUnicodeCodeUnits, type JsonValue } from "../shared/canonical_json.js";
 import {
@@ -1217,38 +1217,6 @@ async function predicateObservation(
     evidenceRefs = [command.observationRef, ...(reports === null
       ? command.reports.filter((row) => row.state === "file").map((row) => row.observationRef)
       : reports.rows.map((row) => row.observationRef))];
-  } else if (predicate.predicateKind === "module_export_return_exact") {
-    const modulePath = declaration.path;
-    const exportName = declaration.export;
-    if (typeof modulePath !== "string" || typeof exportName !== "string") {
-      throw new TypeError("module predicate declaration is malformed");
-    }
-    const absolute = await confinedExistingPath(
-      executionRoot,
-      modulePath,
-      "file",
-    );
-    try {
-      const namespace = await import(`${pathToFileURL(absolute).href}?abi=${task.taskDigest}&p=${ordinal}`);
-      const exported = namespace[exportName];
-      const result = typeof exported === "function" ? await exported() : exported;
-      observedValue = result === undefined
-        ? null
-        : JSON.parse(JSON.stringify(result)) as JsonValue;
-    } catch {
-      observedValue = null;
-    }
-    evidenceRefs = worksiteExecutionSources(task)
-      .filter((row) => row.subject.relativePath === modulePath)
-      .map((row) => row.observation.observationRef);
-    evidence = worksiteExecutionSources(task)
-      .filter((row) => row.subject.relativePath === modulePath)
-      .map((row) => ({
-        kind: "worksite_observation_coordinate",
-        schemaVersion: "5.0.0",
-        ref: row.observation.observationRef,
-        digest: row.observation.observationDigest,
-      }));
   } else if (predicate.predicateKind === "http_response_exact") {
     const command = commandFor(task, commandResults, declaration);
     observedValue = await runHttpProbe(task, executionRoot, declaration, attemptRef,

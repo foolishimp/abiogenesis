@@ -79,8 +79,8 @@
         },
         {
           "path": "independent-oracle.mjs",
-          "digest": "sha256:a0887ed7a583fbc5f1805adae97118451a98e7f7e44814db9b0146a6e55b3c11",
-          "byteCount": 26966
+          "digest": "sha256:6b1fd7a41fe0e03708d6dbebeec171f6cef7ac36af8d3baef8bfdc8451515407",
+          "byteCount": 27124
         }
       ],
       "provenance": {
@@ -128,6 +128,22 @@
         ],
         "commands": [
           {
+            "commandId": "command://abiogenesis-sandbox-uat/js-tenant-test/module-0",
+            "executable": "node",
+            "args": [
+              "--input-type=module",
+              "-e",
+              "const [path, name] = process.argv.slice(1); const exported = (await import('./' + path))[name]; const value = typeof exported === 'function' ? await exported() : exported; const json = (v) => Array.isArray(v) ? '[' + v.map(json).join(',') + ']' : v !== null && typeof v === 'object' ? '{' + Object.keys(v).sort().map((k) => JSON.stringify(k) + ':' + json(v[k])).join(',') + '}' : JSON.stringify(v); process.stdout.write(json(value === undefined ? null : JSON.parse(JSON.stringify(value))));",
+              "src/hello.mjs",
+              "helloWorld"
+            ],
+            "relativeCwd": ".",
+            "environment": {},
+            "timeoutMs": 120000,
+            "terminationGraceMs": 5000,
+            "expectedReports": []
+          },
+          {
             "commandId": "command://abiogenesis-sandbox-uat/js-tenant-test/tests",
             "executable": "node",
             "args": [
@@ -163,13 +179,13 @@
         },
         {
           "path": "js-tenant-test/request.json",
-          "digest": "sha256:9d66f966547e6ac2d3eb352c0f6e11038fb69dbc8e828fde5591ab70ac4a0f24",
-          "byteCount": 23616
+          "digest": "sha256:c23853a6e9c759e884670da787ee213cb60b0a6a657fd652f02d425e070d0603",
+          "byteCount": 24842
         },
         {
           "path": "independent-oracle.mjs",
-          "digest": "sha256:a0887ed7a583fbc5f1805adae97118451a98e7f7e44814db9b0146a6e55b3c11",
-          "byteCount": 26966
+          "digest": "sha256:6b1fd7a41fe0e03708d6dbebeec171f6cef7ac36af8d3baef8bfdc8451515407",
+          "byteCount": 27124
         }
       ],
       "provenance": {
@@ -217,6 +233,22 @@
         ],
         "commands": [
           {
+            "commandId": "command://abiogenesis-sandbox-uat/js-sdlc-bootstrap/module-0",
+            "executable": "node",
+            "args": [
+              "--input-type=module",
+              "-e",
+              "const [path, name] = process.argv.slice(1); const exported = (await import('./' + path))[name]; const value = typeof exported === 'function' ? await exported() : exported; const json = (v) => Array.isArray(v) ? '[' + v.map(json).join(',') + ']' : v !== null && typeof v === 'object' ? '{' + Object.keys(v).sort().map((k) => JSON.stringify(k) + ':' + json(v[k])).join(',') + '}' : JSON.stringify(v); process.stdout.write(json(value === undefined ? null : JSON.parse(JSON.stringify(value))));",
+              "src/hello.mjs",
+              "helloWorld"
+            ],
+            "relativeCwd": ".",
+            "environment": {},
+            "timeoutMs": 120000,
+            "terminationGraceMs": 5000,
+            "expectedReports": []
+          },
+          {
             "commandId": "command://abiogenesis-sandbox-uat/js-sdlc-bootstrap/tests",
             "executable": "node",
             "args": [
@@ -252,13 +284,13 @@
         },
         {
           "path": "js-sdlc-bootstrap/request.json",
-          "digest": "sha256:3eb6ebb6eea2015d7dd736f25130906bc840c91fa342dffde2315f6c236bb2c3",
-          "byteCount": 26985
+          "digest": "sha256:917d399eee70cf6e0126a21d7564ea5b41be35858295091b9f16adfe47d6fe11",
+          "byteCount": 28223
         },
         {
           "path": "independent-oracle.mjs",
-          "digest": "sha256:a0887ed7a583fbc5f1805adae97118451a98e7f7e44814db9b0146a6e55b3c11",
-          "byteCount": 26966
+          "digest": "sha256:6b1fd7a41fe0e03708d6dbebeec171f6cef7ac36af8d3baef8bfdc8451515407",
+          "byteCount": 27124
         }
       ],
       "provenance": {
@@ -363,8 +395,8 @@
         },
         {
           "path": "independent-oracle.mjs",
-          "digest": "sha256:a0887ed7a583fbc5f1805adae97118451a98e7f7e44814db9b0146a6e55b3c11",
-          "byteCount": 26966
+          "digest": "sha256:6b1fd7a41fe0e03708d6dbebeec171f6cef7ac36af8d3baef8bfdc8451515407",
+          "byteCount": 27124
         }
       ],
       "provenance": {
@@ -455,8 +487,8 @@
         },
         {
           "path": "independent-oracle.mjs",
-          "digest": "sha256:a0887ed7a583fbc5f1805adae97118451a98e7f7e44814db9b0146a6e55b3c11",
-          "byteCount": 26966
+          "digest": "sha256:6b1fd7a41fe0e03708d6dbebeec171f6cef7ac36af8d3baef8bfdc8451515407",
+          "byteCount": 27124
         }
       ],
       "provenance": {
@@ -505,6 +537,54 @@
         ],
         "commands": [
           {
+            "commandId": "command://abiogenesis-sandbox-uat/parallel-js/module-0",
+            "executable": "node",
+            "args": [
+              "--input-type=module",
+              "-e",
+              "const [path, name] = process.argv.slice(1); const exported = (await import('./' + path))[name]; const value = typeof exported === 'function' ? await exported() : exported; const json = (v) => Array.isArray(v) ? '[' + v.map(json).join(',') + ']' : v !== null && typeof v === 'object' ? '{' + Object.keys(v).sort().map((k) => JSON.stringify(k) + ':' + json(v[k])).join(',') + '}' : JSON.stringify(v); process.stdout.write(json(value === undefined ? null : JSON.parse(JSON.stringify(value))));",
+              "src/hello.mjs",
+              "helloPart"
+            ],
+            "relativeCwd": ".",
+            "environment": {},
+            "timeoutMs": 120000,
+            "terminationGraceMs": 5000,
+            "expectedReports": []
+          },
+          {
+            "commandId": "command://abiogenesis-sandbox-uat/parallel-js/module-1",
+            "executable": "node",
+            "args": [
+              "--input-type=module",
+              "-e",
+              "const [path, name] = process.argv.slice(1); const exported = (await import('./' + path))[name]; const value = typeof exported === 'function' ? await exported() : exported; const json = (v) => Array.isArray(v) ? '[' + v.map(json).join(',') + ']' : v !== null && typeof v === 'object' ? '{' + Object.keys(v).sort().map((k) => JSON.stringify(k) + ':' + json(v[k])).join(',') + '}' : JSON.stringify(v); process.stdout.write(json(value === undefined ? null : JSON.parse(JSON.stringify(value))));",
+              "src/world.mjs",
+              "worldPart"
+            ],
+            "relativeCwd": ".",
+            "environment": {},
+            "timeoutMs": 120000,
+            "terminationGraceMs": 5000,
+            "expectedReports": []
+          },
+          {
+            "commandId": "command://abiogenesis-sandbox-uat/parallel-js/module-2",
+            "executable": "node",
+            "args": [
+              "--input-type=module",
+              "-e",
+              "const [path, name] = process.argv.slice(1); const exported = (await import('./' + path))[name]; const value = typeof exported === 'function' ? await exported() : exported; const json = (v) => Array.isArray(v) ? '[' + v.map(json).join(',') + ']' : v !== null && typeof v === 'object' ? '{' + Object.keys(v).sort().map((k) => JSON.stringify(k) + ':' + json(v[k])).join(',') + '}' : JSON.stringify(v); process.stdout.write(json(value === undefined ? null : JSON.parse(JSON.stringify(value))));",
+              "src/index.mjs",
+              "helloWorld"
+            ],
+            "relativeCwd": ".",
+            "environment": {},
+            "timeoutMs": 120000,
+            "terminationGraceMs": 5000,
+            "expectedReports": []
+          },
+          {
             "commandId": "command://abiogenesis-sandbox-uat/parallel-js/tests",
             "executable": "node",
             "args": [
@@ -540,13 +620,13 @@
         },
         {
           "path": "parallel-js/request.json",
-          "digest": "sha256:766a1b4c954770d1eb0af90253dc674efdbc8fdea03acac8fab4f34ee594dbc8",
-          "byteCount": 26038
+          "digest": "sha256:e9a46f08895839543b65f84ed11175d906dc2e864b1f7b4739a75982f71f56b4",
+          "byteCount": 29680
         },
         {
           "path": "independent-oracle.mjs",
-          "digest": "sha256:a0887ed7a583fbc5f1805adae97118451a98e7f7e44814db9b0146a6e55b3c11",
-          "byteCount": 26966
+          "digest": "sha256:6b1fd7a41fe0e03708d6dbebeec171f6cef7ac36af8d3baef8bfdc8451515407",
+          "byteCount": 27124
         }
       ],
       "provenance": {
@@ -697,8 +777,8 @@
         },
         {
           "path": "independent-oracle.mjs",
-          "digest": "sha256:a0887ed7a583fbc5f1805adae97118451a98e7f7e44814db9b0146a6e55b3c11",
-          "byteCount": 26966
+          "digest": "sha256:6b1fd7a41fe0e03708d6dbebeec171f6cef7ac36af8d3baef8bfdc8451515407",
+          "byteCount": 27124
         }
       ],
       "provenance": {

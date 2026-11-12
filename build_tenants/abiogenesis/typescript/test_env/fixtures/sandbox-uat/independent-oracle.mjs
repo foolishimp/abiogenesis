@@ -224,12 +224,15 @@ export async function evaluate({ worksiteRoot, runArchive, commands = [], events
       const actual = matched[0];
       add('original-stdout', actual === undefined ? 'indeterminate' : decodeStream(actual.stdout) === 'Hello, world!\n' ? 'satisfied' : 'unmet',
         'Actual original CLI stdout must be exact.', actual ? [actual.observationRef] : []);
-    }
-    for (const declaration of request.testing.outcomePredicates.filter(row => row.predicateKind === 'module_export_return_exact')) {
-      const actual = observations.flatMap(row => row.predicateObservations ?? []).filter(row => row.predicateId === declaration.predicateId).at(-1);
-      add(declaration.predicateId, actual === undefined ? 'indeterminate' :
-        JSON.stringify(actual.observedValue) === JSON.stringify(declaration.declaration.equals) ? 'satisfied' : 'unmet',
-        'Exact exported behavior must be an actual admitted observation.', actual?.evidenceRefs ?? []);
+    } else {
+      // An exported-value check is a declared command that prints the value as
+      // canonical JSON; its exit is the execution criterion above.
+      for (const declaration of request.testing.outcomePredicates.filter(row => row.predicateKind === 'stdout_exact')) {
+        const actual = matched[request.testing.commands.findIndex(row => row.commandId === declaration.declaration.validationCommandId)];
+        add(declaration.predicateId, actual === undefined ? 'indeterminate' :
+          decodeStream(actual.stdout) === declaration.declaration.equals ? 'satisfied' : 'unmet',
+          'Exact exported behavior must be the actual admitted stdout of its declared check command.', actual ? [actual.observationRef] : []);
+      }
     }
   } else {
     const inventories = request.testing.outcomePredicates.filter(row => row.predicateKind === 'test_report_set_exact');

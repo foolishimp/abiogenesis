@@ -1074,9 +1074,6 @@ function validPredicateDeclaration(kind: string, value: JsonValue): boolean {
     return keys(["greaterThanOrEqual", "validationCommandId"]) && nonempty(value.validationCommandId) &&
       Number.isSafeInteger(value.greaterThanOrEqual) && Number(value.greaterThanOrEqual) >= 0;
   }
-  if (kind === "module_export_return_exact") {
-    return keys(["equals", "export", "path"]) && safeRelativePath(value.path) && nonempty(value.export);
-  }
   if (kind === "http_response_exact") {
     if (!keys(["body", "launch", "request", "status", "validationCommandId"]) ||
       !nonempty(value.validationCommandId) || !Number.isSafeInteger(value.status) ||
@@ -1299,9 +1296,6 @@ function protectedRelativeWorksitePath(
 function predicatePaths(predicate: WorksiteOutcomePredicate): readonly string[] {
   const declaration = predicate.declaration;
   if (!isRecord(declaration)) return [];
-  if (predicate.predicateKind === "module_export_return_exact") {
-    return typeof declaration.path === "string" ? [declaration.path] : [];
-  }
   if (predicate.predicateKind === "test_report_set_exact") {
     return typeof declaration.base === "string" && Array.isArray(declaration.equals)
       ? [declaration.base, ...declaration.equals.flatMap((path) =>
@@ -1373,7 +1367,6 @@ export function worksiteCommandConfigurationInputSchema(): Readonly<{
     ["process_exit", object({ equals: integer, validationCommandId: text })],
     ["stdout_exact", object({ equals: { type: "string" }, validationCommandId: text })],
     ["test_pass_count", object({ greaterThanOrEqual: count, validationCommandId: text })],
-    ["module_export_return_exact", object({ equals: {}, export: text, path })],
     ["http_response_exact", object({ body: { type: "string" }, status: integer, validationCommandId: text,
       launch: object({ executable: text, args: { type: "array", items: { type: "string" },
         description: `Exactly one argument is ${WORKSITE_COMMAND_EXECUTION_IDS.httpPortFileArgumentPlaceholder}; C2 supplies the port-file path.` },
@@ -1394,7 +1387,7 @@ export function worksiteCommandConfigurationInputSchema(): Readonly<{
       timeoutMs: { ...positive, maximum: HOST_TIMER_MAX_MS },
       terminationGraceMs: { ...positive, maximum: 30_000, description: "Strictly less than timeoutMs." },
       expectedReports: { type: "array", items: object({ reportIdentity: text, relativePath: path }) } }) },
-    outcomePredicates: { type: "array", description: "Existing C2 predicates only. Referenced commands must exist; module paths must be protected targets. Report counts require exactly one report-set predicate whose paths are declared command reports. Selectors require at least one filter. Port/report writes require explicit evidence territory.",
+    outcomePredicates: { type: "array", description: "Existing C2 predicates only. Referenced commands must exist. Report counts require exactly one report-set predicate whose paths are declared command reports. Selectors require at least one filter. Port/report writes require explicit evidence territory.",
       items: { anyOf: declarations.map(([predicateKind, declaration]) => object({ predicateId: text, predicateKind: { const: predicateKind }, declaration })) } },
   } as unknown as { commands: Readonly<Record<string, JsonValue>>; outcomePredicates: Readonly<Record<string, JsonValue>> });
 }
@@ -1441,12 +1434,6 @@ export function constructWorksiteCommandConfiguration(input: WorksiteCommandConf
       declaration.equals.every((path) => typeof path === "string" && reportRows.some((report) =>
         report.relativePath === posix.join(declaration.base as string, path)
       ));
-  });
-  const modulePredicatesAreProtected = predicates.every((row) => {
-    if (row.predicateKind !== "module_export_return_exact") return true;
-    const declaration = row.declaration;
-    return isRecord(declaration) && typeof declaration.path === "string" &&
-      protectedSubjects.some((protectedRow) => protectedRow.relativePath === declaration.path);
   });
   const childInputsExposeWorkspace = commands.some((command) =>
     unsafeChildValue(command.executable, input.workspaceAuthorityBasis, input.workspaceBinding) ||
@@ -1528,7 +1515,7 @@ export function constructWorksiteCommandConfiguration(input: WorksiteCommandConf
     new Set(reportRows.map((row) => row.reportIdentity)).size !== reportRows.length ||
     new Set(reportRows.map((row) => row.relativePath)).size !== reportRows.length ||
     !referencedCommandsAreExact || !reportCountsHaveOneBase || !declaredReportPathsAreObserved ||
-    !modulePredicatesAreProtected || childInputsExposeWorkspace ||
+    childInputsExposeWorkspace ||
     declaredPathsEnterProtectedRoots || !httpPortFilesAreAuthorized ||
     commands.some((command) => command.expectedReports.some((report) =>
       !worksitePathIsAllowed(report.relativePath, allowedWriteTerritories)

@@ -204,11 +204,6 @@ export function constructQualificationVerificationMaterial(input: {
           if (Array.isArray(value) && value.every(v => typeof v === "string"))
             matched = canonicalEquals([...new Set(value)].sort(), [...new Set(expected.equals as string[])].sort());
           break;
-        case "module_export_return_exact":
-          // The existing helper also records null when import/call fails, so
-          // null cannot establish even an expected-null successful return.
-          if (value !== null) matched = canonicalEquals(value, expectedEquals());
-          break;
         // HTTP observations have their own probe/process structure. Retain
         // them for independent judgment; this material owner does not reduce it.
       }
