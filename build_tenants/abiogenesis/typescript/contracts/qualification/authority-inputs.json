@@ -473,8 +473,8 @@
     {
       "ref": "repo://abiogenesis/specification/requirements/product/README.md",
       "path": "contracts/qualification/sources/specification__requirements__product__README.md",
-      "digest": "sha256:222d7658233a1e9541a8ae0652498a5b326d15a8a2b75d8b795e21c668f1c647",
-      "byteCount": 1130
+      "digest": "sha256:44bfdb20dcba4f4e9659aabb7e482422c7d80b4ddae402ff78dd6614ec090bc8",
+      "byteCount": 1115
     },
     {
       "ref": "repo://abiogenesis/specification/requirements/product/REQ-P-CATALOG.md",
@@ -485,8 +485,8 @@
     {
       "ref": "repo://abiogenesis/specification/requirements/product/REQ-P-CONSENSUS.md",
       "path": "contracts/qualification/sources/REQ-P-CONSENSUS.md",
-      "digest": "sha256:757cbb9a9bc0a8fbdae2c3321869dced7a5719d0884d173f449c68503d248f1e",
-      "byteCount": 1788
+      "digest": "sha256:43614ad3b5b5b3d40e3efd76d4c2efcec666ac71a8b78cb29c802fc2c57eba17",
+      "byteCount": 1311
     },
     {
       "ref": "repo://abiogenesis/specification/requirements/product/REQ-P-INSTALL.md",
