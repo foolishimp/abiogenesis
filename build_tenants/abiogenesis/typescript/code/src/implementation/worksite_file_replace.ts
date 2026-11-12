@@ -1,19 +1,15 @@
-import { rehydrateInvocationAdmissionAtPrefix } from "../abg/invocation_admission.js";
+// The empty imports below keep this module's load order as it was; the
+// worksite leaf gate, now in ./leaf_execution_authority.js, uses these modules.
+import {} from "../abg/invocation_admission.js";
 
 import { type JsonValue } from "../shared/canonical_json.js";
 import { sha256Canonical } from "../shared/digests.js";
 import { deepFreeze } from "../shared/immutable.js";
-import { projectCCallCarrierPhaseAtPrefix } from "../abg/c_call.js";
-import {
-  worksiteSelectedOccurrenceInputCurrent,
-} from "../abg/event_calculus.js";
-import {
-  exactProgramOwnerInstall,
-  rehydrateAdmittedImplementationSetAtPrefix,
-  rehydrateExecutionBasisAtPrefix,
-} from "../abg/execution_basis.js";
-import { projectExactPrefixWorkspaceEnvironment } from "../abg/environment_admission.js";
-import { readOwnedRuntimeEventPrefixAtDurablePrefix, selectRuntimeEventPrefixFromAuthority } from "../abg/event_prefix.js";
+import {} from "../abg/c_call.js";
+import {} from "../abg/event_calculus.js";
+import {} from "../abg/execution_basis.js";
+import {} from "../abg/environment_admission.js";
+import {} from "../abg/event_prefix.js";
 import {
   validateDurablePrefixCoordinate,
   type DurablePrefixCoordinate,
@@ -42,16 +38,10 @@ import {
   postPublicationWorksiteFailure,
   worksiteFailureAuthorization,
   worksiteRefusal,
-  WORKSITE_FILE_REPLACE_EFFECT_URI,
-  WORKSITE_FILE_REPLACE_HANDLER_DIGEST,
-  WORKSITE_FILE_REPLACE_HANDLER_REF,
   constructWorksiteFileParentsAuthorization,
   isWorksiteFileParentsRequest,
   isWorksiteFileParentsSuccess,
   isWorksiteFileParentsFailure,
-  WORKSITE_FILE_PARENTS_EFFECT_URI,
-  WORKSITE_FILE_PARENTS_HANDLER_REF,
-  WORKSITE_FILE_PARENTS_HANDLER_DIGEST,
   worksiteFileParentsFailure,
   type WorksiteFileParentsFailure,
   type WorksiteFileParentsSuccess,
@@ -70,7 +60,7 @@ import {
   WORKSITE_C0_IDS,
   WORKSITE_FILE_PARENTS_IDS,
 } from "../gtl/worksite_c0.js";
-import { isLeafExecutionAuthority } from "./leaf_execution_authority.js";
+import { isLeafExecutionAuthority, openWorksiteLeafGate, type WorksiteLeafHold } from "./leaf_execution_authority.js";
 import { canonicalEquals } from "../shared/value/index.js";
 
 export const WORKSITE_C0_IMPLEMENTATION = Object.freeze({
@@ -263,194 +253,21 @@ export async function realizeWorksiteFileReplace(
     !isLeafExecutionAuthority(authority) ||
     !isWorksiteFileReplaceRequest(value)
   ) return null;
-  const selected = authority.implementationResolution;
-  const exactInputDigest = sha256Canonical(value);
-  const exactResolutionDigest = sha256Canonical(
-    resolution,
-  );
-  let currentAuthority = false;
-  let localExecutionBasis: ReturnType<
-    typeof rehydrateExecutionBasisAtPrefix
-  > = null;
-  let localImplementationSet: ReturnType<
-    typeof rehydrateAdmittedImplementationSetAtPrefix
-  > = null;
-  let installedProductRoot: string | null = null;
-  let conservationRoots: readonly string[] = [];
-  let protectedInstallRoots: readonly string[] = [];
+  // Both digests are taken before the reads, so a throw from either leaves here.
+  const digests = { request: sha256Canonical(value), resolution: sha256Canonical(resolution) };
+  const gate = openWorksiteLeafGate({ effect: "file_replace", authority, request: value, occurrence, resolution, inputDigest, digests,
+    realizer: { graphFunctionRef: WORKSITE_C0_IDS.graphFunctionRef,
+      implementationBindingRef: WORKSITE_C0_IMPLEMENTATION.implementationBindingRef,
+      descriptor: WORKSITE_FILE_REPLACE_IMPLEMENTATION_DESCRIPTOR } });
+  let hold: WorksiteLeafHold | null;
   try {
-    // Pre-effect currentness stays explicit; the owned reader borrows only
-    // the active owner and authenticates any other coordinate cold.
-    const authorityPrefix = readOwnedRuntimeEventPrefixAtDurablePrefix(
-      authority.predecessorPrefix,
-      { requireCurrent: true },
-    );
-    const runtimePrefix = selectRuntimeEventPrefixFromAuthority(authorityPrefix, {
-      runId: authority.cCall.runId,
-    });
-    const projectedExecutionBasis = rehydrateExecutionBasisAtPrefix(
-      authorityPrefix,
-      authority.executionBasisRef,
-    );
-    const projectedImplementationSet =
-      rehydrateAdmittedImplementationSetAtPrefix(
-        authorityPrefix,
-        authority.implementationSetRef,
-      );
-    const environment = projectExactPrefixWorkspaceEnvironment(
-      authority.predecessorPrefix,
-      {
-        ref: authority.workspaceBindingIdentity,
-        digest: authority.workspaceBindingDigest,
-      },
-    );
-    const executionBasisHeld = projectedExecutionBasis !== null &&
-      canonicalEquals(
-        projectedExecutionBasis,
-        authority.executionBasis,
-      );
-    const implementationSetHeld = projectedImplementationSet !== null &&
-      canonicalEquals(
-        projectedImplementationSet,
-        authority.implementationSet,
-      );
-    const phase = projectCCallCarrierPhaseAtPrefix(
-      runtimePrefix,
-      authority.cCall,
-    )?.phase ?? null;
-    const observationHeld = worksiteSelectedOccurrenceInputCurrent(authorityPrefix, authority.cCall, value);
-    localExecutionBasis = executionBasisHeld ? projectedExecutionBasis : null;
-    localImplementationSet = implementationSetHeld
-      ? projectedImplementationSet
-      : null;
-    let rootBasis = projectedExecutionBasis;
-    const seen = new Set<string>();
-    while (rootBasis !== null && rootBasis.parentExecutionBasisRef !== null) {
-      if (seen.has(rootBasis.basisRef)) { rootBasis = null; break; }
-      seen.add(rootBasis.basisRef);
-      rootBasis = rehydrateExecutionBasisAtPrefix(authorityPrefix, rootBasis.parentExecutionBasisRef);
-    }
-    const installs = environment.kind === "exact_prefix_workspace_environment" ? environment.productInstalls : [];
-    const programOwner = rootBasis === null || projectedImplementationSet === null ||
-      environment.kind !== "exact_prefix_workspace_environment" ? null
-      : exactProgramOwnerInstall(environment, projectedImplementationSet.rows,
-          rootBasis.graphFunctionRef, authority.programPublication.moduleRef,
-          rootBasis.programRef, selected.publicationDigest, rootBasis.programDigest,
-          authority.programPublication);
-    const programOwners = programOwner === null ? [] : [programOwner];
-    const graphOwners = installs.filter((install) => install.productId === selected.graphFunctionOwnerProductId &&
-      install.contributionManifest.rows.filter((row) => row.kind === "graph_function" &&
-        row.declarationOrContractRef === selected.graphFunctionRef && row.owningProductId === install.productId &&
-        install.contributionManifest.publicationBindings.filter((binding) => binding.moduleRef === row.moduleRef &&
-          binding.publicationDigest === selected.graphFunctionPublicationDigest).length === 1).length === 1);
-    const implementationOwners = installs.filter((install) => install.productId === selected.implementationOwnerProductId &&
-      install.packageName === selected.packageName && install.packageVersion === selected.packageVersion &&
-      install.contributionManifest.publicationBindings.filter((binding) => binding.publicationDigest === selected.implementationPublicationDigest).length === 1);
-    const rootInvocation = rootBasis === null ? null : rehydrateInvocationAdmissionAtPrefix(authorityPrefix, rootBasis.invocationAdmissionRef);
-    const ownersHeld = rootInvocation !== null && rootInvocation.capabilityGrants.length === 1 &&
-      rootInvocation.capabilityGrants[0] !== undefined && canonicalEquals(rootInvocation.capabilityGrants[0], value.capabilityGrant) &&
-      value.capabilityGrant.definitionKey.memberKey === (rootInvocation.invocationVariant === "direct" ? "invoke" : rootInvocation.invocationVariant) &&
-      rootBasis !== null && rootBasis.programRef === authority.programRef &&
-      rootBasis.programDigest === authority.programDigest && rootBasis.invocationAdmissionRef === authority.executionBasis.invocationAdmissionRef &&
-      programOwners.length === 1 && graphOwners.length === 1 && implementationOwners.length === 1;
-    conservationRoots = ownersHeld ? [...new Set([...programOwners, ...graphOwners, ...implementationOwners].map((install) => install.installedRoot))].sort() : [];
-    protectedInstallRoots = installs.map((install) => install.installedRoot);
-    const environmentHeld = environment.kind ===
-        "exact_prefix_workspace_environment" &&
-      canonicalEquals(
-        environment.workspaceAuthorityBasis,
-        value.workspaceAuthorityBasis,
-      ) &&
-      canonicalEquals(
-        environment.workspaceBinding,
-        authority.workspaceBinding,
-      ) &&
-      ownersHeld;
-    installedProductRoot = environmentHeld
-      ? programOwners[0]!.installedRoot
-      : null;
-    currentAuthority = executionBasisHeld && implementationSetHeld &&
-      environmentHeld && phase === "selected_no_evidence" && observationHeld;
+    hold = gate.current();
   } catch {
-    currentAuthority = false;
+    hold = null;
   }
-  if (
-    !currentAuthority ||
-    localExecutionBasis === null ||
-    localImplementationSet === null ||
-    installedProductRoot === null ||
-    exactInputDigest !== inputDigest ||
-    exactInputDigest !== authority.executionBasis.rawInputDigest ||
-    sha256Canonical(
-      authority.executionBasis.rawInputValue,
-    ) !== inputDigest ||
-    exactResolutionDigest !== authority.implementationResolutionDigest ||
-    authority.cCallRef !== occurrence.cCallRef ||
-    authority.cCall.runId !== occurrence.runId ||
-    authority.cCall.graphCallId !== occurrence.graphCallId ||
-    authority.cCall.frameId !== occurrence.frameId ||
-    authority.cCall.programLocusRef !== occurrence.programLocusRef ||
-    authority.cCall.taskOrdinal !== occurrence.taskOrdinal ||
-    authority.cCall.attempt !== occurrence.attempt ||
-    authority.cCall.callClass !== "leaf" ||
-    authority.cCall.regime !== "F_D" ||
-    authority.cCall.basisId !== authority.executionBasisRef ||
-    authority.cCall.graphFunctionRef !== authority.graphFunctionRef ||
-    authority.cCall.implementationSetRef !== authority.implementationSetRef ||
-    authority.cCall.programLocusRef !== selected.programLocusRef ||
-    authority.cCall.implementationRequirementKey !== selected.requirementKey ||
-    authority.cCall.implementationBindingRef !==
-      selected.implementationBindingRef ||
-    authority.cCall.implementationRef !== selected.implementationRef ||
-    authority.cCall.inputContractRef !== selected.inputContractRef ||
-    authority.cCall.outputContractRef !== selected.outputContractRef ||
-    authority.cCall.failureContractRef !== selected.failureContractRef ||
-    authority.cCall.refusalContractRef !== selected.refusalContractRef ||
-    authority.graphFunctionRef !== WORKSITE_C0_IDS.graphFunctionRef ||
-    authority.graphFunctionRef !== selected.graphFunctionRef ||
-    authority.graphFunctionDigest !== selected.graphFunctionDigest ||
-    authority.programRef !== authority.executionBasis.programRef ||
-    authority.programDigest !== authority.executionBasis.programDigest ||
-    authority.graphFunctionRef !== authority.executionBasis.graphFunctionRef ||
-    authority.graphFunctionDigest !==
-      authority.executionBasis.graphFunctionDigest ||
-    authority.implementationSetRef !==
-      authority.executionBasis.implementationSetRef ||
-    authority.implementationSetDigest !==
-      authority.executionBasis.implementationSetDigest ||
-    authority.implementationBindingRef !==
-      WORKSITE_C0_IMPLEMENTATION.implementationBindingRef ||
-    selected.implementationBindingRef !==
-      WORKSITE_C0_IMPLEMENTATION.implementationBindingRef ||
-    authority.implementationRef !== WORKSITE_C0_IMPLEMENTATION.implementationRef ||
-    selected.implementationRef !== WORKSITE_C0_IMPLEMENTATION.implementationRef ||
-    selected.implementationDescriptorDigest !==
-      WORKSITE_FILE_REPLACE_IMPLEMENTATION_DESCRIPTOR.descriptorDigest ||
-    selected.packageName !== WORKSITE_FILE_REPLACE_IMPLEMENTATION_DESCRIPTOR.packageName ||
-    selected.packageVersion !==
-      WORKSITE_FILE_REPLACE_IMPLEMENTATION_DESCRIPTOR.packageVersion ||
-    selected.modulePath !== WORKSITE_FILE_REPLACE_IMPLEMENTATION_DESCRIPTOR.modulePath ||
-    selected.namedSymbol !== WORKSITE_FILE_REPLACE_IMPLEMENTATION_DESCRIPTOR.namedSymbol ||
-    selected.computeRegime !== WORKSITE_FILE_REPLACE_IMPLEMENTATION_DESCRIPTOR.computeRegime ||
-    selected.inputContractRef !== WORKSITE_C0_IMPLEMENTATION.inputContractRef ||
-    selected.outputContractRef !== WORKSITE_C0_IMPLEMENTATION.outputContractRef ||
-    selected.failureContractRef !== WORKSITE_C0_IMPLEMENTATION.failureContractRef ||
-    selected.refusalContractRef !== WORKSITE_C0_IMPLEMENTATION.refusalContractRef ||
-    value.workspaceBindingIdentity !== authority.workspaceBindingIdentity ||
-    value.workspaceBindingDigest !== authority.workspaceBindingDigest ||
-    value.capabilityGrant.actorRef !== authority.actorRef ||
-    value.capabilityGrant.grantRef !== authority.capabilityGrantRef ||
-    value.capabilityGrant.grantDigest !== authority.capabilityGrantDigest ||
-    value.capabilityGrant.scopeRef !== authority.workspaceBindingIdentity ||
-    value.capabilityGrant.scopeDigest !== authority.workspaceBindingDigest ||
-    authority.executionBasis.actorRef !== authority.actorRef ||
-    authority.actorRef !== authority.workspaceBinding.authorizedActorRef ||
-    authority.workspaceBinding.bindingId !== authority.workspaceBindingIdentity ||
-    authority.workspaceBinding.bindingDigest !== authority.workspaceBindingDigest ||
-    authority.effectUri !== WORKSITE_FILE_REPLACE_EFFECT_URI ||
-    authority.handlerRef !== WORKSITE_FILE_REPLACE_HANDLER_REF ||
-    authority.handlerDigest !== WORKSITE_FILE_REPLACE_HANDLER_DIGEST
-  ) return null;
+  if (hold === null || !gate.coordinates() || !gate.remaining()) return null;
+  const { executionBasis: localExecutionBasis, implementationSet: localImplementationSet,
+    conservationRoots, protectedInstallRoots } = hold;
   let productInventoryBefore: JsonValue;
   try {
     productInventoryBefore = await Promise.all(conservationRoots.map(async (root) => ({ root, inventory: await installedProductInventory(root) })));
@@ -617,68 +434,21 @@ export async function realizeWorksiteFileParents(
   inputDigest: `sha256:${string}`,
 ): Promise<Readonly<LeafRealizationCandidate> | null> {
   const authority = occurrence.executionAuthority;
-  if (!isLeafExecutionAuthority(authority) || !isWorksiteFileParentsRequest(value) ||
-    sha256Canonical(value) !== inputDigest ||
-    inputDigest !== authority.executionBasis.rawInputDigest ||
-    sha256Canonical(authority.executionBasis.rawInputValue) !== inputDigest ||
-    sha256Canonical(resolution) !== authority.implementationResolutionDigest ||
-    authority.effectUri !== WORKSITE_FILE_PARENTS_EFFECT_URI || authority.handlerRef !== WORKSITE_FILE_PARENTS_HANDLER_REF ||
-    authority.handlerDigest !== WORKSITE_FILE_PARENTS_HANDLER_DIGEST ||
-    authority.cCallRef !== occurrence.cCallRef || authority.cCall.runId !== occurrence.runId ||
-    authority.cCall.graphCallId !== occurrence.graphCallId || authority.cCall.frameId !== occurrence.frameId ||
-    authority.cCall.programLocusRef !== occurrence.programLocusRef || authority.cCall.taskOrdinal !== occurrence.taskOrdinal ||
-    authority.cCall.attempt !== occurrence.attempt || authority.cCall.callClass !== "leaf" || authority.cCall.regime !== "F_D" ||
-    authority.graphFunctionRef !== WORKSITE_FILE_PARENTS_IDS.graphFunctionRef) return null;
+  if (!isLeafExecutionAuthority(authority) || !isWorksiteFileParentsRequest(value)) return null;
+  const gate = openWorksiteLeafGate({ effect: "file_parents", authority, request: value, occurrence, resolution, inputDigest,
+    realizer: { graphFunctionRef: WORKSITE_FILE_PARENTS_IDS.graphFunctionRef,
+      implementationBindingRef: WORKSITE_FILE_PARENTS_IMPLEMENTATION.implementationBindingRef,
+      descriptor: WORKSITE_FILE_PARENTS_IMPLEMENTATION_DESCRIPTOR } });
+  if (!gate.coordinates()) return null;
   const selected = authority.implementationResolution;
-  if (selected.implementationRef !== WORKSITE_FILE_PARENTS_IMPLEMENTATION.implementationRef ||
-    selected.implementationBindingRef !== WORKSITE_FILE_PARENTS_IMPLEMENTATION.implementationBindingRef ||
-    selected.packageName !== ABI5_PACKAGE_NAME || selected.packageVersion !== ABI5_PACKAGE_VERSION ||
-    selected.modulePath !== fileParentsDescriptorBody.modulePath || selected.namedSymbol !== fileParentsDescriptorBody.namedSymbol ||
-    selected.implementationDescriptorDigest !== WORKSITE_FILE_PARENTS_IMPLEMENTATION_DESCRIPTOR.descriptorDigest ||
-    selected.computeRegime !== "F_D" || selected.inputContractRef !== fileParentsDescriptorBody.inputContractRef ||
-    selected.outputContractRef !== fileParentsDescriptorBody.outputContractRef || selected.failureContractRef !== fileParentsDescriptorBody.failureContractRef ||
-    selected.refusalContractRef !== fileParentsDescriptorBody.refusalContractRef) return null;
-  let protectedInstallRoots: readonly string[];
-  let localBasis;
-  let localSet;
+  let hold: WorksiteLeafHold | null;
   try {
+    // abg/semantic_job.js imports this module, so its plan check is loaded here.
     const { validateWorksiteFileParentsPlanAtPrefix } = await import("../abg/semantic_job.js");
-    const prefix = readOwnedRuntimeEventPrefixAtDurablePrefix(authority.predecessorPrefix, { requireCurrent: true });
-    const runtimePrefix = selectRuntimeEventPrefixFromAuthority(prefix, { runId: authority.cCall.runId });
-    localBasis = rehydrateExecutionBasisAtPrefix(prefix, authority.executionBasisRef);
-    localSet = rehydrateAdmittedImplementationSetAtPrefix(prefix, authority.implementationSetRef);
-    const environment = projectExactPrefixWorkspaceEnvironment(authority.predecessorPrefix, { ref: authority.workspaceBindingIdentity, digest: authority.workspaceBindingDigest });
-    if (localBasis === null || localSet === null || environment.kind !== "exact_prefix_workspace_environment" ||
-      !canonicalEquals(localBasis, authority.executionBasis) ||
-      !canonicalEquals(localSet, authority.implementationSet) ||
-      !canonicalEquals(environment.workspaceBinding, authority.workspaceBinding) ||
-      !canonicalEquals(environment.workspaceAuthorityBasis, value.workspaceAuthorityBasis) ||
-      projectCCallCarrierPhaseAtPrefix(runtimePrefix, authority.cCall)?.phase !== "selected_no_evidence" ||
-      !validateWorksiteFileParentsPlanAtPrefix(prefix, value, authority.programPublication)) return null;
-    let rootBasis: typeof localBasis | null = localBasis;
-    const seen = new Set<string>();
-    while (rootBasis !== null && rootBasis.parentExecutionBasisRef !== null) {
-      if (seen.has(rootBasis.basisRef)) return null;
-      seen.add(rootBasis.basisRef);
-      rootBasis = rehydrateExecutionBasisAtPrefix(prefix, rootBasis.parentExecutionBasisRef);
-    }
-    if (rootBasis === null || rootBasis.programRef !== authority.programRef || rootBasis.programDigest !== authority.programDigest ||
-      rootBasis.invocationAdmissionRef !== localBasis.invocationAdmissionRef) return null;
-    const invocation = rehydrateInvocationAdmissionAtPrefix(prefix, rootBasis.invocationAdmissionRef);
-    const programOwner = exactProgramOwnerInstall(environment, localSet.rows, rootBasis.graphFunctionRef, authority.programPublication.moduleRef,
-      rootBasis.programRef, selected.publicationDigest, rootBasis.programDigest, authority.programPublication);
-    const implementations = environment.productInstalls.filter(install => install.productId === selected.implementationOwnerProductId &&
-      install.packageName === selected.packageName && install.packageVersion === selected.packageVersion &&
-      install.contributionManifest.publicationBindings.filter(binding => binding.publicationDigest === selected.implementationPublicationDigest).length === 1);
-    const graphOwners = environment.productInstalls.filter(install => install.productId === selected.graphFunctionOwnerProductId &&
-      install.contributionManifest.rows.filter(row => row.kind === "graph_function" && row.declarationOrContractRef === selected.graphFunctionRef &&
-        row.owningProductId === install.productId && install.contributionManifest.publicationBindings.filter(binding => binding.moduleRef === row.moduleRef &&
-          binding.publicationDigest === selected.graphFunctionPublicationDigest).length === 1).length === 1);
-    if (invocation === null || invocation.capabilityGrants.length !== 1 || programOwner === null || implementations.length !== 1 || graphOwners.length !== 1 ||
-      (invocation.capabilityGrants[0] === undefined || !canonicalEquals(invocation.capabilityGrants[0], value.capabilityGrant)) ||
-      value.capabilityGrant.definitionKey.memberKey !== (invocation.invocationVariant === "direct" ? "invoke" : invocation.invocationVariant)) return null;
-    protectedInstallRoots = environment.productInstalls.map(install => install.installedRoot);
+    hold = gate.current(validateWorksiteFileParentsPlanAtPrefix);
   } catch { return null; }
+  if (hold === null) return null;
+  const { executionBasis: localBasis, implementationSet: localSet, protectedInstallRoots } = hold;
   const authorization = constructWorksiteFileParentsAuthorization({ workspaceBinding: authority.workspaceBinding, request: value,
     executionBasis: localBasis, cCall: authority.cCall, implementationSet: localSet });
   if (authorization.kind !== "worksite_file_parents_authorization" ||
