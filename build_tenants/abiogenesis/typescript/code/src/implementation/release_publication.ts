@@ -151,6 +151,8 @@ export function isReleaseOperationArtifact(value:unknown):value is ReleaseOperat
  if(!parsed.success)return false;
  const approved=parsed.output,scope=admissionAuthorityScope(approved.basis),authority=approved.authority;
  let environment;
+ // A read of recorded history that asks the strict question, as the fold's release.snapshot branch does throughout:
+ // the environment's lock must be one the fold established with it.
  try { environment=approved.basis.boundEnvironment===null?null:admitCapabilityEnvironment(approved.basis.boundEnvironment,null,false); }
  catch { return false; }
  if(!canonicalEquals(approved.grants, grants)||!canonicalEquals(approved.basis.request, a.request)||approved.basis.resourceScope.resourcesDigest!==a.resourceDigest||

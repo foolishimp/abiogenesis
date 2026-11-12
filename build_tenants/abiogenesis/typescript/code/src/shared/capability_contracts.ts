@@ -470,7 +470,7 @@ function sortedBy<T>(values: readonly T[], key: (value: T) => string): boolean {
 /**
  * The relations `constructCapabilityDefinitionGraph` guarantees for any
  * register content that are stated over the graph alone: row identity, digest
- * and order; dependency resolution, order and acyclicity; owner order; one
+ * and order; dependency resolution and order; owner order; one
  * flat coordinate per contract; and the definition-slot relations the
  * constructor checks over the graph's own owner coordinates. The roster, the
  * owning sets and the empty-graph rule read the register and are not here.
@@ -505,19 +505,9 @@ function capabilityGraphRelationsHold(graph: CapabilityDefinitionGraph): boolean
       ) return false;
     }
   }
-  const settled = new Set<string>();
-  const visiting = new Set<string>();
-  const acyclic = (capabilityId: string): boolean => {
-    if (settled.has(capabilityId)) return true;
-    if (visiting.has(capabilityId)) return false;
-    visiting.add(capabilityId);
-    if (!rows.get(capabilityId)!.dependentCapabilities.every((dependency) =>
-      acyclic(dependency.capabilityId))) return false;
-    visiting.delete(capabilityId);
-    settled.add(capabilityId);
-    return true;
-  };
-  if (![...rows.keys()].every(acyclic)) return false;
+  // No acyclicity walk: each dependency carries the digest of the row it
+  // names and a row's digest covers its dependencies' digests, so a cycle
+  // would need a digest that contains itself; dependency resolution refuses it.
   const flats = new Map<string, PublicContractCoordinate>();
   const slots = new Map<string, Map<string, PublicContractCoordinate>>();
   for (const coordinate of graph.rows.flatMap((row) => row.owningPublicContracts)) {

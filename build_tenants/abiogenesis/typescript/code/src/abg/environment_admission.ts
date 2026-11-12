@@ -15,10 +15,8 @@ import {
   constructWorkspaceBindingInResolvedLock,
   isExactWorkspaceBinding,
   isProductInstallCandidateInResolvedLock,
-  isResolvedProductLock,
   isWorkspaceBindingCandidateInResolvedLock,
 } from "../product/environment.js";
-import type { ProductTruthQuestion } from "../shared/capability_contracts.js";
 import { canonicalJson, type JsonValue } from "../shared/canonical_json.js";
 import type { ReferenceDigest } from "../shared/public_invocation.js";
 import {
@@ -35,6 +33,7 @@ import {
   projectOwnedPrefixArtifactTruth,
   runtimePrefixFromOwnedArtifactTruth,
   prepareArtifactTruthCandidate,
+  admittedInstallLocksAnswerStrict,
   validateArtifactTruthProjectionValue,
   type AdmittedArtifactTruth,
   type ExactPrefixArtifactTruthProjection,
@@ -382,22 +381,6 @@ export function projectAdmittedWorkspaceBindingByInvocationRef(
   projection: ExactPrefixArtifactTruthProjection,
   invocationRef: string,
   resolvedLock: ResolvedProductLock,
-): RehydratedWorkspaceBindingTruth | null;
-/** @internal The caller names the question its lock answers: recorded when
- * the lock is the recorded install lock of the same artifact truth, read
- * back; the exported signature asks the strict one, for a binding that feeds
- * new work. */
-export function projectAdmittedWorkspaceBindingByInvocationRef(
-  projection: ExactPrefixArtifactTruthProjection,
-  invocationRef: string,
-  resolvedLock: ResolvedProductLock,
-  question: ProductTruthQuestion,
-): RehydratedWorkspaceBindingTruth | null;
-export function projectAdmittedWorkspaceBindingByInvocationRef(
-  projection: ExactPrefixArtifactTruthProjection,
-  invocationRef: string,
-  resolvedLock: ResolvedProductLock,
-  question?: unknown,
 ): RehydratedWorkspaceBindingTruth | null {
   const row = selectExactArtifactTruthRowByInvocation(
     projection,
@@ -405,12 +388,7 @@ export function projectAdmittedWorkspaceBindingByInvocationRef(
     invocationRef,
   );
   if (!validateArtifactTruthProjectionValue(projection)) return null;
-  return question === "recorded"
-    ? rehydrateWorkspaceBindingRow(projection.rows, row, invocationRef, resolvedLock, undefined, undefined,
-      (value, lock, productSet, authority): value is WorkspaceBindingCandidate =>
-        isResolvedProductLock(lock, "recorded") &&
-        isWorkspaceBindingCandidateInResolvedLock(value, lock, productSet, authority))
-    : rehydrateWorkspaceBindingRow(projection.rows, row, invocationRef, resolvedLock);
+  return rehydrateWorkspaceBindingRow(projection.rows, row, invocationRef, resolvedLock);
 }
 
 function rehydrateWorkspaceBindingRow(
@@ -1339,6 +1317,9 @@ export function admitWorkspaceBinding(
     resolvedLock === undefined ||
     productSet === null ||
     productSet.kind !== "product_set" ||
+    // The lock comes from the fold's facts: it must be one the fold
+    // established with the strict question.
+    !admittedInstallLocksAnswerStrict(predecessorProjection, basis.causationEventRefs) ||
     reconstructedCandidate === null ||
     reconstructedCandidate.kind !== "workspace_binding_candidate" ||
     !isWorkspaceBindingCandidateInResolvedLock(

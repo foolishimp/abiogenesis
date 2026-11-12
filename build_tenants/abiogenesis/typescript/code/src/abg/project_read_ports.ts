@@ -140,7 +140,7 @@ interface PreparedRead<K extends AbgProjectReadMemberKey> {
    * entry: `recorded` for every read, since `terminalDeclaration` binds the
    * reconstructed Catalog to the recorded environment and root basis digest;
    * `strict` for every entry whose result feeds new work (a historical source
-   * for a new run, worksite forward, native work reacquisition). */
+   * for a new run, native work reacquisition). */
   readonly question: ProductTruthQuestion;
   /** The read owner's artifact truth over its acquired prefix, when the
    * owner supplied it: the one materialization the preparation reads. */
@@ -623,8 +623,8 @@ export function projectClosedGraphCallTerminalAtDurablePrefix(
   prefix: DurablePrefixCoordinate, graphCallId: string, declarationProof: AbgHistoricalDeclarationProof,
 ): AbgTypedTerminalResult | null {
   try {
-    // Worksite forward and native work reacquisition use the terminal for new
-    // work: the strict question.
+    // Native work reacquisition uses the terminal for new work: the strict
+    // question.
     const prepared = prepareRead("graph_call_result", {kind:"abg_project_read_packet",schemaVersion:"5.0.0",
       memberKey:"graph_call_result",prefix,targetRef:graphCallId,declarationProof}, captureDurablePrefixCoordinate(prefix), undefined, "strict");
     if ("disposition" in prepared) return null;

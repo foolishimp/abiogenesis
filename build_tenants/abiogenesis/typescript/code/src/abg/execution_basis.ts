@@ -9,7 +9,7 @@ import { types } from "node:util";
 import { hasOwnedDeclarationLookups } from "../implementation/leaf_invocation_port.js";
 import type { LeafInvocationPort } from "../implementation/contracts.js";
 import { rehydrateConstructionIntentForCursorAtPrefix } from "./traversal_route.js";
-import { projectOwnedPrefixArtifactTruth, runtimePrefixFromOwnedArtifactTruth } from "./artifact_truth.js";
+import { admittedInstallLocksAnswerStrict, projectOwnedPrefixArtifactTruth, runtimePrefixFromOwnedArtifactTruth } from "./artifact_truth.js";
 import { WORKSITE_REVISION_IDS, isWorksiteExecutionTask, worksiteExecutionImplementationRef } from "../product/worksite_revision.js";
 import { runtimeEventPrefixDigest, validatedRuntimeEventPrefixBeforeEvent } from "./event_prefix.js";
 import { worksiteExecutionSourcesCurrent, worksiteRevisionEntryBindingDisposition } from "./worksite_revision.js";
@@ -594,6 +594,11 @@ function exactWorksiteEnvironmentAtPrefix(
     digest: carrier.workspaceBindingDigest,
   });
   if (environment.kind !== "exact_prefix_workspace_environment" ||
+    // Every caller admits work over the carrier's environment, whose binding
+    // need not be the invocation's: its lock must be one the fold established
+    // with the strict question.
+    !admittedInstallLocksAnswerStrict(environment.artifactTruth,
+      environment.productInstalls.map((install) => install.admissionEventRef)) ||
     !canonicalEquals(
       environment.workspaceAuthorityBasis,
       carrier.workspaceAuthorityBasis,
