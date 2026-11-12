@@ -1,4 +1,4 @@
-import { selectRuntimeEventPrefixFromStore, projectOwnedRuntimeEventPrefixAtDurablePrefix, selectRuntimeEventPrefixFromAuthority } from "./event_prefix.js";
+import { selectRuntimeEventPrefixFromStore, selectRuntimeEventPrefixFromAuthority } from "./event_prefix.js";
 import { indexedRuntimeEvents } from "./event_prefix.js";
 import { projectObservedWorksiteCommandChildAtPrefix } from "./worksite_input_provenance.js";
 import type { WorksiteExecutionTask } from "../product/worksite_revision.js";
@@ -8,7 +8,6 @@ import { projectNativeWorkCommandSourceAtPrefix, worksiteCommandSourcesInvalidat
 import { types } from "node:util";
 import { hasOwnedDeclarationLookups } from "../implementation/leaf_invocation_port.js";
 import type { LeafInvocationPort } from "../implementation/contracts.js";
-import { rehydrateConstructionIntentForCursorAtPrefix } from "./traversal_route.js";
 import { projectOwnedPrefixArtifactTruth, runtimePrefixFromOwnedArtifactTruth } from "./artifact_truth.js";
 import { WORKSITE_REVISION_IDS, isWorksiteExecutionTask, worksiteExecutionImplementationRef } from "../product/worksite_revision.js";
 import { runtimeEventPrefixDigest, validatedRuntimeEventPrefixBeforeEvent } from "./event_prefix.js";
@@ -1003,37 +1002,6 @@ export function hasExactWorksiteCommandLeafSourceAtDurablePrefix(
   } catch { return false; }
 }
 
-export function hasExactInvocationObservationBasis(
-  value: Readonly<Record<string, JsonValue>>,
-  workspaceBindingId: string,
-  workspaceBindingDigest: Sha256Digest,
-  program: Readonly<GtlProgram>,
-): boolean {
-  if (value.kind !== "observation_snapshot") return true;
-  if (
-    value.schemaVersion !== "5.0.0" ||
-    typeof value.snapshotRef !== "string" ||
-    typeof value.snapshotDigest !== "string" ||
-    !isRecord(value.workspaceBinding) ||
-    value.workspaceBinding.workspaceBindingId !== workspaceBindingId ||
-    value.workspaceBinding.workspaceBindingDigest !==
-      workspaceBindingDigest ||
-    !isRecord(value.actionCatalog) ||
-    program.actionCatalog === undefined ||
-    !canonicalEquals(
-      value.actionCatalog,
-      program.actionCatalog,
-    )
-  ) {
-    return false;
-  }
-  const { snapshotRef, snapshotDigest, ...body } = value;
-  const expectedDigest = sha256Canonical(body);
-  return snapshotDigest === expectedDigest &&
-    snapshotRef ===
-      `observation-snapshot://product/${expectedDigest.slice("sha256:".length)}`;
-}
-
 export function isExecutionBasis(value: object): boolean {
   return executionBases.has(value);
 }
@@ -1144,47 +1112,6 @@ export function isAdmittedImplementationSet(value: object): boolean {
 
 export function isAdmittedInteractionSet(value: object): boolean {
   return interactionSets.has(value);
-}
-
-export function admittedConstructionComposition(
-  basis: ExecutionBasis,
-): Readonly<GtlConstructionComposition> | null {
-  const composition = basis.constructionComposition;
-  if (composition === null) return null;
-  const { compositionDigest, ...body } = composition;
-  return (
-      basis.constructionCompositionRef === composition.compositionRef &&
-      basis.constructionCompositionDigest === compositionDigest &&
-      compositionDigest === sha256Canonical(body) &&
-      composition.graphFunctionRef === basis.graphFunctionRef
-    )
-    ? composition
-    : null;
-}
-
-export function selectAdmittedConstructionAuthority(
-  basis: ExecutionBasis,
-  semanticAuthority:
-    | "synthesizeModel"
-    | "evalGap"
-    | "evaluateNext"
-    | "evaluateAction",
-) {
-  const composition = admittedConstructionComposition(basis);
-  const match = resolveExactMatch(composition?.authorities ?? [],
-    (binding) => binding.semanticAuthority === semanticAuthority);
-  return match.kind === "one" ? match.value : null;
-}
-
-export function isAdmittedConstructionInteractionLocus(
-  basis: ExecutionBasis,
-  programLocusRef: string,
-  compositionRef: string | null,
-): boolean {
-  const composition = admittedConstructionComposition(basis);
-  return composition !== null &&
-    composition.compositionRef === compositionRef &&
-    composition.interactionProgramLocusRef === programLocusRef;
 }
 
 export function hasAdmittedImplementationSet(
@@ -2014,6 +1941,8 @@ export function admitExecutionBasis(
   if (
     input.program.programRef !== input.invocationAdmission.programRef ||
     sha256Canonical(input.program) !== input.invocationAdmission.programDigest ||
+    input.program.actionCatalog !== undefined ||
+    input.program.constructionComposition !== undefined ||
     input.program.closureContractRef !== input.closureContract.closureContractRef ||
     input.closureContract.resultContractRef !== input.invocationAdmission.outputContractRef
   ) {
@@ -2322,15 +2251,12 @@ export function admitChildExecutionBasis(
   );
 }
 
-/** One workflow preparation owns the first raw acquisition and its intent.
- * Only the native owner's exact immutable lookup pair permits pure staging. */
+/** One workflow preparation of a child basis. Only the native owner's exact
+ * immutable lookup pair permits pure staging. */
 export function prepareWorkflowChildExecutionBasis(
   store: AbgEventStore, predecessorPrefix: DurablePrefixCoordinate,
-  cursor: TraversalCursorCandidate,
   lookups: Pick<LeafInvocationPort, "graphFunctionByRef" | "closureContractByRef">,
 ) {
-  const prefix = projectOwnedRuntimeEventPrefixAtDurablePrefix(predecessorPrefix);
-  const intent = rehydrateConstructionIntentForCursorAtPrefix(prefix, cursor);
   const proxyLookups = types.isProxy(lookups);
   const graphLookup = proxyLookups ? undefined : Object.getOwnPropertyDescriptor(lookups, "graphFunctionByRef");
   const closureLookup = proxyLookups ? undefined : Object.getOwnPropertyDescriptor(lookups, "closureContractByRef");
@@ -2338,7 +2264,7 @@ export function prepareWorkflowChildExecutionBasis(
     graphLookup !== undefined && "value" in graphLookup &&
     closureLookup !== undefined && "value" in closureLookup &&
     hasOwnedDeclarationLookups(graphLookup.value, closureLookup.value);
-  return Object.freeze({ intent, admit(input: ChildExecutionBasisInput, basis: RuntimeAdmissionBasis): ChildExecutionBasisResult {
+  return Object.freeze({ admit(input: ChildExecutionBasisInput, basis: RuntimeAdmissionBasis): ChildExecutionBasisResult {
     if (!fixedLookups) {
       return admitChildExecutionBasis(store, predecessorPrefix, input, basis);
     }

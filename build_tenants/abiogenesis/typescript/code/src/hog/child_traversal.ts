@@ -1,5 +1,4 @@
 import { prepareWorkflowChildExecutionBasis } from "../abg/execution_basis.js";
-import type { TraversalCursorCandidate } from "../abg/traversal_cursor.js";
 import {
   admitChildExecutionBasis,
   openTraversalScope,
@@ -138,12 +137,12 @@ export function prepareChildTraversal(
   return prepareChildTraversalWithAdmission(store, basis, request, admitChildExecutionBasis);
 }
 
-export function prepareWorkflowChildTraversalAtCursor(
+export function prepareWorkflowChildTraversalAtPrefix(
   store: AbgEventStore, basis: ChildTraversalBasis,
-  predecessorPrefix: DurablePrefixCoordinate, cursor: TraversalCursorCandidate,
+  predecessorPrefix: DurablePrefixCoordinate,
 ) {
-  const preparation = prepareWorkflowChildExecutionBasis(store, predecessorPrefix, cursor, basis);
-  return Object.freeze({ intent: preparation.intent, prepare(request: ChildTraversalPreparationRequest) {
+  const preparation = prepareWorkflowChildExecutionBasis(store, predecessorPrefix, basis);
+  return Object.freeze({ prepare(request: ChildTraversalPreparationRequest) {
     return request.predecessorPrefix === predecessorPrefix
       ? prepareChildTraversalWithAdmission(store, basis, request,
           (_store, _prefix, input, admissionBasis) => preparation.admit(input, admissionBasis))

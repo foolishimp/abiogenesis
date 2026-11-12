@@ -23,7 +23,7 @@ import type { JsonValue } from "../shared/canonical_json.js";
 import { sha256Canonical } from "../shared/digests.js";
 import { deepFreeze } from "../shared/immutable.js";
 import {
-  prepareWorkflowChildTraversalAtCursor,
+  prepareWorkflowChildTraversalAtPrefix,
   type ChildTraversalBasis,
   type PreparedChildTraversal,
 } from "./child_traversal.js";
@@ -48,9 +48,6 @@ import {
   type ExecutableTraversalCompletion,
 } from "./traversal_completion.js";
 import { failTraversal } from "./traversal_failure.js";
-import {
-  deriveGraphFunctionActionEvaluationBasis,
-} from "../abg/index.js";
 import { deriveCSourceContinuation } from "../gtl/source_path.js";
 import { resolveWorkflowFailureContract, workflowOutputContractCorresponds, prepareWorkflowChildFoldback } from "../abg/c_call.js";
 
@@ -332,9 +329,8 @@ export function beginOwnedWorkflowLocus(input: Readonly<{
       failureResolution.kind !== "workflow_failure_contract_resolution" ||
       childClosureContract === null ||
       childClosureContract.closureScope !== "graph_call" ||
-      !workflowOutputContractCorresponds({ prefix: projectOwnedRuntimeEventPrefixAtDurablePrefix(
-        runtime.predecessorPrefix), executionBasis: runtime.executionBasis,
-        graph: runtime.graph, cursor, childGraphFunction, childClosureContract }) ||
+      !workflowOutputContractCorresponds({ graph: runtime.graph, cursor, childGraphFunction,
+        childClosureContract }) ||
       childClosureContract.predicateRef.length === 0 ||
       judgmentPredicateRef === undefined || judgmentPredicateRef.length === 0 ||
       childClosureDigest === null ||
@@ -403,26 +399,10 @@ export function beginOwnedWorkflowLocus(input: Readonly<{
       parentCCall: opened.cCall,
       application: fanOutApplicationForBatch(runtime.graph, opened.cCall.batchRef),
     };
-    const preparation = prepareWorkflowChildTraversalAtCursor(
-      runtime.store, runtime.childTraversalBasis, opened.successorPrefix, cursor,
+    const preparation = prepareWorkflowChildTraversalAtPrefix(
+      runtime.store, runtime.childTraversalBasis, opened.successorPrefix,
     );
-    const intent = preparation.intent;
-    const selectedValue = intent?.actionKind === "invoke_graph_function"
-      ? intent.targetInput
-      : input.value;
-    const selectedRef = intent?.actionKind === "invoke_graph_function"
-      ? intent.targetInputRef
-      : cursor.inputRef;
-    const selectedDigest = intent?.actionKind === "invoke_graph_function"
-      ? intent.targetInputDigest
-      : cursor.inputDigest;
-    if (
-      selectedValue === null || selectedRef === null || selectedDigest === null ||
-      sha256Canonical(selectedValue) !== selectedDigest ||
-      (intent?.actionKind === "invoke_graph_function" &&
-        (intent.selectedGraphFunctionRef !== term.graphFunctionRef ||
-          intent.targetProgramLocusRef !== term.graphFunctionRef))
-    ) {
+    if (sha256Canonical(input.value) !== cursor.inputDigest) {
       return failWorkflow(input,
         opened.successorPrefix,
         `workflow-input-${ordinal}`,
@@ -436,9 +416,9 @@ export function beginOwnedWorkflowLocus(input: Readonly<{
       parentTraversalScope: runtime.openedTraversalScope,
       parentCCallRef: opened.cCall.cCallRef,
       childGraphFunctionRef: term.graphFunctionRef,
-      inputRef: selectedRef,
-      inputDigest: selectedDigest,
-      input: selectedValue,
+      inputRef: cursor.inputRef,
+      inputDigest: cursor.inputDigest,
+      input: input.value,
       eventTime: runtime.eventTime,
       correlationId: `${runtime.correlationId}/workflow/${ordinal}/prepare`,
       },
@@ -456,8 +436,8 @@ export function beginOwnedWorkflowLocus(input: Readonly<{
           kind: "child_preparation_refusal_candidate",
           schemaVersion: "5.0.0",
           childGraphFunctionRef: term.graphFunctionRef,
-          inputRef: selectedRef,
-          inputDigest: selectedDigest,
+          inputRef: cursor.inputRef,
+          inputDigest: cursor.inputDigest,
           stage: prepared.stage,
           diagnosticRef: prepared.diagnosticRef,
           message: prepared.message,
@@ -634,32 +614,6 @@ export function completeOwnedWorkflowLocus(
     },
     basis: workflowBasis(frame, "child-foldback"),
   });
-  const intent = foldbackPreparation.intent;
-  const actionValue = intent?.actionKind === "invoke_graph_function" &&
-      child.disposition === "closed" && child.closureRef !== null &&
-      isRecord(child.resultValue)
-    ? deriveGraphFunctionActionEvaluationBasis(
-        child.successorPrefix,
-        runtime.executionBasis,
-        cursor,
-        {
-          childGraphFunctionRef: workflowTerm.graphFunctionRef,
-          childResultRef: child.resultRef,
-          childResultValue: child.resultValue,
-          childJudgmentRef: child.judgmentRef,
-          childClosureRef: child.closureRef,
-        },
-      )
-    : null;
-  if (intent?.actionKind === "invoke_graph_function" &&
-      child.disposition === "closed" && actionValue === null) {
-    return failWorkflow(frame,
-      child.successorPrefix,
-      `workflow-action-${ordinal}`,
-      "diagnostic://abiogenesis/hog/workflow-action-evaluation-basis-absent@5",
-      workflowTerm,
-    );
-  }
   const foldback = foldbackPreparation.admit();
   if (foldback.kind !== "child_foldback_admission") {
     return {
@@ -685,7 +639,7 @@ export function completeOwnedWorkflowLocus(
   const failureDiagnosticRef = foldback.childReasonRef ?? child.diagnosticRef ??
     "diagnostic://abiogenesis/hog/child-traversal-blocked@5";
   const childValue = childSucceeded || childBlocked
-    ? actionValue ?? child.resultValue
+    ? child.resultValue
     : deepFreeze({
         kind: failureKind,
         schemaVersion: "5.0.0" as const,

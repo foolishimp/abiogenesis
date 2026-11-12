@@ -68,7 +68,6 @@ export type RouteProposalRefusal = {
   readonly schemaVersion: "5.0.0";
   readonly disposition: "refused";
   readonly code:
-    | "gap_stop_not_declared"
     | "graph_span_reentry_not_declared"
     | "judgment_not_advance"
     | "judgment_not_pending"
@@ -98,9 +97,6 @@ type GraphRouteExtras = Partial<Pick<
   | "graphSpanReentryProjection"
   | "graphSpanReentryProjectionDigest"
   | "graphSpanReentryProjectionRef"
-  | "nextActionProjection"
-  | "nextActionProjectionDigest"
-  | "nextActionProjectionRef"
 >>;
 
 function graphRouteCandidate(input: Readonly<{
@@ -520,91 +516,6 @@ export function proposeGraphSpanReentryRoute(
   });
 }
 
-export function proposeGapStopRoute(
-  graph: Readonly<GtlGraph>,
-  stop: RouteSourceLocus,
-  cCall: CCall,
-  result: AdmittedCCallResult,
-  judgment: AdmittedCCallJudgment,
-  replayState: ReplayState,
-  contractRef: string,
-): RouteCandidate | RouteProposalRefusal;
-/** @internal Same candidate construction from authenticated current guard facts. */
-export function proposeGapStopRoute(
-  graph: Readonly<GtlGraph>,
-  stop: RouteSourceLocus,
-  cCall: CCall,
-  result: AdmittedCCallResult,
-  judgment: AdmittedCCallJudgment,
-  replayState: RuntimeReplayGuard,
-  contractRef: string,
-): RouteCandidate | RouteProposalRefusal;
-export function proposeGapStopRoute(
-  graph: Readonly<GtlGraph>,
-  stop: RouteSourceLocus,
-  cCall: CCall,
-  result: AdmittedCCallResult,
-  judgment: AdmittedCCallJudgment,
-  replayState: RuntimeReplayGuard,
-  contractRef: string,
-): RouteCandidate | RouteProposalRefusal {
-  const projection = isRecord(result.value) ? result.value : null;
-  if (
-    !isMaterializedGtlGraph(graph) ||
-    stop.cursor.graphRef !== graph.materializationRef ||
-    stop.cursor.frameId !== cCall.frameId ||
-    stop.programLocusRef !== cCall.programLocusRef ||
-    result.cCallRef !== cCall.cCallRef ||
-    judgment.cCallRef !== cCall.cCallRef ||
-    judgment.resultRef !== result.resultRef ||
-    judgment.judgment !== "advance" ||
-    projection === null ||
-    projection.kind !== "next_action_projection" ||
-    projection.disposition !== "no_action" ||
-    ![
-      "gap_stop",
-      "reprice_required",
-      "repair",
-      "inspect_runtime_archive",
-      "reprice",
-      "escalate",
-    ].includes(String(projection.noActionDisposition))
-  ) {
-    return routeRefusal(
-      "gap_stop_not_declared",
-      "gap_stop requires the exact judged Product no-action projection at the current cursor",
-    );
-  }
-  const nextActionProjectionRef = projection.projectionRef;
-  const nextActionProjectionDigest = projection.projectionDigest;
-  if (
-    typeof nextActionProjectionRef !== "string" ||
-    typeof nextActionProjectionDigest !== "string"
-  ) {
-    return routeRefusal(
-      "gap_stop_not_declared",
-      "gap_stop projection lacks its exact Product identity",
-    );
-  }
-  return graphRouteCandidate({
-    graph,
-    routeKind: "gap_stop" as const,
-    sourceCursor: stop.cursor,
-    targetCursor: null,
-    cCallRef: cCall.cCallRef,
-    judgmentRef: judgment.judgmentRef,
-    consumedAvailabilityRefs: [judgment.judgmentRef] as const,
-    contractRef,
-    replayState,
-    extras: {
-      nextActionProjectionRef,
-      nextActionProjectionDigest:
-        nextActionProjectionDigest as `sha256:${string}`,
-      nextActionProjection: projection,
-    },
-  });
-}
-
 export function proposeBlockedRoute(
   graph: Readonly<GtlGraph>,
   stop: RouteSourceLocus,
@@ -722,7 +633,7 @@ export function proposeFailedRoute(
  */
 function selectedCCallOutcomeRoute(
   outcome: OwnedJudgedCCallOutcomeReceipt | OwnedBlockedCCallOutcomeReceipt,
-): "re_enter" | "gap_stop" | null {
+): "re_enter" | null {
   if (
     outcome.disposition !== "judged" ||
     outcome.admitted.result.resultClass !== "success" ||
@@ -732,23 +643,19 @@ function selectedCCallOutcomeRoute(
   if (!isRecord(value)) {
     return null;
   }
-  const projection = value;
-  if (projection.kind === "graph_span_selection" && projection.disposition === "re_enter") {
-    return "re_enter";
-  }
-  return projection.kind === "next_action_projection" && projection.disposition === "no_action"
-    ? "gap_stop"
+  return value.kind === "graph_span_selection" && value.disposition === "re_enter"
+    ? "re_enter"
     : null;
 }
 
-/** Undefined retains ordinary continuation; null is the selected no-action stop. */
+/** Undefined retains ordinary continuation. */
 export function deriveSelectedCCallOutcomeTarget(
   graph: Readonly<GtlGraph>,
   source: TraversalCursor,
   outcome: JudgedCCallOutcomeReceipt | BlockedCCallOutcomeReceipt,
   definitionDigests?: Readonly<Record<string, `sha256:${string}`>>,
   boundInput?: RawAdmittedValue<Readonly<Record<string, JsonValue>>>,
-): TraversalCursor | RouteProposalRefusal | null | undefined;
+): TraversalCursor | RouteProposalRefusal | undefined;
 /** @internal Same candidate construction from authenticated current guard facts. */
 export function deriveSelectedCCallOutcomeTarget(
   graph: Readonly<GtlGraph>,
@@ -756,14 +663,14 @@ export function deriveSelectedCCallOutcomeTarget(
   outcome: OwnedJudgedCCallOutcomeReceipt | OwnedBlockedCCallOutcomeReceipt,
   definitionDigests?: Readonly<Record<string, `sha256:${string}`>>,
   boundInput?: RawAdmittedValue<Readonly<Record<string, JsonValue>>>,
-): TraversalCursor | RouteProposalRefusal | null | undefined;
+): TraversalCursor | RouteProposalRefusal | undefined;
 export function deriveSelectedCCallOutcomeTarget(
   graph: Readonly<GtlGraph>,
   source: TraversalCursor,
   outcome: OwnedJudgedCCallOutcomeReceipt | OwnedBlockedCCallOutcomeReceipt,
   definitionDigests: Readonly<Record<string, `sha256:${string}`>> = {},
   boundInput?: RawAdmittedValue<Readonly<Record<string, JsonValue>>>,
-): TraversalCursor | RouteProposalRefusal | null | undefined {
+): TraversalCursor | RouteProposalRefusal | undefined {
   if (outcome.disposition === "judged" && outcome.admitted.judgment.judgment === "advance") {
     const selected = resolveRegisteredSelection(graph.template, source, outcome.admitted.cCall.outputContractRef,
       outcome.admitted.result.value, definitionDigests);
@@ -776,7 +683,6 @@ export function deriveSelectedCCallOutcomeTarget(
   }
   const routeKind = selectedCCallOutcomeRoute(outcome);
   if (routeKind === null || outcome.disposition !== "judged") return undefined;
-  if (routeKind === "gap_stop") return null;
   const projection = outcome.admitted.result.value as unknown as GraphSpanReentryProjection;
   const application = graph.template.applications.find(candidate =>
     candidate.relationKind === "re_enter" && candidate.applicationRef === projection.applicationRef);
@@ -887,12 +793,7 @@ export function proposeCCallOutcomeTransition(input: Readonly<{
                 admitted!.result, admitted!.judgment, replayState, cCall.transitionContractRef,
                 admitted!.result.value as unknown as GraphSpanReentryProjection,
               )
-          : selectedRoute === "gap_stop"
-            ? proposeGapStopRoute(
-                input.graph, stop, cCall, admitted!.result, admitted!.judgment,
-                replayState, cCall.transitionContractRef,
-              )
-            : proposeJudgedRoute(
+          : proposeJudgedRoute(
             input.graph,
             input.sourceCursor,
             input.targetCursor,
