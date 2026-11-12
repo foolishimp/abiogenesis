@@ -5,7 +5,7 @@ Writer: Claude Opus 5.5. Branch `claude/td28e-forward-key-refused` from local
 (ruling R2). Change class: realization_refactor (a retired shape refused, not
 ignored; no specification or design text names it). No push, no tag.
 
-**Status: in progress (census and recorded history committed).**
+**Status: complete. `abg.worksite_command_forward` on a callable GraphFunction of a Program is refused at publication validation, `catalog.admit`, conformance, Product resolution, the run-environment observation and the Run door, with the existing `invalid_reference` `$.runEnvironments` / `unsupported_declaration` / `invalid_program` refusals; Programs without the key are unchanged; recorded history reads identically; 264 tests, 252 pass, 0 fail, 12 skip on the final build.**
 
 `T` = `build_tenants/abiogenesis/typescript`. Scratch, probes and TAP output:
 `/private/tmp/abg-td28e-work/`.
@@ -139,3 +139,407 @@ lanes that read them; each runs on base and final (section 9):
 not carry the forward module: its readiness basis holds five publications from
 September 11 (`order-summary.example/single-start`, C2, consensus,
 construction, `conformance/hello-world`).
+
+## 3. Specification and design
+
+No edit (section 1.2). No live specification or kept design text names the
+key, the forward module or the list of refused keys; the code comment at the
+refusal site states the rule.
+
+## 4. Source
+
+Commit `1f09dea47`. `git diff --numstat b3bcb1303`:
+
+| File | + | − | Change |
+| --- | ---: | ---: | --- |
+| `code/src/gtl/stdo_run_environment.ts` | 13 | 6 | `REFUSED_GRAPH_FUNCTION_DECLARATIONS = ["abg.worksite_command_forward"]` beside `REFUSED_PROGRAM_POLICIES`; `namesRefusedPolicy(program)` becomes `namesRefusedKey(program, graphFunctions)`: a refused Program policy key, or a refused declaration key on a GraphFunction in `program.callableMembership`. `runEnvironmentForProgram` and `selectorRoleFromBoundDeclarations` pass `publication.graphFunctions`. `validRunEnvironmentProgram` also passes its own `graphFunctions` argument (the callable GraphFunctions of the whole closure) and checks it before the no-environment return. The comment states the rule. |
+| `code/src/product/stdo_environment.ts` | 2 | 2 | `observeRunEnvironment` consults `validRunEnvironmentProgram` before its no-environment shortcut instead of after it (the same two lines, moved up). |
+| **`code/src` total** | **15** | **8** | |
+
+Why the two lines beyond the list (deviation 1): a Program's callable
+GraphFunctions can come from other publications of its closure (the default
+library Program calls the native-work, assessment and C2 GraphFunctions).
+`runEnvironmentForProgram(publication, program)` sees only the Program's own
+publication. `validRunEnvironmentProgram` already filters exactly the callable
+GraphFunctions of the closure (`:229` at base), so reading their declarations
+there makes Product resolution and conformance refuse a borrowed keyed
+GraphFunction. The observation returned before calling it whenever the
+Program declares no run environment; with the call moved first it refuses the
+same case. For a Program without the key both moves are no-ops:
+`validRunEnvironmentProgram` returns `true` whenever `runEnvironmentForProgram`
+returns `null` and no callable GraphFunction declares the key, and the
+observation's later branches are unchanged.
+
+The refusal reuses the existing codes and messages: no new refusal code, no
+new message, no new message kind. None of the messages names "policy":
+
+- publication validation: `invalid_reference` at `$.runEnvironments`,
+  "invalid exact STDO environment declaration or Program selection";
+- Program validation (conformance, Product resolution, qualification):
+  `invalid_reference` at `$.runEnvironments`, "STDO environment must cover
+  every supported dependent semantic or worksite leaf exactly once";
+- observation: cause `unsupported_declaration` at `/program/runEnvironment`.
+
+They name the run environment, as they already do for the three refused
+policy keys. The ruling's condition for a wording proposal (a message that
+names "policy") does not hold, so none is made.
+
+Emitted declarations: all 488 `.d.ts` files are byte-identical to base (the
+new constant and helper are not exported, the comments are `//`). Two `.js`
+files differ: `gtl/stdo_run_environment.js` and `product/stdo_environment.js`.
+`npm run build`, `lint:imports`, `lint:lifecycle` and `lint:calculus` exit 0.
+
+### Owner output for every Program without the key
+
+`scripts/differential.mjs` runs, for the ten `gtl` publication constructors and
+the structural language fixture, every Program and every leaf locus:
+`validRunEnvironmentPublication`, `validatePublication`,
+`runEnvironmentForProgram`, `validRunEnvironmentProgram` (own and all
+GraphFunctions), conformance evaluation, `observeRunEnvironment` (own and all
+GraphFunctions), `runEnvironmentEvidenceMatchesInvocation`,
+`projectRunEnvironmentRoleEvidence`, `framedSynthesisNativeRole` and
+`nativeContextLeafFamily`. 476 rows; base and final outputs are byte-identical
+(`diff/base.jsonl` = `diff/final.jsonl`,
+`sha256:6118f75ef7e18ece6efa2b5bd9a22c67d6fd3b82105785a2a428fbbd5c6ce789`; a
+second base run is identical). Stop condition 3 does not hold.
+
+### Readers of recorded history that reach the owner
+
+`runEnvironmentEvidenceMatchesInvocation`, `projectRunEnvironmentRoleEvidence`
+and `…AtPrefix` (`abg/stdo_environment.ts`), `framedSynthesisNativeRole` (via
+`selectorRoleFromBoundDeclarations`) and the native-assembly test in
+`hog/ccall_lifecycle.ts:481` read `runEnvironmentForProgram` for the Program of
+a recorded or running Run. Their answer changes only for a Program one of
+whose callable GraphFunctions declares the key: on recorded data, only the
+forward Program. The two recorded forward Runs are already unreadable at base
+(TD-28d R1, the odd_glc store refused at row 2474), so no reachable read
+changes. Replay and artifact truth are identical (sections 10 and 11).
+
+## 5. Door table
+
+Probe: `scripts/doors.mjs <T> <values.json>` on three builds: `5c9df5056` (the
+base of the forward retirement, TD-28d's `base-root` build, read only),
+`b3bcb1303` (this package's base, `base-root` copy) and the final build.
+Outputs `doors/doors-5c9df5056.txt`, `doors-b3bcb1303.txt`,
+`doors-final.txt`: 74 lines each (a header, 71 door rows, 2 shipped-publication
+lists); `5c9df5056` against `b3bcb1303` differs in the 4 Product-resolution
+rows of the keyed subjects B, C, D and H1 (the forward arm) and in the 2
+shipped-publication lists (ten at `5c9df5056` with the forward module, nine
+after); `b3bcb1303` against final differs in 34 rows, all on keyed subjects.
+
+Subject: the `recursion@5` Program of the structural language fixture
+(`test_env/fixtures/language-structural/program.mjs`; two callable
+GraphFunctions, admitted at every door when clean). The key is put on the root
+GraphFunction with the forward module's value
+(`dependency://abiogenesis/worksite/command-forward/historical-owners@5`), on
+the root with an arbitrary value (`td28e://arbitrary-value`), and on the second
+callable GraphFunction with the forward value. All three give the same row at
+every door on every build.
+
+| Door | `5c9df5056` | `b3bcb1303` (base) | Final |
+| --- | --- | --- | --- |
+| Module admission (`gtl/m02` `admitModule`) | `raw_admitted_value` | `raw_admitted_value` | `raw_admitted_value` (structural; declarations are a string record) |
+| Publication validation (`validatePublication`) | `publication_validation` | `publication_validation` | `static_validation_refusal`, stage `publication`, `invalid_reference` `$.runEnvironments` |
+| `catalog.admit` (`CatalogOperationPort.admit`) | passes publication validation and reaches readiness (the probe's basis has no binding or lock: `catalog_construction_refusal` `binding_lock_mismatch`) | the same | `catalog_validation_refusal` with the publication refusal above |
+| Conformance evaluation (`gtl_program`) | `gtl_program_conformance_result` | `gtl_program_conformance_result` | `gtl_program_conformance_refusal` `validation_failed`, `invalid_reference` `$.runEnvironments` |
+| Product resolution (Catalog, View, `resolveProgramDeclarationClosure`, `constructCatalogProgramValidationInput`, `validateProgram`) | `execution_declaration_closure_refusal` `wrong_owner`, "forward C2 must retain its exact finite no-construction Program and historical-proof marker" | `program_validation` | `static_validation_refusal`, stage `program`, `invalid_reference` `$.runEnvironments` |
+| Run-environment observation (`observeRunEnvironment`) | `run_environment_observed` | the same | `run_environment_refusal`, cause `unsupported_declaration`, `/program/runEnvironment` |
+| Run door (`prepareProductRunInvocation`, by reading) | resolution refuses at the closure (`wrong_owner`, stage `declaration_closure`) → `invalid_program` at `/program` | resolution and observation admit; the Run proceeds and the GraphFunction runs as an ordinary one | resolution refuses at `validateProgram` (`incompatible_or_unproven`, stage `declaration_closure`, "whole-Program declaration inventory failed static validation", `execution_resolution.ts:773-785`) → `invalid_program` at `/program` (`resolutionRefusalCode`, `run_invocation_operation.ts:283-291, 668-673`); the observation behind it maps `unsupported_declaration` to `invalid_program` too (`:815`) |
+
+The Run door row is by reading: the probe exercises the components Product
+resolution calls, in its order, but not `ProductExecutionResolutionPort.resolve`
+itself, which needs an installed readiness basis. The `5c9df5056` column agrees
+with TD-28d's Return (section 7, last paragraph).
+
+Further subjects (same probe):
+
+| Subject | Door | `5c9df5056` | `b3bcb1303` | Final |
+| --- | --- | --- | --- | --- |
+| A callable GraphFunction of another closure publication declares the key (the recursion Program's publication is clean; the GraphFunctions handed to the owner carry the keyed copy, as the Run door hands the observation every closure GraphFunction) | `runEnvironmentForProgram` | `null` | `null` | `null` (the publication itself declares no key) |
+| | `validRunEnvironmentProgram` | `true` | `true` | `false` |
+| | observation | `run_environment_observed` | the same | `run_environment_refusal` `unsupported_declaration` |
+| The default library Program over the shipped publications (nine; ten at `5c9df5056`), with the key on the C2 GraphFunction it calls (owned by the C2 publication) | library publication validation | `publication_validation` | the same | the same (the library publication declares no key) |
+| | C2 publication validation | `publication_validation` | the same | `static_validation_refusal`, `invalid_reference` `$.runEnvironments` (its own C2 Program calls the GraphFunction) |
+| | `catalog.admit` over all publications | reaches readiness | the same | `catalog_validation_refusal` |
+| | Product resolution | closure `wrong_owner` (forward arm) | `program_validation` | `static_validation_refusal` stage `program`, `invalid_reference` `$.runEnvironments` |
+| The forward publication captured on `5c9df5056` (TD-28d `doors/values.json`; both GraphFunctions carry the key with the forward value) | module admission | `raw_admitted_value` | the same | the same |
+| | publication validation | `publication_validation` | the same | `static_validation_refusal` `invalid_reference` `$.runEnvironments` |
+| | `catalog.admit` | reaches readiness | the same | `catalog_validation_refusal` |
+| | conformance | `validation_failed` (`missing_contract` ×10: the packet carries no C2 contracts) | the same | `validation_failed`: `invalid_reference` `$.runEnvironments` and the same ten |
+| | Product resolution (with the captured C2 publication) | `program_validation` (the exact forward Program passes the forward arm) | `program_validation` | `static_validation_refusal` stage `program` |
+| | observation | `run_environment_observed` | the same | `run_environment_refusal` `unsupported_declaration` |
+
+The last group is ruling 4's intended refusal: a recorded readiness basis that
+contains the forward module is refused when it is admitted anew, at
+`catalog.admit` (its publication validation) and, for the forward Program, at
+the Run door's Product resolution. By reading, Product resolution of another
+Program over such a basis does not reach the forward publication's
+declarations: it re-derives the Catalog with `admitGraphFunctionCatalog`
+(`product/catalog.ts:446`, no publication validation) and validates only the
+selected Program and its closure. The lanes that run over recorded bases
+(section 9) are the evidence for kept behaviour.
+
+Controls (admitted at every door on all three builds, identical rows): the
+clean Program; an unknown declaration key `abg.td28e_unknown` on the root
+GraphFunction; the key as a Program policy (`program.policies`), which shows
+that only the GraphFunction-declaration position is read; the default library
+Program over the clean shipped publications (`program_validation`).
+
+## 6. Tests
+
+Commit `5d91c75fb`: three tests added to
+`test_env/tests/t292-td28d-command-forward-refused.test.mjs` (+149, no line
+removed; the three TD-28d tests are unchanged). They run the doors in-process
+over the structural language fixture and the shipped publication constructors;
+no model call, no evidence root.
+
+| Test | Asserts |
+| --- | --- |
+| 4. a Program one of whose callable GraphFunctions declares the forward key is refused at every Program-validating door | for the root GraphFunction with the forward value, the root with an arbitrary value and the second callable GraphFunction with the forward value: module admission `raw_admitted_value`; `runEnvironmentForProgram` `false`; publication validation, `catalog.admit` and conformance refuse with exactly `[invalid_reference, $.runEnvironments]`; Product resolution's path (Catalog, View, `resolveProgramDeclarationClosure`, `constructCatalogProgramValidationInput`, `validateProgram`) refuses at stage `program` with the same pair; the observation refuses with `unsupported_declaration` at `/program/runEnvironment` |
+| 5. a callable GraphFunction of another closure publication that declares the key refuses the Program that calls it | the default library Program over the nine shipped publications resolves (control); with the key on the C2 GraphFunction it calls: the library publication validates, the C2 publication is refused, `catalog.admit` is refused, Product resolution of the library Program is refused; the observation is refused when the closure GraphFunctions it is handed carry the key and the Program's own publication does not |
+| 6. without the key on a callable GraphFunction the same doors admit the Program | no key, an unknown declaration key, the key as a Program policy: admitted at every door, `catalog.admit` validates and stops at readiness (`binding_lock_mismatch`, the probe basis is empty), the observation returns evidence `null` |
+
+Red at base: the lane at `5d91c75fb` run against the `b3bcb1303` build
+(`base-root`, tests file copied in, then restored): 6 tests, 4 pass, 2 fail
+(test 4 at its first owner assertion: `runEnvironmentForProgram` returns
+`null` where `false` is expected; test 5 at the C2 publication's validation:
+no diagnostic where `[invalid_reference, $.runEnvironments]` is expected; the
+door probe shows the remaining base rows). Test 6 passes at
+base, which is the point of the control. TAP:
+`lanes-refusal-base/refused-on-base.tap`. On the final build: 6/6.
+
+## 7. Generated contracts and identity
+
+`npm run build` regenerates `contracts/` and `product-toolchain-manifest.json`;
+they are not committed (restored before each commit). Snapshots:
+`manifest-base.json`, `manifest-final.json`, `capgraph-base.json`,
+`capgraph-final.json`.
+
+| Digest | Base `b3bcb1303` | Final |
+| --- | --- | --- |
+| `productContentDigest` | `sha256:52e13fdc162e1c648e1b8c2c963debc16e26afb4ac77470e7dac9b75ca452f99` | `sha256:02bbd31680649850ea9e74f882c58e57f0ee2dc188c16bfb598208a7494391d6` |
+| `contributionManifestDigest` | `sha256:5f5e27d41c18fd2ff303410fee7fd99e8f5ce9ae8c7601dead583891865be679` | `sha256:02c63f6473a644baecb88fb470ae6c9df2f5e4f225cf905970b2174f8bf0b52b` |
+| `catalogDigest` | `sha256:e19931bd2c363bec559bb56c31913ec4d551c574a714f97567a55a7e941d5429` | unchanged |
+| capability `graphDigest` | `sha256:ade661144125992e920b6bf59b83b54e5fc963f60d96f88074f6ea48a65b5300` | `sha256:6a68af7e91e21133b1695e7c7fa8b67b3da8d31f9a589e7418eeca5532b60161` |
+
+The final manifest after the test commit is byte-identical to the one after the
+source commit (`test_env` is not Product content).
+
+- Capability definition graph: 16 rows at base and final; no difference outside
+  the identity-following fields `productContentDigest`,
+  `capabilityDefinitionRef` and `capabilityDefinitionDigest`
+  (`scripts/capgraph-cmp.py`). The rows are unchanged.
+- Manifest: only identity-following fields change (the nine publication
+  binding digests, the provenance references that carry the content digest);
+  locators (5,306), rows (47) and bindings (9) are unchanged.
+- Under `contracts/`, only `capabilities/capability-definition-graph.json`
+  differs from base.
+
+## 8. Whole-word search at the final commit
+
+`rg -w` over `specification/`, `T/code/src`, `T/scripts`, `T/design` (without
+`history/`), `T/package.json` and `T/test_env` (without `test_runs`,
+`downstream`, `evidence`):
+
+| Term | Hits |
+| --- | --- |
+| `abg.worksite_command_forward` | `gtl/stdo_run_environment.ts:35` (the refused list); the refusal lane (`:101` comment, `:108` constant) |
+| `REFUSED_GRAPH_FUNCTION_DECLARATIONS` | `gtl/stdo_run_environment.ts:35, 39` |
+| `namesRefusedKey` | `gtl/stdo_run_environment.ts:36, 175, 187, 234` |
+| `namesRefusedPolicy` | none (renamed; it was module-private) |
+| `REFUSED_PROGRAM_POLICIES` | `gtl/stdo_run_environment.ts:34, 37` (unchanged list) |
+
+Test files naming `REFUSED_PROGRAM_POLICIES`, `namesRefusedPolicy` or
+`runEnvironmentForProgram`: `t292-td28c-governed-context-policy`,
+`t292-td31-stdo-run-environment-shape`, `t287-c2-core-environment` (they name
+`runEnvironmentForProgram`; the other two symbols are module-private) and, on
+the final commit, the refusal lane. All four run on base and final
+(section 9).
+
+## 9. Lanes before and after
+
+Each file ran alone with the rules' command (`scripts/lane.sh`;
+`TMPDIR=/private/tmp/abg-td28e-tmp`, `ABI5_EVIDENCE_ROOT` the evidence
+root, `--test-concurrency=1`), one after another; base in `base-root`
+(`b3bcb1303` build), final in the worktree (final build, final generated files
+in place). Columns are tests/pass/fail/skip. TAP: `lanes-base/`,
+`lanes-final/`.
+
+| Lane | Base | Final | Change |
+| --- | --- | --- | --- |
+| `t292-td28d-command-forward-refused` | 3/3/0/0 | 6/6/0/0 | 3 tests added (section 6) |
+| `t292-td28c-governed-context-policy` | 3/3/0/0 | 3/3/0/0 | none |
+| `t292-td31-stdo-run-environment-shape` | 3/3/0/0 | 3/3/0/0 | none |
+| `t287-c2-core-environment` | 7/7/0/0 | 7/7/0/0 | none |
+| `t287-worksite-command-execution` | 13/13/0/0 | 13/13/0/0 | none |
+| `t287-c2-child-program` | 4/4/0/0 | 4/4/0/0 | none |
+| `steel-basic-cli-c2` | 6/0/0/6 | 6/0/0/6 | none |
+| `t292-td34a-run-invocation-schema-owner` | 4/4/0/0 | 4/4/0/0 | none |
+| `t288-instruction-assembly-owner` | 4/4/0/0 | 4/4/0/0 | none |
+| `t287-stdo3-run-environment` | 5/5/0/0 | 5/5/0/0 | none |
+| `t287-management-context` | 13/12/0/1 | 13/12/0/1 | none |
+| `t287-gtl-serialization-publication` | 9/9/0/0 | 9/9/0/0 | none |
+| `t287-default-library-fulfillment` | 7/7/0/0 | 7/7/0/0 | none |
+| `t287-qualification-scopes` | 24/24/0/0 | 24/24/0/0 | none |
+| `t287-continuation-causation` | 1/1/0/0 | 1/1/0/0 | none |
+| `t287-native-runtime-gate` | 7/7/0/0 | 7/7/0/0 | none |
+| `t287-qualification-producer-acquisition-reuse` | 3/3/0/0 | 3/3/0/0 | none |
+| `t287-governance-covered-source-use` | 9/7/0/2 | 9/7/0/2 | none |
+| `t287-stdo-proof-entry` | 3/3/0/0 | 3/3/0/0 | none |
+| `t288-logical-prefix-digest` | 1/0/0/1 | 1/0/0/1 | none |
+| `t287-single-address-space-consolidation` | 17/17/0/0 | 17/17/0/0 | none |
+| `t287-native-workspace-work` | 43/43/0/0 | 43/43/0/0 | none |
+| `t287-default-library` | 35/34/0/1 | 35/34/0/1 | none |
+| `r1-packed-artifact` | 1/1/0/0 | 1/1/0/0 | none |
+| `r2-clean-install` | 1/1/0/0 | 1/1/0/0 | none |
+| `r3-workspace-binding` | 1/1/0/0 | 1/1/0/0 | none |
+| `r4-catalog-admission` | 8/8/0/0 | 8/8/0/0 | none |
+| `t287-historical-source-resource` | 4/4/0/0 | 4/4/0/0 | none |
+| `r10-child-proof` | 10/10/0/0 | 10/10/0/0 | none |
+| `t287-cross-cut-public-read` | 5/5/0/0 | 5/5/0/0 | none |
+| `t287-selected-action-authority` | 3/2/0/1 | 3/2/0/1 | none |
+| `t287-native-assessment-evidence` | 4/4/0/0 | 4/4/0/0 | none |
+| **Total** | **261/249/0/12** | **264/252/0/12** | |
+
+- Per case, the sorted `ok` / `not ok` / `SKIP` lines are identical base to
+  final in every lane except the refusal lane, which gains its three tests.
+  The base row of the refusal lane is the base file; the new file on the base
+  build is 6/4/2/0 (section 6).
+- No timeouts, no cancellations, no reruns.
+- The 12 skips are the same cases on both builds, each gated by an unset
+  selection variable (`ABI5_C2_CARRIER_FIXTURE_PATH` ×6,
+  `ABI5_CONTEXT_PUBLIC_PROOF`, `ABG_GOVERNANCE_COVERED_PROOF_ROOT`,
+  `ABG_GOVERNANCE_COVERED_C2_MATERIAL_SELECTORS`, `ABI5_OWNER_HISTORY`,
+  `ABI5_DEFAULT_LIBRARY_LIVE`, `ABI5_SELECTED_ACTION_OWNER_SUBJECT`).
+- The known red of `t287-cross-cut-public-read` (read count) did not occur on
+  either build in this run.
+- Ruling 4: every lane whose evidence-gated inputs carry the forward module
+  (section 2) passes on the final build with the same cases as base. No kept
+  lane re-admits a forward-bearing basis through a door that now refuses it;
+  the stop condition does not hold.
+
+## 10. Replay comparison
+
+`scripts/replay-log.mjs` (TD-28d's script, copied) over the 34 logs of
+`replay-set.txt`: TD-28d's 33 (the r10 proof log taken from this worktree) and
+the 2,474-row readable prefix of the odd_glc store
+(`/private/tmp/abg-td28d-work/hist/odd-glc-d1-04-readable.events.jsonl`, read
+only), which carries forward-bearing basis rows (rows 2469 and 2472). Per log:
+the whole-log replay digest, event-kind counts, owner facts and the per-Run
+replay against full authority.
+
+| | Base | Final |
+| --- | --- | --- |
+| logs that decode | 12 (20,373 rows: TD-28d's 11 with 17,899 rows, and the odd_glc prefix) | the same 12 |
+| logs refused at decode | 22: 19 "event stamp differs from the exact native profile schedule", 2 "durable ABG event log contains a noncanonical event", 1 "runtime event payload matches no admitted event-contract variant" | the same 22, same messages |
+| output | `replay/replay-base.jsonl`, `sha256:fe41f0cec370b7da28df5b03160eac476c4511b320f002f5e1a81ba363cf2ef7` | `replay/replay-final.jsonl`, byte-identical (`cmp`) |
+
+The refused-at-decode set and messages are TD-28d's; this package moves none.
+The history readers of section 4 change their answer only for a Run whose
+Program calls a keyed GraphFunction; no decodable recorded Run has such a
+Program (the forward Runs lie past the odd_glc refusal row), so the
+forward-bearing basis rows replay to the same values.
+
+## 11. Artifact truth over recorded stores
+
+`scripts/probe-artifact-truth.mjs` over the 34 logs of `truth/truth-set.txt`
+(a copy of the rc.12 Run store, `sha256:440994c0…6511`, equal to the live
+store, and the replay set without the live path): 12 project
+`artifact_truth_projection` and 22 are refused at decode (the same 22 as
+section 10), on both builds; `truth/truth-base.jsonl`
+(`sha256:0466df8814f259e4d44f1b2834d64687b353fe5e89aa26e1a687899a993a4fad`)
+and `truth/truth-final.jsonl` are byte-identical.
+
+| Store | Base | Final |
+| --- | --- | --- |
+| rc.12 Run store (1,695 rows, 3 artifact admissions; row 0 names the forward module) | `sha256:895b6a682046e0ec8a9bcdb3a4f4d25f912ca6f5f2bd1b061c7b4e08dc26b91f` | same |
+| rc.12 locks (`scripts/probe-lock.mjs`): one inline lock (rows `typescript-tenant@5.0.0-rc.12`, `default-library-witness/consumer@5`) and one lock reference | `isResolvedProductLock: true`, no capability mismatch | same (byte-identical output) |
+| odd_glc readable prefix (2,474 rows, 13 artifact admissions; rows 2469 and 2472 name the forward module) | `sha256:7cdcccd7c6c26ea42d99010848867c1cdad45977c2cb1086e5433c33980c5f71`; 9 inline locks resolved, 0 mismatches | same (byte-identical outputs) |
+
+The digests equal TD-28d's (its section 12). Recorded history is read, not
+re-admitted: the truth and lock owners compare a recorded lock with the
+recorded manifest it names and do not validate recorded publications. The
+five artifact-truth lanes pass on both builds (section 9).
+
+## 12. Size
+
+`git diff --numstat b3bcb1303` at the test commit:
+
+| Area | + | − |
+| --- | ---: | ---: |
+| `T/code/src` | 15 | 8 |
+| `T/test_env` | 149 | 0 |
+| `specification/`, `T/design` | 0 | 0 |
+
+## 13. Deviations
+
+1. **Two lines beyond the refused list.** The brief asks for the key in the
+   owner's list and the owner reading GraphFunction declarations.
+   `validRunEnvironmentProgram` also checks the closure GraphFunctions it is
+   given, and `observeRunEnvironment` calls it before its no-environment
+   shortcut. Without them a Program whose own publication is clean but which
+   calls a keyed GraphFunction of another closure publication is admitted at
+   Product resolution and the observation (door table, subjects G and H1).
+   The differential (section 4) shows no change for any Program without the
+   key. A ruling may keep the narrower form (own publication only); the two
+   borrowed-callable rows then stay admitted.
+2. **Run door by reading.** The Run door row is read from
+   `prepareProductRunInvocation` and `resolutionRefusalCode`, with the
+   components Product resolution calls probed in its order. The full
+   `ProductExecutionResolutionPort.resolve` needs an installed readiness basis
+   and was not driven.
+3. **Base lanes in a copy.** Base lanes ran in `base-root`, an rsync copy of the
+   worktree at `b3bcb1303` with its own build, so the worktree stays on the
+   branch. The red-at-base run copied the new lane in and restored it after.
+4. **Background waits.** The Bash tool moves a foreground command to the
+   background after 180 s. The lanes therefore ran as sequential background
+   jobs (one `node --test` process at a time, each started after the previous
+   one exited), awaited with until-loops on the job output; no two test files
+   ran at once.
+5. **Commit order.** The Return skeleton (census and recorded history) was
+   committed first, before the source commit, so the census is fixed at base;
+   the completed Return is the last commit.
+
+## 14. Qualification mirror
+
+Members changed (not edited in the mirrors, by the rules):
+`code/src/gtl/stdo_run_environment.ts`, `code/src/product/stdo_environment.ts`,
+`test_env/tests/t292-td28d-command-forward-refused.test.mjs`.
+
+## 15. Residuals and items for a ruling
+
+No residual defect. Stop conditions: none holds (ruling 4: no kept lane fails;
+no new refusal code; the differential shows no change for any Program without
+the key).
+
+For a ruling:
+
+1. Deviation 1 (the closure check in `validRunEnvironmentProgram` and the
+   observation order). Keep, or narrow to the Program's own publication.
+2. Wording: the existing messages name the run environment ("invalid exact
+   STDO environment declaration or Program selection", "STDO environment must
+   cover every supported dependent semantic or worksite leaf exactly once",
+   `unsupported_declaration` at `/program/runEnvironment`), not "policy". No
+   wording is proposed. They do not name the refused key; a reader learns the
+   reason from the code comment, as for the three refused policy keys.
+3. Recorded forward-bearing bases (1,496 evidence-root files, among them 28
+   `catalog-admit.request.jsonl` and 29 `program-conformance.request.jsonl`)
+   are refused when submitted anew to `catalog.admit`, conformance or, for the
+   forward Program, the Run door. This is ruling 4's intended outcome; no kept
+   lane submits one.
+
+## 16. Commits
+
+On `claude/td28e-forward-key-refused` from `b3bcb1303`, in order:
+
+1. `1f7dfe6a4` TD-28e Return skeleton: census and recorded history of the
+   forward declaration key
+2. `1f09dea47` TD-28e: refuse the forward declaration key on a Program's
+   callable GraphFunctions
+3. `5d91c75fb` TD-28e tests: the forward declaration key is refused at every
+   Program-validating door
+4. this Return
+
+Generated files (`contracts/`, `product-toolchain-manifest.json`,
+`test_env/fixtures/abi5-root-candidate-basis.json`) are not committed. No push,
+no tag.
