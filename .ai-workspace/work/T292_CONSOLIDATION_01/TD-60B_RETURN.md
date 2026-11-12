@@ -6,7 +6,7 @@ Writer: Claude Opus 5.5. Branch `claude/td60b-gate-retirement` from `d5c1be89a`,
 
 ## 1. Retirement table
 
-Every confirming run below used the recorded value from the catalogue `recorded` field (or the first slice's run specification), the root unset, writes under the root refused by the guard preload, on `d5c1be89a` with a fresh build, before the merge of `main`. Recorded inputs are read, never copied. Each tombstone in the tables stands in its file as `// Retired (T-292 TD-60): <tombstone>`; for a deleted file it stands in the body of the deleting commit.
+Every confirming run below used the recorded value from the catalogue `recorded` field (or the first slice's run specification), the root unset, writes under the root refused by the guard preload, on `d5c1be89a` with a fresh build, before the merge of `main`. All of them were rerun after the retirements on the merged source: the base test side of `727ec20f3` was restored into the worktree only, against the final build (no source difference from `727ec20f3`), and the worktree was then restored to the final head. They gave the same failing cases with the same reasons. Recorded inputs are read, never copied. Each tombstone in the tables stands in its file as `// Retired (T-292 TD-60): <tombstone>`; for a deleted file it stands in the body of the deleting commit.
 
 ### 1.1 Ruling 1: no usable input (66 cases: 60 suite skips, the 4 `uat/continuation` cases outside the suite glob, and 2 uncatalogued cases, rows 64 and 65)
 
@@ -240,6 +240,20 @@ No passing case fails afterwards.
   - the new lane adds 2 passes with the root unset and 3 with it set.
 - With the root unset, the skips fall by 91: the 92 retired cases that skip, less the lane's one skip.
 
+Lanes that import a changed support module, or that read a qualification mirror, were run the same way on the final head, in both modes. All 7 pass with no failure:
+
+| Lane | Root unset | Root set |
+| --- | --- | --- |
+| `t287-generic-job-lifecycle` | 0 pass, 1 skip | 0 pass, 1 skip |
+| `t287-management-supervision` | 5 pass | 5 pass |
+| `t287-native-semantic-job` | 9 pass | 9 pass |
+| `t287-native-semantic-revision` | 5 pass, 2 skips | 7 pass |
+| `t292-td34a-run-invocation-schema-owner` | 3 pass | 3 pass |
+| `t287-c2-child-program` | 4 pass | 4 pass |
+| `t287-rp2-material-selection` (imports `qualification/build-resources.mjs`) | 3 pass | 3 pass |
+
+These lanes import the changed `support/t287-generic-job-intake.mjs` and `support/t287-generic-job-revision.mjs`, either directly or through `support/t287-generic-job-lifecycle.mjs`. At HEAD, no file under `T/test_env` or `T/scripts` names a removed export. No other lane reads `qualification/inventory.json`, `declared-commands.json` or `verification-recipe.json`.
+
 `t287-cross-cut-public-read` is not in this sweep. It is not this package's file, and it keeps its registered red case when the root is set.
 
 ## 8. Files deleted and changed; qualification mirrors
@@ -283,7 +297,7 @@ The 39 changed member files:
 
 1. The lane's sha256 fallback for the class A `runs_with_root` rows (section 6).
 2. `held-prefix-native-fixture` (5 cases) and the remaining `owner-history-logical-digest` case: these fail with their input present, and the input is not superseded (section 4). They may be Product defects. Both stay gated.
-3. `uat/continuation.mjs` now has no importer, so ruling 6 would delete it. It stays, because two surfaces name it as the shared installed UAT continuation helper:
+3. Ruling 6 is not applied to one file, `uat/continuation.mjs`, pending a ruling. It now has no importer, so ruling 6 would delete it. It is kept because two surfaces name it as the shared installed UAT continuation helper:
    - `T/design/ABI5_STDO3_COMPUTATIONAL_BINDING.md:240` links it as "the shared helper ... remains test support";
    - `T/test_env/README.md:36-81` says future UAT executions use it instead of copying a new preparation algorithm.
 
@@ -299,7 +313,8 @@ The 39 changed member files:
 
   `isRunInvocationResourceAssertion` keeps its gated reach through the `steel03-start-call-path` exception.
 - Source functions whose only gated reach is retired, for TD-28, TD-44 and TD-45: `projectNativeWorkReacquisitionTask` (abg barrel only; TD-44), and `admitScopeClosure` and the `admit*RetryTraversalTransition` family (TD-45; `r9-causal-result-closure` still names `admitScopeClosure`). Recorded at triage as class G, `planCompletedRetryProgress` has a Product caller on merged `main` (`hog/retry_lifecycle.ts:128`).
-- Ruling-2 confirmations ran on `d5c1be89a`. The merge of `main` changed source after that; the confirmations were not rerun on `727ec20f3`.
+- After this package's merge, local `main` moved on to `b13bdd5c2`. That carries TD-25's second part (source in `abg/event_store.ts` and `abg/qualification_proof.ts`, the manifest, one fixture and one lane) and register records. It shares no file with this branch, and `git merge-tree` reports a clean merge. The branch was not merged again, so its sweeps stand on `727ec20f3`'s source.
+- The owner decision of 2026-11-12, recorded on that later `main`, retires governed context (GC03). The GC03 row, `gc03-native-profile-basis`, is not this package's and is unchanged.
 - The README paragraph at `T/test_env/README.md:36` still describes `uat/continuation.mjs`; it stays true while the helper is kept (item 3).
 - `t287-cross-cut-public-read` keeps its registered red case with the root set. It is not this package's file.
 - Under the V8 coverage run (section 3), `steel-basic-cli-public` failed with "Unexpected end of JSON input". Run plainly on the final head with the root unset, it passes (1/1), so the failure comes from running under coverage, not from this package.
