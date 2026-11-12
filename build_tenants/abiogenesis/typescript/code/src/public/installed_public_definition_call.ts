@@ -408,20 +408,9 @@ export type InstalledStartCallSelection<
   >
   : MemberSelection<"abg.operation.run.invoke", "invoke">;
 
-/** The `run.continue` alternative one continuation intent names. */
-export type InstalledPendingCallSelection<
-  S extends product.RunContinuationSelectionIntent =
-    product.RunContinuationSelectionIntent,
-> = S extends Readonly<{ kind: "selected_action" }>
-  ? MemberSelection<"abg.operation.run.continue", "selected_action">
-  : Extract<
-    MemberSelection<"abg.operation.run.continue", "current_intent">,
-    Readonly<{
-      request: S extends Readonly<{ kind: "pending_execution" }>
-        ? Readonly<{ pendingCursor: unknown }>
-        : Readonly<{ currentIntent: unknown }>;
-    }>
-  >;
+/** The `run.continue` member a pending-execution continuation intent names. */
+export type InstalledPendingCallSelection =
+  MemberSelection<"abg.operation.run.continue", "current_intent">;
 
 type RunReadCallSelections = {
   readonly [K in abg.AbgRunReadMemberKey]:
@@ -589,16 +578,13 @@ export async function constructInstalledStartCall<
 }
 
 /**
- * Construct one installed `run.continue` call for the current-intent,
- * pending-execution or selected-action variant at the reopened event
- * resource's exact durable prefix. ABG and Product owners reconstruct the
- * continuation, resolution, policy, grant and attribution from the log; no
- * prior start object supplies authority.
+ * Construct one installed `run.continue` call for one pending execution at
+ * the reopened event resource's exact durable prefix. ABG and Product owners
+ * reconstruct the continuation, resolution, policy, grant and attribution
+ * from the log; no prior start object supplies authority.
  */
-export async function constructInstalledPendingCall<
-  S extends product.RunContinuationSelectionIntent,
->(input: InstalledRunCallResourceIntent & Readonly<{
-  selection: S;
+export async function constructInstalledPendingCall(input: InstalledRunCallResourceIntent & Readonly<{
+  selection: product.RunContinuationSelectionIntent;
   catalog: product.ReadyGraphFunctionCatalog;
   catalogView: product.GraphFunctionCatalogView;
   applications: readonly product.DeclarationApplication[];
@@ -607,7 +593,7 @@ export async function constructInstalledPendingCall<
 }>): Promise<
   | Readonly<{
       kind: "installed_pending_call";
-      call: InstalledPublicDefinitionCall<InstalledPendingCallSelection<S>>;
+      call: InstalledPublicDefinitionCall<InstalledPendingCallSelection>;
       population: product.PopulatedRunContinuation;
     }>
   | product.RunContinuationPopulationRefusal
@@ -635,19 +621,16 @@ export async function constructInstalledPendingCall<
       workspaceBinding: population.workspaceBinding,
     }),
   });
-  const selection: product.RunContinuationSelectionIntent = input.selection;
-  const memberKey = selection.kind === "selected_action" ? "selected_action" : "current_intent";
-  if (population.memberKey !== memberKey) {
+  if (population.memberKey !== "current_intent") {
     throw new TypeError("run.continue population differs from its selected member");
   }
   return Object.freeze({
     kind: "installed_pending_call" as const,
-    call: checkedInstalledCall<InstalledPendingCallSelection<S>>(
+    call: checkedInstalledCall<InstalledPendingCallSelection>(
       input.envelope,
-      { operationId: "abg.operation.run.continue", memberKey },
+      { operationId: "abg.operation.run.continue", memberKey: "current_intent" },
       { request: population.request, slots: population.slots, resources },
-      (request) => selection.kind === "selected_action" ||
-        Object.hasOwn(request, selection.kind === "pending_execution" ? "pendingCursor" : "currentIntent"),
+      (request) => Object.hasOwn(request, "pendingCursor"),
     ),
     population,
   });

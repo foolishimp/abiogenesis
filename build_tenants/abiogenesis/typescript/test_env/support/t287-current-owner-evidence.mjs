@@ -18,7 +18,7 @@ const loaded = new Map();
 
 export function loadCurrentOwnerEvidence(population) {
   if (loaded.has(population)) return loaded.get(population);
-  assert(['native-assessment', 'selected-action'].includes(population), `unknown population ${population}`);
+  assert(['native-assessment'].includes(population), `unknown population ${population}`);
   const directory = new URL(`${population}/`, root);
   const fixture = deepFreeze(JSON.parse(readFileSync(new URL('fixture.json', directory), 'utf8')));
   assert.equal(fixture.kind, 't287_current_owner_evidence_fixture');

@@ -22,7 +22,6 @@ import type { JsonValue } from "../shared/canonical_json.js";
 import type { GraphValidation } from "../validator/graph.js";
 import type { ProgramValidation } from "../validator/validation.js";
 import type { TraversalCursor } from "./traversal.js";
-import type { HeldWorkflowSuspension } from "./traversal_completion.js";
 import type { ProjectedRetryResumeSuccess } from "../abg/retry.js";
 
 /** Stable public traversal request basis. Locus operators receive projections. */
@@ -72,35 +71,6 @@ export type InitialOrNonRetryExecuteGraphTraversalInput =
 export type ExecuteGraphTraversalInput = ExecuteGraphTraversalCommonInput &
   (InitialOrNonRetryResumeEntry | ProjectedRetryResumeEntry);
 
-/** Raw durable and installed carriers of a continued Graph boundary. */
-export interface InteractionResumeTraversalEntryInput {
-  readonly store: AbgEventStore;
-  readonly predecessorPrefix: DurablePrefixCoordinate;
-  readonly executionBasis: ExecutionBasis;
-  readonly openedTraversalScope: OpenedTraversalScope;
-  readonly program: Readonly<GtlProgram>;
-  readonly programPublication?: Readonly<ModulePublication>;
-  readonly programValidation: ProgramValidation;
-  readonly graph: Readonly<GtlGraph>;
-  readonly graphInput: Readonly<Record<string, JsonValue>>;
-  readonly implementationSet: AdmittedImplementationSet;
-  readonly interactionSet: AdmittedInteractionSet;
-  readonly continuationProductBasis: Omit<
-    ContinuationProductBasis,
-    "graphValidation" | "programValidation"
-  >;
-  readonly leafPort: LeafInvocationPort;
-  readonly closureContract: Readonly<ClosureContract>;
-  readonly actorRuntimeBinding: ActorRuntimeBinding;
-  readonly eventTime: string;
-  readonly correlationId: string;
-}
-
-export interface ResumeConstructionIntentInput {
-  readonly constructionResume: true;
-  readonly current: InitialOrNonRetryExecuteGraphTraversalInput;
-  readonly parentSuspensions: readonly HeldWorkflowSuspension[];
-}
 /** Same-Run resumption of one consumed pending execution. The caller supplies
  * the root runtime and the occurrence identity only; HoG restores the pending
  * cursor, progressed input and every open return from admitted truth. */
@@ -115,7 +85,6 @@ export interface ResumePendingExecutionInput {
 }
 export type ExecuteGraphTraversalRequest =
   | ExecuteGraphTraversalInput
-  | ResumeConstructionIntentInput
   | ResumePendingExecutionInput;
 
 export interface GraphTraversalEntryRefusal {

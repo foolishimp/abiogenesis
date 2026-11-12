@@ -143,7 +143,7 @@ test('HC1 proof source uses only canonical package imports and no proof-erasing 
   // The shipped constructors' crossed operation/variant pairings.
   assert.ok(markers.filter(m => m.name.startsWith('hc2-')).length >= 11);
   assert.equal(oracle('DECLARED').length, 56);
-  assert.equal(oracle('UNAVAILABLE').length, 10);
+  assert.equal(oracle('UNAVAILABLE').length, 11);
 });
 
 test('canonical no-emit compile of the HC1 proof resolves package declarations and has no diagnostics', () => {
@@ -194,7 +194,7 @@ test('packed consumer compiles the HC1 proof from canonical package declarations
     packageDeclarations: declarations.length, negatives: markers.length}));
 });
 
-test('packed runtime keeps 56 declared, 46 callable and 10 unavailable members and its raw refusals', async t => {
+test('packed runtime keeps 56 declared, 45 callable and 11 unavailable members and its raw refusals', async t => {
   const pkg = await loadPackage(candidatePackage(t));
   const definitions = pkg.public.PUBLIC_FUNCTION_DEFINITION_FAMILY.definitions;
   assert.deepEqual(definitions.map(keyOf).sort(), [...oracle('DECLARED')].sort());
@@ -212,7 +212,7 @@ test('packed runtime keeps 56 declared, 46 callable and 10 unavailable members a
     (typeof selected === 'function' ? callable : unavailable).push(keyOf(definition));
     if (typeof selected !== 'function') assert.equal(selected, undefined, keyOf(definition));
   }
-  assert.equal(callable.length, 46);
+  assert.equal(callable.length, 45);
   assert.deepEqual(unavailable.sort(), [...oracle('UNAVAILABLE')].sort());
 
   // Every unavailable member sends one structurally exact call through the raw
@@ -237,6 +237,8 @@ test('packed runtime keeps 56 declared, 46 callable and 10 unavailable members a
       source: {sourceKind: 'consensus_result', sourceRef: 'consensus-result://hc1', sourceDigest: hash({label: 'consensus-result://hc1'})},
       projectionBasis: {projectionBasisRef: 'projection-basis://hc1/ticket_consensus', projectionBasisDigest: hash({label: 'projection-basis://hc1'})},
       selector: {kind: 'ticket_consensus', ticket: ref('ticket://hc1'), outputAuthority: ref('result://hc1'), replayBasis: ref('replay://hc1')}},
+    'abg.operation.run.continue#selected_action': {run: ref('run://hc1'), continuation: ref('continuation://hc1'),
+      selectedAction: ref('action://hc1'), basisRelation: {kind: 'same_basis'}},
     'abg.operation.witness.admit#attest': witness('attest', 'evidence_claim', {kind: 'basis', basis: ref('basis://hc1')}),
     'abg.operation.witness.admit#hygiene-stamp': witness('hygiene-stamp', 'workspace', {kind: 'workspace', workspace: ref('workspace://hc1')}),
     'abg.operation.witness.admit#intake': witness('intake', 'intake_item', {kind: 'segment', run: ref('run://hc1'), segment: ref('segment://hc1')}),
@@ -245,7 +247,10 @@ test('packed runtime keeps 56 declared, 46 callable and 10 unavailable members a
   assert.deepEqual(Object.keys(UNAVAILABLE_REQUESTS).sort(), [...oracle('UNAVAILABLE')].sort());
   const SLOT_VALUES = {workspace_binding: ref('workspace-binding://hc1'), product_set: [ref('product://hc1')],
     dependency_lock: ref('lock://hc1'), actor: {actor: ref('actor://hc1'), attribution: ref('attribution://hc1')},
-    execution_basis: ref('execution-basis://hc1')};
+    execution_basis: ref('execution-basis://hc1'), catalog_scope: ref('catalog://hc1'), execution_program: ref('program://hc1'),
+    graph_function: {graphFunction: ref('graph-function://hc1'), membership: ref('membership://hc1')},
+    input_contract: {contract: ref('contract://hc1/input'), valueRef: 'value://hc1', valueDigest: hash({value: 'hc1'}), value: {value: 'hc1'}},
+    session_policy: ref('policy://hc1'), transport_steering: ref('steering://hc1')};
   const SLOT_NAMES = ['workspace_binding', 'product_set', 'dependency_lock', 'catalog_scope', 'execution_program',
     'graph_function', 'input_contract', 'session_policy', 'capability_grants', 'actor', 'transport_steering',
     'verification_references', 'execution_basis'];
@@ -276,7 +281,7 @@ test('packed runtime keeps 56 declared, 46 callable and 10 unavailable members a
     assert.equal(refused.code, 'installed_binding_unavailable', `${key}: ${refused.message}`);
     unavailableCalls.push(call);
   }
-  assert.equal(unavailableCalls.length, 10);
+  assert.equal(unavailableCalls.length, 11);
   const [call] = unavailableCalls;
   const unknown = await api.runInstalledDefinitionCallTransport({kind: 'eventless'}, {...call,
     invocation: {...call.invocation, definitionKey: {operationId: 'abg.operation.witness.admit', memberKey: 'absent'}}});

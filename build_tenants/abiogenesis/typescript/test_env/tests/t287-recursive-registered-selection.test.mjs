@@ -23,10 +23,10 @@ function environmentDeclaration(){
     contexts:[{contextRef:'context:frame',sourceLocator:'generic://frame/',inventoryDigest:hash([contextMember]),members:[contextMember]}],corpusAccess:null,accesses:[],
     roles:[{graphFunctionRef:ref('graph-function','root'),programLocusRef:ref('node','select'),role:'selector',frameRefs:['frame:executive'],policy:{policyRef:'policy:frame',text,digest},contextPolicy:{policyRef:'policy:context',selectors:['full_source','active_binding_semantics']},accessRefs:[],sourceBindings:[{contextRef:'context:frame',memberRef:contextMember.memberRef,memberDigest:digest,startByte:0,endByte:Buffer.byteLength(text),spanDigest:digest}]}]});
 }
-test('run.continue current-execution arms are exclusive request alternatives under one closed continuationKind domain',()=>{
+test('run.continue current-execution request is the pending-execution arm under one closed continuationKind domain',()=>{
   const c=r=>({ref:r,digest:'sha256:'+'1'.repeat(64)}),current=product.RUN_OPERATION_CONTRACTS.continue.current_intent,selected=product.RUN_OPERATION_CONTRACTS.continue.selected_action;
   const base={run:c('run://x'),continuation:c('continuation://x'),continuationInput:c('result://x'),expectedBasis:c('execution-basis://x')},ok=(schema,value)=>v.safeParse(schema,value).success;
-  assert.equal(ok(current.requestSchema,{...base,currentIntent:c('intent://x')}),true,'construction-intent arm');
+  assert.equal(ok(current.requestSchema,{...base,currentIntent:c('intent://x')}),false,'a construction-intent body refuses');
   assert.equal(ok(current.requestSchema,{...base,pendingCursor:c('cursor://x')}),true,'pending-execution arm');
   assert.equal(ok(current.requestSchema,{...base,currentIntent:c('intent://x'),pendingCursor:c('cursor://x')}),false,'mixed arm refuses');
   assert.equal(ok(current.requestSchema,base),false,'no arm refuses');
