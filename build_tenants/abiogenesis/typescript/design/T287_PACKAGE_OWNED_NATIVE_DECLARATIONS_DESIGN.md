@@ -152,6 +152,96 @@ source tree is not an input. When npm trusts `node_modules/.package-lock.json`
 it reads dependency metadata without `files` and `main`, and lists files that
 the dependency's own `package.json` excludes.
 
+## Recorded and strict Product truth
+
+A resolved lock, a verified artifact and a capability-definition graph answer
+one of two questions. The entry that knows where the value comes from passes
+the question (`ProductTruthQuestion`, `shared/capability_contracts.ts`); no
+guard infers it.
+
+- **Strict.** The value is exact for the reader's own Product, as its
+  capability register constructs it. The graph equals
+  `constructCapabilityDefinitionGraph` over the graph's own owner coordinates;
+  each contract's `capabilityIdentities` equal `capabilityRefsForContract`;
+  a lock row or artifact with an empty graph claims no contract the register
+  maps to a capability. `isResolvedProductLock`, `isVerifiedProductArtifact`
+  and `isCapabilityDefinitionGraph` ask this question.
+- **Recorded.** The value is internally established by what is recorded with
+  it and bound by its digests. The register is not read.
+
+Each guard has one body for both questions: `isProductLockFor`
+(`product/environment.ts`), `isVerifiedProductArtifactFor`
+(`product/verify_product.ts`) and `isCapabilityDefinitionGraphFor`
+(`shared/capability_contracts.ts`). Both questions check everything the lock
+guard checks without the register: the lock and row shape and descriptor
+fields; the contribution manifest, its digest and the product, version,
+descriptor, content digest, catalog id and digest and graph coordinate it
+repeats; the graph asset path, media type and digest; the contract rows and the
+contract, capability and declared-capability rosters; the flat owner
+coordinates carrying the row's catalog (`lockRowGraphMatchesCatalog`); the
+dependency edges re-derived from the rows and acyclic; and the lock digest and
+id. The verified artifact adds that every owner coordinate of its graph is one
+of its own contract or definition coordinates, its manifest graph coordinate,
+its capability rosters and its verification digest.
+
+Both questions check the graph relations that `constructCapabilityDefinitionGraph`
+guarantees and that are stated over the graph alone
+(`capabilityGraphRelationsHold`): the strict schema; rows unique and strictly
+ordered by capability id; each row's definition digest and reference; every
+dependency names a row of the same graph with that row's reference and digest,
+dependencies are ordered by capability id and have no cycle; owners, effect
+references and bounded proof references are ordered; one flat coordinate per
+contract id; each operation-definition slot coordinate carries its operation's
+flat catalog coordinate and flat row, a definition reference ending in its
+slot's identity field, one definition reference per definition key, distinct
+slots and the request, result and refusal slots; a row that owns one slot of a
+definition key owns every slot of it; only flat and slot selectors; and the
+graph digest. The strict question adds equality with the register's
+construction, which implies them. The roster, each row's owning set and the
+empty-graph rule read the register and belong to the strict question only.
+
+The recorded graph binds owning contracts, not each contract's
+`capabilityIdentities`; the catalog digest commits to them. The recorded
+question therefore adds `recordedCapabilityIdentitiesHold`
+(`product/verify_product.ts`) for a lock row and a verified artifact alike:
+every identity names a row of the carrier's own graph; a carrier with a
+non-empty graph carries the catalog digest that
+`productPublicContractCatalogDigest` (`product/public_contract_publication.ts`)
+computes over its own contracts, with the catalog schema path and digest of
+its own `abg.schema.public-contract-catalog` contract; a carrier with an empty
+graph has no contract with an identity. The flat owner coordinates carry that
+catalog digest and the row and graph digests bind them, so a changed identity
+moves the catalog digest, the coordinates, the row digests, the graph digest,
+the graph asset digest, the contribution manifest digest and the lock digest
+together. The strict question does not recompute the catalog digest.
+
+| Entry | Question | Where it is set |
+| --- | --- | --- |
+| the artifact-truth fold advancing over recorded rows (`RuntimeArtifactFacts.advance`, `abg/artifact_truth.ts`) | recorded | `prepare(row, "recorded")` |
+| the admission candidate (`prepareArtifactTruthCandidate`) | strict | `prepare(…, "strict", establishedLock)` |
+| every admission door and constructor, the reader's own verification and install, catalog admission, run execution resolution, declaration application, run and admission grants, conformance, release qualification, worksite forward, governance coverage, native work reacquisition and a historical source for a new run | strict | the exported guards and owners |
+| the Public run read (`prepareRunRead`, `abg/project_read_ports.ts`): a historical declaration proof and the verified products of its Catalog | recorded | `prepareRead(…, "recorded", …)`; `terminalDeclaration` passes `prepared.question` to `reconstructHistoricalDeclarationCatalogFor` (`product/declaration_closure.ts`) and `admitGraphFunctionCatalogFor` (`product/catalog.ts`) |
+| the run-read authority (`expectedRunReadAuthority` and the run-read kernel, `abg/project_read_definition_bindings.ts`) | recorded | `constructRecordedReadCapabilityGrant`, `validateRecordedReadCapabilityGrant` (`product/invocation.ts`) |
+| `project.read#workspace_status` (`product/project_read_definition_bindings.ts`) | recorded | `projectWorkspaceStatusFor(packet, "recorded")` (`product/project_read_ports.ts`) |
+| the admitted authority of `project.read#ticket_consensus` (`admittedAuthorityBinding`) | recorded | `projectAdmittedWorkspaceBindingByInvocationRefFor(…, "recorded")` (`abg/environment_admission.ts`) |
+
+A read that asks the recorded question of a caller-supplied copy binds the copy
+to recorded history. `workspace_status` requires the packet's binding to be a
+recorded admission (`hasAdmittedWorkspaceBinding`) and the packet's lock to
+reproduce the lock digest that binding names; another lock is `not_ready`. The
+run read requires the proof Catalog's lock, binding and installs to equal the
+recorded environment's (`reconstructHistoricalDeclarationCatalogFor`) and its
+basis digest, which covers the verified products, to equal the recorded root
+basis's `catalogBasisDigest` (`terminalDeclaration`); otherwise the read is
+`invalid_history`. A Catalog admitted under the recorded question is retained
+apart from `readyCatalogs` and never enters `ownedCatalogs`, so the owner fact
+`isAdmittedReadyGraphFunctionCatalog`, which run execution trusts, covers strict
+admissions only.
+
+Reading is not running. Every path that starts or continues work asks the
+strict question and refuses what it refused before; a recorded value with every
+digest recomputed grants no work.
+
 ## Requirement, function and realization mapping
 
 | Requirement | Function and existing owner |

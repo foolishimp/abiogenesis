@@ -50,7 +50,7 @@ Superseded, stale and record notes, and the sections cut from mixed notes, are i
 - [T287_C2_FORWARD_REENTRY_DESIGN](T287_C2_FORWARD_REENTRY_DESIGN.md): forward re-entry of retained construction. Realized by `product/worksite_command_forward.ts`, `product/run_invocation_operation.ts`.
 - [T287_D2_REQUIREMENT_LIFECYCLE_DESIGN](T287_D2_REQUIREMENT_LIFECYCLE_DESIGN.md): the evidence-bound affected lifecycle successor. Realized by `product/semantic_revision.ts`, `abg/semantic_revision.ts`.
 - [T287_DECLARED_TESTING_CAPABILITY_DESIGN](T287_DECLARED_TESTING_CAPABILITY_DESIGN.md): declared testing-capability reuse. Realized by `product/semantic_stage.ts`, `abg/semantic_stage.ts`.
-- [T287_PACKAGE_OWNED_NATIVE_DECLARATIONS_DESIGN](T287_PACKAGE_OWNED_NATIVE_DECLARATIONS_DESIGN.md): package-owned bundled native declarations. Realized by `product/declaration_exports.ts`, `product/verify_product.ts`.
+- [T287_PACKAGE_OWNED_NATIVE_DECLARATIONS_DESIGN](T287_PACKAGE_OWNED_NATIVE_DECLARATIONS_DESIGN.md): package-owned bundled native declarations and the recorded and strict questions of Product truth. Realized by `product/declaration_exports.ts`, `product/verify_product.ts`, `product/environment.ts`, `shared/capability_contracts.ts`.
 
 ## Implementation
 
