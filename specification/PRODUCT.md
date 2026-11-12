@@ -1019,7 +1019,7 @@ validate a GTL program
 publish or admit a lawful module
 call a published GraphFunction
 start a published GTL program
-read state, result, evidence, gaps, and replay
+read state, result, evidence, and replay
 inspect a typed human-required block and its handoff
 continue admitted work under existing specification, constraints and authority
 run conformance and installed-product proof

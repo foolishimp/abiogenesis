@@ -29,8 +29,7 @@ catalog, `abg.schema.consensus-subject`, `abg.schema.consensus-panel`,
 `abg.schema.review-rulings`, `abg.schema.consensus-round-policy`,
 `abg.schema.consensus-round-outcome`, `abg.schema.consensus-result`, and
 `abg.schema.ticket-consensus-projection`, shall locate its definition in one
-canonical Consensus schema document. Its native and serialized forms shall have
-the same field and value-domain meaning. The
+canonical Consensus schema document. The
 `abg.vocabulary.consensus-fh-decision` row shall publish the closed roster
 `accept_with_dissent | reject`.
 

@@ -418,11 +418,10 @@ eligibility, immutable workspace binding, session policy and capability, and
 invocation authority before beginning one GraphCall. ABG shall not reinterpret
 or recompute the validator's static GTL judgment. The `invoke` variant shall
 neither accept nor require `root_mode`, `until`, or any other `start`-only
-traversal grammar.
-
-It shall return the call, run, result or stop, evidence, and replay references
-required by the GraphFunction contract, shall not treat the function as the
-whole program, and shall not invoke any non-GraphFunction catalog kind.
+traversal grammar. It shall return the call, run, result or stop, evidence,
+and replay references required by the GraphFunction contract, shall not treat
+the function as the whole program, and shall not invoke any non-GraphFunction
+catalog kind.
 
 **REQ-P-POLICY-055**: The evidence variant of
 `abg.operation.project.read` shall be a read-only projection for a supported
