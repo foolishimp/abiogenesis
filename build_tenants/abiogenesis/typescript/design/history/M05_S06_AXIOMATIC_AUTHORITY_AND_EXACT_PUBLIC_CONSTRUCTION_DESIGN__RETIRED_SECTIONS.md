@@ -65,3 +65,18 @@ For this bounded replacement, the one repair allowance is consumed. Delta
 review is limited to the Section 7.3 full-frontier carrier/projection,
 `D17` closure, the strengthened AX-F09 fixture/oracle, and mechanical tracking
 of that repair. No second repair follows a new hard counterexample.
+
+---
+
+Cut from `build_tenants/abiogenesis/typescript/design/M05_S06_AXIOMATIC_AUTHORITY_AND_EXACT_PUBLIC_CONSTRUCTION_DESIGN.md` at commit `882b71e64`, lines 97-98, 2112-2113, 2269-2270, 2276-2276, verbatim.
+
+8. SDK, CLI, Codex, schemas, catalog rows, manifests, and documentation derive
+   from the same exact family.
+
+flattening are invalid projections. SDK, CLI, Codex, schemas, and replay expose
+the same outer code and nested value.
+
+SDK member, CLI grammar, Codex path, schema, catalog row, or manifest row may
+name it before the swap.
+
+3. derives CLI and Codex grammar from the SDK/family;

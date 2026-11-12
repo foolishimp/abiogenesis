@@ -94,8 +94,9 @@ The implementation is admissible only while all of these axioms hold:
    a second authority.
 7. Every runtime-relevant prefix is explicit. Equal immutable inputs and equal
    admitted prefixes have equal meaning after restart and interleaving.
-8. SDK, CLI, Codex, schemas, catalog rows, manifests, and documentation derive
-   from the same exact family.
+8. SDK, CLI, schemas, catalog rows, manifests, and documentation derive
+   from the same exact family (`PUBLIC_FUNCTION_DEFINITION_FAMILY`,
+   `public/binding/public_function_family.ts`).
 9. The legacy family is the only reachable Public family before the atomic
    swap. The exact family is the only reachable family afterward.
 10. Release owner ports are real and callable in S06, but without the later
@@ -2109,8 +2110,9 @@ The mapping is structural:
 Unreadable bytes and readable wrong-digest bytes therefore remain distinct
 nested Product refusals under `owner_refusal`; they cannot collapse to prose.
 Unknown extra common codes, free strings, `JsonValue`, and owner-refusal
-flattening are invalid projections. SDK, CLI, Codex, schemas, and replay expose
-the same outer code and nested value.
+flattening are invalid projections. SDK, CLI, schemas, and replay expose
+the same outer code and nested value; the CLI prints the outcome of
+`runInstalledDefinitionCallTransport` unchanged (`public/cli.ts`).
 
 Outcome projection failure is a distinct structural adapter disposition. It
 is not owner truth, cannot be nested under `owner_refusal`, and is not a sixth
@@ -2266,14 +2268,15 @@ Product equation explicitly joins runtime truth.
 ## 11. Atomic Hard Break And Generated Projections
 
 Construction happens behind an unreachable internal module. No package export,
-SDK member, CLI grammar, Codex path, schema, catalog row, or manifest row may
-name it before the swap.
+SDK member, CLI grammar, schema, catalog row, or manifest row may name it
+before the swap.
 
 The atomic swap in one Gate 2 cut:
 
 1. makes `PUBLIC_FUNCTION_DEFINITION_FAMILY` the sole `./public` family;
 2. rewires the SDK to the exact family;
-3. derives CLI and Codex grammar from the SDK/family;
+3. derives the CLI grammar from the SDK/family (`cliGrammar` in
+   `public/binding/public_function_projections.ts`);
 4. derives schemas and PFC-F07 proposals from the family;
 5. uses Product PFC-F08 to bind the static manifest catalog;
 6. deletes every file and test in the census deletion manifest; and

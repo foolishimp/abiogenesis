@@ -61,3 +61,26 @@ Independent review answers:
 
 No realization resumes until independent review and direct F_H acceptance make
 both verdicts accepted.
+
+---
+
+Cut from `build_tenants/abiogenesis/typescript/design/M05_S06_PUBLIC_FUNCTION_AND_NATIVE_OCCURRENCE_CLOSURE_DESIGN.md` at commit `882b71e64`, lines 68-68, 85-85, 108-108, 2095-2096, 2265-2265, 3202-3202, 3229-3229, 3365-3365, 3429-3429, verbatim.
+
+| Adapters are projections. | SDK, CLI, and Codex coordinates derive from the exact family and transport the same invocation/outcome. | An adapter owns a variant roster, default, parser, result shape, exit map, or semantic branch. |
+
+- operation rows, SDK, CLI, Codex, and schema projection;
+
+| `REQ-P-POLICY-022`, `-044..045` | SDK, CLI, and Codex are projections | PFC-F07 plus exact adapter exit maps | adapter-specific roster, validation, semantics, or outcome |
+
+`unknown`; CLI input enters as exact JSONL line bytes; Codex forwards those
+same bytes to CLI. Successful admission normalizes both forms to the exact
+
+SDK, CLI, and Codex expose these exact outcomes. A thrown parse error, raw
+
+| adapters own no semantics | E06/E19/E20 | Public/Product | assets and common carriers are downstream | adapter enters only F03A then F04 | no adapter-authored state | generated coordinates | SDK/CLI/Codex equality | pass | none |
+
+| deploy | installed SDK/CLI/Codex use the exact verified manifest catalog | verify and resolve before install |
+
+- native SDK, CLI, and Codex produce the same deterministic S06 outcome;
+
+- SDK/CLI/Codex variant, default, outcome, or exit divergence;

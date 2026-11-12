@@ -65,7 +65,7 @@ boundary.
 | Every key has a constructable external contract packet and loadable binding specification. | The closed source map fixes exact owner contract, metadata, authority, and declarative binding specifications; admitted owner contracts supply fields, domains, and defaults. Installation proves each specification resolves under the admitted lock to one real direct, statically composed, or projection callable. | The join copies 56 payload families, builds 56 bespoke implementations, accepts a string/interface/specification as executable authority, or completes an unresolved reference by convention. |
 | Relational request laws are structural. | Exact sums encode all-or-none, exactly-one, conditional, and ref/digest laws in both native and serialized contracts. | Optional fields type-check while parser or handler later rejects their relation. |
 | Outcomes are operation indexed. | `PublicOutcome<K>` contains only `ResultOf<K>`, `NonTerminalOf<K>`, `RefusalOf<K>`, or the common typed projection-refusal member. | `JsonValue`, `{}`, a generic result envelope, or handler-local check supplies operation meaning. |
-| Adapters are projections. | SDK, CLI, and Codex coordinates derive from the exact family and transport the same invocation/outcome. | An adapter owns a variant roster, default, parser, result shape, exit map, or semantic branch. |
+| Adapters are projections. | SDK and CLI coordinates (`sdkCoordinate`, `cliCoordinate` in `public/binding/public_function_family.ts`) derive from the exact family and transport the same invocation/outcome. | An adapter owns a variant roster, default, parser, result shape, exit map, or semantic branch. |
 | Publication is a read model. | Native symbols, schemas, operation rows and their declared capability references, SDK members, CLI grammar, and docs derive from one family digest. Capability graph nodes, owners, and dependencies derive only from an accepted Product graph basis outside S06. | Aggregate schemas exist without addressable operation rows, parallel registers disagree, or S06 authors capability graph truth. |
 | Public identity is staged and acyclic. | Pre-family owner identity and definition digests close first, then the intrinsic family and package projections, then Product content identity, and only then the S06-bound flat manifest catalog plus exact 44-row diagnostic. | A definition preimage contains a generated asset, family digest, or Product content digest, or generation uses a seed, zero digest, loader-order fallback, post-hoc reevaluation, or replacement catalog. |
 | Physical TypeScript syntax is not a semantic occurrence. | Parser/checker relations remain subordinate evidence. | One raw import/re-export identity becomes the unit of contract authority or binding cardinality. |
@@ -82,7 +82,7 @@ Included:
 - complete public-function definition and projection law;
 - exact owner contract packets;
 - common invocation/outcome admission;
-- operation rows, SDK, CLI, Codex, and schema projection;
+- operation rows, SDK, CLI, and schema projection;
 - source-contract-indexed native occurrences;
 - exact-once native binding; and
 - module-owned falsification.
@@ -105,7 +105,7 @@ Excluded:
 | `REQ-P-PUBLIC-CONTRACTS-001..002A`, `-004` | public identity is exact and acyclic | pre-family owner/definition identity, family identity, PFC-F07 payload projection, Product-content digest, then PFC-F08 S06 flat catalog | self-reference, later-stage input, replacement carrier, placeholder digest, or generated/runtime divergence |
 | `REQ-P-PUBLIC-CONTRACTS-006A` | the 44-row roster is visible without claiming release closure | exact `MandatorySchemaVocabularyCorpusGapSet` emitted only by PFC-F08 | the diagnostic is omitted, applied to an unrelated Product, or treated as complete publication proof |
 | `REQ-P-PUBLIC-CONTRACTS-009..010`; `REQ-P-POLICY-062..064` | one indexed request/result/refusal/non-terminal authority | Sections 4.2, 4.4, and 4.5 | native/parser/schema/runtime disagreement or generic payload/outcome |
-| `REQ-P-POLICY-022`, `-044..045` | SDK, CLI, and Codex are projections | PFC-F07 plus exact adapter exit maps | adapter-specific roster, validation, semantics, or outcome |
+| `REQ-P-POLICY-022`, `-044..045` | SDK and CLI are projections | PFC-F07 plus exact adapter exit maps | adapter-specific roster, validation, semantics, or outcome |
 | `REQ-P-POLICY-023..040`, `-049..061` | every operation binds its owning complete semantic function | Section 4.2.1 exact owner references plus Section 4.4 owner relations | copied payload, metadata, handler, or prose supplies an absent relation |
 | clarified `REQ-P-POLICY-049..050` | packed verification precedes linked resolution; installed verification consumes an existing lock | `ProductVerifyPacket`, NCC-F01/F02, and authority-slot matrix | verify constructs a lock or F01 admits linked meaning |
 | `REQ-P-CATALOG-019..030`; `REQ-R-ABG3-PROJECTION-023` | project reads and catalog relations are closed and pure | Section 4.3 and catalog rows in Section 4.4 | free projection string, widened view, or read effect |
@@ -2092,8 +2092,8 @@ PublicOutcome<K> =
 ```
 
 PFC-F03A is the sole common-envelope parser. Native SDK input enters as
-`unknown`; CLI input enters as exact JSONL line bytes; Codex forwards those
-same bytes to CLI. Successful admission normalizes both forms to the exact
+`unknown`; CLI input enters as exact JSONL line bytes (`public/cli.ts`).
+Successful admission normalizes both forms to the exact
 `PublicInvocationEnvelope` domain and does not retain adapter identity.
 `operationIdentity` and `memberIdentity` are nonblank strings at this phase;
 PFC-F03B alone decides exact family membership. For JSONL input,
@@ -2262,7 +2262,7 @@ runtime_nonterminal = {
 }
 ```
 
-SDK, CLI, and Codex expose these exact outcomes. A thrown parse error, raw
+SDK and CLI expose these exact outcomes. A thrown parse error, raw
 stack, CLI-only status, or adapter-local result is not a public outcome.
 
 ### 4.6 Capability, Event, And Adapter Metadata
@@ -3199,7 +3199,7 @@ stateDiagram-v2
 | invocation and resolve authority are constructable | E02/E04/E12, R03/R06 | Public then Product resolver | dependent authority slots and verification references | verification -> resolve -> lock | missing/extra/mismatched slot or reference refuses | mapped structural sum | capability/actor/verification mutations | pass | none |
 | relational fields are structural | E01 | owner | exact sums | admission before owner call | invalid relation refused | discriminated unions | raw/schema mutation | pass | none |
 | outcomes remain operation indexed | E02/E04/E05, R03/R04 | semantic owner then Public | no generic result carrier | same K through call | no cross-K transition | conditional exact type | result/refusal/non-terminal schema check | pass | none |
-| adapters own no semantics | E06/E19/E20 | Public/Product | assets and common carriers are downstream | adapter enters only F03A then F04 | no adapter-authored state | generated coordinates | SDK/CLI/Codex equality | pass | none |
+| adapters own no semantics | E06/E19/E20 | Public/Product | assets and common carriers are downstream | adapter enters only F03A then F04 | no adapter-authored state | generated coordinates | SDK/CLI equality | pass | none |
 | project.read is pure and closed | E02 plus ReplayProjectionFamily | projection owners | 24 exact cases | no event participant | terminal projection only | indexed case types | source/basis/read mutation tests | pass | none |
 | physical syntax is not semantic identity | E07..E09, R05/R06 | local and linked checkers | physical, pending, and semantic classes separate | local selector precedes linked occurrence | E07 never directly reaches lock | private distinct types | selector/occurrence provenance check | pass | none |
 | occurrences are contract indexed in F02 | E08/E09, R05/R06 | Product resolver linked checker | source contract mandatory in selector and occurrence | F01 selector then F02 occurrence | no occurrence before linked resolution | occurrence identity includes source contract | two-contract shared-import mutation | pass | none |
@@ -3226,7 +3226,7 @@ Both require independent acceptance before realization.
 | build | exact owner contract source plus installed binding -> intrinsic family -> payload projections and row proposals -> Product content -> S06 flat catalog plus exact 44-row diagnostic | local checker selectors -> linked checker occurrences -> bindings |
 | assurance | source/binding census, minimal primitive-closure proof, type/parser/schema/runtime parity, adapter equality | selector disposition plus occurrence/binding conservation and adversarial TS programs |
 | release | complete public-contract publication is a later T-287 Wave 5 outcome outside this S06 design | exact compiler/Product/lock digests |
-| deploy | installed SDK/CLI/Codex use the exact verified manifest catalog | verify and resolve before install |
+| deploy | installed SDK/CLI use the exact verified manifest catalog | verify and resolve before install |
 | live use | one installed direct, projection, or statically composed binding constructs each typed outcome | resolved lock constrains installed Product meaning |
 | observe | public outcomes and replay only | private evidence projects only closure digest |
 | retire | semantic change versions definition/Product | changed bytes or symbols create new lock |
@@ -3362,7 +3362,7 @@ primitive is implemented.
   `PublicCatalogBindingRefusal` whose exact attempt basis, closed failure
   class, native/schema contract, attempt digest, and refusal digest reproduce;
 - all 24 read cases derive from admitted owner truth and append no event;
-- native SDK, CLI, and Codex produce the same deterministic S06 outcome;
+- native SDK and CLI produce the same deterministic S06 outcome;
 - retained S03/S05 invocation, continuation, Consensus, and reads remain
   indexed members of the family;
 - self-package subordinate roots resolve without invented contracts;
@@ -3426,7 +3426,7 @@ primitive is implemented.
 - all-or-none, exactly-one, ref/digest, binding, actor, capability, and
   workspace violations;
 - handler accepts a value refused by the definition or adds a new constraint;
-- SDK/CLI/Codex variant, default, outcome, or exit divergence;
+- SDK/CLI variant, default, outcome, or exit divergence;
 - project read appends truth or accepts a free source/projection relation;
 - uncontracted subordinate root manufactures an occurrence owner;
 - F01 emits a final target, semantic occurrence, target contract, or binding;
