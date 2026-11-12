@@ -312,9 +312,15 @@ transport assertion in `t287-w2-05-install-catalog-owner-chain`.
 
 ## 7. Kept reads over a store that holds admitted Consensus results
 
-No recorded store holds an admitted Consensus result (section 2), so there is
-no such store to read. What a kept read returns over the stores that exist is
-unchanged, shown three ways:
+No recorded store holds an admitted Consensus result (section 2), including
+the lane outputs under `T/test_env/test_runs`, so there is no such store to
+read. None was constructed: a Consensus Run's submitter and reviewer are
+probabilistic leaf invocations (`implementation/consensus.ts:607`), that is,
+model calls, which this package does not make. Over such a store the kept reads
+could not differ either: they are ABG ports, P1 changes no file under `abg/`,
+and the only read that took an admitted Consensus result through Product
+semantics was `ticket_consensus`, which is now refused (section 6). What a kept
+read returns over the stores that exist is unchanged, shown three ways:
 
 - **Kept ABG run reads.** `run_status`, `run_result`, `run_replay` and
   `run_evidence` (the ports a Public `project.read` reaches for a Run), over a
@@ -439,7 +445,10 @@ frozen artifact, Claude command), `w2-steel-single-start-closure` case 2
 (`ABI5_SELECTED_ACTION_OWNER_SUBJECT`), `t287-w2-05-static-binding-algebra`
 case 4 (`ABI5_PREPARATION_RESOLVE_CALL`).
 
-No case timed out; no rerun was needed on the final side.
+No case timed out. The base runs of `w2-steel-single-start-closure`,
+`w2-steel-single-start-installed` and `w2-steel-single-start` were first
+issued together and may have overlapped; each was rerun alone with the same
+counts (1/0/1, 0/0/1, 7/0/0), which the table reports.
 
 ## 11. Replay comparison
 
@@ -526,7 +535,8 @@ and `projectInstalledPublicResult` over `specification`, `T/code/src`,
    TypeScript caller that sets `runtime` now gets a type error. At run time no
    kept binding ever admitted it: the five kept members' `validResources`
    exact-key check excludes `runtime`, so a kept read that carries it is
-   refused `invalid_resource_assertion` on base and final alike.
+   refused `invalid_resource_assertion` on base and final alike (read, not
+   run).
 6. **Lanes moved to the background.** The tool moves a foreground command to
    the background after 180 s. Every lane still ran alone; the next one
    started only after the notice that the previous one finished.
@@ -551,9 +561,12 @@ check, so a provider that carries any value under the key loads and the value
 is read by nothing. This falls short of "retired shape refused, not ignored"
 (rules step 5). No fixture, support, UAT or built-in provider carries the key
 after P1 (section 1.5). It is the question TD-28D asked as its R2 (an inert
-`abg.*` declaration key), still open in the register. Options:
+`abg.*` declaration key). The Executive merged TD-28d at `58538e574` with that
+key inert: at `b3bcb1303` no source names `abg.worksite_command_forward`.
+Neither the merge message, the register nor the T-292 ledger records a ruling
+on R2. P1 follows the merged state; this asks to confirm it. Options:
 
-1. Accept the key as inert (what the branch does).
+1. Accept the key as inert (what the branch does, as TD-28d merged).
 2. Refuse by name with the existing message, as TD-31 and TD-28c refuse
    retired keys: one clause `Object.hasOwn(value, "publicResultProjectionKinds")`
    in the loader's existing refusal condition. This refuses a well-formed
