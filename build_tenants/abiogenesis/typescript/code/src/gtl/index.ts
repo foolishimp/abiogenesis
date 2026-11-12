@@ -321,8 +321,6 @@ export { SEMANTIC_REVISION_IDS } from "./semantic_revision_identity.js";
 export { constructSemanticRevisionModulePublication, constructSemanticRevisionSelectionGraphFunction, constructSemanticRevisionGraphFunction, semanticRevisionImplementationBindings } from "./semantic_revision_publication.js";
 export { SELF_CONFORMANCE_IDS, constructSelfConformanceModulePublication } from "./self_conformance.js";
 export { constructWorksitePreservedResultRecoveryGraphFunction, worksitePreservedResultSourceOfGraphFunction } from "./worksite_construction.js";
-export { constructWorksiteCommandForwardModulePublication, worksiteCommandForwardGraphFunctions,
-  isWorksiteCommandForwardGraphFunction } from "./worksite_command_forward.js";
 export { QUALIFICATION_IDS } from "./self_conformance.js";
 
 export { nativeWorkReacquisitionGraphFunction } from "./worksite_command_execution.js";

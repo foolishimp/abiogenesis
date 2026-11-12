@@ -3,7 +3,6 @@ import { hasExactKeys, isNonblankString } from "../shared/admission_predicates.j
 import { ABI5_PACKAGE_NAME, ABI5_PACKAGE_VERSION } from "./contracts.js";
 import { WORKSITE_COMMAND_EXECUTION_IDS } from "./worksite_command_execution_identity.js";
 import { WORKSITE_REVISION_IDS } from "./worksite_revision_identity.js";
-import { WORKSITE_COMMAND_FORWARD_IDS } from "./worksite_command_forward_identity.js";
 
 // The launch identity of one C2 command attempt. The Worker writes the launch
 // manifest beside the task manifest; the helper process reads it from disk and
@@ -48,7 +47,7 @@ export type WorksiteCommandExecutionLaunchManifest = {
 };
 
 const COMMAND_LOCI: readonly string[] = [
-  WORKSITE_COMMAND_EXECUTION_IDS.nodeRef, WORKSITE_REVISION_IDS.nodeRef, WORKSITE_COMMAND_FORWARD_IDS.nodeRef,
+  WORKSITE_COMMAND_EXECUTION_IDS.nodeRef, WORKSITE_REVISION_IDS.nodeRef,
 ];
 
 /** @internal One exact authority-free occurrence at a C2 command locus. */
@@ -82,8 +81,7 @@ export function worksiteCommandExecutionAttemptRef(occurrence: Readonly<{
 function worksiteCommandLaunchImplementation(programLocusRef: string): Readonly<{
   implementationRef: string; implementationBindingRef: string;
 }> {
-  const ids = programLocusRef === WORKSITE_COMMAND_FORWARD_IDS.nodeRef ? WORKSITE_COMMAND_FORWARD_IDS
-    : programLocusRef === WORKSITE_COMMAND_EXECUTION_IDS.nodeRef ? WORKSITE_COMMAND_EXECUTION_IDS : WORKSITE_REVISION_IDS;
+  const ids = programLocusRef === WORKSITE_COMMAND_EXECUTION_IDS.nodeRef ? WORKSITE_COMMAND_EXECUTION_IDS : WORKSITE_REVISION_IDS;
   return { implementationRef: ids.implementationRef, implementationBindingRef: ids.implementationBindingRef };
 }
 

@@ -13,9 +13,6 @@ import { projectOwnedPrefixArtifactTruth, runtimePrefixFromOwnedArtifactTruth } 
 import { WORKSITE_REVISION_IDS, isWorksiteExecutionTask, worksiteExecutionImplementationRef } from "../product/worksite_revision.js";
 import { runtimeEventPrefixDigest, validatedRuntimeEventPrefixBeforeEvent } from "./event_prefix.js";
 import { worksiteExecutionSourcesCurrent, worksiteRevisionEntryBindingDisposition } from "./worksite_revision.js";
-import { WORKSITE_COMMAND_FORWARD_IDS as forwardIds } from "../product/worksite_command_forward_identity.js";
-import { isWorksiteCommandForwardRequest, isWorksiteCommandForwardTask } from "../product/worksite_command_forward.js";
-import { worksiteCommandForwardChildSourceAtPrefix } from "./worksite_command_forward.js";
 import { SEMANTIC_REVISION_IDS } from "../gtl/semantic_revision_identity.js";
 import { revisionPreparationHasNativeBridgeSourceAtPrefix, readDependencyPreparationHasNativeBridgeSourceAtPrefix } from "./worksite_input_provenance.js";
 import { isWorksitePreparationInput, preparationConstructionTasks } from "../product/worksite_preparation.js";
@@ -546,7 +543,7 @@ function worksiteAuthorityCarrier(
       workspaceBindingDigest: value.workspaceBindingDigest,
     };
   }
-  if (isNativeWorkspaceWorkTask(value) || isWorksiteCommandForwardRequest(value) || isWorksiteCommandForwardTask(value) || isWorksiteConstructionTask(value) ||
+  if (isNativeWorkspaceWorkTask(value) || isWorksiteConstructionTask(value) ||
     isWorksiteExecutionTask(value)) {
     return {
       workspaceAuthorityBasis: value.workspaceAuthorityBasis,
@@ -2523,10 +2520,6 @@ function admitChildExecutionBasisUsing(
         currentEnvironment.workspaceBinding, input) === "basis_fork_detected") {
       return childRefusal("basis_fork_detected", "selected D2 child lacks exact native binding correspondence");
     }
-  }
-  if ((input.graphFunction.name===forwardIds.childGraphFunctionRef || isWorksiteCommandForwardTask(rawInputValue)) &&
-      !worksiteCommandForwardChildSourceAtPrefix(authorityPrefix,predecessorPrefix,parent.basisRef,input.parentCCallRef,rawInputValue)) {
-    return childRefusal("basis_fork_detected","forward child requires the actual admitted preparation producer and retained vector");
   }
   const worksiteCarrier = rawInputValue === null
     ? null

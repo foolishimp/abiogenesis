@@ -17,6 +17,8 @@ effect and exact-resumption semantics; this file owns source correspondence.
 Seven later unbuilt drafts were retired by exact preimage match; their preserved
 snapshot remains evidence, not accepted realization.
 
+Retired sections: [history/T287_PENDING_CONSUMER_CONTINUATION_DESIGN__RETIRED_SECTIONS.md](history/T287_PENDING_CONSUMER_CONTINUATION_DESIGN__RETIRED_SECTIONS.md).
+
 ## Governing Distinction
 
 The framework records admitted history and derives traversal state. It does not
@@ -604,7 +606,7 @@ Survivors, each with a distinct supported role:
   `abg/construction_continuation.ts`). It authenticates the exact prepared
   value and is not a write-only registry.
 - Graph rematerializations outside continuation (`execution_basis.ts`, native
-  reacquisition, semantic stage and revision, C2 forwarding, qualification)
+  reacquisition, semantic stage and revision, qualification)
   are other owners' admissions, not pending reconstruction, and are out of
   this bounded audit.
 

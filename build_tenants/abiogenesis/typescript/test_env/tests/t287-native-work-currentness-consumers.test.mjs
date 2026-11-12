@@ -369,7 +369,7 @@ async function governanceConsumers(t) {
 import * as semantic from '../../build/code/src/product/semantic_job.js';
 import * as revisionProduct from '../../build/code/src/product/semantic_revision.js';
 import { SEMANTIC_REVISION_IDS as R } from '../../build/code/src/gtl/semantic_revision_identity.js';
-import { observationFor } from '../support/forward-observation-carrier.mjs';
+import { observationFor } from '../support/c2-observation-carrier.mjs';
 const D = g.SEMANTIC_STAGE_IDS;
 const coordinateOf = state => ({ cCallRef: state.cCall.cCallRef, resultRef: state.result.resultRef, resultDigest: state.result.resultDigest,
   resultAdmissionEventRef: state.result.admissionEventRef, judgmentEventRef: state.judgment.admissionEventRef });

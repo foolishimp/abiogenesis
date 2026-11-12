@@ -243,8 +243,8 @@ test('changed: ABG matches a retained worksite subject under a dotted name', asy
 function snapshotTask(env, relativePath, bytes) {
   const observation = { fileDigest: product.sha256Bytes(bytes), byteLength: bytes.byteLength,
     observationRef: 'worksite-observation://abiogenesis/t292', observationDigest: hash('observation') };
-  return { kind: 'worksite_command_forward_task', workspaceAuthorityBasis: { canonicalRoot: env.canonicalRoot },
-    snapshotSources: [{ sourceMemberRef: 'member://t292/0', source: 'source://t292/0', subject: { relativePath }, observation }] };
+  return { kind: 'worksite_command_execution_task', workspaceAuthorityBasis: { canonicalRoot: env.canonicalRoot },
+    protectedObservations: [{ sourceMemberRef: 'member://t292/0', subject: { relativePath }, observation }] };
 }
 
 test('the helper copies a protected source under a dotted first segment and refuses a real escape, as at the base', async t => {

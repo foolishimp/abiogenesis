@@ -1,6 +1,6 @@
 # T-287 W2-R3-C2 Worksite Command Execution Design
 
-The [retained-construction forward re-entry design](T287_C2_FORWARD_REENTRY_DESIGN.md) is the subordinate binding for its distinct post-failure C2 arm. The current common-lifetime amendment below separately governs the helper’s exceptional failure boundary.
+The current common-lifetime amendment below governs the helper’s exceptional failure boundary.
 
 Retired sections: [history/T287_W2_R3_C2_WORKSITE_COMMAND_EXECUTION_DESIGN__RETIRED_SECTIONS.md](history/T287_W2_R3_C2_WORKSITE_COMMAND_EXECUTION_DESIGN__RETIRED_SECTIONS.md).
 
@@ -208,8 +208,7 @@ retains commands, streams, reports, predicates and residue through ordinary F_P
 result admission. No host command loop, helper replacement, semantic oracle or
 caller-authored admission is permitted.
 
-C1/C3, revision and retained-construction forward constructors and source laws
-are unchanged. Their successful historical evidence is not a native source
+C1/C3 and revision constructors and source laws are unchanged. Their successful historical evidence is not a native source
 basis. Native assessment/currentness and consumer consequences remain separate
 from typed command observations; process success cannot prove domain acceptance.
 
@@ -394,8 +393,8 @@ complete current context while retaining original native author provenance.
 
 The new root request uses Public `source: none`; an arbitrary caller-created
 C2 task or historical F_P-looking value supplies neither current preparation
-nor cross-Run admission. C1/C3, same-Run native, forward and standalone
-closed-Run source paths retain their separate contracts.
+nor cross-Run admission. C1/C3, same-Run native and standalone closed-Run
+source paths retain their separate contracts.
 
 ### Observed existing-worksite source (QUAL056-C2-OBSERVED01; T-287 default library)
 
@@ -427,7 +426,7 @@ admission. Currentness extends from that preparation acquisition cut through
 the held pre-effect prefix and physical O1. Replay reconstructs the historical
 preparation/observation relation without inventing an author or rereading the
 current filesystem. The original root binding is unchanged. C1/C3, native,
-reacquisition, revision and forward source laws are unchanged.
+reacquisition and revision source laws are unchanged.
 
 The snapshot helper consumes the same selected source rows and retains the
 same source/member/task/result coordinates. Original worksite inputs and
@@ -619,8 +618,8 @@ The command write-territory array is explicit and may be empty. `[]` grants
 no command mutation of the snapshot; a read-only command can still supply
 exit and stream predicates. Each declared report or HTTP port file continues
 to require a matching territory, and any unpermitted snapshot delta yields
-the existing `territory_mismatch` disposition. The shared native, observed,
-construction-result and forward task owners preserve this same declaration.
+the existing `territory_mismatch` disposition. The shared native, observed
+and construction-result task owners preserve this same declaration.
 Archive snapshot and result evidence creation retain their separate owner
 authority below. Continuation-12's retained configuration exposed the former
 nonempty-array constructor restriction; that pure discriminator establishes
@@ -1073,4 +1072,4 @@ The existing prefix derivation owner may retain a successful native reacquisitio
 
 Native closed-child reacquisition passes its existing authentication operation from the invoking ABG owner to the selected installed F_D realization, bound to that exact input and occurrence. Its installed semantic relation receives the existing result/currentness relation bound to the current evaluation. Physical context checks, preserved author/result, binding-cover and later invalidation checks remain unchanged. No serialized task/basis gains a function or process-local authority requirement; standalone/cold paths reconstruct as before.
 
-C2 already receives the owner's native assembly preparation operation. Its accompanying occurrence check must also run at that invoking owner, comparing every existing occurrence coordinate to the authenticated assembly CCall. The installed command implementation still constructs and supervises its declared helper/acknowledgment. No command, actor policy, effect scope or output relation changes. Legacy semantic-stage/forward/preserved-result paths are not generalized by this selection.
+C2 already receives the owner's native assembly preparation operation. Its accompanying occurrence check must also run at that invoking owner, comparing every existing occurrence coordinate to the authenticated assembly CCall. The installed command implementation still constructs and supervises its declared helper/acknowledgment. No command, actor policy, effect scope or output relation changes. Legacy semantic-stage and preserved-result paths are not generalized by this selection.

@@ -568,8 +568,6 @@ export { WORKSITE_PRESERVED_RESULT_IDS, WORKSITE_PRESERVED_RESULT_IMPLEMENTATION
   preservedWorksiteTargetJoin, derivePreservedWorksiteCandidateBundle, resolveWorksitePreservedResultJudgmentRelation } from "./worksite_construction_recovery.js";
 export type { WorksitePreservedResultSource, WorksitePreservedResultArtifact, WorksitePreservedResultArtifactBody,
   WorksitePreservedSourceProof, PreservedProtocolRecord } from "./worksite_construction_recovery.js";
-export * from "./worksite_command_forward.js";
-export { isWorksiteCommandForwardObservation } from "./worksite_command_execution.js";
 
 export { NATIVE_WORKSPACE_WORK_IDS, constructNativeWorkspaceWorkTask, isNativeWorkspaceWorkTask,
   isNativeWorkspaceWorkObservation, isNativeWorkspaceWorkReport, isNativeWorkspaceWorkFailure, nativeWorkspaceWorkObservationMatchesTask,

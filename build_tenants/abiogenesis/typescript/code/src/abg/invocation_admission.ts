@@ -13,7 +13,6 @@ import { NATIVE_WORKSPACE_WORK_IDS } from "../product/native_workspace_work_iden
 import { WORKSITE_COMMAND_EXECUTION_IDS } from "../product/worksite_command_execution_identity.js";
 import { projectSameRunWorksiteCommandSourceAtPrefix } from "./worksite_input_provenance.js";
 import { worksiteRevisionEntryBindingDisposition } from "./worksite_revision.js";
-import { worksiteCommandForwardEntryDisposition } from "./worksite_command_forward.js";
 import type {
   GraphFunction,
   GtlProgram,
@@ -1289,10 +1288,6 @@ function admitInvocationWithRequest(
   if (worksiteRevisionEntryBindingDisposition(predecessorPrefix, input.graphFunction,
     input.rawInput.value, environment.workspaceBinding) === "basis_fork_detected") {
     return refusal("basis_fork_detected", "selected D2 ancestry lacks exact native binding correspondence");
-  }
-  if(worksiteCommandForwardEntryDisposition(input.artifactTruth.prefix,input.graphFunction,input.rawInput.value,
-    environment.workspaceBinding,input.capabilityGrants,input.sourceResultBasis) === "basis_fork_detected") {
-    return refusal("basis_fork_detected","forward C2 requires exact unconsumed historical owners and current binding cover");
   }
   const priorGap =
     isRecord(input.rawInput.value) &&

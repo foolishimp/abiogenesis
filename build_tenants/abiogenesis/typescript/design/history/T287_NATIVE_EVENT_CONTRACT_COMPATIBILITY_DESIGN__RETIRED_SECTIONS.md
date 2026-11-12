@@ -47,3 +47,15 @@ unchanged physical stream and its unique boundary. New P3 execution requires
 that active profile. A legacy-held store may admit only L-valid facts through
 its existing authorized owners; it can never admit the P3 arm or P envelope
 without this boundary. No in-memory boolean supplied by a caller can promote it.
+
+---
+
+Cut from `build_tenants/abiogenesis/typescript/design/T287_NATIVE_EVENT_CONTRACT_COMPATIBILITY_DESIGN.md` at commit `5c9df5056`, lines 9-9, 254-256, 262-262, verbatim.
+
+This refines [C2 forward re-entry](T287_C2_FORWARD_REENTRY_DESIGN.md) sections7 and9. Its forward-source, currentness, failure and effect limits remain binding. [Interrupted resource recovery](T287_INTERRUPTED_EVENT_RESOURCE_RECOVERY_DESIGN.md) separately owns abandoned acquisition; compatibility does not acquire or recover a resource.
+
+A generic two-digest allowlist is insufficient and is not selected. The source
+qualification includes the forward owner and preserved-construction recovery
+owner. If `abg/worksite_construction_recovery.ts` or another additional owner
+
+Preserve accepted forward HOW7. The native LeafPort captures the actual first

@@ -109,8 +109,6 @@ export { WORKSITE_REVISION_COMMAND_IMPLEMENTATION_DESCRIPTOR, WORKSITE_REVISION_
   selectWorksiteRevisionConstruction, prepareWorksiteRevisionCommands } from "./worksite_command_execution.js";
 export { WORKSITE_PRESERVED_RESULT_AUTHENTICATE_IMPLEMENTATION_DESCRIPTOR, WORKSITE_PRESERVED_RESULT_DERIVE_IMPLEMENTATION_DESCRIPTOR,
   authenticateWorksitePreservedResult, deriveWorksitePreservedCandidate } from "./worksite_construction.js";
-export { WORKSITE_COMMAND_FORWARD_PREPARE_DESCRIPTOR, WORKSITE_COMMAND_FORWARD_EXECUTE_DESCRIPTOR,
-  prepareWorksiteCommandForward, realizeWorksiteCommandForward } from "./worksite_command_forward.js";
 export { QUALIFICATION_ASSESSMENT_IMPLEMENTATION_DESCRIPTOR, QUALIFICATION_VERDICT_IMPLEMENTATION_DESCRIPTOR,
   QUALIFICATION_RULING_IMPLEMENTATION_DESCRIPTOR, realizeQualificationAssessment, realizeExactCandidateQualification,
   realizeQualificationRuling, MALFORMED_GTL_ASSESSMENT_IMPLEMENTATION_DESCRIPTOR,

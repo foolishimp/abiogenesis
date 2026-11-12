@@ -6,7 +6,7 @@
 
 Retired sections: [history/T287_NATIVE_EVENT_CONTRACT_COMPATIBILITY_DESIGN__RETIRED_SECTIONS.md](history/T287_NATIVE_EVENT_CONTRACT_COMPATIBILITY_DESIGN__RETIRED_SECTIONS.md).
 
-This refines [C2 forward re-entry](T287_C2_FORWARD_REENTRY_DESIGN.md) sections7 and9. Its forward-source, currentness, failure and effect limits remain binding. [Interrupted resource recovery](T287_INTERRUPTED_EVENT_RESOURCE_RECOVERY_DESIGN.md) separately owns abandoned acquisition; compatibility does not acquire or recover a resource.
+Section 6 states the shared P3 undispatched owner refusal of every F_P leaf. [Interrupted resource recovery](T287_INTERRUPTED_EVENT_RESOURCE_RECOVERY_DESIGN.md) separately owns abandoned acquisition; compatibility does not acquire or recover a resource.
 
 ## 1. Product frame and scope
 
@@ -252,15 +252,17 @@ current bytes; original source events equal their prefix positions; either
 same profile or the one admitted L-to-P boundary after that source. Preserve
 all current W/reprice/vector/origin/actor/producer/consume-uniqueness checks.
 A generic two-digest allowlist is insufficient and is not selected. The source
-qualification includes the forward owner and preserved-construction recovery
-owner. If `abg/worksite_construction_recovery.ts` or another additional owner
+qualification includes the preserved-construction recovery owner. If `abg/worksite_construction_recovery.ts` or another additional owner
 requires a production change, its exact need returns for a bounded grant;
 structural digest carriage is not native ancestry proof.
 
 ## 6. P3 owner observation and failure admission
 
-Preserve accepted forward HOW7. The native LeafPort captures the actual first
-failing stage before losing it: authority verification; worker-contract
+The refusal is one repair of the shared native LeafPort owner seam for every
+F_P leaf, not a change to any leaf's success schema. It is valid only before
+any actor dispatch, invocation or evidence exists, and it is bound to the
+actually selected native owner and the current CCall phase. The native
+LeafPort captures the actual first failing stage before losing it: authority verification; worker-contract
 resolution; implementation load/export; preparation/shape validation.
 Closed stage-specific reasons distinguish negative returns, missing
 contracts/exports, thrown errors and malformed preparation. Allowlist safe
@@ -307,6 +309,15 @@ projection and fresh replay use this same arm. Legacy failure values/events
 and their erased initiating exceptions are not repaired retroactively.
 "No dispatch" does not assert zero preparation filesystem activity: preserve
 all actual task/launch/archive residue and normal ownership/cleanup exclusions.
+
+Evaluation exercises every undispatched first-stage code with zero actors,
+refuses a forged owner, phase or occurrence and use after dispatch, and replays
+cause equality and the secret-safe classification; the existing success and
+failure gates stay. Realized by `implementation/leaf_invocation_port.ts`
+(`closedUndispatchedProbabilisticOwnerReceipt`), `abg/c_call_outcome.ts` and
+`abg/c_call.ts` (the `undispatched_owner_refusal_evidence_candidate`,
+`undispatchedOwnerEvidenceMatches`) and `abg/runtime_failure.ts`
+(`undispatched_owner_failure_evidence`).
 
 ## 8. Conserved boundaries
 

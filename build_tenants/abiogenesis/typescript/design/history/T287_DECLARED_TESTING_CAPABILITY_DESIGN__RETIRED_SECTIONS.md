@@ -54,3 +54,10 @@ worker requests, and `actor_process.ts` reconstructs semantic assembly only.
 Separate STDO Design and standalone C2 invocations cannot satisfy the current
 evidence bridge. Retain **one composed lifecycle invocation** through Design,
 C1, C2 and assessment. Do not add a private cross-invocation conversion.
+
+---
+
+Cut from `build_tenants/abiogenesis/typescript/design/T287_DECLARED_TESTING_CAPABILITY_DESIGN.md` at commit `5c9df5056`, lines 103-104, verbatim.
+
+duplicate, mismatched and unsupported coverage refuses. Revision/forward/
+recovery and other leaf classes are not newly supported. Non-adopters retain

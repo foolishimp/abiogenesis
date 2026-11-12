@@ -38,8 +38,6 @@ import { REQUIREMENT_HANDOFF_IDS } from "../gtl/requirement_handoff.js";
 import { projectRequirementHandoffCandidate } from "../abg/requirement_handoff.js";
 import { WORKSITE_COMMAND_EXECUTION_IDS } from "../product/worksite_command_execution.js";
 import { WORKSITE_REVISION_IDS } from "../product/worksite_revision.js";
-import { WORKSITE_COMMAND_FORWARD_IDS as forwardIds } from "../product/worksite_command_forward_identity.js";
-import { authenticateWorksiteCommandForwardBasis } from "../abg/worksite_command_forward.js";
 import { resolve } from "node:path";
 import { pathToFileURL } from "node:url";
 
@@ -675,10 +673,6 @@ export async function invokeLeafOwnerBoundary(input: Readonly<{
   try {
     authorityValid = await input.verifyAuthority() &&
       sha256Canonical(input.value) === inputDigest &&
-      (!([forwardIds.prepareImplementationRef,forwardIds.implementationRef] as readonly string[]).includes(resolution.implementationRef) ||
-        (input.occurrence.worksiteCommandForwardBasis !== undefined &&
-          input.occurrence.worksiteCommandForwardBasis.cCall.cCallRef === input.occurrence.cCallRef &&
-          authenticateWorksiteCommandForwardBasis(input.occurrence.worksiteCommandForwardBasis,true) !== null)) &&
       (resolution.implementationRef !== REQUIREMENT_HANDOFF_IDS.implementationRef ||
         (input.occurrence.requirementHandoffBasis !== undefined &&
          input.occurrence.requirementHandoffBasis.cCall.cCallRef === input.occurrence.cCallRef &&
