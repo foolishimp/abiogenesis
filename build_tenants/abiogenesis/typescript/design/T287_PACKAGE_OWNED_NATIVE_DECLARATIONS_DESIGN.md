@@ -185,8 +185,7 @@ other than the two literals; `RuntimeArtifactFacts.prepare` in
 the same way: `admitGraphFunctionCatalog` (`product/catalog.ts`),
 `reconstructHistoricalDeclarationCatalog` (`product/declaration_closure.ts`),
 `projectWorkspaceStatus` (`product/project_read_ports.ts`),
-`projectAdmittedWorkspaceBindingByInvocationRef`
-(`abg/environment_admission.ts`), `constructCapabilityGrant` and
+`constructCapabilityGrant` and
 `validateCapabilityGrantForProductBasis` (`product/invocation.ts`). Both questions check everything the lock
 guard checks without the register: the lock and row shape and descriptor
 fields; the contribution manifest, its digest and the product, version,
@@ -203,15 +202,18 @@ Both questions check the graph relations that `constructCapabilityDefinitionGrap
 guarantees and that are stated over the graph alone
 (`capabilityGraphRelationsHold`): the strict schema; rows unique and strictly
 ordered by capability id; each row's definition digest and reference; every
-dependency names a row of the same graph with that row's reference and digest,
-dependencies are ordered by capability id and have no cycle; owners, effect
+dependency names a row of the same graph with that row's reference and digest
+(dependency resolution), and dependencies are ordered by capability id; owners, effect
 references and bounded proof references are ordered; one flat coordinate per
 contract id; each operation-definition slot coordinate carries its operation's
 flat catalog coordinate and flat row, a definition reference ending in its
 slot's identity field, one definition reference per definition key, distinct
 slots and the request, result and refusal slots; a row that owns one slot of a
-definition key owns every slot of it; only flat and slot selectors; and the
-graph digest. The strict question adds equality with the register's
+definition key owns every slot of it (slot ownership); only flat and slot
+selectors; and the graph digest. No relation walks the dependencies for a
+cycle: a row's digest covers the digests its dependencies carry, so a cycle
+would need a digest that contains itself, and dependency resolution refuses it.
+The strict question adds equality with the register's
 construction, which implies them. The roster, each row's owning set and the
 empty-graph rule read the register and belong to the strict question only.
 
@@ -233,8 +235,11 @@ a recorded contract's identities is therefore that each names a row of the
 carrier's own graph and that the lock digest, or the verification digest,
 recomputes over the carrier. The recorded question does not detect identities
 altered among the rows of the carrier's graph with every digest recomputed. A
-door refuses such a value with the strict question; a read copy refuses it by
-its binding to recorded history (below).
+door that receives such a value asks the strict question of it and refuses it.
+The fold reads a store that holds such a lock, and retains that the lock
+answers only the recorded question; every entry that appends, admits or grants
+on a lock it takes from the fold's facts refuses it (below). A read copy
+refuses such a value by its binding to recorded history (below).
 
 Everything the strict question accepts, the recorded question accepts. The two
 bodies differ only where the strict question reads the register, and each such
@@ -247,16 +252,66 @@ identity on an empty-graph carrier; and `capabilityDefinitionGraphAssetBytes`
 returns `serializeCapabilityDefinitionGraph` of a graph the strict guard
 accepts. So the fold reads every store whose locks a door admitted.
 
+### What the fold retains, and the entries that require it
+
+The fold (`RuntimeArtifactFacts`, `abg/artifact_truth.ts`) asks each inline
+install lock the strict question first and the recorded question only where
+the strict question refuses (`establishInlineLock` in `prepare`), and retains
+the answer with the install fact (`AdmittedInstallFact.lockAnswersStrict`). An
+install that names its lock by a compact reference takes its source install's
+answer. A lock that a door passes in (`establishedLock`) answers the strict
+question, because every door that passes one has asked it of that lock. The
+exported `admitArtifact` passes none. Three paths in
+`abg/environment_admission.ts` pass one:
+- `admitArtifactFromOwner` sets it for an inline install only after
+  `isProductInstallCandidate`;
+- `admitProductInstall`, exported on `./abg`, asks `isProductInstallCandidate`
+  of its candidate and lock before it passes the lock;
+- `admitProductInstallInResolvedLock` asks no guard itself, and its one
+  caller, the install owner (`product/install_definition_bindings.ts`), asks
+  `isResolvedProductLock` of the lock before it passes it.
+
+On a store whose locks
+the current build constructs, the fold evaluates each inline lock's guard once,
+and no later requirement evaluates a guard; a lock that answers only the
+recorded question costs two evaluations.
+
+One internal accessor reads the retained answer:
+`admittedInstallLocksAnswerStrict(artifactTruth, admissionEventRefs)`
+(`abg/artifact_truth.ts`) is true when every named install's lock answers the
+strict question. It answers from the owner's projection (`ArtifactTruthDerivation`);
+a copied projection answers false. The answer is not copied into an event, a
+projection row or a published type.
+
+Every entry that appends, admits or grants on a lock it takes from the fold's
+facts requires the strict answer:
+
+| Entry | What it takes from the fold's facts | Refusal |
+| --- | --- | --- |
+| candidate preparation under the strict question (`prepareArtifactTruthCandidate` → `RuntimeArtifactFacts.prepare`) | the source install of a compact install reference; a workspace binding's causal installs; a materialization's environment (`materializationArtifactCorresponds`) | the candidate throws, and `admitArtifact` refuses `artifact_truth_conflict` before the append |
+| `admitWorkspaceBinding` (`abg/environment_admission.ts`) | the causal installs and their lock | `artifact_owner_refusal` with `scope_mismatch`; nothing is appended |
+| `checkPrefixEnvironment` in `admitCapabilityEnvironmentOutcome` (`product/admission_authority.ts`): every `withAdmissionAuthority` owner that takes a bound environment, through `validateAdmissionCapabilityBasis`, and `admitCapabilityEnvironment` | the bound environment's installs and lock | `environment_unadmitted` |
+| `exactWorksiteEnvironmentAtPrefix` (`abg/execution_basis.ts`): root and child execution-basis admission and the worksite command leaf source | the environment of the worksite carrier's binding | the admission's existing refusal (`worksite-environment-authority-mismatch`, `child_input_mismatch`); the leaf source is absent |
+
+The fold's `release.snapshot` branch reaches the third row through
+`isReleaseOperationArtifact`, and it asks the strict question of the rest of
+its relation, at the fold and at the candidate alike (below).
+
+The requirement sits at what each entry relies on, not on the whole fold. A
+store whose first install's lock answers only the recorded question and whose
+later install the current build admitted takes a new binding over the later
+install, and that binding's environment admits work; a binding over the first
+install is refused.
+
 | Entry | Question | Where it is set |
 | --- | --- | --- |
-| the artifact-truth fold advancing over recorded rows (`RuntimeArtifactFacts.advance`, `abg/artifact_truth.ts`) | recorded | `prepare(row, "recorded")` |
+| the artifact-truth fold advancing over recorded rows (`RuntimeArtifactFacts.advance`, `abg/artifact_truth.ts`) | strict first, then recorded; the answer is retained | `prepare(row, "recorded")` |
 | the admission candidate (`prepareArtifactTruthCandidate`) | strict | `prepare(…, "strict", establishedLock)` |
-| every admission door and constructor, the reader's own verification and install, catalog admission, run execution resolution, declaration application, run and admission grants, conformance, release qualification (`abg/qualification_proof.ts`, which reconstructs its proof Catalog before it reads), worksite forward, governance coverage and native work reacquisition | strict | the exported signatures |
+| every admission door and constructor, the reader's own verification and install, catalog admission, run execution resolution, declaration application, run and admission grants, conformance, release qualification (`abg/qualification_proof.ts`, which reconstructs its proof Catalog before it reads), governance coverage and native work reacquisition | strict | the exported signatures |
 | the read owner of `abg/project_read_ports.ts`: the Public run read (`prepareRunRead`), the owner read ports (`project`, behind `RunProjectionPort`, `GraphCallProjectionPort` and `ABG_PROJECT_READ_OWNER_PORTS`) and `projectRunTruthAtDurablePrefix`; a supplied historical declaration proof and the verified products of its Catalog | recorded | `prepareRead(…, "recorded")` at each entry; `prepareRunReadAtDurablePrefix` is exported and asks recorded, which the doc comment of its `@internal` overload states (the exported signature's comment is published declaration text, which the public contract digests cover); `terminalDeclaration` passes `prepared.question` to `reconstructHistoricalDeclarationCatalog` (`product/declaration_closure.ts`), which passes it to `admitGraphFunctionCatalog` (`product/catalog.ts`) |
-| the read owner's entries whose result feeds new work: a historical source for a new run (`projectHistoricalGraphCallSourceAtDurablePrefix`) and a closed terminal for worksite forward and native work reacquisition (`projectClosedGraphCallTerminalAtDurablePrefix`) | strict | `question: "strict"` at the entry |
+| the read owner's entries whose result feeds new work: a historical source for a new run (`projectHistoricalGraphCallSourceAtDurablePrefix`) and a closed terminal for native work reacquisition (`projectClosedGraphCallTerminalAtDurablePrefix`) | strict | `question: "strict"` in the historical source's prepared read; `prepareRead(…, "strict")` for the closed terminal |
 | the run-read authority (`expectedRunReadAuthority` and the run-read kernel, `abg/project_read_definition_bindings.ts`) | recorded | `constructCapabilityGrant(…, "recorded")`, `validateCapabilityGrantForProductBasis(…, "recorded")` (`product/invocation.ts`) |
 | `project.read#workspace_status` (`product/project_read_definition_bindings.ts`) | recorded | `WorkspaceProjectionPort.status(packet, "recorded")` (`product/project_read_ports.ts`) |
-| the admitted authority of `project.read#ticket_consensus` (`admittedAuthorityBinding`) | recorded | `projectAdmittedWorkspaceBindingByInvocationRef(…, "recorded")` (`abg/environment_admission.ts`) |
 
 A read that asks the recorded question of a caller-supplied copy binds the copy
 to recorded history. `workspace_status` requires the packet's binding to be a
@@ -289,12 +344,16 @@ establishes the snapshot's environment through the fold itself:
 the bound environment with `admitCapabilityEnvironment`
 (`product/admission_authority.ts`), which projects artifact truth at the entry
 prefix and the workspace environment with the `…InResolvedLock` forms, which
-ask no guard again. It establishes the qualification proof through release
-qualification: `projectReleaseQualification` and `projectReleaseAcceptance`
-reach `projectQualificationVerdict` (`abg/qualification_proof.ts`), whose
-`deriveGraphOwner` reconstructs the proof Catalog with the exported
-`reconstructHistoricalDeclarationCatalog`, so the recorded environment lock and
-the proof's verified products answer the strict question. The release door
+ask no guard again, and requires the strict answer the fold retained for the
+environment's installs (`checkPrefixEnvironment`). It establishes the
+qualification proof through release qualification: `projectReleaseQualification`
+and `projectReleaseAcceptance` reach `projectQualificationVerdict`
+(`abg/qualification_proof.ts`), whose `deriveGraphOwner` reconstructs the proof
+Catalog with the exported `reconstructHistoricalDeclarationCatalog`, so the
+recorded environment lock and the proof's verified products answer the strict
+question. When the reader's register no longer constructs the graph a
+snapshot's lock records, the fold therefore refuses the store that holds the
+snapshot. The release door
 shares that stack and its per-prefix derivation (`NativeProofDerivation`,
 keyed by prefix and not by question). The branch also reads the reader's own
 release operation contract: the snapshot's `capability_grants` slot must name
@@ -302,9 +361,45 @@ that contract's `metadata.capabilityRefs`, which the register projects at
 module load, and `admitExactDefinitionCall` admits the recorded invocation
 against that contract's definition.
 
-Reading is not running. Every path that starts or continues work asks the
-strict question and refuses what it refused before; a recorded value with every
-digest recomputed grants no work.
+Reading is not running. A read that asks the recorded question returns a
+projection; it appends, admits and grants nothing. Every path that starts or
+continues work takes its lock in one of three ways, and each way requires the
+strict answer:
+
+- **From the fold's facts.** The entries of the table above require the
+  retained answer.
+- **From the run's Catalog.** `resolveProductExecution`
+  (`product/execution_resolution.ts`) admits the run's Catalog with
+  `admitGraphFunctionCatalog` under the strict question. `projectSetupTruth`
+  (`owner_bindings/run_invocation.ts`) takes the installs and the workspace
+  binding from that Catalog's readiness basis and passes the binding to
+  invocation admission. `admitInvocationWithRequest`
+  (`abg/invocation_admission.ts`) requires that binding to equal the binding
+  the prefix environment projects, and `worksiteLeafAuthority`
+  (`hog/ccall_lifecycle.ts`) requires the input's binding, the execution
+  basis's binding and the actor's binding to be equal. A binding names its
+  lock by digest, so every later admission of the run uses the lock the strict
+  Catalog admitted.
+- **From a historical declaration Catalog.** `reconstructHistoricalDeclarationCatalog`
+  (`product/declaration_closure.ts`) admits the Catalog under the strict
+  question unless its caller passes `"recorded"`, and requires its binding,
+  lock and installs to equal the recorded environment's. Its strict callers
+  are release qualification (`deriveGraphOwner`, `abg/qualification_proof.ts`),
+  governance coverage (`projectGovernanceCoveredSourceUse`,
+  `abg/invocation_execution_truth.ts`), the read owner's historical source and
+  closed terminal (`terminalDeclaration`, `abg/project_read_ports.ts`) and
+  conformance (`reconstructDeclarationBasis`,
+  `validator/conformance_definition_bindings.ts`).
+
+Two entries that start work read an older environment without relying on its
+lock. The semantic revision (`abg/semantic_revision.ts`) compares the older
+environment's workspace authority with the current one's
+(`historical_environment_mismatch`) and covers the older binding with the
+current one (`binding_cover_absent`). `projectPreservedWorksiteProposal`
+(`abg/worksite_construction_recovery.ts`) rebuilds the older module
+publication from the install's recorded fields, and its callers require the
+preserved proposal's envelope to equal the current run's bridge envelope.
+Neither admits, appends or grants on the older lock. A recorded value with every digest recomputed grants no work.
 
 ## Requirement, function and realization mapping
 
