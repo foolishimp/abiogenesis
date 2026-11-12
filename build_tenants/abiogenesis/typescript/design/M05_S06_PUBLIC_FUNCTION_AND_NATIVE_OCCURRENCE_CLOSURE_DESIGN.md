@@ -2248,9 +2248,11 @@ module cannot be a second contract or composition surface.
 SDK and CLI expose the same outcome, and the CLI's exit status classifies it as
 `REQ-P-POLICY-022` states: the CLI prints the transport outcome and exits with
 the host receipt's `exitCode` (`runExactDefinition` in
-`shared/effect_definition.ts`), or `2` on a transport refusal, a request it
-cannot read, decode or submit, or an outcome it cannot encode
-(`public/cli.ts`). A thrown parse error, raw
+`shared/effect_definition.ts`). It exits `2` for a request it cannot read or
+decode and for a transport refusal, before any owning function is entered, and
+`70` for a throw out of `runInstalledDefinitionCallTransport` or an outcome it
+cannot encode, which `public/cli.ts` catches in a second `try` block that
+begins once the call is submitted. A thrown parse error, raw
 stack, CLI-only status, or adapter-local result is not a public outcome.
 
 ### 4.6 Capability, Event, And Adapter Metadata

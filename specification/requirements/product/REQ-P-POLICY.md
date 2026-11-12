@@ -165,13 +165,15 @@ For a call it submits, the CLI writes the outcome that the SDK returns for the
 same call, and the SDK sets no process exit status. The CLI's exit status
 classifies what the CLI writes by one rule for every operation: `0` when the
 owning semantic function returns its terminal result; `1` when it returns its
-typed refusal; `2` when the CLI's arguments do not name one request file, the
-file does not hold one exact transport request, the transport refuses the call,
-or reading the file, carrying the call or encoding its outcome fails; `3` when
-the owning semantic function returns a non-terminal outcome, which only an
-operation that declares a non-terminal contract can return; and `70` when the
+typed refusal; `2` when no owning semantic function is entered because the
+CLI's arguments do not name one request file, reading the file fails, the file
+does not hold one exact transport request, or the transport refuses the call;
+`3` when the owning semantic function returns a non-terminal outcome, which only
+an operation that declares a non-terminal contract can return; and `70` when the
 operation's execution fails with a typed execution fault, including an owner
-output that its contract does not admit, or with a defect or interruption.
+output that its contract does not admit, or with a defect or interruption, and
+when carrying a submitted call or encoding its outcome fails, whether or not an
+owning semantic function has been entered.
 
 ## Traversal And Run Operations
 
