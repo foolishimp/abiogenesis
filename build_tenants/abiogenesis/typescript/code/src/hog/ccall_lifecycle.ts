@@ -4,7 +4,7 @@ import { isNativeWorkspaceWorkTask, nativeWorkspaceWorkGraphFunctionRef, NATIVE_
 import { WORKSITE_COMMAND_FORWARD_IDS as forwardIds } from "../product/worksite_command_forward_identity.js";
 import { semanticLifecycleRefForProgram } from "../gtl/semantic_stage.js";
 import { SEMANTIC_IMPLEMENTATION_REFS } from "../gtl/semantic_stage_identity.js";
-import { runEnvironmentForProgram, nativeContextLeafFamily, registeredSelectionNativeRole } from "../gtl/stdo_run_environment.js";
+import { runEnvironmentForProgram, nativeContextLeafFamily } from "../gtl/stdo_run_environment.js";
 import { cLeafTerms } from "../gtl/c_algebra.js";
 import * as Effect from "effect/Effect";
 
@@ -480,9 +480,7 @@ export function evaluateOwnedExecutableCCall(
     const selectedContextFamily = input.graphFunction.template.nodes.flatMap(node => cLeafTerms(node.term))
       .filter(leaf => leaf.programLocusRef === opened.cCall.programLocusRef)
       .map(leaf => nativeContextLeafFamily(input.graphFunction, leaf));
-    const selectorRole = resolution.computeRegime === "F_P"
-      ? registeredSelectionNativeRole(input.programPublication, input.executionBasis.programRef, input.graphFunction, opened.cCall.programLocusRef) : null;
-    const nativeAssemblyRequired = GOVERNANCE_IMPLEMENTATION_REFS.includes(resolution.implementationRef) || selectorRole !== null || input.programPublication !== undefined &&
+    const nativeAssemblyRequired = GOVERNANCE_IMPLEMENTATION_REFS.includes(resolution.implementationRef) || input.programPublication !== undefined &&
       (resolution.implementationRef === nativeIds.implementationRef ||
         runEnvironmentForProgram(input.programPublication, input.program) !== null &&
         selectedContextFamily.length === 1 && ["constructor", "command_executor"].includes(selectedContextFamily[0] ?? ""));
