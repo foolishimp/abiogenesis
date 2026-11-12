@@ -508,8 +508,9 @@ test("consumer callable membership resolves exact borrowed owners without contri
   const call = JSON.parse(await readFile(callPath, "utf8")).invocation;
   const resources = call.resources;
   const supplied = resources.declarationCatalog;
-  const catalog = product.CatalogOperationPort.admit({ kind: "catalog_admit_packet", schemaVersion: "5.0.0",
-    memberKey: "admit", readinessBasis: supplied.catalog.readinessBasis });
+  // The Product's Catalog owner re-derives the recorded Catalog from its recorded readiness
+  // basis, as the historical declaration proof does; catalog.admit refuses this basis (below).
+  const catalog = product.admitGraphFunctionCatalog(supplied.catalog.readinessBasis);
   assert.equal(catalog.kind, "graph_function_catalog", JSON.stringify(catalog));
   const view = product.narrowGraphFunctionCatalog(catalog, supplied.catalogView.allowlist);
   assert.deepEqual(catalog, supplied.catalog);
@@ -547,6 +548,16 @@ test("consumer callable membership resolves exact borrowed owners without contri
     assert.match(result.message, /exact compatible publication owner/);
     refused.push({ variant, result });
   }
+
+  // The recorded readiness basis is from 5.0.0-dev.286, whose shipped conformance module
+  // carries a gate application; catalog.admit admits a new Catalog under the current
+  // language and refuses that application at raw admission.
+  const admission = product.CatalogOperationPort.admit({ kind: "catalog_admit_packet", schemaVersion: "5.0.0",
+    memberKey: "admit", readinessBasis: supplied.catalog.readinessBasis });
+  assert.equal(admission.kind, "catalog_validation_refusal", JSON.stringify(admission));
+  assert.equal(admission.validation.code, "invalid_kind", JSON.stringify(admission));
+  assert.match(admission.validation.message,
+    /^\$\/graphFunctions\/12\/template\/applications\/0\/relationKind: Invalid type: .* but received "gate"$/u);
   if (process.env.ABI5_STEEL03_CLOSURE_PROOF_PATH) {
     await writeFile(process.env.ABI5_STEEL03_CLOSURE_PROOF_PATH, JSON.stringify({
       disposition: "retained_closure_discriminator_passed", callSha256: await product.sha256File(callPath),

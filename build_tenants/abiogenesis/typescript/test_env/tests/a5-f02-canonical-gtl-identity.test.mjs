@@ -64,8 +64,28 @@ function reverseInventory(carrier, field) {
   carrier[field].reverse();
 }
 
+// The fixture declares one Evaluator and one Rule; a second of each makes the
+// inventory permutations real.
+function addSecondaryEvaluatorAndRule(modulePublication) {
+  modulePublication.evaluators.push(gtl.evaluatorDeclaration({
+    name: "evaluator://abiogenesis/a5-f02/secondary@5",
+    regime: "F_D",
+    description: "Secondary authored Evaluator for inventory permutation.",
+    binding: modulePublication.evaluators[0].binding,
+    consumedFieldRefs: ["$.terminal"],
+    tags: ["a5-f02", "secondary"],
+  }));
+  modulePublication.rules.push(gtl.ruleDeclaration({
+    name: "rule://abiogenesis/a5-f02/secondary@5",
+    kind: "a5_f02_secondary",
+    config: { mode: "evaluator_all" },
+    tags: ["a5-f02", "secondary"],
+  }));
+}
+
 function richAuthoredCarriers() {
   const modulePublication = structuredClone(publication());
+  addSecondaryEvaluatorAndRule(modulePublication);
   const evaluator = modulePublication.evaluators[0];
   evaluator.consumedFieldRefs.push("$.secondaryCanonicalField");
   const rule = modulePublication.rules[0];
@@ -196,6 +216,7 @@ function reverseAllSelectedModuleSets(modulePublication) {
 
 function validRichPublication() {
   const modulePublication = structuredClone(publication());
+  addSecondaryEvaluatorAndRule(modulePublication);
   const program = requireBy(
     modulePublication.programs,
     (candidate) => candidate.programRef === gtl.FAN_OUT_IDS.programRef,

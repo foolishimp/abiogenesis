@@ -465,7 +465,7 @@ test("M5 native constructors refuse invalid batch, retry, and F_H realization", 
   }), /requirement kind/u);
 });
 
-test("M5 native GTL constructs all ten graph relations with derived identities", () => {
+test("M5 native GTL constructs all nine graph relations with derived identities", () => {
   const inputContractRef = "contract://m5/application/input";
   const outputContractRef = "contract://m5/application/output";
   const base = { inputContractRef, outputContractRef };
@@ -507,12 +507,6 @@ test("M5 native GTL constructs all ten graph relations with derived identities",
       ...base,
       reducerGraphFunctionRef: "graph-function://m5/reducer",
       inputVectorRef: inputContractRef,
-    }),
-    gtl.gateApplication({
-      ...base,
-      targetRef: "graph-function://m5/target",
-      ruleRef: "rule://m5/gate",
-      evaluatorRefs: ["evaluator://m5/gate"],
     }),
     gtl.promoteApplication({
       ...base,
@@ -558,13 +552,12 @@ test("M5 native GTL constructs all ten graph relations with derived identities",
       "recurse",
       "fan_out",
       "fan_in",
-      "gate",
       "promote",
       "identity",
       "same_object",
     ],
   );
-  assert.equal(applications.length, 9);
+  assert.equal(applications.length, 8);
   assert.match(edge.edgeRef, /^graph-vector:\/\/abiogenesis\//u);
   assert.equal(edge.edgeRef, gtl.graphEdgeRef(edge));
   assert.equal(Object.isFrozen(edge), true);
@@ -820,92 +813,15 @@ test("M5 whole-program validation admits exact recursion law and refuses its sub
       assert.equal(result.diagnostics.some((row) => row.code === "invalid_application"), true, JSON.stringify(result));
     }
   }
-});
-
-test("M5 whole-program validation binds gate law to published Rule and Evaluator declarations", () => {
-  const publication = structuredClone(
-    gtl.constructStructuralModulePublication(artifactBasis()),
-  );
-  const program = publication.programs.find(
-    (candidate) => candidate.programRef === gtl.GATE_IDS.programRef,
-  );
-  assert.notEqual(program, undefined);
-  const graphFunction = publication.graphFunctions.find(
-    (candidate) => candidate.name === gtl.GATE_IDS.graphFunctionRef,
-  );
-  assert.notEqual(graphFunction, undefined);
-
-  assert.equal(
-    programValidationResult(publication, program).kind,
-    "program_validation",
-  );
-
-  for (const collection of ["rules", "evaluators"]) {
-    const missing = structuredClone(publication);
-    missing[collection] = [];
-    const missingProgram = missing.programs.find(
-      (candidate) => candidate.programRef === gtl.GATE_IDS.programRef,
-    );
-    const result = programValidationResult(missing, missingProgram);
-    assert.equal(result.kind, "static_validation_refusal", JSON.stringify(result));
-    assert.equal(
-      result.diagnostics.some((row) => row.code === "invalid_application"),
-      true,
-      JSON.stringify(result),
-    );
-  }
 
   const widened = structuredClone(publication);
   widened.evaluators[0].runtimeAuthority = "event://m5/rival";
-  const widenedProgram = widened.programs.find(
-    (candidate) => candidate.programRef === gtl.GATE_IDS.programRef,
-  );
-  const widenedResult = programValidationResult(widened, widenedProgram);
+  const widenedResult = programValidationResult(widened);
   // The owner-defined Evaluator record is closed. An added runtime authority
   // fails raw admission before whole-Program law can inspect the declaration.
   assert.equal(widenedResult.kind, "raw_admission_refusal");
   assert.equal(widenedResult.code, "invalid_kind");
   assert.match(widenedResult.message, /runtimeAuthority/);
-
-  const detached = structuredClone(publication);
-  const detachedProgram = detached.programs.find(
-    (candidate) => candidate.programRef === gtl.GATE_IDS.programRef,
-  );
-  const detachedGraphFunction = detached.graphFunctions.find(
-    (candidate) => candidate.name === gtl.GATE_IDS.graphFunctionRef,
-  );
-  detachedGraphFunction.template.nodes[0].term.terms[0].compositionRef = null;
-  const detachedResult = programValidationResult(detached, detachedProgram);
-  assert.equal(detachedResult.kind, "static_validation_refusal");
-  assert.equal(
-    detachedResult.diagnostics.some((row) => row.code === "invalid_application"),
-    true,
-  );
-
-  const divergentTarget = structuredClone(publication);
-  const divergentProgram = divergentTarget.programs.find(
-    (candidate) => candidate.programRef === gtl.GATE_IDS.programRef,
-  );
-  const divergentGraphFunction = divergentTarget.graphFunctions.find(
-    (candidate) => candidate.name === gtl.GATE_IDS.graphFunctionRef,
-  );
-  divergentProgram.callableMembership.push(gtl.STRUCTURAL_IDS.graphFunctionRef);
-  divergentGraphFunction.template.nodes[0].term.terms[1].graphFunctionRef =
-    gtl.STRUCTURAL_IDS.graphFunctionRef;
-  const divergentResult = programValidationResult(
-    divergentTarget,
-    divergentProgram,
-  );
-  assert.equal(divergentResult.kind, "static_validation_refusal");
-  assert.equal(
-    divergentResult.diagnostics.some(
-      (row) =>
-        row.code === "invalid_application" &&
-        row.message.includes("matching workflow target"),
-    ),
-    true,
-    JSON.stringify(divergentResult),
-  );
 });
 
 test("M5 fan-out materialization derives one exact task per admitted input member", () => {

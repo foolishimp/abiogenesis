@@ -373,7 +373,6 @@ test('GraphFunction/module and all application variants preserve authored data a
   {relationKind:'recurse',graphFunctionRef:base.name,terminationRuleRef:'rule://local',terminationEvaluatorRefs:['evaluator://local'],terminationFieldRef:'field://local',foldbackRef:'foldback://local',foldback:{mode:'rebind',binding:'binding://local',requiresParentEvaluation:true},bound:2},
   {relationKind:'fan_out',batchRef:'batch://local',elementGraphFunctionRef:base.name,inputVectorRef:'vector://input',outputVectorRef:'vector://output',inputMemberContractRef:base.inputs[0],outputMemberContractRef:base.outputs[0]},
   {relationKind:'fan_in',reducerGraphFunctionRef:base.name,inputVectorRef:'vector://input'},
-  {relationKind:'gate',targetRef:base.name,ruleRef:'rule://local',evaluatorRefs:['evaluator://local']},
   {relationKind:'registered_selection',sourceProgramLocusRef:'locus://local',evaluatorRef:'evaluator://local',ruleRef:'rule://local'},
   {relationKind:'re_enter',graphFunctionRef:base.name,sourceProgramLocusRef:'locus://source',targetProgramLocusRef:'locus://target',maxApplications:2},
   {relationKind:'promote',sourceRef:'source://local',targetRef:'target://local'},

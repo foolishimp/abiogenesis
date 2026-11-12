@@ -13,7 +13,6 @@ export const COMPOSED_IDS = Object.freeze({ ...ids('compose'), normalizeLocusRef
 export const GRAPH_EDGE_IDS = Object.freeze({ ...ids('graph-edge'), normalizeGraphFunctionRef: ref('graph-function','graph-edge/normalize'), renderGraphFunctionRef: ref('graph-function','graph-edge/render'), normalizeNodeRef: ref('node','graph-edge/normalize'), renderNodeRef: ref('node','graph-edge/render') });
 export const SUBSTITUTED_IDS = Object.freeze({ ...ids('substitute'), innerGraphFunctionRef: ref('graph-function','substitute/pass'), innerNodeRef: ref('node','substitute/pass') });
 export const WORKFLOW_IDS = ids('workflow');
-export const GATE_IDS = Object.freeze({ ...ids('gate'), targetGraphFunctionRef: ref('graph-function','gate/target'), targetNodeRef: ref('node','gate/target'), evaluatorRef: ref('evaluator','gate'), ruleRef: ref('rule','gate'), admittedInputContractRef: ref('contract','gate/admitted-input') });
 export const RECURSION_IDS = Object.freeze({ ...ids('recursion'), childGraphFunctionRef: ref('graph-function','recursion/step'), childNodeRef: ref('node','recursion/step'), evaluatorRef: ref('evaluator','recursion'), terminationRuleRef: ref('rule','recursion'), bound: 4 });
 export const FAN_OUT_IDS = Object.freeze({ ...ids('fan-out'), elementGraphFunctionRef: ref('graph-function','fan-out/element'), reducerGraphFunctionRef: ref('graph-function','fan-out/reducer'), elementNodeRef: ref('node','fan-out/element'), reducerNodeRef: ref('node','fan-out/reducer'), batchRef: ref('batch','fan-out'), inputVectorRef: ref('contract','fan-out/input-vector'), outputVectorRef: ref('contract','fan-out/output-vector'), inputMemberContractRef: ref('contract','fan-out/member-input'), outputMemberContractRef: ref('contract','fan-out/member-output'), summaryContractRef: ref('contract','fan-out/summary') });
 export const FP_IDS = Object.freeze({ ...ids('worker'), workerActorRef: ref('actor','worker'), workerBindingRef: ref('worker-binding','worker'), materializationPlanRef: ref('prompt-plan','worker'), rendererRef: ref('renderer','worker') });
@@ -24,7 +23,7 @@ export const NORMALIZED_CONTRACT_REF = ref('contract','normalized-data');
 export const WORKER_EXPECTED_PAYLOAD = 'World';
 export const contractKinds = Object.freeze({
   [STRUCTURAL_IDS.inputContractRef]:'data_input',[STRUCTURAL_IDS.outputContractRef]:'data_output',[NORMALIZED_CONTRACT_REF]:'normalized_data',
-  [GATE_IDS.admittedInputContractRef]:'data_input',[RECURSION_IDS.inputContractRef]:'recursion_state',[RECURSION_IDS.outputContractRef]:'recursion_state',
+  [RECURSION_IDS.inputContractRef]:'recursion_state',[RECURSION_IDS.outputContractRef]:'recursion_state',
   [FAN_OUT_IDS.inputVectorRef]:'member_vector_input',[FAN_OUT_IDS.outputVectorRef]:'gtl_fan_out_vector',[FAN_OUT_IDS.inputMemberContractRef]:'member_input',[FAN_OUT_IDS.outputMemberContractRef]:'member_output',[FAN_OUT_IDS.summaryContractRef]:'member_summary',
   [FP_IDS.inputContractRef]:'worker_instruction',[FP_IDS.outputContractRef]:'worker_output',
 });
@@ -34,8 +33,6 @@ export const LEAF_SPECS = Object.freeze({
   normalize:{ids:ids('normalize'),input:STRUCTURAL_IDS.inputContractRef,output:NORMALIZED_CONTRACT_REF,kind:'normalized_data'},
   pass:{ids:ids('pass'),input:NORMALIZED_CONTRACT_REF,output:NORMALIZED_CONTRACT_REF,kind:'normalized_data'},
   project:{ids:ids('project'),input:NORMALIZED_CONTRACT_REF,output:STRUCTURAL_IDS.outputContractRef,kind:'data_output'},
-  gate:{ids:ids('gate/evaluate'),input:STRUCTURAL_IDS.inputContractRef,output:GATE_IDS.admittedInputContractRef,kind:'data_input'},
-  gateTarget:{ids:ids('gate/target'),input:GATE_IDS.admittedInputContractRef,output:STRUCTURAL_IDS.outputContractRef,kind:'data_output'},
   recursionEvaluate:{ids:ids('recursion/evaluate'),input:RECURSION_IDS.inputContractRef,output:RECURSION_IDS.inputContractRef,kind:'recursion_state'},
   recursionStep:{ids:ids('recursion/step'),input:RECURSION_IDS.inputContractRef,output:RECURSION_IDS.outputContractRef,kind:'recursion_state'},
   element:{ids:ids('fan-out/element'),input:FAN_OUT_IDS.inputMemberContractRef,output:FAN_OUT_IDS.outputMemberContractRef,kind:'member_output'},
@@ -46,7 +43,7 @@ export const LEAF_SPECS = Object.freeze({
 });
 export function constructStructuralInput(subject='World'){return Object.freeze({kind:'data_input',schemaVersion:'5.0.0',subject});}
 export function constructMemberVector(subjects, blockedOrdinal=null){return {kind:'member_vector_input',schemaVersion:'5.0.0',members:subjects.map((subject,ordinal)=>({ordinal,memberRef:`member://abi5-tests/${ordinal}`,value:{kind:'member_input',schemaVersion:'5.0.0',subject,block:ordinal===blockedOrdinal}}))};}
-export function constructStructuralPublication(gtl,artifact,{cases=['atomic','compose','graph-edge','substitute','workflow','gate','recursion','fan-out','worker','retry','worker-deterministic','worker-compose']}={}) {
+export function constructStructuralPublication(gtl,artifact,{cases=['atomic','compose','graph-edge','substitute','workflow','recursion','fan-out','worker','retry','worker-deterministic','worker-compose']}={}) {
   const contracts=[],bindings=[],closures=[],graphFunctions=[],programs=[],contributions=[],evaluators=[],rules=[];
   const contract = (contractRef,contractKind,valueKind) => {if(!contracts.some(x=>x.contractRef===contractRef))contracts.push(gtl.contractDeclaration({contractRef,contractVersion:'5.0.0',contractKind,valueKind}));};
   const common = group => {
@@ -89,12 +86,6 @@ export function constructStructuralPublication(gtl,artifact,{cases=['atomic','co
     if(cases.includes('substitute')){const inner=graph(ids('substitute/pass'),of('pass','pass',true,ref('locus','substitute/pass')),NORMALIZED_CONTRACT_REF,NORMALIZED_CONTRACT_REF);inner.declarations={'abg.compute_regime':'F_D'};const replaced=gtl.substituteGraphFunction({name:SUBSTITUTED_IDS.graphFunctionRef,outer:parent,targetVectorRef:parent.template.edges[0].edgeRef,inner});graphFunctions.push(inner,replaced);addProgram(SUBSTITUTED_IDS,[replaced.name],{terminal:LEAF_SPECS.project.ids});}
   }
   if(cases.includes('workflow')){const term=gtl.workflow.C(gtl.cGraphFunctionRef({graphFunctionRef:STRUCTURAL_IDS.graphFunctionRef,input:gtl.cCarrier(STRUCTURAL_IDS.inputContractRef),output:gtl.cCarrier(STRUCTURAL_IDS.outputContractRef)}));graphFunctions.push(graph(WORKFLOW_IDS,term,STRUCTURAL_IDS.inputContractRef,STRUCTURAL_IDS.outputContractRef));addProgram(WORKFLOW_IDS,[WORKFLOW_IDS.graphFunctionRef,STRUCTURAL_IDS.graphFunctionRef]);}
-  if(cases.includes('gate')){
-    const app=gtl.gateApplication({inputContractRef:GATE_IDS.admittedInputContractRef,outputContractRef:STRUCTURAL_IDS.outputContractRef,targetRef:GATE_IDS.targetGraphFunctionRef,ruleRef:GATE_IDS.ruleRef,evaluatorRefs:[GATE_IDS.evaluatorRef]});
-    evaluators.push(gtl.evaluatorDeclaration({name:GATE_IDS.evaluatorRef,regime:'F_D',description:'Tests an ordinary declared gate over supplied data',binding:LEAF_SPECS.gate.ids.implementationRef,consumedFieldRefs:['$.subject'],tags:['gate','mechanics']}));rules.push(gtl.ruleDeclaration({name:GATE_IDS.ruleRef,kind:'fixture_subject_gate',config:{blockedSubject:'Blocked'},tags:['gate','mechanics']}));
-    const term=gtl.C.compose(of('gate','evaluate',false,ref('locus','gate/evaluate'),0,app.applicationRef),gtl.workflow.C(gtl.cGraphFunctionRef({graphFunctionRef:GATE_IDS.targetGraphFunctionRef,input:gtl.cCarrier(GATE_IDS.admittedInputContractRef),output:gtl.cCarrier(STRUCTURAL_IDS.outputContractRef)})));
-    graphFunctions.push(graph(GATE_IDS,term,STRUCTURAL_IDS.inputContractRef,STRUCTURAL_IDS.outputContractRef,{applications:[app]}),graph(ids('gate/target'),of('gateTarget'),GATE_IDS.admittedInputContractRef,STRUCTURAL_IDS.outputContractRef));addProgram(GATE_IDS,[GATE_IDS.graphFunctionRef,GATE_IDS.targetGraphFunctionRef]);
-  }
   if(cases.includes('recursion')){
     evaluators.push(gtl.evaluatorDeclaration({name:RECURSION_IDS.evaluatorRef,regime:'F_D',description:'Tests finite declared termination',binding:LEAF_SPECS.recursionEvaluate.ids.implementationRef,consumedFieldRefs:['$.terminal'],tags:['recursion','mechanics']}));rules.push(gtl.ruleDeclaration({name:RECURSION_IDS.terminationRuleRef,kind:'boolean_field_termination',config:{fieldRef:'$.terminal',terminalValue:true},tags:['recursion','mechanics']}));
     const app=gtl.recurseApplication({inputContractRef:RECURSION_IDS.inputContractRef,outputContractRef:RECURSION_IDS.outputContractRef,graphFunctionRef:RECURSION_IDS.childGraphFunctionRef,terminationRuleRef:RECURSION_IDS.terminationRuleRef,terminationEvaluatorRefs:[RECURSION_IDS.evaluatorRef],terminationFieldRef:'$.terminal',foldback:{mode:'rebind',binding:'fixture_state_rebind',requiresParentEvaluation:true},bound:RECURSION_IDS.bound});
