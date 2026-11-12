@@ -4,11 +4,12 @@ Writer: Claude Opus 5.5. Branch `claude/td77-recorded-lock-truth` from local
 `main` at `c1f655735`, worktree `/private/tmp/abg-td77`. T is
 `build_tenants/abiogenesis/typescript`. No push, no tag, no merge.
 
-**Status: complete on R1 to R4 and R6 to R8. R5 is not realized: the fold's
-`release.snapshot` branch establishes its proof's recorded lock and verified
-products through release qualification, which R4 keeps as built and which
-the release door shares; it asks the strict question there. Described in the
-design text; for ruling (item 22.4).**
+**Status: not complete on R5, which needs a ruling; complete on R1 to R4 and
+R6 to R8.** R5 is not realized: the fold's `release.snapshot` branch
+establishes its proof's recorded lock and verified products through release
+qualification, which R4 keeps as built and which the release door shares; it
+asks the strict question there. Described in the design text; for ruling
+(item 22.4).
 
 - **R1, the stop removed.** The recorded question no longer recomputes the
   catalog digest. Everything the strict question accepts, the recorded
@@ -22,7 +23,7 @@ design text; for ruling (item 22.4).**
   refuses such a lock with the strict question (`admitProductInstall`:
   `scope_mismatch`, nothing appended); each read copy refuses it by its
   binding to recorded history (the run read `invalid_history`,
-  `workspace_status` `not_ready`). Lanes 13, 17, 18, 19, 22 and 24.
+  `workspace_status` `not_ready`). Lanes 13, 17, 18, 19, 21 and 24.
 - **Evidence at scale on the final build.** Under the simulated withdrawal
   and the real register edit, artifact truth projects on all 121 stores
   with the base digest, where base refuses all 121; 186 of 186 recorded
@@ -31,8 +32,8 @@ design text; for ruling (item 22.4).**
   (`r10-child-proof` 9; `t287-historical-source-resource` 1, 3, 4) and on
   no other.
 - **Lanes.** The TD-77 lane file has 24 tests, 24 pass. Before and after,
-  every one of the 64 files has the same outcome per case on the final build
-  as on base (section 17). Replay over the 23 logs is byte-identical. The
+  every case of the 63 files shared with base has the same outcome on the
+  final build (section 17; the 64th file of the list is the TD-77 lane). Replay over the 23 logs is byte-identical. The
   catalog digest, the public contract catalog, the `.d.ts` output and the
   capability graph's rows apart from the content digest are unchanged.
 
@@ -56,7 +57,9 @@ Commits on the branch, oldest first:
 | `fef9288f8` | design: the recorded question binds identities by row membership; strict implies recorded; the release branch and the run-read capability |
 | `af241b0f7` | code: the recorded question binds identities by row membership only; the read preparation has no default question |
 | `dc1adf775` | lanes: the undetected alteration and its refusers; strict implies recorded; `r10-child-proof` states its question |
-| this commit | Return: the final rulings applied |
+| `fed7b9f9d` | Return: the final rulings applied; R5 for ruling |
+| `14e5779ab` | design: the run read's recorded question is stated on the internal overload |
+| this commit | Return: lane references, the R4 evidence, the status line |
 
 Lines changed under `code/src`, `design` and `test_env`: 1348 added, 73
 removed (code 495/69, design 161/3, lanes 692/1); section 20.
@@ -72,10 +75,10 @@ follow.
 | Ruling | Realized by | Shown by |
 | --- | --- | --- |
 | R1, the recorded question does not recompute the catalog digest | `recordedCapabilityIdentitiesHold` (`product/verify_product.ts:759`) is row membership only: every identity names a row of the carrier's own graph, so a carrier with an empty graph carries no identity. The recompute through `productPublicContractCatalogDigest` and its import are removed (`af241b0f7`). The lock guard asks it at `product/environment.ts:711`, the verified guard at `product/verify_product.ts:944`. The catalog relations the strict guard checks inside the carrier stay in the shared body: the row's catalog id and digest equal its contribution manifest's (`productLockHolds`); every flat owner coordinate carries the row's catalog (`lockRowGraphMatchesCatalog`, `product/environment.ts:800`); every owner coordinate of a verified artifact's graph is one of its own flat or slot coordinates, built with its catalog digest (`product/verify_product.ts:916-921`). No door changes. | design text, paragraph "The recorded graph binds owning contracts"; lanes 5 to 15, 22 |
-| R1, what is not detected and where it is refused | The recorded question accepts identities altered among the graph's rows with every digest recomputed. A door refuses it with the strict question; a read copy by its binding (section 13). | lane 13 (recorded accepts, strict refuses, the catalog digest is the recorded one and does not recompute); lane 17 (`admitProductInstall`: `artifact_owner_refusal`, `scope_mismatch`, 0 appended); lane 18 (run door: `binding_lock_mismatch`, `incompatible_or_unproven`); lane 19 (`workspace_status`: `not_ready`); lane 22 (verified artifact: recorded accepts, strict refuses); lane 24 (run read, the altered D2 lock: `invalid_history`; a verified product altered among its rows with its lock row unchanged: re-admission under recorded `verified_product_mismatch`, read `invalid_history`) |
+| R1, what is not detected and where it is refused | The recorded question accepts identities altered among the graph's rows with every digest recomputed. A door refuses it with the strict question; a read copy by its binding (section 13). | lane 13 (recorded accepts, strict refuses, the catalog digest is the recorded one and does not recompute); lane 17 (`admitProductInstall`: `artifact_owner_refusal`, `scope_mismatch`, 0 appended); lane 18 (run door: `binding_lock_mismatch`, `incompatible_or_unproven`); lane 19 (`workspace_status`: `not_ready`); lane 21 (verified artifact: recorded accepts, strict refuses); lane 24 (run read, the altered D2 lock: `invalid_history`; a verified product altered among its rows with its lock row unchanged: re-admission under recorded `verified_product_mismatch`, read `invalid_history`) |
 | R2, strict implies recorded | The two bodies differ only where strict reads the register; each such strict relation implies the recorded one in its place (table below). | design text, paragraph "Everything the strict question accepts"; lane 23 over every lock, verified artifact and graph the lanes construct (the strict-accepted set asserted exactly: four locks, two verified artifacts); lane 24 on the D2 store's lock and verified products; the probe rerun (section 16.5); 186 of 186 recorded locks and 144 of 144 graphs (16.4) |
 | R3, conformance, the historical GraphCall source and the closed terminal stay strict | No code or test change. `r10-child-proof` 9 and `t287-historical-source-resource` 1, 3, 4 depend on the reader's register equalling the retained store's (residual 22.1). | section 16.3: those four cases pass on the unchanged register and refuse under both changes, and no other case of the three lanes differs |
-| R4, release qualification as built | No change; `abg/qualification_proof.ts` is unchanged from `c1f655735`. One extra Catalog admission per proof (residual 22.2). | `git diff c1f655735` names no release or qualification file |
+| R4, release qualification as built | No change to release qualification: `abg/qualification_proof.ts` and `implementation/release_publication.ts` are unchanged from `c1f655735`. The owners they call, `reconstructHistoricalDeclarationCatalog` (`product/declaration_closure.ts`) and `admitGraphFunctionCatalog` (`product/catalog.ts`), gained only the `@internal` question overload; their exported path, which qualification calls, asks strict as today, and the strict retention in `readyCatalogs` is unchanged (a recorded admission is retained apart). One extra Catalog admission per proof (residual 22.2). | `git diff c1f655735` names neither qualification file; the 64-file comparison (section 17) |
 | R5, the fold's `release.snapshot` branch | Not realized; described. The branch establishes the snapshot's environment through the fold itself (`admitCapabilityEnvironment`, then the `…InResolvedLock` forms, no guard asked again) and its qualification proof through release qualification, whose `deriveGraphOwner` reconstructs the proof Catalog with the exported, strict `reconstructHistoricalDeclarationCatalog`. That stack and its per-prefix `NativeProofDerivation` are shared with the release door. It also reads the reader's release operation contract: the `capability_grants` slot against that contract's `metadata.capabilityRefs`, and `admitExactDefinitionCall` against its definition. Asking recorded there means passing the question through the stack R4 keeps as built and keying its derivation by question; no store and no lane holds a `release.snapshot` row to show that the release door is unchanged (stop condition 3). Item 22.4. | design text, paragraph "The fold's `release.snapshot` branch"; the release code is unchanged from base; none of the 121 stores holds a release row (16.2) |
 | R6, no default question | `prepareRead` (`abg/project_read_ports.ts:696`) takes `question` as a required parameter and throws a `TypeError` on any value other than `"recorded"` or `"strict"` (`:704`); each entry names it (`:625` strict; `:968`, `:1044`, `:1868` recorded). No other internal entry has a default (`RuntimeArtifactFacts.prepare`, `selectedCapabilityOwner`, `constructInvocationCapabilityGrant` require it). The overloaded owners (`admitGraphFunctionCatalog`, `product/catalog.ts:468`; `projectWorkspaceStatus`, `product/project_read_ports.ts:641`; the three guards) keep C2's form: the exported one-argument signature is today's entry and asks strict, and an internal caller passes the question to the `@internal` overload; any value other than `"recorded"` is strict. That is the published meaning of the exported signature, not a default an internal caller relies on; R6 leaves it. The exported `prepareRunReadAtDurablePrefix` asks recorded; the sentence saying so sits on its `@internal` overload (deviation 6). `r10-child-proof` called `prepareRead` through its harness without a question and now names `"recorded"`, the question the default gave it. | design text, the entry table; `r10-child-proof` 10/10 on the final build |
 | R7, items 22.5 to 22.8 stand | Design sentence added: a run read needs the recorded graph to declare the capability that the reader's read operation names (`expectedRunReadAuthority`, `selectedCapabilityOwner`). | design text, paragraph "A run read needs the recorded graph" |
@@ -607,7 +610,7 @@ The C3 stop does not hold: in a read the carrier is bound to recorded
 history by its lock row and the root basis digest. Under R1 the recorded
 question no longer recomputes the catalog digest, so a verified artifact
 whose identities are altered among its graph's rows, with the verification
-digest recomputed, answers the recorded question (lane 22); in a read the
+digest recomputed, answers the recorded question (lane 21); in a read the
 Catalog re-admission refuses it with `verified_product_mismatch` when its
 lock row is unchanged, and the read is `invalid_history` (lane 24). The lane `run read`
 changes a verified product outside its lock row (`checkedPayloadFiles`),
@@ -1013,11 +1016,18 @@ committed.
    "`catalogDigest` unchanged". The sentence ("Both signatures ask the
    recorded question …") is on the internal overload directly below the
    exported one, at `abg/project_read_ports.ts:1005-1015`, and states why it
-   sits there. The exported comment is unchanged.
+   sits there. The exported comment is unchanged. The design entry table
+   says the same (`14e5779ab`; the design text is not in the packed payload,
+   and a rebuild after it leaves the manifest and graph byte-identical). This
+   departs from R6's wording to keep `catalogDigest` unchanged; for the
+   Executive's acceptance.
 7. **`r10-child-proof` names its question.** Its harness calls the private
    `prepareRead` (`test_env/tests/r10-child-proof.test.mjs:54`) without a
    question; with R6 the file threw at load. It now passes `"recorded"`,
    what the removed default gave it. Its 10 cases pass on the final build.
+   R3 says no test change for its item; this edit is R6's, one argument on
+   the harness line 54, and no case body changes (case 9 included). For the
+   Executive's acceptance.
 
 ## 22. Residuals and items for the Executive
 
