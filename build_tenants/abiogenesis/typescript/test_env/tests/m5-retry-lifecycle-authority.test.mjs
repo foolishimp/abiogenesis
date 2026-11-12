@@ -297,7 +297,7 @@ test("runtime package exports expose no raw or candidate-factory event writer", 
 });
 
 test("raw executor resume remains closed to every retry cursor", async () => {
-  // M05_S06 design :1983-1985: "Its raw `resume.cursor.retryPath` must remain
+  // M05_S06 design :2006-2007: "Its raw `resume.cursor.retryPath` must remain
   // empty; a caller cannot use it to author retry cursor or input truth." The
   // branch lives in the traversal entry owner.
   const entrySource = await readFile(

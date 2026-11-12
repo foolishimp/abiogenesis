@@ -2297,15 +2297,17 @@
   {
    "gate": "owner-history-logical-digest",
    "class": "C",
-   "status": "failing_with_input_present",
-   "variables": [
+   "status": "runs_with_root",
+   "conversion": "done",
+   "variables": [],
+   "formerVariables": [
     "ABI5_OWNER_HISTORY"
    ],
    "cases": [
     {
      "file": "tests/t288-logical-prefix-digest.test.mjs",
      "titles": [
-      "store logical digest preserves staged guards, unrelated-run staleness, rollback and physical mutation refusal"
+      "store logical digest preserves staged guards, unrelated-run staleness and rollback"
      ],
      "suiteSkips": 1
     }
@@ -2342,8 +2344,8 @@
      "recordCount": 1
     }
    ],
-   "observed": "TD-60C, head daaffe796 (after TD-51a), recorded history, root unset, writes under the root refused: the case fails at :41, 'Missing expected exception'. Instrumented: after byte 0 of the log is changed in place, admitRuntimeEventTransactionAtExpectedPrefix reaches its action and appends a fourth event; the durable-prefix variant at :40 also reaches its action, and :40 passes only because that action is assert.fail. The case fails at every tested cut from the file's first commit (ad2a39f40, 2b9e540db, 0b1187c40, rc.5, rc.6, fd38e8227, rc.9, rc.10) and in the recorded run of 2026-10-07 (event-memory-repair-35, commands/focused-prefix-corrected, :59)",
-   "note": "TD-60C reading: not a superseded input (the history supplies only a run_segment_opened template) and not a stale test (the claim held at no committed cut). Apparent product defect, needs a ruling: a held owner does not re-check its log's bytes before an append, so a same-length change in place is found only when a changed body is next read by location. The DurablePrefixCoordinate row of M05_S06_AXIOMATIC_AUTHORITY_AND_EXACT_PUBLIC_CONSTRUCTION_DESIGN ('byte mismatch refuses before append/read result'; 'successor constructed from verified committed bytes') reads as requiring the refusal. Left failing and gated"
+   "observed": "TD-80 (T-292): the physical arms of this case moved to four ungated cases of the same file, which need no recorded input; the case keeps its logical-digest arms, which read only a run_segment_opened template from the history, and resolves its input through evidenceGate. Earlier, at TD-60C (head daaffe796), the case failed at its in-place byte arm: an append after a same-length change is accepted, which TD-80 rules is the contract (refused at a cold read and at reopen instead)",
+   "note": "TD-80 reading: the history supplies only a run_segment_opened template; the case runs whenever the evidence root is set"
   },
   {
    "gate": "qualification-stage-fixtures",
