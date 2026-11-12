@@ -159,6 +159,58 @@ Refusals measure the path up to the refusal:
 - `release_evidence` refuses `not_ready`, because no release artifact exists,
   after it has projected artifact truth at the acquired prefix.
 
+## 3a. Read ports reached outside an operation hold, base (Executive addition)
+
+TD-60C item 3 reran `t287-held-prefix` cases 1 and 3 with their input. They
+call the read ports directly and read the basis body 45 and 58 times, against
+restated bounds of 3 and 21. Its Return names the production callers of those
+ports outside a hold. They are measured here whether or not they sit at an
+acquisition site:
+
+| # | Caller | Port calls | Body | Measured by |
+| --- | --- | --- | --- | --- |
+| 17 | `owner_bindings/run_invocation.ts`, the Run owners (`:1233`, `:1289`, `:1313`, `:1570`, `:1639`, `:1734`) | `projectRunTruthAtDurablePrefix`, each inside a `syncStage` | awaits between stages; each stage is one synchronous stack | the operation probe (starts), reads tagged by port frame |
+| 18 | `product/project_read_definition_bindings.ts:896` `ticket_consensus` | `projectRunTruthAtDurablePrefix`, then `GraphCallProjectionPort.graph_call_result` and `graph_call_replay` on raw packets | one synchronous stack (`Effect.try`); no acquisition, it is handed `runtime.prefix` | the port-sequence probe; `t287-w2-05-install-catalog-owner-chain` drives only its refusal path |
+| 19 | `abg/qualification_proof.ts:453`, `:456` `nativeRuntimeCases`, from `projectNativeRuntimeAssessment` | `GraphCallProjectionPort.graph_call_result` on a raw packet, then `projectRunTruthAtDurablePrefix` | one synchronous stack | the port-sequence probe only; no owner driven |
+
+The port probe is `/private/tmp/abg-td51b-work/probe/ports-probe.mjs`. It runs
+on the `t287-held-prefix` input: a 2,797,774-byte native Hello log with one
+`basis_admitted` row of 5,672 bytes, copied once to a fixed path. Each row
+runs on a freshly reopened held owner and counts every read of the log. "With
+a coordinate hold" wraps the row in one `holdOperationBodies` on the owner's
+coordinate, which is TD-60C's scratch shape. Values are identical with and
+without the hold. Output: `/private/tmp/abg-td51b-work/out/ports-base.jsonl`
+and `ports-base-hold.jsonl`.
+
+| Call, base | Reads | Basis reads | Bytes | With a coordinate hold: reads, basis reads |
+| --- | ---: | ---: | ---: | --- |
+| case 1: `projectRunTruthAtDurablePrefix`, then `run_result` and `run_replay` prepared and projected | 45 | 45 | 255,240 | 1, 1 |
+| `projectRunTruthAtDurablePrefix` | 19 | 19 | 107,768 | 1, 1 |
+| `prepareRunReadAtDurablePrefix` `run_result`, then its projection | 19 | 19 | 107,768 | 1, 1 |
+| `prepareRunReadAtDurablePrefix` `run_result`, preparation only | 19 | 19 | 107,768 | 1, 1 |
+| `GraphCallProjectionPort.graph_call_result`, raw packet | 82 | 20 | 5,703,316 | 82, 20 |
+| `GraphCallProjectionPort.graph_call_replay`, raw packet | 82 | 20 | 5,703,316 | 82, 20 |
+| `ticket_consensus` sequence: truth, `graph_call_result`, `graph_call_replay` | 183 | 59 | 11,514,400 | 165, 41 |
+| native assessment sequence: `graph_call_result`, truth | 101 | 39 | 5,811,084 | 83, 21 |
+| case 3: ancestry, re-identified historical cut, then the three member reads | 58 | 40 | 3,017,639 | 19, 1 |
+
+What it shows:
+
+- A run read port on a retained coordinate reads the one basis body 19 times
+  in one call. Each per-event selection is its own consumer. The preparation
+  makes every one of those reads, and the projection it returns makes none.
+- A raw-packet port admits a copy of the coordinate, and a copy never borrows
+  the held owner. It decodes its own history (62 chunk reads) and reads the
+  basis body 20 times in it. A hold on the coordinate does not reach that
+  copy, so the coordinate-hold column leaves it unchanged.
+- Run owners: the operation probe (`out/base7.jsonl`, same counts as
+  `base6`) tags each read made under a frame of `project_read_ports.js`. No
+  start, borrowed or reopened, makes a read under a port frame.
+- The legacy `binding` reads (site 16) read the cold copy under the port
+  frame: 33 reads for `run_evidence` and 85 for `workspace_replay`.
+
+Ruling 3 applies: one port call reads one body up to 20 times.
+
 ## 4. What the measurement shows
 
 **On the acquired history, reads made inside an open hold are once per
