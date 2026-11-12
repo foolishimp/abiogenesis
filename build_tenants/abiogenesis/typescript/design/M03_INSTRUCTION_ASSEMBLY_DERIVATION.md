@@ -62,6 +62,19 @@ version 1 histories remain readable. A location or
 digest alone cannot replace required content. No Proxy/getter body, alternate
 renderer, live-cache authority or new quota is introduced.
 
+`constructDeclaredNativeInstructionAssembly` and
+`requireDeclaredNativeInstructionAssembly` (`abg/instruction_assembly.ts`) are
+the one declaration-first native dispatcher. When `framedSynthesisNativeRole`
+(`gtl/stdo_run_environment.ts`) finds the declared selector role at the exact
+GraphFunction and locus, they assemble through
+`evaluateFramedSynthesisInstructionAssembly`; otherwise they assemble through the
+worksite owner (`constructWorksiteNativeInstructionAssembly`,
+`evaluateWorksiteNativeInstructionAssembly`). Actor preparation
+(`prepareActorProcessInvocation`) and standalone dispatch
+(`invokeActorProcessWithAssembly`) in `abg/actor_process.ts` both use this
+dispatcher. Actor supervision, request/input/occurrence checks, transport
+admission and artifact retention stay with their existing owners.
+
 The native-work envelope binds its admitted task through `inputRef` and
 `inputDigest` and carries no second whole task. Its plan keeps the context
 ref/digest, read roots and write roots. The framed-synthesis selector reads each

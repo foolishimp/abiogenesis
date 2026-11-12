@@ -3,6 +3,8 @@
 Status: accepted S1 HOW under T287_REGISTERED_SELECTION_IMPLEMENT_01 after
 independent RS-D01 correction review. Implementation and execution remain open.
 
+Retired sections: [history/T287_REGISTERED_GRAPH_SELECTION_DESIGN__RETIRED_SECTIONS.md](history/T287_REGISTERED_GRAPH_SELECTION_DESIGN__RETIRED_SECTIONS.md).
+
 ## Basis and correction
 
 Source/Product base: `e27f72bc2037130d3261694da40af0148269f142`.
@@ -159,19 +161,43 @@ recursion bounds/foldback; one-decision selection does not require recursion.
 
 ## Purpose and actual F_P context
 
-Selected definitions declare nonempty
+The registered-selection check in `validateProgram` (`validator/validation.ts`)
+requires each target definition to be a Program callable member with one input
+equal to the application's output contract, one output, and nonempty
 `declarations["abg.functional_purpose"]` and
-`declarations["abg.conditions_for_use"]`; their containing exact definitions
-link that text to published input/result/effect contracts. Reuse catalogue lookup
-and definition digests. Check presence without interpreting prose as a predicate.
-Missing suitable capability or required support produces a gap.
+`declarations["abg.conditions_for_use"]`. It checks presence and does not
+interpret the prose. Execution resolution (`product/execution_resolution.ts`)
+projects each target's admitted catalogue definition digest into the execution
+basis as `registeredSelectionDefinitionDigests`, and `resolveRegisteredSelection`
+accepts a selected choice only when its `definitionDigest` equals that entry.
 
-Existing instruction assembly supplies the native selector's declared Executive
-frame, task, exact permitted purposes/contracts, observations, policy/criteria,
-evidence, response schema and access envelope. Assembly cannot choose an answer
-or invent a frame. Retain actual prompt/manifest, input and raw response. S2's
-finite F_D rule proves mechanics; S3 separately proves real F_P context usability
-and admission. No future library or prompt implementation is designed here.
+`registeredSelectionTargets` (`gtl/registered_selection.ts`) is the one
+permitted-target projection: the application at the source locus and its
+outgoing fixed `c_workflow` targets. Route resolution (`resolveRegisteredSelection`)
+and the framed-synthesis selector context (`synthesisContext` in
+`abg/instruction_assembly.ts`) both read it. The selector context takes each
+target's definition from `declarationGraphFunctions` and its digest from
+`registeredSelectionDefinitionDigests`. A missing digest, a target outside Program
+callable membership, a duplicate target, an empty purpose or condition, or an
+unresolved contract makes `synthesisContext` return null, and the assembly
+refuses `unknown_dependency` before dispatch. Purpose grants neither permission
+nor completion.
+
+An F_D selector implements its own total rule over its admitted input. The
+fixture `test_env/fixtures/registered-selection-product/index.mjs` (`select`)
+chooses from a caller-supplied catalogue of names, references and definition
+digests and returns a gap for missing support. The F_P selector at head is the
+default library's framed synthesis (`gtl/default_library.ts`): the F_P `select`
+leaf judges, and the F_D `project-choice` leaf at the registered-selection source
+projects that judgment into a `registered_graph_choice` (`projectGovernanceChoice`
+in `abg/default_library.ts`). Its instruction assembly
+(`evaluateFramedSynthesisInstructionAssembly`) presents the declared Executive
+frame and policy, the permitted purposes and contracts, the task and its
+observations, the current execution binding, declared access evidence and the
+closed response schema. The assembly does not choose the answer or invent a
+frame. The actor retains prompt, manifest, input and raw response, and result
+admission in `abg/c_call_outcome.ts` binds the admitted result to the observed
+raw response through `framedSynthesisInstructionResultMatches`.
 
 ## Exact change owners
 
@@ -217,3 +243,29 @@ Retain source/archive/install identities, transcripts, event bytes/hashes, first
 refusals and fresh readbacks before scratch cleanup. These claims do not close
 semantic suitability, changed-evidence recursion, PC05-11, qualification or RC.
 No source, test, build, install or provider effects occurred in this correction.
+
+## Installed test support
+
+`test_env/support/registered-graph-selection.mjs` is the canonical helper for
+installed starts and pending calls. It is unshipped test code and adds no
+Product, Public or runtime authority.
+
+`constructInstalledStartCall` builds one installed `run.invoke` start through the
+shipped SDK constructor `constructInstalledStartCall`. Its selection is `next`, one
+declared start or one published asset handle; a declared start and an asset
+handle are mutually exclusive. A retained-source start names its source-result
+basis and the authority it was projected under. The Product run owner populates
+the request, policy, grants and authority from the selection, input and source;
+the helper returns them from that population.
+
+`constructInstalledPendingCall` builds one cold `run.continue` `current_intent`
+pending-execution call. It selects the pending use with
+`selectPendingExecutionUse` over the projected use request
+(`pendingExecutionUseRequest`), asserts the pending root admission's authority
+when the caller names an expected one, and constructs the call through the
+shipped SDK constructor `constructInstalledPendingCall`, which reconstructs use,
+resolution, policy, grant and attribution from the log. The helper asserts that
+the populated request equals the projected use request. `replay` is its explicit
+negative: the first population with its request patched. The default-library
+tests (`t287-default-library.test.mjs`) use both helpers and keep their semantic
+and negative assertions.
