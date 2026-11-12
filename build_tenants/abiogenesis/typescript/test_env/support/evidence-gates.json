@@ -1897,24 +1897,6 @@
    "note": "output root (ruling 6): not converted; the recorded value is a directory under the root, which the case would write into"
   },
   {
-   "gate": "gc03-native-profile-basis",
-   "class": "D",
-   "status": "input_not_found",
-   "variables": [],
-   "cases": [
-    {
-     "file": "tests/t287-governed-context.test.mjs",
-     "titles": [
-      "GC03 real owner allowed denied cold tamper"
-     ],
-     "suiteSkips": 0
-    }
-   ],
-   "input": "the Product definition's STDO basis equal to the basis of the GC03 recipe's native profile (stdo://releases/v3.0.2/, profile urn:a-c:fd-support:method:stdo-3.0.2:executive:1)",
-   "producer": null,
-   "note": "added skip (ruling 5), reason prefix 'gate gc03-native-profile-basis:'. The Product definition names stdo://releases/v3.0.4/; no installed GC03 release defines a 3.0.4 profile (TD-59 Return section 4), so the case is unsatisfiable on the current basis. The existing stdo-resolvability skip stays. No suite2 skip: at the suite base the case failed (class E, TD-59)."
-  },
-  {
    "gate": "owned-proof-declaration",
    "class": "C",
    "status": "runs_with_root",
