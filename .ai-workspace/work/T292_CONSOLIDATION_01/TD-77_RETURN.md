@@ -12,16 +12,17 @@ only the contracts it owns. The relation that the contracts'
 and the graph does not record it. On every recorded toolchain lock row, from
 `5.0.0-dev.286` to `5.0.0-rc.12`, 37 of the 54 contracts that carry
 identities differ from what the graph gives. No design, code or test is
-edited. Two call sites also need a ruling before the split can be made
-(section 2.2), and what refuses new work on a store bound to other Product
-bytes is not established (section 5).**
+edited. The read copies of section 2.2 need a classification before the
+split can be made, and what refuses new work on a store bound to other
+Product bytes is not established (section 5).**
 
 Commits on the branch, oldest first:
 
 | Commit | Content |
 | --- | --- |
 | `6b7db94f2` | the trace skeleton: recorded material (section 3) and the stop |
-| this commit | the Return: guards, callers, specification read, ruling-5 read, ruling items |
+| `8b6bc8628` | the Return: guards, callers, specification read, ruling-5 read, ruling items |
+| this commit | 2.2 item 1 corrected after tracing every caller of the generic admission: no Public door depends on the fold's guard |
 
 Lines changed under `code/src`, `design` and `test_env`: none
 (`git diff --numstat c1f655735` over the three is empty). `npm run build`
@@ -65,7 +66,7 @@ admit.
 | --- | --- | --- | --- |
 | `isResolvedProductLock` | `abg/artifact_truth.ts:409` (`RuntimeArtifactFacts.prepare`, inline lock) | both: recorded when `projectArtifactTruth` (`:618`) advances over history; new when admission prepares its candidate (`prepareArtifactTruthCandidate`, `:712`) without an established lock | throw (`:423`, `:466`); at admission the door returns `artifact_truth_conflict` (`abg/environment_admission.ts:1067-1075`) |
 | | `product/environment.ts:795` (`verifiedArtifactMatchesResolvedLock`) | new: `install_product.ts:317` (install request); `verification_definition_bindings.ts:301` (installed `product.verify`, the reader's verification) | install refusal; verify output `lock_mismatch` |
-| | `product/environment.ts:818` (`isProductInstallCandidate`) | new: `abg/environment_admission.ts:968` (door, no established lock), `:1128` (`admitProductInstall`); `environment.ts:920` (`isProductInstall`) | at `:968` the door does not refuse; it keeps the full body and the fold's prepare refuses (row 1); elsewhere false |
+| | `product/environment.ts:818` (`isProductInstallCandidate`) | new: `abg/environment_admission.ts:1128` (`admitProductInstall`, before the door); `:968` (the door, only when no lock is established, which only the module-level `admitArtifact` does; see 2.2); `environment.ts:920` (`isProductInstall`) | `scope_mismatch` before the door; at `:968` the door keeps the full body and the fold's prepare refuses (row 1); elsewhere false |
 | | `product/environment.ts:920` (`isProductInstall`) | new: `environment_definition_bindings.ts:538` (`workspace.bind`), `catalog_definition_bindings.ts:296` (`catalog.admit`); the reader's verification: `verification_definition_bindings.ts:122` | fault `invalid_resource_assertion` or the binding's refusal |
 | | `product/environment.ts:980`, `:1195` (`isProductSet`, `isWorkspaceBindingCandidate`) and `product/project_read_ports.ts:656` | read copy: `project.read#workspace_status`; the packet is caller-supplied and the binding checks its lock coordinate against the recorded binding (`product/project_read_definition_bindings.ts:701-708`) | refusal `not_ready` |
 | | `product/catalog.ts:469` (`admitGraphFunctionCatalog`) | new: `execution_resolution.ts:461` (run), `catalog_operations.ts:299` (catalog admission), `declaration_application.ts:136`; read copy: `declaration_closure.ts:53` (`reconstructHistoricalDeclarationCatalog`, reached from `abg/project_read_ports.ts:378` for `graph_call_result` and the child reads), which then requires the caller's lock to equal the recorded environment's lock | refusal `binding_lock_mismatch`; in the historical read a throw |
@@ -91,14 +92,30 @@ reader's own catalog.
 1. **`abg/artifact_truth.ts:409` receives both, and its body cannot tell
    which.** The fold and the admission candidate share
    `RuntimeArtifactFacts.prepare`; only the entry knows (`advance` from
-   `projectArtifactTruth`, or `prepareArtifactTruthCandidate`). The door at
-   `abg/environment_admission.ts:966-976` does not refuse a lock its strict
-   check rejects: it keeps the full body and lets the fold's prepare refuse.
-   So if the fold's guard became the recorded guard, a new lock that the
-   strict guard refuses and the recorded guard accepts would be appended:
-   the admission door would accept more than today (a stop condition). The
-   entry can carry the question, or the door can refuse at `:968` itself;
-   either is a design choice, so the split needs the Executive's choice here.
+   `projectArtifactTruth`, or `prepareArtifactTruthCandidate`). Every caller
+   of the generic admission `admitArtifactFromOwner`
+   (`abg/environment_admission.ts:855`):
+   - `admitProductInstall` (`:1122`, on the `./abg` package surface) and
+     `admitProductInstallInResolvedLock` (`:1133`, after the strict check at
+     `product/install_definition_bindings.ts:143`) check the lock before the
+     door (`:1175`) and pass it as established (`:1189`), so the door uses the
+     no-lock-check candidate guard at `:968` and the fold's prepare reuses the
+     established lock;
+   - the module-level `admitArtifact` (`:844`) passes no established lock. Its
+     source callers admit `release.snapshot`, `product.materialize` and
+     `workspace.bind` only, so they never reach the install branch at
+     `:966-976`. It is not on the `./abg` package surface;
+     `t289-install-event-bodies` reaches it through the private owner harness
+     with `product.install` bodies, and asserts `artifact_truth_conflict` for a
+     malformed inline candidate (`:452-469`). On that entry the door does not
+     refuse a lock its strict check rejects: it keeps the full body and the
+     fold's prepare refuses.
+
+   So no Public door depends on the fold's guard today. The split still has
+   to keep the candidate entry strict (the entry carries the question, or
+   `admitArtifact` refuses an install whose strict check fails at `:968`);
+   otherwise the module-level entry would append a lock that only the
+   recorded guard accepts. This is a constraint on the split, not a blocker.
 2. **Read copies.** `project.read#workspace_status` (`project_read_ports.ts:656`)
    and the historical declaration proof (`declaration_closure.ts:53`, then
    `catalog.ts:469` and `isVerifiedProductArtifact` over the proof's verified
@@ -312,10 +329,11 @@ all under `/private/tmp/abg-td77-work/`.
    relation; only the strict guard refuses it. If `REQ-M-GTL3-CAPABILITY-014`
    is read as requiring identities to derive from the graph, the realization
    gap of section 4 is the owner's.
-2. **The artifact-truth call site (2.2, item 1).** The question travels with
-   the entry (fold or admission candidate), or the door refuses at
-   `abg/environment_admission.ts:968` itself so the candidate path never
-   relies on the fold's guard.
+2. **The artifact-truth call site (2.2, item 1).** Not blocking: no Public
+   door relies on the fold's guard. The split keeps the candidate entry
+   strict, either by the entry carrying the question or by `admitArtifact`
+   refusing at `abg/environment_admission.ts:968`; the Executive may choose
+   or leave it to the Writer.
 3. **Read copies (2.2, item 2).** Whether `workspace_status` and the
    historical declaration proof ask the recorded question; if they do, the
    verified-artifact guard (`product/verify_product.ts:727`) is treated in the
