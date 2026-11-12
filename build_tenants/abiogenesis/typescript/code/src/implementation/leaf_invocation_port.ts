@@ -32,8 +32,7 @@ import { authenticateWorksitePreservedResultBasis } from "../abg/worksite_constr
 import type { GraphFunction } from "../gtl/contracts.js";
 import { authenticateOwnedSemanticStageBasis } from "../abg/semantic_stage.js";
 import { authenticateOwnedSemanticJobBasis, validateWorksiteFileParentsPlanAtPrefix } from "../abg/semantic_job.js";
-import { isWorksiteFileParentsRequest, constructWorksiteFileParentsAuthorization,
-  WORKSITE_FILE_PARENTS_EFFECT_URI, WORKSITE_FILE_PARENTS_HANDLER_REF, WORKSITE_FILE_PARENTS_HANDLER_DIGEST } from "../product/worksite_effect.js";
+import { isWorksiteFileParentsRequest } from "../product/worksite_effect.js";
 import { REQUIREMENT_HANDOFF_IDS } from "../gtl/requirement_handoff.js";
 import { projectRequirementHandoffCandidate } from "../abg/requirement_handoff.js";
 import { WORKSITE_COMMAND_EXECUTION_IDS } from "../product/worksite_command_execution.js";
@@ -44,9 +43,8 @@ import { pathToFileURL } from "node:url";
 import { hasAdmittedProductInstall } from "../abg/environment_admission.js";
 import type { ExactPrefixArtifactTruthProjection } from "../abg/artifact_truth.js";
 import { projectCCallCarrierPhaseAtPrefix } from "../abg/c_call.js";
-import {
-  worksiteSelectedOccurrenceInputCurrent,
-} from "../abg/event_calculus.js";
+// Kept for this module's load order; the worksite leaf gate uses it.
+import {} from "../abg/event_calculus.js";
 import {
   authenticateOwnedNativeInstructionAssemblyBasis,
   hasAdmittedExecutionBasisAtPrefix,
@@ -75,13 +73,7 @@ import {
   projectInstalledLeafSemantics,
   type InstalledLeafSemanticsProjection,
 } from "../product/semantics.js";
-import {
-  constructWorksiteEffectAuthorization,
-  isWorksiteFileReplaceRequest,
-  WORKSITE_FILE_REPLACE_EFFECT_URI,
-  WORKSITE_FILE_REPLACE_HANDLER_DIGEST,
-  WORKSITE_FILE_REPLACE_HANDLER_REF,
-} from "../product/worksite_effect.js";
+import { isWorksiteFileReplaceRequest } from "../product/worksite_effect.js";
 import type { JsonValue } from "../shared/canonical_json.js";
 import { sha256Canonical } from "../shared/digests.js";
 import { retainCaughtCause, sanitizeUndispatchedOwnerError, undispatchedOwnerDiagnosticRef,
@@ -114,6 +106,7 @@ import { deepFreeze, isDeeplyFrozen } from "../shared/immutable.js";
 import {
   constructLeafExecutionAuthority,
   isLeafExecutionAuthority,
+  openWorksiteLeafGate,
 } from "./leaf_execution_authority.js";
 import { canonicalEquals } from "../shared/value/index.js";
 
@@ -1132,6 +1125,9 @@ export async function constructAdmittedLeafInvocationPort(authority: AdmittedLea
     } catch { return null; }
   }
 
+  // The leaf port's pre-check of a worksite leaf's authority: the native work
+  // task's own check here, and the worksite leaf gate for file replace and
+  // file parents, with this port's owner, graph function and set.
   function hasExactWorksiteLeafExecutionAuthority(
     call: Parameters<LeafInvocationPort["invoke"]>[0],
     resolution: AdmittedImplementationSet["rows"][number],
@@ -1139,7 +1135,6 @@ export async function constructAdmittedLeafInvocationPort(authority: AdmittedLea
     const executionAuthority = call.occurrence.executionAuthority;
     const parents = isWorksiteFileParentsRequest(call.input);
     const native = isNativeWorkspaceWorkTask(call.input);
-    const effectUri = parents ? WORKSITE_FILE_PARENTS_EFFECT_URI : WORKSITE_FILE_REPLACE_EFFECT_URI;
     if (
       (!native && !parents && !isWorksiteFileReplaceRequest(call.input)) ||
       !isLeafExecutionAuthority(executionAuthority)
@@ -1150,11 +1145,18 @@ export async function constructAdmittedLeafInvocationPort(authority: AdmittedLea
     const graphFunction = graphFunctionByRef(resolution.graphFunctionRef);
     if (owner === null || graphFunction === null) return false;
 
+    if (!native) {
+      const port = { resolution, owner, graphFunction, implementationSet: authority.implementationSet };
+      const common = { authority: executionAuthority, occurrence: call.occurrence, resolution, inputDigest: call.inputDigest, port };
+      const gate = parents
+        ? openWorksiteLeafGate({ ...common, effect: "file_parents", request: call.input })
+        : openWorksiteLeafGate({ ...common, effect: "file_replace", request: call.input });
+      // The reads come first, so a read that throws is the recorded cause.
+      return gate.current(validateWorksiteFileParentsPlanAtPrefix) !== null && gate.coordinates() && gate.remaining();
+    }
     let authorityPrefix: RuntimeEventPrefix;
     let runtimePrefix: RuntimeEventPrefix;
     try {
-      // Pre-effect currentness stays explicit; the owned reader borrows only
-      // the active owner and authenticates any other coordinate cold.
       authorityPrefix = readOwnedRuntimeEventPrefixAtDurablePrefix(
         executionAuthority.predecessorPrefix,
         { requireCurrent: true },
@@ -1165,159 +1167,22 @@ export async function constructAdmittedLeafInvocationPort(authority: AdmittedLea
     } catch {
       return false;
     }
-
-    if (native) {
-      const invocation = rehydrateInvocationAdmissionAtPrefix(authorityPrefix, executionAuthority.executionBasis.invocationAdmissionRef);
-      return invocation !== null && invocation.capabilityGrants.some(grant =>
-        call.input.capabilityGrant !== undefined && canonicalEquals(grant, call.input.capabilityGrant)) &&
-      nativeWorkspaceWorkAuthorityMatches(call.input, executionAuthority) &&
-      graphFunction.name === nativeWorkspaceWorkGraphFunctionRef(call.input) && graphFunction.effects.includes(nativeIds.effectUri) &&
-      projectCCallCarrierPhaseAtPrefix(runtimePrefix, executionAuthority.cCall)?.phase === "selected_no_evidence" &&
-      hasAdmittedExecutionBasisAtPrefix(authorityPrefix, executionAuthority.executionBasis) &&
-      hasAdmittedImplementationSetAtPrefix(authorityPrefix, executionAuthority.implementationSet) &&
-      sha256Canonical(resolution) === executionAuthority.implementationResolutionDigest &&
-      call.occurrence.cCallRef === executionAuthority.cCallRef &&
-      call.occurrence.runId === executionAuthority.cCall.runId &&
-      call.occurrence.graphCallId === executionAuthority.cCall.graphCallId &&
-      call.occurrence.frameId === executionAuthority.cCall.frameId &&
-      call.occurrence.programLocusRef === executionAuthority.cCall.programLocusRef &&
-      call.occurrence.taskOrdinal === executionAuthority.cCall.taskOrdinal &&
-      call.occurrence.attempt === executionAuthority.cCall.attempt;
-    }
-
-    const resolutionDigest = sha256Canonical(
-      resolution,
-    );
-    const requestDigest = sha256Canonical(call.input);
-    const carrierResolutionDigest = sha256Canonical(
-      executionAuthority.implementationResolution,
-    );
-    const authorization = parents ? constructWorksiteFileParentsAuthorization({
-      workspaceBinding: executionAuthority.workspaceBinding,
-      request: call.input,
-      executionBasis: executionAuthority.executionBasis,
-      cCall: executionAuthority.cCall,
-      implementationSet: executionAuthority.implementationSet,
-    }) : constructWorksiteEffectAuthorization({
-      workspaceBinding: executionAuthority.workspaceBinding,
-      request: call.input,
-      executionBasis: executionAuthority.executionBasis,
-      cCall: executionAuthority.cCall,
-      implementationSet: executionAuthority.implementationSet,
-    });
-    const phase = projectCCallCarrierPhaseAtPrefix(
-      runtimePrefix,
-      executionAuthority.cCall,
-    );
-    const observationCurrent = parents
-      ? validateWorksiteFileParentsPlanAtPrefix(authorityPrefix, call.input, executionAuthority.programPublication)
-      : isWorksiteFileReplaceRequest(call.input) && worksiteSelectedOccurrenceInputCurrent(
-          authorityPrefix, executionAuthority.cCall, call.input);
-
-    return authorization.kind === (parents ? "worksite_file_parents_authorization" : "worksite_effect_authorization") &&
-      phase?.phase === "selected_no_evidence" &&
-      observationCurrent &&
-      hasAdmittedExecutionBasisAtPrefix(
-        authorityPrefix,
-        executionAuthority.executionBasis,
-      ) &&
-      hasAdmittedImplementationSetAtPrefix(
-        authorityPrefix,
-        executionAuthority.implementationSet,
-      ) &&
-      requestDigest === call.inputDigest &&
-      requestDigest === executionAuthority.executionBasis.rawInputDigest &&
-      sha256Canonical(
-        executionAuthority.executionBasis.rawInputValue,
-      ) === requestDigest &&
-      executionAuthority.actorRef ===
-        executionAuthority.workspaceBinding.authorizedActorRef &&
-      executionAuthority.actorRef === executionAuthority.executionBasis.actorRef &&
-      executionAuthority.workspaceBindingIdentity ===
-        executionAuthority.executionBasis.workspaceBindingId &&
-      executionAuthority.workspaceBindingDigest ===
-        executionAuthority.executionBasis.workspaceBindingDigest &&
-      executionAuthority.programRef === executionAuthority.executionBasis.programRef &&
-      executionAuthority.programDigest ===
-        executionAuthority.executionBasis.programDigest &&
-      executionAuthority.graphFunctionRef ===
-        executionAuthority.executionBasis.graphFunctionRef &&
-      executionAuthority.graphFunctionDigest ===
-        executionAuthority.executionBasis.graphFunctionDigest &&
-      graphFunction.name === executionAuthority.graphFunctionRef &&
-      sha256Canonical(graphFunction) ===
-        executionAuthority.graphFunctionDigest &&
-      graphFunction.effects.includes(effectUri) &&
-      call.input.workspaceBindingIdentity ===
-        executionAuthority.workspaceBindingIdentity &&
-      call.input.workspaceBindingDigest ===
-        executionAuthority.workspaceBindingDigest &&
-      call.input.capabilityGrant.actorRef === executionAuthority.actorRef &&
-      call.input.capabilityGrant.grantRef ===
-        executionAuthority.capabilityGrantRef &&
-      call.input.capabilityGrant.grantDigest ===
-        executionAuthority.capabilityGrantDigest &&
-      call.input.capabilityGrant.scopeRef ===
-        executionAuthority.workspaceBindingIdentity &&
-      call.input.capabilityGrant.scopeDigest ===
-        executionAuthority.workspaceBindingDigest &&
-      call.occurrence.cCallRef === executionAuthority.cCallRef &&
-      call.occurrence.runId === executionAuthority.cCall.runId &&
-      call.occurrence.graphCallId === executionAuthority.cCall.graphCallId &&
-      call.occurrence.frameId === executionAuthority.cCall.frameId &&
-      call.occurrence.programLocusRef ===
-        executionAuthority.cCall.programLocusRef &&
-      call.occurrence.taskOrdinal === executionAuthority.cCall.taskOrdinal &&
-      call.occurrence.attempt === executionAuthority.cCall.attempt &&
-      executionAuthority.cCall.callClass === "leaf" &&
-      executionAuthority.cCall.regime === "F_D" &&
-      executionAuthority.cCall.basisId === executionAuthority.executionBasisRef &&
-      executionAuthority.cCall.graphFunctionRef ===
-        executionAuthority.graphFunctionRef &&
-      executionAuthority.cCall.implementationSetRef ===
-        executionAuthority.implementationSetRef &&
-      executionAuthority.cCall.implementationRequirementKey ===
-        resolution.requirementKey &&
-      executionAuthority.cCall.implementationBindingRef ===
-        resolution.implementationBindingRef &&
-      executionAuthority.cCall.implementationRef === resolution.implementationRef &&
-      executionAuthority.cCall.inputContractRef === resolution.inputContractRef &&
-      executionAuthority.cCall.outputContractRef === resolution.outputContractRef &&
-      executionAuthority.cCall.failureContractRef === resolution.failureContractRef &&
-      executionAuthority.cCall.refusalContractRef === resolution.refusalContractRef &&
-      executionAuthority.implementationSetRef ===
-        authority.implementationSet.implementationSetRef &&
-      executionAuthority.implementationSetDigest ===
-        authority.implementationSet.implementationSetDigest &&
-      canonicalEquals(
-        executionAuthority.implementationSet,
-        authority.implementationSet,
-      ) &&
-      carrierResolutionDigest === resolutionDigest &&
-      executionAuthority.implementationResolutionDigest === resolutionDigest &&
-      executionAuthority.implementationResolutionRef ===
-        `implementation-resolution://abiogenesis/${resolutionDigest.slice("sha256:".length)}` &&
-      executionAuthority.leafResolutionCandidateRef ===
-        resolution.leafResolutionCandidateRef &&
-      executionAuthority.leafResolutionCandidateDigest ===
-        resolution.leafResolutionCandidateDigest &&
-      executionAuthority.implementationBindingRef ===
-        resolution.implementationBindingRef &&
-      executionAuthority.implementationBindingDigest ===
-        resolution.implementationBindingDigest &&
-      executionAuthority.implementationRef === resolution.implementationRef &&
-      executionAuthority.implementationOwnerRef ===
-        resolution.implementationOwnerProductId &&
-      executionAuthority.implementationOwnerRef === owner.coordinate.productId &&
-      resolution.implementationPublicationDigest ===
-        owner.coordinate.publicationDigest &&
-      resolution.packageName === owner.install.packageName &&
-      resolution.packageVersion === owner.install.packageVersion &&
-      owner.coordinate.declarationKind === "implementation_binding" &&
-      owner.coordinate.declarationRef === resolution.implementationBindingRef &&
-      executionAuthority.effectUri === effectUri &&
-      executionAuthority.handlerRef === (parents ? WORKSITE_FILE_PARENTS_HANDLER_REF : WORKSITE_FILE_REPLACE_HANDLER_REF) &&
-      executionAuthority.handlerDigest === (parents ? WORKSITE_FILE_PARENTS_HANDLER_DIGEST : WORKSITE_FILE_REPLACE_HANDLER_DIGEST);
+    const invocation = rehydrateInvocationAdmissionAtPrefix(authorityPrefix, executionAuthority.executionBasis.invocationAdmissionRef);
+    return invocation !== null && invocation.capabilityGrants.some(grant =>
+      call.input.capabilityGrant !== undefined && canonicalEquals(grant, call.input.capabilityGrant)) &&
+    nativeWorkspaceWorkAuthorityMatches(call.input, executionAuthority) &&
+    graphFunction.name === nativeWorkspaceWorkGraphFunctionRef(call.input) && graphFunction.effects.includes(nativeIds.effectUri) &&
+    projectCCallCarrierPhaseAtPrefix(runtimePrefix, executionAuthority.cCall)?.phase === "selected_no_evidence" &&
+    hasAdmittedExecutionBasisAtPrefix(authorityPrefix, executionAuthority.executionBasis) &&
+    hasAdmittedImplementationSetAtPrefix(authorityPrefix, executionAuthority.implementationSet) &&
+    sha256Canonical(resolution) === executionAuthority.implementationResolutionDigest &&
+    call.occurrence.cCallRef === executionAuthority.cCallRef &&
+    call.occurrence.runId === executionAuthority.cCall.runId &&
+    call.occurrence.graphCallId === executionAuthority.cCall.graphCallId &&
+    call.occurrence.frameId === executionAuthority.cCall.frameId &&
+    call.occurrence.programLocusRef === executionAuthority.cCall.programLocusRef &&
+    call.occurrence.taskOrdinal === executionAuthority.cCall.taskOrdinal &&
+    call.occurrence.attempt === executionAuthority.cCall.attempt;
   }
 
   function resolveWorkerContracts(

@@ -4,12 +4,14 @@
 // its effect, and the command helper inventories the Product root and its
 // sandbox and records their delta in its artifact. These lanes state the
 // contract that the shared walker must not change, with values the lane
-// computes from its own lstat, readlink and the bytes it wrote; they pass on
+// computes from its own lstat, readlink and the bytes it wrote; they passed on
 // the build before the walker existed (run with ABG_WORKSITE_BUILD_ROOT set to
-// that build's `build/code/src`) and on the build with it:
+// that build's `build/code/src`) and on the build with it. TD-81 orders names
+// by code units, so the walk order and the delta order below hold from that
+// build on:
 //   - for one small tree, the parent's digest, the file replace's rows and the
-//     helper's frozen rows, in walk order (`localeCompare` order of names,
-//     each directory before its children, symlinks recorded and not followed);
+//     helper's frozen rows, in walk order (code-unit order of names, each
+//     directory before its children, symlinks recorded and not followed);
 //   - the helper's product delta for one change of that tree;
 //   - each site's refusal for a special node and for a root it does not admit.
 // The file replace and helper functions are private; they are linked from the
@@ -54,12 +56,13 @@ const canonical = value => Array.isArray(value) ? `[${value.map(canonical).join(
     ? `{${Object.keys(value).sort().map(key => `${JSON.stringify(key)}:${canonical(value[key])}`).join(',')}}`
     : JSON.stringify(value);
 
-// The tree, in the walk order the three sites record. `a.txt` precedes `B.txt`
-// (`localeCompare`, not code units); `link-dir` is not followed.
+// The tree, in the walk order the three sites record. `B.txt` precedes `a.txt`
+// (code units: every capital letter before every small one); `link-dir` is
+// not followed.
 const TREE = [
   ['..x', 'file', 'dotted\n'],
-  ['a.txt', 'file', 'same\n'],
   ['B.txt', 'file', 'same\n'],
+  ['a.txt', 'file', 'same\n'],
   ['dangling', 'symlink', 'missing'],
   ['dir', 'directory'],
   ['dir/deeper', 'directory'],
@@ -134,8 +137,8 @@ test('TD-37c the helper product delta for one change of the tree', async (t) => 
   const delta = (ordinal, changeKind, relativePath, prior, next) => ({ kind: 'worksite_path_delta', schemaVersion: '5.0.0', ordinal,
     changeKind, relativePath, before: prior, after: next, matchedTerritoryRef: null });
   const expected = [
-    delta(0, 'changed', 'a.txt', row('a.txt', 'file', 'same\n'), row('a.txt', 'file', 'changed bytes\n')),
-    delta(1, 'deleted', 'B.txt', row('B.txt', 'file', 'same\n'), null),
+    delta(0, 'deleted', 'B.txt', row('B.txt', 'file', 'same\n'), null),
+    delta(1, 'changed', 'a.txt', row('a.txt', 'file', 'same\n'), row('a.txt', 'file', 'changed bytes\n')),
     delta(2, 'created', 'dir/created.txt', null, row('dir/created.txt', 'file', 'created\n')),
     delta(3, 'changed', 'link-file', row('link-file', 'symlink', 'a.txt'), row('link-file', 'symlink', 'B.txt')),
   ];

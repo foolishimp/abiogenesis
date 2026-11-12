@@ -209,7 +209,7 @@ Product, ABG, and HoG owner ports.
 | M4 Event Store Durability | Event Store; supplied event set + expected predecessor + held sink -> stamped/ordered atomic durable append + one successor | existing coordinate/transaction refusal; either the complete supplied set is durable at one successor or none is admitted | catalog interpretation, Product validation, Event Calculus decisions |
 | M5 Catalog Event Calculus | ABG Event Calculus; exact prefix + admitted aggregate/registry events -> immutable `ExactPrefixCatalogTruthProjection` or typed refusal | equal prefixes yield equal projections; partial/mixed/duplicate handle history refuses | store object, raw consumer scan, process state, append capability |
 | M6 Catalog Consumers | existing Product/Public/HoG adapters; M5 projection + consumer request -> existing read/invocation result/refusal | replacing process/store identity while preserving projection cannot change the answer | authoring catalog truth, `readAll`, independent digest/fold, WeakMap authority |
-| M7 Durable Context Lifecycle | ABG infrastructure; explicit new-empty acquisition -> store+zero prefix; no-argument close -> one atomic `{ prefix, reopenAuthority }`; authority-only reopen -> existing store+equal prefix | new/reopen domains are disjoint; close derives both values from one verified byte snapshot under the held descriptor and lock; reopen neither accepts nor selects another prefix | catalog identity, row comparison, catalog projection semantics |
+| M7 Durable Context Lifecycle | ABG infrastructure; explicit new-empty acquisition -> store+zero prefix; no-argument close -> one atomic `{ prefix, reopenAuthority }`; authority-only reopen -> existing store+equal prefix | new/reopen domains are disjoint; close derives both values from the held store's retained path, device, inode, length, digest and event contract and reads no log byte (`closeHeldEventStoreAtDurablePrefix` in `abg/event_store.ts`); reopen neither accepts nor selects another prefix | catalog identity, row comparison, catalog projection semantics |
 
 Composition is one direction:
 
@@ -345,8 +345,12 @@ catalog write:
 ```
 
 `AbgEventStore` is the sole sink and is not a runtime-truth carrier. Its process-local state
-may retain only descriptor, lock, byte-count, and next-envelope mechanics
-needed to guard an append. `readAll`, a cached event array, a retained context,
+holds the log path, the file's device and inode, the descriptor and lock, the
+byte length and running digest it has written, the active event contract, and
+the admitted history as row envelopes and locations, the locations of the
+inline bodies later rows may share, and the verified bodies of its current
+generation (`EventStoreState` in `abg/event_store.ts`). `readAll`, a cached
+event array, a retained context,
 or sink identity cannot answer an artifact, catalog, run, continuation, retry,
 or closure question.
 
@@ -354,8 +358,8 @@ or closure question.
 
 | Entity | Declare/create | Acquire or reconstruct | Use/transition | Refusal | Handoff/fresh process | Close/retire |
 |---|---|---|---|---|
-| `DurablePrefixCoordinate` | zero coordinate from exclusive new-empty creation; successor constructed from verified committed bytes inside the durable append rollback boundary | read requires only coordinate; authority-only reopen reconstructs and returns its equal coordinate | immutable predecessor; a configured durable non-empty expected-prefix transaction returns a distinct successor, while an empty or in-memory transaction returns `null`; no in-place currentness | closed-shape, self-digest, file-URL, identity, contract, length, or byte mismatch refuses before append/read result | serializable coordinate alone crosses to fresh-process reads; close pairs it with reopen authority for later writes | never deleted by W1.1a; later coordinates supersede only current caller position |
-| `EventStoreReopenAuthority` | no-argument `projectReopenAuthorityAndClose()` derives it and the coordinate from one verified byte snapshot under the held descriptor and lock | existing authority-only `reopenEventStore(authority)` consumes it only for writes and returns the existing store plus equal coordinate | no semantic transition | close failure returns no pair; reopen authority/file mismatch returns the existing typed refusal | serializable write handoff; P1 checks its paired prefix equals the selected retry-transaction successor and P2 checks reopened prefix equals the handoff/D17 prefix | retired as current write basis when a later store closes and returns another atomic pair |
+| `DurablePrefixCoordinate` | zero coordinate from exclusive new-empty creation; successor constructed inside the durable append rollback boundary after write, `fsync` and the check of the log file's identity and length, from the retained running digest extended by the written rows (`appendDurablyBatch` in `abg/event_store.ts`); no byte is read back | read requires only coordinate; authority-only reopen reconstructs and returns its equal coordinate | immutable predecessor; a configured durable non-empty expected-prefix transaction returns a distinct successor, while an empty or in-memory transaction returns `null`; no in-place currentness | closed-shape, self-digest, file-URL, identity, contract, length, or byte mismatch refuses before a read result; before an append a coordinate unequal to the held store's retained coordinate refuses, and a log file whose device, inode or length differs from what the store holds refuses before the transaction's action and before the write (`assertHeldDurableLogCurrent` in `abg/event_store.ts`); after the write and its `fsync`, a log file that is not the held file at the prior length plus the bytes written refuses and returns no successor (`appendDurablyBatch`); a plain append reads no byte, so a same-length change in place refuses at reopen and at a cold read of a copied coordinate instead; an append whose candidate shares an earlier row's body reads that row by location and refuses a changed one with the body reader's refusal | serializable coordinate alone crosses to fresh-process reads; close pairs it with reopen authority for later writes | never deleted by W1.1a; later coordinates supersede only current caller position |
+| `EventStoreReopenAuthority` | no-argument `projectReopenAuthorityAndClose()` derives it and the coordinate from the held store's retained path, device, inode, length, digest and event contract while the store still holds the descriptor and lock, and reads no log byte (`closeHeldEventStoreAtDurablePrefix` in `abg/event_store.ts`) | existing authority-only `reopenEventStore(authority)` consumes it only for writes and returns the existing store plus equal coordinate | no semantic transition | close failure returns no pair; reopen authority/file mismatch returns the existing typed refusal | serializable write handoff; P1 checks its paired prefix equals the selected retry-transaction successor and P2 checks reopened prefix equals the handoff/D17 prefix | retired as current write basis when a later store closes and returns another atomic pair |
 | `AbgEventStore` | new-empty creation or existing authority-only reopen acquires the sole sink | exclusive descriptor/lock plus ordered admission state | guards ordered durable internal admissions; expected-prefix transactions return coordinates only from rollback-protected durable commits | stale named predecessor refuses without append; any internal admission or successor-construction failure aborts the transaction | never serialized or used for read authority | no-argument close projects the atomic pair and releases; no retry/recovery protocol added |
 | `NewEmptyAppendSinkRequest` | concrete setup caller constructs | new-only acquisition | exhausted on result | existing/alias/noncanonical target refuses | never used to recover history | request discarded |
 | `ProductInstallPort.install` | accepted Product family declares | existing direct call | project, construct install candidate, decide, optionally append | typed Product/coordinate refusal | caller may reuse durable result in fresh process | call returns; no retained controller state |
@@ -609,9 +613,17 @@ validator. Physical verification then follows one of two closed modes:
   after reading, `fileSize >= prefixLength`, the selected event contract, and
   `prefixDigest` equal to the hash of exactly the first `prefixLength` bytes;
   a later suffix is permitted and is not read or projected; and
-- a held-store append/close check or authority-only reopen requires the same
-  descriptor/path device/inode, the selected event contract, and exact-tail
-  equality `fileSize === prefixLength`, then hashes all named bytes.
+- an authority-only reopen requires the same descriptor/path device/inode, the
+  selected event contract, and exact-tail equality `fileSize === prefixLength`,
+  then hashes all named bytes. A held store requires, before a transaction's
+  action and before each write, the same descriptor/path device/inode and a
+  file length equal to the length it retains (`assertHeldDurableLogCurrent` in
+  `abg/event_store.ts`), and after each write and its `fsync` the same
+  device/inode at that length plus the bytes written (`appendDurablyBatch`);
+  it hashes no byte. A store that has a log and no longer owns it refuses a
+  transaction before its action. Its close compares coordinates in memory,
+  reads no log byte and checks no state of the log file; it closes the log
+  descriptor and releases the lock.
 
 A structurally self-consistent raw object is not authoritative without the
 applicable physical check. The coordinate identifies one exact append-only
@@ -622,12 +634,27 @@ This law does not expose a prefix parameter or result on every internal ABG
 admission callable. Internal admissions within one named transaction or
 enclosing operation use the one already-held `AbgEventStore`, remain subject to
 ordered durable append-before-next-effect, and do not independently author
-semantic currentness. `appendDurablyBatch` constructs and validates a
-non-empty commit's successor only after write, `fsync`, length check, and byte
-check, but still inside the same rollback-protected `try`. A successor
-construction or validation failure therefore follows the existing truncate,
-`fsync`, in-memory rollback path and cannot leave durable appended bytes while
-returning refusal or no coordinate. Event Calculus over the exact committed
+semantic currentness. `appendDurablyBatch` (`abg/event_store.ts`) checks the
+held log file's device, inode and length before its rollback-protected `try`,
+so that refusal writes nothing and never reaches the truncate. Inside that
+`try` it writes the rows, counting the bytes each `writeSync` returns, calls
+`fsync`, and checks that the file at the path and behind the descriptor is
+still the held file and that its length equals the prior length plus the
+bytes written; otherwise the append fails and returns no successor. Only then
+does it commit the rows in memory and construct and validate the successor
+from the retained running digest; nothing is read back after the write. After
+a failure inside that `try` it truncates to the prior length only while the
+file is the held file and its length equals the prior length plus the bytes
+this attempt wrote, so every byte it removes is the attempt's. Otherwise it
+does not truncate: it releases ownership and reports both causes, and the
+bytes past the prior length stay for reopen to refuse. When a step of the
+in-memory commit throws after `fsync`, the file is truncated back but the
+store's history keeps the row: outside a transaction from the first commit
+step, inside one once `commitCanonicalPrefix` has run, where the transaction's
+rollback then throws "runtime rollback must restore its committed prefix" in
+place of the original cause. The store then refuses every later append
+("durable append lacks its exact private admitted history") until it is
+closed and reopened. Event Calculus over the exact committed
 prefix, not the store or projection mechanic, proves semantic meaning. There
 is no generic installed `projectCurrentPrefix`, optional prefix overload,
 wrapper, second sink, or second write path.
@@ -715,9 +742,13 @@ The existing no-argument close boundary is narrowed in place:
       reopenAuthority: EventStoreReopenAuthority
     }
 
-While the existing append lock remains held, it verifies descriptor/path
-identity, reads exactly the held durable length, verifies the bytes and event
-contract, and derives both values from that single snapshot. It returns no
+While the existing append lock remains held, it compares the selected
+coordinate with the store's retained coordinate in memory and derives both
+values from the retained path, device, inode, length, digest and event
+contract (`closeHeldEventStoreAtDurablePrefix` in `abg/event_store.ts`); it
+reads no log byte and checks no state of the log file, then closes the log
+descriptor and releases the lock, and a later reopen validates the persisted
+bytes. It returns no
 partial handoff: the pair is constructed and frozen before descriptor/lock
 release, and a failure returns neither member. The prefix maps to the authority
 fields mechanically and neither value semantically selects a current tail.
@@ -736,11 +767,18 @@ The affected single-artifact append surface is narrowed to:
       successorPrefix: DurablePrefixCoordinate
     } | EventStoreAppendRefusal
 
-Immediately before append, Event Store verifies that the held descriptor,
-device/inode, durable byte length/digest, and event-contract digest equal
-expectedPredecessor. A mismatch returns the existing typed prefix refusal and
-appends nothing. Event Store then owns only envelope validation, admission
-ordinal stamping, durable append, and successor-coordinate projection. It does
+Before append, Event Store compares expectedPredecessor with the held store's
+retained coordinate in memory; a mismatch returns `prefix_mismatch` and
+appends nothing. Before the write it checks that the log file at the path and
+behind the held descriptor has the held device and inode and the retained
+length (`assertHeldDurableLogCurrent` in `abg/event_store.ts`); a file that
+differs returns `sink_unavailable` with the currentness owner's message, and
+appends nothing. A change between that check and the write fails the check
+after the write (`appendDurablyBatch`): the door returns `sink_unavailable`,
+the store releases ownership, and the written row stays in the file for
+reopen to refuse. No named-byte digest is computed. Event Store then owns
+only envelope validation, admission ordinal stamping, durable append, and
+successor-coordinate projection. It does
 not import ArtifactTruthTransition, select an artifact disposition, query
 catalog/run truth, or expose its cached events as read authority.
 
@@ -1838,15 +1876,19 @@ candidate, declared input contract, input ref/digest/value, and next attempt.
 A runtime-basis, D17 projection, frontier-row, or declared-preimage mismatch
 refuses before the transaction.
 
-After all pure preflight, D18 validates the supplied predecessor against the
-held store in exact-tail mode: descriptor/path identity and contract match,
-`fileSize === predecessorPrefix.prefixLength`, and the complete named-byte
-digest matches. It then captures the mechanical immutable in-memory event
-snapshot digest as `expectedPrefixDigest = store.digest()`; this value is not
-`predecessorPrefix.prefixDigest` or any coordinate digest. D18 synchronously enters
-`admitRuntimeEventTransactionAtExpectedPrefix(store,
-expectedPrefixDigest, action)`. There is no `await`, callback, message turn,
-or other interleaving point between the physical check and transaction entry.
+After all pure preflight, D18 compares the supplied predecessor with the held
+store's retained coordinate in memory (`assertHeldEventStoreAtDurablePrefix`,
+called from `resumeProjectedRetry` in `hog/retry_lifecycle.ts`); no named-byte
+digest is computed. D18 captures no event digest. It then calls
+`admitOwnedTraversalTransition` (`abg/traversal_route.ts`), which enters
+`admitRuntimeEventTransactionAtDurablePrefix(store, predecessorPrefix,
+action)`. That entry compares the predecessor with the retained coordinate
+again and, before its action, checks that the log file at the path and behind
+the held descriptor has the held device and inode and the retained length
+(`assertHeldDurableLogCurrent` in `abg/event_store.ts`). `resumeProjectedRetry`
+is synchronous: there is no `await`, callback, message turn, or other
+interleaving point between the in-memory comparison and the log-file check
+inside the transaction entry.
 
 Inside `action`, D18 admits the retry route, applies and verifies its exact
 target cursor, and admits the fresh retry attempt. After each typed inner call,
@@ -1999,7 +2041,7 @@ diagnostic:
 | Projected-branch mismatch | Exact `TypeError` message |
 |---|---|
 | closed D18 carrier shape or any locally checkable ref/digest/value relation | `diagnostic://abiogenesis/hog/projected-retry-carrier-mismatch@5` |
-| `successorPrefix` is not the held store's exact physical tail | `diagnostic://abiogenesis/hog/projected-retry-prefix-mismatch@5` |
+| `successorPrefix` differs from the call's `predecessorPrefix` (`canonicalEquals`) or from the held store's retained coordinate (`assertHeldEventStoreAtDurablePrefix`, compared in memory), in `enterTraversal` in `hog/entry.ts` | `diagnostic://abiogenesis/hog/projected-retry-prefix-mismatch@5` |
 | successor-prefix route, applied cursor, active attempt, input, or Event Calculus truth differs from the D18 carrier | `diagnostic://abiogenesis/hog/projected-retry-projection-mismatch@5` |
 | `traverseFromCursor` refuses or does not return the exact stop/cursor/input relation | `diagnostic://abiogenesis/hog/projected-retry-traversal-mismatch@5` |
 
@@ -2015,8 +2057,10 @@ never returned by `executeGraphTraversal`.
 
 The projected branch first validates the closed D18 carrier and every locally
 checkable ref/digest/value relation. Immediately before entering traversal, it
-verifies `projectedRetryResume.successorPrefix` is the held store's exact
-physical tail. Without `await` or interleaving, it pure-reprojects from that
+compares `projectedRetryResume.successorPrefix` with the held store's retained
+coordinate in memory (`assertHeldEventStoreAtDurablePrefix`, called from
+`enterTraversal` in `hog/entry.ts`) and reads no file. Without `await` or
+interleaving, it pure-reprojects from that
 successor the admitted retry route, route-applied cursor, active retry attempt,
 attempt input contract/ref/digest/value, and the scoped Event Calculus
 `retry_attempt_active` truth. Every value must equal the D18 carrier.

@@ -174,7 +174,18 @@ const start = ownerContractPacket(
   runMetadata("start"),
 );
 
-const continueRefusalSchema = refusalSchema([
+// The current-execution member continues one replay-derived pending execution
+// (registered selection/recursion); its request carries no intent or action
+// field and its refusals are the five codes its owner produces.
+const currentExecutionRefusalSchema = refusalSchema([
+  "missing_continuation",
+  "resolved_continuation",
+  "response_mismatch",
+  "replay_mismatch",
+  "basis_mismatch",
+]);
+
+const selectedActionRefusalSchema = refusalSchema([
   "missing_continuation",
   "resolved_continuation",
   "intent_mismatch",
@@ -186,9 +197,6 @@ const continueRefusalSchema = refusalSchema([
   "reprice_mismatch",
 ]);
 
-// The current-execution member's contract domain has two explicit, exclusive
-// alternatives: the current construction intent, and a replay-derived pending
-// execution (registered selection/recursion) with no intent or action field.
 const CURRENT_EXECUTION_KINDS = ["current_intent", "pending_execution"] as const;
 
 // Each continuation member constructs only its own variant, so the packet type
@@ -197,23 +205,15 @@ const continueVariantFactories = {
   current_intent: () => ({
     kinds: CURRENT_EXECUTION_KINDS,
     kindSchema: v.picklist(CURRENT_EXECUTION_KINDS),
-    request: v.union([
-      v.strictObject({
-        run: refDigestSchema,
-        continuation: refDigestSchema,
-        currentIntent: refDigestSchema,
-        continuationInput: refDigestSchema,
-        expectedBasis: refDigestSchema,
-      }),
-      v.strictObject({
-        run: refDigestSchema,
-        continuation: refDigestSchema,
-        pendingCursor: refDigestSchema,
-        continuationInput: refDigestSchema,
-        expectedBasis: refDigestSchema,
-      }),
-    ]),
+    request: v.strictObject({
+      run: refDigestSchema,
+      continuation: refDigestSchema,
+      pendingCursor: refDigestSchema,
+      continuationInput: refDigestSchema,
+      expectedBasis: refDigestSchema,
+    }),
     admittedIntent: v.null(),
+    refusal: currentExecutionRefusalSchema,
   }),
   // The unchanged selected_action member keeps its exact single-literal serialization.
   selected_action: () => ({
@@ -232,6 +232,7 @@ const continueVariantFactories = {
       ]),
     }),
     admittedIntent: refDigestSchema,
+    refusal: selectedActionRefusalSchema,
   }),
 };
 type ContinueVariant = {
@@ -252,6 +253,7 @@ function continueContract<const TMember extends
   const request: ContinueVariant[TMember]["request"] = variant.request;
   const admittedIntent: ContinueVariant[TMember]["admittedIntent"] =
     variant.admittedIntent;
+  const refusal: ContinueVariant[TMember]["refusal"] = variant.refusal;
   const result = v.strictObject({
     continuationKind: kindSchema,
     run: refDigestSchema,
@@ -276,7 +278,7 @@ function continueContract<const TMember extends
     { operationId: "abg.operation.run.continue", memberKey: member } as const,
     request,
     result,
-    continueRefusalSchema,
+    refusal,
     nonTerminal,
     {
       abstractModule: "Product.RunContinuation",
@@ -332,5 +334,4 @@ export interface RunInvocationPort {
 
 export interface RunContinuationPort {
   readonly current_intent: ExactOwnerOperationPort<typeof currentIntent>;
-  readonly selected_action: ExactOwnerOperationPort<typeof selectedAction>;
 }

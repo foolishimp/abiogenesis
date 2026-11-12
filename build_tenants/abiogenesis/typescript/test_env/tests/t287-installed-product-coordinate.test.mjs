@@ -36,7 +36,7 @@ const alteredProducts = products => ({
 });
 
 function runFixture(memberKey) {
-  const continuing = ['current_intent', 'selected_action'].includes(memberKey);
+  const continuing = memberKey === 'current_intent';
   const packet = continuing ? RUN_OPERATION_CONTRACTS.continue[memberKey]
     : RUN_OPERATION_CONTRACTS.invoke[memberKey];
   const binding = { bindingId: 'fixture://binding', bindingDigest: hash('binding'),
@@ -76,7 +76,7 @@ function runFixture(memberKey) {
   return { matches };
 }
 
-for (const memberKey of ['start', 'invoke', 'current_intent', 'selected_action']) {
+for (const memberKey of ['start', 'invoke', 'current_intent']) {
   test(`${memberKey} accepts canonical installs and rejects content hashes, tampering and lost population`, () => {
     const { matches } = runFixture(memberKey), products = canonicalProducts();
     assert.notEqual(products[0].digest, contentDigest);

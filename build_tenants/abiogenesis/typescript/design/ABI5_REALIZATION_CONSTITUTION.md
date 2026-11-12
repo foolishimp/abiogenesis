@@ -869,15 +869,29 @@ advance that history and coordinate only after the complete native write and
 fsync succeed. Ordinary held reads, callbacks, transaction returns, handoffs
 and close consume that correspondence and check the selected causal
 predecessor against owner state; they do not authenticate historical file
-bytes again. Outside edits during that ownership are unsupported. Copying a
+bytes again. Outside edits during that ownership are unsupported. Before a
+transaction's action and before each write, the owner checks that the file at
+its path and behind its descriptor is the regular file it holds, by device and
+inode, at the length it retains, and otherwise refuses with the currentness
+codes `file_identity_mismatch` or `prefix_length_mismatch` and writes nothing;
+the check reads no byte and no time field (`assertHeldDurableLogCurrent` in
+`abg/event_store.ts`). After each write and its fsync it checks the same file
+again at the retained length plus the bytes written, and otherwise the append
+fails and returns no successor (`appendDurablyBatch`). An owner that no longer
+holds its log refuses a transaction before the action. A same-length change in
+place passes these checks and is refused at reopen and at a cold read of a
+copied coordinate. Copying a
 coordinate or crossing a function or callback boundary alone does not
 invalidate established correspondence.
 
 The owner advances the existing physical SHA-256 byte digest from its committed
 continuation and the exact encoded suffix; this disposable computation is
 seeded by empty acquisition or validated cold bytes and introduces no new
-carrier or persisted authority. Failed writes or fsync restore the prior owned
-extent; failed restoration poisons ownership. Tentative history, profile and
+carrier or persisted authority. A failed write, fsync or check after the write
+restores the prior owned extent only while the file is the held file at the
+prior length plus the bytes the attempt wrote; any other file, and a failed
+restoration, poison ownership and leave the bytes for reopen to refuse.
+Tentative history, profile and
 hash progress never become admitted successors. Successful native writes and
 fsync require no separate physical readback under this operating model.
 

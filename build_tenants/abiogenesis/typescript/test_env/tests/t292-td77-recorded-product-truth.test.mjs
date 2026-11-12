@@ -136,7 +136,7 @@ function resealVerified(artifact) {
 }
 
 // The three register differences, applied to one carrier.
-const ADDED = {contractId: 'abg.vocabulary.review-ruling-kind', capabilityId: 'abg.capability.gtl.serialize@5'};
+const ADDED = {contractId: 'abg.contract.product.invocation-root', capabilityId: 'abg.capability.gtl.serialize@5'};
 const REMOVED_ROW = 'abg.capability.module.publish@5';
 const REMOVED_IDENTITY = 'abg.capability.catalog.invoke-graph-function@5';
 function addIdentity(carrier) {

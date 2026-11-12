@@ -4,7 +4,7 @@ import { pathToFileURL } from 'node:url';
 import { IDS, prepareConsumer } from './consumer.mjs';
 
 const version='5.0.0';
-const constructors=['constructConsensusModulePublication','constructDefaultGovernanceLibraryModulePublication',
+const constructors=['constructDefaultGovernanceLibraryModulePublication',
   'constructSelfConformanceModulePublication','constructRequirementHandoffModulePublication',
   'constructSemanticRevisionModulePublication','constructSemanticStageModulePublication',
   'constructWorksiteCommandExecutionModulePublication','constructWorksiteConstructionModulePublication',

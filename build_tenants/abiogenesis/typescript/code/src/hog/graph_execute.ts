@@ -1,4 +1,4 @@
-import { admitPendingConstructionIntentContinuation, projectPendingCursorInputAtPrefix, projectPendingExecutionContinuations,
+import { projectPendingCursorInputAtPrefix, projectPendingExecutionContinuations,
   rematerializeAdmittedBasisGraph } from "../abg/construction_continuation.js";
 import { projectOpenedCCallCarrierAtPrefix } from "../abg/c_call.js";
 import { rehydrateExecutionBasisAtPrefix } from "../abg/execution_basis.js";
@@ -77,7 +77,6 @@ import type {
   GraphTraversalEntryRefusal,
   GraphTraversalFailureResult,
   InitialOrNonRetryExecuteGraphTraversalInput,
-  ResumeConstructionIntentInput,
   ResumePendingExecutionInput,
 } from "./traversal_contract.js";
 import {
@@ -856,11 +855,6 @@ function machineWorkflowReturn(
   });
 }
 
-interface ParentReturnsPreflight {
-  readonly kind: "parent_returns_preflight";
-  readonly frames: readonly WorkflowReturnFrame[];
-}
-
 function resumeEntryRefusal(
   code: GraphTraversalEntryRefusal["code"],
   message: string,
@@ -875,51 +869,6 @@ function resumeEntryRefusal(
     candidate,
     priorAdmission,
   });
-}
-
-function preflightParentReturns(
-  input: Pick<ResumeConstructionIntentInput, "parentSuspensions">,
-  current: InitialOrNonRetryExecuteGraphTraversalInput,
-): ParentReturnsPreflight | GraphTraversalEntryRefusal {
-  const exact = rehydrateParentReturnFrames({
-    predecessorPrefix: current.predecessorPrefix,
-    program: current.program,
-    programValidation: current.programValidation,
-    implementationSet: current.implementationSet,
-    leafPort: current.leafPort,
-    currentChildExecutionBasis: current.executionBasis,
-    currentChildTraversalScope: current.openedTraversalScope,
-    suspensions: input.parentSuspensions,
-  });
-  if (exact.kind === "parent_rehydration_refusal") {
-    return resumeEntryRefusal(
-      "owner_refusal",
-      `continued run parent lineage could not be rehydrated: ${exact.stage}`,
-      exact.diagnosticRef,
-      {
-        stage: exact.stage,
-        suspensionCount: input.parentSuspensions.length,
-      },
-    );
-  }
-  return Object.freeze({
-    kind: "parent_returns_preflight" as const,
-    frames: exact.frames,
-  });
-}
-
-function exactParentReturns(
-  current: InitialOrNonRetryExecuteGraphTraversalInput,
-  frames: readonly WorkflowReturnFrame[],
-  successorPrefix: ExecuteGraphTraversalCommonInput["predecessorPrefix"],
-): readonly OwnedMachineReturnFrame[] {
-  return Object.freeze(frames.map((frame, ordinal) =>
-    machineWorkflowReturn(
-      current,
-      frame,
-      successorPrefix,
-      ordinal,
-    )));
 }
 
 type PendingExecutionLevel = Readonly<{
@@ -1102,13 +1051,6 @@ function traversalProgram(
         (state): Effect.Effect<ExecuteOwnedGraphTraversalResult, GraphTraversalFailure> =>
           "kind" in state ? Effect.succeed(state) : evaluateTraversalProgram(state));
     }
-    if ("constructionResume" in input) {
-      const parents = preflightParentReturns(input, input.current);
-      if (parents.kind === "graph_traversal_entry_refusal") return Effect.succeed(parents);
-      return evaluateTraversalProgram(Object.freeze({ stateKind: "evaluate" as const,
-        frame: enterTraversal(input.current),
-        returns: exactParentReturns(input.current, parents.frames, input.current.predecessorPrefix) }));
-    }
     return evaluateTraversalProgram(Object.freeze({
       stateKind: "evaluate" as const,
       frame: enterTraversal(input),
@@ -1125,13 +1067,7 @@ export function executeOwnedGraphTraversalEffect(
   return Effect.catchAll(
     traversalProgram(input),
     (failure) => Effect.succeed(projectGraphTraversalFailure(failure)),
-  ).pipe(Effect.map(result => {
-    if (!("successorPrefix" in result)) return result;
-    const current = "current" in input ? input.current : "pendingExecutionResume" in input ? input.root : input;
-    const successorPrefix = admitPendingConstructionIntentContinuation(current.store, result.successorPrefix,
-      current.openedTraversalScope.runId, current.eventTime, `${current.correlationId}/pending-construction`);
-    return successorPrefix === result.successorPrefix ? result : Object.freeze({ ...result, successorPrefix });
-  }));
+  );
 }
 
 

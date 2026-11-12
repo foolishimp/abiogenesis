@@ -150,7 +150,8 @@ async function runDoor(t) {
 const RUN_REFUSED = 'resource_admission:invalid_resource_assertion', RUN_REACHED = 'owner:invalid_program';
 const own = (target, key, value) => Object.defineProperty(target, key, { value, enumerable: true, configurable: true, writable: true });
 const inForm = (value, form) => form === 'json' ? JSON.parse(JSON.stringify(value)) : value;
-const consensus = () => structuredClone(gtl.constructConsensusModulePublication(basis));
+// A shipped publication with graph function declarations, Program policies and rule configs.
+const vehicle = () => structuredClone(gtl.constructDefaultGovernanceLibraryModulePublication(basis));
 
 // The GTL owner's record positions in a publication. A rule's config holds JSON
 // values, so every I-JSON value is valid there and only the key is at issue.
@@ -192,7 +193,7 @@ test('a member named __proto__, prototype or constructor in a GTL record is refu
   for (const form of FORMS) for (const [position, at] of Object.entries(POSITIONS)) for (const key of SKIPPED)
     for (const which of ['valid', 'invalid']) {
       if (at[which] === null) continue;
-      const p = consensus(); own(at.record(p), key, at[which]);
+      const p = vehicle(); own(at.record(p), key, at[which]);
       const publication = inForm(p, form);
       assert.ok(Object.hasOwn(at.record(publication), key), `${key} is an own member in the ${form} form`);
       observed.push({ form, position, key, which, owner: v.safeParse(serialization.MODULE_PUBLICATION_SCHEMA, publication).success,
@@ -213,7 +214,7 @@ test('an array where a GTL record is declared is refused at every door', async t
   for (const form of FORMS) for (const [position, at] of Object.entries(POSITIONS)) {
     if (at.set === null) continue;
     for (const array of [[], ['abg.td76']]) {
-      const p = consensus(); at.set(p, structuredClone(array));
+      const p = vehicle(); at.set(p, structuredClone(array));
       observed.push({ form, position, array, doors: await publicationDoors(inForm(p, form), submit, form, position) });
     }
   }
@@ -224,7 +225,7 @@ test('an array where a GTL record is declared is refused at every door', async t
 
 test('the run door refuses a skipped name and an array in the Catalog and view byHandle records', async t => {
   const { submit } = await runDoor(t);
-  const g = consensus().graphFunctions[0];
+  const g = vehicle().graphFunctions[0];
   const observed = [];
   for (const form of FORMS) for (const member of ['catalog', 'catalogView']) for (const field of ['byHandle', 'declarationsByHandle']) {
     const valid = field === 'byHandle' ? entry(g) : declarationEntry('node://td76');
@@ -241,9 +242,9 @@ test('the run door refuses a skipped name and an array in the Catalog and view b
 
 test('a publication with ordinary keys is admitted with an output equal to its input', async t => {
   const { submit } = await runDoor(t);
-  const g = consensus().graphFunctions[0];
+  const g = vehicle().graphFunctions[0];
   for (const form of FORMS) {
-    const p = consensus();
+    const p = vehicle();
     for (const at of Object.values(POSITIONS)) own(at.record(p), 'abg.td76.ordinary', 'abg.td76');
     const publication = inForm(p, form);
     const doors = await publicationDoors(publication, submit, form, 'declarations');
@@ -261,7 +262,7 @@ test('a publication with ordinary keys is admitted with an output equal to its i
   }
   // An object literal's `__proto__` sets the prototype and makes no member: the
   // I-JSON gate refuses the value at raw admission, as before.
-  const literal = consensus();
+  const literal = vehicle();
   literal.graphFunctions[0].declarations = { __proto__: { 'abg.td76': 'x' }, ...literal.graphFunctions[0].declarations };
   assert.equal(Object.hasOwn(literal.graphFunctions[0].declarations, '__proto__'), false);
   const refused = m02.admitModule(literal);

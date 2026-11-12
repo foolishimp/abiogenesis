@@ -199,7 +199,7 @@ const representativeRequests = Object.freeze([
   ["D09", packet("abg.operation.run.continue", "current_intent"), {
     run: rd("run://accepted"),
     continuation: rd("continuation://accepted"),
-    currentIntent: rd("intent://accepted"),
+    pendingCursor: rd("cursor://accepted"),
     continuationInput: rd("continuation-input://accepted"),
     expectedBasis: rd("execution-basis://accepted"),
   }],

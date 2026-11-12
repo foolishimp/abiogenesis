@@ -107,6 +107,7 @@ const UNAVAILABLE = [
   "abg.operation.interaction.respond#reject",
   "abg.operation.interaction.respond#select",
   "abg.operation.project.read#ticket_consensus",
+  "abg.operation.run.continue#selected_action",
   "abg.operation.witness.admit#attest",
   "abg.operation.witness.admit#hygiene-stamp",
   "abg.operation.witness.admit#intake",
@@ -119,12 +120,12 @@ type CallableKey = OwnerDefinitionCompositeKey<OwnerCallableDefinitionMember>;
 export type FamilyProof = [
   Assert<Equal<(typeof DECLARED)["length"], 56>>,
   Assert<Distinct<typeof DECLARED>>,
-  Assert<Equal<(typeof UNAVAILABLE)["length"], 10>>,
+  Assert<Equal<(typeof UNAVAILABLE)["length"], 11>>,
   Assert<Distinct<typeof UNAVAILABLE>>,
   Assert<Equal<Exclude<Unavailable, Declared>, never>>,
   Assert<Equal<OwnerDefinitionCompositeKey, Declared>>,
   Assert<Equal<OwnerDefinitionCompositeKey<OwnerUnavailableDefinitionMember>, Unavailable>>,
-  // 56 - 10 = 46 callable members.
+  // 56 - 11 = 45 callable members.
   Assert<Equal<CallableKey, Exclude<Declared, Unavailable>>>,
   Assert<Equal<OwnerUnavailableDefinitionMember["binding"], { readonly kind: "installed_binding_unavailable" }>>,
 ];
@@ -175,9 +176,7 @@ type VerifySelection = SelectionOf<"abg.operation.product.verify#verify">;
 type VerifyInstalled = Extract<VerifySelection, { readonly request: { readonly targetKind: "installed_artifact" } }>;
 type VerifyPacked = Exclude<VerifySelection, VerifyInstalled>;
 type CurrentSelection = SelectionOf<"abg.operation.run.continue#current_intent">;
-type CurrentIntent = Extract<CurrentSelection, { readonly request: { readonly currentIntent: unknown } }>;
 type PendingExecution = Extract<CurrentSelection, { readonly request: { readonly pendingCursor: unknown } }>;
-type SelectedAction = SelectionOf<"abg.operation.run.continue#selected_action">;
 type RunStopped = SelectionOf<"abg.operation.witness.admit#run-stopped">;
 type Reprice = SelectionOf<"abg.operation.witness.admit#reprice">;
 type RunReplay = SelectionOf<"abg.operation.project.read#run_replay">;
@@ -193,7 +192,9 @@ type VerifyMember = CallableMemberOf<"abg.operation.product.verify#verify">;
 export type SlotProof = [
   Assert<Equal<StartSelection["request"]["target"]["kind"], OwnerDefinitionRequestOf<StartMember>["target"]["kind"]>>,
   Assert<Equal<VerifySelection["request"]["targetKind"], OwnerDefinitionRequestOf<VerifyMember>["targetKind"]>>,
-  Assert<Equal<[CurrentIntent] extends [never] ? false : [PendingExecution] extends [never] ? false : true, true>>,
+  // current_intent admits the pending-execution request only.
+  Assert<Equal<CurrentSelection, PendingExecution>>,
+  Assert<Equal<[Extract<CurrentSelection, { readonly request: { readonly currentIntent: unknown } }>] extends [never] ? true : false, true>>,
   Assert<IsOpen<StartGraph> extends false ? true : false>,
   Assert<Equal<StartNext["slots"]["graph_function"], null>>,
   Assert<Equal<StartGraph["slots"]["graph_function"] extends null ? true : false, false>>,
@@ -210,7 +211,6 @@ export type OutputProof = [
   Assert<Equal<NonNullable<ReceiptOf<"abg.operation.project.read#run_status">["ownerOutput"]>["outcomeKind"], "result" | "refusal">>,
   Assert<Equal<ResultValue<"abg.operation.project.read#run_status">["projection"]["kind"], "run_status_projection">>,
   Assert<Equal<ResultValue<"abg.operation.project.read#graph_call_replay">["projection"]["kind"], "graph_call_replay_projection">>,
-  Assert<Equal<ResultValue<"abg.operation.run.continue#selected_action">["continuationKind"], "selected_action">>,
   Assert<Equal<ResultValue<"abg.operation.run.continue#current_intent">["admittedIntent"], null>>,
   Assert<Equal<ResultValue<"abg.operation.run.continue#current_intent">["continuationKind"], "current_intent" | "pending_execution">>,
   Assert<Equal<ReceiptOf<"abg.operation.run.invoke#start">["exitCode"], 0 | 1 | 3 | 70>>,
@@ -220,8 +220,10 @@ export type OutputProof = [
 // Unavailable members are only refused; raw input keeps the raw outcome and
 // every existing transport refusal code.
 type UnavailableCandidate = { readonly invocation: { readonly definitionKey: { readonly operationId: "abg.operation.witness.admit"; readonly memberKey: "attest" } }; readonly resources: {} };
+type SelectedActionCandidate = { readonly invocation: { readonly definitionKey: { readonly operationId: "abg.operation.run.continue"; readonly memberKey: "selected_action" } }; readonly resources: {} };
 export type RefusalProof = [
   Assert<Equal<InstalledDefinitionCallTransportOutcomeOf<UnavailableCandidate>, InstalledDefinitionCallTransportRefusal>>,
+  Assert<Equal<InstalledDefinitionCallTransportOutcomeOf<SelectedActionCandidate>, InstalledDefinitionCallTransportRefusal>>,
   Assert<Equal<InstalledDefinitionCallTransportOutcomeOf<unknown>, InstalledDefinitionCallTransportOutcome>>,
   Assert<Equal<InstalledDefinitionCallTransportRefusal["code"],
     "invalid_definition_call" | "unknown_definition" | "installed_binding_unavailable" | "acquisition_mismatch">>,
@@ -235,9 +237,7 @@ declare const startNext: StartNext;
 declare const direct: SelectionOf<"abg.operation.run.invoke#invoke">;
 declare const verifyInstalled: VerifyInstalled;
 declare const verifyPacked: VerifyPacked;
-declare const currentIntent: CurrentIntent;
 declare const pendingExecution: PendingExecution;
-declare const selectedAction: SelectedAction;
 declare const runStopped: RunStopped;
 declare const reprice: Reprice;
 declare const runReplay: RunReplay;
@@ -255,9 +255,7 @@ export const verifyCalls = [
   constructInstalledPublicDefinitionCall({ ...environment, ...verifyPacked }),
 ] as const;
 export const continueCalls = [
-  constructInstalledPublicDefinitionCall({ ...environment, ...currentIntent }),
   constructInstalledPublicDefinitionCall({ ...environment, ...pendingExecution }),
-  constructInstalledPublicDefinitionCall({ ...environment, ...selectedAction }),
 ] as const;
 export const runStoppedCall = constructInstalledPublicDefinitionCall({ ...environment, ...runStopped });
 export const runStatusCall = constructInstalledPublicDefinitionCall({ ...environment, ...runStatus });
@@ -335,12 +333,10 @@ export function negatives(): void {
   constructInstalledPublicDefinitionCall({ ...environment, ...lawfulActions, request: { ...lawfulActions.request, selector: workspaceGaps.request.selector } });
   // @ts-expect-error HC1-NEG crossed-read-resources 2322 2345 2769
   constructInstalledPublicDefinitionCall({ ...environment, ...runStatus, resources: productCatalogList.resources });
-  // @ts-expect-error HC1-NEG current-intent-member-refuses-selected-action 2322 2345 2769
-  constructInstalledPublicDefinitionCall({ ...environment, ...currentIntent, request: selectedAction.request });
-  // @ts-expect-error HC1-NEG selected-action-member-refuses-current-intent 2322 2345 2769
-  constructInstalledPublicDefinitionCall({ ...environment, ...selectedAction, request: currentIntent.request });
-  // @ts-expect-error HC1-NEG current-intent-and-pending-are-exclusive 2322 2345 2769
-  constructInstalledPublicDefinitionCall({ ...environment, ...currentIntent, request: { ...currentIntent.request, pendingCursor: pendingExecution.request.pendingCursor } });
+  // @ts-expect-error HC1-NEG selected-action-member-has-no-callable-call 2322 2345 2769
+  constructInstalledPublicDefinitionCall({ ...environment, ...pendingExecution, memberKey: "selected_action" });
+  // @ts-expect-error HC1-NEG current-intent-refuses-construction-intent-body 2322 2345 2353 2769
+  constructInstalledPublicDefinitionCall({ ...environment, ...pendingExecution, request: { ...pendingWithoutCursor, currentIntent: pendingExecution.request.pendingCursor } });
   // @ts-expect-error HC1-NEG pending-variant-requires-its-cursor 2322 2345 2769
   constructInstalledPublicDefinitionCall({ ...environment, ...pendingExecution, request: pendingWithoutCursor });
   // @ts-expect-error HC1-NEG unavailable-member-has-no-callable-resources 2322 2345 2769
@@ -361,13 +357,10 @@ type GraphIntent = Readonly<{ memberKey: "start"; target: Readonly<{ kind: "grap
 type NextIntent = Readonly<{ memberKey: "start"; target: Readonly<{ kind: "next" }>; rootMode: "direct"; fhMode: "direct" }>;
 type DeclaredIntent = Readonly<{ memberKey: "start"; target: Readonly<{ kind: "declared_start"; startRef: string }>; rootMode: "supervised"; fhMode: "human-proxy" }>;
 type DirectIntent = Readonly<{ memberKey: "invoke"; catalogHandle: string }>;
-type CurrentIntentKey = Extract<RunContinuationSelectionIntent, { readonly kind: "current_intent" }>;
-type PendingKey = Extract<RunContinuationSelectionIntent, { readonly kind: "pending_execution" }>;
-type SelectedKey = Extract<RunContinuationSelectionIntent, { readonly kind: "selected_action" }>;
 type ShippedStartCall<S extends ProductRunInvocationSelectionIntent> =
   Extract<Awaited<ReturnType<typeof constructInstalledStartCall<S>>>, { readonly kind: "installed_start_call" }>["call"];
-type ShippedPendingCall<S extends RunContinuationSelectionIntent> =
-  Extract<Awaited<ReturnType<typeof constructInstalledPendingCall<S>>>, { readonly kind: "installed_pending_call" }>["call"];
+type ShippedPendingCall =
+  Extract<Awaited<ReturnType<typeof constructInstalledPendingCall>>, { readonly kind: "installed_pending_call" }>["call"];
 type ShippedReadCall<K extends AbgRunReadMemberKey> =
   Extract<ReturnType<typeof constructInstalledRunReadCall<K>>, { readonly kind: "installed_run_read_call" }>["call"];
 type ShippedOutcomeHolds<C, K extends CallableKey> = Mutual<
@@ -395,13 +388,12 @@ export type ShippedConstructorProof = [
   Assert<ShippedOutcomeHolds<ShippedStartCall<AssetIntent>, "abg.operation.run.invoke#start">>,
   Assert<ShippedOutcomeHolds<ShippedStartCall<DeclaredIntent>, "abg.operation.run.invoke#start">>,
   Assert<ShippedOutcomeHolds<ShippedStartCall<DirectIntent>, "abg.operation.run.invoke#invoke">>,
-  Assert<Equal<ShippedPendingCall<CurrentIntentKey>["invocation"]["definitionKey"]["memberKey"], "current_intent">>,
-  Assert<Equal<ShippedPendingCall<PendingKey>["invocation"]["definitionKey"]["memberKey"], "current_intent">>,
-  Assert<Equal<ShippedPendingCall<SelectedKey>["invocation"]["definitionKey"]["memberKey"], "selected_action">>,
-  Assert<Equal<ShippedPendingCall<CurrentIntentKey>["invocation"]["request"] extends { readonly currentIntent: unknown } ? true : false, true>>,
-  Assert<Equal<ShippedPendingCall<PendingKey>["invocation"]["request"] extends { readonly pendingCursor: unknown } ? true : false, true>>,
-  Assert<ShippedOutcomeHolds<ShippedPendingCall<PendingKey>, "abg.operation.run.continue#current_intent">>,
-  Assert<ShippedOutcomeHolds<ShippedPendingCall<SelectedKey>, "abg.operation.run.continue#selected_action">>,
+  // The pending constructor takes the pending-execution selection only and
+  // builds a current_intent call with a pending cursor.
+  Assert<Equal<RunContinuationSelectionIntent["kind"], "pending_execution">>,
+  Assert<Equal<ShippedPendingCall["invocation"]["definitionKey"]["memberKey"], "current_intent">>,
+  Assert<Equal<ShippedPendingCall["invocation"]["request"] extends { readonly pendingCursor: unknown } ? true : false, true>>,
+  Assert<ShippedOutcomeHolds<ShippedPendingCall, "abg.operation.run.continue#current_intent">>,
   Assert<Equal<{ readonly [K in AbgRunReadMemberKey]: ShippedOutcomeHolds<ShippedReadCall<K>, `abg.operation.project.read#${K}`> }[AbgRunReadMemberKey], true>>,
   Assert<Equal<ShippedReadCall<"graph_call_replay">["invocation"]["definitionKey"]["memberKey"], "graph_call_replay">>,
   Assert<Equal<ShippedReadCall<"run_status">["resources"], ReadMember["binding"]["resources"]>>,
@@ -411,9 +403,7 @@ declare const assetStartInput: Parameters<typeof constructInstalledStartCall<Ass
 declare const graphStartInput: Parameters<typeof constructInstalledStartCall<GraphIntent>>[0];
 declare const directInput: Parameters<typeof constructInstalledStartCall<DirectIntent>>[0];
 declare const anyStartInput: Parameters<typeof constructInstalledStartCall<ProductRunInvocationSelectionIntent>>[0];
-declare const pendingInput: Parameters<typeof constructInstalledPendingCall<PendingKey>>[0];
-declare const selectedInput: Parameters<typeof constructInstalledPendingCall<SelectedKey>>[0];
-declare const anyPendingInput: Parameters<typeof constructInstalledPendingCall<RunContinuationSelectionIntent>>[0];
+declare const pendingInput: Parameters<typeof constructInstalledPendingCall>[0];
 declare const replayInput: Parameters<typeof constructInstalledRunReadCall<"graph_call_replay">>[0];
 
 export async function shippedTransport(): Promise<void> {
@@ -441,13 +431,11 @@ export async function shippedTransport(): Promise<void> {
   // each alternative is checked against its own member.
   const any = await constructInstalledStartCall(anyStartInput);
   if (any.kind === "installed_start_call") await runInstalledDefinitionCallTransport(acquisition, any.call);
-  for (const input of [pendingInput, selectedInput, anyPendingInput]) {
-    const pending = await constructInstalledPendingCall(input);
-    if (pending.kind === "installed_pending_call") {
-      const operationId: "abg.operation.run.continue" = pending.call.invocation.definitionKey.operationId;
-      void operationId;
-      await runInstalledDefinitionCallTransport(acquisition, pending.call);
-    }
+  const pending = await constructInstalledPendingCall(pendingInput);
+  if (pending.kind === "installed_pending_call") {
+    const operationId: "abg.operation.run.continue" = pending.call.invocation.definitionKey.operationId;
+    void operationId;
+    await runInstalledDefinitionCallTransport(acquisition, pending.call);
   }
   const replay = constructInstalledRunReadCall(replayInput);
   if (replay.kind === "installed_run_read_call") {
@@ -461,12 +449,11 @@ export async function shippedTransport(): Promise<void> {
 
 declare const shippedAsset: ShippedStartCall<AssetIntent>;
 declare const shippedNext: ShippedStartCall<NextIntent>;
-declare const shippedPending: ShippedPendingCall<PendingKey>;
-declare const shippedSelected: ShippedPendingCall<SelectedKey>;
+declare const shippedPending: ShippedPendingCall;
 declare const shippedStatus: ShippedReadCall<"run_status">;
 declare const shippedStartWithReadResources: Omit<ShippedStartCall<AssetIntent>, "resources"> & { readonly resources: ShippedReadCall<"run_status">["resources"] };
 declare const shippedCrossedUnion: ShippedStartCall<AssetIntent> | typeof shippedStartWithReadResources;
-declare const pendingSelection: PendingKey;
+declare const pendingSelection: RunContinuationSelectionIntent;
 
 export function shippedNegatives(): void {
   // @ts-expect-error HC1-NEG hc2-asset-start-is-not-graph-function-start 2322 2719
@@ -475,10 +462,12 @@ export function shippedNegatives(): void {
   const nextAsDirect: ShippedStartCall<DirectIntent> = shippedNext;
   // @ts-expect-error HC1-NEG hc2-start-operation-is-not-continue 2322
   const startOperation: "abg.operation.run.continue" = shippedAsset.invocation.definitionKey.operationId;
-  // @ts-expect-error HC1-NEG hc2-pending-execution-is-not-current-intent 2322
-  const pendingAsCurrent: ShippedPendingCall<CurrentIntentKey> = shippedPending;
-  // @ts-expect-error HC1-NEG hc2-selected-action-is-not-current-intent 2322
-  const selectedAsCurrent: ShippedPendingCall<CurrentIntentKey> = shippedSelected;
+  // @ts-expect-error HC1-NEG hc2-pending-call-is-not-selected-action 2322
+  const pendingAsSelected: "selected_action" = shippedPending.invocation.definitionKey.memberKey;
+  // @ts-expect-error HC1-NEG hc2-pending-constructor-refuses-selected-action-selection 2322 2345
+  void constructInstalledPendingCall({ ...pendingInput, selection: { ...pendingSelection, kind: "selected_action" } });
+  // @ts-expect-error HC1-NEG hc2-pending-constructor-refuses-construction-intent-selection 2322 2345
+  void constructInstalledPendingCall({ ...pendingInput, selection: { ...pendingSelection, kind: "current_intent" } });
   // @ts-expect-error HC1-NEG hc2-run-status-read-is-not-run-result 2322
   const statusAsResult: ShippedReadCall<"run_result"> = shippedStatus;
   // @ts-expect-error HC1-NEG hc2-read-is-not-start 2322
@@ -491,5 +480,5 @@ export function shippedNegatives(): void {
   void runInstalledDefinitionCallTransport(acquisition, shippedStartWithReadResources);
   // @ts-expect-error HC1-NEG hc2-transport-refuses-shipped-union-with-crossed-alternative 2345
   void runInstalledDefinitionCallTransport(acquisition, shippedCrossedUnion);
-  void [assetAsGraph, nextAsDirect, startOperation, pendingAsCurrent, selectedAsCurrent, statusAsResult, readAsStart];
+  void [assetAsGraph, nextAsDirect, startOperation, pendingAsSelected, statusAsResult, readAsStart];
 }
