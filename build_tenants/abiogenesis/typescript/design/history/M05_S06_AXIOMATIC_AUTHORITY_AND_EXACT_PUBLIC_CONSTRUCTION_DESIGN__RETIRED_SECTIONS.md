@@ -80,3 +80,11 @@ SDK member, CLI grammar, Codex path, schema, catalog row, or manifest row may
 name it before the swap.
 
 3. derives CLI and Codex grammar from the SDK/family;
+
+---
+
+Cut from `build_tenants/abiogenesis/typescript/design/M05_S06_AXIOMATIC_AUTHORITY_AND_EXACT_PUBLIC_CONSTRUCTION_DESIGN.md` at commit `db93b3c50`, lines 2185-2185, 2222-2222, verbatim.
+
+| `D12` | `abg/witness_admission_operation.ts`: `WITNESS_OPERATION_CONTRACTS`, `WitnessAdmissionPort` | ABG witness/event store/calculus/replay and shared canonical JSON/digests/references |
+
+| 46-51 | `witness.admit / reprice, attest, hygiene-stamp, intake, run-resumed, run-stopped` | `WITNESS_OPERATION_CONTRACTS.admit[key]` -> `WitnessAdmissionPort.admit` | `abg/witness_admission_operation.ts` / `D12` | exact witnessed ABG event |

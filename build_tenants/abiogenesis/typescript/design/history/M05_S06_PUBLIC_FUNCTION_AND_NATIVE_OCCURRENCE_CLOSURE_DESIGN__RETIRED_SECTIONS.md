@@ -84,3 +84,9 @@ SDK, CLI, and Codex expose these exact outcomes. A thrown parse error, raw
 - native SDK, CLI, and Codex produce the same deterministic S06 outcome;
 
 - SDK/CLI/Codex variant, default, outcome, or exit divergence;
+
+---
+
+Cut from `build_tenants/abiogenesis/typescript/design/M05_S06_PUBLIC_FUNCTION_AND_NATIVE_OCCURRENCE_CLOSURE_DESIGN.md` at commit `db93b3c50`, lines 644-644, verbatim.
+
+| `abg.operation.witness.admit(reprice|attest|hygiene-stamp|intake|run-resumed|run-stopped)` | `ABG.WitnessAdmission` | `WITNESS_OPERATION_CONTRACTS.admit[member]` | `WitnessAdmissionPort.admit` | `WitnessAdmitPacket<member>` |
