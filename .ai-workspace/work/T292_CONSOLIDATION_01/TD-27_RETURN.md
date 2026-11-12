@@ -303,16 +303,30 @@ hits:
 | `code/gtl_spec/GTL_BOOTLOADER.md` | 102 | `gate` in the algebra list |
 | `design/GTL_ABG_LLM_GUIDE_DOMAIN_WORKFLOWS.md` | 42, 263 | `gate` in the algebra lists |
 | `design/SCENARIO_INTENT_TO_TAGGED_REQUIREMENTS.md` | 139 | `requirements_gate = gate(` |
-| `design/GTL_3_MODULE_DESIGN.md` | 35 | cites `REQ-L-GTL3-HOF` (the file) |
+| `design/GTL_3_MODULE_DESIGN.md` | 35, 56 | cite `REQ-L-GTL3-HOF` (the file) |
 | `test_env/test_install/CLAUDE.md` | 84 | `gate` in a list |
 | `test_env/test_surface_map.md` | 49, 141 | cite `REQ-L-GTL3-HOF` (the file) |
 | `test_env/tests/test_m01_gtl_core_integration.py` | 16, 38, 447, 723, 738-739 | imports and builds a gate; a `kind="gate"` Rule |
 | `test_env/tests/test_usecases_u1_u4.py` | 4, 14, 23, 328 | U4 "fan_out -> promote -> fan_in -> gate" topology |
 
-The other 27 whole-word hits in that tenant are other senses (F_H, F_P and
-coverage gates, CLI exit, ADR-035, the GSDLC ladder, `README.md:62`,
-`test_env/README.md:4`, `test_m03_engine_kernel_integration.py:2748`, the
-`gen-start.md` plugin command).
+The search (`gate`, `gates`, `HOF-003`, `REQ-L-GTL3-HOF`, whole word, in
+`*.md`, `*.py`, `*.yml`, `*.yaml`, `*.json`, `*.toml`) finds 57 hits: 29 are
+the rows above. The other 28 are other senses:
+
+- `test_env/tests/test_provenance_integration.py` (10): F_P and F_H gates.
+- `CHANGELOG.md` (4): F_H gates.
+- `.claude-plugin/plugins/genesis/commands/gen-start.md` (3): F_H gates.
+- `design/adrs/ADR-035-…` (2): an F_D gate chain.
+- One each:
+  - `code/genesis/cli_adapter.py:30` and `code/genesis/binding.py:1393`
+    (F_H gate);
+  - `test_env/tests/test_spec_method_trace.py:574` (coverage gate);
+  - `test_env/tests/test_m03_engine_kernel_integration.py:2748` (a verb);
+  - `README.md:62` and `test_env/README.md:4` (RC gates);
+  - `design/SCENARIO_GSDLC_LITE_REQUIREMENTS_DESIGN_CODE.md:52` (artifact
+    gate);
+  - `design/GSDLC_LITE_QUALIFICATION_LADDER.md:106` (design review gate);
+  - `design/ABG_3_MODULE_DESIGN.md:392` (approval or review gate facts).
 
 ## 2. Recorded history
 
@@ -938,6 +952,13 @@ and the store's projection is admitted with the same digest on both builds.
   - `product.admitGraphFunctionCatalog` when called directly.
 
   The Executive records them in the register (ruling 7).
+
+  Coupling: realization (i) of ruling 2 and the historical declaration proof
+  both rely on `admitGraphFunctionCatalog` not raw-admitting the basis
+  publications. If R3 is closed by making that function raw-admit, both lose
+  every recorded `5.0.0-dev.286` and `5.0.0-rc.1` basis. So a fix for R3 keeps
+  a schema-free path for re-deriving recorded history, or moves the w2 case to
+  realization (ii).
 - **R4, process prerequisites** (for the record, not acted on). Process
   prerequisites are today an opaque policy string that the validator never
   reads. A first-class relation for them is future work, authored from its own
