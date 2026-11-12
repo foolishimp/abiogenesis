@@ -230,7 +230,7 @@ block. The after-text cites the realizing file and symbol.
 | `T287_PENDING`: 720-741 | "All continuation variants use the construction-continuation owner's shared workspace operation envelope. Its causes are the admitted workspace invocation and any separately admitted workspace operation basis ... This corrects the selected-action recurrence ..." and the selected-action owner paragraph | "The pending-execution continuation uses the construction-continuation owner's shared workspace operation envelope (`constructionContinuationOperationCandidate`, `abg/construction_continuation.ts`). Its causes are the invocation's admission event and the causes of its public-operation basis. ... share this envelope correspondence (`continuationOperationWorkspaceCorresponds`) while retaining the pending/use checks." |
 | `T287_PENDING`: 744-747 | "## Selected Installed Proof Composition"; "Physical storage rows and logical runtime events are another representation" | "## Event Observation, Recovery And Receipts"; "... are a representation" |
 | `ABG_EVENT_CALCULUS`: 71 | "\| New graph work toward the same outcome \| CONTINUATION-012/-013, Product framed evaluation, One Surface or the actually selected library composition" | "\| ... \| Product framed evaluation and the actually selected library composition, such as the Executive's registered selection (`projectGovernanceChoice`, `abg/default_library.ts`)" |
-| `ABG_EVENT_CALCULUS`: 74-80 | "`evaluateNext -> admitConstructionIntent -> invokeGraphFunction` is the existing One Surface relation. Its construction-specific carriers apply where that composition is selected; they are not silently imposed on the default library or every GTL Program. The latter use ... under Product." | "The default library and every GTL Program use their admitted evaluation, registered-choice and call owners under Product: the Executive's `select` F_P chooses one registered graph (`selectGovernanceWork`, `implementation/default_library.ts`), its `project-choice` F_D projects that choice (`projectGovernanceChoice`, `abg/default_library.ts`), and the registered-selection route admits it (`hog/route_proposal.ts`)." |
+| `ABG_EVENT_CALCULUS`: 74-80 | "`evaluateNext -> admitConstructionIntent -> invokeGraphFunction` is the existing One Surface relation. Its construction-specific carriers apply where that composition is selected; they are not silently imposed on the default library or every GTL Program. The latter use ... under Product." | "The default library and every GTL Program use their admitted evaluation, registered-choice and call owners under Product: the Executive's `select` F_P chooses one registered graph (`selectGovernanceWork`, `implementation/default_library.ts`), its `project-choice` F_D projects that choice (`projectGovernanceChoice`, `abg/default_library.ts`), HoG proposes the selected route (`proposeJudgedRoute`, `hog/route_proposal.ts`), and ABG admits it after resolving the same selection again (`admitRoute`, `registeredSelectionContinuationMatches`, `abg/traversal_route.ts`)." (wording as corrected in `b9bdba6f6`) |
 | `ABG_EVENT_CALCULUS`: 200-202 | "The registered-selection pending-execution alternative ... applies the same law without a ConstructionIntent." | "The registered-selection pending-execution continuation ... applies this law (`projectPendingExecutionContinuations`, `abg/construction_continuation.ts`)." |
 | `M05_S06_PUBLIC`: 32, 108 | "`REQ-P-POLICY-022..064`", "`REQ-P-POLICY-023..040`" | "`REQ-P-POLICY-022..028`, `-031..064`", "`REQ-P-POLICY-023..028`, `-031..040`" |
 | `M05_S06_PUBLIC`: 39 | "accepted S05 Consensus and S06 native-contract designs." | "the accepted S06 native-contract design." |
@@ -249,7 +249,7 @@ block. The after-text cites the realizing file and symbol.
 | `ABI5_STDO3`: 170 | "- Closure: `constructionDeltaForAdvance` in traversal_route.ts. Under the construction authority that `selectAdmittedConstructionAuthority(…, "evaluateAction")` selects ..., it admits the Product `evaluateAction` result ..." | "- Closure: `admitOwnedScopeClosure` in closure.ts. From the source C-call's admitted Result and Judgment ..., it admits `terminal_reached`, `frame_closed` and `graph_call_closed`, and also `run_closed` for the root scope. It refuses `replay_mismatch` ..." |
 | `ABI5_STDO3`: 182 | "and the closure fold"; "`admitRoute`, `constructionDeltaForAdvance`, `actionEvaluationProjection`, `edgeClosureDecision`;"; "Closure admits the `evaluateAction` result as the route's `actionEvaluationAdmission` member, ..." | "and scope closure"; "`admitRoute`;"; "Closure (`admitOwnedScopeClosure`) admits the terminal, frame, GraphCall and, at the root, Run closure events from the admitted source Result and Judgment." |
 | `ABI5_STDO3`: 189 | "(requirement handoff, ..., worksite, Consensus, default library)"; "Consensus' role recursion runs submitter to reviewer once;" | "(requirement handoff, ..., worksite, default library)"; clause removed |
-| `ABI5_STDO3`: 462 | "\| A5-F07 One Surface \| ..., [M05 §12](...#12-s03-one-surface-governed-evidence-fold) \| S03 retains four separate semantic authorities, ..." | "\| A5-F07 Executive system program \| ..., [default library](T287_DEFAULT_GOVERNANCE_LIBRARY_DESIGN.md), [registered selection](T287_REGISTERED_GRAPH_SELECTION_DESIGN.md) \| S03: each Executive step (`executive-step`, `gtl/default_library.ts`) prepares a selection basis, selects one registered graph through one `F_P` selection, applies it as a registered selection and folds the admitted evidence; a stop, hold or gap reads back through its stop reading. \|" |
+| `ABI5_STDO3`: 462 | "\| A5-F07 One Surface \| ..., [M05 §12](...#12-s03-one-surface-governed-evidence-fold) \| S03 retains four separate semantic authorities, ..." | "\| A5-F07 Executive system program \| ..., [default library](T287_DEFAULT_GOVERNANCE_LIBRARY_DESIGN.md), [registered selection](T287_REGISTERED_GRAPH_SELECTION_DESIGN.md) \| S03: each Executive step (`executive-step`, `gtl/default_library.ts`) prepares a selection basis, selects one registered graph through one `F_P` selection, applies it as a registered selection and folds the admitted evidence; a stop or gap reads back through its stop reading, and an F_H hold through its open continuation (`projectFhContinuations`, `abg/fh_continuation_projection.ts`). \|" (wording as corrected in `b9bdba6f6`) |
 | `T287_R10`: 209, 214 | "held/gap_stopped to nonterminal"; "active/held/gap-stopped subject truth" | "held to nonterminal"; "active/held subject truth" |
 | `T287_R10`: 608, 627-629 | "-> nextActions: run_lawful_actions over the same context"; "Its next lawful actions are the Run's `run_lawful_actions`; the native `run-resumed` act has no Public definition binding, so the reading names none." | both removed |
 | `T287_R10`: 646-647 | "`run_gaps` keeps the HoG gap frontier. A registered-selection gap is a `blocked` stop with reason `default-library/gap@5`, not `gap_stopped`." | "A registered-selection gap is a `blocked` stop with reason `default-library/gap@5` (`governanceRef("reason", "gap")`, `product/default_library_identity.ts`; `resolveJudgmentRelation`, `product/builtin_semantics.ts`)." |
@@ -287,10 +287,13 @@ site read at head (`T/code/src`):
 | `projectInstalledLeafSemantics` call sites | `owner_bindings/run_invocation.ts:1171`, `:1559` |
 | `resolveProgramStart`, `directStartRefusal`, `unsupported_control`, `abg.root_mode` | `gtl/public_start.ts:79`, `:56`, `:26`, `:62` and `:90` |
 | `executive`, `executive-step`, `recurseApplication` with `terminationFieldRef: "$.terminal"` | `gtl/default_library.ts:63-86` (`recurseApplication` call at `:73-74`, defined `gtl/graph_applications.ts:126`) |
-| `projectGovernanceChoice`, `projectGovernanceParent` | `abg/default_library.ts:256`, `:524` |
+| `projectGovernanceChoice`, `projectGovernanceParent` | `abg/default_library.ts:256`, `:524`; read in full: `projectGovernanceParent` (the `evaluate-parent` implementation, `:578`) sets `terminal` true only when the acceptance verdict is satisfied over admitted assessment rows and the step's sources are current, and false otherwise |
 | `selectGovernanceWork` | `implementation/default_library.ts:109` |
 | `governanceRef("reason", "gap")`, `resolveJudgmentRelation` | `product/default_library_identity.ts:2`; `product/builtin_semantics.ts:245` (gap relation `:1030-1033`) |
 | `resolveRegisteredSelection` | `gtl/registered_selection.ts:61` |
+| `proposeJudgedRoute` (calls `resolveRegisteredSelection` at `:399`) | `hog/route_proposal.ts:380` |
+| `admitRoute`, `registeredSelectionContinuationMatches` (called from `admitRoute` at `:4475`) | `abg/traversal_route.ts:4141`, `:3691` |
+| `projectFhContinuations` | `abg/fh_continuation_projection.ts:245` |
 | `prepareWorkflowChildExecutionBasis` | `abg/execution_basis.ts:2330` |
 | `projectPendingExecutionContinuations`, `admitPendingExecutionContinuationOperation` (reads `pendingExecutionUses`), `preparePendingExecutionContinuation`, `projectPendingExecutionInputAtPrefix`, `constructionContinuationOperationCandidate`, `continuationOperationWorkspaceCorresponds` | `abg/construction_continuation.ts:323`, `:971`, `:1023`, `:1070`, `:478`, `:506` |
 | `runPendingExecutionOwner`, `runInvocationOwner` | `owner_bindings/run_invocation.ts:1670`, `:818` |
@@ -420,6 +423,13 @@ its headings).
 - **No kept note links to `M05_S05`** except `M05_S06_AXIOMATIC` line 130,
   now `history/M05_S05_CONSENSUS_GLOBAL_TO_LOCAL_DESIGN.md`. Outside `T/design`,
   only records and the qualification pins (Executive list 2) name it.
+- **Other scopes:** 55 anchor links from `specification/`,
+  `.ai-workspace/tickets/`, the T292 work files and the tenant's code, tests
+  and contracts point into notes edited here; all 55 resolve at base and at
+  the branch. No file outside `T/design/history` cites an `M05_DIRECT` §12
+  subsection by number; three completed tickets (T-274, T-275, T-276) cite
+  "M05 Section 13" as their historical hold, and that section is now in the
+  retired file.
 - **Index:** `T/design/README.md` lists exactly the 48 kept notes (no
   duplicates, every label equals its file); its 99 realizing modules exist.
   `history/README.md` has one row per history note (279 = 279) and lists all
@@ -427,7 +437,7 @@ its headings).
 
 ## 10. Diff scope and build
 
-`git diff --stat 5c9df5056` touches 49 files under `T/design` plus this Return;
+`git diff --stat 5c9df5056` touches 48 files under `T/design` plus this Return;
 nothing else. `npm run build` in `T` exits 0 in 28 s and leaves `git status`
 empty. Design notes are not in the payload: `package.json` `files` is
 `build/**`, `contracts/**` and `product-toolchain-manifest.json`, the manifest
@@ -446,6 +456,16 @@ generator reads no design path, and the manifest names no `design/` entry.
   `M04_M05_INSTALLED_CONSENSUS_...`), and the retired-sections list gained the
   existing `T287_D4_D5_NATIVE_QUALIFICATION_DESIGN__RETIRED_SECTIONS.md`
   (TD-32, `7c817ac64`), which it lacked.
+- `M05_DIRECT` §12 is a new section whose subsections are numbered 12.1-12.5:
+  the kept graph-span re-entry and public-target subsections move from 12.8
+  and 12.9 to 12.4 and 12.5, and the kept diagnostic paragraph sits under
+  12.3. TD-64R left gaps where it cut; here no kept note, specification file,
+  ticket or code file cites 12.8 or 12.9 by number or anchor (Section 9), so
+  the renumbering breaks no citation. The §13 gap stays.
+- After the advisor review, `b9bdba6f6` corrects two sentences of this
+  package's own restatement (route admission in `ABG_EVENT_CALCULUS`, the
+  hold reading in `ABI5_STDO3` row 462). The replaced wording was this
+  package's text, not ratified design, so it has no retired block.
 - `ABI5_STDO3` line 189 (two Consensus clauses in the F_D leaf row) was found by
   the residue search after the census and restated with the other passages.
 
@@ -458,4 +478,6 @@ generator reads no design path, and the manifest names no `design/` entry.
 | `70320c3f0` | whole-section cuts to retired files |
 | `91afb9cee` | restatements, replaced text to retired files |
 | `151520fcc` | `README.md`, `history/README.md`, `M05_S06_AXIOMATIC` line 130 |
-| this commit | the Return |
+| `557048a24` | the Return |
+| `b9bdba6f6` | correction of two restated sentences |
+| this commit | the Return, updated |
