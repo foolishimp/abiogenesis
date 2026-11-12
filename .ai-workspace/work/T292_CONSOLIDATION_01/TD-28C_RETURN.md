@@ -112,7 +112,8 @@ member. The root `pyproject.toml` belongs to the Python tenant
 ### 1.7 Qualification mirrors
 
 `T/test_env/qualification/inventory.json` lists `code/src/abg/actor_process.ts`,
-`code/src/abg/default_library.ts`, `scripts/generate-product-manifest.mjs`,
+`code/src/abg/default_library.ts`, `code/src/gtl/stdo_run_environment.ts`,
+`scripts/generate-product-manifest.mjs`,
 `test_env/tests/r1-packed-artifact.test.mjs` and the three design notes. It
 does not list `abg/governed_context.ts`, the client, the adapter, the
 governed-context test or its support module. The recipe names none of them.
@@ -396,12 +397,22 @@ For the Executive:
 2. The `git rm` of the two tracked generated `contracts/governed-context/*`
    files (deviation 2).
 3. Six payload members rather than three (deviation 1).
-4. The whole-word search after the change finds the retired names only at:
-   the refusal site `code/src/gtl/stdo_run_environment.ts:32` (the key
-   strings, kept as the TD-31 precedent keeps `abg.stdo_run_environment`);
-   the refusal lane; `design/history/*`; `specification/GOALS.md`; the
-   tracked, gitignored `product-toolchain-manifest.json`, which is stale at
-   base and rewritten by every build; and `.ai-workspace` commentary.
+4. Search after the change, case-insensitive and without word boundaries (so
+   compound identifiers such as `GC03_SELECTED_RELEASE` and
+   `selectOwnedGovernedContext` are seen): `rg -i -e gc03 -e
+   'governed.?context' -e host_adapter` over `build_tenants`,
+   `specification` and the root files, excluding `history`, `test_runs`,
+   `downstream`, `evidence`, `node_modules` and `build`. Hits: the refusal
+   site `code/src/gtl/stdo_run_environment.ts:32` (the key strings, kept as
+   the TD-31 precedent keeps `abg.stdo_run_environment`), the refusal lane and
+   `specification/GOALS.md`. Outside that scope: `design/history/*` and
+   `.ai-workspace` commentary. The freshly built final `build/`,
+   `contracts/` and `product-toolchain-manifest.json` hold no hit except the
+   compiled refusal site `build/code/src/gtl/stdo_run_environment.js`. The
+   tracked, gitignored `product-toolchain-manifest.json` in the tree still
+   names the governed members; it is stale at base and every build rewrites
+   it. `GC03_SELECTED_RELEASE` was defined only in the deleted
+   `abg/governed_context.ts`; no kept module exports a GC03 constant.
 5. The dropped sentence "A1–A5 and the native A02 blocked/UAT indeterminate
    standing are unchanged." (section 4).
 6. Three RC3 witness Runs used the capability (section 2); base and final
