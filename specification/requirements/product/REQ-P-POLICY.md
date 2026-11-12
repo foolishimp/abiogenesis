@@ -157,6 +157,17 @@ public operation family.
 semantics. Given the same admitted inputs and bound product identities, they
 shall preserve the same operation identity, validation, defaults, disposition,
 typed result or refusal, event or provenance effects, and exit classification.
+The SDK returns the outcome that the CLI writes and sets no process exit
+status; the CLI's exit status classifies that outcome by one rule for every
+operation: `0` when the owning semantic function returns its terminal result;
+`1` when it returns its typed refusal; `2` when the CLI's arguments do not name
+one request file, the file does not hold one exact transport request, the
+transport refuses the call, or reading the file, carrying the call or encoding
+its outcome fails; `3` when the owning semantic function returns a non-terminal
+outcome, which only an operation that declares a non-terminal contract can
+return; and `70` when the operation's execution fails with a typed execution
+fault, including an owner output that its contract does not admit, or with a
+defect or interruption.
 
 ## Traversal And Run Operations
 
