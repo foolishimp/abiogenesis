@@ -164,6 +164,32 @@ test('TD-51a: a read operation reads each selected body once and holds none afte
   const released=await measureBodyReads(logPath,()=>prefixOwner.indexedRuntimeEvents(prefix,key));
   assert.deepEqual(Object.values(counts(released.basis)),basisRows.map(()=>1),'after the last release the bodies are read again; a repeated release is inert');
 
+  // TD-51b: a read port reached directly, outside any read owner, holds the
+  // bodies it selects from the history it prepares: the held owner's for a
+  // retained coordinate, its own cold copy for a raw packet. Each call reads
+  // each selected basis body at most once and keeps none after it returns.
+  const ports=await load('abg/project_read_ports');
+  const runId=prefixOwner.indexedRuntimeEvents(owned(),'kind:run_segment_opened').at(-1).runId;
+  const graphCallId=prefixOwner.indexedRuntimeEvents(owned(),'kind:graph_call_opened').filter(e=>e.runId===runId).at(-1).graphCallId;
+  const portCalls={
+    run_truth:()=>ports.projectRunTruthAtDurablePrefix(held.selection.prefix,runId),
+    run_status:()=>ports.prepareRunReadAtDurablePrefix(held.selection.prefix,'run_status',runId)?.project(),
+    graph_call_result:()=>ports.GraphCallProjectionPort.graph_call_result({kind:'abg_project_read_packet',schemaVersion:'5.0.0',
+      memberKey:'graph_call_result',prefix:held.selection.prefix,targetRef:graphCallId}),
+  };
+  const portReads={};
+  for(const [label,call] of Object.entries(portCalls)){
+    const once=await measureBodyReads(logPath,call),again=await measureBodyReads(logPath,call);
+    assert.ok(['abg_run_truth_projection','abg_project_read_projection'].includes(once.value?.kind),label+': '+JSON.stringify(once.value).slice(0,2000));
+    assert.ok(once.basis.size>=1,label+': the port selects basis bodies');
+    assert.ok(max(once.basis)<=1,label+': each basis body is read at most once within the port call: '+JSON.stringify(counts(once.basis)));
+    assert.deepEqual(counts(again.basis),counts(once.basis),label+': the port keeps nothing after it returns; the next call reads them again, once');
+    assert.deepEqual(again.value,once.value);
+    assert.deepEqual(gauges(),ZERO,label+': a port call is not O1 retention');
+    portReads[label]={basis:counts(once.basis),decodeReads:once.other};
+  }
+  assert.equal(portReads.run_truth.decodeReads,0,'a retained coordinate borrows the held history');
+
   // Physical close disposes an open operation hold with the O1 handles: the
   // closed cut reads its bodies by location again, and the late release is inert.
   const closingCut=owned(),closingHold=prefixOwner.holdOperationBodies(held.selection.prefix);
@@ -261,6 +287,6 @@ test('TD-51a: a read operation reads each selected body once and holds none afte
     resources:{...bindResources,admissionAuthority:{basis:data,authority,grants:bindGrants}},requestRef:'public-request://td51b/bind',
     correlationRef:'correlation://td51b/operation-bodies',eventTime:'2026-11-12T00:00:00.000Z',provenanceRefs:['provenance://td51b/operation-bodies']}));
   assert.equal(bind.ownerOutput.outcomeKind,'result',JSON.stringify(bind.ownerOutput).slice(0,2000));
-  t.diagnostic('TD51B_OPERATION_BODIES '+JSON.stringify({releaseEvidence:releaseRead.basis,workspaceBind:bind.basis,
-    meaning:'per-row counts of physical basis body reads by location in one reopened operation'}));
+  t.diagnostic('TD51B_OPERATION_BODIES '+JSON.stringify({releaseEvidence:releaseRead.basis,workspaceBind:bind.basis,ports:portReads,
+    meaning:'per-row counts of physical basis body reads by location in one reopened operation, and in one direct port call'}));
 });

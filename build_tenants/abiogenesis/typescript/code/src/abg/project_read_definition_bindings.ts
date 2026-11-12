@@ -23,7 +23,6 @@ import {
   validateAbgEventResourceOutcome,
   validateAbgEventResourceReceipt,
   validateReopenedAbgEventResourceInput,
-  withAbgOperationHold,
   type AbgEventResourceCompletion,
   type AbgEventResourceReceipt,
   type AcquiredAbgEventResource,
@@ -36,6 +35,7 @@ import {
 } from "./environment_admission.js";
 import { projectOwnedPrefixArtifactTruth } from "./artifact_truth.js";
 import type { DurablePrefixCoordinate } from "./event_store.js";
+import { withOperationBodies } from "./event_prefix.js";
 import { ABG_PROJECT_READ_CONTRACTS, ABG_RUN_STOP_READING_SCHEMA } from "./project_read_operation_contracts.js";
 import { ABG_HISTORICAL_DECLARATION_PROOF_SCHEMA, isAbgTypedTerminalResult, type AbgHistoricalDeclarationProof } from "./terminal_result_contracts.js";
 import {
@@ -757,7 +757,7 @@ function runReadKernel<TPacket extends AnyReadPacket>(
       }
       const resource = acquired.resource;
       // The read owns the bodies it selects until it returns.
-      return withAbgOperationHold(resource, () => { try {
+      return withOperationBodies(resource.entryPrefix, () => { try {
         const request = call.invocation.request;
         const source = sourceCoordinate(request);
         const basis = basisCoordinate(request);
@@ -923,7 +923,7 @@ function binding<TPacket extends AnyReadPacket>(
       }
       const resource = acquired.resource;
       // The read owns the bodies it selects until it returns.
-      return withAbgOperationHold(resource, () => { try {
+      return withOperationBodies(resource.entryPrefix, () => { try {
         const request = call.invocation.request;
         const basis = basisCoordinate(request);
         if (

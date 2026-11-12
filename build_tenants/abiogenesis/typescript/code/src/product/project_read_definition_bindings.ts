@@ -1,6 +1,7 @@
 import * as v from "valibot";
-import { acquireAbgEventResource,closeAbgEventResource,abandonAbgEventResource,withAbgOperationHold,validateAbgEventResourceAssertion,validateAbgEventResourceReceipt,type AbgEventResourceAssertion,type AbgEventResourceReceipt } from "../abg/definition_event_resource.js";
+import { acquireAbgEventResource,closeAbgEventResource,abandonAbgEventResource,validateAbgEventResourceAssertion,validateAbgEventResourceReceipt,type AbgEventResourceAssertion,type AbgEventResourceReceipt } from "../abg/definition_event_resource.js";
 import { bindExactPrefixRead } from "../abg/exact_prefix_bindings.js";
+import { withOperationBodies } from "../abg/event_prefix.js";
 import { absolutePathSchema } from "../shared/public_function_contracts.js";
 import { projectReleaseEvidence } from "./project_read_ports.js";
 import * as Effect from "effect/Effect";
@@ -1004,7 +1005,7 @@ const releaseReadOwner:ExactDefinitionCallable<typeof PRODUCT_PROJECT_READ_CONTR
  const acquired=acquireAbgEventResource(call.resources.eventResource);
  if(acquired.kind!=="acquired_abg_event_resource")throw definitionFault(call.invocation.definitionKey,"resource_admission",acquired.code,acquired.message);
  // The read owns the bodies it selects until it returns.
- return withAbgOperationHold(acquired.resource,()=>{try {
+ return withOperationBodies(acquired.resource.entryPrefix,()=>{try {
   const request=call.invocation.request,prefix=acquired.resource.entryPrefix;
   const packet:ReleaseEvidenceProjectReadPacket={kind:"product_project_read_packet",schemaVersion:"5.0.0",memberKey:"release_evidence",sourceRef:request.source.sourceRef,sourceDigest:request.source.sourceDigest,
    projectionBasis:{basisRef:request.projectionBasis.projectionBasisRef,basisDigest:request.projectionBasis.projectionBasisDigest,value:prefix},

@@ -11,10 +11,10 @@ import {
   acquireAbgEventResource,
   completeAbgEventResource,
   validateReopenedAbgEventResourceInput,
-  withAbgOperationHold,
   type AbgEventResourceInput,
   type AbgEventResourceOutcome,
 } from "../abg/definition_event_resource.js";
+import { withOperationBodies } from "../abg/event_prefix.js";
 import {
   admitWorkspaceBinding,
   projectAdmittedWorkspaceBinding,
@@ -670,7 +670,7 @@ const bind: AdmissionDefinitionOwner<
       }
       const resource = acquired.resource;
       // The binding owns the bodies it selects until it returns.
-      return withAbgOperationHold(resource, () => { try {
+      return withOperationBodies(resource.entryPrefix, () => { try {
         const nativePacket: WorkspaceBindingPacket = {
           kind: "workspace_binding_packet",
           schemaVersion: "5.0.0",

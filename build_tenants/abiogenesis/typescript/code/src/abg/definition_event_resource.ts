@@ -28,7 +28,6 @@ import {
   type DurablePrefixCoordinate,
   type EventStoreCloseHandoff,
 } from "./event_store.js";
-import { holdOperationBodies } from "./event_prefix.js";
 import { canonicalEquals } from "../shared/value/index.js";
 
 export type AbgEventResourceAssertion =
@@ -376,23 +375,6 @@ export function closeAbgEventResource(
 
 export function abandonAbgEventResource(resource: AcquiredAbgEventResource): void {
   if (!borrowedResources.has(resource)) resource.store.closeDurableLog();
-}
-
-/** @internal §10.12 O1 lifetime, operations: the one owner of the operation
- * hold. An operation whose body is one synchronous stack runs that body
- * through this function with the resource it acquired or was handed. The hold
- * on the resource's active held history opens before `operation` and is
- * released when `operation` returns or throws. That return is where the
- * operation ends, whether it closed or abandoned a reopened resource or
- * returns a borrowed resource's completion, which has no close of its own.
- * While the hold is open each basis body the operation selects is read from
- * its location and authenticated once; the last release drops it, so nothing
- * stays held after the operation returns. Rollback and physical close dispose
- * the hold, and a later release is inert; a cold, closed or copied coordinate
- * opens nothing. It is not O1 retention, and no O1 gauge counts it. */
-export function withAbgOperationHold<T>(resource: AcquiredAbgEventResource, operation: () => T): T {
-  const release = holdOperationBodies(resource.entryPrefix);
-  try { return operation(); } finally { release(); }
 }
 
 /** Closed native maintenance data; it does not extend Public new/reopen or grant Run authority. */
