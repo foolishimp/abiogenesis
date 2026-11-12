@@ -284,16 +284,16 @@ built-in test code does not qualify the successor that removes it; affected
 installed-path obligations require proof on that exact successor.
 
 **REQ-P-QUAL-059**: The exact installed ABIogenesis 5.0 candidate shall complete
-the primary public operator loop through one admitted GTL One Surface program
-traversed directly by HoG. That program shall own the order of the four
-semantic authorities `synthesizeModel`, `evalGap`, `evaluateNext`, and
-`evaluateAction`. Intent admission, invocation or continuation, and evidence
-admission shall remain distinct ABG boundaries around those authorities;
-public ingress shall admit and transport the invocation only. The loop shall
-start, expose replay-derived frontier and lawful actions, exercise bounded
-correction and automatic progression under established authority, refresh
-model, gap and next-action truth after admitted evidence, and converge without
-a second controller or private import. A no-lawful-next-step case reports a
+the primary public operator loop through the standard system program, the
+default library's Executive, traversed directly by HoG. Each Executive step
+shall prepare a selection basis, select one registered graph through one `F_P`
+selection, apply it as a registered selection and fold the admitted evidence
+into the next step's basis. Invocation, selection admission, evidence
+admission and continuation shall remain distinct ABG boundaries around each
+step; public ingress shall admit and transport the invocation only. The loop
+shall start, expose a typed stop reading, exercise bounded correction and
+automatic progression under established authority, and converge without a
+second controller or private import. A no-lawful-next-step case reports a
 truthful block and human-readable handoff, not false completion. Native human
 response/resume is not part of this 5.0 gate.
 
@@ -310,17 +310,6 @@ qualification described by this clause is not applicable to the ABIogenesis
 5.0 candidate, qualification basis, gate inventory, RC, or release. Deferral
 does not affect the real-tree and seeded-negative self-conformance required by
 `REQ-P-QUAL-060`.
-
-**REQ-P-QUAL-061**: Dedicated Consensus qualification is reserved for 5.1.
-It satisfies `REQ-P-CONSENSUS` by invoking the selected installed candidate's
-published SYSTEM-owned
-Consensus GraphFunction through `abg.cli` over one real ticket and at least two
-differently attributed reviewer profiles. It proves agreement closure, dispute
-recursion, and round-limit or unresolved-dispute typed block/handoff to F_H
-without requiring native response/resume, exercises the
-existing, alternate and temporary workspace applications, and exposes the typed
-result and replay without source import, feature-specific engine code, or
-shell-owned orchestration.
 
 **REQ-P-QUAL-062**: The real specification-driven lifecycle witness defined by
 Product F17/S06 and `REQ-P-SCENARIOS-013` shall be required ABIogenesis 5.0
@@ -354,7 +343,7 @@ traversal control or closure decisions. Native LLM worker transport remains a
 behavior of the fifteen-family Product: ABI5-ROOT-001; compute, structural,
 consequence, runtime-disposition and public-control behavior; shape-preserving
 fibre substitution; complete C algebra; malformed GTL and F_P refusal;
-One Surface; whole-subject F11; native Public projection; and complete selected
+the Executive system program; whole-subject F11; native Public projection; and complete selected
 S01/S02/S03/S06 outcomes. The source-linked coverage catalog declares these
 obligations without an executable slot, ordinal or owning-result requirement
 per behavior. Deferred portions require a scoped governing reason and evidence
