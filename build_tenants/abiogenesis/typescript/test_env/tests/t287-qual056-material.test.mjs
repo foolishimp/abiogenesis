@@ -117,7 +117,7 @@ test('observed C2 material binds exact inventory, recipe, policy and command bod
  const forged=clone(f);forged.observation.commandResults[0].exitStatus=0;forged.observation.commandResults[0].stdout=stream('changed after observation');assert.equal(constructQualificationVerificationMaterial(forged),null);
 });
 test('selected zero-exit stdout contradiction fails while exact match and indeterminate predicates retain their meaning',async t=>{
- const unknown={predicateKind:'module_export_return_exact',declaration:{path:'a.test.mjs',export:'missing',equals:null},observedValue:null};
+ const unknown={predicateKind:'process_exit',declaration:{validationCommandId:'command://test',equals:0},observedValue:null};
  const unsupported={predicateKind:'http_response_exact',declaration:{validationCommandId:'command://compare',status:200,body:'ok',
   launch:{executable:process.execPath,args:[p.WORKSITE_COMMAND_EXECUTION_IDS.httpPortFileArgumentPlaceholder],relativeCwd:'.',environment:[{kind:'worksite_command_environment_entry',schemaVersion:'5.0.0',name:'PATH',value:process.env.PATH}],portFile:{relativePath:'verification/port'},timeoutMs:5000,terminationGraceMs:100},
   request:{hostname:'127.0.0.1',method:'GET',path:'/',timeoutMs:100}},observedValue:{status:200,body:'ok'}};
@@ -138,7 +138,7 @@ test('selected zero-exit stdout contradiction fails while exact match and indete
  }
 });
 test('F11 conserves selected passed, failed and incomplete predicates through native summary and AF22',async t=>{
- for(const [predicates,expected]of [[[comparison()],'blocked'],[[comparison('inventory differs')],'red'],[[{predicateKind:'module_export_return_exact',declaration:{path:'a.test.mjs',export:'missing',equals:null},observedValue:null}],'blocked']]){
+ for(const [predicates,expected]of [[[comparison()],'blocked'],[[comparison('inventory differs')],'red'],[[{predicateKind:'process_exit',declaration:{validationCommandId:'command://test',equals:0},observedValue:null}],'blocked']]){
  const f=await materialFixture(t,predicates),verification=constructQualificationVerificationMaterial(f),native=await nativeJoinFixture();
  const law=JSON.parse(fs.readFileSync(new URL('../../contracts/qualification/law-basis.json',import.meta.url)));
  const input={kind:'self_conformance_input',schemaVersion:'5.0.0',basis:native.input.basis,law,inventory:null,tenantManifest:null,authorityMembers:[],applications:[],evidenceCitations:[],

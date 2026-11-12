@@ -207,6 +207,54 @@
     ],
     "commands": [
       {
+        "commandId": "command://abiogenesis-sandbox-uat/parallel-js/module-0",
+        "executable": "node",
+        "args": [
+          "--input-type=module",
+          "-e",
+          "const [path, name] = process.argv.slice(1); const exported = (await import('./' + path))[name]; const value = typeof exported === 'function' ? await exported() : exported; const json = (v) => Array.isArray(v) ? '[' + v.map(json).join(',') + ']' : v !== null && typeof v === 'object' ? '{' + Object.keys(v).sort().map((k) => JSON.stringify(k) + ':' + json(v[k])).join(',') + '}' : JSON.stringify(v); process.stdout.write(json(value === undefined ? null : JSON.parse(JSON.stringify(value))));",
+          "src/hello.mjs",
+          "helloPart"
+        ],
+        "relativeCwd": ".",
+        "environment": {},
+        "timeoutMs": 120000,
+        "terminationGraceMs": 5000,
+        "expectedReports": []
+      },
+      {
+        "commandId": "command://abiogenesis-sandbox-uat/parallel-js/module-1",
+        "executable": "node",
+        "args": [
+          "--input-type=module",
+          "-e",
+          "const [path, name] = process.argv.slice(1); const exported = (await import('./' + path))[name]; const value = typeof exported === 'function' ? await exported() : exported; const json = (v) => Array.isArray(v) ? '[' + v.map(json).join(',') + ']' : v !== null && typeof v === 'object' ? '{' + Object.keys(v).sort().map((k) => JSON.stringify(k) + ':' + json(v[k])).join(',') + '}' : JSON.stringify(v); process.stdout.write(json(value === undefined ? null : JSON.parse(JSON.stringify(value))));",
+          "src/world.mjs",
+          "worldPart"
+        ],
+        "relativeCwd": ".",
+        "environment": {},
+        "timeoutMs": 120000,
+        "terminationGraceMs": 5000,
+        "expectedReports": []
+      },
+      {
+        "commandId": "command://abiogenesis-sandbox-uat/parallel-js/module-2",
+        "executable": "node",
+        "args": [
+          "--input-type=module",
+          "-e",
+          "const [path, name] = process.argv.slice(1); const exported = (await import('./' + path))[name]; const value = typeof exported === 'function' ? await exported() : exported; const json = (v) => Array.isArray(v) ? '[' + v.map(json).join(',') + ']' : v !== null && typeof v === 'object' ? '{' + Object.keys(v).sort().map((k) => JSON.stringify(k) + ':' + json(v[k])).join(',') + '}' : JSON.stringify(v); process.stdout.write(json(value === undefined ? null : JSON.parse(JSON.stringify(value))));",
+          "src/index.mjs",
+          "helloWorld"
+        ],
+        "relativeCwd": ".",
+        "environment": {},
+        "timeoutMs": 120000,
+        "terminationGraceMs": 5000,
+        "expectedReports": []
+      },
+      {
         "commandId": "command://abiogenesis-sandbox-uat/parallel-js/tests",
         "executable": "node",
         "args": [
@@ -239,30 +287,51 @@
         }
       },
       {
-        "predicateId": "predicate://abiogenesis-sandbox-uat/parallel-js/module-0",
-        "predicateKind": "module_export_return_exact",
+        "predicateId": "predicate://abiogenesis-sandbox-uat/parallel-js/module-0-exit",
+        "predicateKind": "process_exit",
         "declaration": {
-          "path": "src/hello.mjs",
-          "export": "helloPart",
-          "equals": "Hello"
+          "validationCommandId": "command://abiogenesis-sandbox-uat/parallel-js/module-0",
+          "equals": 0
+        }
+      },
+      {
+        "predicateId": "predicate://abiogenesis-sandbox-uat/parallel-js/module-0",
+        "predicateKind": "stdout_exact",
+        "declaration": {
+          "validationCommandId": "command://abiogenesis-sandbox-uat/parallel-js/module-0",
+          "equals": "\"Hello\""
+        }
+      },
+      {
+        "predicateId": "predicate://abiogenesis-sandbox-uat/parallel-js/module-1-exit",
+        "predicateKind": "process_exit",
+        "declaration": {
+          "validationCommandId": "command://abiogenesis-sandbox-uat/parallel-js/module-1",
+          "equals": 0
         }
       },
       {
         "predicateId": "predicate://abiogenesis-sandbox-uat/parallel-js/module-1",
-        "predicateKind": "module_export_return_exact",
+        "predicateKind": "stdout_exact",
         "declaration": {
-          "path": "src/world.mjs",
-          "export": "worldPart",
-          "equals": "world"
+          "validationCommandId": "command://abiogenesis-sandbox-uat/parallel-js/module-1",
+          "equals": "\"world\""
+        }
+      },
+      {
+        "predicateId": "predicate://abiogenesis-sandbox-uat/parallel-js/module-2-exit",
+        "predicateKind": "process_exit",
+        "declaration": {
+          "validationCommandId": "command://abiogenesis-sandbox-uat/parallel-js/module-2",
+          "equals": 0
         }
       },
       {
         "predicateId": "predicate://abiogenesis-sandbox-uat/parallel-js/module-2",
-        "predicateKind": "module_export_return_exact",
+        "predicateKind": "stdout_exact",
         "declaration": {
-          "path": "src/index.mjs",
-          "export": "helloWorld",
-          "equals": "Hello, world!"
+          "validationCommandId": "command://abiogenesis-sandbox-uat/parallel-js/module-2",
+          "equals": "\"Hello, world!\""
         }
       }
     ],

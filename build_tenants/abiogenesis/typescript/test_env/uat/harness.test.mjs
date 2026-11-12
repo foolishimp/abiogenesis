@@ -299,12 +299,15 @@ test('Owned report repair preserves all six original Hello mechanical command an
       await put(fixturePath(scratch,path),'controlled artifact-existence premise\n');
     const commands=selected.request.testing.commands.map(command=>({...command,
       environment:Object.entries(command.environment??{}).map(([name,value])=>({name,value}))}));
+    // A command named by a stdout_exact predicate prints its declared value; the tests command prints its pass line.
+    const printed=selected.request.testing.outcomePredicates.filter(row=>row.predicateKind==='stdout_exact');
+    const stdoutOf=commandId=>printed.find(row=>row.declaration.validationCommandId===commandId)?.declaration.equals??'# pass 20\n';
     const value={kind:'worksite_command_execution_observation',observationRef:'observation://controlled/hello/'+row.key,task:{commands},
       commandResults:commands.map((command,index)=>({...command,kind:'worksite_command_result',reports:[],exitStatus:0,timedOut:false,terminationConfirmed:true,
         observationRef:'command://controlled/hello/'+row.key+'/'+index,observationDigest:product.sha256Canonical(command),
-        stdout:{encoding:'base64',payload:Buffer.from(index===0&&['basic-cli','rust-cli'].includes(row.key)?'Hello, world!\n':'# pass 20\n').toString('base64')},
-        stderr:{encoding:'base64',payload:''}})),predicateObservations:selected.request.testing.outcomePredicates
-          .filter(row=>row.predicateKind==='module_export_return_exact').map(row=>({predicateId:row.predicateId,observedValue:row.declaration.equals,evidenceRefs:[]}))};
+        stdout:{encoding:'base64',payload:Buffer.from(stdoutOf(command.commandId)).toString('base64')},
+        stderr:{encoding:'base64',payload:''}})),predicateObservations:printed
+          .map(row=>({predicateId:row.predicateId,observedValue:row.declaration.equals,evidenceRefs:[]}))};
     const owner={graphFunctionRef:product.WORKSITE_COMMAND_EXECUTION_IDS.graphFunctionRef,outputContractRef:product.WORKSITE_COMMAND_EXECUTION_IDS.observationContractRef,
       resultClass:'success',runId:'run://controlled/hello/'+row.key},cCallRef='c-call:controlled/hello/'+row.key;
     const event={kind:'c_call_result_admitted',graphFunctionRef:owner.graphFunctionRef,runId:owner.runId,aggregateId:cCallRef,

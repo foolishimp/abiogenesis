@@ -68,10 +68,10 @@ test('native revision decision view leaves all opaque C2 and application JSON ve
   const execution = { kind: 'worksite_command_execution_observation',
     task: { sourceNativeWork: nativeWork, outcomePredicates: opaque.map((equals, ordinal) => ({
       kind: 'worksite_outcome_predicate', schemaVersion: '5.0.0', ordinal, predicateId: `predicate-${ordinal}`,
-      predicateKind: 'module_export_return_exact', declaration: { path: 'module.mjs', export: 'value', equals } })) },
+      predicateKind: 'stdout_exact', declaration: { validationCommandId: 'command://value', equals } })) },
     commandResults: [{ stdout: stream, stderr: stream }],
     predicateObservations: opaque.map((observedValue, ordinal) => ({ kind: 'worksite_predicate_observation', schemaVersion: '5.0.0',
-      ordinal, predicateId: `predicate-${ordinal}`, predicateKind: 'module_export_return_exact', observedValue, evidence: opaque, evidenceRefs: [] })) };
+      ordinal, predicateId: `predicate-${ordinal}`, predicateKind: 'stdout_exact', observedValue, evidence: opaque, evidenceRefs: [] })) };
   const asset = { assetRef: 'asset://actual-slot', assetDigest: hash(opaque), source: {}, candidate: { opaque }, groundedTerms: [], assessment: { candidate: { opaque } } };
   const envelope = { kind: 'semantic_stage_envelope', job: { members: [], taskData: { opaque }, evaluationData: { hidden: 'actual-private-evaluator-sentinel' } },
     declaration: { declarationRef: 'lifecycle://actual-slot' }, assets: [asset], context,
