@@ -86,6 +86,9 @@ if (args.length !== 2 || args[0] !== "--jsonl" || args[1] === undefined) {
   ));
   process.exitCode = 2;
 } else {
+  // Until the call is submitted no owning function is entered: a refusal or a
+  // failure here exits 2.
+  let request: CliTransportRequest | null = null;
   try {
     const lines = (await readFile(args[1], "utf8"))
       .split(/\r?\n/u)
@@ -107,29 +110,13 @@ if (args.length !== 2 || args[0] !== "--jsonl" || args[1] === undefined) {
         ));
         process.exitCode = 2;
       }
-      const request = parseTransportRequest(decoded);
-      if (request === null) {
-        if (decoded !== undefined) {
-          writeJsonLine(transportRefusal(
-            "invalid_transport_request",
-            "transport request must declare exact acquisition and one Public invocation",
-          ));
-          process.exitCode = 2;
-        }
-      } else {
-        const outcome = await runInstalledDefinitionCallTransport(
-          request.acquisition as unknown as Parameters<
-            typeof runInstalledDefinitionCallTransport
-          >[0],
-          request.invocation,
-        );
-        const admittedOutcome = admitJson(outcome);
-        if (admittedOutcome.kind !== "ok") throw new TypeError("transport outcome is not one I-JSON value");
-        writeJsonLine(admittedOutcome.value);
-        process.exitCode = outcome.kind ===
-            "installed_definition_call_transport_refusal"
-          ? 2
-          : outcome.receipt.exitCode;
+      request = parseTransportRequest(decoded);
+      if (request === null && decoded !== undefined) {
+        writeJsonLine(transportRefusal(
+          "invalid_transport_request",
+          "transport request must declare exact acquisition and one Public invocation",
+        ));
+        process.exitCode = 2;
       }
     }
   } catch (error) {
@@ -138,5 +125,31 @@ if (args.length !== 2 || args[0] !== "--jsonl" || args[1] === undefined) {
       String(error),
     ));
     process.exitCode = 2;
+  }
+  // Once the call is submitted, a throw out of the transport or an outcome
+  // that cannot be encoded is an execution failure, which may follow owner
+  // entry: it exits 70. Only the transport's typed refusal exits 2.
+  if (request !== null) {
+    try {
+      const outcome = await runInstalledDefinitionCallTransport(
+        request.acquisition as unknown as Parameters<
+          typeof runInstalledDefinitionCallTransport
+        >[0],
+        request.invocation,
+      );
+      const admittedOutcome = admitJson(outcome);
+      if (admittedOutcome.kind !== "ok") throw new TypeError("transport outcome is not one I-JSON value");
+      writeJsonLine(admittedOutcome.value);
+      process.exitCode = outcome.kind ===
+          "installed_definition_call_transport_refusal"
+        ? 2
+        : outcome.receipt.exitCode;
+    } catch (error) {
+      writeJsonLine(transportRefusal(
+        "transport_failure",
+        String(error),
+      ));
+      process.exitCode = 70;
+    }
   }
 }
