@@ -83,8 +83,8 @@
     {
       "ref": "repo://abiogenesis/specification/requirements/abg/REQ-R-ABG3-EVENTS.md",
       "path": "contracts/qualification/sources/REQ-R-ABG3-EVENTS.md",
-      "digest": "sha256:22c98f454bfe7483f34142a1b80d28a471dfbb8bf5546b0233cc1df586387b15",
-      "byteCount": 14858
+      "digest": "sha256:d42133dd00a67c1296e97a9fc955ce0445acfbaac35ed04e6b8f72379120ec94",
+      "byteCount": 15327
     },
     {
       "ref": "repo://abiogenesis/specification/requirements/abg/REQ-R-ABG3-FN-COMPOSITION.md",

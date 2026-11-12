@@ -79,6 +79,13 @@ machine-readable roster is the named `RUNTIME_EVENT_KIND_VALUES` symbol and the
 `RuntimeEvent`/`CanonicalRuntimeEvent` type symbols located by contract group
 `abg.contract.abg.m03` in the exact product's public contract catalog. The
 family enumeration below is a normative map into that roster, not a substitute.
+A store holds its events under one event-contract profile, a version of this
+contract. A store on the legacy profile (the unstamped base table) moves to the
+current profile only by the witnessed reprice that records the profile
+boundary, and it admits no other append: every other operation that would
+append to it shall be refused, before anything is written, until the store has
+been repriced. A store on the legacy profile is read and replayed like any other
+store.
 
 **REQ-R-ABG3-EVENTS-031**: Public-operation admission events shall attest typed ingress, actor attribution, operation variant, invocation authority, and exact binding requirement only. They shall not record public ingress as the owner of selection, evaluation, program ordering, retry, continuation, or closure; those authorities remain with the admitted GTL program and ABG runtime boundaries.
 

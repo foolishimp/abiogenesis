@@ -6,7 +6,7 @@
   "memberSetDigest": "sha256:20e9d378f261992e62dd473ef8572b11eb9bec281149ac0ccc754b91c9073466",
   "catalog": {
     "ref": "catalog://abiogenesis/qualification/self-conformance@2",
-    "digest": "sha256:e69445660771d73fab72e3f159a66358223c83fe535eee70774eafb06b711a43",
+    "digest": "sha256:e271d68cf52259576c9ba94b8ce33d9c8e6845786f49f916c245b1735d391a89",
     "ownerRef": "authority://abiogenesis/validator/conformance@5",
     "version": "2",
     "assetPath": "contracts/qualification/rule-catalog.json"
@@ -87,8 +87,8 @@
     {
       "ref": "repo://abiogenesis/specification/requirements/abg/REQ-R-ABG3-EVENTS.md",
       "path": "contracts/qualification/sources/REQ-R-ABG3-EVENTS.md",
-      "digest": "sha256:22c98f454bfe7483f34142a1b80d28a471dfbb8bf5546b0233cc1df586387b15",
-      "byteCount": 14858
+      "digest": "sha256:d42133dd00a67c1296e97a9fc955ce0445acfbaac35ed04e6b8f72379120ec94",
+      "byteCount": 15327
     },
     {
       "ref": "repo://abiogenesis/specification/requirements/abg/REQ-R-ABG3-FN-COMPOSITION.md",
@@ -577,6 +577,6 @@
       "byteCount": 94520
     }
   ],
-  "lawBasisRef": "qualification-law://abiogenesis/396dffec05ca8dbf0d322b3214671458255e6260f30eddb3683715ca8c795c82",
-  "lawBasisDigest": "sha256:396dffec05ca8dbf0d322b3214671458255e6260f30eddb3683715ca8c795c82"
+  "lawBasisRef": "qualification-law://abiogenesis/8d630bd489df74e52e3e1456e0f2ecc1c92ea0297068f13f6aa24e076f5c3fcf",
+  "lawBasisDigest": "sha256:8d630bd489df74e52e3e1456e0f2ecc1c92ea0297068f13f6aa24e076f5c3fcf"
 }
