@@ -2149,7 +2149,8 @@ fault `invalid_owner_output` (`public/binding/static_definition_bindings.ts`),
 to which `runExactDefinition` (`shared/effect_definition.ts`) gives exit code
 `70`. Result, owner-semantic refusal, and non-terminal outcomes exit `0`, `1`,
 and `3` there; common-envelope, family-lookup, and indexed admission refusals
-are transport refusals, on which `public/cli.ts` exits `2`.
+are transport refusals, on which `public/cli.ts` exits `2`. `REQ-P-POLICY-022`
+states this exit classification.
 
 Invocation authority is a dependent structural sum, not an optional bag:
 
@@ -2244,9 +2245,12 @@ wraps it without changing meaning. A contract-invalid output produces only the
 exact `projection_refusal` member. `operations.ts` or any successor ingress
 module cannot be a second contract or composition surface.
 
-SDK and CLI expose the same outcome and exit code: the CLI prints the transport
-outcome and exits with the host receipt's `exitCode` (`public/cli.ts`,
-`runExactDefinition` in `shared/effect_definition.ts`). A thrown parse error, raw
+SDK and CLI expose the same outcome, and the CLI's exit status classifies it as
+`REQ-P-POLICY-022` states: the CLI prints the transport outcome and exits with
+the host receipt's `exitCode` (`runExactDefinition` in
+`shared/effect_definition.ts`), or `2` on a transport refusal, a request it
+cannot read, decode or submit, or an outcome it cannot encode
+(`public/cli.ts`). A thrown parse error, raw
 stack, CLI-only status, or adapter-local result is not a public outcome.
 
 ### 4.6 Capability, Event, And Adapter Metadata
