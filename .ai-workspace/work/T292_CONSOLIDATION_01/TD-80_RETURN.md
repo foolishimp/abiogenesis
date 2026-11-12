@@ -3,12 +3,14 @@
 **Status:** done. A held event store refuses a transaction and a write when the
 file at its log path or behind its descriptor is not the regular file it holds
 (device and inode) at the length it retains. The check reads no byte and no time
-field. Every listed lane passes on the final build, no lane goes from pass to
-fail, the replay and artifact-truth comparisons are identical, the base `.d.ts`
-files are byte-identical, and an append costs about 5 µs more, 0.1% of a
-durable append. Two things need a ruling: the live design sentences listed under
-"Other live design that contradicts the store", and the residual on the
-rollback range.
+field. No lane fails on the final build; skips are the files' own gates and are
+the same on both builds. No lane goes from pass to fail, the replay and
+artifact-truth comparisons are identical, and the base `.d.ts` files are
+byte-identical. An append costs about 5 µs more, 0.1% of a durable append
+including its `fsync`; I read the 1% bound of ruling 10 against that measure,
+and the Executive should confirm the reading (see "Cost"). For a ruling: that
+reading, the live design sentences listed under "Other live design that
+contradicts the store", and the residual on the rollback range.
 
 Base: local `main` at `d2ed7fd58`, built. Final: branch
 `claude/td80-append-currentness`, built from the committed source. Terms: a
@@ -37,9 +39,12 @@ existing code. It does not: `appendCheckedArtifactEvent` returns
 `sink_unavailable` with the currentness owner's message, the code this door
 already gives when its sink cannot take the append (the legacy-profile refusal
 of TD-32 takes the same branch). In one default-library Run
-`heldRuntimePrefixState` is called 345 times (169 in the interrupted host
-process, 176 in the resuming CLI process; the test process adds 14 in setup and
-each of six cold CLI reads adds 2), against 244 appended batches.
+`heldRuntimePrefixState` is called at least 345 times (at least 169 in the
+interrupted host process, 176 in the resuming CLI process; the test process
+adds 14 in setup and each of six cold CLI reads adds 2), against 244 appended
+batches. The host count is a lower bound: the host is killed with SIGKILL, so
+its exit dump never runs, and its last record is the one written at its last
+check.
 
 ## The door table
 
@@ -302,15 +307,18 @@ before the final build):
 
 | Process | (i) | (ii) | Batches | Rows | `heldRuntimePrefixState` |
 |---|---|---|---|---|---|
-| interrupted host (`host.mjs`) | 119 | 119 | 119 | 312 | 169 |
+| interrupted host (`host.mjs`) | 119 | 119 | 119 | 312 | at least 169 |
 | resuming CLI | 125 | 125 | 125 | 312 | 176 |
-| the Run | 244 | 244 | 244 | 624 | 345 |
+| the Run | 244 | 244 | 244 | 624 | at least 345 |
 | test process setup (not the Run) | 0 | 3 | 3 | 3 | 14 |
 | six cold CLI reads | 0 | 0 | 0 | 0 | 2 each |
 | worksite command helper | 0 | 0 | 0 | 0 | 0 |
 
 The row counts match the case's own output (`eventsInterrupted` 315 = 3 + 312,
-`eventsFinal` 627). The Run makes 488 helper calls.
+`eventsFinal` 627). The Run makes 488 helper calls. The (i) and (ii) counts are
+exact: each increment writes the record at once. `heldRuntimePrefixState`
+writes it only at every 100th call and at each check, so calls after the host's
+last check are not counted.
 
 **Time.**
 
@@ -331,8 +339,16 @@ The row counts match the case's own output (`eventsInterrupted` 315 = 3 + 312,
   pairs (expected-prefix) and 445 of 900 (durable-prefix).
 
 The added time is about 5 µs per append, 0.1% of a durable append. Wall-clock
-timing on this machine cannot resolve 1%; the direct measure lies an order of
-magnitude under it. The ruling 10 bound is not passed.
+timing on this machine cannot resolve 1%: two point estimates lie above 1%
+(+1.28% across processes, +1.18% in one paired run), the paired runs straddle
+zero, and two halves of the same base runs differ by up to 15%. The direct
+measure lies an order of magnitude under 1%. Measured against the CPU part
+alone, without `fsync`, the check adds 6-9%.
+
+My reading, for the Executive to confirm: "an append" in ruling 10 is a durable
+append as the store makes it, `fsync` included, so the bound is not passed. If
+the bound is meant for the CPU part alone, it is passed and this package stops
+under the brief.
 
 ## Lanes before and after
 
@@ -402,10 +418,30 @@ both builds. The two known reds on main (one case of
 `t287-cross-cut-public-read`, one of `witness-reprice-definition-binding`) do
 not show on this machine on either build.
 
-The 34 sites of the trace where a lane writes to an event-log path: I read each.
-None appends through a held store after changing the log's length or identity
-and expects success, so no stop condition holds. Every file among them whose
-store appends after the write is in the table.
+The trace counts 34 sites where a lane writes to an event-log path but does not
+list them, so I cannot match its list row for row. What I checked instead:
+
+- the write sites in the files I run here. Before the change I read, in
+  context, the writes to a store's log in the witness lanes,
+  `t287-governance-covered-source-use`, `t287-ordered-reconstruction`,
+  `t287-exact-prefix-projection-reuse`, `t287-event-body-encoding`,
+  `m5-event-store-reopen` (:804, :1175, :1979), `t287-conformance-owner-reuse`,
+  `t287-qualification-producer-acquisition-reuse` (:196), `uat/harness` (:95),
+  `t287-authenticated-owner-values` (:106) and
+  `t287-interrupted-event-resource-recovery`. All of these files pass on final,
+  so none appends through a held store after a change of length or identity and
+  expects success;
+- a grep of `test_env/tests`, `test_env/support`, `test_env/uat` and
+  `test_env/falsifiers` for writes (`writeFile`, `appendFile`, `truncate`,
+  `writeSync`, `rename`, `copyFile`, `rm` and their sync forms) whose line names
+  a log path (97 lines, `/private/tmp/abg-td80w-work/write-sites.txt`). I read
+  the 40 lines in files not in the table. None writes to a log a store holds:
+  they write actor, stderr and fixture logs, proof copies of a log, a new log
+  created with `flag: "wx"` before a store opens it
+  (`witness-reprice-mechanics.mjs:115`, `r10-retained-child-projection.mjs:27`),
+  or catalogue source files that the pattern matched on "catalog".
+
+No stop condition holds.
 
 Files that name `appendDurablyBatch`, `admitRuntimeEventTransactionAtExpectedPrefix`,
 `admitRuntimeEventTransactionAtDurablePrefix`, `reopenEventStore` or
@@ -529,8 +565,12 @@ before each commit; nothing pushed.
 - The comment citation in `m5-retry-lifecycle-authority.test.mjs:300` is
   corrected; my design edit moves its target.
 - The door table's Public rows cover the witness door and the with-resource
-  transport. The artifact and Run doors are covered through their store entries
-  only (see the door table).
+  transport. `abg.operation.product.install` and `abg.operation.workspace.bind`
+  are Public appending doors reachable without a provider (`r2-clean-install`
+  and `r3-workspace-binding` run them), but I cover them by reading only:
+  their append is `appendCheckedArtifactEvent`, whose store row is in the
+  table, and their acquisition is the reopen the witness rows exercise. The Run
+  doors need a native actor and are covered through their store entries only.
 
 ## Residuals
 
