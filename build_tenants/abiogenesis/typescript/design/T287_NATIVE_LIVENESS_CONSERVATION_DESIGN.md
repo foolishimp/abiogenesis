@@ -260,16 +260,21 @@ Old L events/prefixes and uniform-L replay retain exact bytes and meanings.
 Missing old elapsed/probe facts are not backfilled. Historical interruption or
 liveness claims remain limited to evidence actually present. Current-P execution
 uses the declared probes; uniform-P and mixed replay carry the selected profile
-and exact schedule. Crossing profiles still requires the compatibility HOW's genuine native
-quiescent boundary and all existing W/install/reprice checks. New probes cannot
-be appended to an active L store merely because the new code can read it.
+and exact schedule. Crossing profiles requires the compatibility HOW's genuine
+native quiescent boundary and all existing W/install/reprice checks. A store on
+L takes no probe: probes are admitted only at the current profile
+(`admitNativeRuntimeLivenessEvent`, `abg/event_store.ts`), and a store on L
+admits no append but the reprice (`appendDurablyBatch`).
 
 [Interrupted event-resource recovery](T287_INTERRUPTED_EVENT_RESOURCE_RECOVERY_DESIGN.md)'s
-physical abandoned-acquisition recovery and run-stopped witness precede
-a profile upgrade where necessary. Liveness does not recover a lock, truncate a
-tail, mint a close handoff or infer a stop witness. P3's undispatched owner
-refusal remains a separate failure arm: no actor/probe evidence is fabricated
-for a CCall that never dispatched.
+physical abandoned-acquisition recovery (`recoverInterruptedEventStore`,
+`abg/event_store.ts`) adopts a store on L without appending and may precede its
+reprice. A run-stopped witness is an append, so on a store on L it is refused
+like any other append; a store on L whose leaf CCall has neither its judgment
+nor a `run_stopped` is not repriced (`assertRootEventProfileBoundary`).
+Liveness does not recover a lock, truncate a tail, mint a close handoff or infer
+a stop witness. P3's undispatched owner refusal remains a separate failure arm:
+no actor/probe evidence is fabricated for a CCall that never dispatched.
 
 Conserve the 4.6 pure positive and negative relations through current owners.
 Explicitly supersede two donor implementation details: positional event-array
