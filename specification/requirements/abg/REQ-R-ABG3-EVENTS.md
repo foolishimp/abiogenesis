@@ -81,6 +81,13 @@ machine-readable roster is the named `RUNTIME_EVENT_KIND_VALUES` symbol and the
 `RuntimeEvent`/`CanonicalRuntimeEvent` type symbols located by contract group
 `abg.contract.abg.m03` in the exact product's public contract catalog. The
 family enumeration below is a normative map into that roster, not a substitute.
+A store holds its events under one event-contract profile, a version of this
+contract. A store on the legacy profile (the unstamped base table) moves to the
+current profile only by the witnessed reprice that records the profile
+boundary, and it admits no other append: every other operation that would
+append to it shall be refused, before anything is written, until the store has
+been repriced. A store on the legacy profile is read and replayed like any other
+store.
 
 **REQ-R-ABG3-EVENTS-030**: One Surface events shall preserve stable workspace authority separately from mutable observation. Workspace-binding and execution-basis refs shall remain unchanged across ordinary re-observation, while each admitted observation carries its own snapshot identity and digest. No observation, projection, file change, replay advance, or worksite digest shall emit or imply a new workspace binding or basis-fork event.
 
