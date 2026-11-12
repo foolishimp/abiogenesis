@@ -136,13 +136,6 @@ export function compareGovernanceDeclarationPublications(
   } catch { return null; }
 }
 
-export interface ProductPublicResultProjection {
-  readonly kind: "product_public_result_projection";
-  readonly schemaVersion: "5.0.0";
-  readonly contractRef: string;
-  readonly value: JsonValue;
-}
-
 export interface ProductSemanticsProvider {
   readonly kind: "product_semantics_provider";
   readonly schemaVersion: "5.0.0";
@@ -211,15 +204,6 @@ export interface ProductSemanticsProvider {
       readonly currentSourceUse?: () => GovernanceCoveredSourceUse | null;
     }>,
   ) => boolean;
-  readonly projectPublicResult?: (
-    basis: Readonly<{
-      readonly value: JsonValue;
-      readonly admittedResultRef: string;
-      readonly admittedResultContractRef: string;
-      readonly replayRef: string;
-      readonly projectionKind: string;
-    }>,
-  ) => ProductPublicResultProjection | null;
 }
 
 interface InstalledProductSemanticsBasisCommon {
@@ -452,10 +436,8 @@ async function loadProductSemantics(
       value.validateInvocationBasis !== undefined &&
       typeof value.validateInvocationBasis !== "function"
     ) ||
-    (
-      value.projectPublicResult !== undefined &&
-      typeof value.projectPublicResult !== "function"
-    )
+    "publicResultProjectionKinds" in value ||
+    "projectPublicResult" in value
   ) {
     throw new TypeError(
       "installed Product semantics provider differs from its published binding",

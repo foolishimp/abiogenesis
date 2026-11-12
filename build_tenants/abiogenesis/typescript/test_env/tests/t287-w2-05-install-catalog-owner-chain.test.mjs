@@ -681,11 +681,10 @@ test("W2-05 installed Product install and catalog owners compose without catalog
     packageName: harness.candidateBasis.packageName,
     packageVersion: harness.candidateBasis.packageVersion,
   });
-  // The Product's contribution manifest binds its ten core publications
+  // The Product's contribution manifest binds its eight core publications
   // (scripts/generate-product-manifest.mjs); the catalog admits exactly them.
   const publications = Object.freeze([
     gtl.constructDefaultGovernanceLibraryModulePublication(artifactBasis),
-    gtl.constructConsensusModulePublication(artifactBasis),
     gtl.constructWorksiteConstructionModulePublication(artifactBasis),
     gtl.constructWorksiteCommandExecutionModulePublication(artifactBasis),
     gtl.constructNativeWorkspaceWorkModulePublication(artifactBasis),
@@ -788,15 +787,37 @@ test("W2-05 installed Product install and catalog owners compose without catalog
     admittedCatalog.ownerOutput.value.catalog,
     admittedCatalog.resources.catalog,
   );
-  const nodeRow = catalog.declarationEntries.find(
-    ({ declarationKind }) => declarationKind === "node_type",
-  );
-  const overlayRow = catalog.declarationEntries.find(
-    ({ declarationKind }) => declarationKind === "overlay",
-  );
-  assert.ok(nodeRow);
-  assert.ok(overlayRow);
-  const allowlist = [nodeRow.handle, overlayRow.handle].sort();
+  // T-292 TD-26 P2: the tenant's lock row binds no Consensus module, so a
+  // publication that names it is not bound and Catalog admission rejects each
+  // of its rows with the existing publication identity reason.
+  const consensusModuleRef = "module://abg/consensus@5";
+  const consensusNamed = Object.freeze({ ...structuredClone(publications[0]), moduleRef: consensusModuleRef });
+  const withConsensusNamed = product.CatalogOperationPort.admit({
+    kind: "catalog_admit_packet",
+    schemaVersion,
+    memberKey: "admit",
+    readinessBasis: Object.freeze({ ...readinessBasis, publications: [...publications, consensusNamed] }),
+  });
+  assert.equal(withConsensusNamed.kind, "graph_function_catalog", JSON.stringify(withConsensusNamed).slice(0, 2000));
+  const consensusNamedRows = withConsensusNamed.rowDispositions.filter(({ moduleRef }) => moduleRef === consensusModuleRef);
+  assert.equal(consensusNamedRows.length, consensusNamed.contributions.length);
+  assert.ok(consensusNamedRows.every(({ disposition, reason }) =>
+    disposition === "rejected" && reason === "publication_identity_mismatch"));
+  assert.equal(withConsensusNamed.boundPublications.some(({ moduleRef }) => moduleRef === consensusModuleRef), false);
+  assert.deepEqual(withConsensusNamed.entries, catalog.entries);
+  // The view narrows the core catalog to two callable rows of the default
+  // library. The core Product publishes no declaration rows;
+  // steel-consumer-declaration views a consumer's node_type and overlay rows.
+  assert.equal(catalog.declarationEntries.length, 0);
+  const allowlist = [
+    "graph-function://abiogenesis/default-library/executive@5",
+    "graph-function://abiogenesis/default-library/executive-step@5",
+  ].map((graphFunctionRef) => {
+    const rows = catalog.entries.filter(({ definitionRef }) =>
+      definitionRef === graphFunctionRef);
+    assert.equal(rows.length, 1);
+    return rows[0].handle;
+  }).sort();
   const viewRequest = Object.freeze({
     catalog: admittedCatalog.ownerOutput.value.catalog,
     allowlist,
@@ -844,15 +865,6 @@ test("W2-05 installed Product install and catalog owners compose without catalog
     product_set: [install.ownerOutput.value.installedProduct],
     dependency_lock: lockCoordinate,
   });
-  // RETIRED (T-290 C-18b, removed surface): catalog.apply over the core
-  // consensus node_type and overlay rows with caller-asserted application
-  // basis, validation receipt and contributor coordinates. At head the owner
-  // derives all three from an explicit construction (prefix, Program, target,
-  // value, installed schema assets: constructCatalogApplicationResources), and
-  // the core consensus schema asset ($id abg.schema.consensus@5) carries no
-  // schema whose $id is a row's contract ref, so these rows have no Public
-  // application. steel-consumer-declaration owns the Public apply claim over a
-  // consumer's installed schemas; m5-consensus-module owns the native one.
 
   const projectionBasis = (memberKey, value) => Object.freeze({
     basisRef: `projection-basis://abiogenesis/t287/w2-05/${memberKey}`,
@@ -1480,8 +1492,9 @@ test("W2-05 installed Product install and catalog owners compose without catalog
   // A declared-inventory conformance evaluates a Program of the admitted
   // catalog over its exact bound publications and a view of the Program's
   // members (declarationCatalog). The W2-05 cut's test-owned root publication
-  // is no longer a catalog publication; a core consensus Program stands for it.
-  const conformancePublication = publications[1];
+  // is no longer a catalog publication; the default library's Program stands
+  // for it.
+  const conformancePublication = publications[0];
   const conformanceProgram = conformancePublication.programs[0];
   assert.ok(conformanceProgram);
   const conformanceProgramCoordinate = Object.freeze({

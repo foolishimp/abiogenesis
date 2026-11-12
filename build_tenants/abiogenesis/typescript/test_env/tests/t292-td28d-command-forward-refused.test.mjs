@@ -72,7 +72,7 @@ test('TD-28d: the shipped publications carry no forward module and the Catalog r
   const artifact = { productId: product.ABI5_PRODUCT_ID, packageName: product.ABI5_PACKAGE_NAME,
     packageVersion: product.ABI5_PACKAGE_VERSION, artifactDigest: `sha256:${'1'.repeat(64)}`,
     productContentDigest: `sha256:${'2'.repeat(64)}`, productManifestDigest: `sha256:${'3'.repeat(64)}` };
-  const publications = [gtl.constructConsensusModulePublication, gtl.constructWorksiteConstructionModulePublication,
+  const publications = [gtl.constructWorksiteConstructionModulePublication,
     gtl.constructWorksiteCommandExecutionModulePublication, gtl.constructNativeWorkspaceWorkModulePublication,
     gtl.constructRequirementHandoffModulePublication, gtl.constructSemanticStageModulePublication,
     gtl.constructSemanticRevisionModulePublication, gtl.constructSelfConformanceModulePublication].map(f => f(artifact));
@@ -109,7 +109,7 @@ const FORWARD_KEY = 'abg.worksite_command_forward';
 const FORWARD_KEY_VALUE = 'dependency://abiogenesis/worksite/command-forward/historical-owners@5';
 const R = RECURSION_IDS;
 const LIBRARY_PROGRAM = 'program://abiogenesis/default-library/default@5';
-const SHIPPED = ['constructDefaultGovernanceLibraryModulePublication', 'constructConsensusModulePublication',
+const SHIPPED = ['constructDefaultGovernanceLibraryModulePublication',
   'constructWorksiteConstructionModulePublication', 'constructWorksiteCommandExecutionModulePublication',
   'constructNativeWorkspaceWorkModulePublication', 'constructRequirementHandoffModulePublication',
   'constructSemanticStageModulePublication', 'constructSemanticRevisionModulePublication', 'constructSelfConformanceModulePublication'];

@@ -12,12 +12,15 @@ import {
   refreshGraphFunctionCatalog,
 } from "../../build/code/src/product/catalog.js";
 import {
-  CONSENSUS_IDS,
   LANGUAGE_TEST_DIRECT_IDS,
   LANGUAGE_TEST_IDS,
-  constructConsensusModulePublication,
   constructLanguageTestModulePublication,
 } from "../support/language-test-gtl.mjs";
+import {
+  STRUCTURAL_DIRECT_IDS,
+  STRUCTURAL_IDS,
+  constructStructuralModulePublication,
+} from "../support/language-structural-gtl.mjs";
 import { sha256Canonical } from "../../build/code/src/shared/digests.js";
 import { acquireNewEmptyAppendSinkFixture } from "../support/new-empty-append-sink.mjs";
 
@@ -30,10 +33,31 @@ const artifact = Object.freeze({
   packageVersion: "5.0.0",
 });
 
+const NODE_TYPE_HANDLE = "node-type://abiogenesis/catalog-proof/subject@5";
+
+// The second publication carries one non-callable node_type declaration beside
+// its GraphFunction contributions.
+function structuralPublication() {
+  const publication = structuredClone(
+    constructStructuralModulePublication(artifact),
+  );
+  publication.contributions.push({
+    handle: NODE_TYPE_HANDLE,
+    kind: "node_type",
+    declarationOrContractRef: STRUCTURAL_IDS.inputContractRef,
+    owningProductId: artifact.productId,
+    programMembershipRefs: [],
+    readinessPrerequisiteRefs: [],
+    compatibilityRefs: ["compatibility://abiogenesis/major/5"],
+    provenanceRefs: [artifact.artifactDigest, artifact.productManifestDigest],
+  });
+  return publication;
+}
+
 function publications() {
   return [
     constructLanguageTestModulePublication(artifact),
-    constructConsensusModulePublication(artifact),
+    structuralPublication(),
   ];
 }
 
@@ -52,11 +76,11 @@ function requireView(result) {
 }
 
 test("R4 catalog construction is permutation and cache-loss deterministic", () => {
-  const [hello, consensus] = publications();
-  const forward = requireCatalog(buildGraphFunctionCatalog([hello, consensus]));
-  const reverse = requireCatalog(buildGraphFunctionCatalog([consensus, hello]));
+  const [hello, structural] = publications();
+  const forward = requireCatalog(buildGraphFunctionCatalog([hello, structural]));
+  const reverse = requireCatalog(buildGraphFunctionCatalog([structural, hello]));
   const reconstructed = requireCatalog(buildGraphFunctionCatalog(
-    structuredClone([hello, consensus]),
+    structuredClone([hello, structural]),
   ));
 
   assert.equal(
@@ -77,14 +101,14 @@ test("R4 catalog construction is permutation and cache-loss deterministic", () =
 });
 
 test("R4 refresh adds and replaces exact publication sets", () => {
-  const [hello, consensus] = publications();
+  const [hello, structural] = publications();
   const initial = requireCatalog(buildGraphFunctionCatalog([hello]));
-  const added = requireCatalog(refreshGraphFunctionCatalog([hello, consensus]));
+  const added = requireCatalog(refreshGraphFunctionCatalog([hello, structural]));
   assert.ok(added.entries.length > initial.entries.length);
   assert.notEqual(added.basisDigest, initial.basisDigest);
   assert.equal(
-    lookupGraphFunction(added, "gtl://abg/consensus/submitter-reviewer-rounds")?.definitionRef,
-    CONSENSUS_IDS.graphFunctionRef,
+    lookupGraphFunction(added, STRUCTURAL_DIRECT_IDS.handle)?.definitionRef,
+    STRUCTURAL_IDS.graphFunctionRef,
   );
 
   const changed = structuredClone(hello);
@@ -182,7 +206,7 @@ test("R4 keeps canonical handles distinct from GraphFunction definitions", () =>
 });
 
 test("R4 equal duplicates are idempotent and unequal collisions refuse", () => {
-  const [hello, consensus] = publications();
+  const [hello, structural] = publications();
   const single = requireCatalog(buildGraphFunctionCatalog([hello]));
   const duplicate = requireCatalog(buildGraphFunctionCatalog([
     hello,
@@ -193,7 +217,7 @@ test("R4 equal duplicates are idempotent and unequal collisions refuse", () => {
     graphFunctionCatalogCanonicalSnapshot(duplicate),
   );
 
-  const collision = structuredClone(consensus);
+  const collision = structuredClone(structural);
   collision.contributions[0].handle = LANGUAGE_TEST_IDS.graphFunctionRef;
   const refused = buildGraphFunctionCatalog([hello, collision]);
   assert.equal(refused.kind, "catalog_construction_refusal");
@@ -270,7 +294,8 @@ test("R4 view and declaration application are pure and non-callable separated", 
   const declaration = catalog.declarationEntries.find(
     (entry) => entry.declarationKind === "node_type",
   );
-  assert.ok(declaration, "consensus publication must expose a node type");
+  assert.ok(declaration, "structural publication must expose a node type");
+  assert.equal(declaration.handle, NODE_TYPE_HANDLE);
   assert.equal(lookupGraphFunction(catalog, declaration.handle), null);
   assert.equal(catalog.byHandle[declaration.handle], undefined);
   assert.equal(
@@ -290,13 +315,13 @@ test("R4 view and declaration application are pure and non-callable separated", 
   );
 
   const targetDigest = sha256Canonical({
-    programRef: CONSENSUS_IDS.oneSurfaceProgramRef,
+    programRef: STRUCTURAL_IDS.programRef,
   });
   const appliedValueDigest = sha256Canonical({ value: "proof" });
   const application = applyCatalogDeclaration(view, {
     applicationKind: "node_type",
     handle: declaration.handle,
-    targetRef: CONSENSUS_IDS.oneSurfaceProgramRef,
+    targetRef: STRUCTURAL_IDS.programRef,
     targetDigest,
     appliedValueRef: "value://t287/catalog-proof",
     appliedValueDigest,
@@ -309,7 +334,7 @@ test("R4 view and declaration application are pure and non-callable separated", 
     applyCatalogDeclaration(structuredClone(view), {
       applicationKind: "node_type",
       handle: declaration.handle,
-      targetRef: CONSENSUS_IDS.oneSurfaceProgramRef,
+      targetRef: STRUCTURAL_IDS.programRef,
       targetDigest,
       appliedValueRef: "value://t287/catalog-proof",
       appliedValueDigest,
@@ -319,7 +344,7 @@ test("R4 view and declaration application are pure and non-callable separated", 
   const wrongKind = applyCatalogDeclaration(view, {
     applicationKind: "overlay",
     handle: declaration.handle,
-    targetRef: CONSENSUS_IDS.oneSurfaceProgramRef,
+    targetRef: STRUCTURAL_IDS.programRef,
     targetDigest,
     appliedValueRef: "value://t287/catalog-proof",
     appliedValueDigest,

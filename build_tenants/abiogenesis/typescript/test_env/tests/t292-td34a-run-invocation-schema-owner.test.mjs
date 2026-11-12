@@ -114,7 +114,16 @@ const entry = definition => ({ kind: 'graph_function_catalog_entry', handle: def
   definitionDigest: hash(definition), definition, owningProductId: basis.productId, moduleRef: 'module://td34a', publicationDigest: digest('d'),
   programMembershipRefs: [], compatibilityRefs: [], provenanceRefs: [], entryDigest: digest('e') });
 
-const consensus = () => structuredClone(gtl.constructConsensusModulePublication(basis));
+// A shipped publication with c_compose and c_batch terms and run and graph_call closures.
+const vehicle = () => structuredClone(gtl.constructWorksiteConstructionModulePublication(basis));
+// A well-formed four-authority construction composition, as in t287-gtl-serialization-publication.
+const fourAuthorityComposition = () => ({ kind: 'construction_composition', schemaVersion,
+  compositionRef: 'composition://td34a/local', compositionDigest: digest('0'), graphFunctionRef: 'graph-function://td34a/local',
+  authorities: ['synthesizeModel', 'evalGap', 'evaluateNext', 'evaluateAction'].map((semanticAuthority, index) => ({
+    kind: 'construction_authority_binding', semanticAuthority, authorityRef: 'authority://td34a/local/' + index,
+    initialProgramLocusRef: 'locus://td34a/local/' + index, refreshProgramLocusRef: null })),
+  interactionProgramLocusRef: 'locus://td34a/local/interaction', closurePolicy: { kind: 'construction_policy',
+    policyRef: 'policy://td34a/local', requireCompleteEvidence: true, requirePostEvidenceRefresh: true } });
 function firstTerm(publication, kind) {
   const stack = publication.graphFunctions.flatMap(g => g.template.nodes.map(n => n.term));
   while (stack.length) {
@@ -168,18 +177,20 @@ const REFUSED = 'resource_admission:invalid_resource_assertion', REACHED = 'owne
 test('on a caller-supplied Catalog the run door refuses a one-term compose, an empty batch and an over-long tuple', async t => {
   const { submit } = await door(t);
   const cases = [];
-  { const p = consensus(), term = firstTerm(p, 'c_compose'); term.terms = term.terms.slice(0, 1); cases.push(['one-term compose in a publication', { publications: [p] }, p]); }
-  { const p = consensus(), term = firstTerm(p, 'c_batch'); term.tasks = []; cases.push(['empty batch in a publication', { publications: [p] }, p]); }
-  { const p = consensus(), program = p.programs.find(q => q.constructionComposition);
+  { const p = vehicle(), term = firstTerm(p, 'c_compose'); term.terms = term.terms.slice(0, 1); cases.push(['one-term compose in a publication', { publications: [p] }, p]); }
+  { const p = vehicle(), term = firstTerm(p, 'c_batch'); term.tasks = []; cases.push(['empty batch in a publication', { publications: [p] }, p]); }
+  { const p = vehicle(), program = p.programs[0];
+    program.constructionComposition = fourAuthorityComposition();
+    assert.equal(v.safeParse(serialization.MODULE_PUBLICATION_SCHEMA, p).success, true, 'four construction authorities: the GTL owner admits it');
     program.constructionComposition.authorities.push(structuredClone(program.constructionComposition.authorities[0]));
     cases.push(['five construction authorities', { publications: [p] }, p]); }
-  { const p = consensus(), c = p.closureContracts.find(x => x.closureScope === 'run'); c.eventKindRefs.push('run_closed');
+  { const p = vehicle(), c = p.closureContracts.find(x => x.closureScope === 'run'); c.eventKindRefs.push('run_closed');
     cases.push(['run closure eventKindRefs of five', { publications: [p] }, p]); }
-  { const p = consensus(), c = p.closureContracts.find(x => x.closureScope === 'graph_call'); c.eventKindRefs.push('graph_call_closed');
+  { const p = vehicle(), c = p.closureContracts.find(x => x.closureScope === 'graph_call'); c.eventKindRefs.push('graph_call_closed');
     cases.push(['graph_call closure eventKindRefs of four', { publications: [p] }, p]); }
-  { const g = structuredClone(graphWith(consensus(), 'c_compose')), term = firstTerm({ graphFunctions: [g] }, 'c_compose'); term.terms = term.terms.slice(0, 1);
+  { const g = structuredClone(graphWith(vehicle(), 'c_compose')), term = firstTerm({ graphFunctions: [g] }, 'c_compose'); term.terms = term.terms.slice(0, 1);
     cases.push(['one-term compose in a view entry', { viewEntries: [entry(g)] }, null, g]); }
-  { const g = structuredClone(graphWith(consensus(), 'c_batch')), term = firstTerm({ graphFunctions: [g] }, 'c_batch'); term.tasks = [];
+  { const g = structuredClone(graphWith(vehicle(), 'c_batch')), term = firstTerm({ graphFunctions: [g] }, 'c_batch'); term.tasks = [];
     cases.push(['empty batch in a Catalog entry', { catalogEntries: [entry(g)] }, null, g]); }
   const observed = [];
   for (const [label, members, publication, graph] of cases) {
@@ -199,10 +210,10 @@ test('on a caller-supplied Catalog the run door refuses a one-term compose, an e
 test('the three checks stricter than the GTL owner stay at the run door', async t => {
   const { submit } = await door(t);
   const cases = [];
-  { const p = consensus(); p.graphFunctions[0].declarations['abg.td34a'] = ' '; cases.push(['blank declaration value in a publication', { publications: [p] }, p]); }
-  { const g = structuredClone(consensus().graphFunctions[0]); g.declarations['abg.td34a'] = '';
+  { const p = vehicle(); p.graphFunctions[0].declarations['abg.td34a'] = ' '; cases.push(['blank declaration value in a publication', { publications: [p] }, p]); }
+  { const g = structuredClone(vehicle().graphFunctions[0]); g.declarations['abg.td34a'] = '';
     cases.push(['blank declaration value in a view entry', { viewEntries: [entry(g)] }, null, g]); }
-  { const p = consensus(); p.programs[0].policies['abg.td34a'] = '\t'; cases.push(['blank policy value', { publications: [p] }, p]); }
+  { const p = vehicle(); p.programs[0].policies['abg.td34a'] = '\t'; cases.push(['blank policy value', { publications: [p] }, p]); }
   { const p = jobPublication(); p.semanticJobLifecycle.stages[0].assembly.graphFunctionRef = 'graph-function://td34a/other';
     cases.push(['semantic job stage whose assembly names another graph function', { publications: [p] }, p]); }
   const observed = [];
@@ -226,7 +237,7 @@ test('a well-formed caller-supplied Catalog with every optional publication memb
     assert.notEqual(publication[member], undefined, member);
     assert.equal(v.safeParse(serialization.MODULE_PUBLICATION_SCHEMA, publication).success, true, member + ': the GTL owner admits it');
   }
-  const publications = [consensus(), ...Object.values(optional)];
+  const publications = [vehicle(), ...Object.values(optional)];
   const graphs = publications.flatMap(p => p.graphFunctions);
   const observed = [];
   for (const [label, members] of [['empty Catalog and view', {}],
@@ -245,7 +256,7 @@ test('a well-formed caller-supplied Catalog with every optional publication memb
 
 test('a gate graph application is refused at raw admission, at Catalog admission and at the run door', async t => {
   const { submit } = await door(t);
-  const p = consensus(), g = p.graphFunctions[0];
+  const p = vehicle(), g = p.graphFunctions[0];
   const body = { kind: 'graph_function_application', inputContractRef: g.inputs[0], outputContractRef: g.outputs[0],
     relationKind: 'gate', targetRef: g.name, ruleRef: 'rule://td27/gate', evaluatorRefs: ['evaluator://td27/gate'] };
   const application = { ...body, applicationRef: gtl.graphFunctionApplicationRef(body) };
