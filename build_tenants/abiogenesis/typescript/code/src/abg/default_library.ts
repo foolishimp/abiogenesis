@@ -5,9 +5,9 @@ import { isFramedSynthesisTask, isFramedSynthesisResult, governancePrerequisites
 import { isDeepStrictEqual as same } from "node:util";
 import { resolve } from "node:path";
 import { pathToFileURL } from "node:url";
-import { authenticateOwnedNativeInstructionAssemblyBasis, rehydrateExecutionBasisAtPrefix, type NativeInstructionAssemblyBasis } from "./execution_basis.js";
+import { authenticateOwnedNativeInstructionAssemblyBasis, type NativeInstructionAssemblyBasis } from "./execution_basis.js";
 import { reuseWorksiteContextBodiesAtPrefix, worksiteContextBodyReaderAtPrefix, type RuntimeEventPrefix } from "./event_prefix.js";
-import { sha256Bytes, sha256Canonical } from "../shared/digests.js";
+import { sha256Canonical } from "../shared/digests.js";
 import { projectExactInvocationAdmissionAtPrefix, projectExactExecutionBasisAtPrefix, hasAdmittedGovernanceSourceUse,
   hasAdmittedGovernanceCoveredSourceUse, governanceContextBodyUse } from "./invocation_execution_truth.js";
 import { indexedRuntimeEvents } from "./event_prefix.js";
@@ -595,51 +595,4 @@ export function governanceResultMatches(basis: NativeInstructionAssemblyBasis, i
     }
     return false;
   } catch { return false; }
-}
-
-/**
- * Governed-context support (RC3 B): the governance state behind one native
- * Construction leaf and its unique same-Run Testing field. The current wrapper
- * Construction state is recovered from the leaf's execution-basis ancestry in
- * the same invocation and its parent CCall; the native task must be that
- * state's Construction work order and conserve its original task. Exactly one
- * Testing observation of that state must join one successful admitted Result
- * of this Run with its CCall, digest and producer actor; the selected field
- * must be one admitted stream whose decoded bytes match its byteLength and
- * digest. Any missing or ambiguous join returns null; nothing is reconstructed
- * from prompt text and no historical Result stands in for this Run's producer.
- */
-export function projectGovernedContextTestingAtPrefix(prefix: RuntimeEventPrefix, execution: {
-  readonly invocationAdmissionRef: string; readonly parentExecutionBasisRef: string | null; readonly parentCCallRef: string | null;
-}, task: unknown, runId: string, fieldPath: readonly (string | number)[]) {
-  if (!isNativeWorkspaceWorkTask(task) || task.assessment !== undefined) return null;
-  let current = execution, state: GovernanceWorkState | null = null, parentCCallRef: string | null = null;
-  for (let depth = 0; depth < 4 && state === null && current.parentExecutionBasisRef !== null; depth++) {
-    const parent = rehydrateExecutionBasisAtPrefix(prefix, current.parentExecutionBasisRef);
-    if (parent === null || parent.invocationAdmissionRef !== execution.invocationAdmissionRef) return null;
-    const raw: unknown = parent.rawInputValue;
-    const candidate = isRetainedGraphInput(raw) ? raw.entry : isFramedSynthesisTask(raw) || isFramedSynthesisResult(raw) ? raw.state : raw;
-    if (isGovernanceWorkState(candidate)) { state = candidate; parentCCallRef = current.parentCCallRef; }
-    current = parent;
-  }
-  const order = state?.original.workOrders.construction;
-  if (state === null || parentCCallRef === null || state.terminal || order === undefined || !same(task.writeRoots, order.writeRoots) ||
-    !task.instructions.includes(`Conserved original task: ${state.original.task}`)) return null;
-  const joined = state.observations.filter(o => o.purpose === "testing").flatMap(o => {
-    const rows = indexedRuntimeEvents(prefix, "payload:resultRef:" + o.resultRef).filter(e => e.kind === "c_call_result_admitted" && e.runId === runId &&
-      e.aggregateId === o.cCallRef && record(e.payload) && e.payload.resultClass === "success" && e.payload.resultDigest === o.resultDigest);
-    return rows.length === 1 ? [{ observation: o, event: rows[0]! }] : [];
-  });
-  if (joined.length !== 1) return null;
-  const { observation, event } = joined[0]!, value = record(event.payload) ? event.payload.value : undefined;
-  if (!(isObservedWorksiteCommandExecutionObservation(value) || isNativeWorksiteCommandExecutionObservation(value)) ||
-    observation.actorInvocationRef === null || value.provenance.actorInvocationRef !== observation.actorInvocationRef) return null;
-  let field: unknown = value;
-  for (const step of fieldPath) field = field !== null && typeof field === "object" ? (field as Record<string | number, unknown>)[step] : undefined;
-  const stream = field as Record<string, unknown> | undefined;
-  if (stream === undefined || stream === null || typeof stream.payload !== "string" || !Number.isSafeInteger(stream.byteLength) || typeof stream.digest !== "string") return null;
-  const bytes = Buffer.from(stream.payload, "base64");
-  if (bytes.toString("base64") !== stream.payload || bytes.length !== stream.byteLength || sha256Bytes(bytes) !== stream.digest) return null;
-  return Object.freeze({ parentCCallRef, resultRef: observation.resultRef, resultDigest: observation.resultDigest, cCallRef: observation.cCallRef,
-    actorInvocationRef: observation.actorInvocationRef, eventRef: event.eventId, fieldPath: Object.freeze([...fieldPath]), bytes });
 }
