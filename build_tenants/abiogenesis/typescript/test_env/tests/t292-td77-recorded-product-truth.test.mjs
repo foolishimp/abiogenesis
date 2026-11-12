@@ -179,10 +179,10 @@ const TAMPERS = [
 
 test('the recorded lock answers both questions under the reader\'s unchanged register', () => {
   assert.equal(env.isResolvedProductLock(recordedLock), true);
-  assert.equal(env.isRecordedProductLock(recordedLock), true);
+  assert.equal(env.isResolvedProductLock(recordedLock, 'recorded'), true);
   for (const row of recordedLock.rows) {
     assert.equal(vp.recordedCapabilityIdentitiesHold(row), true, row.productId);
-    assert.equal(cap.isRecordedCapabilityDefinitionGraph(graphOf(row)), true);
+    assert.equal(cap.isCapabilityDefinitionGraph(graphOf(row), 'recorded'), true);
     assert.equal(cap.isCapabilityDefinitionGraph(graphOf(row)), true);
   }
   const resealed = lockVariant(() => {});
@@ -195,15 +195,16 @@ for (const [name, change] of VARIANTS) {
     assert.notEqual(lock.lockDigest, recordedLock.lockDigest);
     assert.notEqual(lock.rows[toolchainIndex].catalogDigest, recordedLock.rows[toolchainIndex].catalogDigest,
       'the changed identities move the catalog digest');
-    assert.equal(env.isRecordedProductLock(lock), true);
+    assert.equal(env.isResolvedProductLock(lock, 'recorded'), true);
     assert.equal(env.isResolvedProductLock(lock), false);
+    assert.equal([lock].every(env.isResolvedProductLock), false, 'a callback index asks the strict question');
   });
 }
 
 for (const [name, change, options] of TAMPERS) {
   test(`tamper: ${name} is refused by the recorded question`, () => {
     const lock = lockVariant(change, options);
-    assert.equal(env.isRecordedProductLock(lock), false);
+    assert.equal(env.isResolvedProductLock(lock, 'recorded'), false);
     assert.equal(env.isResolvedProductLock(lock), false);
   });
 }
@@ -215,9 +216,9 @@ test('tamper relations: each refusal is the named relation', () => {
   for (const index of [0, 2, 7]) assert.equal(vp.recordedCapabilityIdentitiesHold(row(index)), false, TAMPERS[index][0]);
   // stale coordinates: identities and graph hold, the flat coordinates do not
   assert.equal(vp.recordedCapabilityIdentitiesHold(row(1)), true);
-  assert.equal(cap.isRecordedCapabilityDefinitionGraph(graphOf(row(1))), true);
+  assert.equal(cap.isCapabilityDefinitionGraph(graphOf(row(1)), 'recorded'), true);
   // the graph relations
-  for (const index of [3, 4, 5, 6]) assert.equal(cap.isRecordedCapabilityDefinitionGraph(graphOf(row(index))), false, TAMPERS[index][0]);
+  for (const index of [3, 4, 5, 6]) assert.equal(cap.isCapabilityDefinitionGraph(graphOf(row(index)), 'recorded'), false, TAMPERS[index][0]);
 });
 
 // The recorded consumer row has an empty graph and no contract; the toolchain
@@ -233,24 +234,24 @@ const alone = change => (carrier, lock) => { lock.rows = [carrier]; lock.depende
 test('tamper: an empty-graph row whose contract carries an identity is refused by the recorded question', () => {
   assert.equal(recordedLock.rows[emptyIndex].publicContracts.length, 0);
   const single = lockVariant(alone(() => {}));
-  assert.equal(env.isRecordedProductLock(single), true, 'the toolchain row alone is a lock');
+  assert.equal(env.isResolvedProductLock(single, 'recorded'), true, 'the toolchain row alone is a lock');
   assert.equal(env.isResolvedProductLock(single), true);
   const lock = lockVariant(alone(emptyGraph));
   const row = lock.rows[0];
   assert.equal(vp.recordedCapabilityIdentitiesHold(row), true, 'an empty graph with no identity');
-  assert.equal(env.isRecordedProductLock(lock), true);
+  assert.equal(env.isResolvedProductLock(lock, 'recorded'), true);
   assert.equal(env.isResolvedProductLock(lock), false, 'the register maps these contracts to capabilities');
   const named = lockVariant(alone(carrier => { emptyGraph(carrier); contract(carrier, ADDED.contractId).capabilityIdentities = [ADDED.capabilityId]; }));
   assert.equal(vp.recordedCapabilityIdentitiesHold(named.rows[0]), false);
-  assert.equal(env.isRecordedProductLock(named), false);
+  assert.equal(env.isResolvedProductLock(named, 'recorded'), false);
   assert.equal(env.isResolvedProductLock(named), false);
 });
 
 test('tamper: a stale lock digest is refused by the recorded question', () => {
   const lock = lockVariant(addIdentity, {resealDigest: false});
-  assert.equal(env.isRecordedProductLock(lock), false);
+  assert.equal(env.isResolvedProductLock(lock, 'recorded'), false);
   resealLock(lock);
-  assert.equal(env.isRecordedProductLock(lock), true);
+  assert.equal(env.isResolvedProductLock(lock, 'recorded'), true);
 });
 
 // The fold: one recorded install admission whose inline lock is replaced, with
@@ -335,13 +336,13 @@ function workspaceStatusPacket(lock) {
 }
 
 test('workspace_status: the recorded question reads the recorded lock and refuses a variant that is not the recorded value', () => {
-  const recorded = projectReads.projectWorkspaceStatusFor(workspaceStatusPacket(recordedLock), 'recorded');
+  const recorded = projectReads.projectWorkspaceStatus(workspaceStatusPacket(recordedLock), 'recorded');
   assert.equal(recorded.kind, 'product_project_read_result', JSON.stringify(recorded).slice(0, 400));
   assert.deepEqual(projectReads.projectWorkspaceStatus(workspaceStatusPacket(recordedLock)), recorded,
     'under the unchanged register both questions project the same status');
   for (const [name, change] of VARIANTS) {
     const lock = lockVariant(change);
-    const refused = projectReads.projectWorkspaceStatusFor(workspaceStatusPacket(lock), 'recorded');
+    const refused = projectReads.projectWorkspaceStatus(workspaceStatusPacket(lock), 'recorded');
     assert.equal(refused.kind, 'product_project_read_refusal', name);
     assert.equal(refused.code, 'not_ready', name);
   }
@@ -385,14 +386,14 @@ async function verifiedVariant(change, {skip = [], resealDigest = true} = {}) {
 test('verified artifact: the copied carrier answers both questions', async () => {
   const artifact = await verified();
   assert.equal(vp.isVerifiedProductArtifact(artifact), true);
-  assert.equal(vp.isRecordedVerifiedProductArtifact(artifact), true);
+  assert.equal(vp.isVerifiedProductArtifact(artifact, 'recorded'), true);
   assert.deepEqual(await verifiedVariant(() => {}), artifact, 'resealing reproduces every digest of the carrier');
 });
 
 test('verified artifact: each register variant is accepted by the recorded question and refused by the strict one', async () => {
   for (const [name, change] of VARIANTS) {
     const artifact = await verifiedVariant(change);
-    assert.equal(vp.isRecordedVerifiedProductArtifact(artifact), true, name);
+    assert.equal(vp.isVerifiedProductArtifact(artifact, 'recorded'), true, name);
     assert.equal(vp.isVerifiedProductArtifact(artifact), false, name);
   }
 });
@@ -400,18 +401,18 @@ test('verified artifact: each register variant is accepted by the recorded quest
 test('verified artifact: each tamper case is refused by the recorded question', async () => {
   for (const [name, change, options] of TAMPERS) {
     const artifact = await verifiedVariant(change, options);
-    assert.equal(vp.isRecordedVerifiedProductArtifact(artifact), false, name);
+    assert.equal(vp.isVerifiedProductArtifact(artifact, 'recorded'), false, name);
     assert.equal(vp.isVerifiedProductArtifact(artifact), false, name);
   }
   const emptied = await verifiedVariant(emptyGraph);
-  assert.equal(vp.isRecordedVerifiedProductArtifact(emptied), true, 'an empty graph with no identity is established');
+  assert.equal(vp.isVerifiedProductArtifact(emptied, 'recorded'), true, 'an empty graph with no identity is established');
   const emptyWithIdentity = await verifiedVariant(artifact => {
     emptyGraph(artifact);
     contract(artifact, ADDED.contractId).capabilityIdentities = [ADDED.capabilityId];
   });
-  assert.equal(vp.isRecordedVerifiedProductArtifact(emptyWithIdentity), false, 'an empty graph with an identity');
+  assert.equal(vp.isVerifiedProductArtifact(emptyWithIdentity, 'recorded'), false, 'an empty graph with an identity');
   const stale = await verifiedVariant(addIdentity, {resealDigest: false});
-  assert.equal(vp.isRecordedVerifiedProductArtifact(stale), false, 'a stale verification digest');
+  assert.equal(vp.isVerifiedProductArtifact(stale, 'recorded'), false, 'a stale verification digest');
 });
 
 // The run-read copy: the Public run read asks the recorded question of a
@@ -477,7 +478,7 @@ test('run read: the recorded question reads a supplied proof bound to the record
     projectedOnly.capabilityIdentities = sorted([...projectedOnly.capabilityIdentities, added]);
     resealCarrier(row, 'lock');
     resealLock(variant);
-    assert.equal(env.isRecordedProductLock(variant), true);
+    assert.equal(env.isResolvedProductLock(variant, 'recorded'), true);
     assert.equal(env.isResolvedProductLock(variant), false);
     const lockProof = clone(proof);
     lockProof.catalog.readinessBasis.resolvedLock = variant;
@@ -491,8 +492,8 @@ test('run read: the recorded question reads a supplied proof bound to the record
     const verifiedRow = changed.verifiedProducts.find(entry => graphOf(entry).rows.length > 0);
     verifiedRow.checkedPayloadFiles += 1;
     resealVerified(verifiedRow);
-    assert.equal(vp.isRecordedVerifiedProductArtifact(verifiedRow), true);
-    const catalog = catalogOwner.admitGraphFunctionCatalogFor(changed, 'recorded');
+    assert.equal(vp.isVerifiedProductArtifact(verifiedRow, 'recorded'), true);
+    const catalog = catalogOwner.admitGraphFunctionCatalog(changed, 'recorded');
     assert.equal(catalog.kind, 'graph_function_catalog', JSON.stringify(catalog).slice(0, 300));
     assert.notEqual(catalog.basisDigest, proof.catalog.basisDigest);
     const catalogView = catalogOwner.narrowGraphFunctionCatalog(catalog, proof.catalogView.allowlist);
