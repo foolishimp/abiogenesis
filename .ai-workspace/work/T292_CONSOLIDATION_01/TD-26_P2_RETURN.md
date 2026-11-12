@@ -269,14 +269,22 @@ head (none in a file this package touched).
 Probe `/private/tmp/abg-td26p2-work/scripts/door-p2.mjs`, run against the base
 build (`/private/tmp/abg-td26p2-work/base-root`, `fc818876c`) and the final
 build. Outputs: `/private/tmp/abg-td26p2-work/door/door-base.txt` and
-`door-final.txt`. The refusal lane `tests/t292-td26-p2-module-refused.test.mjs`
-asserts every final-column refusal, except the Catalog admission row, which
-`t287-w2-05-install-catalog-owner-chain` asserts.
+`door-final.txt`.
+
+Which lane asserts each final-column row:
+- `tests/t292-td26-p2-module-refused.test.mjs` asserts the final-column rows
+  for the shipped publications, the Catalog built from them, `lookupGraphFunction`,
+  `narrowGraphFunctionCatalog`, `resolveExecutionDeclarationClosure`,
+  `applyCatalogDeclaration`, the semantics loader and the Public contract
+  catalog.
+- `t287-w2-05-install-catalog-owner-chain` asserts the Catalog admission row.
+- No lane asserts the two `project.read` rows; they are probe results only.
+- The Run start row is read from the code, not run.
 
 | Door | Value | Base | Final |
 |---|---|---|---|
 | Shipped module publications (generator, `gtl` exports) | the Consensus publication | 9 constructors; `constructConsensusModulePublication` exported | 8; no `gtl` export matches `/Consensus/` except `CONSENSUS_PUBLIC_SCHEMA` |
-| Catalog admission (`CatalogOperationPort.admit`, tenant lock row) | a publication whose `moduleRef` is `module://abg/consensus@5` | the real publication is bound by the tenant lock row | each row `rejected`, reason `publication_identity_mismatch`; not bound; the Catalog is still built with the same entries |
+| Catalog admission (`CatalogOperationPort.admit`, tenant lock row) | a publication whose `moduleRef` is `module://abg/consensus@5` | the manifest binds 9 publications, the real Consensus publication among them, and the tenant lock row binds it | the manifest binds 8. A copy of `publications[0]` renamed to the Consensus module ref gets `rejected`, reason `publication_identity_mismatch`, on each row; it is not bound, and the Catalog is still built with the same entries. This shows that the lock row binds no module outside the manifest's bindings. The difference between the columns is the binding count; the renamed copy was not run on base. |
 | Catalog built from the shipped publications | | 40 entries, 7 declaration entries | 32 entries, 0 declaration entries |
 | `project.read#catalog_list` (`projectCatalogList`, workspace visibility) | the same Catalog | `product_project_read_result`, 47 rows, 15 of them Consensus handles | `product_project_read_result`, 32 rows, none |
 | `project.read#catalog_describe` (`projectCatalogDescription`) | `gtl://abg/consensus/submitter-reviewer-rounds`, `catalog://abg/consensus/subject`, `catalog://abg/consensus/overlay/ruling` | `product_project_read_result`, projected (`graph_function`, `node_type`, `overlay`) | `product_project_read_refusal`, `unknown_handle` |
@@ -284,7 +292,7 @@ asserts every final-column refusal, except the Catalog admission row, which
 | `narrowGraphFunctionCatalog` (`catalog.view`) | each of the gtl handle, the One Surface function, `catalog://abg/consensus/subject`, `catalog://abg/consensus/overlay/ruling` | `graph_function_catalog_view` | `catalog_construction_refusal`, `unknown_allowlist_entry` |
 | `resolveExecutionDeclarationClosure` | `program://abg/system/consensus-one-surface@5` with the One Surface function | passes the Program and function lookup (the probe's unready Catalog then throws) | `execution_declaration_closure_refusal`, `absent` |
 | `applyCatalogDeclaration` (`catalog.apply`) | `node_type` `catalog://abg/consensus/subject`, `overlay` `catalog://abg/consensus/overlay/ruling` | `declaration_application` | `declaration_application_refusal`, `outside_view` |
-| Run start or invocation (`resolveProductExecution`, `product/execution_resolution.ts:456`) | the One Surface Program | read, not run: resolves | read, not run: `resolveProgramDeclarationClosure` (`:541-548`) gives the `absent` closure refusal above, which `closureRefusal` (`:421`) returns as `product_execution_resolution_refusal`, code `absent`, stage `declaration_closure` |
+| Run start or invocation (`resolveProductExecution`, `product/execution_resolution.ts:456`) | the One Surface Program | not run through this function. The door probe shows `resolveExecutionDeclarationClosure` passing the Program and function lookup, then throwing on the probe's unready Catalog | read, not run: `resolveProgramDeclarationClosure` (`:541-548`) gives the `absent` closure refusal above, which `closureRefusal` (`:421`) returns as `product_execution_resolution_refusal`, code `absent`, stage `declaration_closure` |
 | Product semantics loader (`productSemanticsFromModules`) | binding `product-semantics://abiogenesis/system@5`, symbol `ABI5_SYSTEM_PRODUCT_SEMANTICS` over `build/code/src/product/builtin_semantics.js` | loads; `projectPublicResult` is a function | `TypeError` "installed Product semantics provider differs from its published binding" (the symbol is absent) |
 | Product semantics loader | a provider with `publicResultProjectionKinds: []` | loads | same `TypeError` |
 | Product semantics loader | `publicResultProjectionKinds: ["result"]` | loads | same `TypeError` |
@@ -320,7 +328,7 @@ Commit `87de4a2e5`.
 
 | File | Change | Reason |
 |---|---|---|
-| `tests/m5-consensus-module.test.mjs` (2,072 lines, 16 cases) | deleted | Its subject is the module. The law case moved first (below). The case "S05 serialized Consensus schema is one exact projection" asserted that the file equals the constant; the generator writes the file from the constant, `consensus.schema.json` is byte-identical on base and final, and the generator reproducibility lane rebuilds it. The kept half of "S05 generic Public and ABG invocation basis contain no Consensus branch" (generic C-call result admission invokes the Product evidence-lineage relation with the admitted evidence) is shown by behaviour in `t287-result-evidence-lineage-projection`, which calls `admitOwnedCCallResult` and records the evidence the relation receives; its source scan for the word Consensus is the whole-word search below. |
+| `tests/m5-consensus-module.test.mjs` (2,072 lines, 16 cases) | deleted | Its subject is the module. The law case moved first (below). The case "S05 serialized Consensus schema is one exact projection" asserted that the file equals the constant; the generator writes the file from the constant, `consensus.schema.json` is byte-identical on base and final, and the generator reproducibility lane rebuilds it. The kept half of "S05 generic Public and ABG invocation basis contain no Consensus branch" (generic C-call result admission invokes the Product evidence-lineage relation with the admitted evidence) is shown by behaviour in `t287-result-evidence-lineage-projection`, which calls `admitOwnedCCallResult` and records the evidence the relation receives; its source scan for the word Consensus is the whole-word search below. Three negative invariants about the retired thing are deleted with the file and not moved: no `PUBLIC_OPERATION_CONTRACT_PROJECTIONS` operation id contains "consensus"; no `abg.ROOT_EVENT_KIND_VALUES` kind contains "consensus"; and no source under `code/src/public`, `abg/execution_basis.ts` or `product/run_invocation_operation.ts` matches `\bConsensus\b`. Their subject is the retired name, and the whole-word search at head shows the absence. |
 | `tests/t287-consensus-ref-shape.test.mjs` (114 lines, 2 cases) | deleted | Its subject is the reference arrays and evaluation basis of `gtl/consensus.ts`. |
 | `tests/m5-c-algebra-validation.test.mjs` | +36: the law case | Ruling 3, below. |
 | `tests/t292-td26-p2-module-refused.test.mjs` | new, 106 lines, 4 cases | The refusal lane (door table). |
@@ -709,3 +717,5 @@ package delete 6,861.
   `t287-pfc-f08a` and `t287-st2a-g`.
 - **Open point 1** of the plan (the default root mode) is untouched by this
   package.
+- **Lane registration.** `package.json` registers no `t292-*` lane in a
+  script, so the new refusal lane is not registered in one either.
