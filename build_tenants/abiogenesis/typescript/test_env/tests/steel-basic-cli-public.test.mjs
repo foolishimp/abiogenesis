@@ -630,7 +630,6 @@ test("STEEL-BASIC-CLI-01 installed exact Public admits its eventless and event-b
     gtl.constructWorksiteConstructionModulePublication(artifactBasis),
     gtl.constructWorksiteCommandExecutionModulePublication(artifactBasis),
     gtl.constructNativeWorkspaceWorkModulePublication(artifactBasis),
-    gtl.constructWorksiteCommandForwardModulePublication(artifactBasis),
     gtl.constructRequirementHandoffModulePublication(artifactBasis),
     gtl.constructSemanticStageModulePublication(artifactBasis),
     gtl.constructSemanticRevisionModulePublication(artifactBasis),

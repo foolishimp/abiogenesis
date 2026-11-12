@@ -367,8 +367,8 @@ test('native C2 retains assessed non-target dependencies without granting realiz
  const {programLocusRef,executionAuthority,...attempt}=occurrence;
  const plan=c2Owner.worksiteCommandExecutionHelperPlan(c2,'worksite-command-attempt://abiogenesis/'+hash(attempt).slice(7));
  const retained=JSON.parse(await readFile(plan.taskManifestPath,'utf8'));assert.deepEqual(retained,c2);
- const sourceOwner=await load('product/worksite_command_forward');
- assert.deepEqual(sourceOwner.executableWorksiteCommandSources(retained).map(row=>row.subject.relativePath),expected,
+ const sourceOwner=await load('product/worksite_revision');
+ assert.deepEqual(sourceOwner.worksiteExecutionSources(retained).map(row=>row.subject.relativePath),expected,
   'the existing C2 snapshot and evidence owner receive exactly the target/dependency union');
  for(const path of [dependency,'app/main.mjs']){const original=await readFile(join(env.canonicalRoot,path));
   await writeFile(join(env.canonicalRoot,path),'changed after exact observation');

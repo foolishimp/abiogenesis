@@ -687,7 +687,6 @@ test("W2-05 installed Product install and catalog owners compose without catalog
     gtl.constructWorksiteConstructionModulePublication(artifactBasis),
     gtl.constructWorksiteCommandExecutionModulePublication(artifactBasis),
     gtl.constructNativeWorkspaceWorkModulePublication(artifactBasis),
-    gtl.constructWorksiteCommandForwardModulePublication(artifactBasis),
     gtl.constructRequirementHandoffModulePublication(artifactBasis),
     gtl.constructSemanticStageModulePublication(artifactBasis),
     gtl.constructSemanticRevisionModulePublication(artifactBasis),

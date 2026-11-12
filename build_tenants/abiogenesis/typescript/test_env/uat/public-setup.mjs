@@ -7,8 +7,8 @@ const version='5.0.0';
 const constructors=['constructConsensusModulePublication','constructDefaultGovernanceLibraryModulePublication',
   'constructSelfConformanceModulePublication','constructRequirementHandoffModulePublication',
   'constructSemanticRevisionModulePublication','constructSemanticStageModulePublication',
-  'constructWorksiteCommandExecutionModulePublication','constructWorksiteCommandForwardModulePublication',
-  'constructWorksiteConstructionModulePublication','constructNativeWorkspaceWorkModulePublication'];
+  'constructWorksiteCommandExecutionModulePublication','constructWorksiteConstructionModulePublication',
+  'constructNativeWorkspaceWorkModulePublication'];
 export const emptyAuthoritySlots=()=>Object.fromEntries(['workspace_binding','product_set','dependency_lock','catalog_scope',
   'execution_program','graph_function','input_contract','session_policy','capability_grants','actor',
   'transport_steering','verification_references','execution_basis'].map(key=>[key,null]));

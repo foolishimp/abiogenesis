@@ -1,8 +1,8 @@
 import {join} from 'node:path';
-// Explicit two-member component input for current carrier/provenance owner tests.
-// Every receipt, admission and prefix coordinate below is a supplied premise.
+// Explicit two-member C2 component task for carrier and helper-artifact tests.
+// Every receipt and admission coordinate below is a supplied premise.
 // No file, donor, event store, actor, command or admission owner is read or run.
-export function constructForwardComponentInput(product,eventContractDigest) {
+export function constructC2ComponentTask(product) {
   const scratch='/component/forward',canonicalRoot=scratch+'/worksite';
   const digest = label => product.sha256Canonical({ label });
   const id = (scheme, value) => `${scheme}://abiogenesis/${value.slice(7)}`;
@@ -51,17 +51,5 @@ export function constructForwardComponentInput(product,eventContractDigest) {
     sourceConstructionResultRef:sourceConstructionResult.resultRef,sourceConstructionResultDigest:resultDigest,sourceConstructionResult,protectedObservations,
     commands:[{commandId:'component:command',executable:'/usr/bin/true',args:[],relativeCwd:'.',environment:{},timeoutMs:1000,terminationGraceMs:100,expectedReports:[]}],
     outcomePredicates:[{predicateId:'component:exit',predicateKind:'process_exit',declaration:{validationCommandId:'component:command',equals:0}}],allowedWriteTerritories:[{pathKind:'subtree',relativePath:'evidence'}]});
-  const prefixBody={kind:'durable_prefix_coordinate',schemaVersion:'5.0.0',eventLogRef:'file:///component/forward/unopened.events.jsonl',prefixLength:0,
-    prefixDigest:product.sha256Bytes(Buffer.alloc(0)),storeIdentity:{device:1,inode:1,eventContractDigest}};
-  const coordinate={...prefixBody,coordinateDigest:product.sha256Canonical(prefixBody)};
-  const source={prefix:coordinate,invocationRef:'component:source-invocation',invocationAdmissionRef:'component:source-admission',runId:'component:source-run',
-    failedCCallRef:'component:failed-call',failureEventRef:'component:failure-event',runFailureEventRef:'component:run-failure-event',constructionGraphCallRef:'component:construction',
-    preparationResultEventRef:'component:prepare-result',preparationJudgmentEventRef:'component:prepare-judgment',
-    declarationProof:{kind:'abg_historical_declaration_proof',schemaVersion:'5.0.0',catalog:{assumption:'supplied component declaration'},catalogView:{assumption:'supplied component view'}}};
-  const request=product.constructWorksiteCommandForwardRequest({source,workspaceAuthorityBasis,workspaceBinding,capabilityGrant,
-    protectedObservations:protectedObservations.map(({subject,observation})=>({subject,observation}))});
-  const basis={basisRef:'component:source-basis',basisDigest:digest('source-basis'),invocationRef:source.invocationRef,invocationAdmissionRef:source.invocationAdmissionRef,
-    workspaceBindingId:workspaceBinding.bindingId,workspaceBindingDigest:workspaceBinding.bindingDigest,
-    rawInputValue:originalTask,rawInputDigest:product.sha256Canonical(originalTask),parentExecutionBasisRef:'component:parent',parentCCallRef:'component:parent-call'};
-  return {originalTask,request,coordinate,basis};
+  return originalTask;
 }

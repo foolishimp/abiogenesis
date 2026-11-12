@@ -40,7 +40,6 @@ const { worksiteCommandExecutionAttemptRef } = await load('abg/index.js');
 const { ABI5_PACKAGE_NAME, ABI5_PACKAGE_VERSION } = await load('product/contracts.js');
 const { WORKSITE_COMMAND_EXECUTION_IDS: CE } = await load('product/worksite_command_execution_identity.js');
 const { WORKSITE_REVISION_IDS: REV } = await load('product/worksite_revision_identity.js');
-const { WORKSITE_COMMAND_FORWARD_IDS: FWD } = await load('product/worksite_command_forward_identity.js');
 const helperModulePath = join(buildRoot, 'implementation/worksite_command_helper.js');
 
 let suppliedHelperPlan = null;
@@ -73,7 +72,6 @@ const helper = await component('implementation/worksite_command_helper',
 const LOCI = [
   ['worksite_command_execution_task', CE],
   ['worksite_revision_command_execution_task', REV],
-  ['worksite_command_forward_task', FWD],
 ];
 const occurrenceAt = (label, nodeRef) => ({ cCallRef: `c-call://t292/td37b/${label}`, runId: `run://t292/td37b/${label}`,
   graphCallId: `graph-call://t292/td37b/${label}`, frameId: `frame://t292/td37b/${label}`, programLocusRef: nodeRef,
@@ -172,14 +170,14 @@ test('TD-37b helper refuses a manifest with one changed field, raw or re-minted'
     taskManifestByteLength: 0, occurrence: { ...manifest.occurrence, attempt: 2 }, occurrenceDigest: zero,
     attemptRef: `worksite-command-attempt://abiogenesis/${'0'.repeat(64)}`, attemptDigest: zero, archiveRoot: '/elsewhere', attemptRoot: '/elsewhere/attempt',
     launchManifestPath: '/elsewhere/launch.json', helperModulePath: '/elsewhere/helper.js', implementationRef: REV.implementationRef,
-    implementationBindingRef: FWD.implementationBindingRef, packageName: '@t292/other', packageVersion: '0.0.0',
+    implementationBindingRef: REV.implementationBindingRef, packageName: '@t292/other', packageVersion: '0.0.0',
   };
   assert.deepEqual(Object.keys(raw).sort(), Object.keys(manifest).sort(), 'every manifest field is changed once');
   for (const [key, value] of Object.entries(raw)) {
     assert.equal(helper.isWorksiteCommandExecutionLaunchManifest({ ...manifest, [key]: value }), false, `raw ${key}`);
   }
   // Re-minted: the digests agree with the change, so the rule itself refuses it.
-  for (const [key, value] of Object.entries({ implementationRef: REV.implementationRef, implementationBindingRef: FWD.implementationBindingRef,
+  for (const [key, value] of Object.entries({ implementationRef: REV.implementationRef, implementationBindingRef: REV.implementationBindingRef,
     packageName: '@t292/other', packageVersion: '0.0.0', schemaVersion: '5.0.1', taskManifestByteLength: 0, taskRef: ' padded ',
     occurrence: { ...manifest.occurrence, executionAuthority: {} } })) {
     assert.equal(helper.isWorksiteCommandExecutionLaunchManifest(remint({ ...manifest, [key]: value })), false, `re-minted ${key}`);
