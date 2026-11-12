@@ -1,9 +1,9 @@
 {
   "kind": "abi5_root_candidate_basis",
   "schemaVersion": "5.0.0",
-  "artifactDigest": "sha256:70a731eaf1fb6d3e8371a6e6f58e037274bd1ac5135ffe6eb484b27e5bbb717d",
-  "productContentDigest": "sha256:1a0526888aa6637d354122697312dbc1158a98e138a1c8c1e853954e17543f67",
-  "manifestDigest": "sha256:8b8a740c5d51c5a40aea340f1df3147cc7eed8deaf07359d714b1777a572cfcb",
+  "artifactDigest": "sha256:0a4e672169b734eff2268b9eefc7840036c3e7cd59054f8e83dc156ed872e8ec",
+  "productContentDigest": "sha256:f8c13c75408d0891ca4bd48ddb6b41559b63ff7c328515b64ba509be9e1e30bb",
+  "manifestDigest": "sha256:6abd9c0e1ef66ee776bb7e1eb12b4ac923b759749773cbac81717fb279fa4a37",
   "productId": "product://abiogenesis/typescript-tenant@5.0.0-rc.12",
   "packageName": "@abiogenesis/typescript-tenant",
   "packageVersion": "5.0.0-rc.12"
