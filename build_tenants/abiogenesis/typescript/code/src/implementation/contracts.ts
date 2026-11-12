@@ -105,7 +105,6 @@ export interface ProbabilisticWorkerObservation {
 export interface LeafExecutionOccurrence {
   readonly nativeWorkReacquisitionBasis?: Readonly<import("../abg/native_work_reacquisition.js").NativeWorkReacquisitionBasis>;
   readonly nativeInstructionAssemblyBasis?: Readonly<import("../abg/execution_basis.js").NativeInstructionAssemblyBasis>;
-  readonly worksiteCommandForwardBasis?: Readonly<import("../abg/worksite_command_forward.js").WorksiteCommandForwardNativeBasis>;
   readonly worksitePreservedResultBasis?: Readonly<WorksitePreservedResultNativeBasis>;
   readonly qualificationOwnerBasis?: Readonly<QualificationOwnerBasis>;
   /** The qualification catalogs admitted from the owner install at the authority stage. */

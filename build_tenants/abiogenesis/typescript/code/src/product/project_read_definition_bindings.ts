@@ -1,25 +1,18 @@
 import * as v from "valibot";
 import { acquireAbgEventResource,closeAbgEventResource,abandonAbgEventResource,validateAbgEventResourceAssertion,validateAbgEventResourceReceipt,type AbgEventResourceAssertion,type AbgEventResourceReceipt } from "../abg/definition_event_resource.js";
 import { bindExactPrefixRead } from "../abg/exact_prefix_bindings.js";
+import { withOperationBodies } from "../abg/event_prefix.js";
 import { absolutePathSchema } from "../shared/public_function_contracts.js";
 import { projectReleaseEvidence } from "./project_read_ports.js";
 import * as Effect from "effect/Effect";
 import { join } from "node:path";
 
-import {
-  projectRunTruthAtDurablePrefix,
-  type DurablePrefixCoordinate,
-  type ExactPrefixArtifactTruthProjection,
-} from "../abg/index.js";
-import { GraphCallProjectionPort as AbgGraphCallProjectionPort } from
-  "../abg/project_read_ports.js";
+import type { ExactPrefixArtifactTruthProjection } from "../abg/index.js";
 import {
   hasAdmittedProductInstall,
   hasAdmittedWorkspaceBinding,
   projectAdmittedProductInstall,
-  projectAdmittedProductInstallByAdmissionEventRef,
   projectAdmittedWorkspaceBinding,
-  projectAdmittedWorkspaceBindingByInvocationRef,
   projectAdmittedWorkspaceProductInstall,
 } from "../abg/environment_admission.js";
 import { compareUnicodeCodeUnits } from "../shared/canonical_json.js";
@@ -45,7 +38,6 @@ import { deepFreeze } from "../shared/immutable.js";
 import type { OwnerSemanticOutput } from
   "../shared/public_function_contracts.js";
 import type { ReferenceDigest } from "../shared/public_invocation.js";
-import { ABI5_SYSTEM_PRODUCT_SEMANTICS } from "./builtin_semantics.js";
 import type {
   GraphFunctionCatalogView,
   ReadyGraphFunctionCatalog,
@@ -59,7 +51,6 @@ import { PRODUCT_PROJECT_READ_CONTRACTS } from
   "./project_read_operation_contracts.js";
 import {
   CatalogProjectionPort,
-  ConsensusProjectionPort,
   InstallProjectionPort,
   WorkspaceProjectionPort,
   type CatalogDescribeProjectReadPacket,
@@ -67,7 +58,6 @@ import {
   type InstallEvidenceProjectReadPacket,
   type ProductProjectReadRefusal,
   type ReleaseEvidenceProjectReadPacket,
-  type TicketConsensusProjectReadPacket,
   type WorkspaceStatusProjectReadPacket,
 } from "./project_read_ports.js";
 import {
@@ -80,8 +70,7 @@ type ProjectReadPacket =
   | CatalogDescribeProjectReadPacket
   | WorkspaceStatusProjectReadPacket
   | InstallEvidenceProjectReadPacket
-  | ReleaseEvidenceProjectReadPacket
-  | TicketConsensusProjectReadPacket;
+  | ReleaseEvidenceProjectReadPacket;
 
 type ProjectReadContract =
   (typeof PRODUCT_PROJECT_READ_CONTRACTS)[keyof typeof PRODUCT_PROJECT_READ_CONTRACTS];
@@ -94,11 +83,6 @@ export interface ProductProjectReadResourceAssertion<
   readonly packet: TPacket;
   readonly artifactTruth?: ExactPrefixArtifactTruthProjection;
   readonly workspaceManifest?: WorkspaceManifest;
-  readonly runtime?: Readonly<{
-    readonly prefix: DurablePrefixCoordinate;
-    readonly runId: string;
-    readonly graphCallId: string;
-  }>;
 }
 
 function fault<TContract extends ProjectReadContract>(
@@ -117,7 +101,7 @@ function fault<TContract extends ProjectReadContract>(
 function validResources<TPacket extends ProjectReadPacket>(
   value: unknown,
   additionalKeys: readonly (
-    "artifactTruth" | "runtime" | "workspaceManifest"
+    "artifactTruth" | "workspaceManifest"
   )[] = [],
 ): value is ProductProjectReadResourceAssertion<TPacket> {
   return isRecord(value) &&
@@ -218,63 +202,6 @@ function bindingAuthorityMatches(
       slots.dependency_lock as unknown as ReferenceDigest,
       lock,
     );
-}
-
-function admittedAuthorityBinding(
-  call: Readonly<{ readonly invocation: unknown }>,
-  artifactTruth: ExactPrefixArtifactTruthProjection,
-): Readonly<{ readonly bindingId: string; readonly canonicalRoot: string }> | null {
-  const slots = authoritySlots(call);
-  if (slots === null) return null;
-  if (
-    !isRecord(slots.workspace_binding) ||
-    !isRecord(slots.dependency_lock) ||
-    !Array.isArray(slots.product_set)
-  ) return null;
-  const workspaceCoordinate =
-    slots.workspace_binding as unknown as ReferenceDigest;
-  const lockCoordinate = slots.dependency_lock as unknown as ReferenceDigest;
-  const bindingRow = artifactTruth.rows.find((row) =>
-    row.operationId === "abg.operation.workspace.bind" &&
-    row.artifactRef === workspaceCoordinate.ref &&
-    row.artifactDigest === workspaceCoordinate.digest
-  );
-  if (bindingRow === undefined || !isWorkspaceAuthorityBasis(
-    bindingRow.workspaceAuthorityBasis,
-  )) return null;
-  const installs = bindingRow.causationEventRefs.map((eventRef) =>
-    projectAdmittedProductInstallByAdmissionEventRef(artifactTruth, eventRef)
-  );
-  if (installs.length === 0 || installs.some((install) => install === null)) {
-    return null;
-  }
-  const lock = installs[0]!.resolvedLock;
-  if (
-    installs.some((install) => !sameJson(install!.resolvedLock, lock)) ||
-    !sameCoordinate(lockCoordinate, {
-      ref: lock.lockId,
-      digest: lock.lockDigest,
-    }) ||
-    !exactCoordinateSet(
-      slots.product_set,
-      installs.map((install) => productInstallCoordinate(install!.install)),
-    )
-  ) return null;
-  // The lock is the recorded install lock of this artifact truth.
-  const binding = projectAdmittedWorkspaceBindingByInvocationRef(
-    artifactTruth,
-    bindingRow.invocationRef,
-    lock,
-    "recorded",
-  );
-  return binding === null ||
-      binding.binding.bindingId !== workspaceCoordinate.ref ||
-      binding.binding.bindingDigest !== workspaceCoordinate.digest
-    ? null
-    : deepFreeze({
-      bindingId: binding.binding.bindingId,
-      canonicalRoot: bindingRow.workspaceAuthorityBasis.canonicalRoot,
-    });
 }
 
 function reconstructCatalogSelection(
@@ -869,135 +796,6 @@ const install_evidence: ExactDefinitionCallable<
     : fault(call, "owner_execution_failure", String(cause)),
 });
 
-const ticket_consensus: ExactDefinitionCallable<
-  typeof PRODUCT_PROJECT_READ_CONTRACTS.ticket_consensus,
-  ProductProjectReadResourceAssertion<TicketConsensusProjectReadPacket>,
-  ProductProjectReadResourceAssertion<TicketConsensusProjectReadPacket>
-> = (call) => Effect.try({
-  try: (): DefinitionReturn<
-    typeof PRODUCT_PROJECT_READ_CONTRACTS.ticket_consensus,
-    ProductProjectReadResourceAssertion<TicketConsensusProjectReadPacket>
-  > => {
-    if (!validResources<TicketConsensusProjectReadPacket>(call.resources, [
-      "artifactTruth",
-      "runtime",
-    ])) {
-      throw fault(call, "invalid_resource_assertion", "ticket consensus requires one exact typed owner packet");
-    }
-    const packet = call.resources.packet;
-    const runtime = call.resources.runtime!;
-    const artifactTruth = call.resources.artifactTruth!;
-    if (!exactDefinitionCallMatches(
-      call,
-      PRODUCT_PROJECT_READ_CONTRACTS.ticket_consensus,
-    )) {
-      throw fault(call, "call_identity_mismatch", "ticket consensus call differs from its fixed definition, contracts, request digest, or authority topology");
-    }
-    const authorityBinding = admittedAuthorityBinding(
-      call as DefinitionCall<ProjectReadContract, unknown>,
-      artifactTruth,
-    );
-    const truth = projectRunTruthAtDurablePrefix(runtime.prefix, runtime.runId);
-    const graphResult = AbgGraphCallProjectionPort.graph_call_result({
-      kind: "abg_project_read_packet",
-      schemaVersion: "5.0.0",
-      memberKey: "graph_call_result",
-      prefix: runtime.prefix,
-      targetRef: runtime.graphCallId,
-    });
-    const graphReplay = AbgGraphCallProjectionPort.graph_call_replay({
-      kind: "abg_project_read_packet",
-      schemaVersion: "5.0.0",
-      memberKey: "graph_call_replay",
-      prefix: runtime.prefix,
-      targetRef: runtime.graphCallId,
-    });
-    const resultValue = graphResult.kind === "abg_project_read_projection" &&
-        isRecord(graphResult.value)
-      ? graphResult.value
-      : null;
-    const admittedResult = resultValue !== null &&
-        isRecord(resultValue.admittedResult)
-      ? resultValue.admittedResult
-      : null;
-    const replayValue = graphReplay.kind === "abg_project_read_projection" &&
-        isRecord(graphReplay.value)
-      ? graphReplay.value
-      : null;
-    const runOpenAtom = replayValue !== null &&
-        Array.isArray(replayValue.eventAtoms)
-      ? replayValue.eventAtoms.find((atom: unknown) =>
-        isRecord(atom) && atom.eventKind === "run_segment_opened" &&
-        atom.aggregateId === runtime.runId
-      )
-      : undefined;
-    const productResult = admittedResult !== null &&
-        typeof admittedResult.resultRef === "string" &&
-        typeof admittedResult.resultContractRef === "string" &&
-        admittedResult.resultValue !== null
-      ? ABI5_SYSTEM_PRODUCT_SEMANTICS.projectPublicResult({
-        value: admittedResult.resultValue as never,
-        admittedResultRef: admittedResult.resultRef,
-        admittedResultContractRef: admittedResult.resultContractRef,
-        replayRef: truth.kind === "abg_run_truth_projection"
-          ? truth.replay.ref
-          : "",
-        projectionKind: "result",
-      })
-      : null;
-    if (
-      !baseRelationMatches(call) ||
-      !sameJson(call.invocation.request.selector, packet.selector) ||
-      !sameJson(artifactTruth.prefix, runtime.prefix) ||
-      authorityBinding === null ||
-      truth.kind !== "abg_run_truth_projection" ||
-      truth.graphCall?.ref !== runtime.graphCallId ||
-      truth.result === null ||
-      graphResult.kind !== "abg_project_read_projection" ||
-      graphReplay.kind !== "abg_project_read_projection" ||
-      graphResult.prefixCoordinateDigest !== runtime.prefix.coordinateDigest ||
-      graphReplay.prefixCoordinateDigest !== runtime.prefix.coordinateDigest ||
-      admittedResult === null ||
-      admittedResult.resultRef !== truth.result.ref ||
-      admittedResult.resultDigest !== truth.result.digest ||
-      resultValue?.runId !== runtime.runId ||
-      replayValue?.runId !== runtime.runId ||
-      replayValue?.replayRef !== truth.replay.ref ||
-      replayValue?.replayDigest !== truth.replay.digest ||
-      !isRecord(runOpenAtom) ||
-      runOpenAtom.parentAggregateId !== authorityBinding.bindingId ||
-      productResult === null ||
-      !sameJson(productResult.value, packet.consensusResult) ||
-      !sameCoordinate(packet.selector.outputAuthority, truth.result) ||
-      !sameCoordinate(packet.selector.replayBasis, truth.replay)
-    ) {
-      throw fault(call, "resource_relation_mismatch", "ticket consensus packet differs from the public source, basis, or selector coordinates");
-    }
-    const output = ConsensusProjectionPort.ticketConsensus(packet);
-    if (output.kind === "product_project_read_refusal") {
-      return deepFreeze({
-        ownerOutput: nativeRefusal(PRODUCT_PROJECT_READ_CONTRACTS.ticket_consensus, output),
-        resources: call.resources,
-      });
-    }
-    const projection = output.projection;
-    const ownerOutput = commonResult(call, PRODUCT_PROJECT_READ_CONTRACTS.ticket_consensus, {
-      kind: "ticket_consensus_projection",
-      ticket: call.invocation.request.selector.ticket,
-      consensus: truth.result,
-      outputAuthority: call.invocation.request.selector.outputAuthority,
-      replayBasis: call.invocation.request.selector.replayBasis,
-      evidence: [reference(projection.projectionRef, projection.projectionDigest)],
-    });
-    return deepFreeze({ ownerOutput, resources: call.resources });
-  },
-  catch: (cause) => isDefinitionFault(cause)
-    ? cause as DefinitionExecutionFault<
-      typeof PRODUCT_PROJECT_READ_CONTRACTS.ticket_consensus.definitionKey
-    >
-    : fault(call, "owner_execution_failure", String(cause)),
-});
-
 type ReleaseReadAssertion=Extract<AbgEventResourceAssertion,{kind:"reopen_abg_event_resource"}>;
 type ReleaseReadReceipt=AbgEventResourceReceipt&{readonly acquisitionKind:"reopen"};
 const releaseReadResourcesSchema=v.strictObject({kind:v.literal("release_evidence_resources"),schemaVersion:v.literal("5.0.0"),
@@ -1007,7 +805,8 @@ const releaseReadReceiptSchema=v.strictObject({kind:v.literal("release_evidence_
 const releaseReadOwner:ExactDefinitionCallable<typeof PRODUCT_PROJECT_READ_CONTRACTS.release_evidence,v.InferOutput<typeof releaseReadResourcesSchema>,v.InferOutput<typeof releaseReadReceiptSchema>>=call=>Effect.try({try:()=>{
  const acquired=acquireAbgEventResource(call.resources.eventResource);
  if(acquired.kind!=="acquired_abg_event_resource")throw definitionFault(call.invocation.definitionKey,"resource_admission",acquired.code,acquired.message);
- try {
+ // The read owns the bodies it selects until it returns.
+ return withOperationBodies(acquired.resource.entryPrefix,()=>{try {
   const request=call.invocation.request,prefix=acquired.resource.entryPrefix;
   const packet:ReleaseEvidenceProjectReadPacket={kind:"product_project_read_packet",schemaVersion:"5.0.0",memberKey:"release_evidence",sourceRef:request.source.sourceRef,sourceDigest:request.source.sourceDigest,
    projectionBasis:{basisRef:request.projectionBasis.projectionBasisRef,basisDigest:request.projectionBasis.projectionBasisDigest,value:prefix},
@@ -1016,7 +815,7 @@ const releaseReadOwner:ExactDefinitionCallable<typeof PRODUCT_PROJECT_READ_CONTR
   const ownerOutput=result.kind==="product_project_read_refusal"?nativeRefusal(PRODUCT_PROJECT_READ_CONTRACTS.release_evidence,result):
    validatedOwnerOutput(PRODUCT_PROJECT_READ_CONTRACTS.release_evidence,{outcomeKind:"result",value:{caseKey:"release_evidence",source:{ref:packet.sourceRef,digest:packet.sourceDigest},projectionBasis:{ref:request.projectionBasis.projectionBasisRef,digest:request.projectionBasis.projectionBasisDigest},projection:result.projection as never}},"release evidence");
   return deepFreeze({ownerOutput,resources:{kind:"release_evidence_receipt" as const,schemaVersion:"5.0.0" as const,eventResource:closeAbgEventResource(acquired.resource,prefix) as ReleaseReadReceipt}});
- }catch(error){try{abandonAbgEventResource(acquired.resource);}catch{}throw error;}
+ }catch(error){try{abandonAbgEventResource(acquired.resource);}catch{}throw error;}});
 },catch:error=>isDefinitionFault(error)?error as DefinitionExecutionFault<typeof PRODUCT_PROJECT_READ_CONTRACTS.release_evidence.definitionKey>:definitionFault(call.invocation.definitionKey,"owner_projection","release_read_failure",String(error))});
 const release_evidence=bindExactPrefixRead(PRODUCT_PROJECT_READ_CONTRACTS.release_evidence,releaseReadOwner,releaseReadResourcesSchema,releaseReadReceiptSchema);
 
@@ -1026,5 +825,4 @@ export const PRODUCT_PROJECT_READ_DEFINITION_BINDINGS = Object.freeze({
   workspace_status,
   install_evidence,
   release_evidence,
-  ticket_consensus,
 });

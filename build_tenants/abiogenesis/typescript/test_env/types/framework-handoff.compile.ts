@@ -106,6 +106,7 @@ const UNAVAILABLE = [
   "abg.operation.interaction.respond#assess",
   "abg.operation.interaction.respond#reject",
   "abg.operation.interaction.respond#select",
+  "abg.operation.project.read#ticket_consensus",
   "abg.operation.witness.admit#attest",
   "abg.operation.witness.admit#hygiene-stamp",
   "abg.operation.witness.admit#intake",
@@ -118,12 +119,12 @@ type CallableKey = OwnerDefinitionCompositeKey<OwnerCallableDefinitionMember>;
 export type FamilyProof = [
   Assert<Equal<(typeof DECLARED)["length"], 56>>,
   Assert<Distinct<typeof DECLARED>>,
-  Assert<Equal<(typeof UNAVAILABLE)["length"], 9>>,
+  Assert<Equal<(typeof UNAVAILABLE)["length"], 10>>,
   Assert<Distinct<typeof UNAVAILABLE>>,
   Assert<Equal<Exclude<Unavailable, Declared>, never>>,
   Assert<Equal<OwnerDefinitionCompositeKey, Declared>>,
   Assert<Equal<OwnerDefinitionCompositeKey<OwnerUnavailableDefinitionMember>, Unavailable>>,
-  // 56 - 9 = 47 callable members.
+  // 56 - 10 = 46 callable members.
   Assert<Equal<CallableKey, Exclude<Declared, Unavailable>>>,
   Assert<Equal<OwnerUnavailableDefinitionMember["binding"], { readonly kind: "installed_binding_unavailable" }>>,
 ];

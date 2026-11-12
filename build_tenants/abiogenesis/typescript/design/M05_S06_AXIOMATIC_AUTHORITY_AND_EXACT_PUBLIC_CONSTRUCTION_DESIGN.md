@@ -94,8 +94,9 @@ The implementation is admissible only while all of these axioms hold:
    a second authority.
 7. Every runtime-relevant prefix is explicit. Equal immutable inputs and equal
    admitted prefixes have equal meaning after restart and interleaving.
-8. SDK, CLI, Codex, schemas, catalog rows, manifests, and documentation derive
-   from the same exact family.
+8. SDK, CLI, schemas, catalog rows, manifests, and documentation derive
+   from the same exact family (`PUBLIC_FUNCTION_DEFINITION_FAMILY`,
+   `public/binding/public_function_family.ts`).
 9. The legacy family is the only reachable Public family before the atomic
    swap. The exact family is the only reachable family afterward.
 10. Release owner ports are real and callable in S06, but without the later
@@ -126,7 +127,7 @@ supersedes only these realization relations:
 | `history/M04_PUBLIC_OPERATION_DEFINITION_FAMILY_BEHAVIOR_DESIGN.md` store-local branded application exception | deterministic reconstructable Product application in Section 6 |
 | `history/M03_M04_PUBLIC_CATALOG_INVOCATION_AUTHORITY_BEHAVIOR_DESIGN.md` application event and unkeyed artifact fluent | no application event; scoped artifact fluent only for genuinely effectful artifacts |
 | `M03_DIRECT_GTL_TRAVERSAL_BEHAVIOR_DESIGN.md` `CatalogView` admitted-projection ontology, ABG-owned `narrowCatalogView`, view-admission event, catalog-view sequence admission, and ABI5-ROOT-001 R4 admission mapping | total deterministic eventless Product `CatalogOperationPort.constructView` over an ABG-admitted catalog projection plus exact allowlist; `run.invoke` revalidates the equal view against the explicit-prefix Event Calculus catalog and its invocation event records the view use |
-| `M05_S05_CONSENSUS_GLOBAL_TO_LOCAL_DESIGN.md` one-shot store/context application lifecycle | equal carrier reconstruction and invocation-time revalidation |
+| `history/M05_S05_CONSENSUS_GLOBAL_TO_LOCAL_DESIGN.md` one-shot store/context application lifecycle | equal carrier reconstruction and invocation-time revalidation |
 | `M05_DIRECT_GTL_TRAVERSAL_EXPANSION_DESIGN.md` branded source-result and remembered context coordinates | ABG-backed rehydration from explicit prefix |
 | `M05_S06_NATIVE_CONTRACT_CLOSURE_DESIGN.md` root-context-held verification/resolution/install relations | complete serializable carriers and explicit preimages |
 | `M05_S06_PUBLIC_FUNCTION_AND_NATIVE_OCCURRENCE_CLOSURE_DESIGN.md` hybrid application ownership, Public read-contract ambiguity, implicit prefix, and older common refusal shape | Sections 4 through 9 of this design |
@@ -2109,8 +2110,9 @@ The mapping is structural:
 Unreadable bytes and readable wrong-digest bytes therefore remain distinct
 nested Product refusals under `owner_refusal`; they cannot collapse to prose.
 Unknown extra common codes, free strings, `JsonValue`, and owner-refusal
-flattening are invalid projections. SDK, CLI, Codex, schemas, and replay expose
-the same outer code and nested value.
+flattening are invalid projections. SDK, CLI, schemas, and replay expose
+the same outer code and nested value; the CLI prints the outcome of
+`runInstalledDefinitionCallTransport` unchanged (`public/cli.ts`).
 
 Outcome projection failure is a distinct structural adapter disposition. It
 is not owner truth, cannot be nested under `owner_refusal`, and is not a sixth
@@ -2138,10 +2140,13 @@ OutcomeProjectionRefusal<K> = {
 ```
 
 This member appears in the common outcome native symbol and schema and in
-every indexed operation row. Its adapter exit class is exactly
-`adapterFailure = 70`. Result, common `owner_refusal`, and non-terminal exits
-are `0`, `1`, and `3`; pre-index common-envelope, family-lookup, and indexed
-admission refusals exit `2`. A projection refusal contains no owner result or
+every indexed operation row. A contract-invalid owner output is the execution
+fault `invalid_owner_output` (`public/binding/static_definition_bindings.ts`),
+to which `runExactDefinition` (`shared/effect_definition.ts`) gives exit code
+`70`. Result, common `owner_refusal`, and non-terminal outcomes exit `0`, `1`,
+and `3` there; pre-index common-envelope, family-lookup, and indexed admission
+refusals are transport refusals, on which `public/cli.ts` exits `2`. A
+projection refusal contains no owner result or
 refusal truth and does not append a runtime event.
 
 ## 10. Exact Source And Dependency Construction Map
@@ -2180,7 +2185,7 @@ even when the Gate 2 sentinel does not execute that row.
 | `D09` | `product/run_continuation_operation.ts`: `RUN_OPERATION_CONTRACTS.continue`, `RunContinuationPort` | Product continuation meaning, `D08`, ABG continuation/event store/calculus/replay/closure, ordinary HoG direct execute, shared canonical JSON/digests/references; it never treats C.retry as a Public continuation ingress |
 | `D10` | `product/interaction_response_operation.ts`: `INTERACTION_OPERATION_CONTRACTS`, `InteractionResponsePort` | Product response evaluation, ABG continuation/event admission/calculus/replay, shared canonical JSON/digests/references |
 | `D11` | `product/result_assessment_operation.ts`: `RESULT_OPERATION_CONTRACTS`, `ResultAssessmentPort` | Product result/assessment contracts, ABG result/event admission/calculus/replay, shared canonical JSON/digests/references |
-| `D12` | `abg/witness_admission_operation.ts`: `WITNESS_OPERATION_CONTRACTS`, `WitnessAdmissionPort` | ABG witness/event store/calculus/replay and shared canonical JSON/digests/references |
+| `D12` | `abg/witness_admission_operation.ts`: `admitWitnessedAct`; its packets are `WITNESS_OPERATION_CONTRACTS` in `abg/witness_operation_contracts.ts` | ABG witness/event store/calculus/replay and shared canonical JSON/digests/references |
 | `D13` | `validator/conformance_operation.ts`: `CONFORMANCE_OPERATION_CONTRACTS`, `ConformancePort` | Validator raw admission, validation, graph, C algebra, implementation resolution, GTL contract/declaration types, shared canonical JSON/digests/references |
 | `D14` | `product/materialization_operations.ts`: `MATERIALIZATION_OPERATION_CONTRACTS`, `ProductMaterializationPort` | Product filesystem/configuration construction, ABG artifact admission/event store/calculus, shared canonical JSON/digests/references |
 | `D15` | `product/release_snapshot_operations.ts`: `RELEASE_OPERATION_CONTRACTS`, `ReleaseSnapshotPort` | closed release request/refusal contracts and shared canonical JSON/digests/references; no M6/M7 success authority |
@@ -2217,7 +2222,7 @@ file/export/blob, slots, effect, and deletion impact.
 | 38-39 | `run.continue / current_intent, selected_action` | `RUN_OPERATION_CONTRACTS.continue[key]` -> `RunContinuationPort[key]` | `product/run_continuation_operation.ts` / `D09` | ABG continuation/traversal events |
 | 40-44 | `interaction.respond / select, approve, reject, assess, answer_escalation` | `INTERACTION_OPERATION_CONTRACTS.respond[key]` -> `InteractionResponsePort.respond` | `product/interaction_response_operation.ts` / `D10` | actor-attributed response event |
 | 45 | `result.assess / assess` | `RESULT_OPERATION_CONTRACTS.assess` -> `ResultAssessmentPort.assess` | `product/result_assessment_operation.ts` / `D11` | assessment event or exact non-close |
-| 46-51 | `witness.admit / reprice, attest, hygiene-stamp, intake, run-resumed, run-stopped` | `WITNESS_OPERATION_CONTRACTS.admit[key]` -> `WitnessAdmissionPort.admit` | `abg/witness_admission_operation.ts` / `D12` | exact witnessed ABG event |
+| 46-51 | `witness.admit / reprice, attest, hygiene-stamp, intake, run-resumed, run-stopped` | `WITNESS_OPERATION_CONTRACTS.admit[key]` -> `admitWitnessedAct`; `WITNESS_DEFINITION_BINDINGS` (`abg/witness_definition_bindings.ts`) binds `reprice` and `run-stopped` | `abg/witness_admission_operation.ts` / `D12` | exact witnessed ABG event |
 | 52 | `conformance.evaluate / gtl_program` | `CONFORMANCE_OPERATION_CONTRACTS.evaluate.gtl_program` -> `ConformancePort.evaluateGtlProgram` | `validator/conformance_operation.ts` / `D13` | deterministic eventless whole-Program evaluation |
 | 53-54 | `product.materialize / context_bootstrap, configuration` | `MATERIALIZATION_OPERATION_CONTRACTS[key]` -> `ProductMaterializationPort[key]` | `product/materialization_operations.ts` / `D14` | filesystem plus admitted artifact truth |
 | 55-56 | `release.snapshot / published_rc, tapped_release` | `RELEASE_OPERATION_CONTRACTS.snapshot[key]` -> `ReleaseSnapshotPort[key]` | `product/release_snapshot_operations.ts` / `D15` | callable exact owner refusal; no success/event before later authority |
@@ -2266,14 +2271,15 @@ Product equation explicitly joins runtime truth.
 ## 11. Atomic Hard Break And Generated Projections
 
 Construction happens behind an unreachable internal module. No package export,
-SDK member, CLI grammar, Codex path, schema, catalog row, or manifest row may
-name it before the swap.
+SDK member, CLI grammar, schema, catalog row, or manifest row may name it
+before the swap.
 
 The atomic swap in one Gate 2 cut:
 
 1. makes `PUBLIC_FUNCTION_DEFINITION_FAMILY` the sole `./public` family;
 2. rewires the SDK to the exact family;
-3. derives CLI and Codex grammar from the SDK/family;
+3. derives the CLI grammar from the SDK/family (`cliGrammar` in
+   `public/binding/public_function_projections.ts`);
 4. derives schemas and PFC-F07 proposals from the family;
 5. uses Product PFC-F08 to bind the static manifest catalog;
 6. deletes every file and test in the census deletion manifest; and

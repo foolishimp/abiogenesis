@@ -222,7 +222,6 @@ export async function setupInstalledCliHarness(context, packageRoot, options = {
     installedPackageRoot,
     sourcePackageRoot: packageRoot,
     cliPath: join(cliHost, "node_modules/.bin/abg.cli"),
-    codexPath: join(cliHost, "node_modules/.bin/abg.codex"),
     rootPublication,
     rootPublications,
     corePublications,

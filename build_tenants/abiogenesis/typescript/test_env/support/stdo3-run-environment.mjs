@@ -14,7 +14,7 @@ const policyText = 'Under the declared bounded Executive frame, select only a pe
 
 /** Current STDO3 source for the existing owners, retaining the P4 default role.
  * The caller supplies an exact source mirror; no ambient install is selected. */
-export async function stdo3RunEnvironment({ gtl, product, sourceRoot, selectorRole }) {
+export async function stdo3RunEnvironment({ gtl, product, sourceRoot }) {
   assert.ok(typeof sourceRoot === 'string' && sourceRoot.length > 0, 'explicit exact STDO3 sourceRoot is required');
   const root = await realpath(sourceRoot), recordPath = join(root, 'manifest.json');
   const recordBytes = await readFile(recordPath);
@@ -40,17 +40,12 @@ export async function stdo3RunEnvironment({ gtl, product, sourceRoot, selectorRo
   const dependency = { dependencyRef: ref('dependency', 'stdo3-source'), basisRef: STDO3_SOURCE.basisRef,
     recordRef: STDO3_SOURCE.basisRef + 'manifest.json', recordDigest: STDO3_SOURCE.manifestDigest,
     recordFormat: 'stdo_source_manifest@1', inventoryDigest: gtl.stdoInventoryDigest(members), members };
-  // Optional data changes only this existing selector's declared source/policy;
-  // omitted data keeps the frozen P4 role exactly as before.
-  const role = selectorRole === undefined ? { graphFunctionRef: ref('graph-function', 'root'), programLocusRef: ref('node', 'select'), role: 'selector',
-      frameRefs: headings.map(heading => STDO3_SOURCE.basisRef + STDO3_SOURCE.memberPath + '#' + heading.toLowerCase().replaceAll(' ', '-')).sort(),
-      policy: { policyRef: ref('policy', 'stdo3-native-suitability'), text: policyText,
-        digest: product.sha256Bytes(Buffer.from(policyText)) },
-      contextPolicy: { policyRef: ref('policy', 'stdo3-native-context'), selectors: ['full_source', 'active_binding_semantics'] },
-      accessRefs: [], sourceBindings } : structuredClone(selectorRole);
-  assert.equal(role.role, 'selector');
-  assert.equal(role.graphFunctionRef, ref('graph-function', 'root'));
-  assert.equal(role.programLocusRef, ref('node', 'select'));
+  const role = { graphFunctionRef: ref('graph-function', 'root'), programLocusRef: ref('node', 'select'), role: 'selector',
+    frameRefs: headings.map(heading => STDO3_SOURCE.basisRef + STDO3_SOURCE.memberPath + '#' + heading.toLowerCase().replaceAll(' ', '-')).sort(),
+    policy: { policyRef: ref('policy', 'stdo3-native-suitability'), text: policyText,
+      digest: product.sha256Bytes(Buffer.from(policyText)) },
+    contextPolicy: { policyRef: ref('policy', 'stdo3-native-context'), selectors: ['full_source', 'active_binding_semantics'] },
+    accessRefs: [], sourceBindings };
   const declaration = gtl.constructStdoRunEnvironmentDeclaration({
     kind: 'run_environment_declaration', schemaVersion: '5.0.0',
     declarationRef: ref('declaration', 'stdo3-native-environment'), dependencies: [dependency],

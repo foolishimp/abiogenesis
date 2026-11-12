@@ -15,7 +15,6 @@ import {
 import { sha256Canonical, type Sha256Digest } from "../../shared/digests.js";
 import { deepFreeze } from "../../shared/immutable.js";
 import type {
-  PublicAdapterExitMap,
   PublicAuthorityClass,
   PublicAuthoritySlotRequirement,
   PublicEventAdmission,
@@ -87,7 +86,6 @@ export interface IntrinsicPublicFunctionDefinition {
   readonly schemaCoordinates: IntrinsicSchemaCoordinateSet;
   readonly sdkCoordinate: string;
   readonly cliCoordinate: string;
-  readonly adapterExitMap: PublicAdapterExitMap;
   readonly definitionDigest: Sha256Digest;
 }
 
@@ -159,7 +157,6 @@ export type IntrinsicPublicOperationContractProjection = {
     readonly definitionKey: PublicDefinitionKeyLike;
     readonly sdkCoordinate: string;
     readonly cliCoordinate: string;
-    readonly adapterExitMap: PublicAdapterExitMap;
   }>[];
 };
 
@@ -296,7 +293,6 @@ function definitionFromSource(
     schemaCoordinates,
     sdkCoordinate: metadata.sdkCoordinate,
     cliCoordinate: metadata.cliCoordinate,
-    adapterExitMap: metadata.adapterExitMap,
   };
   const digestProjection = deepFreeze({
     ...definitionFields,
@@ -446,7 +442,6 @@ function constructOperationProjection(
       definitionKey: definition.definitionKey,
       sdkCoordinate: definition.sdkCoordinate,
       cliCoordinate: definition.cliCoordinate,
-      adapterExitMap: definition.adapterExitMap,
     })),
   });
   const rowDigest = sha256Canonical(body);

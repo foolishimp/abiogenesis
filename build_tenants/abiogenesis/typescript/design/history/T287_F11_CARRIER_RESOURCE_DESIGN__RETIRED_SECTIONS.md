@@ -79,3 +79,9 @@ Genuine independent native F11 J, semantic sufficiency and qualification remain
 separate Executive-selected work; current restricted DNS prevents that native
 proof and supplies no green result. Freeze this proposal and stop before those
 effects.
+
+---
+
+Cut from `build_tenants/abiogenesis/typescript/design/T287_F11_CARRIER_RESOURCE_DESIGN.md` at commit `70320c3f0`, lines 407-407, verbatim.
+
+from the judgment candidate. Existing native-work and Consensus consumers

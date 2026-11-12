@@ -39,7 +39,7 @@ export function nativePublications(gtl, abiArtifact) {
   return [gtl.constructConsensusModulePublication,
     gtl.constructWorksiteConstructionModulePublication, gtl.constructWorksiteCommandExecutionModulePublication,
     gtl.constructRequirementHandoffModulePublication, gtl.constructSemanticStageModulePublication,
-    gtl.constructSemanticRevisionModulePublication, gtl.constructWorksiteCommandForwardModulePublication,
+    gtl.constructSemanticRevisionModulePublication,
     gtl.constructSelfConformanceModulePublication].map(fn => fn(basis));
 }
 

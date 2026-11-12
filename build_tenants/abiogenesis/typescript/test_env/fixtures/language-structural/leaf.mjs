@@ -1,15 +1,13 @@
 import {canonicalJson as canonical,sha256Canonical as hash} from '@abiogenesis/typescript-tenant/product';
-import {STRUCTURAL_FIXTURE_OWNER as owner,LEAF_SPECS,contractKinds,FP_IDS,WORKER_EXPECTED_PAYLOAD,GATE_IDS,RECURSION_IDS,FAN_OUT_IDS} from './program.mjs';
+import {STRUCTURAL_FIXTURE_OWNER as owner,LEAF_SPECS,contractKinds,FP_IDS,WORKER_EXPECTED_PAYLOAD,RECURSION_IDS,FAN_OUT_IDS} from './program.mjs';
 const descriptor=symbol=>{const s=LEAF_SPECS[symbol],body={implementationRef:s.ids.implementationRef,packageName:owner.packageName,packageVersion:owner.packageVersion,modulePath:'build/leaf.mjs',namedSymbol:symbol,computeRegime:s.regime??'F_D',inputContractRef:s.input,outputContractRef:s.output,failureContractRef:s.ids.failureContractRef,refusalContractRef:s.ids.refusalContractRef};return Object.freeze({kind:'packaged_leaf_implementation_descriptor',schemaVersion:'5.0.0',descriptorDigest:hash(body),...body});};
-export const ATOMIC_DESCRIPTOR=descriptor('atomic'),NORMALIZE_DESCRIPTOR=descriptor('normalize'),PASS_DESCRIPTOR=descriptor('pass'),PROJECT_DESCRIPTOR=descriptor('project'),GATE_DESCRIPTOR=descriptor('gate'),GATE_TARGET_DESCRIPTOR=descriptor('gateTarget'),RECURSION_EVALUATE_DESCRIPTOR=descriptor('recursionEvaluate'),RECURSION_STEP_DESCRIPTOR=descriptor('recursionStep'),ELEMENT_DESCRIPTOR=descriptor('element'),REDUCE_DESCRIPTOR=descriptor('reduce'),WORKER_DESCRIPTOR=descriptor('worker'),WORKER_DETERMINISTIC_DESCRIPTOR=descriptor('workerDeterministic'),WORKER_PASS_DESCRIPTOR=descriptor('workerPass');
+export const ATOMIC_DESCRIPTOR=descriptor('atomic'),NORMALIZE_DESCRIPTOR=descriptor('normalize'),PASS_DESCRIPTOR=descriptor('pass'),PROJECT_DESCRIPTOR=descriptor('project'),RECURSION_EVALUATE_DESCRIPTOR=descriptor('recursionEvaluate'),RECURSION_STEP_DESCRIPTOR=descriptor('recursionStep'),ELEMENT_DESCRIPTOR=descriptor('element'),REDUCE_DESCRIPTOR=descriptor('reduce'),WORKER_DESCRIPTOR=descriptor('worker'),WORKER_DETERMINISTIC_DESCRIPTOR=descriptor('workerDeterministic'),WORKER_PASS_DESCRIPTOR=descriptor('workerPass');
 const candidate=(symbol,input,resultCandidate,failed=false)=>Object.freeze({kind:'leaf_realization_candidate',schemaVersion:'5.0.0',disposition:failed?'failure':'success',resultCandidate,evidenceCandidates:[{kind:'deterministic_evidence_candidate',schemaVersion:'5.0.0',implementationRef:LEAF_SPECS[symbol].ids.implementationRef,inputDigest:hash(input),outputDigest:hash(resultCandidate)}],...(failed?{diagnosticRef:'diagnostic://abi5-tests/structural/blocked'}:{})});
 const value=(kind,fields)=>({kind,schemaVersion:'5.0.0',...fields});
 export const atomic=input=>candidate('atomic',input,value('data_output',{message:input.subject}));
 export const normalize=input=>candidate('normalize',input,value('normalized_data',{subject:input.subject.trim()}));
 export const pass=input=>candidate('pass',input,{...input});
 export const project=input=>candidate('project',input,value('data_output',{message:input.subject}));
-export const gate=input=>candidate('gate',input,{...input});
-export const gateTarget=input=>candidate('gateTarget',input,value('data_output',{message:input.subject}));
 export const recursionEvaluate=input=>candidate('recursionEvaluate',input,{...input,terminal:input.remaining===0});
 export const recursionStep=input=>input.blockedChildRemaining===input.remaining?candidate('recursionStep',input,value('structural_failure',{diagnosticRef:'diagnostic://abi5-tests/structural/blocked'}),true):candidate('recursionStep',input,{...input,remaining:input.remaining-1,terminal:input.remaining===1,trace:[...input.trace,input.remaining-1]});
 export const element=input=>input.block?candidate('element',input,value('structural_failure',{diagnosticRef:'diagnostic://abi5-tests/structural/blocked'}),true):candidate('element',input,value('member_output',{subject:input.subject,message:input.subject}));
@@ -44,7 +42,6 @@ const relation=(input,output)=>{
  if(input?.kind==='data_input'&&output?.kind==='normalized_data')return output.subject===input.subject.trim();
  if(input?.kind==='normalized_data'&&output?.kind==='normalized_data')return output.subject===input.subject;
  if(['data_input','normalized_data'].includes(input?.kind)&&output?.kind==='data_output')return output.message===input.subject.trim();
- if(input?.kind==='data_input'&&output?.kind==='data_input')return input.subject!=='Blocked'&&output.subject===input.subject;
  if(input?.kind==='recursion_state'&&output?.kind==='recursion_state')return valid('recursion_state',output);
  if(input?.kind==='member_input'&&output?.kind==='member_output')return !input.block&&output.message===input.subject;
  if(input?.kind==='gtl_fan_out_vector'&&output?.kind==='member_summary')return output.count===input.members.length&&output.messages.join('\0')===input.members.map(row=>row.value.message).join('\0');

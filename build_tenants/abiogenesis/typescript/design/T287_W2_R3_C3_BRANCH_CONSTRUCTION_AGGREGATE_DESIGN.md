@@ -122,7 +122,7 @@ The material existing laws are:
   fan-in, and runtime-authority law;
 - `REQ-L-GTL3-GRAPHFUNCTION-004`, `-006`, `-011`, `-014`, and `-025`;
 - `REQ-L-GTL3-SUBWORK-001..004`;
-- `REQ-R-ABG3-FN-COMP-001..024`, lineage, event, run, projection, and Program
+- `REQ-R-ABG3-FN-COMP-001..023`, lineage, event, run, projection, and Program
   traversal requirements;
 - `REQ-R-ABG3-SAGA-FRONTIER-001`, `-002`, `-004`, `-005`, `-007`, `-010`,
   `-011`, `-013`, and `-014`, which keep stable branch identity, declared

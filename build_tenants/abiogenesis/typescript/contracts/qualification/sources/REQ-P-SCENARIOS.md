@@ -11,7 +11,7 @@
 
 ## Purpose
 
-Define the seven end-to-end scenarios that operationalize the ABIogenesis 5.0
+Define the end-to-end scenarios that operationalize the ABIogenesis 5.0
 Product. These requirements decompose the stable scenario identities in
 `PRODUCT.md`; they do not define another product boundary.
 
@@ -118,37 +118,27 @@ child traversal. Malformed GTL and malformed, incomplete, contradictory, or
 unattributed `F_P` output shall refuse before effects, result admission,
 foldback, or closure.
 
-### `ABG5-S03` - One Surface, Local Correction And Truthful Blocking
+### `ABG5-S03` - Executive Steps, Local Correction And Truthful Blocking
 
-**REQ-P-SCENARIOS-010**: `ABG5-S03` shall prove one admitted GTL program orders
-the four distinct semantic authorities:
-
-```text
-synthesizeModel -> evalGap -> evaluateNext -> evaluateAction
-```
-
-Intent admission, GraphFunction invocation, evidence admission, and
-continuation remain separate ABG boundaries around those authorities. After
-admitted evidence, the path shall refresh model, gap, lawful next action, and
-action-result truth. The scenario observes a truthful stop, hold or gap and
-the replay-derived frontier. One bounded correction under established
-specification and authority preserves unaffected work, refreshes affected
+**REQ-P-SCENARIOS-010**: `ABG5-S03` shall prove that each step of the standard
+system program, the default library's Executive, prepares a selection basis,
+selects one registered graph through one `F_P` selection, applies it as a
+registered selection and folds the admitted evidence into the next step's
+basis. Invocation, selection admission, evidence admission, and continuation
+remain separate ABG boundaries around each step. The scenario observes a
+truthful stop, hold or gap and its stop reading. One bounded correction under
+established specification and authority preserves unaffected work, refreshes affected
 evidence and supports automatic progression to the declared completion
 condition. A separate no-lawful-next-step
 case produces typed block and human-readable handoff without false completion.
 Native human response/resume and dedicated F12/S04 capabilities are not gates.
-When the truthful stop is an admitted `gap_stop`, the scenario may instead
-lawfully re-enter that exact stopped Run into one successor Run under an
-admitted single-use re-entry basis. Re-entry shall preserve the exact selected
-ProductSet, resolved dependency lock, WorkspaceBinding, Program, and public
-start identity; it is not a Product reprice.
 It shall exercise the retained 5.0 portions of every consequence route and runtime disposition,
 including retry, depth traversal, graph-span re-entry, public re-entry, ticket
 work, reprice, yield, block, and non-admission, plus all six retained public
 start and control behaviors, with explicit Product-owned dispositions for
 deferred portions. Graph-span re-entry remains local to the admitted traversal;
 autonomous upstream A.0 routing is not a 5.0 requirement. SDK, CLI, fixture, worker, and adapter code shall
-not select or order the loop.
+not select or order the Executive's steps.
 
 ### `ABG5-S04` - Planned 5.1 Reflection And Tuning
 
@@ -162,19 +152,6 @@ without product exemption, self-minted assurance, or silent authority
 mutation. Full-tree visibility or child success alone supplies no authority
 or parent closure. Deferral of this scenario shall not defer or weaken 5.0
 self-conformance under `REQ-P-SELF-CONFORMANCE` and `REQ-P-QUAL-060`.
-
-### `ABG5-S05` - Consensus Free Construction
-
-**REQ-P-SCENARIOS-012**: `ABG5-S05` is reserved for 5.1 and is not a 5.0 gate.
-Its selected installed candidate invokes the
-SYSTEM-owned Consensus GraphFunction through the ordinary catalog, admitted
-GTL, HoG, ABG, and CLI path over one real ticket and at least two differently
-attributed reviewer profiles. It shall prove agreement closure, dispute
-recursion, and round-limit or unresolved-dispute typed block/handoff to `F_H` in an
-existing workspace, an alternate workspace, and a clean temporary workspace.
-Every result and continuation shall be typed and replay-derived. No shell,
-plugin, fixture, or product-local service may own panel orchestration or ticket
-mutation. Native human response/resume after that handoff is reserved for 5.1.
 
 ### `ABG5-S06` - Native And Downstream Portability
 

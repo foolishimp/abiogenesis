@@ -92,10 +92,9 @@ replay, and closure.
 
 **REQ-P-CATALOG-009A**: The ABIogenesis product may publish SYSTEM-owned reusable
 GraphFunctions in its own native catalog when PRODUCT names them as product
-capabilities. The canonical Consensus function is such a row. Downstream
-products may bind declared reviewer profiles, subject contracts, policies, and
-overlays to that function, but shall not republish or shadow its canonical
-handle, graph body, outer contracts, or SYSTEM ownership.
+capabilities. Downstream products may bind declared subject contracts,
+policies, and overlays to such a function, but shall not republish or shadow
+its canonical handle, graph body, outer contracts, or SYSTEM ownership.
 
 ## Dependencies And Resolved Locks
 
@@ -185,8 +184,8 @@ entries shall fail with typed reasons before invocation. An empty effective
 callable view shall remain a lawful explicit result and shall not activate an
 unrestricted fallback.
 
-**REQ-P-CATALOG-026**: Catalog list, describe, lawful-action, invocation, and
-replay projections shall identify the effective session view when session
+**REQ-P-CATALOG-026**: Catalog list, describe, invocation, and replay
+projections shall identify the effective session view when session
 narrowing affects the result. Read behavior shall bind
 `abg.operation.project.read`; invocation shall bind
 `abg.operation.run.invoke`. Neither may rederive or widen the view.

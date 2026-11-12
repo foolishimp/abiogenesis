@@ -27,6 +27,16 @@ const member = v.strictObject({ path: relativePath, type: v.picklist(["file", "s
   digest, target: v.nullable(ref) });
 const artifact = v.strictObject({ path: relativePath, uri: ref, byteDigest: digest, canonicalDigest: digest });
 export const STDO_ENVIRONMENT_POLICY = "abg.stdo_run_environment";
+// Program policy keys, and declaration keys of a Program's callable
+// GraphFunctions, that the Product does not admit. A Program that names one, or
+// one of whose callable GraphFunctions declares one, has no valid run
+// environment, so every door that validates the Program refuses it.
+const REFUSED_PROGRAM_POLICIES = [STDO_ENVIRONMENT_POLICY, "abg.governed_context", "abg.governed_context.activation"] as const;
+const REFUSED_GRAPH_FUNCTION_DECLARATIONS = ["abg.worksite_command_forward"] as const;
+const namesRefusedKey = (program: Readonly<GtlProgram>, graphFunctions: readonly Readonly<GraphFunction>[]) =>
+  REFUSED_PROGRAM_POLICIES.some(key => program.policies[key] !== undefined) ||
+  graphFunctions.some(g => program.callableMembership.includes(g.name) &&
+    REFUSED_GRAPH_FUNCTION_DECLARATIONS.some(key => g.declarations[key] !== undefined));
 const unique = (xs: readonly string[]) => new Set(xs).size === xs.length;
 const sorted = (xs: readonly string[]) => unique(xs) && xs.every((x, i) => i === 0 || xs[i - 1]! < x);
 const hash = (x: JsonValue) => sha256Canonical(x);
@@ -72,18 +82,13 @@ export function stdoRoleForDeclaredLeaf(graph: Readonly<GraphFunction>, leaf: Re
 }
 
 /** One declared native family shared by publication validation, HoG and assembly.
- * A framed-synthesis or registered-selection evaluate leaf is a selector; every
- * other leaf takes its closed class from `stdoRoleForDeclaredLeaf`, or null. */
+ * A framed-synthesis evaluate leaf is a selector; every other leaf takes its
+ * closed class from `stdoRoleForDeclaredLeaf`, or null. */
 export function nativeContextLeafFamily(graph: Readonly<GraphFunction>, leaf: ReturnType<typeof cLeafTerms>[number]):
   RunEnvironmentRole["role"] | null {
   try {
   const synthesis = framedSynthesisAtLocus(graph, leaf.programLocusRef);
   if (synthesis !== null) return synthesis === false ? null : "selector";
-  if (leaf.fibre === "F_P" && leaf.stageRole === "evaluate" && leaf.requirement.kind === "executable_leaf_requirement") {
-    const nodes = graph.template.nodes.filter(n => n.term.kind === "c_of" && n.term.programLocusRef === leaf.programLocusRef);
-    if (nodes.length === 1 && registeredSelectionAtSource(graph.template,
-      { currentNodeRef: nodes[0]!.nodeRef, termPath: rootCSourcePath(nodes[0]!.nodeRef) }, leaf.outputCarrierRef) !== null) return "selector";
-  }
   return stdoRoleForDeclaredLeaf(graph, leaf);
   } catch { return null; }
 }
@@ -167,7 +172,7 @@ export function constructStdoRunEnvironmentDeclaration(value: RunEnvironmentDecl
   return d;
 }
 export function runEnvironmentForProgram(publication: Readonly<ModulePublication>, program: Readonly<GtlProgram>) {
-  if (program.policies[STDO_ENVIRONMENT_POLICY] !== undefined) return false;
+  if (namesRefusedKey(program, publication.graphFunctions)) return false;
   const ref = program.policies[RUN_ENVIRONMENT_POLICY];
   if (ref === undefined) return null;
   const rows = publication.runEnvironments?.filter(d => d.declarationRef === ref);
@@ -179,32 +184,13 @@ function selectorRoleFromBoundDeclarations(publication: Readonly<ModulePublicati
   const programs = publication?.programs.filter(p => p.programRef === programRef);
   if (publication === undefined || programs?.length !== 1) return false;
   const program = programs[0]!;
-  if (program.policies[STDO_ENVIRONMENT_POLICY] !== undefined) return false;
+  if (namesRefusedKey(program, publication.graphFunctions)) return false;
   const environmentRef = program.policies[RUN_ENVIRONMENT_POLICY];
   if (environmentRef === undefined) return null;
   const environments = publication.runEnvironments?.filter(d => d.declarationRef === environmentRef);
   if (environments?.length !== 1 || !program.callableMembership.includes(graphFunctionRef)) return false;
   const roles = environments[0]!.roles.filter(r => r.graphFunctionRef === graphFunctionRef && r.programLocusRef === programLocusRef);
   return roles.length === 1 && roles[0]!.role === "selector" ? roles[0]! : false;
-}
-/** Project already-bound declarations; acquisition/native-basis owners authenticate
- * their content. null is unselected and false is an invalid applicable binding.
- * Payloads and reconstructed runtime evidence never select or disable it. */
-export function registeredSelectionNativeRole(publication: Readonly<ModulePublication> | undefined,
-  programRef: string, graph: Readonly<GraphFunction>, programLocusRef: string): Readonly<RunEnvironmentRole> | null | false {
-  try {
-    const applications = graph.template.applications.filter(a => a.relationKind === "registered_selection" &&
-      a.sourceProgramLocusRef === programLocusRef);
-    if (applications.length === 0) return null;
-    const nodes = graph.template.nodes.filter(n => n.term.kind === "c_of" && n.term.programLocusRef === programLocusRef);
-    if (nodes.length !== 1 || applications.length !== 1) return false;
-    const leaf = nodes[0]!.term;
-    if (leaf.kind !== "c_of" || leaf.fibre !== "F_P") return null;
-    const role = selectorRoleFromBoundDeclarations(publication, programRef, graph.name, programLocusRef);
-    if (role === null || role === false) return role;
-    return leaf.stageRole === "evaluate" && leaf.requirement.kind === "executable_leaf_requirement" &&
-      applications[0]!.inputContractRef === leaf.outputCarrierRef ? role : false;
-  } catch { return false; }
 }
 /** Narrow library profile: applicability precedes payload inspection. */
 export function framedSynthesisAtLocus(graph: Readonly<GraphFunction>, locus: string) {
@@ -244,8 +230,9 @@ export function validRunEnvironmentPublication(publication: Readonly<ModulePubli
 export function validRunEnvironmentProgram(publication: Readonly<ModulePublication>, program: Readonly<GtlProgram>,
   graphFunctions: readonly Readonly<GraphFunction>[]): boolean {
   const d = runEnvironmentForProgram(publication, program);
+  // The callable GraphFunctions given here include those of the Program's other closure publications.
+  if (d === false || namesRefusedKey(program, graphFunctions)) return false;
   if (d === null) return true;
-  if (d === false) return false;
   const functions = graphFunctions.filter(g => program.callableMembership.includes(g.name));
   const leaves = functions.flatMap(g => g.template.nodes.flatMap(n => cLeafTerms(n.term).filter(c => c.fibre === "F_P")
     .map(c => ({ graphFunctionRef: g.name, locus: c.programLocusRef, role: nativeContextLeafFamily(g, c) }))));

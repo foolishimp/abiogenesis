@@ -10,10 +10,6 @@ import { NATIVE_WORKSPACE_WORK_IDS as nativeIds, isNativeWorkspaceWorkTask, nati
   isNativeWorkspaceWorkObservation, isNativeWorkspaceWorkFailure, resolveNativeWorkspaceWorkJudgmentRelation } from "./native_workspace_work.js";
 import { WORKSITE_PRESERVED_RESULT_IDS, isWorksitePreservedResultArtifact, resolveWorksitePreservedResultJudgmentRelation } from "./worksite_construction_recovery.js";
 import { WORKSITE_REVISION_IDS, isWorksiteRevisionCommandExecutionTask } from "./worksite_revision.js";
-import { WORKSITE_COMMAND_FORWARD_IDS as forwardIds } from "./worksite_command_forward_identity.js";
-import { isWorksiteCommandForwardRequest,
-  isWorksiteCommandForwardTask, isWorksiteCommandForwardWorkerResult } from "./worksite_command_forward.js";
-import { isWorksiteCommandForwardObservation } from "./worksite_command_execution.js";
 import { isWorksiteRevisionCommandExecutionObservation, isWorksiteRevisionCommandExecutionWorkerResult } from "./worksite_command_execution.js";
 import { SEMANTIC_REVISION_IDS as revisionIds } from "../gtl/semantic_revision_identity.js";
 import { isSemanticRevisionRequest, isSemanticRevisionEnvelope, isSemanticRevisionSelection, isSemanticRevisionSelectionInput, deriveRevisionAsset, deriveRevisionAssessment,
@@ -105,9 +101,6 @@ function admitInput(
     return deepFreeze(value);
   if (contractRef === nativeIds.taskContractRef && isNativeWorkspaceWorkTask(value))
     return deepFreeze(value);
-  if ((contractRef === forwardIds.requestContractRef && isWorksiteCommandForwardRequest(value)) ||
-      (contractRef === forwardIds.taskContractRef && isWorksiteCommandForwardTask(value)))
-    return deepFreeze(value);
   if (contractRef === WORKSITE_PRESERVED_RESULT_IDS.artifactContractRef && isWorksitePreservedResultArtifact(value)) {
     return deepFreeze(value);
   }
@@ -189,10 +182,6 @@ export const ABI5_PRODUCT_SEMANTICS = Object.freeze({
       (valueKind === "native_workspace_work_observation" && isNativeWorkspaceWorkObservation(value)) ||
       (valueKind === "native_workspace_work_failure" && isNativeWorkspaceWorkFailure(value)) ||
       (valueKind === "native_worksite_command_reacquisition_request" && isNativeWorksiteCommandReacquisitionRequest(value)) ||
-      (valueKind === "worksite_command_forward_request" && isWorksiteCommandForwardRequest(value)) ||
-      (valueKind === "worksite_command_forward_task" && isWorksiteCommandForwardTask(value)) ||
-      (valueKind === "worksite_command_forward_observation" && isWorksiteCommandForwardObservation(value)) ||
-      (valueKind === "worksite_command_forward_worker_result" && isWorksiteCommandForwardWorkerResult(value)) ||
       (valueKind === "worksite_preserved_result_artifact" && isWorksitePreservedResultArtifact(value)) ||
       validateWorksitePreparationContractValue(valueKind, value) ||
       (valueKind === "worksite_file_parents_request" && isWorksiteFileParentsRequest(value)) ||
@@ -250,7 +239,7 @@ export const ABI5_PRODUCT_SEMANTICS = Object.freeze({
         historicalSource?: import("../abg/terminal_result_contracts.js").AbgHistoricalGraphCallSourceResource) =>
         nativeProof?.nativeWorkReacquisition !== undefined ? nativeProof.nativeWorkReacquisition()
           : nativeWorkReacquisitionResultMatches(input, output, currentOwnerPrefix, historicalSource) }) : null) ??
-    resolveNativeWorkspaceWorkJudgmentRelation(predicateRef) ?? resolveWorksiteCommandForwardJudgmentRelation(predicateRef) ??
+    resolveNativeWorkspaceWorkJudgmentRelation(predicateRef) ??
       resolveWorksitePreservedResultJudgmentRelation(predicateRef) ?? resolveWorksiteC0JudgmentRelation(predicateRef) ??
       resolveWorksiteConstructionJudgmentRelation(predicateRef) ??
       resolveWorksiteBranchConstructionJudgmentRelation(predicateRef) ??
@@ -264,9 +253,6 @@ export const ABI5_PRODUCT_SEMANTICS = Object.freeze({
     if (basis.inputContractRef === nativeIds.taskContractRef && basis.outputContractRef === nativeIds.observationContractRef &&
       isNativeWorkspaceWorkTask(basis.input)) return Object.freeze({ instructionContractRef: nativeIds.taskContractRef,
         resultContractRef: nativeWorkspaceWorkResultContractRef(basis.input) });
-    if (basis.inputContractRef === forwardIds.taskContractRef && basis.outputContractRef === forwardIds.observationContractRef &&
-      isWorksiteCommandForwardTask(basis.input)) return Object.freeze({instructionContractRef:forwardIds.taskContractRef,
-        resultContractRef:forwardIds.workerResultContractRef});
     if (basis.inputContractRef === WORKSITE_REVISION_IDS.taskContractRef && basis.outputContractRef === WORKSITE_REVISION_IDS.observationContractRef &&
       isWorksiteRevisionCommandExecutionTask(basis.input)) return Object.freeze({ instructionContractRef: WORKSITE_REVISION_IDS.taskContractRef,
         resultContractRef: WORKSITE_REVISION_IDS.workerResultContractRef });
@@ -306,10 +292,6 @@ export const ABI5_PRODUCT_SEMANTICS = Object.freeze({
       basis.input.workspaceBinding.bindingDigest === basis.workspaceBindingDigest &&
       basis.input.workspaceBinding.workspaceId === basis.workspaceId;
     if (isNativeWorksiteCommandReacquisitionRequest(basis.input)) return basis.sourceResultBasis === null &&
-      basis.input.workspaceBinding.bindingId === basis.workspaceBindingId &&
-      basis.input.workspaceBinding.bindingDigest === basis.workspaceBindingDigest &&
-      basis.input.workspaceBinding.workspaceId === basis.workspaceId;
-    if (isWorksiteCommandForwardRequest(basis.input)) return basis.sourceResultBasis === null &&
       basis.input.workspaceBinding.bindingId === basis.workspaceBindingId &&
       basis.input.workspaceBinding.bindingDigest === basis.workspaceBindingDigest &&
       basis.input.workspaceBinding.workspaceId === basis.workspaceId;
@@ -390,10 +372,6 @@ export const ABI5_WORKSITE_COMMAND_EXECUTION_PRODUCT_SEMANTICS = Object.freeze({
   bindingRef: "product-semantics://abiogenesis/worksite/command-execution@5",
 }) satisfies ProductSemanticsProvider;
 
-export const ABI5_WORKSITE_COMMAND_FORWARD_PRODUCT_SEMANTICS = Object.freeze({
-  ...ABI5_PRODUCT_SEMANTICS, bindingRef:forwardIds.semanticsBindingRef,
-}) satisfies ProductSemanticsProvider;
-
 export const ABI5_NATIVE_WORKSPACE_WORK_PRODUCT_SEMANTICS = Object.freeze({
   ...ABI5_PRODUCT_SEMANTICS, bindingRef: nativeIds.semanticsBindingRef,
   validateResultEvidenceLineage(basis: Parameters<NonNullable<ProductSemanticsProvider["validateResultEvidenceLineage"]>>[0]) {
@@ -404,20 +382,6 @@ export const ABI5_NATIVE_WORKSPACE_WORK_PRODUCT_SEMANTICS = Object.freeze({
       e.transportDigest === p.transportDigest && e.outputDigest === sha256Canonical(basis.value);
   },
 }) satisfies ProductSemanticsProvider;
-
-function resolveWorksiteCommandForwardJudgmentRelation(predicateRef:string) {
-  if(!([forwardIds.stepPredicateRef,forwardIds.rootPredicateRef,forwardIds.judgmentPredicateRef] as readonly string[]).includes(predicateRef))return null;
-  return Object.freeze({predicateRef,advanceReasonRef:"reason://abiogenesis/worksite/command-forward/observed@5",
-    rejectionReasonRef:"reason://abiogenesis/worksite/command-forward/unjoined@5",
-    evaluate:(input:unknown,output:unknown):boolean=>{
-      if(predicateRef===forwardIds.stepPredicateRef&&isWorksiteCommandForwardRequest(input)&&isWorksiteCommandForwardTask(output))
-        return canonicalEquals(output.request, input);
-      if(!isWorksiteCommandForwardObservation(output))return false;
-      return predicateRef===forwardIds.rootPredicateRef
-        ? isWorksiteCommandForwardRequest(input)&&canonicalEquals(output.task.request, input)
-        : isWorksiteCommandForwardTask(input)&&canonicalEquals(output.task, input);
-    }});
-}
 
 function hasExactConsensusCatalogApplications(
   basis: Parameters<
@@ -626,7 +590,6 @@ export const ABI5_SYSTEM_PRODUCT_SEMANTICS = Object.freeze({
   bindingRef: CONSENSUS_IDS.productSemanticsBindingRef,
   packageName: ABI5_PACKAGE_NAME,
   packageVersion: ABI5_PACKAGE_VERSION,
-  publicResultProjectionKinds: ["result", "ticket.consensus"] as const,
   admitInput: admitSystemInput,
   validateContractValue: validateSystemContractValue,
   resolveCatalogApplicationValue: resolveSystemCatalogApplicationValue,

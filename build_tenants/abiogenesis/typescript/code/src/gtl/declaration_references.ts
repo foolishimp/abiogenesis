@@ -108,11 +108,6 @@ export function projectGraphFunctionApplicationDeclarationReferences(
     case "fan_in":
       graphFunctionRefs.push(application.reducerGraphFunctionRef);
       break;
-    case "gate":
-      graphFunctionRefs.push(application.targetRef);
-      evaluatorRefs.push(...application.evaluatorRefs);
-      ruleRefs.push(application.ruleRef);
-      break;
     case "registered_selection":
       evaluatorRefs.push(application.evaluatorRef);
       ruleRefs.push(application.ruleRef);

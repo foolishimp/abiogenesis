@@ -6,7 +6,7 @@
 
 Retired sections: [history/T287_NATIVE_EVENT_CONTRACT_COMPATIBILITY_DESIGN__RETIRED_SECTIONS.md](history/T287_NATIVE_EVENT_CONTRACT_COMPATIBILITY_DESIGN__RETIRED_SECTIONS.md).
 
-This refines [C2 forward re-entry](T287_C2_FORWARD_REENTRY_DESIGN.md) sections7 and9. Its forward-source, currentness, failure and effect limits remain binding. [Interrupted resource recovery](T287_INTERRUPTED_EVENT_RESOURCE_RECOVERY_DESIGN.md) separately owns abandoned acquisition; compatibility does not acquire or recover a resource.
+Section 6 states the shared P3 undispatched owner refusal of every F_P leaf. [Interrupted resource recovery](T287_INTERRUPTED_EVENT_RESOURCE_RECOVERY_DESIGN.md) separately owns abandoned acquisition; compatibility does not acquire or recover a resource.
 
 ## 1. Product frame and scope
 
@@ -44,11 +44,13 @@ Let L be the retained legacy profile:
 - digest preimage remains exactly `{schemaVersion:"5.0.0",aggregateTypes,
   eventKinds,eventContracts}`. Do not insert a new field and call the result L.
 
-Let P be the one current profile, named
-`abg.event-contract.root/p5-run-environment-role-context@1`
-(`abg/event_contract_profiles.ts`, `ROOT_CURRENT_EVENT_PROFILE_REF`). Its
-immutable descriptor, built only by `constructRootCurrentEventContractDescriptor`
-in that owner, binds the profile ref, L, the unchanged aggregate census, the
+Let P be the one current profile, W, named
+`abg.event-contract.root/p6-stdout-window-witness@1`
+(`abg/event_contract_profiles.ts`, `ROOT_WINDOW_EVENT_PROFILE_REF`). Its
+immutable descriptor, built only by `constructRootStampedEventContractDescriptor`
+in that owner (which also builds the retained RC6 and S2 descriptors, both named
+`abg.event-contract.root/p5-run-environment-role-context@1`,
+`ROOT_RUN_ENVIRONMENT_EVENT_PROFILE_REF`), binds the profile ref, L, the unchanged aggregate census, the
 exact current event-kind census including those two liveness kinds, the exact
 current payload table and the current envelope stamp declaration. Compute
 its digest D from the exact implemented canonical descriptor; D must differ
@@ -165,14 +167,20 @@ entry prefix. The held native store records L as its active append contract;
 upgrading the executable alone does not switch it. Read support or an
 accepted new descriptor does not grant any operation on that store.
 
-The exact witness owner performs one expected-prefix transaction: its ordinary
-Public admission and the profile reprice are L-valid, with the reprice last.
-All ordinary actor/authority/owner checks precede commitment. The native
-transaction accepts the transition only at the exact current prefix, once,
-with no in-flight effectful CCall/actor or concurrent acquired owner. A
-quiescent stopped or failed Run is not thereby resumed, completed or retried.
-A live/incomplete dispatch returns to its existing stop/continuation owner;
-compatibility cannot settle it by absence of a PID.
+The witness owner (`admitWitnessedAct`, `abg/witness_admission_operation.ts`)
+performs one expected-prefix transaction, `admitRootEventProfileUpgrade`
+(`abg/event_store.ts`): its ordinary Public admission (`public_operation_admitted`
+for `abg.operation.witness.admit`, member `reprice`) and the boundary
+(`declaration_reprice_admitted` naming the profile declaration) are both L
+rows, the boundary last. The ordinary actor, authority and owner checks precede
+commitment. `assertRootEventProfileBoundary` accepts the transition only at the
+exact current prefix and only once, and refuses it while an actor invocation
+has no terminal row or a leaf CCall has neither its judgment nor a
+`run_stopped` of its Run. A quiescent stopped or failed Run is not thereby
+resumed, completed or retried. A store with a live or incomplete dispatch is
+not repriced, and its stop or continuation is an append that the door below
+refuses, so such a store is read and replayed and takes no append. A dispatch
+is not settled by the absence of a PID.
 
 Once the entire batch is durable, the same native owner changes the active
 append profile to P and derives a **new successor** coordinate and close
@@ -185,9 +193,14 @@ truncation, receipt reconstruction, lock takeover or automatic retry.
 
 Subsequent acquisition authenticates the returned P handoff against the full
 unchanged physical stream and its unique boundary. New P3 execution requires
-that active profile. A legacy-held store may admit only L-valid facts through
-its existing authorized owners; it can never admit the P3 arm or P envelope
-without this boundary. No in-memory boolean supplied by a caller can promote it.
+that active profile. A store whose durable prefix is on L admits no append
+other than this reprice: `appendDurablyBatch` (`abg/event_store.ts`), through
+which every durable append passes, refuses any other batch before writing a
+byte and admits only the two-row batch of `admitRootEventProfileUpgrade`. The
+refusal is a thrown error that the appending owner reports through its existing
+refusal; the witness owner and `appendCheckedArtifactEvent` report
+`sink_unavailable`. No in-memory boolean supplied by a caller can promote a
+store.
 
 ## 5. Resource algebra, scope and replay
 
@@ -239,15 +252,17 @@ current bytes; original source events equal their prefix positions; either
 same profile or the one admitted L-to-P boundary after that source. Preserve
 all current W/reprice/vector/origin/actor/producer/consume-uniqueness checks.
 A generic two-digest allowlist is insufficient and is not selected. The source
-qualification includes the forward owner and preserved-construction recovery
-owner. If `abg/worksite_construction_recovery.ts` or another additional owner
+qualification includes the preserved-construction recovery owner. If `abg/worksite_construction_recovery.ts` or another additional owner
 requires a production change, its exact need returns for a bounded grant;
 structural digest carriage is not native ancestry proof.
 
 ## 6. P3 owner observation and failure admission
 
-Preserve accepted forward HOW7. The native LeafPort captures the actual first
-failing stage before losing it: authority verification; worker-contract
+The refusal is one repair of the shared native LeafPort owner seam for every
+F_P leaf, not a change to any leaf's success schema. It is valid only before
+any actor dispatch, invocation or evidence exists, and it is bound to the
+actually selected native owner and the current CCall phase. The native
+LeafPort captures the actual first failing stage before losing it: authority verification; worker-contract
 resolution; implementation load/export; preparation/shape validation.
 Closed stage-specific reasons distinguish negative returns, missing
 contracts/exports, thrown errors and malformed preparation. Allowlist safe
@@ -294,6 +309,15 @@ projection and fresh replay use this same arm. Legacy failure values/events
 and their erased initiating exceptions are not repaired retroactively.
 "No dispatch" does not assert zero preparation filesystem activity: preserve
 all actual task/launch/archive residue and normal ownership/cleanup exclusions.
+
+Evaluation exercises every undispatched first-stage code with zero actors,
+refuses a forged owner, phase or occurrence and use after dispatch, and replays
+cause equality and the secret-safe classification; the existing success and
+failure gates stay. Realized by `implementation/leaf_invocation_port.ts`
+(`closedUndispatchedProbabilisticOwnerReceipt`), `abg/c_call_outcome.ts` and
+`abg/c_call.ts` (the `undispatched_owner_refusal_evidence_candidate`,
+`undispatchedOwnerEvidenceMatches`) and `abg/runtime_failure.ts`
+(`undispatched_owner_failure_evidence`).
 
 ## 8. Conserved boundaries
 

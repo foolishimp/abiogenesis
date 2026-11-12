@@ -10,8 +10,8 @@ The sole live Product scenario identities and boundaries are:
 
 Those surfaces preserve identities `ABG5-S01` through `ABG5-S07` and the
 exact `ABI5-ROOT-001` governor. ABIogenesis 5.0 selects `ABG5-S01`,
-`ABG5-S02`, `ABG5-S03`, `ABG5-S05`, `ABG5-S06`, and release scenario
-`ABG5-S07`; `ABG5-S04` is reserved for planned 5.1 work. Files in this
+`ABG5-S02`, `ABG5-S03`, `ABG5-S06`, and release scenario `ABG5-S07`;
+`ABG5-S04` and `ABG5-S05` are reserved for planned 5.1 work. Files in this
 directory may supply test cases, negative examples, and requirement-family
 coverage only after an explicit mapping to a selected release scenario or an
 explicitly selected successor scenario. They may not add a release scenario,

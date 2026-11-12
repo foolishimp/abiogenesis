@@ -23,7 +23,7 @@ Exact sources govern while the local a_c map is stale. Wave 2 remains HOLD.
 Existing WHAT is sufficient: `REQ-L-GTL3-GRAPHFUNCTION-002/006/016..018`,
 `REQ-L-GTL3-COMPOSE-007..012`, `REQ-L-GTL3-C-ALGEBRA-001/004/006/010/016`,
 `REQ-R-ABG3-BINDING-003..005/010/011/016..018`, `REQ-R-ABG3-GRAPHCALL`,
-`REQ-R-ABG3-CCALL-001/013/014`, `REQ-R-ABG3-FN-COMP-015/021..024`,
+`REQ-R-ABG3-CCALL-001/013/014`, `REQ-R-ABG3-FN-COMP-015/021..023`,
 `REQ-P-INSTALL-049..055`, `REQ-P-CATALOG-014..018`, and
 `REQ-M-GTL3-PROGRAM-TRAVERSAL-004..014`. This HOW realizes existing child
 composition, cumulative binding and exact installed ownership laws. It adds

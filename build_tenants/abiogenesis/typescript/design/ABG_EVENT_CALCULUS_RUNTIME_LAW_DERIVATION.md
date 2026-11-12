@@ -68,16 +68,20 @@ current satisfaction without rewriting any failed historical Run.
 
 | Selected operation | Existing law | Execution consequence |
 |---|---|---|
-| New graph work toward the same outcome | CONTINUATION-012/-013, Product framed evaluation, One Surface or the actually selected library composition | New bounded invocation/Run, current observations and applicable retained evidence; fresh declared evaluation selects work. New calls have their own parents and normal HoG foldback. Old call-stack restoration is unnecessary. |
+| New graph work toward the same outcome | Product framed evaluation and the actually selected library composition, such as the Executive's registered selection (`projectGovernanceChoice`, `abg/default_library.ts`) | New bounded invocation/Run, current observations and applicable retained evidence; fresh declared evaluation selects work. New calls have their own parents and normal HoG foldback. Old call-stack restoration is unnecessary. |
 | Resume an exact admitted pending execution | CONTINUATION-011/-015/-016 | Preserve the selected position, progressed input, remaining return obligations, original work authority and consumed allowances. A terminal predecessor stays terminal; any linked replacement needs the explicit use/restoration relation below. |
 
-`evaluateNext -> admitConstructionIntent -> invokeGraphFunction` is the existing
-One Surface relation. Its construction-specific carriers apply where that
-composition is selected; they are not silently imposed on the default library
-or every GTL Program. The latter use their admitted evaluation, registered-choice
-and call owners under Product. Public ingress never substitutes for semantic
-next-work selection. Reuse of the same obligation ref is not a request to resume
-an earlier execution, and a fresh start cannot impersonate that request.
+The default library and every GTL Program use their admitted evaluation,
+registered-choice and call owners under Product: the Executive's `select`
+F_P chooses one registered graph (`selectGovernanceWork`,
+`implementation/default_library.ts`), its `project-choice` F_D projects that
+choice (`projectGovernanceChoice`, `abg/default_library.ts`). HoG proposes
+the selected route (`proposeJudgedRoute`, `hog/route_proposal.ts`), and ABG
+admits it after resolving the same selection again (`admitRoute`,
+`registeredSelectionContinuationMatches`, `abg/traversal_route.ts`). Public
+ingress never substitutes for semantic next-work selection. Reuse of the same
+obligation ref is not a request to resume an earlier execution, and a fresh
+start cannot impersonate that request.
 
 CONTINUATION-015 is not weakened: it governs the second row. The earlier HOW
 mistakenly made that row the universal prerequisite for continued progress.
@@ -197,22 +201,10 @@ active. Exact resumption must preserve Run-local identities and causal linkage;
 completion must include its required fold and parent evaluation. Duplicate or
 partial progression needs a truthful disposition rather than invented success.
 
-The bounded exact-intent realization is selected in
-[T287_PENDING_CONSUMER_CONTINUATION_DESIGN.md](T287_PENDING_CONSUMER_CONTINUATION_DESIGN.md#exact-constructionintent-continuation-selected-bounded-realization).
-Its pending truth derives from the original selected ConstructionIntent and
-an actual admitted undispatched F_P preparation failure. It does not generalize
-F_D failure into permission. Continuation reentry consumes the old frontier and
-binds new Run-local cursor/parent identities to the original work authority and
-progressed input under a separately admitted continue operation. Normal child
-fold and parent predicates still own completion. A replacement continuation is
-new Run-local obligation truth; the historical failure and Result identities
-remain unchanged. Unsupported phases/effects/support remain explicit refusals.
-This owner relation does not change fresh retained-work semantics or existing
-F_H response meaning, and supplies no qualification by declaration alone.
-
-The registered-selection pending-execution alternative
+The registered-selection pending-execution continuation
 ([HOW](T287_PENDING_CONSUMER_CONTINUATION_DESIGN.md#registered-selection-pending-execution-continuation))
-applies the same law without a ConstructionIntent. Its pending truth is the
+applies this law (`projectPendingExecutionContinuations`,
+`abg/construction_continuation.ts`). Its pending truth is the
 deepest admitted open cursor reached through an admitted registered-selection
 route, together with every open ancestor return obligation (workflow,
 registered-selection and recursion), including consumed recursion allowance.

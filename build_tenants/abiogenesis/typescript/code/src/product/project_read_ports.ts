@@ -5,14 +5,6 @@ import { admitJson } from "../shared/admit/index.js";
 import { readReleaseArtifactBytes,projectReleaseQualification,projectReleaseAcceptance } from "../implementation/release_publication.js";
 import { releaseArtifactCoordinate } from "./release_snapshot_operations.js";
 import { isRecord, hasExactKeys } from "../shared/admission_predicates.js";
-import type {
-  ConsensusResult,
-  TicketConsensusProjection,
-} from "../gtl/consensus.js";
-import {
-  isConsensusResult,
-  projectTicketConsensus,
-} from "../gtl/consensus.js";
 import {
   compareUnicodeCodeUnits,
   type JsonValue,
@@ -51,8 +43,7 @@ export type ProductProjectReadCase =
   | "catalog_describe"
   | "workspace_status"
   | "install_evidence"
-  | "release_evidence"
-  | "ticket_consensus";
+  | "release_evidence";
 
 export interface ProductProjectionBasis {
   readonly basisRef: string;
@@ -136,24 +127,12 @@ export interface ReleaseEvidenceProjectReadPacket
   readonly selector: Readonly<{ kind: "release_operation_observation"; artifact: ProductReadCoordinate }>;
 }
 
-export interface TicketConsensusProjectReadPacket
-  extends ProductProjectReadPacketBase<"ticket_consensus"> {
-  readonly consensusResult: Readonly<ConsensusResult>;
-  readonly selector: Readonly<{
-    kind: "ticket_consensus";
-    ticket: ProductReadCoordinate;
-    outputAuthority: ProductReadCoordinate;
-    replayBasis: ProductReadCoordinate;
-  }>;
-}
-
 export interface ProductProjectReadPacketByCase {
   readonly catalog_list: CatalogListProjectReadPacket;
   readonly catalog_describe: CatalogDescribeProjectReadPacket;
   readonly workspace_status: WorkspaceStatusProjectReadPacket;
   readonly install_evidence: InstallEvidenceProjectReadPacket;
   readonly release_evidence: ReleaseEvidenceProjectReadPacket;
-  readonly ticket_consensus: TicketConsensusProjectReadPacket;
 }
 
 export type ProductProjectReadPacket<
@@ -292,12 +271,6 @@ type InstallEvidenceOperationResult =
   | ProductProjectReadResult<
     "install_evidence",
     InstallEvidenceProjection & JsonValue
-  >
-  | ProductProjectReadRefusal;
-type TicketConsensusOperationResult =
-  | ProductProjectReadResult<
-    "ticket_consensus",
-    TicketConsensusProjection & JsonValue
   >
   | ProductProjectReadRefusal;
 
@@ -820,75 +793,6 @@ export function projectReleaseEvidence(packet:ReleaseEvidenceProjectReadPacket):
   } catch { return refusal("release_evidence","not_ready","release native proof could not be reconstructed",packet); }
 }
 
-export function projectConsensusTicket(
-  packet: TicketConsensusProjectReadPacket,
-): TicketConsensusOperationResult {
-  if (
-    !validEnvelope(packet, "ticket_consensus", [
-      "consensusResult",
-      "selector",
-    ])
-  ) {
-    return refusal(
-      "ticket_consensus",
-      "source_kind_mismatch",
-      "ticket consensus requires one exact admitted Consensus result",
-      packet,
-    );
-  }
-  const resultDigest = digestJson(packet.consensusResult);
-  if (
-    !isConsensusResult(packet.consensusResult) ||
-    resultDigest === null ||
-    packet.sourceRef !== packet.consensusResult.resultRef ||
-    packet.sourceDigest !== resultDigest
-  ) {
-    return refusal(
-      "ticket_consensus",
-      "source_digest_mismatch",
-      "ticket consensus source differs from its admitted result carrier",
-      packet,
-    );
-  }
-  if (
-    !isRecord(packet.selector) ||
-    !hasExactKeys(packet.selector, [
-      "kind",
-      "outputAuthority",
-      "replayBasis",
-      "ticket",
-    ]) ||
-    packet.selector.kind !== "ticket_consensus" ||
-    !validCoordinate(packet.selector.ticket) ||
-    !validCoordinate(packet.selector.outputAuthority) ||
-    !validCoordinate(packet.selector.replayBasis) ||
-    packet.selector.ticket.ref !== packet.consensusResult.subjectRef ||
-    packet.selector.ticket.digest !== packet.consensusResult.subjectDigest ||
-    packet.selector.replayBasis.ref !== packet.consensusResult.replayRef
-  ) {
-    return refusal(
-      "ticket_consensus",
-      "projection_basis_mismatch",
-      "ticket, output-authority, and replay bases must match the admitted result",
-      packet,
-    );
-  }
-  try {
-    return projected(
-      packet,
-      projectTicketConsensus(packet.consensusResult) as
-        TicketConsensusProjection & JsonValue,
-    );
-  } catch (error) {
-    return refusal(
-      "ticket_consensus",
-      "not_ready",
-      `ticket consensus projection refused: ${String(error)}`,
-      packet,
-    );
-  }
-}
-
 export const CatalogProjectionPort = Object.freeze({
   list: projectCatalogList,
   describe: projectCatalogDescription,
@@ -906,15 +810,10 @@ export const ReleaseProjectionPort = Object.freeze({
   evidence: projectReleaseEvidence,
 });
 
-export const ConsensusProjectionPort = Object.freeze({
-  ticketConsensus: projectConsensusTicket,
-});
-
 export const PRODUCT_PROJECT_READ_CONTRACTS = Object.freeze({
   catalog_list: CatalogProjectionPort.list,
   catalog_describe: CatalogProjectionPort.describe,
   workspace_status: WorkspaceProjectionPort.status,
   install_evidence: InstallProjectionPort.evidence,
   release_evidence: ReleaseProjectionPort.evidence,
-  ticket_consensus: ConsensusProjectionPort.ticketConsensus,
 });

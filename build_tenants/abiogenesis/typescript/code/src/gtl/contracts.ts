@@ -30,8 +30,6 @@ export interface FanOutApplication extends structure.ContractValue<typeof struct
 
 export interface FanInApplication extends structure.ContractValue<typeof structure.FAN_IN_APPLICATION_SCHEMA> {}
 
-export interface GateApplication extends structure.ContractValue<typeof structure.GATE_APPLICATION_SCHEMA> {}
-
 export interface RegisteredSelectionApplication extends structure.ContractValue<typeof structure.REGISTERED_SELECTION_APPLICATION_SCHEMA> {}
 
 export interface ReenterApplication extends structure.ContractValue<typeof structure.REENTER_APPLICATION_SCHEMA> {}
@@ -48,7 +46,6 @@ export type GraphFunctionApplication =
   | RecurseApplication
   | FanOutApplication
   | FanInApplication
-  | GateApplication
   | RegisteredSelectionApplication
   | ReenterApplication
   | PromoteApplication

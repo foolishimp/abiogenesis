@@ -4,6 +4,7 @@ import { canonicalJson, type JsonValue } from "../shared/canonical_json.js";
 import { deepFreeze } from "../shared/immutable.js";
 import { sha256Bytes } from "../shared/digests.js";
 import { admitJson, hasExactKeys, isRecord } from "../shared/admit/index.js";
+import { recordSchema } from "../shared/public_function_contracts.js";
 import type { WorksiteDeclaredCommandInput, WorksiteOutcomePredicateInput, WorksiteCommandWriteTerritoryInput } from "./worksite_command_execution.js";
 import type { NativeWorkspaceAssessmentSelection } from "./native_workspace_assessment.js";
 import { isNativeWorkspaceWorkReport } from "./native_workspace_work.js";
@@ -66,7 +67,7 @@ const originalSchema = v.strictObject({ taskRef: text, task: text, sources: v.pi
   requiredSupportRefs: v.pipe(texts, v.minLength(1)), authorityRefs: texts,
   readRoots: v.pipe(texts, v.minLength(1)), maxContextFiles: v.pipe(v.number(), v.integer(), v.minValue(1)),
   maxContextBytes: v.pipe(v.number(), v.integer(), v.minValue(1)), maxPromptBytes: v.pipe(v.number(), v.integer(), v.minValue(1)),
-  workOrders: v.record(text, workOrder),
+  workOrders: recordSchema(text, workOrder),
   testing: v.strictObject({ selectedPaths: v.pipe(texts, v.minLength(1)), commands: v.array(jsonRecord), outcomePredicates: v.array(jsonRecord), allowedWriteTerritories: v.array(jsonRecord) }),
   assessment: assessmentSchema,
   fulfillment: v.exactOptional(v.custom<GovernanceFulfillmentDeclaration>(isGovernanceFulfillmentDeclaration)),
@@ -189,7 +190,7 @@ export function governanceAssessmentDependencies(order: { readonly readFirst: re
  * is selected. A review purpose names none: it would gate its own prerequisite. */
 export type GovernancePrerequisites = Readonly<Partial<Record<Exclude<GovernancePurpose, "review">, readonly string[]>>>;
 export const GOVERNANCE_PREREQUISITES_DECLARATION = "abg.default_library_prerequisites";
-const prerequisitesSchema = v.record(v.picklist(GOVERNANCE_PURPOSES.filter(p => p !== "review")), v.pipe(texts, v.minLength(1)));
+const prerequisitesSchema = recordSchema(v.picklist(GOVERNANCE_PURPOSES.filter(p => p !== "review")), v.pipe(texts, v.minLength(1)));
 /** The step's declared prerequisites: undefined when none is declared, null when the declaration is not its canonical form. */
 export function governancePrerequisites(declarations: Readonly<Record<string, string>>): GovernancePrerequisites | null | undefined {
   const declared = declarations[GOVERNANCE_PREREQUISITES_DECLARATION];
@@ -250,7 +251,7 @@ export function governanceVerdicts(state: GovernanceWorkState) {
 const scalar = v.nullable(v.union([v.string(), v.number(), v.boolean()]));
 // One failed step of this Run, folded from the admitted record at selection preparation.
 const failedAttemptSchema = v.strictObject({ graphFunctionRef: v.nullable(text), reviewRef: v.exactOptional(text), failureClassRef: text,
-  timeoutClass: v.nullable(text), changedPaths: texts, refusal: v.exactOptional(v.strictObject({ relation: text, selectors: v.record(text, scalar) })), resultRef: text });
+  timeoutClass: v.nullable(text), changedPaths: texts, refusal: v.exactOptional(v.strictObject({ relation: text, selectors: recordSchema(text, scalar) })), resultRef: text });
 export type FramedSynthesisFailedAttempt = v.InferOutput<typeof failedAttemptSchema>;
 export type FramedSynthesisJudgment = v.InferOutput<typeof judgmentSchema>;
 export type FramedSynthesisBasis = v.InferOutput<typeof synthesisBasisSchema>;

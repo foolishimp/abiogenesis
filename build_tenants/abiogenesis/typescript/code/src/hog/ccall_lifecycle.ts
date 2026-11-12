@@ -1,10 +1,9 @@
 import { GOVERNANCE_IMPLEMENTATION_REFS } from "../product/default_library.js";
 import { REQUIREMENT_HANDOFF_IDS } from "../gtl/requirement_handoff.js";
 import { isNativeWorkspaceWorkTask, nativeWorkspaceWorkGraphFunctionRef, NATIVE_WORKSPACE_WORK_IDS as nativeIds, NATIVE_WORKSPACE_WORK_HANDLER_DIGEST } from "../product/native_workspace_work.js";
-import { WORKSITE_COMMAND_FORWARD_IDS as forwardIds } from "../product/worksite_command_forward_identity.js";
 import { semanticLifecycleRefForProgram } from "../gtl/semantic_stage.js";
 import { SEMANTIC_IMPLEMENTATION_REFS } from "../gtl/semantic_stage_identity.js";
-import { runEnvironmentForProgram, nativeContextLeafFamily, registeredSelectionNativeRole } from "../gtl/stdo_run_environment.js";
+import { runEnvironmentForProgram, nativeContextLeafFamily } from "../gtl/stdo_run_environment.js";
 import { cLeafTerms } from "../gtl/c_algebra.js";
 import * as Effect from "effect/Effect";
 
@@ -474,15 +473,10 @@ export function evaluateOwnedExecutableCCall(
     const worksitePreservedResultBasis = WORKSITE_PRESERVED_RESULT_IMPLEMENTATION_REFS.includes(resolution.implementationRef) && input.programPublication !== undefined
       ? Abg.constructWorksitePreservedResultNativeBasis({ publication: input.programPublication, graph: input.graph, graphFunction: input.graphFunction,
           executionBasis: input.executionBasis, cCall: opened.cCall, cursor: input.stop.cursor, predecessorPrefix: opened.successorPrefix }) : null;
-    const worksiteCommandForwardBasis = ([forwardIds.prepareImplementationRef,forwardIds.implementationRef] as readonly string[]).includes(resolution.implementationRef) && input.programPublication !== undefined
-      ? Abg.constructWorksiteCommandForwardNativeBasis({publication:input.programPublication,graph:input.graph,graphFunction:input.graphFunction,
-          executionBasis:input.executionBasis,cCall:opened.cCall,cursor:input.stop.cursor,predecessorPrefix:opened.successorPrefix}) : null;
     const selectedContextFamily = input.graphFunction.template.nodes.flatMap(node => cLeafTerms(node.term))
       .filter(leaf => leaf.programLocusRef === opened.cCall.programLocusRef)
       .map(leaf => nativeContextLeafFamily(input.graphFunction, leaf));
-    const selectorRole = resolution.computeRegime === "F_P"
-      ? registeredSelectionNativeRole(input.programPublication, input.executionBasis.programRef, input.graphFunction, opened.cCall.programLocusRef) : null;
-    const nativeAssemblyRequired = GOVERNANCE_IMPLEMENTATION_REFS.includes(resolution.implementationRef) || selectorRole !== null || input.programPublication !== undefined &&
+    const nativeAssemblyRequired = GOVERNANCE_IMPLEMENTATION_REFS.includes(resolution.implementationRef) || input.programPublication !== undefined &&
       (resolution.implementationRef === nativeIds.implementationRef ||
         runEnvironmentForProgram(input.programPublication, input.program) !== null &&
         selectedContextFamily.length === 1 && ["constructor", "command_executor"].includes(selectedContextFamily[0] ?? ""));
@@ -499,7 +493,6 @@ export function evaluateOwnedExecutableCCall(
       "diagnostic://abiogenesis/instruction-assembly/stale-native-basis@5", input.stop);
     const occurrence = Object.freeze({
       ...(nativeInstructionAssemblyBasis === null ? {} : { nativeInstructionAssemblyBasis }),
-      ...(worksiteCommandForwardBasis === null ? {} : {worksiteCommandForwardBasis}),
       ...(worksitePreservedResultBasis === null ? {} : { worksitePreservedResultBasis }),
       ...(semanticStageBasis === null ? {} : { semanticStageBasis }),
       ...(requirementHandoffBasis === null ? {} : { requirementHandoffBasis }),

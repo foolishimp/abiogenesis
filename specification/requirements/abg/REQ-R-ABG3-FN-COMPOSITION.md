@@ -103,12 +103,10 @@ satisfy authored-stage cardinality or conservation.
 advanced by HoG under one admitted GTL program, selected GraphFunction,
 workspace binding, and compute basis. ABG admits each unit's result and the
 next disposition: next unit, same-unit retry, graph-span or public re-entry,
-reprice, yielded continuation, block, gap stop, non-admit, or terminal
-projection. Neither the unit nor callable substitutes for the owning program.
+reprice, yielded continuation, block, non-admit, or terminal projection.
+Neither the unit nor callable substitutes for the owning program.
 
-**REQ-R-ABG3-FN-COMP-023**: ABG shall conserve admitted-program identity, selected action or current-intent identity, immutable workspace-binding identity, execution-basis identity, and intent-lineage across the event-sourced bind chain. A bind from `TraversalUnit<A, B>` to any next disposition shall carry or account for admitted intent refs, lineage refs, carried obligation refs, target-carrier refs, materialization/output-allocation refs, residual pressure refs, staged-authority refs, admission-strength refs, and downstream terminal pressure. Unit close may clear a pressure or obligation ref only through admitted realization evidence, refinement, named downstream deferral, block, re-entry, reprice, no-close preservation, or terminal projection; scalar unit close shall not erase an obligation vector. A materializing unit is non-conformant when staged pressure and materialization authority are exposed through divergent or undeclared admission predicates.
-
-**REQ-R-ABG3-FN-COMP-024**: When a newly selected action requires traversal, product, or artifact materialization, ABG shall admit or validate one sufficient `ConstructionIntent` from the admitted `NextActionProjection` and lineage before dispatch. The intent shall bind the owning program, selected action, published GraphFunction membership, target obligations, immutable workspace binding, invocation authority, and execution basis. The materialization basis is insufficient when required target-carrier rows, declared file or output targets, role requirements, allowed write roots, source authority, execution/test proof expectations, or downstream pressure refs are absent or structurally mismatched while the carried lineage requires them. Insufficient construction intent fails closed before worker, tool, or plugin dispatch.
+**REQ-R-ABG3-FN-COMP-023**: ABG shall conserve admitted-program identity, immutable workspace-binding identity, execution-basis identity, and intent-lineage across the event-sourced bind chain. A bind from `TraversalUnit<A, B>` to any next disposition shall carry or account for admitted intent refs, lineage refs, carried obligation refs, target-carrier refs, materialization/output-allocation refs, residual pressure refs, staged-authority refs, admission-strength refs, and downstream terminal pressure. Unit close may clear a pressure or obligation ref only through admitted realization evidence, refinement, named downstream deferral, block, re-entry, reprice, no-close preservation, or terminal projection; scalar unit close shall not erase an obligation vector. A materializing unit is non-conformant when staged pressure and materialization authority are exposed through divergent or undeclared admission predicates.
 
 **REQ-R-ABG3-FN-COMP-025**: The ABG executive observer shall participate as an
 `evaluate.C`/F_P pressure-evaluation role over a declared target workspace and
@@ -118,11 +116,4 @@ they shall remain admitted findings and projection inputs. They shall not
 become `consequence.C`, a graph mutation authority, a closure fold authority,
 or a second continuation controller.
 
-**REQ-R-ABG3-FN-COMP-026**: The GTL `C` algebra may compose the One Surface
-functions, but neither composition nor an executor or runtime helper may merge,
-substitute, or transfer authority among `synthesizeModel`, `evalGap`,
-`evaluateNext`, intent admission, GraphFunction invocation, `evaluateAction`,
-and continuation. Public ingress may ignite the admitted composition but shall
-not own its order, retry, recursion, selection, or closure.
-
-**REQ-R-ABG3-FN-COMP-027**: A published inner refinement shall recurse through the same declared One Surface composition and preserve program, workspace-binding, execution-basis, lineage, and outer-contract truth. Opaque worker-internal decomposition remains inside one bounded action and shall not be promoted to a hidden workflow composition or controller.
+**REQ-R-ABG3-FN-COMP-027**: A published inner refinement shall preserve program, workspace-binding, execution-basis, lineage, and outer-contract truth. Opaque worker-internal decomposition remains inside one bounded action and shall not be promoted to a hidden workflow composition or controller.

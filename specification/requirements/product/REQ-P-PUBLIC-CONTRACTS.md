@@ -147,22 +147,11 @@ identity, version, digest, authority refs, and locator:
 - `abg.schema.tenant-conformance-manifest`
 - `abg.schema.self-conformance-result`
 - `abg.schema.exact-candidate-qualification`
-- `abg.schema.consensus-subject`
-- `abg.schema.consensus-panel`
-- `abg.schema.consensus-reviewer-profile`
-- `abg.schema.review-findings`
-- `abg.schema.review-rulings`
-- `abg.schema.consensus-round-policy`
-- `abg.schema.consensus-round-outcome`
-- `abg.schema.consensus-result`
-- `abg.schema.ticket-consensus-projection`
 - `abg.schema.release-snapshot`
 - `abg.schema.a5-r1-release-manifest`
 - `abg.vocabulary.runtime-event-kind`
 - `abg.vocabulary.gtl-program-diagnostic-id`
 - `abg.vocabulary.gtl-program-repair-edit-class`
-- `abg.vocabulary.review-ruling-kind`
-- `abg.vocabulary.consensus-round-outcome`
 - `abg.asset.gtl.language-conformance-corpus`
 
 Canonical schema documents and addressable schema projections shall derive
@@ -206,7 +195,7 @@ shall not define Product scope or substitute for an outcome scenario:
 |---|---|
 | `abg.operation.workspace.create` | target plus explicit `clean` or `imported` creation policy |
 | `abg.operation.workspace.open` | expected stable workspace-authority basis plus readiness projection |
-| `abg.operation.project.read` | closed source/projection relation for catalog, runtime, evidence, replay, gaps, and lawful actions |
+| `abg.operation.project.read` | closed source/projection relation for catalog, runtime, evidence, and replay |
 | `abg.operation.product.verify` | artifact format and contract |
 | `abg.operation.product.resolve` | product requirements |
 | `abg.operation.product.install` | install target policy |
@@ -215,7 +204,7 @@ shall not define Product scope or substitute for an outcome scenario:
 | `abg.operation.catalog.view` | narrowing allowlist |
 | `abg.operation.catalog.apply` | `node_type` or `overlay`; both non-callable |
 | `abg.operation.run.invoke` | `invoke` or `start` |
-| `abg.operation.run.continue` | automatic current-intent continuation or a newly admitted selected action; native human-response-driven resumption is reserved for 5.1 |
+| `abg.operation.run.continue` | same-Run continuation of a replay-derived pending execution; native human-response-driven resumption is reserved for 5.1 |
 | `abg.operation.result.assess` | declared result-assessment contract |
 | `abg.operation.witness.admit` | `reprice`, `attest`, `hygiene-stamp`, `intake`, `run-resumed`, or `run-stopped` |
 | `abg.operation.conformance.evaluate` | public `gtl_program`; self-conformance remains qualification-bound |
@@ -229,7 +218,7 @@ ABIogenesis 5.1. They are excluded from the closed 5.0 operation family.
 `abg.operation.interaction.respond` and its closed `select`, `approve`,
 `reject`, `assess` and `answer_escalation` variants are also reserved for 5.1.
 Their response-driven `run.continue` use is excluded from 5.0 qualification;
-automatic continuation and distinct new-action admission remain required.
+automatic pending-execution continuation remains required.
 This allocation does not grant a response capability to a direct-invoke root
 or permit an adapter to simulate the missing native path.
 
@@ -242,7 +231,7 @@ no independent semantics.
 result, error/refusal, and invocation-descriptor schemas and native symbols. It
 shall declare defaults, closed value domains, actor requirements, read/write or
 attestation class, event-admission behavior, terminal/non-terminal disposition,
-adapter exit classification, and the operation-and-variant-indexed
+and the operation-and-variant-indexed
 `workspaceBindingRequirement` value `forbidden | exactly_one`. No concrete
 variant shall carry a freely optional workspace binding. Prose spelling, CLI
 parsing, prior examples, or adapter convention shall not supply a missing field.
@@ -276,9 +265,6 @@ catalog contribution and GraphFunction invocation, node-type and overlay
 application, seven-term C execution, F_P result admission/materialization,
 runtime events/replay/continuation, the complete public operator contract,
 installed-product binding and qualification-bound self-conformance.
-Consensus capability publication is optional in 5.0 under
-[Product Release Boundaries](../../PRODUCT.md#50-and-51-release-boundaries);
-an actual published claim still binds its exact function and declared contract.
 
 The mandatory ABIogenesis 5.0 capability identities are:
 
@@ -297,10 +283,6 @@ The mandatory ABIogenesis 5.0 capability identities are:
 - `abg.capability.operator.public-contract@5`
 - `abg.capability.install.bind-products@5`
 - `abg.capability.qualification.self-conformance@5`
-
-`abg.capability.graph-function.consensus@5` retains its stable identity for an
-optional published Consensus claim and the dedicated 5.1 qualification. Its
-absence is not a 5.0 mandatory-capability gap.
 
 The mandatory identities shall derive from one capability-definition graph
 whose rows bind the owning public contract identities and dependencies.

@@ -1,7 +1,11 @@
 # T-287 Registered Graph Selection
 
+Retired sections: [history/T287_REGISTERED_GRAPH_SELECTION_DESIGN__RETIRED_SECTIONS.md](history/T287_REGISTERED_GRAPH_SELECTION_DESIGN__RETIRED_SECTIONS.md).
+
 Status: accepted S1 HOW under T287_REGISTERED_SELECTION_IMPLEMENT_01 after
 independent RS-D01 correction review. Implementation and execution remain open.
+
+Retired sections: [history/T287_REGISTERED_GRAPH_SELECTION_DESIGN__RETIRED_SECTIONS.md](history/T287_REGISTERED_GRAPH_SELECTION_DESIGN__RETIRED_SECTIONS.md).
 
 ## Basis and correction
 
@@ -18,14 +22,13 @@ permitted preregistered work; ABG admits the choice; HoG executes that choice.
 F_P owns open suitability judgment; F_D requires an explicit total rule. Purpose
 grants neither permission nor successful completion.
 
-The original proposal was rejected because it made One Surface's model, gap,
-action-evaluation and refresh phases prerequisites for generic selection. Its
-exact bytes are preserved in `registered-selection-design-v1.md` beside the
-execution record (SHA-256
+A registered selection needs no model, gap, action-evaluation or refresh phase
+before it: its source is one ordinary graph computation whose result the
+application resolves to one declared target (`resolveRegisteredSelection`,
+`gtl/registered_selection.ts`). The first proposal for this design is
+preserved in `registered-selection-design-v1.md` beside the execution record
+(SHA-256
 `4af858bc87682e6134d9e50cf6597108ea12bca589dfe92bbcbf6eb65adf627d`).
-Those phases are an optional library pattern. `GtlProgram.constructionComposition`
-and its singular semantics remain unchanged. This design requires none of its
-action catalogue, obligation ledger, priority projection or closure calculus.
 
 ## Existing mechanics and actual gap
 
@@ -34,9 +37,7 @@ Paths below are relative to `build_tenants/abiogenesis/typescript/`.
 | Owner | Relevant fact |
 |---|---|
 | `code/src/gtl/contracts.ts:309`; `product/catalog.ts:20,294` | GraphFunction declarations and input/output/effect contracts travel in the exact catalogue definition/digest. Purpose needs no registry. |
-| `code/src/validator/validation.ts:1140` | Existing gate applications bind evaluators to one workflow target; they do not route alternative callees. |
 | `code/src/gtl/source_path.ts:859`; `hog/route_proposal.ts:550` | Ordinary continuation has one successor. Current result-dependent routing handles re-entry/no-action, not forward selection among fixed workflow nodes. |
-| `code/src/validator/validation.ts:100,1471`; `abg/traversal_route.ts:1532` | ConstructionComposition's eight terms and singleton interaction explain why existing multi-candidate fixtures do not prove two different callees. These owners need no construction-composition change. |
 | `code/src/hog/workflow_lifecycle.ts:396`; `hog/child_traversal.ts:141`; `abg/execution_basis.ts:2112` | Existing child preparation joins input, fixed callee, materialization, Program membership and child basis. Reuse those owners. |
 
 The missing semantics is an explicit choice-result-to-workflow-edge relation at
@@ -138,17 +139,17 @@ There are not two selection algorithms or process-local selection authority.
 
 Reuse existing result, judgment and `traversal_route_admitted` events. The route
 binds application and source-result identity to selected target cursor and child
-input. The source result remains owner of actual value and reason. Add neither
-`construction_intent_selected` nor a selection ledger for this generic route.
+input. The source result remains owner of actual value and reason. Add no
+other event and no selection ledger for this generic route.
 Replay reacquires the binding from those causal facts, never a cached answer.
 
 The existing child-preparation owner reacquires the route-bound input. HoG calls
 the fixed reached workflow term and checks selected callee equality plus exact
 input identity/value/contract before launch. It cannot substitute another callee
-into the term. Keep the existing ConstructionIntent path and guard unchanged;
-the generic route supplies its own admitted input binding at the same child
-preparation seam. Both use ordinary child materialization, validation, admission,
-execution, closure and parent workflow result/judgment. The choice does not
+into the term. The generic route supplies its own admitted input binding at
+the child preparation seam (`prepareWorkflowChildExecutionBasis`,
+`abg/execution_basis.ts`) and uses ordinary child materialization, validation,
+admission, execution, closure and parent workflow result/judgment. The choice does not
 establish successful child work.
 
 Gap follows the existing declared blocked/unresolved C outcome route, never a
@@ -159,29 +160,53 @@ recursion bounds/foldback; one-decision selection does not require recursion.
 
 ## Purpose and actual F_P context
 
-Selected definitions declare nonempty
+The registered-selection check in `validateProgram` (`validator/validation.ts`)
+requires each target definition to be a Program callable member with one input
+equal to the application's output contract, one output, and nonempty
 `declarations["abg.functional_purpose"]` and
-`declarations["abg.conditions_for_use"]`; their containing exact definitions
-link that text to published input/result/effect contracts. Reuse catalogue lookup
-and definition digests. Check presence without interpreting prose as a predicate.
-Missing suitable capability or required support produces a gap.
+`declarations["abg.conditions_for_use"]`. It checks presence and does not
+interpret the prose. Execution resolution (`product/execution_resolution.ts`)
+projects each target's admitted catalogue definition digest into the execution
+basis as `registeredSelectionDefinitionDigests`, and `resolveRegisteredSelection`
+accepts a selected choice only when its `definitionDigest` equals that entry.
 
-Existing instruction assembly supplies the native selector's declared Executive
-frame, task, exact permitted purposes/contracts, observations, policy/criteria,
-evidence, response schema and access envelope. Assembly cannot choose an answer
-or invent a frame. Retain actual prompt/manifest, input and raw response. S2's
-finite F_D rule proves mechanics; S3 separately proves real F_P context usability
-and admission. No future library or prompt implementation is designed here.
+`registeredSelectionTargets` (`gtl/registered_selection.ts`) is the one
+permitted-target projection: the application at the source locus and its
+outgoing fixed `c_workflow` targets. Route resolution (`resolveRegisteredSelection`)
+and the framed-synthesis selector context (`synthesisContext` in
+`abg/instruction_assembly.ts`) both read it. The selector context takes each
+target's definition from `declarationGraphFunctions` and its digest from
+`registeredSelectionDefinitionDigests`. A missing digest, a target outside Program
+callable membership, a duplicate target, an empty purpose or condition, or an
+unresolved contract makes `synthesisContext` return null, and the assembly
+refuses `unknown_dependency` before dispatch. Purpose grants neither permission
+nor completion.
+
+An F_D selector implements its own total rule over its admitted input. The
+fixture `test_env/fixtures/registered-selection-product/index.mjs` (`select`)
+chooses from a caller-supplied catalogue of names, references and definition
+digests and returns a gap for missing support. The F_P selector at head is the
+default library's framed synthesis (`gtl/default_library.ts`): the F_P `select`
+leaf judges, and the F_D `project-choice` leaf at the registered-selection source
+projects that judgment into a `registered_graph_choice` (`projectGovernanceChoice`
+in `abg/default_library.ts`). Its instruction assembly
+(`evaluateFramedSynthesisInstructionAssembly`) presents the declared Executive
+frame and policy, the permitted purposes and contracts, the task and its
+observations, the current execution binding, declared access evidence and the
+closed response schema. The assembly does not choose the answer or invent a
+frame. The actor retains prompt, manifest, input and raw response, and result
+admission in `abg/c_call_outcome.ts` binds the admitted result to the observed
+raw response through `framedSynthesisInstructionResultMatches`.
 
 ## Exact change owners
 
 | Owner | Bounded change |
 |---|---|
-| `gtl/contracts.ts`, `gtl/graph_applications.ts`, `gtl/declaration_references.ts`, applicable canonical/raw schema owner and `validator/validation.ts` | Add the application and exact source/evaluator/policy/edge/interface checks. ConstructionComposition, Gate and C terms retain meaning. |
+| `gtl/contracts.ts`, `gtl/graph_applications.ts`, `gtl/declaration_references.ts`, applicable canonical/raw schema owner and `validator/validation.ts` | Add the application and exact source/evaluator/policy/edge/interface checks. C terms retain meaning; the registered-selection check is one application arm of `validateProgramSubject` in `validator/validation.ts`. |
 | `gtl/source_path.ts`, `hog/route_proposal.ts`, `hog/ccall_lifecycle.ts` | One target/input-resolution relation and proposal plumbing; ordinary continuation remains outside its declared source/result contract. |
 | `abg/traversal_route.ts` and existing route projection/rehydration consumers | Authenticate and persist the minimal binding in the existing route, including source result and child input. No separate event/state family. |
-| `hog/workflow_lifecycle.ts`, `hog/child_traversal.ts`, `abg/execution_basis.ts` where current input handoff requires it | Reacquire admitted generic binding, retain exact callee/input guards and use ordinary child preparation. Preserve construction-specific semantics. |
-| Existing publication/result-contract owner and small external fixture | Shared choice/gap contract, declared finite selector policy, purpose and distinct A/B definitions. No One Surface prerequisites. |
+| `hog/workflow_lifecycle.ts`, `hog/child_traversal.ts`, `abg/execution_basis.ts` where current input handoff requires it | Reacquire admitted generic binding, retain exact callee/input guards and use ordinary child preparation. |
+| Existing publication/result-contract owner and small external fixture | Shared choice/gap contract, declared finite selector policy, purpose and distinct A/B definitions. |
 
 The implementation grant must name required generated schema/manifest outputs.
 Any new Product semantics, C algebra, event lifecycle or arbitrary contract
@@ -192,14 +217,12 @@ to start this bounded realization after acceptance.
 
 One tiny external Product publishes selector, A and B with common interfaces and
 different result markers. Its total F_D rule selects A or B from a finite mode
-and returns gap for missing support. Its root has no ConstructionComposition,
-action catalogue, obligation ledger or model/gap/refresh nodes. That absence is
-part of the discriminator, not a documentation-only claim.
+and returns gap for missing support.
 
 Reuse external publication/readiness from
 `test_env/support/developer-mini-product.mjs`, installed Public execution from
 `test_env/support/root-cli-environment.mjs`, and ordinary child-result/readback
-joins from the installed external Product/consensus tests. Build once/pack once
+joins from the installed external Product tests. Build once/pack once
 under the next grant; use `candidateBasisSource: "packed_artifact"` and frozen
 artifact/install support. Direct HoG/private owner hooks prove only integration.
 
@@ -217,3 +240,29 @@ Retain source/archive/install identities, transcripts, event bytes/hashes, first
 refusals and fresh readbacks before scratch cleanup. These claims do not close
 semantic suitability, changed-evidence recursion, PC05-11, qualification or RC.
 No source, test, build, install or provider effects occurred in this correction.
+
+## Installed test support
+
+`test_env/support/registered-graph-selection.mjs` is the canonical helper for
+installed starts and pending calls. It is unshipped test code and adds no
+Product, Public or runtime authority.
+
+`constructInstalledStartCall` builds one installed `run.invoke` start through the
+shipped SDK constructor `constructInstalledStartCall`. Its selection is `next`, one
+declared start or one published asset handle; a declared start and an asset
+handle are mutually exclusive. A retained-source start names its source-result
+basis and the authority it was projected under. The Product run owner populates
+the request, policy, grants and authority from the selection, input and source;
+the helper returns them from that population.
+
+`constructInstalledPendingCall` builds one cold `run.continue` `current_intent`
+pending-execution call. It selects the pending use with
+`selectPendingExecutionUse` over the projected use request
+(`pendingExecutionUseRequest`), asserts the pending root admission's authority
+when the caller names an expected one, and constructs the call through the
+shipped SDK constructor `constructInstalledPendingCall`, which reconstructs use,
+resolution, policy, grant and attribution from the log. The helper asserts that
+the populated request equals the projected use request. `replay` is its explicit
+negative: the first population with its request patched. The default-library
+tests (`t287-default-library.test.mjs`) use both helpers and keep their semantic
+and negative assertions.

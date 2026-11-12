@@ -32,6 +32,7 @@ import {
   runtimePrefixComputation,
   isImmutableRuntimeValue,
   runtimeEventBodiesAtPrefix,
+  withOperationBodies,
 } from "./event_prefix.js";
 import {
   captureDurablePrefixCoordinate,
@@ -577,6 +578,8 @@ export function projectHistoricalGraphCallSourceAtDurablePrefix(
   try {
     const prefix = captureDurablePrefixCoordinate(suppliedPrefix);
     const fullPrefix = readOwnedRuntimeEventPrefixAtDurablePrefix(prefix);
+    // The port holds the bodies it selects from the history it prepared.
+    return withOperationBodies(fullPrefix, () => {
     const events = runtimeEventBodiesAtPrefix(fullPrefix);
     const retained = runtimePrefixComputation(fullPrefix, HISTORICAL_GRAPH_CALL_SOURCES,
       () => new WeakMap<AbgHistoricalGraphCallSourceResource, { minimumOrdinal: number; value: AbgHistoricalGraphCallSource }>());
@@ -611,6 +614,7 @@ export function projectHistoricalGraphCallSourceAtDurablePrefix(
     // borrowing a result authenticated only in a later owner state.
     retained.set(resource, { minimumOrdinal: lastOrdinal, value });
     return value;
+    });
   } catch { return null; }
 }
 
@@ -624,9 +628,11 @@ export function projectClosedGraphCallTerminalAtDurablePrefix(
     const prepared = prepareRead("graph_call_result", {kind:"abg_project_read_packet",schemaVersion:"5.0.0",
       memberKey:"graph_call_result",prefix,targetRef:graphCallId,declarationProof}, captureDurablePrefixCoordinate(prefix), undefined, "strict");
     if ("disposition" in prepared) return null;
+    return withOperationBodies(prepared.fullPrefix, () => {
     const runId = runIdForGraphCall(prepared,graphCallId);
     const context = runId === null ? null : runContext(prepared,runId);
     return context === null ? null : typedTerminalResult(prepared,context,graphCallId,false);
+    });
   } catch { return null; }
 }
 
@@ -967,14 +973,14 @@ export function projectRunTruthAtDurablePrefix(
     kind: "abg_project_read_packet", schemaVersion: "5.0.0", memberKey: "run_replay", prefix, targetRef: runId,
   }, captureDurablePrefixCoordinate(prefix), undefined, "recorded");
   if ("code" in prepared) return runTruthRefusal(prefix, runId, prepared.code, prepared.message);
-  try {
+  return withOperationBodies((prepared as PreparedRead<AbgProjectReadMemberKey>).fullPrefix, () => { try {
     const context = canonicalRunContext(prepared as PreparedRead<AbgProjectReadMemberKey>, runId);
     return context === null
       ? runTruthRefusal(prefix, runId, "target_absent", "ABG Run truth is absent from the selected admitted history")
       : deepFreeze({ ...context.truth, stopStatement: projectRunStopReading(context)?.statement ?? null });
   } catch (cause) {
     return runTruthRefusal(prefix, runId, "invalid_history", "ABG Run truth has no exact joined terminal history", cause);
-  }
+  } });
 }
 
 function graphCallSource(
@@ -1043,7 +1049,7 @@ function prepareRunRead(
     kind: "abg_project_read_packet", schemaVersion: "5.0.0", memberKey: sourceMember, prefix, targetRef,
   }, captureDurablePrefixCoordinate(prefix), acquired, "recorded");
   if ("code" in prepared) return null;
-  try {
+  return withOperationBodies(prepared.fullPrefix, () => { try {
     const run = graphRead ? null : canonicalRunContext(prepared, targetRef);
     const graph = graphRead ? graphCallContext(prepared, targetRef) : null;
     const source = graph !== null ? graphCallSource(prepared, graph)
@@ -1062,7 +1068,7 @@ function prepareRunRead(
         const selected = { ...prepared,
           packet: deepFreeze({ ...packet, prefix: prepared.packet.prefix }),
         };
-        return projectPreparedRead(selected, () => {
+        return withOperationBodies(prepared.fullPrefix, () => projectPreparedRead(selected, () => {
           switch (memberKey) {
             case "run_status": return projectRunStatus(selected, targetRef, run);
             case "run_result": return projectRunResult(selected, targetRef, run);
@@ -1071,10 +1077,10 @@ function prepareRunRead(
             case "graph_call_result": return projectGraphCallResult(selected, targetRef, graph);
             case "graph_call_replay": return projectGraphCallReplay(selected, targetRef, graph);
           }
-        });
+        }));
       },
     });
-  } catch { return null; }
+  } catch { return null; } });
 }
 
 const childFrameKey = (runId: string, frameId: JsonValue | undefined, graphCallId: JsonValue | undefined) =>
@@ -1867,9 +1873,9 @@ function project<K extends AbgProjectReadMemberKey>(
   // as on the Public run read.
   const prepared = prepareRead(expectedMemberKey, packet, undefined, undefined, "recorded");
   if ("code" in prepared) return prepared;
-  return projectPreparedRead(prepared, () => projectValue(
+  return withOperationBodies(prepared.fullPrefix, () => projectPreparedRead(prepared, () => projectValue(
     prepared as PreparedRead<AbgProjectReadMemberKey>, expectedMemberKey, prepared.packet.targetRef,
-  ));
+  )));
 }
 
 function projectPreparedRead<K extends AbgProjectReadMemberKey>(

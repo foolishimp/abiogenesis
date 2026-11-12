@@ -1,8 +1,5 @@
-import { WORKSITE_REVISION_IDS } from "../product/worksite_revision.js";
-import { isExecutableWorksiteCommandTask as isWorksiteExecutionTask,
-  executableWorksiteCommandSources as worksiteExecutionSources, executableWorksiteCommandLocus as worksiteExecutionLocus,
-  executableWorksiteCommandImplementationRef as worksiteExecutionImplementationRef,
-  type ExecutableWorksiteCommandTask as WorksiteExecutionTask } from "../product/worksite_command_forward.js";
+import { WORKSITE_REVISION_IDS, isWorksiteExecutionTask, worksiteExecutionSources, worksiteExecutionLocus,
+  worksiteExecutionImplementationRef, type WorksiteExecutionTask } from "../product/worksite_revision.js";
 import {
   WORKSITE_PREPARATION_IDS, isWorksitePreparationInput, isWorksitePreparationBoundInput,
   selectWorksiteConstructionTask, prepareWorksiteCommandTask,
@@ -14,8 +11,6 @@ import {
   linkSync,
   mkdirSync,
   readFileSync,
-  readdirSync,
-  readlinkSync,
   realpathSync,
   unlinkSync,
   writeFileSync,
@@ -46,6 +41,7 @@ import {
   type WorksiteCommandExecutionHelperPlan,
 } from "../product/worksite_command_execution.js";
 import { observeWorksiteSubject } from "../product/worksite_operations.js";
+import { walkTreeSync } from "../product/tree_inventory.js";
 import {
   constructWorksiteObservation,
   isWorksiteObservation,
@@ -303,59 +299,10 @@ function observeWorksiteSubjectSync(
 }
 
 export function installedProductInventoryDigest(rootValue: string): Sha256Digest {
-  const root = resolve(rootValue);
-  const rootStatus = lstatSync(root);
-  if (root !== rootValue || rootStatus.isSymbolicLink() ||
-    !rootStatus.isDirectory() || realpathSync(root) !== root) {
-    throw new TypeError("installed Product root must remain canonical");
-  }
-  const rows: JsonValue[] = [];
-  const visit = (directory: string, relativeDirectory: string): void => {
-    const entries = readdirSync(directory, { withFileTypes: true })
-      .sort((left, right) => left.name.localeCompare(right.name));
-    for (const entry of entries) {
-      const relativePath = relativeDirectory.length === 0
-        ? entry.name
-        : `${relativeDirectory}/${entry.name}`;
-      const path = resolve(directory, entry.name);
-      const status = lstatSync(path);
-      if (status.isSymbolicLink()) {
-        const target = readlinkSync(path);
-        rows.push({
-          relativePath,
-          nodeKind: "symlink",
-          symlinkTarget: target,
-          byteLength: null,
-          digest: sha256Bytes(Buffer.from(target, "utf8")),
-          fileIdentity: `${status.dev}:${status.ino}:${status.nlink}`,
-        });
-      } else if (status.isDirectory()) {
-        rows.push({
-          relativePath,
-          nodeKind: "directory",
-          symlinkTarget: null,
-          byteLength: null,
-          digest: sha256Bytes(Buffer.from("directory", "utf8")),
-          fileIdentity: `${status.dev}:${status.ino}:${status.nlink}`,
-        });
-        visit(path, relativePath);
-      } else if (status.isFile()) {
-        const bytes = readFileSync(path);
-        rows.push({
-          relativePath,
-          nodeKind: "file",
-          symlinkTarget: null,
-          byteLength: bytes.byteLength,
-          digest: sha256Bytes(bytes),
-          fileIdentity: `${status.dev}:${status.ino}:${status.nlink}`,
-        });
-      } else {
-        throw new TypeError("installed Product inventory encountered a special node");
-      }
-    }
-  };
-  visit(root, "");
-  return sha256Canonical(rows);
+  return sha256Canonical(walkTreeSync(rootValue, {
+    rootRefusal: "installed Product root must remain canonical",
+    specialNodeRefusal: "installed Product inventory encountered a special node",
+  }));
 }
 
 function assertArchiveExecutionBoundary(

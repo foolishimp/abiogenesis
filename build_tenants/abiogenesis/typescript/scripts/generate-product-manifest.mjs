@@ -1,6 +1,5 @@
 import { constructDefaultGovernanceLibraryModulePublication, DEFAULT_LIBRARY_CONTEXT_INVENTORY, DEFAULT_LIBRARY_STDO_SOURCE } from "../build/code/src/gtl/default_library.js";
 import { DEFAULT_LIBRARY_POLICY } from "../build/code/src/product/default_library.js";
-import { GC03_SELECTED_RELEASE } from "../build/code/src/abg/governed_context.js";
 import { NATIVE_SEMANTIC_ASSESSMENT_CONTRACT, NATIVE_SEMANTIC_ASSESSMENT_SCHEMA_TEXT } from "../build/code/src/product/semantic_job.js";
 import { constructSelfConformanceAssetRows } from "../build/code/src/product/public_contract_publication.js";
 import * as v from "valibot";
@@ -62,7 +61,6 @@ import {
   constructWorksiteCommandExecutionModulePublication,
   WORKSITE_COMMAND_EXECUTION_CONTEXT_INVENTORY,
   constructNativeWorkspaceWorkModulePublication,
-  constructWorksiteCommandForwardModulePublication,
   constructRequirementHandoffModulePublication,
   constructSemanticStageModulePublication,
   constructSemanticRevisionModulePublication,
@@ -382,25 +380,6 @@ for (const locator of bundledDependencyClosure(packageJson, packageLock)) {
   await listFiles(expectedRoot);
 }
 
-// Governed context (RC3 Increment B): the tracked pinned adapter is copied into
-// the generated contracts before inventory; the fixed client is the compiled
-// build member. The selection records the exact released GC03 identity and the
-// Python contract; the runtime owner binds the exact executable digest. No GC03
-// source is bundled and no source checkout is a fallback.
-const GOVERNED_CONTEXT_ADAPTER_PATH = "contracts/governed-context/host_adapter.py";
-const GOVERNED_CONTEXT_CLIENT_PATH = "build/code/src/abg/governed_context_client.js";
-const GOVERNED_CONTEXT_SELECTION_PATH = "contracts/governed-context/selection.json";
-await mkdir(join(root, "contracts/governed-context"), { recursive: true });
-await copyFile(join(root, "code/support/governed-context/host_adapter.py"), join(root, GOVERNED_CONTEXT_ADAPTER_PATH));
-await writeFile(join(root, GOVERNED_CONTEXT_SELECTION_PATH), `${canonicalJson({
-  kind: "abg_governed_context_selection", schemaVersion: "5.0.0",
-  adapter: { path: GOVERNED_CONTEXT_ADAPTER_PATH, sha256: await sha256File(join(root, GOVERNED_CONTEXT_ADAPTER_PATH)) },
-  client: { path: GOVERNED_CONTEXT_CLIENT_PATH, sha256: await sha256File(join(root, GOVERNED_CONTEXT_CLIENT_PATH)) },
-  gc03: { ...GC03_SELECTED_RELEASE },
-  python: { major: 3, invocation: ["-I", "-S", "-B"], executableBinding: "exact canonical path, executable digest and reported version bound by the native owner per request" },
-  sourceCheckoutFallback: false,
-})}\n`, "utf8");
-
 // The payload rule (scripts/product-payload.mjs) selects the immutable
 // development cut; npm's own projection is not consulted. Placeholders keep the
 // two subsequently generated mandatory members on disk for the rule; their
@@ -418,9 +397,6 @@ if (
   !payloadMembers.includes(CAPABILITY_DEFINITION_GRAPH_ASSET_PATH)
 ) {
   throw new Error("payload rule omits a mandatory Product cut member");
-}
-for (const path of [GOVERNED_CONTEXT_ADAPTER_PATH, GOVERNED_CONTEXT_CLIENT_PATH, GOVERNED_CONTEXT_SELECTION_PATH]) {
-  if (!payloadMembers.includes(path)) throw new Error(`payload rule omits governed-context member ${path}`);
 }
 const productRelativeLocators = payloadMembers.filter(
   (path) =>
@@ -1094,7 +1070,6 @@ const modulePublications = [
   constructWorksiteConstructionModulePublication(publicationBasis),
   constructWorksiteCommandExecutionModulePublication(publicationBasis),
   constructNativeWorkspaceWorkModulePublication(publicationBasis),
-  constructWorksiteCommandForwardModulePublication(publicationBasis),
   constructRequirementHandoffModulePublication(publicationBasis),
   constructSemanticStageModulePublication(publicationBasis),
   constructSemanticRevisionModulePublication(publicationBasis),

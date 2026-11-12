@@ -64,7 +64,7 @@ function assess(env,authored,i,disposition='satisfied'){const task=m.constructNa
 
 
 import {SourceTextModule,SyntheticModule} from 'node:vm';
-import {observationFor} from '../support/forward-observation-carrier.mjs';
+import {observationFor} from '../support/c2-observation-carrier.mjs';
 const [revision,revisionIds,commands,semantics]=await Promise.all(['product/semantic_revision','gtl/semantic_revision_identity','product/worksite_command_execution','product/builtin_semantics'].map(load));
 const R=revisionIds.SEMANTIC_REVISION_IDS,D=g.SEMANTIC_STAGE_IDS;
 async function component(name,overrides){const file=join(root,'build/code/src',name+'.js'),module=new SourceTextModule(await readFile(file,'utf8'),{identifier:file});

@@ -2,18 +2,16 @@ import { indexedRuntimeEvents, validatedRuntimeEventPrefixBeforeEvent } from "./
 import type { RuntimeEventPrefix } from "./event_prefix.js";
 import { GOVERNANCE_IMPLEMENTATION_REFS, governanceRef } from "../product/default_library.js";
 import { governanceResultMatches } from "./default_library.js";
-import { registeredSelectionNativeRole, framedSynthesisNativeRole } from "../gtl/stdo_run_environment.js";
+import { framedSynthesisNativeRole } from "../gtl/stdo_run_environment.js";
 import { constructNativeInstructionAssemblyBasis } from "./execution_basis.js";
 import { SEMANTIC_REVISION_IMPLEMENTATION_REFS, SEMANTIC_REVISION_IDS } from "../gtl/semantic_revision_identity.js";
 import { semanticRevisionResultMatchesBasis, projectRevisionWorksitePreparation, semanticJobRevisionResultMatchesBasis } from "./semantic_revision.js";
 import { SEMANTIC_IMPLEMENTATION_REFS, SEMANTIC_STAGE_IDS } from "../gtl/semantic_stage_identity.js";
 import { WORKSITE_PRESERVED_RESULT_IMPLEMENTATION_REFS } from "../product/worksite_construction_recovery.js";
 import { worksitePreservedResultMatchesBasis } from "./worksite_construction_recovery.js";
-import { WORKSITE_COMMAND_FORWARD_IDS as forwardIds } from "../product/worksite_command_forward_identity.js";
-import { worksiteCommandForwardResultMatches } from "./worksite_command_forward.js";
 import { semanticLifecycleRefForProgram } from "../gtl/semantic_stage.js";
 import { semanticResultMatchesBasis, projectSemanticWorksitePreparation, projectSemanticEvidenceInput, projectSemanticEnvelopeOutput, type SemanticStageNativeBasis } from "./semantic_stage.js";
-import { semanticInstructionResultMatches, registeredSelectionInstructionResultMatches, framedSynthesisInstructionResultMatches } from "./instruction_assembly.js";
+import { semanticInstructionResultMatches, framedSynthesisInstructionResultMatches } from "./instruction_assembly.js";
 import { REQUIREMENT_HANDOFF_IDS } from "../gtl/requirement_handoff.js";
 import { requirementHandoffResultMatches } from "./requirement_handoff.js";
 import type { ModulePublication } from "../gtl/contracts.js";
@@ -1254,12 +1252,6 @@ function stageCCallResult(
             : (input.regime !== "F_P" ||
                 probabilistic?.kind ===
                   "contract_admitted_probabilistic_result_candidate") &&
-              (input.regime !== "F_P" || registeredSelectionNativeRole(input.programPublication, input.executionBasis.programRef,
-                input.graphFunction, input.cCall.programLocusRef) === null || registeredSelectionInstructionResultMatches({
-                  publication: input.programPublication, graph: input.graph, graphFunction: input.graphFunction,
-                  declarationGraphFunctions: input.leafPort.declarationGraphFunctions?.() ?? [],
-                  executionBasis: input.executionBasis, cCall: input.cCall, cursor: input.cursor,
-                  predecessorPrefix: input.predecessorPrefix }, input.input, value, input.leafPort.contractByRef)) &&
               (input.regime !== "F_P" || framedSynthesisNativeRole(input.programPublication, input.executionBasis.programRef,
                 input.graphFunction, input.cCall.programLocusRef) === null || input.nativeInstructionAssemblyBasis !== undefined &&
                 input.nativeInstructionAssemblyBasis.cCall.cCallRef === input.cCall.cCallRef &&
@@ -1269,10 +1261,6 @@ function stageCCallResult(
                 governanceResultMatches(input.nativeInstructionAssemblyBasis, input.input, value)) &&
               (input.cCall.implementationRef !== nativeIds.implementationRef ||
                 nativeWorkspaceWorkResultMatches(input.input, value, input.cCall.cCallRef, observation)) &&
-              (!([forwardIds.prepareImplementationRef,forwardIds.implementationRef] as readonly string[]).includes(input.cCall.implementationRef??"") ||
-                (input.programPublication !== undefined && worksiteCommandForwardResultMatches({publication:input.programPublication,
-                  graph:input.graph,graphFunction:input.graphFunction,executionBasis:input.executionBasis,cCall:input.cCall,
-                  cursor:input.cursor,predecessorPrefix:input.predecessorPrefix},input.input,value))) &&
               (input.cCall.outputContractRef !== REQUIREMENT_HANDOFF_IDS.outputContractRef ||
                 (input.programPublication !== undefined && requirementHandoffResultMatches({
                   publication: input.programPublication, graph: input.graph, graphFunction: input.graphFunction,

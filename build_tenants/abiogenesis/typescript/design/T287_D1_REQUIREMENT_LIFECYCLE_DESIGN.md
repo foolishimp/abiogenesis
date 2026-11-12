@@ -1,5 +1,7 @@
 # T-287 D1: Native Source and Obligation Handoff
 
+Retired sections: [history/T287_D1_REQUIREMENT_LIFECYCLE_DESIGN__RETIRED_SECTIONS.md](history/T287_D1_REQUIREMENT_LIFECYCLE_DESIGN__RETIRED_SECTIONS.md).
+
 ## Proposed generic-job binding reframe
 
 Status: Executive-accepted at the frozen design hash after the single independent
@@ -317,7 +319,7 @@ continuation owns the current selected HOW; the accepted handoff is its input.
 The target remains ABIogenesis 5.0's fixed sixteen families, F01–F11 and
 F13–F17. F12/S04 remains 5.1. F02 supplies GTL declarations, F03 the direct
 seven-C calculus, F04 probabilistic leaves, F05/F06 Public contracts/projections,
-F07 complete One Surface,
+F07 the Executive system program,
 F10 native runtime truth, and F17/S06 the required installed lifecycle witness.
 GTL declares; HoG traverses; ABG admits and replays. Product wraps supported
 operations; C0 retains physical-effect ownership. No root, release, scenario,
@@ -441,8 +443,7 @@ assembly, stage-result, depth/strength and discovery dependencies. It has no
 eligible/fulfilled branch and no caller-set pass flag. These are facts about
 this transfer's limited coverage, not an additional closure state machine.
 The existing Run may close because the exact handoff succeeded; application
-requirement obligations remain open. No `EdgeFulfillmentLedgerRow` for those
-application requirements may be manufactured from the transfer judgment.
+requirement obligations remain open.
 
 This first typed admitted result is not a claim that the general Requirement
 Ledger, requirement-event family, coverage/depth fold or native continuation

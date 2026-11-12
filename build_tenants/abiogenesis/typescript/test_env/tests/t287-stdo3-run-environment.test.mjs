@@ -7,7 +7,6 @@ import test, { after, before } from 'node:test';
 import * as gtl from '../../build/code/src/gtl/index.js';
 import * as product from '../../build/code/src/product/index.js';
 import { isRunEnvironmentEvidence } from '../../build/code/src/abg/stdo_environment.js';
-import { declarations, NATIVE_SELECTION_STDO3_ROLE } from '../fixtures/registered-selection-product/native.mjs';
 import { STDO3_SOURCE, stdo3RunEnvironment } from '../support/stdo3-run-environment.mjs';
 
 // Retained STDO 3.0.2 controls for the generic and specialized run-environment
@@ -119,16 +118,9 @@ test('K11 current public specialization admits exact standalone STDO3 and conser
   ]) { const changed = structuredClone(d); mutate(changed); assert.throws(() => gtl.constructStdoRunEnvironmentDeclaration(changed), TypeError); }
 });
 
-test('ordinary selector data uses complete Executive source while the P4 default remains exact', async () => {
-  const ordinary=await stdo3RunEnvironment({gtl,product,sourceRoot,selectorRole:NATIVE_SELECTION_STDO3_ROLE});
-  assert.deepEqual(ordinary.declaration.roles,[NATIVE_SELECTION_STDO3_ROLE]);
-  assert.deepEqual(ordinary.declaration.roles[0].sourceBindings.map(({startByte,endByte})=>[startByte,endByte]),[[84076,89633]]);
-  const bytes=await readFile(join(sourceRoot,STDO3_SOURCE.memberPath)),span=ordinary.declaration.roles[0].sourceBindings[0];
-  assert.equal(product.sha256Bytes(bytes.subarray(span.startByte,span.endByte)),span.spanDigest);
-  assert.match(bytes.subarray(span.startByte,span.endByte).toString(),/^## 8\. Derived Executive frame\n/);
-  assert.equal(ordinary.pythonPath,null);assert.deepEqual(ordinary.declaration.accesses,[]);
+test('the P4 default selector role remains exact and the exact source root is explicit', async () => {
   const p4=await stdo3RunEnvironment({gtl,product,sourceRoot});
-  assert.deepEqual(p4.declaration,environment.declaration,'explicit ordinary data does not mutate the default declaration');
+  assert.deepEqual(p4.declaration,environment.declaration,'a second construction yields the same default declaration');
   assert.deepEqual(p4.declaration.roles[0].sourceBindings.map(({startByte,endByte,spanDigest})=>({startByte,endByte,spanDigest})),[
     {startByte:55240,endByte:55942,spanDigest:'sha256:f570de4d76c017e873f390926698a04c9704c443e602092c4c13985b5eb4cd80'},
     {startByte:64650,endByte:65910,spanDigest:'sha256:20ec39085c7dbe19a1b7a06f00d8dcadf7b82e4cb9c163be282e7a3a53b6a68e'},
@@ -169,11 +161,27 @@ test('K11 explicit corpus construction still requires every source, companion an
   ]) { const changed = structuredClone(d); mutate(changed); assert.throws(() => gtl.constructStdoRunEnvironmentDeclaration(changed), TypeError); }
 });
 
+// The default library's executive step is the Program locus that takes a
+// declared selector role (its framed-synthesis `select` leaf). The exact STDO3
+// declaration is retargeted there; its dependency, context, policy and spans
+// are unchanged, and the permission binds the retargeted declaration.
+function executiveStepEnvironment() {
+  const graphFunctionRef = product.governanceRef('graph-function', 'executive-step');
+  const declaration = gtl.constructStdoRunEnvironmentDeclaration({ ...structuredClone(environment.declaration),
+    roles: [{ ...structuredClone(environment.declaration.roles[0]), graphFunctionRef, programLocusRef: product.governanceRef('node', 'select') }] });
+  const program = { kind: 'gtl_program', programRef: product.governanceRef('program', 'stdo3-executive-step'),
+    callableMembership: [graphFunctionRef], policies: { 'abg.run_environment': declaration.declarationRef } };
+  const graphFunctions = gtl.defaultGovernanceGraphFunctions().filter(g => g.name === graphFunctionRef);
+  assert.equal(graphFunctions.length, 1);
+  return { declaration, program, publication: { programs: [program], runEnvironments: [declaration], graphFunctions } };
+}
+
 test('K11 actual Product acquisition checks manifest, complete source inventory, spans and permission without Python', async () => {
-  const publication = declarations(gtl, environment.declaration), program = publication.programs[0];
+  const { declaration, program, publication } = executiveStepEnvironment();
   const authority = { authorityRef: 'authority:stdo3-test', authorityDigest: product.sha256Canonical('authority'), actorRef: 'actor:stdo3-test' };
   const archiveRoot = join(root, 'archive'); await mkdir(archiveRoot);
-  const resources = await environment.resources({ authority, program, workspaceBinding: { roots: { archiveRoot } } });
+  const resources = structuredClone(await environment.resources({ authority, program, workspaceBinding: { roots: { archiveRoot } } }));
+  resources.permission.environmentDigest = product.sha256Canonical(declaration);
   assert.deepEqual(resources.permission.operations, ['read_context']); assert.equal(resources.pythonPath, null);
   const input = { publication, program, authority, graphFunctions: publication.graphFunctions, archiveRoot, resources };
   const observed = await product.observeRunEnvironment(input);
@@ -182,7 +190,7 @@ test('K11 actual Product acquisition checks manifest, complete source inventory,
   assert.equal(observed.evidence.corpusDocuments, null); assert.deepEqual(observed.evidence.accesses, []);
   const bytes = await readFile(join(sourceRoot, STDO3_SOURCE.memberPath));
   for (const [index, heading] of ['Executive', 'The three duties'].entries()) {
-    const span = environment.declaration.roles[0].sourceBindings[index];
+    const span = declaration.roles[0].sourceBindings[index];
     const marker = Buffer.from(`### ${heading}\n`), start = bytes.indexOf(marker);
     const next = bytes.indexOf(Buffer.from('\n### '), start + marker.length), end = next < 0 ? bytes.length : next + 1;
     assert.equal(span.startByte, start); assert.equal(span.endByte, end);
@@ -195,7 +203,7 @@ test('K11 actual Product acquisition checks manifest, complete source inventory,
   const wrongPython = structuredClone(resources);
   wrongPython.pythonPath = wrongPython.permission.pythonPath = resources.dependencies[0].recordPath;
   assert.equal((await product.observeRunEnvironment({ ...input, resources: wrongPython })).cause, 'access_not_permitted');
-  const wrongDeclaration = structuredClone(environment.declaration);
+  const wrongDeclaration = structuredClone(declaration);
   wrongDeclaration.roles[0].sourceBindings[0].spanDigest = product.sha256Canonical('wrong span');
   const rebound = structuredClone(resources); rebound.permission.environmentDigest = product.sha256Canonical(wrongDeclaration);
   assert.equal((await product.observeRunEnvironment({ ...input, publication: { ...publication, runEnvironments: [wrongDeclaration] }, resources: rebound })).cause, 'identity_mismatch');

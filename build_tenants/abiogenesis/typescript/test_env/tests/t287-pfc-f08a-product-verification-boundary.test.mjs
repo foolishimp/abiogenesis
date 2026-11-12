@@ -537,6 +537,25 @@ test("PFC-F08A is minted only by verifyProduct over exact artifact bytes", async
         adapter.family.familyDigest = sha256Canonical({ forged: "family" });
         await writeCanonicalJson(path, adapter);
       }, /does not declare the selected exact 18\/56/u],
+      ["cli-grammar-adapter-exit-map", async (packageDirectory) => {
+        const path = join(packageDirectory, adapterPath);
+        const adapter = JSON.parse(await readFile(path, "utf8"));
+        const nonTerminalByKey = new Map(adapter.sdkMembers.map((row) => [
+          JSON.stringify(row.definitionKey),
+          row.nonTerminalSchemaCoordinate !== null,
+        ]));
+        for (const row of adapter.cliGrammar) {
+          row.adapterExitMap = {
+            acceptedNonTerminal:
+              nonTerminalByKey.get(JSON.stringify(row.definitionKey)) ? 3 : null,
+            acceptedTerminal: 0,
+            adapterFailure: 70,
+            invalidInvocation: 2,
+            refused: 1,
+          };
+        }
+        await writeCanonicalJson(path, adapter);
+      }, /does not declare the selected exact 18\/56/u],
       ["altered-operation-bytes", async (packageDirectory, manifest) => {
         await rewriteOperationProjection(
           packageDirectory,

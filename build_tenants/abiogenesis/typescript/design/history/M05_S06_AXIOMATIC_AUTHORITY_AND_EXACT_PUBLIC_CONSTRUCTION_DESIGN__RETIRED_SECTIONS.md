@@ -65,3 +65,35 @@ For this bounded replacement, the one repair allowance is consumed. Delta
 review is limited to the Section 7.3 full-frontier carrier/projection,
 `D17` closure, the strengthened AX-F09 fixture/oracle, and mechanical tracking
 of that repair. No second repair follows a new hard counterexample.
+
+---
+
+Cut from `build_tenants/abiogenesis/typescript/design/M05_S06_AXIOMATIC_AUTHORITY_AND_EXACT_PUBLIC_CONSTRUCTION_DESIGN.md` at commit `882b71e64`, lines 97-98, 2112-2113, 2269-2270, 2276-2276, verbatim.
+
+8. SDK, CLI, Codex, schemas, catalog rows, manifests, and documentation derive
+   from the same exact family.
+
+flattening are invalid projections. SDK, CLI, Codex, schemas, and replay expose
+the same outer code and nested value.
+
+SDK member, CLI grammar, Codex path, schema, catalog row, or manifest row may
+name it before the swap.
+
+3. derives CLI and Codex grammar from the SDK/family;
+
+---
+
+Cut from `build_tenants/abiogenesis/typescript/design/M05_S06_AXIOMATIC_AUTHORITY_AND_EXACT_PUBLIC_CONSTRUCTION_DESIGN.md` at commit `db93b3c50`, lines 2185-2185, 2222-2222, verbatim.
+
+| `D12` | `abg/witness_admission_operation.ts`: `WITNESS_OPERATION_CONTRACTS`, `WitnessAdmissionPort` | ABG witness/event store/calculus/replay and shared canonical JSON/digests/references |
+
+| 46-51 | `witness.admit / reprice, attest, hygiene-stamp, intake, run-resumed, run-stopped` | `WITNESS_OPERATION_CONTRACTS.admit[key]` -> `WitnessAdmissionPort.admit` | `abg/witness_admission_operation.ts` / `D12` | exact witnessed ABG event |
+
+---
+
+Cut from `build_tenants/abiogenesis/typescript/design/M05_S06_AXIOMATIC_AUTHORITY_AND_EXACT_PUBLIC_CONSTRUCTION_DESIGN.md` at commit `c615c2f4d`, lines 2143-2146, verbatim.
+
+every indexed operation row. Its adapter exit class is exactly
+`adapterFailure = 70`. Result, common `owner_refusal`, and non-terminal exits
+are `0`, `1`, and `3`; pre-index common-envelope, family-lookup, and indexed
+admission refusals exit `2`. A projection refusal contains no owner result or

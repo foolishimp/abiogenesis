@@ -14,6 +14,7 @@ import {
   type AbgEventResourceInput,
   type AbgEventResourceOutcome,
 } from "../abg/definition_event_resource.js";
+import { withOperationBodies } from "../abg/event_prefix.js";
 import {
   admitWorkspaceBinding,
   projectAdmittedWorkspaceBinding,
@@ -668,7 +669,8 @@ const bind: AdmissionDefinitionOwner<
         );
       }
       const resource = acquired.resource;
-      try {
+      // The binding owns the bodies it selects until it returns.
+      return withOperationBodies(resource.entryPrefix, () => { try {
         const nativePacket: WorkspaceBindingPacket = {
           kind: "workspace_binding_packet",
           schemaVersion: "5.0.0",
@@ -797,7 +799,7 @@ const bind: AdmissionDefinitionOwner<
       } catch (cause) {
         abandonAbgEventResource(resource);
         throw cause;
-      }
+      } });
     },
     catch: (cause) => isExecutionFault(cause)
       ? cause as DefinitionExecutionFault<BindPacket["definitionKey"]>

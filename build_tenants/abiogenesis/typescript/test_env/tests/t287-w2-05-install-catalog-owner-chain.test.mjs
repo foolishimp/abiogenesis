@@ -25,7 +25,6 @@ const selectedAdditions = Object.freeze([
   "abg.operation.project.read#catalog_describe",
   "abg.operation.project.read#catalog_list",
   "abg.operation.project.read#install_evidence",
-  "abg.operation.project.read#ticket_consensus",
   "abg.operation.project.read#workspace_status",
 ]);
 let admittedContractCatalog = null;
@@ -407,6 +406,9 @@ test("W2-05 installed Product install and catalog owners compose without catalog
     loadedKeys.filter((key) => selectedAdditions.includes(key)),
     selectedAdditions,
   );
+  // T-292 TD-26 P1: the W2-05 addition project.read#ticket_consensus stays
+  // declared without a binding until its withdrawal.
+  assert.ok(missingKeys.includes("abg.operation.project.read#ticket_consensus"));
 
   const verificationPacket = Object.freeze({
     kind: "product_verification_packet",
@@ -687,7 +689,6 @@ test("W2-05 installed Product install and catalog owners compose without catalog
     gtl.constructWorksiteConstructionModulePublication(artifactBasis),
     gtl.constructWorksiteCommandExecutionModulePublication(artifactBasis),
     gtl.constructNativeWorkspaceWorkModulePublication(artifactBasis),
-    gtl.constructWorksiteCommandForwardModulePublication(artifactBasis),
     gtl.constructRequirementHandoffModulePublication(artifactBasis),
     gtl.constructSemanticStageModulePublication(artifactBasis),
     gtl.constructSemanticRevisionModulePublication(artifactBasis),
@@ -1206,23 +1207,22 @@ test("W2-05 installed Product install and catalog owners compose without catalog
     ticketConsensusUnavailableCall.invocation.definitionKey,
     ticketDefinition.definitionKey,
   );
-  const ticketConsensusUnavailableFault = await Effect.runPromise(Effect.flip(
-    product.PRODUCT_PROJECT_READ_DEFINITION_BINDINGS.ticket_consensus(
+  assert.equal(
+    Object.hasOwn(product.PRODUCT_PROJECT_READ_DEFINITION_BINDINGS, "ticket_consensus"),
+    false,
+  );
+  const ticketConsensusUnavailableFault =
+    await publicApi.runInstalledDefinitionCallTransport(
+      { kind: "eventless" },
       ticketConsensusUnavailableCall,
-    ),
-  ));
+    );
   assert.equal(
     ticketConsensusUnavailableFault.kind,
-    "definition_execution_fault",
+    "installed_definition_call_transport_refusal",
   );
-  assert.equal(ticketConsensusUnavailableFault.stage, "resource_admission");
   assert.equal(
     ticketConsensusUnavailableFault.code,
-    "resource_relation_mismatch",
-  );
-  assert.equal(
-    ticketConsensusUnavailableFault.message,
-    "ticket consensus packet differs from the public source, basis, or selector coordinates",
+    "installed_binding_unavailable",
   );
 
   for (const [label, mutate] of [

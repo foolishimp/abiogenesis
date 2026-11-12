@@ -14,7 +14,7 @@ const basis={productId:p.ABI5_PRODUCT_ID,packageName:p.ABI5_PACKAGE_NAME,package
   artifactDigest:hash('supplied-artifact'),productContentDigest:hash('supplied-content'),productManifestDigest:hash('supplied-manifest')};
 const publications=[gtl.constructConsensusModulePublication,
   gtl.constructWorksiteConstructionModulePublication,gtl.constructWorksiteCommandExecutionModulePublication,
-  gtl.constructWorksiteCommandForwardModulePublication,gtl.constructRequirementHandoffModulePublication,
+  gtl.constructRequirementHandoffModulePublication,
   gtl.constructSemanticStageModulePublication,gtl.constructSemanticRevisionModulePublication,
   gtl.constructSelfConformanceModulePublication,gtl.constructNativeWorkspaceWorkModulePublication].map(f=>f(basis));
 const publication=publications.find(x=>x.moduleRef===ids.moduleRef),root=publication.programs.find(x=>x.programRef===ids.programRef);

@@ -51,3 +51,11 @@ or graph movement.
    truth. It does not treat the hard cap as a final retry, block, or failure
    authority.
 8. Otherwise the disposition is `continue_waiting`.
+
+---
+
+Cut from `build_tenants/abiogenesis/typescript/design/M03_SYSTEM_PROBE_OBSERVER_LIVENESS_DERIVATION.md` at commit `70320c3f0`, lines 113-115, verbatim.
+
+## One Surface Rule
+
+Public start, gaps, live status, watchdog, retry, and downstream harness

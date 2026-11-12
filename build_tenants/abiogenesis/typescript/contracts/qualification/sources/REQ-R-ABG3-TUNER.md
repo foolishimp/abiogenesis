@@ -3,7 +3,7 @@
 **Status**: Deferred - planned ABIogenesis 5.1; not applicable to 5.0
 **Category**: Capability / Constraint
 **Date**: 2026-07-09
-**Derives from**: [SPEC_METHOD.md](stdo://releases/v2.5.0-rc.6/standards/SPEC_METHOD.md), [ODD_METHOD.md](stdo://releases/v2.5.0-rc.6/standards/ODD_METHOD.md), [INTENT.md](../../INTENT.md) INT-001, [PRODUCT.md](../../PRODUCT.md) (the reflective boundary; the atom criterion), [REQ-R-ABG3-FP-CONSCIOUSNESS.md](./REQ-R-ABG3-FP-CONSCIOUSNESS.md), [REQ-R-ABG3-SUPERVISOR-WITNESS.md](./REQ-R-ABG3-SUPERVISOR-WITNESS.md), [REQ-L-GTL3-HOOKS.md](../gtl/REQ-L-GTL3-HOOKS.md), [T-217](../../../.ai-workspace/tickets/completed/T-217-consciousness-wave-higher-order-regulation.md) (absorbing [T-206](../../../.ai-workspace/tickets/completed/T-206-abg-shell-tuner-bundled-consciousness-loop.md))
+**Derives from**: [SPEC_METHOD.md](stdo://releases/v2.5.0-rc.6/standards/SPEC_METHOD.md), [ODD_METHOD.md](stdo://releases/v2.5.0-rc.6/standards/ODD_METHOD.md), [INTENT.md](../../INTENT.md) INT-001, [PRODUCT.md](../../PRODUCT.md) (the reflective boundary; the atom criterion), [REQ-R-ABG3-SUPERVISOR-WITNESS.md](./REQ-R-ABG3-SUPERVISOR-WITNESS.md), [REQ-L-GTL3-HOOKS.md](../gtl/REQ-L-GTL3-HOOKS.md), [T-217](../../../.ai-workspace/tickets/completed/T-217-consciousness-wave-higher-order-regulation.md) (absorbing [T-206](../../../.ai-workspace/tickets/completed/T-206-abg-shell-tuner-bundled-consciousness-loop.md))
 
 ---
 
@@ -51,7 +51,7 @@ relations.
 
 **REQ-R-ABG3-TUNER-009**: Crystallization shall be tuner authority: lay-rail proposals (publish overlay extensions where per-contract composition entropy is near zero), pull-up proposals (retire non-discriminating declared edges), and abstraction proposals (name a proven composition as a new graph function entering the catalog) are declaration drafts behind the same ratification gate. Structure crystallizes where accountability pays for itself and dissolves where it does not.
 
-**REQ-R-ABG3-TUNER-010**: Mode and track signals shall be typed replay-derived observables, at minimum: per-contract route variance (composition entropy), retry density, repeated path shape, per-contract cost, closure rate, adapter-gap counts, and defect recurrence; plus the rail-break signal — a declared path halting on ambiguity projects a mode-selection signal before same-edge retry burn. Promotion and demotion proposals shall cite admitted signal rows by ref; F_P may propose interpretation, but narrative labels carry no authority (FPC-021).
+**REQ-R-ABG3-TUNER-010**: Mode and track signals shall be typed replay-derived observables, at minimum: per-contract route variance (composition entropy), retry density, repeated path shape, per-contract cost, closure rate, adapter-gap counts, and defect recurrence; plus the rail-break signal — a declared path halting on ambiguity projects a mode-selection signal before same-edge retry burn. Promotion and demotion proposals shall cite admitted signal rows by ref; F_P may propose interpretation, but narrative labels carry no authority.
 
 **REQ-R-ABG3-TUNER-011**: Mode interchangeability shall be a `CandidateFamily` choice: a declared interior and an emergent interior are two candidates over one outer contract, selected under visible policy. Tuner promote/demote drafts move contracts between modes; selection itself remains lawful published-alternative selection.
 

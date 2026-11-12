@@ -49,8 +49,9 @@ ABIogenesis 5.0 selects `A5-F01` through `A5-F07`, `A5-F09` through `A5-F11`, an
 `A5-F17`. It selects pre-RC scenarios `ABG5-S01`, `ABG5-S02`, `ABG5-S03`,
 and `ABG5-S06`; `ABG5-S07` owns release.
 
-`A5-F08`/`ABG5-S05` and `A5-F12`/`ABG5-S04` are planned ABIogenesis 5.1 identities. Their frozen
-design and requirement text are preserved as future input. Their dedicated
+`A5-F08`/`ABG5-S05` and `A5-F12`/`ABG5-S04` are planned ABIogenesis 5.1 identities. The frozen
+design and requirement text of `A5-F12`/`ABG5-S04` are preserved as future
+input. Their dedicated
 release-completeness obligations are not mandatory 5.0 realization,
 self-conformance, qualification, release, public-contract or no-silence gates.
 An optional published claim still obeys its current declared contract and
@@ -61,11 +62,8 @@ evaluation, recursion and context laws defer only their dedicated F12/S04
 observer/tuner variants. The selected ordinary Executive/default-library
 composition inherits those shared laws under Product Release Boundaries.
 
-- dedicated `REQ-P-CONSENSUS` qualification, `REQ-P-SCENARIOS-012`,
-  `REQ-P-QUAL-061` and `REQ-P-QUAL-066`, host parity in
-  `REQ-P-SCENARIOS-013`/`REQ-P-QUAL-063`, and their former mandatory
-  Consensus/host portions in `REQ-P-QUAL-064/067`;
-- mandatory Consensus capability publication in `REQ-P-PUBLIC-CONTRACTS-011`;
+- `REQ-P-QUAL-066`, host parity in `REQ-P-SCENARIOS-013`/`REQ-P-QUAL-063`,
+  and their former mandatory host portions in `REQ-P-QUAL-064/067`;
 - `REQ-P-SCENARIOS-011` and `REQ-P-QUAL-060A`;
 - `REQ-P-POLICY-036`, `REQ-P-POLICY-037`, and only the observer/tuning
   variants named by `REQ-P-POLICY-021`, `REQ-P-POLICY-041`, and
@@ -74,8 +72,7 @@ composition inherits those shared laws under Product Release Boundaries.
   `abg.operation.tuning.transition` rows formerly selected by
   `REQ-P-PUBLIC-CONTRACTS-005` and `REQ-P-PUBLIC-CONTRACTS-008`;
 - `REQ-R-ABG3-TUNER-001` through `REQ-R-ABG3-TUNER-014`;
-- `REQ-R-ABG3-FPC-018`, `REQ-R-ABG3-FPC-019`,
-  `REQ-R-ABG3-FN-COMP-025`, `REQ-R-ABG3-PAYLOAD-027`,
+- `REQ-R-ABG3-FN-COMP-025`, `REQ-R-ABG3-PAYLOAD-027`,
   `REQ-R-ABG3-ITERATION-019`, and `REQ-R-ABG3-CONTINUATION-010`;
 - only the executive observer/tuning variants in
   `REQ-R-ABG3-PROJECTION-023`, `REQ-R-ABG3-WITNESS-009`, and the tuner row of
@@ -83,8 +80,8 @@ composition inherits those shared laws under Product Release Boundaries.
 - `REQ-L-GTL3-CONTEXT-007`, `REQ-L-GTL3-ASSET-SURFACE-012`,
   `REQ-L-GTL3-GRAPHFUNCTION-020`, and `REQ-L-GTL3-HOOKS-019`.
 
-Runtime liveness observation, ordinary replay/projection, One Surface
-evaluation, yielded handoff, retry, convergence, generic `evaluate.C`, and
+Runtime liveness observation, ordinary replay/projection, yielded handoff,
+retry, convergence, generic `evaluate.C`, and
 5.0 self-conformance remain applicable. The word `observer` alone does not
 defer a requirement.
 
@@ -93,8 +90,8 @@ defer a requirement.
 The native human-response portions of F03/F06/F07/F10 are reserved for 5.1.
 `abg.operation.interaction.respond` and its five variants are outside the
 required 5.0 public operation family. Only response-driven human resumption
-and human-proxy interaction portions of `run.continue` are deferred; automatic
-current-intent continuation and new-action admission remain 5.0 obligations.
+and human-proxy interaction portions of `run.continue` are deferred; same-Run
+continuation of a replay-derived pending execution remains a 5.0 obligation.
 
 This scoped exclusion applies to POLICY-012 and POLICY-031/032, the human
 response portions of POLICY-014/016/021/033, CONTINUATION-011, and every

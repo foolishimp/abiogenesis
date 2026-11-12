@@ -1233,15 +1233,30 @@ test('C2 complete cleanup budget displays per-operation drain and strict enclosi
   }
 });
 
+// An explicit zero write territory survives the C2 task constructor and a cold
+// round-trip without adding rights; an absent or non-array territory throws.
+test("C2 task keeps an explicit zero write territory through its constructor and a cold round-trip", async () => {
+  const { product, componentTask } = await import("../support/c2-observation-carrier.mjs");
+  const originalTask = componentTask();
+  const readonly = product.constructWorksiteCommandExecutionTask({ ...originalTask, allowedWriteTerritories: [] });
+  assert.equal(product.isWorksiteCommandExecutionTask(JSON.parse(product.canonicalJson(readonly))), true);
+  assert.deepEqual(readonly.allowedWriteTerritories, []);
+  assert.deepEqual(readonly.sourceConstructionResult, originalTask.sourceConstructionResult);
+  assert.deepEqual(readonly.protectedObservations, originalTask.protectedObservations);
+  for (const allowedWriteTerritories of [undefined, null, {}]) {
+    assert.throws(() => product.constructWorksiteCommandExecutionTask({ ...originalTask, allowedWriteTerritories }), TypeError);
+  }
+});
+
 // A failure artifact's subject names the next undone operation of its completed
 // prefix: a command class the next command, with no predicate observed; an HTTP
 // class, once every command is complete, the next predicate, which is an
 // `http_response_exact`, through `predicate`, with any declared-request members
 // it carries equal to that predicate's. The rows are synthetic, in the style of
-// `forward-observation-carrier.mjs`; constructor and validator are the Product's.
+// `c2-observation-carrier.mjs`; constructor and validator are the Product's.
 test("C2 helper failure subject is bound to the next undone operation of the completed prefix", async () => {
-  const { product, componentSource } = await import("../support/forward-command-harness.mjs");
-  const { originalTask } = componentSource();
+  const { product, componentTask } = await import("../support/c2-observation-carrier.mjs");
+  const originalTask = componentTask();
   const declared = (commandId) => ({ commandId, executable: "/usr/bin/true", args: [], relativeCwd: ".", environment: {},
     timeoutMs: 1000, terminationGraceMs: 100, expectedReports: [] });
   const exit = { predicateId: "component:exit", predicateKind: "process_exit",
@@ -1285,7 +1300,7 @@ test("C2 helper failure subject is bound to the next undone operation of the com
       stdout: empty, stderr: empty } } });
   // The artifact as the constructor would build it, with its digest, for the validator alone.
   const artifactOf = (task, failure, commandsDone, predicatesDone) => {
-    const sources = product.executableWorksiteCommandSources(task);
+    const sources = product.worksiteExecutionSources(task);
     const snapshotMembers = sources.map((source, ordinal) => ({ kind: "worksite_snapshot_member", schemaVersion: "5.0.0", ordinal,
       sourceMemberRef: source.sourceMemberRef, sourceObservationRef: source.observation.observationRef,
       sourceObservationDigest: source.observation.observationDigest, relativePath: source.subject.relativePath,
@@ -1297,7 +1312,7 @@ test("C2 helper failure subject is bound to the next undone operation of the com
         schemaVersion: "5.0.0", ordinal: row.ordinal, predicateId: row.predicateId, predicateKind: row.predicateKind,
         observedValue: 0, evidence: [], evidenceRefs: [] })),
       worksiteDelta: [], productDelta: [], snapshotRoot: "/component/forward/sandbox",
-      snapshotRef: identity(product.executableWorksiteCommandIdentityPrefix(task, "snapshot"), snapshotDigest), snapshotDigest,
+      snapshotRef: identity(product.worksiteExecutionIdentityPrefix(task, "snapshot"), snapshotDigest), snapshotDigest,
       snapshotMembers, protectedBefore: sources.map((row) => row.observation), protectedAfter: sources.map((row) => row.observation),
       failure };
     const artifactDigest = product.sha256Canonical(body);

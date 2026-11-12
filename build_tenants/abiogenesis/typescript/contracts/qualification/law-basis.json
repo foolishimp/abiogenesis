@@ -6,7 +6,7 @@
   "memberSetDigest": "sha256:20e9d378f261992e62dd473ef8572b11eb9bec281149ac0ccc754b91c9073466",
   "catalog": {
     "ref": "catalog://abiogenesis/qualification/self-conformance@2",
-    "digest": "sha256:b42d35b69ad2904727c5265b3fb221c0997126ffd3baf32c9b81bf161f5fd2aa",
+    "digest": "sha256:aa60040ed9ad17e70827fabcce91b420970c6fd6b63ca15abef1df5dbe538810",
     "ownerRef": "authority://abiogenesis/validator/conformance@5",
     "version": "2",
     "assetPath": "contracts/qualification/rule-catalog.json"
@@ -21,14 +21,14 @@
     {
       "ref": "repo://abiogenesis/specification/INTENT.md",
       "path": "contracts/qualification/sources/INTENT.md",
-      "digest": "sha256:4bc5616c5f16eaf6497ceed007965cca571f78c3f75ff514f7d24e6a55e40857",
-      "byteCount": 17458
+      "digest": "sha256:d9d3cb035305322b9bb245b06fc77ca24a522ca2b61e58593d204f73428691ac",
+      "byteCount": 17406
     },
     {
       "ref": "repo://abiogenesis/specification/PRODUCT.md",
       "path": "contracts/qualification/sources/PRODUCT.md",
-      "digest": "sha256:ff5e838a8f5d20379d80324fd4d29bfbc2827b21cae61f0ce8f83b670a971295",
-      "byteCount": 104106
+      "digest": "sha256:29918ad0da4aef546c3f887645862c05847ff87e3b22c3b98e39db3bab403ebd",
+      "byteCount": 104095
     },
     {
       "ref": "repo://abiogenesis/specification/requirements/00-starter.md",
@@ -39,14 +39,14 @@
     {
       "ref": "repo://abiogenesis/specification/requirements/README.md",
       "path": "contracts/qualification/sources/specification__requirements__README.md",
-      "digest": "sha256:a402a3a42606fc389617c800f6578cc1862787f777be986d2f7ed876a7db336c",
-      "byteCount": 9076
+      "digest": "sha256:5ff290eb435992c2dc9f3769e56ad38138b2489ae2495e7fddbe199144400626",
+      "byteCount": 8847
     },
     {
       "ref": "repo://abiogenesis/specification/requirements/abg/README.md",
       "path": "contracts/qualification/sources/specification__requirements__abg__README.md",
-      "digest": "sha256:c3eeb69701836792e0c1f0c355272c968c93400c33555a383de1084a1b92461b",
-      "byteCount": 3144
+      "digest": "sha256:25784ccca3e265ed61a2e2d1933aaa73bbd6d7821857e262a5f8745590d8493f",
+      "byteCount": 3109
     },
     {
       "ref": "repo://abiogenesis/specification/requirements/abg/REQ-R-ABG3-ASSURANCE.md",
@@ -57,8 +57,8 @@
     {
       "ref": "repo://abiogenesis/specification/requirements/abg/REQ-R-ABG3-BINDING.md",
       "path": "contracts/qualification/sources/REQ-R-ABG3-BINDING.md",
-      "digest": "sha256:2a0fc5559673a860c2b7ff16091ba2ba37da3b1fe1337141c2faa639d6ca1e64",
-      "byteCount": 7870
+      "digest": "sha256:fc0ffe15a8c40197960de3e75e0c252a6847fb018b3168af289d7a2064bd5a27",
+      "byteCount": 8104
     },
     {
       "ref": "repo://abiogenesis/specification/requirements/abg/REQ-R-ABG3-CCALL.md",
@@ -69,8 +69,8 @@
     {
       "ref": "repo://abiogenesis/specification/requirements/abg/REQ-R-ABG3-CONTINUATION.md",
       "path": "contracts/qualification/sources/REQ-R-ABG3-CONTINUATION.md",
-      "digest": "sha256:9ca0057a69fd3f399e0fa6903378c7e1766fbf70c21df827e8b62a8eabfa3916",
-      "byteCount": 6297
+      "digest": "sha256:c6b8d0a5c50cf768103e00d84a41c86d59e58c4e17d4ceb538190d6861b0597a",
+      "byteCount": 5369
     },
     {
       "ref": "repo://abiogenesis/specification/requirements/abg/REQ-R-ABG3-CONVERGENCE.md",
@@ -87,20 +87,14 @@
     {
       "ref": "repo://abiogenesis/specification/requirements/abg/REQ-R-ABG3-EVENTS.md",
       "path": "contracts/qualification/sources/REQ-R-ABG3-EVENTS.md",
-      "digest": "sha256:0af6c1de267dc30e8c9f3148031e9b862487dfdb0cdf80a0657e1b496c8d3c55",
-      "byteCount": 16630
+      "digest": "sha256:d42133dd00a67c1296e97a9fc955ce0445acfbaac35ed04e6b8f72379120ec94",
+      "byteCount": 15327
     },
     {
       "ref": "repo://abiogenesis/specification/requirements/abg/REQ-R-ABG3-FN-COMPOSITION.md",
       "path": "contracts/qualification/sources/REQ-R-ABG3-FN-COMPOSITION.md",
-      "digest": "sha256:5ff1c91698d5ba71f81bada072ecdc008cf1ef74e216af3b15126e56c7d666b1",
-      "byteCount": 13365
-    },
-    {
-      "ref": "repo://abiogenesis/specification/requirements/abg/REQ-R-ABG3-FP-CONSCIOUSNESS.md",
-      "path": "contracts/qualification/sources/REQ-R-ABG3-FP-CONSCIOUSNESS.md",
-      "digest": "sha256:3bbde7990ad1d5e779b75d2f592598f12471e93fed66ba487070c1d4d85aaeb6",
-      "byteCount": 20151
+      "digest": "sha256:979d43a7652a03d2da06ce149f314d3efb0b7ea12ff1b6d7845a4c2ec0b40222",
+      "byteCount": 11971
     },
     {
       "ref": "repo://abiogenesis/specification/requirements/abg/REQ-R-ABG3-FRAME.md",
@@ -129,8 +123,8 @@
     {
       "ref": "repo://abiogenesis/specification/requirements/abg/REQ-R-ABG3-INTERPRET.md",
       "path": "contracts/qualification/sources/REQ-R-ABG3-INTERPRET.md",
-      "digest": "sha256:5c2a1cf2de4686deac3ba97863d88483bfa8aab5cd9141cda2f1f7b9dfecf7de",
-      "byteCount": 7680
+      "digest": "sha256:ecc289855c495452f67bf3d6a020b14d5044f0fa0a4eab29346d2b2f071e4af4",
+      "byteCount": 7635
     },
     {
       "ref": "repo://abiogenesis/specification/requirements/abg/REQ-R-ABG3-ITERATION.md",
@@ -177,8 +171,8 @@
     {
       "ref": "repo://abiogenesis/specification/requirements/abg/REQ-R-ABG3-PROJECTION.md",
       "path": "contracts/qualification/sources/REQ-R-ABG3-PROJECTION.md",
-      "digest": "sha256:1f1e638cef8992532242d17aa4bf5eea9a6e4aa1d4795582bc7e41a893855c65",
-      "byteCount": 10959
+      "digest": "sha256:fd67606ff91d6874c5a887a7368d3a61e675aa5775673f9dd0214cfacda4438f",
+      "byteCount": 9835
     },
     {
       "ref": "repo://abiogenesis/specification/requirements/abg/REQ-R-ABG3-PROVENANCE.md",
@@ -213,8 +207,8 @@
     {
       "ref": "repo://abiogenesis/specification/requirements/abg/REQ-R-ABG3-SAGA-FRONTIER.md",
       "path": "contracts/qualification/sources/REQ-R-ABG3-SAGA-FRONTIER.md",
-      "digest": "sha256:f3b05d8b98c769f595ef8379edac09d1a9d579c6823b4d3e89f813e48c58df0d",
-      "byteCount": 8046
+      "digest": "sha256:c83f87f75580eb21017ee82569e8c1d340586475070a59f91c69ea2acafa3768",
+      "byteCount": 7978
     },
     {
       "ref": "repo://abiogenesis/specification/requirements/abg/REQ-R-ABG3-SELECTION-APPLICATION.md",
@@ -231,8 +225,8 @@
     {
       "ref": "repo://abiogenesis/specification/requirements/abg/REQ-R-ABG3-SUPERVISOR-WITNESS.md",
       "path": "contracts/qualification/sources/REQ-R-ABG3-SUPERVISOR-WITNESS.md",
-      "digest": "sha256:f8104e0e932ad352e03c74df3a7cb26b8b20b9111116851c817c6a9a72159c71",
-      "byteCount": 9837
+      "digest": "sha256:194e8e3ba315b263c809298a6efcfd6982b5cd207814dd8e100f445557fb57e8",
+      "byteCount": 9742
     },
     {
       "ref": "repo://abiogenesis/specification/requirements/abg/REQ-R-ABG3-TRANSPORT.md",
@@ -243,8 +237,8 @@
     {
       "ref": "repo://abiogenesis/specification/requirements/abg/REQ-R-ABG3-TUNER.md",
       "path": "contracts/qualification/sources/REQ-R-ABG3-TUNER.md",
-      "digest": "sha256:fadea8385f24f9f4576406eff83c70eead0586f247661fab57f7dfb602012088",
-      "byteCount": 7626
+      "digest": "sha256:c22f0c49a98b70b27b6b1b2fc3303c0c873255e7d178637a65b71d4b36dde112",
+      "byteCount": 7548
     },
     {
       "ref": "repo://abiogenesis/specification/requirements/abg/REQ-R-ABG3-WORKER.md",
@@ -297,14 +291,14 @@
     {
       "ref": "repo://abiogenesis/specification/requirements/gtl/REQ-L-GTL3-CONTRACT-LAW-API.md",
       "path": "contracts/qualification/sources/REQ-L-GTL3-CONTRACT-LAW-API.md",
-      "digest": "sha256:9cb518d14808535181b107d14a92d126f4b40b117343764582235eb318451675",
-      "byteCount": 7701
+      "digest": "sha256:6c468e5dabc8f340857107c61c9cd2ea25391fce273000a08ea4842c68743004",
+      "byteCount": 7693
     },
     {
       "ref": "repo://abiogenesis/specification/requirements/gtl/REQ-L-GTL3-EVALUATOR.md",
       "path": "contracts/qualification/sources/REQ-L-GTL3-EVALUATOR.md",
-      "digest": "sha256:42036bb55c3aad49e6bc215e02842e1841de3b3a999653182becc6ff28b85069",
-      "byteCount": 3326
+      "digest": "sha256:f3cb2f3bd8caec848c2542faa59350b97cc2a7ca577720465e9eb5db8c7003c4",
+      "byteCount": 3293
     },
     {
       "ref": "repo://abiogenesis/specification/requirements/gtl/REQ-L-GTL3-GRAPH.md",
@@ -333,14 +327,14 @@
     {
       "ref": "repo://abiogenesis/specification/requirements/gtl/REQ-L-GTL3-HOF.md",
       "path": "contracts/qualification/sources/REQ-L-GTL3-HOF.md",
-      "digest": "sha256:8a39633b575ac4cf8b0f9d1ae2f9546cb22ea3e4c858ebd101b6ba9bd60c556c",
-      "byteCount": 5096
+      "digest": "sha256:ec13aed9e63b6674d7abd9a70dcb299e9e96fa83da5245feea0599d4772b6e14",
+      "byteCount": 4905
     },
     {
       "ref": "repo://abiogenesis/specification/requirements/gtl/REQ-L-GTL3-HOOKS.md",
       "path": "contracts/qualification/sources/REQ-L-GTL3-HOOKS.md",
-      "digest": "sha256:fc31e5211472bf6e929fba23288605a5e74af57fac8f469c07dc3c1586c2adc0",
-      "byteCount": 6742
+      "digest": "sha256:cc490177c2ccbbc35bb489a01852ebd8a55966220998a969168a3f9946aa2584",
+      "byteCount": 5723
     },
     {
       "ref": "repo://abiogenesis/specification/requirements/gtl/REQ-L-GTL3-IDENTITY.md",
@@ -363,8 +357,8 @@
     {
       "ref": "repo://abiogenesis/specification/requirements/gtl/REQ-L-GTL3-LANGUAGE-CAPABILITY-MODEL.md",
       "path": "contracts/qualification/sources/REQ-L-GTL3-LANGUAGE-CAPABILITY-MODEL.md",
-      "digest": "sha256:d71d8b530f6efc1b611dcf0079ee03d8838de0cd083fdea5488c1274b8261c4a",
-      "byteCount": 19343
+      "digest": "sha256:43b821a98c03a9ac54880b60e7a84b084286d98688424aecb4fd4f0e5bccff61",
+      "byteCount": 19337
     },
     {
       "ref": "repo://abiogenesis/specification/requirements/gtl/REQ-L-GTL3-LANGUAGE.md",
@@ -375,8 +369,8 @@
     {
       "ref": "repo://abiogenesis/specification/requirements/gtl/REQ-L-GTL3-LAWS.md",
       "path": "contracts/qualification/sources/REQ-L-GTL3-LAWS.md",
-      "digest": "sha256:8281ee62fe6139caf7e2f2245d2414f7993253f0bad3471bb3e6df00003c5d8f",
-      "byteCount": 9060
+      "digest": "sha256:de52559048dc6dc4e1c6f9a91ad2e89c0254c32005c970759a9b4b52d01d654b",
+      "byteCount": 9054
     },
     {
       "ref": "repo://abiogenesis/specification/requirements/gtl/REQ-L-GTL3-MODULE.md",
@@ -417,8 +411,8 @@
     {
       "ref": "repo://abiogenesis/specification/requirements/gtl/REQ-L-GTL3-RULE.md",
       "path": "contracts/qualification/sources/REQ-L-GTL3-RULE.md",
-      "digest": "sha256:e52d418e515d23a534848000f85900c326bc19a57e03c71708bcf37427b6c2cb",
-      "byteCount": 1722
+      "digest": "sha256:3140b788abeb567fe3b6164b98d65a244b004acd1063d8a3853dbfa129b30f74",
+      "byteCount": 1626
     },
     {
       "ref": "repo://abiogenesis/specification/requirements/gtl/REQ-L-GTL3-SELECTION-BOUNDARY.md",
@@ -483,20 +477,20 @@
     {
       "ref": "repo://abiogenesis/specification/requirements/product/README.md",
       "path": "contracts/qualification/sources/specification__requirements__product__README.md",
-      "digest": "sha256:e777272a024d69540fec847591ab3f9132a5ab01e456f566adb4ff76be1a43b3",
-      "byteCount": 1141
+      "digest": "sha256:222d7658233a1e9541a8ae0652498a5b326d15a8a2b75d8b795e21c668f1c647",
+      "byteCount": 1130
     },
     {
       "ref": "repo://abiogenesis/specification/requirements/product/REQ-P-CATALOG.md",
       "path": "contracts/qualification/sources/REQ-P-CATALOG.md",
-      "digest": "sha256:a5a2c74f47b47fb1a77782219d6da6d71a5f96b34afadaa5eca3dd0020c4ccb9",
-      "byteCount": 13757
+      "digest": "sha256:bd45a573fe4b2e0508bd038fdb04507773ed66a9e06d60cb67bab7f2632ab03b",
+      "byteCount": 13677
     },
     {
       "ref": "repo://abiogenesis/specification/requirements/product/REQ-P-CONSENSUS.md",
       "path": "contracts/qualification/sources/REQ-P-CONSENSUS.md",
-      "digest": "sha256:9e16808a05ca078fded2854073d6280c1ae7f3ff173be7354ecb20d76123a52d",
-      "byteCount": 16255
+      "digest": "sha256:757cbb9a9bc0a8fbdae2c3321869dced7a5719d0884d173f449c68503d248f1e",
+      "byteCount": 1788
     },
     {
       "ref": "repo://abiogenesis/specification/requirements/product/REQ-P-INSTALL.md",
@@ -507,26 +501,26 @@
     {
       "ref": "repo://abiogenesis/specification/requirements/product/REQ-P-POLICY.md",
       "path": "contracts/qualification/sources/REQ-P-POLICY.md",
-      "digest": "sha256:a70c42b6329fce8ca920043019d92a05162ca22e759b2e530764a29dc5de779f",
-      "byteCount": 37920
+      "digest": "sha256:58089384ccffeb1dd1bdb126981ed39428753dbd184e46e120040cb413ee0169",
+      "byteCount": 37551
     },
     {
       "ref": "repo://abiogenesis/specification/requirements/product/REQ-P-PUBLIC-CONTRACTS.md",
       "path": "contracts/qualification/sources/REQ-P-PUBLIC-CONTRACTS.md",
-      "digest": "sha256:b11cdc0b8952d480acf7bd8d786d1e9be438b79e5a0a907498e6c9424cf1bdd4",
-      "byteCount": 19406
+      "digest": "sha256:3d189292cc99474ec8b12b6cb4344f38bf1bcdf003a00edf97ffaf7ce7fef147",
+      "byteCount": 18508
     },
     {
       "ref": "repo://abiogenesis/specification/requirements/product/REQ-P-QUAL.md",
       "path": "contracts/qualification/sources/REQ-P-QUAL.md",
-      "digest": "sha256:ac0e868285c37da143c286fcf1aae18be625707630b3a7f3b3b6085d4f280a28",
-      "byteCount": 36574
+      "digest": "sha256:ef5bdafa8a4c3b37419396b46963df6df8b382bbd09515f2bb2a1534a7e0dcea",
+      "byteCount": 35941
     },
     {
       "ref": "repo://abiogenesis/specification/requirements/product/REQ-P-SCENARIOS.md",
       "path": "contracts/qualification/sources/REQ-P-SCENARIOS.md",
-      "digest": "sha256:5126f116cd64f64b48ccdd9126d3709a73c4090f73251c84320c6ae11c7a36dd",
-      "byteCount": 17479
+      "digest": "sha256:5f9a1512aba9493365c934f04863a7e4b2c5e16f70685e02fe63db61c0c686dd",
+      "byteCount": 16331
     },
     {
       "ref": "repo://abiogenesis/specification/requirements/product/REQ-P-SELF-CONFORMANCE.md",
@@ -583,6 +577,6 @@
       "byteCount": 94520
     }
   ],
-  "lawBasisRef": "qualification-law://abiogenesis/4dd7ebf32df417c22487164ca9643aa67f56200c1020b01d6b2db6f1882fd2e4",
-  "lawBasisDigest": "sha256:4dd7ebf32df417c22487164ca9643aa67f56200c1020b01d6b2db6f1882fd2e4"
+  "lawBasisRef": "qualification-law://abiogenesis/4b9ff33d72659511ca11895703fb598ed6e1f58a2dff80e1e9539a0e02e0ee64",
+  "lawBasisDigest": "sha256:4b9ff33d72659511ca11895703fb598ed6e1f58a2dff80e1e9539a0e02e0ee64"
 }

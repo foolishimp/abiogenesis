@@ -92,7 +92,7 @@ GTL declares:
 - graphs, nodes, vectors, contexts, interfaces, and attributes;
 - programs, GraphFunctions, modules, jobs, roles, operators, evaluators, and
   rules;
-- composition, substitution, recursion, fan-out, fan-in, gates, promotion, and
+- composition, substitution, recursion, fan-out, fan-in, promotion, and
   identity;
 - `C` composition and selected `F_D`, `F_P`, and `F_H` regimes;
 - starts, callable membership, policies, effects, result contracts, and proof
@@ -310,8 +310,7 @@ ABIogenesis 5.0 does not include:
 
 - a second GTL source language, executable IR, bytecode, generated HoG program,
   or runtime-program registry;
-- controller authority in an SDK, CLI, installer, fixture, worker, plugin,
-  Consensus surface, or One Surface projection;
+- controller authority in an SDK, CLI, installer, fixture, worker, or plugin;
 - a second event stream, retry loop, continuation model, result ledger, or
   closure authority;
 - an RLM-specific, Consensus-specific, or recursive-agent-specific runtime;

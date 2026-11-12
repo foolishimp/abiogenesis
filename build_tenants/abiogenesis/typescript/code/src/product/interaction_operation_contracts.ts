@@ -16,7 +16,6 @@ import {
   ownerMetadata,
   refDigestSchema,
   refusalSchema,
-  RUNTIME_NONTERMINAL_ADAPTER_EXIT_MAP,
   typedResidualSchema,
   typedResidualSetSchema,
 } from "../shared/public_function_contracts.js";
@@ -120,7 +119,6 @@ function interactionContract<const TKind extends InteractionResponseKind>(
       closedDomains: { responseKind: [responseKind] },
       sdkCoordinate: "sdk.interaction.respond",
       cliCoordinate: `interaction respond ${responseKind}`,
-      adapterExitMap: RUNTIME_NONTERMINAL_ADAPTER_EXIT_MAP,
     }),
   );
 }
@@ -254,7 +252,6 @@ const assess = ownerContractPacket(
     },
     sdkCoordinate: "sdk.result.assess",
     cliCoordinate: "result assess",
-    adapterExitMap: RUNTIME_NONTERMINAL_ADAPTER_EXIT_MAP,
   }),
 );
 

@@ -30,3 +30,32 @@ separately accepted required native-kind additions selected for the same
 current Product must be composed into the one current profile before its
 publication. This design does not grant those additions or authorize a third
 accidental migration to compensate for omitted required kinds.
+
+Cut from `build_tenants/abiogenesis/typescript/design/T287_NATIVE_EVENT_CONTRACT_COMPATIBILITY_DESIGN.md` at commit `f921a1c1b`, lines 170-177, 188-192, verbatim.
+
+The exact witness owner performs one expected-prefix transaction: its ordinary
+Public admission and the profile reprice are L-valid, with the reprice last.
+All ordinary actor/authority/owner checks precede commitment. The native
+transaction accepts the transition only at the exact current prefix, once,
+with no in-flight effectful CCall/actor or concurrent acquired owner. A
+quiescent stopped or failed Run is not thereby resumed, completed or retried.
+A live/incomplete dispatch returns to its existing stop/continuation owner;
+compatibility cannot settle it by absence of a PID.
+
+Subsequent acquisition authenticates the returned P handoff against the full
+unchanged physical stream and its unique boundary. New P3 execution requires
+that active profile. A legacy-held store may admit only L-valid facts through
+its existing authorized owners; it can never admit the P3 arm or P envelope
+without this boundary. No in-memory boolean supplied by a caller can promote it.
+
+---
+
+Cut from `build_tenants/abiogenesis/typescript/design/T287_NATIVE_EVENT_CONTRACT_COMPATIBILITY_DESIGN.md` at commit `5c9df5056`, lines 9-9, 254-256, 262-262, verbatim.
+
+This refines [C2 forward re-entry](T287_C2_FORWARD_REENTRY_DESIGN.md) sections7 and9. Its forward-source, currentness, failure and effect limits remain binding. [Interrupted resource recovery](T287_INTERRUPTED_EVENT_RESOURCE_RECOVERY_DESIGN.md) separately owns abandoned acquisition; compatibility does not acquire or recover a resource.
+
+A generic two-digest allowlist is insufficient and is not selected. The source
+qualification includes the forward owner and preserved-construction recovery
+owner. If `abg/worksite_construction_recovery.ts` or another additional owner
+
+Preserve accepted forward HOW7. The native LeafPort captures the actual first

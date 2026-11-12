@@ -139,7 +139,7 @@ export async function setup(caller) {
     'constructDefaultGovernanceLibraryModulePublication', 'constructSelfConformanceModulePublication',
     'constructRequirementHandoffModulePublication', 'constructSemanticRevisionModulePublication',
     'constructSemanticStageModulePublication', 'constructWorksiteCommandExecutionModulePublication',
-    'constructWorksiteCommandForwardModulePublication', 'constructWorksiteConstructionModulePublication',
+    'constructWorksiteConstructionModulePublication',
     'constructNativeWorkspaceWorkModulePublication'];
   const publications = constructors.map(name => gtl[name]({...v, productManifestDigest: v.manifestDigest}));
   assert.deepEqual(publications.map(p => [p.moduleRef, product.modulePublicationSemanticDigest(p)]).sort(),
@@ -351,7 +351,7 @@ async function restoreSetup(caller, {originalRoot, old, started}) {
     'constructDefaultGovernanceLibraryModulePublication', 'constructSelfConformanceModulePublication',
     'constructRequirementHandoffModulePublication', 'constructSemanticRevisionModulePublication',
     'constructSemanticStageModulePublication', 'constructWorksiteCommandExecutionModulePublication',
-    'constructWorksiteCommandForwardModulePublication', 'constructWorksiteConstructionModulePublication',
+    'constructWorksiteConstructionModulePublication',
     'constructNativeWorkspaceWorkModulePublication'];
   const publications = constructors.map(name => gtl[name]({...v, productManifestDigest: v.manifestDigest}));
   assert.deepEqual(publications.map(p => [p.moduleRef, product.modulePublicationSemanticDigest(p)]).sort(),

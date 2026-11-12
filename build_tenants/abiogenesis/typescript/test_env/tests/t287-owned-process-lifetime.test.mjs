@@ -660,8 +660,8 @@ async function helperModule(t, control = false, overrides = {}) {
   await mod.link(async specifier => {
     // Relative owners load from the selected package; bare Effect modules resolve as package dependencies.
     const imported = { ...await import(specifier.startsWith('.') ? pathToFileURL(resolve(dirname(path), specifier)).href : specifier) };
-    if (control && specifier.endsWith('/worksite_command_forward.js')) {
-      imported.isExecutableWorksiteCommandTask = () => true; imported.executableWorksiteCommandSources = () => [];
+    if (control && specifier.endsWith('/worksite_revision.js')) {
+      imported.isWorksiteExecutionTask = () => true; imported.worksiteExecutionSources = () => [];
     }
     Object.assign(imported, overrides[specifier]);
     return new SyntheticModule(Object.keys(imported), function () {

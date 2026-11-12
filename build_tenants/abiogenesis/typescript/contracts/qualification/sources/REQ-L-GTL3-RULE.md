@@ -1,4 +1,4 @@
-# REQ-L-GTL3-RULE — Declarative Constraints And Gates
+# REQ-L-GTL3-RULE — Declarative Constraints
 
 **Status**: Active
 **Category**: Capability
@@ -18,9 +18,9 @@ boundary.
 
 **REQ-L-GTL3-RULE-002**: Rules are passive declarations. They describe what must hold, not how enforcement is performed.
 
-**REQ-L-GTL3-RULE-003**: The constitutional split shall remain: `Rule` = what must hold, `Evaluator` = what checks or attests convergence, `gate(...)` = the graph combinator that blocks or allows continuation.
+**REQ-L-GTL3-RULE-003**: The constitutional split shall remain: `Rule` = what must hold, `Evaluator` = what checks or attests convergence.
 
-**REQ-L-GTL3-RULE-004**: Rule configuration may carry opaque, policy-visible parameters for gate protocol, aggregation, ordering, or threshold concerns without turning GTL into a policy semantic language.
+**REQ-L-GTL3-RULE-004**: Rule configuration may carry opaque, policy-visible parameters for aggregation, ordering, or threshold concerns without turning GTL into a policy semantic language.
 
 **REQ-L-GTL3-RULE-005**: Engines may enforce declared rule protocol, but the underlying business, merge, ranking, or approval semantics remain outside the interpreter unless explicitly supplied through declarations and resolved implementations.
 

@@ -1,9 +1,7 @@
 import { rehydrateInvocationAdmissionAtPrefix } from "../abg/invocation_admission.js";
-import { lstat, readFile, readdir, readlink, realpath } from "node:fs/promises";
-import { resolve } from "node:path";
 
 import { type JsonValue } from "../shared/canonical_json.js";
-import { sha256Bytes, sha256Canonical } from "../shared/digests.js";
+import { sha256Canonical } from "../shared/digests.js";
 import { deepFreeze } from "../shared/immutable.js";
 import { projectCCallCarrierPhaseAtPrefix } from "../abg/c_call.js";
 import {
@@ -29,6 +27,7 @@ import {
   isWorksiteFileReplaceRequest,
   observeWorksiteSubject,
 } from "../product/index.js";
+import { walkTree } from "../product/tree_inventory.js";
 import type {
   FileWorksiteObservation,
   WorksiteFileReplaceReceipt,
@@ -186,59 +185,10 @@ export function unadmittedPhysicalCommit(
 }
 
 async function installedProductInventory(rootValue: string): Promise<JsonValue> {
-  const root = resolve(rootValue);
-  const rootStatus = await lstat(root);
-  if (root !== rootValue || rootStatus.isSymbolicLink() ||
-    !rootStatus.isDirectory() || await realpath(root) !== root) {
-    throw new TypeError("installed Product root must be one canonical concrete directory");
-  }
-  const rows: JsonValue[] = [];
-  const visit = async (directory: string, relativeDirectory: string): Promise<void> => {
-    const entries = await readdir(directory, { withFileTypes: true });
-    entries.sort((left, right) => left.name.localeCompare(right.name));
-    for (const entry of entries) {
-      const relativePath = relativeDirectory.length === 0
-        ? entry.name
-        : `${relativeDirectory}/${entry.name}`;
-      const path = resolve(directory, entry.name);
-      const status = await lstat(path);
-      if (status.isSymbolicLink()) {
-        const target = await readlink(path);
-        rows.push({
-          relativePath,
-          nodeKind: "symlink",
-          symlinkTarget: target,
-          byteLength: null,
-          digest: sha256Bytes(Buffer.from(target, "utf8")),
-          fileIdentity: `${status.dev}:${status.ino}:${status.nlink}`,
-        });
-      } else if (status.isDirectory()) {
-        rows.push({
-          relativePath,
-          nodeKind: "directory",
-          symlinkTarget: null,
-          byteLength: null,
-          digest: sha256Bytes(Buffer.from("directory", "utf8")),
-          fileIdentity: `${status.dev}:${status.ino}:${status.nlink}`,
-        });
-        await visit(path, relativePath);
-      } else if (status.isFile()) {
-        const bytes = await readFile(path);
-        rows.push({
-          relativePath,
-          nodeKind: "file",
-          symlinkTarget: null,
-          byteLength: bytes.byteLength,
-          digest: sha256Bytes(bytes),
-          fileIdentity: `${status.dev}:${status.ino}:${status.nlink}`,
-        });
-      } else {
-        throw new TypeError("installed Product inventory encountered a special node");
-      }
-    }
-  };
-  await visit(root, "");
-  return rows;
+  return walkTree(rootValue, {
+    rootRefusal: "installed Product root must be one canonical concrete directory",
+    specialNodeRefusal: "installed Product inventory encountered a special node",
+  });
 }
 
 function productConservationFailure(

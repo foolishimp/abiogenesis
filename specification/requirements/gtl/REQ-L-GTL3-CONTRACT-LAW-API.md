@@ -54,7 +54,7 @@ inspectable and traceable.
 
 **REQ-L-GTL3-CONTRACT-LAW-API-002**: Core graph algebra shall remain
 `edge`, `compose`, `substitute`, `recurse`, `fan_out`, `fan_in`,
-`gate`, `promote`, `identity`, and `same_object`. Host spellings may
+`promote`, `identity`, and `same_object`. Host spellings may
 vary only when carrier identity and law are preserved.
 
 **REQ-L-GTL3-CONTRACT-LAW-API-003**: A GTL program shall own topology, starts,

@@ -230,7 +230,7 @@ those budget facts without a cycle: liveness must not call an eligibility
 function that recursively calls liveness. Existing HoG retry/continuation paths
 execute only the selected native transition; they acquire no timer policy.
 
-Existing run/GraphCall status, replay, gaps and lawful-action projections expose
+Existing run/GraphCall status and replay projections expose
 the same referenced liveness/disposition. Publish one strict current-profile
 projection arm through the existing read operations, with full coverage/as-of
 and policy/evidence refs. No new Public operation is needed. Ordinary result/
@@ -260,16 +260,21 @@ Old L events/prefixes and uniform-L replay retain exact bytes and meanings.
 Missing old elapsed/probe facts are not backfilled. Historical interruption or
 liveness claims remain limited to evidence actually present. Current-P execution
 uses the declared probes; uniform-P and mixed replay carry the selected profile
-and exact schedule. Crossing profiles still requires the compatibility HOW's genuine native
-quiescent boundary and all existing W/install/reprice checks. New probes cannot
-be appended to an active L store merely because the new code can read it.
+and exact schedule. Crossing profiles requires the compatibility HOW's genuine
+native quiescent boundary and all existing W/install/reprice checks. A store on
+L takes no probe: probes are admitted only at the current profile
+(`admitNativeRuntimeLivenessEvent`, `abg/event_store.ts`), and a store on L
+admits no append but the reprice (`appendDurablyBatch`).
 
 [Interrupted event-resource recovery](T287_INTERRUPTED_EVENT_RESOURCE_RECOVERY_DESIGN.md)'s
-physical abandoned-acquisition recovery and run-stopped witness precede
-a profile upgrade where necessary. Liveness does not recover a lock, truncate a
-tail, mint a close handoff or infer a stop witness. P3's undispatched owner
-refusal remains a separate failure arm: no actor/probe evidence is fabricated
-for a CCall that never dispatched.
+physical abandoned-acquisition recovery (`recoverInterruptedEventStore`,
+`abg/event_store.ts`) adopts a store on L without appending and may precede its
+reprice. A run-stopped witness is an append, so on a store on L it is refused
+like any other append; a store on L whose leaf CCall has neither its judgment
+nor a `run_stopped` is not repriced (`assertRootEventProfileBoundary`).
+Liveness does not recover a lock, truncate a tail, mint a close handoff or infer
+a stop witness. P3's undispatched owner refusal remains a separate failure arm:
+no actor/probe evidence is fabricated for a CCall that never dispatched.
 
 Conserve the 4.6 pure positive and negative relations through current owners.
 Explicitly supersede two donor implementation details: positional event-array
@@ -280,7 +285,7 @@ These constraints implement the current requirements; the old code restriction i
 
 ### 6.1 Exact profile and historical boundary
 
-The frame occurrence reuses the existing closed probe payload and nullable frame scope. It changes no aggregate/event-kind census, envelope, payload key/variant or `ROOT_CURRENT_EVENT_PROFILE_REF`. Under the actual descriptor constructor and the accepted pilot profile law, its descriptor inputs therefore remain identical and the computed current D4 remains `sha256:3e8f2d4cb80c3c263c44fdadf6c23a46a5c510c3466f1f2cf31fe6016e01cc6a`. The inspected descriptor hashes those inputs, not implementation source or the EC table. That is the reason for retaining the profile identity, not an assumption that all observation changes are identity-neutral.
+The frame occurrence reuses the existing closed probe payload and nullable frame scope. It changes no aggregate/event-kind census, envelope, payload key/variant or profile ref. Under the actual descriptor constructor and the accepted pilot profile law, its descriptor inputs therefore remain identical and the computed current D4 remains `sha256:3e8f2d4cb80c3c263c44fdadf6c23a46a5c510c3466f1f2cf31fe6016e01cc6a`. The inspected descriptor hashes those inputs, not implementation source or the EC table. That is the reason for retaining the profile identity, not an assumption that all observation changes are identity-neutral.
 
 Occurrence-specific admission/effect handling completes the already-declared frame source; it does not change the result of any previously valid actor/CCall-only history. The corrected native declarations/effects publish through the ordinary successor implementation and contract publication, with new implementation identity and applicable proof; an equal profile digest is not equal code or qualification. Exact descriptor equality and historical projection equality are verified before relying on this choice. A new wire arm, discriminator, descriptor field, profile name or altered old-history meaning lies outside this HOW and returns to the profile HOW owner instead of silently retaining D4 or inventing a migration. L, retained D4 histories, locks, handoffs, original installs and unsupported-predecessor treatment remain untouched. No in-place continuation or upgrade is selected.
 

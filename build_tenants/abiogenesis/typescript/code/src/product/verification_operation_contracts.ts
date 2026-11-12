@@ -15,7 +15,6 @@ import {
   refSetSchema,
   refusalSchema,
   requestDependentAuthoritySlot,
-  TERMINAL_ONLY_ADAPTER_EXIT_MAP,
   typedResidualSetSchema,
   uniqueArray,
 } from "../shared/public_function_contracts.js";
@@ -134,7 +133,6 @@ const verify = ownerContractPacket(
     },
     sdkCoordinate: "sdk.product.verify",
     cliCoordinate: "product verify",
-    adapterExitMap: TERMINAL_ONLY_ADAPTER_EXIT_MAP,
   }),
 );
 

@@ -51,7 +51,11 @@ function decodedReplacement(file) {
   return file.replacementText ?? Buffer.from(file.replacementBase64, "base64").toString("utf8");
 }
 
-test("D5 authentic preserved Construction proposal through installed owners; genuine causal negatives refuse", { timeout: 117_000 }, async (t) => {
+// The limit comes from measured runs, not from one duration: alone on
+// 2026-11-12 the case took 118.4 to 121.5 s, about 40 s of it the install
+// setup, and in three whole-suite runs 114.6 to 118.0 s. 180 s is 1.5 times
+// the slowest of these.
+test("D5 authentic preserved Construction proposal through installed owners; genuine causal negatives refuse", { timeout: 180_000 }, async (t) => {
   const started = Date.now(), timings = {};
   const lap = label => { timings[label] = Date.now() - started; t.diagnostic(`D5_LAP ${label} ${timings[label]}`); };
   const environment = await setupD5RecoveryEnvironment(t, root);

@@ -35,7 +35,7 @@ import {
 } from "./environment_admission.js";
 import { projectOwnedPrefixArtifactTruth } from "./artifact_truth.js";
 import type { DurablePrefixCoordinate } from "./event_store.js";
-import { holdOperationBodies } from "./event_prefix.js";
+import { withOperationBodies } from "./event_prefix.js";
 import { ABG_PROJECT_READ_CONTRACTS, ABG_RUN_STOP_READING_SCHEMA } from "./project_read_operation_contracts.js";
 import { ABG_HISTORICAL_DECLARATION_PROOF_SCHEMA, isAbgTypedTerminalResult, type AbgHistoricalDeclarationProof } from "./terminal_result_contracts.js";
 import {
@@ -760,8 +760,7 @@ function runReadKernel<TPacket extends AnyReadPacket>(
       }
       const resource = acquired.resource;
       // The read owns the bodies it selects until it returns.
-      const releaseBodies = holdOperationBodies(resource.entryPrefix);
-      try {
+      return withOperationBodies(resource.entryPrefix, () => { try {
         const request = call.invocation.request;
         const source = sourceCoordinate(request);
         const basis = basisCoordinate(request);
@@ -879,9 +878,7 @@ function runReadKernel<TPacket extends AnyReadPacket>(
       } catch (cause) {
         abandonAbgEventResource(resource);
         throw cause;
-      } finally {
-        releaseBodies();
-      }
+      } });
     },
     catch: (cause) => {
       if (
@@ -930,8 +927,7 @@ function binding<TPacket extends AnyReadPacket>(
       }
       const resource = acquired.resource;
       // The read owns the bodies it selects until it returns.
-      const releaseBodies = holdOperationBodies(resource.entryPrefix);
-      try {
+      return withOperationBodies(resource.entryPrefix, () => { try {
         const request = call.invocation.request;
         const basis = basisCoordinate(request);
         if (
@@ -983,9 +979,7 @@ function binding<TPacket extends AnyReadPacket>(
       } catch (cause) {
         abandonAbgEventResource(resource);
         throw cause;
-      } finally {
-        releaseBodies();
-      }
+      } });
     },
     catch: (cause) => {
       if (

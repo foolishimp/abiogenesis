@@ -1213,18 +1213,3 @@ export function admitWitnessedAct<K extends WitnessAdmissionMemberKey>(
     );
   }
 }
-
-export const WitnessAdmissionPort = Object.freeze({
-  admit: admitWitnessedAct,
-});
-
-export const WITNESS_OPERATION_CONTRACTS = Object.freeze({
-  admit: Object.freeze({
-    reprice: WitnessAdmissionPort.admit,
-    attest: WitnessAdmissionPort.admit,
-    "hygiene-stamp": WitnessAdmissionPort.admit,
-    intake: WitnessAdmissionPort.admit,
-    "run-resumed": WitnessAdmissionPort.admit,
-    "run-stopped": WitnessAdmissionPort.admit,
-  }),
-});

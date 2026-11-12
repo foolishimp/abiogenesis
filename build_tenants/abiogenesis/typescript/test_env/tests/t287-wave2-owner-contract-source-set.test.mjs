@@ -638,7 +638,6 @@ test("the deeply frozen intrinsic family closes exact schemas and schema-free di
   assert.equal(family.keySetDigest, EXACT_OWNER_CONTRACT_KEY_SET_DIGEST);
   assert.deepEqual(Object.keys(family.definitions[0]).sort(), [
     "actorRequirement",
-    "adapterExitMap",
     "authorityClass",
     "authoritySlotRequirements",
     "capabilityRefs",

@@ -1,8 +1,5 @@
 export { ABI5_DEFAULT_LIBRARY_PRODUCT_SEMANTICS } from "./builtin_semantics.js";
 export * from "./default_library.js";
-export { isNativeRegisteredSelectionTask, isNativeRegisteredSelectionResponse,
-  nativeRegisteredSelectionResponseSchema, materializeNativeRegisteredChoice,
-  type NativeRegisteredSelectionTask, type NativeRegisteredSelectionTarget } from "./registered_selection_native.js";
 export {
   WORKSITE_COMMAND_EXECUTION_IDS,
   constructWorksiteCommandExecutionObservation,
@@ -141,11 +138,8 @@ export {
 export { installProduct, installedProductContentMatches } from "./install_product.js";
 export {
   admitInstalledProductInput,
-  hasInstalledPublicResultProjection,
   loadInstalledProductSemantics,
   projectInstalledLeafSemantics,
-  projectInstalledPublicResult,
-  supportsInstalledPublicResultProjection,
   validateInstalledInvocationBasis,
   type InstalledLeafSemanticsProjection,
   type InstalledProductSemanticsBasis,
@@ -571,8 +565,6 @@ export { WORKSITE_PRESERVED_RESULT_IDS, WORKSITE_PRESERVED_RESULT_IMPLEMENTATION
   preservedWorksiteTargetJoin, derivePreservedWorksiteCandidateBundle, resolveWorksitePreservedResultJudgmentRelation } from "./worksite_construction_recovery.js";
 export type { WorksitePreservedResultSource, WorksitePreservedResultArtifact, WorksitePreservedResultArtifactBody,
   WorksitePreservedSourceProof, PreservedProtocolRecord } from "./worksite_construction_recovery.js";
-export * from "./worksite_command_forward.js";
-export { isWorksiteCommandForwardObservation } from "./worksite_command_execution.js";
 
 export { NATIVE_WORKSPACE_WORK_IDS, constructNativeWorkspaceWorkTask, isNativeWorkspaceWorkTask,
   isNativeWorkspaceWorkObservation, isNativeWorkspaceWorkReport, isNativeWorkspaceWorkFailure, nativeWorkspaceWorkObservationMatchesTask,

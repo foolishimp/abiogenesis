@@ -66,7 +66,7 @@ function rc5RetainedRouteSource(product) {
       ["export const WORKFLOW_IDS = ids('workflow');", "export const WORKFLOW_IDS = ids('workflow');\nexport const RC5_RETAINED_IDS = Object.freeze({ ...ids('rc5-retained'), consumerNodeRef: ref('node','rc5-retained/consume') });"],
       ["export const contractKinds = Object.freeze({", "export const contractKinds = Object.freeze({\n  [RC5_RETAINED_BINDING.targetContractRef]:'retained_graph_input',"],
       ["export const LEAF_SPECS = Object.freeze({", "export const LEAF_SPECS = Object.freeze({\n  rc5Consumer:{ids:ids('rc5-retained/consume'),input:RC5_RETAINED_BINDING.targetContractRef,output:STRUCTURAL_IDS.outputContractRef,kind:'data_output'},"],
-      ["{cases=['atomic','compose','graph-edge','substitute','workflow','gate','recursion','fan-out','worker','retry','worker-deterministic','worker-compose']}={}", "{cases=['rc5-retained-route']}={}"],
+      ["{cases=['atomic','compose','graph-edge','substitute','workflow','recursion','fan-out','worker','retry','worker-deterministic','worker-compose']}={}", "{cases=['rc5-retained-route']}={}"],
       // The ABI worksite module owns T; the fixture only references it.
       ["const contract = (contractRef,contractKind,valueKind) => {if(", "const contract = (contractRef,contractKind,valueKind) => {if(contractRef===RC5_RETAINED_BINDING.targetContractRef)return;if("],
       ["  // One handle can belong to multiple finite test Programs, exactly as ordinary GTL.", `  if(cases.includes('rc5-retained-route')){

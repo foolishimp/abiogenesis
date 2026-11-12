@@ -16,7 +16,6 @@ import {
   refSetSchema,
   refusalSchema,
   requestDependentAuthoritySlot,
-  RUNTIME_NONTERMINAL_ADAPTER_EXIT_MAP,
   sourceBasisSchema,
 } from "../shared/public_function_contracts.js";
 
@@ -108,7 +107,7 @@ function runMetadata(member: "invoke" | "start") {
     ],
     capabilityRefs: capabilityRefsForDefinition({ operationId: "abg.operation.run.invoke", memberKey: member }),
     defaults: member === "start"
-      ? { fhMode: "direct", rootMode: "supervised" }
+      ? { fhMode: "direct", rootMode: "direct" }
       : {},
     closedDomains: member === "start"
       ? {
@@ -121,7 +120,6 @@ function runMetadata(member: "invoke" | "start") {
       : {},
     sdkCoordinate: "sdk.run.invoke",
     cliCoordinate: `run ${member}`,
-    adapterExitMap: RUNTIME_NONTERMINAL_ADAPTER_EXIT_MAP,
   });
 }
 
@@ -160,7 +158,7 @@ const start = ownerContractPacket(
     allowlist: refSetSchema,
     input: contractBoundValueSchema,
     fhMode: v.optional(v.picklist(["direct", "human-proxy"]), "direct"),
-    rootMode: v.optional(v.picklist(["direct", "supervised"]), "supervised"),
+    rootMode: v.optional(v.picklist(["direct", "supervised"]), "direct"),
     sourceBasis: sourceBasisSchema,
   }),
   runResultSchema("start"),
@@ -312,7 +310,6 @@ function continueContract<const TMember extends
       closedDomains: { continuationKind: [...kinds] },
       sdkCoordinate: "sdk.run.continue",
       cliCoordinate: `run continue --mode ${member}`,
-      adapterExitMap: RUNTIME_NONTERMINAL_ADAPTER_EXIT_MAP,
     }),
   );
 }

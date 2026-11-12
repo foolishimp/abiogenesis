@@ -1173,17 +1173,12 @@ function constructWorkspaceBindingWithSetCheck(
   roots: WorkspaceDeclaredRoots,
   checkSet: typeof isProductSet,
 ): EnvironmentRefusal | WorkspaceBindingCandidate {
+  // The admitted binding's string rule (`isExactWorkspaceBinding`) at its door
+  // (REQ-R-ABG3-BINDING-016). A refused authority string names the authority.
   if (
     !isWorkspaceAuthorityBasis(authority) ||
     !checkSet(productSet, lock) ||
-    // The admitted binding's string rule (`isExactWorkspaceBinding`) at its door.
-    ![
-      authority.workspaceId,
-      authority.authorityBasisId,
-      authority.authorizedActorRef,
-      productSet.productSetId,
-      lock.lockId,
-    ].every((field) => exactString(field)) ||
+    ![productSet.productSetId, lock.lockId].every((field) => exactString(field)) ||
     !isRecord(roots) ||
     !hasExactKeys(roots, [
       "archiveRoot",
@@ -1201,6 +1196,15 @@ function constructWorkspaceBindingWithSetCheck(
       "invalid_declared_root",
       "workspace authority, ProductSet, and every declared root must be exact",
     );
+  }
+  if (
+    ![
+      authority.workspaceId,
+      authority.authorityBasisId,
+      authority.authorizedActorRef,
+    ].every((field) => exactString(field))
+  ) {
+    return refusal("invalid_workspace_authority", "workspace authority fields must be explicit");
   }
   if (productSet.lockId !== lock.lockId || productSet.lockDigest !== lock.lockDigest) {
     return refusal("lock_mismatch", "workspace ProductSet and lock disagree");

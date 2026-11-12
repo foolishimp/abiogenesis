@@ -35,13 +35,13 @@ surface over ABG runtime truth.
 
 **REQ-R-ABG3-PROJECTION-010**: A structural assertion that a supplied projection is full shall validate row shape, deterministic identity, reason-class coverage, and retry-attempt coverage. Closure-critical consumers should prefer replay-derived projections or compare supplied projections against replay-derived truth.
 
-**REQ-R-ABG3-PROJECTION-011**: Public runtime summaries, CLI surfaces, and downstream consumer projections that describe traversal non-progress shall render the same admitted continuation disposition and `NextActionProjection`. A carrier may record process facts and `evaluateNext` may emit a candidate selection projection, but only ABG admission may make selection or continuation runtime truth; a projector shall decide neither. There shall be one authoritative admitted action truth for a given event stream and exact input basis.
+**REQ-R-ABG3-PROJECTION-011**: Public runtime summaries, CLI surfaces, and downstream consumer projections that describe traversal non-progress shall render the same admitted continuation disposition. A carrier may record process facts, but only ABG admission may make selection or continuation runtime truth; a projector shall decide neither. There shall be one authoritative admitted selection truth for a given event stream and exact input basis.
 
 **REQ-R-ABG3-PROJECTION-012**: Traversal modulation projection shall be deterministic over GTL qualifier truth, current basis, admitted schedule refs, admitted progress rows, backend progress classification, forced-review gates, and existing non-progress/foldback/reentry projections. Public summaries and downstream consumers shall not publish a rival next action for the same event stream.
 
 **REQ-R-ABG3-PROJECTION-013**: `HoldsAt` truth shall be derived by replay over admitted runtime events, declared Event Calculus effects, initial fluent truth, clipping, and derived-fluent rules. Projection modules may present read models over those fluents, but shall not own untraceable rival transition law.
 
-**REQ-R-ABG3-PROJECTION-014**: Temporal projection shall be a replay-derived read model over admitted timer, deadline-breach, and scheduled-continuation events. It may supply deadline-breach pressure and drift observations to `evalGap` and `evaluateNext`, but it shall not determine eligibility, select graph advancement, close vectors, or outrank admitted aggregate truth.
+**REQ-R-ABG3-PROJECTION-014**: Temporal projection shall be a replay-derived read model over admitted timer, deadline-breach, and scheduled-continuation events. It may supply deadline-breach pressure and drift observations as evaluation input, but it shall not determine eligibility, select graph advancement, close vectors, or outrank admitted aggregate truth.
 
 **REQ-R-ABG3-PROJECTION-015**: Schedule, SLA, and temporal drift shall feed a homeostatic projection/evaluation surface separate from traversal-completeness projection. Edge closure remains governed by existing ABG traversal and evaluator law.
 
@@ -59,15 +59,11 @@ surface over ABG runtime truth.
 observation projection over existing graph-function environment, workspace
 context, replay event refs, payload ledger refs, evidence refs, requirement
 refs, residual pressure refs, continuation refs, and span-lineage refs. This
-projection is an observation input to `evalGap` and the executive evaluator; it shall not emit
+projection is an observation input to the executive evaluator; it shall not emit
 runtime events, write ledgers, mutate the observed graph/workspace, or create a
 parallel observation/workspace ontology.
 
-**REQ-R-ABG3-PROJECTION-022**: ABG shall project admitted `ProductAssetModel`, `ObservationSnapshot`, `GapPressureRow`, `TargetObligationBinding`, `PriorityProjection`, `EdgeFulfillmentLedger`, `EdgeClosureDecision`, and `NextActionProjection` truth with their exact program, workspace-binding, execution-basis, lineage, causal input, and source refs. A projection shall not synthesize a missing source carrier or transfer authority among model synthesis, gap evaluation, next-action evaluation, and action evaluation.
-
-**REQ-R-ABG3-PROJECTION-023**: The public `project.read` family shall be a pure closed source/projection relation. In ABIogenesis 5.0 it may render catalog list/describe, status, result, evidence, replay, gaps, and lawful actions only from their owning admitted truth. It shall not evaluate gaps, determine action eligibility, rank or select actions, admit intent or evidence, invoke or continue work, append events, or decide closure. Observer-report, observer-drafts, and tuning-report projections, including tuning-draft transition exclusions, are reserved for the planned 5.1 observer/tuner Product.
-
-**REQ-R-ABG3-PROJECTION-024**: A newer `ObservationSnapshot` under the same immutable workspace binding and execution basis may invalidate and recompute dependent model, gap, target-binding, priority, and next-action projections. Projection shall treat that as ordinary observation progress, never as a workspace rebind or `basis_fork_detected`; an authority change remains governed by binding and continuation law.
+**REQ-R-ABG3-PROJECTION-023**: The public `project.read` family shall be a pure closed source/projection relation. In ABIogenesis 5.0 it may render catalog list/describe, status, result, evidence, and replay only from their owning admitted truth. It shall not evaluate or select work, admit evidence, invoke or continue work, append events, or decide closure. Observer-report, observer-drafts, and tuning-report projections, including tuning-draft transition exclusions, are reserved for the planned 5.1 observer/tuner Product.
 
 **REQ-R-ABG3-PROJECTION-025**: Established projection facts shall be reusable
 under their exact subject, basis, scope, provenance and validity conditions.

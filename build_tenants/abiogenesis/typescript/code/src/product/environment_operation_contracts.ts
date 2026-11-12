@@ -27,7 +27,6 @@ import {
   refDigestSchema,
   refSetSchema,
   refusalSchema,
-  TERMINAL_ONLY_ADAPTER_EXIT_MAP,
   typedResidualSetSchema,
   uniqueArray,
 } from "../shared/public_function_contracts.js";
@@ -422,7 +421,6 @@ const resolve = ownerContractPacket(
     closedDomains: {},
     sdkCoordinate: "sdk.product.resolve",
     cliCoordinate: "product resolve",
-    adapterExitMap: TERMINAL_ONLY_ADAPTER_EXIT_MAP,
   }),
 );
 
@@ -496,7 +494,6 @@ const bind = ownerContractPacket(
     },
     sdkCoordinate: "sdk.workspace.bind",
     cliCoordinate: "workspace bind",
-    adapterExitMap: TERMINAL_ONLY_ADAPTER_EXIT_MAP,
   }),
 );
 
