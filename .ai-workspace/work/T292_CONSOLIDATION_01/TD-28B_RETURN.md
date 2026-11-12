@@ -4,7 +4,7 @@ Writer: Claude Opus 5.5. Branch `claude/td28b-retire-native-registered-selection
 from local `main` at `4274cf66f`, worktree `/private/tmp/abg-td28b`. Change
 class: product_reprice (TD-28 ruling, 2026-11-12). No push, no tag.
 
-**Status: complete.** The native registered-selection task route is retired: 238 source lines are removed (7 added), the retired shape is refused at every Program door with existing codes, every lane on kept behaviour is unchanged on base and final, and replay and artifact truth are identical over 31 logs. No stop condition. Three deviations await acceptance (section 15).
+**Status: complete.** The native registered-selection task route is retired. 238 source lines are removed and 7 added. The retired shape is refused at every Program door with existing codes. Every lane on kept behaviour is unchanged between base and final. Replay and artifact truth are identical between the builds over 31 logs: rc.12 and 2 of the 19 default-library logs replay fully, and 21 logs refuse decoding identically on both builds. No stop condition. Four items await acceptance (section 15).
 
 `T` = `build_tenants/abiogenesis/typescript`. Scratch, probes and TAP output:
 `/private/tmp/abg-td28b-work/`.
@@ -732,6 +732,20 @@ For the Executive to accept or rule:
    - Case `:122` drops its claim on the native role data.
    - Case `:172` observes the run environment over the default library's
      `executive-step` instead of the native-selector Program (section 8).
+4. **Replay coverage of the default-library logs.**
+   - Of the 19 default-library logs:
+     - 2 replay fully and are identical;
+     - 3 decode, with one Run replay refused identically;
+     - 14 refuse decoding on both builds at the event-stamp profile ("event
+       stamp differs from the exact native profile schedule"). So do both route
+       logs.
+   - For those 14 logs, the comparison shows only that the refusal is
+     unchanged. The kept-path proof therefore rests on the rc.12 Run, those 2
+     logs and the lanes of section 10.
+   - The refusal precedes this package. The logs come from `5.0.0-rc.1`-era
+     builds (`20260928_FRAMED_GOVERNANCE`), and TD-25M, TD-27 and TD-28C record
+     the same base refusal for logs of those builds (for example TD-27 section 2
+     and TD-28C section 2).
 
 Residuals:
 - **Qualification mirrors.** `inventory.json`, `verification-recipe.json`,
@@ -739,13 +753,6 @@ Residuals:
   deleted files, the deleted `t287-native-selection-profile-scope` command and
   the native `.d.ts`/`.js` outputs (section 1.6). They are not edited; the next
   qualification regenerates them.
-- **Replay coverage of the default-library logs.** On both builds, 14 of the 19
-  default-library logs and both route logs refuse decoding at the event-stamp
-  profile ("event stamp differs from the exact native profile schedule"), and 3
-  more refuse one Run replay. For those logs, the replay comparison shows only
-  that the refusal is unchanged. Full replay is compared on the rc.12 Run and on
-  2 default-library logs. The refusals precede this package; they are present at
-  `4274cf66f`.
 - **Line numbers in map 6.4.** The map lists the recursive test's kept cases as
   `:26, 55, 163, 406, 505`. At head they are at `:26, 102, 209, 376, 475`, and the
   new refusal lane is at `:73`.
@@ -761,4 +768,5 @@ Residuals:
 | `08da4d68c` | Design: native note to history, kept passages restated |
 | `a4be7c33a` | Code: route removed |
 | `a74071fa5` | Tests: recursive fixture on the kept F_D selector, refusal lane, vehicles |
-| (this commit) | This Return |
+| `327a419e7` | This Return |
+| (this commit) | Return: status line states replay coverage; replay coverage moves to the rulings |
