@@ -138,7 +138,7 @@ for(const mode of ['leaf','workflow']) test(`ordinary ${mode} judgment receives 
       input,leafPort:port,clock:{correlationId:'component'},ordinal:1,predecessorPrefix:prior})),/judgment admission boundary/);};
   }else{
     overrides['../abg/c_call.js']={resolveWorkflowFailureContract:()=> 'contract://failure',
-      prepareWorkflowChildFoldback:()=>({intent:null,admit:()=>({kind:'child_foldback_admission',successorPrefix:prior})})};
+      prepareWorkflowChildFoldback:()=>({admit:()=>({kind:'child_foldback_admission',successorPrefix:prior})})};
     const owner=await privateOwner('hog/workflow_lifecycle.js',[],overrides);
     invoke=()=>assert.throws(()=>owner.completeWorkflowLocus({authority:{leafPort:port,correlationId:'component'},
       parentCCall:cCall,cursor:{inputDigest:sha256Canonical(input)},workflowTerm:{outputCarrierRef:'contract://output'},value:input,ordinal:1},
