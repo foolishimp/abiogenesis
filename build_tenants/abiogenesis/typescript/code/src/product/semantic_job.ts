@@ -8,6 +8,7 @@ import { constructNativeWorkspaceWorkTask, isNativeWorkspaceWorkTask, isNativeWo
 import { constructNativeWorksiteCommandExecutionTask, boundWorksiteCommandDeclarations, isNativeWorksiteCommandExecutionTask, isNativeWorksiteCommandExecutionObservation,
   type NativeWorksiteCommandExecutionTask, type WorksiteCommandAmbientEnvironment } from "./worksite_command_execution.js";
 import * as v from "valibot";
+import { recordSchema } from "../shared/public_function_contracts.js";
 import type { JsonValue } from "../shared/canonical_json.js";
 import { canonicalJson } from "../shared/canonical_json.js";
 import { sha256Bytes, sha256Canonical, type Sha256Digest } from "../shared/digests.js";
@@ -72,11 +73,11 @@ export type SemanticJobInput = {
     readonly executableCapabilities: readonly SemanticJobExecutionCapability[] };
 };
 const executionCapabilitySchema = v.strictObject({ executable: ref, relativeCwdRoots: v.pipe(refs, v.minLength(1)),
-  environment: v.record(v.string(), v.string()), maxTimeoutMs: positive, maxTerminationGraceMs: nonnegative });
+  environment: recordSchema(v.string(), v.string()), maxTimeoutMs: positive, maxTerminationGraceMs: nonnegative });
 export const SEMANTIC_JOB_INPUT_SCHEMA = v.strictObject({ kind: v.literal("semantic_job_input"), schemaVersion: v.literal("5.0.0"),
   lifecycleRef: ref, sourceRoleRef: ref,
   members: v.pipe(v.array(v.strictObject({ memberRef: ref, path: ref, sourceLocator: ref, base64: v.string() })), v.minLength(1)),
-  taskData: v.record(v.string(), v.unknown()), evaluationData: v.record(v.string(), v.unknown()),
+  taskData: recordSchema(v.string(), v.unknown()), evaluationData: recordSchema(v.string(), v.unknown()),
   worksiteScope: v.strictObject({ readRoots: v.pipe(refs, v.minLength(1)), writeRoots: v.pipe(refs, v.minLength(1)),
     parentWriteRoots: refs, evidenceWriteRoots: v.pipe(refs, v.minLength(1)),
     executableCapabilities: v.pipe(v.array(executionCapabilitySchema), v.minLength(1)) }) });
@@ -149,7 +150,7 @@ const bindingCandidateSchema = v.strictObject({ requirement: v.strictObject({ ki
   previousVersionRef: v.nullable(ref), templateRef: ref, scope: ref, realizationMeaning: v.pipe(refs, v.minLength(1)),
   proofMeaning: v.pipe(refs, v.minLength(1)), unprovedScope: refs, closureRule: ref, requiredContent: refs });
 const commandSchema = v.strictObject({ commandId: ref, executable: ref, args: v.array(v.string()), relativeCwd: ref,
-  environment: v.record(v.string(), v.string()), timeoutMs: positive, terminationGraceMs: positive,
+  environment: recordSchema(v.string(), v.string()), timeoutMs: positive, terminationGraceMs: positive,
   expectedReports: v.array(v.strictObject({ reportIdentity: ref, relativePath: ref })) });
 const designSchema = v.strictObject({ targets: v.pipe(v.array(v.strictObject({ relativePath: ref,
   role: v.picklist(["implementation", "verifier", "configuration"]), obligationRefs: refs, bindingVersionRefs: refs, changeInstruction: ref })), v.minLength(1)),

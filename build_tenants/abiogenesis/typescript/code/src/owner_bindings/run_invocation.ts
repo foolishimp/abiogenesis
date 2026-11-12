@@ -124,6 +124,7 @@ import {
   digestSchema,
   jsonValueSchema,
   nonblankSchema,
+  recordSchema,
   refDigestSchema,
   type OwnerSemanticOutput,
 } from "../shared/public_function_contracts.js";
@@ -445,10 +446,10 @@ const VERIFIED_PRODUCT_SCHEMA = v.strictObject({
   publicContractRefs: REF_ARRAY_SCHEMA,
   publicCapabilityRefs: REF_ARRAY_SCHEMA,
   definitionContractCoordinates: v.nullable(
-    v.record(v.string(), jsonValueSchema),
+    recordSchema(v.string(), jsonValueSchema),
   ),
   checkedPayloadFiles: v.pipe(v.number(), v.safeInteger(), v.minValue(0)),
-  nativeDeclarationEvidence: v.record(v.string(), jsonValueSchema),
+  nativeDeclarationEvidence: recordSchema(v.string(), jsonValueSchema),
 }) as unknown as v.GenericSchema<
   VerifiedProductArtifact,
   VerifiedProductArtifact
@@ -562,12 +563,9 @@ const READY_GRAPH_FUNCTION_CATALOG_SCHEMA = v.strictObject({
   basisDigest: digestSchema,
   publicationDigests: v.array(digestSchema),
   entries: v.array(GRAPH_FUNCTION_CATALOG_ENTRY_SCHEMA),
-  byHandle: v.record(v.string(), GRAPH_FUNCTION_CATALOG_ENTRY_SCHEMA),
+  byHandle: recordSchema(v.string(), GRAPH_FUNCTION_CATALOG_ENTRY_SCHEMA),
   declarationEntries: v.array(DECLARATION_CATALOG_ENTRY_SCHEMA),
-  declarationsByHandle: v.record(
-    v.string(),
-    DECLARATION_CATALOG_ENTRY_SCHEMA,
-  ),
+  declarationsByHandle: recordSchema(v.string(), DECLARATION_CATALOG_ENTRY_SCHEMA),
   readinessBasisDigest: digestSchema,
   workspaceBindingId: nonblankSchema,
   workspaceBindingDigest: digestSchema,
@@ -594,12 +592,9 @@ const GRAPH_FUNCTION_CATALOG_VIEW_SCHEMA = v.strictObject({
   catalogBasisDigest: digestSchema,
   allowlist: v.array(nonblankSchema),
   entries: v.array(GRAPH_FUNCTION_CATALOG_ENTRY_SCHEMA),
-  byHandle: v.record(v.string(), GRAPH_FUNCTION_CATALOG_ENTRY_SCHEMA),
+  byHandle: recordSchema(v.string(), GRAPH_FUNCTION_CATALOG_ENTRY_SCHEMA),
   declarationEntries: v.array(DECLARATION_CATALOG_ENTRY_SCHEMA),
-  declarationsByHandle: v.record(
-    v.string(),
-    DECLARATION_CATALOG_ENTRY_SCHEMA,
-  ),
+  declarationsByHandle: recordSchema(v.string(), DECLARATION_CATALOG_ENTRY_SCHEMA),
   viewDigest: digestSchema,
 }) as unknown as v.GenericSchema<
   GraphFunctionCatalogView,
