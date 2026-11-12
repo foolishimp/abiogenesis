@@ -90,6 +90,14 @@ export function retainExecutionBasisLifetime(coordinate: DurablePrefixCoordinate
   const history = activeRuntimeHistoryAtDurablePrefix(coordinate);
   return history === undefined ? () => {} : history.retainBasis(invocationRef);
 }
+/** @internal §10.12 O1 lifetime, read operations: one read or admission
+ * operation's hold on the bodies it selects from the active held history of
+ * its acquired coordinate. The returned release is that operation's
+ * finalizer. A cold, closed or copied coordinate opens nothing. */
+export function holdOperationBodies(coordinate: DurablePrefixCoordinate): () => void {
+  const history = activeRuntimeHistoryAtDurablePrefix(coordinate);
+  return history === undefined ? () => {} : history.holdOperationBodies();
+}
 /** @internal §10.12 O1: the store history whose open scopes may retain a basis
  * row of this owned cut; an array, copied or validation prefix has none. */
 export function runtimePrefixBasisRetention(prefix: RuntimeEventPrefix): RuntimeHistory | undefined {
