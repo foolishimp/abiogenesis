@@ -20,3 +20,16 @@ Cut from `build_tenants/abiogenesis/typescript/design/ABI5_COMMON_COMPUTATIONAL_
 profile and raw transport callers, and W keeps the unwitnessed per-chunk
 stdout variant for direct stream owners; an actor window row always carries its
 witness.
+
+---
+
+Cut from `build_tenants/abiogenesis/typescript/design/ABI5_COMMON_COMPUTATIONAL_CAPABILITY_LIBRARY_DESIGN.md` at commit `a7c12fab5`, lines 1098-1105, verbatim (TD-51b: the operation hold has one owner).
+
+For a read or admission operation that consumer is the whole operation:
+`runReadKernel` and `binding` (`project_read_definition_bindings.ts`) and
+`witnessOwner` (`witness_definition_bindings.ts`) open one operation hold
+(`holdOperationBodies`) right after acquiring the resource and release it in
+`finally`, so a body the operation selects is read from its location and
+authenticated once, and the last release drops it. Rollback and physical close
+dispose the operation hold too; it is not O1 retention, no O1 gauge counts it,
+and `t287-held-operation-bodies.test.mjs` measures its physical body reads.

@@ -1095,14 +1095,20 @@ and a later continuation reacquires from admitted history. Historical, replay
 and cold reads, an old retained prefix and a reopened resource open no handle,
 so they never mint retention; without a handle the row is checked cold and the
 history keeps its basis body only in the consumer-local selected-body map.
-For a read or admission operation that consumer is the whole operation:
-`runReadKernel` and `binding` (`project_read_definition_bindings.ts`) and
-`witnessOwner` (`witness_definition_bindings.ts`) open one operation hold
-(`holdOperationBodies`) right after acquiring the resource and release it in
-`finally`, so a body the operation selects is read from its location and
-authenticated once, and the last release drops it. Rollback and physical close
-dispose the operation hold too; it is not O1 retention, no O1 gauge counts it,
-and `t287-held-operation-bodies.test.mjs` measures its physical body reads.
+For an operation whose body is one synchronous stack that consumer is the
+whole operation. The operation hold has one owner, `withAbgOperationHold`
+(`definition_event_resource.ts`). The operation runs its body through it with
+the resource it acquired or was handed. The hold on that resource's active
+history (`holdOperationBodies`) opens before the body, and the release runs
+when the body returns or throws. That return is where the operation ends, for
+a reopened resource and for a borrowed one alike. A body the operation selects
+is read from its location and authenticated once, and the last release drops
+it. The ABG reads (`runReadKernel`, `binding`), the witness admission
+(`witnessOwner`), the release evidence read (`releaseReadOwner`) and the
+workspace binding (`bind`) run through it. An operation whose body awaits
+opens no hold. Rollback and physical close dispose the operation hold too; it
+is not O1 retention, no O1 gauge counts it, and
+`t287-held-operation-bodies.test.mjs` measures its physical body reads.
 Rollback (`RuntimeHistory.truncate`) and physical close or abandonment
 (`releaseDurableOwnership`) dispose every handle and retained root of that
 history; a disposed handle releases nothing and cannot re-register. Active
