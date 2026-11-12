@@ -9,8 +9,7 @@
     "node": ">=20"
   },
   "bin": {
-    "abg.cli": "./build/code/src/public/cli.js",
-    "abg.codex": "./build/code/src/public/codex_cli.js"
+    "abg.cli": "./build/code/src/public/cli.js"
   },
   "exports": {
     ".": {

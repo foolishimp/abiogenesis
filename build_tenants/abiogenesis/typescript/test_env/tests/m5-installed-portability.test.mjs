@@ -1,5 +1,5 @@
 import assert from "node:assert/strict";
-import { readFile } from "node:fs/promises";
+import { access, readdir, readFile } from "node:fs/promises";
 import { join } from "node:path";
 import test from "node:test";
 
@@ -424,28 +424,20 @@ test("S06 catalog applications are pure reconstructible values", async (context)
   assert.equal(wrongKind.code, "kind_mismatch");
 });
 
-test("S06 Codex delegate and flavored Product keep their public boundaries", async () => {
-  const delegateSource = await readFile(
-    join(packageRoot, "code/src/public/codex_cli.ts"),
-    "utf8",
+test("S06 the installed package links abg.cli as its only command", async (context) => {
+  const harness = await setupInstalledCliHarness(context, packageRoot);
+  assert.deepEqual(Object.keys(harness.packageJson.bin), ["abg.cli"]);
+  const linked = (await readdir(join(harness.cliHost, "node_modules/.bin")))
+    .filter((name) => name.startsWith("abg."));
+  assert.deepEqual(linked, ["abg.cli"]);
+  await access(harness.cliPath);
+  await assert.rejects(
+    access(join(harness.cliHost, "node_modules/.bin/abg.codex")),
+    { code: "ENOENT" },
   );
-  assert.doesNotMatch(
-    delegateSource,
-    /(?:from\s+["'][.]{2}\/(?:abg|gtl|hog|implementation|product|public|validator)\/|import\s*\(|require\s*\()/u,
-  );
-  assert.doesNotMatch(
-    delegateSource,
-    /GraphFunction|catalog\.apply|run\.invoke|continuation|closure/u,
-  );
-  assert.match(
-    delegateSource,
-    /spawn\(installedCliPath,\s*\["--jsonl", transcriptPath\]/u,
-  );
-  assert.doesNotMatch(
-    delegateSource,
-    /spawn\(cliPath,/u,
-  );
+});
 
+test("S06 flavored Product keeps its public boundaries", async () => {
   const flavoredRuntimeSource = await readFile(
     join(
       packageRoot,
