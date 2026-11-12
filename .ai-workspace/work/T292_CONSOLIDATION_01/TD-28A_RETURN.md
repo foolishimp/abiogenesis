@@ -5,14 +5,14 @@ local `main` at `b13bdd5c2`, worktree `/private/tmp/abg-td28a`. Change class:
 product_reprice (owner decision of 2026-11-12, register entry TD-28). No push,
 no tag.
 
-**Status: items 1 and 3 done; item 2 done and stands only if the Executive
-accepts ruling 1 (section 14).** Four kept requirements stated the
-row-owned exit classification; I amended them rather than stopping, which is a
-stop condition of the rules read strictly. If ruling 1 is refused, item 2 is
-exactly `c615c2f4d`, `8536afeca` and `764e758a8`, and reverting those three
-applies cleanly (checked) and leaves items 1 and 3 standing. `code/src` +2 −169.
-Lanes are unchanged before and after apart from the two new refusal checks;
-replay and artifact truth over recorded stores are identical on both builds.
+**Status: items 1, 2 and 3 done. Ruling 1 accepted: the four row-owned exit
+clauses go with the retired metadata, and `REQ-P-POLICY-022` states the CLI's
+exit classification once, for every operation (section 3).** Each of the five
+exit values has its condition, its code site and a lane that observes it
+(section 15); exit `3` had no observer and gains one assertion. `code/src` +2
+−169, unchanged by the ruling. Lanes are unchanged before and after apart from
+the two new refusal checks and the exit `3` check; replay and artifact truth
+over recorded stores are identical on both builds.
 
 T = `build_tenants/abiogenesis/typescript`. Line numbers are at `b13bdd5c2`.
 
@@ -178,13 +178,63 @@ retired code to decode or replay (section 10).
 | 2 | `REQ-P-POLICY-020` | drops "exit semantics, " from the per-operation declaration |
 | 2 | `REQ-P-POLICY-039` | "publish exact request, result, refusal, and provenance contracts" (drops "exit") |
 | 2 | `REQ-P-POLICY-064` | "mutation class, typed refusals, and disposition." (drops "adapter exit classification") |
+| 2, ruling 1 | `REQ-P-POLICY-022` | extended with the CLI's exit classification, quoted below |
 | 3 | none | the residue had no specification |
 
-Identifiers are unchanged. Kept: `REQ-P-POLICY-022` (SDK and CLI preserve the
-same exit classification; it holds through the one runner),
-`REQ-P-POLICY-015`, `-045`, `REQ-P-QUAL-063`, `-066`, `REQ-P-SCENARIOS-013`,
-`PRODUCT.md:1231` and `:1471-1472` (general host-adapter law and the reserved
-5.1 Codex parity claim, which hold with no adapter present).
+`REQ-P-POLICY-022` keeps its two sentences and gains this one
+(`specification/requirements/product/REQ-P-POLICY.md:160-170`):
+
+> The SDK returns the outcome that the CLI writes and sets no process exit
+> status; the CLI's exit status classifies that outcome by one rule for every
+> operation: `0` when the owning semantic function returns its terminal result;
+> `1` when it returns its typed refusal; `2` when the CLI's arguments do not name
+> one request file, the file does not hold one exact transport request, the
+> transport refuses the call, or reading the file, carrying the call or encoding
+> its outcome fails; `3` when the owning semantic function returns a non-terminal
+> outcome, which only an operation that declares a non-terminal contract can
+> return; and `70` when the operation's execution fails with a typed execution
+> fault, including an owner output that its contract does not admit, or with a
+> defect or interruption.
+
+Line numbers from here to the end of this section are at `5ca60bd9b`. The
+values and conditions come from the code at head (section 15). They agree
+with the retired maps: `acceptedTerminal` 0, `refused` 1, `invalidInvocation`
+2, `acceptedNonTerminal` 3 exactly for the 10 definitions that declare a
+non-terminal contract, `adapterFailure` 70 (the retired design gave 70 to a
+contract-invalid owner output, which head realizes as the typed fault
+`invalid_owner_output`). The code is wider than the Return's earlier summary
+of exit `2` in one respect: `public/cli.ts:135-140` catches any failure while
+reading the file, carrying the call or encoding the outcome, so the sentence
+names those three.
+
+A non-terminal output from an operation without a non-terminal contract does
+not reach exit `3`: `validatedOwnerOutput`
+(`public/binding/definition_binding_mechanics.ts:106-117`) admits the
+`nonterminal` member only when the packet's `nonTerminalSchema` is not null,
+and a rejected output is the fault `invalid_owner_output`
+(`public/binding/static_definition_bindings.ts:157-171`), exit `70`.
+
+The SDK (`runInstalledDefinitionCallTransport`, `./public`) returns the
+transport refusal or the transport result whose host receipt carries `exitCode`
+0, 1, 3 or 70 as data; the CLI writes that outcome as one JSON line
+(`public/cli.ts:126-128`) and sets the process status from it. The SDK sets no
+process status, so the requirement's equivalence sentence holds.
+
+Second statements of CLI exit behaviour: none. `PRODUCT.md` "SDK And CLI"
+(`:1009-1055`) and the Hello root path (`:1571-1598`), `REQ-P-POLICY-044`,
+`-063`, `-068` and that file's Public Operation Acceptance list
+(`REQ-P-POLICY.md:601-623`, "obtain equivalent typed dispositions from the SDK
+and CLI") state no exit status.
+`REQ-P-QUAL-005`, `-006`, `REQ-R-ABG3-TRANSPORT-003`, `-014`, `-021`,
+`REQ-R-ABG3-EVENTS-014` and `REQ-R-ABG3-PROJECTION-007` name nonzero exits of
+worker and actor processes, not of the CLI. `INTENT.md` and `scenarios/` name
+none; `GOALS.md` names exits only in dated history entries. Nothing conflicts
+with the new sentence.
+
+Identifiers are unchanged. Kept: `REQ-P-POLICY-015`, `-045`, `REQ-P-QUAL-063`,
+`-066`, `REQ-P-SCENARIOS-013`, `PRODUCT.md:1231` and `:1471-1472` (general
+host-adapter law and the reserved 5.1 Codex parity claim, which hold with no
+adapter present).
 
 ## 4. Design
 
@@ -201,6 +251,7 @@ block headed "Cut from `<note>` at commit `<c>`, lines …, verbatim.".
 | 3 | `M05_S06_PUBLIC_FUNCTION_…` | 644 at `db93b3c50` | `admitWitnessedAct` (`abg/witness_admission_operation.ts`) |
 | 2 | `M05_S06_PUBLIC_FUNCTION_…` | 68, 108, 188, 379, 475, 861, 1863-1864, 2134-2135, 2140-2141, 2148-2150, 2245-2266 (adapter profiles), 2270-2289 (table with the "Adapter profile" column), 3342 at `c615c2f4d` | exit codes come from `runExactDefinition` (`shared/effect_definition.ts`: 0, 1, 3, 70) and `public/cli.ts` (2 on transport refusal); the projection refusal has no producer at head, a contract-invalid owner output is the fault `invalid_owner_output` (`public/binding/static_definition_bindings.ts`), exit 70; the §4.6 table keeps its other columns |
 | 2 | `M05_S06_AXIOMATIC_…` | 2143-2146 at `c615c2f4d` | the same restatement |
+| 2, ruling 1 | `M05_S06_PUBLIC_FUNCTION_…` | none | `:2152-2153` adds "`REQ-P-POLICY-022` states this exit classification."; `:2248-2254` reads "SDK and CLI expose the same outcome, and the CLI's exit status classifies it as `REQ-P-POLICY-022` states", then the receipt's `exitCode` (`runExactDefinition`) or `2` on a transport refusal, a request it cannot read, decode or submit, or an outcome it cannot encode (`public/cli.ts`). The replaced wording was this branch's own (`8536afeca`), not base text, so nothing goes to history. The traceability row `:108` already names `REQ-P-POLICY-022`. |
 
 Constitution passages listed, not edited (`T/design/ABI5_REALIZATION_CONSTITUTION.md`):
 `:1630` ("adapter exit `70`"), `:1936` (`WitnessAdmissionPort.admit` as the
@@ -213,9 +264,9 @@ Constitution passages listed, not edited (`T/design/ABI5_REALIZATION_CONSTITUTIO
 | Surface | Added | Removed |
 | --- | ---: | ---: |
 | `T/code/src` | 2 | 169 |
-| `T/test_env` | 32 | 23 |
-| `specification` | 6 | 8 |
-| `T/design` kept notes | 77 | 111 |
+| `T/test_env` | 54 | 27 |
+| `specification` | 17 | 8 |
+| `T/design` kept notes | 81 | 111 |
 | `T/design/history` | 179 | 0 |
 | `T/package.json`, `T/package-lock.json` | 2 | 4 |
 
@@ -277,6 +328,17 @@ Test edits:
   3 where the SDK member has a non-terminal schema, else `null`).
 - `t287-wave2-owner-contract-source-set.test.mjs`: `"adapterExitMap"` dropped
   from the exact definition key list.
+- `t287-required-operation-bindings.test.mjs` (ruling 1): new subtest "a retry
+  assessment is the declared non-terminal outcome: the installed CLI exits 3
+  and admits one assessed event" (`:219-235`). `result.assess` declares a
+  non-terminal contract; the request's assessment value has disposition
+  `retry`, `closureEligible` false and one typed residual. The subtest passes
+  `expectedExitCode: 3` to `runInstalledCliRequest`, so the installed CLI's
+  process status is asserted, and asserts `receipt.exitCode` 3, the
+  `nonterminal` outcome and one appended `assessed` event. To reach it,
+  `assessRequest` takes an optional decision (default: the earlier admitted
+  value, unchanged) and `run` an optional expected exit code (default `null`,
+  as before). No existing assertion changes.
 
 Both new refusal checks fail on the base build for the intended reason, run as
 scratch copies against base: the m5 lane fails at `Object.keys(bin)`
@@ -311,6 +373,14 @@ manifest locators for item 1).
 Generated files were restored after every build (`git checkout -- contracts
 product-toolchain-manifest.json test_env/fixtures/abi5-root-candidate-basis.json`).
 
+Ruling 1 moves no identity. The build at the ruling's test commit
+(`5ca60bd9b`) generates `T/contracts` identical to the item 2 final build
+(`diff -rq` against `/private/tmp/abg-td28a-work/contracts-final`: no
+difference) and a byte-identical `product-toolchain-manifest.json` (`cmp`
+against `manifest-final.json`). The Final column above stands:
+`npm run build` does not mirror requirement text into the generated contracts
+or the manifest.
+
 Qualification mirrors, not edited. Rows that no longer match:
 
 - `test_env/qualification/inventory.json` and
@@ -324,6 +394,18 @@ Qualification mirrors, not edited. Rows that no longer match:
 - `recipe/expected-output-inventory.json`: `:511-512`
   (`build/code/src/public/codex_cli.d.ts`, `.js`) name deleted outputs; the
   `package.json` row and the rebuilt outputs and contracts carry base digests.
+- The qualification authority mirror `T/contracts/qualification/sources/`:
+  `PRODUCT.md`, `REQ-P-POLICY.md` and `REQ-P-PUBLIC-CONTRACTS.md` there equal
+  the base specification byte for byte and now differ from the branch's
+  (items 1 and 2 and ruling 1). `npm run build` does not stage them; they are
+  staged by `scripts/generate-qualification-rule-catalog.mjs
+  --stage-authorities <repo> <release>`. The recipe lists
+  `contracts/qualification/sources/REQ-P-POLICY.md` (`verification-recipe.json:1398`)
+  and `expected-output-inventory.json:908` pins its base digest. Not edited.
+- Ruling 1 also changes the digests of
+  `design/M05_S06_PUBLIC_FUNCTION_AND_NATIVE_OCCURRENCE_CLOSURE_DESIGN.md`
+  (recipe `:2674`) and `test_env/tests/t287-required-operation-bindings.test.mjs`
+  (recipe `:4218`).
 
 ## 8. Commits
 
@@ -340,7 +422,11 @@ On `claude/td28a-codex-cli-and-exit-metadata`, oldest first:
 | `c615c2f4d` | item 2, specification |
 | `8536afeca` | item 2, design |
 | `764e758a8` | item 2, code and tests |
-| the next commit | this Return |
+| `ba25c3521` | this Return, subject to ruling 1 |
+| `bafaabe78` | ruling 1, specification (`REQ-P-POLICY-022`) |
+| `0cf62af12` | ruling 1, design (the two exit-code passages cite `REQ-P-POLICY-022`) |
+| `5ca60bd9b` | ruling 1, test (exit `3` through the installed CLI) |
+| the next commit | this Return, final |
 
 ## 9. Lanes before and after
 
@@ -373,6 +459,14 @@ harness. TAP in `lanes-before/` and `lanes-after/` there.
 
 The main CLI's behaviour is unchanged on the four lanes the brief names
 (steel, public groups, hello boundary, UAT harness).
+
+These lanes, the replay comparison (section 10) and the artifact-truth
+section (section 11) stand after ruling 1: `git diff --stat ba25c3521` lists
+only `REQ-P-POLICY.md` (+11), the public-function design note (+8 −4) and
+`t287-required-operation-bindings.test.mjs` (+22 −4), no file under
+`code/src`, and the build's generated contracts and manifest are unchanged
+(section 7). The only pinned product digest outside the generated contracts is
+the candidate-basis fixture already listed in section 10.
 
 Build and lints on the final source: `npm run build`, `lint:imports`,
 `lint:lifecycle` and `lint:calculus` exit 0, as they did after items 1 and 3.
@@ -477,7 +571,11 @@ refuses nor changes digest on the final build. No stop condition.
   declaration and its publication; these clauses required each operation row to
   carry the classification, so they had to change with it. Correspondence
   checked first: all 56 maps were fixed by the runner and the declared
-  non-terminal contract.
+  non-terminal contract. Accepted as ruling 1 (section 14).
+- The ruling's four lanes ran one at a time, each as a background command
+  waited on to its exit before the next started, because a lane can exceed the
+  600-second limit of a foreground command (the steel lane took 387 s on
+  the item 2 run).
 
 ## 13. Residuals
 
@@ -498,15 +596,27 @@ refuses nor changes digest on the final build. No stop condition.
   retired-section files by commit; it names no total, and the 29 files now
   present (28 at base) are each listed below it. The new file is listed, as
   TD-25S did for its two.
+- The qualification authority mirror `T/contracts/qualification/sources/`
+  (`PRODUCT.md`, `REQ-P-POLICY.md`, `REQ-P-PUBLIC-CONTRACTS.md`) still holds
+  the base specification text; restage it on main with
+  `scripts/generate-qualification-rule-catalog.mjs --stage-authorities` with
+  the other qualification mirrors (section 7).
+- Exit `2` is observed through a transport refusal only (section 15). The
+  CLI's own refusals (`invalid_arguments`, `invalid_transport_request`,
+  `invalid_json`, `transport_failure`, `public/cli.ts:82-117`, `:135-140`)
+  have no lane.
 
-## 14. Rulings needed
+## 14. Rulings
 
-1. The four requirement clause removals (`REQ-P-PUBLIC-CONTRACTS-009`,
-   `REQ-P-POLICY-020`, `-039`, `-064`). These kept requirements stated the
-   classification the item retires; item 2 stands only if they change. If
-   refused, revert `764e758a8`, `8536afeca`, `c615c2f4d` (clean).
-2. Every public `definitionDigest`, the `familyDigest`, every operation
-   `rowDigest`/`rowRef` and the catalog, graph and product digests move. Old
+1. Accepted by the Executive on 2026-11-12. The four requirement clause
+   removals (`REQ-P-PUBLIC-CONTRACTS-009`, `REQ-P-POLICY-020`, `-039`, `-064`)
+   stand: they made each operation row own an exit classification, and the 56
+   published maps were copies of the one rule the runner and the CLI realize.
+   That rule is now stated once, in `REQ-P-POLICY-022` (section 3); the design
+   note cites it (section 4) and section 15 proves it.
+2. Not separately ruled; stands as reported. Every public `definitionDigest`,
+   the `familyDigest`, every operation `rowDigest`/`rowRef` and the catalog,
+   graph and product digests move. Old
    logs replay unchanged and their artifact truth projects unchanged; a
    recorded call that names a base definition digest is refused at admission by
    the final build (section 6, row 4); a host on one family refuses an artifact
@@ -517,3 +627,39 @@ refuses nor changes digest on the final build. No stop condition.
    four unbound acts keep their packets, request, result and refusal contracts,
    `admitWitnessedAct` and their unbound state; only the digests change, through
    item 2, not item 3.
+
+## 15. Exit classification proof
+
+`T` paths; code lines at `5ca60bd9b` (the ruling changes no source).
+"Process" means the lane asserts the installed CLI process's exit status;
+"receipt" means it asserts `receipt.exitCode` in the outcome the installed CLI
+prints, which `runExactDefinition` set and the CLI exits with
+(`public/cli.ts:129-132`).
+
+| Value | Condition | Set at | Lane and assertion |
+| ---: | --- | --- | --- |
+| `0` | the definition's program succeeds and the owner output is `result` | `shared/effect_definition.ts:133-134` | `t287-st1-installed-cross-owner-hello`: `runInstalledCliRequest` (`:62-97`) asserts process `0` by default (`:85`) for the ST-4 start (`:1470`) and reads (`:1567`); receipt `0` at `:1489`, `:1584`. `t287-required-operation-bindings:188`: receipt `0` for `result.assess` |
+| `1` | the program succeeds and the owner output is `refusal` | `shared/effect_definition.ts:135-136` | `t287-required-operation-bindings:179`: receipt `1` with `evidence_mismatch` for `result.assess`; `:308`: receipt `1` for both `product.materialize` refusals |
+| `2` | arguments are not `--jsonl <file>` (`invalid_arguments`); the file is not one non-blank line (`invalid_transport_request`); the line is not JSON (`invalid_json`); the value is not one exact CLI transport request (`invalid_transport_request`); the transport refuses (`invalid_definition_call`, `unknown_definition`, `installed_binding_unavailable`, `acquisition_mismatch`); reading the file, carrying the call or encoding the outcome throws (`transport_failure`) | `public/cli.ts:82-87`, `:93-98`, `:104-108`, `:111-117`, `:129-131`, `:135-140`; refusal codes `public/installed_definition_call_transport.ts:40-50` | `t287-st1-installed-cross-owner-hello:1788-1801`: `expectedExitCode: 2` asserts process `2` for a crossed top-level handoff; outcome `installed_definition_call_transport_refusal`, code `acquisition_mismatch`, no receipt, zero bytes appended |
+| `3` | the program succeeds and the owner output is `nonterminal`; admitted only when the packet declares a non-terminal contract (`public/binding/definition_binding_mechanics.ts:106-117`), otherwise the fault `invalid_owner_output` and `70` | `shared/effect_definition.ts:137` | `t287-required-operation-bindings:219-235` (added): `result.assess` with a `retry` assessment; process `3` (`expectedExitCode: 3`), receipt `3`, outcome `nonterminal`, one appended `assessed` event |
+| `70` | the program fails: a typed execution fault (including `invalid_owner_output`, `public/binding/static_definition_bindings.ts:157-171`) or a defect or interruption | `shared/effect_definition.ts:144-161` (`exitCode: 70` at `:151`) | `steel-basic-cli-public:445-447`: receipt `70` for `product.resolve` with a changed native closure, typed fault `product_resolution_execution_failure` |
+
+No lane observed exit `3` before the ruling (searched `T/test_env/tests`,
+`support` and `uat` for `exitCode` and process status assertions of 3). The
+CLI's own exit-`2` refusals have no lane (section 13).
+
+Lanes on the final build (`5ca60bd9b`, built with its generated contracts in
+place), one file at a time, the rules' command with `ABI5_EVIDENCE_ROOT` set;
+TAP in `/private/tmp/abg-td28a-work/lanes-td28a2/`:
+
+| Lane | Tests | Pass | Fail | Skip |
+| --- | ---: | ---: | ---: | ---: |
+| `t287-required-operation-bindings` (edited) | 11 | 11 | 0 | 0 |
+| `steel-basic-cli-public` | 1 | 1 | 0 | 0 |
+| `t287-st1-installed-cross-owner-hello` | 3 | 3 | 0 | 0 |
+
+The 11 of `t287-required-operation-bindings` are its four tests and the seven
+subtests of the first: the exit `3` subtest passes, and the six existing
+subtests pass unchanged. `npm run build`, `lint:imports`, `lint:lifecycle`
+and `lint:calculus` exit 0 on the final source; generated files were restored
+before the Return commit.
