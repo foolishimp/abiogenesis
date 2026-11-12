@@ -4,6 +4,7 @@ import fs from 'node:fs';
 import path from 'node:path';
 import {Script} from 'node:vm';
 import ts from 'typescript';
+import {assertContextBinds} from '../support/vm-context-names.mjs';
 
 // Mechanical caller test, not native admission or a timeout-cause profile.
 // Extract each exact emitted private function with the compiler's parser.
@@ -54,6 +55,8 @@ function fixture({pending=20,dependencyCount=20,pendingIndices=null,invalidAt=nu
   };
   return {basis,input,owner,prior,proofs,coordinates,scope,trace,queries,constructed};
 }
+// Before any case: every free name of the emitted body is bound by the stub scope or the VM's own globals.
+test.before(()=>assertContextBinds(bodies.candidate,fixture().scope,`the emitted ${name}`));
 function invoke(kind,options={},cut=undefined){
   const f=fixture(options),run=new Script(`(${bodies[kind]})`).runInNewContext(f.scope);
   let value,error;try{value=run(f.basis,f.input,false,cut);}catch(cause){error=cause;}
