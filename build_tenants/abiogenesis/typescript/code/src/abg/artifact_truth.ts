@@ -5,6 +5,7 @@ import { isReleaseOperationArtifact, projectReleaseQualification, projectRelease
 import { releaseArtifactCoordinate } from "../product/release_snapshot_operations.js";
 import {
   constructProductSet,
+  isResolvedProductLock,
   isWorkspaceAuthorityBasis,
   type ProductInstall,
   type ProductInstallCandidate,
@@ -15,7 +16,6 @@ import {
 import {
   constructWorkspaceBindingInResolvedLock,
   isProductInstallCandidateInResolvedLock,
-  isResolvedProductLock,
   isWorkspaceBindingCandidateInResolvedLock,
   productInstallCoordinate,
 } from "../product/environment.js";
