@@ -156,7 +156,8 @@ export async function witnessMechanics({faultNative=null,transactionFault=false,
   const projection=(prefix,w)=>projectionOverride?.(prefix,w)??(prefix.coordinateDigest===environment.prefix.coordinateDigest&&w.ref===newW.ref&&w.digest===newW.digest?environment:{kind:'exact_prefix_workspace_environment_refusal'});
   const authority=await loadMechanism('product/admission_authority.js',{
     '../abg/environment_admission.js':{projectWorkspaceEnvironmentFromArtifactTruth:(truth,w)=>projection(truth.prefix,w)},
-    '../abg/artifact_truth.js':{projectOwnedPrefixArtifactTruth:prefix=>({kind:'exact_prefix_artifact_truth_projection',prefix})},
+    // The injected environment is admitted for work: its lock answers the strict question.
+    '../abg/artifact_truth.js':{projectOwnedPrefixArtifactTruth:prefix=>({kind:'exact_prefix_artifact_truth_projection',prefix}),admittedInstallLocksAnswerStrict:()=>true},
     './verify_product.js':{isVerifiedProductArtifact:value=>value?.kind==='verified_product_artifact',verifyProduct:async request=>request.artifactRef===verified.artifactRef?verified:{kind:'product_verification_refusal'}},
     // The executing package is the verified owner: its manifest digest and its product content digest.
     './declaration_exports.js':{readExecutingToolchainIdentity:()=>({manifest:structuredClone(ownerManifest),manifestDigest:hash(ownerManifest),productContentDigest:verified.productContentDigest})},

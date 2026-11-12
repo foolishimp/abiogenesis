@@ -5,6 +5,7 @@ import {createHash} from 'node:crypto';
 import {mkdtemp, mkdir, readFile, rm} from 'node:fs/promises';
 import {tmpdir} from 'node:os';
 import {join} from 'node:path';
+import * as Effect from 'effect/Effect';
 import {evidenceInput} from '../support/evidence-root.mjs';
 import {privateOwner} from '../support/r10-private-owner-harness.mjs';
 
@@ -34,6 +35,8 @@ const truth = await built('abg/artifact_truth.js');
 const admission = await built('abg/environment_admission.js');
 const store = await built('abg/event_store.js');
 const prefixOwner = await built('abg/event_prefix.js');
+const productIndex = await built('product/index.js');
+const authorityOwner = await built('product/admission_authority.js');
 const {sha256Canonical, sha256Bytes} = await built('shared/digests.js');
 const {canonicalJson} = await built('shared/canonical_json.js');
 const {loadCurrentOwnerEvidence} = await import(new URL('test_env/support/t287-current-owner-evidence.mjs', root).href);
@@ -74,7 +77,8 @@ function retagCatalog(value, from, to) {
     Object.values(value).forEach(entry => retagCatalog(entry, from, to));
   }
 }
-function resealRows(graph) {
+// `stale` names one dependency, [row, target], whose carried digest is kept.
+function resealRows(graph, stale = null) {
   const byId = new Map(graph.rows.map(row => [row.capabilityId, row]));
   const sealed = new Set();
   const seal = id => {
@@ -85,6 +89,7 @@ function resealRows(graph) {
       const target = byId.get(dependency.capabilityId);
       if (target === undefined) continue;
       seal(target.capabilityId);
+      if (stale !== null && stale[0] === row.capabilityId && stale[1] === target.capabilityId) continue;
       dependency.capabilityDefinitionRef = target.capabilityDefinitionRef;
       dependency.capabilityDefinitionDigest = target.capabilityDefinitionDigest;
     }
@@ -98,7 +103,7 @@ function resealGraph(graph) {
   const {graphDigest: _digest, ...body} = graph;
   graph.graphDigest = sha256Canonical(body);
 }
-function resealCarrier(carrier, kind, skip = []) {
+function resealCarrier(carrier, kind, skip = [], stale = null) {
   const graph = graphOf(carrier);
   if (carrier.publicContracts.some(row => row.contractId === CATALOG_SCHEMA) && !skip.includes('catalog')) {
     const before = carrier.catalogDigest;
@@ -108,7 +113,7 @@ function resealCarrier(carrier, kind, skip = []) {
       if (kind === 'verified') retagCatalog(carrier.definitionContractCoordinates, before, carrier.catalogDigest);
     }
   }
-  if (!skip.includes('rows')) resealRows(graph);
+  if (!skip.includes('rows')) resealRows(graph, stale);
   if (!skip.includes('graph')) resealGraph(graph);
   carrier.capabilityDefinitionGraphAsset.contentDigest = sha256Bytes(cap.serializeCapabilityDefinitionGraph(graph));
   carrier.contributionManifest.publicContractCatalogDigest = carrier.catalogDigest;
@@ -162,11 +167,11 @@ const VARIANTS = [
   ['(iii) one capability row removed with every identity and dependency naming it', carrier => removeRow(carrier)],
 ];
 
-function lockVariant(change, {skip = [], resealDigest = true} = {}) {
+function lockVariant(change, {skip = [], resealDigest = true, stale = null} = {}) {
   const lock = clone(recordedLock);
   const row = lock.rows[toolchainIndex];
   change(row, lock);
-  resealCarrier(row, 'lock', skip);
+  resealCarrier(row, 'lock', skip, stale);
   if (resealDigest) resealLock(lock);
   return lock;
 }
@@ -177,14 +182,35 @@ const changeRow = carrier => { graphRow(carrier, 'abg.capability.gtl.declare@5')
 // digest); the strict question refuses it at a door, and a read copy's binding
 // to recorded history refuses it in a read.
 const UNDETECTED = ['identities altered among the graph rows, catalog digest as recorded, every carried digest consistent', addIdentity, {skip: ['catalog']}];
+// `abg.capability.gtl.admit@5` depends on `abg.capability.gtl.declare@5`; the
+// slot `abg.operation.run.invoke#invoke` is owned by two rows.
+const DECLARE = 'abg.capability.gtl.declare@5';
+const ADMIT = 'abg.capability.gtl.admit@5';
+const EXECUTE = 'abg.capability.runtime.execute-seven-term-c@5';
+const staleDependency = carrier => {
+  graphRow(carrier, ADMIT).dependentCapabilities.find(entry => entry.capabilityId === DECLARE).capabilityDefinitionDigest =
+    sha256Canonical({td77: 'stale dependency digest'});
+};
+const dropSlot = carrier => {
+  const owned = graphRow(carrier, EXECUTE).owningPublicContracts;
+  const index = owned.findIndex(({nestedSelector: selector}) => selector.selectorKind === 'operation_definition_slot' &&
+    selector.definitionKey.operationId === 'abg.operation.run.invoke' && selector.definitionKey.memberKey === 'invoke' && selector.slot === 'non_terminal');
+  assert.ok(index >= 0);
+  assert.ok(graphOf(carrier).rows.some(row => row.capabilityId !== EXECUTE && row.owningPublicContracts.some(owner => canonicalJson(owner) === canonicalJson(owned[index]))),
+    'another row owns the slot coordinate');
+  owned.splice(index, 1);
+};
+// Each tamper names the one relation that refuses it.
 const TAMPERS = [
-  ['identities changed, catalog digest recomputed, graph coordinates stale', addIdentity, {skip: ['coordinates']}],
-  ['an identity that names no row of the graph', carrier => { contract(carrier, ADDED.contractId).capabilityIdentities = ['abg.capability.td77.absent@5']; }, {}],
-  ['a graph row changed without its digest', changeRow, {skip: ['rows']}],
-  ['a graph row changed with its row digest but not the graph digest', changeRow, {skip: ['graph']}],
-  ['a dependency that names no row', carrier => { graphRow(carrier, 'abg.capability.gtl.declare@5').dependentCapabilities.push({capabilityId: 'abg.capability.td77.absent@5', capabilityDefinitionRef: 'capability-definition://abiogenesis/00', capabilityDefinitionDigest: sha256Canonical('absent')}); }, {}],
-  ['a dependency cycle', carrier => { const declare = graphRow(carrier, 'abg.capability.gtl.declare@5'); const admit = graphRow(carrier, 'abg.capability.gtl.admit@5'); declare.dependentCapabilities = [{capabilityId: admit.capabilityId, capabilityDefinitionRef: admit.capabilityDefinitionRef, capabilityDefinitionDigest: admit.capabilityDefinitionDigest}]; }, {}],
-  ['a row dropped from the graph while a contract still names it', carrier => removeRow(carrier, true), {}],
+  ['identities changed, catalog digest recomputed, graph coordinates stale', addIdentity, {skip: ['coordinates']}, 'owner coordinates'],
+  ['an identity that names no row of the graph', carrier => { contract(carrier, ADDED.contractId).capabilityIdentities = ['abg.capability.td77.absent@5']; }, {}, 'identity'],
+  ['a graph row changed without its digest', changeRow, {skip: ['rows']}, 'row digest'],
+  ['a graph row changed with its row digest but not the graph digest', changeRow, {skip: ['graph']}, 'graph digest'],
+  ['a dependency that names no row', carrier => { graphRow(carrier, DECLARE).dependentCapabilities.push({capabilityId: 'abg.capability.td77.absent@5', capabilityDefinitionRef: 'capability-definition://abiogenesis/00', capabilityDefinitionDigest: sha256Canonical('absent')}); }, {}, 'dependency resolution'],
+  ['a dependency cycle', carrier => { const declare = graphRow(carrier, DECLARE); const admit = graphRow(carrier, ADMIT); declare.dependentCapabilities = [{capabilityId: admit.capabilityId, capabilityDefinitionRef: admit.capabilityDefinitionRef, capabilityDefinitionDigest: admit.capabilityDefinitionDigest}]; }, {}, 'dependency resolution'],
+  ['a dependency digest stale with the row and graph digests resealed and the graph acyclic', staleDependency, {stale: [ADMIT, DECLARE]}, 'dependency resolution'],
+  ['a definition-slot coordinate dropped from one owning row with every digest resealed', dropSlot, {}, 'slot ownership'],
+  ['a row dropped from the graph while a contract still names it', carrier => removeRow(carrier, true), {}, 'identity'],
 ];
 const tamper = name => {
   const found = TAMPERS.find(([entry]) => entry === name);
@@ -230,27 +256,70 @@ for (const [name, change] of VARIANTS) {
   });
 }
 
-for (const [name, change, options] of TAMPERS) {
-  test(`tamper: ${name} is refused by the recorded question`, () => {
+for (const [name, change, options, relation] of TAMPERS) {
+  test(`tamper (${relation}): ${name} is refused by the recorded question`, () => {
     const lock = lockVariant(change, options);
     assert.equal(env.isResolvedProductLock(lock, 'recorded'), false);
     assert.equal(env.isResolvedProductLock(lock), false);
   });
 }
 
-test('tamper relations: each refusal is the named relation', () => {
-  const row = name => { const [, change, options] = tamper(name); return lockVariant(change, options).rows[toolchainIndex]; };
-  // an identity naming no row, a row dropped while named: the identity relation
-  for (const name of ['an identity that names no row of the graph', 'a row dropped from the graph while a contract still names it'])
-    assert.equal(vp.recordedCapabilityIdentitiesHold(row(name)), false, name);
-  // stale coordinates: identities and graph hold, the flat coordinates do not
-  const stale = row('identities changed, catalog digest recomputed, graph coordinates stale');
-  assert.equal(vp.recordedCapabilityIdentitiesHold(stale), true);
-  assert.equal(cap.isCapabilityDefinitionGraph(graphOf(stale), 'recorded'), true);
-  // the graph relations
-  for (const name of ['a graph row changed without its digest', 'a graph row changed with its row digest but not the graph digest',
-    'a dependency that names no row', 'a dependency cycle'])
-    assert.equal(cap.isCapabilityDefinitionGraph(graphOf(row(name)), 'recorded'), false, name);
+// The graph relations the lane recomputes itself. Slot ownership and the sort
+// and order checks it does not recompute.
+const GRAPH_RELATIONS = {
+  'row digest': graph => graph.rows.every(row => {
+    const {capabilityDefinitionRef: _ref, capabilityDefinitionDigest: digest, ...body} = row;
+    return digest === sha256Canonical(body);
+  }),
+  'graph digest': graph => { const {graphDigest, ...body} = graph; return graphDigest === sha256Canonical(body); },
+  'dependency resolution': graph => {
+    const byId = new Map(graph.rows.map(row => [row.capabilityId, row]));
+    return graph.rows.every(row => row.dependentCapabilities.every(dependency =>
+      byId.get(dependency.capabilityId)?.capabilityDefinitionDigest === dependency.capabilityDefinitionDigest &&
+      byId.get(dependency.capabilityId)?.capabilityDefinitionRef === dependency.capabilityDefinitionRef));
+  },
+};
+const acyclic = graph => {
+  const byId = new Map(graph.rows.map(row => [row.capabilityId, row]));
+  const done = new Set();
+  const visit = (id, path) => {
+    if (path.has(id)) return false;
+    if (done.has(id) || !byId.has(id)) return true;
+    path.add(id);
+    const holds = byId.get(id).dependentCapabilities.every(dependency => visit(dependency.capabilityId, path));
+    path.delete(id);
+    if (holds) done.add(id);
+    return holds;
+  };
+  return graph.rows.every(row => visit(row.capabilityId, new Set()));
+};
+
+test('tamper relations: each tamper is refused by the relation it names, and every other relation the lane recomputes holds', () => {
+  const unchanged = graphOf(recordedLock.rows[toolchainIndex]);
+  for (const relation of Object.keys(GRAPH_RELATIONS)) assert.equal(GRAPH_RELATIONS[relation](unchanged), true, relation);
+  assert.equal(acyclic(unchanged), true);
+  for (const [name, change, options, relation] of TAMPERS) {
+    const row = lockVariant(change, options).rows[toolchainIndex];
+    const graph = graphOf(row);
+    if (relation === 'identity') {
+      assert.equal(vp.recordedCapabilityIdentitiesHold(row), false, name);
+      assert.equal(cap.isCapabilityDefinitionGraph(graph, 'recorded'), true, name);
+      continue;
+    }
+    // Every other tamper keeps each contract's identities on rows of the graph.
+    assert.equal(vp.recordedCapabilityIdentitiesHold(row), true, name);
+    // The owner coordinates name a catalog digest the row no longer carries;
+    // the graph alone holds.
+    assert.equal(cap.isCapabilityDefinitionGraph(graph, 'recorded'), relation === 'owner coordinates', name);
+    for (const [computed, holds] of Object.entries(GRAPH_RELATIONS))
+      assert.equal(holds(graph), computed !== relation, `${name}: ${computed}`);
+  }
+  // The stale dependency digest leaves the graph acyclic; the resealed cycle
+  // is refused by dependency resolution, because resealing one end of a cycle
+  // leaves the other end's carried digest stale.
+  assert.equal(acyclic(graphOf(lockVariant(staleDependency, {stale: [ADMIT, DECLARE]}).rows[toolchainIndex])), true);
+  const [, cycle, cycleOptions] = tamper('a dependency cycle');
+  assert.equal(acyclic(graphOf(lockVariant(cycle, cycleOptions).rows[toolchainIndex])), false);
 });
 
 test('R1: identities altered among the graph rows with every carried digest consistent pass the recorded question and fail the strict one', () => {
@@ -301,29 +370,59 @@ test('tamper: a stale lock digest is refused by the recorded question', () => {
 // The fold: one recorded install admission whose inline lock is replaced, with
 // the compact install body, scope, artifact digest, payload digest and event
 // identity recomputed as the recorded cut would have written them.
-function candidateFor(lock) {
-  const row = lock.rows.find(entry => entry.productId === recordedEvent.payload.artifact.productId);
+function candidateFor(lock, source = recordedEvent) {
+  const row = lock.rows.find(entry => entry.productId === source.payload.artifact.productId);
   const installId = `product-install://${row.packageName}/${row.packageVersion}/${digestHex(row.productContentDigest)}/${digestHex(lock.lockDigest)}`;
   return {...row, kind: 'product_install_candidate', schemaVersion: '5.0.0', disposition: 'materialized',
-    installId, installedRoot: recordedEvent.payload.artifact.installedRoot, resolvedLockId: lock.lockId, resolvedLockDigest: lock.lockDigest};
+    installId, installedRoot: source.payload.artifact.installedRoot, resolvedLockId: lock.lockId, resolvedLockDigest: lock.lockDigest};
 }
-function installEvent(lock) {
-  const event = clone(recordedEvent);
-  const candidate = candidateFor(lock);
-  const installId = candidate.installId;
-  event.payload = {...event.payload, artifact: {...event.payload.artifact, installId}, resolvedLock: lock,
-    authorityScopeRef: installId, artifactRef: installId, artifactDigest: sha256Canonical(candidate)};
-  event.aggregateId = installId;
-  event.basisId = installId;
+function resealEvent(event) {
   const {eventId: _id, admissionOrdinal, payloadDigest: _digest, ...body} = event;
   event.payloadDigest = sha256Canonical(event.payload);
   event.eventId = `event://abiogenesis/${digestHex(sha256Canonical({...body, payloadDigest: event.payloadDigest, admissionOrdinal}))}`;
   return event;
 }
+// The fixture's install event `source` with its lock replaced: inline, or a
+// compact reference to the earlier install event `body`.
+function installEvent(lock, source = recordedEvent, body = null) {
+  const event = clone(source);
+  const candidate = candidateFor(lock, source);
+  const installId = candidate.installId;
+  const causes = body === null ? [] : [body.eventId];
+  const resolvedLock = body === null ? lock : {kind: 'resolved_product_lock_reference', schemaVersion: '5.0.0',
+    admissionEventRef: body.eventId, admissionEventDigest: body.payloadDigest, lockId: lock.lockId, lockDigest: lock.lockDigest};
+  event.payload = {...event.payload, artifact: {...event.payload.artifact, installId}, resolvedLock,
+    authorityScopeRef: installId, artifactRef: installId, artifactDigest: sha256Canonical(candidate), causationEventRefs: causes};
+  Object.assign(event, {causationEventRefs: causes, aggregateId: installId, basisId: installId});
+  return resealEvent(event);
+}
 function foldOver(event) {
   const bytes = Buffer.from(canonicalJson(event) + '\n');
   const events = store.validateHistoricalEvents(bytes, fixture.fixture.eventContractDigest);
   return truth.projectArtifactTruth(prefixOwner.selectValidatedRuntimeEventPrefix(events));
+}
+const productInstall = (candidate, admissionEventRef) => {
+  const {kind: _kind, disposition: _disposition, ...body} = candidate;
+  return {kind: 'product_install', disposition: 'admitted', ...body, admissionEventRef};
+};
+// The fixture's first three events (two installs, the second a compact
+// reference to the first, and the workspace binding over both) with the lock
+// replaced and every digest recomputed.
+function recordedHistory(lock) {
+  const first = installEvent(lock);
+  const second = installEvent(lock, fixture.events[1], first);
+  const bind = clone(fixture.events[2]);
+  const installs = [[first, fixture.events[0]], [second, fixture.events[1]]]
+    .map(([event, source]) => productInstall(candidateFor(lock, source), event.eventId));
+  const binding = env.constructWorkspaceBindingInResolvedLock(bind.payload.workspaceAuthorityBasis,
+    env.constructProductSet(installs, lock), lock, bind.payload.artifact.roots);
+  assert.equal(binding.kind, 'workspace_binding_candidate', JSON.stringify(binding).slice(0, 300));
+  const causes = [first.eventId, second.eventId];
+  bind.payload = {...bind.payload, artifact: binding, authorityScopeRef: binding.bindingId, authorityScopeDigest: binding.bindingDigest,
+    artifactRef: binding.bindingId, artifactDigest: binding.bindingDigest, causationEventRefs: causes};
+  Object.assign(bind, {causationEventRefs: causes, aggregateId: binding.bindingId, basisId: binding.bindingId});
+  const events = [first, second, resealEvent(bind)];
+  return {events, binding, installs, bytes: Buffer.from(events.map(event => canonicalJson(event) + '\n').join(''))};
 }
 
 test('fold: artifact truth over an accepted register variant projects; over a tampered lock it throws as today', () => {
@@ -397,21 +496,25 @@ test('door: admitProductInstall refuses before append what the strict question r
 });
 
 // Reading is not running: the run door's Catalog stage admits the readiness
-// basis with the strict question. A lock that is internally established but
-// is not the reader's is refused there with the same code as on the base.
+// basis with the strict question. The basis's workspace binding is built over
+// the same lock, so binding and lock agree and the lock question alone decides
+// the lock stage: the strict question refuses there, the recorded question
+// passes to the verified set (empty here), which refuses after it.
 function readinessBasis(lock) {
-  const projection = truth.projectArtifactTruth(fixture.prefix);
-  const bind = projection.artifacts.find(row => row.operationId === 'abg.operation.workspace.bind');
-  return {workspaceBinding: bind.artifact, resolvedLock: lock, verifiedProducts: [], installedProducts: [], publications: []};
+  return {workspaceBinding: recordedHistory(lock).binding, resolvedLock: lock, verifiedProducts: [], installedProducts: [], publications: []};
 }
 
-test('run door: a readiness basis whose lock is a register variant is refused by the strict Catalog stage', async () => {
+test('run door: the strict Catalog stage refuses at the lock a register variant whose own binding names it', async () => {
+  const fixtureBinding = truth.projectArtifactTruth(fixture.prefix).artifacts.find(row => row.operationId === 'abg.operation.workspace.bind').artifact;
+  assert.deepEqual(recordedHistory(recordedLock).binding, fixtureBinding, 'the binding built over the recorded lock is the recorded one');
   assert.equal(catalogOwner.admitGraphFunctionCatalog(readinessBasis(recordedLock)).code, 'verified_product_mismatch',
-    'the recorded lock passes the lock check and the empty verified set is refused after it');
+    'the recorded lock passes the lock stage');
   for (const [name, change, options] of [...VARIANTS, UNDETECTED]) {
-    const basis = readinessBasis(lockVariant(change, options));
-    assert.equal(catalogOwner.admitGraphFunctionCatalog(basis).code, 'binding_lock_mismatch', name);
-    const resolved = await resolution.ProductExecutionResolutionPort.resolve({catalog: {readinessBasis: basis}});
+    const lock = lockVariant(change, options);
+    assert.equal(catalogOwner.admitGraphFunctionCatalog(readinessBasis(lock), 'recorded').code, 'verified_product_mismatch',
+      `${name}: binding and lock agree; the recorded question passes the lock stage`);
+    assert.equal(catalogOwner.admitGraphFunctionCatalog(readinessBasis(lock)).code, 'binding_lock_mismatch', name);
+    const resolved = await resolution.ProductExecutionResolutionPort.resolve({catalog: {readinessBasis: readinessBasis(lock)}});
     assert.equal(resolved.kind, 'product_execution_resolution_refusal', name);
     assert.equal(resolved.code, 'incompatible_or_unproven', name);
   }
@@ -451,6 +554,237 @@ test('workspace_status: the recorded question reads the recorded lock and refuse
   }
 });
 
+// F1. The fold reads history with the recorded question and retains, with each
+// install fact, whether its lock answers the strict question (the accessor
+// `admittedInstallLocksAnswerStrict` of abg/artifact_truth). Nothing that
+// appends, admits or grants takes a lock from those facts unless it does. The
+// stores are the fixture's first three events with the lock replaced and every
+// digest recomputed: the forged store's lock is the undetected alteration, the
+// variant store's is register variant (i). The mixed store continues the
+// variant store with the current build's installs of the recorded lock and a
+// new binding over them.
+const RECORDED_ONLY = [
+  ['forged', () => lockVariant(UNDETECTED[1], UNDETECTED[2])],
+  ['variant', () => lockVariant(VARIANTS[0][1])],
+];
+function openStore(bytes) {
+  const scratch = fs.mkdtempSync(join(tmpdir(), 'td77-store-'));
+  const eventLogPath = join(scratch, 'events.jsonl');
+  fs.writeFileSync(eventLogPath, bytes);
+  const stat = fs.statSync(eventLogPath);
+  const body = {kind: 'event_store_reopen_authority', schemaVersion: '5.0.0', eventLogPath, device: stat.dev, inode: stat.ino,
+    eventLogDigest: 'sha256:' + createHash('sha256').update(bytes).digest('hex'), durableByteLength: bytes.length,
+    eventContractDigest: fixture.fixture.eventContractDigest};
+  const reopened = store.reopenEventStore({...body, authorityDigest: sha256Canonical(body)});
+  assert.equal(reopened.kind, 'reopened_event_store_context', JSON.stringify(reopened).slice(0, 300));
+  return {scratch, eventLogPath, store: reopened.store, prefix: reopened.prefix, count: () => reopened.store.readAll().length};
+}
+let invocations = 0;
+function doorBasis(operationId, memberKey, scope, causationEventRefs, predecessorPrefix) {
+  const invocationPayloadDigest = sha256Canonical({});
+  const definitionDigest = sha256Canonical({operationId, schemaVersion: '5.0.0'});
+  const invocationRef = `invocation://td77/f1/${++invocations}`;
+  return {operationId, memberKey, definitionDigest, authorityScopeRef: scope.ref, authorityScopeDigest: scope.digest, invocationRef, invocationPayloadDigest,
+    invocationDigest: sha256Canonical({operationId, memberKey, definitionDigest, invocationRef, invocationPayloadDigest}),
+    correlationId: 'correlation://td77/f1', eventTime: '2026-11-12T00:00:00.000Z', causationEventRefs, predecessorPrefix};
+}
+// A new workspace binding over installs the fold admitted at `prefix`, built
+// in their lock as `./abg workspace.bind` builds it.
+function newBinding(opened, prefix, installRefs, name) {
+  const projection = truth.projectOwnedPrefixArtifactTruth(prefix);
+  const installs = installRefs.map(ref => admission.projectAdmittedProductInstallByAdmissionEventRef(projection, ref));
+  const lock = installs[0].resolvedLock;
+  const canonicalRoot = join(opened.scratch, name);
+  const roots = Object.fromEntries(['toolchainRoot', 'productRoot', 'eventLogRoot', 'runtimeStateRoot', 'projectionRoot', 'archiveRoot']
+    .map(key => [key, join(canonicalRoot, key)]));
+  Object.values(roots).forEach(path => fs.mkdirSync(path, {recursive: true}));
+  const manifest = {workspaceId: `workspace://td77/${name}`, authorityMode: 'trusted_developer', authorizedActorRef: 'actor://abiogenesis/td77', canonicalRoot};
+  const authority = productIndex.constructWorkspaceAuthorityBasis({...manifest, authorityManifestRef: `manifest://td77/${name}`,
+    authorityManifestDigest: sha256Canonical(manifest)});
+  const candidate = env.constructWorkspaceBindingInResolvedLock(authority, env.constructProductSet(installs.map(row => row.install), lock), lock, roots);
+  assert.equal(candidate.kind, 'workspace_binding_candidate', JSON.stringify(candidate).slice(0, 300));
+  const basis = () => doorBasis('abg.operation.workspace.bind', 'bind', {ref: candidate.bindingId, digest: candidate.bindingDigest}, [...installRefs], prefix);
+  return {authority, candidate, basis};
+}
+const bindingCoordinate = binding => ({ref: binding.bindingId, digest: binding.bindingDigest});
+// The admission environment of every withAdmissionAuthority owner that takes a
+// bound environment, as its owner-internal outcome.
+let privateAuthority;
+async function environmentAt(prefix, binding) {
+  privateAuthority ??= await privateOwner('product/admission_authority.js', ['admitCapabilityEnvironmentOutcome']);
+  return privateAuthority.admitCapabilityEnvironmentOutcome(authorityOwner.admissionEnvironmentSelection(prefix, bindingCoordinate(binding)), null, true);
+}
+// One withAdmissionAuthority owner end to end: this build's witness.admit
+// reprice binding, called with the call the kept witness lane constructs
+// (support/witness-reprice-mechanics) with its event resource and bound
+// environment pointed at this store's closed log and a binding in it. The
+// environment is checked before scope, approval and grants.
+let mechanics;
+async function witnessAdmission(handoff, binding) {
+  mechanics ??= await (await import(new URL('test_env/support/witness-reprice-mechanics.mjs', root).href)).witnessMechanics();
+  mechanics.setProjection(prefix => ({...mechanics.environment, prefix}));
+  const eventResource = {kind: 'reopen_abg_event_resource', schemaVersion: '5.0.0', closeHandoff: handoff, handoffDigest: sha256Canonical(handoff)};
+  const call = await mechanics.call({eventResource, changeBasis: basis => {
+    basis.boundEnvironment = authorityOwner.admissionEnvironmentSelection(handoff.prefix, bindingCoordinate(binding));
+  }});
+  const {WITNESS_DEFINITION_BINDINGS} = await built('abg/witness_definition_bindings.js');
+  return Effect.runPromise(Effect.flip(WITNESS_DEFINITION_BINDINGS.admit.reprice(call)));
+}
+const ENVIRONMENT_UNADMITTED = 'TypeError: admission requires the exact admitted prefix environment';
+
+test('F1: the fold reads each store and retains whether its install lock answers the strict question', () => {
+  const recorded = recordedHistory(recordedLock);
+  assert.deepEqual(recorded.events, fixture.events.slice(0, 3), 'the construction reproduces the recorded events');
+  for (const [label, lock, strict] of [['recorded', recordedLock, true], ...RECORDED_ONLY.map(([name, make]) => [name, make(), false])]) {
+    assert.equal(env.isResolvedProductLock(lock), strict, label);
+    assert.equal(env.isResolvedProductLock(lock, 'recorded'), true, label);
+    const history = recordedHistory(lock);
+    const opened = openStore(history.bytes);
+    try {
+      const projection = truth.projectOwnedPrefixArtifactTruth(opened.prefix);
+      assert.equal(projection.kind, 'exact_prefix_artifact_truth_projection', `${label}: ${JSON.stringify(projection).slice(0, 300)}`);
+      assert.equal(projection.rows.length, 3, label);
+      const installs = history.events.slice(0, 2).map(event => event.eventId);
+      assert.equal(truth.admittedInstallLocksAnswerStrict(projection, installs), strict, label);
+      assert.equal(truth.admittedInstallLocksAnswerStrict(clone(projection), installs), false, `${label}: a copied projection names no facts`);
+    } finally {
+      fs.rmSync(opened.scratch, {recursive: true, force: true});
+    }
+  }
+});
+
+for (const [label, make] of RECORDED_ONLY) {
+  test(`F1 (${label} store): no door, candidate or admission environment hands its recorded-only lock to work`, async () => {
+    const history = recordedHistory(make());
+    const installs = history.events.slice(0, 2).map(event => event.eventId);
+    const opened = openStore(history.bytes);
+    try {
+      // ./abg workspace.bind over the recorded-only installs.
+      const bind = newBinding(opened, opened.prefix, installs, 'sibling');
+      const refused = admission.admitWorkspaceBinding(opened.store, bind.candidate, bind.basis(), bind.authority);
+      assert.equal(refused.kind, 'artifact_owner_refusal', JSON.stringify(refused).slice(0, 300));
+      assert.equal(refused.refusal.code, 'scope_mismatch');
+      assert.equal(opened.count(), 3, 'nothing appended');
+      // The workspace-binding branch of candidate preparation (R2), reached
+      // without the door's own scope check.
+      const candidate = admission.admitArtifact(opened.store, bind.basis(), 'abg.operation.workspace.bind',
+        bind.candidate.bindingId, bind.candidate.bindingDigest, {artifact: bind.candidate, workspaceAuthorityBasis: bind.authority});
+      assert.equal(candidate.disposition, 'refused');
+      assert.equal(candidate.refusal.code, 'artifact_truth_conflict');
+      assert.match(candidate.refusal.message, /causal installs whose lock answers the strict question/);
+      assert.equal(opened.count(), 3, 'nothing appended');
+      // The admission environment of the recorded binding (R3).
+      const outcome = await environmentAt(opened.prefix, history.binding);
+      assert.equal(outcome.code, 'environment_unadmitted', JSON.stringify(outcome).slice(0, 300));
+      assert.throws(() => authorityOwner.admitCapabilityEnvironment(authorityOwner.admissionEnvironmentSelection(opened.prefix, bindingCoordinate(history.binding))),
+        error => String(error) === ENVIRONMENT_UNADMITTED);
+      // A withAdmissionAuthority owner end to end: refused before its body.
+      const handoff = opened.store.projectReopenAuthorityAndClose();
+      const before = fs.readFileSync(opened.eventLogPath);
+      const fault = await witnessAdmission(handoff, history.binding);
+      assert.equal(fault.stage, 'resource_admission', JSON.stringify(fault).slice(0, 300));
+      assert.equal(fault.message, ENVIRONMENT_UNADMITTED);
+      assert.deepEqual(fs.readFileSync(opened.eventLogPath), before, 'the log is unchanged');
+    } finally {
+      fs.rmSync(opened.scratch, {recursive: true, force: true});
+    }
+  });
+}
+
+test('F1: a compact install reference to a recorded-only inline lock is refused at candidate preparation', () => {
+  for (const [label, make] of RECORDED_ONLY) {
+    const lock = make();
+    const [first] = recordedHistory(lock).events;
+    const opened = openStore(Buffer.from(canonicalJson(first) + '\n'));
+    try {
+      const reference = installEvent(lock, fixture.events[1], first);
+      const candidate = candidateFor(lock, fixture.events[1]);
+      const basis = doorBasis('abg.operation.product.install', 'install', {ref: candidate.installId, digest: candidate.productContentDigest}, [first.eventId], opened.prefix);
+      const result = admission.admitArtifact(opened.store, basis, 'abg.operation.product.install', candidate.installId, sha256Canonical(candidate),
+        {artifact: reference.payload.artifact, resolvedLock: reference.payload.resolvedLock});
+      assert.equal(result.disposition, 'refused', `${label}: ${JSON.stringify(result).slice(0, 300)}`);
+      assert.equal(result.refusal.code, 'artifact_truth_conflict', label);
+      assert.match(result.refusal.message, /names a lock that does not answer the strict question/, label);
+      assert.equal(opened.count(), 1, `${label}: nothing appended`);
+    } finally {
+      fs.rmSync(opened.scratch, {recursive: true, force: true});
+    }
+  }
+});
+
+test('F1 (mixed store): a binding over the current build\'s installs is admitted and its environment admits work; a binding over the recorded-only installs is not', async () => {
+  const history = recordedHistory(RECORDED_ONLY[1][1]());
+  const recordedOnly = history.events.slice(0, 2).map(event => event.eventId);
+  const opened = openStore(history.bytes);
+  try {
+    const install = (source, prefix) => {
+      const candidate = candidateFor(recordedLock, source);
+      const result = admission.admitProductInstall(opened.store, candidate,
+        doorBasis('abg.operation.product.install', 'install', {ref: candidate.installId, digest: candidate.productContentDigest}, [], prefix), recordedLock);
+      assert.equal(result.kind, 'artifact_owner_result', JSON.stringify(result).slice(0, 300));
+      return result;
+    };
+    const first = install(fixture.events[0], opened.prefix);
+    const second = install(fixture.events[1], first.successorPrefix);
+    const current = [first.admissionEventRef, second.admissionEventRef];
+    const bind = newBinding(opened, second.successorPrefix, current, 'current');
+    const bound = admission.admitWorkspaceBinding(opened.store, bind.candidate, bind.basis(), bind.authority);
+    assert.equal(bound.kind, 'artifact_owner_result', JSON.stringify(bound).slice(0, 300));
+    assert.equal(opened.count(), 6);
+    const prefix = bound.successorPrefix;
+    const projection = truth.projectOwnedPrefixArtifactTruth(prefix);
+    assert.equal(projection.rows.length, 6, 'the fold reads the whole store');
+    assert.equal(truth.admittedInstallLocksAnswerStrict(projection, current), true);
+    assert.equal(truth.admittedInstallLocksAnswerStrict(projection, recordedOnly), false);
+    const admitted = await environmentAt(prefix, bound.value);
+    assert.equal(admitted.kind, 'ok', JSON.stringify(admitted).slice(0, 300));
+    assert.equal(admitted.value.resolvedProductLock.lockDigest, recordedLock.lockDigest);
+    assert.equal((await environmentAt(prefix, history.binding)).code, 'environment_unadmitted');
+    const sibling = newBinding(opened, prefix, recordedOnly, 'sibling');
+    const refused = admission.admitWorkspaceBinding(opened.store, sibling.candidate, sibling.basis(), sibling.authority);
+    assert.equal(refused.refusal?.code, 'scope_mismatch', JSON.stringify(refused).slice(0, 300));
+    assert.equal(opened.count(), 6, 'nothing appended');
+    // End to end: the current binding's environment is admitted, and the call
+    // is refused later, at scope, because its slots name the witness lane's
+    // own workspace; the recorded-only binding is refused at the environment.
+    const handoff = opened.store.projectReopenAuthorityAndClose();
+    const before = fs.readFileSync(opened.eventLogPath);
+    const later = await witnessAdmission(handoff, bound.value);
+    assert.equal(later.message, 'TypeError: admission grant requires the exact admitted workspace, Product set and lock', JSON.stringify(later).slice(0, 300));
+    assert.equal((await witnessAdmission(handoff, history.binding)).message, ENVIRONMENT_UNADMITTED);
+    assert.deepEqual(fs.readFileSync(opened.eventLogPath), before, 'the log is unchanged');
+  } finally {
+    fs.rmSync(opened.scratch, {recursive: true, force: true});
+  }
+});
+
+// The worksite execution environment (abg/execution_basis.ts): root and child
+// execution-basis admission and the worksite command leaf source take the
+// environment of the worksite carrier's binding through it. The carrier is
+// the one a worksite task carries: the binding and its authority basis.
+let privateBasis;
+async function worksiteEnvironmentAt(prefix, binding) {
+  privateBasis ??= await privateOwner('abg/execution_basis.js', ['exactWorksiteEnvironmentAtPrefix']);
+  const environment = admission.projectExactPrefixWorkspaceEnvironment(prefix, bindingCoordinate(binding));
+  assert.equal(environment.kind, 'exact_prefix_workspace_environment', JSON.stringify(environment).slice(0, 300));
+  return privateBasis.exactWorksiteEnvironmentAtPrefix(prefix, {workspaceAuthorityBasis: environment.workspaceAuthorityBasis,
+    workspaceBinding: environment.workspaceBinding, workspaceBindingId: binding.bindingId, workspaceBindingDigest: binding.bindingDigest});
+}
+
+test('F1: the worksite execution environment of a carrier whose binding names a recorded-only lock is absent', async () => {
+  for (const [label, lock, strict] of [['recorded', recordedLock, true], ...RECORDED_ONLY.map(([name, make]) => [name, make(), false])]) {
+    const history = recordedHistory(lock);
+    const opened = openStore(history.bytes);
+    try {
+      const environment = await worksiteEnvironmentAt(opened.prefix, history.binding);
+      assert.equal(environment !== null, strict, label);
+      if (strict) assert.equal(environment.resolvedProductLock.lockDigest, lock.lockDigest, label);
+    } finally {
+      fs.rmSync(opened.scratch, {recursive: true, force: true});
+    }
+  }
+});
+
 // The verified-artifact carrier: the reader's own verification of this
 // tenant, copied so that the owner's retained verification does not answer.
 let verifiedArtifact;
@@ -478,10 +812,10 @@ async function verified() {
     await rm(scratch, {recursive: true, force: true});
   }
 }
-async function verifiedVariant(change, {skip = [], resealDigest = true} = {}) {
+async function verifiedVariant(change, {skip = [], resealDigest = true, stale = null} = {}) {
   const artifact = clone(await verified());
   change(artifact);
-  resealCarrier(artifact, 'verified', skip);
+  resealCarrier(artifact, 'verified', skip, stale);
   if (resealDigest) resealVerified(artifact);
   return artifact;
 }
