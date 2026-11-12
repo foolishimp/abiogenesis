@@ -4,8 +4,6 @@ import {readFile,mkdtemp,writeFile,rm} from 'node:fs/promises';
 import {tmpdir} from 'node:os';
 import {join} from 'node:path';
 import * as store from '../../build/code/src/abg/event_store.js';
-import * as prefix from '../../build/code/src/abg/event_prefix.js';
-import {RuntimeDerivationSource} from '../../build/code/src/abg/runtime_derivation.js';
 import {sha256Canonical} from '../../build/code/src/shared/digests.js';
 import {deepFreeze} from '../../build/code/src/shared/immutable.js';
 const counts=()=>({...globalThis.p0Work});
@@ -14,24 +12,7 @@ const options={skip:!process.env.ABI5_OWNER_HISTORY&&'ABI5_OWNER_HISTORY unset; 
 const history=async()=>deepFreeze((await readFile(process.env.ABI5_OWNER_HISTORY,'utf8')).trimEnd().split('\n').map(JSON.parse));
 const candidate=n=>({kind:'public_operation_admitted',eventTime:'2026-09-20T04:00:00.000Z',aggregateType:'workspace',aggregateId:'invocation://d10/'+n,parentAggregateId:null,causationEventRefs:[],correlationId:'correlation://d10/'+n,workflowVersion:'5.0.0',scopeClass:'workspace',basisId:'basis://d10',payload:{invocationDigest:sha256Canonical(n),invocationRef:'invocation://d10/'+n,operationId:'abg.operation.project.read',variant:'status'}});
 
-test('logical prefix hashes conserve cold, copied, foreign, scoped and reverse values without re-encoding an owned history',options,async()=>{
- const events=await history(),source=new RuntimeDerivationSource();let full;
- for(const cut of [0,1,68,87,104,434,events.length,104,87]){
-  const selected=prefix.selectValidatedRuntimeEventPrefix(source.snapshot(events.slice(0,cut)));
-  const expected=sha256Canonical(selected.events);assert.equal(prefix.runtimeEventPrefixDigest(selected),expected);
-  const before=counts();assert.equal(prefix.runtimeEventPrefixDigest(selected),expected);
-  if(globalThis.p0Work)assert.equal(delta(before,counts(),'canonicalPrefixRows'),0);
-  assert.equal(prefix.runtimeEventPrefixDigest(prefix.selectValidatedRuntimeEventPrefix(deepFreeze(structuredClone(selected.events)))),expected);
-  const foreign=new RuntimeDerivationSource();assert.equal(prefix.runtimeEventPrefixDigest(prefix.selectValidatedRuntimeEventPrefix(foreign.snapshot(selected.events))),expected);
-  if(cut===events.length)full=selected;
- }
- const runId=events.find(e=>e.runId!==undefined).runId;
- const scoped=prefix.selectRuntimeEventPrefixFromAuthority(full,{runId});assert.equal(prefix.runtimeEventPrefixDigest(scoped),sha256Canonical(scoped.events));
- const earlier=prefix.validatedRuntimeEventPrefixThroughEvent(full,events[86].eventId);assert.equal(prefix.runtimeEventPrefixDigest(earlier),sha256Canonical(events.slice(0,87)));
- assert.throws(()=>prefix.runtimeEventPrefixDigest({...full}),/nominal validated/);
- assert.throws(()=>prefix.selectValidatedRuntimeEventPrefix(Object.freeze([{...events[0],payload:{mutable:true}}])),/immutable snapshot/);
- console.log(JSON.stringify({kind:'d10_digest_conservation',cuts:9,coldCopiedForeignScopedReverse:true,repeatedOwnedEncodingRows:0}));
-});
+// Retired (T-292 TD-60): logical prefix hashes over the event-memory-repair-35 owner history; holds only against the native profile of that history
 
 test('store logical digest preserves staged guards, unrelated-run staleness, rollback and physical mutation refusal',options,async()=>{
  const scratch=await mkdtemp(join(tmpdir(),'d10-digest-'));const path=join(scratch,'events.jsonl');const acquired=store.createNewEmptyAppendSink({kind:'new_empty_append_sink_request',schemaVersion:'5.0.0',eventLogPath:path});assert.ok('store'in acquired);const s=acquired.store;

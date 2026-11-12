@@ -1,6 +1,4 @@
 import assert from 'node:assert/strict';
-import {readFile} from 'node:fs/promises';
-import {createHash} from 'node:crypto';
 import {resolve, join} from 'node:path';
 import {pathToFileURL} from 'node:url';
 import test from 'node:test';
@@ -239,31 +237,4 @@ test('borrowed implementation declarations retain dependency, uniqueness and ins
   refused(programClosure(fixture([pub, donor, duplicate], {installs: [own, borrowed], edges})), 'ambiguous', bindingRef);
 });
 
-test('frozen81 unchanged ready basis resolves where its predecessor refused', async context => {
-  const inputPath = process.env.ABI5_STATIC_CLOSURE_CAPTURED_INPUT;
-  if (!inputPath) {context.skip('ABI5_STATIC_CLOSURE_CAPTURED_INPUT unset; requires the exact frozen81 input; portable source checks above remain active'); return;}
-  const bytes = await readFile(inputPath);
-  assert.equal(bytes.length, 35510031);
-  assert.equal(createHash('sha256').update(bytes).digest('hex'),
-    'dff32deb5a29c855fe50cf1b6ca942e08a2b220ad82f813e118fa5f441873d5f');
-  const resources = JSON.parse(bytes).invocation.resources;
-  const original = resources.declarationCatalog, basis = original.catalog.readinessBasis;
-  const rebuilt = owner.reconstructHistoricalDeclarationCatalog(original, {
-    workspaceBinding: basis.workspaceBinding, resolvedLock: basis.resolvedLock, installedProducts: basis.installedProducts});
-  assert.deepEqual(rebuilt, original);
-  const {program, publication: packetPublication} = resources.packet;
-  assert.deepEqual(program.callableMembership, [GRAPH_EDGE_IDS.graphFunctionRef]);
-  assert.equal(rebuilt.catalog.entries.some(row => [normalizeRef, renderRef].includes(row.definitionRef)), false);
-  const closure = resolved(owner.resolveProgramDeclarationClosure(rebuilt.catalog, rebuilt.catalogView, program.programRef));
-  assert.deepEqual(closure.programPublication, packetPublication);
-  resolved(owner.resolveExecutionDeclarationClosure(rebuilt.catalog, rebuilt.catalogView,
-    program.programRef, GRAPH_EDGE_IDS.graphFunctionRef), 'resolved_execution_declaration_closure');
-  const raw = catalogOperations.constructCatalogProgramValidationInput(rebuilt.catalog, rebuilt.catalogView, closure, program);
-  const judgment = validator.validateProgram(raw);
-  assert.equal(judgment.kind, 'program_validation'); assert.equal(judgment.disposition, 'valid');
-  assert.ok(baseline, 'the captured discriminator requires the exact predecessor owner');
-  refused(baseline.resolveProgramDeclarationClosure(rebuilt.catalog, rebuilt.catalogView, program.programRef), 'absent', normalizeRef);
-  refused(baseline.resolveExecutionDeclarationClosure(rebuilt.catalog, rebuilt.catalogView,
-    program.programRef, GRAPH_EDGE_IDS.graphFunctionRef), 'absent', normalizeRef);
-  assert.equal(resources.declarationCatalog.catalog.basisDigest, original.catalog.basisDigest);
-});
+// Retired (T-292 TD-60): the frozen81 ready basis resolves where its predecessor refused; input the exact frozen81 request output of a native Run

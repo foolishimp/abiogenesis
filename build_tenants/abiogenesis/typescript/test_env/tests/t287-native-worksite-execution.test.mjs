@@ -16,8 +16,6 @@ import { selectValidatedRuntimeEventPrefix, selectOwnedRuntimeEventPrefix, readO
 import { createNewEmptyAppendSink, admitRuntimeEvent, admitRuntimeEventBatch,
   selectHeldEventStoreDurablePrefix } from '../../build/code/src/abg/event_store.js';
 import { projectNativeWorkCommandSourceAtPrefix, projectNativeWorkspaceWorkResultTaskAtPrefix } from '../../build/code/src/abg/native_worksite_execution.js';
-import { deriveInvocationSourceResultBasisAtPrefix } from '../../build/code/src/abg/invocation_admission.js';
-import { projectExactInvocationAdmissionAtPrefix } from '../../build/code/src/abg/invocation_execution_truth.js';
 import { ABI5_WORKSITE_COMMAND_EXECUTION_PRODUCT_SEMANTICS as semantics,
   ABI5_NATIVE_WORKSPACE_WORK_PRODUCT_SEMANTICS as nativeSemantics } from '../../build/code/src/product/builtin_semantics.js';
 import { realizeWorksiteCommandExecution } from '../../build/code/src/implementation/worksite_command_execution.js';
@@ -225,41 +223,7 @@ test('native source selection preserves complete values and exact membership acr
     premises:'Invocation/execution and install/admission premises supplied; actual declaration closure/leaf report verifier, Product source/task predicates, EventStore, indexes, codec, source uniqueness and cold physical owner execute.'}));
 });
 const retainedPath = process.env.ABG_NATIVE_EXECUTION_RETAINED_LOG;
-test('retained actual native producer joins C2 source admission; absent and foreign origins refuse', { skip: retainedPath === undefined && 'ABG_NATIVE_EXECUTION_RETAINED_LOG unset; requires the retained native producer event log' }, async t => {
-  const start = performance.now();
-  const bytes = await fs.readFile(retainedPath), events = deepFreeze(bytes.toString('utf8').trim().split('\n').map(JSON.parse));
-  const prefix = selectValidatedRuntimeEventPrefix(events), parsed = performance.now();
-  const result = events.find(e => e.kind === 'c_call_result_admitted' && e.graphFunctionRef === p.NATIVE_WORKSPACE_WORK_IDS.graphFunctionRef &&
-    e.payload.value?.kind === 'native_workspace_work_observation');
-  assert(result);
-  const source = result.payload.value;
-  // The Result's own admitted basis supplies its task; a retained original-contract value keeps its own.
-  const sourceTask = projectNativeWorkspaceWorkResultTaskAtPrefix(prefix, result);
-  assert(sourceTask);
-  const paths = source.after.entries.filter(e => e.state === 'file' && !e.relativePath.startsWith('.abiogenesis/')).map(e => e.relativePath);
-  const task = p.constructNativeWorksiteCommandExecutionTask(inputFor(source, sourceTask, paths));
-  const projection = projectNativeWorkCommandSourceAtPrefix(prefix, task), projected = performance.now();
-  assert(projection); assert.equal(projection.sourceResult.eventId, result.eventId);
-  assert.equal(projectNativeWorkCommandSourceAtPrefix(validatedRuntimeEventPrefixBeforeEvent(prefix, result.eventId), task), null);
-  const otherSource = constructNativeWorkspaceWorkObservation(sourceTask, source.after, source.report,
-    { ...source.provenance, cCallRef: 'c-call://native-c2/foreign' });
-  assert.equal(projectNativeWorkCommandSourceAtPrefix(prefix, p.constructNativeWorksiteCommandExecutionTask(inputFor(otherSource, sourceTask, paths))), null);
-  const invocation = projectExactInvocationAdmissionAtPrefix(prefix, projection.sourceBasis.invocationAdmissionRef);
-  assert(invocation);
-  const basis = deriveInvocationSourceResultBasisAtPrefix(prefix, { publicAuthorityDigest: invocation.publicRequestDigest,
-    invocationAdmissionRef: invocation.invocationAdmissionRef, runtimeInvocationRef: invocation.invocationRef,
-    runId: result.runId, resultRef: result.payload.resultRef });
-  assert(basis);
-  const admission = { input: task, sourceResultBasis: basis, workspaceId: task.workspaceBinding.workspaceId,
-    workspaceBindingId: task.workspaceBinding.bindingId, workspaceBindingDigest: task.workspaceBinding.bindingDigest };
-  assert.equal(semantics.validateInvocationBasis(admission), true);
-  assert.equal(semantics.validateInvocationBasis({ ...admission, sourceResultBasis: null }), false);
-  assert.equal(semantics.validateInvocationBasis({ ...admission, sourceResultBasis: { ...basis, sourceCCallRef: 'c-call://foreign' } }), false);
-  t.diagnostic(JSON.stringify({ retainedPath, bytes: bytes.length, events: events.length, sourceResult: result.eventId,
-    sourceTaskDigest: hash(sourceTask), selectedFiles: paths.length, readParseValidateMs: parsed - start,
-    constructionAndSourceProjectionMs: projected - parsed, wholeCheckMs: performance.now() - start,
-    limit: 'Historical admitted source and current pure source/admission predicates; no new C2 Run, child admission, helper execution or native call.' }));
-});
+// Retired (T-292 TD-60): a retained native producer joins C2 source admission; input the retained producer event log outside the evidence root at odd_glc
 
 // Projection counterexample, not a new admitted Run: preserve the real source
 // prefix and append canonical event fixtures for the C2 cut and later residue.

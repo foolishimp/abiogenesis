@@ -111,39 +111,4 @@ test('pure artifact values do not reacquire; cold ingress still refuses byte, ex
  }finally{acquired.store.closeDurableLog();await rm(scratch,{recursive:true,force:true});}
 });
 
-test('native basis retains one immutable derivation; copied, changed and physically stale inputs revalidate',{skip:!process.env.ABI5_NATIVE_BASIS_SAMPLE&&'ABI5_NATIVE_BASIS_SAMPLE unset; requires the retained native execution-basis sample'},async()=>{
- const { stat }=await import('node:fs/promises');const { pathToFileURL, fileURLToPath }=await import('node:url');
- const native=await import('../../build/code/src/abg/execution_basis.js');
- const old=await import(pathToFileURL(join(process.env.ABI5_NATIVE_BASIS_PREDECESSOR,'build/code/src/abg/execution_basis.js')));
- const sample=JSON.parse(await readFile(process.env.ABI5_NATIVE_BASIS_SAMPLE));
- const originalBytes=await readFile(fileURLToPath(sample.predecessorPrefix.eventLogRef));
- const scratch=await mkdtemp(join(tmpdir(),'read05-basis-'));const path=join(scratch,'events.jsonl');
- const bytes=originalBytes.subarray(0,sample.predecessorPrefix.prefixLength);await writeFile(path,bytes);const node=await stat(path);
- const { coordinateDigest,...body }=sample.predecessorPrefix;body.eventLogRef=pathToFileURL(path).href;body.storeIdentity={...body.storeIdentity,device:node.dev,inode:node.ino};
- sample.predecessorPrefix={...body,coordinateDigest:sha256Canonical(body)};
- try{
-  const expected=old.authenticateNativeInstructionAssemblyBasis(sample);assert.ok(expected);
-  const value=native.constructNativeInstructionAssemblyBasis(sample);assert.ok(value);
-  const before=counts();const selected=native.authenticateOwnedNativeInstructionAssemblyBasis(value);assert.ok(selected);
-  for(let i=0;i<5;i++)assert.equal(native.authenticateOwnedNativeInstructionAssemblyBasis(value),selected);
-  if(globalThis.p0Work)assert.equal(difference(before,counts(),'physicalReads'),0);
-  // The predecessor expanded its prefix into complete events; the owned value
-  // borrows that prefix, so history compares through its incremental digest.
-  const { environment,prefix:ownedPrefix,...actual }=selected,{ events:expectedEvents,prefix:_expectedPrefix,...expectedFacts }=expected;
-  assert.equal(sha256Canonical(actual),sha256Canonical(expectedFacts),'exact explicit owner facts across independent module brands');assert.equal(environment.kind,'exact_prefix_workspace_environment');
-  assert.equal(prefix.runtimeEventPrefixDigest(ownedPrefix),sha256Canonical(expectedEvents),'borrowed prefix names the predecessor history');
-  const ownerFacts=({prefix:selectedPrefix,...facts})=>sha256Canonical({...facts,prefixDigest:prefix.runtimeEventPrefixDigest(selectedPrefix)});
-  assert.equal(native.constructNativeInstructionAssemblyBasis(value),value);
-  const copied=structuredClone(value);const freshBefore=counts();assert.equal(ownerFacts(native.authenticateOwnedNativeInstructionAssemblyBasis(copied)),ownerFacts(selected));
-  if(globalThis.p0Work)assert.ok(difference(freshBefore,counts(),'physicalReads')>0);
-  sample.cCall.cCallRef='c-call://read05/foreign';assert.equal(native.authenticateOwnedNativeInstructionAssemblyBasis(sample),null);assert.equal(native.authenticateOwnedNativeInstructionAssemblyBasis(value),selected);
-  const stolen={...value,cCall:{...value.cCall,cCallRef:'c-call://read05/foreign'}};
-  for(const symbol of Object.getOwnPropertySymbols(value))Object.defineProperty(stolen,symbol,Object.getOwnPropertyDescriptor(value,symbol));deepFreeze(stolen);
-  assert.equal(native.authenticateOwnedNativeInstructionAssemblyBasis(stolen),null);
-  const changed=Buffer.from(bytes);changed[0]=91;await writeFile(path,changed);
-  assert.equal(native.authenticateOwnedNativeInstructionAssemblyBasis(value),selected,'pure derivation does not assert current physical truth');
-  assert.equal(native.authenticateOwnedNativeInstructionAssemblyBasis(copied),null,'cold input still authenticates physical bytes');
-  assert.throws(()=>store.readRuntimeEventsAtDurablePrefix(value.predecessorPrefix),e=>e.code==='prefix_digest_mismatch');
-  console.log(JSON.stringify({kind:'native_basis_owner_controls',predecessorOutputConserved:true,repeatedPurePhysicalReads:0,coldChangedCopiedReceiptAndPhysicalRefusals:true}));
- }finally{await rm(scratch,{recursive:true,force:true});}
-});
+// Retired (T-292 TD-60): the native basis derivation matches its predecessor build over a retained sample; input the retained native execution-basis sample not recorded

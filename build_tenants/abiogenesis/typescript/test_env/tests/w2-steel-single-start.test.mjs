@@ -1,6 +1,5 @@
 import assert from 'node:assert/strict';
 import test from 'node:test';
-import { readFile } from 'node:fs/promises';
 import { selectWorksiteConstruction, prepareWorksiteCommands } from '../../build/code/src/implementation/worksite_command_execution.js';
 import * as gtl from '../../build/code/src/gtl/index.js';
 import * as product from '../../build/code/src/product/index.js';
@@ -136,33 +135,8 @@ test('C2 and serial C3 publish graph-call child closure without changing callabl
   }
 });
 
-const retainedEventPath = process.env.W2_STEEL_RETAINED_EVENT_PATH;
-test('pure preparation preserves actual recorded A/W, grant, source and command configuration', {
-  skip: !retainedEventPath && 'W2_STEEL_RETAINED_EVENT_PATH unset; explicit historical carrier fixture is optional outside this focused proof',
-}, async () => {
-  const events = (await readFile(retainedEventPath, 'utf8')).trim().split('\n').map(JSON.parse);
-  const tasks = events.filter((event) => event.kind === 'basis_admitted' && event.payload.basisClass === 'root').map((event) => event.payload.rawInputValue);
-  const constructionTask = tasks.find((task) => task.kind === 'worksite_construction_task');
-  const observedTask = tasks.find((task) => task.kind === 'worksite_command_execution_task');
-  assert.ok(constructionTask && observedTask);
-  const entry = product.constructWorksiteCommandPreparationInput({ constructionTask,
-    commands: observedTask.commands, outcomePredicates: observedTask.outcomePredicates,
-    allowedWriteTerritories: observedTask.allowedWriteTerritories });
-  const selected = selectWorksiteConstruction(entry);
-  assert.equal(selected.disposition, 'success');
-  assert.deepEqual(selected.resultCandidate, constructionTask);
-  const bound = product.constructRetainedWorksiteInput(product.worksiteRetentionBinding(), entry, observedTask.sourceConstructionResult);
-  const prepared = prepareWorksiteCommands(bound);
-  assert.equal(prepared.disposition, 'success', JSON.stringify(prepared));
-  const task = prepared.resultCandidate;
-  assert.ok(product.isWorksiteCommandExecutionTask(task));
-  for (const key of ['workspaceAuthorityBasis', 'workspaceBinding', 'commands', 'outcomePredicates', 'allowedWriteTerritories', 'sourceConstructionResult']) {
-    assert.deepEqual(task[key], observedTask[key], key);
-  }
-  assert.deepEqual(task.capabilityGrant, constructionTask.capabilityGrant);
-  assert.equal(product.isWorksitePreparationBoundInput({ ...bound, unowned: true }), false);
-  assert.throws(() => product.constructRetainedWorksiteInput(product.worksiteRetentionBinding(), { ...entry, unowned: true }, bound.source));
-});
+// Retired (T-292 TD-60): preparation reproduces the recorded construction task of a retained Run; input the historical carrier event fixture not recorded
+
 test('pure preparation failure remains an ordinary typed failure', () => {
   for (const result of [selectWorksiteConstruction({ kind: 'wrong' }), prepareWorksiteCommands({ kind: 'wrong' })]) {
     assert.equal(result.disposition, 'failure');

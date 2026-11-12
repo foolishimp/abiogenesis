@@ -1,7 +1,6 @@
 import assert from 'node:assert/strict';
 import test from 'node:test';
 import {readFileSync} from 'node:fs';
-import {join} from 'node:path';
 import * as gtl from '../../build/code/src/gtl/index.js';
 import * as product from '../../build/code/src/product/index.js';
 import * as validator from '../../build/code/src/validator/index.js';
@@ -9,7 +8,6 @@ import {canonicalJson} from '../../build/code/src/shared/canonical_json.js';
 import {canonicalEquals} from '../../build/code/src/shared/value/index.js';
 import {isRecord} from '../../build/code/src/shared/admission_predicates.js';
 import {isRawAdmittedValue} from '../../build/code/src/validator/raw_admission.js';
-import {ABI5_WORKSITE_COMMAND_EXECUTION_PRODUCT_SEMANTICS as semantics} from '../../build/code/src/product/builtin_semantics.js';
 const hash=product.sha256Canonical,root=new URL('../../',import.meta.url);
 // Execute the complete production contract guard verbatim. Earlier/later owner,
 // authority, prefix and event admission are outside this effect-free component
@@ -57,16 +55,4 @@ test('same published task is a lawful root output and unchanged C2 input; reserv
  for(const mutate of mutations){const g=fixture(publication);mutate(g);assert.equal(check(g).code,'contract_mismatch');}
  assert.equal(check(fixture(publication,{kind:'wrong-value-kind'})).code,'contract_mismatch');
 });
-test('retained refused Public input crosses only the corrected production contract boundary',{skip:!process.env.ABG_REACQUISITION_ROOT_ACTUAL_REQUEST&&'ABG_REACQUISITION_ROOT_ACTUAL_REQUEST unset; requires the retained refused Public request'},t=>{
- const started=performance.now(),path=process.env.ABG_REACQUISITION_ROOT_ACTUAL_REQUEST,bytes=readFileSync(path),request=JSON.parse(bytes),call=request.invocation,value=call.invocation.request.input.value;
- const pub=call.resources.catalog.boundPublications.find(p=>p.graphFunctions.some(g=>g.name===ids.graphFunctionRef));assert(pub);
- const actualGraph=pub.graphFunctions.find(g=>g.name===ids.graphFunctionRef),currentGraph=publication.graphFunctions.find(g=>g.name===ids.graphFunctionRef);assert.deepEqual(actualGraph,currentGraph);
- for(const ref of [...actualGraph.inputs,...actualGraph.outputs])assert.deepEqual(pub.contracts.find(c=>c.contractRef===ref),publication.contracts.find(c=>c.contractRef===ref));
- assert.equal(product.isNativeWorksiteCommandReacquisitionRequest(value),true);assert(semantics.admitInput(ids.requestContractRef,value));
- const malformed={...value,currentContext:null};assert.equal(product.isNativeWorksiteCommandReacquisitionRequest(malformed),false);assert.equal(semantics.admitInput(ids.requestContractRef,malformed),null);
- const baseline=process.env.ABG_REACQUISITION_ROOT_BASELINE;assert(baseline,'exact baseline is required for the retained differential');
- const prior=boundary(readFileSync(join(baseline,'build/code/src/abg/invocation_admission.js'),'utf8')),f=fixture(pub,value);
- assert.equal(check(f,prior).code,'contract_mismatch');assert.equal(check(f),null);
- assert.equal(call.invocation.request.input.valueDigest,hash(value));
- t.diagnostic(JSON.stringify({requestSha256:product.sha256Bytes(bytes),inputDigest:hash(value),graphFunctionDigest:hash(actualGraph),inputContract:f.resolution.inputContract,outputContract:f.resolution.outputContract,baselineRefused:true,successorBoundaryPassed:true,malformedNativeInputRefused:true,elapsedMs:performance.now()-started,limits:'Verbatim production contract guard and actual Product input validation only. No original event/worksite read, environment reconstruction, full invocation admission, native call or execution.'}));
-});
+// Retired (T-292 TD-60): a retained refused Public request crosses only the corrected contract boundary; input the retained refused Public request not recorded

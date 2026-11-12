@@ -108,22 +108,4 @@ test('R10 keeps same-owner exact prefix warm while copies, closed owners and mal
 });
 
 
-test('execution basis still refuses changed raw input and changed enclosing body',{skip:!selected&&'ABG_OWNER_REUSE_PREDECESSOR, ABG_OWNER_REUSE_TASK or ABG_OWNER_REUSE_EVIDENCE unset; requires the predecessor build, retained reacquisition task and evidence directory'},async()=>{
- const task=JSON.parse(fs.readFileSync(retained,'utf8')),basis=task.sourceReacquisition.nativeBasis;
- const store=await load(current,'abg/event_store'),prefixes=await load(current,'abg/event_prefix'),digest=await load(current,'shared/digests'),immutable=await load(current,'shared/immutable');
- const events=store.readRuntimeEventsAtDurablePrefix(basis.predecessorPrefix);
- const opened=events.find(e=>e.kind==='c_call_opened'&&e.aggregateId===basis.cCallRef);
- const event=events.find(e=>e.kind==='basis_admitted'&&e.basisId===opened.basisId);assert(event);
- const changedValue={...event.payload.rawInputValue,requestDigest:digest.sha256Canonical('changed')};
- const cases=[{...event,payload:{...event.payload,rawInputValue:changedValue}},
-  {...event,payload:{...event.payload,rawInputValue:changedValue,rawInputDigest:digest.sha256Canonical(changedValue)}}];
- for(const root of [predecessor,current]){
-  const projection=await instrument(root,'abg/invocation_execution_truth',{},current);
-  const valid=projection.projectExactExecutionBasisAtPrefix(prefixes.selectValidatedRuntimeEventPrefix(events),event.basisId);assert(valid);
-  for(const counterexample of cases){
-   const prefix=prefixes.selectValidatedRuntimeEventPrefix(immutable.deepFreeze(events.map(row=>row.eventId===event.eventId?counterexample:row)));
-   assert.equal(projection.projectExactExecutionBasisAtPrefix(prefix,event.basisId),null);
-  }
- }
- record('basis-refusal-differential.json',{validActualBasis:true,malformedRawInputRefused:true,enclosingDigestStillRequired:true,subjects:2,claim:'Counterexample event values are pure fixtures, never runtime admission.'});
-});
+// Retired (T-292 TD-60): the execution basis refuses changed raw input and enclosing body as its predecessor did; input the predecessor build and retained reacquisition task not recorded

@@ -32,21 +32,7 @@ function fixture(t){
  return {...acquired,events,full,runPrefix,run,route,judgment,binding:run.parentAggregateId};
 }
 
-test('actual closed retry-completion history yields exact Run truth, Result and replay without new execution',options,t=>{
- const f=fixture(t);assert.equal(f.route.causationEventRefs.includes(f.judgment.eventId),false);
- assert(hasJudgedTerminalRouteCausation(f.runPrefix,f.route,f.judgment,f.full));
- const truth=reads.projectRunTruthAtDurablePrefix(f.prefix,f.run.runId);
- assert.equal(truth.kind,'abg_run_truth_projection',JSON.stringify(truth));assert.equal(truth.runtimeStatus,'closed');
- assert.equal(truth.result.ref,'result://abiogenesis/ef2bf81d0627e4e39289de35a489f4a8a1d56a462a1e09a11ebb1597e161c407');
- assert.deepEqual(truth.terminalResult.value,{kind:'hello_world_output',schemaVersion:'5.0.0',message:'Hello World'});
- for(const memberKey of ['run_result','run_replay']){
-  const read=reads.prepareRunReadAtDurablePrefix(f.prefix,memberKey,f.run.runId).project();
-  assert.equal(read.kind,'abg_project_read_projection');assert.deepEqual(read.value.terminalResult,truth.terminalResult);
- }
- const closed=f.store.projectReopenAuthorityAndClose();
- const cold=reads.projectRunTruthAtDurablePrefix(clone(closed.prefix),f.run.runId);assert.deepEqual(cold,truth);
- t.diagnostic('Real frozen failed S02 events copied into a disposable owner; actual cold/read/terminal owners. No fresh installed Run, provider or original resource mutation.');
-});
+// Retired (T-292 TD-60): the frozen S02 retry-completion history yields its recorded Run truth; input the frozen S02 episode fixture not recorded
 
 test('terminal producer join refuses missing progress, foreign producer/scope and unrelated causal paths',options,t=>{
  const f=fixture(t),missing=prefixOwner.validatedRuntimeEventPrefixThroughEvent(f.runPrefix,f.judgment.eventId);

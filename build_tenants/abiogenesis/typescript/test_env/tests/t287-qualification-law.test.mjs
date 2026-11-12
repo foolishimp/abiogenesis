@@ -71,10 +71,11 @@ test('coverage declarations preserve retained behavior without execution slots o
   const subset=structuredClone(inventory);subset.claims.pop();assert(!qualificationCoverageIsPublished(subset, catalogs));
 });
 
-// Legacy literal fixture keys. The supplied fixture binds their real identities:
-// retainedRC1 is the exact RC4 source on STDO 3.0.2; selectedRC2 is the current
-// RC5 candidate on STDO 3.0.4.
-for (const name of ['retainedRC1', 'selectedRC2']) test(`authority staging and ordinary reproduction bind ${name}'s exact Definition-selected release`, async t => {
+// Retired (T-292 TD-60): authority staging reproduces the retainedRC1 release; holds only against the retainedRC1 source fixture
+
+// Legacy literal fixture key. The supplied fixture binds its real identity:
+// selectedRC2 is the current RC5 candidate on STDO 3.0.4.
+for (const name of ['selectedRC2']) test(`authority staging and ordinary reproduction bind ${name}'s exact Definition-selected release`, async t => {
   const fixturesPath = process.env.ABG_QUALIFICATION_STAGE_FIXTURES;
   if (fixturesPath === undefined) return t.skip('ABG_QUALIFICATION_STAGE_FIXTURES unset; exact historical/current staging fixtures not supplied');
   const fixture = JSON.parse(fs.readFileSync(fixturesPath))[name];

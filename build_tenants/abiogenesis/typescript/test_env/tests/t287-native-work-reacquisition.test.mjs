@@ -7,11 +7,8 @@ import { performance } from 'node:perf_hooks';
 import * as p from '../../build/code/src/product/index.js';
 import * as gtl from '../../build/code/src/gtl/index.js';
 import * as validator from '../../build/code/src/validator/index.js';
-import * as reacquire from '../../build/code/src/abg/native_work_reacquisition.js';
 import { readRuntimeEventsAtDurablePrefix } from '../../build/code/src/abg/event_store.js';
 import { selectValidatedRuntimeEventPrefix } from '../../build/code/src/abg/event_prefix.js';
-import { deriveInvocationSourceResultBasisAtPrefix } from '../../build/code/src/abg/invocation_admission.js';
-import { projectExactInvocationAdmissionAtPrefix } from '../../build/code/src/abg/invocation_execution_truth.js';
 import { projectNativeWorkCommandSourceAtPrefix } from '../../build/code/src/abg/native_worksite_execution.js';
 import { constructNativeWorkspaceWorkObservation } from '../../build/code/src/product/native_workspace_work.js';
 import { worksiteContextIdentityEntry } from '../../build/code/src/product/worksite_effect.js';
@@ -388,43 +385,8 @@ test('reacquisition publishes one ordinary F_D with existing C2 output and nativ
   assert.equal(result.diagnostics.length,0);
   assert.deepEqual(gtl.nativeWorkReacquisitionGraphFunction().effects,[]);
 });
-test('actual closed child survives blocked parent without acquiring closed-Run source authority', {skip:!actualRoot&&'ABG_NATIVE_REACQUISITION_RETAINED_ROOT unset; requires the retained actual reacquisition root'}, async t=>{
-  const a=actual(),begin=performance.now();
-  const task=reacquire.projectNativeWorkReacquisitionTask(a.coordinate,a.request,a.nativeBasis);assert(task,'R10 child/source projection');
-  assert(p.isNativeWorksiteCommandExecutionTask(task));assert.deepEqual(task.sourceNativeWork,a.source);
-  assert.deepEqual(task.sourceReacquisition.request.currentContext,a.source.after);
-  assert.equal(a.source.after.entries.filter(e=>e.state==='file').length,35);
-  assert.deepEqual(task.sourceReacquisition.bindingCoverEventRefs,[]);
-  assert.equal(await reacquire.nativeWorkReacquisitionContextCurrent(a.request),true,'complete actual current physical context');
-  const source=projectNativeWorkCommandSourceAtPrefix(a.prefix,task),invocation=projectExactInvocationAdmissionAtPrefix(a.prefix,source.sourceBasis.invocationAdmissionRef);
-  assert.equal(deriveInvocationSourceResultBasisAtPrefix(a.prefix,{publicAuthorityDigest:invocation.publicRequestDigest,
-    invocationAdmissionRef:invocation.invocationAdmissionRef,runtimeInvocationRef:invocation.invocationRef,runId:a.result.runId,resultRef:a.result.payload.resultRef}),null,
-    'legacy Public terminal-Run source law remains closed');
-  assert.equal(reacquire.authenticateOwnedNativeWorkReacquisition(a.nativeBasis,a.request),null,'caller-created task supplies no admitted F_D occurrence');
-  assert.equal(reacquire.nativeWorkReacquisitionResultMatches(a.request,task),false);
-  t.diagnostic(JSON.stringify({readParseMs:a.readMs,sourceJoinAnd35FileObservationMs:performance.now()-begin,eventCount:a.events.length,
-    originalResult:a.result.eventId,originalValueDigest:a.result.payload.valueDigest,sourceGraphCall:a.result.graphCallId,
-    limit:'Actual preserved child/current files. Same W has empty cover. No new invocation, witness, command, result admission or provider.'}));
-});
-test('actual source rejects absent child, foreign provenance, changed context and uncovered authority',{skip:!actualRoot&&'ABG_NATIVE_REACQUISITION_RETAINED_ROOT unset; requires the retained actual reacquisition root'},async()=>{
-  const a=actual();
-  const wrong=p.constructNativeWorksiteCommandReacquisitionRequest({...a.request,source:{...a.request.source,graphCallRef:'graph-call://foreign'}});
-  assert.equal(reacquire.projectNativeWorkReacquisitionTask(a.coordinate,wrong,a.nativeBasis),null);
-  const foreign=constructNativeWorkspaceWorkObservation(a.source.task,a.source.after,a.source.report,{...a.source.provenance,cCallRef:'c-call://foreign'});
-  const crossed=p.constructNativeWorksiteCommandReacquisitionRequest({...a.request,sourceNativeWork:foreign});
-  assert.equal(reacquire.projectNativeWorkReacquisitionTask(a.coordinate,crossed,a.nativeBasis),null);
-  assert.throws(()=>p.constructNativeWorksiteCommandReacquisitionRequest({...a.request,currentContext:{...a.request.currentContext,entries:[]}}));
-  const {kind,schemaVersion,bindingId,bindingDigest,admissionEventRef,...body}=a.request.workspaceBinding;
-  const changed={...body,lockId:'lock://reacquisition/unadmitted',lockDigest:hash('unadmitted')},digest=hash(changed);
-  const binding={kind,schemaVersion,...changed,bindingId:'workspace-binding://abiogenesis/'+digest.slice(7),bindingDigest:digest,admissionEventRef:'event://unadmitted-binding'};
-  const {kind:gk,schemaVersion:gs,grantRef,grantDigest,...gb}=a.request.capabilityGrant,grantBody={...gb,scopeRef:binding.bindingId,scopeDigest:binding.bindingDigest},gd=hash(grantBody);
-  const grant={kind:gk,schemaVersion:gs,...grantBody,grantRef:'capability-grant://abiogenesis/'+gd.slice(7),grantDigest:gd};
-  const {kind:ck,schemaVersion:cs,observationRef,observationDigest,...cb}=a.request.currentContext;
-  const currentBody={...cb,workspaceBindingIdentity:binding.bindingId,workspaceBindingDigest:binding.bindingDigest},cd=hash(currentBody);
-  const context={kind:ck,schemaVersion:cs,...currentBody,observationRef:'worksite-context-observation://abiogenesis/'+cd.slice(7),observationDigest:cd};
-  const uncovered=p.constructNativeWorksiteCommandReacquisitionRequest({...a.request,workspaceBinding:binding,capabilityGrant:grant,currentContext:context});
-  assert.equal(reacquire.projectNativeWorkReacquisitionTask(a.coordinate,uncovered,a.nativeBasis),null);
-});
+// Retired (T-292 TD-60): a retained closed child survives its blocked parent without closed-Run source authority; input the retained reacquisition root not recorded
+// Retired (T-292 TD-60): the retained source rejects absent child, foreign provenance and changed context; input the retained reacquisition root not recorded
 
 test('later admitted failure invalidates full reacquired context beyond the C2 snapshot subset',{skip:!actualRoot&&'ABG_NATIVE_REACQUISITION_RETAINED_ROOT unset; requires the retained actual reacquisition root'},async()=>{
   const a=actual(),{projectRuntimeEventFromValidatedHistory}=await import('../../build/code/src/abg/event_store.js');

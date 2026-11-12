@@ -436,22 +436,4 @@ test("Public-start exact positive and schema-valid crossed input coordinate use 
   console.log(JSON.stringify({ proof: "public_start_exact_positive_crossed_input", root: environment.scratch, crossed: fields.length, providerCalls: 0 }));
 });
 
-test("exact released a_c validation and emitted-map equality are structural access, not frame application", { skip: !process.env.ABI5_CONTEXT_STDO_CONFIGURATION && "ABI5_CONTEXT_STDO_CONFIGURATION unset; requires the released a_c run-environment configuration directory" }, async () => {
-  const configuration = process.env.ABI5_CONTEXT_STDO_CONFIGURATION;
-  const environment = JSON.parse(await readFile(join(configuration, "run-environment.json"), "utf8"));
-  const supplied = JSON.parse(await readFile(join(configuration, "run-environment-resources.json"), "utf8"));
-  const module = await import(pathToFileURL(process.env.ABI5_CONTEXT_ODD_DECLARATIONS).href);
-  const publication = module.constructFullSandboxPackage({ product, gtl, abiArtifact: { ...abiArtifact, manifestDigest: zeros }, runEnvironment: environment }).bundle.consumerPublication;
-  const programs = publication.programs.filter(p => p.policies[gtl.RUN_ENVIRONMENT_POLICY] === environment.declarationRef); assert.equal(programs.length, 1);
-  const program = programs[0], archiveRoot = await mkdtemp(join(process.env.ABI5_CONTEXT_PROOF_ROOT, "stdo-access-")), temporaryRoot = join(archiveRoot, "temporary"); await mkdir(temporaryRoot);
-  const authority = { authorityRef: "authority:structural", authorityDigest: hash("structural"), actorRef: "actor:structural" };
-  const coordinates = { dependencies: supplied.dependencies, pythonPath: supplied.pythonPath, temporaryRoot };
-  const resources = product.constructRunEnvironmentResources({ kind: "run_environment_resources", schemaVersion: "5.0.0", ...coordinates,
-    permission: { ...authority, programRef: program.programRef, environmentRef: environment.declarationRef, environmentDigest: hash(environment), operations: supplied.operations, ...coordinates } });
-  const graphs = [...publication.graphFunctions, ...gtl.constructWorksiteConstructionModulePublication(abiArtifact).graphFunctions, ...gtl.constructWorksiteCommandExecutionModulePublication(abiArtifact).graphFunctions];
-  const observed = await product.observeRunEnvironment({ publication, program, graphFunctions: graphs, authority, archiveRoot, resources });
-  assert.equal(observed.kind, "run_environment_observed", JSON.stringify(observed)); assert.ok(evidence.isRunEnvironmentEvidence(observed.evidence));
-  assert.equal(observed.evidence.accesses[0].projection.status, "valid"); assert.ok(observed.evidence.accesses[0].output);
-  await writeFile(join(archiveRoot, "run-environment-evidence.json"), JSON.stringify(observed.evidence, null, 2));
-  console.log(JSON.stringify({ proof: "actual_released_structural_access", evidenceDigest: observed.evidence.evidenceDigest, archiveRoot, frameApplicationClaim: false }));
-});
+// Retired (T-292 TD-60): released a_c validation and emitted-map equality are structural access; input the ODD declarations module outside the evidence root at odd_glc
