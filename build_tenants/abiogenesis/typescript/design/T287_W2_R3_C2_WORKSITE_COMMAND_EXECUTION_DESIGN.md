@@ -296,7 +296,7 @@ R_protected = {
 }
 ```
 
-Original worksite subjects, source paths, declared cwd/report/module/selector/
+Original worksite subjects, source paths, declared cwd/report/selector/
 port-file paths, and authored write territories are canonical-root-relative.
 Their original-root interpretation must be confined beneath
 `A.canonicalRoot` and must not equal or descend beneath any protected root;
@@ -467,7 +467,7 @@ worker binding. `WorkspaceBinding.authorizedActorRef` remains the neutral root
 worksite owner bound by the capability grant. It need not equal either C1 or
 C2's transport-specific leaf actor.
 
-Every cwd, report, module, selector, port-file, and write-territory path is
+Every cwd, report, selector, port-file, and write-territory path is
 safe and relative to the canonical worksite and then mapped to the snapshot
 mirror. Declared child executable, argv, and environment values must not expose
 `A.canonicalRoot` or any original WorkspaceBinding root or contain a parent
@@ -486,7 +486,7 @@ member, `A`/`W`, canonical-root-relative path, and `O1` coordinates. Their
 canonical vector digest identifies the snapshot.
 
 Before that first re-observation, snapshot/result materialization, declared
-command, task-module import, report read, HTTP launch, or probe, the helper must
+command, report read, HTTP launch, or probe, the helper must
 close its own invocation preflight. Before that preflight completes, the helper
 may only read and validate the public Product-task manifest, the private launch
 envelope, and their canonical path topology.
@@ -602,11 +602,11 @@ same-inode manifest pair, a task-manifest hard link, wrong digest segment,
 changed path, relative path, `.`/`..` alias, alternate filename or depth,
 malformed/noncanonical/stale bytes, symlink, alias, escape, partial publication,
 or pre-existing result or sandbox refuses before protected-O1 re-observation,
-snapshot/result materialization, probe launch, task-module import, or
+snapshot/result materialization, probe launch, or
 declared-command execution. The later Product join separately proves that all
 independently derived coordinates and current bytes remain exact.
 
-All declared command cwd, report reads, module imports, report walks, and HTTP
+All declared command cwd, report reads, report walks, and HTTP
 probes resolve their canonical-root-relative coordinates inside that snapshot
 mirror through canonical, no-symlink
 confinement. The helper inventories snapshot path/content/node-kind/symlink-
@@ -702,7 +702,7 @@ and validates the exact canonical bare task bytes. It requires task and launch
 to be distinct paths and filesystem nodes, each canonical, non-symlink,
 single-linked, and byte-current. It validates result and sandbox absence before
 protected-O1 re-observation, snapshot/result materialization, probe launch,
-task-module import, or declared-command execution. Missing, crossed, swapped,
+or declared-command execution. Missing, crossed, swapped,
 copied, same-inode, malformed, noncanonical, stale, aliased, symlinked,
 escaped, partially published, or output-colliding input therefore refuses with
 zero helper execution effect; no sibling path is caller-selected.
@@ -754,7 +754,7 @@ wrong Worker command. The host never invokes the helper as a fallback and no
 automatic retry follows helper preflight refusal or transport-identity
 failure. Exact one-Bash input identity remains the acceptance relation; the
 helper-side preflight prevents protected-O1 observation, snapshot/result
-materialization, probe launch, task-module import, and declared-command work
+materialization, probe launch, and declared-command work
 from preceding exact envelope validation and derived-sibling absence checks.
 Exact Worker input comparison remains the later Product gate.
 
@@ -840,13 +840,18 @@ observation for every declared predicate ID. Supported generic kinds are:
 
 - `process_exit` and `stdout_exact` from an exact command row;
 - `test_pass_count` from exact Node output or the declared JUnit set;
-- `module_export_return_exact` from one confined snapshot module import/call;
 - `http_response_exact` from an actual helper-owned loopback server launch and
   Node HTTP request;
 - `module_set_exact` and `file_count` from caller-declared selectors over the
   protected path vector; and
 - `test_report_set_exact`, `test_report_failure_count`, and
   `test_report_error_count` from the caller-declared report base/selector.
+
+A check of a module's exported value is a declared command that imports the
+module, calls the export and prints the value as canonical JSON; `process_exit`
+and `stdout_exact` observe it. The command runs under its own deadline, budget
+term, declared environment and snapshot working directory. The helper imports
+no worksite module into its own process.
 
 JUnit handling uses the accepted ABI 4.6 element-scoped law: comments and
 CDATA are inert, aggregate attributes are ignored, testcase elements alone
@@ -864,7 +869,7 @@ records request, selected-port file, response, and launched-process
 termination truth.
 
 F_D judgment admits a well-formed execution observation without interpreting
-whether exit codes, bodies, exports, counts, or report sets satisfy odd_glc.
+whether exit codes, bodies, counts, or report sets satisfy odd_glc.
 Contradictory or free model-authored predicate rows cannot cross admission.
 
 ## 8. Publication And Lifecycle
@@ -897,7 +902,7 @@ requires:
 | Distinct worksite/install | Use `A.canonicalRoot != I_P.installedRoot`, with replayed C1/C3 `package.json` at `A.canonicalRoot/package.json`. | C2 protects and re-observes that worksite file, copies its exact bytes into the snapshot, and never reads it from installed `productRoot`. |
 | Exact-prefix preflight | Tamper or cross full task `A`, task `W`, source-result environment, predecessor prefix, owner Product, or installation while retaining plausible refs/digests. | Refusal precedes `task.json`, `launch.json`, snapshot/result publication, Worker dispatch, protected read, and command/probe effect. |
 | Alias and protected roots | Use lexical aliases, symlink ancestors, hard-link aliases, crossed roots, a target beneath a protected root, or a territory itself inside one. | Host/helper refuses at the owning pre-effect seam; no snapshot command begins and no protected byte changes. |
-| Snapshot mapping | Use canonical-root-relative cwd, report, module, selector, port-file, and evidence-write paths. | Every execution read/write resolves only beneath the exact snapshot mirror; each snapshot member binds the original `A`/`W` subject and replayed `O1`. |
+| Snapshot mapping | Use canonical-root-relative cwd, report, selector, port-file, and evidence-write paths. | Every execution read/write resolves only beneath the exact snapshot mirror; each snapshot member binds the original `A`/`W` subject and replayed `O1`. |
 | Worksite currentness | Drift an original protected worksite file before snapshot or after Worker return. | Pre-snapshot or completion re-observation refuses; stale bytes cannot be admitted as C2 observation truth. |
 | Product conservation | Inventory `W.roots.productRoot == I_P.installedRoot` around success and every refusal. | Installed payload is byte/path/topology exact with zero Product delta. |
 | C3 and replay | Consume a lawful same-basis C3 reducer result, close C2, reopen, and replay; separately offer mixed-basis C3 input. | Same-basis source/snapshot/observation replay byte-equally; mixed-basis aggregation or C2 source join refuses before effect. |
@@ -949,7 +954,7 @@ unchanged proof remains reusable. The C2 model-free installed conditions are:
    protected read or execution effect;
 10. refusal when either exact derived sibling `result.json` or `sandbox`
     already exists, with zero protected-O1 read, declared-command sentinel,
-    snapshot/result materialization, probe launch, or task-module import;
+    snapshot/result materialization, or probe launch;
 11. successful result publication only after non-swallowed temporary-name
     cleanup and final `result.json` `nlink === 1`, plus completion refusal after
     a result hard-link alias appears;

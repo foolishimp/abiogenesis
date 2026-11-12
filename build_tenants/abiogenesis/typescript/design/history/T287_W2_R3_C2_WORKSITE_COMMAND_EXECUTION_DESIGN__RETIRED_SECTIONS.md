@@ -84,3 +84,29 @@ construction-result and forward task owners preserve this same declaration.
 Cut from `build_tenants/abiogenesis/typescript/design/T287_W2_R3_C2_WORKSITE_COMMAND_EXECUTION_DESIGN.md` at commit `5c9df5056`, line 1076, verbatim.
 
 C2 already receives the owner's native assembly preparation operation. Its accompanying occurrence check must also run at that invoking owner, comparing every existing occurrence coordinate to the authenticated assembly CCall. The installed command implementation still constructs and supervises its declared helper/acknowledgment. No command, actor policy, effect scope or output relation changes. Legacy semantic-stage/forward/preserved-result paths are not generalized by this selection.
+
+---
+
+Cut from `build_tenants/abiogenesis/typescript/design/T287_W2_R3_C2_WORKSITE_COMMAND_EXECUTION_DESIGN.md` at commit `18bfd3f1a`, lines 299, 470, 489, 605, 609, 705, 757, 843, 867, 900, 952, verbatim.
+
+Original worksite subjects, source paths, declared cwd/report/module/selector/
+
+Every cwd, report, module, selector, port-file, and write-territory path is
+
+command, task-module import, report read, HTTP launch, or probe, the helper must
+
+snapshot/result materialization, probe launch, task-module import, or
+
+All declared command cwd, report reads, module imports, report walks, and HTTP
+
+task-module import, or declared-command execution. Missing, crossed, swapped,
+
+materialization, probe launch, task-module import, and declared-command work
+
+- `module_export_return_exact` from one confined snapshot module import/call;
+
+whether exit codes, bodies, exports, counts, or report sets satisfy odd_glc.
+
+| Snapshot mapping | Use canonical-root-relative cwd, report, module, selector, port-file, and evidence-write paths. | Every execution read/write resolves only beneath the exact snapshot mirror; each snapshot member binds the original `A`/`W` subject and replayed `O1`. |
+
+    snapshot/result materialization, probe launch, or task-module import;
