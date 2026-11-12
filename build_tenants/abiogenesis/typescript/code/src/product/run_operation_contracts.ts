@@ -107,7 +107,7 @@ function runMetadata(member: "invoke" | "start") {
     ],
     capabilityRefs: capabilityRefsForDefinition({ operationId: "abg.operation.run.invoke", memberKey: member }),
     defaults: member === "start"
-      ? { fhMode: "direct", rootMode: "supervised" }
+      ? { fhMode: "direct", rootMode: "direct" }
       : {},
     closedDomains: member === "start"
       ? {
@@ -158,7 +158,7 @@ const start = ownerContractPacket(
     allowlist: refSetSchema,
     input: contractBoundValueSchema,
     fhMode: v.optional(v.picklist(["direct", "human-proxy"]), "direct"),
-    rootMode: v.optional(v.picklist(["direct", "supervised"]), "supervised"),
+    rootMode: v.optional(v.picklist(["direct", "supervised"]), "direct"),
     sourceBasis: sourceBasisSchema,
   }),
   runResultSchema("start"),

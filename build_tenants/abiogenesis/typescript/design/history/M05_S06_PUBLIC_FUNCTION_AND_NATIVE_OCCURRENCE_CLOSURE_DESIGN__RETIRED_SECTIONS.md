@@ -186,3 +186,18 @@ Cut from `build_tenants/abiogenesis/typescript/design/M05_S06_PUBLIC_FUNCTION_AN
 
 - retained S03/S05 invocation, continuation, Consensus, and reads remain
   indexed members of the family;
+
+---
+
+Cut from `build_tenants/abiogenesis/typescript/design/M05_S06_PUBLIC_FUNCTION_AND_NATIVE_OCCURRENCE_CLOSURE_DESIGN.md` at commit `5c9df5056`, lines 747-750 (inside the `text` block that opens at line 729) and 816-818, verbatim.
+
+```text
+RunStartDefaults = {
+  fhMode: "direct"
+  rootMode: "supervised"
+}
+```
+
+context bag is lawful. `run.invoke(invoke)` has no `fhMode`, `rootMode`,
+`scope`, or `until` field. `run.invoke(start)` has exactly the modes and
+defaults above.
