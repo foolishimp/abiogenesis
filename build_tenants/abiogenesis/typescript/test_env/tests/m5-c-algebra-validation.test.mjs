@@ -1283,6 +1283,42 @@ test("M5 whole-root validation keeps F_H interaction keys out of executable reso
   );
 });
 
+// The validator law of `validation.ts` (a non-callable contribution's
+// declarationOrContractRef names one contract of the publication), over the
+// structural publication with one added node_type row and its contract.
+test("S05 every non-callable catalog row references one published contract", () => {
+  const basis = artifactBasis();
+  const contractRef = "contract://m5/non-callable/subject@5";
+  const handle = "node-type://m5/non-callable/subject@5";
+  const publication = structuredClone(gtl.constructStructuralModulePublication(basis));
+  publication.contracts.push(structuredClone(gtl.contractDeclaration({
+    contractRef, contractVersion: "5.0.0", contractKind: "input", valueKind: "m5_non_callable_subject" })));
+  publication.contributions.push(structuredClone(gtl.catalogContribution({
+    handle, kind: "node_type", declarationOrContractRef: contractRef, owningProductId: basis.productId,
+    programMembershipRefs: [], readinessPrerequisiteRefs: [], compatibilityRefs: ["compatibility://abiogenesis/major/5"],
+    provenanceRefs: [basis.artifactDigest, basis.productManifestDigest] })));
+  const validate = (candidate) => validator.validatePublication(
+    raw(candidate, "module_publication"),
+    candidate.contributions.map((value) => raw(value, "catalog_contribution")),
+  );
+  const control = validate(publication);
+  assert.equal(control.kind, "publication_validation", JSON.stringify(control));
+
+  publication.contracts = publication.contracts.filter(
+    (contract) => contract.contractRef !== contractRef,
+  );
+  const result = validate(publication);
+  assert.equal(result.kind, "static_validation_refusal");
+  assert.equal(
+    result.diagnostics.some(
+      (diagnostic) =>
+        diagnostic.code === "invalid_reference" &&
+        diagnostic.path.includes(handle),
+    ),
+    true,
+  );
+});
+
 // Retired (T-292 TD-60): M5 resolves and validates the executable root set of the Thread 2 installed proof; holds only against the workspace binding of the 2026-09-08 Thread 2 installed proof
 
 // Retired (T-292 TD-60): M5 complete resolution refuses missing, forged and mismatched bases over the Thread 2 installed proof; holds only against the workspace binding of the 2026-09-08 Thread 2 installed proof

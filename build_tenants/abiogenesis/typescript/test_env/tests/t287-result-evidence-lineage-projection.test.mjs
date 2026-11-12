@@ -247,7 +247,7 @@ test('actual CCall callback conserves admitted lineage for both qualification ta
     assert(current.projected.every(Object.isFrozen));
     assert.equal(Object.values(current.projected[0]).some(value => value === undefined), false);
     assert.equal(current.projected[0].transportFailureClass, null);
-    // These are the preexisting native-work/Consensus consumer coordinates.
+    // These are the preexisting native-work consumer coordinates.
     for (const field of ['evidenceRef', 'evidenceDigest', 'evidenceClass', 'outputDigest', 'transportDigest']) {
       assert.equal(current.projected[0][field], row[field], field);
     }

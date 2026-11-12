@@ -621,12 +621,10 @@ test("STEEL-BASIC-CLI-01 installed exact Public admits its eventless and event-b
     packageName: harness.candidateBasis.packageName,
     packageVersion: harness.candidateBasis.packageVersion,
   });
-  // The Product's contribution manifest binds its ten core publications
+  // The Product's contribution manifest binds its eight core publications
   // (scripts/generate-product-manifest.mjs); the catalog admits exactly them.
-  const consensusPublication = gtl.constructConsensusModulePublication(artifactBasis);
   const publications = Object.freeze([
     gtl.constructDefaultGovernanceLibraryModulePublication(artifactBasis),
-    consensusPublication,
     gtl.constructWorksiteConstructionModulePublication(artifactBasis),
     gtl.constructWorksiteCommandExecutionModulePublication(artifactBasis),
     gtl.constructNativeWorkspaceWorkModulePublication(artifactBasis),
@@ -724,15 +722,19 @@ test("STEEL-BASIC-CLI-01 installed exact Public admits its eventless and event-b
     admittedCatalog.ownerOutput.value.catalog,
     admittedCatalog.resources.catalog,
   );
-  const nodeRow = catalog.declarationEntries.find(
-    ({ declarationKind }) => declarationKind === "node_type",
-  );
-  const overlayRow = catalog.declarationEntries.find(
-    ({ declarationKind }) => declarationKind === "overlay",
-  );
-  assert.ok(nodeRow);
-  assert.ok(overlayRow);
-  const allowlist = [nodeRow.handle, overlayRow.handle].sort();
+  // The view narrows the core catalog to two callable rows of the default
+  // library. The core Product publishes no declaration rows;
+  // steel-consumer-declaration views a consumer's node_type and overlay rows.
+  assert.equal(catalog.declarationEntries.length, 0);
+  const allowlist = [
+    "graph-function://abiogenesis/default-library/executive@5",
+    "graph-function://abiogenesis/default-library/executive-step@5",
+  ].map((graphFunctionRef) => {
+    const rows = catalog.entries.filter(({ definitionRef }) =>
+      definitionRef === graphFunctionRef);
+    assert.equal(rows.length, 1);
+    return rows[0].handle;
+  }).sort();
   const viewRequest = Object.freeze({
     catalog: admittedCatalog.ownerOutput.value.catalog,
     allowlist,
@@ -819,14 +821,6 @@ test("STEEL-BASIC-CLI-01 installed exact Public admits its eventless and event-b
     assert.equal(duplicatedProgram.code, "ambiguous");
   }
 
-  // RETIRED: catalog.apply over the core consensus rows with caller-asserted
-  // application basis, validation receipt and contributor coordinates. At head
-  // the owner derives all three from an explicit construction (prefix, Program,
-  // target, value, installed schema assets: constructCatalogApplicationResources)
-  // and the core consensus schema asset ($id abg.schema.consensus@5) carries no
-  // schema whose $id is a row's contract ref, so these rows have no Public
-  // application. steel-consumer-declaration owns the Public apply claim over a
-  // consumer's installed schemas; m5-consensus-module owns the native one.
   assert.deepEqual(await readFile(eventLogPath), eventlessPrefixBytes);
   const legacyEventPath = join(harness.scratch, "legacy-must-not-create.events.jsonl");
   const legacy = await cliCall({ kind: "public_invocation", schemaVersion,
