@@ -27,6 +27,10 @@ const member = v.strictObject({ path: relativePath, type: v.picklist(["file", "s
   digest, target: v.nullable(ref) });
 const artifact = v.strictObject({ path: relativePath, uri: ref, byteDigest: digest, canonicalDigest: digest });
 export const STDO_ENVIRONMENT_POLICY = "abg.stdo_run_environment";
+// Program policy keys the Product does not admit. A Program that names one has
+// no valid run environment, so every door that validates the Program refuses it.
+const REFUSED_PROGRAM_POLICIES = [STDO_ENVIRONMENT_POLICY, "abg.governed_context", "abg.governed_context.activation"] as const;
+const namesRefusedPolicy = (program: Readonly<GtlProgram>) => REFUSED_PROGRAM_POLICIES.some(key => program.policies[key] !== undefined);
 const unique = (xs: readonly string[]) => new Set(xs).size === xs.length;
 const sorted = (xs: readonly string[]) => unique(xs) && xs.every((x, i) => i === 0 || xs[i - 1]! < x);
 const hash = (x: JsonValue) => sha256Canonical(x);
@@ -167,7 +171,7 @@ export function constructStdoRunEnvironmentDeclaration(value: RunEnvironmentDecl
   return d;
 }
 export function runEnvironmentForProgram(publication: Readonly<ModulePublication>, program: Readonly<GtlProgram>) {
-  if (program.policies[STDO_ENVIRONMENT_POLICY] !== undefined) return false;
+  if (namesRefusedPolicy(program)) return false;
   const ref = program.policies[RUN_ENVIRONMENT_POLICY];
   if (ref === undefined) return null;
   const rows = publication.runEnvironments?.filter(d => d.declarationRef === ref);
@@ -179,7 +183,7 @@ function selectorRoleFromBoundDeclarations(publication: Readonly<ModulePublicati
   const programs = publication?.programs.filter(p => p.programRef === programRef);
   if (publication === undefined || programs?.length !== 1) return false;
   const program = programs[0]!;
-  if (program.policies[STDO_ENVIRONMENT_POLICY] !== undefined) return false;
+  if (namesRefusedPolicy(program)) return false;
   const environmentRef = program.policies[RUN_ENVIRONMENT_POLICY];
   if (environmentRef === undefined) return null;
   const environments = publication.runEnvironments?.filter(d => d.declarationRef === environmentRef);
