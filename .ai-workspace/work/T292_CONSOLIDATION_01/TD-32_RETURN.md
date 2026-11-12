@@ -108,7 +108,9 @@ Every one of the 224 is a recorded copy inside a review or evidence directory (`
 
 ## 2. Recorded history
 
-Pending.
+What retires is the writing of new rows to a store on L; the rows L writers already wrote stay readable. Their recorded values are the rows of the L writer branches (section 1.3). Every row before a boundary of the 228 logs that start on L was read (298,924,725 bytes, no cap): 18 logs (157,773,582 bytes; `comments/codex/20260911_D2_BOUNDED_REPAIR/**` and archived `steel-serial-branch` and `steel-single-start` attempts) hold 89 actor invocations written on L, that is 89 bindings without `livenessBinding`, 2,159 per-chunk `actor_process_stdout_observed` rows, 89 `actor_result_artifact_observed` rows carrying the lifecycle copies and 89 actor terminals. No L log holds an `actor_process_timeout_observed` row. `T/test_env/proof/abi5-root-r10.events.jsonl` (L, 20 rows, a finished Run) holds no actor invocation; `T/test_env/proof/abi5-m5-live-fp.json` lists the kinds of a live run (it is not a log, and no file imports it); `T/test_env/fixtures` holds no runtime log.
+
+Every one of these rows is read by a reader that stays (section 5). On the base build the 18 logs decode, replay (whole-log replay digest and per-Run replay) and project artifact truth (`artifact_truth_projection` for all 18); section 10 repeats both on the final build. No stop: no kept flow produces a store on L (section 1.4), and no reader is removed.
 
 ## 3. Specification
 
