@@ -47,8 +47,8 @@ import {
   type AbgProjectReadResult,
 } from "./project_read_ports.js";
 import {
-  constructCapabilityGrant,
-  validateCapabilityGrantForProductBasis,
+  constructRecordedReadCapabilityGrant,
+  validateRecordedReadCapabilityGrant,
 } from "../product/invocation.js";
 import { productInstallCoordinate } from "../product/environment.js";
 import { projectProductManifestOperationCoordinate } from "../product/verify_product.js";
@@ -625,11 +625,12 @@ export function expectedRunReadAuthority<TPacket extends AnyReadPacket>(
     workspaceBinding: environment.workspaceBinding,
     fixedPacket: packet,
   } as const;
+  // The installs are the recorded installs of the source binding; the read
+  // asks the recorded question of their graphs.
   const grants = packet.metadata.capabilityRefs.map(
-    (capabilityRef) => constructCapabilityGrant(
+    (capabilityRef) => constructRecordedReadCapabilityGrant(
       environment.workspaceAuthorityBasis,
       environment.workspaceBinding.authorizedActorRef,
-      packet.definitionKey.operationId,
       capabilityRef,
       grantBasis,
     ),
@@ -816,7 +817,7 @@ function runReadKernel<TPacket extends AnyReadPacket>(
             expectedAuthority.capability_grants,
           ) ||
           expectedGrants.some((grant, index) =>
-            !validateCapabilityGrantForProductBasis(
+            !validateRecordedReadCapabilityGrant(
               grant,
               environment.workspaceAuthorityBasis,
               environment.workspaceBinding.authorizedActorRef,

@@ -19,7 +19,7 @@ import {
   projectAdmittedProductInstall,
   projectAdmittedProductInstallByAdmissionEventRef,
   projectAdmittedWorkspaceBinding,
-  projectAdmittedWorkspaceBindingByInvocationRef,
+  projectAdmittedWorkspaceBindingByInvocationRefFor,
   projectAdmittedWorkspaceProductInstall,
 } from "../abg/environment_admission.js";
 import { compareUnicodeCodeUnits } from "../shared/canonical_json.js";
@@ -61,7 +61,7 @@ import {
   CatalogProjectionPort,
   ConsensusProjectionPort,
   InstallProjectionPort,
-  WorkspaceProjectionPort,
+  projectWorkspaceStatusFor,
   type CatalogDescribeProjectReadPacket,
   type CatalogListProjectReadPacket,
   type InstallEvidenceProjectReadPacket,
@@ -260,10 +260,12 @@ function admittedAuthorityBinding(
       installs.map((install) => productInstallCoordinate(install!.install)),
     )
   ) return null;
-  const binding = projectAdmittedWorkspaceBindingByInvocationRef(
+  // The lock is the recorded install lock of this artifact truth.
+  const binding = projectAdmittedWorkspaceBindingByInvocationRefFor(
     artifactTruth,
     bindingRow.invocationRef,
     lock,
+    "recorded",
   );
   return binding === null ||
       binding.binding.bindingId !== workspaceCoordinate.ref ||
@@ -712,7 +714,9 @@ const workspace_status: ExactDefinitionCallable<
     ) {
       throw fault(call, "resource_relation_mismatch", "workspace status packet differs from the public source, basis, or selector coordinates");
     }
-    const output = WorkspaceProjectionPort.status(packet);
+    // The packet's binding is the recorded admission (above); its lock is
+    // asked the recorded question and bound to that binding by digest.
+    const output = projectWorkspaceStatusFor(packet, "recorded");
     if (output.kind === "product_project_read_refusal") {
       return deepFreeze({
         ownerOutput: nativeRefusal(PRODUCT_PROJECT_READ_CONTRACTS.workspace_status, output),

@@ -24,7 +24,7 @@ import { canonicalJson, compareUnicodeCodeUnits } from
 import { sha256Canonical, type Sha256Digest } from "../shared/digests.js";
 import { deepFreeze, isDeeplyFrozen } from "../shared/immutable.js";
 import {
-  admitGraphFunctionCatalog,
+  admitGraphFunctionCatalogFor,
   narrowGraphFunctionCatalog,
   lookupGraphFunctionDefinition,
   type CatalogReadinessBasis,
@@ -38,6 +38,7 @@ import { WORKSITE_COMMAND_FORWARD_IDS as forwardIds } from "./worksite_command_f
 import { canonicalEquals } from "../shared/value/index.js";
 import { admitJson } from "../shared/admit/index.js";
 import { resolveExactMatch } from "../shared/select/index.js";
+import type { ProductTruthQuestion } from "../shared/capability_contracts.js";
 
 /** Supplied declarations are reconstructed against facts supplied by the native
  * environment owner. This pure relation is shared by conformance and replay;
@@ -50,7 +51,22 @@ export function reconstructHistoricalDeclarationCatalog(
     installedProducts: CatalogReadinessBasis["installedProducts"];
   }>,
 ): Readonly<{ catalog: ReadyGraphFunctionCatalog; catalogView: GraphFunctionCatalogView }> {
-  const catalog = admitGraphFunctionCatalog(supplied.catalog.readinessBasis);
+  return reconstructHistoricalDeclarationCatalogFor(supplied, environment, "strict");
+}
+
+/** @internal One relation for both questions. A read that binds the result to
+ * recorded history by digest asks the recorded question; every entry that
+ * uses the result for new work asks the strict one. */
+export function reconstructHistoricalDeclarationCatalogFor(
+  supplied: Readonly<{ catalog: ReadyGraphFunctionCatalog; catalogView: GraphFunctionCatalogView }>,
+  environment: Readonly<{
+    workspaceBinding: CatalogReadinessBasis["workspaceBinding"];
+    resolvedLock: CatalogReadinessBasis["resolvedLock"];
+    installedProducts: CatalogReadinessBasis["installedProducts"];
+  }>,
+  question: ProductTruthQuestion,
+): Readonly<{ catalog: ReadyGraphFunctionCatalog; catalogView: GraphFunctionCatalogView }> {
+  const catalog = admitGraphFunctionCatalogFor(supplied.catalog.readinessBasis, question);
   if (catalog.kind !== "graph_function_catalog" || !canonicalEquals(catalog, supplied.catalog) ||
       !canonicalEquals(catalog.readinessBasis.workspaceBinding, environment.workspaceBinding) ||
       !canonicalEquals(catalog.readinessBasis.resolvedLock, environment.resolvedLock) ||

@@ -5,7 +5,6 @@ import { isReleaseOperationArtifact, projectReleaseQualification, projectRelease
 import { releaseArtifactCoordinate } from "../product/release_snapshot_operations.js";
 import {
   constructProductSet,
-  isResolvedProductLock,
   isWorkspaceAuthorityBasis,
   type ProductInstall,
   type ProductInstallCandidate,
@@ -16,9 +15,11 @@ import {
 import {
   constructWorkspaceBindingInResolvedLock,
   isProductInstallCandidateInResolvedLock,
+  isProductLockFor,
   isWorkspaceBindingCandidateInResolvedLock,
   productInstallCoordinate,
 } from "../product/environment.js";
+import type { ProductTruthQuestion } from "../shared/capability_contracts.js";
 import { compareUnicodeCodeUnits, type JsonValue } from "../shared/canonical_json.js";
 import { sha256Canonical, type Sha256Digest } from "../shared/digests.js";
 import { deepFreeze } from "../shared/immutable.js";
@@ -311,7 +312,7 @@ class RuntimeArtifactFacts {
   readonly admittedInstalls = new Map<string, AdmittedInstallFact>();
   advance(artifactRows: readonly RuntimeEventCalculusEffectRow[]): void {
     for (const row of artifactRows.slice(this.artifacts.length)) {
-      const prepared = this.prepare(row);
+      const prepared = this.prepare(row, "recorded");
       this.accept(prepared);
     }
   }
@@ -321,8 +322,10 @@ class RuntimeArtifactFacts {
   }
   /** Shared cold/live relation, with no mutation until the complete row passes.
    * An enclosing install owner may supply its established lock; copied event
-   * metadata must still reproduce that complete body. */
-  prepare(row: RuntimeEventCalculusEffectRow, establishedLock?: ResolvedProductLock): Readonly<{
+   * metadata must still reproduce that complete body. The entry passes the
+   * question an inline lock answers: `recorded` when the fold advances over
+   * history, `strict` when admission prepares its candidate. */
+  prepare(row: RuntimeEventCalculusEffectRow, question: ProductTruthQuestion, establishedLock?: ResolvedProductLock): Readonly<{
     artifact: FoldedArtifactTruthRow;
     install: AdmittedInstallFact | undefined;
   }> {
@@ -406,7 +409,7 @@ class RuntimeArtifactFacts {
             return true;
           }
         }
-        if (!isResolvedProductLock(value)) return false;
+        if (!isProductLockFor(value, question)) return false;
         checkedLock = value;
         return true;
       };
@@ -717,7 +720,7 @@ export function prepareArtifactTruthCandidate(
   validateRuntimeEventPrefixExtension(prefix, event);
   const facts = runtimePrefixComputation(prefix, ARTIFACT_FACTS, () => new RuntimeArtifactFacts());
   const prepared = facts.prepare({ kind: "event_calculus_effect_row", eventKind: event.kind,
-    sourceEvent: event, ...eventCalculusEffect(event) }, establishedLock);
+    sourceEvent: event, ...eventCalculusEffect(event) }, "strict", establishedLock);
   const artifacts = facts.artifacts.filter(row => row.admissionOrdinal <= predecessor.lastAdmissionOrdinal);
   assertUniqueArtifactTruth([...artifacts, prepared.artifact]);
   return (appended) => {

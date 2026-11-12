@@ -7,7 +7,8 @@ import { projectNativeLivenessRead } from "./runtime_liveness.js";
 import type { RuntimeInvocationScope, RuntimeLivenessReadProjection } from "./runtime_liveness_contracts.js";
 import { constructRuntimeFailureDiagnosticRef, projectRuntimeFailureEvidenceAtPrefix } from "./runtime_failure.js";
 import { modulePublicationSemanticDigest } from "../product/publication.js";
-import { reconstructHistoricalDeclarationCatalog, resolveExecutionDeclarationClosure, selectExactClosureContract } from "../product/declaration_closure.js";
+import { reconstructHistoricalDeclarationCatalogFor, resolveExecutionDeclarationClosure, selectExactClosureContract } from "../product/declaration_closure.js";
+import type { ProductTruthQuestion } from "../shared/capability_contracts.js";
 import { projectExactPrefixWorkspaceEnvironment, projectWorkspaceEnvironmentFromArtifactTruth, projectAdmittedProductInstallByAdmissionEventRef } from "./environment_admission.js";
 import { runtimePrefixFromOwnedArtifactTruth, type ExactPrefixArtifactTruthProjection } from "./artifact_truth.js";
 import { projectAdmittedCCallStateAtPrefix, projectCurrentChildParentCCallAtPrefix } from "./c_call.js";
@@ -134,6 +135,11 @@ export type AbgProjectReadResult<
 interface PreparedRead<K extends AbgProjectReadMemberKey> {
   readonly packet: AbgProjectReadPacket<K>;
   readonly fullPrefix: RuntimeEventPrefix;
+  /** The question a supplied historical declaration proof answers, set by the
+   * entry: `recorded` for the Public run read, which binds the reconstructed
+   * Catalog to the root basis digest; `strict` for every entry whose result
+   * feeds new work. */
+  readonly question: ProductTruthQuestion;
   /** The read owner's artifact truth over its acquired prefix, when the
    * owner supplied it: the one materialization the preparation reads. */
   readonly artifactTruth?: ExactPrefixArtifactTruthProjection;
@@ -376,10 +382,10 @@ function terminalDeclaration(
     indexedRuntimeEvents(prefix,"id:"+ref).filter((event) => event.admissionOrdinal < invocationEvent.admissionOrdinal).length !== 1)) {
     throw new TypeError("declaration proof environment is not historical to the original invocation");
   }
-  const { catalog, catalogView } = reconstructHistoricalDeclarationCatalog(proof, {
+  const { catalog, catalogView } = reconstructHistoricalDeclarationCatalogFor(proof, {
     workspaceBinding: environment.workspaceBindingCandidate, resolvedLock: environment.resolvedProductLock,
     installedProducts: installs.map((install) => install!.candidate),
-  });
+  }, prepared.question);
   if (catalog.basisDigest !== root.catalogBasisDigest ||
       `graph-function-catalog://abiogenesis/${catalog.basisDigest.slice(7)}` !== root.catalogBasisRef ||
       `graph-function-catalog-view://abiogenesis/${catalogView.viewDigest.slice(7)}` !== root.catalogViewId ||
@@ -582,7 +588,7 @@ export function projectHistoricalGraphCallSourceAtDurablePrefix(
     if (kept !== undefined && lastOrdinal >= kept.minimumOrdinal) return kept.value;
     const packet: AbgProjectReadPacket<"graph_call_result"> = Object.freeze({ kind: "abg_project_read_packet", schemaVersion: "5.0.0",
       memberKey: "graph_call_result", prefix, targetRef: resource.terminal.producer.graphCallRef, declarationProof: resource.declarationProof });
-    const prepared: PreparedRead<"graph_call_result"> = Object.freeze({ packet, events, fullPrefix });
+    const prepared: PreparedRead<"graph_call_result"> = Object.freeze({ packet, events, fullPrefix, question: "strict" as const });
     const runId = runIdForGraphCall(prepared, packet.targetRef);
     const runPrefix = runId === null ? null : selectRuntimeEventPrefixFromAuthority(fullPrefix,{runId});
     const terminalRoutes = runPrefix === null ? [] : indexedRuntimeEventEnvelopes(runPrefix,"kind:traversal_route_admitted")
@@ -611,7 +617,7 @@ export function projectClosedGraphCallTerminalAtDurablePrefix(
   prefix: DurablePrefixCoordinate, graphCallId: string, declarationProof: AbgHistoricalDeclarationProof,
 ): AbgTypedTerminalResult | null {
   try {
-    const prepared = prepareRead("graph_call_result", {kind:"abg_project_read_packet",schemaVersion:"5.0.0",
+    const prepared = prepareRead("graph_call_result", "strict", {kind:"abg_project_read_packet",schemaVersion:"5.0.0",
       memberKey:"graph_call_result",prefix,targetRef:graphCallId,declarationProof}, captureDurablePrefixCoordinate(prefix));
     if ("disposition" in prepared) return null;
     const runId = runIdForGraphCall(prepared,graphCallId);
@@ -685,6 +691,7 @@ function admitReadPacket<K extends AbgProjectReadMemberKey>(
 
 function prepareRead<K extends AbgProjectReadMemberKey>(
   expectedMemberKey: K,
+  question: ProductTruthQuestion,
   supplied: AbgProjectReadPacket<K>,
   retainedPrefix?: DurablePrefixCoordinate,
   acquired?: ExactPrefixArtifactTruthProjection,
@@ -705,13 +712,14 @@ function prepareRead<K extends AbgProjectReadMemberKey>(
     const acquiredPrefix = acquired !== undefined && acquired.prefix === packet.prefix
       ? runtimePrefixFromOwnedArtifactTruth(acquired) : null;
     if (acquiredPrefix !== null && acquiredPrefix.kind !== "runtime_validation_event_prefix") {
-      return deepFreeze({ packet, fullPrefix: acquiredPrefix, artifactTruth: acquired! });
+      return deepFreeze({ packet, fullPrefix: acquiredPrefix, artifactTruth: acquired!, question });
     }
     // Borrows only an active owner; a raw or copied coordinate is cold.
     const fullPrefix = readOwnedRuntimeEventPrefixAtDurablePrefix(packet.prefix);
     return deepFreeze({
       packet,
       fullPrefix,
+      question,
     });
   } catch {
     return refusal(
@@ -948,7 +956,7 @@ export function projectRunTruthAtDurablePrefix(
   prefix: DurablePrefixCoordinate,
   runId: string,
 ): AbgRunTruthResult {
-  const prepared = prepareRead("run_replay", {
+  const prepared = prepareRead("run_replay", "strict", {
     kind: "abg_project_read_packet", schemaVersion: "5.0.0", memberKey: "run_replay", prefix, targetRef: runId,
   }, captureDurablePrefixCoordinate(prefix));
   if ("code" in prepared) return runTruthRefusal(prefix, runId, prepared.code, prepared.message);
@@ -1013,7 +1021,10 @@ function prepareRunRead(
 ) {
   const graphRead = memberKey === "graph_call_result" || memberKey === "graph_call_replay";
   const sourceMember = graphRead ? "graph_call_replay" : "run_replay";
-  const prepared = prepareRead(sourceMember, {
+  // The Public run read: `terminalDeclaration` binds a supplied declaration
+  // proof to the recorded root basis digest, so the proof asks the recorded
+  // question.
+  const prepared = prepareRead(sourceMember, "recorded", {
     kind: "abg_project_read_packet", schemaVersion: "5.0.0", memberKey: sourceMember, prefix, targetRef,
   }, captureDurablePrefixCoordinate(prefix), acquired);
   if ("code" in prepared) return null;
@@ -1837,7 +1848,7 @@ function project<K extends AbgProjectReadMemberKey>(
   expectedMemberKey: K,
   packet: AbgProjectReadPacket<K>,
 ): AbgProjectReadResult<K> {
-  const prepared = prepareRead(expectedMemberKey, packet);
+  const prepared = prepareRead(expectedMemberKey, "strict", packet);
   if ("code" in prepared) return prepared;
   return projectPreparedRead(prepared, () => projectValue(
     prepared as PreparedRead<AbgProjectReadMemberKey>, expectedMemberKey, prepared.packet.targetRef,

@@ -39,10 +39,11 @@ import type {
   WorkspaceBinding,
 } from "./environment.js";
 import {
-  isProductSet,
-  isResolvedProductLock,
-  isWorkspaceBindingCandidate,
+  isProductLockFor,
+  isProductSetInResolvedLock,
+  isWorkspaceBindingCandidateInResolvedLock,
 } from "./environment.js";
+import type { ProductTruthQuestion } from "../shared/capability_contracts.js";
 import type { ReleaseSnapshotRefusal } from "./release_snapshot_operations.js";
 
 export type ProductProjectReadCase =
@@ -622,6 +623,19 @@ function admittedBindingCandidate(
 export function projectWorkspaceStatus(
   packet: WorkspaceStatusProjectReadPacket,
 ): WorkspaceStatusOperationResult {
+  return projectWorkspaceStatusFor(packet, "strict");
+}
+
+/**
+ * @internal One projection for both questions of the packet's lock. The
+ * Public `workspace_status` binding asks the recorded question: it binds the
+ * packet's binding to its recorded admission by digest, and the binding names
+ * the lock by digest, so a lock that is not the recorded one is `not_ready`.
+ */
+export function projectWorkspaceStatusFor(
+  packet: WorkspaceStatusProjectReadPacket,
+  question: ProductTruthQuestion,
+): WorkspaceStatusOperationResult {
   if (
     !validEnvelope(packet, "workspace_status", [
       "binding",
@@ -653,9 +667,9 @@ export function projectWorkspaceStatus(
     packet.binding.kind !== "workspace_binding" ||
     typeof packet.binding.admissionEventRef !== "string" ||
     packet.binding.admissionEventRef.length === 0 ||
-    !isResolvedProductLock(packet.resolvedLock) ||
-    !isProductSet(packet.productSet, packet.resolvedLock) ||
-    !isWorkspaceBindingCandidate(
+    !isProductLockFor(packet.resolvedLock, question) ||
+    !isProductSetInResolvedLock(packet.productSet, packet.resolvedLock) ||
+    !isWorkspaceBindingCandidateInResolvedLock(
       admittedBindingCandidate(packet.binding),
       packet.resolvedLock,
       packet.productSet,

@@ -407,10 +407,42 @@ export function constructCapabilityDefinitionGraph(
 export function isCapabilityDefinitionGraph(
   value: unknown,
 ): value is CapabilityDefinitionGraph {
+  return isCapabilityDefinitionGraphFor(value, "strict");
+}
+
+/**
+ * @internal The question a reader asks of Product truth (a resolved lock, a
+ * verified artifact, a capability graph). `strict`: is the value exact for
+ * the reader's own Product, as the capability register constructs it?
+ * `recorded`: is a recorded value internally established by what is recorded
+ * with it and bound by its digests? The entry that knows where a value comes
+ * from passes the question; no guard infers it.
+ */
+export type ProductTruthQuestion = "strict" | "recorded";
+
+/** @internal The recorded question for a capability graph. */
+export function isRecordedCapabilityDefinitionGraph(
+  value: unknown,
+): value is CapabilityDefinitionGraph {
+  return isCapabilityDefinitionGraphFor(value, "recorded");
+}
+
+/**
+ * @internal One body for both questions. Both establish the strict schema and
+ * every relation the constructor guarantees that is stated over the graph
+ * alone; the strict question also requires the graph to equal the register's
+ * construction over the graph's own owner coordinates, which implies them.
+ */
+export function isCapabilityDefinitionGraphFor(
+  value: unknown,
+  question: ProductTruthQuestion,
+): value is CapabilityDefinitionGraph {
   const parsed = v.safeParse(capabilityDefinitionGraphSchema, value);
   if (!parsed.success) return false;
   const graph = parsed.output as unknown as CapabilityDefinitionGraph;
   try {
+    if (!capabilityGraphRelationsHold(graph)) return false;
+    if (question === "recorded") return true;
     const owners = graph.rows.flatMap((row) => row.owningPublicContracts);
     const uniqueOwners = [...new Map(owners.map((owner) => [
       canonicalJson(owner),
@@ -420,14 +452,130 @@ export function isCapabilityDefinitionGraph(
     return canonicalEquals(
       expected,
       graph,
-    ) &&
-      graph.rows.every((row) =>
-        row.capabilityDefinitionDigest === sha256Canonical(rowDefinitionBody(row))
-      ) &&
-      graph.graphDigest === capabilityDefinitionGraphDigest(graph);
+    );
   } catch {
     return false;
   }
+}
+
+function sortedBy<T>(values: readonly T[], key: (value: T) => string): boolean {
+  return values.every((value, index) =>
+    index === 0 || compareUnicodeCodeUnits(key(values[index - 1]!), key(value)) <= 0);
+}
+
+/**
+ * The relations `constructCapabilityDefinitionGraph` guarantees for any
+ * register content that are stated over the graph alone: row identity, digest
+ * and order; dependency resolution, order and acyclicity; owner order; one
+ * flat coordinate per contract; and the definition-slot relations the
+ * constructor checks over the graph's own owner coordinates. The roster, the
+ * owning sets and the empty-graph rule read the register and are not here.
+ */
+function capabilityGraphRelationsHold(graph: CapabilityDefinitionGraph): boolean {
+  const rows = new Map<string, CapabilityDefinitionGraphRow>();
+  for (const row of graph.rows) {
+    const digest = sha256Canonical(rowDefinitionBody(row));
+    if (
+      rows.has(row.capabilityId) ||
+      (rows.size > 0 && compareUnicodeCodeUnits(
+        graph.rows[rows.size - 1]!.capabilityId,
+        row.capabilityId,
+      ) >= 0) ||
+      row.capabilityDefinitionDigest !== digest ||
+      row.capabilityDefinitionRef !==
+        `capability-definition://abiogenesis/${digest.slice(7)}` ||
+      !sortedBy(row.dependentCapabilities, ({ capabilityId }) => capabilityId) ||
+      !sortedBy(row.owningPublicContracts, (coordinate) => canonicalJson(coordinate)) ||
+      !sortedBy(row.effectRefs, (ref) => ref) ||
+      !sortedBy(row.boundedProofRefs, (ref) => ref)
+    ) return false;
+    rows.set(row.capabilityId, row);
+  }
+  for (const row of graph.rows) {
+    for (const dependency of row.dependentCapabilities) {
+      const target = rows.get(dependency.capabilityId);
+      if (
+        target === undefined ||
+        target.capabilityDefinitionRef !== dependency.capabilityDefinitionRef ||
+        target.capabilityDefinitionDigest !== dependency.capabilityDefinitionDigest
+      ) return false;
+    }
+  }
+  const settled = new Set<string>();
+  const visiting = new Set<string>();
+  const acyclic = (capabilityId: string): boolean => {
+    if (settled.has(capabilityId)) return true;
+    if (visiting.has(capabilityId)) return false;
+    visiting.add(capabilityId);
+    if (!rows.get(capabilityId)!.dependentCapabilities.every((dependency) =>
+      acyclic(dependency.capabilityId))) return false;
+    visiting.delete(capabilityId);
+    settled.add(capabilityId);
+    return true;
+  };
+  if (![...rows.keys()].every(acyclic)) return false;
+  const flats = new Map<string, PublicContractCoordinate>();
+  const slots = new Map<string, Map<string, PublicContractCoordinate>>();
+  for (const coordinate of graph.rows.flatMap((row) => row.owningPublicContracts)) {
+    const selector = coordinate.nestedSelector;
+    if (selector.selectorKind === "flat_contract") {
+      const held = flats.get(coordinate.flatRow.contractId);
+      if (held !== undefined && !canonicalEquals(held, coordinate)) return false;
+      flats.set(coordinate.flatRow.contractId, coordinate);
+    } else if (selector.selectorKind === "operation_definition_slot") {
+      const key = `${selector.definitionKey.operationId}\0${selector.definitionKey.memberKey}`;
+      const keyed = slots.get(key) ?? new Map<string, PublicContractCoordinate>();
+      keyed.set(canonicalJson(coordinate), coordinate);
+      slots.set(key, keyed);
+    } else {
+      return false;
+    }
+  }
+  for (const [key, keyed] of slots) {
+    const flat = flats.get(key.slice(0, key.indexOf("\0")));
+    const refs = new Set<string>();
+    const slotNames = new Set<string>();
+    for (const coordinate of keyed.values()) {
+      const selector = coordinate.nestedSelector;
+      if (selector.selectorKind !== "operation_definition_slot") return false;
+      const field = selector.slot === "non_terminal"
+        ? "nonTerminalContract"
+        : `${selector.slot}Contract`;
+      const suffix = `/${field}/identity`;
+      if (
+        flat === undefined ||
+        !canonicalEquals(coordinate.contractCatalog, flat.contractCatalog) ||
+        !canonicalEquals(coordinate.flatRow, flat.flatRow) ||
+        !selector.definitionRef.endsWith(suffix) ||
+        slotNames.has(selector.slot)
+      ) return false;
+      refs.add(selector.definitionRef.slice(0, -suffix.length));
+      slotNames.add(selector.slot);
+    }
+    if (
+      refs.size !== 1 ||
+      !slotNames.has("request") ||
+      !slotNames.has("result") ||
+      !slotNames.has("refusal")
+    ) return false;
+  }
+  for (const row of graph.rows) {
+    const owned = new Map<string, Set<string>>();
+    for (const coordinate of row.owningPublicContracts) {
+      const selector = coordinate.nestedSelector;
+      if (selector.selectorKind !== "operation_definition_slot") continue;
+      const key = `${selector.definitionKey.operationId}\0${selector.definitionKey.memberKey}`;
+      owned.set(key, (owned.get(key) ?? new Set<string>()).add(canonicalJson(coordinate)));
+    }
+    for (const [key, coordinates] of owned) {
+      const keyed = slots.get(key)!;
+      if (
+        coordinates.size !== keyed.size ||
+        [...keyed.keys()].some((coordinate) => !coordinates.has(coordinate))
+      ) return false;
+    }
+  }
+  return graph.graphDigest === capabilityDefinitionGraphDigest(graph);
 }
 
 export function capabilityDefinitionGraphCoordinate(
