@@ -23,7 +23,6 @@ import {
   lstat,
   mkdir,
   readFile,
-  readlink,
   readdir,
   realpath,
   unlink,
@@ -52,6 +51,7 @@ import {
   matchingWorksiteTerritoryRef,
 } from "../product/worksite_command_execution.js";
 import { observeWorksiteSubject } from "../product/worksite_operations.js";
+import { walkTree } from "../product/tree_inventory.js";
 import { admitIJsonText } from "../shared/i_json.js";
 import {
   isWorksiteObservation,
@@ -395,56 +395,11 @@ async function admitLaunchManifest(): Promise<Readonly<{
 async function filesystemInventory(
   declaredRoot: string,
 ): Promise<ReadonlyMap<string, WorksitePathObservation>> {
-  const root = await canonicalDirectoryRoot(declaredRoot);
-  const rows = new Map<string, WorksitePathObservation>();
-  const visit = async (absoluteDirectory: string, relativeDirectory: string): Promise<void> => {
-    const entries = await readdir(absoluteDirectory, { withFileTypes: true });
-    for (const entry of entries.sort((left, right) => left.name.localeCompare(right.name))) {
-      const relativePath = relativeDirectory === "" ? entry.name : `${relativeDirectory}/${entry.name}`;
-      const absolute = resolve(absoluteDirectory, entry.name);
-      const status = await lstat(absolute);
-      let observation: WorksitePathObservation;
-      if (status.isSymbolicLink()) {
-        const target = await readlink(absolute);
-        observation = Object.freeze({
-          kind: "worksite_path_observation" as const,
-          schemaVersion: "5.0.0" as const,
-          relativePath,
-          nodeKind: "symlink" as const,
-          digest: sha256Bytes(Buffer.from(target, "utf8")),
-          byteLength: null,
-          symlinkTarget: target,
-        });
-      } else if (status.isDirectory()) {
-        observation = Object.freeze({
-          kind: "worksite_path_observation" as const,
-          schemaVersion: "5.0.0" as const,
-          relativePath,
-          nodeKind: "directory" as const,
-          digest: sha256Bytes(Buffer.from("directory", "utf8")),
-          byteLength: null,
-          symlinkTarget: null,
-        });
-      } else if (status.isFile()) {
-        const bytes = await readFile(absolute);
-        observation = Object.freeze({
-          kind: "worksite_path_observation" as const,
-          schemaVersion: "5.0.0" as const,
-          relativePath,
-          nodeKind: "file" as const,
-          digest: sha256Bytes(bytes),
-          byteLength: bytes.byteLength,
-          symlinkTarget: null,
-        });
-      } else {
-        throw new TypeError("worksite inventory encountered a special filesystem node");
-      }
-      rows.set(relativePath, observation);
-      if (status.isDirectory()) await visit(absolute, relativePath);
-    }
-  };
-  await visit(root, "");
-  return rows;
+  const entries = await walkTree(await canonicalDirectoryRoot(declaredRoot),
+    { specialNodeRefusal: "worksite inventory encountered a special filesystem node" });
+  return new Map(entries.map(({ relativePath, nodeKind, digest, byteLength, symlinkTarget }): [string, WorksitePathObservation] =>
+    [relativePath, Object.freeze({ kind: "worksite_path_observation" as const, schemaVersion: "5.0.0" as const,
+      relativePath, nodeKind, digest, byteLength, symlinkTarget })]));
 }
 
 function worksiteDelta(
