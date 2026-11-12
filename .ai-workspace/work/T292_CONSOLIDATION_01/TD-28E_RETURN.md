@@ -5,7 +5,16 @@ Writer: Claude Opus 5.5. Branch `claude/td28e-forward-key-refused` from local
 (ruling R2). Change class: realization_refactor (a retired shape refused, not
 ignored; no specification or design text names it). No push, no tag.
 
-**Status: complete. `abg.worksite_command_forward` on a callable GraphFunction of a Program is refused at publication validation, `catalog.admit`, conformance, Product resolution, the run-environment observation and the Run door, with the existing `invalid_reference` `$.runEnvironments` / `unsupported_declaration` / `invalid_program` refusals; Programs without the key are unchanged; recorded history reads identically; 264 tests, 252 pass, 0 fail, 12 skip on the final build.**
+**Status: complete. When a GraphFunction in a Program's `callableMembership` declares `abg.worksite_command_forward`, the Program is refused at:**
+
+- publication validation;
+- `catalog.admit` (which also covers a GraphFunction borrowed from another publication, section 5);
+- conformance;
+- Product resolution;
+- the run-environment observation;
+- the Run door (shown by reading the code, not by a probe).
+
+**Each refusal uses an existing code: `invalid_reference` `$.runEnvironments`, `unsupported_declaration` or `invalid_program`. Programs without the key are unchanged. Recorded history reads identically. On the final build: 264 tests, 252 pass, 0 fail, 12 skip. A GraphFunction that is only applied by a template is outside the position and needs a ruling (section 15, item 4).**
 
 `T` = `build_tenants/abiogenesis/typescript`. Scratch, probes and TAP output:
 `/private/tmp/abg-td28e-work/`.
@@ -285,6 +294,46 @@ GraphFunction; the key as a Program policy (`program.policies`), which shows
 that only the GraphFunction-declaration position is read; the default library
 Program over the clean shipped publications (`program_validation`).
 
+### Where the position ends (final build, `scripts/borrowed.mjs`)
+
+Output `borrowed/borrowed-final.txt`, run after a fresh `npm run build`.
+
+- **A borrowed keyed GraphFunction always refuses its own publication.** A
+  GraphFunction reaches another publication's Program only through its Catalog
+  handle. A `graph_function` contribution must name at least one Program of its
+  own publication whose `callableMembership` lists it
+  (`validator/validation.ts:654-661`, `missing_membership`;
+  `product/catalog.ts:762-771`, `invalid_program_membership`). So the owning
+  publication has a Program that calls the keyed GraphFunction, and that
+  publication's validation refuses it. `catalog.admit` therefore refuses every
+  basis that carries a keyed GraphFunction which any Program can call. Probe K
+  confirms that no borrowed-only form can be built: with the C2 publication's
+  three Programs removed, the C2 publication is refused with `missing_membership`
+  with or without the key, and Product resolution with
+  `invalid_program_membership`. With the key, the library Program's
+  observation also refuses (`unsupported_declaration`).
+- **A GraphFunction that a template applies, but no Program lists as callable,
+  is outside the position.** Applied GraphFunctions have no Catalog handle
+  and appear only in their own publication's templates
+  (`template.applications[].leftGraphFunctionRef`). The structural fixture has
+  four: `graph-edge/normalize@5`, `graph-edge/render@5`, `substitute/pass@5`
+  and `worker-pass@5`. With the key on `graph-edge/normalize@5`, which the
+  `graph-edge@5` Program applies, the probe gives the same row as the no-key
+  control at every door:
+  - `runEnvironmentForProgram` `null`;
+  - publication validation `publication_validation`;
+  - `catalog.admit` reaches readiness;
+  - Product resolution `program_validation`;
+  - observation `run_environment_observed`;
+  - conformance is refused for both, by the fixture's own `invalid_application`.
+
+  Product resolution's Program-validation input does contain `normalize@5`,
+  because the closure follows applications, but `namesRefusedKey` filters by
+  `callableMembership`. This follows rulings 1 and 2 ("callable GraphFunctions",
+  "only that position"). Every recorded value of the key sits on the two
+  callable forward GraphFunctions (section 2). Ruling item 4 (section 15)
+  asks whether applied GraphFunctions are inside the position.
+
 ## 6. Tests
 
 Commit `5d91c75fb`: three tests added to
@@ -527,6 +576,17 @@ For a ruling:
    are refused when submitted anew to `catalog.admit`, conformance or, for the
    forward Program, the Run door. This is ruling 4's intended outcome; no kept
    lane submits one.
+4. Applied GraphFunctions (section 5, "Where the position ends"). The key on a
+   GraphFunction that a Program's template applies, but that is in no
+   `callableMembership`, is admitted at every door, as rulings 1 and 2 scope
+   it. If the ruling wants it refused, the smallest change is:
+   - `namesRefusedKey` reads every GraphFunction of the closure input it is
+     given (Product resolution's input already contains the applied ones);
+   - `runEnvironmentForProgram` follows `template.applications` within the
+     publication, so publication validation and `catalog.admit` refuse too.
+
+   Both use the existing codes. No recorded value sits on an applied
+   GraphFunction. Not changed here.
 
 ## 16. Commits
 
@@ -538,7 +598,9 @@ On `claude/td28e-forward-key-refused` from `b3bcb1303`, in order:
    callable GraphFunctions
 3. `5d91c75fb` TD-28e tests: the forward declaration key is refused at every
    Program-validating door
-4. this Return
+4. `14c70d81c` TD-28e Return: door table, lanes, replay and artifact truth
+5. this amendment: where the position ends (borrowed and applied
+   GraphFunctions), the status line, ruling item 4
 
 Generated files (`contracts/`, `product-toolchain-manifest.json`,
 `test_env/fixtures/abi5-root-candidate-basis.json`) are not committed. No push,
