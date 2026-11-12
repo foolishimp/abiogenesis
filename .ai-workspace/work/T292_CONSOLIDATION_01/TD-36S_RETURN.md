@@ -312,8 +312,14 @@ and `T/test_env`:
 1. **The qualification mirror.** The brief expects the requirement edit to move
    the product identity. It does not: the build reads the frozen mirror, and
    the mirror is a generated file, which ruling 5 keeps out of my commits.
-   Restage it with `--stage-authorities` in its own commit, or leave it to the
-   cut.
+   Restage it in its own commit, from T, as at `ead445d32`:
+   `node scripts/generate-qualification-rule-catalog.mjs --stage-authorities ../../.. "/Users/jim/Library/Application Support/STDO/releases/v3.0.4"`,
+   or leave it to the cut. No ordinary lane or lint compares the live
+   specification with the mirror: `t287-qualification-law` checks the mirror
+   against `authority-inputs.json` and the rule catalog (10 tests, 7 pass, 0
+   fail, 3 skip on this build; its staging cases skip because
+   `ABG_QUALIFICATION_STAGE_FIXTURES` is unset), and `lint:evidence` concerns
+   `.ai-workspace` tree copies. So no lane is red while the mirror is stale.
 2. **The canonical root locator.** Ruling 2 points to REQ-R-ABG3-BINDING-016's
    "canonical root locator" as the place where the authority basis is stated.
    I read it as the location, not as a subject of the rule: the sentence names
