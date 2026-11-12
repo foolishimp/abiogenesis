@@ -617,8 +617,8 @@ export function projectClosedGraphCallTerminalAtDurablePrefix(
   prefix: DurablePrefixCoordinate, graphCallId: string, declarationProof: AbgHistoricalDeclarationProof,
 ): AbgTypedTerminalResult | null {
   try {
-    const prepared = prepareRead("graph_call_result", "strict", {kind:"abg_project_read_packet",schemaVersion:"5.0.0",
-      memberKey:"graph_call_result",prefix,targetRef:graphCallId,declarationProof}, captureDurablePrefixCoordinate(prefix));
+    const prepared = prepareRead("graph_call_result", {kind:"abg_project_read_packet",schemaVersion:"5.0.0",
+      memberKey:"graph_call_result",prefix,targetRef:graphCallId,declarationProof}, captureDurablePrefixCoordinate(prefix), undefined, "strict");
     if ("disposition" in prepared) return null;
     const runId = runIdForGraphCall(prepared,graphCallId);
     const context = runId === null ? null : runContext(prepared,runId);
@@ -691,10 +691,12 @@ function admitReadPacket<K extends AbgProjectReadMemberKey>(
 
 function prepareRead<K extends AbgProjectReadMemberKey>(
   expectedMemberKey: K,
-  question: ProductTruthQuestion,
   supplied: AbgProjectReadPacket<K>,
   retainedPrefix?: DurablePrefixCoordinate,
   acquired?: ExactPrefixArtifactTruthProjection,
+  // Every entry in this module names its question; the default keeps a
+  // caller outside it on the strict question.
+  question: ProductTruthQuestion = "strict",
 ): PreparedRead<K> | AbgProjectReadRefusal<K> {
   const admitted = admitReadPacket(expectedMemberKey, supplied);
   if ("code" in admitted) return admitted;
@@ -956,9 +958,9 @@ export function projectRunTruthAtDurablePrefix(
   prefix: DurablePrefixCoordinate,
   runId: string,
 ): AbgRunTruthResult {
-  const prepared = prepareRead("run_replay", "strict", {
+  const prepared = prepareRead("run_replay", {
     kind: "abg_project_read_packet", schemaVersion: "5.0.0", memberKey: "run_replay", prefix, targetRef: runId,
-  }, captureDurablePrefixCoordinate(prefix));
+  }, captureDurablePrefixCoordinate(prefix), undefined, "strict");
   if ("code" in prepared) return runTruthRefusal(prefix, runId, prepared.code, prepared.message);
   try {
     const context = canonicalRunContext(prepared as PreparedRead<AbgProjectReadMemberKey>, runId);
@@ -1024,9 +1026,9 @@ function prepareRunRead(
   // The Public run read: `terminalDeclaration` binds a supplied declaration
   // proof to the recorded root basis digest, so the proof asks the recorded
   // question.
-  const prepared = prepareRead(sourceMember, "recorded", {
+  const prepared = prepareRead(sourceMember, {
     kind: "abg_project_read_packet", schemaVersion: "5.0.0", memberKey: sourceMember, prefix, targetRef,
-  }, captureDurablePrefixCoordinate(prefix), acquired);
+  }, captureDurablePrefixCoordinate(prefix), acquired, "recorded");
   if ("code" in prepared) return null;
   try {
     const run = graphRead ? null : canonicalRunContext(prepared, targetRef);
@@ -1848,7 +1850,7 @@ function project<K extends AbgProjectReadMemberKey>(
   expectedMemberKey: K,
   packet: AbgProjectReadPacket<K>,
 ): AbgProjectReadResult<K> {
-  const prepared = prepareRead(expectedMemberKey, "strict", packet);
+  const prepared = prepareRead(expectedMemberKey, packet, undefined, undefined, "strict");
   if ("code" in prepared) return prepared;
   return projectPreparedRead(prepared, () => projectValue(
     prepared as PreparedRead<AbgProjectReadMemberKey>, expectedMemberKey, prepared.packet.targetRef,
