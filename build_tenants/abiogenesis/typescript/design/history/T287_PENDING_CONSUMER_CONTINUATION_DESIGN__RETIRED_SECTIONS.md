@@ -250,3 +250,108 @@ in admission order, including every continuation and global replay guard. A Run
 membership query does not itself require decoding unrelated basis or Result
 bodies. An empty selected-intent population yields the same empty continuation
 output without acquiring the remaining dependent bodies.
+
+---
+
+Cut from `build_tenants/abiogenesis/typescript/design/T287_PENDING_CONSUMER_CONTINUATION_DESIGN.md` at commit `70320c3f0`, lines 11-11, 31-35, 344-346, 355-355, 360-368, 377-380, 452-460, 541-542, 573-585, 593-595, 609-615, 700-703, 720-741, 744-747, verbatim.
+
+**Authority**: Product Execution And Context Calculus; CONTINUATION-011/-012/-013/
+
+Product already declares this foundation and optional composition. One Surface's
+model/gap/next-action/action authorities and the default library's framed
+synthesis/registered selection both run on HoG. No feature aggregate, universal
+ConstructionComposition, exhaustive workspace model, new planner or telemetry
+implementation is needed. Existing fulfillment declarations bind requirements,
+
+not execution-recovery credit. If Executive instead selects exact current_intent,
+the same physical case must resume the pending position and discharge its old
+return obligations through its complete conserved relation. Fresh success cannot qualify it.
+
+Exact execution resumption is selected for the bounded realization above; it remains unqualified until its actual-owner and installed evidence close.
+
+Root's RC4 point-one structural admission (2026-11-01) selects one bounded
+alternative inside existing `run.continue` under Product 810–847,
+CONTINUATION-002/-015/-016 and REQ-P-POLICY-024. The default library has no
+`constructionComposition`. Its executive root recurses over `executive-step`,
+whose admitted registered selection enters a purpose wrapper (`testing/invoke`
+-> prepare-testing -> C2 work -> fold). The construction-intent and
+selected-action variants keep their meanings. No intent, construction
+composition, One Surface substitute or fresh retained-work invocation stands in
+for this alternative.
+
+exact Public-family change, which this correction does not make. The
+construction-intent arm, its owner and its result are unchanged. The owner
+selects by arm: a request with `pendingCursor` enters the pending-execution
+owner.
+
+an event-family requirement. A failed or closed Run is refused here
+(`missing_continuation`). Replacement-Run continuation remains the existing
+`construction_intent` relation (CONTINUATION-003/-004/-015): the admitted
+`constructionContinuationUse` binds the pending cursor to its successful
+producer and judgment, the Public operation binds the replacement root basis
+and exact source Run/bases/cursor/intent, and reentry preserves source
+position. Neither arm reads a context body held in another Run; the one
+cross-Run body relation is retained-source use (below). No event family is
+added for either relation.
+
+or reinvoked per read. No replacement control Run, `constructionContinuationUse`
+or `current_intent` widening is involved: the continue request carries
+
+Survivors: the construction-intent arm (F_P undispatched discriminator,
+replacement Run with one fresh workflow parent, `constructionResume`) and
+`selected_action`. Both are distinct supported variants, not survivors of a
+retired mechanism. The F_H projection's four inline kind lists are replaced by
+the owner's `isConstructionContinuationKind`; effectful invocation truth's three
+per-kind loops become one owner-kind dispatch. The `selected_action` member keeps
+its single-literal `continuationKind` serialization; only the current-execution
+member's closed domain gains `pending_execution`.
+The pending-Testing discriminator keeps its own interrupting host because its
+stop predicate, the first entered Testing wrapper cursor, differs from the
+selected-action host's. Both use the same fsync observation and
+`recoverInterruptedEventStore` recovery. The retained-source discriminator
+reuses the pending-Testing host unchanged: its source Run never enters Testing.
+
+  graph and validation refs. Callers: construction-intent preparation (root and
+  child), selected-action preparation, pending-execution preparation, the
+  pending input join, and HoG child-level restoration (`pendingExecutionState`).
+
+  caller-supplied cursor or input. Both use the same owners, and HoG runs one
+  machine (`evaluateTraversalProgram`) for ordinary, `constructionResume` and
+  `pendingExecutionResume` entry.
+- The preparation tokens (`preparedRelations`, `preparedOperations`,
+  `selectedPreparations`, `pendingExecutionUses`) are read at admission. They
+  authenticate the exact prepared value and are not write-only registries.
+- The construction-intent arm and `selected_action` remain separate variants.
+
+  to one owner each without changing a refusal. The recursive, exact-intent and
+  default-library pending tests pass over it. The selected-action installed
+  tests read witness inputs outside the default-library witness and were not
+  run for this attempt.
+
+All continuation variants use the construction-continuation owner's shared
+workspace operation envelope. Its causes are the admitted workspace invocation
+and any separately admitted workspace operation basis (including an exact cover).
+Run-scoped intent/selection/opening events are authenticated through the typed
+continuation/source coordinates and their actual predecessor projection. They
+are not causes of a workspace event. A Run-scoped supersession may cite its own
+Run source and the workspace operation; it cannot cite another Run's event.
+Admission and cold continuation truth share this envelope correspondence while
+retaining each variant's distinct pending/use checks. The event-store cross-Run
+causation guard remains unchanged. This corrects the selected-action recurrence
+of exact-intent-02's earlier envelope defect; it does not qualify the still-unproved
+selected-action traversal or covered-authority path.
+
+The selected-action owner resolves current occurrences from the supplied existing
+`execution_basis` authority coordinate before deciding pending cardinality. Equal
+projection values in other admitted bases, including abandoned history, do not
+identify the current occurrence. More than one open occurrence at that exact basis
+still refuses. Cover temporal/conservation checks use the resolved occurrence's
+actual selection event. Cold operation projection repeats this relation at the
+operation's predecessor with its recorded execution-basis coordinate. Catalog/view
+correspondence remains bound through declaration closure and retained Program
+validation; this occurrence correction adds no catalog authority rule.
+
+## Selected Installed Proof Composition
+
+
+Physical storage rows and logical runtime events are another representation

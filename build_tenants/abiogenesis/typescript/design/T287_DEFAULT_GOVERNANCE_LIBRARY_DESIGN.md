@@ -654,7 +654,7 @@ The optional recursive Executive performs parent evaluation → owned preparatio
 one frame-bound F_P synthesis → F_D choice projection → one exact permitted
 wrapper → ordinary child Result/foldback → parent reevaluation. The Program
 fixes the registered domain, workflow callees and finite recursion bound. No
-ConstructionComposition or mandatory stage sequence is introduced.
+mandatory stage sequence is introduced.
 
 The synthesis maps the conserved problem to registered contributions with
 interpretation, contribution/reason/support/evidence, relevant dependencies,

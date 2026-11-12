@@ -88,3 +88,11 @@ Cut from `build_tenants/abiogenesis/typescript/design/M03_DIRECT_GTL_TRAVERSAL_B
 
 | One Surface recursive supervision | ABG5-S03 after generic continuation |
 | Consensus | ABG5-S05 through ordinary GTL and runtime paths |
+
+---
+
+Cut from `build_tenants/abiogenesis/typescript/design/M03_DIRECT_GTL_TRAVERSAL_BEHAVIOR_DESIGN.md` at commit `70320c3f0`, lines 685-685, 1272-1272, verbatim.
+
+      -One Surface and Consensus
+
+for the root. Live F_P workers, Consensus, and selected-method qualification are

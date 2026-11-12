@@ -24,7 +24,7 @@ Retired sections: [history/M03_TYPED_RECURSE_RUNTIME_BEHAVIOR_DESIGN__RETIRED_SE
 
 ### Explicit Exclusions
 
-- a Consensus controller, round service, prompt loop, or product-specific
+- a round service, prompt loop, or product-specific
   interpreter;
 - any use of `C.retry` to represent a semantic round;
 - an interpreter-owned default budget, termination predicate, foldback map, or
@@ -127,11 +127,12 @@ preparation refusal only at the bound).
 A held F_H child and a blocked child never re-enter the parent, so neither
 reaches a termination decision: a held child completion returns as child truth,
 and a blocked child folds back into a blocked route
-(`completeRecursionChildUsing`). In Consensus the round state's `terminal`
-field is the declared termination field (`terminationFieldRef: "$.terminal"`,
-`constructConsensusModulePublication`, `gtl/consensus.ts`): `closed_done`
-terminates, and only `recurse_next_round` continues the recursion
-(`reduceConsensusRound`, `gtl/consensus.ts`).
+(`completeRecursionChildUsing`). In the Executive the governance state's
+`terminal` field is the declared termination field
+(`terminationFieldRef: "$.terminal"`, `recurseApplication` in
+`gtl/default_library.ts`). The parent evaluation `projectGovernanceParent`
+(`abg/default_library.ts`) computes it from the step's admitted record:
+`true` terminates the recursion and `false` continues it.
 
 ### D8. Foldback is an exact B to A admission boundary
 
@@ -227,7 +228,7 @@ This note narrows D6 for declared classes only.
   replay digests and the derived liveness of recorded Runs stay the same. The
   Public reads consume the same owner, `projectEndedChildFrames` in
   `replay.ts`: `run_status` omits an ended frame's probe from `holdsAt`, the
-  `nativeLiveness` that the status, replay, gaps and lawful-actions reads carry
+  `nativeLiveness` that the status and replay reads carry
   omits its frame invocation, and the frame's graph-call status, when that
   graph call is neither closed nor active, reads as its stopped disposition. A
   frame without an admitted stopped foldback keeps blocking quiescence.

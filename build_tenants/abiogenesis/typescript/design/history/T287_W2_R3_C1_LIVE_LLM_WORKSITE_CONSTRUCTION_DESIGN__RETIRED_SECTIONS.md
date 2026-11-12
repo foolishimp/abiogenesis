@@ -83,3 +83,9 @@ branch, host command/probe execution, or synthesized observation refuses the
 gate. Historical `basic-cli` evidence earns no `1/7` scenario credit; credit
 can begin only with the unchanged reacquisition run. This gate selects no I/E,
 artifact, model/live use, or downstream run now.
+
+---
+
+Cut from `build_tenants/abiogenesis/typescript/design/T287_W2_R3_C1_LIVE_LLM_WORKSITE_CONSTRUCTION_DESIGN.md` at commit `70320c3f0`, lines 169-169, verbatim.
+
+  requirements `REQ-R-ABG3-FN-COMP-001..024`

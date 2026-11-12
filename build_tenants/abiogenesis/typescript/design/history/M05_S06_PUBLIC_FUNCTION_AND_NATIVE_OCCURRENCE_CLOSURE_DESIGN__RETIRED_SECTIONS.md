@@ -173,3 +173,16 @@ Cut from `build_tenants/abiogenesis/typescript/design/M05_S06_PUBLIC_FUNCTION_AN
 - `REQ-P-CONSENSUS-012..015`;
 
 | `REQ-P-CONSENSUS-012..015` | Consensus uses ordinary start/respond/continue/read members | start, interaction, continuation, result/replay, and ticket-consensus definitions | Consensus-specific operation or missing public projection |
+
+---
+
+Cut from `build_tenants/abiogenesis/typescript/design/M05_S06_PUBLIC_FUNCTION_AND_NATIVE_OCCURRENCE_CLOSURE_DESIGN.md` at commit `70320c3f0`, lines 32-32, 39-39, 108-108, 3352-3353, verbatim.
+
+- `REQ-P-POLICY-022..064`;
+
+- accepted S05 Consensus and S06 native-contract designs.
+
+| `REQ-P-POLICY-023..040`, `-049..061` | every operation binds its owning complete semantic function | Section 4.2.1 exact owner references plus Section 4.4 owner relations | copied payload, metadata, handler, or prose supplies an absent relation |
+
+- retained S03/S05 invocation, continuation, Consensus, and reads remain
+  indexed members of the family;

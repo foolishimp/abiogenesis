@@ -722,7 +722,7 @@ route, event, or runtime decision.
 | analyzer is subordinate | publisher proposes while verifier/resolver independently recompute through private machinery | Product package exports analyzer/evidence type or accepts a publisher receipt |
 | install follows resolve | exact lock installs/binds | unresolved Product creates no target |
 | JSON Pointer remains canonical | object/array pointers resolve | malformed `~`, `~2`, or out-of-range pointer |
-| accepted behavior conserved | S03, S05, S06, M4, external, package gates | retained S05 authority mutation stays sensitive |
+| accepted behavior conserved | S03, S06, M4, external, package gates | a retained gate fails |
 
 Helper tests may supplement but not replace these module laws.
 

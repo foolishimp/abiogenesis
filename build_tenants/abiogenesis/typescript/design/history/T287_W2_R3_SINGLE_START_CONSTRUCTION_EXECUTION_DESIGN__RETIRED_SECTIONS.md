@@ -19,3 +19,9 @@ change or unresolved structural decision remains in this bounded candidate.
 Material declaration/basis/install/AW/effect/capability/proof-scope changes
 invalidate affected conclusions. Executive owns acceptance and any next
 activation; this Writer's design grant exhausts on its frozen return.
+
+---
+
+Cut from `build_tenants/abiogenesis/typescript/design/T287_W2_R3_SINGLE_START_CONSTRUCTION_EXECUTION_DESIGN.md` at commit `70320c3f0`, lines 26-26, verbatim.
+
+`REQ-R-ABG3-CCALL-001/013/014`, `REQ-R-ABG3-FN-COMP-015/021..024`,

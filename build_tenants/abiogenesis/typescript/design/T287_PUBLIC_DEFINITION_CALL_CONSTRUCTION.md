@@ -1,5 +1,7 @@
 # Installed Public DefinitionCall construction
 
+Retired sections: [history/T287_PUBLIC_DEFINITION_CALL_CONSTRUCTION__RETIRED_SECTIONS.md](history/T287_PUBLIC_DEFINITION_CALL_CONSTRUCTION__RETIRED_SECTIONS.md).
+
 T-287 PUBLICCALL01 refines the existing S06/native SDK realization. Product
 `SDK And CLI` and `ABG5-S06`, and REQ-P-PUBLIC-CONTRACTS-009/010 retain semantic
 authority. The fifteen Product families and exact operation/definition family
@@ -67,7 +69,7 @@ HC1 also replaces the selected controlled worker fixture's partial request with 
 
 ## Canonical operation population (HC2)
 
-Existing Product and ABG owners populate framework handoffs from explicit bound context and caller intent or reference keys. Public constructs the installed envelope and remains a thin shell. Rehome `constructInstalledStartCall`, `constructInstalledPendingCall` and `constructInstalledRunReadCall` from test support; support direct invoke and the existing next, graph_function, asset and declared_start variants, and current-intent, pending-execution and selected-action continuation variants. Reuse `prepareProductRunInvocation` and existing continuation/read owners by factoring shared population, not copying it. Product resolves selected declarations, input contracts, policy, grants and authority; ABG projects authenticated continuation input, historical source and exact prefix. Current B authority is distinct from retained A source. Cold recovery reconstructs through existing owners; a remembered start object is not recovery authority.
+Existing Product and ABG owners populate framework handoffs from explicit bound context and caller intent or reference keys. Public constructs the installed envelope and remains a thin shell. Rehome `constructInstalledStartCall`, `constructInstalledPendingCall` and `constructInstalledRunReadCall` from test support; support direct invoke and the existing next, graph_function, asset and declared_start variants, and the pending-execution continuation variant (`constructInstalledPendingCall`, `public/installed_public_definition_call.ts`). Reuse `prepareProductRunInvocation` and existing continuation/read owners by factoring shared population, not copying it. Product resolves selected declarations, input contracts, policy, grants and authority; ABG projects authenticated continuation input, historical source and exact prefix. Current B authority is distinct from retained A source. Cold recovery reconstructs through existing owners; a remembered start object is not recovery authority.
 
 The admission-authority owner constructs `AdmissionCapabilityData` from the exact packet, verified owner artifact, request/resources, slots and optional bound-environment selection; `constructAdmissionCapabilityGrants` remains the grant producer. `ResolvedAdmissionAuthority` and its approval are explicit supplied authority, never an automatic allow decision. Worker request population remains `NativeInstructionAssembly.request`. Event-resource assertions may be populated from actual owner handoffs; acquired selections, held completion, physical close and interrupted recovery retain their distinct existing owners. No general receipt constructor is added.
 

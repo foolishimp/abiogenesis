@@ -682,7 +682,6 @@ classDiagram
       <<deferred>>
       -F_P worker transport
       -F_H continuation
-      -One Surface and Consensus
       -qualification and release
     }
     class VerifiedProductArtifact {
@@ -1269,7 +1268,7 @@ LeafRealizationCandidate and still crosses evidence, result, and judgment
 admission. It cannot become a direct runtime Failed state.
 
 No future GTL, ABG, GLC, registry, or external service capability is required
-for the root. Live F_P workers, Consensus, and selected-method qualification are
+for the root. Live F_P workers and selected-method qualification are
 later Product slices and do not block native construction of this boundary.
 
 ## 12. ABI5-ROOT-001 Design Mapping

@@ -23,7 +23,7 @@ in the host. That is not selected for the generic native route.
 
 This delta realizes existing mutable-worksite construction under Product
 definition/tool/runtime authority; REQ-R-ABG3-BINDING-016..018,
-EVENTS-029..032, SAGA-FRONTIER-001/004/013/014 and WORKER-006 retain owner
+EVENTS-029/031/032, SAGA-FRONTIER-001/004/013/014 and WORKER-006 retain owner
 separation, exact authority, declaration and effect law. It creates only the
 missing parents necessary for assessed, authorized file targets. It is not a
 general directory operation, a new Product family, an expanded filesystem
@@ -296,7 +296,7 @@ The governing source routes are:
 - `repo://abiogenesis/specification/requirements/abg/REQ-R-ABG3-BINDING.md`
   requirements `REQ-R-ABG3-BINDING-016..018`
 - `repo://abiogenesis/specification/requirements/abg/REQ-R-ABG3-EVENTS.md`
-  requirements `REQ-R-ABG3-EVENTS-029..032`
+  requirements `REQ-R-ABG3-EVENTS-029`, `-031`, `-032`
 - `repo://abiogenesis/specification/requirements/abg/REQ-R-ABG3-SAGA-FRONTIER.md`
   requirements `REQ-R-ABG3-SAGA-FRONTIER-001`, `-004`, `-013`, and `-014`
 - `repo://abiogenesis/specification/requirements/abg/REQ-R-ABG3-WORKER.md`

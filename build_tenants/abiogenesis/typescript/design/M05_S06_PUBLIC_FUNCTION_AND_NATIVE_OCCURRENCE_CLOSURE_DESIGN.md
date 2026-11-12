@@ -29,14 +29,14 @@ It derives from:
 - `PRODUCT.md`: `A5-F01`, `A5-F05`, `A5-F06`, `A5-F13`, `A5-F17`,
   `ABG5-S06`;
 - `REQ-P-PUBLIC-CONTRACTS-005`, `-008..010`, `-013`;
-- `REQ-P-POLICY-022..064`;
+- `REQ-P-POLICY-022..028`, `-031..064`;
 - `REQ-P-INSTALL-043..060`;
 - `REQ-P-CATALOG-019..030`;
 - `REQ-R-ABG3-PROJECTION-023`;
 - `REQ-R-ABG3-WITNESS-009`;
 - accepted M03 `EnvironmentBasis`, `InvocationBasis`,
   `ReplayProjectionFamily`, and ABG runtime authority; and
-- accepted S05 Consensus and S06 native-contract designs.
+- the accepted S06 native-contract design.
 
 This file is the sole current design asset for the affected S06 delta. It:
 
@@ -105,7 +105,7 @@ Excluded:
 | `REQ-P-PUBLIC-CONTRACTS-006A` | the 44-row roster is visible without claiming release closure | exact `MandatorySchemaVocabularyCorpusGapSet` emitted only by PFC-F08 | the diagnostic is omitted, applied to an unrelated Product, or treated as complete publication proof |
 | `REQ-P-PUBLIC-CONTRACTS-009..010`; `REQ-P-POLICY-062..064` | one indexed request/result/refusal/non-terminal authority | Sections 4.2, 4.4, and 4.5 | native/parser/schema/runtime disagreement or generic payload/outcome |
 | `REQ-P-POLICY-022`, `-044..045` | SDK and CLI are projections | PFC-F07 (`constructPayloads` in `public/binding/public_function_projections.ts`); exit codes come from `runExactDefinition` (`shared/effect_definition.ts`) and `public/cli.ts` | adapter-specific roster, validation, semantics, or outcome |
-| `REQ-P-POLICY-023..040`, `-049..061` | every operation binds its owning complete semantic function | Section 4.2.1 exact owner references plus Section 4.4 owner relations | copied payload, metadata, handler, or prose supplies an absent relation |
+| `REQ-P-POLICY-023..028`, `-031..040`, `-049..061` | every operation binds its owning complete semantic function | Section 4.2.1 exact owner references plus Section 4.4 owner relations | copied payload, metadata, handler, or prose supplies an absent relation |
 | clarified `REQ-P-POLICY-049..050` | packed verification precedes linked resolution; installed verification consumes an existing lock | `ProductVerifyPacket`, NCC-F01/F02, and authority-slot matrix | verify constructs a lock or F01 admits linked meaning |
 | `REQ-P-CATALOG-019..030`; `REQ-R-ABG3-PROJECTION-023` | project reads and catalog relations are closed and pure | Section 4.3 and catalog rows in Section 4.4 | free projection string, widened view, or read effect |
 | `REQ-P-INSTALL-043..060` | verify, resolve, install, bind, create, and open remain distinct | operation packets and authority-slot matrix | resolve/install cycle, implicit binding, or hidden install |
@@ -3349,8 +3349,8 @@ primitive is implemented.
   class, native/schema contract, attempt digest, and refusal digest reproduce;
 - all 24 read cases derive from admitted owner truth and append no event;
 - native SDK and CLI produce the same deterministic S06 outcome;
-- retained S03/S05 invocation, continuation, Consensus, and reads remain
-  indexed members of the family;
+- retained invocation, continuation and read members remain indexed members
+  of the family (`shared/capability_contracts.ts`);
 - self-package subordinate roots resolve without invented contracts;
 - exact default, named, namespace, star, import-type, type-query, shadowing,
   type-reference, and import-equals relations link under direct dependency

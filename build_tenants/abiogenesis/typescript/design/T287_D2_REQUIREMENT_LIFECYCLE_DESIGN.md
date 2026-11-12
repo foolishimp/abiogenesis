@@ -355,7 +355,7 @@ is the code observation, not a claim of D2 implementation. Paths below are under
 | `product/semantic_stage.ts::deriveSemanticAsset`, `deriveSemanticAssessment`; `abg/instruction_assembly.ts::constructNativeInstructionAssembly` | Author/assessor computation is append-only for a new stage and one assessment. Existing-stage replacement and reassessment refuse. |
 | `abg/semantic_stage.ts::semanticEnvelopeMatchesAdmittedPredecessor`, `semanticInputMatchesBasis` | The entire carried envelope and each asset must match native admitted history. A caller cannot splice retained assets into a revised envelope. |
 | `hog/route_proposal.ts::proposeGraphSpanReentryRoute`; `abg/traversal_route.ts::admitTraversalTransition` | Existing declared `re_enter` and admission preserve source result/judgment, target/input and locus. They require a lawful advancing selection result, not advancement of the failed subject. |
-| `abg/traversal_route.ts::rehydrateConstructionIntentForCursorAtPrefix`; `abg/invocation_admission.ts::admitExactInvocation` | Existing action/intent and invocation joins retain selected obligation/assets and exact authority. Durable gap-start re-entry additionally requires its actual gap-stop route and unchanged applicable start/install/binding coordinates. |
+| `abg/invocation_admission.ts::admitExactInvocation` | The invocation join retains exact authority (`validateInvocationCapabilityBasis`). |
 | `product/semantic_stage.ts::deriveSemanticWorksitePreparation`; existing C1/C0/C2 | Construct, replace and execute within current Product authority. D1's coordinate projection deliberately retains old preimage bytes, so it cannot refresh changed postimages for D2. |
 
 The missing join is exact admitted counterevidence plus a permitted affected-work
@@ -510,10 +510,10 @@ execute the selected work, and assess fresh evidence through normal C/HoG/ABG.
 It may use an existing declared `re_enter` relation within a live graph, or a
 separately admitted successor Run with explicit parent/cause linkage when the
 old Run is terminal. The latter is a new invocation, not reuse of its old
-Continuation aggregate. Actual F_H holds and gap-stops use their existing exact
-continuation/re-entry paths only when their conditions are present. Fresh next
-work retains `evaluateNext -> admitConstructionIntent -> invokeGraphFunction`
-where required by the selected composition; no Public shell or prompt chooses it.
+Continuation aggregate. An actual F_H hold opens its existing continuation
+only when its conditions are present (`holdOwnedInteraction`,
+`hog/interaction_lifecycle.ts`). The selected composition chooses fresh next
+work; no Public shell or prompt chooses it.
 The first bound composition must declare one of these paths; this HOW does not
 claim the running D1 Program already declares a D2 branch.
 
@@ -617,8 +617,7 @@ owners. Repair proposals use the existing semantic revision selection/projection
 then `proposeGraphSpanReentryRoute`/`admitTraversalTransition` where the admitted
 Program declares that route. A terminal prior Run instead needs a separately
 admitted successor with the actual cause/parent and current authority; it is
-never revived by a host loop. Keep `evaluateNext -> admitConstructionIntent ->
-invokeGraphFunction` wherever the selected action requires it. Consequence
+never revived by a host loop. Consequence
 cannot bypass current-call, child-basis, effect, evidence or closure guards.
 A missing local declaration yields a gap, not an implied routing capability.
 
@@ -860,8 +859,10 @@ a later failed C1's exact entry/child ancestry; choosing an older semantic paren
 does not erase an intervening binding or successful member. Missing, reversed,
 foreign, cyclic or unjoined coverage refuses as basis_fork_detected before
 D2 traversal, revision materialization or worksite effects. The existing native
-new-action/child-basis admission owner checks the cover for the exact declared
-D2 entry; selection assembly and later consumers recheck the same derivation.
+invocation and child-basis admission owners check the cover for the exact
+declared D2 entry (`worksiteRevisionEntryBindingDisposition`,
+`abg/worksite_revision.ts`, applied in `admitInvocationWithRequest`,
+`abg/invocation_admission.ts`); selection assembly and later consumers recheck the same derivation.
 No pre-dispatch refusal manufactures actor evidence. Reprice covers the binding
 crossing only; it proves neither file currentness nor application correctness.
 
@@ -927,7 +928,7 @@ pretend to be admitted_input under the new W, or a C0 successor never written.
 ### Shared mapping, admission and replay
 
 Keep this derivation in the existing native D2 worksite projection owner.
-Native new-action/child-basis admission, selection input assembly, revision
+Native invocation and child-basis admission, selection input assembly, revision
 projection, applicable-Design reconstruction,
 E_D bridge, C1/C2 input provenance, result admission and replay consume that
 same relation. Same-W paths and earlier valid C1/C3-to-C2 arms remain exact.

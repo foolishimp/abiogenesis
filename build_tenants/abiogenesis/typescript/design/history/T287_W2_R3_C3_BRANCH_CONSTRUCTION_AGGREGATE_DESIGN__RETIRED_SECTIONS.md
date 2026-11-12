@@ -54,3 +54,9 @@ The accepted C2 semantic/carrier coordinates in the header identify the
 predecessor that exposed the bounded relay defect. The separately listed
 relay-repaired coordinates are the independently accepted current predecessor;
 they close the relay gate but grant no C3 realization authority by themselves.
+
+---
+
+Cut from `build_tenants/abiogenesis/typescript/design/T287_W2_R3_C3_BRANCH_CONSTRUCTION_AGGREGATE_DESIGN.md` at commit `70320c3f0`, lines 125-125, verbatim.
+
+- `REQ-R-ABG3-FN-COMP-001..024`, lineage, event, run, projection, and Program

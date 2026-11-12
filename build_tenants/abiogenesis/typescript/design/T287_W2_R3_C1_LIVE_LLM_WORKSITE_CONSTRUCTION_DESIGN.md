@@ -166,7 +166,7 @@ Material source routes are:
 - `repo://abiogenesis/specification/requirements/abg/REQ-R-ABG3-WORKER.md`
   requirements `REQ-R-ABG3-WORKER-001..008`
 - `repo://abiogenesis/specification/requirements/abg/REQ-R-ABG3-FN-COMPOSITION.md`
-  requirements `REQ-R-ABG3-FN-COMP-001..024`
+  requirements `REQ-R-ABG3-FN-COMP-001..023`
 - `repo://abiogenesis/specification/requirements/abg/REQ-R-ABG3-PAYLOAD.md`
   requirements `REQ-R-ABG3-PAYLOAD-012`, `-019`, `-024`, and `-028`
 - `repo://abiogenesis/specification/requirements/gtl/REQ-L-GTL3-COMPOSE.md`

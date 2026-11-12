@@ -43,3 +43,9 @@ a profile upgrade where necessary. Liveness does not recover a lock, truncate a
 tail, mint a close handoff or infer a stop witness. P3's undispatched owner
 refusal remains a separate failure arm: no actor/probe evidence is fabricated
 for a CCall that never dispatched.
+
+---
+
+Cut from `build_tenants/abiogenesis/typescript/design/T287_NATIVE_LIVENESS_CONSERVATION_DESIGN.md` at commit `70320c3f0`, lines 233-233, verbatim.
+
+Existing run/GraphCall status, replay, gaps and lawful-action projections expose
