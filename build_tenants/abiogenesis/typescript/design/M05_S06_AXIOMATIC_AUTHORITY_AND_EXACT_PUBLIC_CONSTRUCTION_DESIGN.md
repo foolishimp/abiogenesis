@@ -354,7 +354,7 @@ or closure question.
 
 | Entity | Declare/create | Acquire or reconstruct | Use/transition | Refusal | Handoff/fresh process | Close/retire |
 |---|---|---|---|---|
-| `DurablePrefixCoordinate` | zero coordinate from exclusive new-empty creation; successor constructed from verified committed bytes inside the durable append rollback boundary | read requires only coordinate; authority-only reopen reconstructs and returns its equal coordinate | immutable predecessor; a configured durable non-empty expected-prefix transaction returns a distinct successor, while an empty or in-memory transaction returns `null`; no in-place currentness | closed-shape, self-digest, file-URL, identity, contract, length, or byte mismatch refuses before append/read result | serializable coordinate alone crosses to fresh-process reads; close pairs it with reopen authority for later writes | never deleted by W1.1a; later coordinates supersede only current caller position |
+| `DurablePrefixCoordinate` | zero coordinate from exclusive new-empty creation; successor constructed inside the durable append rollback boundary after write and `fsync`, from the retained running digest extended by the written rows (`appendDurablyBatch` in `abg/event_store.ts`); no byte is read back | read requires only coordinate; authority-only reopen reconstructs and returns its equal coordinate | immutable predecessor; a configured durable non-empty expected-prefix transaction returns a distinct successor, while an empty or in-memory transaction returns `null`; no in-place currentness | closed-shape, self-digest, file-URL, identity, contract, length, or byte mismatch refuses before a read result; before an append a coordinate unequal to the held store's retained coordinate refuses, and a log file whose device, inode or length differs from what the store holds refuses before the transaction's action and before the write (`assertHeldDurableLogCurrent` in `abg/event_store.ts`); an append reads no byte, so a same-length change in place refuses at reopen and at a cold read of a copied coordinate instead | serializable coordinate alone crosses to fresh-process reads; close pairs it with reopen authority for later writes | never deleted by W1.1a; later coordinates supersede only current caller position |
 | `EventStoreReopenAuthority` | no-argument `projectReopenAuthorityAndClose()` derives it and the coordinate from one verified byte snapshot under the held descriptor and lock | existing authority-only `reopenEventStore(authority)` consumes it only for writes and returns the existing store plus equal coordinate | no semantic transition | close failure returns no pair; reopen authority/file mismatch returns the existing typed refusal | serializable write handoff; P1 checks its paired prefix equals the selected retry-transaction successor and P2 checks reopened prefix equals the handoff/D17 prefix | retired as current write basis when a later store closes and returns another atomic pair |
 | `AbgEventStore` | new-empty creation or existing authority-only reopen acquires the sole sink | exclusive descriptor/lock plus ordered admission state | guards ordered durable internal admissions; expected-prefix transactions return coordinates only from rollback-protected durable commits | stale named predecessor refuses without append; any internal admission or successor-construction failure aborts the transaction | never serialized or used for read authority | no-argument close projects the atomic pair and releases; no retry/recovery protocol added |
 | `NewEmptyAppendSinkRequest` | concrete setup caller constructs | new-only acquisition | exhausted on result | existing/alias/noncanonical target refuses | never used to recover history | request discarded |
@@ -609,9 +609,13 @@ validator. Physical verification then follows one of two closed modes:
   after reading, `fileSize >= prefixLength`, the selected event contract, and
   `prefixDigest` equal to the hash of exactly the first `prefixLength` bytes;
   a later suffix is permitted and is not read or projected; and
-- a held-store append/close check or authority-only reopen requires the same
-  descriptor/path device/inode, the selected event contract, and exact-tail
-  equality `fileSize === prefixLength`, then hashes all named bytes.
+- an authority-only reopen requires the same descriptor/path device/inode, the
+  selected event contract, and exact-tail equality `fileSize === prefixLength`,
+  then hashes all named bytes. A held store requires, before a transaction's
+  action and before each write, the same descriptor/path device/inode and a
+  file length equal to the length it retains, and hashes no byte
+  (`assertHeldDurableLogCurrent` in `abg/event_store.ts`); its close compares
+  coordinates in memory and makes no file call.
 
 A structurally self-consistent raw object is not authoritative without the
 applicable physical check. The coordinate identifies one exact append-only
@@ -622,12 +626,17 @@ This law does not expose a prefix parameter or result on every internal ABG
 admission callable. Internal admissions within one named transaction or
 enclosing operation use the one already-held `AbgEventStore`, remain subject to
 ordered durable append-before-next-effect, and do not independently author
-semantic currentness. `appendDurablyBatch` constructs and validates a
-non-empty commit's successor only after write, `fsync`, length check, and byte
-check, but still inside the same rollback-protected `try`. A successor
-construction or validation failure therefore follows the existing truncate,
-`fsync`, in-memory rollback path and cannot leave durable appended bytes while
-returning refusal or no coordinate. Event Calculus over the exact committed
+semantic currentness. `appendDurablyBatch` (`abg/event_store.ts`) checks the
+held log file's device, inode and length before its rollback-protected `try`,
+so that refusal writes nothing and never reaches the truncate. It constructs
+and validates a non-empty commit's successor after write and `fsync`, inside
+that `try`; nothing is read back after the write. A successor construction or
+validation failure therefore follows the in-memory rollback and the truncate
+and `fsync` path, which truncates only while the file at the path and behind
+the descriptor is the held file and its length lies from the prior length to
+the prior length plus the attempt's bytes. Otherwise it does not truncate: it
+releases ownership and reports both causes, and the bytes past the prior
+length stay for reopen to refuse. Event Calculus over the exact committed
 prefix, not the store or projection mechanic, proves semantic meaning. There
 is no generic installed `projectCurrentPrefix`, optional prefix overload,
 wrapper, second sink, or second write path.
@@ -715,9 +724,12 @@ The existing no-argument close boundary is narrowed in place:
       reopenAuthority: EventStoreReopenAuthority
     }
 
-While the existing append lock remains held, it verifies descriptor/path
-identity, reads exactly the held durable length, verifies the bytes and event
-contract, and derives both values from that single snapshot. It returns no
+While the existing append lock remains held, it compares the selected
+coordinate with the store's retained coordinate in memory and derives both
+values from the retained path, device, inode, length, digest and event
+contract (`closeHeldEventStoreAtDurablePrefix` in `abg/event_store.ts`); it
+makes no file call and reads no byte, and a later reopen validates the
+persisted bytes. It returns no
 partial handoff: the pair is constructed and frozen before descriptor/lock
 release, and a failure returns neither member. The prefix maps to the authority
 fields mechanically and neither value semantically selects a current tail.
@@ -736,11 +748,15 @@ The affected single-artifact append surface is narrowed to:
       successorPrefix: DurablePrefixCoordinate
     } | EventStoreAppendRefusal
 
-Immediately before append, Event Store verifies that the held descriptor,
-device/inode, durable byte length/digest, and event-contract digest equal
-expectedPredecessor. A mismatch returns the existing typed prefix refusal and
-appends nothing. Event Store then owns only envelope validation, admission
-ordinal stamping, durable append, and successor-coordinate projection. It does
+Before append, Event Store compares expectedPredecessor with the held store's
+retained coordinate in memory; a mismatch returns `prefix_mismatch` and
+appends nothing. Before the write it checks that the log file at the path and
+behind the held descriptor has the held device and inode and the retained
+length (`assertHeldDurableLogCurrent` in `abg/event_store.ts`); a file that
+differs returns `sink_unavailable` with the currentness owner's message, and
+appends nothing. No named-byte digest is computed. Event Store then owns
+only envelope validation, admission ordinal stamping, durable append, and
+successor-coordinate projection. It does
 not import ArtifactTruthTransition, select an artifact disposition, query
 catalog/run truth, or expose its cached events as read authority.
 
@@ -1838,10 +1854,13 @@ candidate, declared input contract, input ref/digest/value, and next attempt.
 A runtime-basis, D17 projection, frontier-row, or declared-preimage mismatch
 refuses before the transaction.
 
-After all pure preflight, D18 validates the supplied predecessor against the
-held store in exact-tail mode: descriptor/path identity and contract match,
-`fileSize === predecessorPrefix.prefixLength`, and the complete named-byte
-digest matches. It then captures the mechanical immutable in-memory event
+After all pure preflight, D18 compares the supplied predecessor with the held
+store's retained coordinate in memory (`assertHeldEventStoreAtDurablePrefix`,
+called from `resumeProjectedRetry` in `hog/retry_lifecycle.ts`), and the
+transaction it enters checks, before its action, that the log file at the path
+and behind the held descriptor has the held device and inode and the retained
+length (`assertHeldDurableLogCurrent` in `abg/event_store.ts`); no named-byte
+digest is computed. It then captures the mechanical immutable in-memory event
 snapshot digest as `expectedPrefixDigest = store.digest()`; this value is not
 `predecessorPrefix.prefixDigest` or any coordinate digest. D18 synchronously enters
 `admitRuntimeEventTransactionAtExpectedPrefix(store,
