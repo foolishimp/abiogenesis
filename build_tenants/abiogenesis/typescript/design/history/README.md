@@ -2,7 +2,7 @@
 
 These notes are records. They do not authorize design, code or closure; the current notes are indexed in [../README.md](../README.md).
 
-They moved here unchanged on 2026-11-12 in commit `e1516b5f1` (`git mv`, 100% renames). The `__RETIRED_SECTIONS.md` files hold sections cut verbatim from kept notes: five notes in commit `4e405ff08`, eighteen more notes in the commits merged at `862c96082`, and five sections of the realization constitution in commit `c1eb397e4`. Each names its source on its first line.
+They moved here unchanged on 2026-11-12 in commit `e1516b5f1` (`git mv`, 100% renames). `T287_REGISTERED_GRAPH_SELECTION_NATIVE_DESIGN.md` moved here unchanged later that day in the TD-28b design commit (`git mv`). The `__RETIRED_SECTIONS.md` files hold sections cut verbatim from kept notes: five notes in commit `4e405ff08`, eighteen more notes in the commits merged at `862c96082`, and five sections of the realization constitution in commit `c1eb397e4`. Each names its source on its first line.
 Relative links inside these notes resolve against the pre-move layout: a link to a sibling note may name a note that now lives here or one that stayed in `design/`, and `../` paths are one level short.
 
 | Note | Class | Reason | Replacing note or ruling |
@@ -271,6 +271,7 @@ Relative links inside these notes resolve against the pre-move layout: a link to
 | [SLA_TELEMETRY_HOMEOSTATIC_FEEDBACK.md](SLA_TELEMETRY_HOMEOSTATIC_FEEDBACK.md) | stale | names fewer than 5 code identifiers | - |
 | [T176_GTL_LANGUAGE_CAPABILITY_TS_HOW_AND_GAP_ANALYSIS.md](T176_GTL_LANGUAGE_CAPABILITY_TS_HOW_AND_GAP_ANALYSIS.md) | record | gap analysis read-model; names live `GtlProgramConformanceInput` only as an analysed surface | - |
 | [T287_EFFECT_FUNCTIONAL_REFACTOR_PLAN.md](T287_EFFECT_FUNCTIONAL_REFACTOR_PLAN.md) | record | a plan; Phase 2 is realized in `shared/owned_process_state.ts` and designed by ABI5_COMMON §10 (process family); GOALS.md names it as the adopted plan; `scripts/check-lifecycle-boundary.mjs:43` cites it | - |
+| [T287_REGISTERED_GRAPH_SELECTION_NATIVE_DESIGN.md](T287_REGISTERED_GRAPH_SELECTION_NATIVE_DESIGN.md) | stale | designs the native registered-selection task route, which is absent at head (TD-28b): `product/registered_selection_native.ts`, `registeredSelectionNativeRole` and the `registered_selection_task`/`registered_selection_response` contract kinds; its passages on the shared target projection, the current execution binding, the native dispatcher and installed test support are restated in the replacing notes | T287_REGISTERED_GRAPH_SELECTION_DESIGN; T287_DEFAULT_GOVERNANCE_LIBRARY_DESIGN; M03_INSTRUCTION_ASSEMBLY_DERIVATION |
 | [T287_W2_ODD_GLC_TYPED_WORKSPACE_ADMISSION_DESIGN.md](T287_W2_ODD_GLC_TYPED_WORKSPACE_ADMISSION_DESIGN.md) | record | roadmap: its R2 and R3 parts are proposed and unratified; the ratified parts are designed by the C0-C3 and R2 notes | - |
 | [TIMER_PROVIDER_CONTRACT_SKETCH.md](TIMER_PROVIDER_CONTRACT_SKETCH.md) | stale | names fewer than 5 code identifiers | - |
 | [TWO_STAGE_EVALUATION_MODEL.md](TWO_STAGE_EVALUATION_MODEL.md) | stale | names fewer than 5 code identifiers | - |

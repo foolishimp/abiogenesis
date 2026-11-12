@@ -1,8 +1,5 @@
 export { ABI5_DEFAULT_LIBRARY_PRODUCT_SEMANTICS } from "./builtin_semantics.js";
 export * from "./default_library.js";
-export { isNativeRegisteredSelectionTask, isNativeRegisteredSelectionResponse,
-  nativeRegisteredSelectionResponseSchema, materializeNativeRegisteredChoice,
-  type NativeRegisteredSelectionTask, type NativeRegisteredSelectionTarget } from "./registered_selection_native.js";
 export {
   WORKSITE_COMMAND_EXECUTION_IDS,
   constructWorksiteCommandExecutionObservation,

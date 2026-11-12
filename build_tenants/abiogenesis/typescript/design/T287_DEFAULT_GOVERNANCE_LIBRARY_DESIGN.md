@@ -632,7 +632,7 @@ F_D performs declared copying, schema/identity checks and total control rules.
 
 | Callable purpose | Typed work/result within state | Selected frame and criterion | Effects and completion/gap | Actual invocation and retained assets |
 |---|---|---|---|---|
-| **Executive**: select/revise registered work and reevaluate the original outcome | State → same state with admitted choice/returned evidence and parent evaluation | Executive + consumer outcome criteria; purpose/contract fit, proportionality, preserved residuals | Selection is effect-free. Closure requires the explicit parent outcome evaluation; unsupported capability/input stays gap | S3 `registered_selection_task`/raw binder + S4 declared recursion. Open parent sufficiency uses the existing read-only native assessment; F_D only projects its admitted verdict into the declared recursion termination rule |
+| **Executive**: select/revise registered work and reevaluate the original outcome | State → same state with admitted choice/returned evidence and parent evaluation | Executive + consumer outcome criteria; purpose/contract fit, proportionality, preserved residuals | Selection is effect-free. Closure requires the explicit parent outcome evaluation; unsupported capability/input stays gap | Framed synthesis: the F_P `select` leaf (`selectGovernanceWork`) and the F_D `project-choice` leaf at the registered-selection source (`projectGovernanceChoice`), declared in `gtl/default_library.ts`, plus the declared executive recursion. Open parent sufficiency uses the existing read-only native assessment; F_D only projects its admitted verdict into the declared recursion termination rule |
 | **Induction**: establish task model, context, assumptions and unknowns | Complete original source → bounded task-model asset plus unresolved questions | Worker/induction; source faithfulness, modality, conflicting statements and uncertainty | Read selected sources; write only selected model asset when needed. No invented resolution of unknowns | Fixed native-work workflow; applicable separate assessment. Retain `native-intent-declarations.mjs` policy content and headings as reusable source, adapting its narrow Intent outcome into explicit induction coverage |
 | **Specification**: state requested behavior and testable criteria | Source/model and any already-valid requirements → behavior/criterion asset | Product/Specification; source-grounded behavior, boundaries and meaningful proof obligations | Scoped asset writes; absent source/authority remains gap. Does not require a freshly generated induction asset | Fixed native-work and applicable native-assessment calls. Retain donor product/requirements required-content and common rubric; remove fixed predecessor-stage requirements |
 | **Design**: propose a realizable bounded change and checks | Source/criteria/current worksite/reusable design → selected artifact and command plan | Design + interface integration; actual context, feasibility, preservation and executable proof | Scoped design asset only. Unknown dependency/capacity remains explicit; no guessed controls | Fixed native work/assessment; retain donor design content and executable-proof criterion, including actual inventory and declared capacity |
@@ -1507,6 +1507,42 @@ refusal. Verification includes the actual post-Design fold, parent, expanded
 context and owned selector assembly, plus prospective assessment preparation
 over those retained assets. Controlled preparation is not an admitted UAT
 selection or semantic assessment.
+
+### Current execution binding in selector context
+
+`evaluateFramedSynthesisInstructionAssembly` (`abg/instruction_assembly.ts`)
+renders a `binding` section, placed between `task` and `evidence` in the section
+order, for the `active_binding_semantics` selector. `currentExecutionBinding`
+projects it from existing exact owners only:
+
+- the execution's admitted invocation (`projectExactInvocationAdmissionAtPrefix`);
+- its unique Run segment (`hasExactInvocationRunBindingAtPrefix`);
+- the governance root ancestry (`semanticJobRootAtPrefix`);
+- the root definition, selected from `declarationGraphFunctions` by the admitted
+  root name and digest.
+
+The section shows the current Run; the invocation admission, invocation and
+variant; the Program; the root GraphFunction and its digest; the admitted Public
+start, target, `until` and root mode; and the executing GraphFunction. The
+declared recursion bound appears only when the executing basis is not the root and
+the root template declares exactly one recurse application to the executing
+GraphFunction; otherwise it is `null`. A retained-source predecessor comes from
+the admission's `sourceResultBasis` and is shown separately, never as the current
+root or Run. These facts carry no task meaning and select no next member.
+
+The section enters the plan's section order, the identity sections and the
+manifest's `bindingDigest`, so transport and replay bind it. A missing, foreign
+or inconsistent owner relation makes `currentExecutionBinding` return null and
+the assembly refuses `unknown_dependency` before dispatch
+(REQ-R-ABG3-INSTRUCTION-ASSEMBLY-008). The binding does not project the reentry
+basis.
+
+The selector sections are `role`, `choices`, `task`, `binding`, `evidence` and
+`response`. None carries the Public request, its catalogue readiness basis or a
+publication or graph snapshot; `choices` carries each permitted target's purpose,
+conditions, contracts and effects, and the target bindings carry definition
+identities, not definition copies. The prompt bound is the task's
+`maxPromptBytes`; overflow refuses `declared_bound_overflow`.
 
 ### Verified short-stream completeness (RC3 Increment B)
 

@@ -76,18 +76,13 @@ export function stdoRoleForDeclaredLeaf(graph: Readonly<GraphFunction>, leaf: Re
 }
 
 /** One declared native family shared by publication validation, HoG and assembly.
- * A framed-synthesis or registered-selection evaluate leaf is a selector; every
- * other leaf takes its closed class from `stdoRoleForDeclaredLeaf`, or null. */
+ * A framed-synthesis evaluate leaf is a selector; every other leaf takes its
+ * closed class from `stdoRoleForDeclaredLeaf`, or null. */
 export function nativeContextLeafFamily(graph: Readonly<GraphFunction>, leaf: ReturnType<typeof cLeafTerms>[number]):
   RunEnvironmentRole["role"] | null {
   try {
   const synthesis = framedSynthesisAtLocus(graph, leaf.programLocusRef);
   if (synthesis !== null) return synthesis === false ? null : "selector";
-  if (leaf.fibre === "F_P" && leaf.stageRole === "evaluate" && leaf.requirement.kind === "executable_leaf_requirement") {
-    const nodes = graph.template.nodes.filter(n => n.term.kind === "c_of" && n.term.programLocusRef === leaf.programLocusRef);
-    if (nodes.length === 1 && registeredSelectionAtSource(graph.template,
-      { currentNodeRef: nodes[0]!.nodeRef, termPath: rootCSourcePath(nodes[0]!.nodeRef) }, leaf.outputCarrierRef) !== null) return "selector";
-  }
   return stdoRoleForDeclaredLeaf(graph, leaf);
   } catch { return null; }
 }
@@ -190,25 +185,6 @@ function selectorRoleFromBoundDeclarations(publication: Readonly<ModulePublicati
   if (environments?.length !== 1 || !program.callableMembership.includes(graphFunctionRef)) return false;
   const roles = environments[0]!.roles.filter(r => r.graphFunctionRef === graphFunctionRef && r.programLocusRef === programLocusRef);
   return roles.length === 1 && roles[0]!.role === "selector" ? roles[0]! : false;
-}
-/** Project already-bound declarations; acquisition/native-basis owners authenticate
- * their content. null is unselected and false is an invalid applicable binding.
- * Payloads and reconstructed runtime evidence never select or disable it. */
-export function registeredSelectionNativeRole(publication: Readonly<ModulePublication> | undefined,
-  programRef: string, graph: Readonly<GraphFunction>, programLocusRef: string): Readonly<RunEnvironmentRole> | null | false {
-  try {
-    const applications = graph.template.applications.filter(a => a.relationKind === "registered_selection" &&
-      a.sourceProgramLocusRef === programLocusRef);
-    if (applications.length === 0) return null;
-    const nodes = graph.template.nodes.filter(n => n.term.kind === "c_of" && n.term.programLocusRef === programLocusRef);
-    if (nodes.length !== 1 || applications.length !== 1) return false;
-    const leaf = nodes[0]!.term;
-    if (leaf.kind !== "c_of" || leaf.fibre !== "F_P") return null;
-    const role = selectorRoleFromBoundDeclarations(publication, programRef, graph.name, programLocusRef);
-    if (role === null || role === false) return role;
-    return leaf.stageRole === "evaluate" && leaf.requirement.kind === "executable_leaf_requirement" &&
-      applications[0]!.inputContractRef === leaf.outputCarrierRef ? role : false;
-  } catch { return false; }
 }
 /** Narrow library profile: applicability precedes payload inspection. */
 export function framedSynthesisAtLocus(graph: Readonly<GraphFunction>, locus: string) {

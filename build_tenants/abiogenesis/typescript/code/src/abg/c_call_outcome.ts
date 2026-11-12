@@ -2,7 +2,7 @@ import { indexedRuntimeEvents, validatedRuntimeEventPrefixBeforeEvent } from "./
 import type { RuntimeEventPrefix } from "./event_prefix.js";
 import { GOVERNANCE_IMPLEMENTATION_REFS, governanceRef } from "../product/default_library.js";
 import { governanceResultMatches } from "./default_library.js";
-import { registeredSelectionNativeRole, framedSynthesisNativeRole } from "../gtl/stdo_run_environment.js";
+import { framedSynthesisNativeRole } from "../gtl/stdo_run_environment.js";
 import { constructNativeInstructionAssemblyBasis } from "./execution_basis.js";
 import { SEMANTIC_REVISION_IMPLEMENTATION_REFS, SEMANTIC_REVISION_IDS } from "../gtl/semantic_revision_identity.js";
 import { semanticRevisionResultMatchesBasis, projectRevisionWorksitePreparation, semanticJobRevisionResultMatchesBasis } from "./semantic_revision.js";
@@ -13,7 +13,7 @@ import { WORKSITE_COMMAND_FORWARD_IDS as forwardIds } from "../product/worksite_
 import { worksiteCommandForwardResultMatches } from "./worksite_command_forward.js";
 import { semanticLifecycleRefForProgram } from "../gtl/semantic_stage.js";
 import { semanticResultMatchesBasis, projectSemanticWorksitePreparation, projectSemanticEvidenceInput, projectSemanticEnvelopeOutput, type SemanticStageNativeBasis } from "./semantic_stage.js";
-import { semanticInstructionResultMatches, registeredSelectionInstructionResultMatches, framedSynthesisInstructionResultMatches } from "./instruction_assembly.js";
+import { semanticInstructionResultMatches, framedSynthesisInstructionResultMatches } from "./instruction_assembly.js";
 import { REQUIREMENT_HANDOFF_IDS } from "../gtl/requirement_handoff.js";
 import { requirementHandoffResultMatches } from "./requirement_handoff.js";
 import type { ModulePublication } from "../gtl/contracts.js";
@@ -1254,12 +1254,6 @@ function stageCCallResult(
             : (input.regime !== "F_P" ||
                 probabilistic?.kind ===
                   "contract_admitted_probabilistic_result_candidate") &&
-              (input.regime !== "F_P" || registeredSelectionNativeRole(input.programPublication, input.executionBasis.programRef,
-                input.graphFunction, input.cCall.programLocusRef) === null || registeredSelectionInstructionResultMatches({
-                  publication: input.programPublication, graph: input.graph, graphFunction: input.graphFunction,
-                  declarationGraphFunctions: input.leafPort.declarationGraphFunctions?.() ?? [],
-                  executionBasis: input.executionBasis, cCall: input.cCall, cursor: input.cursor,
-                  predecessorPrefix: input.predecessorPrefix }, input.input, value, input.leafPort.contractByRef)) &&
               (input.regime !== "F_P" || framedSynthesisNativeRole(input.programPublication, input.executionBasis.programRef,
                 input.graphFunction, input.cCall.programLocusRef) === null || input.nativeInstructionAssemblyBasis !== undefined &&
                 input.nativeInstructionAssemblyBasis.cCall.cCallRef === input.cCall.cCallRef &&

@@ -180,3 +180,9 @@ installed-RC3 native witness, which has not run.
 
 The seam adds no Public operation, outcome, event schema, store, registry,
 service or OS confinement claim, and the selector stays zero-tool.
+
+---
+
+Cut from `build_tenants/abiogenesis/typescript/design/T287_DEFAULT_GOVERNANCE_LIBRARY_DESIGN.md` at commit `c22430c34`, line 629, verbatim (one row of the table in "Common application contract and coverage").
+
+| **Executive**: select/revise registered work and reevaluate the original outcome | State → same state with admitted choice/returned evidence and parent evaluation | Executive + consumer outcome criteria; purpose/contract fit, proportionality, preserved residuals | Selection is effect-free. Closure requires the explicit parent outcome evaluation; unsupported capability/input stays gap | S3 `registered_selection_task`/raw binder + S4 declared recursion. Open parent sufficiency uses the existing read-only native assessment; F_D only projects its admitted verdict into the declared recursion termination rule |
