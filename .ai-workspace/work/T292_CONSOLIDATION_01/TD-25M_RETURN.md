@@ -4,7 +4,25 @@ Writer: Claude Opus 5.5. Branch `claude/td25m-withdraw-respond-members` from
 local `main` at `b13bdd5c2`, worktree `/private/tmp/abg-td25m`. T is
 `build_tenants/abiogenesis/typescript`. No push, no tag.
 
-**Status: census committed; recorded history in progress.**
+**Status: stopped at step 2. Two stop conditions hold. First, recorded
+stores that the kept feature set produces carry the operation in their
+Product install lock, and the withdrawal makes artifact truth refuse them;
+the live rc.12 default-library Run is one of them. Second, a kept Public
+read changes what its caller observes: `project.read#graph_call_result`
+over a retained store returns a value on base and `invalid_history` with
+the change, and three kept lanes lose cases that pass on base:
+`r10-child-proof` (10 of 10), `t287-historical-source-resource` (3 of 4) and
+`t287-cross-cut-public-read` (3 of the 4 that pass). No specification,
+design, code or test is edited. Three ruling options are in section 6.**
+
+Commits on the branch, oldest first:
+
+| Commit | Content |
+| --- | --- |
+| `beae063d5` | census (Return skeleton) |
+| this commit | the Return: recorded history, the stop, the planned door, the ruling options |
+
+Lines removed: none.
 
 ## 1. Census
 
@@ -180,3 +198,237 @@ Outside those sections, listed and not edited: `:642`, `:719`, `:729`,
 five frozen packets"), `:2190`, `:2365`, `:2467`, `:2510` (10.1.3 heading
 "Exact 18/56"), `:2666`, `:2692`, and the section 16 records. The amendment
 rule is at `:2923`; record 16.16 is at `:3242`.
+
+## 2. Recorded history
+
+### 2.1 The operation as a value
+
+The search covers the evidence root `/Users/jim/src/apps/abiogenesis/.ai-workspace`
+with `rg -uuu -z` and the pattern below, which matches the member value in both
+spacing forms and in the single-escaped form:
+
+```text
+\\?"operationId\\?"\s*:\s*\\?"abg\.operation\.interaction\.respond\\?"
+```
+
+| Measure | Value |
+| --- | ---: |
+| files searched | 2,830,915 |
+| bytes searched | 244,174,053,634 |
+| files with a match | 7,819 |
+| matches | 1,051,063 |
+
+A JSON walk classifies every match by its nearest event ancestor. It reads
+5,098 JSON files whole and the matched lines of 2,208 JSONL files and 76
+gzipped JSONL files; every JSON file parses.
+
+| Where the value sits | Occurrences |
+| --- | ---: |
+| event whose `payload.operationId` is the operation (a recorded call) | 0 |
+| inside `public_operation_artifact_admitted` (the published contract) | 29,880 |
+| inside `basis_admitted` (graph rows, per-slot rows, `verifiedProducts`) | 2,400 + 100 per slot + 20 |
+| inside `c_call_result_admitted` | 1,440 + 60 per slot + 12 |
+| outside events (contract, manifest and request copies) | the remainder |
+
+The lines the walk could not parse (6,970 JSONL lines from request and start
+records, 202 lines of `catalog-input.json.gz`), 64 text files and 373
+archives were searched for a same-line `"kind":"public_operation_admitted"`
+with the operation. One hit: an agent transcript of the
+`t287-single-address-space-consolidation` RAW F_H test output
+(`work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/runtime-001/resources/archives/fp-b4e881d8c2879add-stdout.log`),
+which shows the hand-built orphan refused. It is not a store.
+
+No recorded store holds a call of the operation. Limits: zip archives are not
+opened; the main checkout's `test_runs`, `uat/runs` and `evidence` are not
+searched.
+
+### 2.2 The operation inside Product install locks
+
+411 JSONL logs under the evidence root (24.56 GB) carry
+`public_operation_artifact_admitted` events that publish the operation; the
+same logs open with a `product.install` artifact admission whose resolved
+lock lists the operation's contract with its capability identities
+`abg.capability.operator.public-contract@5` and
+`abg.capability.runtime.replay-continuation@5`. They come from rc4, rc6, rc7,
+rc8, rc9, rc10, rc11, the D1, D2 and D4 campaigns and the trusted desktop
+steel thread. In the worktree, `test_env/fixtures/t287-current-owner/native-assessment/events.jsonl.gz`
+and `selected-action/events.jsonl.gz` carry the same lock in event 1.
+`test_env/proof` and the uat stores have no match (107 files).
+
+The live rc.12 default-library Run
+`/private/tmp/abg-demo-tmp/abi5-root-env-hRgyFy/runtime/events.jsonl` (1,695
+rows) is one of these stores: its inline lock at admission ordinal 1
+(`event://abiogenesis/41d002308b0baee43e51d061991e250ffd5977e3f75d63f84e8c40a81d9e5429`)
+holds the rows `product://abiogenesis/typescript-tenant@5.0.0-rc.12` and
+`product://default-library-witness/consumer@5`, and the first lists the
+operation.
+
+## 3. Why the withdrawal stops here
+
+### 3.1 The reader checks a recorded lock against its own register
+
+`projectArtifactTruth` (`T/code/src/abg/artifact_truth.ts:618`) folds every
+artifact admission. For a `product.install` row it establishes the recorded
+lock with `isResolvedProductLock` (`:409`) and refuses on failure:
+
+- inline lock: `TypeError("Product install inline body requires one resolved lock and no body cause")` (`:423`);
+- referenced or embedded lock: `TypeError("Product install artifact truth requires one complete candidate and resolved lock")` (`:466`).
+
+`isResolvedProductLock` (`T/code/src/product/environment.ts:544`) compares
+each recorded contract's `capabilityIdentities` with the reader's current
+register, `capabilityRefsForContract(contract.contractId)` (`:674-679`);
+`lockRowGraphMatchesCatalog` (`:764-767`) also reads the current register.
+`capabilityRefsForContract` (`shared/capability_contracts.ts:107`) returns the
+capabilities whose register row lists the contract. Withdrawing the operation
+removes it from both rows at `:87-88`, so for its contract the reader returns
+`[]` while every recorded lock holds two identities. The lock check fails and
+artifact truth throws.
+
+Artifact truth is consulted by every Public binding that reopens a store:
+`owner_bindings/run_invocation.ts:709`, `abg/project_read_definition_bindings.ts:704`
+(`artifact_truth_invalid`), `product/admission_authority.ts:180`/`:302`
+(`artifact_truth_unauthenticated`), `abg/environment_admission.ts:495`/`:509`
+(`artifact_truth_invalid`), `abg/effectful_invocation_truth.ts:136`/`:141`,
+`product/materialization_definition_bindings.ts:386`, `abg/worksite_revision.ts`
+and `abg/invocation_execution_truth.ts:118`.
+
+### 3.2 Simulation
+
+The simulation copies the base build and patches
+`build/code/src/shared/capability_contracts.js` so that
+`capabilityRefsForContract` returns `[]` for the operation's contract when a
+flag is set. After the real change the function returns exactly that value;
+the real change also removes the contract from the reader's catalog, so the
+simulation can only under-count refusals. Removing the strings from the
+built register directly does not load: `interactionContract` needs
+capability refs and the module throws "owner metadata authority requirements
+are incoherent".
+
+On the live rc.12 store, `isResolvedProductLock` is `true` on base and `false`
+in the simulation, with one mismatch: contract
+`abg.operation.interaction.respond`, recorded
+`["abg.capability.operator.public-contract@5","abg.capability.runtime.replay-continuation@5"]`,
+reader `[]`.
+
+### 3.3 Artifact truth over recorded logs
+
+| Logs | Count |
+| --- | ---: |
+| logs carrying the operation in artifact admissions | 411 |
+| over the 300 MB cap, not probed (21.08 GB) | 14 |
+| probed | 397 |
+| decode on base | 118 |
+| refused at decode on base ("event stamp differs from the exact native profile schedule" 270, "invalid admission ordinal" 5, "noncanonical event" 4) | 279 |
+| artifact truth projects on base | 118 |
+| artifact truth refused in the simulation | 118 |
+
+The simulation refuses with the inline-lock message for 73 and the
+candidate-and-lock message for 45. Every log that base can read becomes
+unreadable through artifact truth. By area: rc4 native recovery 43, D1
+lifecycle 20, D2 bounded repair 10, rc11 effect phase 2 and rc11
+qualification 7 each, W2 steel sequence 5, rc6 release qualification and
+rc11 effect phase 1 4 each, D4 self-conformance, D4 S01 program owner and rc10
+retention 3 each, single-address-space consolidation, D2 lifecycle and rc8
+reference preservation 2 each, trusted desktop steel thread, D2 frame repair
+and rc9 owner reuse 1 each.
+
+The seven decodable logs of the 23 that TD-25R and TD-25S replayed, and the
+two worktree fixtures, project on base with these digests and are refused in
+the simulation:
+
+| Log | Base artifact truth digest |
+| --- | --- |
+| live rc.12 default library | `sha256:895b6a68…` |
+| rc7 blocked testing | `sha256:0a5b675c…` |
+| rc11 native-assessment | `sha256:b0f08e5c…` |
+| rc11 selected-action | `sha256:ec614656…` |
+| rc8 registered selection | `sha256:76314729…` |
+| rc11 native-02 | `sha256:563557d5…` |
+| rc4 worksite command execution | `sha256:aaa27f50…` |
+| fixture native-assessment | `sha256:c7c0d324…` |
+| fixture selected-action | `sha256:ec614656…` |
+
+The other 16 of the 23 do not decode on base.
+
+### 3.4 Replay is not affected
+
+The TD-25R replay script (decode, prefix selection, whole-log replay, F_H
+projections, per-Run replay) gives byte-identical output on base and in the
+simulation for the seven decodable logs. The whole-log replay digests match
+TD-25R's (`3800fb11…`, `40028725…`, `6dbf5586…`, `0d3923da…`, `bc4a919e…`),
+and the two refusals keep their messages ("run_stopped event and
+run_terminal HoldsAt truth disagree", "requires zero or one exact
+run_stopped event"). Only artifact truth refuses.
+
+### 3.5 What a caller of a kept Public read observes
+
+`project.read#graph_call_result` over the retained D2 continuation-09 store
+(first 846 lines, the input of `t287-historical-source-resource`), called as
+that lane calls it (`GraphCallProjectionPort.graph_call_result`):
+
+| Build | Caller receives |
+| --- | --- |
+| base | the terminal result (`sha256:b5f8503e…`) |
+| simulation | `abg_project_read_refusal`, code `invalid_history`, "ABG project read owner projectors refused the durable event history" |
+
+### 3.6 Lanes on kept behaviour
+
+Run from the base copy and from the simulation copy, one file at a time,
+with `ABI5_EVIDENCE_ROOT` set:
+
+| Lane | Base (tests / pass / fail / skip) | Simulation | Cause |
+| --- | --- | --- | --- |
+| `r10-child-proof` | 10 / 10 / 0 / 0 | 1 / 0 / 1 / 0 | the file aborts: "historical environment is absent" (`abg/project_read_ports.ts:369`) |
+| `t287-historical-source-resource` | 4 / 4 / 0 / 0 | 4 / 1 / 3 / 0 | `graph_call_result` returns the refusal of 3.5, no `terminalResult` |
+| `t287-cross-cut-public-read` | 5 / 4 / 1 / 0 | 5 / 1 / 4 / 0 | base fails case 1 only, the known read-count red ("12477 !== 1053"); in the simulation cases 1, 2, 3 and 5 fail with `exact_prefix_workspace_environment_refusal` where `exact_prefix_workspace_environment` is expected, so cases 2, 3 and 5 go from pass to fail |
+| `m5-event-store-reopen` | 27 / 27 / 0 / 0 | 27 / 25 / 2 / 0 | "packed payload digest differs from the manifest": an artifact of patching the built file, not of the change |
+| `r10-projection-contracts` | 11 / 11 / 0 / 0 | 11 / 11 / 0 / 0 | same cases |
+| `d2-workflow-step` | 8 / 8 / 0 / 0 | 8 / 8 / 0 / 0 | same cases |
+| `d2-evidence-owner-lookup` | 5 / 2 / 3 / 0 | 5 / 2 / 3 / 0 | the same three cases fail on both builds |
+| `t287-selected-action-authority` | 3 / 2 / 0 / 1 | 3 / 2 / 0 / 1 | same cases |
+| `t287-native-assessment-evidence` | 4 / 4 / 0 / 0 | 4 / 4 / 0 / 0 | same cases |
+
+The retained inputs of the first three lanes are the D2 continuation-09
+store and the S01 program-selection store; both project artifact truth on
+base and are refused in the simulation. `t287-single-address-space-consolidation`
+reads the rc5 performance log (586 MB, over the cap) and is not run.
+
+## 4. The door, planned and not executed
+
+| Door | Value | Before | After the planned change |
+| --- | --- | --- | --- |
+| installed definition-call transport (`public/installed_definition_call_transport.ts`) | a structurally exact `interaction.respond#<member>` call | `installed_definition_call_transport_refusal`, code `installed_binding_unavailable` (asserted by `t287-framework-handoff-types` test 5); by reading, message "manifest-bound installed definition export is unavailable" (`:278-281`), since `./product` has no `INTERACTION_DEFINITION_BINDINGS` | `installed_definition_call_transport_refusal`, code `unknown_definition`, "DefinitionCall must select one exact installed owner contract source" (`:254`) |
+| CLI `abg.cli --jsonl` (`public/cli.ts:120-132`) | a transport request for the same call | the transport refusal above, exit code 2 | the `unknown_definition` refusal, exit code 2 |
+| recorded store | a hand-built orphan `public_operation_admitted` for the operation | F_H fact owner `invalid_history` (`fh_continuation_projection.ts:334-340`); effectful truth `invocation_pair_invalid` | unchanged |
+| recorded store | a `product.install` lock that lists the operation's contract | artifact truth projects; kept reads answer | artifact truth throws; kept reads refuse (3.5, 3.6) |
+
+No new refusal code is planned. The last row is the stop.
+
+## 5. Not done
+
+No specification, design, constitution, code, test or generated-file edit
+is made. No build of the worktree is needed; `git status --short` is clean
+apart from the two commits. The census in section 1 is the plan of record
+for whichever ruling follows.
+
+## 6. Items for the Executive's ruling
+
+The stop is general. Any package that removes a contract from the
+capability register meets the same check, so TD-26 (Consensus and One
+Surface) will stop the same way unless the ruling covers it. One ruling for
+all register removals is preferable to one per package.
+
+| Option | What it means | Consequence |
+| --- | --- | --- |
+| (a) accept | Withdraw the operation as planned and accept that recorded stores whose lock lists it are no longer readable through artifact truth. | Waives two stop conditions: the live rc.12 default-library Run and 118 probed logs become unreadable, and `project.read` callers over them get `invalid_history`. `r10-child-proof`, `t287-historical-source-resource` and `t287-cross-cut-public-read` need new retained inputs or lose cases, which weakens kept assertions; the rules forbid that without a ruling. |
+| (b) reframe first | A `design_reframe` before the withdrawal: a recorded lock row's capability identities are checked against the recorded row's own capability graph (`row.capabilityDefinitionGraph`, which the lock already carries and which `environment.ts:669-672` already compares), not against the reader's current register. Then rerun this package. | Recorded stores stay readable after any register removal, TD-26 included. It changes what a reader accepts as a resolved historical lock; it needs a requirement reading of whether a reader honours a lock whose capabilities it no longer declares. |
+| (c) keep | Keep the five members declared and always refusing with `installed_binding_unavailable`, as on `main`. | No change to recorded history or callers. The register entry's alternative; the surface keeps 18 operations and 56 keys while the specification reserves the operation to 5.1. |
+
+Also open, from the census and unchanged by the stop:
+
+- `REQ-P-CONSENSUS.md:218-221` and `:266-268` require `interaction.respond`
+  in 5.0 Consensus while `REQ-P-PUBLIC-CONTRACTS.md:229-232`, POLICY-031,
+  POLICY-032 and `requirements/README.md:93-97` reserve it to 5.1 (already
+  in the register under TD-25's second part).
+- `d2-evidence-owner-lookup` fails three of five cases on base with the
+  evidence root set; it is not on the rules' list of known reds.
