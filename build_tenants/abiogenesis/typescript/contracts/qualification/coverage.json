@@ -1,8 +1,8 @@
 {
   "kind": "qualification_coverage_catalog",
   "lawBasis": {
-    "ref": "qualification-law://abiogenesis/4b9ff33d72659511ca11895703fb598ed6e1f58a2dff80e1e9539a0e02e0ee64",
-    "digest": "sha256:4b9ff33d72659511ca11895703fb598ed6e1f58a2dff80e1e9539a0e02e0ee64"
+    "ref": "qualification-law://abiogenesis/7212f836a3c4304cc7b601b6b9cf43378971f7fc5407b1ad8d319b4246464a71",
+    "digest": "sha256:7212f836a3c4304cc7b601b6b9cf43378971f7fc5407b1ad8d319b4246464a71"
   },
   "authoritySources": [
     {
@@ -318,6 +318,6 @@
       ]
     }
   ],
-  "catalogRef": "qualification-coverage://abiogenesis/0ad760d10af2df62c59f7fd1054f4a0c52d56b4553ed87ee77e3adfd6edbd535",
-  "catalogDigest": "sha256:0ad760d10af2df62c59f7fd1054f4a0c52d56b4553ed87ee77e3adfd6edbd535"
+  "catalogRef": "qualification-coverage://abiogenesis/0f5dfc681fcf912756261cf2eb38e86dc52f87597be0e0eee1c2f2dbc65d31f9",
+  "catalogDigest": "sha256:0f5dfc681fcf912756261cf2eb38e86dc52f87597be0e0eee1c2f2dbc65d31f9"
 }
