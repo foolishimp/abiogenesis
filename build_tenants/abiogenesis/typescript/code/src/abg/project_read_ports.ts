@@ -696,13 +696,13 @@ function admitReadPacket<K extends AbgProjectReadMemberKey>(
 function prepareRead<K extends AbgProjectReadMemberKey>(
   expectedMemberKey: K,
   supplied: AbgProjectReadPacket<K>,
-  retainedPrefix?: DurablePrefixCoordinate,
-  acquired?: ExactPrefixArtifactTruthProjection,
-  // Every entry in this module names its question. The default is the read
-  // owner's own (`project`): a caller outside the module that prepares a read
-  // asks what the read port asks.
-  question: ProductTruthQuestion = "recorded",
+  retainedPrefix: DurablePrefixCoordinate | undefined,
+  acquired: ExactPrefixArtifactTruthProjection | undefined,
+  // Every entry names its question; there is no default.
+  question: ProductTruthQuestion,
 ): PreparedRead<K> | AbgProjectReadRefusal<K> {
+  if (question !== "recorded" && question !== "strict")
+    throw new TypeError("ABG project read preparation requires the recorded or strict question");
   const admitted = admitReadPacket(expectedMemberKey, supplied);
   if ("code" in admitted) return admitted;
   let packet = admitted;
@@ -1004,7 +1004,15 @@ export function prepareRunReadAtDurablePrefix(
 }> | null;
 /** @internal The read owner's entry over its acquired coordinate: the
  * environment's artifact truth carries the one materialization of that
- * prefix, read by the preparation and the GraphCall projection. */
+ * prefix, read by the preparation and the GraphCall projection.
+ *
+ * Both signatures ask the recorded question: the preparation reads recorded
+ * history, and `project` admits a supplied declaration proof only as bound to
+ * the recorded environment and root basis. A caller that starts or continues
+ * work from a historical GraphCall asks the strict question through its own
+ * entry. This sentence sits on the internal signature because the exported
+ * signature's comment is published declaration text, which the public
+ * contract digests cover. */
 export function prepareRunReadAtDurablePrefix(
   prefix: DurablePrefixCoordinate,
   memberKey: "run_status" | "run_result" | "run_replay" | "run_gaps" | "graph_call_result" | "graph_call_replay",

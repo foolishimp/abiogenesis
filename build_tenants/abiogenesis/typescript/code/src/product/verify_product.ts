@@ -81,7 +81,6 @@ import {
 import { deepFreeze } from "../shared/immutable.js";
 import { canonicalEquals } from "../shared/value/index.js";
 import { admitJson } from "../shared/admit/index.js";
-import { productPublicContractCatalogDigest } from "./public_contract_publication.js";
 
 type JsonRecord = { readonly [key: string]: JsonValue };
 
@@ -745,40 +744,25 @@ export function isVerifiedProductArtifact(
 }
 
 /**
- * @internal The contract-to-capability relations a recorded Product carrier
+ * @internal The contract-to-capability relation a recorded Product carrier
  * establishes from what is recorded with it, shared by the recorded lock row
  * and the recorded verified artifact. The recorded capability graph binds
- * owning contracts, not each contract's `capabilityIdentities`; the catalog
- * digest commits to them. So: every identity names a row of the carrier's own
- * graph; a carrier with a non-empty graph carries the catalog digest of its
- * own contracts, with the catalog schema path and digest of its own
- * `abg.schema.public-contract-catalog` contract; a carrier with an empty graph
- * has no contract with an identity.
+ * owning contracts, not each contract's `capabilityIdentities`. So: every
+ * identity names a row of the carrier's own graph, and a carrier with an empty
+ * graph has no contract with an identity. The catalog digest is not
+ * recomputed from the contracts, because the strict question does not check
+ * that relation; the lock or verification digest recomputes over the carrier.
+ * Identities altered among the graph's rows with every digest recomputed pass
+ * here: a door refuses them with the strict question, a read copy by its
+ * binding to recorded history.
  */
 export function recordedCapabilityIdentitiesHold(carrier: Readonly<{
-  catalogId: string;
-  catalogDigest: Sha256Digest;
   capabilityDefinitionGraph: CapabilityDefinitionGraph;
   publicContracts: readonly ProductPublicContract[];
 }>): boolean {
   const graphIds = new Set(carrier.capabilityDefinitionGraph.rows.map(({ capabilityId }) => capabilityId));
-  if (graphIds.size === 0) {
-    return carrier.publicContracts.every((contract) => contract.capabilityIdentities.length === 0);
-  }
-  if (!carrier.publicContracts.every((contract) =>
-    contract.capabilityIdentities.every((capabilityId) => graphIds.has(capabilityId)))) return false;
-  const schemas = carrier.publicContracts.filter((contract) =>
-    contract.contractId === "abg.schema.public-contract-catalog");
-  const locator = schemas.length === 1 ? schemas[0]!.assetLocator : undefined;
-  return locator !== undefined && productPublicContractCatalogDigest({
-    schemaVersion: "5.0.0",
-    catalogId: carrier.catalogId,
-    catalogVersion: "5.0.0",
-    catalogSchemaPath: locator.path,
-    catalogSchemaDigest: locator.contentDigest,
-    rows: carrier.publicContracts,
-    catalogDigest: carrier.catalogDigest,
-  }) === carrier.catalogDigest;
+  return carrier.publicContracts.every((contract) =>
+    contract.capabilityIdentities.every((capabilityId) => graphIds.has(capabilityId)));
 }
 
 /**
