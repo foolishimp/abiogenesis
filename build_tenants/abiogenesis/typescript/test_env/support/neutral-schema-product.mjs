@@ -1,6 +1,6 @@
 import { execFile } from "node:child_process";
 import { mkdir, mkdtemp, readFile, writeFile } from "node:fs/promises";
-import { basename, join } from "node:path";
+import { basename, isAbsolute, join } from "node:path";
 import { promisify } from "node:util";
 
 const execFileAsync = promisify(execFile);
@@ -19,7 +19,10 @@ function deepFreezeJson(value) {
  * Prepare author-owned JSON declarations for the installed proof harness.
  * product, gtl, abiPublication and abiArtifact must come from the explicitly
  * selected installed ABI artifact. This helper constructs no grant, receipt,
- * application, verified Product, install, binding or runtime event.
+ * application, verified Product, install, binding or runtime event. With
+ * abiPackageArchivePath, the package declares the ABI archive as its npm
+ * dependency, so the install owner materializes the declared ABI dependency
+ * under the consumer's install target.
  */
 export async function prepareNeutralSchemaProduct({
   scratch,
@@ -27,6 +30,7 @@ export async function prepareNeutralSchemaProduct({
   gtl,
   abiPublication,
   abiArtifact,
+  abiPackageArchivePath,
 }) {
   if (
     !product.isVerifiedProductArtifact(abiArtifact) ||
@@ -48,6 +52,13 @@ export async function prepareNeutralSchemaProduct({
     ownerPublications[0].publicationDigest !== product.modulePublicationSemanticDigest(abiPublication)
   ) {
     throw new TypeError("ABI worksite publication differs from the verified owner manifest");
+  }
+  if (
+    abiPackageArchivePath !== undefined &&
+    (typeof abiPackageArchivePath !== "string" || !isAbsolute(abiPackageArchivePath) ||
+      await product.sha256File(abiPackageArchivePath) !== abiArtifact.artifactDigest)
+  ) {
+    throw new TypeError("neutral schema fixture requires the exact absolute verified ABI package archive");
   }
 
   const ids = deepFreezeJson({
@@ -321,6 +332,9 @@ export async function prepareNeutralSchemaProduct({
     type: "module",
     exports: { "./publication": "./build/publication.json" },
     files: ["build", "contracts", "product-toolchain-manifest.json"],
+    ...(abiPackageArchivePath === undefined
+      ? {}
+      : { dependencies: { [abiArtifact.packageName]: `file:${abiPackageArchivePath}` } }),
   };
   const payload = {
     "package.json": packageJson,
