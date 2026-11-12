@@ -1096,19 +1096,31 @@ and cold reads, an old retained prefix and a reopened resource open no handle,
 so they never mint retention; without a handle the row is checked cold and the
 history keeps its basis body only in the consumer-local selected-body map.
 For an operation whose body is one synchronous stack that consumer is the
-whole operation. The operation hold has one owner, `withAbgOperationHold`
-(`definition_event_resource.ts`). The operation runs its body through it with
-the resource it acquired or was handed. The hold on that resource's active
-history (`holdOperationBodies`) opens before the body, and the release runs
-when the body returns or throws. That return is where the operation ends, for
-a reopened resource and for a borrowed one alike. A body the operation selects
-is read from its location and authenticated once, and the last release drops
-it. The ABG reads (`runReadKernel`, `binding`), the witness admission
-(`witnessOwner`), the release evidence read (`releaseReadOwner`) and the
-workspace binding (`bind`) run through it. An operation whose body awaits
-opens no hold. Rollback and physical close dispose the operation hold too; it
-is not O1 retention, no O1 gauge counts it, and
-`t287-held-operation-bodies.test.mjs` measures its physical body reads.
+whole operation. The operation hold has one owner, `withOperationBodies`
+(`event_prefix.ts`), beside the hold primitive `holdOperationBodies`. A body
+runs through it on the history it reads; the hold opens before the body and is
+released when the body returns or throws. While it is open a body the
+operation selects is read from its location and authenticated once. Holds
+nest, and the last release drops the held bodies. An operation with its
+acquired or handed resource names the resource's durable coordinate, so the
+hold is on that coordinate's active held history; a cold, closed or copied
+coordinate opens nothing. Its return is where the operation ends, for a
+reopened resource and for a borrowed one alike. The ABG reads
+(`runReadKernel`, `binding`), the witness admission (`witnessOwner`), the
+release evidence read (`releaseReadOwner`) and the workspace binding (`bind`)
+are such operations. Each read port entry of `project_read_ports.ts` runs its
+call through it on the history it prepared: the active owner's for a retained
+coordinate, or its own cold copy for a raw packet. The entries are the port
+members (`project`), `projectRunTruthAtDurablePrefix`,
+`prepareRunReadAtDurablePrefix` and the projection it returns,
+`projectClosedGraphCallTerminalAtDurablePrefix` and
+`projectHistoricalGraphCallSourceAtDurablePrefix`. A port reached outside an
+owner's hold therefore still reads each body it selects once per call, whether
+from a Run owner's stage, `ticket_consensus`, the native assessment or a direct
+caller. An operation whose body awaits opens no hold of its own. Rollback and
+physical close dispose the operation hold too; it is not O1 retention, no O1
+gauge counts it, and `t287-held-operation-bodies.test.mjs` measures its
+physical body reads.
 Rollback (`RuntimeHistory.truncate`) and physical close or abandonment
 (`releaseDurableOwnership`) dispose every handle and retained root of that
 history; a disposed handle releases nothing and cannot re-register. Active
