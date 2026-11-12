@@ -14,9 +14,10 @@ changes its counts (5 tests to 20, all passing), and its new cases fail on
 head wherever head accepts or runs the action. The replay and artifact-truth
 comparisons are identical, and every `.d.ts` file is byte-identical to the
 base. A durable append is 0.02-0.04% slower than at head and 0.09-0.16% slower
-than at base, inside the 1% bound. For a ruling: the commit trailer, three
-further M05_S06 sentences on close (see "Residuals"), and the narrower F3
-sentence (see "Deviations").
+than at base, inside the 1% bound. For a ruling: the commit trailer; an
+empty transaction on a closed or released store, which returned its value at
+head and now refuses (F8; see "Residuals"); three further M05_S06 sentences on
+close (see "Residuals"); and the narrower F3 sentence (see "Deviations").
 
 Base: local `main` at `d2ed7fd58`. *Head*: `6a9c736f8`, the first build and
 its Return, which the review read. Final: branch
@@ -41,7 +42,7 @@ each. Lines below are of the final build: `event_store.ts` is
 |---|---|---|---|
 | F1 | The store checks its file again after the write. | After the rows are written and `fsyncSync` returns, still inside the `try` and before any in-memory step, `appendDurablyBatch` calls `assertDurableFileCurrent(path, descriptor, identity, priorByteLength + written)`. A file that is not the held file at that length throws `prefix_length_mismatch` or `file_identity_mismatch`, and the append returns no successor. The throw takes the rollback path of F2, whose guard makes the same check and fails it too: the store does not truncate, releases ownership and throws `AggregateError` with both causes. The check takes no lock and reads no byte. | `event_store.ts:2451`; t288 case at :265 |
 | F2 | The rollback truncates only its own bytes, by count. | `written` (`event_store.ts:2440`) adds the byte count each `writeSync` returns in this attempt (:2445). The rollback guard (:2480) is `assertDurableFileCurrent(…, priorByteLength + written)`: the store truncates (:2481) only while the file at the path and behind the descriptor is the held file at exactly that length. Any other file throws, and the existing branch (:2483) releases ownership and throws `AggregateError([cause, guardError])`. The length range and the helper's second length parameter are gone. | `event_store.ts:2440`, `:2445`, `:2480`; t288 cases at :293 (D5, D7 and three more arms) and :322 (short write, failed first `fsync`) |
-| F3 | The sentence on a failure after `fsync` states what happens. | M05_S06 states it: the file is truncated back, the history keeps the row, the store refuses every later append until it is closed and reopened, and inside a transaction the rollback's error replaces the original cause. Behaviour unchanged (register entry TD-86). | M05_S06 :650-656 |
+| F3 | The sentence on a failure after `fsync` states what happens. | M05_S06 states it: the file is truncated back, the history keeps the row, the store refuses every later append until it is closed and reopened, and inside a transaction the rollback's error replaces the original cause. Behaviour unchanged (register entry TD-86). | M05_S06 :650-657 |
 | F4 | The cell on bytes read by an append is exact. | The `DurablePrefixCoordinate` refusal cell says a plain append reads no byte, and an append whose candidate shares an earlier row's body reads that row by location and refuses a changed one with the body reader's refusal. Door table rows below ("Appends whose candidate shares an earlier row's body"). The check before the write stays where it is. | M05_S06 :361; t288 case at :194 |
 | F5 | The close sentences say what close does. | Both close sentences: close reads no log byte and checks no state of the log file; it closes the log descriptor and releases the lock. | M05_S06 :624-626, :745-750 |
 | F6 | Restate the eight sentences. | Each restated in the present tense with file and symbol; see "Restated design sentences". The lock-namespace sentence of `T287_PUBLIC_DEFINITION_CALL_CONSTRUCTION.md` is left as it is (TD-82). | M05_S06 :212, :347-352, :362, :1879-1891, :2044, :2059-2062 |
@@ -502,7 +503,12 @@ files (`/private/tmp/abg-td80w-work/lanes/base/`). *Head* is this round's run
 on the build at `6a9c736f8` with its test files, before any change of this
 round (`/private/tmp/abg-td80w-work/round2/lanes/before/`). *Final* is the
 final build with the final test files (`round2/lanes/after/`). Cells are
-tests / pass / fail / skip.
+tests / pass / fail / skip. The lane files ran one after another; during the
+after run, other work of this round ran beside them: the counted
+default-library case (from `T`, with the same `TMPDIR` and the build root set
+to the counting copy), the t288 variants of F7, the replay and artifact-truth
+comparisons and the probes (on the snapshot trees under
+`/private/tmp/abg-td80w-work/round2/`). The cost timing ran after the lanes.
 
 | Lane | Base | Head | Final |
 |---|---|---|---|
@@ -726,7 +732,7 @@ restored before each commit; nothing pushed.
   reported as failed. The review states this combination by reading.
 - A step of the in-memory commit that throws after `fsync` leaves the history
   with a row the file no longer has, and inside a transaction replaces the
-  cause: register entry TD-86. M05_S06 :650-656 states it (F3); the behaviour
+  cause: register entry TD-86. M05_S06 :650-657 states it (F3); the behaviour
   is unchanged.
 - An empty transaction (an action that admits nothing) on a closed or released
   store returned the action's value before this round and now refuses "not
@@ -735,7 +741,8 @@ restored before each commit; nothing pushed.
   (`closure.ts:168`, `c_call.ts:5308` and `:7416`, `retry.ts:4924`,
   `open_call.ts:649`, `child_lifecycle.ts:249`, `execution_basis.ts:2829`)
   appends inside its action, and on those the result was already the same
-  refusal, after the action. No kept lane observes the difference.
+  refusal, after the action. No kept lane observes the difference. This
+  reading of the callers is for the Executive to confirm.
 - A change during a Run door's call (start, continue), with a scripted actor
   changing the log mid-Run, is not built as a lane.
 - `T/design/T287_PUBLIC_DEFINITION_CALL_CONSTRUCTION.md:143-146` states the
@@ -749,6 +756,10 @@ restored before each commit; nothing pushed.
   close from the same verified bytes"; :551, the state diagram, "no-arg close
   held sink; returned pair names verified bytes only"; :1511, axiom
   `AX-W1A-02`, "M7 close/reopen derive equal coordinates from verified bytes".
+- The register on `main` (`.ai-workspace/TECHNICAL_DEBT_REGISTER.md`, TD-82,
+  Boundary) says that after TD-80 "what remains is the window between that
+  check and the write". The check after the write (F1) closes that window.
+  The register is not mine to change.
 - Pre-existing, from the review, not changed here:
   - P1. Inside a transaction, `appendCheckedArtifactEvent` returns
     `sink_unavailable`, "checked artifact append produced no durable
