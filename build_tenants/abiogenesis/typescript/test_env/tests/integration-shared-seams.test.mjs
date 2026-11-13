@@ -10,6 +10,8 @@ import {evidenceInput} from '../support/evidence-root.mjs';
 // No retained D1/D2 store, application file or native effect is observed. The
 // retained Catalog is the D2 installed-continuation-09 ready record under the
 // evidence root, named by path, digest and bytes (T-290 C-5).
+// Its recorded capability graph includes retired Consensus. These pure reads
+// explicitly ask the recorded question; the same bytes must not admit new work.
 //
 // Retired (T-290 C-18b): the D2 history-guard and expanded-closure cases and
 // the Source04 byte case. Their Catalog was the D2 implementation's copied
@@ -33,12 +35,16 @@ test('combined ABG barrel retains D1 recovery, D2 witness and R10 typed-result e
   assert.ok(abg.ABG_TYPED_TERMINAL_RESULT_SCHEMA);assert.ok(abg.ABG_HISTORICAL_DECLARATION_PROOF_SCHEMA);
 });
 
-test('shared R10 Catalog verifier preserves exact supplied environment and narrowed View on the integrated owner',{skip},()=>{
+test('shared R10 recorded Catalog verifier preserves exact environment and View without strict admission',{skip},()=>{
   const environment={workspaceBinding:actual.catalog.readinessBasis.workspaceBinding,resolvedLock:actual.catalog.readinessBasis.resolvedLock,
     installedProducts:actual.catalog.readinessBasis.installedProducts};
   const supplied={catalog:actual.catalog,catalogView:actual.view};
-  assert.deepEqual(reconstructHistoricalDeclarationCatalog(supplied,environment),supplied);
-  assert.throws(()=>reconstructHistoricalDeclarationCatalog(supplied,{...environment,installedProducts:[...environment.installedProducts,environment.installedProducts[0]]}),/exact admitted workspace/);
-  assert.throws(()=>reconstructHistoricalDeclarationCatalog(supplied,{...environment,workspaceBinding:{...environment.workspaceBinding,bindingDigest:hash('foreign W')}}),/exact admitted workspace/);
-  assert.throws(()=>reconstructHistoricalDeclarationCatalog({...supplied,catalogView:{...actual.view,viewDigest:hash('wrong View')}},environment),/exact narrowing/);
+  assert.throws(()=>reconstructHistoricalDeclarationCatalog(supplied,environment),/exact admitted workspace/);
+  assert.throws(()=>reconstructHistoricalDeclarationCatalog(supplied,environment,'strict'),/exact admitted workspace/);
+  assert.deepEqual(reconstructHistoricalDeclarationCatalog(supplied,environment,'recorded'),supplied);
+  assert.throws(()=>reconstructHistoricalDeclarationCatalog(supplied,{...environment,installedProducts:[...environment.installedProducts,environment.installedProducts[0]]},'recorded'),/exact admitted workspace/);
+  assert.throws(()=>reconstructHistoricalDeclarationCatalog(supplied,{...environment,workspaceBinding:{...environment.workspaceBinding,bindingDigest:hash('foreign W')}},'recorded'),/exact admitted workspace/);
+  assert.throws(()=>reconstructHistoricalDeclarationCatalog({...supplied,catalogView:{...actual.view,viewDigest:hash('wrong View')}},environment,'recorded'),/exact narrowing/);
+  assert.throws(()=>reconstructHistoricalDeclarationCatalog(supplied,environment),/exact admitted workspace/);
+  assert.throws(()=>reconstructHistoricalDeclarationCatalog(supplied,environment,'strict'),/exact admitted workspace/);
 });
