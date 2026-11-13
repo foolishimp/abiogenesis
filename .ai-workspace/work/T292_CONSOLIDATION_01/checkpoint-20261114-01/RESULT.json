@@ -1,0 +1,39 @@
+{
+  "checkpointCommit": "33654645733df21b06b8f9a0a11c1510556ed2f9",
+  "removedWorktrees": [
+    "/private/tmp/abg-post",
+    "/private/tmp/abg-rc11-foundation-20261110-01",
+    "/private/tmp/abg-rc13-composed-final",
+    "/private/tmp/abg-rc13-composed-final-02",
+    "/private/tmp/abg-rc13-composed-final-03",
+    "/private/tmp/abg-rc13-delivery-prep",
+    "/private/tmp/abg-t292-b08",
+    "/private/tmp/abg-t292-b28",
+    "/private/tmp/abg-t292-b29",
+    "/private/tmp/abg-t292-b30",
+    "/private/tmp/abg-td26p5",
+    "/private/tmp/abg-td26p6",
+    "/private/tmp/abg-td26p7",
+    "/private/tmp/abg-td77",
+    "/private/tmp/abg-td78",
+    "/private/tmp/abg-td82",
+    "/private/tmp/abg-td85n",
+    "/private/tmp/abg-rc10-retention-20261109",
+    "/private/tmp/abg-rc11-qualification-20261109"
+  ],
+  "removedLiveWorktrees": 17,
+  "prunedStaleRegistrations": 2,
+  "remainingWorktrees": [
+    "/Users/jim/src/apps/abiogenesis",
+    "/private/tmp/abg-rc13-composed-final-04"
+  ],
+  "allocatedKiBOfRemovedTreesBefore": 3504260,
+  "spaceClaim": "Pre-removal du allocation, not an exact APFS space-reclamation claim",
+  "allHeadsAlreadyInMain": true,
+  "allPreservedArchivesVerifiedInCommit": true,
+  "openProcessDependencies": [],
+  "baselineDependenciesPreserved": true,
+  "branchesDeleted": false,
+  "pushed": false,
+  "rc13Qualified": false
+}

@@ -707,3 +707,12 @@ has expired and is not reset by this checkpoint. Source a2626fa54, unqualified
 archive 12d49bad… and installed RC11 builder pin remain distinct. There is no
 RC13 install, qualification, pin, push or publication. Exact stopped receipts
 and recovery manifests are in `checkpoint-20261114-01/`.
+
+Checkpoint cleanup completed: `336546457` preserves all 39,225 previously
+untracked main files, with 196 large evidence bodies in verified local LFS,
+plus complete stopped broad-04 receipts and eight verified old-worktree archives.
+Seventeen obsolete live worktrees and two stale registrations/residuals were
+removed. Only main and current proof worktree `/private/tmp/abg-rc13-composed-final-04`
+remain. Every removed HEAD was already in main; no branch was deleted. The
+retained baseline and current build pins verify after removal. Final audit
+files are in `checkpoint-20261114-01/`; no push or new execution occurred.

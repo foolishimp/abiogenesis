@@ -1,0 +1,9 @@
+{
+  "postRemovalBaselineAndCurrentBuildPinsMatch": true,
+  "currentProofWorktreeClean": true,
+  "currentProofCommit": "a2626fa540d39cc9894b8a90895a3739b49b75fb",
+  "remainingWorktrees": "worktree /Users/jim/src/apps/abiogenesis\nHEAD 33654645733df21b06b8f9a0a11c1510556ed2f9\nbranch refs/heads/main\n\nworktree /private/tmp/abg-rc13-composed-final-04\nHEAD a2626fa540d39cc9894b8a90895a3739b49b75fb\ndetached\n\n",
+  "branchHistoryPreserved": true,
+  "providerAndCampaignExecution": "none",
+  "newLfsObjects": "196 content-verified before checkpoint; local only"
+}

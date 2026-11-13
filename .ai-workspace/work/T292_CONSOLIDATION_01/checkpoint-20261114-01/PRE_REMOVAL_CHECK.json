@@ -1,0 +1,91 @@
+{
+  "checkpoint": "33654645733df21b06b8f9a0a11c1510556ed2f9",
+  "runtimeAndSpecificationUnchanged": true,
+  "noUnpreservedIgnoredEvidence": [
+    {
+      "worktree": "/private/tmp/abg-post",
+      "nonCacheIgnoredFiles": 985,
+      "allPreserved": true
+    },
+    {
+      "worktree": "/private/tmp/abg-rc11-foundation-20261110-01",
+      "nonCacheIgnoredFiles": 0,
+      "allPreserved": true
+    },
+    {
+      "worktree": "/private/tmp/abg-rc13-composed-final",
+      "nonCacheIgnoredFiles": 0,
+      "allPreserved": true
+    },
+    {
+      "worktree": "/private/tmp/abg-rc13-composed-final-02",
+      "nonCacheIgnoredFiles": 0,
+      "allPreserved": true
+    },
+    {
+      "worktree": "/private/tmp/abg-rc13-composed-final-03",
+      "nonCacheIgnoredFiles": 0,
+      "allPreserved": true
+    },
+    {
+      "worktree": "/private/tmp/abg-rc13-delivery-prep",
+      "nonCacheIgnoredFiles": 0,
+      "allPreserved": true
+    },
+    {
+      "worktree": "/private/tmp/abg-t292-b08",
+      "nonCacheIgnoredFiles": 0,
+      "allPreserved": true
+    },
+    {
+      "worktree": "/private/tmp/abg-t292-b28",
+      "nonCacheIgnoredFiles": 0,
+      "allPreserved": true
+    },
+    {
+      "worktree": "/private/tmp/abg-t292-b29",
+      "nonCacheIgnoredFiles": 0,
+      "allPreserved": true
+    },
+    {
+      "worktree": "/private/tmp/abg-t292-b30",
+      "nonCacheIgnoredFiles": 0,
+      "allPreserved": true
+    },
+    {
+      "worktree": "/private/tmp/abg-td26p5",
+      "nonCacheIgnoredFiles": 0,
+      "allPreserved": true
+    },
+    {
+      "worktree": "/private/tmp/abg-td26p6",
+      "nonCacheIgnoredFiles": 0,
+      "allPreserved": true
+    },
+    {
+      "worktree": "/private/tmp/abg-td26p7",
+      "nonCacheIgnoredFiles": 0,
+      "allPreserved": true
+    },
+    {
+      "worktree": "/private/tmp/abg-td77",
+      "nonCacheIgnoredFiles": 6,
+      "allPreserved": true
+    },
+    {
+      "worktree": "/private/tmp/abg-td78",
+      "nonCacheIgnoredFiles": 1,
+      "allPreserved": true
+    },
+    {
+      "worktree": "/private/tmp/abg-td82",
+      "nonCacheIgnoredFiles": 59,
+      "allPreserved": true
+    },
+    {
+      "worktree": "/private/tmp/abg-td85n",
+      "nonCacheIgnoredFiles": 2,
+      "allPreserved": true
+    }
+  ]
+}
