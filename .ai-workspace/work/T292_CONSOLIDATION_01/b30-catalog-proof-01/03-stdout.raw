@@ -1,0 +1,36 @@
+TAP version 13
+# Subtest: combined ABG barrel retains D1 recovery, D2 witness and R10 typed-result exports
+ok 1 - combined ABG barrel retains D1 recovery, D2 witness and R10 typed-result exports
+  ---
+  duration_ms: 0.374584
+  type: 'test'
+  ...
+# Subtest: shared R10 Catalog verifier preserves exact supplied environment and narrowed View on the integrated owner
+not ok 2 - shared R10 Catalog verifier preserves exact supplied environment and narrowed View on the integrated owner
+  ---
+  duration_ms: 45.746584
+  type: 'test'
+  location: '/private/tmp/abg-rc13-composed-final-03/build_tenants/abiogenesis/typescript/test_env/tests/integration-shared-seams.test.mjs:36:1'
+  failureType: 'testCodeFailure'
+  error: 'declaration Catalog differs from its exact admitted workspace, installs or lock'
+  code: 'ERR_TEST_FAILURE'
+  name: 'TypeError'
+  stack: |-
+    reconstructHistoricalDeclarationCatalog (file:///private/tmp/abg-rc13-composed-final-03/build_tenants/abiogenesis/typescript/build/code/src/product/declaration_closure.js:27:15)
+    TestContext.<anonymous> (file:///private/tmp/abg-rc13-composed-final-03/build_tenants/abiogenesis/typescript/test_env/tests/integration-shared-seams.test.mjs:40:20)
+    Test.runInAsyncScope (node:async_hooks:214:14)
+    Test.run (node:internal/test_runner/test:1106:25)
+    Test.processPendingSubtests (node:internal/test_runner/test:788:18)
+    Test.postRun (node:internal/test_runner/test:1235:19)
+    Test.run (node:internal/test_runner/test:1163:12)
+    async startSubtestAfterBootstrap (node:internal/test_runner/harness:358:3)
+  ...
+1..2
+# tests 2
+# suites 0
+# pass 1
+# fail 1
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 419.66

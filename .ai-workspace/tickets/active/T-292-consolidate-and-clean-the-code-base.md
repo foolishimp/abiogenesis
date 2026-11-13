@@ -8,7 +8,7 @@
 - parent: T-287
 - updated_at: 2026-11-13
 - current_activation: T292_CONSOLIDATION_01
-- current_package: selected consolidation and B28/B29 repairs integrated; composed broad-03 active on exact 21e6d7571 with unchanged RC13 archive; history and local delivery unperformed
+- current_package: selected consolidation and B28/B29 repairs integrated; broad-03 halted at file014 on historical Catalog proof premise (B30); history and local delivery unperformed
 - change_class: realization_refactor
 - derived_change_classes: design_reframe, requirement_reprice and product_reprice, each only for a register entry the owner decides
 - re_entry_point: specification/GOALS.md, the selection block of 2026-11-12
@@ -641,3 +641,21 @@ continuation at 2026-11-13T09:50:28Z with config SHA
 Exact bindings are in `composed-proof-01/execution-03/`; original clock,
 timeouts and failed subjects remain unchanged. Starting the run supplies no
 completion verdict. History, physical reads and official delivery stay pending.
+
+B30: composed broad-03 stopped at file014 on exact `21e6d7571`: three lints and
+13 files (75 tests) passed, then integration-shared-seams had 1 pass/1 failure.
+The supplied retained Catalog is rejected by the strict default. A bounded
+read-only discriminator on the same emitted owners reconstructs it with the
+explicit recorded question; this is not yet a disposition of the test claim.
+Root and separate Catalog/Proof triage are active. Recording Writer
+`T292-B30-FAILURE-RECORD-01` preserves the exact failure and unchanged shared
+clock in `b30-catalog-proof-01/INPUTS.json`. No later file, history or physical
+read ran; no retry or tenant change is selected by this record. Root returns
+to Executive.
+
+Closed B30 triage selects test-only `T292-B30-CATALOG-QUESTION-01` under the
+existing takeover grant. Root transitions to Writer for the exact single lane,
+isolated worktree and bounded proof in `b30-catalog-proof-01/REPAIR_ACTIVATION.json`.
+The retained Consensus graph remains valid recorded truth and invalid new-work
+input. No production owner/default changes; all existing negatives are retained
+under their intended recorded question and strict-before/after controls added.

@@ -1,0 +1,15 @@
+{
+  "activation": "T292-B30-FAILURE-RECORD-01",
+  "role": "Writer",
+  "actor": "Root explicit transition from Executive for these effects",
+  "basis": "stdo://releases/v3.0.4/",
+  "parentGrant": "T292 Codex resumption and scope amendment; owner continue approvedd",
+  "source": "863dc0cad208ea11bb66dcfbd6d5d4a45ce16657",
+  "territory": [
+    ".ai-workspace/work/T292_CONSOLIDATION_01/b30-catalog-proof-01",
+    ".ai-workspace/tickets/active/T-292-consolidate-and-clean-the-code-base.md",
+    ".ai-workspace/tickets/active/T-293-qa-findings-of-the-consolidation-wave.md"
+  ],
+  "effects": "Preserve exact first failure and current status; no tenant repair or retry",
+  "return": "Root Executive after recording"
+}

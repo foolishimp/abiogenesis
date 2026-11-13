@@ -1,0 +1,86 @@
+{
+  "activation": "T292-B30-FAILURE-RECORD-01",
+  "subjectCommit": "21e6d7571e1897322cb73e96045c08c78413e8d0",
+  "subjectTree": "d66d3d6bbdf478310dde07d1ba7158db0e23398e",
+  "priorCompleted": {
+    "boundaryLints": 3,
+    "files": 13,
+    "pass": 75,
+    "fail": 0
+  },
+  "failedFile": {
+    "tests": 2,
+    "pass": 1,
+    "fail": 1,
+    "exitCode": 1,
+    "wallMs": 1135
+  },
+  "preserved": [
+    {
+      "source": {
+        "path": "/private/tmp/abg-rc13-composed-proof-20261113/broad-03/HALT.json",
+        "bytes": 8813,
+        "sha256": "4786acc515ba02470caddeb012a2f2c4f9177b776de022a314dcb908b8b0e7e1"
+      },
+      "preserved": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T292_CONSOLIDATION_01/b30-catalog-proof-01/00-HALT.json",
+        "bytes": 8813,
+        "sha256": "4786acc515ba02470caddeb012a2f2c4f9177b776de022a314dcb908b8b0e7e1"
+      }
+    },
+    {
+      "source": {
+        "path": "/private/tmp/abg-rc13-composed-proof-20261113/broad-03/014-integration-shared-seams.test/request.json",
+        "bytes": 5175,
+        "sha256": "c63963c79d9292a34fe1be6148c1e9388e948f64db85bc477f57fb4bbd0b38f6"
+      },
+      "preserved": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T292_CONSOLIDATION_01/b30-catalog-proof-01/01-request.json",
+        "bytes": 5175,
+        "sha256": "c63963c79d9292a34fe1be6148c1e9388e948f64db85bc477f57fb4bbd0b38f6"
+      }
+    },
+    {
+      "source": {
+        "path": "/private/tmp/abg-rc13-composed-proof-20261113/broad-03/014-integration-shared-seams.test/process.json",
+        "bytes": 1095,
+        "sha256": "4b1962925fd9850725860df3c040f6db34a9f832c2050b3b163943de56e0e736"
+      },
+      "preserved": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T292_CONSOLIDATION_01/b30-catalog-proof-01/02-process.json",
+        "bytes": 1095,
+        "sha256": "4b1962925fd9850725860df3c040f6db34a9f832c2050b3b163943de56e0e736"
+      }
+    },
+    {
+      "source": {
+        "path": "/private/tmp/abg-rc13-composed-proof-20261113/broad-03/014-integration-shared-seams.test/stdout.raw",
+        "bytes": 1681,
+        "sha256": "e21705b8bbf216db712452117939a0709271f9d8cbd7a36b7c7c7a109fd27f15"
+      },
+      "preserved": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T292_CONSOLIDATION_01/b30-catalog-proof-01/03-stdout.raw",
+        "bytes": 1681,
+        "sha256": "e21705b8bbf216db712452117939a0709271f9d8cbd7a36b7c7c7a109fd27f15"
+      }
+    },
+    {
+      "source": {
+        "path": "/private/tmp/abg-rc13-composed-proof-20261113/broad-03/014-integration-shared-seams.test/stderr.raw",
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "preserved": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T292_CONSOLIDATION_01/b30-catalog-proof-01/04-stderr.raw",
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      }
+    }
+  ],
+  "campaignClock": {
+    "path": "/private/tmp/abg-rc13-composed-proof-20261113/CAMPAIGN_CLOCK.json",
+    "bytes": 743,
+    "sha256": "92ab95ac102291d48fde6471cd487031b4a82064eb60491e9f5ca5f25536ff28"
+  },
+  "triage": "Root owner trace and separate Catalog Proof review active; no repair/retry selected by this record"
+}

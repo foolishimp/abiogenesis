@@ -66,11 +66,13 @@ One list of the defects found by the reviews, traces and packages of the T-292 w
 | B-28 | D2 mechanical binding truth rows omit causal install references and the partial VM override leaves TD77’s strict-install accessor native over a lookup-only prefix | Exact C_final broad file005: 1 pass/9 failures; `b28-d2-fixture-01/INPUTS.json`; Root and non-author QA trace | S4 | P1 | Technical repair integrated at `e1444310b` from frozen `cb1eb011e`: shared explicit premise plus both manual callers, original assertions preserved; author 11/11 + 7/7 once, negative premise controls. Production strictness unchanged; composed successor proof pending |
 | B-29 | Collector VM omits TD85a's spelling helper; binding fixture also lets its native root read escape the filesystem spy, masked by a later stat count | Exact `98c258643` broad file007; closed `b29-vm-context-01/TRIAGE.md` and affected-cone QA | S4 | P1 | Bounded repair integrated at `afcb5ec68` from `61c646589`; actual owner computations at controlled filesystem seams, original tripwire/assertions retained; author 6/6+11/11+7/7 once. Reviewer technical S2 proof rating retained in triage; Root uses this table's test-defect scale. Composed successor proof pending |
 
+| B-30 | Historical Catalog seam proof invokes the strict new-work default on its retained old-release input | Exact `21e6d7571` broad file014; `b30-catalog-proof-01/INPUTS.json` | S4 | P1 | Closed Root/non-author triage: Consensus withdrawal exposes a stale test question. One-file recorded premise with strict-before/after controls selected; no production defect demonstrated |
+
 ## Schedule
 
 | When | Items |
 |---|---|
-| In flight | Composed broad-03 on exact `21e6d7571`; B-29 technical QA satisfied, exact archive/source correspondence positive |
+| In flight | B-30 triage after broad-03 stopped at file014; first 13 files 75/75; history and delivery unperformed |
 | Dependency-ready sequence | Composed history and physical reads under the unchanged clock, then local delivery |
 | Integrated with focused proof | B-01, B-02, B-03, B-04, B-05 (bounded; B-21 remains), B-06, B-07, B-23, B-24, B-25, B-26 |
 | Closed after TD-26 P7 | B-08 |
