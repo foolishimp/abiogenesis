@@ -61,15 +61,15 @@ One list of the defects found by the reviews, traces and packages of the T-292 w
 | B-23 | TD-77's strict default reaches a pure historical replay through shared source-provenance/revision helpers, making a kept child unreadable at later prefixes after a register change | `REVIEW_TD77_CODEX_TRIAGE.md`; frozen `91aec88b8`, saved changed-register failures and Writer first-refusal probe | S2 | P1 | Technical repair closed at `54024d63f`; pure recorded replay and strict work consumers separated; 64 merged and 22 frozen changed-register passes |
 | B-24 | The injected witness-mechanics environment omits the lock rows consumed by TD-78, so the operator-stop proof throws before owner entry | P5 `operator-base-attribution.log` on exact `e709bd24f`; T-292 Product/typed-interface/source/Proof triage and separate technical QA | S4 | P1 | Fixture repair closed at `b4704323b`; real guard retained. Merged run-stopped proof 9/9, including missing/different ABI-row controls before append; writer's sibling reprice 15/15. TD32/TD77 shared consumers remain in composed proof |
 | B-25 | Evidence gate `s7-pending-consumer-intent` still names the construction-only test removed by P5, causing the gate-catalogue checks to fail | P6 measured gate failures; original `t287-continuation-causation.test.mjs` at `e709bd24f`; T-292 triage | S4 | P1 | Technical repair closed at `eea100729`; writer and detached merged gate catalogue each 3/3. Unused row removed, historical inputs retained and current pending execution proved |
-| B-26 | TD77 N1's injected probabilistic execution basis omits its required workspace-binding digest, so the actual current strict-positive fixture refuses before the sentinel | P7 `history-focused-01.tap` case 69, 75/76 passes; Root Product/typed-owner/Proof triage and preserved inputs | S4 | P1 | Repair integrated at `e9846da2b`; isolated author N1 1/1 over four stores, separate technical QA concurs (`REVIEW_P7_N1_FIXTURE_CODEX.md`). Production constructors/guard unchanged; merged N1 check running |
+| B-26 | TD77 N1's injected probabilistic execution basis omits its required workspace-binding digest, so the actual current strict-positive fixture refuses before the sentinel | P7 `history-focused-01.tap` case 69, 75/76 passes; Root Product/typed-owner/Proof triage and preserved inputs | S4 | P1 | Technical repair closed at `e9846da2b`; author and detached merged N1 each 1/1 over four stores. Separate technical QA concurs (`REVIEW_P7_N1_FIXTURE_CODEX.md`); production constructors/guard unchanged |
 
 ## Schedule
 
 | When | Items |
 |---|---|
-| In flight | Final B-08 design reconciliation; detached P7/B26 checks |
+| In flight | Final B-08 design reconciliation |
 | Dependency-ready sequence | B-22 metadata and exact candidate preparation, then one composed proof |
-| Integrated with focused proof | B-01, B-02, B-03, B-04, B-05 (bounded; B-21 remains), B-06, B-07, B-23, B-24, B-25 |
+| Integrated with focused proof | B-01, B-02, B-03, B-04, B-05 (bounded; B-21 remains), B-06, B-07, B-23, B-24, B-25, B-26 |
 | After TD-26 P7 | B-08 |
 | At the cut | B-22 |
 | After the cut | B-09 (after the owner decides), B-10, B-11, B-12, B-13, B-21 (S2 physical-ancestry repair before reliable-operation/5.0 qualification claims) |

@@ -1,0 +1,26 @@
+{
+  "method": "git ls-tree and cat-file at each exact commit; LF count of every tracked blob under build_tenants/abiogenesis/typescript/code/src",
+  "subjects": [
+    {
+      "commit": "002035b8ae2c9c429fd2587e16debc155b7284f4",
+      "trackedSourceFiles": 291,
+      "lines": 171563,
+      "bytes": 8135740
+    },
+    {
+      "commit": "dd0d071f360ec78365ccca228f3fda6bd539e3d7",
+      "trackedSourceFiles": 281,
+      "lines": 152775,
+      "bytes": 7285923
+    },
+    {
+      "commit": "e9846da2bb1ffe8ed530e8bad75eb0087a51d6f0",
+      "trackedSourceFiles": 280,
+      "lines": 149815,
+      "bytes": 7182255
+    }
+  ],
+  "netLinesRemovedSinceTakeover": 2960,
+  "netLinesRemovedWholeWave": 21748,
+  "standing": "runtime source size only; excludes generated schemas, tests, fixtures, design and work records"
+}

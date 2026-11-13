@@ -31,3 +31,8 @@ composition. It ran no tests/builds and performed no mutations. Shared host,
 same model family, non-author technical QA only: no semantic-independent
 acceptance or qualification. Material changes to the fixture, producer,
 guard or installed basis require reconsidering the affected conclusion.
+
+Root integration evidence: the detached merged `e9846da2b` N1 case passed
+1/1 over all four stores, with no skip or failure. Exact receipt is
+`/private/tmp/abg-codex-integration-20261113/p7/post-commands.json`. This
+additional mechanical observation is Root's, not an execution by the reviewer.
