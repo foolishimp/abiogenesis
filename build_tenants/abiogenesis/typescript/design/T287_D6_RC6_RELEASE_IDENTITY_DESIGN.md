@@ -234,8 +234,9 @@ This ordinary predecessor relation adds no registry or lifecycle owner.
 The existing `release.snapshot` members keep their public identities and
 Product authority. Their owner contract packets change content digests when
 their input/output/resource schemas change; the old second-cut packet is not
-silently accepted as the new packet. The roster remains 18 operations/56
-definitions. CLI and SDK serialize the same current DefinitionCall result;
+silently accepted as the new packet. The current roster is 17 operations/46
+definitions after TD-26 P7/TD-25M; the earlier 18/56 observation remains bound
+to its original release-design subject. CLI and SDK serialize the same current DefinitionCall result;
 there is no release-specific Public dispatcher, private helper result or new
 Public member.
 

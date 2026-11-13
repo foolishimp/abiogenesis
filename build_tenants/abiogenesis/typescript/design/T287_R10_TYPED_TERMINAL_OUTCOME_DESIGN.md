@@ -44,7 +44,7 @@ Its native typed result is not retroactive R10 CLI evidence. Owner correction,
 Current R10 proof uses an external test-owned Program and oracle through the
 unchanged generic CCall/event/HoG and Public projection relation. Older package
 evidence keeps its original subject and cannot qualify the successor. No new Public family or member is introduced:
-eighteen families and fifty-six concrete members remain exact.
+the current owner family has seventeen operations and forty-six concrete members. The prior eighteen/fifty-six census belongs to the original R10 increment.
 
 ## 2. Observed boundary
 
@@ -326,7 +326,7 @@ The proof obligations are:
    Every read leaves event count, byte prefix, store identity and close
    handoff unchanged; no app/actor/helper effects occur.
 6. Published contracts/schema locators, exports, definition/catalog digests
-   and installed selection agree. Existing eighteen/fifty-six membership,
+   and installed selection agree. Current seventeen/forty-six membership,
    refusal/nonterminal contracts, D1/D2/F11 and bounded S01 R1–R9 mechanisms
    remain conserved; a source test or count alone proves none of these
    runtime outcomes.
@@ -392,8 +392,9 @@ schema projections at the existing ABG binding. Its Catalog/View values use
 the existing Product shapes and exact semantic reconstruction; shape alone
 confers no admission. Record the changed resource/binding schema identities
 in the next candidate. Public requests, authority slots, refusal/nonterminal
-contracts, resource close receipts and eighteen/fifty-six membership stay
-unchanged. The existing DefinitionCall `resources` carrier transports the
+contracts and resource close receipts keep their owning laws. The original
+eighteen/fifty-six preservation statement belongs to that correction; current
+membership is seventeen/forty-six after TD-26 P7/TD-25M. The existing DefinitionCall `resources` carrier transports the
 proof without an SDK/CLI/dispatcher change or a new Public member.
 
 ### 7.2 Continuous historical authentication
@@ -648,16 +649,16 @@ Run. A registered-selection gap is a `blocked` stop with reason
 `product/builtin_semantics.ts`). Effect
 grant: none; read only.
 
-Contract identity (REQ-P-PUBLIC-CONTRACTS-004 supersession within each
-operation identity): `run_status` result schema changes (`lastRootResult`
-replaces `evaluation`; `operator`, `nextActions` and `missingLink` are added;
-gap support refs admit any non-empty string). `run.invoke` `start` and `invoke`
-and `run.continue` `current_intent` and `selected_action` gain one optional
-`stopStatement` in their result and non-terminal schemas. Digest movement rule:
-the Run read definitions share one source-module digest, so `run_result`,
-`run_replay`, `run_gaps`, `run_evidence` and `run_lawful_actions` move their
-definition digests with no schema change; the family, catalog, adapter
-projection, capability-definition graph and toolchain manifest move with them.
+Current contract identity (REQ-P-PUBLIC-CONTRACTS-004): `run_status` uses
+`lastRootResult`, `operator` and `missingLink`; gap support refs admit any
+non-empty string. The retired `nextActions` frontier is absent. `run.invoke`
+`start` and `invoke`, and pending-only `run.continue/current_intent`, carry
+optional `stopStatement` in result and nonterminal schemas. `selected_action`
+and the three frontier read members are withdrawn. Remaining Run read source
+closure identities propagate through their owner source-module, family,
+catalog, adapter projection, capability graph and toolchain manifest; no
+schema or definition digest is inferred unchanged merely from a member name.
+The exact final key set is the 17-operation/46-definition owner family.
 The exact014 baseline-package pin of the `run_status` slot
 (`t287-framework-handoff-types`) is superseded by this change.
 
