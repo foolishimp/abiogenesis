@@ -69,8 +69,8 @@ One list of the defects found by the reviews, traces and packages of the T-292 w
 
 | When | Items |
 |---|---|
-| In flight | Successor proof-source binding after B-28 integration; read-only technical delta QA |
-| Dependency-ready sequence | Exact archive correspondence, Root-selected proof continuation under the unchanged clock, then local delivery |
+| In flight | Composed broad continuation on exact `98c258643`; B-28 technical QA satisfied, archive correspondence positive |
+| Dependency-ready sequence | Composed history/physical reads under the unchanged clock, then local delivery |
 | Integrated with focused proof | B-01, B-02, B-03, B-04, B-05 (bounded; B-21 remains), B-06, B-07, B-23, B-24, B-25, B-26 |
 | Closed after TD-26 P7 | B-08 |
 | Metadata complete; final dry-cut correspondence positive | B-22; source inventory will refresh after B-28's test-only change |

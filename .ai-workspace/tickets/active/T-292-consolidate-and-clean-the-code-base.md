@@ -8,7 +8,7 @@
 - parent: T-287
 - updated_at: 2026-11-13
 - current_activation: T292_CONSOLIDATION_01
-- current_package: selected repairs, TD-26 P5/P6/P7, TD25, B08/B22 and bounded B28 fixture repair integrated; refreshed exact proof subject preparing for composed continuation and local RC13 delivery
+- current_package: selected repairs, TD-26 P5/P6/P7, TD25, B08/B22 and B28 integrated; composed broad continuation active on exact 98c258643 with byte-equal RC13 payload; history and local delivery follow
 - change_class: realization_refactor
 - derived_change_classes: design_reframe, requirement_reprice and product_reprice, each only for a register entry the owner decides
 - re_entry_point: specification/GOALS.md, the selection block of 2026-11-12
@@ -566,3 +566,21 @@ as new results. This is an explicit post-triage continuation, not an automatic
 retry. The original clock/deadline and every selected timeout remain unchanged;
 history and four physical reads share it. A new failure stops for Root triage.
 No provider, formal qualification or operational pin change is selected.
+
+The successor proof subject is `98c258643857e395ebca3a4646b369e086b042f9`,
+tree `cd8d0c0986188205aeb88edb8ad2a680a16ddff3`. Its independent clean cut
+compiles and generates normally, yields the same archive SHA
+`12d49bada287be7e0690af355107d6ffda7734452288f5153c785bb92f3b98b0`, and has
+zero added/removed/changed members across all 5,293 files. Every proof-worktree
+payload member and all 1,280 source inventory members match. The runtime build
+is reused only across the exact test/inventory-only delta; the clean cut is a
+separate fresh compilation. `REVIEW_B28_FIXTURE_CODEX.md` records satisfied
+non-author technical QA, with its limitations.
+
+Proof Operator `T292-COMPOSED-EXECUTION-02` starts the explicit continuation at
+2026-11-13T09:30:06Z. Exact 225-file population, static timeout audit, all prior
+limits, fixed committed candidate-basis selection and the original campaign
+clock are bound in `composed-proof-01/execution-02/`. Config SHA is
+`2eab011ddbd5b1e9788761af33199bd474358715f07cc8ed280b645f4b08d83b`.
+No result is inferred from starting it. History, physical owner reads, official
+cut/install and live UAT are not performed by this preparation record.

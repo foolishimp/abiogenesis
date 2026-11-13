@@ -1,0 +1,10 @@
+{
+  "activation": "T292-B28-REENTRY-PREP-01",
+  "role": "Proof Preparation Writer",
+  "frame": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md",
+  "basis": "stdo://releases/v3.0.4/",
+  "grant": "Prepare bounded successor source/population/configuration correspondence after the selected B28 test-only repair. Reuse the frozen runner and unchanged campaign clock. Execution waits for closed Writer Return and Root integration/disposition.",
+  "territory": "/private/tmp/abg-rc13-composed-proof-20261113/reentry-02",
+  "prohibitions": "No candidate mutation, production repair, provider, campaign reset, automatic retry, pin, tag, push or publication.",
+  "return": "Root Executive selects exact integrated subject and continuation after repair evidence."
+}
