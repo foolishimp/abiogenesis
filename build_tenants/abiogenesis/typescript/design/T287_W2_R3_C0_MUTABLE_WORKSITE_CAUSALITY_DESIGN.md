@@ -712,6 +712,58 @@ observation and constructors retain their existing roles. No wrapper,
 controller, authority, token, catalog, ambient resolver or owner selector is
 added, and no hostile same-process containment is claimed.
 
+
+### Planned protected-root separation (T-293 B-05)
+
+Root selects this bounded HOW re-entry on 2026-11-13 under T-292/T-293 B-05,
+Writer `T292-TD85N-CODEX-02`. The Product outcome remains no protected-root
+effect. Before a file publication or the first parent mkdir, the existing
+worksite owner must establish separation from every binding and admitted-install
+protected root, including absent roots. One read-only planned-path computation
+returns `separate`, `overlap`, or `indeterminate`; it is shared with native
+write-root preflight. It preserves nearest-existing-ancestor canonical and
+no-symlink checks. C0 refuses equality/containment; native also refuses enclosure.
+
+Different canonical existing branches provide physical separation. For two
+missing components, exact text retains the ordinary prefix relation. Different
+ASCII names whose ASCII case-folded names differ, or a differing initial ASCII
+prefix before either name reaches a non-ASCII character, provide separation only under
+an identified native case/normalization name model: Darwin APFS (`statfs.type`
+26), or Linux ext (`0xef53`) and tmpfs (`0x01021994`). The evidence concerns
+ASCII separation, not Unicode equivalence or volume case sensitivity. Initial
+ASCII characters retain their case-folded values under these canonical Unicode
+name models, so `other` remains separate from `café` without deciding the
+non-ASCII suffix. APFS
+uses Unicode normalization/case semantics; Linux ext's optional Unicode casefold
+also preserves this ASCII distinction. The type numbers are platform-specific.
+All other models, including Windows, FAT/short-name aliases, network/FUSE and
+unknown types, supply no such proof. No subprocess, native addon or dependency
+is introduced. A failed metadata read supplies no positive separation evidence.
+
+Case-only differences and unproved non-ASCII comparisons between missing
+components remain indeterminate unless another corresponding component proves
+separation. An unresolved possible protected overlap returns the existing
+`invalid_coordinate` refusal with explicit uncertainty, before effects. It does
+not assert an observed alias. Case-sensitive `Alpha`/`alpha` and distinct Unicode
+missing siblings can therefore refuse conditionally. This is inability to
+establish the current physical-coordinate premise, not a permanent filename
+prohibition or a new WorkspaceBinding root-existence policy; later stronger
+physical evidence can establish separation. Ordinary proven-disjoint siblings
+and nested creation remain lawful.
+
+Parents preflight checks the full requested targets before any mkdir. Do not
+create then delete a possibly protected directory, or publish then unlink a
+possibly protected file, to report ordinary refusal. After any actual successful
+mkdir/link/rename, the existing partial-effect and B04 publication-fact laws
+continue unchanged, including B04's separately recorded cleanup/compensation.
+The proof asserts forbidden syscalls never occur; final-tree equality alone is
+insufficient. It includes Sigma/final-sigma, all native overlap directions,
+ordinary positive paths, and the existing partial/post-publication result law.
+
+Name-model sources: [Apple APFS FAQ](https://developer.apple.com/library/archive/documentation/FileManagement/Conceptual/APFS_Guide/FAQ/FAQ.html),
+[Linux ext4 casefold](https://kernel.org/doc/html/v5.19/admin-guide/ext4.html),
+and [Linux filesystem type constants](https://github.com/torvalds/linux/blob/master/include/uapi/linux/magic.h).
+
 ## Retained Worksite-Root Proof Matrix (Outside B04 Selection)
 
 These predecessor root/composition obligations remain retained evidence scope.

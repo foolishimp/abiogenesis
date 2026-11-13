@@ -138,6 +138,24 @@ overlap classes refuse the task before assembly and provider dispatch. R keeps
 its existing legitimacy and observation. An ordinary w outside R that meets no
 p is admitted.
 
+The 2026-11-13 T-292/T-293 B-05 HOW re-entry (Writer
+`T292-TD85N-CODEX-02`) applies the shared read-only
+[planned protected-root separation](T287_W2_R3_C0_MUTABLE_WORKSITE_CAUSALITY_DESIGN.md#planned-protected-root-separation-t-293-b-05)
+computation before assembly/provider dispatch. Its three results are `separate`,
+`overlap`, and `indeterminate`. Equality, enclosure and containment refuse;
+unproved possible overlap returns existing `invalid_coordinate` with explicit
+uncertainty, not an assertion of an observed alias. Canonical existing branches
+can establish separation. The ASCII missing-name discriminator applies only
+to the cited Darwin APFS and Linux ext/tmpfs name models identified by read-only
+`statfs`; Windows trailing-dot/space and short-name behavior, FAT, unknown
+filesystems and unproved Unicode comparisons do not supply that evidence.
+Case-sensitive case-only names and different Unicode missing siblings can be
+conditionally indeterminate. This records a missing physical-coordinate premise,
+not a permanent filename prohibition, changed binding policy or new dependency;
+stronger later evidence can admit them. Proven-disjoint siblings and nested write
+roots retain the positive law above. No cleanup after dispatch can substitute
+for preflight, and actual later effects retain their existing fact/result law.
+
 The relation has a path reading and a physical reading, both in the existing
 worksite owners:
 

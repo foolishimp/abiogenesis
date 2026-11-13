@@ -355,8 +355,8 @@ test('protected write roots refuse exact, enclosing and inside overlap before as
   // install root inside A named only by the environment, and link aliases.
   const options={roots:root=>({runtimeStateRoot:join(root,'state/runtime')}),readRoots:['target.txt','keep.txt'],installRoots:root=>[join(root,'vendor/install')]};
   const port=await import('../../build/code/src/implementation/leaf_invocation_port.js');
-  const attempt=async(writeRoots,setup=async()=>{})=>{
-    const env=await fixture(t,writeRoots,options);await setup(env);
+  const attempt=async(writeRoots,setup=async()=>{},selectedOptions=options)=>{
+    const env=await fixture(t,writeRoots,selectedOptions);await setup(env);
     const p=await prepare(t,env,false),authority=p.occurrence.executionAuthority;let assemblies=0;
     const assemble=()=>{assemblies++;return p.assembly;};
     const direct=await realizeNativeWorkspaceWork(env.task,p.occurrence,assemble).then(prepared=>({prepared}),error=>({error}));
@@ -366,8 +366,8 @@ test('protected write roots refuse exact, enclosing and inside overlap before as
       occurrence:p.occurrence,loadImplementation:async()=>(value,occurrence)=>realizeNativeWorkspaceWork(value,occurrence,assemble)});
     return {env,direct,viaPort,assemblies:()=>assemblies};
   };
-  const refuses=async(label,writeRoots,setup)=>{
-    const r=await attempt(writeRoots,setup);
+  const refuses=async(label,writeRoots,setup,selectedOptions)=>{
+    const r=await attempt(writeRoots,setup,selectedOptions);
     assert.match(String(r.direct.error?.message),/write roots refuse before dispatch/,label);
     assert.equal(r.viaPort.ownerObservation?.stage,'preparation',label);assert.equal(r.viaPort.ownerObservation?.reason,'thrown',label);
     assert.equal(r.assemblies(),0,label+' refuses before assembly, so no provider request exists');
@@ -375,6 +375,15 @@ test('protected write roots refuse exact, enclosing and inside overlap before as
   for(const [label,writeRoots] of [['binding exact',['state/runtime']],['binding enclosing',['state']],['binding inside',['state/runtime/cache']],
     ['install exact',['vendor/install']],['install enclosing',['vendor']],['install inside',['vendor/install/pkg']],['one overlapping root among ordinary roots',['target.txt','tools','vendor']]])
     await refuses(label,writeRoots);
+  // T-293 B-05: absent Unicode aliases must stop the actual native owner and
+  // leaf port before assembly. These are controlled exact-prefix premises,
+  // not provider executions or a claim of installed runtime qualification.
+  for (const [direction, protectedName, writeRoots] of [
+    ['equal', 'Σ', ['ς']], ['inside', 'Σ', ['ς/cache']], ['enclosing', 'Σ/cache', ['ς']],
+  ]) {
+    await refuses(`Sigma/final-sigma ${direction}`, writeRoots, undefined,
+      { ...options, roots: root => ({ runtimeStateRoot: join(root, protectedName) }) });
+  }
   const alias=(name,target)=>async env=>{await fs.mkdir(target(env),{recursive:true});await fs.symlink(target(env),join(env.canonicalRoot,name));};
   await refuses('link alias exact',['alias'],alias('alias',env=>env.workspaceBinding.roots.archiveRoot));
   await refuses('link alias inside',['alias/inner'],alias('alias',env=>env.workspaceBinding.roots.archiveRoot));

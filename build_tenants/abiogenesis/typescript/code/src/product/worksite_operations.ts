@@ -8,10 +8,11 @@ import {
   readdir,
   realpath,
   rename,
+  statfs,
   unlink,
 } from "node:fs/promises";
 import { randomUUID } from "node:crypto";
-import { basename, dirname, relative, resolve } from "node:path";
+import { basename, dirname, relative, resolve, sep } from "node:path";
 import { pathToFileURL } from "node:url";
 
 import { sha256Bytes, sha256Canonical } from "../shared/digests.js";
@@ -141,6 +142,7 @@ interface ResolvedWorksiteTarget {
   readonly canonicalRoot: string;
   readonly targetPath: string;
   readonly protectedRoots: readonly string[];
+  readonly protectedPaths: readonly PlannedPath[];
 }
 
 interface PhysicalDirectoryIdentity {
@@ -155,7 +157,14 @@ interface WorksiteCommitLocus {
   readonly observation: WorksiteObservation;
 }
 
-async function plannedCanonicalPath(path: string): Promise<string> {
+/** The stored spelling of a path's deepest existing directory and the names
+ * below it that do not exist yet. */
+interface PlannedPath {
+  readonly existing: string;
+  readonly missing: readonly string[];
+}
+
+async function plannedCanonicalParts(path: string): Promise<PlannedPath> {
   let cursor = resolve(path);
   const missing: string[] = [];
   for (;;) {
@@ -168,7 +177,7 @@ async function plannedCanonicalPath(path: string): Promise<string> {
       if (concrete !== cursor) {
         throw new TypeError("workspace root is not physical-canonical");
       }
-      return resolve(concrete, ...missing);
+      return { existing: concrete, missing };
     } catch (error) {
       if (errnoCode(error) !== "ENOENT") throw error;
       const parent = dirname(cursor);
@@ -177,6 +186,11 @@ async function plannedCanonicalPath(path: string): Promise<string> {
       cursor = parent;
     }
   }
+}
+
+async function plannedCanonicalPath(path: string): Promise<string> {
+  const { existing, missing } = await plannedCanonicalParts(path);
+  return resolve(existing, ...missing);
 }
 
 async function resolveWorksiteTarget(
@@ -224,16 +238,17 @@ async function resolveWorksiteTarget(
         "worksite subject escapes the WorkspaceAuthorityBasis canonical root",
       );
     }
-    const protectedRoots = await Promise.all(
-      [...Object.values(workspaceBinding.roots), ...protectedInstallRoots].map(plannedCanonicalPath),
+    const protectedPaths = await Promise.all(
+      [...Object.values(workspaceBinding.roots), ...protectedInstallRoots].map(plannedCanonicalParts),
     );
+    const protectedRoots = protectedPaths.map(path => resolve(path.existing, ...path.missing));
     if (protectedRoots.some((root) => pathWithin(pathRelation(root, targetPath)))) {
       return worksiteRefusal(
         "binding_mismatch",
         "worksite subject enters a protected WorkspaceBinding root",
       );
     }
-    return { canonicalRoot, targetPath, protectedRoots };
+    return { canonicalRoot, targetPath, protectedRoots, protectedPaths };
   } catch (error) {
     return worksiteRefusal(
       "invalid_worksite_root",
@@ -438,6 +453,8 @@ async function inspectCommitLocus(
   if ("kind" in parentBefore) return parentBefore;
   const inspected = await inspectTargetPath(target, subject);
   if (typeof inspected !== "string" && "kind" in inspected) return inspected;
+  const separation = await checkPlannedProtectedRoots(target.targetPath, target.protectedPaths, false);
+  if (separation !== null) return separation;
   const parentAfter = await inspectPhysicalDirectory(parentPath);
   if ("kind" in parentAfter) return parentAfter;
   if (parentBefore.fileIdentity !== parentAfter.fileIdentity) {
@@ -944,15 +961,15 @@ interface WorksiteReadBasis {
   readonly protectedInstallRoots?: readonly string[];
 }
 
-async function worksiteReadRoots(input: WorksiteReadBasis): Promise<WorksiteEffectRefusal | { root: string; protectedRoots: readonly string[] }> {
+async function worksiteReadRoots(input: WorksiteReadBasis): Promise<WorksiteEffectRefusal | { root: string; protectedRoots: readonly string[]; protectedPaths: readonly PlannedPath[] }> {
   const root = input.workspaceAuthorityBasis.canonicalRoot;
   const territory = constructWorksiteTerritory({ ...input, relativeRoot: ".", territoryUri: pathToFileURL(root).href });
   if (territory.kind !== "worksite_territory") return territory;
   const inspected = await inspectPhysicalDirectory(root);
   if ("kind" in inspected) return inspected;
   try {
-    const protectedRoots = await Promise.all([...Object.values(input.workspaceBinding.roots), ...(input.protectedInstallRoots ?? [])].map(plannedCanonicalPath));
-    return { root, protectedRoots };
+    const parts = await Promise.all([...Object.values(input.workspaceBinding.roots), ...(input.protectedInstallRoots ?? [])].map(plannedCanonicalParts));
+    return { root, protectedRoots: parts.map(part => resolve(part.existing, ...part.missing)), protectedPaths: parts };
   } catch (error) { return worksiteRefusal("invalid_coordinate", `protected worksite roots cannot be resolved: ${String(error)}`, null, errnoCode(error)); }
 }
 
@@ -967,16 +984,91 @@ function checkedWorksitePath(root: string, protectedRoots: readonly string[], pa
 
 /** Where a planned write root lies physically: an existing file through its
  * canonical parent, a directory or missing path through
- * `plannedCanonicalPath`. A link at any existing component refuses. */
-async function plannedWriteRootPath(target: string): Promise<string> {
+ * `plannedCanonicalParts`. A link at any existing component refuses. */
+async function plannedWriteRootPath(target: string): Promise<PlannedPath> {
   try {
     const status = await lstat(target);
     if (status.isSymbolicLink()) throw new TypeError("worksite write root is a symlink");
-    if (!status.isDirectory()) return resolve(await plannedCanonicalPath(dirname(target)), basename(target));
+    if (!status.isDirectory()) {
+      const parent = await plannedCanonicalPath(dirname(target));
+      if (await realpath(target) !== target) throw new TypeError("worksite write root is not physical-canonical");
+      return { existing: resolve(parent, basename(target)), missing: [] };
+    }
   } catch (error) {
     if (errnoCode(error) !== "ENOENT") throw error;
   }
-  return plannedCanonicalPath(target);
+  return plannedCanonicalParts(target);
+}
+
+type PlannedPathSeparation = "separate" | "overlap" | "indeterminate";
+
+/** These native name models establish only the bounded ASCII distinction.
+ * A platform name alone excludes neither FAT/short-name nor Windows aliases.
+ * Unknown metadata supplies no positive separation evidence. */
+async function missingAsciiSeparationSupported(existingDirectory: string): Promise<boolean> {
+  if (process.platform !== "darwin" && process.platform !== "linux") return false;
+  try {
+    const { type } = await statfs(existingDirectory);
+    return process.platform === "darwin" ? type === 26
+      : type === 0xef53 || type === 0x01021994; // APFS; Linux ext and tmpfs.
+  } catch { return false; }
+}
+
+async function plannedPathSeparation(
+  target: PlannedPath,
+  protectedRoot: PlannedPath,
+  includeEnclosing: boolean,
+): Promise<PlannedPathSeparation> {
+  const targetExisting = target.existing.split(sep).filter(Boolean);
+  const protectedExisting = protectedRoot.existing.split(sep).filter(Boolean);
+  const targetParts = [...targetExisting, ...target.missing];
+  const protectedParts = [...protectedExisting, ...protectedRoot.missing];
+  // Native write roots also authorize descendants; C0 does not enter a root
+  // merely by creating one of its ancestors.
+  if (!includeEnclosing && targetParts.length < protectedParts.length) return "separate";
+  let uncertain = false;
+  let asciiSeparation: boolean | undefined;
+  for (let index = 0; index < Math.min(targetParts.length, protectedParts.length); index++) {
+    const left = targetParts[index]!;
+    const right = protectedParts[index]!;
+    if (left === right) continue;
+    // An alias of an existing component would resolve to that component or
+    // fail the stored-spelling check, instead of remaining a missing name.
+    if (index < targetExisting.length || index < protectedExisting.length) return "separate";
+    const leftAscii = /^[\x20-\x7e]*/.exec(left)![0].toLowerCase();
+    const rightAscii = /^[\x20-\x7e]*/.exec(right)![0].toLowerCase();
+    const commonAsciiLength = Math.min(leftAscii.length, rightAscii.length);
+    const asciiDistinct = leftAscii.slice(0, commonAsciiLength) !== rightAscii.slice(0, commonAsciiLength) ||
+      (leftAscii.length === left.length && rightAscii.length === right.length && leftAscii !== rightAscii);
+    if (asciiDistinct) {
+      asciiSeparation ??= await missingAsciiSeparationSupported(target.existing);
+      if (asciiSeparation) return "separate";
+    }
+    uncertain = true;
+  }
+  return uncertain ? "indeterminate" : "overlap";
+}
+
+/** Shared read-only premise for C0 publication/parents and native W. An
+ * uncertain missing-name comparison is not an observed physical alias. */
+async function checkPlannedProtectedRoots(
+  targetPath: string,
+  protectedPaths: readonly PlannedPath[],
+  includeEnclosing: boolean,
+): Promise<WorksiteEffectRefusal | null> {
+  try {
+    const target = await plannedWriteRootPath(targetPath);
+    for (const protectedRoot of protectedPaths) {
+      const separation = await plannedPathSeparation(target, protectedRoot, includeEnclosing);
+      if (separation === "overlap") return worksiteRefusal("subject_outside_territory",
+        "planned worksite path overlaps a protected install/runtime root");
+      if (separation === "indeterminate") return worksiteRefusal("invalid_coordinate",
+        "protected-root separation cannot be established for missing path components on this volume");
+    }
+    return null;
+  } catch (error) {
+    return worksiteRefusal("invalid_coordinate", `planned worksite path cannot be resolved: ${String(error)}`, null, errnoCode(error));
+  }
 }
 
 export interface WorksiteWriteRootsInput extends WorksiteReadBasis {
@@ -998,15 +1090,8 @@ export async function checkWorksiteWriteRoots(input: WorksiteWriteRootsInput): P
       workspaceBinding: input.workspaceBinding, relativeRoot: writeRoot, territoryUri: pathToFileURL(target).href });
     if (territory.kind !== "worksite_territory") return territory;
     if (protectedWorksiteWriteRoot(input.workspaceAuthorityBasis, input.workspaceBinding, writeRoot)) return overlap();
-    let planned: string;
-    try {
-      planned = await plannedWriteRootPath(target);
-    } catch (error) {
-      return worksiteRefusal("invalid_coordinate", `worksite write root cannot be resolved: ${String(error)}`, null, errnoCode(error));
-    }
-    if (!pathWithin(pathRelation(resolved.root, planned)) ||
-      resolved.protectedRoots.some(protectedRoot => pathWithin(pathRelation(protectedRoot, planned)) ||
-        pathWithin(pathRelation(planned, protectedRoot)))) return overlap();
+    const separation = await checkPlannedProtectedRoots(target, resolved.protectedPaths, true);
+    if (separation !== null) return separation;
   }
   return null;
 }
@@ -1033,6 +1118,12 @@ export async function observeWorksiteFileParents(input: Omit<WorksiteFileParents
         observations.push({ relativePath, state: "absent", fileIdentity: null });
       } else return observed;
     } else observations.push({ relativePath, state: "directory", fileIdentity: observed.fileIdentity });
+  }
+  for (const target of input.targets) {
+    const path = checkedWorksitePath(resolved.root, resolved.protectedRoots, target.relativePath);
+    if (typeof path !== "string") return path;
+    const separation = await checkPlannedProtectedRoots(path, resolved.protectedPaths, false);
+    if (separation !== null) return separation;
   }
   return constructWorksiteFileParentsRequest({ ...input, ancestorObservations: observations });
 }
@@ -1102,6 +1193,7 @@ export async function createWorksiteFileParents(input: WorksiteFileParentsInput)
         const created = await inspectPhysicalDirectory(path);
         if ("kind" in created) return failed(created);
         outcomes[outcomes.length - 1] = { relativePath: observed.relativePath, disposition: "created", identityState: "known", fileIdentity: created.fileIdentity };
+
       }
     }
     const final = await revalidateKnown();
