@@ -14,7 +14,8 @@ export async function loadWorksiteOwner() {
 
 // Cold owner coordinates deliberately do not assert ABG admission. These test
 // physical owner behavior; installed/native lineage qualification is separate.
-export async function worksiteFixture(product) {
+// `roots(scratch, canonicalRoot)` replaces the six binding roots outside the worksite.
+export async function worksiteFixture(product, { roots = null } = {}) {
   const scratch = await realpath(await mkdtemp(join(tmpdir(), "abi5-generic-worksite-fixture-")));
   const canonicalRoot = join(scratch, "worksite");
   await mkdir(canonicalRoot);
@@ -28,7 +29,7 @@ export async function worksiteFixture(product) {
   const bindingBody = { workspaceId: manifest.workspaceId, authorityBasisId: workspaceAuthorityBasis.authorityBasisId,
     authorityBasisDigest: workspaceAuthorityBasis.authorityBasisDigest, authorizedActorRef: manifest.authorizedActorRef,
     productSetId: "product-set://generic-worksite/test", productSetDigest: digest("products"), lockId: "lock://generic-worksite/test", lockDigest: digest("lock"),
-    roots: Object.fromEntries(["toolchain", "product", "eventLog", "runtimeState", "projection", "archive"].map(name => [`${name}Root`, join(scratch, name)])) };
+    roots: roots?.(scratch, canonicalRoot) ?? Object.fromEntries(["toolchain", "product", "eventLog", "runtimeState", "projection", "archive"].map(name => [`${name}Root`, join(scratch, name)])) };
   const bindingDigest = product.sha256Canonical(bindingBody);
   const workspaceBinding = { kind: "workspace_binding", schemaVersion: "5.0.0", bindingId: id("workspace-binding", bindingDigest), bindingDigest,
     ...bindingBody, admissionEventRef: "event://generic-worksite/binding" };

@@ -8,6 +8,7 @@ import {
   readdir,
   realpath,
   rename,
+  rmdir,
   unlink,
 } from "node:fs/promises";
 import { randomUUID } from "node:crypto";
@@ -155,7 +156,14 @@ interface WorksiteCommitLocus {
   readonly observation: WorksiteObservation;
 }
 
-async function plannedCanonicalPath(path: string): Promise<string> {
+/** The stored spelling of a path's deepest existing directory and the names
+ * below it that do not exist yet. */
+interface PlannedPath {
+  readonly existing: string;
+  readonly missing: readonly string[];
+}
+
+async function plannedCanonicalParts(path: string): Promise<PlannedPath> {
   let cursor = resolve(path);
   const missing: string[] = [];
   for (;;) {
@@ -168,7 +176,7 @@ async function plannedCanonicalPath(path: string): Promise<string> {
       if (concrete !== cursor) {
         throw new TypeError("workspace root is not physical-canonical");
       }
-      return resolve(concrete, ...missing);
+      return { existing: concrete, missing };
     } catch (error) {
       if (errnoCode(error) !== "ENOENT") throw error;
       const parent = dirname(cursor);
@@ -178,6 +186,30 @@ async function plannedCanonicalPath(path: string): Promise<string> {
     }
   }
 }
+
+async function plannedCanonicalPath(path: string): Promise<string> {
+  const { existing, missing } = await plannedCanonicalParts(path);
+  return resolve(existing, ...missing);
+}
+
+/** Whether `path` names an entry now; only `ENOENT` and `ENOTDIR` are absence. */
+async function presentPath(path: string): Promise<boolean> {
+  return lstat(path).then(() => true, (error: unknown) => !["ENOENT", "ENOTDIR"].includes(errnoCode(error) ?? ""));
+}
+
+/** Protected roots absent before an effect. Where one exists after it, the
+ * volume has resolved the root to what the effect made, or to an entry inside
+ * it: a name in another letter case or normalization form (TD-85). */
+async function absentPaths(paths: readonly string[]): Promise<readonly string[]> {
+  const present = await Promise.all(paths.map(presentPath));
+  return paths.filter((_, index) => !present[index]);
+}
+
+async function anyPresent(paths: readonly string[]): Promise<boolean> {
+  return (await Promise.all(paths.map(presentPath))).some(Boolean);
+}
+
+const ABSENT_ROOT_ALIAS = "worksite path is, or lies in, a protected root that did not exist, in another spelling";
 
 async function resolveWorksiteTarget(
   workspaceAuthorityBasis: WorkspaceAuthorityBasis,
@@ -783,7 +815,18 @@ export async function replaceWorksiteFile(
       );
     }
     if (predecessorObservation.state === "absent") {
+      const absentRoots = await absentPaths(target.protectedRoots);
       await link(temporaryPath, target.targetPath);
+      if (await anyPresent(absentRoots)) {
+        // The linked name is a protected root: unlink it while it is still
+        // this owner's staged file, then refuse as for an existing root.
+        // Otherwise the publication below is recorded and observation refuses.
+        const linked = await lstat(target.targetPath).catch(() => null);
+        if (linked !== null && linked.isFile() && `${linked.dev}:${linked.ino}` === temporaryFileIdentity &&
+          await unlink(target.targetPath).then(() => true, () => false)) {
+          return worksiteRefusal("aliased_subject", ABSENT_ROOT_ALIAS, immediate);
+        }
+      }
       publication = {
         committed: true, method: "link", writtenDigest: input.request.replacementDigest,
         byteLength: replacement.byteLength, stagingPath: temporaryPath,
@@ -944,15 +987,15 @@ interface WorksiteReadBasis {
   readonly protectedInstallRoots?: readonly string[];
 }
 
-async function worksiteReadRoots(input: WorksiteReadBasis): Promise<WorksiteEffectRefusal | { root: string; protectedRoots: readonly string[] }> {
+async function worksiteReadRoots(input: WorksiteReadBasis): Promise<WorksiteEffectRefusal | { root: string; protectedRoots: readonly string[]; absentRoots: readonly PlannedPath[] }> {
   const root = input.workspaceAuthorityBasis.canonicalRoot;
   const territory = constructWorksiteTerritory({ ...input, relativeRoot: ".", territoryUri: pathToFileURL(root).href });
   if (territory.kind !== "worksite_territory") return territory;
   const inspected = await inspectPhysicalDirectory(root);
   if ("kind" in inspected) return inspected;
   try {
-    const protectedRoots = await Promise.all([...Object.values(input.workspaceBinding.roots), ...(input.protectedInstallRoots ?? [])].map(plannedCanonicalPath));
-    return { root, protectedRoots };
+    const parts = await Promise.all([...Object.values(input.workspaceBinding.roots), ...(input.protectedInstallRoots ?? [])].map(plannedCanonicalParts));
+    return { root, protectedRoots: parts.map(part => resolve(part.existing, ...part.missing)), absentRoots: parts.filter(part => part.missing.length > 0) };
   } catch (error) { return worksiteRefusal("invalid_coordinate", `protected worksite roots cannot be resolved: ${String(error)}`, null, errnoCode(error)); }
 }
 
@@ -967,17 +1010,20 @@ function checkedWorksitePath(root: string, protectedRoots: readonly string[], pa
 
 /** Where a planned write root lies physically: an existing file through its
  * canonical parent, a directory or missing path through
- * `plannedCanonicalPath`. A link at any existing component refuses. */
-async function plannedWriteRootPath(target: string): Promise<string> {
+ * `plannedCanonicalParts`. A link at any existing component refuses. */
+async function plannedWriteRootPath(target: string): Promise<PlannedPath> {
   try {
     const status = await lstat(target);
     if (status.isSymbolicLink()) throw new TypeError("worksite write root is a symlink");
-    if (!status.isDirectory()) return resolve(await plannedCanonicalPath(dirname(target)), basename(target));
+    if (!status.isDirectory()) return { existing: resolve(await plannedCanonicalPath(dirname(target)), basename(target)), missing: [] };
   } catch (error) {
     if (errnoCode(error) !== "ENOENT") throw error;
   }
-  return plannedCanonicalPath(target);
+  return plannedCanonicalParts(target);
 }
+
+/** Lower-casing and NFC: used only to compare names that do not exist yet. */
+const foldedName = (name: string): string => name.toLowerCase().normalize("NFC");
 
 export interface WorksiteWriteRootsInput extends WorksiteReadBasis {
   readonly writeRoots: readonly string[];
@@ -998,15 +1044,23 @@ export async function checkWorksiteWriteRoots(input: WorksiteWriteRootsInput): P
       workspaceBinding: input.workspaceBinding, relativeRoot: writeRoot, territoryUri: pathToFileURL(target).href });
     if (territory.kind !== "worksite_territory") return territory;
     if (protectedWorksiteWriteRoot(input.workspaceAuthorityBasis, input.workspaceBinding, writeRoot)) return overlap();
-    let planned: string;
+    let parts: PlannedPath;
     try {
-      planned = await plannedWriteRootPath(target);
+      parts = await plannedWriteRootPath(target);
     } catch (error) {
       return worksiteRefusal("invalid_coordinate", `worksite write root cannot be resolved: ${String(error)}`, null, errnoCode(error));
     }
+    const planned = resolve(parts.existing, ...parts.missing);
     if (!pathWithin(pathRelation(resolved.root, planned)) ||
       resolved.protectedRoots.some(protectedRoot => pathWithin(pathRelation(protectedRoot, planned)) ||
         pathWithin(pathRelation(planned, protectedRoot)))) return overlap();
+    // TD-85: an absent write root and an absent protected root that would be
+    // created in one existing directory overlap, on a volume that ignores
+    // letter case and normalization form, where their missing names agree
+    // folded as far as the shorter goes. Nothing exists yet for the volume to
+    // decide, and this check creates nothing.
+    if (parts.missing.length > 0 && resolved.absentRoots.some(root => root.existing === parts.existing &&
+      root.missing.slice(0, parts.missing.length).every((name, index) => foldedName(name) === foldedName(parts.missing[index]!)))) return overlap();
   }
   return null;
 }
@@ -1074,6 +1128,17 @@ export async function createWorksiteFileParents(input: WorksiteFileParentsInput)
       }
       return null;
     };
+    const absentRoots = await absentPaths(resolved.protectedRoots);
+    // Created directories innermost first, each only while it keeps its identity.
+    const removeCreated = async (): Promise<boolean> => {
+      for (const outcome of [...outcomes].reverse().filter(row => row.disposition === "created")) {
+        const path = resolve(resolved.root, ...outcome.relativePath.split("/"));
+        const status = await lstat(path).catch(() => null);
+        if (status === null || !status.isDirectory() || `${status.dev}:${status.ino}` !== outcome.fileIdentity ||
+          !await rmdir(path).then(() => true, () => false)) return false;
+      }
+      return true;
+    };
     for (const observed of request.ancestorObservations) {
       const prior = await revalidateKnown();
       if (prior !== null) return failed(prior);
@@ -1102,6 +1167,10 @@ export async function createWorksiteFileParents(input: WorksiteFileParentsInput)
         const created = await inspectPhysicalDirectory(path);
         if ("kind" in created) return failed(created);
         outcomes[outcomes.length - 1] = { relativePath: observed.relativePath, disposition: "created", identityState: "known", fileIdentity: created.fileIdentity };
+        if (await anyPresent(absentRoots)) {
+          const refusal = worksiteRefusal("aliased_subject", ABSENT_ROOT_ALIAS);
+          return await removeCreated() ? refusal : failed(refusal);
+        }
       }
     }
     const final = await revalidateKnown();
