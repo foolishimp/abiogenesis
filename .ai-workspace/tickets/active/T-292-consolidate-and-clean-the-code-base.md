@@ -134,6 +134,23 @@ after the integration checkpoint. TD-85N runs separately under Writer
 `T292-TD85N-CODEX-02`: read-only pre-effect separation, explicit uncertainty,
 no compensation that erases an effect; its owning HOW records limitations.
 
+Integration Writer activation `T292-INTEGRATE-TD85A-01` binds Root to main
+`54024d63f` and the parked, returned subject `9fef7907e` (source `9e846f9f2`).
+T-293 B-06 already selects this repair after TD-77. The grant covers a serial
+merge preserving TD-77's explicit question propagation, regenerated identity,
+affected focused proof and tracking. The Return section 3 planner outcomes
+are retained: a stored source/archive beneath an alias-spelled binding root
+still crosses the existing protected-root boundary. This does not change
+binding admission policy B-09; the upstream asynchronous owner already refuses
+that malformed existing-root spelling. Separate QA tests this ruling and does
+not gate integration. Root is Writer for these effects, then Executive.
+
+Worker `T292-TD78-CODEX-01` is dispatched through Codex collaboration from
+`54024d63f` to `/private/tmp/abg-td78`, with the existing TD-78 trace, T-293 B-03
+and the exact selected basis. It repairs executing Product equality against
+the operation's selected binding before append, preserving historical reads.
+TD-85N remains the other implementation Writer. Neither has main write grants.
+
 At most two implementation Writers run concurrently. Integration is serial.
 TD-78 and the parked TD-85a follow TD-77; P7 and TD-25 member withdrawal depend
 on TD-77. One design reconciliation closes B-08, then one composed broad and
