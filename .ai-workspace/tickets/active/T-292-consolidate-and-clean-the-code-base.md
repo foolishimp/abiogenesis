@@ -680,3 +680,11 @@ under `composed-proof-01/execution-04`, then returns to Proof Operator. This is
 explicit post-triage continuation; no reset, automatic retry or aggregation of
 failed subjects. First failure stops. History/physical reads, provider checks
 and official delivery remain unperformed. No qualification, pin or publication.
+
+Physical-read preparation QA is satisfied without material findings on the
+reviewed C3 wrapper/checker. `T292-PHYSICAL-READ-PREP-04` rebinds only C4 config
+path/hash, new output paths and activation ID; runtime and checker are unchanged.
+Four physical path distinctions, exact blocked-stop delta, two actual-retirement
+refusals and shared deadline remain. `physical-prep-04/` preserves the scope and
+review. Recording Writer `T292-PHYSICAL-PREP-RECORD-04` checkpoints that preparation
+and returns to Executive; no physical read is yet executed or accepted.

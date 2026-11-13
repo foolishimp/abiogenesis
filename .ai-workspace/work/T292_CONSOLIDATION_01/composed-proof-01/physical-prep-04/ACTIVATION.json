@@ -1,0 +1,16 @@
+{
+  "activation": "T292-PHYSICAL-READ-PREP-04",
+  "role": "Proof Preparation Writer",
+  "actor": "Root explicit transition for these effects while frozen broad-04 runs separately",
+  "authority": "T292 composed group proof and exact four-path external read witness; no scope expansion",
+  "territory": [
+    "/private/tmp/abg-rc13-composed-proof-20261113/physical-prep-04",
+    ".ai-workspace/work/T292_CONSOLIDATION_01/composed-proof-01/physical-prep-04"
+  ],
+  "effects": "Rebind reviewed wrapper to exact C4/history-04 config and new output paths, preserve original review and unchanged checker; syntax check only",
+  "subject": "a2626fa540d39cc9894b8a90895a3739b49b75fb",
+  "gate": "No physical execution before successful broad/history and Root activation; same original six-hour clock",
+  "return": "Root Executive; preparation is not execution",
+  "checkpointActivation": "T292-PHYSICAL-PREP-RECORD-04",
+  "checkpointRole": "Root explicitly returns to Recording Writer for exact preparation files, T292 status and local Git checkpoint only"
+}
