@@ -313,6 +313,22 @@ the kept path. The Return/design/delivery claim must state this compatibility
 consequence and distinguish preparation refusal from installed current runtime
 proof. No Product reprice or production repair follows from this observation.
 
+Integration Writer activation `T292-INTEGRATE-P6-01` binds Root to main
+`678343bb9` and clean, stopped P6 `fddbdcea71c0222c6c869ef413bec6df33f6b947`,
+source `9a39ded24c5986c693cde79f679039b8a4dfa754`. The grant covers serial merge,
+existing-owner regeneration, detached affected proof, tracking, and preparation
+of P7's exact successor worktree with unchanged physical dependencies. No
+Product/specification change, release, pin, push or qualification is selected.
+Root occupies Writer for these effects, then returns to Executive. The Return's
+new-work mixed-publication consequence and historical pending's earlier
+`/workspace` refusal remain distinct from its source-traced `/program` branch.
+
+Proof-preparation Writer `T292-COMPOSED-RUNNER-PREP-01` may write only under
+`/private/tmp/abg-t292-composed-proof-prep`, preparing a bounded serial runner
+from the closed plan and existing command/probe routes. No repository/Git
+mutation, build, test or provider run is activated. It returns fixed script
+hashes, proposed limits and required final inputs before actual proof begins.
+
 At most two implementation Writers run concurrently. Integration is serial.
 TD-78 and the parked TD-85a follow TD-77; P7 and TD-25 member withdrawal depend
 on TD-77. One design reconciliation closes B-08, then one composed broad and
