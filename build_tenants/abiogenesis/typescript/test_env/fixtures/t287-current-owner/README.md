@@ -27,7 +27,7 @@ The manifest names producer `5.0.0-rc.10`, source commit
 `05a9280f375c23b2e21e85f6834488bf6cc9d3dad8ff7ebbd383bb5a2b40f5f0`
 (`rc10-operational-pin-01/BUILDER_PIN.json`, 7591 bytes) and runtime archive
 `1354b327f4288530223181b5968b43b87a530ec048cddee5a86d984f04ae4fb9`. The source
-tree now declares package identity `5.0.0-rc.12`; these data remain RC10
+tree now declares package identity `5.0.0-rc.13`; these data remain RC10
 productions.
 
 The native population ran the original RC10 runtime with two explicitly
