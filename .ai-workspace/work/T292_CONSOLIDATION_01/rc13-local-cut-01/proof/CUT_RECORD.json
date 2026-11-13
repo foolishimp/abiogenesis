@@ -1,0 +1,293 @@
+{
+  "kind": "local_unqualified_development_candidate_cut",
+  "schemaVersion": "1",
+  "mode": "dry-run",
+  "status": "DRY_RUN_COMPLETE_NOTHING_WRITTEN_OUTSIDE_SCRATCH",
+  "startedUtc": "2026-11-13T05:44:13.607Z",
+  "version": "5.0.0-rc.13",
+  "packageName": "@abiogenesis/typescript-tenant",
+  "productId": "product://abiogenesis/typescript-tenant@5.0.0-rc.13",
+  "source": {
+    "repo": "/private/tmp/abg-rc13-delivery-prep",
+    "commit": "25e74e96f7ad553201278a6066603d5bdacf909f",
+    "tree": "e5578bcab6cec84140d3f62d550d840a44fbcd28",
+    "subject": "Record TD-77 and TD-85a integrated proof and remaining blockers",
+    "sourceArchive": {
+      "path": "/private/tmp/abg-rc13-delivery-prep-work/cut-proof/cut-dry-run-20261113T054413291Z-27650/source.tar",
+      "bytes": 38502400,
+      "sha256": "7f426647455ef76ebc1af0765a3f96c1ca56bff5389ddfab8b3d617d083f9101"
+    },
+    "committedVersion": "5.0.0-rc.12",
+    "scratchStampDelta": {
+      "from": "5.0.0-rc.12",
+      "to": "5.0.0-rc.13",
+      "sites": [
+        {
+          "path": "build_tenants/abiogenesis/typescript/package.json",
+          "state": "stamped",
+          "beforeSha256": "03c338a4d542b6c2f45f7414fb4c912c5226604ce5b67f04796f3470b5708e8c",
+          "afterSha256": "bb3cc328ff68902bbc51767fcde40fb2045b41cae4c32592ec1d87383df77a88",
+          "bytesBefore": 9754,
+          "bytesAfter": 9754
+        },
+        {
+          "path": "build_tenants/abiogenesis/typescript/package-lock.json",
+          "state": "stamped",
+          "beforeSha256": "0ce3037ea62501caa058676cee0542220a6e4cf69f9e3366027b42262e390827",
+          "afterSha256": "5d208d9a94f66b818bfebd09fca74842d178006a405880551519443697805cf1",
+          "bytesBefore": 7944,
+          "bytesAfter": 7944
+        },
+        {
+          "path": "build_tenants/abiogenesis/typescript/code/src/product/contracts.ts",
+          "state": "stamped",
+          "beforeSha256": "a3f013caa09027eba68277d86ffd3ebfdcc71c704887bbc6e5121646f743d419",
+          "afterSha256": "cac0039ca61c9eac563e3d333fe3bdfe872fe59af83762edeb312d4c601fc313",
+          "bytesBefore": 13082,
+          "bytesAfter": 13082
+        },
+        {
+          "path": "build_tenants/abiogenesis/typescript/test_env/fixtures/t287-current-owner/README.md",
+          "state": "stamped",
+          "beforeSha256": "613231b118a40b1d88a8cd46cfc1f22a841901b8528a87fc5372c77bcb966120",
+          "afterSha256": "d218546e51c3159ac60c5e0f31efcfe8b914b6e4584edd668d28bf74b605d42e",
+          "bytesBefore": 5524,
+          "bytesAfter": 5524
+        }
+      ],
+      "ownedRestatement": [
+        {
+          "path": "release-claim.md",
+          "sha256": "761d9e468bde117c8f442a06f7c7b1b5bd580e098a450c0b400e48529ae9a577",
+          "containsPredecessorVersion": true,
+          "owner": "Root release-claim restatement"
+        },
+        {
+          "path": "test_env/fixtures/abi5-root-candidate-basis.json",
+          "sha256": "93cc7ccb63d46cff2dddacd88b434a076610a182a2f37753c0b41d064a213915",
+          "containsPredecessorVersion": true,
+          "owner": "scripts/refresh-candidate-basis.mjs after build"
+        }
+      ],
+      "regeneratedByBuild": [
+        "contracts/capabilities/capability-definition-graph.json",
+        "product-toolchain-manifest.json"
+      ]
+    },
+    "scratchClaimDelta": {
+      "before": {
+        "path": "/private/tmp/abg-rc13-delivery-prep-work/cut-proof/cut-dry-run-20261113T054413291Z-27650/source/build_tenants/abiogenesis/typescript/release-claim.md",
+        "bytes": 3189,
+        "sha256": "761d9e468bde117c8f442a06f7c7b1b5bd580e098a450c0b400e48529ae9a577"
+      },
+      "supplied": {
+        "path": "/private/tmp/abg-rc13-delivery-prep/.ai-workspace/work/T292_CONSOLIDATION_01/rc13-local-cut-01/RC13_RELEASE_CLAIM.md",
+        "bytes": 2168,
+        "sha256": "edd3938e7d8c0d71cb5e9a0258ec58834e6646a27b1ad6c7d1db960d4d0c49ea"
+      },
+      "after": {
+        "path": "/private/tmp/abg-rc13-delivery-prep-work/cut-proof/cut-dry-run-20261113T054413291Z-27650/source/build_tenants/abiogenesis/typescript/release-claim.md",
+        "bytes": 2168,
+        "sha256": "edd3938e7d8c0d71cb5e9a0258ec58834e6646a27b1ad6c7d1db960d4d0c49ea"
+      }
+    },
+    "releaseClaim": {
+      "path": "/private/tmp/abg-rc13-delivery-prep-work/cut-proof/cut-dry-run-20261113T054413291Z-27650/source/build_tenants/abiogenesis/typescript/release-claim.md",
+      "bytes": 2168,
+      "sha256": "edd3938e7d8c0d71cb5e9a0258ec58834e6646a27b1ad6c7d1db960d4d0c49ea"
+    },
+    "scratchBasisRefresh": {
+      "owner": "scripts/refresh-candidate-basis.mjs",
+      "before": {
+        "path": "/private/tmp/abg-rc13-delivery-prep-work/cut-proof/cut-dry-run-20261113T054413291Z-27650/source/build_tenants/abiogenesis/typescript/test_env/fixtures/abi5-root-candidate-basis.json",
+        "bytes": 517,
+        "sha256": "93cc7ccb63d46cff2dddacd88b434a076610a182a2f37753c0b41d064a213915"
+      },
+      "after": {
+        "path": "/private/tmp/abg-rc13-delivery-prep-work/cut-proof/cut-dry-run-20261113T054413291Z-27650/source/build_tenants/abiogenesis/typescript/test_env/fixtures/abi5-root-candidate-basis.json",
+        "bytes": 517,
+        "sha256": "2686106fef03b525235b6e3371656ccbc8af0fc53e4319f7371d5f28169f88ee"
+      }
+    }
+  },
+  "dependencies": {
+    "donor": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/node_modules",
+    "donorFilesAndLinks": 4576,
+    "donorInventoryDigest": "c9c99e50bfe1684cec53e1e5143a372f5a15e0ddb943e991f13c6d2809ec4d4f",
+    "pinnedInventory": {
+      "path": "/private/tmp/abg-rc13-delivery-prep-work/DEPENDENCY_INVENTORY.json",
+      "bytes": 987998,
+      "sha256": "9f417ddd8719598469de5212a85a5ed5e0b850cc21e99aca46c46af049c93a41",
+      "rows": 4576,
+      "equal": true
+    },
+    "lockedPackagesVersionChecked": 16,
+    "payloadOwner": "scripts/product-payload.mjs"
+  },
+  "candidateBasis": {
+    "path": "/private/tmp/abg-rc13-delivery-prep-work/cut-proof/cut-dry-run-20261113T054413291Z-27650/source/build_tenants/abiogenesis/typescript/test_env/fixtures/abi5-root-candidate-basis.json",
+    "bytes": 517,
+    "sha256": "2686106fef03b525235b6e3371656ccbc8af0fc53e4319f7371d5f28169f88ee",
+    "exactArchiveIdentity": true,
+    "runtimePayload": false
+  },
+  "candidate": {
+    "packageExports": [
+      ".",
+      "./product",
+      "./abg",
+      "./gtl",
+      "./hog",
+      "./public",
+      "./validator",
+      "./gtl/m01",
+      "./gtl/m02",
+      "./gtl/requirements",
+      "./abg/requirements",
+      "./abg/m03",
+      "./abg/m03/transport",
+      "./app/m04",
+      "./qualification/m05"
+    ],
+    "packageExportCount": 15,
+    "publicFunctionDefinitionCount": 56,
+    "publicFunctionFamilyDigest": "sha256:ed5e5c4ba7f7700c687828ff8c7c444d64d915d4585fa38f118e01ba60d705f5",
+    "bin": {
+      "abg.cli": "./build/code/src/public/cli.js"
+    },
+    "bundleDependencies": [
+      "@valibot/to-json-schema",
+      "effect",
+      "jsonc-parser",
+      "valibot",
+      "ajv",
+      "ajv-formats"
+    ]
+  },
+  "generated": {
+    "equal": false,
+    "committed": [
+      {
+        "path": "product-toolchain-manifest.json",
+        "bytes": 3188630,
+        "sha256": "4deccb65b264b42102f32a9a6bf93aaf0b0ab375f3217a1f9dc2af13bb0feab1"
+      },
+      {
+        "path": "contracts/capabilities/capability-definition-graph.json",
+        "bytes": 197956,
+        "sha256": "33ce63e21b820c086d4f1610bd8ce52caff862e2161ec334005ff95ae00241a7"
+      }
+    ],
+    "regenerated": [
+      {
+        "path": "product-toolchain-manifest.json",
+        "bytes": 3188630,
+        "sha256": "dfc1bffb78a0cf7787a0e007f5da17ea36a84e173fe8b92ded8c4ffc0e0fe4a6"
+      },
+      {
+        "path": "contracts/capabilities/capability-definition-graph.json",
+        "bytes": 197956,
+        "sha256": "9d2bc6884151ee7d276958d8dbf5271eab7bca7b0ebb1d2858df672fa6f10380"
+      }
+    ],
+    "locatorDelta": {
+      "added": [],
+      "removed": [],
+      "committedVersion": "5.0.0-rc.12",
+      "committedContentDigest": "sha256:a6b72074e46a9fc307d4f8d63c3643377fabae0da8ccb67d66d1ef0ccf837960"
+    }
+  },
+  "archive": {
+    "name": "abiogenesis-typescript-tenant-5.0.0-rc.13.tgz",
+    "bytes": 10878689,
+    "sha256": "8a8d4e583a09e741881f57cde4baa5ae33fee692d7ec126fe93d29d186f032af",
+    "path": "/private/tmp/abg-rc13-delivery-prep-work/cut-proof/cut-dry-run-20261113T054413291Z-27650/pack/abiogenesis-typescript-tenant-5.0.0-rc.13.tgz"
+  },
+  "identity": {
+    "artifactDigest": "sha256:8a8d4e583a09e741881f57cde4baa5ae33fee692d7ec126fe93d29d186f032af",
+    "productContentDigest": "sha256:d4b582fe0c6ce57ee2b49657e46b8a58a7b2f7aeaa104722444f6b33c3b966d9",
+    "manifestDigest": "sha256:28d433eca0ffc56fd92873fe83dc85e2fec7212182718d07ab706ff1de03b5b3"
+  },
+  "members": {
+    "count": 5303,
+    "payloadBytes": 70712773,
+    "inventoryDigest": "e0d35a296a4ce852b2161becca77473bb207dff502708d829f748080df96005b",
+    "file": "ARCHIVE_MEMBERS.json",
+    "builtTreeByteEqual": true,
+    "buildAndContractsFilesAllPresent": 973
+  },
+  "verification": {
+    "owner": "product.verifyProduct imported from the archive",
+    "disposition": "verified",
+    "checkedPayloadFiles": 5301
+  },
+  "toolchain": {
+    "node": {
+      "name": "node",
+      "path": "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+      "realPath": "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+      "sha256": "fe1c0128a4c0163b034ec06b8b290494830ccb49922b5ce9ca4edf497a083e5f",
+      "version": "v24.7.0",
+      "execPath": "/opt/homebrew/Cellar/node/24.7.0/bin/node"
+    },
+    "npm": {
+      "name": "npm",
+      "path": "/opt/homebrew/Cellar/node/24.7.0/bin/npm",
+      "realPath": "/opt/homebrew/lib/node_modules/npm/bin/npm-cli.js",
+      "sha256": "8e5f6f3429f8cdbe693cdc29904e9d5a7b127a494bd15c804bd54c7403bfcbe7",
+      "version": "11.5.1"
+    },
+    "tar": {
+      "name": "tar",
+      "path": "/usr/bin/tar",
+      "realPath": "/usr/bin/bsdtar",
+      "sha256": "1d2c90ce52b691db5e4a8b566cb162805de0ddc46d2aadff120009260f3a24a5"
+    },
+    "git": {
+      "name": "git",
+      "path": "/usr/bin/git",
+      "realPath": "/usr/bin/git",
+      "sha256": "5b1ddb7e9c11b87a034fc88b212e8ac243cfe2b4db696d767aa44c79595fc09a"
+    }
+  },
+  "environment": {
+    "HOME": "/Users/jim",
+    "PATH": "/opt/homebrew/Cellar/node/24.7.0/bin:/usr/bin:/bin:/usr/sbin:/sbin",
+    "LANG": "en_US.UTF-8",
+    "LC_ALL": "en_US.UTF-8",
+    "CI": "1",
+    "GIT_TERMINAL_PROMPT": "0",
+    "GIT_OPTIONAL_LOCKS": "0",
+    "TMPDIR": "/private/tmp/abg-rc13-delivery-prep-work/cut-proof/cut-dry-run-20261113T054413291Z-27650/tmp",
+    "NODE_OPTIONS": "--max-old-space-size=8192",
+    "npm_config_userconfig": "/private/tmp/abg-rc13-delivery-prep-work/cut-proof/cut-dry-run-20261113T054413291Z-27650/npm/npm-user.npmrc",
+    "npm_config_globalconfig": "/private/tmp/abg-rc13-delivery-prep-work/cut-proof/cut-dry-run-20261113T054413291Z-27650/npm/npm-global.npmrc",
+    "npm_config_cache": "/private/tmp/abg-rc13-delivery-prep-work/cut-proof/cut-dry-run-20261113T054413291Z-27650/npm/cache",
+    "npm_config_offline": "true",
+    "npm_config_ignore_scripts": "true",
+    "npm_config_audit": "false",
+    "npm_config_fund": "false",
+    "npm_config_update_notifier": "false"
+  },
+  "timingsMs": {
+    "compile": 7590,
+    "generate": 19832,
+    "refreshBasis": 19047,
+    "pack": 16547
+  },
+  "buildRoot": "/private/tmp/abg-rc13-delivery-prep-work/cut-proof/cut-dry-run-20261113T054413291Z-27650/source/build_tenants/abiogenesis/typescript",
+  "claims": {
+    "local": true,
+    "unqualified": true,
+    "published": false,
+    "installed": false,
+    "providerCalls": 0,
+    "nativeRuns": 0,
+    "tagsCreated": false,
+    "selectorChanged": false,
+    "pinChanged": false,
+    "qualificationTransferredFromEarlierCandidates": false
+  },
+  "claim": "Local unqualified development candidate 5.0.0-rc.13 cut from 25e74e96f7ad553201278a6066603d5bdacf909f. It proves only that this archive is the built tree of that commit's extracted source after a scratch stamp of 4 site(s) (build_tenants/abiogenesis/typescript/package.json, build_tenants/abiogenesis/typescript/package-lock.json, build_tenants/abiogenesis/typescript/code/src/product/contracts.ts, build_tenants/abiogenesis/typescript/test_env/fixtures/t287-current-owner/README.md) and that the Product's own verifier accepts it. It is not the built tree of the commit itself. The extracted release claim was replaced and the proof fixture refreshed through its owner for this scratch proof. Its regenerated product-toolchain-manifest.json and contracts/capabilities/capability-definition-graph.json differ from the commit's copies. No qualification, Hello, native-workflow or earlier-candidate result transfers to artifact sha256:8a8d4e583a09e741881f57cde4baa5ae33fee692d7ec126fe93d29d186f032af.",
+  "endedUtc": "2026-11-13T05:45:38.251Z"
+}

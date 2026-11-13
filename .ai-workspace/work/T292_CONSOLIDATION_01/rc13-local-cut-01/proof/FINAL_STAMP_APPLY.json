@@ -1,0 +1,12 @@
+{
+  "kind": "final_stamp_apply_and_idempotence",
+  "changed": [
+    "build_tenants/abiogenesis/typescript/code/src/product/contracts.ts",
+    "build_tenants/abiogenesis/typescript/package-lock.json",
+    "build_tenants/abiogenesis/typescript/package.json",
+    "build_tenants/abiogenesis/typescript/test_env/fixtures/t287-current-owner/README.md"
+  ],
+  "onlyFourIdentitySitesChanged": true,
+  "allOtherSourceIncludingHistoricalFixturesUnchanged": true,
+  "idempotent": true
+}
