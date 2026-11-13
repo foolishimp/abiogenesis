@@ -1,26 +1,71 @@
 # TD-77 Return: a reader and a recorded Product lock
 
 Writer: Claude Opus 5.5. Branch `claude/td77-recorded-lock-truth` from local
-`main` at `c1f655735`, worktree `/private/tmp/abg-td77`; local `main` at
-`fc818876c` is merged into it at `d6c3faf50`, before the fix round. T is
+`main` at `c1f655735`, worktree `/private/tmp/abg-td77`. Local `main` is merged
+into it twice: `fc818876c` at `d6c3faf50`, before the fix round, and
+`6464a5d50` at `9bc718a31`, before the closing round. T is
 `build_tenants/abiogenesis/typescript`. No push, no tag, no merge into `main`.
 
-**Status: complete on the fix round's rulings R1 to R16. Three items are
-for the Executive's acceptance (22.10 to 22.12), and one residual is new
-(22.13). Residual 22.4, the fold's `release.snapshot` branch, stands for
-ruling as before.**
+**Status: unfinished preservation checkpoint; closure withheld (2026-11-13).**
+
+The Codex Writer `/root/td77_resume` resumes from `2737de62ab5865c3d01324e69a607d6e7250db91`
+under the owner-approved takeover instruction, T-292's amendment of 2026-11-13
+and T-293 B-01/B-02. The exact installed basis is `stdo://releases/v3.0.4/`,
+manifest `102817a3f4bea4dca1d6fa0fc634b94404dd2ba82ba6d8c38b273402dda9f95b`;
+read-only verification returned installed/valid with no failures. The selected
+definition is `/Users/jim/src/apps/abiogenesis/stdo_abiogenesis.json`,
+`urn:stdo:product-definition:abiogenesis`. This is a bounded Writer continuation,
+not independent assessment; the packet-only host inherits system/developer
+instructions and unrestricted shared-file tools, with no clean-room claim.
+
+The exclusive worktree has no other writer. A process census found no surviving
+TD-77 test or mutation process. All five surviving authored edits are preserved
+here: this Return, `test_env/support/witness-reprice-mechanics.mjs`, and
+`test_env/tests/{t287-native-work-currentness-consumers,t287-observed-worksite-command,t292-td77-recorded-product-truth}.test.mjs`
+under the TypeScript tenant. The pre-checkpoint diff is retained at
+`/private/tmp/abg-td77-work/codex-resume/surviving-edits.patch`.
+No generated manifest or graph is included.
+
+The earlier completion statement is withdrawn: the named closing-round section
+has not been written; nine failures on the intended `final-register-edit`
+variant and surviving accessor mutant A8 remain to be classified. Existing
+42/42 focused and 167-pass/1-skip battery evidence is retained with its original
+scope. The next return diagnoses the cause and smallest repair to `/root` before
+new production edits; Product acceptance, merge, qualification and release are
+not claimed. No TD-78 work is selected.
+
+The prior closing-round summary follows; its claims remain subject to that
+unfinished diagnosis and the Executive's conjunction.
+
+- **The rule.** Every accessor that hands out an admitted install, an
+  admitted workspace binding or a workspace environment from artifact truth
+  asks the strict question by default. The call sites that state `recorded`
+  are the complete set of exceptions, and each is a read of recorded history.
+  They are listed in section "Closing round after the re-check", table "R2".
+- **For ruling:**
+  - 22.4, the fold's `release.snapshot` branch, as before;
+  - 22.14: a root basis whose invocation binding is current and whose
+    carrier binding is recorded-only appends the existing `invocation_refused`.
+- **For acceptance:** 22.15, the R5 cases replace preconditions that are not
+  Product truth.
+- **Closed:** residuals 22.10, 22.11 and 22.13.
+
+The fix round's summary follows. The closing round corrects it in place.
 
 - **F1, a lock that answers only the recorded question is never handed to
-  work.** The fold asks each inline install lock the strict question first
-  and the recorded question only where the strict question refuses, and
-  retains the answer with the install fact. Every entry that appends, admits
-  or grants on a lock it takes from the fold's facts requires the strict
-  answer:
-  - the strict candidate, for a compact reference, a binding's causal
-    installs and a materialization environment;
-  - `admitWorkspaceBinding`;
-  - the admission environment;
-  - the worksite execution environment.
+  work.** The fold asks each inline install lock the strict question first.
+  It asks the recorded question only where the strict question refuses, and
+  it retains the answer with the install fact.
+  - The accessors that hand out the fold's facts ask the strict question
+    unless their caller states `recorded` (closing round, R1).
+  - A call site states `recorded` only for a read of recorded history, and
+    the list of those call sites is complete (R2).
+  - The candidate keeps its own checks where it reads the fold's install map
+    without an accessor: a compact reference and a binding's causal installs.
+  - The fix round put the requirement at four entries, and the re-check found
+    six more exported entries without it (N1). The closing round moves the
+    requirement into the accessors and removes three of the four entry checks
+    (R4).
 
   Every path that passes an established lock into the candidate asked the
   strict question of it first. There are three such paths.
@@ -105,8 +150,14 @@ Lines changed by the fix round under `code/src`, `design` and `test_env`
 removed (section 20).
 
 How to read this Return:
-- "Fix round after the independent review" is the current state. Its R1 to
-  R16 are the fix round's rulings.
+- "Closing round after the re-check" is the current state. Its R1 to R9 are
+  the closing round's rulings. It corrects the status, the fix round's
+  summary, the fix round's rulings table (R1, R3, R4 and R5 rows), its lane
+  table (lane 22), its mutant table, residuals 22.3, 22.4 and 22.10 to 22.13,
+  and section 23 in place. It adds residuals 22.14 to 22.16.
+- "Fix round after the independent review" is the state before the re-check.
+  Its R1 to R16 are the fix round's rulings, and its lane numbers are those
+  of its 32-case file (the closing round's lane table maps them).
 - "Final rulings of the build round" and sections 9 to 23 are the build
   before the review. The fix round corrects table 12, section 13,
   deviation 4 and residual 22.3 in place, and adds residuals 22.10 to 22.13
@@ -154,11 +205,11 @@ function keeps its one strict signature.
 
 | Ruling | Realized by | Shown by |
 | --- | --- | --- |
-| R1, the fold learns the strict answer | `establishInlineLock` (`abg/artifact_truth.ts:421-436`) asks the exported `isResolvedProductLock` first and, only under the recorded question, `isResolvedProductLock(value, "recorded")`. The install fact retains `lockAnswersStrict` (`:312-313`, set at `:520`). A compact reference takes its source's answer (`:469`). A lock a door passes in (`establishedLock`) is marked strict (`:422-428`). The exported `admitArtifact` (`abg/environment_admission.ts:845-854`) passes none. Three paths pass one, and each asked strict first: `admitArtifactFromOwner` (`:969-976`) sets it for an inline install only after `isProductInstallCandidate`; `admitProductInstall` (`:1123`, exported on `./abg`) asks `isProductInstallCandidate` of its candidate and lock (`:1177`) before it passes the lock (`:1190`); `admitProductInstallInResolvedLock` (`:1134`, not exported from the `./abg` index) asks no guard itself, and its one caller, the install owner, asks `isResolvedProductLock` at `product/install_definition_bindings.ts:143` before `:318`. No guard body changes. | lane 22; the differential; scale |
+| R1, the fold learns the strict answer | `establishInlineLock` (`abg/artifact_truth.ts:421-436`) asks the exported `isResolvedProductLock` first and, only under the recorded question, `isResolvedProductLock(value, "recorded")`. The install fact retains `lockAnswersStrict` (`:312-313`, set at `:520`). A compact reference takes its source's answer (`:469`). A lock a door passes in (`establishedLock`) is marked strict (`:422-428`). The module export `admitArtifact` (`abg/environment_admission.ts:845-854`), which no package entry exports, passes none. Three paths pass one, and each asked strict first: `admitArtifactFromOwner` (`:969-976`) sets it for an inline install only after `isProductInstallCandidate`; `admitProductInstall` (`:1123`, exported on `./abg`) asks `isProductInstallCandidate` of its candidate and lock (`:1177`) before it passes the lock (`:1190`); `admitProductInstallInResolvedLock` (`:1134`, not exported from the `./abg` index) asks no guard itself, and its one caller, the install owner, asks `isResolvedProductLock` at `product/install_definition_bindings.ts:143` before `:318`. No guard body changes. | lane 22; the differential; scale |
 | R2, the strict candidate requires a strictly established lock | Under the strict question: a compact reference whose source answers only the recorded question throws (`abg/artifact_truth.ts:464-466`); a workspace binding whose causal installs do not all answer strict throws (`:557-562`); a materialization whose environment's installs do not answer strict does not correspond (`:227`). `admitArtifact` returns `artifact_truth_conflict` before the append. The `release.snapshot` branch's code is unchanged; it reaches R3 through `isReleaseOperationArtifact`. | lanes 23 to 25; M7, M9 |
-| R3, the admission environment requires it | `checkPrefixEnvironment` (`product/admission_authority.ts:316-324`) returns `environment_unadmitted` unless `admittedInstallLocksAnswerStrict` holds for the environment's installs. It is the check of `admitCapabilityEnvironmentOutcome` (`:328-336`), which `validateAdmissionCapabilityBasis` (`:489`, through `:473`) and `admitCapabilityEnvironment` (`:342`) reach. One caller is a read of recorded history: the fold's `release.snapshot` branch, through `isReleaseOperationArtifact` (`implementation/release_publication.ts:156`). That branch asks the strict question throughout (residual 22.4), and the comment at `:154-155` says so. No default is added. | lanes 23, 24, 26; M8 |
-| R4, one answer, one owner | The answer lives on `AdmittedInstallFact` in `RuntimeArtifactFacts`. One internal accessor reads it: `admittedInstallLocksAnswerStrict(artifactTruth, admissionEventRefs)` (`abg/artifact_truth.ts:885`, `@internal`). It answers from the owner's derivation, so a copied projection answers false. The answer is not copied into an event, a projection row or a published type. | 488 `.d.ts` files byte-identical to `main`'s |
-| R5, census | 52 call sites, table "Census" below. Every work consumer is covered by R2, R3, the run's strict Catalog (RunC) or a strict historical Catalog (HistC). The exception is U4, which is covered at its entry by the same retained answer (residual 22.10). | table "Census"; lane 27; M10 |
+| R3, the admission environment requires it | `checkPrefixEnvironment` (`product/admission_authority.ts:316-324`) returns `environment_unadmitted` unless `admittedInstallLocksAnswerStrict` holds for the environment's installs. It is the check of `admitCapabilityEnvironmentOutcome` (`:328-336`), which `validateAdmissionCapabilityBasis` (`:489`, through `:473`) and `admitCapabilityEnvironment` (`:342`) reach. Two callers of `isReleaseOperationArtifact` (`implementation/release_publication.ts:156`) read recorded history: the fold's `release.snapshot` branch, and `projectReleaseEvidence` (`product/project_read_ports.ts`, the `release_evidence` read) through `readReleaseArtifactBytes` (closing round, R9; the fix round named only the first). Both ask the strict question (residual 22.4), and the comment at `:154-155` says so. No default is added. Closing round, R4: the check is removed from `checkPrefixEnvironment`; `projectWorkspaceEnvironmentFromArtifactTruth` asks strict by default, and the code stays `environment_unadmitted`. | lanes 23, 24, 26; M8 (obsolete in the closing round; A5 replaces it) |
+| R4, one answer, one owner | The answer lives on `AdmittedInstallFact` in `RuntimeArtifactFacts`. One internal accessor reads it: `admittedInstallLocksAnswerStrict(artifactTruth, admissionEventRefs)` (`abg/artifact_truth.ts:885`, `@internal`). It answers from the owner's derivation. Closing round, R3: a copy that equals the owner's projection of its prefix gets the owner's answer, and any other value gets false (`ownedArtifactTruth`); a second function, `admittedInstallLocksAnswerStrictAtPrefix`, answers over one prefix. The answer is not copied into an event, a projection row or a published type. | 488 `.d.ts` files byte-identical to `main`'s |
+| R5, census | 52 call sites, table "Census" below. The fix round claimed that every work consumer is covered by R2, R3, the run's strict Catalog (RunC) or a strict historical Catalog (HistC), and U4 at its entry (residual 22.10). That did not hold: the census selected a fixed set of accessors and missed the `hasAdmitted…` sites, and RunC holds only on the run owner's path. Six `./abg` exports took fold facts without the retained answer (re-check N1). The closing round's census of 85 call sites (R2) supersedes it, and the strict default at the accessors replaces the per-entry cover. | table "Census"; lane 27; M10 |
 | R6, existing refusal codes | The codes are `scope_mismatch` (`artifact_owner_refusal`), `environment_unadmitted` and `artifact_truth_conflict`, plus the existing refusals of basis admission. There is no new code and no new refusal kind. The candidate's two new `TypeError` texts are carried in the `artifact_truth_conflict` message (residual 22.12). | lanes 23 to 26 |
 | R7, the upgrade path | The mixed store holds the variant store's two installs and binding, then the current build's two installs of the fixture's lock. A new binding over the current build's installs is admitted and its environment admits work; a binding over the variant's installs is refused, and so is the environment of the variant's recorded binding. | lane 26; the F1 table |
 | R8, cost | One whole-lock evaluation per inline lock in the fold; none at the environment, the binding construction or the binding candidate. Base, head and final are equal. | table "Count" |
@@ -329,7 +380,7 @@ The lane asserts the same refusals on the final build, on the lane's stores:
 
 | Lane | Store | Asserts |
 | ---: | --- | --- |
-| 22 | the fixture's three events, forged, variant | the construction reproduces the fixture's events; the fold reads each store (3 rows); `admittedInstallLocksAnswerStrict` answers true on the fixture and false on the two others; a copied projection answers false |
+| 22 | the fixture's three events, forged, variant | the construction reproduces the fixture's events; the fold reads each store (3 rows); `admittedInstallLocksAnswerStrict` answers true on the fixture and false on the two others. The fix round asserted that a copied projection answers false; the closing round asserts that a copy gets the owner's answer and an altered copy gets false (R3) |
 | 23 | forged | `admitWorkspaceBinding`: `scope_mismatch`, 0 appended. The module `admitArtifact` with a binding candidate: `artifact_truth_conflict` with R2's message. The private `admitCapabilityEnvironmentOutcome`: `environment_unadmitted`; the exported form throws. `witness.admit` reprice end to end, through the real `WITNESS_DEFINITION_BINDINGS.admit.reprice` and the shared reprice mechanics: a `resource_admission` fault whose message is the environment refusal; the log bytes are unchanged |
 | 24 | variant | as lane 23 |
 | 25 | one inline install of the forged lock, and of the variant lock; then a compact reference to it through the module `admitArtifact` | `artifact_truth_conflict`, "names a lock that does not answer the strict question"; nothing appended |
@@ -370,6 +421,11 @@ lower there.
 
 No mutant removes R2's materialization branch, and no case fails without
 it (residual 22.13).
+
+The closing round supersedes this table (its section "Mutants"). M8 and M10
+are obsolete there, because R4 removes the checks they disabled. The
+accessor mutants A5 and A6 replace them. M7 is rewritten for R8, and mutant
+R7 closes 22.13.
 
 ### Count (R8)
 
@@ -1697,11 +1753,12 @@ committed.
    | `./abg admitProductInstall`, the module `admitArtifact` with an inline lock, the Public `product.install` | the strict identity relation (`capabilityRefsForContract`), asked of the lock passed in: `isProductInstallCandidate` (`abg/environment_admission.ts:969`), the candidate's inline lock (`abg/artifact_truth.ts:432-433`), `isResolvedProductLock` (`product/install_definition_bindings.ts:143`) | `scope_mismatch`, nothing appended (lane 19); `artifact_truth_conflict` |
    | the run door | the strict identity relation, asked by the run's Catalog admission (`product/catalog.ts:490`) | `binding_lock_mismatch`; execution resolution `incompatible_or_unproven` (lane 20) |
    | the Public `workspace.bind` | the strict lock guard (`product/environment_definition_bindings.ts:534`) | as at base |
-   | `./abg admitWorkspaceBinding` | the retained strict answer of the causal installs (`abg/environment_admission.ts:1322`) | `scope_mismatch`, nothing appended (lanes 23, 24, 26) |
+   | `./abg admitWorkspaceBinding` | the retained strict answer of the causal installs; closing round: through `projectAdmittedProductInstallByAdmissionEventRef`, strict by default (`abg/environment_admission.ts:1403`) | `scope_mismatch`, nothing appended (lanes 24, 25, 27 of the 42-case file) |
    | the module `admitArtifact` with a binding candidate, a compact install reference or a materialization | the retained strict answer at the strict candidate (`abg/artifact_truth.ts:557-562`, `:464-466`, `:227`) | `artifact_truth_conflict` before the append (lanes 23 to 25) |
-   | every `withAdmissionAuthority` owner with a bound environment (`product.materialize`, `result.assess`, `witness.admit`, `conformance.evaluate`, the `catalog` owners, `release.snapshot`) and release publication | the retained strict answer in `checkPrefixEnvironment` (`product/admission_authority.ts:316-324`) | `environment_unadmitted`; end to end a `resource_admission` fault before any append (lanes 23, 24, 26) |
-   | root and child execution-basis admission, the worksite command leaf source | the retained strict answer in `exactWorksiteEnvironmentAtPrefix` (`abg/execution_basis.ts:600`) | the caller's existing refusal (lane 27; residual 22.10) |
-   | the read copies | their binding to recorded history (section 13) | `invalid_history` (lane 32), `not_ready` (lane 21) |
+   | every `withAdmissionAuthority` owner with a bound environment (`product.materialize`, `result.assess`, `witness.admit`, `conformance.evaluate`, the `catalog` owners, `release.snapshot`) and release publication | the retained strict answer in `checkPrefixEnvironment`; closing round: `projectWorkspaceEnvironmentFromArtifactTruth`, strict by default | `environment_unadmitted`; end to end a `resource_admission` fault before any append (lanes 24, 25, 27) |
+   | root and child execution-basis admission, the worksite command leaf source | closing round: `projectExactPrefixWorkspaceEnvironment`, strict by default, for the carrier, the invocation's and the parent's environment | the caller's existing refusal (lanes 28, 30 to 32) |
+| `./abg admitInvocation`, `invokeActorProcess`, `admitFhInteractionHold`, `admitProbabilisticResultCandidate` | closing round: the accessor each takes its environment, binding or install through, strict by default | the entry's existing not-admitted refusal (lanes 29, 33 to 35) |
+   | the read copies | their binding to recorded history (section 13) | `invalid_history` (lane 42; 32 in the fix round), `not_ready` (lane 21) |
 
    The build round's residual said "A door refuses it". That held only for
    doors that receive the lock as an argument; `admitWorkspaceBinding` and
@@ -1760,6 +1817,13 @@ committed.
    that a snapshot's lock records, the fold refuses the store that holds the
    snapshot, through both requirements. None of the 121 stores holds a
    `release.snapshot` row. The design's release paragraph says so (R15).
+
+   Closing round: `isReleaseOperationArtifact` has a second caller that reads
+   recorded history, `projectReleaseEvidence` (the `release_evidence` read,
+   `product/project_read_ports.ts`), through `readReleaseArtifactBytes`. Both
+   callers ask the strict question through it. The behaviour equals `main`'s,
+   where the fold already refuses such a store. The design names both (R9).
+   The ruling asked here also covers the `release_evidence` read.
 5. **The run-read grant looks up the reader's capability refs (stands,
    R7).** `expectedRunReadAuthority` constructs grants for the reader's
    `project.read` `metadata.capabilityRefs` and selects their owner in the
@@ -1803,6 +1867,14 @@ committed.
       per install.
     - R5 allows a cover "at its entry in the same way". This cover is the
       same retained answer that R2 and R3 read, at a third entry.
+
+    Closed in the closing round. R4 removes the check from
+    `exactWorksiteEnvironmentAtPrefix`. It asks
+    `projectExactPrefixWorkspaceEnvironment`, which is strict by default
+    (lane 28; mutant A6). Root basis admission now also asks the environment
+    its invocation names, and child basis admission asks the parent's (lanes
+    30 to 32; mutants E1, E2). So a root basis without a carrier, and a child
+    without one, no longer rely on RunC.
 11. **Three stubs that supply the strict answer as a premise. For the
     Executive's acceptance.** No case assertion changes.
     - `test_env/support/witness-reprice-mechanics.mjs` loads the witness
@@ -1828,6 +1900,17 @@ committed.
       override the environment projection replace exports of
       `./execution_basis.js` or link other owners, and the lanes that load
       `abg/execution_basis` itself import it unstubbed over real stores.
+
+    Closed in the closing round. All three files are back at `main`'s
+    content:
+    - `product/admission_authority.ts` no longer imports
+      `admittedInstallLocksAnswerStrict`;
+    - `exactWorksiteEnvironmentAtPrefix` has no check of its own, so the
+      supplied environment of the two component lanes passes through the
+      accessor they already replace.
+
+    Both component lanes pass on the final build, 8 of 8 and 6 of 6, and so
+    do the witness lanes (closing round, section "Work").
 12. **Two new `TypeError` texts at the candidate (R6). For the Executive's
     acceptance.**
     - The texts are "Product install lock reference names a lock that does
@@ -1836,7 +1919,17 @@ committed.
     - `admitArtifact`'s `artifact_truth_conflict` refusal carries them as
       its message.
     - The code and the refusal kind are the existing ones.
-    - The materialization branch reuses its existing text.
+    - The fix round's materialization branch reused its existing text.
+
+    Closing round: two more texts are under existing codes.
+    - R7 gives the materialization branch "materialization candidate
+      requires an environment whose installs' lock answers the strict
+      question", under `artifact_truth_conflict`.
+    - The strict environment refusal carries "the admitted WorkspaceBinding
+      has no causal ProductInstall admitted for work: its lock answers only
+      the recorded question", under the existing `causal_install_missing`.
+
+    R8 restricts the binding text to causes that are all admitted installs.
 13. **No case isolates R2's materialization branch.**
     - No lane builds a materialization row over a recorded-only lock: none
       of the 121 stores holds one, and the materialization lanes build
@@ -1845,9 +1938,55 @@ committed.
       battery, where it admits.
     - No mutant removes it.
 
+    Closed in the closing round: lane 36 isolates the branch, and mutant R7,
+    which passes `recorded` there, fails lanes 36 and 37.
+14. **A root basis whose carrier's binding is recorded-only appends
+    `invocation_refused`. For ruling.** Take a mixed store where the
+    invocation binding is current and the worksite carrier names a
+    recorded-only binding. Root admission passes the invocation's environment
+    (R5). The carrier's environment is then refused, and the existing
+    `reject` (`worksite-environment-authority-mismatch`) appends its
+    `invocation_refused` event, as it does for any carrier whose environment
+    is absent. This is existing behaviour for a refusal, not work over the
+    lock. Lane 31 runs on stores where both bindings are recorded-only, so
+    the first throw refuses and nothing is appended.
+15. **The R5 cases replace preconditions that are not Product truth. For
+    acceptance.** The three-event stores hold no invocation, basis, C-call
+    or Run. Each case re-links one emitted module through the private-owner
+    harness and replaces only the preconditions before the strict question.
+    The R1 accessors are never replaced, and the table "R5" names what each
+    case replaces. A sentinel after the question shows that the
+    current-build store passes it. The gate probe on the RC10 fixture, a
+    whole Run, corroborates each entry's question without replacements.
+16. **In-run consumers of the accessors have no recorded-only case.** These
+    sites ask strict by default, and no lane drives them on a recorded-only
+    store:
+    - the run owner's `hasAdmittedProductInstall`
+      (`owner_bindings/run_invocation.ts:894`, `:1388`);
+    - the leaf port's (`implementation/leaf_invocation_port.ts:939`,
+      `:1124`, `:1324`, `:1343`);
+    - `admittedBindingRow` in `abg/worksite_revision.ts`.
+
+    Mutant A1 fails lane 23 only, because `admitFhInteractionHold` also asks
+    `hasAdmittedWorkspaceBinding`. A11 is covered by lane 23 alone.
+
 ## 23. What an independent reviewer should try to break
 
-The fix round's items come first.
+The closing round's items come first.
+
+- A call site that states `recorded` outside the R2 table, or an accessor of
+  R1 whose default is not strict. `td77e/scripts/census.mjs` and
+  `grep -rn '"recorded"' code/src` give the list.
+- An accessor of the same kind that the census missed: a function that
+  hands out an install, binding or environment from `projectArtifactTruth`
+  rows, or from `RuntimeArtifactFacts`, without `installLocksAnswer` or the
+  retained answer.
+- A copy that `ownedArtifactTruth` accepts and that is not the owner's
+  projection of its prefix.
+- An entry of R5 that a current-build store reaches only through a
+  replaced precondition that is in fact Product truth (residual 22.15).
+
+The fix round's items follow.
 
 - A work entry that takes a lock from the fold's facts and reaches none of
   the requiring entries (table 12) and neither RunC nor HistC. The
@@ -1867,8 +2006,10 @@ The fix round's items come first.
   `product/install_definition_bindings.ts:318`.
 - A retained answer that does not match the lock: a compact reference whose
   source's answer differs, or a projection the owner did not derive that
-  answers true (the accessor reads `ArtifactTruthDerivation`; a copy
-  answers false, lane 22).
+  answers true. The accessor reads `ArtifactTruthDerivation`. The fix round
+  had a copy answer false. In the closing round a copy equal to the owner's
+  projection gets the owner's answer, and an altered copy gets false (lane
+  22).
 - U1 and U2 of the census: an older environment's lock that reaches an
   append, an admission or a grant.
 - The mixed store: a binding over current installs that takes, through

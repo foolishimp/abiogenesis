@@ -217,14 +217,11 @@ async function observedConsumers(t) {
     });
     checks.push({ path, differentBinding, task, callRef, parentCCallRef, parent, acquisitionEventRef: fibre.eventId, preparationResultRef: prepared.event.eventId });
   }
-  // That the supplied environment's lock answers the strict question is a supplied premise.
-  const strictTruth = Object.freeze({ premise: 'the supplied environment lock answers the strict question' });
   const environment = { kind: 'exact_prefix_workspace_environment', workspaceAuthorityBasis: f.workspaceAuthorityBasis,
-    workspaceBinding: f.workspaceBinding, productInstalls: [], artifactTruth: strictTruth };
+    workspaceBinding: f.workspaceBinding, productInstalls: [] };
   const executionOwner = await component('abg/execution_basis', {
     './environment_admission.js': { projectExactPrefixWorkspaceEnvironment: (_cut, binding) => ({ ...environment,
       workspaceBinding: binding.ref === workspaceBinding.bindingId ? workspaceBinding : f.workspaceBinding }) },
-    './artifact_truth.js': { admittedInstallLocksAnswerStrict: truth => truth === strictTruth },
     './native_worksite_execution.js': { worksiteCommandSourcesInvalidatedAfter: trace.worksiteCommandSourcesInvalidatedAfter },
   });
   const provenanceOwner = await component('abg/worksite_input_provenance', {

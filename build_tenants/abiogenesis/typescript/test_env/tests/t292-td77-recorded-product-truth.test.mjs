@@ -523,9 +523,8 @@ test('run door: the strict Catalog stage refuses at the lock a register variant 
 // The workspace_status read copy: the packet's binding is a recorded
 // admission, and the binding names its lock by digest. A lock that is
 // internally established but is not the recorded one is not_ready.
-function workspaceStatusPacket(lock) {
-  const projection = truth.projectArtifactTruth(fixture.prefix);
-  const bind = projection.artifacts.find(row => row.operationId === 'abg.operation.workspace.bind');
+function workspaceStatusPacket(lock, projection = truth.projectArtifactTruth(fixture.prefix), bindingId = null) {
+  const bind = projection.artifacts.find(row => row.operationId === 'abg.operation.workspace.bind' && (bindingId === null || row.artifactRef === bindingId));
   const {kind: _kind, ...body} = bind.artifact;
   const binding = {kind: 'workspace_binding', ...body, admissionEventRef: bind.admissionEventRef};
   // The recorded binding's ProductSet orders its installs by the binding's causes.
@@ -589,10 +588,14 @@ function doorBasis(operationId, memberKey, scope, causationEventRefs, predecesso
     correlationId: 'correlation://td77/f1', eventTime: '2026-11-12T00:00:00.000Z', causationEventRefs, predecessorPrefix};
 }
 // A new workspace binding over installs the fold admitted at `prefix`, built
-// in their lock as `./abg workspace.bind` builds it.
+// in their lock as `./abg workspace.bind` builds it. The installs are read
+// with the recorded question (the internal overload): under the strict default
+// a recorded-only install is not handed out, so the lane reads it as history
+// to construct the candidate a caller could submit.
 function newBinding(opened, prefix, installRefs, name) {
   const projection = truth.projectOwnedPrefixArtifactTruth(prefix);
-  const installs = installRefs.map(ref => admission.projectAdmittedProductInstallByAdmissionEventRef(projection, ref));
+  const installs = installRefs.map(ref => admission.projectAdmittedProductInstallByAdmissionEventRef(projection, ref, 'recorded'));
+  assert.ok(installs.every(install => install !== null), 'the recorded question reads every install');
   const lock = installs[0].resolvedLock;
   const canonicalRoot = join(opened.scratch, name);
   const roots = Object.fromEntries(['toolchainRoot', 'productRoot', 'eventLogRoot', 'runtimeStateRoot', 'projectionRoot', 'archiveRoot']
@@ -646,7 +649,71 @@ test('F1: the fold reads each store and retains whether its install lock answers
       assert.equal(projection.rows.length, 3, label);
       const installs = history.events.slice(0, 2).map(event => event.eventId);
       assert.equal(truth.admittedInstallLocksAnswerStrict(projection, installs), strict, label);
-      assert.equal(truth.admittedInstallLocksAnswerStrict(clone(projection), installs), false, `${label}: a copied projection names no facts`);
+      // A copy equal to the owner's projection of its prefix gets the owner's
+      // answer (the actor process receives artifact truth as such a copy); a
+      // copy that differs from it gets false.
+      assert.equal(truth.admittedInstallLocksAnswerStrict(clone(projection), installs), strict, `${label}: a validated copy gets the owner's answer`);
+      const altered = clone(projection);
+      altered.rows[0] = {...altered.rows[0], artifactDigest: sha256Canonical({td77: 'altered copy'})};
+      assert.equal(truth.admittedInstallLocksAnswerStrict(altered, installs), false, `${label}: an altered copy gets false`);
+    } finally {
+      fs.rmSync(opened.scratch, {recursive: true, force: true});
+    }
+  }
+});
+
+// Every accessor that hands out an admitted install, an admitted workspace
+// binding or a workspace environment from artifact truth asks the strict
+// question unless its caller states `recorded` (the internal overload of the
+// six that take a question; the four selections by invocation or candidate
+// and the worksite binding selection take none and are strict). On a
+// recorded-only store each answers as for a fact that is not admitted; on the
+// recorded store each answers the fact. A validated copy gets the owner's
+// answer.
+test('F1: each accessor of admitted installs, bindings and environments asks the strict question unless its caller states recorded', async () => {
+  const worksite = await built('abg/worksite_revision.js');
+  for (const [label, lock, strict] of [['recorded', recordedLock, true], ...RECORDED_ONLY.map(([name, make]) => [name, make(), false])]) {
+    const history = recordedHistory(lock);
+    const opened = openStore(history.bytes);
+    try {
+      const projection = truth.projectOwnedPrefixArtifactTruth(opened.prefix);
+      const coordinate = bindingCoordinate(history.binding);
+      const [firstEvent, secondEvent, bindEvent] = history.events;
+      const recordedEnvironment = admission.projectExactPrefixWorkspaceEnvironment(opened.prefix, coordinate, 'recorded');
+      assert.equal(recordedEnvironment.kind, 'exact_prefix_workspace_environment', `${label}: ${JSON.stringify(recordedEnvironment).slice(0, 300)}`);
+      const binding = recordedEnvironment.workspaceBinding;
+      const validated = prefixOwner.selectValidatedRuntimeEventPrefix(store.validateHistoricalEvents(history.bytes, fixture.fixture.eventContractDigest));
+      for (const view of [projection, clone(projection)]) {
+        const facts = {
+          hasAdmittedProductInstall: question => admission.hasAdmittedProductInstall(view, history.installs[0], ...question),
+          hasAdmittedWorkspaceBinding: question => admission.hasAdmittedWorkspaceBinding(view, binding, ...question),
+          projectAdmittedWorkspaceProductInstall: question =>
+            admission.projectAdmittedWorkspaceProductInstall(view, binding.bindingId, history.installs[1].installId, ...question) !== null,
+          projectAdmittedProductInstallByAdmissionEventRef: question =>
+            admission.projectAdmittedProductInstallByAdmissionEventRef(view, secondEvent.eventId, ...question) !== null,
+          projectWorkspaceEnvironmentFromArtifactTruth: question =>
+            admission.projectWorkspaceEnvironmentFromArtifactTruth(view, coordinate, ...question).kind === 'exact_prefix_workspace_environment',
+          projectExactPrefixWorkspaceEnvironment: question =>
+            admission.projectExactPrefixWorkspaceEnvironment(opened.prefix, coordinate, ...question).kind === 'exact_prefix_workspace_environment',
+        };
+        for (const [name, answer] of Object.entries(facts)) {
+          assert.equal(answer([]), strict, `${label}: ${name} asks strict by default`);
+          assert.equal(answer(['recorded']), true, `${label}: ${name} under the stated recorded question`);
+        }
+        const strictOnly = {
+          projectAdmittedProductInstallByInvocationRef: admission.projectAdmittedProductInstallByInvocationRef(view, firstEvent.payload.invocationRef),
+          projectAdmittedWorkspaceBindingByInvocationRef: admission.projectAdmittedWorkspaceBindingByInvocationRef(view, bindEvent.payload.invocationRef, lock),
+          projectAdmittedProductInstall: admission.projectAdmittedProductInstall(view, candidateFor(lock, fixture.events[0])),
+          projectAdmittedWorkspaceBinding: admission.projectAdmittedWorkspaceBinding(view, history.binding),
+          projectAdmittedWorkspaceBindingAtCoordinate: worksite.projectAdmittedWorkspaceBindingAtCoordinate(validated, coordinate.ref, coordinate.digest),
+        };
+        for (const [name, value] of Object.entries(strictOnly)) assert.equal(value !== null, strict, `${label}: ${name} is strict`);
+      }
+      const refused = admission.projectExactPrefixWorkspaceEnvironment(opened.prefix, coordinate);
+      if (!strict) {
+        assert.equal(refused.code, 'causal_install_missing', `${label}: ${JSON.stringify(refused).slice(0, 300)}`);
+        assert.equal(admission.isRecordedOnlyEnvironmentRefusal(refused), true, label);
+      }
     } finally {
       fs.rmSync(opened.scratch, {recursive: true, force: true});
     }
@@ -761,11 +828,13 @@ test('F1 (mixed store): a binding over the current build\'s installs is admitted
 // The worksite execution environment (abg/execution_basis.ts): root and child
 // execution-basis admission and the worksite command leaf source take the
 // environment of the worksite carrier's binding through it. The carrier is
-// the one a worksite task carries: the binding and its authority basis.
+// the one a worksite task carries: the binding and its authority basis, read
+// here from recorded history (the stated recorded question) as a carrier
+// recorded before the store was read.
 let privateBasis;
 async function worksiteEnvironmentAt(prefix, binding) {
   privateBasis ??= await privateOwner('abg/execution_basis.js', ['exactWorksiteEnvironmentAtPrefix']);
-  const environment = admission.projectExactPrefixWorkspaceEnvironment(prefix, bindingCoordinate(binding));
+  const environment = admission.projectExactPrefixWorkspaceEnvironment(prefix, bindingCoordinate(binding), 'recorded');
   assert.equal(environment.kind, 'exact_prefix_workspace_environment', JSON.stringify(environment).slice(0, 300));
   return privateBasis.exactWorksiteEnvironmentAtPrefix(prefix, {workspaceAuthorityBasis: environment.workspaceAuthorityBasis,
     workspaceBinding: environment.workspaceBinding, workspaceBindingId: binding.bindingId, workspaceBindingDigest: binding.bindingDigest});
@@ -782,6 +851,379 @@ test('F1: the worksite execution environment of a carrier whose binding names a 
     } finally {
       fs.rmSync(opened.scratch, {recursive: true, force: true});
     }
+  }
+});
+
+// N1 (ruling R5). The six `./abg` entries that admit or continue Run work, each
+// called with the same inputs on the recorded store and on both recorded-only
+// stores. Each entry is its emitted module re-linked by the private-owner
+// harness. The strict question it asks is the real accessor of
+// abg/environment_admission, which is never replaced. The three-event stores
+// hold no invocation, basis or C-call, so the preconditions before that
+// question that are not Product truth are replaced; each case names them. A
+// sentinel after the question shows that the recorded store passes it. A
+// recorded-only store gets the refusal the entry gives for a binding or install
+// that is not admitted, and nothing is appended. The actor process, the F_H
+// hold and the probabilistic result receive a copy of the projection, as a
+// standalone caller passes it (R3).
+const STORES = () => [['recorded', recordedLock, true], ...RECORDED_ONLY.map(([name, make]) => [name, make(), false])];
+const PAST = 'td77: the entry passed the strict question';
+function sentinel(real) {
+  const stub = (...args) => { if (stub.armed) { stub.reached += 1; throw new Error(PAST); } return real(...args); };
+  return Object.assign(stub, {armed: false, reached: 0});
+}
+function counting(real) {
+  const stub = (...args) => { if (stub.armed) stub.reached += 1; return real(...args); };
+  return Object.assign(stub, {armed: false, reached: 0});
+}
+async function armed(stub, call) {
+  stub.armed = true;
+  stub.reached = 0;
+  try { return await call(); } finally { stub.armed = false; }
+}
+// Opens the store of `lock` and reads its binding and installs as history (the
+// stated recorded question): the carriers a caller of the entry holds.
+async function withStore(lock, body) {
+  const history = recordedHistory(lock);
+  const opened = openStore(history.bytes);
+  try {
+    const projection = truth.projectOwnedPrefixArtifactTruth(opened.prefix);
+    const environment = admission.projectExactPrefixWorkspaceEnvironment(opened.prefix, bindingCoordinate(history.binding), 'recorded');
+    assert.equal(environment.kind, 'exact_prefix_workspace_environment', JSON.stringify(environment).slice(0, 300));
+    return await body({history, opened, projection, environment, binding: environment.workspaceBinding, install: environment.productInstalls[0]});
+  } finally {
+    fs.rmSync(opened.scratch, {recursive: true, force: true});
+  }
+}
+const thrown = async call => { try { await call(); return null; } catch (error) { return error; } };
+
+test('N1: ./abg admitInvocation refuses a recorded-only workspace as not admitted and appends nothing', async () => {
+  // Replaced: the Product boundary's invocation-candidate brand. Sentinel: the
+  // held-store check that follows the environment.
+  const held = sentinel(store.assertHeldEventStoreAtDurablePrefix);
+  const owner = await privateOwner('abg/invocation_admission.js', [], {
+    '../product/invocation.js': {isPublicInvocationCandidate: () => true},
+    './event_store.js': {assertHeldEventStoreAtDurablePrefix: held},
+  });
+  for (const [label, lock, strict] of STORES()) {
+    await withStore(lock, async ({opened, projection, binding}) => {
+      const basis = doorBasis('abg.operation.run.invoke', 'invoke', bindingCoordinate(binding), [], opened.prefix);
+      const invocation = {variant: 'direct', publicRequestInvocationRef: basis.invocationRef};
+      const result = await armed(held, () => owner.admitInvocation(opened.store,
+        {rawRequest: {}, invocation, workspaceBinding: binding, artifactTruth: clone(projection)}, basis));
+      assert.equal(held.reached, strict ? 1 : 0, `${label}: ${JSON.stringify(result).slice(0, 300)}`);
+      assert.equal(result.kind, 'invocation_admission_refusal', label);
+      assert.deepEqual([result.code, result.message], strict
+        ? ['authority_mismatch', 'invocation admission requires the exact held artifact-truth predecessor prefix']
+        : ['workspace_not_admitted', 'invocation workspace and artifact truth differ from the exact ABG-owned prefix environment'], label);
+      assert.equal(opened.count(), 3, `${label}: nothing appended`);
+    });
+  }
+});
+
+let basisOwner;
+let rawInput;
+let parentDigest;
+async function executionBasisOwner() {
+  if (basisOwner) return basisOwner;
+  const prefixModule = await built('abg/event_prefix.js');
+  const admit = await built('shared/admit/index.js');
+  rawInput = sentinel(admit.admitJson);
+  parentDigest = counting(prefixModule.runtimeEventPrefixDigest);
+  // Replaced: whether the invocation is admitted at the prefix (the store holds
+  // none). Sentinels: the raw-input ingress that follows the root check, and
+  // the store-digest step that follows the child check.
+  basisOwner = await privateOwner('abg/execution_basis.js', [], {
+    './invocation_admission.js': {hasAdmittedInvocationAtPrefix: () => true},
+    '../shared/admit/index.js': {admitJson: rawInput},
+    './event_prefix.js': {runtimeEventPrefixDigest: parentDigest},
+  });
+  return basisOwner;
+}
+const ROOT_REFUSED = 'TypeError: ExecutionBasis requires one exact admitted invocation';
+
+for (const carrier of [false, true]) {
+  test(`N1: ./abg admitExecutionBasis refuses a root basis ${carrier ? 'with' : 'without'} a worksite carrier over a recorded-only workspace and appends nothing`, async () => {
+    const owner = await executionBasisOwner();
+    for (const [label, lock, strict] of STORES()) {
+      await withStore(lock, async ({opened, binding, environment}) => {
+        const invocationAdmission = {invocationAdmissionRef: 'invocation-admission://td77/r5', workspaceBindingId: binding.bindingId,
+          workspaceBindingDigest: binding.bindingDigest};
+        const rawInputValue = carrier
+          ? {kind: 'worksite_construction_task', workspaceBinding: binding, workspaceAuthorityBasis: environment.workspaceAuthorityBasis}
+          : {td77: 'root'};
+        const error = await armed(rawInput, () => thrown(() => owner.admitExecutionBasis(opened.store, opened.prefix, {invocationAdmission, rawInputValue}, {})));
+        assert.equal(String(error), strict ? `Error: ${PAST}` : ROOT_REFUSED, label);
+        assert.equal(opened.count(), 3, `${label}: nothing appended`);
+      });
+    }
+  });
+}
+
+test('N1: ./abg admitChildExecutionBasis refuses a parent over a recorded-only workspace as not current and appends nothing', async () => {
+  const owner = await executionBasisOwner();
+  for (const [label, lock, strict] of STORES()) {
+    await withStore(lock, async ({opened, binding}) => {
+      const parentExecutionBasis = {basisRef: 'execution-basis://td77/parent', workspaceBindingId: binding.bindingId, workspaceBindingDigest: binding.bindingDigest};
+      const result = await armed(parentDigest, () => owner.admitChildExecutionBasis(opened.store, opened.prefix, {rawInputValue: {td77: 'child'},
+        parentExecutionBasis, parentTraversalScope: {runId: 'run://td77/parent'}, rootImplementationSet: {implementationSetRef: 'implementation-set://td77'},
+        rootInteractionSet: {interactionSetRef: 'interaction-set://td77'}}, {}));
+      // The store holds no parent, so the recorded store is refused too, after
+      // the strict question (the sentinel step ran); the recorded-only stores
+      // are refused at it.
+      assert.equal(parentDigest.reached, strict ? 1 : 0, label);
+      assert.deepEqual([result.kind, result.code, result.message], ['child_execution_basis_refusal', 'parent_basis_mismatch',
+        'child traversal requires one exact current workflow or deferred-application parent'], label);
+      assert.equal(opened.count(), 3, `${label}: nothing appended`);
+    });
+  }
+});
+
+test('N1: ./abg invokeActorProcess refuses a recorded-only workspace before a process starts and appends nothing', async () => {
+  // Nothing replaced before the question. Sentinel: the prefix read that
+  // follows it. No worker command is reachable: the variable names none.
+  const prefixModule = await built('abg/event_prefix.js');
+  const read = sentinel(prefixModule.readOwnedRuntimeEventPrefixAtDurablePrefix);
+  const owner = await privateOwner('abg/actor_process.js', [], {'./event_prefix.js': {readOwnedRuntimeEventPrefixAtDurablePrefix: read}});
+  const command = process.env.ABG_TS_CLAUDE_COMMAND;
+  process.env.ABG_TS_CLAUDE_COMMAND = '/nonexistent/td77-no-worker';
+  try {
+    for (const [label, lock, strict] of STORES()) {
+      await withStore(lock, async ({opened, projection, binding}) => {
+        const cCall = {cCallRef: 'c-call://td77/actor', runId: 'run://td77', graphCallId: 'graph-call://td77', frameId: 'frame://td77', programLocusRef: 'locus://td77',
+          taskOrdinal: null, attempt: 1, implementationRef: 'implementation://td77', implementationBindingRef: 'implementation-binding://td77'};
+        const request = {actorRef: 'actor://td77', implementationRef: cCall.implementationRef, inputDigest: sha256Canonical({td77: 'actor'}),
+          instructionContractRef: 'contract://td77/instruction', resultContractRef: 'contract://td77/result', transportLane: 'worker_executes',
+          workerBindingRef: 'worker-binding://td77', materializationPlanRef: 'plan://td77', rendererRef: 'renderer://td77', prompt: 'td77'};
+        const result = await armed(read, () => owner.invokeActorProcess({store: opened.store, predecessorPrefix: opened.prefix,
+          executionBasis: {basisRef: 'execution-basis://td77/actor', invocationAdmissionRef: 'invocation-admission://td77/actor',
+            workspaceBindingId: binding.bindingId, workspaceBindingDigest: binding.bindingDigest},
+          scope: {}, cCall, expectedInputDigest: request.inputDigest, occurrence: {...cCall},
+          workerContracts: {instructionContractRef: request.instructionContractRef, resultContractRef: request.resultContractRef},
+          runtime: {workspaceBinding: binding, artifactTruth: clone(projection)}, request, dispatchOrdinal: 1, basis: {}}));
+        assert.equal(read.reached, strict ? 1 : 0, label);
+        assert.deepEqual([result.kind, result.code, result.message], ['actor_process_effect_refusal', 'actor_process_invocation_refused',
+          strict ? PAST : 'actor process request or workspace differs from the admitted execution basis'], label);
+        assert.deepEqual(result.successorPrefix, opened.prefix, label);
+        assert.equal(opened.count(), 3, `${label}: nothing appended and no process started`);
+      });
+    }
+  } finally {
+    if (command === undefined) delete process.env.ABG_TS_CLAUDE_COMMAND; else process.env.ABG_TS_CLAUDE_COMMAND = command;
+  }
+});
+
+test('N1: ./abg admitFhInteractionHold refuses a recorded-only install and workspace and appends nothing', async () => {
+  // Replaced: the admitted execution basis, scope, interaction set, cursor,
+  // C-call result and judgment, route, the pending interaction and route
+  // admissions staged inside the hold's transaction, construction intent and
+  // locus, and the run selection (the store holds no Run). The transaction is
+  // the real one. Sentinel: the input digest that follows the question.
+  const digests = await built('shared/digests.js');
+  const hash = sentinel(digests.sha256Canonical);
+  const fh = {};
+  const owner = await privateOwner('abg/continuation.js', [], {
+    './c_call.js': {isAdmittedCCallJudgment: () => true, isAdmittedCCallResult: () => true, admitOwnedPlannedPendingInteraction: () => fh.pending},
+    './execution_basis.js': {hasAdmittedExecutionBasisAtPrefix: () => true, hasAdmittedInteractionSetAtPrefix: () => true, isAdmittedConstructionInteractionLocus: () => false},
+    './open_call.js': {hasOpenedTraversalScopeAtPrefix: () => true},
+    './traversal_route.js': {isAdmittedRoute: () => true, rehydrateConstructionIntentForCursorAtPrefix: () => null,
+      admitTraversalTransitionInActiveTransaction: () => ({kind: 'staged_route_transition_admission', route: fh.route})},
+    './traversal_cursor.js': {hasAdmittedTraversalCursorAtPrefix: () => true},
+    './event_prefix.js': {selectRuntimeEventPrefixFromAuthority: prefix => prefix},
+    '../shared/digests.js': {sha256Canonical: hash},
+  });
+  const prefixModule = await built('abg/event_prefix.js');
+  for (const [label, lock, strict] of STORES()) {
+    await withStore(lock, async ({opened, projection, binding, install}) => {
+      const inputValue = {td77: 'fh'};
+      const cCall = {cCallRef: 'c-call://td77/fh', regime: 'F_H', actorCapabilityRef: 'capability://td77', responseContractRef: 'contract://td77/response',
+        basisId: 'execution-basis://td77/fh', programLocusRef: 'locus://td77', compositionRef: null};
+      const result = {resultRef: 'result://td77/fh'};
+      const judgment = {judgmentRef: 'judgment://td77/fh'};
+      const cursor = {cursorRef: 'cursor://td77/fh', cursorDigest: sha256Canonical({td77: 'cursor'}), traversalScopeRef: 'scope://td77/fh',
+        inputDigest: sha256Canonical(inputValue), runId: 'run://td77'};
+      fh.pending = {cCall, result, judgment, requestRef: 'request://td77/fh'};
+      fh.route = {routeKind: 'hold', cCallRef: cCall.cCallRef, judgmentRef: judgment.judgmentRef, sourceCursorRef: cursor.cursorRef};
+      const executionBasis = {basisRef: cCall.basisId, graphRef: 'graph://td77', programRef: 'program://td77', workspaceBindingId: binding.bindingId,
+        workspaceBindingDigest: binding.bindingDigest};
+      const error = await armed(hash, () => thrown(() => owner.admitFhInteractionHold({store: opened.store, predecessorPrefix: opened.prefix,
+        pendingPlan: {expectedPrefixDigest: prefixModule.runtimeEventPrefixDigest(prefixModule.selectRuntimeEventPrefixFromStore(opened.store)),
+          pending: {cCall, result, judgment}},
+        routeCandidate: {transitionClass: 'route', evidence: {evidenceClass: 'hold', cCall, result, judgment}},
+        executionBasis, scope: {scopeRef: cursor.traversalScopeRef, runId: 'run://td77'}, program: {programRef: executionBasis.programRef},
+        graph: {materializationRef: executionBasis.graphRef}, graphFunction: {}, interactionSet: {}, cursor, request: {}, expectedInputDigest: cursor.inputDigest,
+        pendingBasis: {}, routeBasis: {}, continuationBasis: {}, inputValue,
+        productBasis: {artifactTruth: clone(projection), install, workspaceBinding: binding, catalogView: {kind: 'graph_function_catalog_view'}}})));
+      assert.equal(hash.reached, strict ? 1 : 0, `${label}: ${String(error)}`);
+      assert.equal(String(error), strict ? `Error: ${PAST}` : 'TypeError: F_H continuation requires one exact admitted pending interaction basis', label);
+      assert.equal(opened.count(), 3, `${label}: nothing appended`);
+    });
+  }
+});
+
+test('N1: ./abg admitProbabilisticResultCandidate refuses an install of a recorded-only workspace as not admitted', async () => {
+  // Replaced: the actor carrier validation and whether the execution basis and
+  // implementation set are admitted at the prefix (the store holds none).
+  // Sentinel: the leaf port's owner-capability question that follows.
+  const owner = await privateOwner('abg/probabilistic_result.js', [], {
+    './actor_process.js': {validateActorProcessCarrierPair: (request, observation) => ({kind: 'actor_process_carrier_validation', request, observation})},
+    './execution_basis.js': {hasAdmittedImplementationSetAtPrefix: () => true, hasAdmittedExecutionBasisAtPrefix: () => true},
+  });
+  for (const [label, lock, strict] of STORES()) {
+    await withStore(lock, async ({opened, projection, binding, install}) => {
+      const resolution = {graphFunctionRef: 'graph-function://td77', computeRegime: 'F_P', programLocusRef: 'locus://td77', implementationRef: 'implementation://td77',
+        inputContractRef: 'contract://td77/input', outputContractRef: 'contract://td77/output', packageName: install.packageName, packageVersion: install.packageVersion,
+        implementationPublicationDigest: sha256Canonical({td77: 'publication'})};
+      const implementationSet = {implementationSetRef: 'implementation-set://td77', implementationSetDigest: sha256Canonical({td77: 'implementation set'}),
+        invocationAdmissionRef: 'invocation-admission://td77', invocationRef: 'invocation://td77', rows: [resolution]};
+      const input = {td77: 'input'};
+      const value = {td77: 'result'};
+      const finalOutput = canonicalJson(value);
+      const request = {actorRef: 'actor://td77', implementationRef: resolution.implementationRef, inputDigest: sha256Canonical(input),
+        instructionContractRef: 'contract://td77/instruction', resultContractRef: 'contract://td77/raw', transportLane: 'worker_executes',
+        workerBindingRef: 'worker-binding://td77', materializationPlanRef: 'plan://td77', rendererRef: 'renderer://td77', prompt: 'td77'};
+      const transportDigest = sha256Canonical({td77: 'transport'});
+      const observation = {...request, promptDigest: sha256Canonical(request.prompt), transportDigest, finalOutput, observedOutputDigest: sha256Canonical(value),
+        artifactDigests: {prompt: sha256Bytes(request.prompt), output: sha256Bytes(finalOutput), transport: transportDigest}};
+      const body = {contractCapabilityBasis: {implementationSetDigest: implementationSet.implementationSetDigest, implementationSetRef: implementationSet.implementationSetRef,
+        installId: install.installId, publicationDigest: resolution.implementationPublicationDigest}, implementationRef: resolution.implementationRef,
+        implementationResolutionDigest: sha256Canonical(resolution), inputContractRef: resolution.inputContractRef, inputDigest: request.inputDigest,
+        instructionContractRef: request.instructionContractRef, rawResultContractRef: request.resultContractRef, rawResultDigest: sha256Canonical(value),
+        targetOutputContractRef: resolution.outputContractRef};
+      const verificationDigest = sha256Canonical(body);
+      const preimage = {kind: 'verified_probabilistic_result_contract_preimage', schemaVersion: '5.0.0', ...body, verificationDigest,
+        verificationRef: `probabilistic-result-contract-preimage://abiogenesis/${digestHex(verificationDigest)}`};
+      let reached = 0;
+      const leafPort = {kind: 'admitted_leaf_invocation_port', verifyProbabilisticResultContractPreimage: () => preimage,
+        revalidateProbabilisticResultContractPreimage: () => preimage, hasOwnerCapability: () => { reached += 1; throw new Error(PAST); },
+        implementationSetRef: implementationSet.implementationSetRef, implementationSetDigest: implementationSet.implementationSetDigest};
+      const outcome = await thrown(async () => { const refused = owner.admitProbabilisticResultCandidate({artifactTruth: clone(projection),
+        executionBasis: {implementationSetRef: implementationSet.implementationSetRef, implementationSetDigest: implementationSet.implementationSetDigest,
+          invocationAdmissionRef: implementationSet.invocationAdmissionRef, invocationRef: implementationSet.invocationRef,
+          graphFunctionRef: resolution.graphFunctionRef, workspaceBindingId: binding.bindingId},
+        input, implementationSet, leafPort, observation, prefix: opened.prefix, request, resolution,
+        occurrence: {attempt: 1, cCallRef: 'c-call://td77/fp', executionAuthority: null, frameId: 'frame://td77', graphCallId: 'graph-call://td77',
+          programLocusRef: resolution.programLocusRef, runId: 'run://td77', taskOrdinal: null}});
+        throw Object.assign(new Error('refused'), {refused}); });
+      assert.equal(reached, strict ? 1 : 0, `${label}: ${JSON.stringify(outcome.refused ?? String(outcome)).slice(0, 300)}`);
+      if (strict) assert.equal(String(outcome), `Error: ${PAST}`, label);
+      else assert.deepEqual([outcome.refused.kind, outcome.refused.code, outcome.refused.message], ['probabilistic_result_admission_refusal', 'unadmitted_contract_capability',
+        'implementation-owner preimage does not join one admitted workspace install, publication, implementation set, and resolution'], label);
+      assert.equal(opened.count(), 3, `${label}: nothing appended`);
+    });
+  }
+});
+
+// N2 (ruling R7). The materialization branch of candidate preparation: one
+// context_bootstrap artifact that corresponds in every relation to the store's
+// binding, admitted through the module export `admitArtifact` of
+// abg/environment_admission (the product.materialize owner checks its bound
+// environment first). The recorded store admits it; a recorded-only store
+// refuses it with the branch's own text inside the existing code.
+function materialization(opened, binding, basis, prefix = opened.prefix) {
+  const hex = digest => digest.slice('sha256:'.length);
+  const order = (a, b) => (a < b ? -1 : a > b ? 1 : 0);
+  const memberKey = 'context_bootstrap';
+  const bindingPair = {ref: binding.bindingId, digest: binding.bindingDigest};
+  const contentRoot = join(binding.roots.projectionRoot, 'product-materializations', memberKey);
+  const subject = {workspaceRef: basis.workspaceId, workspaceDigest: basis.authorityBasisDigest, bindingRef: binding.bindingId, bindingDigest: binding.bindingDigest};
+  const request = {binding: bindingPair, workspace: {ref: subject.workspaceRef, digest: subject.workspaceDigest}, contextInputs: [{name: 'context://td77/r7', value: {td77: 'r7'}}]};
+  const inputs = request.contextInputs.map(entry => ({inputRef: entry.name, inputDigest: sha256Canonical(entry.value), content: entry.value}))
+    .sort((a, b) => order(a.inputRef, b.inputRef));
+  const rows = inputs.map(entry => {
+    const assetDigest = sha256Canonical({kind: 'generated_product_asset', schemaVersion: '5.0.0', materializationKind: memberKey, ...subject, ...entry});
+    return {inputRef: entry.inputRef, inputDigest: entry.inputDigest, assetRef: `generated-product-asset://abiogenesis/${hex(assetDigest)}`, assetDigest,
+      assetPath: join(contentRoot, 'content', `${hex(assetDigest)}.json`), disposition: 'created'};
+  });
+  const contentDigest = sha256Canonical(rows.map(row => row.assetDigest));
+  const content = {contentRef: `context-bootstrap-content://abiogenesis/${hex(contentDigest)}`, contentDigest, contentPath: contentRoot};
+  const provenance = [{provenanceRef: subject.workspaceRef, provenanceDigest: subject.workspaceDigest}, {provenanceRef: subject.bindingRef, provenanceDigest: subject.bindingDigest},
+    ...inputs.map(entry => ({provenanceRef: entry.inputRef, provenanceDigest: entry.inputDigest}))].sort((a, b) => order(a.provenanceRef, b.provenanceRef));
+  const manifestDigest = sha256Canonical({kind: 'product_materialization_manifest', schemaVersion: '5.0.0', materializationKind: memberKey,
+    workspaceRef: subject.workspaceRef, workspaceDigest: subject.workspaceDigest, bindingRef: subject.bindingRef, bindingDigest: subject.bindingDigest,
+    contentRef: content.contentRef, contentDigest: content.contentDigest, rows, validationDisposition: 'admitted', residuals: [], provenance});
+  const manifest = {manifestRef: `product-materialization-manifest://abiogenesis/${hex(manifestDigest)}`, manifestDigest,
+    manifestPath: join(contentRoot, 'manifests', `${hex(manifestDigest)}.json`)};
+  const result = {kind: 'product_materialization_result', schemaVersion: '5.0.0', disposition: 'materialized', materializationKind: memberKey, subject, content, manifest,
+    rows, validationDisposition: 'admitted', residuals: [], provenance};
+  const operationId = 'abg.operation.product.materialize';
+  const definitionDigest = sha256Canonical({operationId, memberKey, td77: 'r7'});
+  const invocationRef = 'invocation://td77/r7/materialize';
+  const invocationPayloadDigest = sha256Canonical(request);
+  const invocation = {operationId, memberKey, definitionDigest, invocationRef, invocationPayloadDigest,
+    invocationDigest: sha256Canonical({operationId, memberKey, definitionDigest, invocationRef, invocationPayloadDigest})};
+  const artifact = {kind: 'product_materialization_artifact', schemaVersion: '5.0.0', memberKey, invocation, entryPrefix: clone(prefix),
+    workspaceBinding: bindingPair, request, result};
+  return admission.admitArtifact(opened.store, {...invocation, authorityScopeRef: manifest.manifestRef, authorityScopeDigest: manifest.manifestDigest,
+    correlationId: 'correlation://td77/r7', eventTime: '2026-11-13T00:00:00.000Z', causationEventRefs: [binding.admissionEventRef], predecessorPrefix: prefix},
+  operationId, content.contentRef, content.contentDigest, {artifact});
+}
+
+test('N2: the materialization branch refuses an environment whose lock answers only the recorded question, with its own text', async () => {
+  for (const [label, lock, strict] of STORES()) {
+    await withStore(lock, async ({opened, binding, environment}) => {
+      const result = materialization(opened, binding, environment.workspaceAuthorityBasis);
+      if (strict) {
+        assert.equal(result.disposition, 'admitted', `${label}: ${JSON.stringify(result).slice(0, 300)}`);
+        assert.equal(opened.count(), 4, `${label}: one artifact appended`);
+      } else {
+        assert.equal(result.disposition, 'refused', `${label}: ${JSON.stringify(result).slice(0, 300)}`);
+        assert.equal(result.refusal.code, 'artifact_truth_conflict', label);
+        assert.equal(result.refusal.message, 'artifact successor semantics refused before append: TypeError: materialization candidate requires an environment whose installs\' lock answers the strict question', label);
+        assert.equal(opened.count(), 3, `${label}: nothing appended`);
+      }
+    });
+  }
+});
+
+// End to end, on one store: its first lock answers only the recorded question
+// (the variant store) and its second install, a pair of installs of the
+// current build with a new binding over them, follows. History is read; the
+// same work (one product.materialize context_bootstrap artifact through the
+// module export `admitArtifact`) is refused over the recorded binding before
+// anything is appended and admitted over the current binding.
+test('end to end (mixed store): history is read; work over the recorded-only binding is refused before any append; the same work over the current binding is admitted', () => {
+  const history = recordedHistory(RECORDED_ONLY[1][1]());
+  const opened = openStore(history.bytes);
+  try {
+    const install = (source, prefix) => {
+      const candidate = candidateFor(recordedLock, source);
+      const result = admission.admitProductInstall(opened.store, candidate,
+        doorBasis('abg.operation.product.install', 'install', {ref: candidate.installId, digest: candidate.productContentDigest}, [], prefix), recordedLock);
+      assert.equal(result.kind, 'artifact_owner_result', JSON.stringify(result).slice(0, 300));
+      return result;
+    };
+    const first = install(fixture.events[0], opened.prefix);
+    const second = install(fixture.events[1], first.successorPrefix);
+    const bind = newBinding(opened, second.successorPrefix, [first.admissionEventRef, second.admissionEventRef], 'current');
+    const bound = admission.admitWorkspaceBinding(opened.store, bind.candidate, bind.basis(), bind.authority);
+    assert.equal(bound.kind, 'artifact_owner_result', JSON.stringify(bound).slice(0, 300));
+    const prefix = bound.successorPrefix;
+    assert.equal(opened.count(), 6);
+    // A read of history: the fold projects the whole store, and the recorded
+    // binding's status is read with the recorded question.
+    const projection = truth.projectOwnedPrefixArtifactTruth(prefix);
+    assert.equal(projection.rows.length, 6, 'the fold reads the whole store');
+    const old = admission.projectExactPrefixWorkspaceEnvironment(prefix, bindingCoordinate(history.binding), 'recorded');
+    assert.equal(old.kind, 'exact_prefix_workspace_environment', JSON.stringify(old).slice(0, 300));
+    assert.equal(admission.hasAdmittedWorkspaceBinding(projection, old.workspaceBinding, 'recorded'), true);
+    const status = projectReads.projectWorkspaceStatus(workspaceStatusPacket(history.events[0].payload.resolvedLock, truth.projectArtifactTruth(prefixOwner.readOwnedRuntimeEventPrefixAtDurablePrefix(prefix)),
+      history.binding.bindingId), 'recorded');
+    assert.equal(status.kind, 'product_project_read_result', JSON.stringify(status).slice(0, 300));
+    // Work over the recorded binding: refused before anything is appended.
+    const refused = materialization(opened, old.workspaceBinding, old.workspaceAuthorityBasis, prefix);
+    assert.equal(refused.disposition, 'refused', JSON.stringify(refused).slice(0, 300));
+    assert.equal(refused.refusal.code, 'artifact_truth_conflict');
+    assert.match(refused.refusal.message, /materialization candidate requires an environment whose installs' lock answers the strict question/);
+    assert.equal(opened.count(), 6, 'nothing appended');
+    // The same work over the current binding: admitted.
+    const current = admission.projectExactPrefixWorkspaceEnvironment(prefix, bindingCoordinate(bound.value));
+    assert.equal(current.kind, 'exact_prefix_workspace_environment', JSON.stringify(current).slice(0, 300));
+    const admitted = materialization(opened, current.workspaceBinding, current.workspaceAuthorityBasis, prefix);
+    assert.equal(admitted.disposition, 'admitted', JSON.stringify(admitted).slice(0, 300));
+    assert.equal(opened.count(), 7, 'one artifact appended');
+  } finally {
+    fs.rmSync(opened.scratch, {recursive: true, force: true});
   }
 });
 
