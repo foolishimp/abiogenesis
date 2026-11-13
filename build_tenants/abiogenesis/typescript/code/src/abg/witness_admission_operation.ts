@@ -983,7 +983,7 @@ function prepareSemanticEvent(
         }),
         prefix,
       );
-      if (!["blocked", "failed", "gap_stopped", "stopped"].includes(
+      if (!["blocked", "failed", "stopped"].includes(
         replay.runtimeStatus,
       )) {
         return refusal(

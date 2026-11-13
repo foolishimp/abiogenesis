@@ -98,7 +98,7 @@ const environment = { kind: 'exact_prefix_workspace_environment', productInstall
   resolvedProductLock: { lockId: 'fixture://lock', lockDigest: hash('lock') },
   workspaceAuthorityBasis: { authorizedActorRef: 'fixture://actor' } };
 
-for (const memberKey of ['run_status', 'run_result', 'run_replay', 'run_gaps', 'graph_call_result', 'graph_call_replay']) {
+for (const memberKey of ['run_status', 'run_result', 'run_replay', 'graph_call_result', 'graph_call_replay']) {
   test(`${memberKey} preserves canonical InstalledProduct authority before source lookup`, async () => {
     const packet = ABG_PROJECT_READ_CONTRACTS[memberKey];
     const grants = packet.metadata.capabilityRefs.map(ref => ({ grantRef: `fixture://read-grant/${ref}`, grantDigest: hash(ref) }));

@@ -77,7 +77,7 @@ export interface AbgProjectReadResourceReceipt {
   readonly eventResource: ReopenAbgEventResourceReceipt | AbgEventResourceCompletion;
 }
 
-type AnyReadPacket = (typeof ABG_PROJECT_READ_CONTRACTS)[keyof typeof ABG_PROJECT_READ_CONTRACTS];
+type AnyReadPacket = (typeof ABG_PROJECT_READ_CONTRACTS)[AbgProjectReadMemberKey];
 type AnyReadCallable = ExactDefinitionCallable<
   AnyReadPacket,
   AbgProjectReadResourceAssertion,
@@ -100,13 +100,12 @@ function exactReadCallable<TPacket extends AnyReadPacket>(
   return callable as unknown as ExactReadCallable<TPacket>;
 }
 
-type RunReadMemberKey = "run_status" | "run_result" | "run_replay" | "run_gaps" | "graph_call_result" | "graph_call_replay";
+type RunReadMemberKey = "run_status" | "run_result" | "run_replay" | "graph_call_result" | "graph_call_replay";
 
 const RUN_READ_MEMBER_KEYS = Object.freeze([
   "run_status",
   "run_result",
   "run_replay",
-  "run_gaps",
   "graph_call_result",
   "graph_call_replay",
 ] as const);
@@ -460,57 +459,6 @@ function replayProjection(
   };
 }
 
-function gapProjection(
-  memberKey: "workspace_gaps" | "run_gaps",
-  request: Readonly<Record<string, JsonValue>>,
-  value: Readonly<Record<string, JsonValue>>,
-): JsonValue {
-  const replay = replayCoordinate(value) ?? reference(
-    basisCoordinate(request).ref,
-    basisCoordinate(request).digest,
-  );
-  if (!Array.isArray(value.frontiers)) throw new TypeError("gap projection lacks admitted frontiers");
-  const frontiers = value.frontiers;
-  const gaps = frontiers.map(frontier => {
-    const row = asRecord(frontier);
-    const route = row === null ? null : coordinateFrom(row.route, ["ref"], ["digest"]);
-    if (route === null || (memberKey === "run_gaps" &&
-      (row!.run === undefined || !canonicalEquals(row!.run, sourceCoordinate(request))))) {
-      throw new TypeError("gap frontier crosses the selected source");
-    }
-    return route;
-  });
-  return {
-    ...nativeLivenessFields(value),
-    kind: memberKey === "workspace_gaps"
-      ? "workspace_gap_projection"
-      : "run_gap_projection",
-    subject: sourceCoordinate(request),
-    gaps,
-    frontiers,
-    replay,
-  };
-}
-
-function lawfulActionProjection(
-  request: Readonly<Record<string, JsonValue>>,
-  value: Readonly<Record<string, JsonValue>>,
-): JsonValue {
-  const replay = replayCoordinate(value);
-  if (replay === null) throw new TypeError("lawful-action projection lacks replay identity");
-  return {
-    ...nativeLivenessFields(value),
-    kind: "run_lawful_action_projection",
-    run: sourceCoordinate(request),
-    actions: coordinateSet(
-      value.lawfulActions,
-      ["projectionRef", "routeRef"],
-      ["projectionDigest", "routeDigest"],
-    ),
-    replay,
-  };
-}
-
 function projectValue(
   memberKey: AbgProjectReadMemberKey,
   request: Readonly<Record<string, JsonValue>>,
@@ -549,11 +497,6 @@ function projectValue(
     case "continuation_replay":
     case "c_call_replay":
       return replayProjection(memberKey, request, value);
-    case "workspace_gaps":
-    case "run_gaps":
-      return gapProjection(memberKey, request, value);
-    case "run_lawful_actions":
-      return lawfulActionProjection(request, value);
   }
 }
 
@@ -1000,12 +943,14 @@ function binding<TPacket extends AnyReadPacket>(
 }
 
 const legacyBindings = Object.fromEntries(
-  Object.entries(ABG_PROJECT_READ_CONTRACTS).flatMap(([memberKey, packet]) =>
-    RUN_READ_MEMBER_KEYS.includes(memberKey as RunReadMemberKey)
+  Object.keys(ABG_PROJECT_READ_CONTRACTS).flatMap((memberKey) =>
+    RUN_READ_MEMBER_KEYS.includes(memberKey as RunReadMemberKey) ||
+      memberKey === "run_gaps" || memberKey === "workspace_gaps" ||
+      memberKey === "run_lawful_actions"
       ? []
       : [[
           memberKey,
-          binding(packet, memberKey as AbgProjectReadMemberKey),
+          binding(ABG_PROJECT_READ_CONTRACTS[memberKey as AbgProjectReadMemberKey], memberKey as AbgProjectReadMemberKey),
         ]]
   ),
 ) as ExactReadBindings<Exclude<AbgProjectReadMemberKey, RunReadMemberKey>>;
@@ -1026,12 +971,6 @@ const RUN_READ_DEFINITION_BINDINGS = Object.freeze({
   run_replay: bindExactPrefixRead(
     ABG_PROJECT_READ_CONTRACTS.run_replay,
     runReadKernel(ABG_PROJECT_READ_CONTRACTS.run_replay),
-    PROJECT_READ_RESOURCE_ASSERTION_SCHEMA,
-    PROJECT_READ_RESOURCE_RECEIPT_SCHEMA,
-  ),
-  run_gaps: bindExactPrefixRead(
-    ABG_PROJECT_READ_CONTRACTS.run_gaps,
-    runReadKernel(ABG_PROJECT_READ_CONTRACTS.run_gaps),
     PROJECT_READ_RESOURCE_ASSERTION_SCHEMA,
     PROJECT_READ_RESOURCE_RECEIPT_SCHEMA,
   ),

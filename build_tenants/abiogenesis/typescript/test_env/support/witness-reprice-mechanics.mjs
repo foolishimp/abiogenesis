@@ -17,6 +17,7 @@ import {sha256Canonical as hash} from '../../build/code/src/shared/digests.js';
 import {admitExactDefinitionCall} from '../../build/code/src/public/binding/definition_binding_mechanics.js';
 import {runExactDefinition} from '../../build/code/src/shared/effect_definition.js';
 import {productInstallCoordinate} from '../../build/code/src/product/environment.js';
+import {ABI5_PRODUCT_ID} from '../../build/code/src/product/contracts.js';
 import {privateOwner} from './r10-private-owner-harness.mjs';
 import {canonicalJson} from '../../build/code/src/shared/canonical_json.js';
 
@@ -147,10 +148,14 @@ export async function witnessMechanics({faultNative=null,transactionFault=false,
   const verified={kind:'verified_product_artifact',schemaVersion,disposition:'verified',artifactRef:'artifact://mechanical/owner',artifactDigest:hash('artifact'),
     manifestDigest:hash(ownerManifest),...declaration.catalog,capabilityDefinitionGraph:declaration.graph,publicContracts:declaration.contracts};
   const install={...verified,kind:'product_install',installId:'install://mechanical/owner',admissionEventRef:seed.eventId};
+  // B24: the bound lock row is an injected mechanical premise for the same
+  // injected executing/verified owner, not an installed-Product observation.
+  // The actual resolvedLockMatchesExecutingToolchain comparison stays in use.
   let environment={kind:'exact_prefix_workspace_environment',schemaVersion,prefix:handoff.prefix,
     artifactTruth:{assumption:'injected exact admitted environment'},workspaceAuthorityBasis:{authorizedActorRef:actor.ref,authorityMode:'trusted_developer'},
     workspaceBinding:{bindingId:newW.ref,bindingDigest:newW.digest,authorizedActorRef:actor.ref,admissionEventRef:seed.eventId},
-    productInstalls:[install],resolvedProductLock:{lockId:'lock://mechanical/current',lockDigest:hash('current lock')},
+    productInstalls:[install],resolvedProductLock:{lockId:'lock://mechanical/current',lockDigest:hash('current lock'),
+      rows:[{productId:ABI5_PRODUCT_ID,productContentDigest:verified.productContentDigest}]},
     productSet:{productSetId:'product-set://mechanical/current',productSetDigest:hash('current set')}};
   let nativeCalls=0,observed=[],projectionOverride=null,invocation;
   const projection=(prefix,w)=>projectionOverride?.(prefix,w)??(prefix.coordinateDigest===environment.prefix.coordinateDigest&&w.ref===newW.ref&&w.digest===newW.digest?environment:{kind:'exact_prefix_workspace_environment_refusal'});

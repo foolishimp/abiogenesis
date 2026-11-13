@@ -45,9 +45,6 @@ export interface TraversalRouteBodySource {
   readonly replayStateDigest: `sha256:${string}` | null;
   readonly boundInput?: RawAdmittedValue<Readonly<Record<string, JsonValue>>>;
   readonly registeredSelectionApplicationRef?: string;
-  readonly nextActionProjectionRef?: string;
-  readonly nextActionProjectionDigest?: `sha256:${string}`;
-  readonly nextActionProjection?: Readonly<Record<string, JsonValue>>;
   readonly graphSpanReentryProjectionRef?: string;
   readonly graphSpanReentryProjectionDigest?: `sha256:${string}`;
   readonly graphSpanReentryProjection?: Readonly<Record<string, JsonValue>>;
@@ -131,11 +128,6 @@ function isExactTransitionEvidence(
 export function projectTraversalRouteBody(
   route: TraversalRouteBodySource,
 ): RouteCandidateBody | null {
-  const nextActionPresence = [
-    route.nextActionProjectionRef,
-    route.nextActionProjectionDigest,
-    route.nextActionProjection,
-  ].map((value) => value !== undefined);
   const graphSpanPresence = [
     route.graphSpanReentryProjectionRef,
     route.graphSpanReentryProjectionDigest,
@@ -146,7 +138,6 @@ export function projectTraversalRouteBody(
       (typeof route.registeredSelectionApplicationRef !== "string" || route.registeredSelectionApplicationRef.length === 0 || route.boundInput === undefined)) ||
     route.consumedAvailabilityRefs === null ||
     route.replayStateDigest === null ||
-    (nextActionPresence.some(Boolean) && !nextActionPresence.every(Boolean)) ||
     (graphSpanPresence.some(Boolean) && !graphSpanPresence.every(Boolean))
   ) return null;
   return {
@@ -164,13 +155,6 @@ export function projectTraversalRouteBody(
     consumedAvailabilityRefs: route.consumedAvailabilityRefs,
     contractRef: route.contractRef,
     replayStateDigest: route.replayStateDigest,
-    ...(route.nextActionProjectionRef === undefined
-      ? {}
-      : {
-          nextActionProjectionRef: route.nextActionProjectionRef,
-          nextActionProjectionDigest: route.nextActionProjectionDigest!,
-          nextActionProjection: route.nextActionProjection!,
-        }),
     ...(route.graphSpanReentryProjectionRef === undefined
       ? {}
       : {
@@ -194,12 +178,6 @@ export function routeCandidateBody(
     "sourceCursorDigest", "sourceCursorRef", "targetCursorDigest",
     "targetCursorRef",
   ];
-  const nextAction = Object.hasOwn(route, "nextActionProjectionRef")
-    ? [
-        "nextActionProjection", "nextActionProjectionDigest",
-        "nextActionProjectionRef",
-      ]
-    : [];
   const graphSpan = Object.hasOwn(route, "graphSpanReentryProjectionRef")
     ? [
         "graphSpanReentryProjection", "graphSpanReentryProjectionDigest",
@@ -208,7 +186,7 @@ export function routeCandidateBody(
     : [];
   if (!hasExactKeys(route, [
     "candidateDigest", "candidateRef", "kind", "schemaVersion",
-    ...required, ...nextAction, ...graphSpan, ...(Object.hasOwn(route, "registeredSelectionApplicationRef") ? ["registeredSelectionApplicationRef"] : []), ...(Object.hasOwn(route, "boundInput") ? ["boundInput"] : []),
+    ...required, ...graphSpan, ...(Object.hasOwn(route, "registeredSelectionApplicationRef") ? ["registeredSelectionApplicationRef"] : []), ...(Object.hasOwn(route, "boundInput") ? ["boundInput"] : []),
   ])) return null;
   return projectTraversalRouteBody(
     route as unknown as TraversalRouteBodySource,

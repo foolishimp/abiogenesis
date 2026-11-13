@@ -1,7 +1,6 @@
 import type { RuntimeEventPrefix } from "./event_prefix.js";
-import { onlyExactMatch } from "../shared/select/index.js";
 import type { RuntimeEventScan } from "./runtime_history.js";
-import { isConstructionContinuationKind, projectSelectedActionOperation, projectPendingExecutionOperation, continuationOperationWorkspaceCorresponds } from "./construction_continuation.js";
+import { isConstructionContinuationKind, projectPendingExecutionOperation } from "./construction_continuation.js";
 import { isRecord } from "../shared/admission_predicates.js";
 import type { Sha256Digest } from "../shared/digests.js";
 import { deepFreeze } from "../shared/immutable.js";
@@ -12,8 +11,7 @@ import {
   type ExactPrefixArtifactTruthProjectionRefusalCode,
 } from "./artifact_truth.js";
 import {
-  type DurablePrefixCoordinate,
-  type RuntimeEvent,
+  type DurablePrefixCoordinate
 } from "./event_store.js";
 import {
   indexedRuntimeEvents,
@@ -26,8 +24,7 @@ import {
   projectFhEffectfulPublicInvocationFacts,
 } from "./fh_continuation_projection.js";
 import {
-  projectExactRunInvocationFactsAtPrefix,
-  projectExactExecutionBasisAtPrefix, projectExactInvocationAdmissionAtPrefix,
+  projectExactRunInvocationFactsAtPrefix
 } from "./invocation_execution_truth.js";
 
 type ExplicitInvocationTruthPrefix =
@@ -207,40 +204,12 @@ export function projectEffectfulPublicInvocationTruthAtPrefix(
       continuationFacts.eventRefs,
     );
   }
-  // F_H claims every other run.continue operation and has no fact in 5.0; the
-  // construction-continuation owner validates each of its closed kinds. A
-  // kind-crossed (mixed-arm) payload fails its owner's projection and refuses
-  // the whole history.
-  const constructionIntentFact = (operation: RuntimeEvent): EffectfulPublicInvocationPriorAdmission | null => {
-    const p = operation.payload;
-    const bases = indexedRuntimeEvents(validatedPrefix, "construction-operation:" + operation.eventId).filter(e => e.kind === "basis_admitted" &&
-      isRecord(e.payload) && isRecord(e.payload.constructionContinuationUse) &&
-      e.payload.constructionContinuationUse.operationAdmissionEventRef === operation.eventId);
-    const basisMatch = onlyExactMatch(bases);
-    const basis = basisMatch.kind === "one" ? projectExactExecutionBasisAtPrefix(validatedPrefix, basisMatch.value.basisId!) : null;
-    const use = basis?.constructionContinuationUse;
-    const original = use === undefined ? null : projectExactExecutionBasisAtPrefix(validatedPrefix, use.sourceExecutionBasisRef);
-    const invocation = original === null ? null : projectExactInvocationAdmissionAtPrefix(validatedPrefix, original.invocationAdmissionRef);
-    if (!isRecord(p) || basis === null || use === undefined || original === null || invocation === null ||
-      !continuationOperationWorkspaceCorresponds(operation, invocation) ||
-      basis.invocationAdmissionRef !== original.invocationAdmissionRef || p.operationId !== "abg.operation.run.continue" ||
-      p.memberKey !== "current_intent" || p.continuationRef !== use.continuationRef || p.continuationDigest !== use.continuationDigest ||
-      p.currentIntentRef !== use.constructionIntentRef || p.currentIntentDigest !== use.constructionIntentDigest ||
-      p.authorityRef !== invocation.authorityRef || p.authorityDigest !== invocation.authorityDigest ||
-      typeof p.invocationRef !== "string" || typeof p.invocationDigest !== "string") return null;
-    return { operationId: "abg.operation.run.continue", publicInvocationRef: p.invocationRef,
-      ownerInvocationRef: p.invocationRef, ownerInvocationDigest: p.invocationDigest as Sha256Digest,
-      publicOperationEventRef: operation.eventId, admissionEventRef: basis.admissionEventRef };
-  };
-  const constructionOperations = (["construction_intent", "selected_action", "pending_execution"] as const)
-    .flatMap(kind => indexedRuntimeEvents(validatedPrefix, "public-continuation:" + kind))
-    .sort((left, right) => left.admissionOrdinal - right.admissionOrdinal);
-  for (const operation of constructionOperations.filter(e => e.kind === "public_operation_admitted" &&
+  // F_H refuses retired and unknown continuation operations. The pending
+  // owner validates the sole retained run.continue realization.
+  const pendingOperations = indexedRuntimeEvents(validatedPrefix, "public-continuation:pending_execution");
+  for (const operation of pendingOperations.filter(e => e.kind === "public_operation_admitted" &&
     isRecord(e.payload) && isConstructionContinuationKind(e.payload.continuationKind))) {
-    const kind = (operation.payload as Record<string, unknown>).continuationKind;
-    const fact = kind === "construction_intent" ? constructionIntentFact(operation)
-      : kind === "selected_action" ? projectSelectedActionOperation(validatedPrefix, operation)
-      : projectPendingExecutionOperation(validatedPrefix, operation);
+    const fact = projectPendingExecutionOperation(validatedPrefix, operation);
     if (fact === null) return invalidHistory(prefix, invocationRef, "invocation_pair_invalid", [operation.eventId]);
     facts.push(fact);
   }

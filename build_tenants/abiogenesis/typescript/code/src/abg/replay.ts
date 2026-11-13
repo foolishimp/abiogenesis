@@ -3,7 +3,6 @@ import { writeCanonicalJson } from "../shared/canonical_json.js";
 import type { RuntimeEventScan, RuntimeHistorySelection } from "./runtime_history.js";
 import { isOwnedRuntimeEventPrefix } from "./event_prefix.js";
 import type { RuntimeEventPrefix } from "./event_prefix.js";
-import { projectConstructionIntentContinuations, projectSelectedActionContinuations, type SelectedActionContinuation, type ConstructionIntentContinuation } from "./construction_continuation.js";
 import { projectObservedWorksiteCommandChildAtPrefix } from "./worksite_input_provenance.js";
 import { isObservedWorksiteCommandExecutionTask } from "../product/worksite_command_execution.js";
 import { projectRegisteredSelectionInputAtPrefix, registeredSelectionInputRelationVersion, registeredSelectionInputDependencyKeys } from "./registered_selection_provenance.js";
@@ -81,9 +80,7 @@ import {
   type ReplayContinuationState,
 } from "./continuation.js";
 import type {
-  ConstructionIntent,
   GraphSpanReentryProjection,
-  NextActionProjection,
   TraversalRouteKind,
 } from "./traversal_route.js";
 import { canonicalEquals, writeCanonicalRecord } from "../shared/value/index.js";
@@ -209,38 +206,9 @@ export type ReplayRouteState = {
   readonly consumedAvailabilityRefs: readonly string[] | null;
   readonly contractRef: string | null;
   readonly replayStateDigest: Sha256Digest | null;
-  readonly nextActionProjectionRef?: string;
-  readonly nextActionProjectionDigest?: Sha256Digest;
-  readonly nextActionProjection?: NextActionProjection;
   readonly graphSpanReentryProjectionRef?: string;
   readonly graphSpanReentryProjectionDigest?: Sha256Digest;
   readonly graphSpanReentryProjection?: GraphSpanReentryProjection;
-  readonly constructionIntentRef?: string;
-  readonly constructionIntentDigest?: Sha256Digest;
-  readonly constructionIntent?: ConstructionIntent;
-  readonly constructionIntentAdmissionEventRef?: string;
-  readonly admissionEventRef: string;
-};
-
-export type ReplayConstructionDeltaState = {
-  readonly deltaRef: string;
-  readonly deltaDigest: Sha256Digest;
-  readonly actionEvaluationAdmissionRef: string;
-  readonly actionEvaluationAdmissionDigest: Sha256Digest;
-  readonly actionEvaluationAdmission: Readonly<Record<string, JsonValue>>;
-  readonly actionEvaluation: Readonly<Record<string, JsonValue>>;
-  readonly constructionCompositionRef: string;
-  readonly constructionCompositionDigest: Sha256Digest;
-  readonly constructionIntentRef: string;
-  readonly constructionIntentDigest: Sha256Digest;
-  readonly targetOutcomeRef: string;
-  readonly edgeFulfillmentLedgerRef: string;
-  readonly edgeFulfillmentLedgerDigest: Sha256Digest;
-  readonly edgeClosureDecisionRef: string;
-  readonly edgeClosureDecisionDigest: Sha256Digest;
-  readonly edgeClosureDecision: Readonly<Record<string, JsonValue>>;
-  readonly semanticEvidenceAssetRefs: readonly string[];
-  readonly runtimeEvidenceEventRefs: readonly string[];
   readonly admissionEventRef: string;
 };
 
@@ -506,9 +474,9 @@ export type ReplayState = {
   readonly traversalCursorEventRef: string | null;
   readonly cCalls: readonly ReplayCCallState[];
   readonly routes: readonly ReplayRouteState[];
-  readonly constructionDeltas: readonly ReplayConstructionDeltaState[];
+  readonly constructionDeltas: readonly [];
   readonly fanOutCompletions: readonly FanOutCompletionAdmission[];
-  readonly continuations: readonly (ReplayContinuationState | ConstructionIntentContinuation | SelectedActionContinuation)[];
+  readonly continuations: readonly ReplayContinuationState[];
   readonly actorProcesses: readonly ReplayActorProcessState[];
   readonly currentWorksiteObservations: readonly ReplayCurrentWorksiteObservation[];
   readonly activeFluents: readonly string[];
@@ -525,7 +493,6 @@ export type ReplayState = {
     | "blocked"
     | "closed"
     | "failed"
-    | "gap_stopped"
     | "held"
     | "refused"
     | "stopped"
@@ -636,7 +603,6 @@ export function projectReplayRouteAtPrefix(
         routeKind !== "re_enter" &&
         routeKind !== "retry" &&
         routeKind !== "hold" &&
-        routeKind !== "gap_stop" &&
         routeKind !== "blocked" &&
         routeKind !== "failed" &&
         routeKind !== "terminal"
@@ -654,39 +620,6 @@ export function projectReplayRouteAtPrefix(
         "consumedAvailabilityRefs",
       );
       const replayStateDigest = stringField(event, "replayStateDigest");
-      const intentEvent = indexedRuntimeEvents(prefix, "kind:construction_intent_selected").find(
-        candidate => stringField(candidate, "routeRef") === routeRef);
-      const nextActionProjectionRef = stringField(
-        intentEvent ?? event,
-        "nextActionProjectionRef",
-      );
-      const nextActionProjectionDigest = stringField(
-        intentEvent ?? event,
-        "nextActionProjectionDigest",
-      );
-      const constructionIntentRef = stringField(
-        intentEvent ?? event,
-        "constructionIntentRef",
-      );
-      const constructionIntentDigest = stringField(
-        intentEvent ?? event,
-        "constructionIntentDigest",
-      );
-      const nextActionProjection =
-        intentEvent !== undefined &&
-            isRecord(intentEvent.payload) &&
-            isRecord(intentEvent.payload.nextActionProjection)
-          ? intentEvent.payload.nextActionProjection
-          : isRecord(event.payload) &&
-              isRecord(event.payload.nextActionProjection)
-            ? event.payload.nextActionProjection
-            : null;
-      const constructionIntent =
-        intentEvent !== undefined &&
-          isRecord(intentEvent.payload) &&
-          isRecord(intentEvent.payload.constructionIntent)
-          ? intentEvent.payload.constructionIntent
-          : null;
       const graphSpanReentryProjectionRef = stringField(
         event,
         "graphSpanReentryProjectionRef",
@@ -715,49 +648,17 @@ export function projectReplayRouteAtPrefix(
         (
           routeKind === "re_enter" &&
           (
-            graphSpanReentryValues.some((value) => value === null) ||
-            nextActionProjectionRef !== null ||
-            nextActionProjectionDigest !== null ||
-            nextActionProjection !== null ||
-            constructionIntentRef !== null ||
-            constructionIntentDigest !== null ||
-            constructionIntent !== null
+            graphSpanReentryValues.some((value) => value === null)
           )
         ) ||
         (
           routeKind !== "re_enter" &&
           graphSpanReentryValues.some((value) => value !== null)
         ) ||
-        (
-          routeKind !== "gap_stop" &&
-          [
-            nextActionProjectionRef,
-            nextActionProjectionDigest,
-            nextActionProjection,
-            constructionIntentRef,
-            constructionIntentDigest,
-            constructionIntent,
-          ].filter((value) => value !== null).length !== 0 &&
-          [
-            nextActionProjectionRef,
-            nextActionProjectionDigest,
-            nextActionProjection,
-            constructionIntentRef,
-            constructionIntentDigest,
-            constructionIntent,
-          ].some((value) => value === null)
-        ) ||
-        (
-          routeKind === "gap_stop" &&
-          (
-            nextActionProjectionRef === null ||
-            nextActionProjectionDigest === null ||
-            nextActionProjection === null ||
-            constructionIntentRef !== null ||
-            constructionIntentDigest !== null ||
-            constructionIntent !== null
-          )
-        )
+        (isRecord(event.payload) && [
+          "nextActionProjectionRef", "nextActionProjectionDigest", "nextActionProjection",
+          "constructionIntentRef", "constructionIntentDigest", "constructionIntent",
+        ].some((key) => Object.hasOwn(event.payload as object, key)))
       ) {
         throw new TypeError(`incomplete traversal route payload at ${event.eventId}`);
       }
@@ -800,27 +701,6 @@ export function projectReplayRouteAtPrefix(
         consumedAvailabilityRefs,
         contractRef: stringField(event, "contractRef"),
         replayStateDigest: replayStateDigest as Sha256Digest | null,
-        ...(nextActionProjectionRef === null
-          ? {}
-          : {
-              nextActionProjectionRef,
-              nextActionProjectionDigest:
-                nextActionProjectionDigest as Sha256Digest,
-              nextActionProjection:
-                nextActionProjection as unknown as NextActionProjection,
-              ...(intentEvent === undefined
-                ? {}
-                : {
-                    constructionIntentRef:
-                      constructionIntentRef as string,
-                    constructionIntentDigest:
-                      constructionIntentDigest as Sha256Digest,
-                    constructionIntent:
-                      constructionIntent as unknown as ConstructionIntent,
-                    constructionIntentAdmissionEventRef:
-                      intentEvent.eventId,
-                  }),
-            }),
         ...(graphSpanReentryProjectionRef === null
           ? {}
           : {
@@ -1026,140 +906,6 @@ function deriveReplayPrefixFacts(
     
   }
 
-  function projectReplayDelta(envelope: Omit<RuntimeEvent, "payload">): ReplayConstructionDeltaState {
-    
-      const event = runtimeEventAtPrefix(prefix, envelope.eventId)!;
-      const required = [
-        "deltaRef",
-        "deltaDigest",
-        "actionEvaluationAdmissionRef",
-        "actionEvaluationAdmissionDigest",
-        "constructionCompositionRef",
-        "constructionCompositionDigest",
-        "constructionIntentRef",
-        "constructionIntentDigest",
-        "targetOutcomeRef",
-        "edgeFulfillmentLedgerRef",
-        "edgeFulfillmentLedgerDigest",
-        "edgeClosureDecisionRef",
-        "edgeClosureDecisionDigest",
-      ] as const;
-      const values = Object.fromEntries(
-        required.map((key) => [key, stringField(event, key)]),
-      );
-      const semanticEvidenceAssetRefs = stringArrayField(
-        event,
-        "semanticEvidenceAssetRefs",
-      );
-      const runtimeEvidenceEventRefs = stringArrayField(
-        event,
-        "runtimeEvidenceEventRefs",
-      );
-      const actionEvaluationAdmission = isRecord(event.payload)
-        ? event.payload.actionEvaluationAdmission
-        : undefined;
-      const actionEvaluation = isRecord(event.payload)
-        ? event.payload.actionEvaluation
-        : undefined;
-      const edgeClosureDecision = isRecord(event.payload)
-        ? event.payload.edgeClosureDecision
-        : undefined;
-      if (
-        Object.values(values).some((value) => value === null) ||
-        semanticEvidenceAssetRefs === null ||
-        runtimeEvidenceEventRefs === null ||
-        !isRecord(actionEvaluationAdmission) ||
-        !isRecord(actionEvaluation) ||
-        !isRecord(edgeClosureDecision)
-      ) {
-        throw new TypeError(
-          `incomplete construction delta payload at ${event.eventId}`,
-        );
-      }
-      const {
-        kind,
-        schemaVersion,
-        actionEvaluationAdmissionRef,
-        actionEvaluationAdmissionDigest,
-        ...actionEvaluationAdmissionBody
-      } = actionEvaluationAdmission;
-      if (
-        kind !== "admitted_action_evaluation" ||
-        schemaVersion !== "5.0.0" ||
-        actionEvaluationAdmissionRef !==
-          values.actionEvaluationAdmissionRef ||
-        actionEvaluationAdmissionDigest !==
-          values.actionEvaluationAdmissionDigest ||
-        sha256Canonical(actionEvaluationAdmissionBody) !==
-          values.actionEvaluationAdmissionDigest ||
-        actionEvaluationAdmissionBody.constructionCompositionRef !==
-          values.constructionCompositionRef ||
-        actionEvaluationAdmissionBody.constructionCompositionDigest !==
-          values.constructionCompositionDigest ||
-        actionEvaluationAdmissionBody.constructionIntentRef !==
-          values.constructionIntentRef ||
-        actionEvaluationAdmissionBody.constructionIntentDigest !==
-          values.constructionIntentDigest ||
-        actionEvaluationAdmissionBody.edgeFulfillmentLedgerRef !==
-          values.edgeFulfillmentLedgerRef ||
-        actionEvaluationAdmissionBody.edgeFulfillmentLedgerDigest !==
-          values.edgeFulfillmentLedgerDigest ||
-        actionEvaluationAdmissionBody.edgeClosureDecisionRef !==
-          values.edgeClosureDecisionRef ||
-        actionEvaluationAdmissionBody.edgeClosureDecisionDigest !==
-          values.edgeClosureDecisionDigest ||
-        actionEvaluationAdmissionBody.workspaceBindingId !==
-          stringField(event, "workspaceBindingId") ||
-        actionEvaluationAdmissionBody.workspaceBindingDigest !==
-          stringField(event, "workspaceBindingDigest") ||
-        JSON.stringify(actionEvaluationAdmissionBody.semanticEvidenceAssetRefs) !==
-          JSON.stringify(semanticEvidenceAssetRefs) ||
-        JSON.stringify(actionEvaluationAdmissionBody.runtimeEvidenceEventRefs) !==
-          JSON.stringify(runtimeEvidenceEventRefs) ||
-        actionEvaluation.actionEvaluationRef !==
-          actionEvaluationAdmissionBody.actionEvaluationRef ||
-        actionEvaluation.actionEvaluationDigest !==
-          actionEvaluationAdmissionBody.actionEvaluationDigest ||
-        edgeClosureDecision.decisionRef !==
-          values.edgeClosureDecisionRef ||
-        edgeClosureDecision.decisionDigest !==
-          values.edgeClosureDecisionDigest
-      ) {
-        throw new TypeError(
-          `invalid action-evaluation admission at ${event.eventId}`,
-        );
-      }
-      return {
-        deltaRef: values.deltaRef!,
-        deltaDigest: values.deltaDigest! as Sha256Digest,
-        actionEvaluationAdmissionRef:
-          values.actionEvaluationAdmissionRef!,
-        actionEvaluationAdmissionDigest:
-          values.actionEvaluationAdmissionDigest! as Sha256Digest,
-        actionEvaluationAdmission,
-        actionEvaluation,
-        constructionCompositionRef:
-          values.constructionCompositionRef!,
-        constructionCompositionDigest:
-          values.constructionCompositionDigest! as Sha256Digest,
-        constructionIntentRef: values.constructionIntentRef!,
-        constructionIntentDigest:
-          values.constructionIntentDigest! as Sha256Digest,
-        targetOutcomeRef: values.targetOutcomeRef!,
-        edgeFulfillmentLedgerRef: values.edgeFulfillmentLedgerRef!,
-        edgeFulfillmentLedgerDigest:
-          values.edgeFulfillmentLedgerDigest! as Sha256Digest,
-        edgeClosureDecisionRef: values.edgeClosureDecisionRef!,
-        edgeClosureDecisionDigest:
-          values.edgeClosureDecisionDigest! as Sha256Digest,
-        edgeClosureDecision,
-        semanticEvidenceAssetRefs,
-        runtimeEvidenceEventRefs,
-        admissionEventRef: event.eventId,
-      };
-    
-  }
-
   const cCallIds = new Set<string>();
   for (const event of indexedRuntimeEventEnvelopes(prefix, "type:c_call")) cCallIds.add(event.aggregateId);
   const cCalls: ReplayCCallState[] = [];
@@ -1183,7 +929,6 @@ function deriveReplayPrefixFacts(
     if (!owned) {
       const event = runtimeEventAtPrefix(prefix, envelope.eventId)!;
       projected = facts.fact("route:" + event.eventId,
-        String(indexedRuntimeEvents(prefix, "payload:routeRef:" + stringField(event, "routeRef")).filter(candidate => candidate.kind === "construction_intent_selected").at(-1)?.admissionOrdinal ?? 0) + ":" +
         (isRecord(event.payload) && event.payload.boundInput !== undefined ? retainedWorksiteInputRelationVersion(authorityPrefix, event) + registeredSelectionInputRelationVersion(authorityPrefix, event) : ""),
         () => projectReplayRouteAtPrefix(prefix, event, authorityPrefix),
         isRecord(event.payload) && event.payload.boundInput !== undefined ? authority : undefined);
@@ -1224,13 +969,8 @@ function deriveReplayPrefixFacts(
     if (complete && projected !== undefined) fanOutCompletions.push(projected);
     else if (keepFacts) fanOutFacts.push([envelope, projected]);
   }
-  const constructionDeltas: ReplayConstructionDeltaState[] = [];
-  const deltaFacts: (readonly [Omit<RuntimeEvent, "payload">, ReplayConstructionDeltaState | undefined])[] = [];
-  for (const envelope of indexedRuntimeEventEnvelopes(prefix, "kind:construction_delta_observed")) {
-    const projected = facts.fact("delta:" + envelope.eventId, envelope.eventId, () => projectReplayDelta(envelope), undefined, complete);
-    if (complete && projected !== undefined) constructionDeltas.push(projected);
-    else if (keepFacts) deltaFacts.push([envelope, projected]);
-  }
+  // This empty vector is part of every retained replay digest.
+  const constructionDeltas = [] as const;
 
   const actorFacts = projectRuntimeActorProcessFactsAtPrefix(prefix);
   const actorProcesses = routeOnly === undefined ? actorFacts : [];
@@ -1292,10 +1032,7 @@ function deriveReplayPrefixFacts(
 
   const runOpen = indexedRuntimeEvents(prefix, "kind:run_segment_opened")[0];
   const fhContinuations = projectFhContinuations(prefix, eventCalculus);
-  const intentContinuations = projectConstructionIntentContinuations(authorityPrefix, runOpen?.runId ?? "");
-  const selectedContinuations = projectSelectedActionContinuations(authorityPrefix, runOpen?.runId ?? "");
-  const continuations = routeOnly === undefined
-    ? [...fhContinuations, ...intentContinuations, ...selectedContinuations] : [];
+  const continuations = routeOnly === undefined ? fhContinuations : [];
   const graphCallOpen = indexedRuntimeEvents(prefix, "kind:graph_call_opened").find(
     (event) =>
       event.kind === "graph_call_opened" &&
@@ -1444,9 +1181,7 @@ function deriveReplayPrefixFacts(
       : runClosed !== undefined
         ? "closed" as const
         : runTerminalHeld
-          ? runStoppedDisposition === "gap_stop"
-            ? "gap_stopped" as const
-            : runStoppedDisposition === "blocked"
+          ? runStoppedDisposition === "blocked"
               ? "blocked" as const
               : runStoppedDisposition === "failed"
                 ? "failed" as const
@@ -1480,9 +1215,7 @@ function deriveReplayPrefixFacts(
     fanOutCompletions: function* () {
       for (const [envelope, projected] of fanOutFacts) yield projected ?? projectReplayFanOut(envelope);
     },
-    constructionDeltas: function* () {
-      for (const [envelope, projected] of deltaFacts) yield projected ?? projectReplayDelta(envelope);
-    },
+    constructionDeltas: function* () {},
   };
   const replayDigest = output?.guard.replayDigest ?? digestReplayBody(body, selected);
   if (output !== undefined) writeReplayBody({ kind: "replay_state", schemaVersion: "5.0.0",
@@ -1586,10 +1319,6 @@ const EVENT_TYPED_REFERENCE_PATHS: Partial<
     path: ["payload", "causationEventRefs", "*"],
     optional: true,
   }],
-  invocation_admitted: [
-    { path: ["payload", "reentryBasis", "sourceRouteEventRef"], optional: true },
-    { path: ["payload", "reentryBasis", "sourceRunStoppedEventRef"], optional: true },
-  ],
   actor_invocation_closed: [
     { path: ["payload", "consumedArtifactEventRef"], optional: true, nullable: true },
     { path: ["payload", "consumedStdoutEventRefs", "*"], optional: true },
@@ -1617,11 +1346,6 @@ const EVENT_TYPED_REFERENCE_PATHS: Partial<
   child_foldback_admitted: [{
     path: ["payload", "childTerminalEventRef"],
   }],
-  construction_delta_observed: [
-    { path: ["payload", "runtimeEvidenceEventRefs", "*"] },
-    { path: ["payload", "actionEvaluationAdmission", "runtimeEvidenceEventRefs", "*"] },
-    { path: ["payload", "actionEvaluation", "runtimeArchiveInspection", "runtimeEvidenceEventRefs", "*"], optional: true },
-  ],
   fh_interaction_opened: [
     { path: ["payload", "causedByEventRef"] },
     { path: ["payload", "cCall", "openedEventRef"] },
@@ -1725,10 +1449,6 @@ function relationEdges(
             `run semantic relation requires one string event reference at ${reference.relation}`,
           );
         }
-        // This exact historical intent is an admitted owner fact, not a
-        // current-Run event atom or a permitted cross-Run envelope cause.
-        if (spec.path[0] === "payload" && reference.value ===
-          continuedIntentReference(event, continuations)) continue;
         const targetAtom = correspondence.get(reference.value);
         if (targetAtom === undefined) {
           throw new TypeError(
@@ -1750,7 +1470,6 @@ function replaceClosedTypedReferences(
   path: readonly ClosedPathSegment[],
   correspondence: ReadonlyMap<string, string>,
   fullEventIds: Pick<ReadonlySet<string>, "has">,
-  externalIntentRef: string | undefined,
   depth = 0,
   relation = "payload",
 ): JsonValue | undefined {
@@ -1761,7 +1480,6 @@ function replaceClosedTypedReferences(
         `run semantic relation requires one string event reference at ${relation}`,
       );
     }
-    if (current === externalIntentRef) return current;
     const atom = correspondence.get(current);
     if (atom === undefined) {
       throw new TypeError(
@@ -1789,7 +1507,6 @@ function replaceClosedTypedReferences(
         path,
         correspondence,
         fullEventIds,
-        externalIntentRef,
         depth + 1,
         `${relation}[${index}]`,
       )!
@@ -1817,31 +1534,16 @@ function replaceClosedTypedReferences(
       path,
       correspondence,
       fullEventIds,
-      externalIntentRef,
       depth + 1,
       `${relation}.${segment}`,
     )!,
   };
 }
 
-/** Reuse the continuation owner's already-validated original-intent/current
- * parent relation. No other old Run reference becomes local replay evidence. */
-function continuedIntentReference(event: RuntimeEvent,
-  continuations: ReplayState["continuations"]): string | undefined {
-  if (event.kind !== "construction_delta_observed" || !isSemanticRecord(event.payload)) return undefined;
-  const payload = event.payload;
-  const continuation = continuations.find(row => row.continuationKind === "construction_intent" &&
-    row.predecessorContinuationRef !== undefined && row.runId === event.runId &&
-    row.parentExecutionBasisRef === event.basisId && row.continuationRef === payload.continuationRef &&
-    row.constructionIntentRef === payload.constructionIntentRef && row.terminalEventRef === event.eventId);
-  return continuation?.continuationKind === "construction_intent" ? continuation.intentAdmissionEventRef : undefined;
-}
-
 function semanticPayloadDigest(
   event: RuntimeEvent,
   correspondence: ReadonlyMap<string, string>,
   fullEventIds: Pick<ReadonlySet<string>, "has">,
-  externalIntentRef?: string,
 ): Sha256Digest {
   let payload = event.payload;
   for (const spec of typedReferencePathsForEvent(event)) {
@@ -1854,7 +1556,6 @@ function semanticPayloadDigest(
       spec.path.slice(1),
       correspondence,
       fullEventIds,
-      externalIntentRef,
     )!;
   }
   return sha256Canonical(payload);
@@ -1922,7 +1623,7 @@ function projectOwnerFacts(
   prefix: RuntimeEventPrefix,
   authorityPrefix: RuntimeEventPrefix,
   replayState: ReplayState,
-  continuations: readonly (ReplayContinuationState | ConstructionIntentContinuation | SelectedActionContinuation)[],
+  continuations: readonly ReplayContinuationState[],
   correspondence: ReadonlyMap<string, string>,
   currentOwnerPrefix?: DurablePrefixCoordinate,
 ): readonly Readonly<Record<string, JsonValue>>[] {
@@ -2038,7 +1739,7 @@ function projectOwnerFacts(
     } }),
   }));
   const continuationFacts = continuations.map((continuation) => ({
-    owner: continuation.continuationKind === "fh_interaction" ? "fh_continuation" : "construction_continuation",
+    owner: "fh_continuation",
     ownerAtom: requiredAtom(
       continuation.openedEventRef,
       correspondence,
@@ -2046,11 +1747,8 @@ function projectOwnerFacts(
     ),
     continuationRef: continuation.continuationRef,
     cCallRef: continuation.cCallRef,
-    ...(continuation.continuationKind === "fh_interaction" ? { requestContractRef: continuation.requestContractRef,
-      responseContractRef: continuation.responseContractRef } : {
-        causedByEventRef: continuation.causedByEventRef,
-        intentAdmissionEventRef: continuation.intentAdmissionEventRef,
-      }),
+    requestContractRef: continuation.requestContractRef,
+    responseContractRef: continuation.responseContractRef,
     constructionIntentRef: continuation.constructionIntentRef,
     status: continuation.status,
   }));
@@ -2071,17 +1769,6 @@ function projectOwnerFacts(
           completion.stoppingRow.ordinal,
         ],
   }));
-  const deltas = replayState.constructionDeltas.map((delta) => ({
-    owner: "construction_delta",
-    ownerAtom: requiredAtom(
-      delta.admissionEventRef,
-      correspondence,
-      "construction_delta",
-    ),
-    constructionIntentRef: delta.constructionIntentRef,
-    targetOutcomeRef: delta.targetOutcomeRef,
-    semanticEvidenceAssetRefs: delta.semanticEvidenceAssetRefs,
-  }));
   return Object.freeze([
     ...sourceResults,
     ...runEnvironments,
@@ -2091,7 +1778,6 @@ function projectOwnerFacts(
     ...routes,
     ...continuationFacts,
     ...fanOut,
-    ...deltas,
   ]);
 }
 
@@ -2208,7 +1894,6 @@ function projectRunSemanticReplay(
       event,
       correspondence,
       fullEventIds,
-      continuedIntentReference(event, continuations),
     ),
     eventTime: event.eventTime,
     correlationId: event.correlationId,

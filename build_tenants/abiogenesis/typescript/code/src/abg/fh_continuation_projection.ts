@@ -46,8 +46,8 @@ export type ReplayContinuationState = {
   readonly requestDigest: Sha256Digest;
   readonly heldCursorRef: string;
   readonly heldCursorDigest: Sha256Digest;
-  readonly constructionIntentRef: string | null;
-  readonly constructionIntentDigest: Sha256Digest | null;
+  readonly constructionIntentRef: null;
+  readonly constructionIntentDigest: null;
   readonly responseRef: null;
   readonly responseDigest: null;
   readonly responseValue: null;
@@ -98,8 +98,6 @@ function exactOpenedBasis(
   requestDigest: Sha256Digest;
     judgmentRef: string;
     continuationDigest: Sha256Digest;
-    constructionIntentRef: string | null;
-    constructionIntentDigest: Sha256Digest | null;
 }> | null {
   if (
     !isRecord(opened.payload) || !isRecord(opened.payload.cCall) ||
@@ -125,11 +123,6 @@ function exactOpenedBasis(
   const holdRoute = holdRoutes[0];
   const heldCursor = openedPayload.heldCursor as unknown as TraversalCursorCandidate;
   const openedScope = opened.payload.openedTraversalScope;
-  const constructionIntentRef = stringField(opened, "constructionIntentRef");
-  const constructionIntentDigest = digestField(
-    opened,
-    "constructionIntentDigest",
-  );
   if (opened.runId === undefined || opened.graphCallId === undefined || opened.frameId === undefined ||
       openedPayload.executionBasisRef === undefined) return null;
   const identity = {
@@ -145,7 +138,7 @@ function exactOpenedBasis(
     actorCapabilityRef: pending.cCall.actorCapabilityRef,
     responseContractRef: pending.cCall.responseContractRef,
     executionBasisRef: openedPayload.executionBasisRef,
-    constructionIntentRef,
+    constructionIntentRef: null,
   };
   const continuationDigest = sha256Canonical(identity);
   const exactContinuationRef =
@@ -197,7 +190,8 @@ function exactOpenedBasis(
     openedPayload.inputDigest !== heldCursor.inputDigest ||
     !isRecord(openedPayload.inputValue) ||
     sha256Canonical(openedPayload.inputValue) !== openedPayload.inputDigest ||
-    (constructionIntentRef === null) !== (constructionIntentDigest === null) ||
+    openedPayload.constructionIntentRef != null ||
+    openedPayload.constructionIntentDigest != null ||
     holdRoute.workflowVersion !== "5.0.0" ||
     holdRoute.scopeClass !== "run" ||
     holdRoute.aggregateType !== "frame" ||
@@ -228,8 +222,6 @@ function exactOpenedBasis(
     requestDigest: pending.requestDigest,
     judgmentRef: pending.judgment.judgmentRef,
     continuationDigest,
-    constructionIntentRef,
-    constructionIntentDigest,
   };
 }
 
@@ -294,8 +286,8 @@ export function projectFhContinuations(
       requestDigest: openedBasis.requestDigest,
       heldCursorRef,
       heldCursorDigest,
-      constructionIntentRef: openedBasis.constructionIntentRef,
-      constructionIntentDigest: openedBasis.constructionIntentDigest,
+      constructionIntentRef: null,
+      constructionIntentDigest: null,
       responseRef: null,
       responseDigest: null,
       responseValue: null,

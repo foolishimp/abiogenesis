@@ -404,7 +404,7 @@ test("closed typed Event Calculus law refuses missing, duplicate, malformed, and
   assert.equal(Object.isFrozen(pureProjection.effectRows[0].sourceEvent), true);
 });
 
-test("historical traversal-route projection ignores later construction enrichment and still refuses a forged admission body", async () => {
+test("historical traversal-route projection preserves the admitted body and refuses a forged admission", async () => {
   const routeApi = await import(
     `${pathToFileURL(join(root, "build/code/src/abg/traversal_route.js")).href}?historical-route=${Date.now()}`
   );
@@ -452,43 +452,9 @@ test("historical traversal-route projection ignores later construction enrichmen
     admissionOrdinal: 1,
     payloadDigest: sha256Canonical({ routeRef, routeDigest, ...routeBody }),
   });
-  const nextActionProjection = {
-    kind: "next_action_projection",
-    schemaVersion: "5.0.0",
-    disposition: "selected",
-  };
-  const constructionIntent = {
-    kind: "construction_intent",
-    schemaVersion: "5.0.0",
-    actionKind: "invoke_graph_function",
-  };
-  const enrichmentEvent = deeplyFreeze({
-    ...routeEvent,
-    kind: "construction_intent_selected",
-    causationEventRefs: [routeEvent.eventId],
-    correlationId: "correlation://historical-route/enrich",
-    payload: {
-      routeRef,
-      nextActionProjectionRef: "next-action-projection://historical-route",
-      nextActionProjectionDigest: sha256Canonical(nextActionProjection),
-      nextActionProjection,
-      constructionIntentRef: "construction-intent://historical-route",
-      constructionIntentDigest: sha256Canonical(constructionIntent),
-      constructionIntent,
-    },
-    eventId: "event://historical-route/enriched",
-    admissionOrdinal: 2,
-    payloadDigest: sha256Canonical({ routeRef, constructionIntent }),
-  });
-  const fullPrefix = prefixApi.selectValidatedRuntimeEventPrefix(
-    deeplyFreeze([routeEvent, enrichmentEvent]),
-  );
-  const enrichedReplayRoute = replayApi
-    .replayValidatedRuntimeEventPrefix(fullPrefix).routes[0];
-  assert.equal(
-    enrichedReplayRoute.nextActionProjectionRef,
-    enrichmentEvent.payload.nextActionProjectionRef,
-  );
+  const fullPrefix = prefixApi.selectValidatedRuntimeEventPrefix(deeplyFreeze([routeEvent]));
+  const replayRoute = replayApi.replayValidatedRuntimeEventPrefix(fullPrefix).routes[0];
+  assert.equal(Object.hasOwn(replayRoute, "nextActionProjectionRef"), false);
   const projected = routeApi.projectHistoricalTraversalRouteAtPrefix(
     fullPrefix,
     routeEvent.eventId,
@@ -507,7 +473,7 @@ test("historical traversal-route projection ignores later construction enrichmen
     },
   });
   const forgedPrefix = prefixApi.selectValidatedRuntimeEventPrefix(
-    deeplyFreeze([forgedRouteEvent, enrichmentEvent]),
+    deeplyFreeze([forgedRouteEvent]),
   );
   assert.equal(
     routeApi.projectHistoricalTraversalRouteAtPrefix(

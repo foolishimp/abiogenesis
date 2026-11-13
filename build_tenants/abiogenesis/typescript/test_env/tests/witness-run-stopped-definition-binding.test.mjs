@@ -28,6 +28,18 @@ function assertReleased(h,before){
   assert.equal(reopened.kind,'acquired_abg_event_resource');resources.closeAbgEventResource(reopened.resource,reopened.resource.entryPrefix);
 }
 
+for(const variant of ['absent ABI row','different bound Product digest']) test(`the real executing-binding guard refuses ${variant} before a mechanical stop grant or append`,async()=>{
+  const h=await witnessMechanics({operatorRun:true}),before=bytes(h),lock=h.environment.resolvedProductLock;
+  const rows=variant==='absent ABI row'?[]:lock.rows.map(row=>({...row,productContentDigest:hash('another Product content')}));
+  h.setProjection(()=>({...h.environment,resolvedProductLock:{...lock,rows}}));
+  await assert.rejects(()=>call(h),error=>{
+    assert.ok(error instanceof TypeError);
+    assert.equal(error.message,'admission requires the exact admitted prefix environment');
+    return true;
+  });
+  assert.equal(h.nativeCalls,0);assertReleased(h,before);
+});
+
 test('current Public run_status supplies the same Run and route-grade basis to stop; cold replay preserves the result',async()=>{
   const h=await witnessMechanics({operatorRun:true}),before=bytes(h),status=h.publicStatus(h.handoff.prefix),stopRequest=request(h);
   assert.notEqual(status.source.digest,h.nativeOperatorRun.digest,'Public semantic opening digest differs from the native Run-body digest');

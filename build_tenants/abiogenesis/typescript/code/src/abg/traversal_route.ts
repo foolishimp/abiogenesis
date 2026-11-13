@@ -136,7 +136,6 @@ export type TraversalRouteKind =
   | "re_enter"
   | "retry"
   | "hold"
-  | "gap_stop"
   | "blocked"
   | "failed"
   | "terminal";
@@ -160,9 +159,6 @@ export type RouteCandidate = {
   readonly replayStateDigest: Sha256Digest;
   readonly boundInput?: RawAdmittedValue<Readonly<Record<string, JsonValue>>>;
   readonly registeredSelectionApplicationRef?: string;
-  readonly nextActionProjectionRef?: string;
-  readonly nextActionProjectionDigest?: Sha256Digest;
-  readonly nextActionProjection?: Readonly<Record<string, JsonValue>>;
   readonly graphSpanReentryProjectionRef?: string;
   readonly graphSpanReentryProjectionDigest?: Sha256Digest;
   readonly graphSpanReentryProjection?: Readonly<Record<string, JsonValue>>;
@@ -186,16 +182,10 @@ export type AdmittedRoute = {
   readonly consumedAvailabilityRefs: readonly string[];
   readonly contractRef: string | null;
   readonly replayStateDigest: Sha256Digest;
-  readonly constructionIntentRef: string | null;
-  readonly constructionIntentDigest: Sha256Digest | null;
-  readonly constructionIntentAdmissionEventRef: string | null;
   readonly admissionEventRef: string;
   readonly runStoppedEventRef: string | null;
   readonly boundInput?: RawAdmittedValue<Readonly<Record<string, JsonValue>>>;
   readonly registeredSelectionApplicationRef?: string;
-  readonly nextActionProjectionRef?: string;
-  readonly nextActionProjectionDigest?: Sha256Digest;
-  readonly nextActionProjection?: NextActionProjection;
   readonly graphSpanReentryProjectionRef?: string;
   readonly graphSpanReentryProjectionDigest?: Sha256Digest;
   readonly graphSpanReentryProjection?: GraphSpanReentryProjection;
@@ -214,126 +204,6 @@ export type GraphSpanReentryProjection = {
   readonly targetInputRef: string;
   readonly targetInputDigest: Sha256Digest;
   readonly targetInput: Readonly<Record<string, JsonValue>>;
-};
-
-export type SelectedNextActionProjection = {
-  readonly kind: "next_action_projection";
-  readonly schemaVersion: "5.0.0";
-  readonly disposition: "selected";
-  readonly projectionRef: string;
-  readonly projectionDigest: Sha256Digest;
-  readonly targetOutcomeRef: string;
-  readonly selectedActionRef: string;
-  readonly actionKind: string;
-  readonly programRef: string;
-  readonly graphFunctionRef: string;
-  readonly targetProgramLocusRef: string;
-  readonly targetObligationRefs: readonly string[];
-  readonly targetObligationBindings: readonly Readonly<
-    Record<string, JsonValue>
-  >[];
-  readonly priorityProjection: Readonly<Record<string, JsonValue>>;
-  readonly inputAssetRefs: readonly string[];
-  readonly outputAssetRefs: readonly string[];
-  readonly gapRef: string;
-  readonly expectedDeltaRef: string;
-  readonly progressConditionRef: string;
-  readonly stopConditionRef: string;
-  readonly lawfulBasisRefs: readonly string[];
-  readonly rejectedAlternativeRefs: readonly string[];
-  readonly nextActionBasisRef: string;
-  readonly nextActionBasisDigest: Sha256Digest;
-};
-
-export type NoActionNextActionProjection = {
-  readonly kind: "next_action_projection";
-  readonly schemaVersion: "5.0.0";
-  readonly disposition: "no_action";
-  readonly noActionDisposition: NoActionDisposition;
-  readonly projectionRef: string;
-  readonly projectionDigest: Sha256Digest;
-  readonly targetOutcomeRef: string;
-  readonly programRef: string;
-  readonly gapRef: string;
-  readonly targetObligationRefs: readonly string[];
-  readonly targetObligationBindings: readonly Readonly<
-    Record<string, JsonValue>
-  >[];
-  readonly priorityProjection: Readonly<Record<string, JsonValue>>;
-  readonly missingAssetRefs: readonly string[];
-  readonly reasonRef: string;
-  readonly lawfulBasisRefs: readonly string[];
-  readonly rejectedActionRefs: readonly string[];
-  readonly nextActionBasisRef: string;
-  readonly nextActionBasisDigest: Sha256Digest;
-};
-
-export type NoActionDisposition =
-  | "gap_stop"
-  | "reprice_required"
-  | "repair"
-  | "inspect_runtime_archive"
-  | "reprice"
-  | "escalate";
-
-export type NextActionProjection =
-  | NoActionNextActionProjection
-  | SelectedNextActionProjection;
-
-export type ConstructionIntent = {
-  readonly kind: "construction_intent";
-  readonly schemaVersion: "5.0.0";
-  readonly disposition: "admitted";
-  readonly constructionIntentRef: string;
-  readonly constructionIntentDigest: Sha256Digest;
-  readonly nextActionProjectionRef: string;
-  readonly nextActionProjectionDigest: Sha256Digest;
-  readonly nextActionBasisRef: string;
-  readonly nextActionBasisDigest: Sha256Digest;
-  readonly targetOutcomeRef: string;
-  readonly selectedActionRef: string;
-  readonly actionKind: string;
-  readonly selectedGraphFunctionRef: string;
-  readonly targetProgramLocusRef: string;
-  readonly targetInputRef: string | null;
-  readonly targetInputDigest: Sha256Digest | null;
-  readonly targetInput: Readonly<Record<string, JsonValue>> | null;
-  readonly targetObligationRefs: readonly string[];
-  readonly inputAssetRefs: readonly string[];
-  readonly outputAssetRefs: readonly string[];
-  readonly expectedDeltaRef: string;
-  readonly progressConditionRef: string;
-  readonly stopConditionRef: string;
-  readonly actionCatalogRef: string;
-  readonly actionCatalogDigest: Sha256Digest;
-  readonly actionCatalogRowDigest: Sha256Digest;
-  readonly constructionCompositionRef: string;
-  readonly constructionCompositionDigest: Sha256Digest;
-  readonly nextActionAuthorityRef: string;
-  readonly workspaceBindingId: string;
-  readonly workspaceBindingDigest: Sha256Digest;
-  readonly invocationAdmissionRef: string;
-  readonly invocationRef: string;
-  readonly invocationDigest: Sha256Digest;
-  readonly programRef: string;
-  readonly programDigest: Sha256Digest;
-  readonly graphFunctionRef: string;
-  readonly graphFunctionDigest: Sha256Digest;
-  readonly executionBasisRef: string;
-  readonly executionBasisDigest: Sha256Digest;
-  readonly runId: string;
-  readonly graphCallId: string;
-  readonly frameId: string;
-  readonly sourceCCallRef: string;
-  readonly sourceResultRef: string;
-  readonly sourceResultDigest: Sha256Digest;
-  readonly sourceJudgmentRef: string;
-  readonly targetCursorRef: string;
-  readonly targetCursorDigest: Sha256Digest;
-};
-
-export type ConstructionIntentAdmission = ConstructionIntent & {
-  readonly admissionEventRef: string;
 };
 
 export type RouteAdmissionRefusal = {
@@ -453,9 +323,6 @@ export type HistoricalTraversalRouteProjection = {
   readonly materializationRef: string;
   readonly boundInput?: RawAdmittedValue<Readonly<Record<string, JsonValue>>>;
   readonly registeredSelectionApplicationRef?: string;
-  readonly nextActionProjectionRef?: string;
-  readonly nextActionProjectionDigest?: Sha256Digest;
-  readonly nextActionProjection?: NextActionProjection;
   readonly graphSpanReentryProjectionRef?: string;
   readonly graphSpanReentryProjectionDigest?: Sha256Digest;
   readonly graphSpanReentryProjection?: GraphSpanReentryProjection;
@@ -603,13 +470,6 @@ function projectHistoricalTraversalRoute(
     frameId: event.frameId!,
     executionBasisRef: event.basisId!,
     materializationRef: event.materializationRef!,
-    ...(projected.nextActionProjectionRef === undefined
-      ? {}
-      : {
-          nextActionProjectionRef: projected.nextActionProjectionRef,
-          nextActionProjectionDigest: projected.nextActionProjectionDigest!,
-          nextActionProjection: projected.nextActionProjection!,
-        }),
     ...(projected.graphSpanReentryProjectionRef === undefined
       ? {}
       : {
@@ -684,12 +544,6 @@ function projectAdmittedRoute(
   );
   if (projected === null) return null;
   runtimeEventBodiesAtPrefix(prefix);
-  const constructionIntentEvent = indexedRuntimeEvents(prefix, "payload:routeRef:" + projected.routeRef).find((event) =>
-    event.kind === "construction_intent_selected" &&
-    event.causationEventRefs.includes(projected.admissionEventRef) &&
-    isRecord(event.payload) &&
-    event.payload.routeRef === projected.routeRef
-  );
   const runStoppedEvent = indexedRuntimeEvents(prefix, "payload:routeRef:" + projected.routeRef).find((event) =>
     event.kind === "run_stopped" &&
     event.causationEventRefs.includes(projected.admissionEventRef) &&
@@ -716,31 +570,8 @@ function projectAdmittedRoute(
     consumedAvailabilityRefs: projected.consumedAvailabilityRefs,
     contractRef: projected.contractRef,
     replayStateDigest: projected.replayStateDigest,
-    constructionIntentRef:
-      constructionIntentEvent !== undefined &&
-        isRecord(constructionIntentEvent.payload) &&
-        typeof constructionIntentEvent.payload.constructionIntentRef ===
-          "string"
-        ? constructionIntentEvent.payload.constructionIntentRef
-        : null,
-    constructionIntentDigest:
-      constructionIntentEvent !== undefined &&
-        isRecord(constructionIntentEvent.payload) &&
-        typeof constructionIntentEvent.payload.constructionIntentDigest ===
-          "string"
-        ? constructionIntentEvent.payload.constructionIntentDigest as Sha256Digest
-        : null,
-    constructionIntentAdmissionEventRef:
-      constructionIntentEvent?.eventId ?? null,
     admissionEventRef: projected.admissionEventRef,
     runStoppedEventRef: runStoppedEvent?.eventId ?? null,
-    ...(projected.nextActionProjectionRef === undefined
-      ? {}
-      : {
-          nextActionProjectionRef: projected.nextActionProjectionRef,
-          nextActionProjectionDigest: projected.nextActionProjectionDigest!,
-          nextActionProjection: projected.nextActionProjection!,
-        }),
     ...(projected.graphSpanReentryProjectionRef === undefined
       ? {}
       : {
@@ -2655,9 +2486,6 @@ function admitRoute(
     routeRef,
     routeDigest,
     ...body,
-    constructionIntentRef: null,
-    constructionIntentDigest: null,
-    constructionIntentAdmissionEventRef: null,
     admissionEventRef: event.eventId,
     runStoppedEventRef:
       (
