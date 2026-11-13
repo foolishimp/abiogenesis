@@ -72,7 +72,7 @@ One list of the defects found by the reviews, traces and packages of the T-292 w
 
 | When | Items |
 |---|---|
-| In flight | B-30 integrated and QA satisfied; exact successor proof bindings preparing; history and delivery unperformed |
+| In flight | Composed broad-04 selected on exact `a2626fa54`; B-30 integrated/QA satisfied, same RC13 archive; history and delivery unperformed |
 | Dependency-ready sequence | Composed history and physical reads under the unchanged clock, then local delivery |
 | Integrated with focused proof | B-01, B-02, B-03, B-04, B-05 (bounded; B-21 remains), B-06, B-07, B-23, B-24, B-25, B-26 |
 | Closed after TD-26 P7 | B-08 |

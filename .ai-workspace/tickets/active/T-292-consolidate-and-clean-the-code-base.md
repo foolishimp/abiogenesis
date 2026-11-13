@@ -8,7 +8,7 @@
 - parent: T-287
 - updated_at: 2026-11-13
 - current_activation: T292_CONSOLIDATION_01
-- current_package: selected consolidation and B28/B29/B30 proof repairs integrated; exact successor composed-proof bindings preparing; history and local delivery unperformed
+- current_package: selected consolidation and B28/B29/B30 proof repairs integrated; composed broad-04 selected on exact a2626fa54; history and local delivery unperformed
 - change_class: realization_refactor
 - derived_change_classes: design_reframe, requirement_reprice and product_reprice, each only for a register entry the owner decides
 - re_entry_point: specification/GOALS.md, the selection block of 2026-11-12
@@ -668,3 +668,15 @@ remain. Integration Writer `T292-B30-INTEGRATION-INVENTORY-01` refreshes the
 This checkpoint supplies no broad/history/installation completion. Successor
 source/archive correspondence must precede Root-selected continuation under
 the same campaign deadline; original failures and receipts stay immutable.
+
+Root conjoins B30 author/QA with clean successor `a2626fa540d39cc9894b8a90895a3739b49b75fb`,
+tree `9a11ff240da2b7e66dc76e024c48de65b24c240c`: independent compilation again
+reproduces archive `12d49bad…`, all 5,293 members and 1,280 source-inventory
+members match exactly. Root selects Proof Operator `T292-COMPOSED-EXECUTION-04`
+with exact BROAD_CONFIG SHA `85636d1a6179172ae11737b962911ff157704317eb99d762b72e6bd259e9b5ef`
+and unchanged 225-file population/timeout map/runner/shared campaign clock.
+Recording Writer `T292-COMPOSED-BINDINGS-04` preserves these byte-bound records
+under `composed-proof-01/execution-04`, then returns to Proof Operator. This is
+explicit post-triage continuation; no reset, automatic retry or aggregation of
+failed subjects. First failure stops. History/physical reads, provider checks
+and official delivery remain unperformed. No qualification, pin or publication.

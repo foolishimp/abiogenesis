@@ -1,0 +1,31 @@
+{
+  "activation": "T292-B30-REENTRY-PREP-01",
+  "sourceCommit": "a2626fa540d39cc9894b8a90895a3739b49b75fb",
+  "sourceTree": "9a11ff240da2b7e66dc76e024c48de65b24c240c",
+  "priorFailedSource": "21e6d7571e1897322cb73e96045c08c78413e8d0",
+  "testOnlyAndInventoryTenantDelta": [
+    "build_tenants/abiogenesis/typescript/test_env/qualification/inventory.json",
+    "build_tenants/abiogenesis/typescript/test_env/tests/integration-shared-seams.test.mjs"
+  ],
+  "cutRecord": {
+    "path": "/private/tmp/abg-rc13-composed-proof-20261113/reentry-04/cut-dry/cut-dry-run-20261113T100856806Z-22025/CUT_RECORD.json",
+    "bytes": 8460,
+    "sha256": "0341f1bfe3fcfc7749ce435a404a8f1498d8a1264a97584c367e401fb05a7599"
+  },
+  "archive": {
+    "path": "/private/tmp/abg-rc13-composed-proof-20261113/reentry-04/cut-dry/cut-dry-run-20261113T100856806Z-22025/pack/abiogenesis-typescript-tenant-5.0.0-rc.13.tgz",
+    "bytes": 10793225,
+    "sha256": "12d49bada287be7e0690af355107d6ffda7734452288f5153c785bb92f3b98b0"
+  },
+  "archiveMembers": 5293,
+  "archiveShaEqualsPayloadCheckpoint": true,
+  "zeroArchiveMemberDeltas": true,
+  "allFinalWorktreePayloadMembersByteEqual": true,
+  "sourceInventoryMembers": 1280,
+  "allSourceInventoryMembersByteEqual": true,
+  "runtimeBuildReusedFromExactUnchangedSource": "21e6d7571e1897322cb73e96045c08c78413e8d0",
+  "independentCleanSourceCompilationInCut": true,
+  "basisMatchesArchive": true,
+  "installed": false,
+  "qualification": false
+}

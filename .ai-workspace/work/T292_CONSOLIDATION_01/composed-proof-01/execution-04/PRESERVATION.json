@@ -1,0 +1,61 @@
+{
+  "activation": "T292-COMPOSED-BINDINGS-04",
+  "role": "Writer",
+  "effects": "Exact proof/config record copies and T292/T293 status only; explicit Root role transition",
+  "files": [
+    {
+      "source": "/private/tmp/abg-rc13-composed-proof-20261113/reentry-04/BROAD_CONFIG.json",
+      "preserved": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T292_CONSOLIDATION_01/composed-proof-01/execution-04/BROAD_CONFIG.json",
+      "bytes": 22175,
+      "sha256": "85636d1a6179172ae11737b962911ff157704317eb99d762b72e6bd259e9b5ef"
+    },
+    {
+      "source": "/private/tmp/abg-rc13-composed-proof-20261113/reentry-04/HISTORY_CONFIG.json",
+      "preserved": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T292_CONSOLIDATION_01/composed-proof-01/execution-04/HISTORY_CONFIG.json",
+      "bytes": 22181,
+      "sha256": "0fa21e6a4a2c27183c0d1a201810a8515728247de0ec4002ae142f58ebe7d3ef"
+    },
+    {
+      "source": "/private/tmp/abg-rc13-composed-proof-20261113/reentry-04/FINAL_POPULATION.json",
+      "preserved": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T292_CONSOLIDATION_01/composed-proof-01/execution-04/FINAL_POPULATION.json",
+      "bytes": 42375,
+      "sha256": "7dda660cd8971b42fc1f4bc85630d31074f4ad7abaf22cbbf5273acab7bbda53"
+    },
+    {
+      "source": "/private/tmp/abg-rc13-composed-proof-20261113/reentry-04/FINAL_TIMEOUT_AUDIT.json",
+      "preserved": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T292_CONSOLIDATION_01/composed-proof-01/execution-04/FINAL_TIMEOUT_AUDIT.json",
+      "bytes": 130967,
+      "sha256": "cb0a621989a350006f44122650654064c7e26a863029aad85cb1e130bd196ca1"
+    },
+    {
+      "source": "/private/tmp/abg-rc13-composed-proof-20261113/reentry-04/INPUT_RULING.json",
+      "preserved": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T292_CONSOLIDATION_01/composed-proof-01/execution-04/INPUT_RULING.json",
+      "bytes": 18523,
+      "sha256": "3a8f1c2300bee5e32bd50a1a9c2c7cd5055e27ab212fee272345351e8466aa7e"
+    },
+    {
+      "source": "/private/tmp/abg-rc13-composed-proof-20261113/reentry-04/EXECUTION_ACTIVATION.json",
+      "preserved": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T292_CONSOLIDATION_01/composed-proof-01/execution-04/EXECUTION_ACTIVATION.json",
+      "bytes": 1434,
+      "sha256": "97d8409d17058fb70a64be5eb7bc922ccb4c2281532fd674738562bae554b0f1"
+    },
+    {
+      "source": "/private/tmp/abg-rc13-composed-proof-20261113/reentry-04/ARTIFACT_SOURCE_CORRESPONDENCE.json",
+      "preserved": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T292_CONSOLIDATION_01/composed-proof-01/execution-04/ARTIFACT_SOURCE_CORRESPONDENCE.json",
+      "bytes": 1461,
+      "sha256": "ce535beeef6b02c59dd09e17e3c27dc748ca70d1a384285a34ce210c6ad13ee8"
+    },
+    {
+      "source": "/private/tmp/abg-rc13-composed-proof-20261113/reentry-04/CONFIG_PINS.json",
+      "preserved": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T292_CONSOLIDATION_01/composed-proof-01/execution-04/CONFIG_PINS.json",
+      "bytes": 405,
+      "sha256": "4f0933969431e7e53e973b3cee5e8a3b929f0159a3fc2d128e86fb9bc414f8ba"
+    },
+    {
+      "source": "/private/tmp/abg-rc13-composed-proof-20261113/reentry-04/prepare-reentry.py",
+      "preserved": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T292_CONSOLIDATION_01/composed-proof-01/execution-04/prepare-reentry.py",
+      "bytes": 7122,
+      "sha256": "70474cec54ae6a2037d293eeb25f59212e9f0a1caaaf2b4b6f8d4d38c820b765"
+    }
+  ]
+}

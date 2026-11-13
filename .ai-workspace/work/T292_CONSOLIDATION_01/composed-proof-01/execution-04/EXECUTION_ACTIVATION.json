@@ -1,0 +1,29 @@
+{
+  "activation": "T292-COMPOSED-EXECUTION-04",
+  "role": "Proof Operator",
+  "sourceCommit": "a2626fa540d39cc9894b8a90895a3739b49b75fb",
+  "sourceTree": "9a11ff240da2b7e66dc76e024c48de65b24c240c",
+  "artifactSha256": "12d49bada287be7e0690af355107d6ffda7734452288f5153c785bb92f3b98b0",
+  "runner": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T292_CONSOLIDATION_01/composed-proof-01/final-runner/run-composed.py",
+    "bytes": 28529,
+    "sha256": "324c41ef31e164f9ec76497dd98febaeb3b93ff4bbcc5ef914ada075e096714e"
+  },
+  "inputRuling": {
+    "path": "/private/tmp/abg-rc13-composed-proof-20261113/reentry-04/INPUT_RULING.json",
+    "bytes": 18523,
+    "sha256": "3a8f1c2300bee5e32bd50a1a9c2c7cd5055e27ab212fee272345351e8466aa7e"
+  },
+  "correspondence": {
+    "path": "/private/tmp/abg-rc13-composed-proof-20261113/reentry-04/ARTIFACT_SOURCE_CORRESPONDENCE.json",
+    "bytes": 1461,
+    "sha256": "ce535beeef6b02c59dd09e17e3c27dc748ca70d1a384285a34ce210c6ad13ee8"
+  },
+  "campaign": {
+    "path": "/private/tmp/abg-rc13-composed-proof-20261113/CAMPAIGN_CLOCK.json",
+    "bytes": 743,
+    "sha256": "92ab95ac102291d48fde6471cd487031b4a82064eb60491e9f5ca5f25536ff28"
+  },
+  "supersedesFailedAttemptOnly": "/private/tmp/abg-rc13-composed-proof-20261113/broad-03/HALT.json",
+  "standing": "Bounded mechanical re-entry after test-only B30 repair. No provider, qualification, deadline extension or automatic retry."
+}
