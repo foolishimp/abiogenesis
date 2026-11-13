@@ -1,3 +1,4 @@
+import type { ProductTruthQuestion } from "../shared/capability_contracts.js";
 import type { RuntimeEventScan } from "./runtime_history.js";
 import type { RuntimeEventPrefix } from "./event_prefix.js";
 import { RETAINED_GRAPH_INPUT_CONTRACT, isRetainedGraphInput, constructRetainedGraphInput } from "../product/worksite_preparation_contracts.js";
@@ -462,10 +463,10 @@ export function projectSameRunWorksiteCommandSourceAtPrefix(prefix: ValidatedRun
 /** @internal */
 export function projectSameRunWorksiteCommandSourceAtPrefix(prefix: RuntimeEventPrefix, input: Readonly<{
   parentBasis: ExecutionBasis; parentCCallRef: string; runId: string; task: WorksiteExecutionTask;
-}>): RetainedWorksiteInputProjection | null;
+}>, question?: ProductTruthQuestion): RetainedWorksiteInputProjection | null;
 export function projectSameRunWorksiteCommandSourceAtPrefix(prefix: RuntimeEventPrefix, input: Readonly<{
   parentBasis: ExecutionBasis; parentCCallRef: string; runId: string; task: WorksiteExecutionTask;
-}>): RetainedWorksiteInputProjection | null {
+}>, question: ProductTruthQuestion = "strict"): RetainedWorksiteInputProjection | null {
   const events = runtimeEventBodiesAtPrefix(prefix);
   if (!isWorksiteExecutionTask(input.task) || isNativeWorksiteCommandExecutionTask(input.task) || isObservedWorksiteCommandExecutionTask(input.task)) return null;
   const parentCall = exactOrNull(resolveExactMatch(indexedRuntimeEvents(prefix, "related:" + input.parentCCallRef), (event) => event.kind === "c_call_opened" && event.aggregateId === input.parentCCallRef &&
@@ -513,7 +514,7 @@ export function projectSameRunWorksiteCommandSourceAtPrefix(prefix: RuntimeEvent
   // The serial C3 form additionally names the completed aggregate's actual reducer,
   // never a partial fan-out member or a child with merely equal bytes.
   let resultProjection = retained;
-  if (!worksiteExecutionSourcesCurrent(prefix, input.task)) return null;
+  if (!worksiteExecutionSourcesCurrent(prefix, input.task, question)) return null;
   if (branch) {
     const c3 = WORKSITE_BRANCH_CONSTRUCTION_IDS;
     const application = completedC3Child(prefix, retained.sourceBasis, retained.sourceResult,

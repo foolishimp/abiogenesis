@@ -625,6 +625,8 @@ export function expectedRunReadAuthority<TPacket extends AnyReadPacket>(
     workspaceBinding: environment.workspaceBinding,
     fixedPacket: packet,
   } as const;
+  // The installs are the recorded installs of the source binding; the read
+  // asks the recorded question of their graphs.
   const grants = packet.metadata.capabilityRefs.map(
     (capabilityRef) => constructCapabilityGrant(
       environment.workspaceAuthorityBasis,
@@ -632,6 +634,7 @@ export function expectedRunReadAuthority<TPacket extends AnyReadPacket>(
       packet.definitionKey.operationId,
       capabilityRef,
       grantBasis,
+      "recorded",
     ),
   );
   return Object.freeze({
@@ -706,7 +709,8 @@ export function populateRunReadAtDurablePrefix<K extends RunReadMemberKey>(input
   if (artifactTruth.kind !== "exact_prefix_artifact_truth_projection") {
     return refusal("artifact_truth_invalid", "/projectionBasis");
   }
-  const environment = projectWorkspaceEnvironmentFromArtifactTruth(artifactTruth, input.workspaceBinding);
+  // Recorded: the run read reads recorded history and admits nothing.
+  const environment = projectWorkspaceEnvironmentFromArtifactTruth(artifactTruth, input.workspaceBinding, "recorded");
   if (environment.kind !== "exact_prefix_workspace_environment") {
     return refusal("projection_basis_mismatch", "/invocationAuthority/slots/workspace_binding");
   }
@@ -773,9 +777,11 @@ function runReadKernel<TPacket extends AnyReadPacket>(
             refusalOutput(packet, "projection_basis_mismatch", "/projectionBasis"),
           );
         }
+        // Recorded: the run read reads recorded history and admits nothing.
         const environment = projectExactPrefixWorkspaceEnvironment(
           resource.entryPrefix,
           workspaceBinding,
+          "recorded",
         );
         if (environment.kind !== "exact_prefix_workspace_environment") {
           return finishRunRead(
@@ -821,6 +827,7 @@ function runReadKernel<TPacket extends AnyReadPacket>(
               environment.workspaceBinding.authorizedActorRef,
               packet.metadata.capabilityRefs[index]!,
               grantBasis,
+              "recorded",
             )
           )
         ) {

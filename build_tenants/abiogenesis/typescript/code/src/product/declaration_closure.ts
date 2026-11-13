@@ -36,6 +36,7 @@ import { modulePublicationSemanticDigest } from "./publication.js";
 import { canonicalEquals } from "../shared/value/index.js";
 import { admitJson } from "../shared/admit/index.js";
 import { resolveExactMatch } from "../shared/select/index.js";
+import type { ProductTruthQuestion } from "../shared/capability_contracts.js";
 
 /** Supplied declarations are reconstructed against facts supplied by the native
  * environment owner. This pure relation is shared by conformance and replay;
@@ -47,8 +48,33 @@ export function reconstructHistoricalDeclarationCatalog(
     resolvedLock: CatalogReadinessBasis["resolvedLock"];
     installedProducts: CatalogReadinessBasis["installedProducts"];
   }>,
+): Readonly<{ catalog: ReadyGraphFunctionCatalog; catalogView: GraphFunctionCatalogView }>;
+/** @internal One relation for both questions; the exported signature asks
+ * the strict one, for every entry that uses the result for new work. A read
+ * that binds the result to recorded history by digest names the recorded
+ * question. */
+export function reconstructHistoricalDeclarationCatalog(
+  supplied: Readonly<{ catalog: ReadyGraphFunctionCatalog; catalogView: GraphFunctionCatalogView }>,
+  environment: Readonly<{
+    workspaceBinding: CatalogReadinessBasis["workspaceBinding"];
+    resolvedLock: CatalogReadinessBasis["resolvedLock"];
+    installedProducts: CatalogReadinessBasis["installedProducts"];
+  }>,
+  question: ProductTruthQuestion,
+): Readonly<{ catalog: ReadyGraphFunctionCatalog; catalogView: GraphFunctionCatalogView }>;
+export function reconstructHistoricalDeclarationCatalog(
+  supplied: Readonly<{ catalog: ReadyGraphFunctionCatalog; catalogView: GraphFunctionCatalogView }>,
+  environment: Readonly<{
+    workspaceBinding: CatalogReadinessBasis["workspaceBinding"];
+    resolvedLock: CatalogReadinessBasis["resolvedLock"];
+    installedProducts: CatalogReadinessBasis["installedProducts"];
+  }>,
+  question?: unknown,
 ): Readonly<{ catalog: ReadyGraphFunctionCatalog; catalogView: GraphFunctionCatalogView }> {
-  const catalog = admitGraphFunctionCatalog(supplied.catalog.readinessBasis);
+  const catalog = admitGraphFunctionCatalog(
+    supplied.catalog.readinessBasis,
+    question === "recorded" ? "recorded" : "strict",
+  );
   if (catalog.kind !== "graph_function_catalog" || !canonicalEquals(catalog, supplied.catalog) ||
       !canonicalEquals(catalog.readinessBasis.workspaceBinding, environment.workspaceBinding) ||
       !canonicalEquals(catalog.readinessBasis.resolvedLock, environment.resolvedLock) ||

@@ -1,3 +1,4 @@
+import type { ProductTruthQuestion } from "../shared/capability_contracts.js";
 import { selectRuntimeEventPrefixFromAuthority, runtimeEventAtPrefix, indexedRuntimeEventEnvelopes } from "./event_prefix.js";
 import { admitJson } from "../shared/admit/index.js";
 import { projectRuntimeReplayGuard, projectRuntimeReplayStatus, projectReplayCCallGuardAtPrefix, projectRuntimeActorProcessFactsAtPrefix, projectValidatedReplayRouteAtPrefix } from "./replay.js";
@@ -634,16 +635,18 @@ export function deriveSameRunWorksiteCommandSourceBasisAtPrefix(
   prefix: RuntimeEventPrefix,
   input: Parameters<typeof projectSameRunWorksiteCommandSourceAtPrefix>[1],
   currentOwnerPrefix?: DurablePrefixCoordinate,
+  question?: ProductTruthQuestion,
 ): ProductInvocationSourceResultBasis | null;
 export function deriveSameRunWorksiteCommandSourceBasisAtPrefix(
   prefix: RuntimeEventPrefix,
   input: Parameters<typeof projectSameRunWorksiteCommandSourceAtPrefix>[1],
   currentOwnerPrefix?: DurablePrefixCoordinate,
+  question: ProductTruthQuestion = "strict",
 ): ProductInvocationSourceResultBasis | null {
   const nativeTask = admittedNativeTask(prefix, input.task);
   const source = nativeTask !== null
     ? projectSameRunNativeWorkCommandSourceAtPrefix(prefix, { ...input, task: nativeTask }, currentOwnerPrefix)
-    : projectSameRunWorksiteCommandSourceAtPrefix(prefix, input);
+    : projectSameRunWorksiteCommandSourceAtPrefix(prefix, input, question);
   if (source === null) return null;
   // A native source Result is basis-bound to its own producer invocation and
   // Run. The owner above has joined that producer to this consumer's parent

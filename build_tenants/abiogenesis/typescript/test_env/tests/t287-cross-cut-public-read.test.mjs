@@ -60,7 +60,7 @@ async function fixture(t) {
   const prefix=events.selectHeldEventStoreDurablePrefix(owner),blocked=rows.find(r=>r.admissionOrdinal===846),child=rows.find(r=>r.admissionOrdinal===67);
   assert.equal(blocked.payload.disposition,'blocked');assert.equal(child.kind,'graph_call_closed');
   const blockedTruth=prepareRunReadAtDurablePrefix(prefix,'run_status',blocked.runId);assert.ok(blockedTruth);
-  const environment=projectExactPrefixWorkspaceEnvironment(prefix,blockedTruth.workspaceBinding);assert.equal(environment.kind,'exact_prefix_workspace_environment');
+  const environment=projectExactPrefixWorkspaceEnvironment(prefix,blockedTruth.workspaceBinding,'recorded');assert.equal(environment.kind,'exact_prefix_workspace_environment');
   const selections={};for(const member of ['run_status','run_result','run_replay','graph_call_result','graph_call_replay']) {
     const target=member.startsWith('graph_call')?child.graphCallId:blocked.runId;
     selections[member]=prepareRunReadAtDurablePrefix(prefix,member,target);assert.ok(selections[member]);
@@ -76,7 +76,7 @@ async function fixture(t) {
   const call=(member,{catalog=current.contractCatalog,slots:slotChanges={},proof=declarationProof,sourceChanges={}}={})=>{
     const packet=ABG_PROJECT_READ_CONTRACTS[member],graph=member.startsWith('graph_call');
     const grants=packet.metadata.capabilityRefs.map(capabilityRef=>product.constructCapabilityGrant(environment.workspaceAuthorityBasis,environment.workspaceBinding.authorizedActorRef,
-      packet.definitionKey.operationId,capabilityRef,{admittedInstalls:environment.productInstalls,workspaceBinding:environment.workspaceBinding,fixedPacket:packet}));
+      packet.definitionKey.operationId,capabilityRef,{admittedInstalls:environment.productInstalls,workspaceBinding:environment.workspaceBinding,fixedPacket:packet},'recorded'));
     assert.equal(grants[0].operationContract.contractCatalog.productContentDigest,historical.productContentDigest);
     const slots={...shapeSlots,workspace_binding:blockedTruth.workspaceBinding,product_set:environment.productInstalls.map(product.productInstallCoordinate),
       dependency_lock:{ref:environment.resolvedProductLock.lockId,digest:environment.resolvedProductLock.lockDigest},

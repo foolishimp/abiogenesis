@@ -16,6 +16,7 @@ import { constructProductSet, isResolvedProductLock, isWorkspaceBindingCandidate
 import type { ProductInstallCandidate, VerifiedProductArtifact } from "./contracts.js";
 import { modulePublicationSemanticDigest } from "./publication.js";
 import { isVerifiedProductArtifact } from "./verify_product.js";
+import type { ProductTruthQuestion } from "../shared/capability_contracts.js";
 import { canonicalEquals } from "../shared/value/index.js";
 
 export type GraphFunctionCatalogEntry = {
@@ -399,6 +400,9 @@ export function directSatisfiedDependencyRefs(
 
 const readyCatalogs = new WeakMap<object, ReadyGraphFunctionCatalog>();
 const ownedCatalogs = new WeakSet<object>();
+// Catalogs reconstructed under the recorded question. They never enter
+// `readyCatalogs` or `ownedCatalogs`, so no strict owner fact covers them.
+const recordedCatalogs = new WeakMap<object, ReadyGraphFunctionCatalog>();
 const canonicalPublications = new WeakMap<object, Readonly<ModulePublication>>();
 const catalogViews = new WeakMap<object, Readonly<{
   allowlist: string;
@@ -445,8 +449,25 @@ export function observeCatalogWork(): Readonly<typeof catalogWork> {
 
 export function admitGraphFunctionCatalog(
   basis: CatalogReadinessBasis,
+): ReadyGraphFunctionCatalogResult;
+/**
+ * @internal One admission for both questions; the exported signature asks the
+ * strict one, for new work. A read that binds its readiness basis to recorded
+ * history names the recorded question. The question selects the lock and
+ * verified-artifact guards and the retention; a recorded result is retained
+ * apart and is never an owner-admitted ready Catalog.
+ */
+export function admitGraphFunctionCatalog(
+  basis: CatalogReadinessBasis,
+  question: ProductTruthQuestion,
+): ReadyGraphFunctionCatalogResult;
+export function admitGraphFunctionCatalog(
+  basis: CatalogReadinessBasis,
+  questionValue?: unknown,
 ): ReadyGraphFunctionCatalogResult {
-  const retained = readyCatalogs.get(basis);
+  const question: ProductTruthQuestion = questionValue === "recorded" ? "recorded" : "strict";
+  const retainedCatalogs = question === "strict" ? readyCatalogs : recordedCatalogs;
+  const retained = retainedCatalogs.get(basis);
   if (retained !== undefined) return retained;
   catalogWork.fullAdmissions++;
   const canonicalBasis: CatalogReadinessBasis = {
@@ -466,7 +487,7 @@ export function admitGraphFunctionCatalog(
   };
   const { workspaceBinding, resolvedLock, verifiedProducts, installedProducts, publications } = canonicalBasis;
   if (
-    !isResolvedProductLock(resolvedLock) ||
+    !isResolvedProductLock(resolvedLock, question) ||
     !isWorkspaceBindingCandidateInResolvedLock(workspaceBinding, resolvedLock)
   ) {
     return refusal(
@@ -477,7 +498,7 @@ export function admitGraphFunctionCatalog(
   if (
     verifiedProducts.length !== resolvedLock.rows.length ||
     verifiedProducts.some((verified) => {
-      if (!isVerifiedProductArtifact(verified)) return true;
+      if (!isVerifiedProductArtifact(verified, question)) return true;
       const rows = resolvedLock.rows.filter((row) => row.productId === verified.productId);
       return rows.length !== 1 || !canonicalEquals(
         lockComparableProduct(verified),
@@ -703,9 +724,9 @@ export function admitGraphFunctionCatalog(
       compareUnicodeCodeUnits(left.rowDigest, right.rowDigest)),
   }) as ReadyGraphFunctionCatalog;
   if (isDeeplyFrozen(ready)) {
-    readyCatalogs.set(canonicalBasis, ready);
-    if (isDeeplyFrozen(basis)) readyCatalogs.set(basis, ready);
-    ownedCatalogs.add(ready);
+    retainedCatalogs.set(canonicalBasis, ready);
+    if (isDeeplyFrozen(basis)) retainedCatalogs.set(basis, ready);
+    if (question === "strict") ownedCatalogs.add(ready);
   }
   return ready;
 }

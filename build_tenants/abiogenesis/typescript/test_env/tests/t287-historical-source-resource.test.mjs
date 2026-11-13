@@ -1,6 +1,6 @@
-// Changed sources run in memory over the frozen component build. The retained
-// D2 fixture is a different, closed historical test resource, never the original
-// Data Mapper journal. No actor, native Run or package is launched here.
+// Changed owners run in memory over the component build. Fresh installed R9
+// executions prove strict-positive retention at the current register; immutable
+// D2 evidence separately proves retained reads and strict work-source refusal.
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import fs from 'node:fs';
@@ -18,6 +18,8 @@ import {GraphCallProjectionPort} from '../../build/code/src/abg/project_read_por
 import {sha256Canonical as hash} from '../../build/code/src/shared/digests.js';
 import {deepFreeze} from '../../build/code/src/shared/immutable.js';
 import {evidenceInput} from '../support/evidence-root.mjs';
+import {createCurrentTerminalFixture,recordedLockMatchesCurrentRegister} from '../support/t292-current-terminal-fixture.mjs';
+import {isResolvedProductLock} from '../../build/code/src/product/environment.js';
 const root=resolve(import.meta.dirname,'../..');
 const evidenceRoot=process.env.ABI5_HISTORICAL_SOURCE_EVIDENCE;
 // The retained D2 store and its program-ready record are historical evidence
@@ -44,7 +46,7 @@ async function sourceOwner(relative,names=[],overrides={}){
  await module.evaluate();return module.namespace;
 }
 
-async function fixture(t){
+async function historicalFixture(t){
  const bytes=Buffer.from(logInput.bytes.subarray(0,13540472));
  const readyBytes=readyInput.bytes;
  assert.equal(byteHash(bytes),'sha256:4f561ceacf40fd13db82132d93890cb67750453dfa81a75c0401f04bd9345649');
@@ -57,7 +59,9 @@ async function fixture(t){
  const opened=eventOwner.reopenEventStore({...body,authorityDigest:hash(body)});assert.ok(opened.store,JSON.stringify(opened));
  t.after(()=>opened.store.closeDurableLog());const prefix=opened.prefix,child=rows.find(e=>e.admissionOrdinal===67);
  const proof=deepFreeze({kind:'abg_historical_declaration_proof',schemaVersion:'5.0.0',catalog:ready.call.resources.catalog,catalogView:ready.call.resources.catalogView});
- const terminal=GraphCallProjectionPort.graph_call_result({kind:'abg_project_read_packet',schemaVersion:'5.0.0',memberKey:'graph_call_result',prefix,targetRef:child.graphCallId,declarationProof:proof}).value.terminalResult;
+ const projection=GraphCallProjectionPort.graph_call_result({kind:'abg_project_read_packet',schemaVersion:'5.0.0',memberKey:'graph_call_result',prefix,targetRef:child.graphCallId,declarationProof:proof});
+ assert.equal(projection.kind,'abg_project_read_projection',JSON.stringify(projection));
+ const terminal=projection.value.terminalResult;
  const nominal=prefixOwner.selectValidatedRuntimeEventPrefix(eventOwner.readRuntimeEventsAtDurablePrefix(prefix));
  const leaf=projectExactExecutionBasisAtPrefix(nominal,terminal.producer.executionBasis.ref);
  const ancestor=projectExactExecutionBasisAtPrefix(nominal,leaf.parentExecutionBasisRef);assert.ok(ancestor);
@@ -69,7 +73,9 @@ async function fixture(t){
  return {bytes,readyBytes,rows,opened,prefix,resource,ancestor,terminal,publication,eventLogPath};
 }
 
-test('actual R10 ancestry, declaration and leaf proof owners return borrowed historical facts; same live resource resolves once and cold copies reconstruct',{skip},async t=>{
+const fixture=createCurrentTerminalFixture;
+
+test('current installed R9 source retains exact ancestry, declaration and leaf proof; live resources reuse and cold copies reconstruct',async t=>{
  const f=await fixture(t),counts={catalog:0};
  const r10=await sourceOwner('abg/project_read_ports',[],{'../product/declaration_closure.js':{
   reconstructHistoricalDeclarationCatalog:(...args)=>{counts.catalog++;return declarations.reconstructHistoricalDeclarationCatalog(...args);},
@@ -93,7 +99,8 @@ test('actual R10 ancestry, declaration and leaf proof owners return borrowed his
   const changed=structuredClone(f.resource);change(changed);assert.equal(read(f.prefix,deepFreeze(changed)),null);
  }
  assert.strictEqual(read(f.prefix),result,'refused candidates do not poison the live owned result');
- const lines=f.bytes.toString().trimEnd().split('\n'),early=Buffer.from(lines.slice(0,66).join('\n')+'\n');
+ const lines=f.bytes.toString().trimEnd().split('\n'),closed=f.rows.find(e=>e.kind==='graph_call_closed'&&e.graphCallId===f.terminal.producer.graphCallRef);
+ const early=Buffer.from(lines.slice(0,closed.admissionOrdinal-1).join('\n')+'\n');
  const {coordinateDigest:_,...body}=f.prefix,earlyBody={...body,prefixLength:early.length,prefixDigest:byteHash(early)};
  const beforeClose=eventOwner.reidentifyHistoricalDurablePrefixCoordinate(f.prefix,{...earlyBody,coordinateDigest:hash(earlyBody)});
  assert.equal(read(beforeClose),null,'a historical cut before closure cannot borrow later facts');
@@ -148,47 +155,18 @@ async function retentionOwner(t){
    payload:{invocationDigest:hash({invocationRef,correlationId}),invocationRef,operationId:'abg.operation.project.read',variant:'status'}};};
  return {f,counts,read,candidate};
 }
-// The D2 store is on the legacy profile, which admits no append before its
-// witnessed reprice (REQ-R-ABG3-EVENTS-029, T-292 TD-32): the two reprice rows
-// go first, through the reprice owner, then the later append is on the current profile.
-function repriceProfile(f){
- const L=eventOwner.LEGACY_ROOT_EVENT_CONTRACT_DIGEST,W=eventOwner.ROOT_EVENT_CONTRACT_DIGEST,d=key=>hash({historicalRetention:key}),eventTime=f.rows.at(-1).eventTime;
- const invocationRef='invocation://t287/historical-retention/reprice',correlationId='correlation://t287/historical-retention/reprice',basisId='basis://t287/historical-retention';
- const workspace='workspace-binding://t287/historical-retention',actorRef='actor://t287/historical-retention',envelope={eventTime,aggregateType:'workspace',
-  aggregateId:workspace,parentAggregateId:invocationRef,correlationId,workflowVersion:'5.0.0',scopeClass:'workspace',basisId};
- const publicCandidate={...envelope,kind:'public_operation_admitted',causationEventRefs:[],payload:{operationId:'abg.operation.witness.admit',memberKey:'reprice',
-  definitionDigest:d('definition'),invocationRef,invocationPayloadDigest:d('payload'),invocationDigest:hash({invocationRef,correlationId}),authorityScopeRef:basisId,
-  authorityScopeDigest:d('scope'),workspaceBindingRef:workspace,workspaceBindingDigest:d('workspace'),productSetRef:'product-set://t287/historical-retention',
-  productSetDigest:d('products'),dependencyLockRef:'dependency-lock://t287/historical-retention',dependencyLockDigest:d('lock'),actorRef,actorDigest:d('actor'),
-  capabilityGrantRef:'capability-grant://t287/historical-retention',capabilityGrantDigest:d('grant')}};
- const projected=eventOwner.projectRuntimeEventFromValidatedHistory(f.rows,publicCandidate);
- const value={declarationRef:'declaration://abiogenesis/runtime/root-event-contract-profile@1',beforeDigest:L,afterDigest:W,changeClass:'design_reframe',
-  owningTicketRef:'ticket://T-292',reason:'admit-current-native-event-contract-profile'};
- const evidence=[{ref:'abg.event-contract.root/p6-stdout-window-witness@1',digest:W}],provenance=[{ref:basisId,digest:d('basis')}];
- const subject={kind:'basis',ref:basisId,digest:d('basis')},context={kind:'basis',basis:{ref:basisId,digest:d('basis')}};
- const content={kind:'typed_reason',contractRef:'contract://t287/historical-retention/reprice',contractDigest:d('content'),valueRef:'value://t287/historical-retention/reprice',valueDigest:hash(value),value};
- const witnessedActDigest=hash({act:'reprice',actor:{ref:actorRef,digest:d('actor')},subject,content,context,evidence,provenance});
- const {reason,...repriceBody}=value;
- const repriceCandidate={...envelope,kind:'declaration_reprice_admitted',causationEventRefs:[projected.eventId],payload:{act:'reprice',actorRef,actorDigest:d('actor'),
-  subjectKind:subject.kind,subjectRef:subject.ref,subjectDigest:subject.digest,contentKind:content.kind,contentContractRef:content.contractRef,
-  contentContractDigest:content.contractDigest,contentValueRef:content.valueRef,contentValueDigest:content.valueDigest,contentValue:value,context,evidence,provenance,
-  witnessedActRef:'witnessed-act://abiogenesis/'+witnessedActDigest.slice('sha256:'.length),witnessedActDigest,...value,repriceRef:'declaration-reprice:'+hash(repriceBody),operatorActorRef:actorRef}};
- const repriced=eventOwner.admitRootEventProfileUpgrade(f.opened.store,f.prefix,publicCandidate,repriceCandidate);
- assert.equal(repriced.successorPrefix.storeIdentity.eventContractDigest,W);return repriced;
-}
-
-test('a later prefix of the same derivation generation lends the same retained historical source; the count is unchanged',{skip},async t=>{
+test('a later prefix of the same derivation generation lends the current installed source; the count is unchanged',async t=>{
  const {f,counts,read,candidate}=await retentionOwner(t);
  const result=read(f.prefix);assert.ok(result);assert.equal(counts.catalog,1);
- repriceProfile(f);
- const appended=eventOwner.admitRuntimeEvent(f.opened.store,candidate('later'));assert.equal(appended.admissionOrdinal,f.rows.length+3);
+ // The current installed fixture already uses the current event profile.
+ const appended=eventOwner.admitRuntimeEvent(f.opened.store,candidate('later'));assert.equal(appended.admissionOrdinal,f.rows.length+1);
  const later=eventOwner.selectHeldEventStoreDurablePrefix(f.opened.store);
  assert.ok(later.prefixLength>f.prefix.prefixLength);assert.notEqual(later.prefixDigest,f.prefix.prefixDigest);
  assert.strictEqual(read(later),result,'same generation lends the retained object at its later prefix');assert.equal(counts.catalog,1);
  assert.strictEqual(read(f.prefix),result);assert.equal(counts.catalog,1);
 });
 
-test('an append rollback replaces the derivation generation and drops the retained historical source; the next read reconstructs once',{skip},async t=>{
+test('an append rollback drops the current installed source; the next read reconstructs once',async t=>{
  const {f,counts,read,candidate}=await retentionOwner(t);
  const result=read(f.prefix);assert.ok(result);assert.equal(counts.catalog,1);
  assert.strictEqual(read(f.prefix),result);assert.equal(counts.catalog,1);
@@ -200,4 +178,23 @@ test('an append rollback replaces the derivation generation and drops the retain
  const rebuilt=read(f.prefix);assert.deepEqual(rebuilt,result);assert.notStrictEqual(rebuilt,result,'the rolled-back generation lends nothing');
  assert.equal(counts.catalog,2);
  assert.strictEqual(read(f.prefix),rebuilt,'the replacement generation retains its own reconstruction');assert.equal(counts.catalog,2);
+});
+
+
+test('retained D2 stays readable while work-source admission follows the current register', {skip}, async t=>{
+ const f=await historicalFixture(t),lock=f.resource.declarationProof.catalog.readinessBasis.resolvedLock;
+ const strictExpected=recordedLockMatchesCurrentRegister(lock);
+ if(process.env.ABI5_TD77_EXPECT_RECORDED_ONLY==='1')assert.equal(strictExpected,false,'the selected register edit differs from the recorded graph');
+ assert.equal(isResolvedProductLock(lock),strictExpected,'raw strict verdict agrees with the independently reconstructed register');
+ assert.equal(isResolvedProductLock(lock,'recorded'),true);
+ const r10=await sourceOwner('abg/project_read_ports');
+ const leaf=await sourceOwner('implementation/leaf_invocation_port',['nativeJudgmentProofOperations'],{'../abg/project_read_ports.js':r10});
+ const read=()=>leaf.nativeJudgmentProofOperations('predicate://generic/consumer',{},null,f.prefix,f.resource).historicalGraphCallSource();
+ const result=read();
+ if(strictExpected)assert.deepEqual(result.terminalResult,f.terminal);
+ else assert.equal(result,null,'new work refuses the recorded-only source');
+ const projection=GraphCallProjectionPort.graph_call_result({kind:'abg_project_read_packet',schemaVersion:'5.0.0',memberKey:'graph_call_result',
+  prefix:f.prefix,targetRef:f.terminal.producer.graphCallRef,declarationProof:f.resource.declarationProof});
+ assert.equal(projection.kind,'abg_project_read_projection');assert.deepEqual(projection.value.terminalResult,f.terminal);
+ assert.equal(byteHash(fs.readFileSync(f.eventLogPath)),byteHash(f.bytes));
 });

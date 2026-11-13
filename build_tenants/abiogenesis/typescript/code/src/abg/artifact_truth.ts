@@ -1,6 +1,6 @@
 import { join } from "node:path";
 
-import { projectExactPrefixWorkspaceEnvironment } from "./environment_admission.js";
+import { isRecordedOnlyEnvironmentRefusal, projectExactPrefixWorkspaceEnvironment } from "./environment_admission.js";
 import { isReleaseOperationArtifact, projectReleaseQualification, projectReleaseAcceptance } from "../implementation/release_publication.js";
 import { releaseArtifactCoordinate } from "../product/release_snapshot_operations.js";
 import {
@@ -19,6 +19,7 @@ import {
   isWorkspaceBindingCandidateInResolvedLock,
   productInstallCoordinate,
 } from "../product/environment.js";
+import type { ProductTruthQuestion } from "../shared/capability_contracts.js";
 import { compareUnicodeCodeUnits, type JsonValue } from "../shared/canonical_json.js";
 import { sha256Canonical, type Sha256Digest } from "../shared/digests.js";
 import { deepFreeze } from "../shared/immutable.js";
@@ -195,7 +196,11 @@ const MATERIALIZATION_ARTIFACT_KEYS = [
  * cause names (the workspace pair is the admitted authority basis, the
  * configuration contract body the installed catalog row); only each row's
  * created/preserved disposition is the owner's filesystem observation. The scope
- * is the manifest pair and the artifact the content pair.
+ * is the manifest pair and the artifact the content pair. The environment is
+ * projected under the entry's question: the fold reads it under the recorded
+ * question, and the candidate requires the strict answer, so a materialization
+ * over an environment whose lock answers only the recorded question is never
+ * appended ("lock_answers_only_recorded").
  */
 function materializationArtifactCorresponds(
   artifact: JsonValue | null,
@@ -206,7 +211,8 @@ function materializationArtifactCorresponds(
     scope: Readonly<{ ref: string; digest: string }>;
     artifact: Readonly<{ ref: string; digest: string }>;
   }>,
-): boolean {
+  question: ProductTruthQuestion,
+): boolean | "lock_answers_only_recorded" {
   try {
     const memberKey = coordinate.invocation.memberKey;
     if (!isRecord(artifact) || !hasExactKeys(artifact, MATERIALIZATION_ARTIFACT_KEYS) ||
@@ -218,8 +224,11 @@ function materializationArtifactCorresponds(
         !isRecord(artifact.workspaceBinding) || typeof artifact.workspaceBinding.ref !== "string" ||
         typeof artifact.workspaceBinding.digest !== "string" || !isDigest(artifact.workspaceBinding.digest)) return false;
     const environment = projectExactPrefixWorkspaceEnvironment(artifact.entryPrefix as unknown as DurablePrefixCoordinate,
-      { ref: artifact.workspaceBinding.ref, digest: artifact.workspaceBinding.digest });
-    if (environment.kind !== "exact_prefix_workspace_environment" || event.causationEventRefs.length !== 1 ||
+      { ref: artifact.workspaceBinding.ref, digest: artifact.workspaceBinding.digest }, question);
+    if (environment.kind !== "exact_prefix_workspace_environment") {
+      return isRecordedOnlyEnvironmentRefusal(environment) ? "lock_answers_only_recorded" : false;
+    }
+    if (event.causationEventRefs.length !== 1 ||
         event.causationEventRefs[0] !== environment.workspaceBinding.admissionEventRef) return false;
     const binding = environment.workspaceBinding, basis = environment.workspaceAuthorityBasis;
     const request = artifact.request, observedRows = artifact.result.rows;
@@ -304,14 +313,21 @@ interface AdmittedInstallFact {
   readonly resolvedLock: ResolvedProductLock;
   readonly embeddedLock: boolean;
   readonly admissionEventDigest: Sha256Digest;
+  /** The lock answers the strict question, not only the recorded one. */
+  readonly lockAnswersStrict: boolean;
 }
 class RuntimeArtifactFacts {
   readonly artifacts: FoldedArtifactTruthRow[] = [];
   readonly exactProjections = new Map<string, ExactPrefixArtifactTruthProjection>();
   readonly admittedInstalls = new Map<string, AdmittedInstallFact>();
+  /** Whether the lock of the install admitted at `admissionEventRef` answers
+   * the strict question, as this fold established it. */
+  installLockAnswersStrict(admissionEventRef: string): boolean {
+    return this.admittedInstalls.get(admissionEventRef)?.lockAnswersStrict === true;
+  }
   advance(artifactRows: readonly RuntimeEventCalculusEffectRow[]): void {
     for (const row of artifactRows.slice(this.artifacts.length)) {
-      const prepared = this.prepare(row);
+      const prepared = this.prepare(row, "recorded");
       this.accept(prepared);
     }
   }
@@ -321,8 +337,15 @@ class RuntimeArtifactFacts {
   }
   /** Shared cold/live relation, with no mutation until the complete row passes.
    * An enclosing install owner may supply its established lock; copied event
-   * metadata must still reproduce that complete body. */
-  prepare(row: RuntimeEventCalculusEffectRow, establishedLock?: ResolvedProductLock): Readonly<{
+   * metadata must still reproduce that complete body. The entry passes the
+   * question: `recorded` when the fold advances over history, `strict` when
+   * admission prepares its candidate. Under `recorded` an inline lock is asked
+   * the strict question first and the recorded one only where strict refuses;
+   * the install fact retains which it answers. Under `strict` every lock the
+   * candidate takes must answer the strict question: an inline lock is asked
+   * it, and a compact reference, a binding's causal installs and a
+   * materialization's environment must hold locks the fold established so. */
+  prepare(row: RuntimeEventCalculusEffectRow, question: ProductTruthQuestion, establishedLock?: ResolvedProductLock): Readonly<{
     artifact: FoldedArtifactTruthRow;
     install: AdmittedInstallFact | undefined;
   }> {
@@ -398,16 +421,21 @@ class RuntimeArtifactFacts {
     let resolvedLockBody = payload.resolvedLock ?? null;
     if (operationId === "abg.operation.product.install") {
       let checkedLock: ResolvedProductLock | undefined;
+      let lockAnswersStrict = false;
       const establishInlineLock = (value: unknown): value is ResolvedProductLock => {
         if (establishedLock !== undefined) {
           const admitted = value === establishedLock ? null : admitJson(value);
           if (admitted === null || (admitted.kind === "ok" && canonicalEquals(admitted.value, establishedLock))) {
+            // Every door that passes its lock established it with the strict question.
             checkedLock = establishedLock;
+            lockAnswersStrict = true;
             return true;
           }
         }
-        if (!isResolvedProductLock(value)) return false;
-        checkedLock = value;
+        // One whole-lock evaluation for a lock the current build constructs.
+        if (isResolvedProductLock(value)) lockAnswersStrict = true;
+        else if (question !== "recorded" || !isResolvedProductLock(value, "recorded")) return false;
+        checkedLock = value as ResolvedProductLock;
         return true;
       };
       if (isRecord(artifact) && artifact.kind === "product_install_lock_row") {
@@ -437,8 +465,12 @@ class RuntimeArtifactFacts {
             source.resolvedLock.lockId !== reference.lockId ||
             source.resolvedLock.lockDigest !== reference.lockDigest
           ) throw new TypeError("Product install lock reference lacks its exact earlier embedded body");
+          if (question === "strict" && !source.lockAnswersStrict) {
+            throw new TypeError("Product install lock reference names a lock that does not answer the strict question");
+          }
           checkedLock = source.resolvedLock;
           resolvedLockBody = source.resolvedLock;
+          lockAnswersStrict = source.lockAnswersStrict;
         }
         const lock = resolvedLockBody as unknown as ResolvedProductLock;
         const productId = artifact.productId;
@@ -489,6 +521,7 @@ class RuntimeArtifactFacts {
         resolvedLock,
         embeddedLock: event.causationEventRefs.length === 0,
         admissionEventDigest: event.payloadDigest,
+        lockAnswersStrict,
       });
     } else if (operationId === "abg.operation.release.snapshot") {
       if (!isReleaseOperationArtifact(artifact) || payload.resolvedLock !== undefined || payload.workspaceAuthorityBasis !== undefined ||
@@ -500,6 +533,8 @@ class RuntimeArtifactFacts {
             : projectReleaseAcceptance(artifact.request,artifact.proof,artifact.selection,artifact.publication,artifact.ruling,artifact.effectGrant,artifact.entryPrefix as DurablePrefixCoordinate,this.artifacts)) === null) {
         throw new TypeError("release artifact differs from its closed native qualification/observation/scope/Definition relation");
       }
+      // The release branch asks the strict question here, as its release
+      // qualification does.
       const environment = projectExactPrefixWorkspaceEnvironment(artifact.entryPrefix as DurablePrefixCoordinate, artifact.workspaceBinding);
       if (environment.kind !== "exact_prefix_workspace_environment" ||
           environment.workspaceAuthorityBasis.authorizedActorRef !== artifact.actorRef ||
@@ -509,11 +544,15 @@ class RuntimeArtifactFacts {
         throw new TypeError("release artifact actor/environment differs from its exact admitted predecessor");
       }
     } else if (operationId === "abg.operation.product.materialize") {
-      if (!materializationArtifactCorresponds(artifact, payload, event, {
+      const corresponds = materializationArtifactCorresponds(artifact, payload, event, {
         invocation: { operationId, memberKey, definitionDigest, invocationRef, invocationPayloadDigest, invocationDigest },
         scope: { ref: authorityScopeRef, digest: authorityScopeDigest },
         artifact: { ref: artifactRef, digest: artifactDigest },
-      })) {
+      }, question);
+      if (corresponds === "lock_answers_only_recorded") {
+        throw new TypeError("materialization candidate requires an environment whose installs' lock answers the strict question");
+      }
+      if (!corresponds) {
         throw new TypeError("materialization artifact differs from its closed owner result, request, scope or Definition relation");
       }
     } else {
@@ -523,6 +562,15 @@ class RuntimeArtifactFacts {
       ) {
         throw new TypeError(
           "workspace binding artifact truth requires each causal install exactly once",
+        );
+      }
+      // Asked only when every cause is an admitted install; any other cause is
+      // refused below by the exact causal Product set.
+      if (question === "strict" &&
+          event.causationEventRefs.every((eventRef) => this.admittedInstalls.has(eventRef)) &&
+          !event.causationEventRefs.every((eventRef) => this.installLockAnswersStrict(eventRef))) {
+        throw new TypeError(
+          "workspace binding candidate requires causal installs whose lock answers the strict question",
         );
       }
       const causalInstalls = event.causationEventRefs.map((eventRef) =>
@@ -717,7 +765,7 @@ export function prepareArtifactTruthCandidate(
   validateRuntimeEventPrefixExtension(prefix, event);
   const facts = runtimePrefixComputation(prefix, ARTIFACT_FACTS, () => new RuntimeArtifactFacts());
   const prepared = facts.prepare({ kind: "event_calculus_effect_row", eventKind: event.kind,
-    sourceEvent: event, ...eventCalculusEffect(event) }, establishedLock);
+    sourceEvent: event, ...eventCalculusEffect(event) }, "strict", establishedLock);
   const artifacts = facts.artifacts.filter(row => row.admissionOrdinal <= predecessor.lastAdmissionOrdinal);
   assertUniqueArtifactTruth([...artifacts, prepared.artifact]);
   return (appended) => {
@@ -840,6 +888,51 @@ export function validateArtifactTruthProjectionValue(value: unknown): value is E
 /** @internal Borrow the actual owner representation; copies have no binding. */
 export function runtimePrefixFromOwnedArtifactTruth(value: ExactPrefixArtifactTruthProjection): RuntimeEventPrefix | null {
   return ArtifactTruthDerivation.prefix(value);
+}
+
+/** @internal The owner's projection that `value` is: `value` itself when the
+ * owner derived it, or, for a copy, the owner's own projection of the copy's
+ * prefix when the copy equals it (re-projected and compared canonically on
+ * each call). Null for anything else. The result is never cached on the copy. */
+export function ownedArtifactTruth(value: unknown): ExactPrefixArtifactTruthProjection | null {
+  if (ArtifactTruthDerivation.isFor(value)) return value;
+  try {
+    if (typeof value !== "object" || value === null || !("prefix" in value)) return null;
+    const projected = projectExactPrefixArtifactTruth(value.prefix as DurablePrefixCoordinate);
+    if (projected.kind !== "exact_prefix_artifact_truth_projection") return null;
+    const admitted = admitJson(value);
+    return admitted.kind === "ok" && canonicalEquals(projected, admitted.value) ? projected : null;
+  } catch {
+    return null;
+  }
+}
+
+/** @internal The strict answer the fold retains with each install fact: true when every named install's lock answers the strict
+ * question. The accessors of admitted installs, bindings and environments
+ * (`./environment_admission.js`) ask it unless their caller states
+ * `recorded`. A copied projection answers from the facts of the owner's
+ * projection it equals (`ownedArtifactTruth`); anything else answers false. */
+export function admittedInstallLocksAnswerStrict(
+  artifactTruth: ExactPrefixArtifactTruthProjection,
+  admissionEventRefs: readonly string[],
+): boolean {
+  const owner = ownedArtifactTruth(artifactTruth);
+  const prefix = owner === null ? null : ArtifactTruthDerivation.prefix(owner);
+  return prefix !== null && admittedInstallLocksAnswerStrictAtPrefix(prefix, admissionEventRefs);
+}
+
+/** @internal The same answer over the fold of one runtime prefix, for the
+ * accessors that read `projectArtifactTruth(prefix)` directly. */
+export function admittedInstallLocksAnswerStrictAtPrefix(
+  prefix: RuntimeEventPrefix,
+  admissionEventRefs: readonly string[],
+): boolean {
+  if (admissionEventRefs.length === 0) return false;
+  const facts = runtimePrefixComputation(prefix, ARTIFACT_FACTS, () => new RuntimeArtifactFacts());
+  if (admissionEventRefs.some((eventRef) => !facts.admittedInstalls.has(eventRef))) {
+    facts.advance(runtimeEventCalculusEffectsByKind(prefix, "public_operation_artifact_admitted"));
+  }
+  return admissionEventRefs.every((eventRef) => facts.installLockAnswersStrict(eventRef));
 }
 
 export function projectExactPrefixArtifactTruth(

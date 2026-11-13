@@ -8,6 +8,7 @@ import {
   capabilityRefsForContract,
   isCapabilityDefinitionGraph,
   type CapabilityDefinitionGraph,
+  type ProductTruthQuestion,
 } from "../shared/capability_contracts.js";
 import type {
   ProductContributionManifest,
@@ -30,6 +31,7 @@ import {
   isProductContributionManifest,
   nativeDeclarationEvidenceForVerifiedArtifact,
   parseProductPublicContract,
+  recordedCapabilityIdentitiesHold,
   retainedProductVerification,
 } from "./verify_product.js";
 import {
@@ -543,6 +545,33 @@ export function constructResolvedProductLock(
 
 export function isResolvedProductLock(
   value: unknown,
+): value is ResolvedProductLock;
+/** @internal The entry names the question; the exported signature asks the
+ * strict one, and any second argument other than `"recorded"` (a callback
+ * index) is strict. */
+export function isResolvedProductLock(
+  value: unknown,
+  question: ProductTruthQuestion,
+): value is ResolvedProductLock;
+export function isResolvedProductLock(
+  value: unknown,
+  question?: unknown,
+): value is ResolvedProductLock {
+  return productLockHolds(value, question === "recorded" ? "recorded" : "strict");
+}
+
+/**
+ * One body for both questions. Both establish the lock's shape, each row's
+ * descriptor fields, contribution manifest, graph under the same question,
+ * graph asset, contract rows and rosters, flat owner coordinates, dependency
+ * edges and lock digest. The strict question adds the register: each
+ * contract's identities are the register's, and an empty graph claims no
+ * contract the register maps to a capability. The recorded question adds
+ * `recordedCapabilityIdentitiesHold` over the row.
+ */
+function productLockHolds(
+  value: unknown,
+  question: ProductTruthQuestion,
 ): value is ResolvedProductLock {
   if (
     !isRecord(value) ||
@@ -605,7 +634,7 @@ export function isResolvedProductLock(
         !nonEmptyString(row.publisherNamespace) ||
         !nonEmptyString(row.catalogId) ||
         !isSha256Digest(row.catalogDigest) ||
-        !isCapabilityDefinitionGraph(row.capabilityDefinitionGraph) ||
+        !isCapabilityDefinitionGraph(row.capabilityDefinitionGraph, question) ||
         !isRecord(row.capabilityDefinitionGraphAsset) ||
         !nonEmptyString(row.capabilityDefinitionGraphAsset.path) ||
         !nonEmptyString(row.capabilityDefinitionGraphAsset.mediaType) ||
@@ -671,15 +700,20 @@ export function isResolvedProductLock(
           row.capabilityDefinitionGraph.rows
             .map(({ capabilityId }) => capabilityId),
         ) ||
-        (row.publicContracts as readonly ProductPublicContract[]).some(
-          (contract) =>
-            !canonicalEquals(
-              contract.capabilityIdentities,
-              capabilityRefsForContract(contract.contractId),
-            ),
-        ) ||
+        (question === "strict"
+          ? (row.publicContracts as readonly ProductPublicContract[]).some(
+            (contract) =>
+              !canonicalEquals(
+                contract.capabilityIdentities,
+                capabilityRefsForContract(contract.contractId),
+              ),
+          )
+          : !recordedCapabilityIdentitiesHold(
+            row as unknown as ResolvedProductLockRow,
+          )) ||
         !lockRowGraphMatchesCatalog(
           row as unknown as ResolvedProductLockRow,
+          question,
         ),
     )
   ) {
@@ -759,12 +793,18 @@ export function isResolvedProductLock(
     value.lockId === identity("product-lock://abiogenesis", expectedDigest);
 }
 
-/** The graph guard already established the register, rows and dependency graph.
- * Catalog correspondence only adds the exact flat-owner coordinates. */
-function lockRowGraphMatchesCatalog(row: ResolvedProductLockRow): boolean {
+/** The graph guard already established the rows and dependency graph under
+ * the caller's question. Catalog correspondence only adds the exact flat-owner
+ * coordinates. Under the recorded question the empty-graph rule is
+ * `recordedCapabilityIdentitiesHold`'s, already checked for the row. */
+function lockRowGraphMatchesCatalog(
+  row: ResolvedProductLockRow,
+  question: ProductTruthQuestion,
+): boolean {
   if (row.capabilityDefinitionGraph.rows.length === 0) {
-    return row.publicContracts.every((contract) =>
-      capabilityRefsForContract(contract.contractId).length === 0);
+    return question === "recorded" ||
+      row.publicContracts.every((contract) =>
+        capabilityRefsForContract(contract.contractId).length === 0);
   }
   const contracts = new Map(row.publicContracts.map((contract) => [contract.contractId, contract]));
   const contractCatalog = {

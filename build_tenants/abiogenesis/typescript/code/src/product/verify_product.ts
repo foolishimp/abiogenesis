@@ -18,8 +18,10 @@ import {
   capabilityRefsForContract,
   constructCapabilityDefinitionGraph,
   isCapabilityDefinitionGraph,
+  serializeCapabilityDefinitionGraph,
   type CapabilityDefinitionGraph,
   type CapabilityDefinitionGraphCoordinate,
+  type ProductTruthQuestion,
 } from "../shared/capability_contracts.js";
 import {
   completeDefinitionContractCoordinateMapSchema,
@@ -726,6 +728,55 @@ function isNativeDeclarationEvidence(
 }
 export function isVerifiedProductArtifact(
   value: unknown,
+): value is VerifiedProductArtifact;
+/** @internal The entry names the question; the exported signature asks the
+ * strict one, and any second argument other than `"recorded"` (a callback
+ * index) is strict. */
+export function isVerifiedProductArtifact(
+  value: unknown,
+  question: ProductTruthQuestion,
+): value is VerifiedProductArtifact;
+export function isVerifiedProductArtifact(
+  value: unknown,
+  question?: unknown,
+): value is VerifiedProductArtifact {
+  return verifiedProductArtifactHolds(value, question === "recorded" ? "recorded" : "strict");
+}
+
+/**
+ * @internal The contract-to-capability relation a recorded Product carrier
+ * establishes from what is recorded with it, shared by the recorded lock row
+ * and the recorded verified artifact. The recorded capability graph binds
+ * owning contracts, not each contract's `capabilityIdentities`. So: every
+ * identity names a row of the carrier's own graph, and a carrier with an empty
+ * graph has no contract with an identity. The catalog digest is not
+ * recomputed from the contracts, because the strict question does not check
+ * that relation; the lock or verification digest recomputes over the carrier.
+ * Identities altered among the graph's rows with every digest recomputed pass
+ * here: a door refuses them with the strict question, a read copy by its
+ * binding to recorded history.
+ */
+export function recordedCapabilityIdentitiesHold(carrier: Readonly<{
+  capabilityDefinitionGraph: CapabilityDefinitionGraph;
+  publicContracts: readonly ProductPublicContract[];
+}>): boolean {
+  const graphIds = new Set(carrier.capabilityDefinitionGraph.rows.map(({ capabilityId }) => capabilityId));
+  return carrier.publicContracts.every((contract) =>
+    contract.capabilityIdentities.every((capabilityId) => graphIds.has(capabilityId)));
+}
+
+/**
+ * One body for both questions. Both establish the carrier's shape,
+ * contribution manifest, graph under the same question, graph asset, contract
+ * rows, rosters, owner coordinates drawn from the carrier's own contracts and
+ * definition coordinates, and verification digest. The strict question adds
+ * the register: the graph is the register's construction over the carrier's
+ * coordinates and each contract's identities are the register's. The recorded
+ * question adds `recordedCapabilityIdentitiesHold`.
+ */
+function verifiedProductArtifactHolds(
+  value: unknown,
+  question: ProductTruthQuestion,
 ): value is VerifiedProductArtifact {
   if (typeof value === "object" && value !== null && ownedProductVerifications.has(value)) return true;
   if (
@@ -792,7 +843,7 @@ export function isVerifiedProductArtifact(
     !isUniqueStringArray(value.declaredCapabilityRefs) ||
     !isNonblankString(value.catalogId) ||
     !isSha256Digest(value.catalogDigest) ||
-    !isCapabilityDefinitionGraph(value.capabilityDefinitionGraph) ||
+    !isCapabilityDefinitionGraph(value.capabilityDefinitionGraph, question) ||
     !isProductAssetLocator(value.capabilityDefinitionGraphAsset) ||
     value.capabilityDefinitionGraphAsset.path !==
       CAPABILITY_DEFINITION_GRAPH_ASSET_PATH ||
@@ -862,21 +913,44 @@ export function isVerifiedProductArtifact(
       }
     }
   }
-  let expectedGraph: CapabilityDefinitionGraph;
-  try {
-    expectedGraph = constructCapabilityDefinitionGraph(graphBasis);
-  } catch {
+  const basisKeys = new Set(graphBasis.map((coordinate) => canonicalJson(coordinate)));
+  if (
+    !artifact.capabilityDefinitionGraph.rows.every((row) =>
+      row.owningPublicContracts.every((coordinate) => basisKeys.has(canonicalJson(coordinate))))
+  ) {
+    return false;
+  }
+  if (question === "strict") {
+    let expectedGraph: CapabilityDefinitionGraph;
+    try {
+      expectedGraph = constructCapabilityDefinitionGraph(graphBasis);
+    } catch {
+      return false;
+    }
+    if (
+      !canonicalEquals(
+        expectedGraph,
+        artifact.capabilityDefinitionGraph,
+      ) ||
+      artifact.publicContracts.some((contract) =>
+        !canonicalEquals(
+          contract.capabilityIdentities,
+          capabilityRefsForContract(contract.contractId),
+        )
+      )
+    ) {
+      return false;
+    }
+  } else if (!recordedCapabilityIdentitiesHold(artifact)) {
     return false;
   }
   if (
-    !canonicalEquals(
-      expectedGraph,
-      artifact.capabilityDefinitionGraph,
-    ) ||
     artifact.capabilityDefinitionGraphAsset.mediaType !== "application/json" ||
     artifact.capabilityDefinitionGraphAsset.schemaVersion !== "5.0.0" ||
     artifact.capabilityDefinitionGraphAsset.contentDigest !== sha256Bytes(
-      capabilityDefinitionGraphAssetBytes(artifact.capabilityDefinitionGraph),
+      question === "strict"
+        ? capabilityDefinitionGraphAssetBytes(artifact.capabilityDefinitionGraph)
+        : serializeCapabilityDefinitionGraph(artifact.capabilityDefinitionGraph),
     ) ||
     !canonicalEquals(
       artifact.contributionManifest.capabilityDefinitionGraph,
@@ -893,12 +967,6 @@ export function isVerifiedProductArtifact(
     !canonicalEquals(
       graphIds,
       artifact.publicCapabilityRefs,
-    ) ||
-    artifact.publicContracts.some((contract) =>
-      !canonicalEquals(
-        contract.capabilityIdentities,
-        capabilityRefsForContract(contract.contractId),
-      )
     )
   ) {
     return false;

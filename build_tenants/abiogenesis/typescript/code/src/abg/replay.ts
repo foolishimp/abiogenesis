@@ -2006,7 +2006,7 @@ function projectOwnerFacts(
     }
     const source = parent === null || basis?.parentCCallRef == null || typeof event.runId !== "string" ? null
       : deriveSameRunWorksiteCommandSourceBasisAtPrefix(cut, { parentBasis: parent, parentCCallRef: basis.parentCCallRef,
-          runId: event.runId, task: event.payload.rawInputValue }, currentOwnerPrefix);
+          runId: event.runId, task: event.payload.rawInputValue }, currentOwnerPrefix, "recorded");
     if (source === null) throw new TypeError("child C2 source does not reproduce at its admitted preparation cut");
     return [{ owner: "same_run_source_result", ownerAtom: requiredAtom(event.eventId, correspondence, "child_source_result"),
       sourceResultBasis: source }];

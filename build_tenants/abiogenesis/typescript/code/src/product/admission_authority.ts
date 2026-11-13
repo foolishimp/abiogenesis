@@ -300,6 +300,8 @@ function observePrefixEnvironment(
   requireCurrent: boolean,
 ) {
   const artifactTruth = projectOwnedPrefixArtifactTruth(prefix);
+  // Strict: an environment whose lock answers only the recorded question is
+  // refused here, so every admission over it is ENVIRONMENT_UNADMITTED.
   const environment = artifactTruth.kind === "exact_prefix_artifact_truth_projection"
     ? projectWorkspaceEnvironmentFromArtifactTruth(artifactTruth, workspaceBinding)
     : null;

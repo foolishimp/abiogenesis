@@ -588,6 +588,8 @@ function exactWorksiteEnvironmentAtPrefix(
   prefix: DurablePrefixCoordinate,
   carrier: WorksiteAuthorityCarrier,
 ): ExactPrefixWorkspaceEnvironment | null {
+  // Strict: every caller admits work over the carrier's environment, whose
+  // binding need not be the invocation's.
   const environment = projectExactPrefixWorkspaceEnvironment(prefix, {
     ref: carrier.workspaceBindingId,
     digest: carrier.workspaceBindingDigest,
@@ -1579,7 +1581,14 @@ export function admitExecutionBasis(
       [diagnosticRef],
       basis,
     );
-  if (!hasAdmittedInvocationAtPrefix(authorityPrefix, input.invocationAdmission)) {
+  // Strict: a root basis runs over the workspace environment its invocation
+  // names, asked here with the strict question; an invocation over a
+  // recorded-only environment is not admitted for work.
+  if (!hasAdmittedInvocationAtPrefix(authorityPrefix, input.invocationAdmission) ||
+    projectExactPrefixWorkspaceEnvironment(predecessorPrefix, {
+      ref: input.invocationAdmission.workspaceBindingId,
+      digest: input.invocationAdmission.workspaceBindingDigest,
+    }).kind !== "exact_prefix_workspace_environment") {
     throw new TypeError("ExecutionBasis requires one exact admitted invocation");
   }
   const rawInputValue = detachJsonRecord(input.rawInputValue);
@@ -2301,6 +2310,13 @@ function admitChildExecutionBasisUsing(
   const current = (() => {
     try {
       const authorityPrefix = readCurrent();
+      // Strict: a child basis continues work over its parent's workspace
+      // environment, asked here with the strict question; a parent over a
+      // recorded-only environment is not a current parent for work.
+      if (projectExactPrefixWorkspaceEnvironment(predecessorPrefix, {
+        ref: input.parentExecutionBasis.workspaceBindingId,
+        digest: input.parentExecutionBasis.workspaceBindingDigest,
+      }).kind !== "exact_prefix_workspace_environment") return null;
       const expectedStorePrefixDigest = runtimeEventPrefixDigest(authorityPrefix);
       if (store.digest() !== expectedStorePrefixDigest) return null;
       const runPrefix = selectRuntimeEventPrefixFromAuthority(authorityPrefix, { runId: input.parentTraversalScope.runId });

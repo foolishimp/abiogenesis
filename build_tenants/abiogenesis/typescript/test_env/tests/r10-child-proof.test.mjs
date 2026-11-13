@@ -14,10 +14,15 @@ import {resolveExecutionDeclarationClosure,selectExactClosureContract} from '../
 import {sha256Canonical} from '../../build/code/src/shared/digests.js';
 import {reopenEventStore,closeHeldEventStoreAtDurablePrefix} from '../../build/code/src/abg/event_store.js';
 import {evidenceInput} from '../support/evidence-root.mjs';
+import {createCurrentConformanceFixture,recordedLockMatchesCurrentRegister} from '../support/t292-current-terminal-fixture.mjs';
+import {isResolvedProductLock} from '../../build/code/src/product/environment.js';
+import {validatedRuntimeEventPrefixBeforeEvent} from '../../build/code/src/abg/event_prefix.js';
+import {deriveSameRunWorksiteCommandSourceBasisAtPrefix} from '../../build/code/src/abg/invocation_admission.js';
+import {projectAdmittedWorkspaceBindingAtCoordinate} from '../../build/code/src/abg/worksite_revision.js';
 import {callInput as s01CallInput,eventsInput as s01EventsInput,reopenPackagedS01Store} from '../fixtures/r10-projection-family/s01-store.mjs';
 // The retained D2 store with its program-ready record, the S01 call-9 record
 // and the S01 store's call-11 record and log (s01-store.mjs) are historical
-// evidence under the evidence root, named by path, digest and bytes. Without the root every case skips with the reason. The
+// evidence under the evidence root, named by path, digest and bytes. Without the root the retained cases skip with the reason. The
 // store was appended after this proof's capture (913 lines); the proof is over
 // its first 846 lines, 13,540,472 bytes, sha256 4f561cea….
 const D2='comments/codex/20260911_D2_BOUNDED_REPAIR/installed-continuation-09/installed-frame-01/';
@@ -51,7 +56,7 @@ function prefixAt(ordinal){const selected=Buffer.from(lines.slice(0,ordinal).joi
 const close=events.find(e=>e.admissionOrdinal===67),prefix=prefixAt(67);
 const packet={kind:'abg_project_read_packet',schemaVersion:'5.0.0',memberKey:'graph_call_result',prefix,targetRef:close.graphCallId,declarationProof:proof};
 const owner=await privateOwner('abg/project_read_ports.js',['prepareRead','scopeForBasis','terminalContract','graphCallContext','typedTerminalResult']);
-const prepared=owner.prepareRead('graph_call_result',packet);assert.ok(!prepared.code);
+const prepared=owner.prepareRead('graph_call_result',packet,undefined,undefined,'recorded');assert.ok(!prepared.code);
 const basis=projectExactExecutionBasisAtPrefix(prepared.fullPrefix,close.basisId),scope=owner.scopeForBasis(prepared.fullPrefix,basis);
 const contract=owner.terminalContract(prepared,basis,scope);
 assert.equal(contract.ref,'contract://abiogenesis/semantic-stage/envelope@5');
@@ -110,6 +115,36 @@ test('same child remains authentic after actual root completion at prefix831; no
   assert.equal(result.value.terminalResult.projectionBasis.digest,later.coordinateDigest);
 });
 
+test('recorded replay and strict work questions remain separate in either order at the same D2 preparation cut',()=>{
+ const complete=owner.prepareRead('graph_call_result',{...packet,prefix:prefixAt(846)},undefined,undefined,'recorded');
+ const child=events.find(e=>e.kind==='basis_admitted'&&e.payload.basisClass==='child'&&e.payload.rawInputValue?.kind==='worksite_command_execution_task');
+ assert.ok(child);const childBasis=projectExactExecutionBasisAtPrefix(complete.fullPrefix,child.basisId);
+ const parentBasis=projectExactExecutionBasisAtPrefix(complete.fullPrefix,childBasis.parentExecutionBasisRef);
+ const cut=validatedRuntimeEventPrefixBeforeEvent(complete.fullPrefix,child.eventId);
+ const input={parentBasis,parentCCallRef:childBasis.parentCCallRef,runId:child.runId,task:child.payload.rawInputValue};
+ const lock=proof.catalog.readinessBasis.resolvedLock,strictExpected=recordedLockMatchesCurrentRegister(lock);
+ if(process.env.ABI5_TD77_EXPECT_RECORDED_ONLY==='1')assert.equal(strictExpected,false);
+ assert.equal(isResolvedProductLock(lock),strictExpected);
+ // The replay and work paths share the artifact fold, but question-sensitive
+ // recursive projection sessions are local. Exercise the shared binding gate
+ // in both orders, then one actual default-strict source derivation.
+ let recorded;
+ for(const order of [['recorded','strict'],['strict','recorded']])for(const question of order){
+   const result=projectAdmittedWorkspaceBindingAtCoordinate(cut,parentBasis.workspaceBindingId,parentBasis.workspaceBindingDigest,question);
+   if(question==='recorded'){assert.ok(result);if(recorded)assert.deepEqual(result,recorded);recorded=result;}
+   else assert.equal(result!==null,strictExpected,'strict answer never borrows the recorded result');
+ }
+ assert.equal(deriveSameRunWorksiteCommandSourceBasisAtPrefix(cut,input)!==null,strictExpected,'the default remains strict');
+ const first=GraphCallProjectionPort.graph_call_result(packet);assert.equal(first.kind,'abg_project_read_projection');
+ const {projectionBasis:_early,...expected}=first.value.terminalResult;
+ for(const ordinal of [831,846]){
+   const read=GraphCallProjectionPort.graph_call_result({...packet,prefix:prefixAt(ordinal)});
+   assert.equal(read.kind,'abg_project_read_projection',JSON.stringify(read));
+   const {projectionBasis,...actual}=read.value.terminalResult;assert.deepEqual(actual,expected);
+   assert.equal(projectionBasis.digest,prefixAt(ordinal).coordinateDigest);
+ }
+});
+
 test('one exact contract selector refuses competing same-valued owners inside the resolved closure',()=>{
   const rootBasis=events.find(e=>e.kind==='basis_admitted'&&e.payload.basisClass==='root'&&e.payload.invocationAdmissionRef===basis.invocationAdmissionRef).payload;
   const closure=resolveExecutionDeclarationClosure(proof.catalog,proof.catalogView,rootBasis.programRef,rootBasis.graphFunctionRef);
@@ -141,7 +176,7 @@ test('fresh-process child projection reads only the retained log once proof is s
   }
 });
 
-test('conformance keeps the complete artifact-truth, inventory and Program joins around the shared verifier',async()=>{
+test('retained conformance evidence requires strict Product truth; read-resource schema stays exact',async()=>{
   const call=JSON.parse(s01Input.bytes.toString('utf8')).invocation;
   const resources=call.resources,catalog=resources.declarationCatalog.catalog;
   const workspace={ref:catalog.workspaceBindingId,digest:catalog.workspaceBindingDigest};
@@ -153,12 +188,18 @@ test('conformance keeps the complete artifact-truth, inventory and Program joins
   assert.ok(packaged.prefix,JSON.stringify(packaged));
   const {coordinateDigest:_,...base}=structuredClone(packaged.prefix);
   const body={...base,prefixLength:historical.prefixLength,prefixDigest:historical.prefixDigest};
-  const environment=projectExactPrefixWorkspaceEnvironment({...body,coordinateDigest:sha256Canonical(body)},workspace);
+  const coordinate={...body,coordinateDigest:sha256Canonical(body)};
+  const environment=projectExactPrefixWorkspaceEnvironment(coordinate,workspace,'recorded');
   assert.equal(environment.kind,'exact_prefix_workspace_environment',JSON.stringify(environment).slice(0,400));
+  const strictExpected=recordedLockMatchesCurrentRegister(environment.resolvedProductLock);
+  if(process.env.ABI5_TD77_EXPECT_RECORDED_ONLY==='1')assert.equal(strictExpected,false);
+  assert.equal(isResolvedProductLock(environment.resolvedProductLock),strictExpected);
+  const strict=projectExactPrefixWorkspaceEnvironment(coordinate,workspace);
+  assert.equal(strict.kind==='exact_prefix_workspace_environment',strictExpected);
+  if(!strictExpected)assert.equal(strict.code,'causal_install_missing');
   const conformance=await privateOwner('validator/conformance_definition_bindings.js',['reconstructDeclarationBasis']);
-  assert.equal(conformance.reconstructDeclarationBasis(resources,environment).declarationClosure.kind,'resolved_program_declaration_closure');
-  const incomplete={...resources,declaredInventory:resources.declaredInventory.slice(1)};
-  assert.throws(()=>conformance.reconstructDeclarationBasis(incomplete,environment),/inventory differs/);
+  if(strictExpected)assert.equal(conformance.reconstructDeclarationBasis(resources,environment).declarationClosure.kind,'resolved_program_declaration_closure');
+  else assert.throws(()=>conformance.reconstructDeclarationBasis(resources,environment),/conformance artifact truth differs/);
   // The artifact truth the join reads is the admitted environment's, not a supplied copy.
   const foreign={...environment,artifactTruth:{...environment.artifactTruth,projectionDigest:sha256Canonical('foreign')}};
   assert.throws(()=>conformance.reconstructDeclarationBasis(resources,foreign),/artifact truth differs/);
@@ -182,3 +223,14 @@ test('the retained native log and proof bytes remain unchanged',()=>{
   assert.equal(hash(fs.readFileSync(log)),hash(logBytes));
 });
 })();
+
+
+test('current installed conformance preserves artifact-truth, inventory and Program joins',async t=>{
+ const {resources,environment}=await createCurrentConformanceFixture(t);
+ const conformance=await privateOwner('validator/conformance_definition_bindings.js',['reconstructDeclarationBasis']);
+ assert.equal(conformance.reconstructDeclarationBasis(resources,environment).declarationClosure.kind,'resolved_program_declaration_closure');
+ assert.throws(()=>conformance.reconstructDeclarationBasis({...resources,declaredInventory:resources.declaredInventory.slice(1)},environment),/inventory differs/);
+ const foreign={...environment,artifactTruth:{...environment.artifactTruth,projectionDigest:sha256Canonical('foreign')}};
+ assert.throws(()=>conformance.reconstructDeclarationBasis(resources,foreign),/artifact truth differs/);
+ assert.throws(()=>conformance.reconstructDeclarationBasis({...resources,packet:{...resources.packet,publication:{...resources.packet.publication,moduleRef:'module://foreign'}}},environment),/Program has no exact compatible declaration owner closure/);
+});

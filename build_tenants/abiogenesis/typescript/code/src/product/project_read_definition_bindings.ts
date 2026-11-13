@@ -596,11 +596,14 @@ const workspace_status: ExactDefinitionCallable<
     )) {
       throw fault(call, "call_identity_mismatch", "workspace status call differs from its fixed definition, contracts, request digest, or authority topology");
     }
+    // Recorded: workspace status reads the recorded binding and its installs
+    // and admits nothing.
     const admittedProducts = packet.productSet.orderedInstallRefs.map((installId) =>
       projectAdmittedWorkspaceProductInstall(
         artifactTruth,
         packet.binding.bindingId,
         installId,
+        "recorded",
       )
     );
     const admissionRow = artifactTruth.rows.find((row) =>
@@ -616,7 +619,7 @@ const workspace_status: ExactDefinitionCallable<
     if (
       !baseRelationMatches(call) ||
       !sameJson(call.invocation.request.selector, packet.selector) ||
-      !hasAdmittedWorkspaceBinding(artifactTruth, packet.binding) ||
+      !hasAdmittedWorkspaceBinding(artifactTruth, packet.binding, "recorded") ||
       admittedProducts.some((product) => product === null) ||
       admissionRow === undefined ||
       workspaceManifest === null ||
@@ -641,7 +644,9 @@ const workspace_status: ExactDefinitionCallable<
     ) {
       throw fault(call, "resource_relation_mismatch", "workspace status packet differs from the public source, basis, or selector coordinates");
     }
-    const output = WorkspaceProjectionPort.status(packet);
+    // The packet's binding is the recorded admission (above); its lock is
+    // asked the recorded question and bound to that binding by digest.
+    const output = WorkspaceProjectionPort.status(packet, "recorded");
     if (output.kind === "product_project_read_refusal") {
       return deepFreeze({
         ownerOutput: nativeRefusal(PRODUCT_PROJECT_READ_CONTRACTS.workspace_status, output),
@@ -736,7 +741,8 @@ const install_evidence: ExactDefinitionCallable<
       !isRecord(manifestValue) ||
       manifestValue.provenanceRef !== packet.install.provenanceRef ||
       manifestValue.productContentDigest !== packet.install.productContentDigest ||
-      !hasAdmittedProductInstall(artifactTruth, packet.install) ||
+      // Recorded: install evidence reads the recorded install and admits nothing.
+      !hasAdmittedProductInstall(artifactTruth, packet.install, "recorded") ||
       admissionRow === undefined
     ) {
       throw fault(call, "resource_relation_mismatch", "install evidence packet differs from the public source, basis, or manifest coordinates");

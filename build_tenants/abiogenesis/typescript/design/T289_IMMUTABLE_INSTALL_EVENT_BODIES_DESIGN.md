@@ -36,8 +36,17 @@ inline or reference lock form for the compact representation. A reference must
 match an earlier validated, physically embedded source's event identity/digest
 and lock identity/digest; chains, cycles, missing, forward, wrong, malformed,
 and mixed sources refuse. The selected product row must exist exactly once.
-The reader reconstructs the full candidate, checks the unchanged Product raw
+The reader reconstructs the full candidate, checks the Product candidate
 predicate and full artifact digest, and only then exposes the install fact.
+When the fold advances over history, it asks an inline lock the strict
+question first and the recorded question only where the strict question
+refuses, and retains the answer with the install fact; a compact reference
+takes its source install's answer. When admission prepares its candidate, an
+inline lock must answer the strict question, a compact reference requires a
+source whose lock answers it, and a workspace binding requires it of every
+causal install
+(`T287_PACKAGE_OWNED_NATIVE_DECLARATIONS_DESIGN.md`, "Recorded and strict
+Product truth").
 
 Historical complete candidate plus embedded lock events retain their original
 zero-cause branch. They may supply an exact embedded lock to a later compact
