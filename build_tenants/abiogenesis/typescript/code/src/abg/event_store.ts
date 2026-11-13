@@ -23,7 +23,7 @@ import {
   writeFileSync,
   writeSync,
 } from "node:fs";
-import { tmpdir } from "node:os";
+import { tmpdir, userInfo } from "node:os";
 import { dirname, join, resolve } from "node:path";
 import { fileURLToPath, pathToFileURL } from "node:url";
 
@@ -1603,34 +1603,33 @@ const DURABLE_LOCK_NAMESPACE = "abiogenesis-event-store-locks-v5";
  * device and inode. On POSIX the namespace is one directory per user under
  * `/tmp`, named with the user id and read from no environment variable:
  * created with mode 0700, and refused if it is a symbolic link, is not a
- * directory or is not owned by the user. Elsewhere it is the directory under
- * `tmpdir()`. */
+ * directory or is not owned by the user. Elsewhere the fixed directory is
+ * under the OS-reported account home (`userInfo`, not environment-derived
+ * `homedir`); a missing/unavailable home refuses without a temporary fallback. */
 export function durableAppendLockPath(identity: Readonly<{ device: number; inode: number }>): string {
   const name = `${identity.device}-${identity.inode}.lock`;
-  if (typeof process.getuid !== "function") {
-    const lockRoot = join(tmpdir(), DURABLE_LOCK_NAMESPACE);
-    mkdirSync(lockRoot, { recursive: true });
-    return join(lockRoot, name);
-  }
-  const uid = process.getuid(), lockRoot = join("/tmp", `${DURABLE_LOCK_NAMESPACE}-uid-${uid}`);
+  const uid = typeof process.getuid === "function" ? process.getuid() : null;
+  const lockRoot = uid === null
+    ? join(userInfo().homedir, `.${DURABLE_LOCK_NAMESPACE}`)
+    : join("/tmp", `${DURABLE_LOCK_NAMESPACE}-uid-${uid}`);
   try {
     mkdirSync(lockRoot, { mode: 0o700 });
-    chmodSync(lockRoot, 0o700);
+    if (uid !== null) chmodSync(lockRoot, 0o700);
   } catch (error) {
     if (!isNodeError(error, "EEXIST")) throw error;
   }
   const status = lstatSync(lockRoot);
-  if (status.isSymbolicLink() || !status.isDirectory() || status.uid !== uid) {
+  if (status.isSymbolicLink() || !status.isDirectory() || (uid !== null && status.uid !== uid)) {
     throw new TypeError("ABG durable append lock namespace is not a directory owned by this user");
   }
   return join(lockRoot, name);
 }
 
 // T-292 TD-82: a build before this one kept its lock under `tmpdir()`. A lock
-// for the same log there is a holder of that build and refuses acquisition.
+// for the same log there is unresolved ownership and refuses acquisition.
+// This local check neither discovers other old TMPDIRs nor fences older builds.
 // Removable once no installed build of an earlier cut can open these logs.
 function refuseHolderInPreviousLockNamespace(identity: DurableFileIdentity): void {
-  if (typeof process.getuid !== "function") return;
   try {
     lstatSync(join(tmpdir(), DURABLE_LOCK_NAMESPACE, `${identity.device}-${identity.inode}.lock`));
   } catch (error) {

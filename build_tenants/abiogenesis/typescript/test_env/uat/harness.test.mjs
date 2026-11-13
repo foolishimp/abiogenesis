@@ -1097,7 +1097,7 @@ test('Maintained setup retains actual owner verification through ten native call
       'fixed nonempty declaration path reads the installed bundled lib.*.full.d.ts default-library root once; the warm control shows the read persists after compiler warm-up.',
       limits:['It does not count every verifier invocation or all declaration work.',
         'Zero reads in a phase exclude only fresh full program construction there, not preliminary parsing.']},
-    environment:{configuredKeys:['PATH','TMPDIR'],installationNpmCalls:npmCalls.length,lockNamespaceUnderConfiguredTmp:true,
+    environment:{configuredKeys:['PATH','TMPDIR'],installationNpmCalls:npmCalls.length,lockNamespaceUnderConfiguredTmp:false,
       restoredAfterSuccess:true,restoredAfterFailure:true,ambientInProcessKeys:inheritedKeys,fullEnvironmentEquivalence:false},setupCliChildren:0,setupJsonlRequests:0,
     resolveCall:{invocationRef:resolved.call.invocation.invocationRef,invocationDigest:resolved.call.invocation.invocationDigest},
     limits:'Provider-free setup proof only: measured phases of this run; library reads bound only fresh full TypeScript program construction on this path; '+

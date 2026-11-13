@@ -43,7 +43,7 @@ The request independently selects provenance and ownership:
 2. **Ownership:** either exact `abandonedLock` path/device/inode/base64 bytes/digest, or explicit `recoveryCase: lock_absent` and the exact lock path the store gives for the selected device and inode (`durableAppendLockPath` in `abg/event_store.ts`). These are observed premises, not consequences inferred from K.
 3. **Current D and A:** exact current byte length/digest, selected former owner PID, interruption/quiescence evidence, explicit single-operator exclusive-maintenance premise, and exact Product verification request/verified executing artifact. Existing current handoff remains the ordinary reopen route; quiescent maintenance does not displace a live owner.
 
-The original prior-handoff/abandoned-lock request remains accepted unchanged. Strict request alternatives prevent crossed provenance/ownership fields. Exact request/effect approval binds the selected alternative and all evidence; an approval for a different selection does not apply.
+The prior-handoff/abandoned-lock request shape is unchanged; its lock-path evidence must name this build's namespace. Earlier-build lock paths are not adopted by this build. Strict request alternatives prevent crossed provenance/ownership fields. Exact request/effect approval binds the selected alternative and all evidence; an approval for a different selection does not apply.
 
 Existing `RESOLVED_ADMISSION_AUTHORITY_SCHEMA` supplies the externally resolved trusted-developer actor and allow decision. Existing `verifyProduct` revalidates the artifact against requested and executing manifest/export identities. Fixed `ABG_EVENT_RESOURCE_RECOVERY` identifies the symbol and finite descriptor/acquisition/adoption/close effects. `abgEventRecoveryScope` derives the complete request/effect scope for external approval. Actor, authority/approval digests and exact descriptor/request/scope correspondence are checked before resource access. Computing a digest or validating a schema does not grant permission.
 
@@ -51,13 +51,42 @@ Existing `RESOLVED_ADMISSION_AUTHORITY_SCHEMA` supplies the externally resolved 
 
 One trusted operator reserves the maintenance interval, establishes origin/interruption/quiescence and starts no competing writer/recovery. For abandoned-lock adoption the selected owner PID must be absent; live (including reuse), inaccessible or unknown PID status refuses adoption. For confirmed-unheld reconciliation, exact external quiescence/exclusive-maintenance approval and successful normal exclusive acquisition govern: the former process may remain alive after releasing ownership. Neither lock absence nor a PID alone establishes quiescence. Pending delivery, unresolved ownership or competing ownership must wait/refuse rather than assert the unheld premise. This does not restrict ordinary live-owner continuation or genuine current-handoff reopen. No process kill, PID-start database, recovery journal, fence, quarantine or adversarial concurrent-recovery protocol is selected.
 
-1. Validate selection, approval and installed owner. Select exact current path/device/inode from genuine predecessor or explicit initial origin. Require that the selected lock path is the one the store gives for that device and inode (`durableAppendLockPath` in `abg/event_store.ts`): on POSIX a file in one directory per user under `/tmp`, named with the user id and found through no environment variable, created with mode 0700 and refused if it is a symbolic link or not owned by the user; on other platforms a file in a directory under `tmpdir()`. Open the selected log without replacement/content write and check regular path/descriptor identity.
-2. If O is abandoned, open and verify exact selected lock bytes/identity/PID and keep its path present. If O is confirmed unheld, use existing ordinary exclusive lock acquisition; an existing/appearing lock refuses without removal or adoption. On POSIX both adoption and acquisition also refuse while a lock for the log exists under this process's `TMPDIR` in the namespace of an earlier build (`refuseHolderInPreviousLockNamespace`). The operation owns only the lock it actually acquired/adopted.
+1. Validate selection, approval and installed owner. Select exact current path/device/inode from genuine predecessor or explicit initial origin. Require that the selected lock path is the one the store gives for that device and inode (`durableAppendLockPath` in `abg/event_store.ts`): on POSIX a file in one directory per user under `/tmp`, named with the user id and found through no environment variable, created with mode 0700 and refused if it is a symbolic link or not owned by the user; on other platforms a file in `.abiogenesis-event-store-locks-v5` under the account home reported by `os.userInfo()`, which comes from the operating system, not `HOME`, `USERPROFILE`, `TMPDIR`, `TMP` or `TEMP`. Lookup/create failure refuses without a temporary-directory fallback; a symbolic link or non-directory refuses on either branch. Open the selected log without replacement/content write and check regular path/descriptor identity.
+2. If O is abandoned, open and verify exact selected lock bytes/identity/PID and keep its path present. If O is confirmed unheld, use existing ordinary exclusive lock acquisition; an existing/appearing lock refuses without removal or adoption. Both adoption and acquisition also refuse while a lock for the log exists under this process's `tmpdir()` in the namespace of an earlier build (`refuseHolderInPreviousLockNamespace`). The operation owns only the lock it actually acquired/adopted.
 3. Read selected D once. Check current length/digest and, when K provides a predecessor, its exact byte-prefix/digest/boundary. Use the existing complete cold decoder once: canonical rows, causal references, ordinals, event/payload identity, physical references and profile law remain. Prior-cut recovery preserves the same active profile at predecessor/current boundaries; initial-origin recovery requires the ordinary new-owner current profile from the first event (or empty history). No upgrade/restamping is authorized.
 4. Recheck ordinary descriptor/path identities and extents. Seed the same private durable-history correspondence used by reopen from these validated bytes/events and the selected ownership. Do not reacquire/redecode or author a caller reopen authority.
 5. Immediately invoke existing held-store close. Exact-prefix release produces the genuine current `EventStoreCloseHandoff`; only successful close returns `recovered`. Delivery may itself fail again, leaving a state governed by this same relation. No log byte, Run result or application fact changes.
 
 The returned close handoff is portable data. Its complete prefix is detached through the existing canonical I-JSON value owner, preserving every field, digest and reopen authority without retaining the nominal decoded-history receipt. A caller that separately retains the authenticated owner prefix or validated snapshot keeps its existing immutable post-close reads and preparation callbacks; close does not purge that evidence. Ordinary reopen still independently validates physical identity, bytes, profile and complete history. A retained portable handoff alone must not keep the previous decoded population alive during that cold acquisition.
+
+### TD-82 namespace and retained-build boundary
+
+The fixed per-user namespace preserves one-writer contention for same-user
+processes on the same host/filesystem namespace, including processes with
+independent temporary-directory environments. This is physical ownership,
+not a new event, Public contract or recovery authority. Device/inode naming
+also keeps hard-link spellings of one log in the same contention domain.
+Acquisition and abandoned-lock recovery consume the same internal path owner.
+No lock is placed beside the log, so workspace directory membership is unchanged.
+
+The old-namespace check is a local refusal guard only. It sees unresolved old
+residue under the current process's `tmpdir()`; it cannot discover an arbitrary
+older process's different temporary directory or prevent an old build starting
+later. Simultaneous mixed-version ownership is not excluded by this repair.
+An old abandoned lock is still selected and recovered through its original
+installed owner under its original namespace and existing exclusive-maintenance
+premise; the resulting genuine close handoff can then enter ordinary current
+reopen. This build never migrates, deletes or adopts an old-namespace lock.
+The guard's removal trigger remains retirement of earlier installed builds
+that can open these logs; no update or retirement operation is introduced.
+
+Product's trusted-developer-desktop scope and exclusion of multi-user services,
+distributed orchestration, hostile-workstation resistance and installed-product
+update lifecycle remain unchanged. A uid/account namespace does not coordinate
+different OS users or isolated filesystem namespaces. Those are limits of this
+realization, not newly declared Product exclusions. Native POSIX subprocess
+proof and controlled non-POSIX branch proof are distinguished in the TD-82
+Return; the latter is not native Windows qualification.
 
 ### Operational history representation
 

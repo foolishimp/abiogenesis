@@ -5,7 +5,6 @@ import {pathToFileURL,fileURLToPath} from 'node:url';
 import * as f from '../fixtures/t287-s03-automatic-product/index.mjs';
 import {requireRawAdmission,rawProgramInput,setupInstalledRootCatalog} from './root-installed-environment.mjs';
 import {prepareRegisteredSelectionProduct,constructInstalledStartCall,constructInstalledRunReadCall,runInstalledCliRequest} from './registered-graph-selection.mjs';
-import {eventStoreLockPathOf} from './event-store-lock.mjs';
 export const read=async path=>JSON.parse(await readFile(path,'utf8'));
 export const save=async (dir,name,value)=>{await mkdir(dir,{recursive:true});await writeFile(join(dir,name),JSON.stringify(value,null,2)+'\n');};
 const loadAt=root=>p=>import(pathToFileURL(join(root,`build/code/src/${p}.js`)).href);
@@ -178,7 +177,7 @@ export async function runInstalledProof({proof,prior,oracle,release}){
   }
   const positive=await oneCase('positive',true);const noAction=await oneCase('no-action',false);await save(proof,'installed-result.json',{status:'candidate_ready',positive,noAction,accounting,handoff});return {positive,noAction};
  }catch(error){
-  const physical={};if(handoff){const path=fileURLToPath(handoff.prefix.eventLogRef);const bytes=await readFile(path);await writeFile(join(proof,'failed-native-prefix.jsonl'),bytes);const identity=await stat(path);Object.assign(physical,{path,byteLength:bytes.length,device:identity.dev,inode:identity.ino});const lockPath=eventStoreLockPathOf(identity);try{physical.lock={path:lockPath,bytesBase64:(await readFile(lockPath)).toString('base64')};}catch(e){if(e.code==='ENOENT')physical.lock={path:lockPath,state:'absent'};else throw e;}}
+  const physical={};if(handoff){const path=fileURLToPath(handoff.prefix.eventLogRef);const bytes=await readFile(path);await writeFile(join(proof,'failed-native-prefix.jsonl'),bytes);const identity=await stat(path);Object.assign(physical,{path,byteLength:bytes.length,device:identity.dev,inode:identity.ino});const lockPath=join(process.env.TMPDIR,'abiogenesis-event-store-locks-v5',`${identity.dev}-${identity.ino}.lock`);try{physical.lock={path:lockPath,bytesBase64:(await readFile(lockPath)).toString('base64')};}catch(e){if(e.code==='ENOENT')physical.lock={path:lockPath,state:'absent'};else throw e;}}
   await save(proof,'installed-failure.json',{message:error.message,stack:error.stack,lastGenuineHandoff:handoff??null,scratch:environment?.scratch??null,physical});throw error;
  }
 }
