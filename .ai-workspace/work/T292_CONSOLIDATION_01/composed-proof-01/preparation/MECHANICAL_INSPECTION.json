@@ -1,0 +1,40 @@
+{
+  "kind": "scratch_runner_mechanical_inspection",
+  "at": "2026-11-13T08:04:21.403989+00:00",
+  "runner": {
+    "path": "/private/tmp/abg-t292-composed-proof-prep/run-composed.py",
+    "bytes": 28473,
+    "sha256": "b8bb06d2172468735ee91767a8f8453cfda2a625a21ea010c9051f5d4e054f88"
+  },
+  "pythonAstAndCompile": "successful",
+  "inactiveTemplate": {
+    "argv": [
+      "/usr/local/bin/python3",
+      "-B",
+      "/private/tmp/abg-t292-composed-proof-prep/run-composed.py",
+      "broad",
+      "--config",
+      "/private/tmp/abg-t292-composed-proof-prep/config.template.json",
+      "--config-sha256",
+      "ab48177bd9aacb70dff063b7ab0d1067cd2c9a4c9cd60956dca2ffef6beef81a"
+    ],
+    "exitCode": 2,
+    "stdout": {
+      "path": "/private/tmp/abg-t292-composed-proof-prep/inert-template.stdout",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "stderr": {
+      "path": "/private/tmp/abg-t292-composed-proof-prep/inert-template.stderr",
+      "bytes": 95,
+      "sha256": "24af39203bb34c8ae194c59a3fb3be1090403993e5ea8977519540c40120d99f"
+    },
+    "observed": "PRELAUNCH_REFUSAL before source, host/boot clock, process or proof acquisition"
+  },
+  "campaignClocksCreated": 0,
+  "productionTestsExecuted": 0,
+  "buildsExecuted": 0,
+  "historyOwnerCallsExecuted": 0,
+  "providerCallsExecuted": 0,
+  "standing": "syntax/static inspection and inactive-control refusal only; no production proof credit"
+}

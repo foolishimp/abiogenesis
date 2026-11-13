@@ -1,0 +1,52 @@
+[
+  {
+    "path": "/private/tmp/claude-501/-Users-jim-src-apps-specification-methodology/5e4c25c3-fca5-4dd6-89e7-20d55d008bdf/scratchpad/suite-run.sh",
+    "bytes": 879,
+    "sha256": "db24ffcff3941c95a24cab55c73103498828b5f84114fe9e11e9f3a808565118"
+  },
+  {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/claude/20261112T223136Z_HANDOFF_T292_CONSOLIDATION_WAVE_TO_CODEX/briefs/post-run.sh",
+    "bytes": 875,
+    "sha256": "8a16ead90af91f4f65c681b2c9ea3743c36d867388bca835e1745460d1a128b1"
+  },
+  {
+    "path": "/private/tmp/abg-td26p5-work/scripts/replay-log.mjs",
+    "bytes": 3661,
+    "sha256": "b2fc2057020894aff63364deb7d66ec42e3923d279dbe83cb14aa4b9dbea5423"
+  },
+  {
+    "path": "/private/tmp/abg-td26p5-work/scripts/probe-artifact-truth.mjs",
+    "bytes": 1687,
+    "sha256": "3d7b54a8f58456281bd71c7a63defbbf7da83adaa8167eceb60c250cf686fd0c"
+  },
+  {
+    "path": "/private/tmp/abg-td26p5-work/scripts/probe-lock.mjs",
+    "bytes": 1782,
+    "sha256": "dc95abaeec5b54498f3eeafd758b675cad43a0f4069c3d03b266950c97a5e819"
+  },
+  {
+    "path": "/private/tmp/abg-td26p5-work/codex-resume/kept-reads-pair.mjs",
+    "bytes": 3504,
+    "sha256": "7e7c36e11c7e8adfaf86016f3b8902af0bbf23ff82b1f6295ba826f0701b7bc4"
+  },
+  {
+    "path": "/private/tmp/abg-td26p5-work/codex-resume/bounded-logs.txt",
+    "bytes": 821,
+    "sha256": "707343f0887aaee69a7812c3387e2530cc10db546347e27b587829f212a85fbb"
+  },
+  {
+    "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/uat/runner.mjs",
+    "bytes": 42204,
+    "sha256": "544b8ff513f4dc3a9cbf4b5c704933cb3620db60bf2c5ef7e9642df729794e4b"
+  },
+  {
+    "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/scripts/node-test-evidence-reporter.mjs",
+    "bytes": 1514,
+    "sha256": "a9c87091a53c664ce76c4de64af47564c6021d3c08172c8ab8c41b299184875d"
+  },
+  {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/BROAD_BINDINGS.actual003.bound-008.json",
+    "bytes": 214131,
+    "sha256": "ec04f94a9eca98ad9a932b12853bbbb74917867a1e5655a9f178463b36a76750"
+  }
+]

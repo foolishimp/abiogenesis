@@ -1,0 +1,51 @@
+{
+  "binding": "e709bd24f3db37991b892304f7fa369897bba315 held compiled copy; TD-26_P5_RETURN.md and Root packet",
+  "baseTenant": "/private/tmp/abg-td26p5-work/codex-resume/base-tenant",
+  "pins": [
+    {
+      "path": "/private/tmp/abg-td26p5-work/codex-resume/base-tenant/product-toolchain-manifest.json",
+      "bytes": 3188630,
+      "sha256": "9a2a599fdc7d296f52b6503e630faa8cbe1571bf2c0cfeb0e0c0d216bd8b79d1"
+    },
+    {
+      "path": "/private/tmp/abg-td26p5-work/codex-resume/base-tenant/build/code/src/abg/event_store.js",
+      "bytes": 217496,
+      "sha256": "e6d308f3e0c5197c856bee76ab51e418abc39b97298704b8a0f246ea91216608"
+    },
+    {
+      "path": "/private/tmp/abg-td26p5-work/codex-resume/base-tenant/build/code/src/abg/artifact_truth.js",
+      "bytes": 43490,
+      "sha256": "d9fa0e845cebab874442b966c277b7d44c8f13d4aea1869b38bf57d531ce2888"
+    },
+    {
+      "path": "/private/tmp/abg-td26p5-work/codex-resume/base-tenant/build/code/src/abg/replay.js",
+      "bytes": 96674,
+      "sha256": "e39a182b77cd13ccb92c85f99a83af779b25b2915a4731d367ff1ba579095ff3"
+    },
+    {
+      "path": "/private/tmp/abg-td26p5-work/codex-resume/base-tenant/build/code/src/abg/event_calculus.js",
+      "bytes": 19254,
+      "sha256": "25f5dbcd01283ffa5822da37e38c82535ec95a0bd590797a91713e18202bdfac"
+    },
+    {
+      "path": "/private/tmp/abg-td26p5-work/codex-resume/base-tenant/build/code/src/abg/fh_continuation_projection.js",
+      "bytes": 18052,
+      "sha256": "c084d42f88ee95c9bbe98aaf0bdc0cd2720e671e577708a5701c9b5f8bbf8764"
+    },
+    {
+      "path": "/private/tmp/abg-td26p5-work/codex-resume/base-tenant/build/code/src/shared/capability_contracts.js",
+      "bytes": 29524,
+      "sha256": "ac646d9cbc1a462cec77a54d24ead08804afd9e98f228d04b0a8e7414ffa5f6f"
+    },
+    {
+      "path": "/private/tmp/abg-td26p5-work/codex-resume/base-tenant/build/code/src/product/environment.js",
+      "bytes": 40882,
+      "sha256": "076942757fa25df5223039f3fb7cc2dba127accd98a73a066cfa28cf29ecb72b"
+    },
+    {
+      "path": "/private/tmp/abg-td26p5-work/codex-resume/base-tenant/package.json",
+      "bytes": 9754,
+      "sha256": "03c338a4d542b6c2f45f7414fb4c912c5226604ce5b67f04796f3470b5708e8c"
+    }
+  ]
+}

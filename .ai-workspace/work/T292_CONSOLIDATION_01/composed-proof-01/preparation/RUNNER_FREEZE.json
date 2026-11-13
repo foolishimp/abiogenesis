@@ -1,0 +1,99 @@
+{
+  "activation": "T292-COMPOSED-RUNNER-PREP-01",
+  "preparedAt": "2026-11-13T08:04:21.403989+00:00",
+  "standing": "scratch runner availability and syntax/mechanical inspection only; no production proof executed",
+  "basis": {
+    "definitionSha256": "b5720642ff00ebcb47f77ae68df3a960ab70f82cd1227c0712edda9d40745f44",
+    "uri": "stdo://releases/v3.0.4/",
+    "manifestSha256": "102817a3f4bea4dca1d6fa0fc634b94404dd2ba82ba6d8c38b273402dda9f95b"
+  },
+  "files": [
+    {
+      "path": "/private/tmp/abg-t292-composed-proof-prep/run-composed.py",
+      "bytes": 28473,
+      "sha256": "b8bb06d2172468735ee91767a8f8453cfda2a625a21ea010c9051f5d4e054f88"
+    },
+    {
+      "path": "/private/tmp/abg-t292-composed-proof-prep/audit-timeouts.mjs",
+      "bytes": 5566,
+      "sha256": "e576fd87db5728b288f94a93bee3937e7a206b5656608de68798dff727fe23bb"
+    },
+    {
+      "path": "/private/tmp/abg-t292-composed-proof-prep/config.template.json",
+      "bytes": 17916,
+      "sha256": "ab48177bd9aacb70dff063b7ab0d1067cd2c9a4c9cd60956dca2ffef6beef81a"
+    },
+    {
+      "path": "/private/tmp/abg-t292-composed-proof-prep/timeout-audit-current.json",
+      "bytes": 130959,
+      "sha256": "1f447904ef2f0c4ad196c66e471bfcc0f3035b6ffcf71f388b4af5f4d0a38f7a"
+    },
+    {
+      "path": "/private/tmp/abg-t292-composed-proof-prep/timeout-proposal-current.json",
+      "bytes": 60086,
+      "sha256": "5a5f73ac0b088baafaae85996ec43c3421dc0adcea3ba2e76c898ee7d0934e4a"
+    },
+    {
+      "path": "/private/tmp/abg-t292-composed-proof-prep/preserved-timeout-map.json",
+      "bytes": 1708,
+      "sha256": "7aaf6fa4ca27ecb3fc0d0baa4ba22069fe5a41b0b067e7c7ff3723e20dd69f4c"
+    },
+    {
+      "path": "/private/tmp/abg-t292-composed-proof-prep/history-populations.json",
+      "bytes": 234953,
+      "sha256": "76a5a91c3cc54995c2e95f63d6887f0ce46aa8bb0135a44739e9a67450335bbb"
+    },
+    {
+      "path": "/private/tmp/abg-t292-composed-proof-prep/baseline-build-pins.json",
+      "bytes": 2222,
+      "sha256": "3d4b49f8b211100050078bcbed23faeefe59775e28e8d5389655989d2bc92b48"
+    },
+    {
+      "path": "/private/tmp/abg-t292-composed-proof-prep/route-pins.json",
+      "bytes": 2139,
+      "sha256": "3f0bd9276cb94b2ca016ec4417fb5841e9f81a1596d5775508cb3817ac267f5a"
+    },
+    {
+      "path": "/private/tmp/abg-t292-composed-proof-prep/EXECUTE.md",
+      "bytes": 11612,
+      "sha256": "cd95519d8e72829fb4737528262b53f6e116960ec6ce09c378cbf926f638e287"
+    },
+    {
+      "path": "/private/tmp/abg-t292-composed-proof-prep/MECHANICAL_INSPECTION.json",
+      "bytes": 1473,
+      "sha256": "678664b161c574abeefaf7e1c516bdd72dab27f92df323a042c1452d185e2e0d"
+    },
+    {
+      "path": "/private/tmp/abg-t292-composed-proof-prep/inert-template.stdout",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "/private/tmp/abg-t292-composed-proof-prep/inert-template.stderr",
+      "bytes": 95,
+      "sha256": "24af39203bb34c8ae194c59a3fb3be1090403993e5ea8977519540c40120d99f"
+    }
+  ],
+  "remaining": [
+    "exact C_final/source/tree/artifact and correspondence receipt",
+    "final population and fresh timeout audit",
+    "physical dependency inventory and Node binding",
+    "Root finite file/boundary/history/physical-read limits and activation",
+    "one Root-created shared 21600000ms campaign clock, pinned identically in both phase configs and external physical-read supervision",
+    "separate output and TMPDIR roots",
+    "any selected per-file fixture inputs; actual P7 recorded-only expectations",
+    "four external physical owner-read witnesses under the same campaign deadline; no byte-only history credit for these"
+  ],
+  "mechanicalInspection": {
+    "path": "/private/tmp/abg-t292-composed-proof-prep/MECHANICAL_INSPECTION.json",
+    "bytes": 1473,
+    "sha256": "678664b161c574abeefaf7e1c516bdd72dab27f92df323a042c1452d185e2e0d"
+  },
+  "sharedCampaign": {
+    "overallMs": 21600000,
+    "binding": "Root creates once immediately before actual composed execution; both phase configs and external physical-read supervisor use the same pinned absolute monotonic deadline on the same host/boot",
+    "campaignCreated": false,
+    "utcRole": "receipt only",
+    "extensionOrRetry": "none"
+  }
+}

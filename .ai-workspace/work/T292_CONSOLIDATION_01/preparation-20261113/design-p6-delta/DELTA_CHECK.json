@@ -1,0 +1,229 @@
+{
+  "subject": "eea1007295ad341c824ef4e9466ec5f29040bda8",
+  "frozen_inputs": [
+    {
+      "path": ".ai-workspace/work/T292_CONSOLIDATION_01/TD-26_P5_RETURN.md",
+      "matches_git_subject": true,
+      "hash_matches": true
+    },
+    {
+      "path": ".ai-workspace/work/T292_CONSOLIDATION_01/TD-26_P6_RETURN.md",
+      "matches_git_subject": true,
+      "hash_matches": true
+    },
+    {
+      "path": ".ai-workspace/work/T292_CONSOLIDATION_01/preparation-20261113/P7_MEMBERS_PREPARATION.md",
+      "matches_git_subject": true,
+      "hash_matches": true
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/abg/construction_continuation.ts",
+      "matches_git_subject": true,
+      "hash_matches": true
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/hog/graph_execute.ts",
+      "matches_git_subject": true,
+      "hash_matches": true
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/owner_bindings/run_invocation.ts",
+      "matches_git_subject": true,
+      "hash_matches": true
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/product/run_operation_contracts.ts",
+      "matches_git_subject": true,
+      "hash_matches": true
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/shared/public_function_contracts.ts",
+      "matches_git_subject": true,
+      "hash_matches": true
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/design/ABI5_COMMON_COMPUTATIONAL_CAPABILITY_LIBRARY_DESIGN.md",
+      "matches_git_subject": true,
+      "hash_matches": true
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/design/ABI5_REALIZATION_CONSTITUTION.md",
+      "matches_git_subject": true,
+      "hash_matches": true
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/design/ABI5_STDO3_COMPUTATIONAL_BINDING.md",
+      "matches_git_subject": true,
+      "hash_matches": true
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/design/M03_DIRECT_GTL_TRAVERSAL_BEHAVIOR_DESIGN.md",
+      "matches_git_subject": true,
+      "hash_matches": true
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/design/M05_DIRECT_GTL_TRAVERSAL_EXPANSION_DESIGN.md",
+      "matches_git_subject": true,
+      "hash_matches": true
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/design/M05_S06_AXIOMATIC_AUTHORITY_AND_EXACT_PUBLIC_CONSTRUCTION_DESIGN.md",
+      "matches_git_subject": true,
+      "hash_matches": true
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/design/M05_S06_PUBLIC_FUNCTION_AND_NATIVE_OCCURRENCE_CLOSURE_DESIGN.md",
+      "matches_git_subject": true,
+      "hash_matches": true
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/design/T287_D6_RC6_RELEASE_IDENTITY_DESIGN.md",
+      "matches_git_subject": true,
+      "hash_matches": true
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/design/T287_PENDING_CONSUMER_CONTINUATION_DESIGN.md",
+      "matches_git_subject": true,
+      "hash_matches": true
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/design/T287_PUBLIC_DEFINITION_CALL_CONSTRUCTION.md",
+      "matches_git_subject": true,
+      "hash_matches": true
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/design/T287_R10_TYPED_TERMINAL_OUTCOME_DESIGN.md",
+      "matches_git_subject": true,
+      "hash_matches": true
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/design/T287_REGISTERED_GRAPH_SELECTION_DESIGN.md",
+      "matches_git_subject": true,
+      "hash_matches": true
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/design/T287_W2_R2_CONSUMER_DECLARATION_ADMISSION_DESIGN.md",
+      "matches_git_subject": true,
+      "hash_matches": true
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/design/T287_W2_R3_C3_BRANCH_CONSTRUCTION_AGGREGATE_DESIGN.md",
+      "matches_git_subject": true,
+      "hash_matches": true
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/tests/t292-td26-p6-span-reentry.test.mjs",
+      "matches_git_subject": true,
+      "hash_matches": true
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/tests/t292-td26-ps-default-root-mode.test.mjs",
+      "matches_git_subject": true,
+      "hash_matches": true
+    },
+    {
+      "path": "specification/GOALS.md",
+      "matches_git_subject": true,
+      "hash_matches": true
+    },
+    {
+      "path": "specification/PRODUCT.md",
+      "matches_git_subject": true,
+      "hash_matches": true
+    }
+  ],
+  "new_named_fragments": [
+    {
+      "file": "build_tenants/abiogenesis/typescript/design/M05_S06_AXIOMATIC_AUTHORITY_AND_EXACT_PUBLIC_CONSTRUCTION_DESIGN.md",
+      "fragment_present": true,
+      "sha256_matches": true,
+      "owner_relation_present": true
+    },
+    {
+      "file": "build_tenants/abiogenesis/typescript/design/M05_S06_PUBLIC_FUNCTION_AND_NATIVE_OCCURRENCE_CLOSURE_DESIGN.md",
+      "fragment_present": true,
+      "sha256_matches": true,
+      "owner_relation_present": true
+    },
+    {
+      "file": "build_tenants/abiogenesis/typescript/design/ABI5_REALIZATION_CONSTITUTION.md",
+      "fragment_present": true,
+      "sha256_matches": true,
+      "owner_relation_present": true
+    },
+    {
+      "file": "build_tenants/abiogenesis/typescript/design/T287_R10_TYPED_TERMINAL_OUTCOME_DESIGN.md",
+      "fragment_present": true,
+      "sha256_matches": true,
+      "owner_relation_present": true
+    },
+    {
+      "file": "build_tenants/abiogenesis/typescript/design/ABI5_STDO3_COMPUTATIONAL_BINDING.md",
+      "fragment_present": true,
+      "sha256_matches": true,
+      "owner_relation_present": true
+    },
+    {
+      "file": "build_tenants/abiogenesis/typescript/design/M03_DIRECT_GTL_TRAVERSAL_BEHAVIOR_DESIGN.md",
+      "fragment_present": true,
+      "sha256_matches": true,
+      "owner_relation_present": true
+    },
+    {
+      "file": "build_tenants/abiogenesis/typescript/design/M05_DIRECT_GTL_TRAVERSAL_EXPANSION_DESIGN.md",
+      "fragment_present": true,
+      "sha256_matches": true,
+      "owner_relation_present": true
+    },
+    {
+      "file": "build_tenants/abiogenesis/typescript/design/M05_S06_AXIOMATIC_AUTHORITY_AND_EXACT_PUBLIC_CONSTRUCTION_DESIGN.md",
+      "fragment_present": true,
+      "sha256_matches": true,
+      "owner_relation_present": true
+    }
+  ],
+  "prior_design_subjects_unchanged": [
+    {
+      "path": "build_tenants/abiogenesis/typescript/design/ABI5_REALIZATION_CONSTITUTION.md",
+      "matches_prior_subject": true,
+      "sha256": "4b6895503046e3e3ec89f4bbd5bbc7493ee0880f4ca7b7e99c72f99b70fead72"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/design/M05_S06_AXIOMATIC_AUTHORITY_AND_EXACT_PUBLIC_CONSTRUCTION_DESIGN.md",
+      "matches_prior_subject": true,
+      "sha256": "7d629deb9c6b9fe1b3801feef570025b4cdffec6abb291f67693ad04abcc2d9c"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/design/M05_S06_PUBLIC_FUNCTION_AND_NATIVE_OCCURRENCE_CLOSURE_DESIGN.md",
+      "matches_prior_subject": true,
+      "sha256": "740b8693524405f7e4186b13f8aedc50b9f63f81958cff32103524b4e7aff5bd"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/design/T287_W2_R3_C3_BRANCH_CONSTRUCTION_AGGREGATE_DESIGN.md",
+      "matches_prior_subject": true,
+      "sha256": "b9076fe6f39f53d147f002c2b5147e318c3ce8f16c234c40e4921fc94e033107"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/design/ABI5_COMMON_COMPUTATIONAL_CAPABILITY_LIBRARY_DESIGN.md",
+      "matches_prior_subject": true,
+      "sha256": "3bcf70215eacb5d56728e1e65a84086fd87c29b2f0b7c8ba5e38933821557cdb"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/design/T287_REGISTERED_GRAPH_SELECTION_DESIGN.md",
+      "matches_prior_subject": true,
+      "sha256": "0f927ee856de1caa65ef92a59dd4436817db64baacbd9e4f2e0dff54c33bb5a3"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/design/T287_PENDING_CONSUMER_CONTINUATION_DESIGN.md",
+      "matches_prior_subject": true,
+      "sha256": "0ffc2bcce62211f85527dd7bb41eb6fadcdc0705091c0ed1961c5b33065a198f"
+    }
+  ],
+  "all_frozen_inputs_valid": true,
+  "all_fragments_valid": true,
+  "output_hashes": {
+    "DELTA_P6.md": "f03b4e66347ddb778f69ce762b1059244700dca0dcfb180581032231901d7b4b",
+    "DELTA_P6.json": "d57ae93a5090cc4abe9d2cd3a3253f4eb76091073c032b6f8c9a9a918e32ac5d"
+  },
+  "all_prior_design_subjects_unchanged": true
+}

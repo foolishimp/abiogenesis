@@ -1,0 +1,109 @@
+{
+  "subject": "eea1007295ad341c824ef4e9466ec5f29040bda8",
+  "files": [
+    {
+      "path": ".ai-workspace/work/T292_CONSOLIDATION_01/TD-26_P5_RETURN.md",
+      "sha256": "521883ca4f13e87153162c1177816f0b60d820a3a27205e83471f131a0882184"
+    },
+    {
+      "path": ".ai-workspace/work/T292_CONSOLIDATION_01/TD-26_P6_RETURN.md",
+      "sha256": "ee44b4839584ea552f5b1d71c7f8022bd85deac1004b139fecaec8a204e5c38a"
+    },
+    {
+      "path": ".ai-workspace/work/T292_CONSOLIDATION_01/preparation-20261113/P7_MEMBERS_PREPARATION.md",
+      "sha256": "220146a9b91d2f42af73e2eab8facac23ac8ce0027cc41f4158c9649da0f7c0d"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/abg/construction_continuation.ts",
+      "sha256": "f11480d10c89f73588fd79bac57ca21920b07a07da3d7004d3f400cc2cb53cd5"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/hog/graph_execute.ts",
+      "sha256": "18dc888f94712ba5d9ed1f1d5f955ee2d8734d75127c8087d6dfcb7bdc168555"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/owner_bindings/run_invocation.ts",
+      "sha256": "233000adc3f1cd067b9fd0b40e413e021278f1f87a78e6c05b3e984b90336a1e"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/product/run_operation_contracts.ts",
+      "sha256": "4475f0c0699bb38aec20d973863f695498e67d2b66c72f65cce878fd51145cc4"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/shared/public_function_contracts.ts",
+      "sha256": "674a1e85853ece8d546b75c1f330f70afd2574ecb1f2e4e8e5af3ac08abaa136"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/design/ABI5_COMMON_COMPUTATIONAL_CAPABILITY_LIBRARY_DESIGN.md",
+      "sha256": "3bcf70215eacb5d56728e1e65a84086fd87c29b2f0b7c8ba5e38933821557cdb"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/design/ABI5_REALIZATION_CONSTITUTION.md",
+      "sha256": "4b6895503046e3e3ec89f4bbd5bbc7493ee0880f4ca7b7e99c72f99b70fead72"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/design/ABI5_STDO3_COMPUTATIONAL_BINDING.md",
+      "sha256": "eeb5d1402fb1d4b572707b4d9281de718ba0239385b4a8dd2183d16a9765312b"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/design/M03_DIRECT_GTL_TRAVERSAL_BEHAVIOR_DESIGN.md",
+      "sha256": "9c7a6c47c08a3a1e02f22d8f15fb7c0d2a3ca2ccf15614e6c84647252e5188d7"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/design/M05_DIRECT_GTL_TRAVERSAL_EXPANSION_DESIGN.md",
+      "sha256": "7f51a0f9ee8a7a8f619a9b7c1b1cd0d1fec9126a4e5dd85824348deff4da1254"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/design/M05_S06_AXIOMATIC_AUTHORITY_AND_EXACT_PUBLIC_CONSTRUCTION_DESIGN.md",
+      "sha256": "7d629deb9c6b9fe1b3801feef570025b4cdffec6abb291f67693ad04abcc2d9c"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/design/M05_S06_PUBLIC_FUNCTION_AND_NATIVE_OCCURRENCE_CLOSURE_DESIGN.md",
+      "sha256": "740b8693524405f7e4186b13f8aedc50b9f63f81958cff32103524b4e7aff5bd"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/design/T287_D6_RC6_RELEASE_IDENTITY_DESIGN.md",
+      "sha256": "01a26589ea844ee3560f507c6839947c9ccd7da509ae165dc9729f8a8983f166"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/design/T287_PENDING_CONSUMER_CONTINUATION_DESIGN.md",
+      "sha256": "0ffc2bcce62211f85527dd7bb41eb6fadcdc0705091c0ed1961c5b33065a198f"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/design/T287_PUBLIC_DEFINITION_CALL_CONSTRUCTION.md",
+      "sha256": "a3a3ab5f64a77d21b0d3839783f4c99a7750c03ccffe500cbad5e666a87905cf"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/design/T287_R10_TYPED_TERMINAL_OUTCOME_DESIGN.md",
+      "sha256": "afb1d1af01b3e765c9cff392e91df2cc51781e64b793fb68338c892ff76656a8"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/design/T287_REGISTERED_GRAPH_SELECTION_DESIGN.md",
+      "sha256": "0f927ee856de1caa65ef92a59dd4436817db64baacbd9e4f2e0dff54c33bb5a3"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/design/T287_W2_R2_CONSUMER_DECLARATION_ADMISSION_DESIGN.md",
+      "sha256": "a272f9627502b13f1e949ecff0fd742cee21aa9afa94e2a77abab933481dd612"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/design/T287_W2_R3_C3_BRANCH_CONSTRUCTION_AGGREGATE_DESIGN.md",
+      "sha256": "b9076fe6f39f53d147f002c2b5147e318c3ce8f16c234c40e4921fc94e033107"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/tests/t292-td26-p6-span-reentry.test.mjs",
+      "sha256": "37c3e137fc5ca476f94f912dfb7b667ec828e334fe465e5bed7f91770e2147e4"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/tests/t292-td26-ps-default-root-mode.test.mjs",
+      "sha256": "e2767d92c1fe723f18183e99378b8147088432f925cba0bbdc79c61774df836c"
+    },
+    {
+      "path": "specification/GOALS.md",
+      "sha256": "62a1587e820b9e2e70d57213794ff3f862247b53bdb8855fd75d67331876217a"
+    },
+    {
+      "path": "specification/PRODUCT.md",
+      "sha256": "ffd5ed220a7add7e688cf435e029d0c6fb0fe3e7f059a0c5ab03bab1bfd02a88"
+    }
+  ]
+}

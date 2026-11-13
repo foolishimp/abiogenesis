@@ -1,0 +1,32 @@
+{
+  "source": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/BROAD_BINDINGS.actual003.bound-008.json",
+  "sha256": "ec04f94a9eca98ad9a932b12853bbbb74917867a1e5655a9f178463b36a76750",
+  "status": "historical operator bounds; preserve entries then reconcile final population before activation",
+  "defaultFileMs": 600000,
+  "historicalOverrides": {
+    "test_env/tests/t287-required-operation-bindings.test.mjs": 2100000,
+    "test_env/tests/t287-calculus-state-transfer.test.mjs": 900000,
+    "test_env/tests/t287-management-supervision.test.mjs": 900000,
+    "test_env/tests/t287-default-library.test.mjs": 900000,
+    "test_env/uat/harness.test.mjs": 1200000,
+    "test_env/tests/t287-w2-05-generator-package-reproducibility.test.mjs": 900000,
+    "test_env/tests/t287-w2-05-release-snapshot-definition-bindings.test.mjs": 900000,
+    "test_env/tests/t287-c0-post-publication-failure.test.mjs": 2100000
+  },
+  "presentAtPrep": {
+    "test_env/tests/t287-required-operation-bindings.test.mjs": 2100000,
+    "test_env/tests/t287-calculus-state-transfer.test.mjs": 900000,
+    "test_env/tests/t287-management-supervision.test.mjs": 900000,
+    "test_env/tests/t287-default-library.test.mjs": 900000,
+    "test_env/uat/harness.test.mjs": 1200000,
+    "test_env/tests/t287-w2-05-generator-package-reproducibility.test.mjs": 900000,
+    "test_env/tests/t287-w2-05-release-snapshot-definition-bindings.test.mjs": 900000,
+    "test_env/tests/t287-c0-post-publication-failure.test.mjs": 2100000
+  },
+  "notInPrepPopulation": [],
+  "nodeHeapMiB": 8192,
+  "outputBytes": 16777216,
+  "pollMs": 10000,
+  "oldOverallMs": 11695489,
+  "oldOverallIsNotNewDeadline": true
+}

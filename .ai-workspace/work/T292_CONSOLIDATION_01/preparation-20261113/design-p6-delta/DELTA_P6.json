@@ -1,0 +1,233 @@
+{
+  "activation": "T292-B08-PREPARATION-P6-02",
+  "subject": "eea1007295ad341c824ef4e9466ec5f29040bda8",
+  "core_result": "satisfied",
+  "predicate": "resolve U01-U03 by exact source correspondence and account for new named P5/P6/P7-preparation residue",
+  "final_design_consistency": "not_evaluated",
+  "p7_postimage": "pending",
+  "prior_report_sha256": "5c3f7d3772756d9313aaec3866c54d52890d4aa4e766f98d25149065029c38c8",
+  "prior_proposal_sha256": "e81e9cf48339c975d42a987013226ccf8ea635b47b9dc0c495ea47963eea32c3",
+  "prior_uncertainties": [
+    {
+      "id": "U01",
+      "status": "resolved on integrated P6",
+      "final_writer_input": "Keep member key current_intent. Its request is exactly run/continuation/pendingCursor/continuationInput/expectedBasis (all ref/digest). Replace the old currentIntent field; result and nonterminal continuationKind are only pending_execution. Retain admittedIntent:null, optional stopStatement, and held-only nonterminal disposition. Refusals: missing_continuation, resolved_continuation, response_mismatch, replay_mismatch, basis_mismatch.",
+      "owner": "build_tenants/abiogenesis/typescript/code/src/product/run_operation_contracts.ts:177\u2013217,257\u2013275",
+      "owner_sha256": "4475f0c0699bb38aec20d973863f695498e67d2b66c72f65cce878fd51145cc4"
+    },
+    {
+      "id": "U02",
+      "status": "resolved on integrated P6",
+      "final_writer_input": "Retain invoke result/nonterminal gap as nullable ref/digest; P5 removed gap_stop, not this carrier. Retain sourceBasis admitted_source_result with projectionAuthority and sourceResult ref/digests. These are not the removed PublicRunProjectionAuthority constructor. Preserve six basis constants, reentryBasis:null, hold constructionIntentRef:null, F_H projection intent ref/digest:null and replay constructionDeltas:[]. Retired optional route keys are absent.",
+      "owner": "build_tenants/abiogenesis/typescript/code/src/product/run_operation_contracts.ts:49\u201378; shared/public_function_contracts.ts:410\u2013417; P5 Return 54\u201361; P6 Delivered scope",
+      "owner_sha256": "674a1e85853ece8d546b75c1f330f70afd2574ecb1f2e4e8e5af3ac08abaa136"
+    },
+    {
+      "id": "U03",
+      "status": "resolved as source/typed-owner correspondence; no new runtime proof",
+      "final_writer_input": "Replace E31\u2019s F_H L46\u2013L49 path with the actual pending-owner chain below, preserving the existing owners and the same-Run occurrence. Do not relabel the unbound F_H leaves or claim a human response/resume path. C04/R31 uses pending_execution, admittedIntent:null, optional stopStatement, held-only nonterminal and the five retained refusal codes.",
+      "owner": "build_tenants/abiogenesis/typescript/code/src/owner_bindings/run_invocation.ts:1371\u20131502,1628\u20131634; abg/construction_continuation.ts:139\u2013164,295\u2013342,389\u2013447; hog/graph_execute.ts:929\u20131058",
+      "owner_sha256": "233000adc3f1cd067b9fd0b40e413e021278f1f87a78e6c05b3e984b90336a1e"
+    },
+    {
+      "id": "U04",
+      "status": "Root ruling retained",
+      "final_writer_input": "Preserve the historical \u00a716.7 amendment and its e7e252ed subject. State the later TD26 retirement\u2019s supersession of the current continuation/member relation in the operative section; do not rewrite the old acceptance record or perform B13/general status cleanup.",
+      "owner": "Root T292-B08-PREPARATION-P6-02 packet; prior C03/C04/U04 mapping",
+      "owner_sha256": null
+    }
+  ],
+  "pending_owner_chain": [
+    [
+      "Public current_intent binding",
+      "owner_bindings/run_invocation.ts:1628\u20131634",
+      "bindExactPrefixTransition delegates to runPendingExecutionOwner"
+    ],
+    [
+      "Acquire/setup/prefix",
+      "owner_bindings/run_invocation.ts:1433\u20131450",
+      "acquire existing ABG event resource; projectSetupTruth; current prefix and duplicate checks"
+    ],
+    [
+      "ABG pending selection",
+      "abg/construction_continuation.ts:295\u2013319",
+      "selectPendingExecutionUse: exact occurrence, undispatched phase, cursor/input, root basis and predecessor"
+    ],
+    [
+      "Product current closure",
+      "owner_bindings/run_invocation.ts:1371\u20131408",
+      "resolveContinuationBasis \u2192 ProductExecutionResolutionPort.resolve \u2192 preparePendingExecutionContinuation"
+    ],
+    [
+      "Exact authority/input join",
+      "owner_bindings/run_invocation.ts:1454\u20131479",
+      "existing policy, capability grant, Product leaf port, progressed input and invocation-authority slots"
+    ],
+    [
+      "ABG admission",
+      "abg/construction_continuation.ts:324\u2013342; owner_bindings/run_invocation.ts:1480\u20131481",
+      "admitPendingExecutionContinuationOperation records current_intent/pending_execution on the exact predecessor"
+    ],
+    [
+      "HoG resume",
+      "owner_bindings/run_invocation.ts:1482\u20131495; hog/graph_execute.ts:929\u20131058",
+      "executeGraphTraversalEffect(pendingExecutionResume:true) reconstructs existing returns/cursor/input; same Run"
+    ],
+    [
+      "Fresh owner projection",
+      "owner_bindings/run_invocation.ts:1496\u20131502",
+      "projectRunTruthAtDurablePrefix at traversal successor; continuationOutcome(pending_execution) \u2192 finish"
+    ]
+  ],
+  "new_named_residue": [
+    {
+      "file": "build_tenants/abiogenesis/typescript/design/M05_S06_AXIOMATIC_AUTHORITY_AND_EXACT_PUBLIC_CONSTRUCTION_DESIGN.md",
+      "anchor": "2305\u20132307, rows 24\u201326",
+      "old_fragment": "`ABG.WorkspaceProjectionPort.workspace_gaps`",
+      "action": "Remove the three frontier member/port rows with actual P7 withdrawal. No replacement frontier or gap authority.",
+      "origin": "P5 Return 85",
+      "owning_current_relation": "A5-F05/F06 exact public definitions; A5-F07 Executive selection; A5-F10 ABG truth.",
+      "frozen_file_sha256": "7d629deb9c6b9fe1b3801feef570025b4cdffec6abb291f67693ad04abcc2d9c"
+    },
+    {
+      "file": "build_tenants/abiogenesis/typescript/design/M05_S06_PUBLIC_FUNCTION_AND_NATIVE_OCCURRENCE_CLOSURE_DESIGN.md",
+      "anchor": "1338\u20131340,1349,1356,1397\u20131400",
+      "old_fragment": "  : C is \"workspace_gaps\"\n    ? { kind: \"workspace_gap_basis\", gapBasis: RD<GapProjectionBasis> }",
+      "action": "Delete frontier case/selector arms; remove only frontier keys from mixed port rows. N17\u2019s gap_stop removal is now source-settled; retain the U02 fields.",
+      "origin": "P5 Return 86",
+      "owning_current_relation": "A5-F05/F06 owner-derived public shape; A5-F10 retained runtime projections.",
+      "frozen_file_sha256": "740b8693524405f7e4186b13f8aedc50b9f63f81958cff32103524b4e7aff5bd"
+    },
+    {
+      "file": "build_tenants/abiogenesis/typescript/design/ABI5_REALIZATION_CONSTITUTION.md",
+      "anchor": "E19/E20,R19/R20,L18/L19, compositions 1784\u20131785, mappings 1967/1972",
+      "old_fragment": "ReplayState + Run -> admitted NextActionProjection set  or  AbgProjectReadRefusal",
+      "action": "Remove frontier expressions, their dedicated projection leaves/results and references; trim frontier keys from retained Run/Workspace mappings. Keep Executive blocked-gap stop readings.",
+      "origin": "P5 Return 87 and direct row references",
+      "owning_current_relation": "A5-F07 prepared F_P selection and ABG admission; A5-F10 replay-derived truth.",
+      "frozen_file_sha256": "4b6895503046e3e3ec89f4bbd5bbc7493ee0880f4ca7b7e99c72f99b70fead72"
+    },
+    {
+      "file": "build_tenants/abiogenesis/typescript/design/T287_R10_TYPED_TERMINAL_OUTCOME_DESIGN.md",
+      "anchor": "651\u2013660, contract-identity paragraph",
+      "old_fragment": "and `run.continue` `current_intent` and `selected_action` gain one optional",
+      "action": "Describe current stopStatement on invoke/start/current_intent only. Remove nextActions addition and withdrawn frontier digest promises. Preserve missing-support/origin/root-result reading and actual current owner digest propagation.",
+      "origin": "P5 Return 88; P3 named continuation residue",
+      "owning_current_relation": "A5-F05 exact owner contracts; A5-F06/F10 truthful block and pending continuation.",
+      "frozen_file_sha256": "afb1d1af01b3e765c9cff392e91df2cc51781e64b793fb68338c892ff76656a8"
+    },
+    {
+      "file": "build_tenants/abiogenesis/typescript/design/ABI5_STDO3_COMPUTATIONAL_BINDING.md",
+      "anchor": "\u00a79 A5-F03 458 / F07 462 / qualification join 472",
+      "old_fragment": "Mandatory S01/S02/S03/S06 and the all-family qualification join remain on one exact installed pre-RC candidate;",
+      "action": "Keep Product-required scenario applicability; state that retired One Surface S03 fixtures supply no current proof. Route span mechanics and supervised handle/START to the retained lanes below. They establish bounded mechanics, not complete Executive S03 or qualification.",
+      "origin": "P6 Return B08 attention",
+      "owning_current_relation": "A5-F03 complete retained traversal; A5-F07 Executive; Product ABG5-S03 current applicability.",
+      "frozen_file_sha256": "eeb5d1402fb1d4b572707b4d9281de718ba0239385b4a8dd2183d16a9765312b"
+    },
+    {
+      "file": "build_tenants/abiogenesis/typescript/design/M03_DIRECT_GTL_TRAVERSAL_BEHAVIOR_DESIGN.md",
+      "anchor": "Deferred-without-loss table 109; predecessor S03 boundary 29\u201332",
+      "old_fragment": "| F_H hold, response, and same-run continuation | ABG5-S03 |",
+      "action": "Separate current hold/pending-execution obligations from native human response/resume reserved to 5.1. Preserve T270 predecessor identities; they do not qualify current F07/S03.",
+      "origin": "P6 Return B08 attention",
+      "owning_current_relation": "A5-F03/F06/F10 retained hold and pending execution; Product 5.1 human response reservation.",
+      "frozen_file_sha256": "9c7a6c47c08a3a1e02f22d8f15fb7c0d2a3ca2ccf15614e6c84647252e5188d7"
+    },
+    {
+      "file": "build_tenants/abiogenesis/typescript/design/M05_DIRECT_GTL_TRAVERSAL_EXPANSION_DESIGN.md",
+      "anchor": "S03 subjects 13\u201324; current applicability 1048/1109",
+      "old_fragment": "**Scenario boundary**: accepted `ABG5-S02` and `ABG5-S03`;",
+      "action": "Retain exact historical accepted subjects, scoped explicitly to their old bytes. Current F07/S03 follows Product Executive/default-direct; generic span/start proof uses the new lanes. Keep still-valid route/closure laws; no blanket S03 deletion or current acceptance inference.",
+      "origin": "P6 Return B08 attention",
+      "owning_current_relation": "A5-F03 traversal conservation; A5-F07 Executive/S03; A5-F10 stop/closure truth.",
+      "frozen_file_sha256": "7f51a0f9ee8a7a8f619a9b7c1b1cd0d1fec9126a4e5dd85824348deff4da1254"
+    },
+    {
+      "file": "build_tenants/abiogenesis/typescript/design/M05_S06_AXIOMATIC_AUTHORITY_AND_EXACT_PUBLIC_CONSTRUCTION_DESIGN.md",
+      "anchor": "\u00a78 One Normalized Program Before Effects, after 2104\u20132106",
+      "old_fragment": "Validator raw admission produces one canonical normalized Program.",
+      "action": "Add the accepted mixed-publication compatibility relation below at this existing admission owner, with a source route from computational binding F02/F09; do not duplicate or create another raw-admission owner.",
+      "origin": "Root P6 ruling, T292 297\u2013324; P6 Return Owner outcomes",
+      "owning_current_relation": "A5-F02 retained raw language admission; A5-F09 exact published closure; MODULE-003/005, CATALOG-001/002/003, CONTRACT-LAW-API-009/013.",
+      "frozen_file_sha256": "7d629deb9c6b9fe1b3801feef570025b4cdffec6abb291f67693ad04abcc2d9c"
+    }
+  ],
+  "accepted_mixed_publication_relation": "For new work, the existing closure owner raw-admits the selected Program and its complete exact owning publication. A retired actionCatalog or constructionComposition field in any Program, including an inactive sibling, requires a publisher-authored current publication and its resulting identity. No filtering, grandfathering or mutation of old immutable records is introduced. Completed historical Catalog/view/replay/artifact truth reconstructs exactly. P6 measured new start preparation refusal at /program; its old cross-build pending case stops earlier at TD78 basis_mismatch /workspace with no append. The later continuation /program branch is source-traced, not measured by that old-pending experiment.",
+  "p7_preparation_handoff": [
+    {
+      "file": "build_tenants/abiogenesis/typescript/design/ABI5_REALIZATION_CONSTITUTION.md",
+      "anchor": "current exact-family/effect tables 1341\u20131378; E33 1280\u20131302/1438/R33 1698/1798/1847/1948",
+      "action": "Retire current five-response kernel/export claims and response-only construction rows. Preserve hold/read/profile roles. Recompute current applicable family/effect partitions from actual P7; retain historical census subjects.",
+      "frozen_file_sha256": "4b6895503046e3e3ec89f4bbd5bbc7493ee0880f4ca7b7e99c72f99b70fead72"
+    },
+    {
+      "file": "build_tenants/abiogenesis/typescript/design/M05_S06_PUBLIC_FUNCTION_AND_NATIVE_OCCURRENCE_CLOSURE_DESIGN.md",
+      "anchor": "respond rows 295/638/1813/2274; shared authority-slot row 2224; current family assertions 60/2887/3048/3175/3214/3314",
+      "action": "Remove respond member/port/output/CLI claims, trim only respond from the result.assess-shared row, and project actual final owner census into current diagrams/tables.",
+      "frozen_file_sha256": "740b8693524405f7e4186b13f8aedc50b9f63f81958cff32103524b4e7aff5bd"
+    },
+    {
+      "file": "build_tenants/abiogenesis/typescript/design/M05_DIRECT_GTL_TRAVERSAL_EXPANSION_DESIGN.md",
+      "anchor": "declared-unbound response references 232/236/256/364/568/871/982/1036/1150/1173",
+      "action": "After actual P7, state withdrawn/unknown_definition for the old response public keys; preserve 5.1 reservation and historical/profile event rows at 1076.",
+      "frozen_file_sha256": "7f51a0f9ee8a7a8f619a9b7c1b1cd0d1fec9126a4e5dd85824348deff4da1254"
+    },
+    {
+      "file": "build_tenants/abiogenesis/typescript/design/M05_S06_AXIOMATIC_AUTHORITY_AND_EXACT_PUBLIC_CONSTRUCTION_DESIGN.md",
+      "anchor": "D10 2230; response member row 2267; declared-unbound note 2383; current family 81/2211",
+      "action": "Remove current response owner closure/packet rows; state withdrawal in the existing retirement note. Preserve historical predecessor census at 45/135 and unrelated owner contracts.",
+      "frozen_file_sha256": "7d629deb9c6b9fe1b3801feef570025b4cdffec6abb291f67693ad04abcc2d9c"
+    },
+    {
+      "file": "build_tenants/abiogenesis/typescript/design/ABI5_COMMON_COMPUTATIONAL_CAPABILITY_LIBRARY_DESIGN.md",
+      "anchor": "P-FH-PAIR 666; response-held paragraph 601; N12 ticket_consensus 1119",
+      "action": "Use actual P7 test grant vehicle and assertions. Preparation selects kept RUN_OPERATION_CONTRACTS.invoke.invoke; do not claim that replacement executed yet. Keep RAW conditional-reader standing, tamper/cut/clone and retired-lifecycle refusals.",
+      "frozen_file_sha256": "3bcf70215eacb5d56728e1e65a84086fd87c29b2f0b7c8ba5e38933821557cdb"
+    },
+    {
+      "file": "build_tenants/abiogenesis/typescript/design/T287_PUBLIC_DEFINITION_CALL_CONSTRUCTION.md",
+      "anchor": "native-family paragraph 120",
+      "action": "Preserve inspected6027 historical population separately; current unavailable roster comes from P7 (expected four witness members). Withdraw respond rather than inventing callable/resource types.",
+      "frozen_file_sha256": "a3a3ab5f64a77d21b0d3839783f4c99a7750c03ccffe500cbad5e666a87905cf"
+    },
+    {
+      "file": "build_tenants/abiogenesis/typescript/design/T287_W2_R2_CONSUMER_DECLARATION_ADMISSION_DESIGN.md",
+      "anchor": "boundary paragraph 13",
+      "action": "Scope original 16/18/56 preservation statement to its historical increment; current family is the actual P7 owner family. Do not change Product family meaning by arithmetic.",
+      "frozen_file_sha256": "a272f9627502b13f1e949ecff0fd742cee21aa9afa94e2a77abab933481dd612"
+    },
+    {
+      "file": "build_tenants/abiogenesis/typescript/design/T287_R10_TYPED_TERMINAL_OUTCOME_DESIGN.md",
+      "anchor": "membership statements 47/329/395; stop contract 651\u2013660",
+      "action": "Reconcile current operation/member identity from P7 without rewriting historical exact cuts; use the P5 stop delta above.",
+      "frozen_file_sha256": "afb1d1af01b3e765c9cff392e91df2cc51781e64b793fb68338c892ff76656a8"
+    },
+    {
+      "file": "build_tenants/abiogenesis/typescript/design/T287_PENDING_CONSUMER_CONTINUATION_DESIGN.md",
+      "anchor": "Contract domain 372\u2013395; retained operation 456\u2013464",
+      "action": "Replace second/exclusive-arm language and dual continuationKind domain with U01; current_intent remains pending execution only. Final key-set/count follows P7, not the old 56 pin.",
+      "frozen_file_sha256": "0ffc2bcce62211f85527dd7bb41eb6fadcdc0705091c0ed1961c5b33065a198f"
+    },
+    {
+      "file": "build_tenants/abiogenesis/typescript/design/T287_D6_RC6_RELEASE_IDENTITY_DESIGN.md",
+      "anchor": "AF25 current roster 237\u2013238; Product reservation 191\u2013194",
+      "action": "Update only current roster from actual P7; preserve the 5.1 response reservation, two release identities, same-RC acceptance and old packet/cut history.",
+      "frozen_file_sha256": "01a26589ea844ee3560f507c6839947c9ccd7da509ae165dc9729f8a8983f166"
+    }
+  ],
+  "predecessor_counts": [
+    18,
+    56,
+    42,
+    14
+  ],
+  "unratified_p7_expectation": [
+    17,
+    46,
+    42,
+    4
+  ],
+  "effect_boundary": "scratch only; no repo/Git mutation or execution",
+  "invalidation": "material changed source/input, changed basis or declared revising observation; actual P7 Return required before final reconciliation"
+}
