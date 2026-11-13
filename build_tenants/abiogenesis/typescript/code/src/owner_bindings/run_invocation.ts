@@ -1,3 +1,4 @@
+import { isRecord } from "../shared/admission_predicates.js";
 import { prepareRunQualificationResources } from "../product/run_invocation_operation.js";
 import { projectGovernanceCoveredSourceUse } from "../abg/invocation_execution_truth.js";
 import { projectOwnedRuntimeEventPrefixAtDurablePrefix, readOwnedRuntimeEventPrefixAtDurablePrefix, retainExecutionBasisLifetime, type RuntimeEventPrefix } from "../abg/event_prefix.js";
@@ -921,6 +922,12 @@ function runInvocationOwner<TPacket extends InvocationPacket>(
     const prepared = preparedResult as PreparedProductRunInvocation<
       RunInvocationMemberKey
     >;
+    if (isRecord(prepared.rawInput.value) && prepared.rawInput.value.kind === "observation_snapshot") {
+      return yield* finish(call, resource, entryPrefix,
+        ProductRunInvocationPort.projectOwnerRefusal(call.invocation.definitionKey.memberKey,
+          { stage: "observation", code: "observation_basis_mismatch" }) as OwnerSemanticOutput<TPacket>,
+        null, null, null);
+    }
     const admitted = yield* syncStage(call, "invocation_admission", () =>
       admitExactInvocation(
         resource.store,
@@ -1411,8 +1418,8 @@ function continuationOutcome(
   successor: Readonly<{ ref: string; digest: Sha256Digest }>,
 ): OwnerSemanticOutput<ContinuePacket> {
   const stopped = truth.stopStatement === null ? {} : { stopStatement: truth.stopStatement };
-  return (truth.runtimeStatus === "held" || truth.runtimeStatus === "gap_stopped"
-    ? { outcomeKind: "nonterminal", value: { continuationKind, disposition: truth.runtimeStatus === "held" ? "held" : "gap_stop",
+  return (truth.runtimeStatus === "held"
+    ? { outcomeKind: "nonterminal", value: { continuationKind, disposition: "held",
         run: truth.run, continuation: successor, evidence: [...truth.evidence], replay: truth.replay, ...stopped } }
     : { outcomeKind: "result", value: { continuationKind, run: truth.run, graphCall: truth.graphCall, admittedIntent: null, successor,
         disposition: truth.runtimeStatus === "closed" ? "completed" : truth.runtimeStatus === "blocked" ? "blocked" : "runtime_failed",

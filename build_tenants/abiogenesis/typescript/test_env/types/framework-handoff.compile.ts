@@ -106,7 +106,10 @@ const UNAVAILABLE = [
   "abg.operation.interaction.respond#assess",
   "abg.operation.interaction.respond#reject",
   "abg.operation.interaction.respond#select",
+  "abg.operation.project.read#run_gaps",
+  "abg.operation.project.read#run_lawful_actions",
   "abg.operation.project.read#ticket_consensus",
+  "abg.operation.project.read#workspace_gaps",
   "abg.operation.run.continue#selected_action",
   "abg.operation.witness.admit#attest",
   "abg.operation.witness.admit#hygiene-stamp",
@@ -120,12 +123,12 @@ type CallableKey = OwnerDefinitionCompositeKey<OwnerCallableDefinitionMember>;
 export type FamilyProof = [
   Assert<Equal<(typeof DECLARED)["length"], 56>>,
   Assert<Distinct<typeof DECLARED>>,
-  Assert<Equal<(typeof UNAVAILABLE)["length"], 11>>,
+  Assert<Equal<(typeof UNAVAILABLE)["length"], 14>>,
   Assert<Distinct<typeof UNAVAILABLE>>,
   Assert<Equal<Exclude<Unavailable, Declared>, never>>,
   Assert<Equal<OwnerDefinitionCompositeKey, Declared>>,
   Assert<Equal<OwnerDefinitionCompositeKey<OwnerUnavailableDefinitionMember>, Unavailable>>,
-  // 56 - 11 = 45 callable members.
+  // 56 - 14 = 42 callable members.
   Assert<Equal<CallableKey, Exclude<Declared, Unavailable>>>,
   Assert<Equal<OwnerUnavailableDefinitionMember["binding"], { readonly kind: "installed_binding_unavailable" }>>,
 ];
@@ -182,8 +185,6 @@ type Reprice = SelectionOf<"abg.operation.witness.admit#reprice">;
 type RunReplay = SelectionOf<"abg.operation.project.read#run_replay">;
 type CCallReplay = SelectionOf<"abg.operation.project.read#c_call_replay">;
 type RunStatus = SelectionOf<"abg.operation.project.read#run_status">;
-type LawfulActions = SelectionOf<"abg.operation.project.read#run_lawful_actions">;
-type WorkspaceGaps = SelectionOf<"abg.operation.project.read#workspace_gaps">;
 type ProductCatalogList = SelectionOf<"abg.operation.project.read#catalog_list">;
 
 type VerifyMember = CallableMemberOf<"abg.operation.product.verify#verify">;
@@ -212,7 +213,7 @@ export type OutputProof = [
   Assert<Equal<ResultValue<"abg.operation.project.read#run_status">["projection"]["kind"], "run_status_projection">>,
   Assert<Equal<ResultValue<"abg.operation.project.read#graph_call_replay">["projection"]["kind"], "graph_call_replay_projection">>,
   Assert<Equal<ResultValue<"abg.operation.run.continue#current_intent">["admittedIntent"], null>>,
-  Assert<Equal<ResultValue<"abg.operation.run.continue#current_intent">["continuationKind"], "current_intent" | "pending_execution">>,
+  Assert<Equal<ResultValue<"abg.operation.run.continue#current_intent">["continuationKind"], "pending_execution">>,
   Assert<Equal<ReceiptOf<"abg.operation.run.invoke#start">["exitCode"], 0 | 1 | 3 | 70>>,
   Assert<Equal<ReceiptOf<"abg.operation.run.invoke#start">["resources"], StartMember["binding"]["resourceReceipt"] | null>>,
 ];
@@ -243,8 +244,6 @@ declare const reprice: Reprice;
 declare const runReplay: RunReplay;
 declare const cCallReplay: CCallReplay;
 declare const runStatus: RunStatus;
-declare const lawfulActions: LawfulActions;
-declare const workspaceGaps: WorkspaceGaps;
 declare const productCatalogList: ProductCatalogList;
 
 export const startCall = constructInstalledPublicDefinitionCall({ ...environment, operationId: "abg.operation.run.invoke", memberKey: "start", request: startGraph.request, slots: startGraph.slots, resources: startGraph.resources });
@@ -330,7 +329,7 @@ export function negatives(): void {
   // @ts-expect-error HC1-NEG c-call-replay-selector-requires-c-call 2322 2345 2769
   constructInstalledPublicDefinitionCall({ ...environment, ...cCallReplay, request: { ...cCallReplay.request, selector: runReplay.request.selector } });
   // @ts-expect-error HC1-NEG crossed-read-selector 2322 2345 2769
-  constructInstalledPublicDefinitionCall({ ...environment, ...lawfulActions, request: { ...lawfulActions.request, selector: workspaceGaps.request.selector } });
+  constructInstalledPublicDefinitionCall({ ...environment, ...runStatus, request: { ...runStatus.request, selector: runReplay.request.selector } });
   // @ts-expect-error HC1-NEG crossed-read-resources 2322 2345 2769
   constructInstalledPublicDefinitionCall({ ...environment, ...runStatus, resources: productCatalogList.resources });
   // @ts-expect-error HC1-NEG selected-action-member-has-no-callable-call 2322 2345 2769

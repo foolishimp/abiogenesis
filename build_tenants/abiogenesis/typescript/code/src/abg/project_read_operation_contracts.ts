@@ -48,7 +48,6 @@ const runtimeStatusSchema = v.picklist([
   "blocked",
   "closed",
   "failed",
-  "gap_stopped",
   "held",
   "refused",
   "stopped",
@@ -245,7 +244,6 @@ export const ABG_RUN_STOP_READING_SCHEMA = v.strictObject({
     }),
     stopNotAdmittedSchema,
   ]),
-  nextActions: refDigestSetSchema,
   statement: nonblankSchema,
 });
 
@@ -541,8 +539,6 @@ export interface RunProjectionPort {
   readonly run_result: ExactOwnerOperationPort<typeof runResult>;
   readonly run_evidence: ExactOwnerOperationPort<typeof runEvidence>;
   readonly run_replay: ExactOwnerOperationPort<typeof runReplay>;
-  readonly run_gaps: ExactOwnerOperationPort<typeof runGaps>;
-  readonly run_lawful_actions: ExactOwnerOperationPort<typeof runLawfulActions>;
 }
 export interface GraphCallProjectionPort {
   readonly graph_call_status: ExactOwnerOperationPort<typeof graphCallStatus>;
@@ -561,7 +557,6 @@ export interface WitnessProjectionPort {
 }
 export interface WorkspaceProjectionPort {
   readonly workspace_replay: ExactOwnerOperationPort<typeof workspaceReplay>;
-  readonly workspace_gaps: ExactOwnerOperationPort<typeof workspaceGaps>;
 }
 export interface InteractionProjectionPort {
   readonly replay: ExactOwnerOperationPort<typeof interactionReplay>;

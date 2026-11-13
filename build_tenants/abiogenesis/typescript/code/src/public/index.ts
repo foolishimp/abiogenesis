@@ -1,7 +1,3 @@
-export type {
-  PublicGapAuthority,
-  PublicGapSource,
-} from "./gap_authority.js";
 export {
   isInstalledDefinitionCallCandidate,
   runInstalledDefinitionCallTransport,

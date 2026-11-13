@@ -124,7 +124,7 @@ async function stoppedRun(t,{name,role='',mode='',bound=12,limits={},failedChild
   const events=storeOwner.readRuntimeEventsAtDurablePrefix(handoff.prefix).slice(before),run=receipt.resources.run;
   // Cold reads: each member is one fresh CLI process reopening the closed resource.
   const reads={},lines={};
-  for(const memberKey of ['run_status','run_result','run_replay','run_gaps']){
+  for(const memberKey of ['run_status','run_result','run_replay']){
     const {call}=constructInstalledRunReadCall({environment:env,publicApi,memberKey,selector:memberKey==='run_replay'?{kind:'ordinal_page',fromOrdinal:0,limit:1}:{kind:'none'},source:run,eventResource:resource(),identity:name+'-'+memberKey});
     const output=(await runInstalledCliRequest({scratch:proof,installedRoot:env.installedRoot,identity:name+'-'+memberKey,acquisition:{kind:'reopen',closeHandoff:handoff},call,expectedExitCode:null,environment})).output;
     reads[memberKey]=output.receipt.ownerOutput;lines[memberKey]=JSON.stringify(output);
@@ -154,11 +154,10 @@ function assertStoppedReadback({owner,events,reads,lines},expected){
   assert.equal(evaluation.graphFunctionRef,witnessRef('graph-function','executive'));assert.equal(product.isGovernanceWorkState(evaluation.payload.value),true);
   assert.deepEqual(stop.lastRootResult,{kind:'admitted_result',result:resultCoordinate(evaluation),contractRef:evaluation.payload.contractRef,valueKind:'governance_work_state',
     valueDigest:product.sha256Canonical(evaluation.payload.value),value:evaluation.payload.value,cCallRef:evaluation.aggregateId,resultAdmissionEventRef:evaluation.eventId});
-  assert.deepEqual([stop.operator,stop.nextActions],[null,[]]);
+  assert.equal(stop.operator,null);assert.equal(Object.hasOwn(stop,'nextActions'),false);
   // R6: no successful terminal result and no completed status on any read.
   assert.deepEqual([reads.run_result.outcomeKind,reads.run_result.value.code],['refusal','not_found']);
   assert.deepEqual([reads.run_replay.value.projection.status,reads.run_replay.value.projection.terminalResult],[expected.status,null]);
-  assert.deepEqual([reads.run_gaps.value.projection.gaps,reads.run_gaps.value.projection.frontiers],[[],[]]);
   for(const line of Object.values(lines))assert.equal(line.includes('"completed"'),false);
   assert.equal(events.some(e=>e.kind==='run_closed'),false);
   // R7: plain words from the same fold, carried in the one CLI output line of
@@ -167,9 +166,9 @@ function assertStoppedReadback({owner,events,reads,lines},expected){
   assert.equal(owner.value.stopStatement,stop.statement,'the start output states the status read');
   assert.ok(stop.statement.startsWith(`The Run stopped as ${expected.disposition} and did not complete.`),stop.statement);
   for(const text of [expected.reasonRef,...expected.statementIncludes,
-    `The last admitted Result of the root GraphCall is governance_work_state ${evaluation.payload.resultRef} under contract ${evaluation.payload.contractRef}.`,
-    'No next lawful action is admitted.'])
+    `The last admitted Result of the root GraphCall is governance_work_state ${evaluation.payload.resultRef} under contract ${evaluation.payload.contractRef}.`])
     assert.ok(stop.statement.includes(text),`${text} in ${stop.statement}`);
+  assert.equal(/next lawful action/.test(stop.statement),false,'retired next-action guidance is absent');
   assert.equal(/obligation|evaluation/i.test(stop.statement),false,'the statement claims nothing about the root Result content');
   return {stop,stopEvent,evaluations};
 }
@@ -243,7 +242,7 @@ test('an operator stop reads back its reason kind, exact detail and operator act
   assert.equal(stop.eventKind,'run_stopped');assert.equal(stop.disposition,'operator_stop');
   assert.deepEqual(stop.operator,{reasonKind:'operator_stop',reasonDetail:detail,operatorActorRef:h.actor.ref});
   // No route, judgment or GraphCall Result is admitted for this Run: typed absences.
-  assert.deepEqual([stop.origin,stop.lastRootResult,stop.nextActions],[{kind:'not_admitted',missingLink:'stopping_route'},{kind:'not_admitted'},[]]);
+  assert.deepEqual([stop.origin,stop.lastRootResult],[{kind:'not_admitted',missingLink:'stopping_route'},{kind:'not_admitted'}]);assert.equal(Object.hasOwn(stop,'nextActions'),false);
   assert.equal(stop.statement,`The Run stopped as operator_stop and did not complete. Reason: operator operator_stop by ${h.actor.ref}, detail "${detail}". `+
-    'No originating Result is admitted: the stop names no single admitted route. No Result of the root GraphCall is admitted. No next lawful action is admitted.');
+    'No originating Result is admitted: the stop names no single admitted route. No Result of the root GraphCall is admitted.');
 });

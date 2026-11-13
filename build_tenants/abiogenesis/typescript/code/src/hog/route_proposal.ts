@@ -671,6 +671,10 @@ export function deriveSelectedCCallOutcomeTarget(
   definitionDigests: Readonly<Record<string, `sha256:${string}`>> = {},
   boundInput?: RawAdmittedValue<Readonly<Record<string, JsonValue>>>,
 ): TraversalCursor | RouteProposalRefusal | undefined {
+  if (outcome.disposition === "judged" && isRecord(outcome.admitted.result.value) &&
+      outcome.admitted.result.value.kind === "next_action_projection") {
+    return routeRefusal("structural_step_missing", "judged route requires HoG's exact declared continuation step");
+  }
   if (outcome.disposition === "judged" && outcome.admitted.judgment.judgment === "advance") {
     const selected = resolveRegisteredSelection(graph.template, source, outcome.admitted.cCall.outputContractRef,
       outcome.admitted.result.value, definitionDigests);
@@ -738,6 +742,11 @@ export function proposeCCallOutcomeTransition(input: Readonly<{
   registeredSelectionDefinitionDigests?: Readonly<Record<string, `sha256:${string}`>>;
 }>): TraversalTransitionCandidate | RouteProposalRefusal {
   const outcome = input.outcome;
+  if (outcome.disposition === "judged" && isRecord(outcome.admitted.result.value) &&
+      outcome.admitted.result.value.kind === "next_action_projection") {
+    return routeRefusal("structural_step_missing", "judged route requires HoG's exact declared continuation step");
+  }
+
   const blocked = outcome.disposition === "blocked";
   const admitted = blocked ? null : outcome.admitted;
   const cCall = blocked ? outcome.cCall : admitted!.cCall;

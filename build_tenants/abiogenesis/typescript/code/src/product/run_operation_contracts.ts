@@ -68,7 +68,7 @@ function runResultSchema(invocationKind: "invoke" | "start") {
 function runNonTerminalSchema(invocationKind: "invoke" | "start") {
   return v.strictObject({
     invocationKind: v.literal(invocationKind),
-    disposition: v.picklist(["held", "gap_stop"]),
+    disposition: v.literal("held"),
     run: refDigestSchema,
     graphCall: v.nullable(refDigestSchema),
     interaction: v.nullable(refDigestSchema),
@@ -197,7 +197,7 @@ const selectedActionRefusalSchema = refusalSchema([
   "reprice_mismatch",
 ]);
 
-const CURRENT_EXECUTION_KINDS = ["current_intent", "pending_execution"] as const;
+const CURRENT_EXECUTION_KINDS = ["pending_execution"] as const;
 
 // Each continuation member constructs only its own variant, so the packet type
 // of each member is exactly its runtime schema.
@@ -267,7 +267,7 @@ function continueContract<const TMember extends
   });
   const nonTerminal = v.strictObject({
     continuationKind: kindSchema,
-    disposition: v.picklist(["held", "gap_stop"]),
+    disposition: v.literal("held"),
     run: refDigestSchema,
     continuation: refDigestSchema,
     evidence: nonemptyRefDigestSetSchema,

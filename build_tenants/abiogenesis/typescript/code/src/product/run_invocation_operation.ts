@@ -1126,12 +1126,12 @@ export function constructRunInvocationOutcome<
     return refusal(memberKey, "invalid_intent", ["/run"]);
   }
   const stopped = truth.stopStatement === null ? {} : { stopStatement: truth.stopStatement };
-  if (truth.runtimeStatus === "held" || truth.runtimeStatus === "gap_stopped") {
+  if (truth.runtimeStatus === "held") {
     return validatedOutput(memberKey, {
       outcomeKind: "nonterminal",
       value: {
         invocationKind: memberKey,
-        disposition: truth.runtimeStatus === "held" ? "held" : "gap_stop",
+        disposition: "held",
         run: truth.run,
         graphCall: truth.graphCall,
         interaction: truth.interaction,

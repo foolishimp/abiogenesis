@@ -1,7 +1,7 @@
 import type { ProductTruthQuestion } from "../shared/capability_contracts.js";
 import { selectRuntimeEventPrefixFromAuthority, runtimeEventAtPrefix, indexedRuntimeEventEnvelopes } from "./event_prefix.js";
 import { admitJson } from "../shared/admit/index.js";
-import { projectRuntimeReplayGuard, projectRuntimeReplayStatus, projectReplayCCallGuardAtPrefix, projectRuntimeActorProcessFactsAtPrefix, projectValidatedReplayRouteAtPrefix } from "./replay.js";
+import { projectRuntimeReplayGuard, projectReplayCCallGuardAtPrefix, projectRuntimeActorProcessFactsAtPrefix } from "./replay.js";
 import { indexedRuntimeEvents } from "./event_prefix.js";
 import type { RuntimeEventPrefix } from "./event_prefix.js";
 import { admittedNativeTask } from "./native_worksite_execution.js";
@@ -99,9 +99,7 @@ import {
 } from "./event_store.js";
 import {
   readOwnedRuntimeEventPrefixAtDurablePrefix,
-  runtimeEventBodiesAtPrefix,
-  selectValidatedRuntimeEventPrefix,
-  type ValidatedRuntimeEventPrefix,
+  runtimeEventBodiesAtPrefix, type ValidatedRuntimeEventPrefix
 } from "./event_prefix.js";
 import {
   hasExactInvocationAdmissionAtPrefix,
@@ -133,7 +131,6 @@ export interface InvocationAdmissionInput {
   readonly policy: InvocationPolicyBasis;
   readonly capabilityGrants: readonly CapabilityGrant[];
   readonly authority: InvocationAuthority;
-  readonly reentryBasis?: InvocationReentryBasis;
   readonly sourceResultBasis?: ProductInvocationSourceResultBasis;
   /** @internal */
   readonly currentSourceUse?: GovernanceCoveredSourceUse;
@@ -160,26 +157,6 @@ type InvocationRequestBasis =
       | ExactDirectRunInvocation
       | ExactStartRunInvocation;
   }>;
-
-export type InvocationReentryBasis = {
-  readonly kind: "invocation_reentry_basis";
-  readonly schemaVersion: "5.0.0";
-  readonly publicAuthorityDigest: Sha256Digest;
-  readonly sourceInvocationAdmissionRef: string;
-  readonly sourceRunId: string;
-  readonly sourceRouteRef: string;
-  readonly sourceRouteDigest: Sha256Digest;
-  readonly sourceRouteEventRef: string;
-  readonly sourceRunStoppedEventRef: string;
-  readonly gapRef: string;
-  readonly nextActionProjectionRef: string;
-  readonly nextActionProjectionDigest: Sha256Digest;
-  readonly productSetId: string;
-  readonly productSetDigest: Sha256Digest;
-  readonly lockId: string;
-  readonly lockDigest: Sha256Digest;
-  readonly sourceStart: PublicStartAdmissionIdentity;
-};
 
 export type PublicStartAdmissionIdentity = {
   readonly kind: "public_start_identity";
@@ -243,7 +220,7 @@ export type InvocationAdmission = {
   readonly authorityDigest: Sha256Digest;
   readonly actorRef: string;
   readonly publicStart: PublicStartAdmissionIdentity | null;
-  readonly reentryBasis: InvocationReentryBasis | null;
+  readonly reentryBasis: null;
   readonly sourceResultBasis: ProductInvocationSourceResultBasis | null;
   readonly runEnvironment?: RunEnvironmentEvidence;
   readonly publicOperationEventRef: string;
@@ -550,7 +527,7 @@ function deriveSourceResultBasisAtPrefix(
   })();
   const inactiveRetainedWork = applicableRetainedWork &&
     (sourceReplay.runtimeFailureEventRef !== null || sourceReplay.runStoppedEventRef !== null) &&
-    ["failed", "stopped", "gap_stopped", "blocked"].includes(sourceReplay.runtimeStatus);
+    ["failed", "stopped", "blocked"].includes(sourceReplay.runtimeStatus);
   if (
     sourceInvocation === null ||
     !sourceRunMatchesInvocation ||
@@ -1362,110 +1339,11 @@ function admitInvocationWithRequest(
           rootMode: requestPayload.rootMode as "direct" | "supervised",
         }
       : null;
-  if (input.reentryBasis === undefined) {
-    if (suppliedReentryAuthority !== null || priorGap !== null) {
-      return refusal(
-        "authority_mismatch",
-        "re-entry authority and prior gap must be admitted together",
-      );
-    }
-  } else {
-    const reentry = input.reentryBasis;
-    runtimeEventBodiesAtPrefix(
-      predecessorPrefix,
+  if (suppliedReentryAuthority !== null || priorGap !== null) {
+    return refusal(
+      "authority_mismatch",
+      "gap re-entry is retired",
     );
-    const sourceInvocation = rehydrateInvocationAdmissionAtPrefix(
-      predecessorPrefix,
-      reentry.sourceInvocationAdmissionRef,
-    );
-    const sourceReplay = (() => {
-      try {
-        return projectRuntimeReplayStatus(selectRuntimeEventPrefixFromAuthority(predecessorPrefix, {runId:reentry.sourceRunId}), predecessorPrefix);
-      } catch {
-        return null;
-      }
-    })();
-    const sourceRoute = sourceReplay === null ? undefined : projectValidatedReplayRouteAtPrefix(
-      selectRuntimeEventPrefixFromAuthority(predecessorPrefix,{runId:reentry.sourceRunId}), reentry.sourceRouteEventRef, predecessorPrefix);
-    const sourceProjection = sourceRoute?.nextActionProjection ?? null;
-    const sourceAlreadyConsumed = indexedRuntimeEvents(predecessorPrefix, "kind:" + "invocation_admitted").some(
-      (event) =>
-        event.kind === "invocation_admitted" &&
-        isRecord(event.payload) &&
-        isRecord(event.payload.reentryBasis) &&
-        event.payload.reentryBasis.sourceInvocationAdmissionRef ===
-          reentry.sourceInvocationAdmissionRef &&
-        event.payload.reentryBasis.sourceRunId === reentry.sourceRunId &&
-        event.payload.reentryBasis.sourceRouteRef === reentry.sourceRouteRef &&
-        event.payload.reentryBasis.sourceRouteDigest ===
-          reentry.sourceRouteDigest &&
-        event.payload.reentryBasis.sourceRunStoppedEventRef ===
-          reentry.sourceRunStoppedEventRef &&
-        event.payload.reentryBasis.gapRef === reentry.gapRef &&
-        event.payload.reentryBasis.nextActionProjectionRef ===
-          reentry.nextActionProjectionRef &&
-        event.payload.reentryBasis.nextActionProjectionDigest ===
-          reentry.nextActionProjectionDigest,
-    );
-    if (
-      input.invocation.variant !== "start" ||
-      publicStart === null ||
-      reentry.kind !== "invocation_reentry_basis" ||
-      reentry.schemaVersion !== "5.0.0" ||
-      suppliedReentryAuthority?.authorityDigest !==
-        reentry.publicAuthorityDigest ||
-      sourceInvocation === null ||
-      sourceInvocation.invocationVariant !== "start" ||
-      sourceInvocation.publicStart === null ||
-      !canonicalEquals(
-        sourceInvocation.publicStart,
-        reentry.sourceStart,
-      ) ||
-      !canonicalEquals(
-        publicStart,
-        reentry.sourceStart,
-      ) ||
-      sourceInvocation.workspaceBindingId !==
-        input.workspaceBinding.bindingId ||
-      sourceInvocation.workspaceBindingDigest !==
-        input.workspaceBinding.bindingDigest ||
-      sourceInvocation.catalogViewId !== catalogViewRef(input.catalogView) ||
-      sourceInvocation.catalogViewDigest !== input.catalogView.viewDigest ||
-      sourceInvocation.programRef !== input.program.programRef ||
-      sourceInvocation.graphFunctionRef !== input.graphFunction.name ||
-      reentry.productSetId !== input.workspaceBinding.productSetId ||
-      reentry.productSetDigest !==
-        input.workspaceBinding.productSetDigest ||
-      reentry.lockId !== input.workspaceBinding.lockId ||
-      reentry.lockDigest !== input.workspaceBinding.lockDigest ||
-      sourceAlreadyConsumed ||
-      sourceReplay?.runId !== reentry.sourceRunId ||
-      sourceRoute?.routeKind !== "gap_stop" ||
-      sourceRoute.routeRef !== reentry.sourceRouteRef ||
-      sourceRoute.routeDigest !== reentry.sourceRouteDigest ||
-      sourceRoute.nextActionProjectionRef !==
-        reentry.nextActionProjectionRef ||
-      sourceRoute.nextActionProjectionDigest !==
-        reentry.nextActionProjectionDigest ||
-      sourceProjection?.gapRef !== reentry.gapRef ||
-      sourceReplay.runStoppedEventRef !==
-        reentry.sourceRunStoppedEventRef ||
-      sourceReplay.runStoppedDisposition !== "gap_stop" ||
-      sourceReplay.runtimeStatus !== "gap_stopped" ||
-      priorGap?.sourceRunId !== reentry.sourceRunId ||
-      priorGap.sourceRouteRef !== reentry.sourceRouteRef ||
-      priorGap.gapRef !== reentry.gapRef ||
-      priorGap.nextActionProjectionRef !==
-        reentry.nextActionProjectionRef ||
-      priorGap.nextActionProjectionDigest !==
-        reentry.nextActionProjectionDigest
-    ) {
-      return refusal(
-        "authority_mismatch",
-        "re-entry requires the exact durable gap stop, Product observation, and installed invocation basis",
-      );
-    }
-
   }
   if (input.sourceResultBasis === undefined) {
     if (
@@ -1647,7 +1525,7 @@ function admitInvocationWithRequest(
     authorityDigest: input.authority.authorityDigest,
     actorRef: input.authority.actorRef,
     publicStart,
-    reentryBasis: input.reentryBasis ?? null,
+    reentryBasis: null,
     sourceResultBasis: input.sourceResultBasis ?? null,
     ...(input.runEnvironment === undefined ? {} : { runEnvironment: input.runEnvironment }),
   };

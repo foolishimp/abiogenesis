@@ -116,7 +116,7 @@ async function observedReplay(file){
  const counts={wholeHistoryFilterRows:0,indexedPopulationMapRows:0};
  const traced=(rows,key)=>new Proxy(rows,{get(target,name,receiver){
   if(name==='filter'&&key==='history')return (...args)=>{counts.wholeHistoryFilterRows+=target.length;return target.filter(...args);};
-  if(name==='map'&&['type:c_call','type:actor_invocation','kind:traversal_route_admitted','kind:fan_out_completion_admitted','kind:construction_delta_observed'].includes(key))
+  if(name==='map'&&['type:c_call','type:actor_invocation','kind:traversal_route_admitted','kind:fan_out_completion_admitted'].includes(key))
    return (...args)=>{counts.indexedPopulationMapRows+=target.length;return target.map(...args);};
   return Reflect.get(target,name,receiver);
  }});
@@ -258,8 +258,7 @@ test('route facts ignore unrelated growth and preserve relevant source, cursor a
   assert.deepEqual(warmResult,coldResult,name+' cold equivalence');assert.ok(warmResult.error,name+' replay refusal');
   results.push({name,error:warmResult.error,message:warmResult.message});
  }
- // The exact route's later intent association remains live. Deliberately
- // incomplete unadmitted control data must fail identically in both paths.
+ // A retired construction event refuses identically in warm and cold folds.
  const intent=deepFreeze({...route,kind:'construction_intent_selected',eventId:route.eventId+'/intent-control',admissionOrdinal:rows.length+1,payload:{routeRef:route.payload.routeRef,nextActionProjectionRef:'next-action://incomplete-control'}});
  const intentSource=new RuntimeDerivationSource(),initial=select(intentSource,rows,runId);replay.replayValidatedRuntimeEventPrefix(initial.run,initial.authority);
  const updated=select(intentSource,[...rows,intent],runId),coldIntent=cold([...rows,intent]);

@@ -56,7 +56,6 @@ export type ExecutableTraversalCompletion = {
     | "blocked"
     | "closed"
     | "failed"
-    | "gap_stop"
     | "held"
     | "refused";
   readonly cCallRef: string | null;

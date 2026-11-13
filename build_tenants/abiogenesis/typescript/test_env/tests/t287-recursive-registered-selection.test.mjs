@@ -32,10 +32,11 @@ test('run.continue current-execution request is the pending-execution arm under 
   assert.equal(ok(current.requestSchema,base),false,'no arm refuses');
   assert.equal(ok(current.requestSchema,{...base,pendingCursor:c('cursor://x'),selectedAction:c('action://x')}),false,'no action field on the pending arm');
   assert.equal(ok(selected.requestSchema,{...base,pendingCursor:c('cursor://x')}),false,'the pending arm is not a selected_action request');
-  assert.deepEqual(current.metadata.closedDomains.continuationKind,['current_intent','pending_execution']);
+  assert.deepEqual(current.metadata.closedDomains.continuationKind,['pending_execution']);
   assert.deepEqual(selected.metadata.closedDomains.continuationKind,['selected_action']);
   const result={run:c('run://x'),graphCall:null,admittedIntent:null,successor:c('continuation://x'),disposition:'completed',evidence:[c('evidence://x')],replay:c('replay://x')};
-  for(const kind of ['current_intent','pending_execution'])assert.equal(ok(current.resultSchema,{...result,continuationKind:kind}),true,kind);
+  assert.equal(ok(current.resultSchema,{...result,continuationKind:'pending_execution'}),true);
+  assert.equal(ok(current.resultSchema,{...result,continuationKind:'current_intent'}),false,'the retired result kind is unavailable');
   assert.equal(ok(current.resultSchema,{...result,continuationKind:'selected_action'}),false,'selected_action is not a current-execution result');
   assert.equal(ok(selected.resultSchema,{...result,admittedIntent:c('intent://x'),continuationKind:'selected_action'}),true);
   assert.equal(ok(selected.resultSchema,{...result,admittedIntent:c('intent://x'),continuationKind:'pending_execution'}),false,'pending_execution is not a selected_action result');
@@ -410,7 +411,7 @@ test('interrupted recursive workflow resumes its exact pending execution once in
   const use=cc.selectPendingExecutionUse(now,request);assert.equal(use.kind,'pending_execution_use',JSON.stringify(use));
   assert.equal(use.source.continuationRef,p.continuationRef);assert.equal(use.rootBasis.basisRef,env.executionBasis.basisRef);
   const packet=env.product.RUN_OPERATION_CONTRACTS.continue.current_intent;
-  assert.deepEqual(packet.metadata.closedDomains.continuationKind,['current_intent','pending_execution']);
+  assert.deepEqual(packet.metadata.closedDomains.continuationKind,['pending_execution']);
   const grant=env.product.constructCapabilityGrant(env.policy,env.actorRef,'abg.operation.run.continue',packet.metadata.capabilityRefs[0],
     {admittedInstalls:env.admittedInstalls,workspaceBinding:env.workspaceBinding,fixedPacket:packet});
   const operationBasis=n=>({...publicOperationBasis(env.product,'abg.operation.run.continue',env.workspaceBinding.bindingId,env.workspaceBinding.bindingDigest,
@@ -435,7 +436,6 @@ test('interrupted recursive workflow resumes its exact pending execution once in
   const crossed=patch=>({...operation,payload:{...operation.payload,...patch}});
   assert.equal(cc.projectPendingExecutionOperation(afterUse,crossed({memberKey:'selected_action'})),null,'pending kind under the selected_action member');
   assert.equal(cc.projectPendingExecutionOperation(afterUse,crossed({variant:'current_intent'})),null,'pending kind under the construction-intent variant');
-  assert.equal(cc.projectSelectedActionOperation(afterUse,crossed({continuationKind:'selected_action'})),null,'selected-action kind over a pending payload');
   assert.equal(cc.isConstructionContinuationKind('pending_execution'),true);assert.equal(cc.isConstructionContinuationKind('fh_interaction'),false);
   assert.equal(cc.isConstructionContinuationKind(undefined),false,'a malformed or unknown kind stays with F_H, which refuses it');
   const completedBefore=runAt(env.store.readAll()).filter(e=>e.kind==='c_call_opened').map(e=>e.payload.cursorRef);

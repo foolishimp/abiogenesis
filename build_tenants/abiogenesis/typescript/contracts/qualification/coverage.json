@@ -1,15 +1,15 @@
 {
   "kind": "qualification_coverage_catalog",
   "lawBasis": {
-    "ref": "qualification-law://abiogenesis/11023c6a07655902a89b1c4e3cd799a6b6ae6951832ab70b707d21b19a9cc36d",
-    "digest": "sha256:11023c6a07655902a89b1c4e3cd799a6b6ae6951832ab70b707d21b19a9cc36d"
+    "ref": "qualification-law://abiogenesis/b48dc1c08b5a7e5ec141ad4314dedb776a7dde57a2f3f58499271643af464441",
+    "digest": "sha256:b48dc1c08b5a7e5ec141ad4314dedb776a7dde57a2f3f58499271643af464441"
   },
   "authoritySources": [
     {
       "ref": "repo://abiogenesis/specification/PRODUCT.md",
       "path": "contracts/qualification/sources/PRODUCT.md",
-      "digest": "sha256:29918ad0da4aef546c3f887645862c05847ff87e3b22c3b98e39db3bab403ebd",
-      "byteCount": 104095
+      "digest": "sha256:ffd5ed220a7add7e688cf435e029d0c6fb0fe3e7f059a0c5ab03bab1bfd02a88",
+      "byteCount": 104101
     },
     {
       "ref": "repo://abiogenesis/specification/requirements/product/REQ-P-QUAL.md",
@@ -111,7 +111,7 @@
         "traversal/consequence/ticket_traversal",
         "traversal/consequence/fh_input_required",
         "traversal/consequence/escalation_or_reprice",
-        "traversal/consequence/gap_stop",
+        "traversal/consequence/blocked_gap",
         "traversal/consequence/non_admit"
       ],
       "evidenceRoles": [
@@ -137,7 +137,7 @@
         "traversal/disposition/reprice",
         "traversal/disposition/human_assurance_required",
         "traversal/disposition/escalate",
-        "traversal/disposition/gap_stop",
+        "traversal/disposition/blocked_gap",
         "traversal/disposition/block",
         "traversal/disposition/non_admit"
       ],
@@ -318,6 +318,6 @@
       ]
     }
   ],
-  "catalogRef": "qualification-coverage://abiogenesis/63449d60ae2fa1b007225a7f5bdd856bdaaade4f4220322547da6a5f5c9ee9ed",
-  "catalogDigest": "sha256:63449d60ae2fa1b007225a7f5bdd856bdaaade4f4220322547da6a5f5c9ee9ed"
+  "catalogRef": "qualification-coverage://abiogenesis/b0dace4e6db2c2691046a30f5d7ecbe803ea40a5ba87bf600420d67dc6c130df",
+  "catalogDigest": "sha256:b0dace4e6db2c2691046a30f5d7ecbe803ea40a5ba87bf600420d67dc6c130df"
 }

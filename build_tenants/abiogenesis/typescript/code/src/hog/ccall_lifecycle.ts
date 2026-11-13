@@ -312,13 +312,6 @@ export function projectOwnedCCallCompletion(
       },
     );
   }
-  if (admitted.disposition === "gap_stop") {
-    return projectExecutableTraversalCompletion(
-      "gap_stop", admitted.transition.replayState, admitted.transition.successorPrefix,
-      { cCallRef: cCall.cCallRef, resultRef: result.resultRef,
-        judgmentRef: judgment.judgmentRef, resultValue: result.value },
-    );
-  }
   if (admitted.disposition === "advanced") {
     if (target === null) {
       return projectExecutableTraversalCompletion(

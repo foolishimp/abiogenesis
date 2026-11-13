@@ -3354,7 +3354,6 @@ function assertRuntimeEventContract(
       "retry",
       "terminal",
       "hold",
-      "gap_stop",
       "blocked",
       "failed",
     ].includes(
@@ -3393,12 +3392,6 @@ function assertRuntimeEventContract(
     ![
       "blocked",
       "failed",
-      "gap_stop",
-      "reprice_required",
-      "repair",
-      "inspect_runtime_archive",
-      "reprice",
-      "escalate",
       "operator_abort",
       "campaign_close",
     ].includes(

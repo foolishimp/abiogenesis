@@ -413,7 +413,7 @@ not as nine special HoG runners.
 | `ticket_traversal` | Invoke product-declared ticket work through an owning GraphFunction or program; ABG does not own ticket storage or meaning. |
 | `fh_input_required` | Stop with typed unmet human-input pressure and a human-readable handoff. Native response admission and same-run response-driven resumption are reserved for 5.1. |
 | `escalation_or_reprice` | Escalate unresolved authority or propose reprice through declared policy and `F_H`; a worker cannot apply it directly. |
-| `gap_stop` | Publish unresolved pressure as a typed gap or block without false completion or automatic retry. |
+| `blocked_gap` | Publish unresolved pressure as a typed gap or block without false completion or automatic retry. |
 | `non_admit` | Refuse the proposed route before effects because declaration, authority, basis, or contract admission failed. |
 
 GTL declares which routes are available at the current boundary. A consequence
@@ -439,7 +439,7 @@ inspect_runtime_archive
 reprice
 human_assurance_required
 escalate
-gap_stop
+blocked_gap
 block
 non_admit
 ```

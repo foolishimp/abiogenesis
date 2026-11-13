@@ -15,7 +15,6 @@ import { projectAdmittedCCallStateAtPrefix, projectCurrentChildParentCCallAtPref
 import { rehydrateAdmittedImplementationSetAtPrefix, rehydrateAdmittedInteractionSetAtPrefix, type ExecutionBasis } from "./execution_basis.js";
 import { rehydrateOpenedTraversalScopeAtPrefix, projectOpenedTraversalScopeClassAtPrefix, type OpenedTraversalScope } from "./open_call.js";
 import { projectHistoricalTraversalRouteAtPrefix } from "./traversal_route.js";
-import { traversalCursorAdmissionEventsAtPrefix, traversalCursorAdmissionDigest } from "./traversal_cursor.js";
 import { hasJudgedTerminalRouteCausation } from "./retry.js";
 import { isAbgTypedTerminalResult, isAbgHistoricalDeclarationProof, hasUniqueHistoricalDeclarationDependencies, type AbgTypedTerminalResult, type AbgHistoricalDeclarationProof, type AbgHistoricalGraphCallSourceResource, type AbgHistoricalGraphCallSource } from "./terminal_result_contracts.js";
 import { sha256Canonical, type Sha256Digest } from "../shared/digests.js";
@@ -74,9 +73,6 @@ export const ABG_PROJECT_READ_MEMBER_KEYS = Object.freeze([
   "interaction_replay",
   "continuation_replay",
   "c_call_replay",
-  "workspace_gaps",
-  "run_gaps",
-  "run_lawful_actions",
 ] as const);
 
 export type AbgProjectReadMemberKey =
@@ -895,11 +891,6 @@ function canonicalRunContext(
     : terminalResult(rootRows.routes, rootRows.cCalls);
   const typed = context.replay.graphCallId === null ? null
     : typedTerminalResult(prepared, context, context.replay.graphCallId, true);
-  const gapRoute = [...context.replay.routes].reverse().find((route) =>
-    route.routeKind === "gap_stop" &&
-    route.nextActionProjectionRef !== undefined &&
-    route.nextActionProjectionDigest !== undefined
-  );
   const continuation = [...context.replay.continuations].reverse().find((row) =>
     row.status === "open"
   );
@@ -931,13 +922,7 @@ function canonicalRunContext(
       context.replay.runStoppedEventRef ??
         context.replay.runtimeFailureEventRef,
     ),
-    gap: gapRoute?.nextActionProjectionRef === undefined ||
-        gapRoute.nextActionProjectionDigest === undefined
-      ? null
-      : truthCoordinate(
-          gapRoute.nextActionProjectionRef,
-          gapRoute.nextActionProjectionDigest,
-        ),
+    gap: null,
     interaction: continuation === undefined || continuation.continuationKind !== "fh_interaction"
       ? null
       : truthCoordinate(continuation.requestRef, continuation.requestDigest),
@@ -1003,10 +988,10 @@ function graphCallSource(
  * caller-asserted context or another prefix. Source identity is proof-independent. */
 export function prepareRunReadAtDurablePrefix(
   prefix: DurablePrefixCoordinate,
-  memberKey: "run_status" | "run_result" | "run_replay" | "run_gaps" | "graph_call_result" | "graph_call_replay",
+  memberKey: "run_status" | "run_result" | "run_replay" | "graph_call_result" | "graph_call_replay",
   targetRef: string,
 ): Readonly<{
-  project: (declarationProof?: AbgHistoricalDeclarationProof) => AbgProjectReadResult<"run_status" | "run_result" | "graph_call_result" | "run_replay" | "graph_call_replay" | "run_gaps">;
+  project: (declarationProof?: AbgHistoricalDeclarationProof) => AbgProjectReadResult<"run_status" | "run_result" | "graph_call_result" | "run_replay" | "graph_call_replay">;
   source: AbgRunTruthCoordinate;
   workspaceBinding: AbgRunTruthCoordinate;
 }> | null;
@@ -1023,13 +1008,13 @@ export function prepareRunReadAtDurablePrefix(
  * contract digests cover. */
 export function prepareRunReadAtDurablePrefix(
   prefix: DurablePrefixCoordinate,
-  memberKey: "run_status" | "run_result" | "run_replay" | "run_gaps" | "graph_call_result" | "graph_call_replay",
+  memberKey: "run_status" | "run_result" | "run_replay" | "graph_call_result" | "graph_call_replay",
   targetRef: string,
   acquired: ExactPrefixArtifactTruthProjection,
 ): ReturnType<typeof prepareRunRead>;
 export function prepareRunReadAtDurablePrefix(
   prefix: DurablePrefixCoordinate,
-  memberKey: "run_status" | "run_result" | "run_replay" | "run_gaps" | "graph_call_result" | "graph_call_replay",
+  memberKey: "run_status" | "run_result" | "run_replay" | "graph_call_result" | "graph_call_replay",
   targetRef: string,
   acquired?: ExactPrefixArtifactTruthProjection,
 ) {
@@ -1038,7 +1023,7 @@ export function prepareRunReadAtDurablePrefix(
 
 function prepareRunRead(
   prefix: DurablePrefixCoordinate,
-  memberKey: "run_status" | "run_result" | "run_replay" | "run_gaps" | "graph_call_result" | "graph_call_replay",
+  memberKey: "run_status" | "run_result" | "run_replay" | "graph_call_result" | "graph_call_replay",
   targetRef: string,
   acquired?: ExactPrefixArtifactTruthProjection,
 ) {
@@ -1075,7 +1060,6 @@ function prepareRunRead(
             case "run_status": return projectRunStatus(selected, targetRef, run);
             case "run_result": return projectRunResult(selected, targetRef, run);
             case "run_replay": return projectRunReplay(selected, targetRef, run);
-            case "run_gaps": return projectRunGaps(selected, targetRef, run);
             case "graph_call_result": return projectGraphCallResult(selected, targetRef, graph);
             case "graph_call_replay": return projectGraphCallReplay(selected, targetRef, graph);
           }
@@ -1158,7 +1142,7 @@ type StopReading = Readonly<{
   kind: "abg_run_stop_reading"; schemaVersion: "5.0.0"; stop: AbgRunTruthCoordinate;
   eventKind: "run_stopped" | "runtime_failure_observed"; disposition: string; reasonRef: string | null; stage: string | null;
   operator: StopOperator | null; origin: StopOrigin; lastRootResult: StopRootResult;
-  nextActions: readonly AbgRunTruthCoordinate[]; statement: string;
+  statement: string;
 }>;
 
 function stopString(record: StopRecord, field: string): string | null {
@@ -1360,9 +1344,7 @@ function stopStatement(reading: Omit<StopReading, "statement">): string {
     ? `The last admitted Result of the root GraphCall is ${lastRootResult.valueKind ?? "an unkinded value"} ${
         lastRootResult.result.ref} under contract ${lastRootResult.contractRef}.`
     : "No Result of the root GraphCall is admitted.";
-  const nextText = reading.nextActions.length === 0 ? "No next lawful action is admitted."
-    : `Next lawful action: ${reading.nextActions.map((action) => action.ref).join(", ")}.`;
-  return `The Run stopped as ${reading.disposition} and did not complete. ${reason} ${originText} ${rootText} ${nextText}`;
+  return `The Run stopped as ${reading.disposition} and did not complete. ${reason} ${originText} ${rootText}`;
 }
 
 /** REQ-P-POLICY-065–068: the stop reading is a read-time fold over the Run's
@@ -1389,7 +1371,6 @@ function projectRunStopReading(context: CanonicalRunReadContext): StopReading | 
     operator: failure ? null : stopOperator(payload),
     origin: stopOrigin(context.prefix, stop),
     lastRootResult: stopRootResult(context.prefix, context.replay.graphCallId, stop),
-    nextActions: runLawfulActions(context).map((action) => truthCoordinate(action.projectionRef, action.projectionDigest)),
   };
   return deepFreeze({ ...reading, statement: stopStatement(reading) });
 }
@@ -1417,7 +1398,7 @@ function projectRunResult(
 ): ProjectedValue {
   if (context === null) return ABSENT;
   return context.truth.terminalResult === null
-    ? ["active", "held", "gap_stopped"].includes(context.truth.runtimeStatus) ? NOT_READY : ABSENT
+    ? ["active", "held"].includes(context.truth.runtimeStatus) ? NOT_READY : ABSENT
     : {
         runId: targetRef,
         runtimeStatus: context.truth.runtimeStatus,
@@ -1438,7 +1419,7 @@ function projectGraphCallResult(
   const terminal = terminalResult(context.routes, context.cCalls);
   const typed = typedTerminalResult(prepared, context, targetRef, false);
   return typed === null
-    ? ["active", "held", "gap_stopped"].includes(graphCallStatus(context)) ? NOT_READY : ABSENT
+    ? ["active", "held"].includes(graphCallStatus(context)) ? NOT_READY : ABSENT
     : {
         graphCallId: targetRef,
         runId: context.replay.runId,
@@ -1639,189 +1620,6 @@ function projectCCallReplay(
   };
 }
 
-/** Reuse C-call admission truth; no Public consumer reconstructs this spine. */
-function gapCall(context: RunReadContext, route: NonNullable<ReturnType<typeof projectHistoricalTraversalRouteAtPrefix>>,
-  cCallRef: string, authorityPrefix: RuntimeEventPrefix) {
-  const events = runtimeEventBodiesAtPrefix(context.prefix);
-  const rows = events.filter(event => event.aggregateType === "c_call" && event.aggregateId === cCallRef);
-  if (rows.some(event => event.runId !== route.runId || event.graphCallId !== route.graphCallId ||
-      event.frameId !== route.frameId || event.basisId !== route.executionBasisRef)) throw new TypeError("gap C-call crosses its route scope");
-  const open = exactOrThrow(onlyExactMatch(rows.filter(event => event.kind === "c_call_opened")), "gap C-call opening");
-  const fibre = exactOrThrow(onlyExactMatch(rows.filter(event => event.kind === "c_call_fibre_selected")), "gap C-call fibre");
-  const result = exactOrThrow(onlyExactMatch(rows.filter(event => event.kind === "c_call_result_admitted")), "gap C-call result");
-  const judgment = exactOrThrow(onlyExactMatch(rows.filter(event => event.kind === "c_call_judged")), "gap C-call judgment");
-  const o = eventRecord(open);
-  const outcome = projectAdmittedCCallStateAtPrefix(context.prefix, {
-    ...o, ...eventRecord(fibre), kind: "c_call", schemaVersion: "5.0.0", runId: open.runId!,
-    childGraphFunctionRef: o.childGraphFunctionRef ?? null, failureContractRef: o.failureContractRef ?? "",
-    openedEventRef: open.eventId, fibreSelectedEventRef: fibre.eventId,
-  }, { ...eventRecord(result), kind: "admitted_c_call_result", schemaVersion: "5.0.0", disposition: "admitted", admissionEventRef: result.eventId },
-  { ...eventRecord(judgment), kind: "admitted_c_call_judgment", schemaVersion: "5.0.0", disposition: "admitted", admissionEventRef: judgment.eventId });
-  if (outcome === null || outcome.result.resultClass !== "success" || outcome.judgment.judgment !== "advance" ||
-      !isRecord(outcome.result.value)) throw new TypeError("gap value has no admitted successful C-call outcome");
-  const implementationSet = rehydrateAdmittedImplementationSetAtPrefix(authorityPrefix, outcome.cCall.implementationSetRef);
-  const implementation = exactOrThrow(onlyExactMatch(implementationSet?.rows.filter(row => row.requirementKey === outcome.cCall.implementationRequirementKey &&
-    row.implementationBindingRef === outcome.cCall.implementationBindingRef && row.implementationRef === outcome.cCall.implementationRef &&
-    row.graphFunctionRef === outcome.cCall.graphFunctionRef) ?? []), "gap implementation contract");
-  if (implementation.outputContractRef !== outcome.result.contractRef) throw new TypeError("gap output differs from its admitted implementation contract");
-  return { open, result, judgment, outcome, implementation, value: outcome.result.value,
-    projected: { result: truthCoordinate(outcome.result.resultRef, outcome.result.resultDigest),
-      contractRef: outcome.result.contractRef, valueKind: outcome.result.valueKind,
-      valueDigest: outcome.result.valueDigest, value: outcome.result.value,
-      cCallRef, resultAdmissionEventRef: result.eventId, judgmentRef: outcome.judgment.judgmentRef,
-      judgmentAdmissionEventRef: judgment.eventId } };
-}
-
-function gapRows(prepared: PreparedRead<AbgProjectReadMemberKey>, context: CanonicalRunReadContext): readonly JsonValue[] {
-  if (context.truth.runtimeStatus !== "gap_stopped") return [];
-  const events = runtimeEventBodiesAtPrefix(context.prefix);
-  const stop = exactOrThrow(onlyExactMatch(events.filter(event => event.kind === "run_stopped" &&
-    event.eventId === context.replay.runStoppedEventRef)), "gap Run stop");
-  const stopped = eventRecord(stop);
-  const selected = exactOrThrow(onlyExactMatch(context.replay.routes.filter(route => route.routeKind === "gap_stop" &&
-    route.routeRef === stopped.routeRef)), "stopped gap route");
-  const route = projectHistoricalTraversalRouteAtPrefix(context.prefix, selected.admissionEventRef, prepared.fullPrefix);
-  if (route === null || route.runId !== context.truth.run.ref || route.cCallRef === null ||
-      route.routeKind !== "gap_stop" || !stop.causationEventRefs.includes(route.admissionEventRef) ||
-      stop.basisId !== route.executionBasisRef || stop.graphCallId !== route.graphCallId || stop.frameId !== route.frameId ||
-      stopped.cCallRef !== route.cCallRef || stopped.judgmentRef !== route.judgmentRef) throw new TypeError("gap stop differs from its admitted route");
-  const execution = projectExactExecutionBasisAtPrefix(prepared.fullPrefix, route.executionBasisRef);
-  if (execution === null) throw new TypeError("gap execution basis is absent");
-  const scope = scopeForBasis(prepared.fullPrefix, execution);
-  if (scope.runId !== context.truth.run.ref || scope.graphCallId !== route.graphCallId || scope.frameId !== route.frameId ||
-      execution.workspaceBindingId !== context.truth.workspaceBinding.ref || execution.workspaceBindingDigest !== context.truth.workspaceBinding.digest) {
-    throw new TypeError("gap execution basis crosses the selected Run or workspace");
-  }
-  const next = gapCall(context, route, route.cCallRef, prepared.fullPrefix);
-  const projection = route.nextActionProjection;
-  if (projection?.disposition !== "no_action" || !canonicalEquals(next.value, projection) ||
-      next.outcome.result.valueKind !== "next_action_projection" || next.outcome.judgment.judgmentRef !== route.judgmentRef ||
-      eventRecord(next.open).cursorRef !== route.sourceCursorRef || eventRecord(next.open).cursorDigest !== route.sourceCursorDigest ||
-      !route.causationEventRefs.includes(next.judgment.eventId) || next.judgment.admissionOrdinal >= route.admissionOrdinal) {
-    throw new TypeError("gap route differs from its no-action producer");
-  }
-  const origins = traversalCursorAdmissionEventsAtPrefix(context.prefix, {
-    cursorRef: route.sourceCursorRef, executionBasisRef: route.executionBasisRef,
-    runId: route.runId, graphCallId: route.graphCallId, frameId: route.frameId,
-  });
-  const origin = exactOrThrow(onlyExactMatch(origins), "no-action cursor origin");
-  if (traversalCursorAdmissionDigest(origin) !== route.sourceCursorDigest ||
-      origin.admissionOrdinal >= next.open.admissionOrdinal || next.open.causationEventRefs[0] !== origin.eventId) {
-    throw new TypeError("no-action opening differs from its admitted cursor origin");
-  }
-  // Evidence admission checked the actual input digest before recording it.
-  // Read that admitted fact; do not reconstruct traversal or select a producer
-  // occurrence by equality of reusable immutable basis content.
-  const inputs = events.filter(event => event.kind === "c_call_evidenced" && event.aggregateId === route.cCallRef);
-  if (inputs.length === 0 || inputs.length !== next.outcome.result.evidenceRefs.length ||
-      next.outcome.cCall.implementationSetRef !== execution.implementationSetRef) {
-    throw new TypeError("no-action input evidence is absent or crosses its implementation set");
-  }
-  const inputDigests = inputs.map(event => {
-    const { evidenceRef, evidenceDigest, ...body } = eventRecord(event);
-    if (event.runId !== route.runId || event.graphCallId !== route.graphCallId || event.frameId !== route.frameId ||
-        event.basisId !== route.executionBasisRef || body.cCallRef !== route.cCallRef ||
-        body.implementationRef !== next.outcome.cCall.implementationRef || body.contractRef !== execution.evidenceContractRef ||
-        !next.outcome.result.evidenceRefs.includes(String(evidenceRef)) ||
-        evidenceDigest !== sha256Canonical(body) || evidenceRef !== `evidence://abiogenesis/${String(evidenceDigest).slice(7)}` ||
-        typeof body.inputDigest !== "string" || !/^sha256:[a-f0-9]{64}$/u.test(body.inputDigest) ||
-        body.outputDigest !== next.outcome.result.valueDigest ||
-        !(next.open.admissionOrdinal < event.admissionOrdinal && event.admissionOrdinal < next.result.admissionOrdinal)) {
-      throw new TypeError("no-action input evidence differs from its admitted result");
-    }
-    return body.inputDigest;
-  });
-  const inputDigest = inputDigests[0]!;
-  if (inputDigests.some(digest => digest !== inputDigest) ||
-      (origin.kind === "traversal_cursor_entered" && eventRecord(origin).inputDigest !== inputDigest)) {
-    throw new TypeError("no-action evidence has conflicting input identities");
-  }
-  const sources = events.filter(event => event.kind === "c_call_result_admitted" &&
-    event.runId === route.runId && event.graphCallId === route.graphCallId && event.frameId === route.frameId &&
-    event.basisId === route.executionBasisRef && event.admissionOrdinal < next.open.admissionOrdinal &&
-    isRecord(event.payload) && event.payload.valueDigest === inputDigest && isRecord(event.payload.value) &&
-    event.payload.value.basisRef === projection.nextActionBasisRef);
-  if (sources.length === 0) throw new TypeError("admitted no-action basis content is absent");
-  const contents = sources.map(source => {
-    const basis = gapCall(context, route, source.aggregateId, prepared.fullPrefix);
-    const { basisRef, basisDigest, ...body } = basis.value;
-    if (basis.outcome.result.valueKind !== "next_action_basis" || basis.value.kind !== "next_action_basis" ||
-        basis.value.schemaVersion !== "5.0.0" || basisDigest !== sha256Canonical(body) ||
-        basisRef !== `next-action-basis://product/${String(basisDigest).slice(7)}` ||
-        basisDigest !== projection.nextActionBasisDigest || basis.judgment.admissionOrdinal >= next.open.admissionOrdinal ||
-        basis.outcome.result.contractRef !== next.implementation.inputContractRef ||
-        basis.outcome.cCall.implementationSetRef !== execution.implementationSetRef ||
-        !isRecord(basis.value.gapProjection) || basis.value.gapProjection.gapRef !== projection.gapRef ||
-        (basis.value.targetObligationRefs === undefined || !canonicalEquals(basis.value.targetObligationRefs, projection.targetObligationRefs))) {
-      throw new TypeError("no-action input does not join its exact admitted gap basis");
-    }
-    return basis.value;
-  });
-  const content = contents[0]!;
-  if (contents.some(value => !canonicalEquals(value, content))) throw new TypeError("no-action input content is ambiguous");
-  const basis = { contractRef: next.implementation.inputContractRef, valueKind: "next_action_basis", valueDigest: inputDigest,
-    value: content, inputEvidence: inputs.map(event => ({
-      evidence: truthCoordinate(String(eventRecord(event).evidenceRef), eventRecord(event).evidenceDigest as Sha256Digest),
-      admissionEventRef: event.eventId,
-    })) };
-  return [deepFreeze({ kind: "abg_admitted_gap", schemaVersion: "5.0.0", run: context.truth.run,
-    executionBasis: truthCoordinate(execution.basisRef, execution.basisDigest), route: truthCoordinate(route.routeRef, route.routeDigest),
-    routeAdmissionEventRef: route.admissionEventRef, stop: truthCoordinate(stop.eventId, stop.payloadDigest),
-    nextAction: next.projected, basis }) as unknown as JsonValue];
-}
-
-function projectWorkspaceGaps(
-  prepared: PreparedRead<AbgProjectReadMemberKey>,
-  targetRef: string,
-): ProjectedValue {
-  const workspaceEvents = indexedRuntimeEventEnvelopes(prepared.fullPrefix, "related:" + targetRef).filter(
-    (event) => event.scopeClass === "workspace" && event.aggregateId === targetRef,
-  );
-  if (workspaceEvents.length === 0) return ABSENT;
-  return {
-    workspaceRef: targetRef,
-    frontiers: runIds(prepared).flatMap((runId) => {
-      const context = canonicalRunContext(prepared, runId);
-      return context === null || context.truth.workspaceBinding.ref !== targetRef ? [] : gapRows(prepared, context);
-    }),
-  };
-}
-
-function projectRunGaps(
-  prepared: PreparedRead<AbgProjectReadMemberKey>,
-  targetRef: string,
-  context: CanonicalRunReadContext | null = canonicalRunContext(prepared, targetRef),
-): ProjectedValue {
-  return context === null
-    ? ABSENT
-    : { runId: targetRef, frontiers: gapRows(prepared, context),
-        replayRef: context.replay.replayRef, replayDigest: context.replay.replayDigest };
-}
-
-function projectRunLawfulActions(
-  prepared: PreparedRead<AbgProjectReadMemberKey>,
-  targetRef: string,
-): ProjectedValue {
-  const context = canonicalRunContext(prepared, targetRef);
-  if (context === null) return ABSENT;
-  return { runId: targetRef, lawfulActions: runLawfulActions(context) };
-}
-
-/** The lawful next actions the Run's admitted routes project; the stop
- * reading names the same set. */
-function runLawfulActions(context: RunReadContext) {
-  return context.replay.routes.flatMap((route) =>
-    route.nextActionProjection?.disposition === "selected"
-      ? [{
-          routeRef: route.routeRef,
-          projectionRef: route.nextActionProjectionRef!,
-          projectionDigest: route.nextActionProjectionDigest!,
-          action: route.nextActionProjection,
-        }]
-      : []
-  );
-}
-
 function projectValue(
   prepared: PreparedRead<AbgProjectReadMemberKey>,
   memberKey: AbgProjectReadMemberKey,
@@ -1858,12 +1656,6 @@ function projectValue(
       return projectContinuationReplay(prepared, targetRef);
     case "c_call_replay":
       return projectCCallReplay(prepared, targetRef);
-    case "workspace_gaps":
-      return projectWorkspaceGaps(prepared, targetRef);
-    case "run_gaps":
-      return projectRunGaps(prepared, targetRef);
-    case "run_lawful_actions":
-      return projectRunLawfulActions(prepared, targetRef);
   }
 }
 
@@ -1906,8 +1698,7 @@ function projectPreparedRead<K extends AbgProjectReadMemberKey>(
   }
   if (projected === NOT_READY) return refusal(expectedMemberKey, prepared.packet.targetRef,
     "target_not_ready", "selected scope has no terminal result at this prefix");
-  const livenessMember = expectedMemberKey.endsWith("_status") || expectedMemberKey.endsWith("_replay") ||
-    expectedMemberKey.endsWith("_gaps") || expectedMemberKey === "run_lawful_actions";
+  const livenessMember = expectedMemberKey.endsWith("_status") || expectedMemberKey.endsWith("_replay");
   const livenessRunId = expectedMemberKey.startsWith("run_") ? prepared.packet.targetRef :
     expectedMemberKey.startsWith("graph_call_") ? indexedRuntimeEventEnvelopes(prepared.fullPrefix, "kind:graph_call_opened")
       .find(event => event.kind === "graph_call_opened" && event.aggregateId === prepared.packet.targetRef)?.runId ?? null : null;
@@ -1947,11 +1738,6 @@ export const RunProjectionPort = Object.freeze({
     project("run_evidence", packet),
   run_replay: (packet: AbgProjectReadPacket<"run_replay">) =>
     project("run_replay", packet),
-  run_gaps: (packet: AbgProjectReadPacket<"run_gaps">) =>
-    project("run_gaps", packet),
-  run_lawful_actions: (
-    packet: AbgProjectReadPacket<"run_lawful_actions">,
-  ) => project("run_lawful_actions", packet),
 });
 
 export const GraphCallProjectionPort = Object.freeze({
@@ -1984,8 +1770,6 @@ export const WitnessProjectionPort = Object.freeze({
 export const WorkspaceProjectionPort = Object.freeze({
   workspace_replay: (packet: AbgProjectReadPacket<"workspace_replay">) =>
     project("workspace_replay", packet),
-  workspace_gaps: (packet: AbgProjectReadPacket<"workspace_gaps">) =>
-    project("workspace_gaps", packet),
 });
 
 export const InteractionProjectionPort = Object.freeze({
@@ -2035,13 +1819,6 @@ export const ABG_PROJECT_READ_OWNER_PORTS = Object.freeze({
     project: ContinuationProjectionPort.replay,
   }),
   c_call_replay: Object.freeze({ project: CCallProjectionPort.replay }),
-  workspace_gaps: Object.freeze({
-    project: WorkspaceProjectionPort.workspace_gaps,
-  }),
-  run_gaps: Object.freeze({ project: RunProjectionPort.run_gaps }),
-  run_lawful_actions: Object.freeze({
-    project: RunProjectionPort.run_lawful_actions,
-  }),
 });
 
 export const ABG_PROJECT_READ_CONTRACTS = Object.freeze({
@@ -2060,7 +1837,4 @@ export const ABG_PROJECT_READ_CONTRACTS = Object.freeze({
   interaction_replay: InteractionProjectionPort.replay,
   continuation_replay: ContinuationProjectionPort.replay,
   c_call_replay: CCallProjectionPort.replay,
-  workspace_gaps: WorkspaceProjectionPort.workspace_gaps,
-  run_gaps: RunProjectionPort.run_gaps,
-  run_lawful_actions: RunProjectionPort.run_lawful_actions,
 });

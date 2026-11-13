@@ -1237,10 +1237,6 @@ function eventCalculusEffectRefs(
     case "fh_interaction_opened": {
       const continuationRef = stringField(event, "continuationRef");
       const holdRouteRef = stringField(event, "holdRouteRef");
-      const constructionIntentRef = stringField(
-        event,
-        "constructionIntentRef",
-      );
       return {
         initiates: continuationRef === null
           ? []
@@ -1253,64 +1249,20 @@ function eventCalculusEffectRefs(
           ...(holdRouteRef === null
             ? []
             : [fluent("hold_route_admitted", holdRouteRef)]),
-          ...(constructionIntentRef === null
-            ? []
-            : [
-                fluent(
-                  "construction_intent_available",
-                  constructionIntentRef,
-                ),
-              ]),
         ],
         clips: [],
         declips: [],
       };
     }
-    case "construction_continuation_opened": {
-      const continuationRef = stringField(event, "continuationRef");
-      return { initiates: continuationRef === null ? [] : [fluent("continuation_open", continuationRef)],
-        terminates: [], clips: [], declips: [] };
-    }
-    case "construction_intent_selected": {
-      const constructionIntentRef = stringField(
-        event,
-        "constructionIntentRef",
-      );
-      return {
-        initiates: constructionIntentRef === null
-          ? []
-          : [
-              fluent(
-                "construction_intent_available",
-                constructionIntentRef,
-              ),
-            ],
-        terminates: [],
-        clips: [],
-        declips: [],
-      };
-    }
-    case "construction_delta_observed": {
-      const constructionIntentRef = stringField(
-        event,
-        "constructionIntentRef",
-      );
-      return {
-        initiates: [],
-        terminates: constructionIntentRef === null
-          ? []
-          : [
-              fluent(
-                "construction_intent_available",
-                constructionIntentRef,
-              ),
-              ...(stringField(event, "continuationRef") === null ? []
-                : [fluent("continuation_open", stringField(event, "continuationRef")!)]),
-            ],
-        clips: [],
-        declips: [],
-      };
-    }
+    case "construction_continuation_opened":
+    case "construction_intent_selected":
+    case "construction_delta_observed":
+      throw new TypeError(`Unknown Event Calculus event kind ${String(event.kind)}`);
+    case "public_operation_admitted":
+      if (["construction_intent", "selected_action"].includes(stringField(event, "continuationKind") ?? "")) {
+        throw new TypeError(`continuation ${event.aggregateId} has an invalid event lifecycle`);
+      }
+      return ROOT_EVENT_CALCULUS[event.kind];
     case "fh_interaction_responded":
     case "fh_interaction_resume_admitted":
     case "continuation_abandoned":
@@ -1318,13 +1270,11 @@ function eventCalculusEffectRefs(
       // Human response and same-Run resumption are reserved to 5.1. These kinds
       // stay declared for it and have no 5.0 reader, and neither has an F_H
       // supersession: a log that carries one is refused here, never folded as
-      // if the event were absent. Construction supersession is live.
+      // if the event were absent. Only pending-execution supersession remains.
       const continuationKind = stringField(event, "continuationKind");
       if (
         event.kind !== "continuation_superseded" ||
-        (continuationKind !== "construction_intent" &&
-          continuationKind !== "selected_action" &&
-          continuationKind !== "pending_execution")
+        continuationKind !== "pending_execution"
       ) {
         throw new TypeError(
           `continuation ${event.aggregateId} has an invalid event lifecycle`,
@@ -1341,8 +1291,6 @@ function eventCalculusEffectRefs(
               fluent("continuation_open", continuationRef),
               fluent("interaction_pending", continuationRef),
               fluent("continuation_response_available", continuationRef),
-              ...(continuationKind === "selected_action" && stringField(event, "constructionIntentRef") !== null
-                ? [fluent("construction_intent_available", stringField(event, "constructionIntentRef")!)] : []),
             ],
         clips: [], declips: [],
       };
@@ -1469,10 +1417,6 @@ function eventCalculusEffectRefs(
   const targetCursorRef = stringField(event, "targetCursorRef");
   const routeRef = stringField(event, "routeRef");
   const judgmentRef = stringField(event, "judgmentRef");
-  const constructionIntentRef = stringField(
-    event,
-    "constructionIntentRef",
-  );
   const consumedFluents = stringArrayField(
     event,
     "consumedAvailabilityRefs",
@@ -1485,14 +1429,6 @@ function eventCalculusEffectRefs(
           ...(targetCursorRef === null
             ? []
             : [fluent("locus_active", targetCursorRef)]),
-          ...(constructionIntentRef === null
-            ? []
-            : [
-                fluent(
-                  "construction_intent_available",
-                  constructionIntentRef,
-                ),
-              ]),
         ],
         terminates: [
           ...(sourceCursorRef === null
@@ -1546,24 +1482,6 @@ function eventCalculusEffectRefs(
           ...(event.frameId === undefined
             ? []
             : [fluent("frame_active", event.frameId)]),
-          ...consumedFluents,
-        ],
-        clips: [],
-        declips: [],
-      };
-    case "gap_stop":
-      return {
-        initiates: [],
-        terminates: [
-          ...(sourceCursorRef === null
-            ? []
-            : [fluent("locus_active", sourceCursorRef)]),
-          ...(event.frameId === undefined
-            ? []
-            : [fluent("frame_active", event.frameId)]),
-          ...(judgmentRef === null
-            ? []
-            : [fluent("c_call_judgment_available", judgmentRef)]),
           ...consumedFluents,
         ],
         clips: [],

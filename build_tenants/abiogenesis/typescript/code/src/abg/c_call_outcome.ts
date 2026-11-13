@@ -650,11 +650,6 @@ type CCallCompletionPayload =
       transition: RouteTransitionAdmission;
     }>
   | Readonly<{
-      disposition: "gap_stop";
-      outcome: JudgedCCallOutcomeReceipt;
-      transition: RouteTransitionAdmission;
-    }>
-  | Readonly<{
       disposition: "closed";
       outcome: JudgedCCallOutcomeReceipt;
       transition: RouteTransitionAdmission;
@@ -680,11 +675,6 @@ type StagedCCallCompletionPayload =
     }>
   | Readonly<{
       disposition: "failed";
-      outcome: JudgedCCallOutcomeReceipt;
-      transition: RouteTransitionAdmissionBody;
-    }>
-  | Readonly<{
-      disposition: "gap_stop";
       outcome: JudgedCCallOutcomeReceipt;
       transition: RouteTransitionAdmissionBody;
     }>
@@ -1771,9 +1761,9 @@ export function admitOwnedCCallCompletion(
         if (
           ((routeKind === "advance" || routeKind === "re_enter") &&
             input.target === null) ||
-          (["blocked", "failed", "terminal", "gap_stop"].includes(routeKind) &&
+          (["blocked", "failed", "terminal"].includes(routeKind) &&
             input.target !== null) ||
-          !["advance", "re_enter", "blocked", "failed", "terminal", "gap_stop"].includes(
+          !["advance", "re_enter", "blocked", "failed", "terminal"].includes(
             routeKind,
           )
         ) {
@@ -1838,7 +1828,7 @@ export function admitOwnedCCallCompletion(
             transition,
           });
         }
-        if (routeKind === "failed" || routeKind === "gap_stop") {
+        if (routeKind === "failed") {
           if (input.outcome.disposition !== "judged") {
             throw new TypeError(`${routeKind} route requires one judged CCall outcome`);
           }

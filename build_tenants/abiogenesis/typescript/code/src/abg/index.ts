@@ -96,7 +96,6 @@ export {
   type InvocationAdmissionInput,
   type ExactInvocationAdmissionInput,
   type InvocationSourceResultDerivationInput,
-  type InvocationReentryBasis,
   type InvocationAdmissionRefusal,
   type InvocationAdmissionResult,
 } from "./invocation_admission.js";
@@ -407,10 +406,7 @@ export {
   type RouteAdmissionResult,
   type RouteAdmissionOptions,
   type RecursionRouteAdmissionEvidence,
-  type ConstructionIntent,
-  type ConstructionIntentAdmission,
   type GraphSpanReentryProjection,
-  type NextActionProjection,
   type RouteCandidate,
   type RouteTransitionAdmission,
   type RouteTransitionResult,
