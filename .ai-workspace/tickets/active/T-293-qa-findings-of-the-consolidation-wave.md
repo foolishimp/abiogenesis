@@ -36,12 +36,12 @@ One list of the defects found by the reviews, traces and packages of the T-292 w
 
 | ID | Finding | Source | Sev | Pri | Schedule and status |
 |---|---|---|---|---|---|
-| B-01 | Six exported entries that admit or continue Run work take a binding, an install or an environment from recorded history without the strict answer (TD-77) | `REVIEW_TD77_RECHECK.md` N1 | S2 | P1 | In the closing round of TD-77, in flight |
-| B-02 | The materialization branch of the strict candidate has no case and an untrue error text; one new text is thrown where no lock is in question; three design sentences (TD-77) | `REVIEW_TD77_RECHECK.md` N2 to N4 | S4 | P1 | Same round as B-01 |
+| B-01 | Six exported entries that admit or continue Run work take a binding, an install or an environment from recorded history without the strict answer (TD-77) | `REVIEW_TD77_RECHECK.md` N1 | S2 | P1 | Technical repair closed at `54024d63f`; merged 64/64 focused checks; TD-77 Return binds strict-entry proof |
+| B-02 | The materialization branch of the strict candidate has no case and an untrue error text; one new text is thrown where no lock is in question; three design sentences (TD-77) | `REVIEW_TD77_RECHECK.md` N2 to N4 | S4 | P1 | Technical repair closed at `54024d63f`; design/error/test repairs in TD-77 Return |
 | B-03 | A build of one cut runs work on a store that another cut installed and bound; nothing compares the executing Product with the binding the operation selects (TD-78) | `TD-78_TRACE.md`; evaluation of 2026-11-13 | S2 | P1 | Fix after TD-77 merges (same files) |
 | B-04 | Two processes with different `TMPDIR` values both hold one event log; both append the same ordinal; an acknowledged append cannot be reopened (TD-82) | `TD-80_TRACE.md`; reproduced after TD-80 by the evaluation | S2 | P1 | Technical repair closed at `a3c03d90c`; 27 merged focused passes; separate QA has no technical finding. Assurance/platform limits in `REVIEW_TD82_CODEX_INTEGRITY.md` |
 | B-05 | A worksite subject in another letter case creates a protected directory that does not exist yet, or links a file into it before the refusal (TD-85, narrow part) | `TD-85_TRACE.md`; reproduced by the evaluation | S2 | P1 | Fix launched 2026-11-13 |
-| B-06 | Synchronous canonical-path checks keep the spelling they are given; the command parent writes its manifests into the event-log directory through an alias of an existing root (TD-85, first part) | `TD-85_TRACE.md` | S3 | P1 | Built on branch `claude/td85a-stored-spelling-checks`; merged after TD-77 if it still merges cleanly |
+| B-06 | Synchronous canonical-path checks keep the spelling they are given; the command parent writes its manifests into the event-log directory through an alias of an existing root (TD-85, first part) | `TD-85_TRACE.md` | S3 | P1 | Technical repair closed at `686d67db3`; stored-spelling owner and 17 merged checks; QA in progress |
 | B-07 | The value kinds `observation_snapshot` (as input) and `next_action_projection` with `no_action` (as a leaf result) are admitted as ordinary values since the route package; they were refused before | `TD-26_P4_RETURN.md`, ruling item 1 | S3 | P1 | In TD-26 P5, in flight |
 | B-08 | Kept design sentences still describe removed code: 12 passages after the doors package, 5 after the module, 3 after the route package, and constitution rows | Returns of TD-26 P1, P2, P4 | S4 | P1 | One design pass after TD-26 P7 |
 | B-09 | `workspace.bind` admits roots that overlap, are absent or are spelled differently from the stored name; with two roots declared equal, materialization writes into the event-log directory | `TD-85_TRACE.md` | S3 | P2 | A change of `REQ-R-ABG3-BINDING-016`: the owner's decision before any build |
@@ -58,15 +58,15 @@ One list of the defects found by the reviews, traces and packages of the T-292 w
 | B-20 | On the CLI's exit-70 path the written line still has kind `public_transport_refusal` and disposition `refused` | `TD-79_RETURN.md` | S4 | P3 | Backlog; the status and the code carry the classification |
 | B-21 | A firmlink spelling of a path passes as the stored spelling | `TD-85A_RETURN.md` | S4 | P3 | Backlog |
 | B-22 | The qualification inventory and recipe hold digests and member paths of files the wave changed or deleted | Returns of TD-26 P1, P2, P4, TD-67, TD-79 | S4 | P2 | Regenerated at the cut |
-| B-23 | TD-77's strict default reaches a pure historical replay through shared source-provenance/revision helpers, making a kept child unreadable at later prefixes after a register change | `REVIEW_TD77_CODEX_TRIAGE.md`; frozen `91aec88b8`, saved changed-register failures and Writer first-refusal probe | S2 | P1 | Repair selected within TD-77 during Codex resumption; preserve strict work callers, repair read setup, and re-prove the actual historical read |
+| B-23 | TD-77's strict default reaches a pure historical replay through shared source-provenance/revision helpers, making a kept child unreadable at later prefixes after a register change | `REVIEW_TD77_CODEX_TRIAGE.md`; frozen `91aec88b8`, saved changed-register failures and Writer first-refusal probe | S2 | P1 | Technical repair closed at `54024d63f`; pure recorded replay and strict work consumers separated; 64 merged and 22 frozen changed-register passes |
 
 ## Schedule
 
 | When | Items |
 |---|---|
-| In flight | B-01, B-02, B-23 (TD-77 integration); B-05 (TD-85 narrow pre-effect repair) |
-| Preserved for continuation | B-05 (TD-85 narrow); B-07 (TD-26 P5) |
-| When TD-77 merges | B-03; B-06 |
+| In flight | B-03 (TD-78 executing Product identity); B-05 (TD-85 narrow pre-effect repair) |
+| Preserved for continuation | B-07 (TD-26 P5 after the overlapping TD-78 repair) |
+| Integrated with focused proof | B-01, B-02, B-04, B-06, B-23 |
 | After TD-26 P7 | B-08 |
 | At the cut | B-22 |
 | After the cut | B-09 (after the owner decides), B-10, B-11, B-12, B-13 |
