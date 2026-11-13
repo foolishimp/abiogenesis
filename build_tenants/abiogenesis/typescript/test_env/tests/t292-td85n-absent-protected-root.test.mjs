@@ -1,19 +1,9 @@
-// TD-85, narrow part (T-293 B-05). A protected root of the binding that does not
-// exist yet must not be made by a worksite subject spelled in another letter case
-// or normalization form: file parents must not create it, file replace must not
-// leave a file at it, and native work's write-root check must not admit it. Each
-// owner refuses with the refusal it already gives, and the tree listing (names,
-// kinds, file digests) after the call equals the one before.
-//   - The volume is tested for each kind of variant; a kind it does not alias is
-//     skipped with the reason.
-//   - Tests named "variant" are red on the build at 891a39c44 (run with
-//     ABG_WORKSITE_BUILD_ROOT set to that build's `build/code/src`), except the
-//     file-replace subject beneath the absent root, which has no parent and was
-//     refused there too. Tests named "control" pass on both builds.
-// Binding: `.abg/events` exists; `.abg/projection`, `.abg/<NFC café>` and
-// `.ai-workspace/runtime` (whose parent is absent too) do not.
+// T-293 B-05: prove refusal before filesystem effects, not final-tree rollback.
+// Cold owner coordinates do not assert ABG admission or provider qualification.
+// Unproved missing-name separation is invalid_coordinate, not an observed alias.
 import assert from 'node:assert/strict';
 import test from 'node:test';
+import { syncBuiltinESMExports } from 'node:module';
 import { createHash } from 'node:crypto';
 import fs from 'node:fs/promises';
 import { lstatSync, readdirSync, readFileSync } from 'node:fs';
@@ -34,7 +24,18 @@ async function volumeAliases(made, lookedUp) {
   } finally { await fs.rm(dir, { recursive: true, force: true }); }
 }
 const aliased = { case: await volumeAliases('Probe', 'pROBE'), normalization: await volumeAliases(NFC, NFD) };
-const skip = kind => aliased[kind] ? false : `this volume does not alias names that differ only in ${kind}`;
+async function watchedEffects(run) {
+  const names = ['mkdir', 'link', 'rename', 'rmdir', 'unlink'];
+  const originals = Object.fromEntries(names.map(name => [name, fs[name]]));
+  const calls = [];
+  for (const name of names) fs[name] = async (...args) => {
+    calls.push({ syscall: name, paths: args.slice(0, name === 'link' || name === 'rename' ? 2 : 1).map(String) });
+    return originals[name](...args);
+  };
+  syncBuiltinESMExports();
+  try { return { result: await run(), calls }; }
+  finally { Object.assign(fs, originals); syncBuiltinESMExports(); }
+}
 
 const roots = (scratch, root) => ({
   toolchainRoot: join(scratch, 'toolchain'), productRoot: join(scratch, 'product'),
@@ -70,31 +71,32 @@ function tree(root) {
   return rows;
 }
 
-async function fileParents(env, relativePath) {
-  const request = await env.request([relativePath]);
-  return request.kind === 'worksite_file_parents_request' ? env.create(request) : request;
+async function fileParents(env, relativePath, protectedInstallRoots = []) {
+  const request = await env.request([relativePath], { protectedInstallRoots });
+  return request.kind === 'worksite_file_parents_request' ? env.create(request, { protectedInstallRoots }) : request;
 }
-async function fileReplace(env, relativePath) {
+async function fileReplace(env, relativePath, protectedInstallRoots = [], cold = false) {
   const { workspaceAuthorityBasis, workspaceBinding, capabilityGrant, executionBasis, cCall, implementationSet } = env;
   const subject = product.constructWorksiteSubject({ workspaceAuthorityBasis, workspaceBinding, relativePath,
     subjectUri: pathToFileURL(resolve(env.canonicalRoot, ...relativePath.split('/'))).href });
   if (subject.kind !== 'worksite_subject') return subject;
-  const predecessorObservation = await product.observeWorksiteSubject(workspaceAuthorityBasis, workspaceBinding, subject);
+  const predecessorObservation = cold ? product.constructWorksiteObservation({ subject, state: 'absent' })
+    : await product.observeWorksiteSubject(workspaceAuthorityBasis, workspaceBinding, subject);
   if (predecessorObservation.kind !== 'worksite_observation') return predecessorObservation;
   const request = product.constructWorksiteFileReplaceRequest({ workspaceAuthorityBasis, workspaceBinding, capabilityGrant,
     subject, territory: env.territory, predecessorObservation, replacementBytes: Buffer.from('td85n bytes\n') });
   assert.equal(request.kind, 'worksite_file_replace_request', JSON.stringify(request));
   const authorization = product.constructWorksiteEffectAuthorization({ workspaceBinding, request, executionBasis, cCall, implementationSet });
   assert.equal(authorization.kind, 'worksite_effect_authorization', JSON.stringify(authorization));
-  return product.replaceWorksiteFile({ workspaceAuthorityBasis, workspaceBinding, request, executionBasis, cCall, implementationSet, authorization });
+  return product.replaceWorksiteFile({ workspaceAuthorityBasis, workspaceBinding, request, executionBasis, cCall, implementationSet, authorization, protectedInstallRoots });
 }
-const writeRoot = (env, path) => product.checkWorksiteWriteRoots({ workspaceAuthorityBasis: env.workspaceAuthorityBasis,
-  workspaceBinding: env.workspaceBinding, writeRoots: [path] });
+const writeRoot = (env, path, protectedInstallRoots = []) => product.checkWorksiteWriteRoots({ workspaceAuthorityBasis: env.workspaceAuthorityBasis,
+  workspaceBinding: env.workspaceBinding, writeRoots: [path], protectedInstallRoots });
 
 const sites = {
-  'file parents': { run: fileParents, admitted: 'worksite_file_parents_result', refusal: 'aliased_subject' },
-  'file replace': { run: fileReplace, admitted: 'worksite_file_replace_result', refusal: 'aliased_subject' },
-  'native write root': { run: writeRoot, admitted: null, refusal: 'subject_outside_territory' },
+  'file parents': { run: fileParents, admitted: 'worksite_file_parents_result', refusal: 'invalid_coordinate' },
+  'file replace': { run: fileReplace, admitted: 'worksite_file_replace_result', refusal: 'invalid_coordinate' },
+  'native write root': { run: writeRoot, admitted: null, refusal: 'invalid_coordinate' },
 };
 const verdict = value => value === null ? 'admitted' : value.kind === 'worksite_effect_refusal'
   ? `refused ${value.code}${value.phase === undefined ? '' : ` (${value.phase})`}: ${value.message}` : `${value.kind} ${value.disposition}`;
@@ -135,10 +137,11 @@ for (const [site, path, kind, code = sites[site].refusal] of [
   ['native write root', `.abg/${NFD}`, 'normalization'],
   ['native write root', `.abg/${NFD}/sub`, 'normalization'],
 ]) {
-  test(`variant (${kind}): ${site} refuses ${shown(path)} and leaves the tree unchanged`, { skip: skip(kind) }, async t => {
+  test(`variant (${kind}): ${site} refuses ${shown(path)} before effects`, async t => {
     const env = await fixture(t);
     const before = tree(env.canonicalRoot);
-    const result = await sites[site].run(env, path);
+    const { result, calls } = await watchedEffects(() => sites[site].run(env, path));
+    assert.deepEqual(calls, [], 'no mkdir/link/rename or cleanup may precede this refusal');
     const after = tree(env.canonicalRoot);
     t.diagnostic(`${verdict(result)}; before: ${before.join(', ')}; after: ${after.join(', ')}`);
     assert.equal(result?.kind, 'worksite_effect_refusal', verdict(result));
@@ -147,3 +150,92 @@ for (const [site, path, kind, code = sites[site].refusal] of [
     assert.deepEqual(after, before);
   });
 }
+
+
+const bindingNames = ['toolchainRoot', 'productRoot', 'eventLogRoot', 'runtimeStateRoot', 'projectionRoot', 'archiveRoot'];
+for (const protectedOwner of [...bindingNames, 'admitted install']) {
+  for (const site of Object.keys(sites)) test(`all protected owners: ${protectedOwner}; ${site} pre-effect refusal`, async t => {
+    const env = await worksiteFixture(product, { roots: (scratch, root) => Object.fromEntries(bindingNames.map(name =>
+      [name, name === protectedOwner ? join(root, 'protected') : join(scratch, name)])) });
+    t.after(() => fs.rm(env.scratch, { recursive: true, force: true }));
+    const installRoots = protectedOwner === 'admitted install' ? [join(env.canonicalRoot, 'protected')] : [];
+    const run = site === 'file parents' ? () => fileParents(env, 'PROTECTED/nested/file.txt', installRoots)
+      : site === 'file replace' ? () => fileReplace(env, 'PROTECTED', installRoots, true)
+      : () => writeRoot(env, 'PROTECTED', installRoots);
+    const { result, calls } = await watchedEffects(run);
+    assert.equal(result?.code, 'invalid_coordinate', verdict(result));
+    assert.match(result.message, /separation cannot be established/);
+    assert.equal(result.phase, undefined);
+    assert.deepEqual(calls, [], 'every protected owner is checked before any effect');
+    assert.deepEqual(await fs.readdir(env.canonicalRoot), []);
+  });
+}
+
+for (const [direction, protectedPath, path] of [
+  ['equal', 'Σ', 'ς'], ['inside', 'Σ', 'ς/child'], ['enclosing', 'Σ/child', 'ς'],
+]) test(`native Sigma/final-sigma ${direction} overlap refuses with uncertainty`, async t => {
+  const env = await worksiteFixture(product, { roots: (scratch, root) => Object.fromEntries(bindingNames.map(name =>
+    [name, name === 'projectionRoot' ? join(root, protectedPath) : join(scratch, name)])) });
+  t.after(() => fs.rm(env.scratch, { recursive: true, force: true }));
+  const { result, calls } = await watchedEffects(() => writeRoot(env, path));
+  assert.equal(result?.code, 'invalid_coordinate');
+  assert.match(result.message, /separation cannot be established/);
+  assert.deepEqual(calls, []);
+});
+
+test('actual host Sigma/final-sigma alias witnesses the original lowercase/NFC gap', async t => {
+  const aliases = await volumeAliases('Σ', 'ς');
+  t.diagnostic(JSON.stringify({ platform: process.platform, aliases, ordinaryAliases: aliased }));
+  assert.notEqual('Σ'.toLowerCase().normalize('NFC'), 'ς'.toLowerCase().normalize('NFC'));
+  if (process.platform === 'darwin' && (await fs.statfs(tmpdir())).type === 26 && aliased.case) assert.equal(aliases, true);
+});
+
+test('parent owner rechecks all targets before the first mkdir', async t => {
+  const env = await fixture(t);
+  const request = await env.request(['src/allowed/one.txt', 'fresh/PROTECTED/two.txt']);
+  assert.equal(request.kind, 'worksite_file_parents_request');
+  const { result, calls } = await watchedEffects(() => env.create(request,
+    { protectedInstallRoots: [join(env.canonicalRoot, 'fresh/protected')] }));
+  assert.equal(result.code, 'invalid_coordinate');
+  assert.deepEqual(calls, []);
+});
+
+for (const mode of ['unknown volume', 'metadata failure', 'Windows trailing-dot', 'Windows short-name']) {
+  test(`${mode}: missing-name separation stays indeterminate`, async t => {
+    const env = await fixture(t);
+    const originalStatfs = fs.statfs;
+    const originalPlatform = Object.getOwnPropertyDescriptor(process, 'platform');
+    if (mode === 'unknown volume') fs.statfs = async () => ({ type: 0x4d44 });
+    if (mode === 'metadata failure') fs.statfs = async () => { throw Object.assign(new Error('metadata unavailable'), { code: 'EIO' }); };
+    if (mode.startsWith('Windows')) Object.defineProperty(process, 'platform', { ...originalPlatform, value: 'win32' });
+    syncBuiltinESMExports();
+    try {
+      const path = mode === 'Windows trailing-dot' ? '.abg/projection.'
+        : mode === 'Windows short-name' ? '.abg/PROJEC~1' : '.abg/other';
+      const { result, calls } = await watchedEffects(() => writeRoot(env, path));
+      assert.equal(result?.code, 'invalid_coordinate');
+      assert.match(result.message, /separation cannot be established/);
+      assert.deepEqual(calls, []);
+      assert.equal(await writeRoot(env, 'src/new'), null, 'existing physical branch proves separation without name-model metadata');
+    } finally {
+      fs.statfs = originalStatfs;
+      Object.defineProperty(process, 'platform', originalPlatform);
+      syncBuiltinESMExports();
+    }
+  });
+}
+
+test('stronger physical evidence admits distinct Unicode siblings after an uncertain comparison', async t => {
+  const env = await worksiteFixture(product);
+  t.after(() => fs.rm(env.scratch, { recursive: true, force: true }));
+  const protectedInstallRoots = [join(env.canonicalRoot, 'Σ')];
+  assert.equal((await writeRoot(env, 'Ω', protectedInstallRoots)).code, 'invalid_coordinate');
+  await fs.mkdir(protectedInstallRoots[0]);
+  assert.equal(await writeRoot(env, 'Ω', protectedInstallRoots), null);
+});
+
+test('a later distinct ASCII branch proves separation after an uncertain Unicode component', async t => {
+  const env = await worksiteFixture(product);
+  t.after(() => fs.rm(env.scratch, { recursive: true, force: true }));
+  assert.equal(await writeRoot(env, 'ς/ordinary', [join(env.canonicalRoot, 'Σ/protected')]), null);
+});
