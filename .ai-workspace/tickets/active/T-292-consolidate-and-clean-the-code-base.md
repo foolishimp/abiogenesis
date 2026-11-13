@@ -8,7 +8,7 @@
 - parent: T-287
 - updated_at: 2026-11-13
 - current_activation: T292_CONSOLIDATION_01
-- current_package: selected repairs and TD-26 P5/P6/P7 plus TD25 members integrated; final B08 design reconciliation active; P7 merged proof complete; metadata/composed proof/RC13 follows
+- current_package: selected repairs and TD-26 P5/P6/P7 plus TD25 members integrated; B08/B22 complete; composed proof stopped at file005 on B28 test premise; bounded fixture repair active before proof continuation and local RC13 delivery
 - change_class: realization_refactor
 - derived_change_classes: design_reframe, requirement_reprice and product_reprice, each only for a register entry the owner decides
 - re_entry_point: specification/GOALS.md, the selection block of 2026-11-12
@@ -526,3 +526,22 @@ B22 metadata preparation is complete on real payload source `d2970a6c870aabc3a55
 Before composed execution, Root and separate technical QA identified B27: the prepared sanitized runner environment omitted the selected committed-basis mode, so r1/r2/r3 would default to pack self-consistency. Proof Preparation Writer `T292-PROOF-SELECTION-01` preserves the original preparation and creates a successor runner with one fixed `ABI5_CANDIDATE_BASIS_SOURCE=committed` entry; per-file override remains prohibited. Actual old/new environment selection and syntax checks pass. No campaign result exists to invalidate, no tenant bytes change, and C_final stays `e36e4b316`. Final configs must bind the successor hash.
 
 Final-delta non-author technical QA over `e36e4b316` found no new Product/source counterexample and explicitly permits reuse of the bounded e984 source review across B08/version/B22; it supplies no campaign or qualification result. Final dry-cut source/archive correspondence is positive. The one shared campaign started 2026-11-13T09:00:32Z with a six-hour monotonic deadline. Three boundary lints and four files (18 cases) pass; file005 d2-binding-transition exits 1 with 1/10 passes and nine failures. Broad stopped before file006; history and physical reads are unperformed. B28 records the incomplete mechanical truth-row premise and native accessor fallthrough; no retry or repair is authorized by this recording step. Clock/config/failure bindings are preserved under composed-proof-01/execution-01 and b28-d2-fixture-01. Root resumes Executive after this recording checkpoint.
+
+Root subsequently conjoins the closed B28 triage and selects test-only
+realization repair `T292-B28-D2-FIXTURE-01`. Its isolated Writer starts from
+`3d4ab8982` in `/private/tmp/abg-t292-b28`; the tenant equals failed C_final
+`e36e4b316`. The exact grant is the shared D2 binding harness, its two affected
+test files and a frozen Return. Complete the explicitly controlled causal
+install/strict-answer premise, preserve production strictness and all existing
+assertions, and add absent/empty/foreign/non-strict negatives. One finite run
+per affected file is selected. A new cause returns for triage. No production,
+design or requirement change is selected.
+
+Root's preparation Writer may bind the eventual integrated test-only successor
+and refreshed source inventory to the unchanged payload, then prepare fresh
+population/configuration records. This does not launch a retry. Root must
+consume the frozen Return and choose continuation explicitly. The original
+failure and six-hour clock stay unchanged. Recording activation
+`T292-B28-ACTIVATION-RECORD-01` grants only these status/activation records;
+Root returns to Executive after its checkpoint. RC11 remains pinned and no
+official RC13 cut/install, provider run, tag, push or publication has occurred.

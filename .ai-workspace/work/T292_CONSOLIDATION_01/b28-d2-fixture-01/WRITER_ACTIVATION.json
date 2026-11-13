@@ -1,0 +1,26 @@
+{
+  "activation": "T292-B28-D2-FIXTURE-01",
+  "role": "Writer",
+  "agent": "/root/b28_d2_fixture",
+  "frame": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md",
+  "basis": "stdo://releases/v3.0.4/",
+  "subject": "3d4ab89828989c2828ed4bbce0349e2f8721be02",
+  "tenantEqualsFailedSource": "e36e4b316503053a81c4556f0bda73216e76cdf6",
+  "worktree": "/private/tmp/abg-t292-b28",
+  "branch": "codex/t292-b28-d2-premise",
+  "triage": ".ai-workspace/work/T292_CONSOLIDATION_01/b28-d2-fixture-01/TRIAGE.md",
+  "changeClass": "realization_refactor",
+  "territory": [
+    "build_tenants/abiogenesis/typescript/test_env/support/d2-binding-harness.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/tests/d2-binding-transition.test.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/tests/t287-native-semantic-revision.test.mjs",
+    ".ai-workspace/work/T292_CONSOLIDATION_01/B28_D2_FIXTURE_RETURN.md"
+  ],
+  "scratch": "/private/tmp/abg-t292-b28-work",
+  "outcome": "One explicit causal-install and strict-answer lookup premise shared by both test consumers; negative absent/empty/foreign/non-strict controls, preserved assertions and real strict guards.",
+  "proof": "Exactly one finite mechanical run per affected test file; committed candidate basis, no provider, full raw and TAP evidence; copied unchanged C_final runtime build.",
+  "stops": "Any new causal defect or authority change returns to Root before repair or retry. Freeze code and Return, commit, report clean status and stop.",
+  "returnTo": "Root Executive for integration, inventory refresh and explicit re-entry decision",
+  "campaignClockReset": false,
+  "productionMutation": false
+}

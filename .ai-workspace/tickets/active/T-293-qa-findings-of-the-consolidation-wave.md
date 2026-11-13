@@ -69,11 +69,11 @@ One list of the defects found by the reviews, traces and packages of the T-292 w
 
 | When | Items |
 |---|---|
-| In flight | One composed verification and exact candidate delivery |
-| Dependency-ready sequence | Final candidate identity, then one composed proof and local delivery |
+| In flight | B-28 test-premise repair after the composed run stopped at file005 |
+| Dependency-ready sequence | Frozen B-28 repair and refreshed source binding, Root-selected proof continuation under the unchanged clock, then local delivery |
 | Integrated with focused proof | B-01, B-02, B-03, B-04, B-05 (bounded; B-21 remains), B-06, B-07, B-23, B-24, B-25, B-26 |
 | Closed after TD-26 P7 | B-08 |
-| Metadata complete; cut correspondence pending | B-22 |
+| Metadata complete; final dry-cut correspondence positive | B-22; source inventory will refresh after B-28's test-only change |
 | After the cut | B-09 (after the owner decides), B-10, B-11, B-12, B-13, B-21 (S2 physical-ancestry repair before reliable-operation/5.0 qualification claims) |
 | Backlog | B-14 to B-20 |
 
