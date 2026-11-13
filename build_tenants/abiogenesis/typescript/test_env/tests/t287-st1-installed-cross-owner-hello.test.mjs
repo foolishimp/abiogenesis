@@ -247,11 +247,11 @@ test("ST-4 transport refuses inherited selectors and owner traversal", async () 
   assert.equal(proxyAcquisitionOutcome.code, "invalid_definition_call");
 
   let inheritedExportRead = 0;
-  Object.defineProperty(Object.prototype, "INTERACTION_DEFINITION_BINDINGS", {
+  Object.defineProperty(Object.prototype, "WITNESS_DEFINITION_BINDINGS", {
     configurable: true,
     get: () => {
       inheritedExportRead += 1;
-      return { respond: { select: () => undefined } };
+      return { admit: { attest: () => undefined } };
     },
   });
   let inheritedExportOutcome;
@@ -263,14 +263,14 @@ test("ST-4 transport refuses inherited selectors and owner traversal", async () 
         invocation: {
           ...routeCandidate.invocation,
           definitionKey: {
-            operationId: "abg.operation.interaction.respond",
-            memberKey: "select",
+            operationId: "abg.operation.witness.admit",
+            memberKey: "attest",
           },
         },
       },
     );
   } finally {
-    delete Object.prototype.INTERACTION_DEFINITION_BINDINGS;
+    delete Object.prototype.WITNESS_DEFINITION_BINDINGS;
   } // The exact invocation contract refuses the request-less call before traversal.
   assert.equal(inheritedExportRead, 0);
   assert.equal(inheritedExportOutcome.code, "invalid_definition_call");

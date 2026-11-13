@@ -1,0 +1,2151 @@
+{
+  "kind": "td26_p7_predecessor_definition_calls",
+  "sourceRevision": "eea1007295ad341c824ef4e9466ec5f29040bda8",
+  "keySetDigest": "sha256:61077d017dbbe0bd071f312066d27bc6535a732aa9da00cd543a70506ec24a4f",
+  "predecessorTransportCode": "installed_binding_unavailable",
+  "calls": [
+    {
+      "invocation": {
+        "kind": "public_invocation",
+        "schemaVersion": "5.0.0",
+        "invocationContract": {
+          "contractCatalog": {
+            "productId": "product://hc1-proof/catalog",
+            "productContentDigest": "sha256:22e606db1abc0ceac19e722907232529aa9bf4f59b328a9a3bf37ebd2727b026",
+            "catalogId": "catalog://hc1-proof/public",
+            "catalogVersion": "5.0.0",
+            "catalogDigest": "sha256:50a1f8a52a7043f8d5d11ce4511d1b0f65550b9e7180ebc1b5a3d16da9e66622"
+          },
+          "flatRow": {
+            "contractId": "abg.schema.public-operation-invocation",
+            "contractVersion": "5.0.0",
+            "contractDigest": "sha256:9f2224ae0eb7573b6e15c17ce2530f952a0e7148c1da8019cdaa56e39e54b358"
+          },
+          "nestedSelector": {
+            "selectorKind": "schema_definition",
+            "definitionKey": null,
+            "slot": null,
+            "definitionRef": "#/$defs/PublicInvocation"
+          }
+        },
+        "definitionRef": "public-function://abiogenesis/interaction/respond/answer_escalation@5",
+        "definitionVersion": "5.0.0",
+        "definitionDigest": "sha256:f742f49f86f0dff50aab01423fcf98360aaf491e2c32b5e57aa356cbf8ee6b17",
+        "definitionKey": {
+          "operationId": "abg.operation.interaction.respond",
+          "memberKey": "answer_escalation"
+        },
+        "contractCatalog": {
+          "productId": "product://hc1-proof/catalog",
+          "productContentDigest": "sha256:22e606db1abc0ceac19e722907232529aa9bf4f59b328a9a3bf37ebd2727b026",
+          "catalogId": "catalog://hc1-proof/public",
+          "catalogVersion": "5.0.0",
+          "catalogDigest": "sha256:50a1f8a52a7043f8d5d11ce4511d1b0f65550b9e7180ebc1b5a3d16da9e66622"
+        },
+        "invocationAuthority": {
+          "kind": "invocation_authority",
+          "definitionKey": {
+            "operationId": "abg.operation.interaction.respond",
+            "memberKey": "answer_escalation"
+          },
+          "slots": {
+            "workspace_binding": {
+              "ref": "workspace-binding://hc1",
+              "digest": "sha256:fce81180e957a08cef0081d51bb0a6abad2952883155121c772e184898aac3f6"
+            },
+            "product_set": [
+              {
+                "ref": "product://hc1",
+                "digest": "sha256:bb24debfa565d09659b7d6bb36c96f83ae5f9d6577373b47b33b96de3babce07"
+              }
+            ],
+            "dependency_lock": {
+              "ref": "lock://hc1",
+              "digest": "sha256:b02ff9746473fb18d5038ba53052ff69f64f524a70ba6468b02be52e6694c2ef"
+            },
+            "catalog_scope": null,
+            "execution_program": null,
+            "graph_function": null,
+            "input_contract": null,
+            "session_policy": null,
+            "capability_grants": {
+              "requiredCapabilityRefs": [
+                "abg.capability.operator.public-contract@5",
+                "abg.capability.runtime.replay-continuation@5"
+              ],
+              "grants": [
+                {
+                  "ref": "grant://hc1",
+                  "digest": "sha256:8cd631d0624eb9e1035a99bcfc82d164638d8bdecb0022856f82a87790156329"
+                }
+              ]
+            },
+            "actor": {
+              "actor": {
+                "ref": "actor://hc1",
+                "digest": "sha256:1e6f7b295e32cdd33ce57a5277a8a0f108adaa0521a6a4f7b2bf7fe1412ab4da"
+              },
+              "attribution": {
+                "ref": "attribution://hc1",
+                "digest": "sha256:8a1e7da86127e849236154f477503d341ced42670614e3470ef6d5be6b5eebf3"
+              }
+            },
+            "transport_steering": null,
+            "verification_references": null,
+            "execution_basis": {
+              "ref": "execution-basis://hc1",
+              "digest": "sha256:082d61cb9c21d95fa786ecc7ea1b6ac10ea84f6ce47135b21495978780343c57"
+            }
+          },
+          "authorityDigest": "sha256:6c61b957735bc09f3c74a62fb6d5e42c7545e71ab14db48754cc25c649bc6f56"
+        },
+        "requestContract": {
+          "contractCatalog": {
+            "productId": "product://hc1-proof/catalog",
+            "productContentDigest": "sha256:22e606db1abc0ceac19e722907232529aa9bf4f59b328a9a3bf37ebd2727b026",
+            "catalogId": "catalog://hc1-proof/public",
+            "catalogVersion": "5.0.0",
+            "catalogDigest": "sha256:50a1f8a52a7043f8d5d11ce4511d1b0f65550b9e7180ebc1b5a3d16da9e66622"
+          },
+          "flatRow": {
+            "contractId": "abg.operation.interaction.respond",
+            "contractVersion": "5.0.0",
+            "contractDigest": "sha256:8ab1b82d9f048a1a71a8ce1730600eb762dbb3a779b89bc5ad4ff7461fcadba2"
+          },
+          "nestedSelector": {
+            "selectorKind": "operation_definition_slot",
+            "definitionKey": {
+              "operationId": "abg.operation.interaction.respond",
+              "memberKey": "answer_escalation"
+            },
+            "slot": "request",
+            "definitionRef": "#/definitions/0/requestContract/identity"
+          }
+        },
+        "requestRef": "request://hc1/answer_escalation",
+        "requestDigest": "sha256:8b01c26fa0bf43a7a8d9584af709a46aadb9dcbace1e7ab9ad5b1f18439d1338",
+        "request": {
+          "interaction": {
+            "ref": "interaction://hc1",
+            "digest": "sha256:b2628927e43700fc009e6811c174c35eb3e874687a306cc514bef10a73f3076d"
+          },
+          "responseContract": {
+            "ref": "contract://hc1/response",
+            "digest": "sha256:f70a93b07417032c6b0d02351577cd202de18b4b9e866436d224194275023d9f"
+          },
+          "responseKind": "answer_escalation",
+          "choice": null,
+          "value": {
+            "response": "answer_escalation"
+          },
+          "evidence": [
+            {
+              "ref": "evidence://hc1",
+              "digest": "sha256:fce1d0d32fbd86c9656f9db7edbbf09c6f97e694ff8593f546a69f777a780d10"
+            }
+          ],
+          "currentBasis": {
+            "ref": "basis://hc1",
+            "digest": "sha256:a1386a463a3058cb766d1f0813f70feb8be986b590649ee684aa271be3b9ee34"
+          }
+        },
+        "expectedResultContract": {
+          "contractCatalog": {
+            "productId": "product://hc1-proof/catalog",
+            "productContentDigest": "sha256:22e606db1abc0ceac19e722907232529aa9bf4f59b328a9a3bf37ebd2727b026",
+            "catalogId": "catalog://hc1-proof/public",
+            "catalogVersion": "5.0.0",
+            "catalogDigest": "sha256:50a1f8a52a7043f8d5d11ce4511d1b0f65550b9e7180ebc1b5a3d16da9e66622"
+          },
+          "flatRow": {
+            "contractId": "abg.operation.interaction.respond",
+            "contractVersion": "5.0.0",
+            "contractDigest": "sha256:8ab1b82d9f048a1a71a8ce1730600eb762dbb3a779b89bc5ad4ff7461fcadba2"
+          },
+          "nestedSelector": {
+            "selectorKind": "operation_definition_slot",
+            "definitionKey": {
+              "operationId": "abg.operation.interaction.respond",
+              "memberKey": "answer_escalation"
+            },
+            "slot": "result",
+            "definitionRef": "#/definitions/0/resultContract/identity"
+          }
+        },
+        "expectedRefusalContract": {
+          "contractCatalog": {
+            "productId": "product://hc1-proof/catalog",
+            "productContentDigest": "sha256:22e606db1abc0ceac19e722907232529aa9bf4f59b328a9a3bf37ebd2727b026",
+            "catalogId": "catalog://hc1-proof/public",
+            "catalogVersion": "5.0.0",
+            "catalogDigest": "sha256:50a1f8a52a7043f8d5d11ce4511d1b0f65550b9e7180ebc1b5a3d16da9e66622"
+          },
+          "flatRow": {
+            "contractId": "abg.operation.interaction.respond",
+            "contractVersion": "5.0.0",
+            "contractDigest": "sha256:8ab1b82d9f048a1a71a8ce1730600eb762dbb3a779b89bc5ad4ff7461fcadba2"
+          },
+          "nestedSelector": {
+            "selectorKind": "operation_definition_slot",
+            "definitionKey": {
+              "operationId": "abg.operation.interaction.respond",
+              "memberKey": "answer_escalation"
+            },
+            "slot": "refusal",
+            "definitionRef": "#/definitions/0/refusalContract/identity"
+          }
+        },
+        "expectedNonTerminalContract": {
+          "contractCatalog": {
+            "productId": "product://hc1-proof/catalog",
+            "productContentDigest": "sha256:22e606db1abc0ceac19e722907232529aa9bf4f59b328a9a3bf37ebd2727b026",
+            "catalogId": "catalog://hc1-proof/public",
+            "catalogVersion": "5.0.0",
+            "catalogDigest": "sha256:50a1f8a52a7043f8d5d11ce4511d1b0f65550b9e7180ebc1b5a3d16da9e66622"
+          },
+          "flatRow": {
+            "contractId": "abg.operation.interaction.respond",
+            "contractVersion": "5.0.0",
+            "contractDigest": "sha256:8ab1b82d9f048a1a71a8ce1730600eb762dbb3a779b89bc5ad4ff7461fcadba2"
+          },
+          "nestedSelector": {
+            "selectorKind": "operation_definition_slot",
+            "definitionKey": {
+              "operationId": "abg.operation.interaction.respond",
+              "memberKey": "answer_escalation"
+            },
+            "slot": "non_terminal",
+            "definitionRef": "#/definitions/0/nonTerminalContract/identity"
+          }
+        },
+        "correlationRef": "correlation://hc1/answer_escalation",
+        "eventTime": "2026-11-03T00:00:00.000Z",
+        "provenanceRefs": [],
+        "invocationRef": "invocation://abiogenesis/5f104b1d45c52f23e14d778d09c56655cf5525dd17c4edf8173f35b2bb5ce961",
+        "invocationDigest": "sha256:5f104b1d45c52f23e14d778d09c56655cf5525dd17c4edf8173f35b2bb5ce961"
+      },
+      "resources": {}
+    },
+    {
+      "invocation": {
+        "kind": "public_invocation",
+        "schemaVersion": "5.0.0",
+        "invocationContract": {
+          "contractCatalog": {
+            "productId": "product://hc1-proof/catalog",
+            "productContentDigest": "sha256:22e606db1abc0ceac19e722907232529aa9bf4f59b328a9a3bf37ebd2727b026",
+            "catalogId": "catalog://hc1-proof/public",
+            "catalogVersion": "5.0.0",
+            "catalogDigest": "sha256:50a1f8a52a7043f8d5d11ce4511d1b0f65550b9e7180ebc1b5a3d16da9e66622"
+          },
+          "flatRow": {
+            "contractId": "abg.schema.public-operation-invocation",
+            "contractVersion": "5.0.0",
+            "contractDigest": "sha256:9f2224ae0eb7573b6e15c17ce2530f952a0e7148c1da8019cdaa56e39e54b358"
+          },
+          "nestedSelector": {
+            "selectorKind": "schema_definition",
+            "definitionKey": null,
+            "slot": null,
+            "definitionRef": "#/$defs/PublicInvocation"
+          }
+        },
+        "definitionRef": "public-function://abiogenesis/interaction/respond/approve@5",
+        "definitionVersion": "5.0.0",
+        "definitionDigest": "sha256:650c0746f44e7478279645447e68e5be82edf92a3443d5bb9ae39691f881a2e9",
+        "definitionKey": {
+          "operationId": "abg.operation.interaction.respond",
+          "memberKey": "approve"
+        },
+        "contractCatalog": {
+          "productId": "product://hc1-proof/catalog",
+          "productContentDigest": "sha256:22e606db1abc0ceac19e722907232529aa9bf4f59b328a9a3bf37ebd2727b026",
+          "catalogId": "catalog://hc1-proof/public",
+          "catalogVersion": "5.0.0",
+          "catalogDigest": "sha256:50a1f8a52a7043f8d5d11ce4511d1b0f65550b9e7180ebc1b5a3d16da9e66622"
+        },
+        "invocationAuthority": {
+          "kind": "invocation_authority",
+          "definitionKey": {
+            "operationId": "abg.operation.interaction.respond",
+            "memberKey": "approve"
+          },
+          "slots": {
+            "workspace_binding": {
+              "ref": "workspace-binding://hc1",
+              "digest": "sha256:fce81180e957a08cef0081d51bb0a6abad2952883155121c772e184898aac3f6"
+            },
+            "product_set": [
+              {
+                "ref": "product://hc1",
+                "digest": "sha256:bb24debfa565d09659b7d6bb36c96f83ae5f9d6577373b47b33b96de3babce07"
+              }
+            ],
+            "dependency_lock": {
+              "ref": "lock://hc1",
+              "digest": "sha256:b02ff9746473fb18d5038ba53052ff69f64f524a70ba6468b02be52e6694c2ef"
+            },
+            "catalog_scope": null,
+            "execution_program": null,
+            "graph_function": null,
+            "input_contract": null,
+            "session_policy": null,
+            "capability_grants": {
+              "requiredCapabilityRefs": [
+                "abg.capability.operator.public-contract@5",
+                "abg.capability.runtime.replay-continuation@5"
+              ],
+              "grants": [
+                {
+                  "ref": "grant://hc1",
+                  "digest": "sha256:8cd631d0624eb9e1035a99bcfc82d164638d8bdecb0022856f82a87790156329"
+                }
+              ]
+            },
+            "actor": {
+              "actor": {
+                "ref": "actor://hc1",
+                "digest": "sha256:1e6f7b295e32cdd33ce57a5277a8a0f108adaa0521a6a4f7b2bf7fe1412ab4da"
+              },
+              "attribution": {
+                "ref": "attribution://hc1",
+                "digest": "sha256:8a1e7da86127e849236154f477503d341ced42670614e3470ef6d5be6b5eebf3"
+              }
+            },
+            "transport_steering": null,
+            "verification_references": null,
+            "execution_basis": {
+              "ref": "execution-basis://hc1",
+              "digest": "sha256:082d61cb9c21d95fa786ecc7ea1b6ac10ea84f6ce47135b21495978780343c57"
+            }
+          },
+          "authorityDigest": "sha256:1a1b4e6967064f8655478d1ccf1ac44a128289de055b11ea761bcc67d394f09e"
+        },
+        "requestContract": {
+          "contractCatalog": {
+            "productId": "product://hc1-proof/catalog",
+            "productContentDigest": "sha256:22e606db1abc0ceac19e722907232529aa9bf4f59b328a9a3bf37ebd2727b026",
+            "catalogId": "catalog://hc1-proof/public",
+            "catalogVersion": "5.0.0",
+            "catalogDigest": "sha256:50a1f8a52a7043f8d5d11ce4511d1b0f65550b9e7180ebc1b5a3d16da9e66622"
+          },
+          "flatRow": {
+            "contractId": "abg.operation.interaction.respond",
+            "contractVersion": "5.0.0",
+            "contractDigest": "sha256:8ab1b82d9f048a1a71a8ce1730600eb762dbb3a779b89bc5ad4ff7461fcadba2"
+          },
+          "nestedSelector": {
+            "selectorKind": "operation_definition_slot",
+            "definitionKey": {
+              "operationId": "abg.operation.interaction.respond",
+              "memberKey": "approve"
+            },
+            "slot": "request",
+            "definitionRef": "#/definitions/1/requestContract/identity"
+          }
+        },
+        "requestRef": "request://hc1/approve",
+        "requestDigest": "sha256:cbf9874a491a39997384b3efc7194a7e1421372b1107357fc5ed76e7cf5adece",
+        "request": {
+          "interaction": {
+            "ref": "interaction://hc1",
+            "digest": "sha256:b2628927e43700fc009e6811c174c35eb3e874687a306cc514bef10a73f3076d"
+          },
+          "responseContract": {
+            "ref": "contract://hc1/response",
+            "digest": "sha256:f70a93b07417032c6b0d02351577cd202de18b4b9e866436d224194275023d9f"
+          },
+          "responseKind": "approve",
+          "choice": null,
+          "value": {
+            "response": "approve"
+          },
+          "evidence": [
+            {
+              "ref": "evidence://hc1",
+              "digest": "sha256:fce1d0d32fbd86c9656f9db7edbbf09c6f97e694ff8593f546a69f777a780d10"
+            }
+          ],
+          "currentBasis": {
+            "ref": "basis://hc1",
+            "digest": "sha256:a1386a463a3058cb766d1f0813f70feb8be986b590649ee684aa271be3b9ee34"
+          }
+        },
+        "expectedResultContract": {
+          "contractCatalog": {
+            "productId": "product://hc1-proof/catalog",
+            "productContentDigest": "sha256:22e606db1abc0ceac19e722907232529aa9bf4f59b328a9a3bf37ebd2727b026",
+            "catalogId": "catalog://hc1-proof/public",
+            "catalogVersion": "5.0.0",
+            "catalogDigest": "sha256:50a1f8a52a7043f8d5d11ce4511d1b0f65550b9e7180ebc1b5a3d16da9e66622"
+          },
+          "flatRow": {
+            "contractId": "abg.operation.interaction.respond",
+            "contractVersion": "5.0.0",
+            "contractDigest": "sha256:8ab1b82d9f048a1a71a8ce1730600eb762dbb3a779b89bc5ad4ff7461fcadba2"
+          },
+          "nestedSelector": {
+            "selectorKind": "operation_definition_slot",
+            "definitionKey": {
+              "operationId": "abg.operation.interaction.respond",
+              "memberKey": "approve"
+            },
+            "slot": "result",
+            "definitionRef": "#/definitions/1/resultContract/identity"
+          }
+        },
+        "expectedRefusalContract": {
+          "contractCatalog": {
+            "productId": "product://hc1-proof/catalog",
+            "productContentDigest": "sha256:22e606db1abc0ceac19e722907232529aa9bf4f59b328a9a3bf37ebd2727b026",
+            "catalogId": "catalog://hc1-proof/public",
+            "catalogVersion": "5.0.0",
+            "catalogDigest": "sha256:50a1f8a52a7043f8d5d11ce4511d1b0f65550b9e7180ebc1b5a3d16da9e66622"
+          },
+          "flatRow": {
+            "contractId": "abg.operation.interaction.respond",
+            "contractVersion": "5.0.0",
+            "contractDigest": "sha256:8ab1b82d9f048a1a71a8ce1730600eb762dbb3a779b89bc5ad4ff7461fcadba2"
+          },
+          "nestedSelector": {
+            "selectorKind": "operation_definition_slot",
+            "definitionKey": {
+              "operationId": "abg.operation.interaction.respond",
+              "memberKey": "approve"
+            },
+            "slot": "refusal",
+            "definitionRef": "#/definitions/1/refusalContract/identity"
+          }
+        },
+        "expectedNonTerminalContract": {
+          "contractCatalog": {
+            "productId": "product://hc1-proof/catalog",
+            "productContentDigest": "sha256:22e606db1abc0ceac19e722907232529aa9bf4f59b328a9a3bf37ebd2727b026",
+            "catalogId": "catalog://hc1-proof/public",
+            "catalogVersion": "5.0.0",
+            "catalogDigest": "sha256:50a1f8a52a7043f8d5d11ce4511d1b0f65550b9e7180ebc1b5a3d16da9e66622"
+          },
+          "flatRow": {
+            "contractId": "abg.operation.interaction.respond",
+            "contractVersion": "5.0.0",
+            "contractDigest": "sha256:8ab1b82d9f048a1a71a8ce1730600eb762dbb3a779b89bc5ad4ff7461fcadba2"
+          },
+          "nestedSelector": {
+            "selectorKind": "operation_definition_slot",
+            "definitionKey": {
+              "operationId": "abg.operation.interaction.respond",
+              "memberKey": "approve"
+            },
+            "slot": "non_terminal",
+            "definitionRef": "#/definitions/1/nonTerminalContract/identity"
+          }
+        },
+        "correlationRef": "correlation://hc1/approve",
+        "eventTime": "2026-11-03T00:00:00.000Z",
+        "provenanceRefs": [],
+        "invocationRef": "invocation://abiogenesis/613aa84cad4d14bfc521e2497b3b92f5dac034dcfd2bfa91b3468be60636ac0c",
+        "invocationDigest": "sha256:613aa84cad4d14bfc521e2497b3b92f5dac034dcfd2bfa91b3468be60636ac0c"
+      },
+      "resources": {}
+    },
+    {
+      "invocation": {
+        "kind": "public_invocation",
+        "schemaVersion": "5.0.0",
+        "invocationContract": {
+          "contractCatalog": {
+            "productId": "product://hc1-proof/catalog",
+            "productContentDigest": "sha256:22e606db1abc0ceac19e722907232529aa9bf4f59b328a9a3bf37ebd2727b026",
+            "catalogId": "catalog://hc1-proof/public",
+            "catalogVersion": "5.0.0",
+            "catalogDigest": "sha256:50a1f8a52a7043f8d5d11ce4511d1b0f65550b9e7180ebc1b5a3d16da9e66622"
+          },
+          "flatRow": {
+            "contractId": "abg.schema.public-operation-invocation",
+            "contractVersion": "5.0.0",
+            "contractDigest": "sha256:9f2224ae0eb7573b6e15c17ce2530f952a0e7148c1da8019cdaa56e39e54b358"
+          },
+          "nestedSelector": {
+            "selectorKind": "schema_definition",
+            "definitionKey": null,
+            "slot": null,
+            "definitionRef": "#/$defs/PublicInvocation"
+          }
+        },
+        "definitionRef": "public-function://abiogenesis/interaction/respond/assess@5",
+        "definitionVersion": "5.0.0",
+        "definitionDigest": "sha256:56962a8479c53288497bb619417b27073dd97877f04583376f11c672d0567b03",
+        "definitionKey": {
+          "operationId": "abg.operation.interaction.respond",
+          "memberKey": "assess"
+        },
+        "contractCatalog": {
+          "productId": "product://hc1-proof/catalog",
+          "productContentDigest": "sha256:22e606db1abc0ceac19e722907232529aa9bf4f59b328a9a3bf37ebd2727b026",
+          "catalogId": "catalog://hc1-proof/public",
+          "catalogVersion": "5.0.0",
+          "catalogDigest": "sha256:50a1f8a52a7043f8d5d11ce4511d1b0f65550b9e7180ebc1b5a3d16da9e66622"
+        },
+        "invocationAuthority": {
+          "kind": "invocation_authority",
+          "definitionKey": {
+            "operationId": "abg.operation.interaction.respond",
+            "memberKey": "assess"
+          },
+          "slots": {
+            "workspace_binding": {
+              "ref": "workspace-binding://hc1",
+              "digest": "sha256:fce81180e957a08cef0081d51bb0a6abad2952883155121c772e184898aac3f6"
+            },
+            "product_set": [
+              {
+                "ref": "product://hc1",
+                "digest": "sha256:bb24debfa565d09659b7d6bb36c96f83ae5f9d6577373b47b33b96de3babce07"
+              }
+            ],
+            "dependency_lock": {
+              "ref": "lock://hc1",
+              "digest": "sha256:b02ff9746473fb18d5038ba53052ff69f64f524a70ba6468b02be52e6694c2ef"
+            },
+            "catalog_scope": null,
+            "execution_program": null,
+            "graph_function": null,
+            "input_contract": null,
+            "session_policy": null,
+            "capability_grants": {
+              "requiredCapabilityRefs": [
+                "abg.capability.operator.public-contract@5",
+                "abg.capability.runtime.replay-continuation@5"
+              ],
+              "grants": [
+                {
+                  "ref": "grant://hc1",
+                  "digest": "sha256:8cd631d0624eb9e1035a99bcfc82d164638d8bdecb0022856f82a87790156329"
+                }
+              ]
+            },
+            "actor": {
+              "actor": {
+                "ref": "actor://hc1",
+                "digest": "sha256:1e6f7b295e32cdd33ce57a5277a8a0f108adaa0521a6a4f7b2bf7fe1412ab4da"
+              },
+              "attribution": {
+                "ref": "attribution://hc1",
+                "digest": "sha256:8a1e7da86127e849236154f477503d341ced42670614e3470ef6d5be6b5eebf3"
+              }
+            },
+            "transport_steering": null,
+            "verification_references": null,
+            "execution_basis": {
+              "ref": "execution-basis://hc1",
+              "digest": "sha256:082d61cb9c21d95fa786ecc7ea1b6ac10ea84f6ce47135b21495978780343c57"
+            }
+          },
+          "authorityDigest": "sha256:cffc8e2f6058d347c30c3e4fe1e6f1bd3c802c5e2fa5f5db61985df0a98f280d"
+        },
+        "requestContract": {
+          "contractCatalog": {
+            "productId": "product://hc1-proof/catalog",
+            "productContentDigest": "sha256:22e606db1abc0ceac19e722907232529aa9bf4f59b328a9a3bf37ebd2727b026",
+            "catalogId": "catalog://hc1-proof/public",
+            "catalogVersion": "5.0.0",
+            "catalogDigest": "sha256:50a1f8a52a7043f8d5d11ce4511d1b0f65550b9e7180ebc1b5a3d16da9e66622"
+          },
+          "flatRow": {
+            "contractId": "abg.operation.interaction.respond",
+            "contractVersion": "5.0.0",
+            "contractDigest": "sha256:8ab1b82d9f048a1a71a8ce1730600eb762dbb3a779b89bc5ad4ff7461fcadba2"
+          },
+          "nestedSelector": {
+            "selectorKind": "operation_definition_slot",
+            "definitionKey": {
+              "operationId": "abg.operation.interaction.respond",
+              "memberKey": "assess"
+            },
+            "slot": "request",
+            "definitionRef": "#/definitions/2/requestContract/identity"
+          }
+        },
+        "requestRef": "request://hc1/assess",
+        "requestDigest": "sha256:5ab1a763635687118c457f5a62ffc4736c1c5728dda120122064699ddd470bd2",
+        "request": {
+          "interaction": {
+            "ref": "interaction://hc1",
+            "digest": "sha256:b2628927e43700fc009e6811c174c35eb3e874687a306cc514bef10a73f3076d"
+          },
+          "responseContract": {
+            "ref": "contract://hc1/response",
+            "digest": "sha256:f70a93b07417032c6b0d02351577cd202de18b4b9e866436d224194275023d9f"
+          },
+          "responseKind": "assess",
+          "choice": null,
+          "value": {
+            "response": "assess"
+          },
+          "evidence": [
+            {
+              "ref": "evidence://hc1",
+              "digest": "sha256:fce1d0d32fbd86c9656f9db7edbbf09c6f97e694ff8593f546a69f777a780d10"
+            }
+          ],
+          "currentBasis": {
+            "ref": "basis://hc1",
+            "digest": "sha256:a1386a463a3058cb766d1f0813f70feb8be986b590649ee684aa271be3b9ee34"
+          }
+        },
+        "expectedResultContract": {
+          "contractCatalog": {
+            "productId": "product://hc1-proof/catalog",
+            "productContentDigest": "sha256:22e606db1abc0ceac19e722907232529aa9bf4f59b328a9a3bf37ebd2727b026",
+            "catalogId": "catalog://hc1-proof/public",
+            "catalogVersion": "5.0.0",
+            "catalogDigest": "sha256:50a1f8a52a7043f8d5d11ce4511d1b0f65550b9e7180ebc1b5a3d16da9e66622"
+          },
+          "flatRow": {
+            "contractId": "abg.operation.interaction.respond",
+            "contractVersion": "5.0.0",
+            "contractDigest": "sha256:8ab1b82d9f048a1a71a8ce1730600eb762dbb3a779b89bc5ad4ff7461fcadba2"
+          },
+          "nestedSelector": {
+            "selectorKind": "operation_definition_slot",
+            "definitionKey": {
+              "operationId": "abg.operation.interaction.respond",
+              "memberKey": "assess"
+            },
+            "slot": "result",
+            "definitionRef": "#/definitions/2/resultContract/identity"
+          }
+        },
+        "expectedRefusalContract": {
+          "contractCatalog": {
+            "productId": "product://hc1-proof/catalog",
+            "productContentDigest": "sha256:22e606db1abc0ceac19e722907232529aa9bf4f59b328a9a3bf37ebd2727b026",
+            "catalogId": "catalog://hc1-proof/public",
+            "catalogVersion": "5.0.0",
+            "catalogDigest": "sha256:50a1f8a52a7043f8d5d11ce4511d1b0f65550b9e7180ebc1b5a3d16da9e66622"
+          },
+          "flatRow": {
+            "contractId": "abg.operation.interaction.respond",
+            "contractVersion": "5.0.0",
+            "contractDigest": "sha256:8ab1b82d9f048a1a71a8ce1730600eb762dbb3a779b89bc5ad4ff7461fcadba2"
+          },
+          "nestedSelector": {
+            "selectorKind": "operation_definition_slot",
+            "definitionKey": {
+              "operationId": "abg.operation.interaction.respond",
+              "memberKey": "assess"
+            },
+            "slot": "refusal",
+            "definitionRef": "#/definitions/2/refusalContract/identity"
+          }
+        },
+        "expectedNonTerminalContract": {
+          "contractCatalog": {
+            "productId": "product://hc1-proof/catalog",
+            "productContentDigest": "sha256:22e606db1abc0ceac19e722907232529aa9bf4f59b328a9a3bf37ebd2727b026",
+            "catalogId": "catalog://hc1-proof/public",
+            "catalogVersion": "5.0.0",
+            "catalogDigest": "sha256:50a1f8a52a7043f8d5d11ce4511d1b0f65550b9e7180ebc1b5a3d16da9e66622"
+          },
+          "flatRow": {
+            "contractId": "abg.operation.interaction.respond",
+            "contractVersion": "5.0.0",
+            "contractDigest": "sha256:8ab1b82d9f048a1a71a8ce1730600eb762dbb3a779b89bc5ad4ff7461fcadba2"
+          },
+          "nestedSelector": {
+            "selectorKind": "operation_definition_slot",
+            "definitionKey": {
+              "operationId": "abg.operation.interaction.respond",
+              "memberKey": "assess"
+            },
+            "slot": "non_terminal",
+            "definitionRef": "#/definitions/2/nonTerminalContract/identity"
+          }
+        },
+        "correlationRef": "correlation://hc1/assess",
+        "eventTime": "2026-11-03T00:00:00.000Z",
+        "provenanceRefs": [],
+        "invocationRef": "invocation://abiogenesis/2d52893e09ad7e39438aefd38ea5b61df183dd4b7db387e8b888a4bd633be985",
+        "invocationDigest": "sha256:2d52893e09ad7e39438aefd38ea5b61df183dd4b7db387e8b888a4bd633be985"
+      },
+      "resources": {}
+    },
+    {
+      "invocation": {
+        "kind": "public_invocation",
+        "schemaVersion": "5.0.0",
+        "invocationContract": {
+          "contractCatalog": {
+            "productId": "product://hc1-proof/catalog",
+            "productContentDigest": "sha256:22e606db1abc0ceac19e722907232529aa9bf4f59b328a9a3bf37ebd2727b026",
+            "catalogId": "catalog://hc1-proof/public",
+            "catalogVersion": "5.0.0",
+            "catalogDigest": "sha256:50a1f8a52a7043f8d5d11ce4511d1b0f65550b9e7180ebc1b5a3d16da9e66622"
+          },
+          "flatRow": {
+            "contractId": "abg.schema.public-operation-invocation",
+            "contractVersion": "5.0.0",
+            "contractDigest": "sha256:9f2224ae0eb7573b6e15c17ce2530f952a0e7148c1da8019cdaa56e39e54b358"
+          },
+          "nestedSelector": {
+            "selectorKind": "schema_definition",
+            "definitionKey": null,
+            "slot": null,
+            "definitionRef": "#/$defs/PublicInvocation"
+          }
+        },
+        "definitionRef": "public-function://abiogenesis/interaction/respond/reject@5",
+        "definitionVersion": "5.0.0",
+        "definitionDigest": "sha256:b88552d00ebdef535335d75844c6c5f7691d938f64c8be053792107b99d57fa6",
+        "definitionKey": {
+          "operationId": "abg.operation.interaction.respond",
+          "memberKey": "reject"
+        },
+        "contractCatalog": {
+          "productId": "product://hc1-proof/catalog",
+          "productContentDigest": "sha256:22e606db1abc0ceac19e722907232529aa9bf4f59b328a9a3bf37ebd2727b026",
+          "catalogId": "catalog://hc1-proof/public",
+          "catalogVersion": "5.0.0",
+          "catalogDigest": "sha256:50a1f8a52a7043f8d5d11ce4511d1b0f65550b9e7180ebc1b5a3d16da9e66622"
+        },
+        "invocationAuthority": {
+          "kind": "invocation_authority",
+          "definitionKey": {
+            "operationId": "abg.operation.interaction.respond",
+            "memberKey": "reject"
+          },
+          "slots": {
+            "workspace_binding": {
+              "ref": "workspace-binding://hc1",
+              "digest": "sha256:fce81180e957a08cef0081d51bb0a6abad2952883155121c772e184898aac3f6"
+            },
+            "product_set": [
+              {
+                "ref": "product://hc1",
+                "digest": "sha256:bb24debfa565d09659b7d6bb36c96f83ae5f9d6577373b47b33b96de3babce07"
+              }
+            ],
+            "dependency_lock": {
+              "ref": "lock://hc1",
+              "digest": "sha256:b02ff9746473fb18d5038ba53052ff69f64f524a70ba6468b02be52e6694c2ef"
+            },
+            "catalog_scope": null,
+            "execution_program": null,
+            "graph_function": null,
+            "input_contract": null,
+            "session_policy": null,
+            "capability_grants": {
+              "requiredCapabilityRefs": [
+                "abg.capability.operator.public-contract@5",
+                "abg.capability.runtime.replay-continuation@5"
+              ],
+              "grants": [
+                {
+                  "ref": "grant://hc1",
+                  "digest": "sha256:8cd631d0624eb9e1035a99bcfc82d164638d8bdecb0022856f82a87790156329"
+                }
+              ]
+            },
+            "actor": {
+              "actor": {
+                "ref": "actor://hc1",
+                "digest": "sha256:1e6f7b295e32cdd33ce57a5277a8a0f108adaa0521a6a4f7b2bf7fe1412ab4da"
+              },
+              "attribution": {
+                "ref": "attribution://hc1",
+                "digest": "sha256:8a1e7da86127e849236154f477503d341ced42670614e3470ef6d5be6b5eebf3"
+              }
+            },
+            "transport_steering": null,
+            "verification_references": null,
+            "execution_basis": {
+              "ref": "execution-basis://hc1",
+              "digest": "sha256:082d61cb9c21d95fa786ecc7ea1b6ac10ea84f6ce47135b21495978780343c57"
+            }
+          },
+          "authorityDigest": "sha256:d83ba19db690aaf4a51d1f336009c23c0e3c65b2079ed905397957a157133111"
+        },
+        "requestContract": {
+          "contractCatalog": {
+            "productId": "product://hc1-proof/catalog",
+            "productContentDigest": "sha256:22e606db1abc0ceac19e722907232529aa9bf4f59b328a9a3bf37ebd2727b026",
+            "catalogId": "catalog://hc1-proof/public",
+            "catalogVersion": "5.0.0",
+            "catalogDigest": "sha256:50a1f8a52a7043f8d5d11ce4511d1b0f65550b9e7180ebc1b5a3d16da9e66622"
+          },
+          "flatRow": {
+            "contractId": "abg.operation.interaction.respond",
+            "contractVersion": "5.0.0",
+            "contractDigest": "sha256:8ab1b82d9f048a1a71a8ce1730600eb762dbb3a779b89bc5ad4ff7461fcadba2"
+          },
+          "nestedSelector": {
+            "selectorKind": "operation_definition_slot",
+            "definitionKey": {
+              "operationId": "abg.operation.interaction.respond",
+              "memberKey": "reject"
+            },
+            "slot": "request",
+            "definitionRef": "#/definitions/3/requestContract/identity"
+          }
+        },
+        "requestRef": "request://hc1/reject",
+        "requestDigest": "sha256:0faf78e88e4cc5da1287eb8b4931546ecf413025408e179602c451a11cc0d808",
+        "request": {
+          "interaction": {
+            "ref": "interaction://hc1",
+            "digest": "sha256:b2628927e43700fc009e6811c174c35eb3e874687a306cc514bef10a73f3076d"
+          },
+          "responseContract": {
+            "ref": "contract://hc1/response",
+            "digest": "sha256:f70a93b07417032c6b0d02351577cd202de18b4b9e866436d224194275023d9f"
+          },
+          "responseKind": "reject",
+          "choice": null,
+          "value": {
+            "response": "reject"
+          },
+          "evidence": [
+            {
+              "ref": "evidence://hc1",
+              "digest": "sha256:fce1d0d32fbd86c9656f9db7edbbf09c6f97e694ff8593f546a69f777a780d10"
+            }
+          ],
+          "currentBasis": {
+            "ref": "basis://hc1",
+            "digest": "sha256:a1386a463a3058cb766d1f0813f70feb8be986b590649ee684aa271be3b9ee34"
+          }
+        },
+        "expectedResultContract": {
+          "contractCatalog": {
+            "productId": "product://hc1-proof/catalog",
+            "productContentDigest": "sha256:22e606db1abc0ceac19e722907232529aa9bf4f59b328a9a3bf37ebd2727b026",
+            "catalogId": "catalog://hc1-proof/public",
+            "catalogVersion": "5.0.0",
+            "catalogDigest": "sha256:50a1f8a52a7043f8d5d11ce4511d1b0f65550b9e7180ebc1b5a3d16da9e66622"
+          },
+          "flatRow": {
+            "contractId": "abg.operation.interaction.respond",
+            "contractVersion": "5.0.0",
+            "contractDigest": "sha256:8ab1b82d9f048a1a71a8ce1730600eb762dbb3a779b89bc5ad4ff7461fcadba2"
+          },
+          "nestedSelector": {
+            "selectorKind": "operation_definition_slot",
+            "definitionKey": {
+              "operationId": "abg.operation.interaction.respond",
+              "memberKey": "reject"
+            },
+            "slot": "result",
+            "definitionRef": "#/definitions/3/resultContract/identity"
+          }
+        },
+        "expectedRefusalContract": {
+          "contractCatalog": {
+            "productId": "product://hc1-proof/catalog",
+            "productContentDigest": "sha256:22e606db1abc0ceac19e722907232529aa9bf4f59b328a9a3bf37ebd2727b026",
+            "catalogId": "catalog://hc1-proof/public",
+            "catalogVersion": "5.0.0",
+            "catalogDigest": "sha256:50a1f8a52a7043f8d5d11ce4511d1b0f65550b9e7180ebc1b5a3d16da9e66622"
+          },
+          "flatRow": {
+            "contractId": "abg.operation.interaction.respond",
+            "contractVersion": "5.0.0",
+            "contractDigest": "sha256:8ab1b82d9f048a1a71a8ce1730600eb762dbb3a779b89bc5ad4ff7461fcadba2"
+          },
+          "nestedSelector": {
+            "selectorKind": "operation_definition_slot",
+            "definitionKey": {
+              "operationId": "abg.operation.interaction.respond",
+              "memberKey": "reject"
+            },
+            "slot": "refusal",
+            "definitionRef": "#/definitions/3/refusalContract/identity"
+          }
+        },
+        "expectedNonTerminalContract": {
+          "contractCatalog": {
+            "productId": "product://hc1-proof/catalog",
+            "productContentDigest": "sha256:22e606db1abc0ceac19e722907232529aa9bf4f59b328a9a3bf37ebd2727b026",
+            "catalogId": "catalog://hc1-proof/public",
+            "catalogVersion": "5.0.0",
+            "catalogDigest": "sha256:50a1f8a52a7043f8d5d11ce4511d1b0f65550b9e7180ebc1b5a3d16da9e66622"
+          },
+          "flatRow": {
+            "contractId": "abg.operation.interaction.respond",
+            "contractVersion": "5.0.0",
+            "contractDigest": "sha256:8ab1b82d9f048a1a71a8ce1730600eb762dbb3a779b89bc5ad4ff7461fcadba2"
+          },
+          "nestedSelector": {
+            "selectorKind": "operation_definition_slot",
+            "definitionKey": {
+              "operationId": "abg.operation.interaction.respond",
+              "memberKey": "reject"
+            },
+            "slot": "non_terminal",
+            "definitionRef": "#/definitions/3/nonTerminalContract/identity"
+          }
+        },
+        "correlationRef": "correlation://hc1/reject",
+        "eventTime": "2026-11-03T00:00:00.000Z",
+        "provenanceRefs": [],
+        "invocationRef": "invocation://abiogenesis/82b9cd70ec1655abdf6cd99fbca24768c84c614087f88e8e241194ccbdeac755",
+        "invocationDigest": "sha256:82b9cd70ec1655abdf6cd99fbca24768c84c614087f88e8e241194ccbdeac755"
+      },
+      "resources": {}
+    },
+    {
+      "invocation": {
+        "kind": "public_invocation",
+        "schemaVersion": "5.0.0",
+        "invocationContract": {
+          "contractCatalog": {
+            "productId": "product://hc1-proof/catalog",
+            "productContentDigest": "sha256:22e606db1abc0ceac19e722907232529aa9bf4f59b328a9a3bf37ebd2727b026",
+            "catalogId": "catalog://hc1-proof/public",
+            "catalogVersion": "5.0.0",
+            "catalogDigest": "sha256:50a1f8a52a7043f8d5d11ce4511d1b0f65550b9e7180ebc1b5a3d16da9e66622"
+          },
+          "flatRow": {
+            "contractId": "abg.schema.public-operation-invocation",
+            "contractVersion": "5.0.0",
+            "contractDigest": "sha256:9f2224ae0eb7573b6e15c17ce2530f952a0e7148c1da8019cdaa56e39e54b358"
+          },
+          "nestedSelector": {
+            "selectorKind": "schema_definition",
+            "definitionKey": null,
+            "slot": null,
+            "definitionRef": "#/$defs/PublicInvocation"
+          }
+        },
+        "definitionRef": "public-function://abiogenesis/interaction/respond/select@5",
+        "definitionVersion": "5.0.0",
+        "definitionDigest": "sha256:4c1e1dfce29f965be03bee5d52bbcc7260736856c855e0283a12241753f99d53",
+        "definitionKey": {
+          "operationId": "abg.operation.interaction.respond",
+          "memberKey": "select"
+        },
+        "contractCatalog": {
+          "productId": "product://hc1-proof/catalog",
+          "productContentDigest": "sha256:22e606db1abc0ceac19e722907232529aa9bf4f59b328a9a3bf37ebd2727b026",
+          "catalogId": "catalog://hc1-proof/public",
+          "catalogVersion": "5.0.0",
+          "catalogDigest": "sha256:50a1f8a52a7043f8d5d11ce4511d1b0f65550b9e7180ebc1b5a3d16da9e66622"
+        },
+        "invocationAuthority": {
+          "kind": "invocation_authority",
+          "definitionKey": {
+            "operationId": "abg.operation.interaction.respond",
+            "memberKey": "select"
+          },
+          "slots": {
+            "workspace_binding": {
+              "ref": "workspace-binding://hc1",
+              "digest": "sha256:fce81180e957a08cef0081d51bb0a6abad2952883155121c772e184898aac3f6"
+            },
+            "product_set": [
+              {
+                "ref": "product://hc1",
+                "digest": "sha256:bb24debfa565d09659b7d6bb36c96f83ae5f9d6577373b47b33b96de3babce07"
+              }
+            ],
+            "dependency_lock": {
+              "ref": "lock://hc1",
+              "digest": "sha256:b02ff9746473fb18d5038ba53052ff69f64f524a70ba6468b02be52e6694c2ef"
+            },
+            "catalog_scope": null,
+            "execution_program": null,
+            "graph_function": null,
+            "input_contract": null,
+            "session_policy": null,
+            "capability_grants": {
+              "requiredCapabilityRefs": [
+                "abg.capability.operator.public-contract@5",
+                "abg.capability.runtime.replay-continuation@5"
+              ],
+              "grants": [
+                {
+                  "ref": "grant://hc1",
+                  "digest": "sha256:8cd631d0624eb9e1035a99bcfc82d164638d8bdecb0022856f82a87790156329"
+                }
+              ]
+            },
+            "actor": {
+              "actor": {
+                "ref": "actor://hc1",
+                "digest": "sha256:1e6f7b295e32cdd33ce57a5277a8a0f108adaa0521a6a4f7b2bf7fe1412ab4da"
+              },
+              "attribution": {
+                "ref": "attribution://hc1",
+                "digest": "sha256:8a1e7da86127e849236154f477503d341ced42670614e3470ef6d5be6b5eebf3"
+              }
+            },
+            "transport_steering": null,
+            "verification_references": null,
+            "execution_basis": {
+              "ref": "execution-basis://hc1",
+              "digest": "sha256:082d61cb9c21d95fa786ecc7ea1b6ac10ea84f6ce47135b21495978780343c57"
+            }
+          },
+          "authorityDigest": "sha256:1ddcec2d25edee0f9b8c237431c0ba2b5f6e30befd8b29e77da863d3892a2636"
+        },
+        "requestContract": {
+          "contractCatalog": {
+            "productId": "product://hc1-proof/catalog",
+            "productContentDigest": "sha256:22e606db1abc0ceac19e722907232529aa9bf4f59b328a9a3bf37ebd2727b026",
+            "catalogId": "catalog://hc1-proof/public",
+            "catalogVersion": "5.0.0",
+            "catalogDigest": "sha256:50a1f8a52a7043f8d5d11ce4511d1b0f65550b9e7180ebc1b5a3d16da9e66622"
+          },
+          "flatRow": {
+            "contractId": "abg.operation.interaction.respond",
+            "contractVersion": "5.0.0",
+            "contractDigest": "sha256:8ab1b82d9f048a1a71a8ce1730600eb762dbb3a779b89bc5ad4ff7461fcadba2"
+          },
+          "nestedSelector": {
+            "selectorKind": "operation_definition_slot",
+            "definitionKey": {
+              "operationId": "abg.operation.interaction.respond",
+              "memberKey": "select"
+            },
+            "slot": "request",
+            "definitionRef": "#/definitions/4/requestContract/identity"
+          }
+        },
+        "requestRef": "request://hc1/select",
+        "requestDigest": "sha256:1af1e9d1c00489d952e2f784ff4f08771876e9e85b5253cb6881272dbc26f6fb",
+        "request": {
+          "interaction": {
+            "ref": "interaction://hc1",
+            "digest": "sha256:b2628927e43700fc009e6811c174c35eb3e874687a306cc514bef10a73f3076d"
+          },
+          "responseContract": {
+            "ref": "contract://hc1/response",
+            "digest": "sha256:f70a93b07417032c6b0d02351577cd202de18b4b9e866436d224194275023d9f"
+          },
+          "responseKind": "select",
+          "choice": {
+            "ref": "choice://hc1",
+            "digest": "sha256:40031ca876d9c858d5b18cb51bfa7d27ab58f356128a424e01f3fe596f0b63cd"
+          },
+          "value": {
+            "response": "select"
+          },
+          "evidence": [
+            {
+              "ref": "evidence://hc1",
+              "digest": "sha256:fce1d0d32fbd86c9656f9db7edbbf09c6f97e694ff8593f546a69f777a780d10"
+            }
+          ],
+          "currentBasis": {
+            "ref": "basis://hc1",
+            "digest": "sha256:a1386a463a3058cb766d1f0813f70feb8be986b590649ee684aa271be3b9ee34"
+          }
+        },
+        "expectedResultContract": {
+          "contractCatalog": {
+            "productId": "product://hc1-proof/catalog",
+            "productContentDigest": "sha256:22e606db1abc0ceac19e722907232529aa9bf4f59b328a9a3bf37ebd2727b026",
+            "catalogId": "catalog://hc1-proof/public",
+            "catalogVersion": "5.0.0",
+            "catalogDigest": "sha256:50a1f8a52a7043f8d5d11ce4511d1b0f65550b9e7180ebc1b5a3d16da9e66622"
+          },
+          "flatRow": {
+            "contractId": "abg.operation.interaction.respond",
+            "contractVersion": "5.0.0",
+            "contractDigest": "sha256:8ab1b82d9f048a1a71a8ce1730600eb762dbb3a779b89bc5ad4ff7461fcadba2"
+          },
+          "nestedSelector": {
+            "selectorKind": "operation_definition_slot",
+            "definitionKey": {
+              "operationId": "abg.operation.interaction.respond",
+              "memberKey": "select"
+            },
+            "slot": "result",
+            "definitionRef": "#/definitions/4/resultContract/identity"
+          }
+        },
+        "expectedRefusalContract": {
+          "contractCatalog": {
+            "productId": "product://hc1-proof/catalog",
+            "productContentDigest": "sha256:22e606db1abc0ceac19e722907232529aa9bf4f59b328a9a3bf37ebd2727b026",
+            "catalogId": "catalog://hc1-proof/public",
+            "catalogVersion": "5.0.0",
+            "catalogDigest": "sha256:50a1f8a52a7043f8d5d11ce4511d1b0f65550b9e7180ebc1b5a3d16da9e66622"
+          },
+          "flatRow": {
+            "contractId": "abg.operation.interaction.respond",
+            "contractVersion": "5.0.0",
+            "contractDigest": "sha256:8ab1b82d9f048a1a71a8ce1730600eb762dbb3a779b89bc5ad4ff7461fcadba2"
+          },
+          "nestedSelector": {
+            "selectorKind": "operation_definition_slot",
+            "definitionKey": {
+              "operationId": "abg.operation.interaction.respond",
+              "memberKey": "select"
+            },
+            "slot": "refusal",
+            "definitionRef": "#/definitions/4/refusalContract/identity"
+          }
+        },
+        "expectedNonTerminalContract": {
+          "contractCatalog": {
+            "productId": "product://hc1-proof/catalog",
+            "productContentDigest": "sha256:22e606db1abc0ceac19e722907232529aa9bf4f59b328a9a3bf37ebd2727b026",
+            "catalogId": "catalog://hc1-proof/public",
+            "catalogVersion": "5.0.0",
+            "catalogDigest": "sha256:50a1f8a52a7043f8d5d11ce4511d1b0f65550b9e7180ebc1b5a3d16da9e66622"
+          },
+          "flatRow": {
+            "contractId": "abg.operation.interaction.respond",
+            "contractVersion": "5.0.0",
+            "contractDigest": "sha256:8ab1b82d9f048a1a71a8ce1730600eb762dbb3a779b89bc5ad4ff7461fcadba2"
+          },
+          "nestedSelector": {
+            "selectorKind": "operation_definition_slot",
+            "definitionKey": {
+              "operationId": "abg.operation.interaction.respond",
+              "memberKey": "select"
+            },
+            "slot": "non_terminal",
+            "definitionRef": "#/definitions/4/nonTerminalContract/identity"
+          }
+        },
+        "correlationRef": "correlation://hc1/select",
+        "eventTime": "2026-11-03T00:00:00.000Z",
+        "provenanceRefs": [],
+        "invocationRef": "invocation://abiogenesis/6e164b7d757b5b3241847b6de12a920f4e747b2ccb31dceceaf0a6dfcf673204",
+        "invocationDigest": "sha256:6e164b7d757b5b3241847b6de12a920f4e747b2ccb31dceceaf0a6dfcf673204"
+      },
+      "resources": {}
+    },
+    {
+      "invocation": {
+        "kind": "public_invocation",
+        "schemaVersion": "5.0.0",
+        "invocationContract": {
+          "contractCatalog": {
+            "productId": "product://hc1-proof/catalog",
+            "productContentDigest": "sha256:22e606db1abc0ceac19e722907232529aa9bf4f59b328a9a3bf37ebd2727b026",
+            "catalogId": "catalog://hc1-proof/public",
+            "catalogVersion": "5.0.0",
+            "catalogDigest": "sha256:50a1f8a52a7043f8d5d11ce4511d1b0f65550b9e7180ebc1b5a3d16da9e66622"
+          },
+          "flatRow": {
+            "contractId": "abg.schema.public-operation-invocation",
+            "contractVersion": "5.0.0",
+            "contractDigest": "sha256:9f2224ae0eb7573b6e15c17ce2530f952a0e7148c1da8019cdaa56e39e54b358"
+          },
+          "nestedSelector": {
+            "selectorKind": "schema_definition",
+            "definitionKey": null,
+            "slot": null,
+            "definitionRef": "#/$defs/PublicInvocation"
+          }
+        },
+        "definitionRef": "public-function://abiogenesis/project/read/ticket_consensus@5",
+        "definitionVersion": "5.0.0",
+        "definitionDigest": "sha256:2262fff37b5e39819f35cf15f1df045d8bc38e2c59b9039c2751d4bea079478a",
+        "definitionKey": {
+          "operationId": "abg.operation.project.read",
+          "memberKey": "ticket_consensus"
+        },
+        "contractCatalog": {
+          "productId": "product://hc1-proof/catalog",
+          "productContentDigest": "sha256:22e606db1abc0ceac19e722907232529aa9bf4f59b328a9a3bf37ebd2727b026",
+          "catalogId": "catalog://hc1-proof/public",
+          "catalogVersion": "5.0.0",
+          "catalogDigest": "sha256:50a1f8a52a7043f8d5d11ce4511d1b0f65550b9e7180ebc1b5a3d16da9e66622"
+        },
+        "invocationAuthority": {
+          "kind": "invocation_authority",
+          "definitionKey": {
+            "operationId": "abg.operation.project.read",
+            "memberKey": "ticket_consensus"
+          },
+          "slots": {
+            "workspace_binding": {
+              "ref": "workspace-binding://hc1",
+              "digest": "sha256:fce81180e957a08cef0081d51bb0a6abad2952883155121c772e184898aac3f6"
+            },
+            "product_set": [
+              {
+                "ref": "product://hc1",
+                "digest": "sha256:bb24debfa565d09659b7d6bb36c96f83ae5f9d6577373b47b33b96de3babce07"
+              }
+            ],
+            "dependency_lock": {
+              "ref": "lock://hc1",
+              "digest": "sha256:b02ff9746473fb18d5038ba53052ff69f64f524a70ba6468b02be52e6694c2ef"
+            },
+            "catalog_scope": null,
+            "execution_program": null,
+            "graph_function": null,
+            "input_contract": null,
+            "session_policy": null,
+            "capability_grants": {
+              "requiredCapabilityRefs": [
+                "abg.capability.operator.public-contract@5"
+              ],
+              "grants": [
+                {
+                  "ref": "grant://hc1",
+                  "digest": "sha256:8cd631d0624eb9e1035a99bcfc82d164638d8bdecb0022856f82a87790156329"
+                }
+              ]
+            },
+            "actor": null,
+            "transport_steering": null,
+            "verification_references": null,
+            "execution_basis": null
+          },
+          "authorityDigest": "sha256:866e324d355e6c8dbca8eb7e26c6a132f3dfea88d2f09cdad87fdab5676a31c8"
+        },
+        "requestContract": {
+          "contractCatalog": {
+            "productId": "product://hc1-proof/catalog",
+            "productContentDigest": "sha256:22e606db1abc0ceac19e722907232529aa9bf4f59b328a9a3bf37ebd2727b026",
+            "catalogId": "catalog://hc1-proof/public",
+            "catalogVersion": "5.0.0",
+            "catalogDigest": "sha256:50a1f8a52a7043f8d5d11ce4511d1b0f65550b9e7180ebc1b5a3d16da9e66622"
+          },
+          "flatRow": {
+            "contractId": "abg.operation.project.read",
+            "contractVersion": "5.0.0",
+            "contractDigest": "sha256:08d5cc55d7647743d43bbbb336157848684c55e3220ae21b4a626db51c199b68"
+          },
+          "nestedSelector": {
+            "selectorKind": "operation_definition_slot",
+            "definitionKey": {
+              "operationId": "abg.operation.project.read",
+              "memberKey": "ticket_consensus"
+            },
+            "slot": "request",
+            "definitionRef": "#/definitions/19/requestContract/identity"
+          }
+        },
+        "requestRef": "request://hc1/ticket_consensus",
+        "requestDigest": "sha256:cc0cf999cdbfd0d476d325abaa9e9b24f7075c8253902b62de3b541bfce6d216",
+        "request": {
+          "caseKey": "ticket_consensus",
+          "source": {
+            "sourceKind": "consensus_result",
+            "sourceRef": "consensus-result://hc1",
+            "sourceDigest": "sha256:d6ba0c4757bea6787c09b8f0854c103e4e54a4b852f4ca3a834e56d277eadff9"
+          },
+          "projectionBasis": {
+            "projectionBasisRef": "projection-basis://hc1/ticket_consensus",
+            "projectionBasisDigest": "sha256:a384e85f90e35397426a6f1f84528b0931b5850253754821735c6a73f9f6123d"
+          },
+          "selector": {
+            "kind": "ticket_consensus",
+            "ticket": {
+              "ref": "ticket://hc1",
+              "digest": "sha256:213ac95fd94014a6026fd3af2e96ac033c665bc4c86673a719dd514ea118dae8"
+            },
+            "outputAuthority": {
+              "ref": "result://hc1",
+              "digest": "sha256:5051e4b0dbd76bdc6a539122a1f3785b0c3a95b7b9da17e4c04f2bb8203aa74c"
+            },
+            "replayBasis": {
+              "ref": "replay://hc1",
+              "digest": "sha256:9dff0789325bb9cd61fac6b2d6bd9ab1d35d8b4d066991d76969ee95a66d697a"
+            }
+          }
+        },
+        "expectedResultContract": {
+          "contractCatalog": {
+            "productId": "product://hc1-proof/catalog",
+            "productContentDigest": "sha256:22e606db1abc0ceac19e722907232529aa9bf4f59b328a9a3bf37ebd2727b026",
+            "catalogId": "catalog://hc1-proof/public",
+            "catalogVersion": "5.0.0",
+            "catalogDigest": "sha256:50a1f8a52a7043f8d5d11ce4511d1b0f65550b9e7180ebc1b5a3d16da9e66622"
+          },
+          "flatRow": {
+            "contractId": "abg.operation.project.read",
+            "contractVersion": "5.0.0",
+            "contractDigest": "sha256:08d5cc55d7647743d43bbbb336157848684c55e3220ae21b4a626db51c199b68"
+          },
+          "nestedSelector": {
+            "selectorKind": "operation_definition_slot",
+            "definitionKey": {
+              "operationId": "abg.operation.project.read",
+              "memberKey": "ticket_consensus"
+            },
+            "slot": "result",
+            "definitionRef": "#/definitions/19/resultContract/identity"
+          }
+        },
+        "expectedRefusalContract": {
+          "contractCatalog": {
+            "productId": "product://hc1-proof/catalog",
+            "productContentDigest": "sha256:22e606db1abc0ceac19e722907232529aa9bf4f59b328a9a3bf37ebd2727b026",
+            "catalogId": "catalog://hc1-proof/public",
+            "catalogVersion": "5.0.0",
+            "catalogDigest": "sha256:50a1f8a52a7043f8d5d11ce4511d1b0f65550b9e7180ebc1b5a3d16da9e66622"
+          },
+          "flatRow": {
+            "contractId": "abg.operation.project.read",
+            "contractVersion": "5.0.0",
+            "contractDigest": "sha256:08d5cc55d7647743d43bbbb336157848684c55e3220ae21b4a626db51c199b68"
+          },
+          "nestedSelector": {
+            "selectorKind": "operation_definition_slot",
+            "definitionKey": {
+              "operationId": "abg.operation.project.read",
+              "memberKey": "ticket_consensus"
+            },
+            "slot": "refusal",
+            "definitionRef": "#/definitions/19/refusalContract/identity"
+          }
+        },
+        "expectedNonTerminalContract": null,
+        "correlationRef": "correlation://hc1/ticket_consensus",
+        "eventTime": "2026-11-03T00:00:00.000Z",
+        "provenanceRefs": [],
+        "invocationRef": "invocation://abiogenesis/aff4369f9ee225f2a64ddf6bcbafc6819cdfc688afd4860eb17379991cc945ea",
+        "invocationDigest": "sha256:aff4369f9ee225f2a64ddf6bcbafc6819cdfc688afd4860eb17379991cc945ea"
+      },
+      "resources": {}
+    },
+    {
+      "invocation": {
+        "kind": "public_invocation",
+        "schemaVersion": "5.0.0",
+        "invocationContract": {
+          "contractCatalog": {
+            "productId": "product://hc1-proof/catalog",
+            "productContentDigest": "sha256:22e606db1abc0ceac19e722907232529aa9bf4f59b328a9a3bf37ebd2727b026",
+            "catalogId": "catalog://hc1-proof/public",
+            "catalogVersion": "5.0.0",
+            "catalogDigest": "sha256:50a1f8a52a7043f8d5d11ce4511d1b0f65550b9e7180ebc1b5a3d16da9e66622"
+          },
+          "flatRow": {
+            "contractId": "abg.schema.public-operation-invocation",
+            "contractVersion": "5.0.0",
+            "contractDigest": "sha256:9f2224ae0eb7573b6e15c17ce2530f952a0e7148c1da8019cdaa56e39e54b358"
+          },
+          "nestedSelector": {
+            "selectorKind": "schema_definition",
+            "definitionKey": null,
+            "slot": null,
+            "definitionRef": "#/$defs/PublicInvocation"
+          }
+        },
+        "definitionRef": "public-function://abiogenesis/project/read/run_gaps@5",
+        "definitionVersion": "5.0.0",
+        "definitionDigest": "sha256:26bc57708e4d1225269f24ba0d2c05035e3571dbede1182eb0fd90ffa7031267",
+        "definitionKey": {
+          "operationId": "abg.operation.project.read",
+          "memberKey": "run_gaps"
+        },
+        "contractCatalog": {
+          "productId": "product://hc1-proof/catalog",
+          "productContentDigest": "sha256:22e606db1abc0ceac19e722907232529aa9bf4f59b328a9a3bf37ebd2727b026",
+          "catalogId": "catalog://hc1-proof/public",
+          "catalogVersion": "5.0.0",
+          "catalogDigest": "sha256:50a1f8a52a7043f8d5d11ce4511d1b0f65550b9e7180ebc1b5a3d16da9e66622"
+        },
+        "invocationAuthority": {
+          "kind": "invocation_authority",
+          "definitionKey": {
+            "operationId": "abg.operation.project.read",
+            "memberKey": "run_gaps"
+          },
+          "slots": {
+            "workspace_binding": {
+              "ref": "workspace-binding://hc1",
+              "digest": "sha256:fce81180e957a08cef0081d51bb0a6abad2952883155121c772e184898aac3f6"
+            },
+            "product_set": [
+              {
+                "ref": "product://hc1",
+                "digest": "sha256:bb24debfa565d09659b7d6bb36c96f83ae5f9d6577373b47b33b96de3babce07"
+              }
+            ],
+            "dependency_lock": {
+              "ref": "lock://hc1",
+              "digest": "sha256:b02ff9746473fb18d5038ba53052ff69f64f524a70ba6468b02be52e6694c2ef"
+            },
+            "catalog_scope": null,
+            "execution_program": null,
+            "graph_function": null,
+            "input_contract": null,
+            "session_policy": null,
+            "capability_grants": {
+              "requiredCapabilityRefs": [
+                "abg.capability.runtime.replay-continuation@5"
+              ],
+              "grants": [
+                {
+                  "ref": "grant://hc1",
+                  "digest": "sha256:8cd631d0624eb9e1035a99bcfc82d164638d8bdecb0022856f82a87790156329"
+                }
+              ]
+            },
+            "actor": null,
+            "transport_steering": null,
+            "verification_references": null,
+            "execution_basis": null
+          },
+          "authorityDigest": "sha256:b9f8975bc2813309e7eeabea600077a4a738730f6ad6cb20cec6016ff5f47627"
+        },
+        "requestContract": {
+          "contractCatalog": {
+            "productId": "product://hc1-proof/catalog",
+            "productContentDigest": "sha256:22e606db1abc0ceac19e722907232529aa9bf4f59b328a9a3bf37ebd2727b026",
+            "catalogId": "catalog://hc1-proof/public",
+            "catalogVersion": "5.0.0",
+            "catalogDigest": "sha256:50a1f8a52a7043f8d5d11ce4511d1b0f65550b9e7180ebc1b5a3d16da9e66622"
+          },
+          "flatRow": {
+            "contractId": "abg.operation.project.read",
+            "contractVersion": "5.0.0",
+            "contractDigest": "sha256:08d5cc55d7647743d43bbbb336157848684c55e3220ae21b4a626db51c199b68"
+          },
+          "nestedSelector": {
+            "selectorKind": "operation_definition_slot",
+            "definitionKey": {
+              "operationId": "abg.operation.project.read",
+              "memberKey": "run_gaps"
+            },
+            "slot": "request",
+            "definitionRef": "#/definitions/14/requestContract/identity"
+          }
+        },
+        "requestRef": "request://hc1/run_gaps",
+        "requestDigest": "sha256:3802e90278a136a034411ff0567e574d884ee50ccfc073b5932e8a439d728142",
+        "request": {
+          "caseKey": "run_gaps",
+          "source": {
+            "sourceKind": "run",
+            "sourceRef": "source://hc1/run_gaps",
+            "sourceDigest": "sha256:c87301fa62173a9c41ec6c334c5f779ba30f149632b2d7cbd2c3158b91d1f1c6"
+          },
+          "projectionBasis": {
+            "projectionBasisRef": "projection-basis://hc1/run_gaps",
+            "projectionBasisDigest": "sha256:92e590c9eefab28e8a6cce5254660e360ce1c859d96536250263c11dad8425c5"
+          },
+          "selector": {
+            "kind": "none"
+          }
+        },
+        "expectedResultContract": {
+          "contractCatalog": {
+            "productId": "product://hc1-proof/catalog",
+            "productContentDigest": "sha256:22e606db1abc0ceac19e722907232529aa9bf4f59b328a9a3bf37ebd2727b026",
+            "catalogId": "catalog://hc1-proof/public",
+            "catalogVersion": "5.0.0",
+            "catalogDigest": "sha256:50a1f8a52a7043f8d5d11ce4511d1b0f65550b9e7180ebc1b5a3d16da9e66622"
+          },
+          "flatRow": {
+            "contractId": "abg.operation.project.read",
+            "contractVersion": "5.0.0",
+            "contractDigest": "sha256:08d5cc55d7647743d43bbbb336157848684c55e3220ae21b4a626db51c199b68"
+          },
+          "nestedSelector": {
+            "selectorKind": "operation_definition_slot",
+            "definitionKey": {
+              "operationId": "abg.operation.project.read",
+              "memberKey": "run_gaps"
+            },
+            "slot": "result",
+            "definitionRef": "#/definitions/14/resultContract/identity"
+          }
+        },
+        "expectedRefusalContract": {
+          "contractCatalog": {
+            "productId": "product://hc1-proof/catalog",
+            "productContentDigest": "sha256:22e606db1abc0ceac19e722907232529aa9bf4f59b328a9a3bf37ebd2727b026",
+            "catalogId": "catalog://hc1-proof/public",
+            "catalogVersion": "5.0.0",
+            "catalogDigest": "sha256:50a1f8a52a7043f8d5d11ce4511d1b0f65550b9e7180ebc1b5a3d16da9e66622"
+          },
+          "flatRow": {
+            "contractId": "abg.operation.project.read",
+            "contractVersion": "5.0.0",
+            "contractDigest": "sha256:08d5cc55d7647743d43bbbb336157848684c55e3220ae21b4a626db51c199b68"
+          },
+          "nestedSelector": {
+            "selectorKind": "operation_definition_slot",
+            "definitionKey": {
+              "operationId": "abg.operation.project.read",
+              "memberKey": "run_gaps"
+            },
+            "slot": "refusal",
+            "definitionRef": "#/definitions/14/refusalContract/identity"
+          }
+        },
+        "expectedNonTerminalContract": null,
+        "correlationRef": "correlation://hc1/run_gaps",
+        "eventTime": "2026-11-03T00:00:00.000Z",
+        "provenanceRefs": [],
+        "invocationRef": "invocation://abiogenesis/76826ae9a5ebb09b9bfac4de0c161527ed755db691867ffef697d37f005ae0ad",
+        "invocationDigest": "sha256:76826ae9a5ebb09b9bfac4de0c161527ed755db691867ffef697d37f005ae0ad"
+      },
+      "resources": {}
+    },
+    {
+      "invocation": {
+        "kind": "public_invocation",
+        "schemaVersion": "5.0.0",
+        "invocationContract": {
+          "contractCatalog": {
+            "productId": "product://hc1-proof/catalog",
+            "productContentDigest": "sha256:22e606db1abc0ceac19e722907232529aa9bf4f59b328a9a3bf37ebd2727b026",
+            "catalogId": "catalog://hc1-proof/public",
+            "catalogVersion": "5.0.0",
+            "catalogDigest": "sha256:50a1f8a52a7043f8d5d11ce4511d1b0f65550b9e7180ebc1b5a3d16da9e66622"
+          },
+          "flatRow": {
+            "contractId": "abg.schema.public-operation-invocation",
+            "contractVersion": "5.0.0",
+            "contractDigest": "sha256:9f2224ae0eb7573b6e15c17ce2530f952a0e7148c1da8019cdaa56e39e54b358"
+          },
+          "nestedSelector": {
+            "selectorKind": "schema_definition",
+            "definitionKey": null,
+            "slot": null,
+            "definitionRef": "#/$defs/PublicInvocation"
+          }
+        },
+        "definitionRef": "public-function://abiogenesis/project/read/workspace_gaps@5",
+        "definitionVersion": "5.0.0",
+        "definitionDigest": "sha256:438bb37c931ed1f682496df94cd0e3108e5edd948ecb142a4f060f8ffd23b078",
+        "definitionKey": {
+          "operationId": "abg.operation.project.read",
+          "memberKey": "workspace_gaps"
+        },
+        "contractCatalog": {
+          "productId": "product://hc1-proof/catalog",
+          "productContentDigest": "sha256:22e606db1abc0ceac19e722907232529aa9bf4f59b328a9a3bf37ebd2727b026",
+          "catalogId": "catalog://hc1-proof/public",
+          "catalogVersion": "5.0.0",
+          "catalogDigest": "sha256:50a1f8a52a7043f8d5d11ce4511d1b0f65550b9e7180ebc1b5a3d16da9e66622"
+        },
+        "invocationAuthority": {
+          "kind": "invocation_authority",
+          "definitionKey": {
+            "operationId": "abg.operation.project.read",
+            "memberKey": "workspace_gaps"
+          },
+          "slots": {
+            "workspace_binding": {
+              "ref": "workspace-binding://hc1",
+              "digest": "sha256:fce81180e957a08cef0081d51bb0a6abad2952883155121c772e184898aac3f6"
+            },
+            "product_set": [
+              {
+                "ref": "product://hc1",
+                "digest": "sha256:bb24debfa565d09659b7d6bb36c96f83ae5f9d6577373b47b33b96de3babce07"
+              }
+            ],
+            "dependency_lock": {
+              "ref": "lock://hc1",
+              "digest": "sha256:b02ff9746473fb18d5038ba53052ff69f64f524a70ba6468b02be52e6694c2ef"
+            },
+            "catalog_scope": null,
+            "execution_program": null,
+            "graph_function": null,
+            "input_contract": null,
+            "session_policy": null,
+            "capability_grants": {
+              "requiredCapabilityRefs": [
+                "abg.capability.operator.public-contract@5"
+              ],
+              "grants": [
+                {
+                  "ref": "grant://hc1",
+                  "digest": "sha256:8cd631d0624eb9e1035a99bcfc82d164638d8bdecb0022856f82a87790156329"
+                }
+              ]
+            },
+            "actor": null,
+            "transport_steering": null,
+            "verification_references": null,
+            "execution_basis": null
+          },
+          "authorityDigest": "sha256:c84eec968cb799ff130b4875e8b88b604436b18cc0e519bcd2547feb84d720c2"
+        },
+        "requestContract": {
+          "contractCatalog": {
+            "productId": "product://hc1-proof/catalog",
+            "productContentDigest": "sha256:22e606db1abc0ceac19e722907232529aa9bf4f59b328a9a3bf37ebd2727b026",
+            "catalogId": "catalog://hc1-proof/public",
+            "catalogVersion": "5.0.0",
+            "catalogDigest": "sha256:50a1f8a52a7043f8d5d11ce4511d1b0f65550b9e7180ebc1b5a3d16da9e66622"
+          },
+          "flatRow": {
+            "contractId": "abg.operation.project.read",
+            "contractVersion": "5.0.0",
+            "contractDigest": "sha256:08d5cc55d7647743d43bbbb336157848684c55e3220ae21b4a626db51c199b68"
+          },
+          "nestedSelector": {
+            "selectorKind": "operation_definition_slot",
+            "definitionKey": {
+              "operationId": "abg.operation.project.read",
+              "memberKey": "workspace_gaps"
+            },
+            "slot": "request",
+            "definitionRef": "#/definitions/21/requestContract/identity"
+          }
+        },
+        "requestRef": "request://hc1/workspace_gaps",
+        "requestDigest": "sha256:4e051e60b9a8d25bdf037a26bf4201231a4347237d1e88682ea9a6dff64bf61f",
+        "request": {
+          "caseKey": "workspace_gaps",
+          "source": {
+            "sourceKind": "workspace_binding",
+            "sourceRef": "source://hc1/workspace_gaps",
+            "sourceDigest": "sha256:d070d1b8c7304ffc2432191906d82da45a0eafd208f95fdf325639887cce38fe"
+          },
+          "projectionBasis": {
+            "projectionBasisRef": "projection-basis://hc1/workspace_gaps",
+            "projectionBasisDigest": "sha256:92e590c9eefab28e8a6cce5254660e360ce1c859d96536250263c11dad8425c5"
+          },
+          "selector": {
+            "kind": "workspace_gap_basis",
+            "gapBasis": {
+              "ref": "gap-basis://hc1",
+              "digest": "sha256:0ccd1a1996c111f783517a485cc605c6130322f1a8b47c1f7eba63b206a558d2"
+            }
+          }
+        },
+        "expectedResultContract": {
+          "contractCatalog": {
+            "productId": "product://hc1-proof/catalog",
+            "productContentDigest": "sha256:22e606db1abc0ceac19e722907232529aa9bf4f59b328a9a3bf37ebd2727b026",
+            "catalogId": "catalog://hc1-proof/public",
+            "catalogVersion": "5.0.0",
+            "catalogDigest": "sha256:50a1f8a52a7043f8d5d11ce4511d1b0f65550b9e7180ebc1b5a3d16da9e66622"
+          },
+          "flatRow": {
+            "contractId": "abg.operation.project.read",
+            "contractVersion": "5.0.0",
+            "contractDigest": "sha256:08d5cc55d7647743d43bbbb336157848684c55e3220ae21b4a626db51c199b68"
+          },
+          "nestedSelector": {
+            "selectorKind": "operation_definition_slot",
+            "definitionKey": {
+              "operationId": "abg.operation.project.read",
+              "memberKey": "workspace_gaps"
+            },
+            "slot": "result",
+            "definitionRef": "#/definitions/21/resultContract/identity"
+          }
+        },
+        "expectedRefusalContract": {
+          "contractCatalog": {
+            "productId": "product://hc1-proof/catalog",
+            "productContentDigest": "sha256:22e606db1abc0ceac19e722907232529aa9bf4f59b328a9a3bf37ebd2727b026",
+            "catalogId": "catalog://hc1-proof/public",
+            "catalogVersion": "5.0.0",
+            "catalogDigest": "sha256:50a1f8a52a7043f8d5d11ce4511d1b0f65550b9e7180ebc1b5a3d16da9e66622"
+          },
+          "flatRow": {
+            "contractId": "abg.operation.project.read",
+            "contractVersion": "5.0.0",
+            "contractDigest": "sha256:08d5cc55d7647743d43bbbb336157848684c55e3220ae21b4a626db51c199b68"
+          },
+          "nestedSelector": {
+            "selectorKind": "operation_definition_slot",
+            "definitionKey": {
+              "operationId": "abg.operation.project.read",
+              "memberKey": "workspace_gaps"
+            },
+            "slot": "refusal",
+            "definitionRef": "#/definitions/21/refusalContract/identity"
+          }
+        },
+        "expectedNonTerminalContract": null,
+        "correlationRef": "correlation://hc1/workspace_gaps",
+        "eventTime": "2026-11-03T00:00:00.000Z",
+        "provenanceRefs": [],
+        "invocationRef": "invocation://abiogenesis/9835476ea8a2977fe86e816287829049ee4f9d00ea2aad0b2080a93d1d390687",
+        "invocationDigest": "sha256:9835476ea8a2977fe86e816287829049ee4f9d00ea2aad0b2080a93d1d390687"
+      },
+      "resources": {}
+    },
+    {
+      "invocation": {
+        "kind": "public_invocation",
+        "schemaVersion": "5.0.0",
+        "invocationContract": {
+          "contractCatalog": {
+            "productId": "product://hc1-proof/catalog",
+            "productContentDigest": "sha256:22e606db1abc0ceac19e722907232529aa9bf4f59b328a9a3bf37ebd2727b026",
+            "catalogId": "catalog://hc1-proof/public",
+            "catalogVersion": "5.0.0",
+            "catalogDigest": "sha256:50a1f8a52a7043f8d5d11ce4511d1b0f65550b9e7180ebc1b5a3d16da9e66622"
+          },
+          "flatRow": {
+            "contractId": "abg.schema.public-operation-invocation",
+            "contractVersion": "5.0.0",
+            "contractDigest": "sha256:9f2224ae0eb7573b6e15c17ce2530f952a0e7148c1da8019cdaa56e39e54b358"
+          },
+          "nestedSelector": {
+            "selectorKind": "schema_definition",
+            "definitionKey": null,
+            "slot": null,
+            "definitionRef": "#/$defs/PublicInvocation"
+          }
+        },
+        "definitionRef": "public-function://abiogenesis/project/read/run_lawful_actions@5",
+        "definitionVersion": "5.0.0",
+        "definitionDigest": "sha256:66429bdbc2c12bed47fed6693b4b414d2490a379278852ce9d062b41144511e6",
+        "definitionKey": {
+          "operationId": "abg.operation.project.read",
+          "memberKey": "run_lawful_actions"
+        },
+        "contractCatalog": {
+          "productId": "product://hc1-proof/catalog",
+          "productContentDigest": "sha256:22e606db1abc0ceac19e722907232529aa9bf4f59b328a9a3bf37ebd2727b026",
+          "catalogId": "catalog://hc1-proof/public",
+          "catalogVersion": "5.0.0",
+          "catalogDigest": "sha256:50a1f8a52a7043f8d5d11ce4511d1b0f65550b9e7180ebc1b5a3d16da9e66622"
+        },
+        "invocationAuthority": {
+          "kind": "invocation_authority",
+          "definitionKey": {
+            "operationId": "abg.operation.project.read",
+            "memberKey": "run_lawful_actions"
+          },
+          "slots": {
+            "workspace_binding": {
+              "ref": "workspace-binding://hc1",
+              "digest": "sha256:fce81180e957a08cef0081d51bb0a6abad2952883155121c772e184898aac3f6"
+            },
+            "product_set": [
+              {
+                "ref": "product://hc1",
+                "digest": "sha256:bb24debfa565d09659b7d6bb36c96f83ae5f9d6577373b47b33b96de3babce07"
+              }
+            ],
+            "dependency_lock": {
+              "ref": "lock://hc1",
+              "digest": "sha256:b02ff9746473fb18d5038ba53052ff69f64f524a70ba6468b02be52e6694c2ef"
+            },
+            "catalog_scope": null,
+            "execution_program": null,
+            "graph_function": null,
+            "input_contract": null,
+            "session_policy": null,
+            "capability_grants": {
+              "requiredCapabilityRefs": [
+                "abg.capability.runtime.replay-continuation@5"
+              ],
+              "grants": [
+                {
+                  "ref": "grant://hc1",
+                  "digest": "sha256:8cd631d0624eb9e1035a99bcfc82d164638d8bdecb0022856f82a87790156329"
+                }
+              ]
+            },
+            "actor": null,
+            "transport_steering": null,
+            "verification_references": null,
+            "execution_basis": null
+          },
+          "authorityDigest": "sha256:f09c5cff3b77fffecd738b76e4ce27a8a831172fac85f3eaaced7181e6a6e196"
+        },
+        "requestContract": {
+          "contractCatalog": {
+            "productId": "product://hc1-proof/catalog",
+            "productContentDigest": "sha256:22e606db1abc0ceac19e722907232529aa9bf4f59b328a9a3bf37ebd2727b026",
+            "catalogId": "catalog://hc1-proof/public",
+            "catalogVersion": "5.0.0",
+            "catalogDigest": "sha256:50a1f8a52a7043f8d5d11ce4511d1b0f65550b9e7180ebc1b5a3d16da9e66622"
+          },
+          "flatRow": {
+            "contractId": "abg.operation.project.read",
+            "contractVersion": "5.0.0",
+            "contractDigest": "sha256:08d5cc55d7647743d43bbbb336157848684c55e3220ae21b4a626db51c199b68"
+          },
+          "nestedSelector": {
+            "selectorKind": "operation_definition_slot",
+            "definitionKey": {
+              "operationId": "abg.operation.project.read",
+              "memberKey": "run_lawful_actions"
+            },
+            "slot": "request",
+            "definitionRef": "#/definitions/15/requestContract/identity"
+          }
+        },
+        "requestRef": "request://hc1/run_lawful_actions",
+        "requestDigest": "sha256:c2f2f19a9c9a688fe9bd2534eda4229fa5b6135e6c9ab3e3361022d27466e58b",
+        "request": {
+          "caseKey": "run_lawful_actions",
+          "source": {
+            "sourceKind": "run",
+            "sourceRef": "source://hc1/run_lawful_actions",
+            "sourceDigest": "sha256:120512024c6f022b3baf2eb432e45b2a524bb5a1089c2c2302fb1d23d59f88bc"
+          },
+          "projectionBasis": {
+            "projectionBasisRef": "projection-basis://hc1/run_lawful_actions",
+            "projectionBasisDigest": "sha256:92e590c9eefab28e8a6cce5254660e360ce1c859d96536250263c11dad8425c5"
+          },
+          "selector": {
+            "kind": "next_action",
+            "projection": {
+              "ref": "projection://hc1",
+              "digest": "sha256:193a391b6f13800623446a2afbed1f2ccb74917d57bfcca1fcdb3c31c3a0b005"
+            }
+          }
+        },
+        "expectedResultContract": {
+          "contractCatalog": {
+            "productId": "product://hc1-proof/catalog",
+            "productContentDigest": "sha256:22e606db1abc0ceac19e722907232529aa9bf4f59b328a9a3bf37ebd2727b026",
+            "catalogId": "catalog://hc1-proof/public",
+            "catalogVersion": "5.0.0",
+            "catalogDigest": "sha256:50a1f8a52a7043f8d5d11ce4511d1b0f65550b9e7180ebc1b5a3d16da9e66622"
+          },
+          "flatRow": {
+            "contractId": "abg.operation.project.read",
+            "contractVersion": "5.0.0",
+            "contractDigest": "sha256:08d5cc55d7647743d43bbbb336157848684c55e3220ae21b4a626db51c199b68"
+          },
+          "nestedSelector": {
+            "selectorKind": "operation_definition_slot",
+            "definitionKey": {
+              "operationId": "abg.operation.project.read",
+              "memberKey": "run_lawful_actions"
+            },
+            "slot": "result",
+            "definitionRef": "#/definitions/15/resultContract/identity"
+          }
+        },
+        "expectedRefusalContract": {
+          "contractCatalog": {
+            "productId": "product://hc1-proof/catalog",
+            "productContentDigest": "sha256:22e606db1abc0ceac19e722907232529aa9bf4f59b328a9a3bf37ebd2727b026",
+            "catalogId": "catalog://hc1-proof/public",
+            "catalogVersion": "5.0.0",
+            "catalogDigest": "sha256:50a1f8a52a7043f8d5d11ce4511d1b0f65550b9e7180ebc1b5a3d16da9e66622"
+          },
+          "flatRow": {
+            "contractId": "abg.operation.project.read",
+            "contractVersion": "5.0.0",
+            "contractDigest": "sha256:08d5cc55d7647743d43bbbb336157848684c55e3220ae21b4a626db51c199b68"
+          },
+          "nestedSelector": {
+            "selectorKind": "operation_definition_slot",
+            "definitionKey": {
+              "operationId": "abg.operation.project.read",
+              "memberKey": "run_lawful_actions"
+            },
+            "slot": "refusal",
+            "definitionRef": "#/definitions/15/refusalContract/identity"
+          }
+        },
+        "expectedNonTerminalContract": null,
+        "correlationRef": "correlation://hc1/run_lawful_actions",
+        "eventTime": "2026-11-03T00:00:00.000Z",
+        "provenanceRefs": [],
+        "invocationRef": "invocation://abiogenesis/27acffbfd4571490a2acbd3c3c6ae3651fd2a3004621efdf11840bc5bbf53f89",
+        "invocationDigest": "sha256:27acffbfd4571490a2acbd3c3c6ae3651fd2a3004621efdf11840bc5bbf53f89"
+      },
+      "resources": {}
+    },
+    {
+      "invocation": {
+        "kind": "public_invocation",
+        "schemaVersion": "5.0.0",
+        "invocationContract": {
+          "contractCatalog": {
+            "productId": "product://hc1-proof/catalog",
+            "productContentDigest": "sha256:22e606db1abc0ceac19e722907232529aa9bf4f59b328a9a3bf37ebd2727b026",
+            "catalogId": "catalog://hc1-proof/public",
+            "catalogVersion": "5.0.0",
+            "catalogDigest": "sha256:50a1f8a52a7043f8d5d11ce4511d1b0f65550b9e7180ebc1b5a3d16da9e66622"
+          },
+          "flatRow": {
+            "contractId": "abg.schema.public-operation-invocation",
+            "contractVersion": "5.0.0",
+            "contractDigest": "sha256:9f2224ae0eb7573b6e15c17ce2530f952a0e7148c1da8019cdaa56e39e54b358"
+          },
+          "nestedSelector": {
+            "selectorKind": "schema_definition",
+            "definitionKey": null,
+            "slot": null,
+            "definitionRef": "#/$defs/PublicInvocation"
+          }
+        },
+        "definitionRef": "public-function://abiogenesis/run/continue/selected_action@5",
+        "definitionVersion": "5.0.0",
+        "definitionDigest": "sha256:dc4631ccc2d6592806b4bc4fb444802e0dd5d4eceb0b0e929807d34e5c5c5285",
+        "definitionKey": {
+          "operationId": "abg.operation.run.continue",
+          "memberKey": "selected_action"
+        },
+        "contractCatalog": {
+          "productId": "product://hc1-proof/catalog",
+          "productContentDigest": "sha256:22e606db1abc0ceac19e722907232529aa9bf4f59b328a9a3bf37ebd2727b026",
+          "catalogId": "catalog://hc1-proof/public",
+          "catalogVersion": "5.0.0",
+          "catalogDigest": "sha256:50a1f8a52a7043f8d5d11ce4511d1b0f65550b9e7180ebc1b5a3d16da9e66622"
+        },
+        "invocationAuthority": {
+          "kind": "invocation_authority",
+          "definitionKey": {
+            "operationId": "abg.operation.run.continue",
+            "memberKey": "selected_action"
+          },
+          "slots": {
+            "workspace_binding": {
+              "ref": "workspace-binding://hc1",
+              "digest": "sha256:fce81180e957a08cef0081d51bb0a6abad2952883155121c772e184898aac3f6"
+            },
+            "product_set": [
+              {
+                "ref": "product://hc1",
+                "digest": "sha256:bb24debfa565d09659b7d6bb36c96f83ae5f9d6577373b47b33b96de3babce07"
+              }
+            ],
+            "dependency_lock": {
+              "ref": "lock://hc1",
+              "digest": "sha256:b02ff9746473fb18d5038ba53052ff69f64f524a70ba6468b02be52e6694c2ef"
+            },
+            "catalog_scope": {
+              "ref": "catalog://hc1",
+              "digest": "sha256:6056a34285d73fd3fbe63ce7aaeba53d0338a6e4d1618b6b3cb52312e9c83485"
+            },
+            "execution_program": {
+              "ref": "program://hc1",
+              "digest": "sha256:99dd0b91f63d621812ca758c76f91f19a3dd57d8684029303cfa94378621582f"
+            },
+            "graph_function": {
+              "graphFunction": {
+                "ref": "graph-function://hc1",
+                "digest": "sha256:cc00b21ed8d51b15dae00bd35a4a57228c56d2e5d3781ee3dea21a2485b99176"
+              },
+              "membership": {
+                "ref": "membership://hc1",
+                "digest": "sha256:996a8b4d93287f731598a5798fdbb95df4e2c20ba116818a6c3cba36ca22f72a"
+              }
+            },
+            "input_contract": {
+              "contract": {
+                "ref": "contract://hc1/input",
+                "digest": "sha256:aeec15edd476df01db331f33527ff86388d903c04d4034746b02d17f96af293d"
+              },
+              "valueRef": "value://hc1",
+              "valueDigest": "sha256:c17aa32b151f8dc6a89a612e6d8d4412018226eef7312c55d74a591b0c36a18a",
+              "value": {
+                "value": "hc1"
+              }
+            },
+            "session_policy": {
+              "ref": "policy://hc1",
+              "digest": "sha256:903cbffb48a6a2d407a0639ea3ee8f28548c3e8fbf30a2b7aa630744b633f9b2"
+            },
+            "capability_grants": {
+              "requiredCapabilityRefs": [
+                "abg.capability.runtime.replay-continuation@5"
+              ],
+              "grants": [
+                {
+                  "ref": "grant://hc1",
+                  "digest": "sha256:8cd631d0624eb9e1035a99bcfc82d164638d8bdecb0022856f82a87790156329"
+                }
+              ]
+            },
+            "actor": {
+              "actor": {
+                "ref": "actor://hc1",
+                "digest": "sha256:1e6f7b295e32cdd33ce57a5277a8a0f108adaa0521a6a4f7b2bf7fe1412ab4da"
+              },
+              "attribution": {
+                "ref": "attribution://hc1",
+                "digest": "sha256:8a1e7da86127e849236154f477503d341ced42670614e3470ef6d5be6b5eebf3"
+              }
+            },
+            "transport_steering": {
+              "ref": "steering://hc1",
+              "digest": "sha256:ab0893fbf670d96141fdd596b94b3a8191c4f46c9f29c0d5180c55f7ed5e6d8f"
+            },
+            "verification_references": null,
+            "execution_basis": {
+              "ref": "execution-basis://hc1",
+              "digest": "sha256:082d61cb9c21d95fa786ecc7ea1b6ac10ea84f6ce47135b21495978780343c57"
+            }
+          },
+          "authorityDigest": "sha256:7a714a48b7d57b822cce47519b17ebdb9dc62097fa60df2f80b545b11753af61"
+        },
+        "requestContract": {
+          "contractCatalog": {
+            "productId": "product://hc1-proof/catalog",
+            "productContentDigest": "sha256:22e606db1abc0ceac19e722907232529aa9bf4f59b328a9a3bf37ebd2727b026",
+            "catalogId": "catalog://hc1-proof/public",
+            "catalogVersion": "5.0.0",
+            "catalogDigest": "sha256:50a1f8a52a7043f8d5d11ce4511d1b0f65550b9e7180ebc1b5a3d16da9e66622"
+          },
+          "flatRow": {
+            "contractId": "abg.operation.run.continue",
+            "contractVersion": "5.0.0",
+            "contractDigest": "sha256:b3a07d180262015ee52b1beb3dc7fec49251dcaf51e67db5f2e794055a909da2"
+          },
+          "nestedSelector": {
+            "selectorKind": "operation_definition_slot",
+            "definitionKey": {
+              "operationId": "abg.operation.run.continue",
+              "memberKey": "selected_action"
+            },
+            "slot": "request",
+            "definitionRef": "#/definitions/1/requestContract/identity"
+          }
+        },
+        "requestRef": "request://hc1/selected_action",
+        "requestDigest": "sha256:d4048f3a56b00ebddb6b6e69c9e176a639a07970e37180d63f373c9ce5c64c0c",
+        "request": {
+          "run": {
+            "ref": "run://hc1",
+            "digest": "sha256:383123d36e98a6d965b44d19507bce8056fcc2e873f71426aa409069775aa56a"
+          },
+          "continuation": {
+            "ref": "continuation://hc1",
+            "digest": "sha256:0d2a7bc911f0cbfb72f611f089646c3867a762d08bc5a6d6b82cc6c9cd0f29f7"
+          },
+          "selectedAction": {
+            "ref": "action://hc1",
+            "digest": "sha256:bc83e6385e721f9e004b30a13961e85a77e2135213cd4f1592d309124a042df8"
+          },
+          "basisRelation": {
+            "kind": "same_basis"
+          }
+        },
+        "expectedResultContract": {
+          "contractCatalog": {
+            "productId": "product://hc1-proof/catalog",
+            "productContentDigest": "sha256:22e606db1abc0ceac19e722907232529aa9bf4f59b328a9a3bf37ebd2727b026",
+            "catalogId": "catalog://hc1-proof/public",
+            "catalogVersion": "5.0.0",
+            "catalogDigest": "sha256:50a1f8a52a7043f8d5d11ce4511d1b0f65550b9e7180ebc1b5a3d16da9e66622"
+          },
+          "flatRow": {
+            "contractId": "abg.operation.run.continue",
+            "contractVersion": "5.0.0",
+            "contractDigest": "sha256:b3a07d180262015ee52b1beb3dc7fec49251dcaf51e67db5f2e794055a909da2"
+          },
+          "nestedSelector": {
+            "selectorKind": "operation_definition_slot",
+            "definitionKey": {
+              "operationId": "abg.operation.run.continue",
+              "memberKey": "selected_action"
+            },
+            "slot": "result",
+            "definitionRef": "#/definitions/1/resultContract/identity"
+          }
+        },
+        "expectedRefusalContract": {
+          "contractCatalog": {
+            "productId": "product://hc1-proof/catalog",
+            "productContentDigest": "sha256:22e606db1abc0ceac19e722907232529aa9bf4f59b328a9a3bf37ebd2727b026",
+            "catalogId": "catalog://hc1-proof/public",
+            "catalogVersion": "5.0.0",
+            "catalogDigest": "sha256:50a1f8a52a7043f8d5d11ce4511d1b0f65550b9e7180ebc1b5a3d16da9e66622"
+          },
+          "flatRow": {
+            "contractId": "abg.operation.run.continue",
+            "contractVersion": "5.0.0",
+            "contractDigest": "sha256:b3a07d180262015ee52b1beb3dc7fec49251dcaf51e67db5f2e794055a909da2"
+          },
+          "nestedSelector": {
+            "selectorKind": "operation_definition_slot",
+            "definitionKey": {
+              "operationId": "abg.operation.run.continue",
+              "memberKey": "selected_action"
+            },
+            "slot": "refusal",
+            "definitionRef": "#/definitions/1/refusalContract/identity"
+          }
+        },
+        "expectedNonTerminalContract": {
+          "contractCatalog": {
+            "productId": "product://hc1-proof/catalog",
+            "productContentDigest": "sha256:22e606db1abc0ceac19e722907232529aa9bf4f59b328a9a3bf37ebd2727b026",
+            "catalogId": "catalog://hc1-proof/public",
+            "catalogVersion": "5.0.0",
+            "catalogDigest": "sha256:50a1f8a52a7043f8d5d11ce4511d1b0f65550b9e7180ebc1b5a3d16da9e66622"
+          },
+          "flatRow": {
+            "contractId": "abg.operation.run.continue",
+            "contractVersion": "5.0.0",
+            "contractDigest": "sha256:b3a07d180262015ee52b1beb3dc7fec49251dcaf51e67db5f2e794055a909da2"
+          },
+          "nestedSelector": {
+            "selectorKind": "operation_definition_slot",
+            "definitionKey": {
+              "operationId": "abg.operation.run.continue",
+              "memberKey": "selected_action"
+            },
+            "slot": "non_terminal",
+            "definitionRef": "#/definitions/1/nonTerminalContract/identity"
+          }
+        },
+        "correlationRef": "correlation://hc1/selected_action",
+        "eventTime": "2026-11-03T00:00:00.000Z",
+        "provenanceRefs": [],
+        "invocationRef": "invocation://abiogenesis/f640f74c629b318790bd3c2b13621d56ba450a9e02daf173a439c61367f94da5",
+        "invocationDigest": "sha256:f640f74c629b318790bd3c2b13621d56ba450a9e02daf173a439c61367f94da5"
+      },
+      "resources": {}
+    }
+  ],
+  "declaredKeys": [
+    "abg.operation.catalog.admit#admit",
+    "abg.operation.catalog.apply#node_type",
+    "abg.operation.catalog.apply#overlay",
+    "abg.operation.catalog.view#allowlist",
+    "abg.operation.conformance.evaluate#gtl_program",
+    "abg.operation.interaction.respond#answer_escalation",
+    "abg.operation.interaction.respond#approve",
+    "abg.operation.interaction.respond#assess",
+    "abg.operation.interaction.respond#reject",
+    "abg.operation.interaction.respond#select",
+    "abg.operation.product.install#install",
+    "abg.operation.product.materialize#configuration",
+    "abg.operation.product.materialize#context_bootstrap",
+    "abg.operation.product.resolve#resolve",
+    "abg.operation.product.verify#verify",
+    "abg.operation.project.read#assessment_evidence",
+    "abg.operation.project.read#c_call_replay",
+    "abg.operation.project.read#catalog_describe",
+    "abg.operation.project.read#catalog_list",
+    "abg.operation.project.read#continuation_replay",
+    "abg.operation.project.read#graph_call_evidence",
+    "abg.operation.project.read#graph_call_replay",
+    "abg.operation.project.read#graph_call_result",
+    "abg.operation.project.read#graph_call_status",
+    "abg.operation.project.read#install_evidence",
+    "abg.operation.project.read#interaction_replay",
+    "abg.operation.project.read#release_evidence",
+    "abg.operation.project.read#result_evidence",
+    "abg.operation.project.read#run_evidence",
+    "abg.operation.project.read#run_gaps",
+    "abg.operation.project.read#run_lawful_actions",
+    "abg.operation.project.read#run_replay",
+    "abg.operation.project.read#run_result",
+    "abg.operation.project.read#run_status",
+    "abg.operation.project.read#ticket_consensus",
+    "abg.operation.project.read#witness_evidence",
+    "abg.operation.project.read#workspace_gaps",
+    "abg.operation.project.read#workspace_replay",
+    "abg.operation.project.read#workspace_status",
+    "abg.operation.release.snapshot#published_rc",
+    "abg.operation.release.snapshot#tapped_release",
+    "abg.operation.result.assess#assess",
+    "abg.operation.run.continue#current_intent",
+    "abg.operation.run.continue#selected_action",
+    "abg.operation.run.invoke#invoke",
+    "abg.operation.run.invoke#start",
+    "abg.operation.witness.admit#attest",
+    "abg.operation.witness.admit#hygiene-stamp",
+    "abg.operation.witness.admit#intake",
+    "abg.operation.witness.admit#reprice",
+    "abg.operation.witness.admit#run-resumed",
+    "abg.operation.witness.admit#run-stopped",
+    "abg.operation.workspace.bind#bind",
+    "abg.operation.workspace.create#clean",
+    "abg.operation.workspace.create#imported",
+    "abg.operation.workspace.open#open"
+  ]
+}

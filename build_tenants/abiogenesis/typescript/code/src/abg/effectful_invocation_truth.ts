@@ -38,7 +38,6 @@ export type EffectfulPublicInvocationPriorAdmission = {
     | "abg.operation.product.materialize"
     | "abg.operation.workspace.bind"
     | "abg.operation.run.invoke"
-    | "abg.operation.interaction.respond"
     | "abg.operation.run.continue";
   readonly publicInvocationRef: string;
   readonly ownerInvocationRef: string;

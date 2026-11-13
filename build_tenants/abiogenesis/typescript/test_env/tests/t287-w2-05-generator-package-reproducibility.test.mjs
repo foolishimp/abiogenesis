@@ -133,8 +133,8 @@ async function generatedSnapshot(run, api) {
     ))).flat(),
   ].sort();
   assert.deepEqual(actualPaths, expectedPaths, "generated payload exact set");
-  assert.equal(PUBLIC_PROJECTION_PAYLOADS.operationContractAssets.length, 18);
-  assert.equal(PUBLIC_FUNCTION_DEFINITION_FAMILY.definitions.length, 56);
+  assert.equal(PUBLIC_PROJECTION_PAYLOADS.operationContractAssets.length, 17);
+  assert.equal(PUBLIC_FUNCTION_DEFINITION_FAMILY.definitions.length, 46);
 
   const assetHashes = [];
   for (const asset of expectedAssets) {
@@ -168,7 +168,7 @@ async function generatedSnapshot(run, api) {
   assert.deepEqual(
     projectedRows.map(({ contractId }) => contractId).sort(),
     replacementIds,
-    "catalog must contain the exact 3 common plus 18 operation rows",
+    "catalog must contain the exact 3 common plus 17 operation rows",
   );
   assert.ok(projectedRows.every(({ contractVersion }) =>
     contractVersion === "5.0.0"
@@ -176,8 +176,8 @@ async function generatedSnapshot(run, api) {
   const operationRows = projectedRows.filter(({ contractId }) =>
     contractId.startsWith("abg.operation.")
   );
-  assert.equal(operationRows.length, 18);
-  assert.equal(new Set(operationRows.map(({ contractId }) => contractId)).size, 18);
+  assert.equal(operationRows.length, 17);
+  assert.equal(new Set(operationRows.map(({ contractId }) => contractId)).size, 17);
 
   const publicClosure = await exactPublicDeclarationClosure(
     manifest,
@@ -188,7 +188,7 @@ async function generatedSnapshot(run, api) {
     manifest.packageName,
     publicClosure,
   );
-  assert.equal(proposalSet.proposals.length, 21);
+  assert.equal(proposalSet.proposals.length, 20);
   assert.equal(
     canonicalJson(proposalSet.proposals),
     canonicalJson(projectedRows),
@@ -296,12 +296,12 @@ async function verifyPackedProduct(artifactPath, extractRoot, api) {
   assert.equal(verified.kind, "verified_product_artifact", JSON.stringify(verified));
   assert.equal(product.isVerifiedProductArtifact(verified), true);
   assert.ok(verified.definitionContractCoordinates);
-  assert.equal(verified.definitionContractCoordinates.operations.length, 18);
+  assert.equal(verified.definitionContractCoordinates.operations.length, 17);
   assert.equal(
     verified.definitionContractCoordinates.operations.flatMap(({ members }) =>
       members
     ).length,
-    56,
+    46,
   );
   const { verificationDigest, verificationRef, ...verificationBody } = verified;
   assert.ok(verificationBody.definitionContractCoordinates);
@@ -312,14 +312,14 @@ async function verifyPackedProduct(artifactPath, extractRoot, api) {
   );
   return {
     artifactDigest: request.expectedArtifactDigest,
-    definitionCount: 56,
-    operationCount: 18,
+    definitionCount: 46,
+    operationCount: 17,
     verificationDigest,
     verificationRef,
   };
 }
 
-test("W2-05 generator is reproducible and the real pack verifies 18/56", async () => {
+test("W2-05 generator is reproducible and the real pack verifies 17/46", async () => {
   const snapshots = [];
   let api;
   for (const run of [1, 2]) {
@@ -360,8 +360,8 @@ test("W2-05 generator is reproducible and the real pack verifies 18/56", async (
       assetPaths: second.generatedAssetPaths,
       assetSetDigest: second.assetSetDigest,
       operationIds: second.operationIds,
-      operationCount: 18,
-      definitionCount: 56,
+      operationCount: 17,
+      definitionCount: 46,
     },
     reproducibility: {
       buildCount: 2,

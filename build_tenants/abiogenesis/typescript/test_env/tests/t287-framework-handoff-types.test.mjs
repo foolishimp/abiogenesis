@@ -8,7 +8,7 @@ import assert from 'node:assert/strict';
 import fs from 'node:fs';
 import os from 'node:os';
 import path from 'node:path';
-import { execFileSync } from 'node:child_process';
+import { execFileSync, spawnSync } from 'node:child_process';
 import { pathToFileURL } from 'node:url';
 import ts from 'typescript';
 
@@ -139,11 +139,11 @@ test('HC1 proof source uses only canonical package imports and no proof-erasing 
   assert.doesNotMatch(proofText, /@ts-ignore|@ts-nocheck/);
   assert.equal(proofText.match(/@ts-expect-error/g).length, markers.length, 'every expected error is a named HC1 negative');
   assert.equal(new Set(markers.map(m => m.name)).size, markers.length);
-  assert.ok(markers.length >= 17);
+  assert.ok(markers.length >= 18);
   // The shipped constructors' crossed operation/variant pairings.
   assert.ok(markers.filter(m => m.name.startsWith('hc2-')).length >= 11);
-  assert.equal(oracle('DECLARED').length, 56);
-  assert.equal(oracle('UNAVAILABLE').length, 14);
+  assert.equal(oracle('DECLARED').length, 46);
+  assert.equal(oracle('UNAVAILABLE').length, 4);
 });
 
 test('canonical no-emit compile of the HC1 proof resolves package declarations and has no diagnostics', () => {
@@ -194,7 +194,7 @@ test('packed consumer compiles the HC1 proof from canonical package declarations
     packageDeclarations: declarations.length, negatives: markers.length}));
 });
 
-test('packed runtime keeps 56 declared, 42 callable and 14 unavailable members and its raw refusals', async t => {
+test('packed runtime keeps 46 declared, 42 callable and 4 unavailable members and its raw refusals', async t => {
   const pkg = await loadPackage(candidatePackage(t));
   const definitions = pkg.public.PUBLIC_FUNCTION_DEFINITION_FAMILY.definitions;
   assert.deepEqual(definitions.map(keyOf).sort(), [...oracle('DECLARED')].sort());
@@ -222,29 +222,10 @@ test('packed runtime keeps 56 declared, 42 callable and 14 unavailable members a
   const api = pkg.public, hash = pkg.product.sha256Canonical, ref = label => ({ref: label, digest: hash({label})});
   const contractCatalog = {productId: 'product://hc1-proof/catalog', productContentDigest: hash('hc1-content'),
     catalogId: 'catalog://hc1-proof/public', catalogVersion: '5.0.0', catalogDigest: hash('hc1-catalog')};
-  const respond = (responseKind, choice) => ({interaction: ref('interaction://hc1'), responseContract: ref('contract://hc1/response'),
-    responseKind, choice, value: {response: responseKind}, evidence: [ref('evidence://hc1')], currentBasis: ref('basis://hc1')});
   const witness = (act, subjectKind, context) => ({subjectKind, subject: ref(`subject://hc1/${act}`), act,
     content: {kind: 'typed_reason', contentContract: ref('contract://hc1/reason'), value: {reason: 'hc1'}},
     context, evidence: [ref('evidence://hc1')], provenance: [ref('provenance://hc1')]});
   const UNAVAILABLE_REQUESTS = {
-    'abg.operation.interaction.respond#answer_escalation': respond('answer_escalation', null),
-    'abg.operation.interaction.respond#approve': respond('approve', null),
-    'abg.operation.interaction.respond#assess': respond('assess', null),
-    'abg.operation.interaction.respond#reject': respond('reject', null),
-    'abg.operation.interaction.respond#select': respond('select', ref('choice://hc1')),
-    'abg.operation.project.read#ticket_consensus': {caseKey: 'ticket_consensus',
-      source: {sourceKind: 'consensus_result', sourceRef: 'consensus-result://hc1', sourceDigest: hash({label: 'consensus-result://hc1'})},
-      projectionBasis: {projectionBasisRef: 'projection-basis://hc1/ticket_consensus', projectionBasisDigest: hash({label: 'projection-basis://hc1'})},
-      selector: {kind: 'ticket_consensus', ticket: ref('ticket://hc1'), outputAuthority: ref('result://hc1'), replayBasis: ref('replay://hc1')}},
-    'abg.operation.project.read#run_gaps': {caseKey:'run_gaps',source:{sourceKind:'run',sourceRef:'source://hc1/run_gaps',sourceDigest:hash('run_gaps')},
-      projectionBasis:{projectionBasisRef:'projection-basis://hc1/run_gaps',projectionBasisDigest:hash('basis')},selector:{kind:'none'}},
-    'abg.operation.project.read#workspace_gaps': {caseKey:'workspace_gaps',source:{sourceKind:'workspace_binding',sourceRef:'source://hc1/workspace_gaps',sourceDigest:hash('workspace_gaps')},
-      projectionBasis:{projectionBasisRef:'projection-basis://hc1/workspace_gaps',projectionBasisDigest:hash('basis')},selector:{kind:'workspace_gap_basis',gapBasis:ref('gap-basis://hc1')}},
-    'abg.operation.project.read#run_lawful_actions': {caseKey:'run_lawful_actions',source:{sourceKind:'run',sourceRef:'source://hc1/run_lawful_actions',sourceDigest:hash('run_lawful_actions')},
-      projectionBasis:{projectionBasisRef:'projection-basis://hc1/run_lawful_actions',projectionBasisDigest:hash('basis')},selector:{kind:'next_action',projection:ref('projection://hc1')}},
-    'abg.operation.run.continue#selected_action': {run: ref('run://hc1'), continuation: ref('continuation://hc1'),
-      selectedAction: ref('action://hc1'), basisRelation: {kind: 'same_basis'}},
     'abg.operation.witness.admit#attest': witness('attest', 'evidence_claim', {kind: 'basis', basis: ref('basis://hc1')}),
     'abg.operation.witness.admit#hygiene-stamp': witness('hygiene-stamp', 'workspace', {kind: 'workspace', workspace: ref('workspace://hc1')}),
     'abg.operation.witness.admit#intake': witness('intake', 'intake_item', {kind: 'segment', run: ref('run://hc1'), segment: ref('segment://hc1')}),
@@ -287,7 +268,7 @@ test('packed runtime keeps 56 declared, 42 callable and 14 unavailable members a
     assert.equal(refused.code, 'installed_binding_unavailable', `${key}: ${refused.message}`);
     unavailableCalls.push(call);
   }
-  assert.equal(unavailableCalls.length, 14);
+  assert.equal(unavailableCalls.length, 4);
   const [call] = unavailableCalls;
   const unknown = await api.runInstalledDefinitionCallTransport({kind: 'eventless'}, {...call,
     invocation: {...call.invocation, definitionKey: {operationId: 'abg.operation.witness.admit', memberKey: 'absent'}}});
@@ -297,6 +278,38 @@ test('packed runtime keeps 56 declared, 42 callable and 14 unavailable members a
   assert.equal((await api.runInstalledDefinitionCallTransport({kind: 'new', eventLogPath: '/hc1/absent.jsonl'}, call)).code, 'acquisition_mismatch');
   t.diagnostic(JSON.stringify({kind: 'hc1_packed_runtime_inventory', declared: definitions.length, callable: callable.length, unavailable,
     rawUnavailableRefusals: unavailableCalls.map(row => `${row.invocation.definitionKey.operationId}#${row.invocation.definitionKey.memberKey}`)}));
+});
+
+test('the actual reduced register refuses all ten exact predecessor calls in transport and CLI', async t => {
+  const packageRoot = candidatePackage(t), pkg = await loadPackage(packageRoot);
+  const predecessor = JSON.parse(fs.readFileSync(new URL('../fixtures/t292-td26-p7/predecessor-calls.json', import.meta.url), 'utf8'));
+  assert.equal(predecessor.sourceRevision, 'eea1007295ad341c824ef4e9466ec5f29040bda8');
+  assert.equal(predecessor.predecessorTransportCode, 'installed_binding_unavailable');
+  const withdrawn = predecessor.calls.map(call => keyOf(call.invocation)).sort();
+  assert.deepEqual(withdrawn, [
+    ...['select', 'approve', 'reject', 'assess', 'answer_escalation'].map(key => `abg.operation.interaction.respond#${key}`),
+    ...['ticket_consensus', 'run_gaps', 'workspace_gaps', 'run_lawful_actions'].map(key => `abg.operation.project.read#${key}`),
+    'abg.operation.run.continue#selected_action',
+  ].sort());
+  assert.deepEqual(pkg.public.PUBLIC_FUNCTION_DEFINITION_FAMILY.definitions.map(keyOf).sort(),
+    predecessor.declaredKeys.filter(key => !withdrawn.includes(key)).sort(), 'exact predecessor membership minus the selected ten');
+  const temporary = scratch(t, 'abg-p7-withdrawn-calls-');
+  const cli = path.join(packageRoot, pkg.manifest.bin['abg.cli']);
+  for (const [ordinal, call] of predecessor.calls.entries()) {
+    const key = keyOf(call.invocation);
+    const outcome = await pkg.public.runInstalledDefinitionCallTransport({kind: 'eventless'}, call);
+    assert.equal(outcome.kind, 'installed_definition_call_transport_refusal', key);
+    assert.equal(outcome.code, 'unknown_definition', key);
+    const request = path.join(temporary, `${ordinal}.jsonl`);
+    fs.writeFileSync(request, JSON.stringify({kind: 'abg_cli_transport_request', schemaVersion: '5.0.0', acquisition: {kind: 'eventless'}, invocation: call}) + '\n');
+    const run = spawnSync(process.execPath, [cli, '--jsonl', request], {encoding: 'utf8'});
+    assert.equal(run.status, 2, `${key}: ${run.stderr}`);
+    const line = JSON.parse(run.stdout.trim());
+    assert.equal(line.kind, 'installed_definition_call_transport_refusal', key);
+    assert.equal(line.code, 'unknown_definition', key);
+  }
+  assert.equal(fs.existsSync(path.join(packageRoot, 'contracts/schemas/consensus.schema.json')), false);
+  assert.equal(fs.existsSync(path.join(packageRoot, 'contracts/public-operations/interaction/respond/operation-contract.json')), false);
 });
 
 // Retired (T-292 TD-59): 'per-slot owner schemas equal the exact014 baseline archive'; equality with a package cut before RC6 is a superseded-cut claim (the T-290 C-5 class).
@@ -318,7 +331,7 @@ test('every packed owner slot contract has its canonical projected schema', asyn
       if (!Object.hasOwn(asset?.content?.$defs ?? {}, memberKey)) unprojected.push({operationId, memberKey, slot});
     }
   }
-  assert.equal(rows.size, 56 * SLOTS.length);
+  assert.equal(rows.size, 46 * SLOTS.length);
   assert.deepEqual(unprojected, [], 'every owner slot contract has its canonical projected schema');
   t.diagnostic(JSON.stringify({kind: 'hc1_projected_slot_schemas', slots: rows.size, contracts}));
 });

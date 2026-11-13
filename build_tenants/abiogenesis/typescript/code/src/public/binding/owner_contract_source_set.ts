@@ -5,7 +5,6 @@ import { CATALOG_OPERATION_CONTRACTS } from "../../product/catalog_operation_con
 import { PRODUCT_ENVIRONMENT_CONTRACTS } from "../../product/environment_operation_contracts.js";
 import { PRODUCT_INSTALL_CONTRACTS } from "../../product/install_operation_contracts.js";
 import {
-  INTERACTION_OPERATION_CONTRACTS,
   RESULT_OPERATION_CONTRACTS,
 } from "../../product/interaction_operation_contracts.js";
 import {
@@ -34,7 +33,7 @@ import type * as ProductOwnerModule from "../../product/index.js";
 import type * as ValidatorOwnerModule from "../../validator/index.js";
 
 export const EXACT_OWNER_CONTRACT_KEY_SET_DIGEST =
-  "sha256:61077d017dbbe0bd071f312066d27bc6535a732aa9da00cd543a70506ec24a4f" as const;
+  "sha256:0988d2088a089d32fa2c90589ee02afb44140dcf68cb463a0f68df6c1a0dcd81" as const;
 
 const OWNER_BINDING_PACKAGE_NAME = "@abiogenesis/typescript-tenant";
 const SELECTED_DEFINITION_FRAME =
@@ -187,13 +186,6 @@ export const OWNER_CONTRACT_MODULE_SOURCES = Object.freeze([
   Object.freeze({
     sourceModulePath: "product/interaction_operation_contracts.ts",
     packageExportPath: "./product",
-    definitionBindingExportName: "INTERACTION_DEFINITION_BINDINGS",
-    definitionBindingKind: "statically_composed_callable",
-    contractRoot: INTERACTION_OPERATION_CONTRACTS,
-  }),
-  Object.freeze({
-    sourceModulePath: "product/interaction_operation_contracts.ts",
-    packageExportPath: "./product",
     definitionBindingExportName: "RESULT_DEFINITION_BINDINGS",
     definitionBindingKind: "statically_composed_callable",
     contractRoot: RESULT_OPERATION_CONTRACTS,
@@ -329,7 +321,7 @@ type OwnerDefinitionMembersOf<TRow extends OwnerContractModuleSourceRow> =
     : never
     : never;
 
-/** The fifty-six declared packet members with their binding leaves. */
+/** The forty-six declared packet members with their binding leaves. */
 export type OwnerDefinitionMember = OwnerContractModuleSourceRow extends
   infer TRow ? TRow extends OwnerContractModuleSourceRow
     ? OwnerDefinitionMembersOf<TRow>
@@ -688,9 +680,9 @@ const distinctKeys = new Set(
 );
 
 if (
-  operationCount !== 18 ||
-  OWNER_CONTRACT_SOURCES.length !== 56 ||
-  distinctKeys.size !== 56 ||
+  operationCount !== 17 ||
+  OWNER_CONTRACT_SOURCES.length !== 46 ||
+  distinctKeys.size !== 46 ||
   OWNER_CONTRACT_KEY_SET_DIGEST !== EXACT_OWNER_CONTRACT_KEY_SET_DIGEST
 ) {
   throw new TypeError(

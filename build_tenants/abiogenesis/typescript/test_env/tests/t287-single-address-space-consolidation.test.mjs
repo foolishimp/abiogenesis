@@ -1033,12 +1033,12 @@ test('RAW F_H hold seed: an explicit conditional root grant and one exact basis/
   // are reserved to 5.1; the orphan response operation is refused by the
   // complete-pair case above.
   const load = name => import(pathToFileURL(join(packageRoot, 'build/code/src', name + '.js')).href);
-  const [abg, store, prefixes, digests, fh, effectful, invocations, calculus, cCalls, cursors, family, interaction, product, capabilities,
+  const [abg, store, prefixes, digests, fh, effectful, invocations, calculus, cCalls, cursors, family, runContracts, product, capabilities,
     values] = await Promise.all(['abg/index', 'abg/event_store', 'abg/event_prefix', 'shared/digests', 'abg/fh_continuation_projection',
     'abg/effectful_invocation_truth', 'abg/invocation_execution_truth', 'abg/event_calculus', 'abg/c_call', 'abg/traversal_cursor',
-    'public/binding/public_function_family', 'product/interaction_operation_contracts', 'product/index', 'shared/capability_contracts',
+    'public/binding/public_function_family', 'product/run_operation_contracts', 'product/index', 'shared/capability_contracts',
     'shared/value/index'].map(load));
-  const hash = digests.sha256Canonical, modules = {store, digests, family, interaction, capabilities, values, cursors};
+  const hash = digests.sha256Canonical, modules = {store, digests, family, runContracts, capabilities, values, cursors};
   const seed = rawFhResponseSeed(modules);
   const select = rows => prefixes.selectValidatedRuntimeEventPrefix(freezeRaw([...rows]));
   const runCut = rows => prefixes.selectValidatedRuntimeEventPrefix(freezeRaw([...rows]), {runId: seed.runId});
@@ -1117,10 +1117,10 @@ test('RAW F_H hold seed: a hand-built response, resume, abandonment or F_H super
   // The four kinds stay declared for 5.1 and have no 5.0 reader. Each log is
   // the seed plus one contract-valid row stamped by the actual projector.
   const load = name => import(pathToFileURL(join(packageRoot, 'build/code/src', name + '.js')).href);
-  const [store, prefixes, digests, fh, calculus, cursors, family, interaction, capabilities, values] = await Promise.all(['abg/event_store',
+  const [store, prefixes, digests, fh, calculus, cursors, family, runContracts, capabilities, values] = await Promise.all(['abg/event_store',
     'abg/event_prefix', 'shared/digests', 'abg/fh_continuation_projection', 'abg/event_calculus', 'abg/traversal_cursor',
-    'public/binding/public_function_family', 'product/interaction_operation_contracts', 'shared/capability_contracts', 'shared/value/index'].map(load));
-  const hash = digests.sha256Canonical, seed = rawFhResponseSeed({store, digests, family, interaction, capabilities, values, cursors});
+    'public/binding/public_function_family', 'product/run_operation_contracts', 'shared/capability_contracts', 'shared/value/index'].map(load));
+  const hash = digests.sha256Canonical, seed = rawFhResponseSeed({store, digests, family, runContracts, capabilities, values, cursors});
   const select = rows => prefixes.selectValidatedRuntimeEventPrefix(freezeRaw([...rows]));
   const runCut = rows => prefixes.selectValidatedRuntimeEventPrefix(freezeRaw([...rows]), {runId: seed.runId});
   const {opened} = seed.events;

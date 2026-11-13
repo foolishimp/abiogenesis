@@ -48,11 +48,6 @@ const DECLARED = [
   "abg.operation.catalog.apply#overlay",
   "abg.operation.catalog.view#allowlist",
   "abg.operation.conformance.evaluate#gtl_program",
-  "abg.operation.interaction.respond#answer_escalation",
-  "abg.operation.interaction.respond#approve",
-  "abg.operation.interaction.respond#assess",
-  "abg.operation.interaction.respond#reject",
-  "abg.operation.interaction.respond#select",
   "abg.operation.product.install#install",
   "abg.operation.product.materialize#configuration",
   "abg.operation.product.materialize#context_bootstrap",
@@ -72,21 +67,16 @@ const DECLARED = [
   "abg.operation.project.read#release_evidence",
   "abg.operation.project.read#result_evidence",
   "abg.operation.project.read#run_evidence",
-  "abg.operation.project.read#run_gaps",
-  "abg.operation.project.read#run_lawful_actions",
   "abg.operation.project.read#run_replay",
   "abg.operation.project.read#run_result",
   "abg.operation.project.read#run_status",
-  "abg.operation.project.read#ticket_consensus",
   "abg.operation.project.read#witness_evidence",
-  "abg.operation.project.read#workspace_gaps",
   "abg.operation.project.read#workspace_replay",
   "abg.operation.project.read#workspace_status",
   "abg.operation.release.snapshot#published_rc",
   "abg.operation.release.snapshot#tapped_release",
   "abg.operation.result.assess#assess",
   "abg.operation.run.continue#current_intent",
-  "abg.operation.run.continue#selected_action",
   "abg.operation.run.invoke#invoke",
   "abg.operation.run.invoke#start",
   "abg.operation.witness.admit#attest",
@@ -101,16 +91,6 @@ const DECLARED = [
   "abg.operation.workspace.open#open",
 ] as const;
 const UNAVAILABLE = [
-  "abg.operation.interaction.respond#answer_escalation",
-  "abg.operation.interaction.respond#approve",
-  "abg.operation.interaction.respond#assess",
-  "abg.operation.interaction.respond#reject",
-  "abg.operation.interaction.respond#select",
-  "abg.operation.project.read#run_gaps",
-  "abg.operation.project.read#run_lawful_actions",
-  "abg.operation.project.read#ticket_consensus",
-  "abg.operation.project.read#workspace_gaps",
-  "abg.operation.run.continue#selected_action",
   "abg.operation.witness.admit#attest",
   "abg.operation.witness.admit#hygiene-stamp",
   "abg.operation.witness.admit#intake",
@@ -121,14 +101,14 @@ type Unavailable = (typeof UNAVAILABLE)[number];
 type CallableKey = OwnerDefinitionCompositeKey<OwnerCallableDefinitionMember>;
 
 export type FamilyProof = [
-  Assert<Equal<(typeof DECLARED)["length"], 56>>,
+  Assert<Equal<(typeof DECLARED)["length"], 46>>,
   Assert<Distinct<typeof DECLARED>>,
-  Assert<Equal<(typeof UNAVAILABLE)["length"], 14>>,
+  Assert<Equal<(typeof UNAVAILABLE)["length"], 4>>,
   Assert<Distinct<typeof UNAVAILABLE>>,
   Assert<Equal<Exclude<Unavailable, Declared>, never>>,
   Assert<Equal<OwnerDefinitionCompositeKey, Declared>>,
   Assert<Equal<OwnerDefinitionCompositeKey<OwnerUnavailableDefinitionMember>, Unavailable>>,
-  // 56 - 14 = 42 callable members.
+  // 46 - 4 = 42 callable members.
   Assert<Equal<CallableKey, Exclude<Declared, Unavailable>>>,
   Assert<Equal<OwnerUnavailableDefinitionMember["binding"], { readonly kind: "installed_binding_unavailable" }>>,
 ];
@@ -219,12 +199,13 @@ export type OutputProof = [
 ];
 
 // Unavailable members are only refused; raw input keeps the raw outcome and
-// every existing transport refusal code.
+// every existing transport refusal code. A withdrawn key is raw input, with
+// no declared member-specific outcome.
 type UnavailableCandidate = { readonly invocation: { readonly definitionKey: { readonly operationId: "abg.operation.witness.admit"; readonly memberKey: "attest" } }; readonly resources: {} };
-type SelectedActionCandidate = { readonly invocation: { readonly definitionKey: { readonly operationId: "abg.operation.run.continue"; readonly memberKey: "selected_action" } }; readonly resources: {} };
+type WithdrawnSelectedActionCandidate = { readonly invocation: { readonly definitionKey: { readonly operationId: "abg.operation.run.continue"; readonly memberKey: "selected_action" } }; readonly resources: {} };
 export type RefusalProof = [
   Assert<Equal<InstalledDefinitionCallTransportOutcomeOf<UnavailableCandidate>, InstalledDefinitionCallTransportRefusal>>,
-  Assert<Equal<InstalledDefinitionCallTransportOutcomeOf<SelectedActionCandidate>, InstalledDefinitionCallTransportRefusal>>,
+  Assert<Equal<InstalledDefinitionCallTransportOutcomeOf<WithdrawnSelectedActionCandidate>, InstalledDefinitionCallTransportOutcome>>,
   Assert<Equal<InstalledDefinitionCallTransportOutcomeOf<unknown>, InstalledDefinitionCallTransportOutcome>>,
   Assert<Equal<InstalledDefinitionCallTransportRefusal["code"],
     "invalid_definition_call" | "unknown_definition" | "installed_binding_unavailable" | "acquisition_mismatch">>,
