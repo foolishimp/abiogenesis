@@ -1,9 +1,10 @@
-import { lstatSync, readFileSync, readdirSync, readlinkSync, realpathSync, type Dirent, type Stats } from "node:fs";
+import { lstatSync, readFileSync, readdirSync, readlinkSync, type Dirent, type Stats } from "node:fs";
 import { lstat, readFile, readdir, readlink, realpath } from "node:fs/promises";
 import { resolve } from "node:path";
 
 import { compareUnicodeCodeUnits } from "../shared/canonical_json.js";
 import { sha256Bytes, type Sha256Digest } from "../shared/digests.js";
+import { storedSpelling } from "../shared/stored_spelling.js";
 
 // One recursive walk over a filesystem tree. The C2 Worker and the file replace
 // walk an installed Product root before and after their effect and record its
@@ -91,7 +92,7 @@ function callSync(step: WalkStep): unknown {
     case "readdir": return readdirSync(step.path, { withFileTypes: true });
     case "readlink": return readlinkSync(step.path);
     case "readFile": return readFileSync(step.path);
-    case "realpath": return realpathSync.native(step.path);
+    case "realpath": return storedSpelling(step.path);
   }
 }
 

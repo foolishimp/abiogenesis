@@ -9,9 +9,10 @@ import type { ModulePublication, GtlProgram, GraphFunction } from "../gtl/contra
 import { isRunEnvironmentEvidence, type RunEnvironmentEvidence,
   stdoSourceInventory, stdoRecordInventory } from "../abg/stdo_environment.js";
 import { sha256Bytes, sha256Canonical } from "../shared/digests.js";
+import { spelledAsStored } from "../shared/stored_spelling.js";
 import type { JsonValue } from "../shared/canonical_json.js";
 import { deepFreeze } from "../shared/immutable.js";
-import { lstatSync, readFileSync, realpathSync } from "node:fs";
+import { lstatSync, readFileSync } from "node:fs";
 import { isRunEnvironmentDeclaration } from "../gtl/stdo_run_environment.js";
 import { WORKSITE_COMMAND_EXECUTION_CONTEXT_INVENTORY } from "../gtl/worksite_command_execution.js";
 import { WORKSITE_COMMAND_EXECUTION_IDS } from "./worksite_command_execution_identity.js";
@@ -95,11 +96,11 @@ export function compareInstalledC2ContextMaterial(
           install.kind !== "product_install" || install.disposition !== "admitted" || !install.admissionEventRef ||
           install.productId !== publication.owningProductId || install.artifactDigest !== publication.artifactDigest ||
           install.productContentDigest !== publication.productContentDigest || install.manifestDigest !== publication.productManifestDigest ||
-          !isAbsolute(install.installedRoot) || realpathSync(install.installedRoot) !== install.installedRoot)
+          !isAbsolute(install.installedRoot) || !spelledAsStored(install.installedRoot))
         throw new TypeError("C2 Context lacks its exact actual installed owner");
       const file = (memberPath: string): Buffer => {
         const absolute = resolve(install.installedRoot, memberPath), stat = lstatSync(absolute);
-        if (!inside(install.installedRoot, absolute) || !stat.isFile() || stat.isSymbolicLink() || realpathSync(absolute) !== absolute)
+        if (!inside(install.installedRoot, absolute) || !stat.isFile() || stat.isSymbolicLink() || !spelledAsStored(absolute))
           throw new TypeError("C2 Context material is not its canonical installed file");
         return readFileSync(absolute);
       };

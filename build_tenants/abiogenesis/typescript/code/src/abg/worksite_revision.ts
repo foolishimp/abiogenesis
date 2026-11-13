@@ -14,6 +14,7 @@ import { isWorksiteFileParentsSuccess } from "../product/worksite_effect.js";
 import { canonicalJson, type JsonValue } from "../shared/canonical_json.js";
 import { sha256Bytes, sha256Canonical, type Sha256Digest } from "../shared/digests.js";
 import { pathRelation, pathStrictlyWithin } from "../shared/path_confinement.js";
+import { spelledAsStored } from "../shared/stored_spelling.js";
 import { constructWorksiteObservation, isWorksiteObservation, type WorksiteObservation, type WorksiteSubject } from "../product/worksite_effect.js";
 import { isSemanticStageEnvelope, projectSemanticWorksiteCoordinates, type SemanticWorksiteBasis } from "../product/semantic_stage.js";
 import { isSemanticRevisionEnvelope, isSemanticRevisionRequest, isSemanticRevisionSelectionInput, isSemanticRevisionSelection,
@@ -37,7 +38,7 @@ import { projectRuntimeEventFromValidatedHistory, type RuntimeEvent } from "./ev
 import { projectWorksiteTransitionForResult, deriveRuntimeHeldFluentProjection, holdsAt,
   constructWorksiteObservationCurrentFluent } from "./event_calculus.js";
 import type { ChildExecutionBasisInput, ExecutionBasis } from "./execution_basis.js";
-import { readFileSync, lstatSync, realpathSync } from "node:fs";
+import { readFileSync, lstatSync } from "node:fs";
 import { resolve } from "node:path";
 import { canonicalEquals, presentMember } from "../shared/value/index.js";
 import { checkExactRecord, onlyExactMatch, resolveExactMatch, type ExactMatch, type RecordCheck } from "../shared/select/index.js";
@@ -729,19 +730,19 @@ export function projectWorksiteRevisionOrigins(prefix: RuntimeEventPrefix, seedB
 export function worksiteRevisionPhysicalMatches(current: SemanticWorksiteBasis): boolean {
   try {
     const root = current.workspaceAuthorityBasis.canonicalRoot;
-    if (resolve(root) !== root || realpathSync(root) !== root) return false;
+    if (resolve(root) !== root || !spelledAsStored(root)) return false;
     return current.targets.every(row => {
       const path = resolve(root, row.target.subject.relativePath);
       if (!pathStrictlyWithin(pathRelation(root, path))) return false;
       let cursor = root;
       for (const part of row.target.subject.relativePath.split("/").slice(0, -1)) {
         cursor = resolve(cursor, part);
-        if (realpathSync(cursor) !== cursor || !lstatSync(cursor).isDirectory() || lstatSync(cursor).isSymbolicLink()) return false;
+        if (!spelledAsStored(cursor) || !lstatSync(cursor).isDirectory() || lstatSync(cursor).isSymbolicLink()) return false;
       }
       let observed: ReturnType<typeof constructWorksiteObservation>;
       try {
         const stat = lstatSync(path), bytes = readFileSync(path);
-        if (!stat.isFile() || stat.isSymbolicLink() || stat.nlink !== 1 || realpathSync(path) !== path || bytes.toString("base64") !== row.base64) return false;
+        if (!stat.isFile() || stat.isSymbolicLink() || stat.nlink !== 1 || !spelledAsStored(path) || bytes.toString("base64") !== row.base64) return false;
         observed = constructWorksiteObservation({ subject: row.target.subject, state: "file", fileIdentity: `${stat.dev}:${stat.ino}`,
           fileDigest: sha256Bytes(bytes), byteLength: bytes.length });
       } catch (error) {
@@ -757,17 +758,17 @@ export function retainedWorksitePhysicalMatches(authority:WorkspaceAuthorityBasi
   rows:readonly Readonly<{subject:WorksiteSubject;observation:WorksiteObservation}>[]):boolean {
   try{
     const root=authority.canonicalRoot;
-    if(resolve(root)!==root||realpathSync(root)!==root)return false;
+    if(resolve(root)!==root||!spelledAsStored(root))return false;
     return rows.every(row=>{
       const target=resolve(root,row.subject.relativePath);
       if(!pathStrictlyWithin(pathRelation(root,target))||row.observation.state!=="file")return false;
       let cursor=root;
       for(const part of row.subject.relativePath.split("/").slice(0,-1)){
         cursor=resolve(cursor,part);const stat=lstatSync(cursor);
-        if(!stat.isDirectory()||stat.isSymbolicLink()||realpathSync(cursor)!==cursor)return false;
+        if(!stat.isDirectory()||stat.isSymbolicLink()||!spelledAsStored(cursor))return false;
       }
       const stat=lstatSync(target),bytes=readFileSync(target);
-      return stat.isFile()&&!stat.isSymbolicLink()&&stat.nlink===1&&realpathSync(target)===target&&
+      return stat.isFile()&&!stat.isSymbolicLink()&&stat.nlink===1&&spelledAsStored(target)&&
         canonicalEquals(
           constructWorksiteObservation({subject:row.subject,state:"file",fileIdentity:`${stat.dev}:${stat.ino}`,
             fileDigest:sha256Bytes(bytes),byteLength:bytes.length}),

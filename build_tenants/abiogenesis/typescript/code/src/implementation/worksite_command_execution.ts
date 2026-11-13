@@ -11,7 +11,6 @@ import {
   linkSync,
   mkdirSync,
   readFileSync,
-  realpathSync,
   unlinkSync,
   writeFileSync,
 } from "node:fs";
@@ -56,6 +55,7 @@ import {
 } from "../shared/digests.js";
 import { admitIJsonValue } from "../shared/i_json.js";
 import { classifyPathRelation, pathRelation, pathStrictlyWithin, pathWithin } from "../shared/path_confinement.js";
+import { spelledAsStored, storedSpelling } from "../shared/stored_spelling.js";
 import { deepFreeze } from "../shared/immutable.js";
 import { admitJson } from "../shared/admit/index.js";
 import type {
@@ -216,7 +216,7 @@ function plannedCanonicalPath(path: string): string {
       if (!node.isDirectory() && missing.length > 0) {
         throw new TypeError("workspace execution root crosses a non-directory node");
       }
-      return resolve(realpathSync(cursor), ...missing);
+      return resolve(storedSpelling(cursor), ...missing);
     } catch (error) {
       if ((error as NodeJS.ErrnoException).code !== "ENOENT") throw error;
       const parent = dirname(cursor);
@@ -243,7 +243,7 @@ function assertCanonicalArchiveRoot(path: string): void {
   const declared = resolve(path);
   const node = lstatSync(declared);
   if (path !== declared || node.isSymbolicLink() || !node.isDirectory() ||
-    realpathSync(declared) !== declared) {
+    !spelledAsStored(declared)) {
     throw new TypeError("command execution archive root must be one canonical concrete directory");
   }
 }
@@ -256,7 +256,7 @@ function observeWorksiteSubjectSync(
   const rootStatus = lstatSync(declaredRoot);
   if (declaredRoot !== task.workspaceAuthorityBasis.canonicalRoot ||
     rootStatus.isSymbolicLink() || !rootStatus.isDirectory() ||
-    realpathSync(declaredRoot) !== declaredRoot) {
+    !spelledAsStored(declaredRoot)) {
     throw new TypeError("canonical worksite root changed before Worker dispatch");
   }
   const target = resolve(declaredRoot, ...subject.relativePath.split("/"));
@@ -272,7 +272,7 @@ function observeWorksiteSubjectSync(
   for (const [ordinal, segment] of subject.relativePath.split("/").entries()) {
     cursor = resolve(cursor, segment);
     const status = lstatSync(cursor);
-    if (status.isSymbolicLink() || realpathSync(cursor) !== cursor) {
+    if (status.isSymbolicLink() || !spelledAsStored(cursor)) {
       throw new TypeError("protected subject has a symlink or physical alias");
     }
     const final = ordinal === subject.relativePath.split("/").length - 1;
@@ -366,7 +366,7 @@ function assertExistingCanonicalNode(
   }
   const node = lstatSync(path);
   if (node.isSymbolicLink() ||
-    realpathSync(path) !== path ||
+    !spelledAsStored(path) ||
     (expectedKind === "directory" ? !node.isDirectory() : !node.isFile())) {
     throw new TypeError(`command execution path must be one concrete ${expectedKind}`);
   }
