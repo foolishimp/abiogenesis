@@ -62,6 +62,7 @@ import {
   td23Partitions,
 } from "../support/new-empty-append-sink.mjs";
 import { privateOwner } from "../support/r10-private-owner-harness.mjs";
+import { eventStoreLockPathOf } from "../support/event-store-lock.mjs";
 import { eventLogPath as s01EventLogPath, historical as s01Historical, reopenPackagedS01Store, s01Skip } from "../fixtures/r10-projection-family/s01-store.mjs";
 import {
   publicOperationBasis,
@@ -1204,11 +1205,7 @@ test("M5 durable reopen refuses a modified authority carrier", async (context) =
 test("M5 durable reopen does not steal ownership from an abandoned lock", async (context) => {
   const prefix = await durablePrefix(context);
   const identity = await stat(prefix.eventLogPath);
-  const lockPath = join(
-    tmpdir(),
-    "abiogenesis-event-store-locks-v5",
-    `${identity.dev}-${identity.ino}.lock`,
-  );
+  const lockPath = eventStoreLockPathOf(identity);
   context.after(async () => rm(lockPath, { force: true }));
   await writeFile(
     lockPath,
@@ -1979,7 +1976,7 @@ const HS03_DAMAGE = Object.freeze({
   truncated: path => fs.truncateSync(path, fs.statSync(path).size - 1),
 });
 const hs03Restore = f => fs.writeFileSync(f.stdoutPath, f.archiveBytes);
-const hs03Lock = eventLogPath => { const s = fs.statSync(eventLogPath); return join(tmpdir(), "abiogenesis-event-store-locks-v5", `${s.dev}-${s.ino}.lock`); };
+const hs03Lock = eventLogPath => eventStoreLockPathOf(fs.statSync(eventLogPath));
 // A former owner PID that is no longer live.
 const hs03DeadPid = () => { const child = hs03SpawnSync(process.execPath, ["-e", ""]); assert.equal(child.status, 0); return child.pid; };
 

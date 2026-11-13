@@ -1015,8 +1015,9 @@ test('Maintained setup retains actual owner verification through ten native call
   assert.equal(records.some(path=>path.endsWith('.jsonl')),false);
   assert.equal((await readdir(join(root,'calls'))).some(name=>name.endsWith('.jsonl')),false);
 
-  // Configured PATH/TMPDIR reach every setup record, the installation npm and
-  // the event-resource lock namespace; ambient values hold outside the scope.
+  // Configured PATH/TMPDIR reach every setup record and the installation npm;
+  // ambient values hold outside the scope. The event-resource lock namespace
+  // follows no TMPDIR (T-292 TD-82): setup makes no lock directory under it.
   const inside=environmentAtRecord.filter(row=>row.path.startsWith('calls/')||row.path==='consumer-acquisition.json');
   assert.ok(inside.length>=labels.length*2);
   assert.ok(inside.every(row=>row.PATH===setupEnvironment.PATH&&row.TMPDIR===setupEnvironment.TMPDIR));
@@ -1029,7 +1030,7 @@ test('Maintained setup retains actual owner verification through ten native call
     assert.equal(row.PATH,setupEnvironment.PATH);assert.equal(row.TMPDIR,setupEnvironment.TMPDIR);
     assert.match(row.args,/^install /u);assert.ok(row.args.endsWith(' '+observed.get('product-install-'+i).call.resources.packedArtifact.artifactPath));
   }
-  assert.equal((await lstat(join(setupTmp,'abiogenesis-event-store-locks-v5'))).isDirectory(),true);
+  await assert.rejects(lstat(join(setupTmp,'abiogenesis-event-store-locks-v5')),{code:'ENOENT'});
 
   // Heavy owner entries by Product and phase, all in the one installed instance.
   // The complete serial setup interval (every phase before 'complete') is
@@ -1096,7 +1097,7 @@ test('Maintained setup retains actual owner verification through ten native call
       'fixed nonempty declaration path reads the installed bundled lib.*.full.d.ts default-library root once; the warm control shows the read persists after compiler warm-up.',
       limits:['It does not count every verifier invocation or all declaration work.',
         'Zero reads in a phase exclude only fresh full program construction there, not preliminary parsing.']},
-    environment:{configuredKeys:['PATH','TMPDIR'],installationNpmCalls:npmCalls.length,lockNamespaceUnderConfiguredTmp:true,
+    environment:{configuredKeys:['PATH','TMPDIR'],installationNpmCalls:npmCalls.length,lockNamespaceUnderConfiguredTmp:false,
       restoredAfterSuccess:true,restoredAfterFailure:true,ambientInProcessKeys:inheritedKeys,fullEnvironmentEquivalence:false},setupCliChildren:0,setupJsonlRequests:0,
     resolveCall:{invocationRef:resolved.call.invocation.invocationRef,invocationDigest:resolved.call.invocation.invocationDigest},
     limits:'Provider-free setup proof only: measured phases of this run; library reads bound only fresh full TypeScript program construction on this path; '+

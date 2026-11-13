@@ -7,6 +7,7 @@ import { captureRuntimeEventCandidate, decodeEventBody, encodeEventBody, inlineE
 import { RuntimeHistory, RuntimeHistorySelection, RuntimeEventBodyView, runtimeHistoryRow, runtimeHistorySelectorKeys,
   type RuntimeEventBodyLocation } from "./runtime_history.js";
 import {
+  chmodSync,
   closeSync,
   constants,
   fstatSync,
@@ -22,7 +23,7 @@ import {
   writeFileSync,
   writeSync,
 } from "node:fs";
-import { tmpdir } from "node:os";
+import { tmpdir, userInfo } from "node:os";
 import { dirname, join, resolve } from "node:path";
 import { fileURLToPath, pathToFileURL } from "node:url";
 
@@ -1594,10 +1595,48 @@ function isNodeError(error: unknown, code: string): boolean {
   );
 }
 
-function durableLockPath(identity: DurableFileIdentity): string {
-  const lockRoot = join(tmpdir(), "abiogenesis-event-store-locks-v5");
-  mkdirSync(lockRoot, { recursive: true });
-  return join(lockRoot, `${identity.device}-${identity.inode}.lock`);
+const HELD_DURABLE_LOG_MESSAGE =
+  "ABG durable event sink already has an exclusive append lock; abandoned locks require explicit operator recovery";
+const DURABLE_LOCK_NAMESPACE = "abiogenesis-event-store-locks-v5";
+
+/** @internal The one owner of the append lock path of the log with this
+ * device and inode. On POSIX the namespace is one directory per user under
+ * `/tmp`, named with the user id and read from no environment variable:
+ * created with mode 0700, and refused if it is a symbolic link, is not a
+ * directory or is not owned by the user. Elsewhere the fixed directory is
+ * under the OS-reported account home (`userInfo`, not environment-derived
+ * `homedir`); a missing/unavailable home refuses without a temporary fallback. */
+export function durableAppendLockPath(identity: Readonly<{ device: number; inode: number }>): string {
+  const name = `${identity.device}-${identity.inode}.lock`;
+  const uid = typeof process.getuid === "function" ? process.getuid() : null;
+  const lockRoot = uid === null
+    ? join(userInfo().homedir, `.${DURABLE_LOCK_NAMESPACE}`)
+    : join("/tmp", `${DURABLE_LOCK_NAMESPACE}-uid-${uid}`);
+  try {
+    mkdirSync(lockRoot, { mode: 0o700 });
+    if (uid !== null) chmodSync(lockRoot, 0o700);
+  } catch (error) {
+    if (!isNodeError(error, "EEXIST")) throw error;
+  }
+  const status = lstatSync(lockRoot);
+  if (status.isSymbolicLink() || !status.isDirectory() || (uid !== null && status.uid !== uid)) {
+    throw new TypeError("ABG durable append lock namespace is not a directory owned by this user");
+  }
+  return join(lockRoot, name);
+}
+
+// T-292 TD-82: a build before this one kept its lock under `tmpdir()`. A lock
+// for the same log there is unresolved ownership and refuses acquisition.
+// This local check neither discovers other old TMPDIRs nor fences older builds.
+// Removable once no installed build of an earlier cut can open these logs.
+function refuseHolderInPreviousLockNamespace(identity: DurableFileIdentity): void {
+  try {
+    lstatSync(join(tmpdir(), DURABLE_LOCK_NAMESPACE, `${identity.device}-${identity.inode}.lock`));
+  } catch (error) {
+    if (isNodeError(error, "ENOENT") || isNodeError(error, "ENOTDIR")) return;
+    throw error;
+  }
+  throw new TypeError(HELD_DURABLE_LOG_MESSAGE);
 }
 
 let durableLockAttempt = 0;
@@ -1605,7 +1644,7 @@ let durableLockAttempt = 0;
 function acquireDurableAppendLock(
   identity: DurableFileIdentity,
 ): DurableAppendLock {
-  const path = durableLockPath(identity);
+  const path = durableAppendLockPath(identity);
   durableLockAttempt += 1;
   const pendingPath = `${path}.${process.pid}.${durableLockAttempt}.pending`;
   let descriptor: number | null = null;
@@ -1624,6 +1663,7 @@ function acquireDurableAppendLock(
     linkSync(pendingPath, path);
     linked = true;
     unlinkSync(pendingPath);
+    refuseHolderInPreviousLockNamespace(identity);
     return { descriptor, path };
   } catch (error) {
     if (linked && descriptor !== null) {
@@ -1652,11 +1692,7 @@ function acquireDurableAppendLock(
     } catch {
       // Preserve the lock-acquisition failure.
     }
-    if (isNodeError(error, "EEXIST")) {
-      throw new TypeError(
-        "ABG durable event sink already has an exclusive append lock; abandoned locks require explicit operator recovery",
-      );
-    }
+    if (isNodeError(error, "EEXIST")) throw new TypeError(HELD_DURABLE_LOG_MESSAGE);
     throw error;
   }
 }
@@ -4173,7 +4209,7 @@ export function recoverInterruptedEventStore(selection: InterruptedEventStoreSel
           typeof initialRequest.eventLogPath !== "string" || initialRequest.eventLogPath.length === 0 || resolve(initialRequest.eventLogPath) !== initialRequest.eventLogPath ||
           !Number.isSafeInteger(origin.device) || origin.device < 0 || !Number.isSafeInteger(origin.inode) || origin.inode < 0)) ||
         (abandoned === undefined && (!("recoveryCase" in selection) || selection.recoveryCase !== "lock_absent")) ||
-        lockPath !== join(tmpdir(), "abiogenesis-event-store-locks-v5", `${selected.device}-${selected.inode}.lock`)) {
+        lockPath !== durableAppendLockPath(selected)) {
       throw new TypeError("recovery selection differs from its genuine predecessor, selected initial origin or lock namespace");
     }
     // A former live process is not a live owner after release. Exact external
@@ -4191,8 +4227,10 @@ export function recoverInterruptedEventStore(selection: InterruptedEventStoreSel
           !sameDurableIdentity(held, expected)) throw new TypeError("recovery resource path/descriptor identity differs");
     };
     exactIdentity(selected.eventLogPath, descriptor, selected);
-    if (abandoned !== undefined) lockDescriptor = openSync(lockPath, constants.O_RDONLY);
-    else {
+    if (abandoned !== undefined) {
+      lockDescriptor = openSync(lockPath, constants.O_RDONLY);
+      refuseHolderInPreviousLockNamespace(selected);
+    } else {
       stage = "exclusive_acquisition";
       acquiredLock = acquireDurableAppendLock({ device: selected.device, inode: selected.inode });
       lockDescriptor = acquiredLock.descriptor;

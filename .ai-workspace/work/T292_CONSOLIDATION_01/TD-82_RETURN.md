@@ -1,0 +1,63 @@
+# TD-82 Return
+
+**Result: candidate_ready.** Bounded one-writer lock-namespace repair; source/design/test commit `88a13a047e0fafa03883176f59dee0a5010beb79`. This Return is a following record-only commit. Consumer: `/root`, for authorized integration and targeted event-store-integrity QA; no merge, ticket closure, qualification, publication, install or pin change is claimed here.
+
+| Binding | Exact basis and disposition |
+|---|---|
+| Activation / role | Codex Worker `/root/td82_resume`, bounded Writer; installed `stdo-work` **Receive** at `/Users/jim/Library/Application Support/STDO/releases/v3.0.4/plugins/spec/skills/stdo-work/SKILL.md` |
+| Admission reused | Human-approved takeover and `continue approvedd`, projected by Root; T-292 amendment **2026-11-13**, T-293 **B-04**. Root explicitly selected the non-POSIX OS-account-home completion within the existing TD-82 `design_reframe`; no new Product policy was selected |
+| Product / method | `/private/tmp/abg-td82/stdo_abiogenesis.json`; `urn:stdo:product-definition:abiogenesis`; `stdo://releases/v3.0.4/`; manifest `102817a3f4bea4dca1d6fa0fc634b94404dd2ba82ba6d8c38b273402dda9f95b`; installed/valid, no failures (`basis-verification.json`) |
+| Frame / owner | `AGENTS.md`; `T/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md`; Worker + Owner/Effect/Proof, existing ABG event-store integrity and recovery owner |
+| Contract / closure law | Two same-user processes with different temporary-directory environments must contend for one log lock; recovery must use that same exact path owner and conserve bytes, ordinals, genuine handoff and explicit maintenance authority. An unrelated store defect or Product-meaning change returns to Root |
+| Subject / territory | Exclusive `/private/tmp/abg-td82`, branch `claude/td82-lock-namespace`; predecessor `891a39c44877fc1edfdc4b9159336992d37dd4c0`; main at receipt `dd0d071f360ec78365ccca228f3fda6bd539e3d7`; only named source/design/tests and this Return |
+| Host | Packet-only task plus host instructions; shared unrestricted tools/filesystem. No cleanroom or independent-review boundary claimed; no subagents |
+| Inherited evidence / triage | T-293 B-04; register TD-82; `TD-80_TRACE.md` and `TD-80_RETURN.md` ruling 9. Environment-dependent namespace is the originating ownership defect; duplicate ordinals and unreopenable history are downstream symptoms; length checks cannot supply mutual exclusion |
+| Preserved state | All 14 initial dirty/untracked files copied under `E/preserved/`; `initial-state.json` SHA-256 `f5a25134396c2fd36ba536d5a278986b8dc322589d2eff660874047ec007a0e4`. Authored inherited bytes checkpointed at `3fddc8bb1`; the two generated files excluded. Initial event-store source SHA-256 `eeb1ab3b94a29081cf487fb23d049be7d7f4a4f4286b0e5454517dd9de594e43` |
+| Final exact subject | Authored-file manifest `E/authored-files.json`, SHA-256 `995b702f8b3a429cac7a6aa4e9b5400de2055add4a5adbaca4beaf50f26492d6`; source and built module hashes below. No authored bytes changed after their applicable proof |
+
+`T` = `build_tenants/abiogenesis/typescript`; `E` = `/private/tmp/abg-td82-work/codex-resume`. The explicit commands, working directories, environment and exit outcomes are in `E/commands.json`; the complete receipt index is `E/evidence-index.json`, SHA-256 `d2f066ae05e95e7bb69489d630238e019459f2229099122415b95c47f540e25c`.
+
+| Governing relation | Realization and proof |
+|---|---|
+| Product `Definition, Tool, And Runtime Authority`; EVENTS-001/002/024/027/028; realization constitution **Held ABG event-resource staging and physical publication** | One native ABG store remains the sole emitter; device/inode lock contention precedes append. No new event, Public family, semantic owner or runtime |
+| Recovery design **Physical sequence and supported premise** | `durableAppendLockPath` owns both acquisition and exact recovery-path validation. POSIX uses `/tmp/abiogenesis-event-store-locks-v5-uid-<uid>`; non-POSIX uses `.abiogenesis-event-store-locks-v5` under `os.userInfo().homedir`, with lookup/create errors refusing and no temporary fallback |
+| Physical ownership / lifecycle | Existing pending-file + atomic hard-link acquisition, held descriptor, release and explicit abandoned-lock adoption remain. The shared path owner creates/validates the namespace; nothing is placed beside the log |
+| Public comparison | All **486 declaration files byte-identical**. Among **562** compiled source outputs only `abg/event_store.js` differs. Serialized contract membership/shapes/values unchanged apart from **310** generated identity coordinates: 34 capability refs, 34 capability digests, 241 product-content digests and one graph digest. The internal function is not added to the `./abg` barrel and is stripped from declarations |
+| Retained fixtures | `installed-qualification-conservation.mjs` and `t287-s03-automatic.mjs` restored byte-for-byte to predecessor behavior: they inspect their fixed older artifact's historical namespace, not this checkout's. Their inherited edits remain preserved in `3fddc8bb1` and the initial snapshot. No gated old-artifact execution claim |
+
+| Proof / exact command (cwd `T` unless stated) | Result / receipt |
+|---|---|
+| `npm run build` | Exit 0, `build-final.log`; Node **24.7.0**, TypeScript **5.9.2**, Darwin arm64 uid 501 |
+| `ABI5_EVIDENCE_ROOT=/Users/jim/src/apps/abiogenesis/.ai-workspace node --experimental-vm-modules --test --test-concurrency=1 test_env/tests/t288-logical-prefix-digest.test.mjs test_env/tests/t292-event-store-lock-namespace.test.mjs test_env/tests/t287-interrupted-event-resource-recovery.test.mjs test_env/tests/m5-event-store-reopen.test.mjs` | **62 pass, 0 fail, 0 skip**, 70.4 s; `focused.tap` (Node's default spec reporter). Includes new/held/reopen, poisoned and released ownership, exact abandoned and absent-lock recovery, preserved historical reads, and controlled non-POSIX contention/recovery/failure cases |
+| Before, cwd `/private/tmp/abg-td82-work/base`: `node --experimental-vm-modules --test --test-reporter=tap --test-name-pattern='a second process is refused at reopen' test_env/tests/t288-logical-prefix-digest.test.mjs` | Expected exit 1: different-TMPDIR subcase **reopened** instead of `sink_unavailable`; same-TMPDIR subcase passes. `refusal-before.tap`; exact same test bytes as final |
+| `node /private/tmp/abg-td82-work/repro/repro.mjs /private/tmp/abg-td82-work/base E/race-base.json 10 3`, then same command with package root `/private/tmp/abg-td82/build_tenants/abiogenesis/typescript` and output `E/race-final.json` | Fresh before: both owners **10/10**, duplicate ordinals **3/10**, acknowledged appends **21**, seven delivered handoffs refuse reopen. After: one owner **10/10**, zero duplicate ordinals, **30** acknowledged appends, all **10** successful handoffs reopen. JSON plus `.log` receipts |
+| `node E/legacy-recovery-bridge.mjs` | Current owner refuses old-namespace adoption without altering residue; predecessor owner recovers two conserved rows under the old namespace; current owner reopens that genuine handoff and appends ordinal 3. Both locks released. `legacy-recovery-bridge.json`; built-owner proof, not installed-artifact verification |
+| `ABI5_EVIDENCE_ROOT=/Users/jim/src/apps/abiogenesis/.ai-workspace node --experimental-vm-modules --test --test-reporter=tap --test-concurrency=1 --test-name-pattern='Maintained setup retains\|default-library Run interrupted\|retained-source B continued' test_env/tests/t287-default-library.test.mjs test_env/uat/harness.test.mjs` | **3 pass, 0 fail, 0 skip**, 198.8 s; `affected-integration.tap`. Actual temporary installed owners, Public CLI, SIGKILL interruption, recovery and same-Run continuation; scripted actors, **no live provider**. Setup proves no lock directory under configured temporary storage and reports that fact truthfully |
+| Syntax and whitespace | Four changed JavaScript entry/helper files pass `node --check`; `git diff 891a39c44877fc1edfdc4b9159336992d37dd4c0 --check` passes |
+
+The retained base store is verified against ESM TypeScript emission of the exact predecessor source: `base-source-check.json` reports equal SHA-256 `652e43136c91b72ce9e0bcf1cf1121c1933b2deccb143583ea223e2811d4bc61`. Its other 561 compiled source outputs match this fresh build. Prior unbound trial counts were not substituted for the fresh before/after runs. Final built store SHA-256: `e6d308f3e0c5197c856bee76ab51e418abc39b97298704b8a0f246ea91216608`.
+
+| Authored path changed from predecessor | Final SHA-256 |
+|---|---|
+| `T/code/src/abg/event_store.ts` | `05aff59b2e08e0989623fb552ae6911ed55e5042bad523efc87f185017b38bb2` |
+| `T/design/T287_INTERRUPTED_EVENT_RESOURCE_RECOVERY_DESIGN.md` | `bc87d9f729bd914a478e9cbfd0d9369ea3089374304a7165bcdc5e96c7a3d4df` |
+| `T/design/T287_PUBLIC_DEFINITION_CALL_CONSTRUCTION.md` | `33a1f5cad2c29638f7178c262fed6dd81cc569f9180ac34cf8761a44061d7613` |
+| `T/test_env/support/event-store-lock.mjs` | `1ed52e6974596d0be59c59f09667fde502d09d63de32c19f1378108584d6006f` |
+| `T/test_env/tests/m5-event-store-reopen.test.mjs` | `463356af6065feaf61237460f469013e1b6b33f13aba13a89ce80f5fd1a68c86` |
+| `T/test_env/tests/t287-default-library.test.mjs` | `b0f0ccebbb7860c8ba9339da7f444766663d761629241145146b1c11f214a78a` |
+| `T/test_env/tests/t287-interrupted-event-resource-recovery.test.mjs` | `15d92127aeb54d86ea3a0765133c69f300ab20fab96cb20276a7b06d12895e2f` |
+| `T/test_env/tests/t288-logical-prefix-digest.test.mjs` | `160030431feae1dc62411213d617c8795429357e3ab54671201918a8c791168b` |
+| `T/test_env/tests/t292-event-store-lock-namespace.test.mjs` | `1a75712a6e255e87f6956798ec3f6318c332254da86b1775dad27eb15a6e9668` |
+| `T/test_env/uat/harness.test.mjs` | `d97649a81606ee9d54a725c46951457bfed4d390e23c97ce7e937ed3447410a0` |
+| `T/test_env/uat/public-setup.mjs` | `9bb83493f9bd34691dda02bb48f864d04b57f302edbdd39f2964f3857e59ab71` |
+
+| Limits / disposition | Exact residual |
+|---|---|
+| Native platform proof | Native Darwin processes and filesystem operations passed. The non-POSIX branch uses real subprocesses and store operations with only `getuid` absence and OS-home lookup controlled. **Native Windows execution is unperformed**, not claimed from that branch test |
+| Domain | Product states trusted developer desktop and excludes multi-user service, distributed orchestration, hostile-workstation resistance and installed-product update lifecycle (`PRODUCT.md`, Installed Product And Catalog / explicit exclusions). The implementation requires same OS user and one shared host/filesystem namespace with stable account-home mapping. Different users / isolated mount namespaces are not coordinated; this is an explicit realization limit, not a new Product platform exclusion |
+| Mixed versions | The old-namespace guard sees only this process's `tmpdir()`. It neither discovers an old process's other temporary directory nor prevents an old build starting later. **Simultaneous mixed-version ownership is not excluded.** Existing old-owner recovery under its original namespace and exclusive-maintenance premise remains the route; this candidate does not migrate, delete or adopt legacy locks or select a new update policy |
+| Effects | Initial process observation found no predecessor TD-82 build/test/repro still running. All resumed commands reached their stated exits; final tested bytes rechecked; **21** own race/bridge logs checked with **zero** surviving current or legacy locks (`effect-reconciliation.json`). Temporary test artifacts and evidence remain; no user installation, main merge, push, pin change or worktree removal |
+| Integration-owned generated differences | Left uncommitted: `T/product-toolchain-manifest.json` SHA-256 `2ffa8ff3ba779f19e2d3bc1948d73b0852cd68a49ce6aaff4a8efed57e87387b`; `T/contracts/capabilities/capability-definition-graph.json` SHA-256 `edb534989e08f92bac12676d2c078567690d7042fe4fc05be7e2c2ef97a8cdd9`. Build product-content digest `sha256:b574dd3164a846dc097ea6b309bfa6d67e4b6ddd403eee4f53f951e39d3cf330`. Regeneration on the composed main subject remains the integration writer's job |
+| Return boundary | Candidate construction/proportional proof complete; targeted independent integrity QA, integration rerun, T-293 merge-based closure, composed suite and release decisions remain with Root. No unrelated TD-86 or other store defect repaired |
+
+The OS-home choice follows the installed Node declarations (`node_modules/@types/node/os.d.ts:239`) and [Node's `os.userInfo` contract](https://nodejs.org/api/os.html#osuserinfooptions): account-home data comes from the OS rather than home environment variables. This is a HOW selection for the existing namespace defect, not a new authority source.

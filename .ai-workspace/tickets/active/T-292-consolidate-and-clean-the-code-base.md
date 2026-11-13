@@ -116,6 +116,13 @@ installed and valid with no failures. The project frame basis is unchanged.
 | TD-85 narrow | `claude/td85n-absent-protected-root`, base `891a39c44` plus surviving source and test edits | Finish after a Writer slot is available; preserve the untracked new test |
 | TD-26 P5 | `claude/td26-p5-readers-and-gap-family` at `2ac9b96bf`, no repository edits | Readers/gap retirement and B-07, then P6 and P7 |
 
+Integration Writer activation `T292-INTEGRATE-TD82-01` binds Root, separately
+from Executive coordination, to main `8a33ba836` and the returned TD-82 subject
+`97371cec79b7874afc0a1712aa6008a75e728762`. The existing integration grant covers
+the serial merge, generated identity rebuild, detached affected checks and
+ledger/T-293 updates. The Writer has stopped; targeted integrity QA runs
+separately. This activation grants no release or semantic-assurance claim.
+
 At most two implementation Writers run concurrently. Integration is serial.
 TD-78 and the parked TD-85a follow TD-77; P7 and TD-25 member withdrawal depend
 on TD-77. One design reconciliation closes B-08, then one composed broad and

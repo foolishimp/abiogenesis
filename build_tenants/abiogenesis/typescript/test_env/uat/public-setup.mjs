@@ -72,9 +72,8 @@ export function cliTransportJsonl(product,call,acquisition) {
   return product.canonicalJson({kind:'abg_cli_transport_request',schemaVersion:version,acquisition,invocation:call})+'\n';
 }
 
-// Installation runs npm in the ambient process environment and the event
-// resource lock namespace follows TMPDIR: serial setup runs under the
-// configured values, and the ambient values return in finally.
+// Installation runs npm in the ambient process environment: serial setup runs
+// under the configured values, and the ambient values return in finally.
 const SETUP_ENVIRONMENT_KEYS=['PATH','TMPDIR'];
 async function withSetupEnvironment(environment,body) {
   if(environment===null||typeof environment!=='object')throw new BoundaryFailure('setup-environment','Explicit setup environment required');

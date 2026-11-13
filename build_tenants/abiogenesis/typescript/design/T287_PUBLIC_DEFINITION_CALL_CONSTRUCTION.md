@@ -140,10 +140,11 @@ installations keep their physical checks and locks, and owners retain
 permissions, currentness, close and reopen. There is no alternate legacy mode,
 cache, service or receipt authority.
 
-Installation runs npm in the ambient process environment and the event-resource
-lock namespace follows `TMPDIR`, so the caller scopes the configured setup
-`PATH` and `TMPDIR` over the complete serial setup and authorization and
-restores the ambient values in `finally`. Lifecycle supervision and fresh Run
+Installation runs npm in the ambient process environment, so the caller scopes
+the configured setup `PATH` and `TMPDIR` over the complete serial setup and
+authorization and restores the ambient values in `finally`. The event-resource
+lock namespace follows no environment variable (`durableAppendLockPath` in
+`abg/event_store.ts`). Lifecycle supervision and fresh Run
 reads keep one explicitly named cold entry: one canonical JSONL request to a
 fresh installed CLI process under its declared environment. Setup adds no
 timeout race that could abandon an active owner.

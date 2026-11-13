@@ -12,6 +12,7 @@ import * as store from '../../build/code/src/abg/event_store.js';
 import * as abg from '../../build/code/src/abg/index.js';
 import {abgEventLocatorDigest} from '../../build/code/src/abg/definition_event_resource.js';
 import { sha256Bytes, sha256Canonical as hash } from '../../build/code/src/product/index.js';
+import { eventStoreLockPathOf } from '../support/event-store-lock.mjs';
 const root=resolve(import.meta.dirname,'../..');
 function interrupted(t,{lostReceipt=false}={}){
  const scratch=fs.mkdtempSync(join(tmpdir(),'abg-recovery-')),path=join(scratch,'events.jsonl');
@@ -27,7 +28,7 @@ function interrupted(t,{lostReceipt=false}={}){
  `;
  const child=spawnSync(process.execPath,['--input-type=module','-e',script,path],{encoding:'utf8'});
  assert.equal(lostReceipt?child.status:child.signal,lostReceipt?0:'SIGKILL',child.stderr);const {handoff,pid}=JSON.parse(child.stdout);
- const stat=fs.statSync(path),lockPath=join(tmpdir(),'abiogenesis-event-store-locks-v5',`${stat.dev}-${stat.ino}.lock`);
+ const stat=fs.statSync(path),lockPath=eventStoreLockPathOf(stat);
  const lock=lostReceipt?null:fs.statSync(lockPath),bytes=fs.readFileSync(path),lockBytes=lostReceipt?null:fs.readFileSync(lockPath);
  if(lostReceipt)assert(!fs.existsSync(lockPath));
  const selection={lastCloseHandoff:handoff,expectedCurrent:{byteLength:bytes.length,digest:sha256Bytes(bytes)},
@@ -185,7 +186,7 @@ function initialInterruption(t,{commit,release}){
  const child=spawnSync(process.execPath,['--input-type=module','-e',script,path],{encoding:'utf8'});
  assert.equal(release?child.status:child.signal,release?0:'SIGKILL',child.stderr);
  const {request,pid}=JSON.parse(child.stdout),stat=fs.statSync(path),bytes=fs.readFileSync(path);
- const lockPath=join(tmpdir(),'abiogenesis-event-store-locks-v5',`${stat.dev}-${stat.ino}.lock`),lock=release?null:fs.statSync(lockPath),lockBytes=release?null:fs.readFileSync(lockPath);
+ const lockPath=eventStoreLockPathOf(stat),lock=release?null:fs.statSync(lockPath),lockBytes=release?null:fs.readFileSync(lockPath);
  const selection={initialOrigin:{newResourceRequest:{kind:'new_empty_append_sink_request',schemaVersion:'5.0.0',eventLogPath:path},device:stat.dev,inode:stat.ino},
  expectedCurrent:{byteLength:bytes.length,digest:sha256Bytes(bytes)},ownerPid:pid,
  ...(release?{recoveryCase:'lock_absent',lockPath}:{abandonedLock:{path:lockPath,device:lock.dev,inode:lock.ino,bytesBase64:lockBytes.toString('base64'),digest:sha256Bytes(lockBytes)}})};
@@ -223,7 +224,7 @@ test('confirmed-unheld resource reconciles while former process lives; retained 
  const scratch=fs.mkdtempSync(join(tmpdir(),'abg-live-former-owner-')),path=join(scratch,'events.jsonl');
  const original={kind:'new_abg_event_resource',schemaVersion:'5.0.0',eventLogPath:path,locatorDigest:abgEventLocatorDigest(path)};
  const acquired=acquireAbgEventResource(original);assert.equal(acquired.kind,'acquired_abg_event_resource');
- const s=acquired.resource.store,stat=fs.statSync(path),lockPath=join(tmpdir(),'abiogenesis-event-store-locks-v5',`${stat.dev}-${stat.ino}.lock`);
+ const s=acquired.resource.store,stat=fs.statSync(path),lockPath=eventStoreLockPathOf(stat);
  t.after(()=>{s.closeDurableLog();fs.rmSync(scratch,{recursive:true,force:true});});
  const selection={initialOrigin:{newResourceRequest:{kind:'new_empty_append_sink_request',schemaVersion:'5.0.0',eventLogPath:path},device:stat.dev,inode:stat.ino},
  expectedCurrent:{byteLength:0,digest:sha256Bytes(Buffer.alloc(0))},ownerPid:process.pid,recoveryCase:'lock_absent',lockPath};
