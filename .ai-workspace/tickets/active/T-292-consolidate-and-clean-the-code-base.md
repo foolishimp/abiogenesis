@@ -237,6 +237,27 @@ path: the real owner validates the lock before projecting the environment.
 This is S4/P1 proof-support work in P5, not an admission-policy relaxation or
 installed-artifact proof. Its final Return and affected proof remain pending.
 
+Integration Writer activation `T292-INTEGRATE-P5-01` binds Root to main
+`1613d2dc6` and returned clean P5 `bcb1a93c6d1633c4112ed60e4c7f9ec4d6e3f237`,
+with source `7bb4a441053c1efbde57051e257ff0612256d2ee` and specification
+`11bf38e2198cfce8adc9dc950dc7541cd0e635ad`. The existing grant covers serial
+merge, authority-mirror staging, generated identity, detached affected proof,
+tracking and preservation of the closed P7 preparation. The Writer has stopped.
+Root occupies Writer for these effects and returns to Executive afterward.
+No final qualification, cut, pin, tag or push is selected by this integration.
+
+P6's continuation rulings are fixed before dispatch. Its qualification recipe
+and inventory member removals are reported to B-22 for one final regeneration;
+P6 removes the affected executable fixtures and their gate rows now. There is
+no specification-first recipe edit: the named recipe is tenant metadata.
+Unchanged digest proof binds the same retained identity-bearing basis body;
+the fresh installed execution asserts the six retained null/empty fields.
+Different fresh Product/install/Catalog identities are not normalized away to
+claim equal whole-basis hashes. The P4 guard may leave only after the supported
+new-work consumer paths and the historically reconstructed Catalog discriminator
+establish its redundancy. Arbitrary forged kernel objects add no new Public
+operation or guard requirement.
+
 At most two implementation Writers run concurrently. Integration is serial.
 TD-78 and the parked TD-85a follow TD-77; P7 and TD-25 member withdrawal depend
 on TD-77. One design reconciliation closes B-08, then one composed broad and

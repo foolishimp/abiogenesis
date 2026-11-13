@@ -15,5 +15,8 @@ roots; the exact Git subjects in the reports preserve source reacquisition.
   and harness are unexecuted. Final payload, metadata, broad proof and cut
   remain outstanding; B-21 and unqualified candidate status remain explicit.
 
+- `P7_MEMBERS_PREPARATION.md`: combined final member/register withdrawal;
+  preserved under `T292-INTEGRATE-P5-01`, implementation waits for P6.
+
 The owning T-292 ticket records authority, dependencies and the B-24 fixture
 triage. Root returns to Executive after checkpointing these records.

@@ -26,6 +26,13 @@
       "source": "/private/tmp/abg-rc13-metadata-route-20261113/ROUTE.md",
       "sha256": "eebc802abf1ae272fd67ab1c6f31ba71e91f6927c552fea870f7cf9e8328701e",
       "bytes": 16149
+    },
+    {
+      "path": "P7_MEMBERS_PREPARATION.md",
+      "source": "/private/tmp/abg-td26p7-work/prep/READ_ONLY_PREP.md",
+      "sha256": "220146a9b91d2f42af73e2eab8facac23ac8ce0027cc41f4158c9649da0f7c0d",
+      "bytes": 19409,
+      "recordingActivation": "T292-INTEGRATE-P5-01"
     }
   ]
 }
