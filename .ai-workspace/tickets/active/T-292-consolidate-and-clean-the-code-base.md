@@ -350,6 +350,28 @@ full composed proof remains. Root returns to Executive after this tracking
 checkpoint. B-08 preparation is refreshed read-only against P5/P6 while P7
 proceeds; its one design Writer pass still waits for the actual P7 result.
 
+Recording Writer activation `T292-P7-FIXTURE-TRIAGE-RECORD-01` binds Root to
+main `b05db1d98`, tracking and failure-input preservation only. P7 stopped after
+75/76 selected history checks: its current strict-positive probabilistic N1
+fixture omits `ExecutionBasis.workspaceBindingDigest`. Root's Product/owner
+trace confirms that the required typed coordinate is carried by production
+basis constructors and consumed with the binding id by TD-78's unchanged
+executing-toolchain guard before the owner-capability sentinel. The injected
+JavaScript fixture bypasses basis-admission validation; its missing coordinate
+correctly refuses. The new current-register positive exposes this latent
+fixture omission. This is B-26 S4/P1, not a demonstrated supported Product bug.
+Exact stopped inputs and failure receipt are preserved under
+`/private/tmp/abg-codex-integration-20261113/p7-n1-triage/INPUTS.json`.
+Separate non-author technical QA checks this diagnosis without becoming a gate.
+
+Root selects the smallest proof-only re-entry: P7 adds the actual selected
+binding's digest to that one fabricated execution basis, preserving the real
+strict accessor/executing guard, sentinel and zero-append assertions for the
+current and three recorded-only stores. Rerun only that N1 case; retain the
+75 prior passes and failed receipt with their exact subjects. No production
+repair, new assurance campaign or weakened expectation is selected. Root
+returns to Executive after this record checkpoint.
+
 At most two implementation Writers run concurrently. Integration is serial.
 TD-78 and the parked TD-85a follow TD-77; P7 and TD-25 member withdrawal depend
 on TD-77. One design reconciliation closes B-08, then one composed broad and
