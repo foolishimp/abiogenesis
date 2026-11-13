@@ -8,7 +8,7 @@
 - parent: T-287
 - updated_at: 2026-11-13
 - current_activation: T292_CONSOLIDATION_01
-- current_package: TD-77, TD-82 and TD-85a integrated with focused proof; TD-78 and TD-85 narrow Writers active; TD-26 P5 follows the overlapping TD-78 owner repair
+- current_package: TD-77, TD-82 and both selected TD-85 parts integrated with focused proof; TD-78 Writer active; TD-26 P5 follows; RC13 tooling preparation in parallel
 - change_class: realization_refactor
 - derived_change_classes: design_reframe, requirement_reprice and product_reprice, each only for a register entry the owner decides
 - re_entry_point: specification/GOALS.md, the selection block of 2026-11-12
@@ -245,3 +245,14 @@ this resumption. Reviews are QA under the amendment above.
 
 | TD-77 | Recorded Product truth and strict eligibility for new work | Frozen `820206a4e`, merged and identity regenerated at `54024d63f` | Integrated 2026-11-13; B-01, B-02 and B-23 repaired; register-retirement dependency discharged | Frozen candidate 64 current-register and 22 changed-register passes, no failures/skips. Detached merged rerun: 64/64 across focused, R10 child, historical source and Public-read files. Build green. Return `TD-77_RETURN.md`; triage `REVIEW_TD77_CODEX_TRIAGE.md`; receipts `/private/tmp/abg-codex-integration-20261113/td77` | Existing strict release.snapshot exception and A8 redundant-guard sensitivity limit remain explicit in the Return. Changed-register broad population is reserved for group close; current repair's separate-activation QA is not same-family semantic-independent release acceptance |
 | TD-85a | Canonical existing paths use their stored spelling | Frozen `9fef7907e`, merged over TD-77 and identity regenerated at `686d67db3` | Integrated 2026-11-13; B-06 technical repair closed on the evidenced host | Writer's 12 new cases, predecessor 4/12, plus 5,370 equal recorded rows. Merged source: 17/17 across new stored-spelling lane and cross-cut Public reads, 0 fail/skip. Build green. Return `TD-85A_RETURN.md`; receipts `/private/tmp/abg-codex-integration-20261113/td85a` | Separate Claude-source QA satisfied with no new findings (`REVIEW_TD85A_CODEX.md`); independent 12/12 probe overlaps author cases. Firmlink dual-spelling residual B-21 remains backlog; absent protected roots are separate TD-85N, and B-09 is not selected |
+
+| TD-85 narrow | Missing protected-root case/normalization aliases | Frozen `fd73e7a0d`, merged and identity regenerated at `d5dbe324f` | Bounded B-05 repair integrated; general physical-confinement claim remains falsified by existing B-21 | Writer 73 passes. Merged build and 70 focused checks pass, including installed B04 publication/admission/replay. Separate QA 40 zero-write alias refusals. Return `TD-85N_RETURN.md`; QA `REVIEW_TD85N_CODEX.md`; receipts `/private/tmp/abg-codex-integration-20261113/td85n` | B-21 now S2/P2 after cut: actual pre-existing firmlink protected-root effect. Blocks reliable-operation/5.0 qualification claims. Unknown name models may refuse explicitly. No general platform or same-family semantic-independence claim |
+
+Delivery preparation Writer `T292-RC13-DELIVERY-PREP-01` uses isolated
+`/private/tmp/abg-rc13-delivery-prep` from `25e74e96f`. Its grant is the already
+selected local candidate delivery: adapt the exact RC12 cut/install route to
+RC13 through TD-69's existing payload owner; scratch-only dry proof and compact
+B-22 refresh instructions. Write territory is new work-carrier tools and Return,
+not Product source or real install/release locations. TD-71 general tooling
+refactor, publication, pins, tags and push remain excluded. Final cut waits for
+the selected composition. This is the second implementation Writer beside TD78.

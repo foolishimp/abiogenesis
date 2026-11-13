@@ -40,7 +40,7 @@ One list of the defects found by the reviews, traces and packages of the T-292 w
 | B-02 | The materialization branch of the strict candidate has no case and an untrue error text; one new text is thrown where no lock is in question; three design sentences (TD-77) | `REVIEW_TD77_RECHECK.md` N2 to N4 | S4 | P1 | Technical repair closed at `54024d63f`; design/error/test repairs in TD-77 Return |
 | B-03 | A build of one cut runs work on a store that another cut installed and bound; nothing compares the executing Product with the binding the operation selects (TD-78) | `TD-78_TRACE.md`; evaluation of 2026-11-13 | S2 | P1 | Fix after TD-77 merges (same files) |
 | B-04 | Two processes with different `TMPDIR` values both hold one event log; both append the same ordinal; an acknowledged append cannot be reopened (TD-82) | `TD-80_TRACE.md`; reproduced after TD-80 by the evaluation | S2 | P1 | Technical repair closed at `a3c03d90c`; 27 merged focused passes; separate QA has no technical finding. Assurance/platform limits in `REVIEW_TD82_CODEX_INTEGRITY.md` |
-| B-05 | A worksite subject in another letter case creates a protected directory that does not exist yet, or links a file into it before the refusal (TD-85, narrow part) | `TD-85_TRACE.md`; reproduced by the evaluation | S2 | P1 | Fix launched 2026-11-13 |
+| B-05 | A worksite subject in another letter case creates a protected directory that does not exist yet, or links a file into it before the refusal (TD-85, narrow part) | `TD-85_TRACE.md`; reproduced by the evaluation | S2 | P1 | Targeted repair integrated at `d5dbe324f`, 70/70 merged checks; general confinement remains falsified by separate B-21 firmlink condition. `REVIEW_TD85N_CODEX.md` |
 | B-06 | Synchronous canonical-path checks keep the spelling they are given; the command parent writes its manifests into the event-log directory through an alias of an existing root (TD-85, first part) | `TD-85_TRACE.md` | S3 | P1 | Technical repair closed at `686d67db3`; stored-spelling owner and 17 merged checks; QA in progress |
 | B-07 | The value kinds `observation_snapshot` (as input) and `next_action_projection` with `no_action` (as a leaf result) are admitted as ordinary values since the route package; they were refused before | `TD-26_P4_RETURN.md`, ruling item 1 | S3 | P1 | In TD-26 P5, in flight |
 | B-08 | Kept design sentences still describe removed code: 12 passages after the doors package, 5 after the module, 3 after the route package, and constitution rows | Returns of TD-26 P1, P2, P4 | S4 | P1 | One design pass after TD-26 P7 |
@@ -56,7 +56,7 @@ One list of the defects found by the reviews, traces and packages of the T-292 w
 | B-18 | The gated lane `steel-consumer-declaration` would fail if its gate were set | `TD-26_P2T_RETURN.md` | S4 | P3 | Backlog; its route has an ungated lane since `44a9533da` |
 | B-19 | With a five-hour timeout override on a scenario's test command, the command form's budget exceeds the actor limit and the task is refused | `TD-67_RETURN.md` | S4 | P3 | Backlog; no configuration sets such an override |
 | B-20 | On the CLI's exit-70 path the written line still has kind `public_transport_refusal` and disposition `refused` | `TD-79_RETURN.md` | S4 | P3 | Backlog; the status and the code carry the classification |
-| B-21 | A firmlink spelling of a path passes as the stored spelling | `TD-85A_RETURN.md` | S4 | P3 | Backlog |
+| B-21 | Self-canonical Darwin firmlink paths share physical ancestry; native preflight admits and parent creation writes beneath an absent protected root (predecessor and TD-85N) | `REVIEW_TD85N_CODEX.md` F1; `codex-qa/firmlink-effect.json`; originally TD-85A spelling residual | S2 | P2 | Physical-ancestry repair after the local unqualified cut; blocker to reliable-operation and 5.0 qualification claims |
 | B-22 | The qualification inventory and recipe hold digests and member paths of files the wave changed or deleted | Returns of TD-26 P1, P2, P4, TD-67, TD-79 | S4 | P2 | Regenerated at the cut |
 | B-23 | TD-77's strict default reaches a pure historical replay through shared source-provenance/revision helpers, making a kept child unreadable at later prefixes after a register change | `REVIEW_TD77_CODEX_TRIAGE.md`; frozen `91aec88b8`, saved changed-register failures and Writer first-refusal probe | S2 | P1 | Technical repair closed at `54024d63f`; pure recorded replay and strict work consumers separated; 64 merged and 22 frozen changed-register passes |
 
@@ -64,13 +64,13 @@ One list of the defects found by the reviews, traces and packages of the T-292 w
 
 | When | Items |
 |---|---|
-| In flight | B-03 (TD-78 executing Product identity); B-05 (TD-85 narrow pre-effect repair) |
+| In flight | B-03 (TD-78 executing Product identity) |
 | Preserved for continuation | B-07 (TD-26 P5 after the overlapping TD-78 repair) |
-| Integrated with focused proof | B-01, B-02, B-04, B-06, B-23 |
+| Integrated with focused proof | B-01, B-02, B-04, B-05 (bounded; B-21 remains), B-06, B-23 |
 | After TD-26 P7 | B-08 |
 | At the cut | B-22 |
-| After the cut | B-09 (after the owner decides), B-10, B-11, B-12, B-13 |
-| Backlog | B-14 to B-21 |
+| After the cut | B-09 (after the owner decides), B-10, B-11, B-12, B-13, B-21 (S2 physical-ancestry repair before reliable-operation/5.0 qualification claims) |
+| Backlog | B-14 to B-20 |
 
 ## Rules
 
