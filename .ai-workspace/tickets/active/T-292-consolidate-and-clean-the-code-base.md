@@ -8,7 +8,7 @@
 - parent: T-287
 - updated_at: 2026-11-13
 - current_activation: T292_CONSOLIDATION_01
-- current_package: selected consolidation and B28/B29 repairs integrated; broad-03 halted at file014 on historical Catalog proof premise (B30); history and local delivery unperformed
+- current_package: selected consolidation and B28/B29/B30 proof repairs integrated; exact successor composed-proof bindings preparing; history and local delivery unperformed
 - change_class: realization_refactor
 - derived_change_classes: design_reframe, requirement_reprice and product_reprice, each only for a register entry the owner decides
 - re_entry_point: specification/GOALS.md, the selection block of 2026-11-12
@@ -659,3 +659,12 @@ isolated worktree and bounded proof in `b30-catalog-proof-01/REPAIR_ACTIVATION.j
 The retained Consensus graph remains valid recorded truth and invalid new-work
 input. No production owner/default changes; all existing negatives are retained
 under their intended recorded question and strict-before/after controls added.
+
+B30 author source `9809b3b73`, frozen Return `e181671c1`, merges at
+`6b3fe2712`. One complete lane passes 2/2 with zero skips; separate technical
+QA is satisfied without findings. The unchanged fixture and production guard
+remain. Integration Writer `T292-B30-INTEGRATION-INVENTORY-01` refreshes the
+1,280-member inventory through its existing owner: exactly one member changes.
+This checkpoint supplies no broad/history/installation completion. Successor
+source/archive correspondence must precede Root-selected continuation under
+the same campaign deadline; original failures and receipts stay immutable.

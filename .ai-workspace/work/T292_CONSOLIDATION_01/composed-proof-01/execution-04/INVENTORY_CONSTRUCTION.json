@@ -1,0 +1,17 @@
+{
+  "activation": "T292-B30-INTEGRATION-INVENTORY-01",
+  "owner": "test_env/qualification/build-resources.mjs:constructInventory",
+  "sourceBeforeInventoryCheckpoint": "6b3fe2712281558acfcbe977873376f2c9b6e08e",
+  "memberCount": 1280,
+  "changedMembers": [
+    "build_tenants/abiogenesis/typescript/test_env/tests/integration-shared-seams.test.mjs"
+  ],
+  "inventoryRef": "qualification-inventory://abiogenesis/df18b603def5fddc26396e7a4fa72b45666c44c11dbaba11baf73ea59e367e66",
+  "inventoryDigest": "sha256:df18b603def5fddc26396e7a4fa72b45666c44c11dbaba11baf73ea59e367e66",
+  "beforeSha256": "1ef26da79ba5dd4b2ae5bcfa3bbb9b04f28a1351a15a8974b0c312a4dcf262e8",
+  "afterSha256": "48407faec42a964d2b60b543fba6e52fde0882866418601eda05550bf0fa9ac1",
+  "selfExcluded": true,
+  "recipeUnchanged": "No path or command configuration change; source inputs are path references.",
+  "runtimePayloadUnchanged": true,
+  "qualification": false
+}

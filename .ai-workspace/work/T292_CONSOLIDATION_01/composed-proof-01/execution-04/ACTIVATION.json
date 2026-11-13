@@ -1,0 +1,29 @@
+{
+  "activation": "T292-B30-INTEGRATION-INVENTORY-01",
+  "role": "Writer",
+  "actor": "Root explicit transition from Executive",
+  "authority": "T292 existing approved takeover; closed B30 triage and author Return",
+  "frozenRepair": "e181671c1",
+  "testedTenantCommit": "9809b3b73648e75cc3e18ad42fd0f8e8d6d34a18",
+  "territory": [
+    "main Git integration of exact repair",
+    "test_env/qualification/inventory.json via existing constructor",
+    ".ai-workspace/tickets/active/T-292-consolidate-and-clean-the-code-base.md",
+    ".ai-workspace/tickets/active/T-293-qa-findings-of-the-consolidation-wave.md",
+    ".ai-workspace/work/T292_CONSOLIDATION_01/composed-proof-01/execution-04",
+    "/private/tmp/abg-rc13-composed-proof-20261113/reentry-04",
+    "/private/tmp/abg-rc13-composed-final-04"
+  ],
+  "effects": "Merge frozen one-file repair, refresh inventory last, checkpoint exact final source, make clean detached proof tree, clone pinned dependencies/build, dry cut and exact archive correspondence, static timeout audit and bound successor configs",
+  "exclusions": [
+    "production changes",
+    "whole qualification",
+    "provider",
+    "clock reset",
+    "automatic retry",
+    "pin",
+    "push",
+    "publication"
+  ],
+  "return": "Root Executive before selecting composed execution"
+}
