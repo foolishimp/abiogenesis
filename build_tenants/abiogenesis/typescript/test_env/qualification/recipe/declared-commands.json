@@ -1,7 +1,7 @@
 {
   "kind": "qualification_declared_commands",
   "schemaVersion": "1",
-  "purpose": "The declared C2 command input of the verification recipe; verification-recipe.json binds its constructed digests. The C2 helper runs the commands in its snapshot sandbox (the protected inputs materialized under the binding archive root, worksite_command_helper.ts:596-621), so commands use relative paths. Two environment values are absolute paths outside that sandbox, read there and unprotected by the recipe by design (intake rule (i) inputs, D5 disposition F-5): ABI5_EVIDENCE_ROOT and the ABI5_UAT_CONTINUATION_* inputs. ABI5_UAT_UNIT_ROOT is relative: the continuation lane resolves it against its working directory, the sandbox root, so its writes land inside the declared test_env/test_runs write territory.",
+  "purpose": "The declared C2 command input of the verification recipe; verification-recipe.json binds its constructed digests. The C2 helper runs commands in its snapshot sandbox, so commands use relative paths. ABI5_EVIDENCE_ROOT is an absolute external fixture path read outside that sandbox and unprotected by the recipe by declaration. Those retained fixtures are historical inputs, not newly obtained RC13 execution evidence.",
   "commands": [
     {
       "commandId": "command://abiogenesis/qualification/setup",
@@ -93,8 +93,6 @@
         "test_env/tests/t287-gtl-graph-law.test.mjs",
         "test_env/tests/t287-gtl-language-corpus.test.mjs",
         "test_env/tests/t287-malformed-gtl-gate.test.mjs",
-        "test_env/tests/t287-multi-candidate-admission.test.mjs",
-        "test_env/tests/t287-native-selection-profile-scope.test.mjs",
         "test_env/tests/t287-native-semantic-job.test.mjs",
         "test_env/tests/t287-native-semantic-revision.test.mjs",
         "test_env/tests/t287-native-structural-gates.test.mjs",
@@ -145,32 +143,6 @@
       "expectedReports": []
     },
     {
-      "commandId": "command://abiogenesis/qualification/test-uat-continuation",
-      "role": "test",
-      "executable": "/opt/homebrew/bin/node",
-      "args": [
-        "--experimental-vm-modules",
-        "--test",
-        "--test-concurrency=1",
-        "--test-timeout=600000",
-        "--test-reporter=./scripts/node-test-evidence-reporter.mjs",
-        "test_env/uat/continuation.test.mjs"
-      ],
-      "relativeCwd": ".",
-      "environment": {
-        "PATH": "/opt/homebrew/bin:/usr/bin:/bin",
-        "ABI5_UAT_CONTINUATION_INSTALLED_ROOT": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/test_runs/sandbox-uat/js-sdlc-bootstrap/2026-10-28T15-49-00-793Z-a668d062-3e5d-407c-abd5-6b7794dd427a/sandbox/installed/abg/node_modules/@abiogenesis/typescript-tenant",
-        "ABI5_UAT_CONTINUATION_NATIVE_ACQUISITION": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/test_runs/sandbox-uat/js-sdlc-bootstrap/2026-10-28T15-49-00-793Z-a668d062-3e5d-407c-abd5-6b7794dd427a/abg-acquisition.json",
-        "ABI5_UAT_CONTINUATION_CONSUMER_ACQUISITION": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/test_runs/sandbox-uat/js-sdlc-bootstrap/2026-10-28T15-49-00-793Z-a668d062-3e5d-407c-abd5-6b7794dd427a/consumer-acquisition.json",
-        "ABI5_UAT_UNIT_ROOT": "test_env/test_runs/qualification-units",
-        "ABI5_UAT_CONTINUATION_LOCK_REF": "product-lock://abiogenesis/c035d3c07622d182a92ef2bc5cd55f02e51f53a4f92d4e9f939ee918f836eeb6",
-        "ABI5_UAT_CONTINUATION_LOCK_DIGEST": "sha256:c035d3c07622d182a92ef2bc5cd55f02e51f53a4f92d4e9f939ee918f836eeb6"
-      },
-      "timeoutMs": 120000,
-      "terminationGraceMs": 1000,
-      "expectedReports": []
-    },
-    {
       "commandId": "command://abiogenesis/qualification/test-compose",
       "role": "test",
       "executable": "/opt/homebrew/bin/node",
@@ -202,9 +174,7 @@
         "--test-concurrency=1",
         "--test-timeout=600000",
         "--test-reporter=./scripts/node-test-evidence-reporter.mjs",
-        "test_env/tests/t287-selected-action.test.mjs",
         "test_env/tests/t287-rp2-behavior-carriers.test.mjs",
-        "test_env/tests/t287-rp2-correction-carriers.test.mjs",
         "test_env/tests/t287-rp2-fibre-substitution.test.mjs",
         "test_env/tests/t287-rp2-material-selection.test.mjs",
         "test_env/tests/t287-rp2-resource-memo.test.mjs"
@@ -240,7 +210,7 @@
       "predicateKind": "stdout_exact",
       "declaration": {
         "validationCommandId": "command://abiogenesis/qualification/compare",
-        "equals": "candidate pack reproduced: 5317 files\n"
+        "equals": "candidate pack reproduced: 5293 files\n"
       }
     }
   ],
@@ -268,10 +238,6 @@
     {
       "pathKind": "subtree",
       "relativePath": "contracts/vocabularies"
-    },
-    {
-      "pathKind": "file",
-      "relativePath": "contracts/schemas/consensus.schema.json"
     },
     {
       "pathKind": "file",
@@ -331,10 +297,6 @@
       },
       {
         "path": "test_env/tests/t287-public-preparation.test.mjs",
-        "kind": "mjs"
-      },
-      {
-        "path": "test_env/tests/t287-multi-candidate-admission.test.mjs",
         "kind": "mjs"
       },
       {
@@ -398,10 +360,6 @@
         "kind": "mjs"
       },
       {
-        "path": "test_env/tests/t287-native-selection-profile-scope.test.mjs",
-        "kind": "mjs"
-      },
-      {
         "path": "test_env/tests/retained-route-cursor-transition.test.mjs",
         "kind": "mjs"
       },
@@ -435,10 +393,6 @@
       },
       {
         "path": "test_env/uat/continuation.mjs",
-        "kind": "mjs"
-      },
-      {
-        "path": "test_env/uat/continuation.test.mjs",
         "kind": "mjs"
       },
       {
@@ -534,15 +488,7 @@
         "kind": "json"
       },
       {
-        "path": "test_env/tests/t287-selected-action.test.mjs",
-        "kind": "mjs"
-      },
-      {
         "path": "test_env/tests/t287-rp2-behavior-carriers.test.mjs",
-        "kind": "mjs"
-      },
-      {
-        "path": "test_env/tests/t287-rp2-correction-carriers.test.mjs",
         "kind": "mjs"
       },
       {
@@ -555,10 +501,6 @@
       },
       {
         "path": "test_env/tests/t287-rp2-resource-memo.test.mjs",
-        "kind": "mjs"
-      },
-      {
-        "path": "test_env/qualification/fixtures/rp2-correction-product.mjs",
         "kind": "mjs"
       },
       {
@@ -594,8 +536,6 @@
         "test_env/tests/t287-gtl-graph-law.test.mjs",
         "test_env/tests/t287-gtl-language-corpus.test.mjs",
         "test_env/tests/t287-malformed-gtl-gate.test.mjs",
-        "test_env/tests/t287-multi-candidate-admission.test.mjs",
-        "test_env/tests/t287-native-selection-profile-scope.test.mjs",
         "test_env/tests/t287-native-semantic-job.test.mjs",
         "test_env/tests/t287-native-semantic-revision.test.mjs",
         "test_env/tests/t287-native-structural-gates.test.mjs",
@@ -624,12 +564,6 @@
       ]
     },
     {
-      "commandId": "command://abiogenesis/qualification/test-uat-continuation",
-      "files": [
-        "test_env/uat/continuation.test.mjs"
-      ]
-    },
-    {
       "commandId": "command://abiogenesis/qualification/test-compose",
       "files": [
         "test_env/tests/t287-calculus-state-transfer.test.mjs"
@@ -638,9 +572,7 @@
     {
       "commandId": "command://abiogenesis/qualification/test-rp2-behavior",
       "files": [
-        "test_env/tests/t287-selected-action.test.mjs",
         "test_env/tests/t287-rp2-behavior-carriers.test.mjs",
-        "test_env/tests/t287-rp2-correction-carriers.test.mjs",
         "test_env/tests/t287-rp2-fibre-substitution.test.mjs",
         "test_env/tests/t287-rp2-material-selection.test.mjs",
         "test_env/tests/t287-rp2-resource-memo.test.mjs"

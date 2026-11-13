@@ -1,0 +1,70 @@
+{
+  "activation": "T292-B22-FINAL-METADATA-01",
+  "claim": "Clean C_payload archive derivation before metadata refresh; not a final cut or qualification",
+  "source": {
+    "repo": "/Users/jim/src/apps/abiogenesis",
+    "commit": "d2970a6c870aabc3a5567db4fa86d13d48328d9e",
+    "tree": "1f1250dd28b0085e156d9549c1b5c8fa85a8791c",
+    "archive": {
+      "path": "/private/tmp/abg-rc13-finalization-20261113/payload/source.tar",
+      "bytes": 37437440,
+      "sha256": "3b14d448f5eb98eabb1e2701ae0d79b9b314ee633240c316a823757300ad75ac"
+    }
+  },
+  "toolchain": {
+    "node": {
+      "name": "node",
+      "path": "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+      "realPath": "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+      "sha256": "fe1c0128a4c0163b034ec06b8b290494830ccb49922b5ce9ca4edf497a083e5f",
+      "version": "v24.7.0",
+      "execPath": "/opt/homebrew/Cellar/node/24.7.0/bin/node"
+    },
+    "npm": {
+      "name": "npm",
+      "path": "/opt/homebrew/Cellar/node/24.7.0/bin/npm",
+      "realPath": "/opt/homebrew/lib/node_modules/npm/bin/npm-cli.js",
+      "sha256": "8e5f6f3429f8cdbe693cdc29904e9d5a7b127a494bd15c804bd54c7403bfcbe7",
+      "version": "11.5.1"
+    },
+    "tar": {
+      "name": "tar",
+      "path": "/usr/bin/tar",
+      "realPath": "/usr/bin/bsdtar",
+      "sha256": "1d2c90ce52b691db5e4a8b566cb162805de0ddc46d2aadff120009260f3a24a5"
+    },
+    "git": {
+      "name": "git",
+      "path": "/usr/bin/git",
+      "realPath": "/usr/bin/git",
+      "sha256": "5b1ddb7e9c11b87a034fc88b212e8ac243cfe2b4db696d767aa44c79595fc09a"
+    }
+  },
+  "dependencyInventory": {
+    "path": "/private/tmp/abg-rc13-delivery-prep-work/DEPENDENCY_INVENTORY.json",
+    "bytes": 987998,
+    "sha256": "9f417ddd8719598469de5212a85a5ed5e0b850cc21e99aca46c46af049c93a41"
+  },
+  "physicalDependenciesEqual": true,
+  "contractsRegeneratedEqual": true,
+  "generatedEqual": true,
+  "archive": {
+    "path": "/private/tmp/abg-rc13-finalization-20261113/payload/pack/abiogenesis-typescript-tenant-5.0.0-rc.13.tgz",
+    "bytes": 10793225,
+    "sha256": "12d49bada287be7e0690af355107d6ffda7734452288f5153c785bb92f3b98b0"
+  },
+  "memberCount": 5293,
+  "allMembersEqualBuiltSource": true,
+  "allBuildAndContractMembersPresent": true,
+  "manifest": {
+    "path": "/private/tmp/abg-rc13-finalization-20261113/payload/source/build_tenants/abiogenesis/typescript/product-toolchain-manifest.json",
+    "bytes": 3100640,
+    "sha256": "00e0647836f72999ab899375067c4093a79d3cec07b1e063e0fb937f88019410"
+  },
+  "productContentDigest": "sha256:ab3c4deeb7d7fa8c057a7d3ce49c2b310809dd54cea99b7702de02926c5e4955",
+  "candidateBasisCheck": "pending metadata derivation",
+  "officialRelease": false,
+  "installed": false,
+  "providerCalls": 0,
+  "pinChanged": false
+}

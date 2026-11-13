@@ -1,0 +1,8 @@
+{
+  "activation": "T292-B22-FINAL-METADATA-01",
+  "sourceCommit": "0fa67efc467ae1b7bc1f616a0788f5ac9817d7b3",
+  "basis": "stdo://releases/v3.0.4/",
+  "scope": "Exact bounded RC13 version, payload and B22 metadata projection; no qualification or publication",
+  "route": ".ai-workspace/work/T292_CONSOLIDATION_01/preparation-20261113/RC13_METADATA_ROUTE.md",
+  "releaseLimitation": "B21 blocks reliable-operation and 5.0 qualification; RC11 remains pinned"
+}

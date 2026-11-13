@@ -1,0 +1,48 @@
+// Derive the real C_payload archive before B22 writes metadata about its bytes.
+// This is not the final cut and does not claim candidate-basis correspondence.
+import assert from 'node:assert/strict';
+import {mkdirSync,readFileSync,cpSync} from 'node:fs';
+import {join,resolve} from 'node:path';
+import {T,VERSION,GENERATED,ARCHIVE_NAME,absent,inventory,run,pin,writeOnce,archiveMembers,childEnvironment,toolchain} from '/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T292_CONSOLIDATION_01/rc13-local-cut-01/cut/cut-common.mjs';
+const [repoArg,commit,dirArg]=process.argv.slice(2);
+assert(repoArg && /^[0-9a-f]{40}$/.test(commit) && dirArg);
+const repo=resolve(repoArg),dir=resolve(dirArg);absent(dir);mkdirSync(dir);
+const env=childEnvironment(dir),logDir=join(dir,'commands'),chain=toolchain(env);
+const git=(label,args)=>run(label,'git',['-C',repo,...args],{cwd:repo,env,timeoutMs:120000,logDir}).stdout.trim();
+assert.equal(git('commit',['rev-parse',commit+'^{commit}']),commit);
+const tree=git('tree',['rev-parse',commit+'^{tree}']);
+const sourceTar=join(dir,'source.tar'),sourceRoot=join(dir,'source');
+git('archive',['archive','--format=tar','--output='+sourceTar,commit,T]);
+mkdirSync(sourceRoot);
+run('extract','tar',['-xf',sourceTar,'-C',sourceRoot],{cwd:dir,env,timeoutMs:120000,logDir});
+const tenant=join(sourceRoot,T);absent(join(tenant,'build'));absent(join(tenant,'node_modules'));
+const pkg=JSON.parse(readFileSync(join(tenant,'package.json')));assert.equal(pkg.version,VERSION);
+const contractsBefore=inventory(join(tenant,'contracts'));
+const generatedBefore=GENERATED.map(p=>({path:p,...pin(join(tenant,p))}));
+const deps=join(repo,T,'node_modules');
+const depPinPath='/private/tmp/abg-rc13-delivery-prep-work/DEPENDENCY_INVENTORY.json';
+const depRows=inventory(deps),expected=JSON.parse(readFileSync(depPinPath)).rows;
+const shape=rows=>rows.map(({path,kind,target,bytes,sha256})=>kind==='symlink'?{path,kind,target}:{path,kind,bytes,sha256});
+assert.deepEqual(shape(depRows),shape(expected));
+const lock=JSON.parse(readFileSync(join(tenant,'package-lock.json')));
+for(const [key,row]of Object.entries(lock.packages).filter(([k])=>k.startsWith('node_modules/')))
+ assert.equal(JSON.parse(readFileSync(join(repo,T,key,'package.json'))).version,row.version);
+cpSync(deps,join(tenant,'node_modules'),{recursive:true,verbatimSymlinks:true,preserveTimestamps:true});
+assert.deepEqual(inventory(join(tenant,'node_modules')),depRows);
+run('compile',process.execPath,['node_modules/typescript/bin/tsc','-p','tsconfig.json'],{cwd:tenant,env,timeoutMs:240000,logDir});
+run('generate',process.execPath,['scripts/generate-product-manifest.mjs'],{cwd:tenant,env,timeoutMs:600000,logDir});
+assert.deepEqual(inventory(join(tenant,'contracts')),contractsBefore,'contract regeneration differs from C_payload');
+for(const row of generatedBefore)assert.equal(pin(row.path).sha256,row.sha256,'generated C_payload bytes differ');
+const packDir=join(dir,'pack');mkdirSync(packDir);
+const packed=run('pack',process.execPath,['scripts/product-payload.mjs','pack',packDir],{cwd:tenant,env,timeoutMs:120000,logDir});
+const report=JSON.parse(packed.stdout);assert.equal(report.length,1);assert.equal(report[0].filename,ARCHIVE_NAME);
+const archive=join(packDir,ARCHIVE_NAME),archivePin=pin(archive),members=archiveMembers(archive);
+assert.equal(report[0].size,archivePin.bytes);
+const manifest=JSON.parse(readFileSync(join(tenant,'product-toolchain-manifest.json')));
+assert.deepEqual(members.map(r=>r.path),[...new Set([...manifest.productRelativeLocators,...GENERATED])].sort());
+for(const r of members)assert(readFileSync(join(tenant,r.path)).equals(r.data),r.path);
+const built=['build','contracts'].flatMap(d=>inventory(join(tenant,d),{hash:false}).map(r=>d+'/'+r.path));
+const set=new Set(members.map(r=>r.path));assert.deepEqual(built.filter(p=>!set.has(p)),[]);
+writeOnce(join(dir,'ARCHIVE_MEMBERS.json'),{archive:archivePin,rows:members.map(({data,...r})=>r)});
+writeOnce(join(dir,'PAYLOAD_RECORD.json'),{activation:'T292-B22-FINAL-METADATA-01',claim:'Clean C_payload archive derivation before metadata refresh; not a final cut or qualification',source:{repo,commit,tree,archive:pin(sourceTar)},toolchain:chain,dependencyInventory:pin(depPinPath),physicalDependenciesEqual:true,contractsRegeneratedEqual:true,generatedEqual:true,archive:archivePin,memberCount:members.length,allMembersEqualBuiltSource:true,allBuildAndContractMembersPresent:true,manifest:pin(join(tenant,'product-toolchain-manifest.json')),productContentDigest:manifest.productContentDigest,candidateBasisCheck:'pending metadata derivation',officialRelease:false,installed:false,providerCalls:0,pinChanged:false});
+console.log(JSON.stringify({commit,archive:archivePin,members:members.length,record:join(dir,'PAYLOAD_RECORD.json')}));

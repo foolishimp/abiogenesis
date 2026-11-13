@@ -1,0 +1,18 @@
+{
+  "activation": "T292-B22-FINAL-METADATA-01",
+  "existingLayoutPreserved": true,
+  "rows": [
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/qualification/classification.json",
+      "before": "f8a010d90d4c8dada88163fcc77db97bc760eb3f03e06afd409d960fb1e6e724",
+      "after": "40dc5837831c7ac91a3c905f5a8f538896e094cf017011763e8b1b6bd973ace9",
+      "jsonEqual": true
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/qualification/recipe/expected-output-inventory.json",
+      "before": "50ca4be20fa523f6d9f06fec0c8a9f161bbd759eaf443a8144587a75dcb8a273",
+      "after": "6cba7f8641f8a0ad194eb76a1da8191178117b0184912aede9a74fcd02bb8301",
+      "jsonEqual": true
+    }
+  ]
+}

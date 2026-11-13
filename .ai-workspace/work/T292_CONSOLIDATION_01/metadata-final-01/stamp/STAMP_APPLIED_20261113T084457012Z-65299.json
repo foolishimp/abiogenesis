@@ -1,0 +1,60 @@
+{
+  "kind": "rc13_version_stamp",
+  "mode": "applied",
+  "root": "/Users/jim/src/apps/abiogenesis",
+  "at": "2026-11-13T08:44:57.013Z",
+  "from": "5.0.0-rc.12",
+  "to": "5.0.0-rc.13",
+  "sites": [
+    {
+      "path": "build_tenants/abiogenesis/typescript/package.json",
+      "state": "stamped",
+      "beforeSha256": "03c338a4d542b6c2f45f7414fb4c912c5226604ce5b67f04796f3470b5708e8c",
+      "afterSha256": "bb3cc328ff68902bbc51767fcde40fb2045b41cae4c32592ec1d87383df77a88",
+      "bytesBefore": 9754,
+      "bytesAfter": 9754
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/package-lock.json",
+      "state": "stamped",
+      "beforeSha256": "0ce3037ea62501caa058676cee0542220a6e4cf69f9e3366027b42262e390827",
+      "afterSha256": "5d208d9a94f66b818bfebd09fca74842d178006a405880551519443697805cf1",
+      "bytesBefore": 7944,
+      "bytesAfter": 7944
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/product/contracts.ts",
+      "state": "stamped",
+      "beforeSha256": "a3f013caa09027eba68277d86ffd3ebfdcc71c704887bbc6e5121646f743d419",
+      "afterSha256": "cac0039ca61c9eac563e3d333fe3bdfe872fe59af83762edeb312d4c601fc313",
+      "bytesBefore": 13082,
+      "bytesAfter": 13082
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/fixtures/t287-current-owner/README.md",
+      "state": "stamped",
+      "beforeSha256": "613231b118a40b1d88a8cd46cfc1f22a841901b8528a87fc5372c77bcb966120",
+      "afterSha256": "d218546e51c3159ac60c5e0f31efcfe8b914b6e4584edd668d28bf74b605d42e",
+      "bytesBefore": 5524,
+      "bytesAfter": 5524
+    }
+  ],
+  "ownedRestatement": [
+    {
+      "path": "release-claim.md",
+      "sha256": "389c1a33ba5785a922021251913f6908f403684214b71fb387fcbfaf3062b1d9",
+      "containsPredecessorVersion": false,
+      "owner": "Root release-claim restatement"
+    },
+    {
+      "path": "test_env/fixtures/abi5-root-candidate-basis.json",
+      "sha256": "93cc7ccb63d46cff2dddacd88b434a076610a182a2f37753c0b41d064a213915",
+      "containsPredecessorVersion": true,
+      "owner": "scripts/refresh-candidate-basis.mjs after build"
+    }
+  ],
+  "regeneratedByBuild": [
+    "contracts/capabilities/capability-definition-graph.json",
+    "product-toolchain-manifest.json"
+  ]
+}

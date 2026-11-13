@@ -1,0 +1,10 @@
+{
+  "activation": "T292-B22-FINAL-METADATA-01",
+  "owner": "test_env/qualification/build-resources.mjs:constructInventory",
+  "memberCount": 1280,
+  "inventoryRef": "qualification-inventory://abiogenesis/aafac2c5ec98175abdbc8e2a3f37f0c2a0187144ed112c3440261e0ddcc9769e",
+  "inventoryDigest": "sha256:aafac2c5ec98175abdbc8e2a3f37f0c2a0187144ed112c3440261e0ddcc9769e",
+  "allMemberBytesMatched": true,
+  "selfExcluded": true,
+  "qualification": false
+}

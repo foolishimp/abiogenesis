@@ -1,0 +1,19 @@
+{
+  "activation": "T292-B22-PREPARATION-01",
+  "role": "Metadata Preparation Writer",
+  "sourceCommit": "52aa9529c",
+  "basis": "stdo://releases/v3.0.4/",
+  "route": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T292_CONSOLIDATION_01/preparation-20261113/RC13_METADATA_ROUTE.md",
+  "routeSha256": "eebc802abf1ae272fd67ab1c6f31ba71e91f6927c552fea870f7cf9e8328701e",
+  "recipeSha256": "a811303aec0f3d77cd975299e2cb5664eaabc84434f090f1c5f9edf3274b7cb5",
+  "effects": "scratch preparation only; no execution or tenant edits",
+  "retirementProvenance": {
+    "test_env/qualification/fixtures/rp2-correction-product.mjs": "06d095b65",
+    "test_env/tests/t287-multi-candidate-admission.test.mjs": "06d095b65",
+    "test_env/tests/t287-rp2-correction-carriers.test.mjs": "06d095b65",
+    "test_env/tests/t287-selected-action.test.mjs": "60baa0389",
+    "test_env/tests/t287-native-selection-profile-scope.test.mjs": "a74071fa5",
+    "test_env/uat/continuation.test.mjs": "37806ae2c",
+    "contracts/schemas/consensus.schema.json": "e26f05c15"
+  }
+}

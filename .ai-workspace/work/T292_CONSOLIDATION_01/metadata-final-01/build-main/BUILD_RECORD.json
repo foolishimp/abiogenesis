@@ -1,0 +1,42 @@
+{
+  "activation": "T292-B22-FINAL-METADATA-01",
+  "kind": "payload_source_preparation",
+  "toolchain": {
+    "node": {
+      "name": "node",
+      "path": "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+      "realPath": "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+      "sha256": "fe1c0128a4c0163b034ec06b8b290494830ccb49922b5ce9ca4edf497a083e5f",
+      "version": "v24.7.0",
+      "execPath": "/opt/homebrew/Cellar/node/24.7.0/bin/node"
+    },
+    "npm": {
+      "name": "npm",
+      "path": "/opt/homebrew/Cellar/node/24.7.0/bin/npm",
+      "realPath": "/opt/homebrew/lib/node_modules/npm/bin/npm-cli.js",
+      "sha256": "8e5f6f3429f8cdbe693cdc29904e9d5a7b127a494bd15c804bd54c7403bfcbe7",
+      "version": "11.5.1"
+    },
+    "tar": {
+      "name": "tar",
+      "path": "/usr/bin/tar",
+      "realPath": "/usr/bin/bsdtar",
+      "sha256": "1d2c90ce52b691db5e4a8b566cb162805de0ddc46d2aadff120009260f3a24a5"
+    },
+    "git": {
+      "name": "git",
+      "path": "/usr/bin/git",
+      "realPath": "/usr/bin/git",
+      "sha256": "5b1ddb7e9c11b87a034fc88b212e8ac243cfe2b4db696d767aa44c79595fc09a"
+    }
+  },
+  "dependenciesEqual": true,
+  "authoritySources": 94,
+  "authorityMirrorsExact": true,
+  "manifest": {
+    "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/product-toolchain-manifest.json",
+    "bytes": 3100640,
+    "sha256": "00e0647836f72999ab899375067c4093a79d3cec07b1e063e0fb937f88019410"
+  },
+  "providerCalls": 0
+}

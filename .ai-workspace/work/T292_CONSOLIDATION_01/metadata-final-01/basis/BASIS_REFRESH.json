@@ -1,0 +1,14 @@
+{
+  "activation": "T292-B22-FINAL-METADATA-01",
+  "owner": "scripts/refresh-candidate-basis.mjs",
+  "basis": {
+    "kind": "abi5_root_candidate_basis",
+    "schemaVersion": "5.0.0",
+    "artifactDigest": "sha256:12d49bada287be7e0690af355107d6ffda7734452288f5153c785bb92f3b98b0",
+    "productContentDigest": "sha256:ab3c4deeb7d7fa8c057a7d3ce49c2b310809dd54cea99b7702de02926c5e4955",
+    "manifestDigest": "sha256:75d1402d80d1d88f022e6644472a38c1ff22987c14c68f9857e279235b0bea4e",
+    "productId": "product://abiogenesis/typescript-tenant@5.0.0-rc.13",
+    "packageName": "@abiogenesis/typescript-tenant",
+    "packageVersion": "5.0.0-rc.13"
+  }
+}

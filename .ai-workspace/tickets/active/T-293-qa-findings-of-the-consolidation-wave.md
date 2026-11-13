@@ -57,7 +57,7 @@ One list of the defects found by the reviews, traces and packages of the T-292 w
 | B-19 | With a five-hour timeout override on a scenario's test command, the command form's budget exceeds the actor limit and the task is refused | `TD-67_RETURN.md` | S4 | P3 | Backlog; no configuration sets such an override |
 | B-20 | On the CLI's exit-70 path the written line still has kind `public_transport_refusal` and disposition `refused` | `TD-79_RETURN.md` | S4 | P3 | Backlog; the status and the code carry the classification |
 | B-21 | Self-canonical Darwin firmlink paths share physical ancestry; native preflight admits and parent creation writes beneath an absent protected root (predecessor and TD-85N) | `REVIEW_TD85N_CODEX.md` F1; `codex-qa/firmlink-effect.json`; originally TD-85A spelling residual | S2 | P2 | Physical-ancestry repair after the local unqualified cut; blocker to reliable-operation and 5.0 qualification claims |
-| B-22 | The qualification inventory and recipe hold digests and member paths of files the wave changed or deleted | Returns of TD-26 P1, P2, P4, TD-67, TD-79 | S4 | P2 | Regenerated at the cut |
+| B-22 | The qualification inventory and recipe hold digests and member paths of files the wave changed or deleted | Returns of TD-26 P1, P2, P4, TD-67, TD-79 | S4 | P2 | Bounded metadata refreshed for exact RC13 archive `12d49bad…`, 5,293 members; 1,280-member source inventory. Final C_final archive correspondence remains at the cut; no formal qualification resources claim |
 | B-23 | TD-77's strict default reaches a pure historical replay through shared source-provenance/revision helpers, making a kept child unreadable at later prefixes after a register change | `REVIEW_TD77_CODEX_TRIAGE.md`; frozen `91aec88b8`, saved changed-register failures and Writer first-refusal probe | S2 | P1 | Technical repair closed at `54024d63f`; pure recorded replay and strict work consumers separated; 64 merged and 22 frozen changed-register passes |
 | B-24 | The injected witness-mechanics environment omits the lock rows consumed by TD-78, so the operator-stop proof throws before owner entry | P5 `operator-base-attribution.log` on exact `e709bd24f`; T-292 Product/typed-interface/source/Proof triage and separate technical QA | S4 | P1 | Fixture repair closed at `b4704323b`; real guard retained. Merged run-stopped proof 9/9, including missing/different ABI-row controls before append; writer's sibling reprice 15/15. TD32/TD77 shared consumers remain in composed proof |
 | B-25 | Evidence gate `s7-pending-consumer-intent` still names the construction-only test removed by P5, causing the gate-catalogue checks to fail | P6 measured gate failures; original `t287-continuation-causation.test.mjs` at `e709bd24f`; T-292 triage | S4 | P1 | Technical repair closed at `eea100729`; writer and detached merged gate catalogue each 3/3. Unused row removed, historical inputs retained and current pending execution proved |
@@ -67,11 +67,11 @@ One list of the defects found by the reviews, traces and packages of the T-292 w
 
 | When | Items |
 |---|---|
-| In flight | B-22 metadata and exact candidate preparation |
+| In flight | One composed verification and exact candidate delivery |
 | Dependency-ready sequence | Final candidate identity, then one composed proof and local delivery |
 | Integrated with focused proof | B-01, B-02, B-03, B-04, B-05 (bounded; B-21 remains), B-06, B-07, B-23, B-24, B-25, B-26 |
 | Closed after TD-26 P7 | B-08 |
-| At the cut | B-22 |
+| Metadata complete; cut correspondence pending | B-22 |
 | After the cut | B-09 (after the owner decides), B-10, B-11, B-12, B-13, B-21 (S2 physical-ancestry repair before reliable-operation/5.0 qualification claims) |
 | Backlog | B-14 to B-20 |
 

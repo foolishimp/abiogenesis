@@ -1,0 +1,81 @@
+{
+  "activation": "T292-B22-FINAL-METADATA-01",
+  "records": [
+    {
+      "path": "ACTIVATION.json",
+      "bytes": 458,
+      "sha256": "19e5f995113749ed2b0d20a76b51ae1e67257556e2535e96dd0abf487d21376b"
+    },
+    {
+      "path": "PREPARATION.json",
+      "bytes": 1048,
+      "sha256": "4ede256f4d6c059a6a87d4b746ae7fc317f34f493dc9a58425d156d1c59da984"
+    },
+    {
+      "path": "construct-recipe.mjs",
+      "bytes": 3998,
+      "sha256": "a811303aec0f3d77cd975299e2cb5664eaabc84434f090f1c5f9edf3274b7cb5"
+    },
+    {
+      "path": "refresh-metadata.mjs",
+      "bytes": 6083,
+      "sha256": "9992b937f48bb49c556c0c5aa76ccd7eabe69a84b110c09f53f4335a0b8e0101"
+    },
+    {
+      "path": "derive-payload.mjs",
+      "bytes": 4810,
+      "sha256": "bc5972f80e0a2dd9c63d627d30496341b84053d8bc192a60a7d952b9f6ece614"
+    },
+    {
+      "path": "build-main/BUILD_RECORD.json",
+      "bytes": 1458,
+      "sha256": "a120af132eab519e986bda8946b62ec5c7f953bbc1f3ba1f20177204b2dde73f"
+    },
+    {
+      "path": "payload/PAYLOAD_RECORD.json",
+      "bytes": 2749,
+      "sha256": "ef826d085f7b77b12bec897e76549fcc07aa370f2bf9b6ccd44e03adcfceb524"
+    },
+    {
+      "path": "basis/BASIS_REFRESH.json",
+      "bytes": 646,
+      "sha256": "4b108a576b743a00a95c801859a1aa67de993ec46cb42ceab854ce3fc1806354"
+    },
+    {
+      "path": "METADATA_REFRESH.json",
+      "bytes": 3002,
+      "sha256": "ec91c273de5a76825c72d05469a6f003afb7cd6bbaf3324e72c1af18a036369a"
+    },
+    {
+      "path": "FORMAT_PRESERVATION.json",
+      "bytes": 720,
+      "sha256": "80835aa6f898c4d570187f8e4f5278171552bd2ec4cee55720d6a663c39feef0"
+    },
+    {
+      "path": "metadata-checks/CHECKS.json",
+      "bytes": 211,
+      "sha256": "3e13678b85451b86c44233e506dd4bb91b33ec7e22fbe1d73a602c1eb189bc0a"
+    },
+    {
+      "path": "recipe-fixture/RECIPE_CONSTRUCTION.json",
+      "bytes": 291331,
+      "sha256": "4d2930ec973fe02424b631167c7924cf007ef433817770071d6c55a8ef3d9c47"
+    },
+    {
+      "path": "INVENTORY_CONSTRUCTION.json",
+      "bytes": 451,
+      "sha256": "e0300e2ea7f34149c554cecd495cca1ce114ca792d352c911fcd8e0eccc0d4ed"
+    },
+    {
+      "path": "stamp/STAMP_APPLIED_20261113T084457012Z-65299.json",
+      "bytes": 2260,
+      "sha256": "a337516c0ec334b3f1a7635e5c8e752c5f3c0ad7681249f8eaa0481fec350476"
+    },
+    {
+      "path": "stamp/STAMP_DRY_RUN_20261113T084431820Z-65033.json",
+      "bytes": 2260,
+      "sha256": "87b0c1070a11b3c739f68c2417d1cc9570580c556763515004ccf8029e0c735e"
+    }
+  ],
+  "bytesEqual": true
+}
