@@ -369,14 +369,14 @@ stands in for this alternative.
 
 ### Contract domain
 
-The alternative is a second, exclusive request arm of the existing
-current-execution member `run.continue/current_intent`. Its closed domain is
-`continuationKind: ["current_intent", "pending_execution"]`. The exact Public key
-set stays at 56 definitions under its pinned key-set digest
-(`public/binding/owner_contract_source_set.ts`). A separate member would be an
-exact Public-family change, which this correction does not make. The owner
-selects by arm: a request with `pendingCursor` enters the pending-execution
-owner (`runPendingExecutionOwner`, `owner_bindings/run_invocation.ts`).
+The stable current-execution member `run.continue/current_intent` has one
+pending-execution request and the closed result/nonterminal kind
+`continuationKind: "pending_execution"`. `runPendingExecutionOwner` in
+`owner_bindings/run_invocation.ts` owns its exact pending-cursor request.
+No intent or action-selection arm remains. The current owner family has 17
+operations and 46 definitions, key-set SHA-256
+`0988d2088a089d32fa2c90589ee02afb44140dcf68cb463a0f68df6c1a0dcd81`;
+`public/binding/owner_contract_source_set.ts` owns that set.
 
 Request, all `{ref, digest}`; no intent or action field:
 
@@ -389,8 +389,9 @@ Request, all `{ref, digest}`; no intent or action field:
 | `expectedBasis` | Root ExecutionBasis of R |
 
 Result: the member's result shape with `continuationKind: "pending_execution"`
-and `admittedIntent: null`; non-terminal likewise. Refusals use the member's
-existing schema; the failure-code set is unchanged. The member's own
+and `admittedIntent: null`, with optional `stopStatement`. Nonterminal has
+kind `pending_execution`, disposition `held` and optional `stopStatement`; it
+does not carry `admittedIntent`. The five refusal codes are the table below. The member's own
 `run.continue` capability grant is required. The input slot joins the pending
 cursor's declared input carrier and the exact progressed input.
 

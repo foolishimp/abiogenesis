@@ -1,0 +1,735 @@
+{
+  "subject": "e9846da2bb1ffe8ed530e8bad75eb0087a51d6f0",
+  "design_files": 14,
+  "named_return_items": 20,
+  "named_groups": [
+    {
+      "id": "N01",
+      "old_return_items": [
+        "P1 \u00a71.3 row 1, old 1412"
+      ],
+      "file": "build_tenants/abiogenesis/typescript/design/ABI5_REALIZATION_CONSTITUTION.md",
+      "old_fragment_removed": true
+    },
+    {
+      "id": "N02",
+      "old_return_items": [
+        "P1 \u00a71.3 row 2, old 1503"
+      ],
+      "file": "build_tenants/abiogenesis/typescript/design/ABI5_REALIZATION_CONSTITUTION.md",
+      "old_fragment_removed": true
+    },
+    {
+      "id": "N03",
+      "old_return_items": [
+        "P1 \u00a71.3 row 3, old 1672",
+        "P2 Design sentences listed, old 1672"
+      ],
+      "file": "build_tenants/abiogenesis/typescript/design/ABI5_REALIZATION_CONSTITUTION.md",
+      "old_fragment_removed": true
+    },
+    {
+      "id": "N04",
+      "old_return_items": [
+        "P1 \u00a71.3 row 4, old 1952"
+      ],
+      "file": "build_tenants/abiogenesis/typescript/design/ABI5_REALIZATION_CONSTITUTION.md",
+      "old_fragment_removed": true
+    },
+    {
+      "id": "N05",
+      "old_return_items": [
+        "P1 \u00a71.3 row 5, old 2052\u20132053"
+      ],
+      "file": "build_tenants/abiogenesis/typescript/design/M05_S06_AXIOMATIC_AUTHORITY_AND_EXACT_PUBLIC_CONSTRUCTION_DESIGN.md",
+      "old_fragment_removed": true
+    },
+    {
+      "id": "N06",
+      "old_return_items": [
+        "P1 \u00a71.3 row 6, old 2178",
+        "P2 Design sentences listed, old 2178"
+      ],
+      "file": "build_tenants/abiogenesis/typescript/design/M05_S06_AXIOMATIC_AUTHORITY_AND_EXACT_PUBLIC_CONSTRUCTION_DESIGN.md",
+      "old_fragment_removed": true
+    },
+    {
+      "id": "N07",
+      "old_return_items": [
+        "P1 \u00a71.3 row 7, old 2264"
+      ],
+      "file": "build_tenants/abiogenesis/typescript/design/M05_S06_AXIOMATIC_AUTHORITY_AND_EXACT_PUBLIC_CONSTRUCTION_DESIGN.md",
+      "old_fragment_removed": true
+    },
+    {
+      "id": "N08",
+      "old_return_items": [
+        "P1 \u00a71.3 row 8, old 1339",
+        "P2 Design sentences listed, old 1341"
+      ],
+      "file": "build_tenants/abiogenesis/typescript/design/M05_S06_PUBLIC_FUNCTION_AND_NATIVE_OCCURRENCE_CLOSURE_DESIGN.md",
+      "old_fragment_removed": true
+    },
+    {
+      "id": "N09",
+      "old_return_items": [
+        "P1 \u00a71.3 row 9, old 1358"
+      ],
+      "file": "build_tenants/abiogenesis/typescript/design/M05_S06_PUBLIC_FUNCTION_AND_NATIVE_OCCURRENCE_CLOSURE_DESIGN.md",
+      "old_fragment_removed": true
+    },
+    {
+      "id": "N10",
+      "old_return_items": [
+        "P1 \u00a71.3 row 10, old 1399\u20131404"
+      ],
+      "file": "build_tenants/abiogenesis/typescript/design/M05_S06_PUBLIC_FUNCTION_AND_NATIVE_OCCURRENCE_CLOSURE_DESIGN.md",
+      "old_fragment_removed": true
+    },
+    {
+      "id": "N11",
+      "old_return_items": [
+        "P1 \u00a71.3 row 11, old 665"
+      ],
+      "file": "build_tenants/abiogenesis/typescript/design/T287_W2_R3_C3_BRANCH_CONSTRUCTION_AGGREGATE_DESIGN.md",
+      "old_fragment_removed": true
+    },
+    {
+      "id": "N12",
+      "old_return_items": [
+        "P1 \u00a71.3 row 12, old 1118"
+      ],
+      "file": "build_tenants/abiogenesis/typescript/design/ABI5_COMMON_COMPUTATIONAL_CAPABILITY_LIBRARY_DESIGN.md",
+      "old_fragment_removed": true
+    },
+    {
+      "id": "N13",
+      "old_return_items": [
+        "P2 Design sentences listed, old 1502"
+      ],
+      "file": "build_tenants/abiogenesis/typescript/design/ABI5_REALIZATION_CONSTITUTION.md",
+      "old_fragment_removed": true
+    },
+    {
+      "id": "N14",
+      "old_return_items": [
+        "P2 Design sentences listed, old 1566"
+      ],
+      "file": "build_tenants/abiogenesis/typescript/design/ABI5_REALIZATION_CONSTITUTION.md",
+      "old_fragment_removed": true
+    },
+    {
+      "id": "N15",
+      "old_return_items": [
+        "P4 Kept design sentences, bullet 1, old 40"
+      ],
+      "file": "build_tenants/abiogenesis/typescript/design/T287_REGISTERED_GRAPH_SELECTION_DESIGN.md",
+      "old_fragment_removed": true
+    },
+    {
+      "id": "N16",
+      "old_return_items": [
+        "P4 Kept design sentences, bullet 2, old 1557\u20131559"
+      ],
+      "file": "build_tenants/abiogenesis/typescript/design/ABI5_REALIZATION_CONSTITUTION.md",
+      "old_fragment_removed": true
+    },
+    {
+      "id": "N17",
+      "old_return_items": [
+        "P4 Kept design sentences, bullet 3, old 1654/1692/1809\u20131812"
+      ],
+      "file": "build_tenants/abiogenesis/typescript/design/M05_S06_PUBLIC_FUNCTION_AND_NATIVE_OCCURRENCE_CLOSURE_DESIGN.md",
+      "old_fragment_removed": true
+    }
+  ],
+  "expression_classes": [
+    {
+      "id": "E01",
+      "keys": [
+        "abg.operation.workspace.create#clean",
+        "abg.operation.workspace.create#imported"
+      ],
+      "regime": "artifact-effect"
+    },
+    {
+      "id": "E02",
+      "keys": [
+        "abg.operation.workspace.open#open"
+      ],
+      "regime": "read"
+    },
+    {
+      "id": "E03",
+      "keys": [
+        "abg.operation.project.read#catalog_list"
+      ],
+      "regime": "read"
+    },
+    {
+      "id": "E04",
+      "keys": [
+        "abg.operation.project.read#catalog_describe"
+      ],
+      "regime": "read"
+    },
+    {
+      "id": "E05",
+      "keys": [
+        "abg.operation.project.read#workspace_status"
+      ],
+      "regime": "read"
+    },
+    {
+      "id": "E06",
+      "keys": [
+        "abg.operation.project.read#run_status"
+      ],
+      "regime": "read"
+    },
+    {
+      "id": "E07",
+      "keys": [
+        "abg.operation.project.read#graph_call_status"
+      ],
+      "regime": "read"
+    },
+    {
+      "id": "E08",
+      "keys": [
+        "abg.operation.project.read#run_result"
+      ],
+      "regime": "read"
+    },
+    {
+      "id": "E09",
+      "keys": [
+        "abg.operation.project.read#graph_call_result"
+      ],
+      "regime": "read"
+    },
+    {
+      "id": "E10",
+      "keys": [
+        "abg.operation.project.read#run_evidence",
+        "abg.operation.project.read#graph_call_evidence",
+        "abg.operation.project.read#result_evidence",
+        "abg.operation.project.read#assessment_evidence",
+        "abg.operation.project.read#witness_evidence"
+      ],
+      "regime": "read"
+    },
+    {
+      "id": "E11",
+      "keys": [
+        "abg.operation.project.read#install_evidence"
+      ],
+      "regime": "read"
+    },
+    {
+      "id": "E12",
+      "keys": [
+        "abg.operation.project.read#release_evidence"
+      ],
+      "regime": "read"
+    },
+    {
+      "id": "E13",
+      "keys": [
+        "abg.operation.project.read#workspace_replay"
+      ],
+      "regime": "read"
+    },
+    {
+      "id": "E14",
+      "keys": [
+        "abg.operation.project.read#run_replay"
+      ],
+      "regime": "read"
+    },
+    {
+      "id": "E15",
+      "keys": [
+        "abg.operation.project.read#graph_call_replay"
+      ],
+      "regime": "read"
+    },
+    {
+      "id": "E16",
+      "keys": [
+        "abg.operation.project.read#interaction_replay"
+      ],
+      "regime": "read"
+    },
+    {
+      "id": "E17",
+      "keys": [
+        "abg.operation.project.read#continuation_replay"
+      ],
+      "regime": "read"
+    },
+    {
+      "id": "E18",
+      "keys": [
+        "abg.operation.project.read#c_call_replay"
+      ],
+      "regime": "read"
+    },
+    {
+      "id": "E22",
+      "keys": [
+        "abg.operation.product.verify#verify"
+      ],
+      "regime": "non-mutating validation/attestation"
+    },
+    {
+      "id": "E23",
+      "keys": [
+        "abg.operation.product.resolve#resolve"
+      ],
+      "regime": "non-mutating deterministic construction"
+    },
+    {
+      "id": "E24",
+      "keys": [
+        "abg.operation.product.install#install"
+      ],
+      "regime": "artifact-effect"
+    },
+    {
+      "id": "E25",
+      "keys": [
+        "abg.operation.workspace.bind#bind"
+      ],
+      "regime": "artifact-effect"
+    },
+    {
+      "id": "E26",
+      "keys": [
+        "abg.operation.catalog.admit#admit"
+      ],
+      "regime": "non-mutating deterministic construction"
+    },
+    {
+      "id": "E27",
+      "keys": [
+        "abg.operation.catalog.view#allowlist"
+      ],
+      "regime": "non-mutating deterministic construction"
+    },
+    {
+      "id": "E28",
+      "keys": [
+        "abg.operation.catalog.apply#node_type",
+        "abg.operation.catalog.apply#overlay"
+      ],
+      "regime": "non-mutating deterministic construction"
+    },
+    {
+      "id": "E29",
+      "keys": [
+        "abg.operation.run.invoke#invoke"
+      ],
+      "regime": "runtime-mutation"
+    },
+    {
+      "id": "E30",
+      "keys": [
+        "abg.operation.run.invoke#start"
+      ],
+      "regime": "runtime-mutation"
+    },
+    {
+      "id": "E31",
+      "keys": [
+        "abg.operation.run.continue#current_intent"
+      ],
+      "regime": "runtime-mutation"
+    },
+    {
+      "id": "E34",
+      "keys": [
+        "abg.operation.result.assess#assess"
+      ],
+      "regime": "runtime-mutation"
+    },
+    {
+      "id": "E35",
+      "keys": [
+        "abg.operation.witness.admit#reprice",
+        "abg.operation.witness.admit#attest",
+        "abg.operation.witness.admit#hygiene-stamp",
+        "abg.operation.witness.admit#intake",
+        "abg.operation.witness.admit#run-resumed",
+        "abg.operation.witness.admit#run-stopped"
+      ],
+      "regime": "runtime-mutation"
+    },
+    {
+      "id": "E36",
+      "keys": [
+        "abg.operation.conformance.evaluate#gtl_program"
+      ],
+      "regime": "non-mutating validation/attestation"
+    },
+    {
+      "id": "E37",
+      "keys": [
+        "abg.operation.product.materialize#context_bootstrap"
+      ],
+      "regime": "artifact-effect"
+    },
+    {
+      "id": "E38",
+      "keys": [
+        "abg.operation.product.materialize#configuration"
+      ],
+      "regime": "artifact-effect"
+    },
+    {
+      "id": "E39",
+      "keys": [
+        "abg.operation.release.snapshot#published_rc"
+      ],
+      "regime": "artifact-effect"
+    },
+    {
+      "id": "E40",
+      "keys": [
+        "abg.operation.release.snapshot#tapped_release"
+      ],
+      "regime": "artifact-effect"
+    }
+  ],
+  "exact_final_keys": [
+    "abg.operation.catalog.admit#admit",
+    "abg.operation.catalog.apply#node_type",
+    "abg.operation.catalog.apply#overlay",
+    "abg.operation.catalog.view#allowlist",
+    "abg.operation.conformance.evaluate#gtl_program",
+    "abg.operation.product.install#install",
+    "abg.operation.product.materialize#configuration",
+    "abg.operation.product.materialize#context_bootstrap",
+    "abg.operation.product.resolve#resolve",
+    "abg.operation.product.verify#verify",
+    "abg.operation.project.read#assessment_evidence",
+    "abg.operation.project.read#c_call_replay",
+    "abg.operation.project.read#catalog_describe",
+    "abg.operation.project.read#catalog_list",
+    "abg.operation.project.read#continuation_replay",
+    "abg.operation.project.read#graph_call_evidence",
+    "abg.operation.project.read#graph_call_replay",
+    "abg.operation.project.read#graph_call_result",
+    "abg.operation.project.read#graph_call_status",
+    "abg.operation.project.read#install_evidence",
+    "abg.operation.project.read#interaction_replay",
+    "abg.operation.project.read#release_evidence",
+    "abg.operation.project.read#result_evidence",
+    "abg.operation.project.read#run_evidence",
+    "abg.operation.project.read#run_replay",
+    "abg.operation.project.read#run_result",
+    "abg.operation.project.read#run_status",
+    "abg.operation.project.read#witness_evidence",
+    "abg.operation.project.read#workspace_replay",
+    "abg.operation.project.read#workspace_status",
+    "abg.operation.release.snapshot#published_rc",
+    "abg.operation.release.snapshot#tapped_release",
+    "abg.operation.result.assess#assess",
+    "abg.operation.run.continue#current_intent",
+    "abg.operation.run.invoke#invoke",
+    "abg.operation.run.invoke#start",
+    "abg.operation.witness.admit#attest",
+    "abg.operation.witness.admit#hygiene-stamp",
+    "abg.operation.witness.admit#intake",
+    "abg.operation.witness.admit#reprice",
+    "abg.operation.witness.admit#run-resumed",
+    "abg.operation.witness.admit#run-stopped",
+    "abg.operation.workspace.bind#bind",
+    "abg.operation.workspace.create#clean",
+    "abg.operation.workspace.create#imported",
+    "abg.operation.workspace.open#open"
+  ],
+  "key_set_sha256": "0988d2088a089d32fa2c90589ee02afb44140dcf68cb463a0f68df6c1a0dcd81",
+  "partition": {
+    "artifact-effect": 8,
+    "read": 21,
+    "non-mutating": 7,
+    "runtime-mutation": 10
+  },
+  "exact_effect_metadata_correspondence": true,
+  "historical_amendments_16_1_through_16_16_byte_equal": true,
+  "pending_owner_source_correspondence": [
+    {
+      "file": "build_tenants/abiogenesis/typescript/code/src/abg/construction_continuation.ts",
+      "sha256": "f11480d10c89f73588fd79bac57ca21920b07a07da3d7004d3f400cc2cb53cd5",
+      "symbols": {
+        "selectPendingExecutionUse": true,
+        "preparePendingExecutionContinuation": true,
+        "projectPendingExecutionInputAtPrefix": true,
+        "admitPendingExecutionContinuationOperation": true
+      }
+    },
+    {
+      "file": "build_tenants/abiogenesis/typescript/code/src/owner_bindings/run_invocation.ts",
+      "sha256": "233000adc3f1cd067b9fd0b40e413e021278f1f87a78e6c05b3e984b90336a1e",
+      "symbols": {
+        "runPendingExecutionOwner": true,
+        "resolveContinuationBasis": true,
+        "ProductExecutionResolutionPort.resolve": true,
+        "continuationOutcome": true,
+        "pendingExecutionResume: true": true
+      }
+    },
+    {
+      "file": "build_tenants/abiogenesis/typescript/code/src/hog/graph_execute.ts",
+      "sha256": "18dc888f94712ba5d9ed1f1d5f955ee2d8734d75127c8087d6dfcb7bdc168555",
+      "symbols": {
+        "executeGraphTraversalEffect": true,
+        "rehydrateParentReturnFrames": true
+      }
+    },
+    {
+      "file": "build_tenants/abiogenesis/typescript/code/src/abg/project_read_ports.ts",
+      "sha256": "b5ee6c067541a9c0f6fafebef99b8747ee8d030e73c9ef424343228c1e1e397a",
+      "symbols": {
+        "projectRunTruthAtDurablePrefix": true
+      }
+    },
+    {
+      "file": "build_tenants/abiogenesis/typescript/code/src/product/run_operation_contracts.ts",
+      "sha256": "cb1d4c8e813b533648779e9025bf5ba3d4ee3bcf9c508595812275f6a23d1047",
+      "symbols": {
+        "CURRENT_EXECUTION_KINDS = [\"pending_execution\"]": true,
+        "admittedIntent: v.null()": true
+      }
+    }
+  ],
+  "links": [
+    {
+      "file": "build_tenants/abiogenesis/typescript/design/ABI5_COMMON_COMPUTATIONAL_CAPABILITY_LIBRARY_DESIGN.md",
+      "existing": [
+        {
+          "link": "../code/src/product/exact_match.ts",
+          "reason": "missing path"
+        }
+      ],
+      "after": [
+        {
+          "link": "../code/src/product/exact_match.ts",
+          "reason": "missing path"
+        }
+      ],
+      "introduced": []
+    },
+    {
+      "file": "build_tenants/abiogenesis/typescript/design/ABI5_REALIZATION_CONSTITUTION.md",
+      "existing": [],
+      "after": [],
+      "introduced": []
+    },
+    {
+      "file": "build_tenants/abiogenesis/typescript/design/ABI5_STDO3_COMPUTATIONAL_BINDING.md",
+      "existing": [],
+      "after": [],
+      "introduced": []
+    },
+    {
+      "file": "build_tenants/abiogenesis/typescript/design/M03_DIRECT_GTL_TRAVERSAL_BEHAVIOR_DESIGN.md",
+      "existing": [],
+      "after": [],
+      "introduced": []
+    },
+    {
+      "file": "build_tenants/abiogenesis/typescript/design/M05_DIRECT_GTL_TRAVERSAL_EXPANSION_DESIGN.md",
+      "existing": [],
+      "after": [],
+      "introduced": []
+    },
+    {
+      "file": "build_tenants/abiogenesis/typescript/design/M05_S06_AXIOMATIC_AUTHORITY_AND_EXACT_PUBLIC_CONSTRUCTION_DESIGN.md",
+      "existing": [],
+      "after": [],
+      "introduced": []
+    },
+    {
+      "file": "build_tenants/abiogenesis/typescript/design/M05_S06_PUBLIC_FUNCTION_AND_NATIVE_OCCURRENCE_CLOSURE_DESIGN.md",
+      "existing": [],
+      "after": [],
+      "introduced": []
+    },
+    {
+      "file": "build_tenants/abiogenesis/typescript/design/T287_D6_RC6_RELEASE_IDENTITY_DESIGN.md",
+      "existing": [
+        {
+          "link": "../../../../.ai-workspace/comments/codex/20260911_D6_NATIVE_ARTIFACT_ADMISSION_APPLICATION_10/root-acceptance.md",
+          "reason": "missing path"
+        },
+        {
+          "link": "../../../../.ai-workspace/comments/codex/20260911_D6_RC6_RELEASE_RECONCILIATION/application-03/executive-acceptance.md",
+          "reason": "missing path"
+        }
+      ],
+      "after": [
+        {
+          "link": "../../../../.ai-workspace/comments/codex/20260911_D6_NATIVE_ARTIFACT_ADMISSION_APPLICATION_10/root-acceptance.md",
+          "reason": "missing path"
+        },
+        {
+          "link": "../../../../.ai-workspace/comments/codex/20260911_D6_RC6_RELEASE_RECONCILIATION/application-03/executive-acceptance.md",
+          "reason": "missing path"
+        }
+      ],
+      "introduced": []
+    },
+    {
+      "file": "build_tenants/abiogenesis/typescript/design/T287_PENDING_CONSUMER_CONTINUATION_DESIGN.md",
+      "existing": [],
+      "after": [],
+      "introduced": []
+    },
+    {
+      "file": "build_tenants/abiogenesis/typescript/design/T287_PUBLIC_DEFINITION_CALL_CONSTRUCTION.md",
+      "existing": [],
+      "after": [],
+      "introduced": []
+    },
+    {
+      "file": "build_tenants/abiogenesis/typescript/design/T287_R10_TYPED_TERMINAL_OUTCOME_DESIGN.md",
+      "existing": [
+        {
+          "link": "../../../../.ai-workspace/comments/codex/20260911_D4_S01_PROGRAM_OWNER/implementation-01/candidate-01/manifest.json",
+          "reason": "missing path"
+        },
+        {
+          "link": "../../../../.ai-workspace/comments/codex/20260911_D4_S01_PROGRAM_OWNER/fixture-program-selection-01/execution-01/return.md",
+          "reason": "missing path"
+        },
+        {
+          "link": "../../../../.ai-workspace/comments/codex/20260911_D4_S01_PROGRAM_OWNER/installed-preparation-01/r10-payload-gap.md",
+          "reason": "missing path"
+        },
+        {
+          "link": "../../../../.ai-workspace/comments/codex/20260911_D4_S01_PROGRAM_OWNER/r10-implementation-01/return.md",
+          "reason": "missing path"
+        }
+      ],
+      "after": [
+        {
+          "link": "../../../../.ai-workspace/comments/codex/20260911_D4_S01_PROGRAM_OWNER/implementation-01/candidate-01/manifest.json",
+          "reason": "missing path"
+        },
+        {
+          "link": "../../../../.ai-workspace/comments/codex/20260911_D4_S01_PROGRAM_OWNER/fixture-program-selection-01/execution-01/return.md",
+          "reason": "missing path"
+        },
+        {
+          "link": "../../../../.ai-workspace/comments/codex/20260911_D4_S01_PROGRAM_OWNER/installed-preparation-01/r10-payload-gap.md",
+          "reason": "missing path"
+        },
+        {
+          "link": "../../../../.ai-workspace/comments/codex/20260911_D4_S01_PROGRAM_OWNER/r10-implementation-01/return.md",
+          "reason": "missing path"
+        }
+      ],
+      "introduced": []
+    },
+    {
+      "file": "build_tenants/abiogenesis/typescript/design/T287_REGISTERED_GRAPH_SELECTION_DESIGN.md",
+      "existing": [],
+      "after": [],
+      "introduced": []
+    },
+    {
+      "file": "build_tenants/abiogenesis/typescript/design/T287_W2_R2_CONSUMER_DECLARATION_ADMISSION_DESIGN.md",
+      "existing": [
+        {
+          "link": "../../../../.ai-workspace/comments/codex/20260908_W2_STEEL_SEQUENCE/thread-02-design/subject.json",
+          "reason": "missing path"
+        },
+        {
+          "link": "../../../../.ai-workspace/comments/codex/20260908_W2_STEEL_SEQUENCE/thread-02-design/correction-01/manifest.json",
+          "reason": "missing path"
+        }
+      ],
+      "after": [
+        {
+          "link": "../../../../.ai-workspace/comments/codex/20260908_W2_STEEL_SEQUENCE/thread-02-design/subject.json",
+          "reason": "missing path"
+        },
+        {
+          "link": "../../../../.ai-workspace/comments/codex/20260908_W2_STEEL_SEQUENCE/thread-02-design/correction-01/manifest.json",
+          "reason": "missing path"
+        }
+      ],
+      "introduced": []
+    },
+    {
+      "file": "build_tenants/abiogenesis/typescript/design/T287_W2_R3_C3_BRANCH_CONSTRUCTION_AGGREGATE_DESIGN.md",
+      "existing": [],
+      "after": [],
+      "introduced": []
+    }
+  ],
+  "new_dangling_links": [],
+  "existing_dangling_occurrences": 9,
+  "field_preservation": "pending kind, admittedIntent:null, four optional stopStatement fields, two nullable invoke gap fields and sourceBasis projectionAuthority verified; six null/empty basis and hold/replay profile constants documented",
+  "artifact_hashes": [
+    {
+      "file": "build_tenants/abiogenesis/typescript/design/ABI5_COMMON_COMPUTATIONAL_CAPABILITY_LIBRARY_DESIGN.md",
+      "sha256": "2f43c77715c90cc57004406b21c52ff1a1e66f360ac2640564c1272ccfdd2068"
+    },
+    {
+      "file": "build_tenants/abiogenesis/typescript/design/ABI5_REALIZATION_CONSTITUTION.md",
+      "sha256": "b464ed25a9364e677278ba70984b8f241e2e38190975ddd6a767526a58ac94c1"
+    },
+    {
+      "file": "build_tenants/abiogenesis/typescript/design/ABI5_STDO3_COMPUTATIONAL_BINDING.md",
+      "sha256": "b238af6c18b66820c6f1c934cac2ded9a13e8a14875b6defd0504fbdafe21250"
+    },
+    {
+      "file": "build_tenants/abiogenesis/typescript/design/M03_DIRECT_GTL_TRAVERSAL_BEHAVIOR_DESIGN.md",
+      "sha256": "9fdb40a23c0c365ec072da86bdb74743167b23111fb5bd5b14d75c7d9e21a865"
+    },
+    {
+      "file": "build_tenants/abiogenesis/typescript/design/M05_DIRECT_GTL_TRAVERSAL_EXPANSION_DESIGN.md",
+      "sha256": "aec46f32e9d40f4bb4bbaa2bdba8cbb195c6b2739f3f1b52af4a800f019dbded"
+    },
+    {
+      "file": "build_tenants/abiogenesis/typescript/design/M05_S06_AXIOMATIC_AUTHORITY_AND_EXACT_PUBLIC_CONSTRUCTION_DESIGN.md",
+      "sha256": "0f312f971c5221bfdca31ea757053eaa52065f25672afe293b2dcd943021f00e"
+    },
+    {
+      "file": "build_tenants/abiogenesis/typescript/design/M05_S06_PUBLIC_FUNCTION_AND_NATIVE_OCCURRENCE_CLOSURE_DESIGN.md",
+      "sha256": "bbf5f11329c21e5be7679bfb1f3c50d263c16115cde8cd14c1d32f84edeea59d"
+    },
+    {
+      "file": "build_tenants/abiogenesis/typescript/design/T287_D6_RC6_RELEASE_IDENTITY_DESIGN.md",
+      "sha256": "157ae805d4dff697754b2fd34e518656cfea6e5172a7de481111d7a5ef38714a"
+    },
+    {
+      "file": "build_tenants/abiogenesis/typescript/design/T287_PENDING_CONSUMER_CONTINUATION_DESIGN.md",
+      "sha256": "18c9bc71ceb61827fa0e6cb3e75196859bee251b8b473a2692ae2553b6154661"
+    },
+    {
+      "file": "build_tenants/abiogenesis/typescript/design/T287_PUBLIC_DEFINITION_CALL_CONSTRUCTION.md",
+      "sha256": "be05ce6a2c3edfe0d3e0d05793104c69b15665513394c542a5c10142dab25ad8"
+    },
+    {
+      "file": "build_tenants/abiogenesis/typescript/design/T287_R10_TYPED_TERMINAL_OUTCOME_DESIGN.md",
+      "sha256": "74d97e87d0d83d6fea85c684907ce392eb80b03ecdb84f4c9accf1d5d39cb039"
+    },
+    {
+      "file": "build_tenants/abiogenesis/typescript/design/T287_REGISTERED_GRAPH_SELECTION_DESIGN.md",
+      "sha256": "6ddf115dbc5cb01f70fba882d26be99a499b653793c6fa6e7dbbc57a6168615a"
+    },
+    {
+      "file": "build_tenants/abiogenesis/typescript/design/T287_W2_R2_CONSUMER_DECLARATION_ADMISSION_DESIGN.md",
+      "sha256": "f699fddc6bbfab7b7ca1cb9ea0abad5314767db16c3c773d597fd57f7768bf93"
+    },
+    {
+      "file": "build_tenants/abiogenesis/typescript/design/T287_W2_R3_C3_BRANCH_CONSTRUCTION_AGGREGATE_DESIGN.md",
+      "sha256": "b0cbe06cf527054774e8d6c5dad2cf16b472bd4a7bc85fe29fd0cb824009b67b"
+    }
+  ],
+  "limits": "Mechanical source/text correspondence only; no tests/builds/provider execution or semantic-independent assurance."
+}

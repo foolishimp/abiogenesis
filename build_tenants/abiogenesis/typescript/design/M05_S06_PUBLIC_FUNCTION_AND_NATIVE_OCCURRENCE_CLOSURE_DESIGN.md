@@ -57,11 +57,11 @@ boundary.
 
 | Global decision | Local projection | Falsified by |
 |---|---|---|
-| The 5.0 public family is complete before S06 promotion. | One exact family contains 18 operations and 56 operation-member keys. | An 11-operation portability subset is published as the release family or no later selected lane owns the missing functions. |
+| The 5.0 public family is complete before S06 promotion. | One exact family contains 17 operations and 46 operation-member keys. | An 11-operation portability subset is published as the release family or no later selected lane owns the missing functions. |
 | Scenario scope and Product definition scope remain distinct. | S06 executes one representative installed invocation, while T-287 closes every 5.0 definition and projection. | Scenario success is used to infer absent definitions, handlers, contracts, or rows. |
 | One definition specifies and loads one executable relation. | `IntrinsicPublicFunctionDefinition<K>` contains a source-independent execution specification naming exactly one direct owner primitive, statically composed TypeScript callable, or owner projection. Product installation resolves that specification under the admitted lock into one real loaded binding. | An endpoint name is treated as an atom; an installed callable enters intrinsic/Product-content identity; a metadata-only row, common handler, adapter, schema, or runtime branch authors missing meaning; or a multi-owner path has neither a statically composed callable nor factorization evidence. |
 | Owner contracts are singular. | One strict native schema is the source of the TypeScript type, raw parser, canonical JSON Schema, and closed domain for each slot. | A handwritten interface, parser, generated schema, or handler check independently narrows or widens the value domain. |
-| Every key has a constructable external contract packet and loadable binding specification. | The closed source map fixes exact owner contract, metadata, authority, and declarative binding specifications; admitted owner contracts supply fields, domains, and defaults. Installation proves each specification resolves under the admitted lock to one real direct, statically composed, or projection callable. | The join copies 56 payload families, builds 56 bespoke implementations, accepts a string/interface/specification as executable authority, or completes an unresolved reference by convention. |
+| Every key has its exact owner contract packet and binding specification; 42 keys are callable and four witness keys remain declared unavailable. | The closed source map fixes exact owner contract, metadata, authority, and declarative binding specifications; admitted owner contracts supply fields, domains, and defaults. Installation proves each callable specification resolves under the admitted lock to one real direct, statically composed, or projection callable; the four unavailable witness members retain `installed_binding_unavailable`. | The join copies 46 payload families, builds 46 bespoke implementations, accepts a string/interface/specification as executable authority, or completes an unresolved reference by convention. |
 | Relational request laws are structural. | Exact sums encode all-or-none, exactly-one, conditional, and ref/digest laws in both native and serialized contracts. | Optional fields type-check while parser or handler later rejects their relation. |
 | Outcomes are operation indexed. | `PublicOutcome<K>` contains only `ResultOf<K>`, `NonTerminalOf<K>`, `RefusalOf<K>`, or the common typed projection-refusal member. | `JsonValue`, `{}`, a generic result envelope, or handler-local check supplies operation meaning. |
 | Adapters are projections. | SDK and CLI coordinates (`sdkCoordinate`, `cliCoordinate` in `public/binding/public_function_family.ts`) derive from the exact family and transport the same invocation/outcome. | An adapter owns a variant roster, default, parser, result shape, or semantic branch. |
@@ -100,7 +100,7 @@ Excluded:
 
 | Constitutional source | Global decision | Local design projection | Falsification |
 |---|---|---|---|
-| `REQ-P-PUBLIC-CONTRACTS-005`, `-008` | complete public family | Section 4.1 exact 18-operation/56-key family | missing, extra, legacy, or 5.1 key |
+| `REQ-P-PUBLIC-CONTRACTS-005`, `-008` | complete public family | Section 4.1 exact 17-operation/46-key family | missing, extra, legacy, or 5.1 key |
 | `REQ-P-PUBLIC-CONTRACTS-001..002A`, `-004` | public identity is exact and acyclic | pre-family owner/definition identity, family identity, PFC-F07 payload projection, Product-content digest, then PFC-F08 S06 flat catalog | self-reference, later-stage input, replacement carrier, placeholder digest, or generated/runtime divergence |
 | `REQ-P-PUBLIC-CONTRACTS-006A` | the 44-row roster is visible without claiming release closure | exact `MandatorySchemaVocabularyCorpusGapSet` emitted only by PFC-F08 | the diagnostic is omitted, applied to an unrelated Product, or treated as complete publication proof |
 | `REQ-P-PUBLIC-CONTRACTS-009..010`; `REQ-P-POLICY-062..064` | one indexed request/result/refusal/non-terminal authority | Sections 4.2, 4.4, and 4.5 | native/parser/schema/runtime disagreement or generic payload/outcome |
@@ -132,7 +132,7 @@ PFC-F02 ConstructPublicFunctionDefinition(
    | PublicDefinitionGap
 
 PFC-F03 ClosePublicFunctionFamily(
-  exact definitions for all 56 K
+  exact definitions for all 46 K
 )
   -> IntrinsicPublicFunctionDefinitionFamily
    | PublicDefinitionGap
@@ -275,14 +275,19 @@ NCC-F03 ConstructResolvedProductLock(
 
 ### 4.1 Closed Family
 
-The exact 5.0 family has 18 operation identities and 56 definition keys. The
+The exact 5.0 family has 17 operation identities and 46 definition keys. Its
+key-set SHA-256 is `0988d2088a089d32fa2c90589ee02afb44140dcf68cb463a0f68df6c1a0dcd81`.
+The 42 callable bindings and four unavailable witness members (`attest`,
+`hygiene-stamp`, `intake`, `run-resumed`) are distinct. The ten withdrawn keys
+are absent and exact predecessor calls refuse `unknown_definition`; their CLI
+invocations exit 2. The
 counts are derived no-silence checks, not Product scope.
 
 | Operation | Exact member keys | Semantic owner | Workspace binding | Actor | Effect |
 |---|---|---|---|---|---|
 | `abg.operation.workspace.create` | `clean`, `imported` | Product workspace | forbidden | required | workspace filesystem |
 | `abg.operation.workspace.open` | `open` | Product workspace | forbidden | forbidden | pure read |
-| `abg.operation.project.read` | 24 cases in Section 4.3 | owning projection family | per case | forbidden | pure read |
+| `abg.operation.project.read` | 20 cases in Section 4.3 | owning projection family | per case | forbidden | pure read |
 | `abg.operation.product.verify` | `verify` | Product verifier | forbidden | forbidden | deterministic attestation |
 | `abg.operation.product.resolve` | `resolve` | Product resolver | forbidden | forbidden | deterministic evaluation |
 | `abg.operation.product.install` | `install` | Product installer | forbidden | required | immutable filesystem |
@@ -291,8 +296,7 @@ counts are derived no-silence checks, not Product scope.
 | `abg.operation.catalog.view` | `allowlist` | Product catalog projection | exactly one | required | deterministic narrowing |
 | `abg.operation.catalog.apply` | `node_type`, `overlay` | Product catalog application | exactly one | required | deterministic application construction |
 | `abg.operation.run.invoke` | `invoke`, `start` | Product/GTL/HoG/ABG composition | exactly one | required | ABG traversal |
-| `abg.operation.run.continue` | `current_intent`, `selected_action` | Product/ABG/HoG continuation | exactly one | required | ABG continuation |
-| `abg.operation.interaction.respond` | `select`, `approve`, `reject`, `assess`, `answer_escalation` | Product F_H validation plus ABG admission | exactly one | required | F_H response event |
+| `abg.operation.run.continue` | `current_intent` | Product/ABG/HoG continuation | exactly one | required | ABG continuation |
 | `abg.operation.result.assess` | `assess` | Product result assessment plus ABG admission | exactly one | required | assessment event |
 | `abg.operation.witness.admit` | `reprice`, `attest`, `hygiene-stamp`, `intake`, `run-resumed`, `run-stopped` | ABG witnessed-act admission | exactly one | required | witnessed event |
 | `abg.operation.conformance.evaluate` | `gtl_program` | GTL validator/Product conformance | exactly one | required | deterministic assessment |
@@ -494,7 +498,7 @@ indexed owner outcome; no adapter or new-to-old translation may intervene.
 
 Every field of `IntrinsicPublicFunctionDefinition<K>` is projected from the exact owner
 packet below. This design references the owning contract; it does not reproduce
-the 56 request, result, refusal, or non-terminal payload families.
+the 46 request, result, refusal, or non-terminal payload families.
 
 The selected TypeScript strict lane uses one strict Valibot owner schema per
 slot. Its inferred output type is the native type, its parse is raw admission,
@@ -634,8 +638,7 @@ The closed source map is:
 | `abg.operation.catalog.view(allowlist)` | `Product.CatalogProjection` | `CATALOG_OPERATION_CONTRACTS.view.allowlist` | `CatalogOperationPort.constructView` | `CatalogViewPacket` |
 | `abg.operation.catalog.apply(node_type|overlay)` | `Product.CatalogApplication` | `CATALOG_OPERATION_CONTRACTS.apply[member]` | `CatalogOperationPort.apply` | `CatalogApplyPacket<member>` |
 | `abg.operation.run.invoke(invoke|start)` | `Product.RunInvocation` | `RUN_OPERATION_CONTRACTS.invoke[member]` | `RunInvocationPort[member]` | `RunInvokePacket<member>` |
-| `abg.operation.run.continue(current_intent|selected_action)` | `Product.RunContinuation` | `RUN_OPERATION_CONTRACTS.continue[member]` | `RunContinuationPort[member]` | `RunContinuePacket<member>` |
-| `abg.operation.interaction.respond(select|approve|reject|assess|answer_escalation)` | `Product.InteractionResponse` | `INTERACTION_OPERATION_CONTRACTS.respond[member]` | `InteractionResponsePort.respond` | `InteractionRespondPacket<member>` |
+| `abg.operation.run.continue(current_intent)` | `Product.RunContinuation` | `RUN_OPERATION_CONTRACTS.continue.current_intent` | `RUN_DEFINITION_BINDINGS.continue.current_intent` | pending-execution packet |
 | `abg.operation.result.assess(assess)` | `Product.ResultAssessment` | `RESULT_OPERATION_CONTRACTS.assess` | `ResultAssessmentPort.assess` | `ResultAssessPacket` |
 | `abg.operation.witness.admit(reprice|attest|hygiene-stamp|intake|run-resumed|run-stopped)` | `ABG.WitnessAdmission` | `WITNESS_OPERATION_CONTRACTS.admit[member]` | `admitWitnessedAct` (`abg/witness_admission_operation.ts`) | `WitnessAdmitPacket<member>` |
 | `abg.operation.conformance.evaluate(gtl_program)` | `Validator.Conformance` | `CONFORMANCE_OPERATION_CONTRACTS.evaluate.gtl_program` | `ConformancePort.evaluateGtlProgram` | `ConformanceEvaluatePacket` |
@@ -643,13 +646,13 @@ The closed source map is:
 | `abg.operation.release.snapshot(published_rc|tapped_release)` | `Product.ReleaseSnapshot` | `RELEASE_OPERATION_CONTRACTS.snapshot[member]` | `ReleaseSnapshotPort[member]` | `ReleaseSnapshotPacket<member>` |
 
 `member` and `C` are literal closed parameters, never runtime strings. The
-table indexes 32 non-read packet references plus the 24 read packet references.
+table indexes 26 non-read packet references plus the 20 read packet references.
 Exact-set admission requires one reference packet for every key and no extra
 packet. The referenced owner contract remains authoritative for payload
 structure; this join neither copies nor redefines it. An absent source export,
 contract member, metadata member, or executable binding is
 `PublicDefinitionGap`; implementation cannot create its meaning at the join.
-The callable column identifies available owner callables, not 56 presumed
+The callable column identifies available owner callables, not 46 presumed
 atoms. The recursive operator-factorization law classifies each definition.
 Where the behavior crosses owners or stages, the specification declares a
 statically composed TypeScript callable over existing primitives; Public never
@@ -721,7 +724,7 @@ or `ReleaseSnapshotManifest` denotes that already governed native domain
 carrier, not a free record. Every ref/digest pair is one `RD<T>` field, not two
 independently optional fields.
 
-Three parameterized families that previously admitted implementation choice
+Two retained parameterized families that previously admitted implementation choice
 are exact:
 
 ```text
@@ -745,29 +748,6 @@ RunStartRequest = {
 RunStartDefaults = {
   fhMode: "direct"
   rootMode: "direct"
-}
-
-InteractionRespondRequest<R> = {
-  interaction: RD<FhInteraction>
-  responseContract: RD<PublicContract>
-  responseKind: R
-  choice:
-    R is "select" ? RD<DeclaredInteractionChoice> : null
-  value: CanonicalValue<PublicContract>
-  evidence: RDSet<Evidence>
-  currentBasis: RD<ExecutionBasis>
-}
-
-InteractionRespondResult<R> = never
-
-InteractionRespondNonTerminal<R> = {
-  disposition: "responded"
-  responseKind: R
-  responseEvent: RD<ActorAttributedResponseEvent>
-  interaction: InteractionProjection<"responded">
-  run: RD<Run>
-  continuation: RD<Continuation>
-  evidence: RDSet<Evidence>
 }
 
 WitnessAdmitRequest<W> = {
@@ -1134,7 +1114,7 @@ digest. It is payload inside the generated operation-contract asset, not a
 manifest catalog row.
 
 PFC-F07 emits flat `PublicContractCatalogRow` proposals for the three common
-contracts and each of the 18 operation identities. Each proposal uses the
+contracts and each of the 17 operation identities. Each proposal uses the
 existing row fields and locates its exact native symbol, schema asset or schema
 definition. It contains no `catalogRef`, top-level Product wrapper,
 `intrinsicRow`, or `bindingDigest`.
@@ -1215,12 +1195,12 @@ PFC-F08 applies this exact merge:
 ```text
 replacementContractIds =
   exact three common contract IDs
-  union exact 18 operation identities
+  union exact 17 operation identities
 
 forbiddenExtantOperationRows =
   extantCatalogBasis.rows where
     contractId is in the "abg.operation." identity namespace
-    and contractId is not one of the exact 18 operation identities
+    and contractId is not one of the exact 17 operation identities
 
 require forbiddenExtantOperationRows = empty
 
@@ -1335,10 +1315,6 @@ non-terminal outcome.
 | `interaction_replay` | FhInteraction | ReplayProjection<FhInteraction> | exactly one | `fromOrdinal`, `limit` |
 | `continuation_replay` | Continuation | ReplayProjection<Continuation> | exactly one | `fromOrdinal`, `limit` |
 | `c_call_replay` | CProgramAtomReceipt | ReplayProjection<CProgramAtomReceipt> | exactly one | C-call ref/digest, `fromOrdinal`, `limit` |
-| `workspace_gaps` | WorkspaceBinding | GapProjection<WorkspaceBinding> | exactly one | exact admitted gap basis |
-| `run_gaps` | Run | GapProjection<Run> | exactly one | empty |
-| `run_lawful_actions` | Run | LawfulActionProjection | exactly one | exact NextActionProjection |
-| `ticket_consensus` | ConsensusResult | TicketConsensusProjection | exactly one | ticket, output authority, replay basis |
 
 `PROJECT_READ_OWNER_PORTS` is exact:
 
@@ -1346,18 +1322,17 @@ non-terminal outcome.
 |---|---|
 | `catalog_list`, `catalog_describe` | `Product.CatalogProjectionPort.list`, `.describe` |
 | `workspace_status` | `Product.WorkspaceProjectionPort.status` |
-| `run_status`, `run_result`, `run_evidence`, `run_replay`, `run_gaps`, `run_lawful_actions` | `ABG.RunProjectionPort[caseKey]` |
+| `run_status`, `run_result`, `run_evidence`, `run_replay` | `ABG.RunProjectionPort[caseKey]` |
 | `graph_call_status`, `graph_call_result`, `graph_call_evidence`, `graph_call_replay` | `ABG.GraphCallProjectionPort[caseKey]` |
 | `result_evidence` | `ABG.ResultProjectionPort.evidence` |
 | `assessment_evidence` | `ABG.AssessmentProjectionPort.evidence` |
 | `witness_evidence` | `ABG.WitnessProjectionPort.evidence` |
 | `install_evidence` | `Product.InstallProjectionPort.evidence` |
 | `release_evidence` | `Product.ReleaseProjectionPort.evidence` |
-| `workspace_replay`, `workspace_gaps` | `ABG.WorkspaceProjectionPort[caseKey]` |
+| `workspace_replay` | `ABG.WorkspaceProjectionPort[caseKey]` |
 | `interaction_replay` | `ABG.InteractionProjectionPort.replay` |
 | `continuation_replay` | `ABG.ContinuationProjectionPort.replay` |
 | `c_call_replay` | `ABG.CCallProjectionPort.replay` |
-| `ticket_consensus` | `Product.ConsensusProjectionPort.ticketConsensus` |
 
 The result schema source for each case is exactly
 `PROJECT_READ_CONTRACTS[C].resultSchema`; that member wraps the projection
@@ -1394,15 +1369,6 @@ SelectorOf<C> =
     ? ReplayPage
   : C is "c_call_replay"
     ? ReplayPage & { cCall: RD<CProgramAtomReceipt> }
-  : C is "workspace_gaps"
-    ? { kind: "workspace_gap_basis", gapBasis: RD<GapProjectionBasis> }
-  : C is "run_lawful_actions"
-    ? { kind: "next_action", projection: RD<NextActionProjection> }
-  : C is "ticket_consensus"
-    ? { kind: "ticket_consensus",
-        ticket: RD<Ticket>,
-        outputAuthority: RD<ConsensusOutputAuthority>,
-        replayBasis: RD<ReplayProjectionBasis> }
   : NoSelector
 ```
 
@@ -1512,7 +1478,7 @@ ProductVerifyContractJoin =
 
 The family is derived from content-verified artifact bytes and its declared
 public operator capability; the caller cannot omit or narrow it. ABIogenesis
-S06 must derive the exact 18-operation/56-key family. A Product that declares
+S06 must derive the exact 17-operation/46-key family. A Product that declares
 no public function family derives `null`, not an empty claim for a declared
 family. The join is total before `VerifiedProductArtifact` construction. A missing,
 duplicate, cross-Product, locator-divergent, authority-divergent, or
@@ -1648,52 +1614,46 @@ RunInvokeResult<M> = {
   interaction: RD<FhInteraction> | null
   evidence: RDSet<Evidence>
   replay: RD<ReplayProjection>
+  stopStatement?: AbgTypedTerminalResult
 }
 RunInvokeNonTerminal<M> = {
   invocationKind: M
-  disposition: "held" | "gap_stop"
+  disposition: "held"
   run: RD<Run>
   graphCall: RD<GraphCall> | null
   interaction: RD<FhInteraction> | null
   gap: RD<RuntimeGap> | null
   evidence: RDSet<Evidence>
   replay: RD<ReplayProjection>
+  stopStatement?: AbgTypedTerminalResult
 }
 
 RunContinueRequest<"current_intent"> = {
   run: RD<Run>
   continuation: RD<Continuation>
-  currentIntent: RD<ConstructionIntent>
+  pendingCursor: RD<TraversalCursor>
   continuationInput: RD<AdmittedContinuationInput>
   expectedBasis: RD<ExecutionBasis>
 }
-RunContinueRequest<"selected_action"> = {
-  run: RD<Run>
-  continuation: RD<Continuation>
-  selectedAction: RD<NextActionProjection>
-  basisRelation:
-    | { kind: "same_basis" }
-    | { kind: "authority_changed",
-        coveringReprice: RD<CoveringReprice> }
-}
-RunContinueResult<M> = {
-  continuationKind: M
+RunContinueResult = {
+  continuationKind: "pending_execution"
   run: RD<Run>
   graphCall: RD<GraphCall> | null
-  admittedIntent:
-    M is "selected_action" ? RD<ConstructionIntent> : null
+  admittedIntent: null
   successor: RD<ContinuationReceipt>
   disposition: "completed" | "blocked" | "runtime_failed"
   evidence: RDSet<Evidence>
   replay: RD<ReplayProjection>
+  stopStatement?: AbgTypedTerminalResult
 }
-RunContinueNonTerminal<M> = {
-  continuationKind: M
-  disposition: "held" | "gap_stop"
+RunContinueNonTerminal = {
+  continuationKind: "pending_execution"
+  disposition: "held"
   run: RD<Run>
   continuation: RD<Continuation>
   evidence: RDSet<Evidence>
   replay: RD<ReplayProjection>
+  stopStatement?: AbgTypedTerminalResult
 }
 
 ResultAssessRequest = {
@@ -1789,7 +1749,6 @@ dependency declarations only from `verifiedCandidates`. Its invocation
 authority carries the same canonical verification-reference set. The resolved
 lock binds that set and cannot cite a bare or ambient Product coordinate.
 
-`InteractionRespondRequest/Result/NonTerminal` and
 `WitnessAdmitRequest/Result` are defined in Section 4.2.2. Every packet not
 declaring defaults has `defaults: {}`. Refusal codes and exact terminal versus
 non-terminal classification are the closed sets in the table below.
@@ -1806,11 +1765,9 @@ non-terminal classification are the closed sets in the table below.
 | `catalog.admit(admit)` | exact binding, lock, descriptors, contribution manifests | catalog plus exactly one `admitted`, `rejected`, `incompatible`, `conflicting`, `unready`, or `unresolved` disposition row per submitted contribution row | malformed descriptor/contribution, binding or lock mismatch, or input/output conservation failure | none |
 | `catalog.view(allowlist)` | catalog and unique narrowing handles | exact view identity, effective handles, residuals | unknown, duplicate, ambiguous, unauthorized, inadmissible, not ready | none |
 | `catalog.apply(node_type|overlay)` | exact view row, validated value, target where node_type, Product validation receipt, contributor basis | application identity preserving row/value/target/membership/provenance | kind/view/readiness/target/application/callability refusal | none |
-| `run.invoke(invoke)` | admitted Program and GraphFunction, input contract/value, view, binding, policy, grants, actor | Run and GraphCall with `completed`, `blocked`, or `runtime_failed` terminal truth, result/evidence/replay refs | invalid Program/function/input/view/intent/capability before Run admission | held, gap_stop |
-| `run.invoke(start)` | admitted Program, scope, public target, until, root/F_H modes, input, view, binding, policy, grants, actor | Run and nullable GraphCall with `completed`, `blocked`, or `runtime_failed` terminal truth, result/evidence/replay refs | invoke refusals plus invalid target/mode/until before Run admission | held, gap_stop |
-| `run.continue(current_intent)` | Run, continuation, current intent, admitted response/input, expected basis, actor/grant | continued Run with `completed`, `blocked`, or `runtime_failed` terminal truth, successor/evidence/replay refs | missing/resolved continuation or intent/response/replay/basis refusal before continuation admission | held, gap_stop |
-| `run.continue(selected_action)` | Run, continuation, exact NextActionProjection, same-basis or covering-reprice relation, actor/grant | admitted construction intent then `completed`, `blocked`, or `runtime_failed` Run/GraphCall truth | stale/mismatched action or intent/reprice/basis refusal before continuation admission | held, gap_stop |
-| `interaction.respond(*)` | interaction, response contract, exact variant value/choice, actor, capability, evidence, basis | none; `ResultOf<K> = never` | missing/resolved interaction, kind/contract/choice/value/capability/basis refusal | responded-event, current interaction projection, and held Run/continuation |
+| `run.invoke(invoke)` | admitted Program and GraphFunction, input contract/value, view, binding, policy, grants, actor | Run and GraphCall with `completed`, `blocked`, or `runtime_failed` terminal truth, result/evidence/replay refs | invalid Program/function/input/view/intent/capability before Run admission | held |
+| `run.invoke(start)` | admitted Program, scope, public target, until, root/F_H modes, input, view, binding, policy, grants, actor | Run and nullable GraphCall with `completed`, `blocked`, or `runtime_failed` terminal truth, result/evidence/replay refs | invoke refusals plus invalid target/mode/until before Run admission | held |
+| `run.continue(current_intent)` | exact Run, replay-derived pending occurrence, pending cursor, progressed input and expected basis; actor/grant slots | same Run with `continuationKind: pending_execution`, `admittedIntent: null`, terminal disposition, successor/evidence/replay and optional stopStatement | `missing_continuation`, `resolved_continuation`, `response_mismatch`, `replay_mismatch`, `basis_mismatch` | held |
 | `result.assess(assess)` | expected result, assessment contract/value, actor/capability, evidence, current basis | admitted or rejected assessment with closure eligibility | result/digest/contract/value/capability/evidence/basis refusal | retry, blocked |
 | `witness.admit(*)` | actor, subject, exact act, typed reason/payload, applicable context, evidence, provenance | actor-attributed witnessed act and evidence | actor/subject/act/content/context/evidence/provenance/basis refusal | none |
 | `conformance.evaluate(gtl_program)` | Program, conformance law, program-only or declared-inventory basis | passed/failed conformance result, diagnostics, violated laws, evidence, repairs | invalid Program, law/inventory mismatch, assessment blocked | none |
@@ -1854,7 +1811,7 @@ Classification is total:
 - after the owning effect is admitted, completed, blocked, failed, rejected,
   failed-conformance, stale-open, and per-row catalog dispositions are typed
   `ResultOf<K>` members rather than ingress refusals; and
-- held, gap-stop, responded, retry, and assessment-blocked states declared by
+- held, retry, and assessment-blocked states declared by
   the matrix are `NonTerminalOf<K>`.
 
 An owner cannot report the same disposition in two slots. The host receipt's
@@ -2221,7 +2178,7 @@ definition's exact capability set. Every slot not listed below is forbidden:
 | `run.invoke(invoke)` | `workspace_binding`, `product_set`, `dependency_lock`, `catalog_scope`, `execution_program`, `graph_function`, `input_contract`, `session_policy`, `actor`, `transport_steering` |
 | `run.invoke(start)` | the `invoke` set, except `graph_function` is required exactly when `R.target.kind = graph_function` |
 | `run.continue(*)` | the `invoke` set plus `execution_basis` |
-| `interaction.respond(*)`, `result.assess(assess)` | `workspace_binding`, `product_set`, `dependency_lock`, `actor`, `execution_basis` |
+| `result.assess(assess)` | `workspace_binding`, `product_set`, `dependency_lock`, `actor`, `execution_basis` |
 | `witness.admit(*)` | `workspace_binding`, `product_set`, `dependency_lock`, `actor`; also `execution_basis` exactly for a `run` or `segment` context |
 | `conformance.evaluate(gtl_program)`, `product.materialize(*)`, `release.snapshot(*)` | `workspace_binding`, `product_set`, `dependency_lock`, `actor` |
 
@@ -2270,8 +2227,7 @@ stack, CLI-only status, or adapter-local result is not a public outcome.
 | `catalog.view` | `abg.capability.operator.public-contract@5` | none; deterministic view | `catalog view` |
 | `catalog.apply` | variant selects `abg.capability.catalog.apply-node-type@5` or `abg.capability.catalog.apply-overlay@5` | none; deterministic application construction | `catalog apply <node_type|overlay>` |
 | `run.invoke` | `abg.capability.catalog.invoke-graph-function@5`, `abg.capability.runtime.execute-seven-term-c@5` | ABG runtime events | `run <invoke|start>` |
-| `run.continue` | `abg.capability.runtime.replay-continuation@5` | ABG continuation/runtime events | `run continue --mode <current_intent|selected_action>` |
-| `interaction.respond` | `abg.capability.operator.public-contract@5`, `abg.capability.runtime.replay-continuation@5` | F_H response event | `interaction respond <member>` |
+| `run.continue` | `abg.capability.runtime.replay-continuation@5` | ABG continuation/runtime events | `run continue --mode current_intent` |
 | `result.assess` | `abg.capability.runtime.admit-fp-result@5` | result-assessment event | `result assess` |
 | `witness.admit` | `abg.capability.operator.public-contract@5` | witnessed-act event | `witness admit <member>` |
 | `conformance.evaluate` | `abg.capability.gtl.typecheck@5` | conformance assessment, no execution | `conformance evaluate gtl-program` |
@@ -2641,7 +2597,7 @@ enter the accepted native-closure digest and resolved-lock identity.
 |---|---|---|---|
 | `S06C-E01` | `OwnerContractBinding<K,Slot>` | authoritative subordinate | owner requirement/design plus exact native schema member identity |
 | `S06C-E02` | `IntrinsicPublicFunctionDefinition<K>` | authoritative `InvocationBasis` member | exact definition key, owner contracts, authority/effect/binding/capability/adapter law; no family or Product-content input |
-| `S06C-E03` | `IntrinsicPublicFunctionDefinitionFamily` | authoritative Product contract | exact 18-operation/56-key intrinsic family and digest |
+| `S06C-E03` | `IntrinsicPublicFunctionDefinitionFamily` | authoritative Product contract | exact 17-operation/46-key intrinsic family and digest |
 | `S06C-E04` | `PublicInvocation<K>` | authoritative `InvocationBasis` member | exact admitted host request under E02 |
 | `S06C-E05` | `PublicOutcome<K>` | downstream public carrier | exact owner result, non-terminal, or refusal projected under E02 |
 | `S06C-E06` | public schema/catalog-row/SDK/CLI assets | downstream projections | deterministic packaged read models over E03 |
@@ -2675,7 +2631,7 @@ enter the accepted native-closure digest and resolved-lock identity.
 
 ### 6.2 Cardinality
 
-- E03 contains exactly 18 operation identities and 56 definition keys.
+- E03 contains exactly 17 operation identities and 46 definition keys.
 - Every E02 contains exactly one request, result, and refusal binding and zero
   or one non-terminal binding.
 - Every E02 maps to exactly one installed execution binding. The binding is a
@@ -2747,14 +2703,14 @@ Adapters, generated schemas, and tests have no semantic authority.
 
 | Candidate family | Contraction | Retained meaning | Disposition |
 |---|---|---|---|
-| 56 operation-specific definition objects | parameterized `PFC-F02<K>` | exact external contracts and metadata remain indexed by K | one generic definition constructor applied 56 times; no claim that endpoints are semantic atoms |
+| 46 operation-specific definition objects | parameterized `PFC-F02<K>` | exact external contracts and metadata remain indexed by K | one generic definition constructor applied 46 times; no claim that endpoints are semantic atoms |
 | SDK/CLI common-envelope parsing | `PFC-F03A` common contract admission | adapter source disappears after one envelope or typed refusal | subordinate composition |
 | request parsing by SDK, CLI, handler | `PFC-F04<K>` | exact raw admission and authority relation | one admission atom |
 | handler, SDK, and CLI outcome shaping | `PFC-F06<K>` | owner output remains exact and operation indexed | one projection atom |
 | schema, catalog rows, SDK, CLI, docs rosters and Product binding | staged `PFC-F07` then `PFC-F08` | intrinsic addresses remain deterministic projections; extant flat rows are preserved and Product content remains outside their payload preimage | subordinate compositions |
 | family-derived owner contracts to nested coordinates | `PFC-F08A` complete join | Product verification cannot trust a caller-supplied or partial expected set | subordinate composition |
 | operation/member lookup | `PFC-F03B` exact family selection | unknown identities fail before indexed admission | subordinate composition |
-| 56 external definition endpoints | recursive operator factorization | external contracts remain definition indexed; execution reuses direct owner primitives, owner projections, and statically composed TypeScript callables | preserve contracts; do not presume 56 atoms |
+| 46 external definition endpoints | recursive operator factorization | external contracts remain definition indexed; execution reuses direct owner primitives, owner projections, and statically composed TypeScript callables | preserve contracts; do not presume 46 atoms |
 | cross-owner or multi-stage definition execution | one ordinary statically composed installed callable | non-executable factorization/conservation evidence preserves select/validate/construct/admit/fold/project owner boundaries | one callable, never Public orchestration or a second executable plan |
 | physical syntax relation and semantic occurrence | no merge | syntax evidence and contract authority are different algebras | preserve separately |
 | per-root external relation collection | `NCC-F01` contract-indexed pending-selector derivation | exact source contract and locally decidable selector only | corrected subordinate relation |
@@ -2789,7 +2745,7 @@ affected accepted IACS =
   + EnvironmentBasis
 
 new Prime family = none
-new public operation family = none beyond the active required 18
+new public operation family = none beyond the active required 17
 new runtime/event authority = none
 ```
 
@@ -2884,8 +2840,8 @@ classDiagram
   }
   class IntrinsicPublicFunctionFamily {
     <<authoritative>>
-    +18 operations
-    +56 keys
+    +17 operations
+    +46 keys
   }
   class PublicContractCatalog {
     <<authoritative development manifest catalog>>
@@ -3045,7 +3001,7 @@ sequenceDiagram
 
   Owner->>Def: exact owner request/result/refusal/non-terminal schemas
   Def->>Def: PFC-F01/F02 bind each exact key
-  Def->>Def: PFC-F03 require 18 operations and 56 keys
+  Def->>Def: PFC-F03 require 17 operations and 46 keys
   alt missing or divergent definition
     Def-->>Owner: PublicDefinitionGap
   else family is closed
@@ -3116,7 +3072,7 @@ stateDiagram-v2
   OwnerContractsAuthored --> FamilyClosing: PFC-F02 complete candidates
   DefinitionGap --> OwnerContractsAuthored: owner repairs source
   FamilyClosing --> DefinitionGap: missing extra or duplicate key
-  FamilyClosing --> FamilyClosed: PFC-F03 exact 18 and 56
+  FamilyClosing --> FamilyClosed: PFC-F03 exact 17 and 46
   FamilyClosed --> IntrinsicProjectionsDerived: PFC-F07
   IntrinsicProjectionsDerived --> ProductContentIdentified: existing Product content algorithm
   ProductContentIdentified --> CatalogBindingAttempted: exact E18 basis
@@ -3172,12 +3128,12 @@ stateDiagram-v2
 | Axiom | Ontology evidence | Authority | Domain | Sequence | State | Native enforcement | Admission/compiler enforcement | Verdict | Gap |
 |---|---|---|---|---|---|---|---|---|---|
 | changed refusal and diagnostic relations are cross-view complete | E13..E20, R03/R07 | named in Section 6.3 | E13/E16/E17/E20 are explicit classes | F03A/F03B/F04/F08 refusal paths are explicit | envelope, lookup, indexed, and catalog refusals terminate | disjoint generic carriers | exact refusal gates | pass | none |
-| full 5.0 family is singular | E02/E03, R01/R02 | Product public-contract owner | 18 operations, 56 keys | F03 before projection | no projection before FamilyClosed | exact nested object, no string index | missing/extra/duplicate refusal | pass | none |
+| full 5.0 family is singular | E02/E03, R01/R02 | Product public-contract owner | 17 operations, 46 keys | F03 before projection | no projection before FamilyClosed | exact nested object, no string index | missing/extra/duplicate refusal | pass | none |
 | public identity staging is acyclic | E01/E02/E03/E06/E14/E15/E16/E18, R01/R02/R07 | staged Product publication | definition uses only owner member identity; family and payload precede Product content; E18 attempt then S06 catalog/diagnostic follow | F02 -> F03 -> F07 -> Product content -> E18 -> F08 | no catalog digest before content identity | owner identity projection plus unchanged flat carrier | changed-byte, generated-asset, seed, zero-digest and generated/runtime mutations | pass | none |
 | S06 subset cannot become authority | E03/E06 | Product | scenario absent from definition identity | projection uses E03 only | scenario success changes no state | no fixture key | family census mutation | pass | none |
 | owner meaning is not public metadata | E01/E02, R01 | semantic owner | owner schema distinct from definition binding | F01 precedes F02 | gap returns to owner source | inferred exact types | owner authority/digest check | pass | none |
 | native/parser/schema domains agree | E01/E02/E06 | owner plus Product projector | one strict schema | one schema drives all projections | divergence cannot transition closed | inferred type plus parse | schema projection parity | pass | none |
-| every definition resolves one exact contract source and installed binding | E01/E02, R01 | semantic owners retain meaning; Product binds execution | closed 56-key source map plus recursively factorized minimal primitive basis | F01/F02 refuse any absent member or binding | no FamilyClosed with a gap | exact nested source and binding map | source/schema/binding member-path and primitive-closure census | pass | none |
+| every definition resolves one exact contract source and installed binding | E01/E02, R01 | semantic owners retain meaning; Product binds execution | closed 46-key source map plus recursively factorized minimal primitive basis | F01/F02 refuse any absent member or binding | no FamilyClosed with a gap | exact nested source and binding map | source/schema/binding member-path and primitive-closure census | pass | none |
 | flat catalog carrier is preserved | E06/E14/E15/E16/E18, R07 | Product publication | operation projections, exact attempt basis, and flat manifest rows remain distinct | F07 proposals plus extant catalog and Product content form E18 before F08 emits E14/E15 or E16 | no second or replacement catalog state | existing catalogId/flat-row carrier | retained-row, forbidden-operation, extra-field, duplicate-ID, wrong-Product and hidden-gap mutations | pass | none |
 | catalog refusal binds one exact failed attempt | E16/E18, R07 | Product publication | closed eight-class refusal carries exact basis and attempt/refusal digests | F08 consumes E18 once and returns success or E16 | refusal and successful catalog states are disjoint | native/schema refusal domains agree | basis, digest, class, and output-catalog mutations | pass | none |
 | expected owner contracts bind exactly once at nested coordinates | E01/E03/E14, R08 | Product verifier | family-derived set joins row then definition then slot | F08A precedes verified artifact | zero/many/divergent nested join refuses | complete structural map | partial caller-set, shared-row, missing slot, duplicate pointer and fragment-ID mutations | pass | none |
@@ -3190,7 +3146,7 @@ stateDiagram-v2
 | relational fields are structural | E01 | owner | exact sums | admission before owner call | invalid relation refused | discriminated unions | raw/schema mutation | pass | none |
 | outcomes remain operation indexed | E02/E04/E05, R03/R04 | semantic owner then Public | no generic result carrier | same K through call | no cross-K transition | conditional exact type | result/refusal/non-terminal schema check | pass | none |
 | adapters own no semantics | E06/E19/E20 | Public/Product | assets and common carriers are downstream | adapter enters only F03A then F04 | no adapter-authored state | generated coordinates | SDK/CLI equality | pass | none |
-| project.read is pure and closed | E02 plus ReplayProjectionFamily | projection owners | 24 exact cases | no event participant | terminal projection only | indexed case types | source/basis/read mutation tests | pass | none |
+| project.read is pure and closed | E02 plus ReplayProjectionFamily | projection owners | 20 exact cases | no event participant | terminal projection only | indexed case types | source/basis/read mutation tests | pass | none |
 | physical syntax is not semantic identity | E07..E09, R05/R06 | local and linked checkers | physical, pending, and semantic classes separate | local selector precedes linked occurrence | E07 never directly reaches lock | private distinct types | selector/occurrence provenance check | pass | none |
 | occurrences are contract indexed in F02 | E08/E09, R05/R06 | Product resolver linked checker | source contract mandatory in selector and occurrence | F01 selector then F02 occurrence | no occurrence before linked resolution | occurrence identity includes source contract | two-contract shared-import mutation | pass | none |
 | syntax origin/selection and semantic selection remain distinct | E07..E09/R05/R06 | bundled local and linked TypeScript | syntax evidence, checker derivation, semantic use, and target space are separate fields | F01 preserves syntax; F02 derives meaning | no syntax form selects semantic authority | closed sums | default/named/namespace/star/import-type mutations | pass | none |
@@ -3211,8 +3167,8 @@ Both require independent acceptance before realization.
 | Phase | Public-function answer | Native-occurrence answer |
 |---|---|---|
 | intent | one source-independent SDK and thin CLI | exact source-independent Product contract linking |
-| requirement | 18 operations, 56 external contracts, and owner semantics | source-contract and direct-dependency authority |
-| design | exact 56-key source/binding map, recursive factorization, common carriers, and definition family | local pending selector then linked contract occurrence |
+| requirement | 17 operations, 46 external contracts, and owner semantics | source-contract and direct-dependency authority |
+| design | exact 46-key source/binding map, recursive factorization, common carriers, and definition family | local pending selector then linked contract occurrence |
 | build | exact owner contract source plus installed binding -> intrinsic family -> payload projections and row proposals -> Product content -> S06 flat catalog plus exact 44-row diagnostic | local checker selectors -> linked checker occurrences -> bindings |
 | assurance | source/binding census, minimal primitive-closure proof, type/parser/schema/runtime parity, adapter equality | selector disposition plus occurrence/binding conservation and adversarial TS programs |
 | release | complete public-contract publication is a later T-287 Wave 5 outcome outside this S06 design | exact compiler/Product/lock digests |
@@ -3264,7 +3220,7 @@ freezes one candidate. This is substantial Product realization, not a residual
 patch. Required work is:
 
 1. replace the partial public metadata object with the exact owner-schema-based
-   18-operation/56-key reference family without copying owner payloads;
+   17-operation/46-key reference family without copying owner payloads;
 2. derive TypeScript types, parser, canonical schemas, operation-contract
    projections, flat catalog-row proposals, SDK members, CLI grammar, and exit
    maps from that family;
@@ -3311,12 +3267,12 @@ primitive is implemented.
 
 ### 11.2 Required Positive Proof
 
-- exact family census: 18 operations, 56 keys, no 5.1 or legacy member;
+- exact family census: 17 operations, 46 keys, no 5.1 or legacy member;
 - intrinsic definition, family, projection, Product-content, catalog, and
   manifest digests reproduce in that order with no placeholder input;
 - every definition resolves its exact source-map member, four pre-family owner
   contract identities, defaults, metadata, and installed execution binding;
-- the 56 installed bindings close over one enumerated minimal primitive basis;
+- the 46 installed bindings close over one enumerated minimal primitive basis;
   each retained primitive has an explicit input, output, typed refusal, effect,
   owner, selected frame, and evidence that further factorization would cross
   into a language/library primitive or physical effect;
@@ -3351,7 +3307,7 @@ primitive is implemented.
 - every failed PFC-F08 catalog merge emits one
   `PublicCatalogBindingRefusal` whose exact attempt basis, closed failure
   class, native/schema contract, attempt digest, and refusal digest reproduce;
-- all 24 read cases derive from admitted owner truth and append no event;
+- all 20 read cases derive from admitted owner truth and append no event;
 - native SDK and CLI produce the same deterministic S06 outcome;
 - retained invocation, continuation and read members remain indexed members
   of the family (`shared/capability_contracts.ts`);

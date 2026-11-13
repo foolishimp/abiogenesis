@@ -29,7 +29,11 @@ its contracts, leaf binding and expected output are outside production source
 and the ABG package. Prior exact acceptance identities remain historical evidence,
 not authority to reinstall the removed test-specific code. T-270's accepted verifier amendment makes one existing
 leaf-semantics authority relation explicit; it does not enlarge Product or the
-S03 boundary.
+S03 boundary. Those T-270 identities remain historical. Current S03 is the
+Product Executive/default-direct scenario; the retired One Surface fixture
+provides no current qualification. Retained span/re-entry and supervised
+handle/START mechanics are covered only to the bounds recorded in the
+[P6 Return](../../../../.ai-workspace/work/T292_CONSOLIDATION_01/TD-26_P6_RETURN.md).
 
 The 2026-10-21 STDO 3 reconciliation corrects only the stale Catalog/View
 projection cone below against current Product's
@@ -106,7 +110,7 @@ families in the first slice.
 |---|---|
 | remaining graph relations and six remaining C constructors | M5 traversal-conservation expansion after root green |
 | F_P worker transport and B-001 conservation | before the first F_P Product slice |
-| F_H hold, response, and same-run continuation | ABG5-S03 |
+| F_H hold and replay-derived pending execution | Current Product S03/ABG continuation obligations; native human response and response-driven resume are reserved to 5.1 |
 | complete public operation family | after the root contract is stable; no new controller |
 | qualification and release | M6 and M7 |
 

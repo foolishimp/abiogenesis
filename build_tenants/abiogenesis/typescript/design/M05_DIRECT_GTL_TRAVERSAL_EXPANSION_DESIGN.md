@@ -20,8 +20,14 @@ at candidate `8865ccff`
 **Product boundary**: accepted `A5-F02`, `A5-F03`, `A5-F04`, `A5-F07`,
 `A5-F09`, `A5-F10`, and `A5-F14`; Sections 14.1 and 14.2 close the
 S06 portability portion of `A5-F13` and `A5-F17`
-**Scenario boundary**: accepted `ABG5-S02` and `ABG5-S03`;
-Sections 14.1 and 14.2 advance `ABG5-S06`
+**Historical scenario boundary**: the exact subjects above accepted
+`ABG5-S02` and `ABG5-S03`; Sections 14.1 and 14.2 advance `ABG5-S06`.
+Current Product S03 is Executive/default-direct with prepared `F_P` registered
+selection, admitted foldback and truthful block/hold. Retired One Surface
+fixtures supply no current proof. `t292-td26-p6-span-reentry` and
+`t292-td26-ps-default-root-mode` retain bounded generic mechanics only; their
+[P6 Return](../../../../.ai-workspace/work/T292_CONSOLIDATION_01/TD-26_P6_RETURN.md)
+is not complete S03 or qualification evidence.
 **Work owner**: T-281 under T-270
 **Sequencing**: co-evolution inside the decisions fixed here; a newly exposed
 material authority or lifecycle ambiguity returns to design before promotion
@@ -229,11 +235,11 @@ judgment carriers retire by supersession or invocation completion, not mutation.
 | `TraversalCursor` | HoG derives from GTL, scope, and replay | HoG reads current derived position | replaced only after an admitted event/route | next cursor or terminal event supersedes |
 | `TraversalStep` | HoG derives one total step | ABG evaluates candidate against scope | HoG executes only after required admission | accepted, refused, or superseded by newer replay |
 | `LeafExecutionPort` | package plus implementation binding admission | HoG addresses exact admitted port | implementation realizes F_D/F_P interior | call or invocation terminates |
-| `HumanInteractionBoundary` | GTL declares callout and ABG admits hold | public projection renders pending interaction | no 5.0 return path: `interaction.respond` is declared and unbound, and the transport refuses it with `installed_binding_unavailable` (`selectedCallable`, `public/installed_definition_call_transport.ts`) | the hold stays open; response, rejection, abandonment and supersession are reserved to 5.1 |
+| `HumanInteractionBoundary` | GTL declares callout and ABG admits hold | public projection renders pending interaction | no 5.0 return path: `interaction.respond` is withdrawn; exact predecessor calls refuse `unknown_definition` (exact family selection in `public/installed_definition_call_transport.ts`) | the hold stays open; response, rejection, abandonment and supersession are reserved to 5.1 |
 | `RouteCandidate` | HoG or declared implementation proposes within GTL route set | ABG evaluates against replay | never applies itself | admitted, refused, or superseded |
 | `AdmittedRoute` | ABG admits canonical route event | replay projects route truth | HoG deterministically applies exact admitted route | next admitted route or terminal event supersedes it |
 | `FanOutCompletion` | ABG admits one closed completion variant | replay projects ordered vector or partial-stop facts | only a later declared route may consume it | owning frame or run terminal |
-| `Continuation` | ABG admits an opening lifecycle event | replay projects exactly one run-local member | no 5.0 operation advances an F_H continuation: `interaction.respond` is unbound (`selectedCallable`, `public/installed_definition_call_transport.ts`) and `run.continue` `current_intent` continues a replay-derived pending execution (`projectPendingExecutionContinuations`, `abg/construction_continuation.ts`; `runPendingExecutionOwner`, `owner_bindings/run_invocation.ts`) | an F_H continuation has no 5.0 terminal; the fold refuses responded, resume-admitted, abandoned and F_H superseded rows (`eventCalculusEffectRefs`, `abg/calculus/axioms.ts`) |
+| `Continuation` | ABG admits an opening lifecycle event | replay projects exactly one run-local member | no 5.0 operation advances an F_H continuation: `interaction.respond` is withdrawn (`unknown_definition` at exact definition selection) and `run.continue` `current_intent` continues a replay-derived pending execution (`projectPendingExecutionContinuations`, `abg/construction_continuation.ts`; `runPendingExecutionOwner`, `owner_bindings/run_invocation.ts`) | an F_H continuation has no 5.0 terminal; the fold refuses responded, resume-admitted, abandoned and F_H superseded rows (`eventCalculusEffectRefs`, `abg/calculus/axioms.ts`) |
 | `ContinuationBasis` | replay derives open obligation (`projectFhContinuations`, `abg/fh_continuation_projection.ts`) | public read consumes the exact basis; no 5.0 `run.continue` member consumes an F_H basis (`RUN_OPERATION_CONTRACTS`, `product/run_operation_contracts.ts`) | never invokes HoG itself | run terminal in 5.0; resolution, supersession and abandonment of an F_H basis are reserved to 5.1 |
 | `ReopenedEventStoreContext` | ABG validates an existing log and acquires exclusive append ownership | replay and event admission read the exact seeded prefix | new events append at the next ordinal only | context closes; historical log remains immutable truth |
 | `ReplayState` | pure fold of admitted event log | HoG and public projections read | never writes events or executes work | superseded by a longer valid prefix |
@@ -253,9 +259,9 @@ judgment carriers retire by supersession or invocation completion, not mutation.
 | apply transition | admitted route | GTL cursor relation | replay | HoG | replay cursor | ABG event is prior truth | next cursor or terminal event |
 | admit fan-out completion | HoG submits task-result census | declared vector and task contracts | ABG checks exact ordinal partition and current replay | none | ordered vector or partial-stop projection | ABG | owning frame or run terminal |
 | totalize post-open rejection | actual contract rejection | refusal and rejection contracts | current C-call spine | ABG appends only missing suffix | replayed rejected C-call | ABG | judged rejection |
-| respond to hold | attributed F_H actor | declared response and capability contracts | none in 5.0 | none: `interaction.respond` is declared and unbound, and the transport refuses it with `installed_binding_unavailable` (`selectedCallable`, `public/installed_definition_call_transport.ts`) | pending interaction view | ABG | reserved to 5.1 |
+| respond to hold | attributed F_H actor | declared response and capability contracts | none in 5.0 | none: `interaction.respond` is withdrawn; exact predecessor calls refuse `unknown_definition` (exact family selection in `public/installed_definition_call_transport.ts`) | pending interaction view | ABG | reserved to 5.1 |
 | reopen durable truth | caller supplies existing sink and expected digest | canonical log grammar and event union | ABG validates immutable stamps, ordinal order, causation, scope, and exclusive append ownership | event store seeds one live context without emitting | replay prefix and next ordinal | ABG event-store boundary | context closes or reopen refuses |
-| continue held run | admitted `run.continue` ingress names existing run/continuation, actor, capability, and input | declared continuation contract | ABG uses the reopened context to verify exact durable scope and public authority | `run.continue` explicitly re-enters HoG after resume admission | continuation and replay views | ABG | resolved or run terminal in this cut; superseded and abandoned remain deferred |
+| continue pending execution | admitted `run.continue/current_intent` names one replay-derived pending occurrence, cursor, progressed input and expected basis | pending-execution contract; no F_H response input | existing ABG/Product owners rehydrate exact durable scope and current authority | ABG admits the pending operation; HoG resumes the same Run | pending occurrence and fresh Run replay | ABG | occurrence consumed once; current F_H hold remains open |
 | close | HoG submits current judged terminal | closure predicate | replay and exact contracts | ABG appends closure transaction | replay and PublicOutcome | ABG | immutable terminal run |
 
 ## 4. Function And Composition Derivation
@@ -361,9 +367,8 @@ spine with a typed pending result and pending judgment, from which ABG event
 truth opens the authoritative `Continuation` aggregate in one atomic batch
 (`holdOwnedInteraction`, `hog/interaction_lifecycle.ts`;
 `admitOwnedFhInteractionHold`, `abg/continuation.ts`). No 5.0 operation
-answers or resumes it: `interaction.respond` is declared and unbound, and the
-transport refuses it with `installed_binding_unavailable` (`selectedCallable`,
-`public/installed_definition_call_transport.ts`). Human response and same-Run
+answers or resumes it: `interaction.respond` is withdrawn, and exact predecessor calls refuse
+`unknown_definition` before owner dispatch (CLI exit 2). Human response and same-Run
 resumption are reserved to 5.1. T-270 owns the current domain interaction
 policy and exact continued GTL locus; completed T-272 records the retained
 behavioral basis.
@@ -566,9 +571,8 @@ Missing bodies, log replacement, ordinal or stamp drift, stale or multiple open
 members, wrong public operation, actor, capability, response contract, cross-run
 identity, changed workspace/product/catalog authority, or another basis fork
 refuses before HoG and appends no resume event. `interaction.respond` is
-declared and unbound in 5.0: the transport refuses it with
-`installed_binding_unavailable` (`selectedCallable`,
-`public/installed_definition_call_transport.ts`).
+withdrawn from the 5.0 family: exact predecessor calls refuse
+`unknown_definition` before owner dispatch (CLI exit 2).
 
 ## 7. Three-View Projection
 
@@ -868,7 +872,7 @@ sequenceDiagram
           ABG-->>HoG: replay-derived held truth
           HoG-->>Public: typed held traversal stop
           Public-->>Caller: typed held outcome, current operation stops
-          Note over Human,Public: F_H response and resume are reserved to 5.1, interaction.respond is declared and unbound
+          Note over Human,Public: F_H response and resume are reserved to 5.1, interaction.respond is withdrawn
         else workflow.C
           HoG->>ABG: open transparent parent CCall with declared parent fibre and arm
           HoG->>Prep: prepare GTL-declared child using parent scope and admitted root sets
@@ -979,10 +983,10 @@ stateDiagram-v2
   CCallJudged --> HoldRouteAdmitted: ABG admits hold route from pending F_H, child, or yield truth
   HoldRouteAdmitted --> Held: ABG opens Continuation and consumes hold-route availability
   CCallJudged --> Blocked: admitted blocked route and run stop
-  note right of Held : no F_H response or resume in 5.0, interaction.respond is unbound
-  Held --> ReplayRehydrated: run.continue rehydrates a non-F_H current input
-  ReplayRehydrated --> ResumeAdmitted: ABG admits resume and resolves Continuation
-  ResumeAdmitted --> AtTerm: public operation explicitly re-enters HoG
+  note right of Held : no F_H response or resume in 5.0, interaction.respond is withdrawn
+  Held --> PendingExecutionRehydrated: current_intent selects a pending occurrence only
+  PendingExecutionRehydrated --> PendingExecutionAdmitted: ABG admits the operation and consumes the occurrence
+  PendingExecutionAdmitted --> AtTerm: HoG restores returns, cursor and progressed input in the same Run
   AtTerm --> Closed: ABG admits terminal predicate and closure events
   Opened --> Failed: pre-call or closure runtime_failure_observed admitted
   Closed --> [*]
@@ -1036,7 +1040,7 @@ stateDiagram-v2
 | F_H is not an implementation or ABG callback | disjoint key sets and authority matrices | human, separate public operations, and ABG | interaction requirement plus Continuation | invoke stops at the hold (`holdOwnedInteraction`); `interaction.respond` is unbound (`selectedCallable`) | Held; no 5.0 F_H successor state (`projectFhContinuations`, `abg/fh_continuation_projection.ts`) | no F_H implementation port and no ABG-to-HoG call | hold admission only; response and resume are reserved to 5.1 | pass | retained T-272 evidence under T-270 |
 | child traversal is transparent | relationship inventory | HoG plus ABG | child lineage | child scope and foldback | ChildActive | typed child relation | child basis and replay | pass | T-270 implementation |
 | continuation is authoritative and replay-constructible | Continuation aggregate, reopened store, and basis relation | ABG | open obligation plus downstream basis and exact historical prefix | reopen without restamp, verify public ingress, reconstruct, then separate resume and HoG re-entry | F_H open proven (`projectFhContinuations`, `abg/fh_continuation_projection.ts`); responded, resolved, superseded and abandoned are reserved to 5.1 for F_H and refused by the fold (`eventCalculusEffectRefs`, `abg/calculus/axioms.ts`) | preserved ordinals and owner constructors renewed only after equality | existing sink, max-plus-one append, immutable authority basis, and basis-fork refusal | pass for the F_H hold; F_H response and resume reserved to 5.1 | T-270 re-entry if Product selects supersede or abandon |
-| continuation resume is actor-authorized | public-operation and continuation relations | public ingress plus ABG | `run.continue` admission, actor, capability, and input | public admission precedes same-run resume event | reopened through ResumeAdmitted | typed operation and capability refs | exact ingress event is causal input to resume | pass | retained T-272 evidence under T-270 |
+| pending execution is actor-authorized | public-operation and replay-derived pending occurrence | existing Product/ABG ingress | `run.continue/current_intent`, actor, capability, cursor/input and basis | ABG pending-operation admission precedes HoG same-Run resume | fresh successor Run truth; no F_H ResumeAdmitted event | typed operation and capability refs | exact pending operation consumes one occurrence | retained pending owner relation; runtime evidence remains bounded by its Return | F_H response/resume reserved to 5.1 |
 | every new runtime fact has one event/effect law | RuntimeEventFamily delta | ABG | fixed event kinds and closed payload variants | append precedes downstream effect | every initiated active fluent has an explicit terminal consumer | closed event union | declared Event Calculus effect table and mutation proof | pass | none |
 | public layer is not controller | unchanged M3 law | Product/ABG/HoG | no public Prime | one invoke call | no public private state | stateless operation types | public-controller mutation | pass | T-281 breadth |
 
@@ -1045,7 +1049,7 @@ stateDiagram-v2
 M5 retains the accepted opening and closure kinds. The table below is the
 complete target event delta and repeats existing opening kinds where their
 fluent effects participate in the expanded lifecycle. Rows explicitly marked
-`deferred` are not members of the selected S03 realization or proof and do not
+`deferred` are not members of the historical S03 realization or proof described by that table and do not
 claim current `RUNTIME_EVENT_KIND_VALUES` membership. The `fh_interaction_responded`
 and `fh_interaction_resume_admitted` rows are declared at head with the effects
 shown (`LEGACY_ROOT_EVENT_CONTRACTS`, `abg/event_store.ts`;
@@ -1106,7 +1110,7 @@ Child preparation reuses `basis_admitted`, `graph_call_opened`, and
 child leaf work reuses the canonical C-call spine. Successful aggregate closure
 reuses `terminal_reached`, `frame_closed`, `graph_call_closed`, and
 `run_closed`; their accepted M4 effects terminate their matching active
-fluents. A blocked or failed selected S03 path emits `run_stopped` only after
+fluents. A blocked or failed current Executive S03 path emits `run_stopped` only after
 its active continuation has resolved or the path has otherwise totalized that
 continuation under currently admitted truth. General open-continuation
 abandonment remains deferred. No terminal state is inferred from missing close
@@ -1147,8 +1151,8 @@ Implementation proceeds as one current-line evolution, not a donor merge:
 9. add live F_P only after RC5 B-001 transport behavior is re-adopted; and
 10. expose operation-scoped durable reopen and continuation ports without moving
     semantic selection into traversal infrastructure; the F_H response port is
-    reserved to 5.1 (`interaction.respond` is declared and unbound,
-    `selectedCallable`, `public/installed_definition_call_transport.ts`).
+    reserved to 5.1 (`interaction.respond` is withdrawn; exact predecessor calls return
+    `unknown_definition` before owner dispatch).
 
 Implementation may refine private function decomposition and TypeScript
 generic spelling. It may not change the entities, authority, lifecycle,
@@ -1170,8 +1174,9 @@ This design delta is acceptable when review confirms:
 5. an existing durable sink reopens without truncation or restamping, preserves
    historical ordinals, and stamps the next event at `maxOrdinal + 1`;
 6. the authoritative Continuation lifecycle is replay-constructible,
-   `interaction.respond` remains separate from `run.continue`, and every resume
-   binds admitted public ingress, actor, capability, and declared input;
+   the retained `run.continue/current_intent` resumes pending execution only
+   and binds admitted public ingress, actor, capability, and progressed input;
+   F_H response/resume remains reserved to 5.1 and has no public member;
 7. fan-out admits either one exact ordered output vector or one exact
    completed/stopping/unstarted partition and never projects partial success;
 8. every added runtime fact has one canonical event, causal payload, and Event

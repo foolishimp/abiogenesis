@@ -639,7 +639,7 @@ For one installed Public invocation `o` whose selected concrete owner closure
 invokes HoG, let `G(o)` be the transitive production control-and-effect graph
 from the admitted invocation through its projected outcome. This is the C2A
 domain, currently the run invoke/continue relations; non-traversal definitions
-in the 18/56 family do not enter HoG and are outside this local projection.
+in the 17/46 family do not enter HoG and are outside this local projection.
 `G(o)` includes every dynamically reachable call, import, provision, Effect
 bind, owner-port call, ABG admission, Event Calculus read, replay, and
 projection edge. Type-only dependencies and unreachable source text are not
@@ -1058,14 +1058,16 @@ CapabilityDefinitionCoordinate = {
 Every present row retains exact `PublicContractCoordinate` ownership,
 dependency closure, deterministic identity, canonical ordering, and bounded
 proof references. ABIogenesis declares the DS1 Public-operation capability
-roster and therefore retains exactly the canonical 16 DS1 rows. A data-only
+roster after TD-26 P7 and therefore retains exactly 15 canonical rows; the
+Consensus capability is withdrawn. The earlier 16-row subjects in Sections
+16.10/16.11 remain historical; Section 16.17 supplies current cardinality. A data-only
 Product such as `odd_glc` declares no Public-operation capability, so it carries
 the present canonical zero-row graph. `GraphFunction` data does not imply
 Public-operation ownership.
 
 The shared pure graph constructor is input-parametric: it canonicalizes exactly
 the supplied owner-authorized Public coordinates. Empty input yields the
-canonical empty graph; the ABIogenesis coordinates yield the existing 16 rows.
+canonical empty graph; the current ABIogenesis coordinates yield 15 rows.
 It has no ABI default or fallback, implicit DS1 import for empty input, local
 hand-built graph, registry, or runtime synthesis.
 
@@ -1277,36 +1279,46 @@ compositions of the three combinators, not additional primitives:
   prior successor and reissues its own successor/handoff before the next child;
   no enclosing Public, Effect, or definition transaction groups them.
 
-The interaction family `E33` has one static kernel and five fixed contract
-packets for `select`, `approve`, `reject`, `assess`, and
-`answer_escalation`. Its operative owner relation is fixed:
+`interaction.respond` and `run.continue#selected_action` are withdrawn from
+the current family. Native F_H response admission and response-driven resume
+remain reserved to 5.1. F_H hold projection and historical profile carriers
+retain their existing owners; they do not supply an executable response path.
+
+`run.continue#current_intent` continues only a replay-derived pending execution
+in the same Run. Its request carries `run`, `continuation`, `pendingCursor`,
+`continuationInput` and `expectedBasis`, each an exact ref/digest pair. It does
+not select another GraphFunction or admit a construction intent. The result
+kind is `pending_execution`, with `admittedIntent: null`; its nonterminal
+disposition is `held`. The existing owner sequence is:
 
 ```text
-existing ABG L53 exact-current-basis projection at the validated prefix
-  -> exact environment + installed Product + publication join
-  -> Product L54 decision over
-       { basis, responseKind, choice, value, evidence }
-  -> existing ABG L55 response-candidate preparation
-  -> existing ABG L56 expected-prefix admission and successor
-  -> Product R33 indexed interaction outcome
+RUN_DEFINITION_BINDINGS.continue.current_intent
+  -> runPendingExecutionOwner: acquire ABG resource and project setup/prefix
+  -> ABG selectPendingExecutionUse
+  -> ProductExecutionResolutionPort.resolve on the current exact closure
+  -> ABG preparePendingExecutionContinuation
+  -> policy, grant, leaf-port and progressed-input authority join
+  -> ABG admitPendingExecutionContinuationOperation at the exact predecessor
+  -> HoG executeGraphTraversalEffect(pendingExecutionResume: true)
+  -> ABG projectRunTruthAtDurablePrefix at the traversal successor
+  -> continuationOutcome("pending_execution") and the resource handoff
 ```
 
-The binding never obtains a raw event array and never reconstructs L53 by
-folding events. One module-static kernel owns this relation. The five exports
-apply `bindExactPrefixTransition` to that kernel and their fixed packets; they
-contain no member logic. The packet fixes `responseKind` and contract
-coordinates. The admitted request and owner carriers supply choice, value, and
-evidence. If the exact choice, evidence, capability-grant, environment,
-installed-Product, or publication carrier required by the relation is absent,
-the family remains held for one bounded design reframe. A caller, fixture,
-Public adapter, or binding may not mint or infer the missing authority.
+Tables below project that sequence as `L66-L72`. `L46-L49` describe the
+separate F_H hold/resume relation and are not pending-execution owners. This
+current relation supersedes the continuation-carrier ruling recorded for
+`e7e252ed` in Section 16.7; that historical amendment is unchanged.
 
-`run.continue#current_intent` and `run.continue#selected_action` expose one
-shared Product/ABG continuation-carrier gap. The two exports remain unbound
-until one exact carrier is accepted that preserves the requirement distinction
-between continuing the current admitted intent and admitting a newly selected
-action. No member-local carrier, hard-coded allowlist, relabeling, or caller-
-selected action is an interim implementation.
+Retired construction execution does not erase digest/profile carriers.
+`ExecutionBasis.actionCatalogRef`, `actionCatalogDigest`,
+`constructionCompositionRef`, `constructionCompositionDigest` and
+`constructionComposition` remain `null`; `actionCatalogRows` remains `[]`.
+Invocation `reentryBasis` is `null`; F_H hold identity keeps
+`constructionIntentRef: null`, and its projection keeps both intent ref/digest
+null. Replay keeps `constructionDeltas: []`. Retired event/payload/calculus
+profiles remain declarations; current readers refuse retired One Surface
+history rather than executing or silently omitting it. These constants grant
+no construction, selected-action or F_H response semantics.
 
 The selected foundations are existing typed owner functions, canonical JSON
 and digests, immutable carriers, Valibot admission/schema projection, the ABG
@@ -1315,10 +1327,13 @@ event resource and exact-prefix projections/admissions, and exact-pinned Effect
 fold, persistence layer, or runtime is selected.
 
 Whole-family constructability means one clean packed artifact exports the exact
-56-key set and loads every static export with a real owner closure and complete
+46-key set and loads each of its 42 callable exports with a real owner closure and complete
 runtime dependency closure. A stub, interface-only binding, refusal invented to
 mask a missing owner, test callback, source-tree import, or legacy fallback does
-not count. This 56/56 loadability and legacy-exclusion proof is mechanical.
+not count. The four witness members `attest`, `hygiene-stamp`, `intake` and `run-resumed`
+remain declared unavailable; no callable is fabricated for them. Exact family,
+42-callable loading, four unavailable refusals and legacy exclusion are
+mechanical claims.
 Behavioral qualification remains the exact twelve-key odd_glc sentinel path.
 
 The `E01-E40`, `L`, `J`, `R`, and `X` tables and the former `T0-T9` forms remain
@@ -1334,52 +1349,45 @@ non-executable classification and proof evidence. Their counts and maps cannot
 select runtime carrier types, combinators, wrapper bodies, or construction
 budgets.
 
-The exact external coverage is fixed at 18 operation identities and 56 nested
+The current external coverage is 17 operation identities and 46 nested
 definition keys. The following counts describe different frames and therefore
 must not be substituted for one another:
 
 | Evidence frame | Count | Meaning |
 |---|---:|---|
-| exact external operation identities | 18 | Closed 5.0 operation roster. |
-| exact external definition keys | 56 | Closed `{operationId, memberKey}` contract family. |
-| literal-insensitive structural schema shapes | 41 | Observed native-schema shape count after literal distinctions are erased. This is orthogonal to external operator expressions and semantic atoms. |
-| normalized external operator expressions | 40 | Exact equivalence-class partition in Table 5.6.3-A. It groups only the explicitly listed keys by one parameterized expression, owner/effect/refusal regime, and conservation law. It is not a primitive count. |
+| exact external operation identities | 17 | Closed 5.0 operation roster. |
+| exact external definition keys | 46 | Closed `{operationId, memberKey}` contract family. |
+| literal-insensitive structural schema shapes | historical `41`; current count not asserted | The prior 18/56 observation is retained as evidence for that subject, not projected onto the current schemas. |
+| normalized external operator expressions | 35 | Exact equivalence-class partition in Table 5.6.3-A. It groups only the explicitly listed keys by one parameterized expression, owner/effect/refusal regime, and conservation law. It is not a primitive count. |
 | preliminary owner-semantic relation estimate | withdrawn (`22`) | The earlier manual estimate had no exact membership relation and is not constitutional evidence. The exact selected leaf-instance and owner-output catalogs in Tables 5.6.3-B/B2 replace it. |
 | authority-neutral mechanic families | 13 | Canonicalization, hashing, exact matching, immutable data, schema admission, paths, filesystem/archive/subprocess/loading, bounded range mechanics, and the selected common Effect execution-composition substrate. |
-| preliminary reusable-callable estimate | withdrawn (`71`) | The earlier manual estimate had no inclusion rule or exact member ledger. It cannot establish reuse or minimal closure. Tables 5.6.3-B/B2 name every selected semantic leaf, join, output relation, and physical boundary used by the 40 expressions. |
+| preliminary reusable-callable estimate | withdrawn (`71`) | The earlier manual estimate had no inclusion rule or exact member ledger. It cannot establish reuse or minimal closure. Tables 5.6.3-B/B2 name every selected semantic leaf, join, output relation, and physical boundary used by the 35 retained expressions. |
 | endpoint labels proven primitive | 0 | Naming, exporting, or publishing an endpoint proves no atomicity. |
 
 The effect partition is exact and disjoint:
 
 ```text
-25 read
+21 read
 + 7 non-mutating deterministic construction, validation, or attestation
 + 8 artifact-boundary effect
-+ 16 ABG runtime-mutation
-= 56 definitions
++ 10 ABG runtime-mutation
+= 46 definitions
 ```
 
-The observed `41` shape count is reproducible but remains structural evidence
-only. Literal-insensitive comparison contracts these exact groups:
-`{run_status,graph_call_status}`, `{run_result,graph_call_result}`, the five
-`E10` evidence members, `{workspace_replay,run_replay,graph_call_replay,
-interaction_replay,continuation_replay}`, `{approve,reject,assess,
-answer_escalation}`, `{reprice,attest}`, and `{run-resumed,run-stopped}`. Every
-other definition shape is a singleton:
+The effect partition projects the current owner `effectClass` metadata and
+exact key set, not a subtraction inferred from totals. Read comprises the
+twenty projection keys plus `workspace.open`; runtime mutation comprises
+invoke/start, pending continuation, result assessment and six witnessed acts.
+The four unavailable witness definitions remain in that declared partition.
+The 35 expression classes below cover exactly the same 46 keys. Stable class
+IDs retain gaps for withdrawn members and are not renumbered.
 
-```text
-56 - (1 + 1 + 4 + 4 + 3 + 1 + 1) = 41
-```
-
+The former 18/56, 25/7/8/16 and 41-shape observations remain historical C1F
+evidence at their recorded subjects. No current shape recount is claimed.
 Shape equality merges neither definition identity nor semantic ownership.
-
-The 18/56 external coverage, disjoint 25/7/8/16 effect partition, 40 expression
-classes, and selected leaf-instance catalog below are exact partitions for
-this local C1F frame. The withdrawn `22` and `71` estimates must not reappear
-as scope, progress, or minimality claims. Implementation may reduce a selected
-leaf only by proving exact equivalence while preserving external contracts,
-owner authority, typed refusals, effect order, provenance, admitted events,
-and replay. It may not increase semantic authority to make a count smaller.
+The withdrawn `22` and `71` estimates remain non-evidence. Implementation may
+factor a retained leaf only while preserving its contract, owner authority,
+typed refusals, effect order, provenance, admitted events and replay.
 
 The 13 authority-neutral mechanic families are: canonical JSON; canonical and
 byte SHA-256; Unicode ordering and immutable set operations; immutable detached
@@ -1421,9 +1429,6 @@ of expressions is declared equivalent.
 | `E16` | `project.read/interaction_replay` | read | validated prefix -> interaction replay projection |
 | `E17` | `project.read/continuation_replay` | read | validated prefix -> continuation replay projection |
 | `E18` | `project.read/c_call_replay` | read | validated prefix -> CCall replay projection |
-| `E19` | `project.read/{workspace_gaps,run_gaps}` | read | admitted route/replay truth -> scope-parameterized gap projection |
-| `E20` | `project.read/run_lawful_actions` | read | admitted next-action truth -> lawful-action projection |
-| `E21` | `project.read/ticket_consensus` | read | admitted Consensus result -> Product-owned ticket projection |
 | `E22` | `product.verify/verify` | non-mutating validation/attestation | physical artifact read -> complete Product verification -> immutable verified carrier |
 | `E23` | `product.resolve/resolve` | non-mutating deterministic construction | verified artifacts -> exact dependency graph -> resolved lock |
 | `E24` | `product.install/install` | artifact-effect | verified lock member -> checked install -> ProductInstall -> expected-prefix artifact-truth admission |
@@ -1433,9 +1438,7 @@ of expressions is declared equivalent.
 | `E28` | `catalog.apply/{node_type,overlay}` | non-mutating deterministic construction | exact view row plus typed declaration -> deterministic application |
 | `E29` | `run.invoke/invoke` | runtime-mutation | exact catalog selection -> invocation/basis/open admission -> HoG traversal -> replay/result |
 | `E30` | `run.invoke/start` | runtime-mutation | declared-start resolution -> invocation/basis/open admission -> HoG traversal -> replay/result |
-| `E31` | `run.continue/current_intent` | runtime-mutation | current continuation rehydration -> successor derivation/resume admission -> HoG continuation -> replay |
-| `E32` | `run.continue/selected_action` | runtime-mutation | admitted selected action -> exact ConstructionIntent/invocation admission -> HoG traversal -> replay |
-| `E33` | `interaction.respond/{select,approve,reject,assess,answer_escalation}` | runtime-mutation | pending interaction -> Product response evaluation -> expected-prefix response admission |
+| `E31` | `run.continue/current_intent` | runtime-mutation | replay-derived pending occurrence and exact cursor/input/basis -> same-Run continuation admission -> HoG pending-execution resume -> replay |
 | `E34` | `result.assess/assess` | runtime-mutation | admitted result/evidence/basis -> Product assessment judgment -> expected-prefix assessment admission |
 | `E35` | `witness.admit/{reprice,attest,hygiene-stamp,intake,run-resumed,run-stopped}` | runtime-mutation | typed subject/content/currentness -> actor-attributed candidate -> expected-prefix witness/lifecycle admission |
 | `E36` | `conformance.evaluate/gtl_program` | non-mutating validation/attestation | strict I-JSON/raw GTL admission -> whole-Program validation -> conformance evidence |
@@ -1444,13 +1447,11 @@ of expressions is declared equivalent.
 | `E39` | `release.snapshot/published_rc` | artifact-effect | pre-RC law/qualification/identity validation -> immutable RC snapshot publication |
 | `E40` | `release.snapshot/tapped_release` | artifact-effect | native installed-RC qualification plus actual human acceptance -> external acceptance/evidence addendum for the same unchanged RC; no second cut or selector move |
 
-The class cardinality is mechanically checkable from the table:
-
-```text
-2 + 1 + 1 + 1 + 1 + 1 + 1 + 1 + 1 + 5 + 1 + 1 + 1 + 1 + 1 + 1 + 1 +
-1 + 2 + 1 + 1 + 1 + 1 + 1 + 1 + 1 + 1 + 2 + 1 + 1 + 1 + 1 + 5 + 1 +
-6 + 1 + 1 + 1 + 1 + 1 = 56
-```
+The class cardinality is mechanically checkable from the table: 35 rows
+expand to 46 exact keys (the five-member evidence class and six-member witness
+class retain their member distinctions). The sorted keys equal
+`OWNER_CONTRACT_SOURCES`, key-set SHA-256
+`0988d2088a089d32fa2c90589ee02afb44140dcf68cb463a0f68df6c1a0dcd81`.
 
 The grouping relation is intentionally narrower than schema-shape equality.
 For example, status and replay schemas may be structurally equal while their
@@ -1513,8 +1514,6 @@ The neutral mechanic identifiers used in the ordered traces are exact:
 | `L06` | `P` | `WorkspaceStatusProjectReadPacket + ProductProjectionBasis -> WorkspaceStatusProjection  or  ProductProjectReadRefusal` | Product / Entity / read | `P/project_read_ports.ts::projectWorkspaceStatus` (current) | `NF-PROJ` |
 | `L07` | `P` | `InstallEvidenceProjectReadPacket + admitted install/manifest -> InstallEvidenceProjection  or  ProductProjectReadRefusal` | Product / Proof / read | `P/project_read_ports.ts::projectInstallEvidence` (current) | `NF-PROJ` |
 | `L08` | `P` | `ReleaseEvidenceProjectReadPacket + release result -> release evidence  or  ProductProjectReadRefusal` | release/Product / Proof / read | `P/project_read_ports.ts::projectReleaseEvidence` (current refusal projection) | `NF-REL` |
-| `L09` | `P` | `ConsensusResult -> TicketConsensusProjection  or  Consensus projection refusal` | GTL / Product / read | `G/consensus.ts::projectTicketConsensus` (current) | `NF-PROJ` |
-| `L10` | `P` | `TicketConsensusProjectReadPacket + admitted Consensus result -> ProductProjectReadResult<ticket_consensus>  or  ProductProjectReadRefusal` | Product / Proof / read | `P/project_read_ports.ts::projectConsensusTicket` (current; source join pending) | `NF-PROJ` |
 | `L11` | `V` | `readonly RuntimeEvent[] -> ValidatedRuntimeEventPrefix  or  invalid-prefix refusal` | ABG / ABG / read | `A/event_prefix.ts::selectValidatedRuntimeEventPrefix` (current) | `NF-ADM` |
 | `L12` | `P` | `ValidatedRuntimeEventPrefix -> RuntimeEventCalculusProjection  or  event-law refusal` | ABG / ABG / read | `A/event_calculus.ts::deriveRuntimeEventCalculusProjection` (current) | `NF-ADM` |
 | `L13` | `P` | `ValidatedRuntimeEventPrefix + scope -> ReplayState  or  replay refusal` | ABG / ABG / read | `A/replay.ts::replayValidatedRuntimeEventPrefix` (current) | `NF-ADM` |
@@ -1522,8 +1521,6 @@ The neutral mechanic identifiers used in the ordered traces are exact:
 | `L15` | `P` | `ReplayState + run or graph-call selector -> result/stop/gap  or  AbgProjectReadRefusal` | ABG / Entity / read | `A/project_read_ports.ts::{projectRunResult,projectGraphCallResult}` (internal, current) | `NF-PROJ` |
 | `L16` | `P` | `ReplayState + evidence subject -> causal evidence projection  or  AbgProjectReadRefusal` | ABG / Proof / read | `A/project_read_ports.ts::evidenceProjection` (internal; assessment/witness cases pending) | `NF-PROJ` |
 | `L17` | `P` | `ReplayState + workspace or run or graph-call or interaction or continuation or c-call scope -> scoped replay projection  or  AbgProjectReadRefusal` | ABG / Proof / read | scoped functions in `A/project_read_ports.ts` (current) | `NF-PROJ` |
-| `L18` | `P` | `ReplayState + workspace or run scope -> GapSet  or  AbgProjectReadRefusal` | ABG / Entity / read | `A/project_read_ports.ts::gapRows` and scoped projectors (internal, current) | `NF-PROJ` |
-| `L19` | `P` | `ReplayState + Run -> admitted NextActionProjection set  or  AbgProjectReadRefusal` | ABG / Entity / read | `A/project_read_ports.ts::projectRunLawfulActions` (internal, current) | `NF-PROJ` |
 | `L20` | `V` | `VerifyProductRequest -> VerifiedProductArtifact  or  ProductVerificationRefusal` | Product / Entity / non-mutating | `P/verify_product.ts::verifyProduct` (current) | `NF-VAL` |
 | `L21` | `D` | `readonly VerifiedProductArtifact[] -> ResolvedProductLock  or  EnvironmentRefusal` | Product / Entity / pure | `P/environment.ts::constructResolvedProductLock` (current) | `NF-ID` |
 | `L22` | `A` | `ProductInstall candidate + expected prefix + operation basis -> admitted ProductInstall  or  artifact-admission refusal` | ABG / ABG / runtime-mutation leaf inside artifact-effect endpoint | `A/environment_admission.ts::admitProductInstall` (current) | `NF-ADM` |
@@ -1551,16 +1548,9 @@ The neutral mechanic identifiers used in the ordered traces are exact:
 | `L44` | `A` | `expected prefix + root-open candidate batch -> Run/GraphCall/Frame open truth  or  admission refusal` | ABG / ABG / runtime-mutation | admission phase of `A/open_call.ts::openCall` (current; exact-prefix atomicity required) | `NF-ADM` |
 | `L45` | `H` | `admitted GTL graph + ExecutionBasis + cursor/input -> traversal completion or held or gap or failure` | HoG / HoG / effectful static composition over ABG owner ports | `H/graph_execute.ts::executeGraphTraversal` (current) | `NF-TOP`; HoG selects traversal only, while each runtime mutation remains an ABG leaf/admission |
 | `L46` | `P` | `ValidatedRuntimeEventPrefix + continuation coordinate -> admitted current continuation  or  absent/resolved/basis refusal` | ABG / ABG / read within mutation | `A/fh_continuation_projection.ts::projectFhContinuations` (current; the fold over the prefix, T-290 C-17) | `NF-PROJ` |
-| `L47` | `D` | `current continuation + exact input/evidence -> successor input/cursor  or  continuation refusal` | ABG with HoG successor law / HoG-ABG seam / pure | `A/fh_resume_relation.ts::deriveFhResumeSuccessorInputAtPrefix` (current) | `NF-TOP` |
-| `L48` | `T` | `continuation + successor + authority -> resume candidate batch  or  continuation refusal` | ABG / ABG / runtime-mutation | none: the F_H resume operation is unbound (T-290 C-17); its binding realizes this row over the frames derived from the log | `NF-ADM` |
-| `L49` | `A` | `expected prefix + resume candidate batch -> admitted continuation successor  or  stale/basis refusal` | ABG / ABG / runtime-mutation | none: the F_H resume operation is unbound (T-290 C-17); its binding realizes this row over the frames derived from the log | `NF-ADM` |
-| `L50` | `P/S` | `ValidatedRuntimeEventPrefix + selectedAction coordinate -> one admitted current NextActionProjection  or  stale/absent/ambiguous` | ABG / Entity / read within mutation | C2-pending exact selection; evidence in `A/traversal_route.ts::projectDeclaredStructuralAdvanceAtPrefix` | `NF-PROJ` |
-| `L51` | `D` | `admitted NextActionProjection + exact GTL target/basis relation -> ConstructionIntent candidate  or  action/reprice refusal` | GTL/Product / GTL-Product seam / pure | C2-pending owner join; existing relation evidence in `A/traversal_route.ts::constructionIntentForAdvance` | `NF-TOP` |
-| `L52` | `A` | `ConstructionIntent candidate + expected prefix -> admitted ConstructionIntent  or  stale/basis refusal` | ABG / ABG / runtime-mutation | C2-pending exact callable; current admission evidence in `A/traversal_route.ts::admitRoute` | `NF-ADM` |
-| `L53` | `P` | `ValidatedRuntimeEventPrefix + interaction coordinate -> pending F_H semantic basis  or  missing/resolved/basis refusal` | ABG / Entity / read within mutation | `A/continuation.ts::projectFhInteractionSemanticBasisAtPrefix` (current) | `NF-PROJ` |
-| `L54` | `V/D` | `pending semantic basis + typed response + Product contracts -> evaluated response  or  ProductResponseRefusal` | Product / Entity / pure | `P/semantics.ts::evaluateInstalledInteractionResponse` (current) | `NF-VAL` |
-| `L55` | `T` | `evaluated response + current continuation/actor/basis -> response candidate batch  or  response refusal` | ABG / ABG / runtime-mutation | `A/continuation.ts::prepareFhInteractionResponse` (current) | `NF-ADM` |
-| `L56` | `A` | `expected prefix + response candidate batch -> admitted responded interaction  or  stale/basis refusal` | ABG / ABG / runtime-mutation | `A/continuation.ts::commitFhInteractionResponseAtExpectedPrefix` (current) | `NF-ADM` |
+| `L47` | `D` | `current continuation + exact input/evidence -> successor input/cursor  or  continuation refusal` | ABG with HoG successor law / HoG-ABG seam / pure | none: native F_H response/resume is reserved to 5.1; no current successor producer | `NF-TOP` |
+| `L48` | `T` | `continuation + successor + authority -> resume candidate batch  or  continuation refusal` | ABG / ABG / runtime-mutation | none: the F_H resume operation is unbound and reserved to 5.1; this row grants no current admission | `NF-ADM` |
+| `L49` | `A` | `expected prefix + resume candidate batch -> admitted continuation successor  or  stale/basis refusal` | ABG / ABG / runtime-mutation | none: the F_H resume operation is unbound and reserved to 5.1; this row grants no current admission | `NF-ADM` |
 | `L57` | `V/D` | `admitted RuntimeResult + declared assessment contract/value/evidence -> ResultAssessmentTruth  or  ResultAssessmentRefusal` | Product / Entity / pure | Product-judgment phase of `P/result_assessment_operation.ts::assessResult` (current composed relation) | `NF-VAL` |
 | `L58` | `T` | `ResultAssessmentTruth + current basis/actor/causes -> assessed-event candidate  or  ResultAssessmentRefusal` | ABG / ABG / runtime-mutation | candidate phase of `P/result_assessment_operation.ts::assessResult` (current; owner join fixed) | `NF-ADM` |
 | `L59` | `A` | `expected prefix + assessed-event candidate -> admitted assessment  or  stale/basis refusal` | ABG / ABG / runtime-mutation | admission phase of `P/result_assessment_operation.ts::assessResult` using `compareAndAppendExpectedPrefix` | `NF-ADM` |
@@ -1570,6 +1560,13 @@ The neutral mechanic identifiers used in the ordered traces are exact:
 | `L63` | `D` | `ConfigurationMaterializePacket + exact binding/contract -> ordered MaterializationPlan  or  ProductMaterializationRefusal` | Product / Entity / pure | planning/validation phase of `P/materialization_operations.ts::materializeConfiguration` (current) | `NF-ID` |
 | `L64` | `V/D` | `PublishedRcSnapshotRequest + authenticated native pre-RC qualification -> exact RC publication candidate or owner refusal` | release owner / Entity / pure before effect | qualification phase of `P/release_snapshot_operations.ts::snapshotPublishedRc`; native success/resource contracts remain D6-pending | `NF-REL` |
 | `L65` | `V/D` | `TappedReleaseSnapshotRequest + authenticated native installed-RC qualification + actual same-RC human acceptance -> acceptance-addendum candidate or owner refusal` | release owner / Entity / pure before effect | qualification phase of `P/release_snapshot_operations.ts::snapshotTappedRelease`; native success/resource contracts remain D6-pending | `NF-REL` |
+| `L66` | `P/S` | `validated prefix + pending occurrence/cursor/input/basis -> PendingExecutionUse or continuation refusal` | ABG / read within mutation | `A/construction_continuation.ts::selectPendingExecutionUse` | `NF-PROJ` |
+| `L67` | `V/S` | `current Catalog/view + admitted installs + exact Program/graph -> Product execution resolution or refusal` | Product / pure closure resolution | `ProductExecutionResolutionPort.resolve`, called by `owner_bindings/run_invocation.ts::resolveContinuationBasis` | `NF-SEL` |
+| `L68` | `V/D` | `pending use + exact resolution -> prepared root/graph/implementation/interaction basis or refusal` | ABG with GTL/Validator/Product owners / pure | `A/construction_continuation.ts::preparePendingExecutionContinuation` | `NF-TOP` |
+| `L69` | `V` | `prepared basis + policy/grant + projected progressed input -> exact invocation-authority join or basis refusal` | existing Product/ABG owners / validation | `owner_bindings/run_invocation.ts::runPendingExecutionOwner`; `projectPendingExecutionInputAtPrefix` selects the input | `NF-ADM` |
+| `L70` | `A` | `pending use + grant + expected prefix -> admitted current_intent/pending_execution operation and successor` | ABG / runtime mutation | `A/construction_continuation.ts::admitPendingExecutionContinuationOperation` | `NF-ADM` |
+| `L71` | `H` | `admitted successor + prepared basis -> same-Run pending traversal outcome` | HoG / traversal over ABG owners | `H/graph_execute.ts::executeGraphTraversalEffect` with `pendingExecutionResume: true`; restores returns/cursor/input from admitted truth | `NF-TOP` |
+| `L72` | `P` | `traversal successor prefix + Run -> current Run truth or replay refusal` | ABG / pure projection | `A/project_read_ports.ts::projectRunTruthAtDurablePrefix`; consumed by `continuationOutcome` in the existing run owner | `NF-PROJ` |
 | `J01` | `P/V` | `verified-artifact coordinate + installed Product bytes -> VerifiedProductArtifact  or  verification/source refusal` | Product / Install / read | C2-pending source join through `P/verify_product.ts::verifyProduct` and installed artifact bytes | join only: semantic leaf is `L20`; no independent primitive claim |
 | `J02` | `P/V` | `lock coordinate + verified artifacts -> ResolvedProductLock  or  source/environment refusal` | Product / Install / read | C2-pending deterministic reconstruction through `L21` | join only: semantic leaf is `L21`; no independent primitive claim |
 | `J03` | `P/V` | `environment coordinates + admitted prefix + installed manifests -> ProductSet/WorkspaceBinding  or  source/environment refusal` | Product over ABG projection / Install / read | C2-pending source join through `L23-L27` | join only: no independent semantic authority |
@@ -1577,7 +1574,6 @@ The neutral mechanic identifiers used in the ordered traces are exact:
 | `J05` | `P` | `durable-prefix authority -> exact immutable RuntimeEvent sequence  or  store/prefix refusal` | ABG / Install / read | current exact reopen/read relations in `A/event_store.ts`; definition binding join C2-pending | join only: prefix selection remains `L11`; no independent projection law |
 | `J06` | `P/V` | `Program/GraphFunction coordinate + verified installed Product -> exact GTL carrier  or  source/contract refusal` | Product then GTL / Install / read | C2-pending source join through verified declarations and `L30` | join only: semantic validation/topology remain `L30/L36/L40` |
 | `J07` | `P/V` | `Product semantic contract coordinate + admitted lock -> installed Product semantic callable  or  load/contract refusal` | Product / Install / read | `P/semantics.ts::loadInstalledProductSemantics` (current; exact binding join pending) | join only: loaded Product callable retains its own semantic leaf |
-| `J08` | `P/V` | `Consensus result coordinate + admitted GTL/ABG result truth -> exact ConsensusResult  or  source/result refusal` | GTL over ABG projection / Install / read | C2-pending source join from admitted result/replay to `G/consensus.ts::projectTicketConsensus` | join only: semantic projection remains `L09-L10`; no independent result meaning |
 | `X01` | `X` | `WorkspaceManifest + target policy -> committed workspace artifact  or  WorkspaceOperationRefusal` | Product / Effect / artifact-effect | physical phase of `P/workspace_operations.ts::createWorkspace` using `N07-N09` | `NF-PHY` |
 | `X02` | `X` | `verified artifact + lock + target -> installed bytes + ProductInstall candidate  or  InstallProductRefusal` | Product / Effect / artifact-effect | `P/install_product.ts::installProduct` using `N07-N10` | `NF-PHY` |
 | `X03` | `X` | `MaterializationPlan + target -> ProductMaterializationResult + manifest/provenance  or  ProductMaterializationRefusal` | Product / Effect / artifact-effect | physical phases and `persistManifest` in `P/materialization_operations.ts` using `N07-N09` | `NF-PHY` |
@@ -1681,9 +1677,6 @@ F_READ_PAGE = F_READ, cursor_invalid, range_invalid
 | `R16` | `E16` interaction_replay | result `{caseKey, source, projectionBasis, projection: InteractionReplayProjection}` | same total `F_READ_PAGE` mapping as `R13` over interaction scope | ABG InteractionProjection. Current port exists; indexed envelope is C2-pending. |
 | `R17` | `E17` continuation_replay | result `{caseKey, source, projectionBasis, projection: ContinuationReplayProjection}` | same total `F_READ_PAGE` mapping as `R13` over continuation scope | ABG ContinuationProjection. Current port exists; indexed envelope is C2-pending. |
 | `R18` | `E18` c_call_replay | result `{caseKey, source, projectionBasis, projection: CCallReplayProjection}` | same total `F_READ_PAGE` mapping as `R13`, including exact CCall selector | ABG CCallProjection. Current port exists; indexed envelope is C2-pending. |
-| `R19` | `E19` workspace_gaps/run_gaps | result `{caseKey, source, projectionBasis, projection: WorkspaceGapProjection or RunGapProjection}` | exact `F_READ`; invalid history -> `projection_basis_mismatch`; absent scope -> `not_found`; no admitted gap set yet -> `not_ready`; other named causes homonymous | ABG WorkspaceProjection or RunProjection, statically selected. Current ports exist; indexed envelope is C2-pending. |
-| `R20` | `E20` run_lawful_actions | result `{caseKey, source, projectionBasis, projection: RunLawfulActionProjection}` | exact `F_READ`; invalid history -> `projection_basis_mismatch`; absent Run -> `not_found`; action frontier not admitted -> `not_ready`; other named causes homonymous | ABG RunProjection. Current port exists; indexed envelope is C2-pending. |
-| `R21` | `E21` ticket_consensus | result `{caseKey, source, projectionBasis, projection: TicketConsensusProjection}` | exact `F_READ`; wrong carrier -> `source_kind_mismatch`; result/source mismatch -> `source_digest_mismatch`; ticket, output-authority, or replay mismatch -> `projection_basis_mismatch`; absent/not-final -> `not_found` or `not_ready`; unsupported subject -> `projection_unsupported` | Product ConsensusProjection over the accepted GTL AF-03 relation. `P/project_read_ports.ts::projectConsensusTicket` invokes `G/consensus.ts::projectTicketConsensus`; admitted-result source join and indexed envelope are C2-pending. No Product re-entry is required. |
 | `R22` | `E22` verify | packed result `{targetKind, disposition, verifiedArtifact, localNativeEvidence, pendingExternalSelectors, definitionContractCoordinates, residuals, provenance}`; installed result `{targetKind, disposition, verifiedArtifact, resolvedLock, installedProduct, definitionContractCoordinates, residuals, provenance}` | artifact bytes/digest -> `artifact_mismatch`; content -> `content_mismatch`; identity -> `identity_mismatch`; descriptor -> `descriptor_mismatch`; contribution -> `contribution_mismatch`; dependency declaration -> `invalid_declared_dependency`; contract support -> `unsupported_contract`; installed lock -> `lock_mismatch`; changed installed carrier -> `stale_installed_state` | Product Verification. `P/verify_product.ts::verifyProduct` and native-evidence functions exist; exact two-variant indexed result/refusal envelope is C2-pending. |
 | `R23` | `E23` resolve | result `{resolvedLock, selections, dependencyEdges, selectorDispositions, occurrences, nativeBindings, residuals, provenance}` | malformed requirements/closure -> `invalid`; missing successful verification -> `unverified`; missing dependency/selector -> `unresolved`; version/capability/contract mismatch -> `incompatible`; multiple lawful selections -> `ambiguous`; dependency cycle -> `cyclic` | Product EnvironmentResolution. `P/environment.ts::constructResolvedProductLock` plus accepted native-closure resolution supply truth; indexed result/refusal envelope is C2-pending. |
 | `R24` | `E24` install | result `{disposition, installedProduct, installManifest, installerManifest, resolvedLock, provenance}` | verification relation -> `verification_failure`; target state/path -> `target_failure`; identity -> `identity_mismatch`; bytes/content -> `content_mismatch`; descriptor -> `descriptor_mismatch`; contribution -> `contribution_mismatch`; lock -> `lock_mismatch`; public contract -> `contract_mismatch`; physical exception -> `filesystem_failure` | Product Installation over ABG-admitted immutable artifact truth. `P/install_product.ts::installProduct` and `A/environment_admission.ts::admitProductInstall` exist; joint indexed envelope is C2-pending. |
@@ -1691,11 +1684,9 @@ F_READ_PAGE = F_READ, cursor_invalid, range_invalid
 | `R26` | `E26` catalog admit | result `{catalog, rows, conservation}` | descriptor admission -> `malformed_descriptor`; manifest/publication/Program contribution admission -> `malformed_contribution`; binding -> `binding_mismatch`; lock/dependency -> `lock_mismatch`; non-bijective input/output row conservation -> `conservation_failure` | Product CatalogAdmission. `P/catalog_operations.ts::constructReadyCatalog` and `P/catalog_operation_contracts.ts::admitCatalogAdmissionResult` supply the relation; indexed envelope is C2-pending. |
 | `R27` | `E27` catalog view | result `{view, effectiveHandles, residuals}` | zero handle -> `unknown`; duplicate requested handle -> `duplicate`; multiple row match -> `ambiguous`; outside authority -> `unauthorized`; row not admitted -> `inadmissible`; readiness incomplete -> `not_ready` | Product CatalogProjection. `P/catalog.ts::narrowGraphFunctionCatalog` exists; indexed envelope is C2-pending. |
 | `R28` | `E28` catalog apply node_type/overlay | result `{applicationKind, application, target, evidence, provenance}` | member/declaration kind -> `kind_mismatch`; catalog basis/view -> `view_mismatch`; readiness -> `unready`; selected row/target -> `target_mismatch`; deterministic application -> `application_mismatch`; callable contract -> `callability_mismatch`; receipt -> `invalid_validation_receipt`; contributor -> `invalid_contributor` | Product CatalogApplication. `P/catalog.ts::applyCatalogDeclaration` exists; exact indexed result/refusal envelope is C2-pending. |
-| `R29` | `E29` run invoke | result `{invocationKind, run, graphCall, disposition, result, stop, gap, interaction, evidence, replay}`; nonterminal `{invocationKind, disposition, run, graphCall, interaction, gap, evidence, replay}` | Program -> `invalid_program`; selected definition -> `invalid_graph_function`; input contract/value -> `invalid_input`; catalog view -> `invalid_view`; invocation/intent -> `invalid_intent`; grant -> `invalid_capability`; structural target -> `invalid_target`; traversal mode -> `invalid_mode`; stop condition -> `invalid_until` | Product RunInvocation over admitted ABG/GTL/HoG truth. Exact terminal/nonterminal/refusal construction is C2-pending. |
+| `R29` | `E29` run invoke | result `{invocationKind, run, graphCall, disposition, result, stop, gap, interaction, evidence, replay, stopStatement?}`; held-only nonterminal `{invocationKind, disposition, run, graphCall, interaction, gap, evidence, replay, stopStatement?}` | Program -> `invalid_program`; selected definition -> `invalid_graph_function`; input contract/value -> `invalid_input`; catalog view -> `invalid_view`; invocation/intent -> `invalid_intent`; grant -> `invalid_capability`; structural target -> `invalid_target`; traversal mode -> `invalid_mode`; stop condition -> `invalid_until` | Product RunInvocation over admitted ABG/GTL/HoG truth. Exact terminal/nonterminal/refusal construction is C2-pending. |
 | `R30` | `E30` run start | same result/nonterminal fields as `R29`, with `invocationKind = start` and nullable `graphCall` | same total mapping as `R29`, after GTL declared-start selection | Product RunInvocation over admitted ABG/GTL/HoG truth. Exact terminal/nonterminal/refusal construction is C2-pending. |
-| `R31` | `E31` continue current_intent | result `{continuationKind, run, graphCall, admittedIntent, successor, disposition, evidence, replay}`; nonterminal `{continuationKind, disposition, run, continuation, evidence, replay}` | absent -> `missing_continuation`; already terminal -> `resolved_continuation`; selected intent -> `intent_mismatch`; response -> `response_mismatch`; replay -> `replay_mismatch`; execution basis -> `basis_mismatch`; stale frontier -> `stale_action`; action -> `action_mismatch`; changed authority without covering reprice -> `reprice_mismatch` | Product RunContinuation over ABG/HoG continuation truth. Exact indexed closure is C2-pending. |
-| `R32` | `E32` continue selected_action | same result/nonterminal fields as `R31`, with exact admitted ConstructionIntent in `admittedIntent` | same total mapping as `R31`, with selected-action and reprice relation explicit | Product RunContinuation over GTL/Product/ABG/HoG truth. Exact indexed closure is C2-pending. |
-| `R33` | `E33` five interaction responses | no terminal result; nonterminal `{disposition, responseKind, responseEvent, interaction, run, continuation, evidence}` | absent -> `missing_interaction`; already answered -> `resolved_interaction`; response member -> `kind_mismatch`; response contract -> `contract_mismatch`; choice -> `choice_mismatch`; value -> `value_mismatch`; capability -> `capability_mismatch`; execution basis -> `basis_mismatch` | Product InteractionResponse over ABG response admission. Exact member-indexed nonterminal/refusal closure is C2-pending. |
+| `R31` | `E31` continue current_intent | result `{continuationKind: pending_execution, run, graphCall, admittedIntent: null, successor, disposition, evidence, replay, stopStatement?}`; nonterminal `{continuationKind: pending_execution, disposition: held, run, continuation, evidence, replay, stopStatement?}` | absent -> `missing_continuation`; consumed/duplicate -> `resolved_continuation`; cursor/input -> `response_mismatch`; history -> `replay_mismatch`; current execution basis/authority -> `basis_mismatch` | Existing Product-bound run owner over ABG pending admission, HoG resume and fresh ABG Run truth; no F_H response/resume or new intent admission. |
 | `R34` | `E34` result assess | result `{assessment, disposition, closureEligible, residuals, evidence}` for admitted/rejected; nonterminal same fields for retry/blocked | expected result -> `result_mismatch`; any bound digest -> `digest_mismatch`; assessment contract -> `contract_mismatch`; value -> `value_mismatch`; capability -> `capability_mismatch`; evidence set -> `evidence_mismatch`; admitted execution basis/prefix -> `basis_mismatch` | Product ResultAssessment over ABG admission. `P/result_assessment_operation.ts::assessResult` returns the raw typed carrier; exact `{outcomeKind, value}` selection/envelope remains C2-pending. |
 | `R35` | `E35` six witnessed acts | result `{act, witnessedAct, admittedEvent, evidence}` | actor -> `actor_mismatch`; subject -> `subject_mismatch`; selected act -> `act_mismatch`; typed content -> `content_mismatch`; lifecycle context -> `context_mismatch`; evidence -> `evidence_mismatch`; provenance -> `provenance_mismatch`; admitted basis/prefix -> `basis_mismatch` | ABG WitnessAdmission. `A/witness_admission_operation.ts::admitWitnessedAct` supplies raw truth; exact member-indexed result/refusal envelope is C2-pending. |
 | `R36` | `E36` conformance | result `{program, inventory, assessment, disposition, diagnostics, violatedAuthorities, evidence, repairAffordances}` | malformed or invalid Program -> `invalid_program`; selected conformance law -> `law_mismatch`; declared inventory -> `inventory_mismatch`; validator cannot produce a complete assessment -> `assessment_blocked` | Validator Conformance. `V/conformance_operation.ts::evaluateGtlProgramConformance` supplies validation truth; exact indexed assessment/result/refusal envelope is C2-pending. |
@@ -1781,9 +1772,6 @@ ordered input set; it is not a queue or controller.
 | `E16` | `J05 -> L11 -> L12 -> L13 -> N12 -> L17[interaction] -> R16` |
 | `E17` | `J05 -> L11 -> L12 -> L13 -> N12 -> L17[continuation] -> R17` |
 | `E18` | `J05 -> L11 -> L12 -> L13 -> N12 -> L17[c-call] -> R18` |
-| `E19` | `J05 -> L11 -> L12 -> L13 -> L18[workspace or run,N03] -> R19` |
-| `E20` | `J05 -> L11 -> L12 -> L13 -> L19 -> R20` |
-| `E21` | `J08 -> L09 -> L10 -> R21` |
 | `E22` | `N08 -> N10 -> L20 -> R22` |
 | `E23` | `J01* -> L21 -> R23` |
 | `E24` | `J01 -> J02 -> X02[N07,N08,N09,N10] -> L22 -> R24` |
@@ -1793,9 +1781,7 @@ ordered input set; it is not a queue or controller.
 | `E28` | `J04 -> L34[N06] -> L33[node_type or overlay] -> R28` |
 | `E29` | `J03 -> J04 -> J06 -> L34[N06] -> L35 -> J05 -> L11 -> L38 -> L39[N11] -> L40 -> L41 -> L42 -> L43 -> L44 -> L45 -> L13 -> R29` |
 | `E30` | `J03 -> J04 -> J06 -> L36 -> L37 -> J05 -> L11 -> L38 -> L39[N11] -> L40 -> L41 -> L42 -> L43 -> L44 -> L45 -> L13 -> R30` |
-| `E31` | `J05 -> L11 -> L46 -> L47 -> L48 -> L49 -> L45 -> L13 -> R31` |
-| `E32` | `J03 -> J04 -> J06 -> J05 -> L11 -> L50[N06] -> L51 -> L52 -> L35 -> L38 -> L39[N11] -> L40 -> L41 -> L42 -> L43 -> L44 -> L45 -> L13 -> R32` |
-| `E33` | `J05 -> L11 -> L53 -> J07[N11] -> L54[response-kind] -> L55 -> L56 -> R33` |
+| `E31` | `J05 -> L11 -> L66 -> L67 -> L68 -> L69 -> L70 -> L71 -> L72 -> R31` |
 | `E34` | `J05 -> L11 -> L13 -> L15[result] -> J07[N11] -> L57 -> L58 -> L59 -> R34` |
 | `E35` | `J05 -> L11 -> L12 -> L60[witness-kind] -> L61 -> R35` |
 | `E36` | `N05 -> L28 -> L30 -> R36` |
@@ -1804,11 +1790,11 @@ ordered input set; it is not a queue or controller.
 | `E39` | `L64 -> [Wave 2 refusal or future X04 publication success] -> R39`; Wave 2 must refuse before `X04` |
 | `E40` | `L65 -> [Wave 2 refusal or future X04 same-RC acceptance-addendum result] -> R40`; Wave 2 must refuse before `X04` |
 
-##### Table 5.6.3-D - exact 56-key resource-topology family projection
+##### Table 5.6.3-D - exact 46-key resource-topology family projection
 
 This table is the reusable resource projection for the exact membership in
 Table 5.6.3-A. It is not a second endpoint map: `E01-E40` parameterize the
-shared `T0-T9` forms, and Table 5.6.3-A supplies the exhaustive 56-key member
+shared `T0-T9` forms, and Table 5.6.3-A supplies the exhaustive 46-key member
 sets. `V = T0`, `C[S] = T1`, `WR[W] = T2`, `WC[W] = T3`, `WI[W] = T4`,
 `WM[W] = T5`, `CD[S;O] = T6`, `AR[A] = T7`, `AA[A] = T8`, and
 `RF[A] = T9`. Every named input binding has an exact version; every output
@@ -1830,8 +1816,7 @@ not this intrinsic topology and not one enclosing transaction.
 | `E06-E10` | `AR[runtimePrefix]` | ABG store/prefix/reopen read; `J05/L11` validates the exact version, Event Calculus/replay consumes that value, and no append occurs. This one row covers the exact nine keys in the five classes. |
 | `E11` | `C[installManifest] + AR[environmentPrefix]` | Immutable installed-manifest read plus exact admitted-install prefix read; no mutation. |
 | `E12` | `C[releaseOwnerResult,snapshotManifest]` | Exact immutable release-carrier reads; in Wave 2 only the owner refusal carrier is available; no publication or allocation. |
-| `E13-E20` | `AR[runtimePrefix]` | ABG exact-prefix read followed by the class-specific pure range/replay/gap/action projection; no append. This row covers the exact nine keys in the eight classes. |
-| `E21` | `C[consensusResult] + AR[runtimePrefix]` | Exact Consensus-result preimage plus admitted result/replay prefix; unchanged receipts only. |
+| `E13-E18` | `AR[runtimePrefix]` | ABG exact-prefix read followed by the class-specific pure range/replay projection; no append. This row covers six exact keys in six classes. |
 | `E22 packed_artifact` | `C[packedArtifact]` | Closed `packed_artifact` arm selected by the admitted verification-source variant. Product filesystem/object read occurs at the exact artifact version/digest; archive/subprocess inspection remains `L20/N10` owner mechanics; no resource output. |
 | `E22 installed_artifact` | `C[installedArtifact,resolvedLock,installedProduct,installManifest]` | Closed `installed_artifact` arm selected by the same admitted discriminant. Exact installed tree/object and immutable owner-carrier reads; no write. |
 | `E23` | `C[verifiedArtifactSet]` | Canonically ordered complete verification-carrier preimages at exact outcome digests; pure `L21`; no allocation. |
@@ -1843,8 +1828,6 @@ not this intrinsic topology and not one enclosing transaction.
 | `E29` | `C[workspaceBinding,productSet,resolvedLock,catalogView,program,installedImplementationSet] -> RF[runtimePrefix]` | Public fixes one exact initial prefix and one final prefix result. HoG/ABG derives the invocation-dependent child sequence, journals every separately durable successor prefix/close handoff, and returns the latest handoff plus final replay. Selected GraphFunction leaf effects retain their own declared bindings. |
 | `E30` | same fixed resource arm as `E29` | GTL `L36` changes semantic start selection only. The nested owner frame, not Public topology, owns its dynamic children and independent transactions. |
 | `E31` | `C[executionProgram,executionBasis,installedImplementationSet] -> RF[runtimePrefix]` | Continuation consumes one exact initial prefix; HoG/ABG owns resume and later child admissions, each with a separately durable journaled successor; final result exposes the latest handoff. |
-| `E32` | `C[workspaceBinding,productSet,resolvedLock,catalogView,program,executionBasis,installedImplementationSet] -> RF[runtimePrefix]` | Selected-action, invocation, basis, open, and traversal remain existing ordered child-owner boundaries inside the recursive frame; the Public arm declares no dynamic leaf list or enclosing transaction. |
-| `E33` | `C[responseContract,executionBasis] -> AA[runtimePrefix:L56]` | Installed Product semantic callable is an exact immutable loaded-carrier read; one ABG response admission returns the successor prefix/handoff before `R33`. This covers all five response keys. |
 | `E34` | `C[assessmentContract,executionBasis] -> AA[runtimePrefix:L59]` | Exact Product assessment carrier read plus one independently durable ABG assessment admission; receipt precedes `R34`. |
 | `E35 reprice,attest,hygiene-stamp` | `AA[runtimePrefix:L61]` | One exact ABG witness admission per selected member; successor prefix/handoff precedes `R35`. |
 | `E35 intake,run-resumed,run-stopped` | `C[executionBasis] -> AA[runtimePrefix:L61]` | The three closed members additionally require the exact execution-basis carrier already required by their authority slots; otherwise identical ABG boundary. Together the two `E35` rows cover all six keys. |
@@ -1854,7 +1837,7 @@ not this intrinsic topology and not one enclosing transaction.
 | `E38` | `C[configurationContract,workspaceBinding] + AR[environmentPrefix] -> WM[worksite] -> CD[configurationInput;contentAsset,manifest]` | Same owner boundaries as `E37`; the Product configuration contract fixes the semantic content while physical writes remain receipt-bearing owner effects. |
 | `E39-E40` | `V` for banked refusal-only behavior; D6 exact-prefix reads plus scoped artifact effects are pending | Supplied qualification/acceptance proofs are evidence, not authority. D6 authenticates them through existing native owners, declares exact release resources and preserves physical receipts. No publication provider or allocation is currently installed; the D6 HOW owns the bounded realization re-entry. |
 
-The projection covers exactly the 56 Table 5.6.3-A members and introduces no
+The projection covers exactly the 46 Table 5.6.3-A members and introduces no
 new semantic owner, operation, key, wrapper, runtime lookup, or executable map.
 Every `C`, `WR`, `WC`, `WI`, `WM`, `CD`, `AR`, `AA`, and `RF` slot is included
 in the matching intrinsic arm digest; every arm, selector, and combined
@@ -1863,8 +1846,8 @@ must fail construction if a loaded binding omits or adds a slot, capability,
 owner atomicity reference, allocation, or successor handoff.
 
 The selected closed C1F factor basis at the definition-binding frame is exactly
-the referenced `L01..L65`, `J01..J08`, `R01..R40`, `X01..X04`, and
-`N01..N13` relations with the statuses stated in
+the retained `L`, `J`, `R`, `X01..X04` and `N01..N13` rows, including
+the existing pending-owner relations `L66-L72`, with the statuses stated in
 Table 5.6.3-B. The Wave 2 executable basis excludes deferred `X04`: `E39` and
 `E40` terminate in the exact refusal returned by `L64` or `L65`. D6 realizes
 `X04` only after its native resource and result contracts are implemented;
@@ -1943,9 +1926,7 @@ be loaded, dispatched, or accepted as a runtime substitute for the callable.
 | `catalog.apply#{node_type,overlay}` | `./product` | `CatalogOperationPort.apply` | `static_composition` | `authority://abiogenesis/product/catalog-operations@5` | C2-pending exact member bindings. |
 | `run.invoke#invoke` | `./product` | `RunInvocationPort.invoke` | `static_composition` | `authority://abiogenesis/product/run-invocation@5` | Runtime value absent; C2-pending fixed owner composition. |
 | `run.invoke#start` | `./product` | `RunInvocationPort.start` | `static_composition` | `authority://abiogenesis/product/run-invocation@5` | Runtime value absent; C2-pending fixed owner composition. |
-| `run.continue#current_intent` | `./product` | `RunContinuationPort.current_intent` | `static_composition` | `authority://abiogenesis/product/run-continuation@5` | Runtime value absent; C2-pending fixed owner composition. |
-| `run.continue#selected_action` | `./product` | `RunContinuationPort.selected_action` | `static_composition` | `authority://abiogenesis/product/run-continuation@5` | Runtime value absent; C2-pending fixed owner composition. |
-| `interaction.respond#{select,approve,reject,assess,answer_escalation}` | `./product` | `InteractionResponsePort.respond` | `static_composition` | `authority://abiogenesis/product/interaction-response@5` | Runtime value absent; C2-pending five exact member bindings. |
+| `run.continue#current_intent` | `./product` | `RUN_DEFINITION_BINDINGS.continue.current_intent` | `static_composition` | `authority://abiogenesis/product/run-continuation@5` | Existing `runPendingExecutionOwner` in `owner_bindings/run_invocation.ts`; pending_execution only. |
 | `result.assess#assess` | `./product` | `ResultAssessmentPort.assess` | `static_composition` | `authority://abiogenesis/product/result-assessment@5` | C2-pending exact invocation/admission join. |
 | `witness.admit#{reprice,attest,hygiene-stamp,intake,run-resumed,run-stopped}` | `./abg` | `WitnessAdmissionPort.admit` | `static_composition` | `authority://abiogenesis/abg/witness-admission@5` | C2-pending six exact invocation bindings. |
 | `conformance.evaluate#gtl_program` | `./validator` | `ConformancePort.evaluateGtlProgram` | `static_composition` | `authority://abiogenesis/validator/conformance@5` | C2-pending exact invocation binding. |
@@ -1963,13 +1944,12 @@ The project-read mappings complete every grouped coordinate:
 | `workspace_status` | `./product` | `WorkspaceProjectionPort.status` |
 | `install_evidence` | `./product` | `InstallProjectionPort.evidence` |
 | `release_evidence` | `./product` | `ReleaseProjectionPort.evidence` |
-| `ticket_consensus` | `./product` | `ConsensusProjectionPort.ticketConsensus` |
-| `run_status`, `run_result`, `run_evidence`, `run_replay`, `run_gaps`, `run_lawful_actions` | `./abg` | `RunProjectionPort[memberKey]` |
+| `run_status`, `run_result`, `run_evidence`, `run_replay` | `./abg` | `RunProjectionPort[memberKey]` |
 | `graph_call_status`, `graph_call_result`, `graph_call_evidence`, `graph_call_replay` | `./abg` | `GraphCallProjectionPort[memberKey]` |
 | `result_evidence` | `./abg` | `ResultProjectionPort.evidence` |
 | `assessment_evidence` | `./abg` | `AssessmentProjectionPort.evidence` |
 | `witness_evidence` | `./abg` | `WitnessProjectionPort.evidence` |
-| `workspace_replay`, `workspace_gaps` | `./abg` | `WorkspaceProjectionPort[memberKey]` |
+| `workspace_replay` | `./abg` | `WorkspaceProjectionPort[memberKey]` |
 | `interaction_replay` | `./abg` | `InteractionProjectionPort.replay` |
 | `continuation_replay` | `./abg` | `ContinuationProjectionPort.replay` |
 | `c_call_replay` | `./abg` | `CCallProjectionPort.replay` |
@@ -2021,7 +2001,9 @@ W2-05 closes only when one frozen candidate proves all of the following:
    ambient lookup, invocation-selected handler, or process-local run/read
    authority.
 
-The current banked behavior and remaining-callability partition are distinct:
+The following banked behavior and remaining-callability partition records
+`e7e252ed` only. Its 18/56 census and held continuation/E33 disposition are
+historical; the current family and pending path are in Sections 5.6.2C/5.6.3:
 
 | Set | Count | W2-05 disposition |
 |---|---:|---|
@@ -2054,7 +2036,7 @@ additionally binds the actual human decision and external addendum. The owner
 does not infer success from caller values or erase effects after a later fault.
 Strict native proof, resource and receipt contracts replace the banked null
 resource contracts. Their exact definition/family digests change with the
-contract bytes; the operation/member roster remains 18/56.
+contract bytes; the operation/member current roster is 17/46.
 
 This is a pending realization, not a claim that the current `v.never()` schemas,
 refusal-only callables or missing qualification verdict owner implement it.
@@ -2068,15 +2050,15 @@ The operative binding gaps are:
 |---|---|
 | banked callable behavior predates 5.6.2C | reconcile each closure to the three-combinator algebra or prove exact conformance; behavior alone is insufficient |
 | owner-ready materialize/result/witness/run-invoke definitions are unwired | bind through the exact static owner or prefix specialization with strict static resource/receipt contracts |
-| continuation carrier is incomplete | hold both `run.continue` exports until one shared Product/ABG carrier is accepted |
-| E33 carriers are incomplete | hold until exact choice/evidence/grant/environment/install/publication carriers exist, then bind one kernel to five packets |
+| current pending-execution carrier | `current_intent` uses the existing exact owner path in Section 5.6.2C; selected_action is withdrawn and F_H response/resume remains reserved to 5.1 |
 | `release_evidence` is unbound | bind the existing owner projection while preserving `not_ready` until real release success |
 | release success schemas are `v.never()` | implement the D6 native proof/resource/result contracts and truthful partial receipts; preserve existing refusal truth until that work is qualified |
 | workspace/materialization effects may leave partial artifacts | retain owner-local staging, exact version/idempotence, residue, and compensation; explicitly admit the artifact boundary through ABG when runtime consumption requires it |
 | installed loading is not source-independent | resolve the exact manifest/lock-bound module/export/member coordinate, verify its digest, and load one real callable; prohibit ambient or invocation-selected lookup |
-| legacy Public remains reachable | delete or exclude it atomically only with 56/56 packed loadability and exact projection equality |
+| legacy Public remains reachable | delete or exclude it atomically only with exact 46-key projection equality, 42 callable loads and four declared-unavailable outcomes |
 
-W2-05 acceptance requires the complete reconciled 56/56 static family and
+Current family correspondence requires the exact 46-key family, 42 callable
+loads, four declared-unavailable outcomes and
 legacy exclusion on one packed subject. It does not require 56 behavioral
 executions; exact behavior qualification remains the twelve-key odd_glc
 sentinel.
@@ -2151,8 +2133,7 @@ The W2-05 family application is:
 |---|---|
 | `run.invoke` | one shared owner kernel plus two frozen packets |
 | `witness.admit` | one owner kernel plus six frozen packets while the equivalence predicate holds |
-| `run.continue` | one shared continuation carrier/kernel plus two frozen packets; both remain held until that carrier is accepted and preserves current-intent versus selected-action meaning |
-| `interaction.respond` | one E33 kernel plus five frozen packets |
+| `run.continue` | one existing pending-execution owner kernel and the retained `current_intent` packet; no selected-action or F_H resume path |
 | materializers | separate review units only where owner, effect, currentness, or commit law is irreducible |
 | release read and contracts | separate according to their actual read versus release-owner artifact/refusal effect and commit laws |
 
@@ -2376,7 +2357,7 @@ seams.
 | typed Event Calculus projection | `deriveRuntimeEventCalculusProjection`, `holdsAt`, typed fluent/pattern helpers | validated immutable prefix plus closed module law to immutable projection/query | store access, prefix selection, admission, actors, or caller axioms | accepted first-slice addition |
 | replay projection composition | `abg/replay.ts` | compose typed reconstructive read models from one selected prefix | events, effects, identity, or rival fluent folds | retained and incrementally tightened |
 | common execution composition | exact-pinned Effect `3.22.1`, through subpath imports | singular installed definition and HoG-shell foundation, including resource, concurrency, stream, queue, clock, schedule and state mechanics under Section 9 | independent GTL topology, owner policy, ABG admission/currentness/lifecycle or replay truth; another traversal, schema authority or executable factorization plan | selected foundation; ordinary library capability use realizes existing owner contracts without a per-API gate. Event Calculus/replay remain pure folds. Historical prototypes confer no parallel production authority. |
-| static exact definition-binding algebra | Section 5.6.2C: `bindStaticOwner`, `bindExactPrefixRead`, and `bindExactPrefixTransition` over exact manifest/lock-resolved typed owner imports and owner-authored strict static resource/receipt contracts | construct the exact 18/56 static exports as `ExactDefinitionCallable<TPacket,TResources,TResourceReceipt>` values; structurally admit exact resources/receipts; preserve owner semantics, exact prefix durability, and one installed call | semantic policy/currentness in the shell, erased/universal resource types, runtime callbacks, semantic string dispatch, ambient lookup, invocation-selected handlers, registries/controllers, modes/topology engines, per-key wrappers, or enclosing child transactions | active W2-05 design; banked behavior 37/56, 5.6.2C conformance 0/56 pending reconciliation/proof, non-callable 19/56 |
+| static exact definition-binding algebra | Section 5.6.2C: `bindStaticOwner`, `bindExactPrefixRead`, and `bindExactPrefixTransition` over exact manifest/lock-resolved typed owner imports and owner-authored strict static resource/receipt contracts | construct the 42 callable exports of the exact 17/46 family as `ExactDefinitionCallable<TPacket,TResources,TResourceReceipt>` values; structurally admit exact resources/receipts; preserve owner semantics, exact prefix durability, and one installed call | semantic policy/currentness in the shell, erased/universal resource types, runtime callbacks, semantic string dispatch, ambient lookup, invocation-selected handlers, registries/controllers, modes/topology engines, per-key wrappers, or enclosing child transactions | active W2-05 design; banked behavior 37/56, 5.6.2C conformance 0/56 pending reconciliation/proof, non-callable 19/56 |
 | canonical rooted-topology partition | `shared/rooted_topology_partition.ts` | owner-derived same-basis canonical topology witnesses to one deterministic preserved/exited/entered partition or closed structural refusal | carried domain values, evidence transformation, candidate/refusal construction, topology selection, Product meaning, GTL interpretation, HoG route choice, ABG admission/events/currentness/replay, causal-DAG search, effects, callbacks, registries, controllers, or universal frame carriers | implemented and interface-accepted through TV5; integrated qualification pending |
 
 ### 10.1 Recursive Foundation Admission And Cost Law
@@ -2478,7 +2459,7 @@ Official external facts in the ledger were read on `2026-08-13` from:
 
 Local facts come from the exact dependency manifest and lock, the 484-line
 `hog/effect_direct_scalar.ts` PoC, current `hog/execute.ts` and `abg/retry.ts`,
-the accepted 18/56 map above, and the immutable `v4.6.0-rc.5` evidence named in
+the current 17/46 map above, and the immutable `v4.6.0-rc.5` evidence named in
 Section 8. Popularity, stars, download counts, and sunk effort do not
 participate in the decision.
 
@@ -2521,7 +2502,7 @@ coordinator, provider runtime, or topology carrier may remain. The accepted
 Wave 1 Promise host symbol may remain only as the outward adapter defined in
 Section 5.6.2C.
 
-#### 10.1.3 Exact 18/56 resource-capability foundation ledger
+#### 10.1.3 Exact 17/46 resource-capability foundation ledger
 
 FS-18 and FS-19 compare the authority-neutral mechanics already used inside
 typed owner functions. They do not select a shared resource carrier or
@@ -2546,9 +2527,9 @@ resource framework.
 | Candidate or composition | Exact supplied capability and local evidence | Authority and lifecycle cost | Integration, package, maintenance, and proof cost | Disposition |
 |---|---|---|---|---|
 | current Product Node filesystem owner functions and current ABG Event Store owner functions carried by the exact Effect ABI | `node:fs/promises` is already used by `product/workspace_operations.ts`, `product/verify_product.ts`, `product/install_product.ts`, and `product/materialization_operations.ts`; `node:fs` is already used by `abg/event_store.ts`. `AbgEventStore` already supplies expected-prefix transactions, durable reopen, `DurablePrefixCoordinate`, and `EventStoreCloseHandoff`. Exact-pinned Effect `3.22.1` supplies the unchanged outer typed execution carrier and owner-local Scope where an exact owner function requires physical cleanup. System Git is credible mechanics evidence, but no current Product owner type selects it as workspace truth. | Node and owner-local Effect Scope own mechanics only; Product retains filesystem meaning and ABG retains event/prefix meaning. Git cannot enter as a default. Scope cannot persist currentness or merge child ABG transactions. No common Layer or provider owns resources. | Lowest migration: directly import the existing typed owner functions and pair each fixed packet with owner-authored strict exact resource/receipt contracts under 5.6.2C. No new runtime package, Layer/provider framework, or shared resource carrier. Proof is exact result/refusal, physical receipt, expected-prefix, release, pack, and restart conservation. | **Selected owner-local composition**, excluding Git unless an exact later Product contract selects it. |
-| Effect `Resource` from installed `effect@3.22.1` | Local primary source `node_modules/effect/src/Resource.ts` exposes refreshable `Resource.auto`, `Resource.manual`, `Resource.get`, and `Resource.refresh` over `ScopedRef`; it can scope an in-memory refreshable value. | A `Resource` value is process-local and refreshable. Treating it as the current artifact, worksite, store prefix, or successor would create a second authority and fail restart. It adds nothing to explicit per-call binding/receipt threading. | For this exact 18/56 durable resource identity/receipt role, a refreshable cache adds lifecycle and proof cost without replacing Product/ABG-owned durable/current truth; this composition needs no such cache. | **Not selected for the exact 18/56 durable resource identity/receipt composition.** Falsifier for reselecting that composition: measured repeated acquisition cost requires a non-authoritative cache with lower total cost and unchanged receipt/restart results. This is not a general core API gate under Section 9; current dependency selection is unchanged. |
-| `@effect/platform` `0.97.1` plus `@effect/platform-node` `0.108.1` | Official package/API metadata inspected `2026-08-14`: `@effect/platform/FileSystem` supplies typed access, copy, chmod/chown, exists, link, mkdir/temp, scoped open, read, realPath, remove, rename, stat, streams, symlink, truncate, utimes, watch, and write; the Node adapter supplies the platform service. Peer ranges accept Effect `^3.22.1`. Both are MIT. Published unpacked sizes are approximately `19,891,689` and `403,202` bytes respectively; the platform package also brings `msgpackr`, `multipasta`, and `find-my-way-ts`. | The service is authority-neutral when restricted to filesystem mechanics, but supplies no Git comparison/CAS law, ABG expected-prefix admission, canonical ABIogenesis identity/version, capability-grant law, owner result/refusal, or durable receipt. It cannot replace the exact typed owner functions and contracts. | Adds two packages and transitive closure, converts already-thin owner calls, and expands pack/license/upgrade proof. Its richer filesystem surface is mostly unused by the exact 18/56 rows. The current owner functions already satisfy the selected mechanics through the pinned outer Effect ABI. | **Not selected for 5.0.** Exact falsifier: an implemented 18/56 row must need a platform capability absent from current Node/ABG mechanics, and measured adoption plus deletion must be cheaper than direct owner composition. |
-| Section 5.6.2C module-static typed owner import plus owner-authored exact resource/receipt contracts | Each binding fixes one packet, imports one typed owner function closed over owner-local dependencies, and supplies its strict Valibot resource assertion schema/admitter and receipt schema/validator or equivalent typed static contract object. Exact-prefix specializations supply their fixed ABG event-resource and receipt contracts. | This is structural binding, not a resource runtime. The owner retains identity, semantic validity, authorization, currentness, refusal, transition, and receipt meaning. Exact `TResources` and `TResourceReceipt` generics are not erased or unified. | Reuses existing owner types and Valibot. There is no shared carrier/schema generator, provider tag/adapter, Layer runtime, topology arm, ambient lookup, or invocation-selected handler. All 56 load probes prove exact static coordinate resolution and callable construction, not one universal resource ABI. | **Selected exact binding seam**, composed with the owner-local mechanics in the first row. |
+| Effect `Resource` from installed `effect@3.22.1` | Local primary source `node_modules/effect/src/Resource.ts` exposes refreshable `Resource.auto`, `Resource.manual`, `Resource.get`, and `Resource.refresh` over `ScopedRef`; it can scope an in-memory refreshable value. | A `Resource` value is process-local and refreshable. Treating it as the current artifact, worksite, store prefix, or successor would create a second authority and fail restart. It adds nothing to explicit per-call binding/receipt threading. | For this exact 17/46 durable resource identity/receipt role, a refreshable cache adds lifecycle and proof cost without replacing Product/ABG-owned durable/current truth; this composition needs no such cache. | **Not selected for the exact 17/46 durable resource identity/receipt composition.** Falsifier for reselecting that composition: measured repeated acquisition cost requires a non-authoritative cache with lower total cost and unchanged receipt/restart results. This is not a general core API gate under Section 9; current dependency selection is unchanged. |
+| `@effect/platform` `0.97.1` plus `@effect/platform-node` `0.108.1` | Official package/API metadata inspected `2026-08-14`: `@effect/platform/FileSystem` supplies typed access, copy, chmod/chown, exists, link, mkdir/temp, scoped open, read, realPath, remove, rename, stat, streams, symlink, truncate, utimes, watch, and write; the Node adapter supplies the platform service. Peer ranges accept Effect `^3.22.1`. Both are MIT. Published unpacked sizes are approximately `19,891,689` and `403,202` bytes respectively; the platform package also brings `msgpackr`, `multipasta`, and `find-my-way-ts`. | The service is authority-neutral when restricted to filesystem mechanics, but supplies no Git comparison/CAS law, ABG expected-prefix admission, canonical ABIogenesis identity/version, capability-grant law, owner result/refusal, or durable receipt. It cannot replace the exact typed owner functions and contracts. | Adds two packages and transitive closure, converts already-thin owner calls, and expands pack/license/upgrade proof. Its richer filesystem surface is mostly unused by the exact 17/46 rows. The current owner functions already satisfy the selected mechanics through the pinned outer Effect ABI. | **Not selected for 5.0.** Exact falsifier: an implemented 17/46 row must need a platform capability absent from current Node/ABG mechanics, and measured adoption plus deletion must be cheaper than direct owner composition. |
+| Section 5.6.2C module-static typed owner import plus owner-authored exact resource/receipt contracts | Each binding fixes one packet, imports one typed owner function closed over owner-local dependencies, and supplies its strict Valibot resource assertion schema/admitter and receipt schema/validator or equivalent typed static contract object. Exact-prefix specializations supply their fixed ABG event-resource and receipt contracts. | This is structural binding, not a resource runtime. The owner retains identity, semantic validity, authorization, currentness, refusal, transition, and receipt meaning. Exact `TResources` and `TResourceReceipt` generics are not erased or unified. | Reuses existing owner types and Valibot. There is no shared carrier/schema generator, provider tag/adapter, Layer runtime, topology arm, ambient lookup, or invocation-selected handler. The 42 callable load probes and four declared-unavailable checks prove their exact static coordinate/binding dispositions, not one universal resource ABI. | **Selected exact binding seam**, composed with the owner-local mechanics in the first row. |
 
 The lowest-total-cost lawful composition is therefore:
 
@@ -3263,3 +3244,14 @@ without rewriting it. Qualification debts and delivery standing are unchanged.
 | **affected catalog/entity rows** | None. |
 | **migration consequence** | The five sections' headings remain in place, each with a pointer; their text (1,265 lines) is in `history/ABI5_REALIZATION_CONSTITUTION__RETIRED_SECTIONS.md`. References by number and anchor resolve as before. |
 | **change class** | `design_reframe` of this surface's text only. Product, requirements, entities, catalog, stack and method selection are unchanged. |
+
+### 16.17 T-292 Current Public Family And Continuation Reconciliation
+
+| Field | Record |
+|---|---|
+| **reason** | B-08's one named design reconciliation after TD-26 P7/TD-25M removes current claims for withdrawn Consensus, frontier, selected-action and human-response members. |
+| **upstream basis** | Owner-approved T-292 amendment/resumption; current Product A5-F05/F06/F07/F10, F08 planned 5.1; exact STDO 3.0.4 Definition and the accepted project frame. Root Writer grant `T292-B08-FINAL-DESIGN-01` on integrated `e9846da2bb1ffe8ed530e8bad75eb0087a51d6f0`. |
+| **superseded clause** | Current 18/56 and E19/E20/E21/E32/E33 claims; the operative continuation-carrier gap and E31's former F_H trace. Section 16.7's e7e252ed record remains historical and is not rewritten. |
+| **affected catalog/entity rows** | Exact family 17 operations/46 definitions, 42 callable/four unavailable witness members, 15 capability rows and 58 catalog rows. The historical 16-row cardinality in Sections 16.10/16.11 is superseded only for the current roster. Retire only the ten withdrawn keys and dedicated rows; retain stable surviving IDs, F_H hold/read/profile relations, same-Run pending execution and null/empty digest carriers. No new runtime entity or semantic owner. |
+| **migration consequences** | Current tables project exact owner membership and 21/7/8/10 effect partition; pending E31 uses existing ABG/Product/HoG owners L66-L72. P5/P6/P7 Returns retain bounded runtime proof and retired-history refusals. Generated mirrors, composed qualification and acceptance remain separately owned. |
+| **change class** | Bounded `design_reframe` under unchanged current Product/requirements; Writer authorship and mechanical correspondence only, not independent assurance or release acceptance. |

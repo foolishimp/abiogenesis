@@ -1,0 +1,42 @@
+{
+  "activation": "T292-B08-INTEGRATION-01",
+  "sourceCommit": "7f0318ad83245a65186eee35a79acb1364c0a987",
+  "copiedBytesEqual": true,
+  "rows": [
+    {
+      "path": "ACTIVATION.json",
+      "bytes": 2183,
+      "sha256": "542db97a862c3ef3d809c87a994fe3fb94996a337e7eacf178481643eafd4a51"
+    },
+    {
+      "path": "BASE_INPUTS.json",
+      "bytes": 5209,
+      "sha256": "9dfcde277948f09be6815fcfb17fa2fafcde5ba9e4bbd6d54e42b6a9dd3f5d7b"
+    },
+    {
+      "path": "FINAL_EFFECT_MEMBERSHIP.json",
+      "bytes": 9600,
+      "sha256": "ab6d2d61e87e7eec6e79f56229022d8618c35045cb63523b024f381a7ee78201"
+    },
+    {
+      "path": "MECHANICAL_CHECK.json",
+      "bytes": 23792,
+      "sha256": "79fcfc132d5db688b30e9549b9da0573868d6346b3b5f05176fd2cba263b4e27"
+    },
+    {
+      "path": "BASIS_CHECK.json",
+      "bytes": 624,
+      "sha256": "31cdfc51ca406fdee3f141a4b27e27962b697119034c3737bb71a7cdaa52a9fd"
+    },
+    {
+      "path": "EDIT_LOG.json",
+      "bytes": 85275,
+      "sha256": "682004dd0fbc6d269f433a1eb3686dc421de532de8e810d25c59fe18f919b6e1"
+    },
+    {
+      "path": "FREEZE.json",
+      "bytes": 2068,
+      "sha256": "838b0e7b92afab5f0d94cea9a2e2700783c30910f4ef9c22fa74958b4294064f"
+    }
+  ]
+}

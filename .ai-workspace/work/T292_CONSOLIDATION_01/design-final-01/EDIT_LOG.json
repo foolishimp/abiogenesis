@@ -1,0 +1,1202 @@
+[
+  {
+    "file": "ABI5_REALIZATION_CONSTITUTION.md",
+    "old": "| `E19` | `project.read/{workspace_gaps,run_gaps}` | read | admitted route/replay truth -> scope-parameterized gap projection |\n",
+    "new": "",
+    "occurrences": 1
+  },
+  {
+    "file": "ABI5_REALIZATION_CONSTITUTION.md",
+    "old": "| `E20` | `project.read/run_lawful_actions` | read | admitted next-action truth -> lawful-action projection |\n",
+    "new": "",
+    "occurrences": 1
+  },
+  {
+    "file": "ABI5_REALIZATION_CONSTITUTION.md",
+    "old": "| `E21` | `project.read/ticket_consensus` | read | admitted Consensus result -> Product-owned ticket projection |\n",
+    "new": "",
+    "occurrences": 1
+  },
+  {
+    "file": "ABI5_REALIZATION_CONSTITUTION.md",
+    "old": "| `E32` | `run.continue/selected_action` | runtime-mutation | admitted selected action -> exact ConstructionIntent/invocation admission -> HoG traversal -> replay |\n",
+    "new": "",
+    "occurrences": 1
+  },
+  {
+    "file": "ABI5_REALIZATION_CONSTITUTION.md",
+    "old": "| `E33` | `interaction.respond/{select,approve,reject,assess,answer_escalation}` | runtime-mutation | pending interaction -> Product response evaluation -> expected-prefix response admission |\n",
+    "new": "",
+    "occurrences": 1
+  },
+  {
+    "file": "ABI5_REALIZATION_CONSTITUTION.md",
+    "old": "| `L09` | `P` | `ConsensusResult -> TicketConsensusProjection  or  Consensus projection refusal` | GTL / Product / read | `G/consensus.ts::projectTicketConsensus` (current) | `NF-PROJ` |\n",
+    "new": "",
+    "occurrences": 1
+  },
+  {
+    "file": "ABI5_REALIZATION_CONSTITUTION.md",
+    "old": "| `L10` | `P` | `TicketConsensusProjectReadPacket + admitted Consensus result -> ProductProjectReadResult<ticket_consensus>  or  ProductProjectReadRefusal` | Product / Proof / read | `P/project_read_ports.ts::projectConsensusTicket` (current; source join pending) | `NF-PROJ` |\n",
+    "new": "",
+    "occurrences": 1
+  },
+  {
+    "file": "ABI5_REALIZATION_CONSTITUTION.md",
+    "old": "| `L18` | `P` | `ReplayState + workspace or run scope -> GapSet  or  AbgProjectReadRefusal` | ABG / Entity / read | `A/project_read_ports.ts::gapRows` and scoped projectors (internal, current) | `NF-PROJ` |\n",
+    "new": "",
+    "occurrences": 1
+  },
+  {
+    "file": "ABI5_REALIZATION_CONSTITUTION.md",
+    "old": "| `L19` | `P` | `ReplayState + Run -> admitted NextActionProjection set  or  AbgProjectReadRefusal` | ABG / Entity / read | `A/project_read_ports.ts::projectRunLawfulActions` (internal, current) | `NF-PROJ` |\n",
+    "new": "",
+    "occurrences": 1
+  },
+  {
+    "file": "ABI5_REALIZATION_CONSTITUTION.md",
+    "old": "| `L50` | `P/S` | `ValidatedRuntimeEventPrefix + selectedAction coordinate -> one admitted current NextActionProjection  or  stale/absent/ambiguous` | ABG / Entity / read within mutation | C2-pending exact selection; evidence in `A/traversal_route.ts::projectDeclaredStructuralAdvanceAtPrefix` | `NF-PROJ` |\n",
+    "new": "",
+    "occurrences": 1
+  },
+  {
+    "file": "ABI5_REALIZATION_CONSTITUTION.md",
+    "old": "| `L51` | `D` | `admitted NextActionProjection + exact GTL target/basis relation -> ConstructionIntent candidate  or  action/reprice refusal` | GTL/Product / GTL-Product seam / pure | C2-pending owner join; existing relation evidence in `A/traversal_route.ts::constructionIntentForAdvance` | `NF-TOP` |\n",
+    "new": "",
+    "occurrences": 1
+  },
+  {
+    "file": "ABI5_REALIZATION_CONSTITUTION.md",
+    "old": "| `L52` | `A` | `ConstructionIntent candidate + expected prefix -> admitted ConstructionIntent  or  stale/basis refusal` | ABG / ABG / runtime-mutation | C2-pending exact callable; current admission evidence in `A/traversal_route.ts::admitRoute` | `NF-ADM` |\n",
+    "new": "",
+    "occurrences": 1
+  },
+  {
+    "file": "ABI5_REALIZATION_CONSTITUTION.md",
+    "old": "| `L53` | `P` | `ValidatedRuntimeEventPrefix + interaction coordinate -> pending F_H semantic basis  or  missing/resolved/basis refusal` | ABG / Entity / read within mutation | `A/continuation.ts::projectFhInteractionSemanticBasisAtPrefix` (current) | `NF-PROJ` |\n",
+    "new": "",
+    "occurrences": 1
+  },
+  {
+    "file": "ABI5_REALIZATION_CONSTITUTION.md",
+    "old": "| `L54` | `V/D` | `pending semantic basis + typed response + Product contracts -> evaluated response  or  ProductResponseRefusal` | Product / Entity / pure | `P/semantics.ts::evaluateInstalledInteractionResponse` (current) | `NF-VAL` |\n",
+    "new": "",
+    "occurrences": 1
+  },
+  {
+    "file": "ABI5_REALIZATION_CONSTITUTION.md",
+    "old": "| `L55` | `T` | `evaluated response + current continuation/actor/basis -> response candidate batch  or  response refusal` | ABG / ABG / runtime-mutation | `A/continuation.ts::prepareFhInteractionResponse` (current) | `NF-ADM` |\n",
+    "new": "",
+    "occurrences": 1
+  },
+  {
+    "file": "ABI5_REALIZATION_CONSTITUTION.md",
+    "old": "| `L56` | `A` | `expected prefix + response candidate batch -> admitted responded interaction  or  stale/basis refusal` | ABG / ABG / runtime-mutation | `A/continuation.ts::commitFhInteractionResponseAtExpectedPrefix` (current) | `NF-ADM` |\n",
+    "new": "",
+    "occurrences": 1
+  },
+  {
+    "file": "ABI5_REALIZATION_CONSTITUTION.md",
+    "old": "| `J08` | `P/V` | `Consensus result coordinate + admitted GTL/ABG result truth -> exact ConsensusResult  or  source/result refusal` | GTL over ABG projection / Install / read | C2-pending source join from admitted result/replay to `G/consensus.ts::projectTicketConsensus` | join only: semantic projection remains `L09-L10`; no independent result meaning |\n",
+    "new": "",
+    "occurrences": 1
+  },
+  {
+    "file": "ABI5_REALIZATION_CONSTITUTION.md",
+    "old": "| `R19` | `E19` workspace_gaps/run_gaps | result `{caseKey, source, projectionBasis, projection: WorkspaceGapProjection or RunGapProjection}` | exact `F_READ`; invalid history -> `projection_basis_mismatch`; absent scope -> `not_found`; no admitted gap set yet -> `not_ready`; other named causes homonymous | ABG WorkspaceProjection or RunProjection, statically selected. Current ports exist; indexed envelope is C2-pending. |\n",
+    "new": "",
+    "occurrences": 1
+  },
+  {
+    "file": "ABI5_REALIZATION_CONSTITUTION.md",
+    "old": "| `R20` | `E20` run_lawful_actions | result `{caseKey, source, projectionBasis, projection: RunLawfulActionProjection}` | exact `F_READ`; invalid history -> `projection_basis_mismatch`; absent Run -> `not_found`; action frontier not admitted -> `not_ready`; other named causes homonymous | ABG RunProjection. Current port exists; indexed envelope is C2-pending. |\n",
+    "new": "",
+    "occurrences": 1
+  },
+  {
+    "file": "ABI5_REALIZATION_CONSTITUTION.md",
+    "old": "| `R21` | `E21` ticket_consensus | result `{caseKey, source, projectionBasis, projection: TicketConsensusProjection}` | exact `F_READ`; wrong carrier -> `source_kind_mismatch`; result/source mismatch -> `source_digest_mismatch`; ticket, output-authority, or replay mismatch -> `projection_basis_mismatch`; absent/not-final -> `not_found` or `not_ready`; unsupported subject -> `projection_unsupported` | Product ConsensusProjection over the accepted GTL AF-03 relation. `P/project_read_ports.ts::projectConsensusTicket` invokes `G/consensus.ts::projectTicketConsensus`; admitted-result source join and indexed envelope are C2-pending. No Product re-entry is required. |\n",
+    "new": "",
+    "occurrences": 1
+  },
+  {
+    "file": "ABI5_REALIZATION_CONSTITUTION.md",
+    "old": "| `R32` | `E32` continue selected_action | same result/nonterminal fields as `R31`, with exact admitted ConstructionIntent in `admittedIntent` | same total mapping as `R31`, with selected-action and reprice relation explicit | Product RunContinuation over GTL/Product/ABG/HoG truth. Exact indexed closure is C2-pending. |\n",
+    "new": "",
+    "occurrences": 1
+  },
+  {
+    "file": "ABI5_REALIZATION_CONSTITUTION.md",
+    "old": "| `R33` | `E33` five interaction responses | no terminal result; nonterminal `{disposition, responseKind, responseEvent, interaction, run, continuation, evidence}` | absent -> `missing_interaction`; already answered -> `resolved_interaction`; response member -> `kind_mismatch`; response contract -> `contract_mismatch`; choice -> `choice_mismatch`; value -> `value_mismatch`; capability -> `capability_mismatch`; execution basis -> `basis_mismatch` | Product InteractionResponse over ABG response admission. Exact member-indexed nonterminal/refusal closure is C2-pending. |\n",
+    "new": "",
+    "occurrences": 1
+  },
+  {
+    "file": "ABI5_REALIZATION_CONSTITUTION.md",
+    "old": "| `E19` | `J05 -> L11 -> L12 -> L13 -> L18[workspace or run,N03] -> R19` |\n",
+    "new": "",
+    "occurrences": 1
+  },
+  {
+    "file": "ABI5_REALIZATION_CONSTITUTION.md",
+    "old": "| `E20` | `J05 -> L11 -> L12 -> L13 -> L19 -> R20` |\n",
+    "new": "",
+    "occurrences": 1
+  },
+  {
+    "file": "ABI5_REALIZATION_CONSTITUTION.md",
+    "old": "| `E21` | `J08 -> L09 -> L10 -> R21` |\n",
+    "new": "",
+    "occurrences": 1
+  },
+  {
+    "file": "ABI5_REALIZATION_CONSTITUTION.md",
+    "old": "| `E32` | `J03 -> J04 -> J06 -> J05 -> L11 -> L50[N06] -> L51 -> L52 -> L35 -> L38 -> L39[N11] -> L40 -> L41 -> L42 -> L43 -> L44 -> L45 -> L13 -> R32` |\n",
+    "new": "",
+    "occurrences": 1
+  },
+  {
+    "file": "ABI5_REALIZATION_CONSTITUTION.md",
+    "old": "| `E33` | `J05 -> L11 -> L53 -> J07[N11] -> L54[response-kind] -> L55 -> L56 -> R33` |\n",
+    "new": "",
+    "occurrences": 1
+  },
+  {
+    "file": "ABI5_REALIZATION_CONSTITUTION.md",
+    "old": "| `E21` | `C[consensusResult] + AR[runtimePrefix]` | Exact Consensus-result preimage plus admitted result/replay prefix; unchanged receipts only. |\n",
+    "new": "",
+    "occurrences": 1
+  },
+  {
+    "file": "ABI5_REALIZATION_CONSTITUTION.md",
+    "old": "| `E32` | `C[workspaceBinding,productSet,resolvedLock,catalogView,program,executionBasis,installedImplementationSet] -> RF[runtimePrefix]` | Selected-action, invocation, basis, open, and traversal remain existing ordered child-owner boundaries inside the recursive frame; the Public arm declares no dynamic leaf list or enclosing transaction. |\n",
+    "new": "",
+    "occurrences": 1
+  },
+  {
+    "file": "ABI5_REALIZATION_CONSTITUTION.md",
+    "old": "| `E33` | `C[responseContract,executionBasis] -> AA[runtimePrefix:L56]` | Installed Product semantic callable is an exact immutable loaded-carrier read; one ABG response admission returns the successor prefix/handoff before `R33`. This covers all five response keys. |\n",
+    "new": "",
+    "occurrences": 1
+  },
+  {
+    "file": "ABI5_REALIZATION_CONSTITUTION.md",
+    "old": "| `run.continue#selected_action` | `./product` | `RunContinuationPort.selected_action` | `static_composition` | `authority://abiogenesis/product/run-continuation@5` | Runtime value absent; C2-pending fixed owner composition. |\n",
+    "new": "",
+    "occurrences": 1
+  },
+  {
+    "file": "ABI5_REALIZATION_CONSTITUTION.md",
+    "old": "| `interaction.respond#{select,approve,reject,assess,answer_escalation}` | `./product` | `InteractionResponsePort.respond` | `static_composition` | `authority://abiogenesis/product/interaction-response@5` | Runtime value absent; C2-pending five exact member bindings. |\n",
+    "new": "",
+    "occurrences": 1
+  },
+  {
+    "file": "ABI5_REALIZATION_CONSTITUTION.md",
+    "old": "| `ticket_consensus` | `./product` | `ConsensusProjectionPort.ticketConsensus` |\n",
+    "new": "",
+    "occurrences": 1
+  },
+  {
+    "file": "ABI5_REALIZATION_CONSTITUTION.md",
+    "old": "`run_status`, `run_result`, `run_evidence`, `run_replay`, `run_gaps`, `run_lawful_actions`",
+    "new": "`run_status`, `run_result`, `run_evidence`, `run_replay`",
+    "occurrences": 1
+  },
+  {
+    "file": "ABI5_REALIZATION_CONSTITUTION.md",
+    "old": "`workspace_replay`, `workspace_gaps`",
+    "new": "`workspace_replay`",
+    "occurrences": 1
+  },
+  {
+    "file": "ABI5_REALIZATION_CONSTITUTION.md",
+    "old": "The interaction family `E33` has one static kernel and five fixed contract\npackets for `select`, `approve`, `reject`, `assess`, and\n`answer_escalation`. Its operative owner relation is fixed:\n\n```text\nexisting ABG L53 exact-current-basis projection at the validated prefix\n  -> exact environment + installed Product + publication join\n  -> Product L54 decision over\n       { basis, responseKind, choice, value, evidence }\n  -> existing ABG L55 response-candidate preparation\n  -> existing ABG L56 expected-prefix admission and successor\n  -> Product R33 indexed interaction outcome\n```\n\nThe binding never obtains a raw event array and never reconstructs L53 by\nfolding events. One module-static kernel owns this relation. The five exports\napply `bindExactPrefixTransition` to that kernel and their fixed packets; they\ncontain no member logic. The packet fixes `responseKind` and contract\ncoordinates. The admitted request and owner carriers supply choice, value, and\nevidence. If the exact choice, evidence, capability-grant, environment,\ninstalled-Product, or publication carrier required by the relation is absent,\nthe family remains held for one bounded design reframe. A caller, fixture,\nPublic adapter, or binding may not mint or infer the missing authority.\n\n`run.continue#current_intent` and `run.continue#selected_action` expose one\nshared Product/ABG continuation-carrier gap. The two exports remain unbound\nuntil one exact carrier is accepted that preserves the requirement distinction\nbetween continuing the current admitted intent and admitting a newly selected\naction. No member-local carrier, hard-coded allowlist, relabeling, or caller-\nselected action is an interim implementation.\n\n",
+    "new": "`interaction.respond` and `run.continue#selected_action` are withdrawn from\nthe current family. Native F_H response admission and response-driven resume\nremain reserved to 5.1. F_H hold projection and historical profile carriers\nretain their existing owners; they do not supply an executable response path.\n\n`run.continue#current_intent` continues only a replay-derived pending execution\nin the same Run. Its request carries `run`, `continuation`, `pendingCursor`,\n`continuationInput` and `expectedBasis`, each an exact ref/digest pair. It does\nnot select another GraphFunction or admit a construction intent. The result\nkind is `pending_execution`, with `admittedIntent: null`; its nonterminal\ndisposition is `held`. The existing owner sequence is:\n\n```text\nRUN_DEFINITION_BINDINGS.continue.current_intent\n  -> runPendingExecutionOwner: acquire ABG resource and project setup/prefix\n  -> ABG selectPendingExecutionUse\n  -> ProductExecutionResolutionPort.resolve on the current exact closure\n  -> ABG preparePendingExecutionContinuation\n  -> policy, grant, leaf-port and progressed-input authority join\n  -> ABG admitPendingExecutionContinuationOperation at the exact predecessor\n  -> HoG executeGraphTraversalEffect(pendingExecutionResume: true)\n  -> ABG projectRunTruthAtDurablePrefix at the traversal successor\n  -> continuationOutcome(\"pending_execution\") and the resource handoff\n```\n\nTables below project that sequence as `L66-L72`. `L46-L49` describe the\nseparate F_H hold/resume relation and are not pending-execution owners. This\ncurrent relation supersedes the continuation-carrier ruling recorded for\n`e7e252ed` in Section 16.7; that historical amendment is unchanged.\n\n",
+    "occurrences": 1
+  },
+  {
+    "file": "ABI5_REALIZATION_CONSTITUTION.md",
+    "old": "56-key set and loads every static export with a real owner closure and complete",
+    "new": "46-key set and loads each of its 42 callable exports with a real owner closure and complete",
+    "occurrences": 1
+  },
+  {
+    "file": "ABI5_REALIZATION_CONSTITUTION.md",
+    "old": "This 56/56 loadability and legacy-exclusion proof is mechanical.",
+    "new": "The four witness members `attest`, `hygiene-stamp`, `intake` and `run-resumed`\nremain declared unavailable; no callable is fabricated for them. Exact family,\n42-callable loading, four unavailable refusals and legacy exclusion are\nmechanical claims.",
+    "occurrences": 1
+  },
+  {
+    "file": "ABI5_REALIZATION_CONSTITUTION.md",
+    "old": "The exact external coverage is fixed at 18 operation identities and 56 nested",
+    "new": "The current external coverage is 17 operation identities and 46 nested",
+    "occurrences": 1
+  },
+  {
+    "file": "ABI5_REALIZATION_CONSTITUTION.md",
+    "old": "| exact external operation identities | 18 |",
+    "new": "| exact external operation identities | 17 |",
+    "occurrences": 1
+  },
+  {
+    "file": "ABI5_REALIZATION_CONSTITUTION.md",
+    "old": "| exact external definition keys | 56 |",
+    "new": "| exact external definition keys | 46 |",
+    "occurrences": 1
+  },
+  {
+    "file": "ABI5_REALIZATION_CONSTITUTION.md",
+    "old": "| literal-insensitive structural schema shapes | 41 | Observed native-schema shape count after literal distinctions are erased. This is orthogonal to external operator expressions and semantic atoms. |",
+    "new": "| literal-insensitive structural schema shapes | historical `41`; current count not asserted | The prior 18/56 observation is retained as evidence for that subject, not projected onto the current schemas. |",
+    "occurrences": 1
+  },
+  {
+    "file": "ABI5_REALIZATION_CONSTITUTION.md",
+    "old": "| normalized external operator expressions | 40 |",
+    "new": "| normalized external operator expressions | 35 |",
+    "occurrences": 1
+  },
+  {
+    "file": "ABI5_REALIZATION_CONSTITUTION.md",
+    "old": "used by the 40 expressions.",
+    "new": "used by the 35 retained expressions.",
+    "occurrences": 1
+  },
+  {
+    "file": "ABI5_REALIZATION_CONSTITUTION.md",
+    "old": "25 read\n+ 7 non-mutating deterministic construction, validation, or attestation\n+ 8 artifact-boundary effect\n+ 16 ABG runtime-mutation\n= 56 definitions",
+    "new": "21 read\n+ 7 non-mutating deterministic construction, validation, or attestation\n+ 8 artifact-boundary effect\n+ 10 ABG runtime-mutation\n= 46 definitions",
+    "occurrences": 1
+  },
+  {
+    "file": "ABI5_REALIZATION_CONSTITUTION.md",
+    "old": "The observed `41` shape count is reproducible but remains structural evidence\nonly. Literal-insensitive comparison contracts these exact groups:\n`{run_status,graph_call_status}`, `{run_result,graph_call_result}`, the five\n`E10` evidence members, `{workspace_replay,run_replay,graph_call_replay,\ninteraction_replay,continuation_replay}`, `{approve,reject,assess,\nanswer_escalation}`, `{reprice,attest}`, and `{run-resumed,run-stopped}`. Every\nother definition shape is a singleton:\n\n```text\n56 - (1 + 1 + 4 + 4 + 3 + 1 + 1) = 41\n```\n\nShape equality merges neither definition identity nor semantic ownership.\n\nThe 18/56 external coverage, disjoint 25/7/8/16 effect partition, 40 expression\nclasses, and selected leaf-instance catalog below are exact partitions for\nthis local C1F frame. The withdrawn `22` and `71` estimates must not reappear\nas scope, progress, or minimality claims. Implementation may reduce a selected\nleaf only by proving exact equivalence while preserving external contracts,\nowner authority, typed refusals, effect order, provenance, admitted events,\nand replay. It may not increase semantic authority to make a count smaller.\n\n",
+    "new": "The effect partition projects the current owner `effectClass` metadata and\nexact key set, not a subtraction inferred from totals. Read comprises the\ntwenty projection keys plus `workspace.open`; runtime mutation comprises\ninvoke/start, pending continuation, result assessment and six witnessed acts.\nThe four unavailable witness definitions remain in that declared partition.\nThe 35 expression classes below cover exactly the same 46 keys. Stable class\nIDs retain gaps for withdrawn members and are not renumbered.\n\nThe former 18/56, 25/7/8/16 and 41-shape observations remain historical C1F\nevidence at their recorded subjects. No current shape recount is claimed.\nShape equality merges neither definition identity nor semantic ownership.\nThe withdrawn `22` and `71` estimates remain non-evidence. Implementation may\nfactor a retained leaf only while preserving its contract, owner authority,\ntyped refusals, effect order, provenance, admitted events and replay.\n\n",
+    "occurrences": 1
+  },
+  {
+    "file": "ABI5_REALIZATION_CONSTITUTION.md",
+    "old": "current continuation rehydration -> successor derivation/resume admission -> HoG continuation -> replay",
+    "new": "replay-derived pending occurrence and exact cursor/input/basis -> same-Run continuation admission -> HoG pending-execution resume -> replay",
+    "occurrences": 1
+  },
+  {
+    "file": "ABI5_REALIZATION_CONSTITUTION.md",
+    "old": "The class cardinality is mechanically checkable from the table:\n\n```text\n2 + 1 + 1 + 1 + 1 + 1 + 1 + 1 + 1 + 5 + 1 + 1 + 1 + 1 + 1 + 1 + 1 +\n1 + 2 + 1 + 1 + 1 + 1 + 1 + 1 + 1 + 1 + 2 + 1 + 1 + 1 + 1 + 5 + 1 +\n6 + 1 + 1 + 1 + 1 + 1 = 56\n```\n\n",
+    "new": "The class cardinality is mechanically checkable from the table: 35 rows\nexpand to 46 exact keys (the five-member evidence class and six-member witness\nclass retain their member distinctions). The sorted keys equal\n`OWNER_CONTRACT_SOURCES`, key-set SHA-256\n`0988d2088a089d32fa2c90589ee02afb44140dcf68cb463a0f68df6c1a0dcd81`.\n\n",
+    "occurrences": 1
+  },
+  {
+    "file": "ABI5_REALIZATION_CONSTITUTION.md",
+    "old": "`A/fh_resume_relation.ts::deriveFhResumeSuccessorInputAtPrefix` (current)",
+    "new": "none: native F_H response/resume is reserved to 5.1; no current successor producer",
+    "occurrences": 1
+  },
+  {
+    "file": "ABI5_REALIZATION_CONSTITUTION.md",
+    "old": "none: the F_H resume operation is unbound (T-290 C-17); its binding realizes this row over the frames derived from the log",
+    "new": "none: the F_H resume operation is unbound and reserved to 5.1; this row grants no current admission",
+    "occurrences": 2
+  },
+  {
+    "file": "ABI5_REALIZATION_CONSTITUTION.md",
+    "old": "| `L65` | `V/D` | `TappedReleaseSnapshotRequest + authenticated native installed-RC qualification + actual same-RC human acceptance -> acceptance-addendum candidate or owner refusal` | release owner / Entity / pure before effect | qualification phase of `P/release_snapshot_operations.ts::snapshotTappedRelease`; native success/resource contracts remain D6-pending | `NF-REL` |\n",
+    "new": "| `L65` | `V/D` | `TappedReleaseSnapshotRequest + authenticated native installed-RC qualification + actual same-RC human acceptance -> acceptance-addendum candidate or owner refusal` | release owner / Entity / pure before effect | qualification phase of `P/release_snapshot_operations.ts::snapshotTappedRelease`; native success/resource contracts remain D6-pending | `NF-REL` |\n| `L66` | `P/S` | `validated prefix + pending occurrence/cursor/input/basis -> PendingExecutionUse or continuation refusal` | ABG / read within mutation | `A/construction_continuation.ts::selectPendingExecutionUse` | `NF-PROJ` |\n| `L67` | `V/S` | `current Catalog/view + admitted installs + exact Program/graph -> Product execution resolution or refusal` | Product / pure closure resolution | `ProductExecutionResolutionPort.resolve`, called by `owner_bindings/run_invocation.ts::resolveContinuationBasis` | `NF-SEL` |\n| `L68` | `V/D` | `pending use + exact resolution -> prepared root/graph/implementation/interaction basis or refusal` | ABG with GTL/Validator/Product owners / pure | `A/construction_continuation.ts::preparePendingExecutionContinuation` | `NF-TOP` |\n| `L69` | `V` | `prepared basis + policy/grant + projected progressed input -> exact invocation-authority join or basis refusal` | existing Product/ABG owners / validation | `owner_bindings/run_invocation.ts::runPendingExecutionOwner`; `projectPendingExecutionInputAtPrefix` selects the input | `NF-ADM` |\n| `L70` | `A` | `pending use + grant + expected prefix -> admitted current_intent/pending_execution operation and successor` | ABG / runtime mutation | `A/construction_continuation.ts::admitPendingExecutionContinuationOperation` | `NF-ADM` |\n| `L71` | `H` | `admitted successor + prepared basis -> same-Run pending traversal outcome` | HoG / traversal over ABG owners | `H/graph_execute.ts::executeGraphTraversalEffect` with `pendingExecutionResume: true`; restores returns/cursor/input from admitted truth | `NF-TOP` |\n| `L72` | `P` | `traversal successor prefix + Run -> current Run truth or replay refusal` | ABG / pure projection | `A/run_truth.ts::projectRunTruthAtDurablePrefix`; consumed by `continuationOutcome` in the existing run owner | `NF-PROJ` |\n",
+    "occurrences": 1
+  },
+  {
+    "file": "ABI5_REALIZATION_CONSTITUTION.md",
+    "old": "| `R31` | `E31` continue current_intent | result `{continuationKind, run, graphCall, admittedIntent, successor, disposition, evidence, replay}`; nonterminal `{continuationKind, disposition, run, continuation, evidence, replay}` | absent -> `missing_continuation`; already terminal -> `resolved_continuation`; selected intent -> `intent_mismatch`; response -> `response_mismatch`; replay -> `replay_mismatch`; execution basis -> `basis_mismatch`; stale frontier -> `stale_action`; action -> `action_mismatch`; changed authority without covering reprice -> `reprice_mismatch` | Product RunContinuation over ABG/HoG continuation truth. Exact indexed closure is C2-pending. |\n",
+    "new": "| `R31` | `E31` continue current_intent | result `{continuationKind: pending_execution, run, graphCall, admittedIntent: null, successor, disposition, evidence, replay, stopStatement?}`; nonterminal `{continuationKind: pending_execution, disposition: held, run, continuation, evidence, replay, stopStatement?}` | absent -> `missing_continuation`; consumed/duplicate -> `resolved_continuation`; cursor/input -> `response_mismatch`; history -> `replay_mismatch`; current execution basis/authority -> `basis_mismatch` | Existing Product-bound run owner over ABG pending admission, HoG resume and fresh ABG Run truth; no F_H response/resume or new intent admission. |\n",
+    "occurrences": 1
+  },
+  {
+    "file": "ABI5_REALIZATION_CONSTITUTION.md",
+    "old": "J05 -> L11 -> L46 -> L47 -> L48 -> L49 -> L45 -> L13 -> R31",
+    "new": "J05 -> L11 -> L66 -> L67 -> L68 -> L69 -> L70 -> L71 -> L72 -> R31",
+    "occurrences": 1
+  },
+  {
+    "file": "ABI5_REALIZATION_CONSTITUTION.md",
+    "old": "| `run.continue#current_intent` | `./product` | `RunContinuationPort.current_intent` | `static_composition` | `authority://abiogenesis/product/run-continuation@5` | Runtime value absent; C2-pending fixed owner composition. |\n",
+    "new": "| `run.continue#current_intent` | `./product` | `RUN_DEFINITION_BINDINGS.continue.current_intent` | `static_composition` | `authority://abiogenesis/product/run-continuation@5` | Existing `runPendingExecutionOwner` in `owner_bindings/run_invocation.ts`; pending_execution only. |\n",
+    "occurrences": 1
+  },
+  {
+    "file": "ABI5_REALIZATION_CONSTITUTION.md",
+    "old": "in the 18/56 family",
+    "new": "in the 17/46 family",
+    "occurrences": 1
+  },
+  {
+    "file": "ABI5_REALIZATION_CONSTITUTION.md",
+    "old": "Table 5.6.3-D - exact 56-key",
+    "new": "Table 5.6.3-D - exact 46-key",
+    "occurrences": 1
+  },
+  {
+    "file": "ABI5_REALIZATION_CONSTITUTION.md",
+    "old": "exhaustive 56-key member",
+    "new": "exhaustive 46-key member",
+    "occurrences": 1
+  },
+  {
+    "file": "ABI5_REALIZATION_CONSTITUTION.md",
+    "old": "roster remains 18/56",
+    "new": "current roster is 17/46",
+    "occurrences": 1
+  },
+  {
+    "file": "ABI5_REALIZATION_CONSTITUTION.md",
+    "old": "construct the exact 18/56 static exports",
+    "new": "construct the 42 callable exports of the exact 17/46 family",
+    "occurrences": 1
+  },
+  {
+    "file": "ABI5_REALIZATION_CONSTITUTION.md",
+    "old": "the accepted 18/56 map above",
+    "new": "the current 17/46 map above",
+    "occurrences": 1
+  },
+  {
+    "file": "ABI5_REALIZATION_CONSTITUTION.md",
+    "old": "#### 10.1.3 Exact 18/56 resource-capability foundation ledger",
+    "new": "#### 10.1.3 Exact 17/46 resource-capability foundation ledger",
+    "occurrences": 1
+  },
+  {
+    "file": "ABI5_REALIZATION_CONSTITUTION.md",
+    "old": "For this exact 18/56 durable resource",
+    "new": "For this exact 17/46 durable resource",
+    "occurrences": 1
+  },
+  {
+    "file": "M05_S06_AXIOMATIC_AUTHORITY_AND_EXACT_PUBLIC_CONSTRUCTION_DESIGN.md",
+    "old": "**Scope:** ABG5-S06 corrective authority, exact 18-operation/56-key",
+    "new": "**Scope:** ABG5-S06 corrective authority, current exact 17-operation/46-key",
+    "occurrences": 1
+  },
+  {
+    "file": "M05_S06_AXIOMATIC_AUTHORITY_AND_EXACT_PUBLIC_CONSTRUCTION_DESIGN.md",
+    "old": "1. `PUBLIC_FUNCTION_DEFINITION_FAMILY` is exactly 18 operations and 56 keys.",
+    "new": "1. `PUBLIC_FUNCTION_DEFINITION_FAMILY` is exactly 17 operations and 46 keys. Its 42 callable leaves and four declared-unavailable witness members retain their distinct binding outcomes.",
+    "occurrences": 1
+  },
+  {
+    "file": "M05_S06_AXIOMATIC_AUTHORITY_AND_EXACT_PUBLIC_CONSTRUCTION_DESIGN.md",
+    "old": "`PublicRunProjectionAuthority`\nconstructor semantics are replaced by unverified coordinate parsing plus\nABG-backed basis rehydration;",
+    "new": "Caller-supplied coordinates are unverified until ABG-backed basis rehydration succeeds;",
+    "occurrences": 1
+  },
+  {
+    "file": "M05_S06_AXIOMATIC_AUTHORITY_AND_EXACT_PUBLIC_CONSTRUCTION_DESIGN.md",
+    "old": ", `ConsensusProjectionPort`",
+    "new": "",
+    "occurrences": 1
+  },
+  {
+    "file": "M05_S06_AXIOMATIC_AUTHORITY_AND_EXACT_PUBLIC_CONSTRUCTION_DESIGN.md",
+    "old": "`gtl/consensus.ts`, ",
+    "new": "",
+    "occurrences": 1
+  },
+  {
+    "file": "M05_S06_AXIOMATIC_AUTHORITY_AND_EXACT_PUBLIC_CONSTRUCTION_DESIGN.md",
+    "old": "| `D10` | `product/interaction_response_operation.ts`: `INTERACTION_OPERATION_CONTRACTS`, `InteractionResponsePort` | Product response evaluation, ABG continuation/event admission/calculus/replay, shared canonical JSON/digests/references |\n",
+    "new": "",
+    "occurrences": 1
+  },
+  {
+    "file": "M05_S06_AXIOMATIC_AUTHORITY_AND_EXACT_PUBLIC_CONSTRUCTION_DESIGN.md",
+    "old": "| 40-44 | `interaction.respond / select, approve, reject, assess, answer_escalation` | `INTERACTION_OPERATION_CONTRACTS.respond[key]` -> `InteractionResponsePort.respond` | `product/interaction_response_operation.ts` / `D10` | actor-attributed response event |\n",
+    "new": "",
+    "occurrences": 1
+  },
+  {
+    "file": "M05_S06_AXIOMATIC_AUTHORITY_AND_EXACT_PUBLIC_CONSTRUCTION_DESIGN.md",
+    "old": "| 24 | `workspace_gaps` | `ABG_PROJECT_READ_CONTRACTS.workspace_gaps` | `ABG.WorkspaceProjectionPort.workspace_gaps` | `abg/project_read_ports.ts` / `D03` |\n",
+    "new": "",
+    "occurrences": 1
+  },
+  {
+    "file": "M05_S06_AXIOMATIC_AUTHORITY_AND_EXACT_PUBLIC_CONSTRUCTION_DESIGN.md",
+    "old": "| 25 | `run_gaps` | `ABG_PROJECT_READ_CONTRACTS.run_gaps` | `ABG.RunProjectionPort.run_gaps` | `abg/project_read_ports.ts` / `D03` |\n",
+    "new": "",
+    "occurrences": 1
+  },
+  {
+    "file": "M05_S06_AXIOMATIC_AUTHORITY_AND_EXACT_PUBLIC_CONSTRUCTION_DESIGN.md",
+    "old": "| 26 | `run_lawful_actions` | `ABG_PROJECT_READ_CONTRACTS.run_lawful_actions` | `ABG.RunProjectionPort.run_lawful_actions` | `abg/project_read_ports.ts` / `D03` |\n",
+    "new": "",
+    "occurrences": 1
+  },
+  {
+    "file": "M05_S06_AXIOMATIC_AUTHORITY_AND_EXACT_PUBLIC_CONSTRUCTION_DESIGN.md",
+    "old": "| 27 | `ticket_consensus` | `PRODUCT_PROJECT_READ_CONTRACTS.ticket_consensus` | `Product.ConsensusProjectionPort.ticketConsensus` | `product/project_read_ports.ts` / `D02` |\n",
+    "new": "",
+    "occurrences": 1
+  },
+  {
+    "file": "M05_S06_AXIOMATIC_AUTHORITY_AND_EXACT_PUBLIC_CONSTRUCTION_DESIGN.md",
+    "old": "| 38-39 | `run.continue / current_intent, selected_action` | `RUN_OPERATION_CONTRACTS.continue[key]` -> `RunContinuationPort[key]` | `product/run_continuation_operation.ts` / `D09` | ABG continuation/traversal events |",
+    "new": "| 38 | `run.continue / current_intent` | `RUN_OPERATION_CONTRACTS.continue.current_intent` -> `RUN_DEFINITION_BINDINGS.continue.current_intent` | `owner_bindings/run_invocation.ts` / `D09` | Existing ABG pending-execution admission, HoG same-Run resume and fresh replay; no intent admission |",
+    "occurrences": 1
+  },
+  {
+    "file": "M05_S06_AXIOMATIC_AUTHORITY_AND_EXACT_PUBLIC_CONSTRUCTION_DESIGN.md",
+    "old": "`product/run_continuation_operation.ts`: `RUN_OPERATION_CONTRACTS.continue`, `RunContinuationPort`",
+    "new": "`owner_bindings/run_invocation.ts`: `RUN_DEFINITION_BINDINGS.continue.current_intent` over `RUN_OPERATION_CONTRACTS.continue.current_intent`",
+    "occurrences": 1
+  },
+  {
+    "file": "M05_S06_AXIOMATIC_AUTHORITY_AND_EXACT_PUBLIC_CONSTRUCTION_DESIGN.md",
+    "old": "Product continuation meaning, `D08`, ABG continuation/event store/calculus/replay/closure, ordinary HoG direct execute, shared canonical JSON/digests/references; it never treats C.retry as a Public continuation ingress",
+    "new": "Product current closure resolution, `D08`, `abg/construction_continuation.ts` pending selection/preparation/admission, ABG event store/calculus/replay/closure, HoG pending-execution resume and fresh Run truth; C.retry remains internal",
+    "occurrences": 1
+  },
+  {
+    "file": "M05_S06_AXIOMATIC_AUTHORITY_AND_EXACT_PUBLIC_CONSTRUCTION_DESIGN.md",
+    "old": "the `interaction.respond` packets stay declared-unbound",
+    "new": "the historical `interaction.respond` packets are withdrawn by TD-25M; this row records the old interleaving fixture",
+    "occurrences": 1
+  },
+  {
+    "file": "M05_S06_AXIOMATIC_AUTHORITY_AND_EXACT_PUBLIC_CONSTRUCTION_DESIGN.md",
+    "old": "18/56 all-port probe.",
+    "new": "17/46 family probe (42 callable and four declared-unavailable witness members).",
+    "occurrences": 1
+  },
+  {
+    "file": "M05_S06_AXIOMATIC_AUTHORITY_AND_EXACT_PUBLIC_CONSTRUCTION_DESIGN.md",
+    "old": "Validator raw admission produces one canonical normalized Program.",
+    "new": "Validator raw admission produces one canonical normalized Program.\n\nFor NEW work the existing closure owner raw-admits the selected Program and\nits complete exact owning publication. A retired `actionCatalog` or\n`constructionComposition` field anywhere in that publication, including an\ninactive sibling Program, requires a publisher-authored current publication\nwithout those fields and its resulting identity. No filtering, grandfathering\nor mutation of an old immutable publication is permitted. Recorded access and\nnew-work admission remain distinct questions at their existing owners.\n\nThe [P6 Return](../../../../.ai-workspace/work/T292_CONSOLIDATION_01/TD-26_P6_RETURN.md)\nbinds the limited observations: its named mixed-publication witnesses retain\nexact Catalog/view reconstruction; new start preparation refuses at\n`/program`; the old cross-build pending witness refuses earlier at TD-78's\n`/workspace` guard, while its later `/program` branch is source-traced only.\nKept-feature recorded replay/artifact truth is preserved only within the\nnamed compared populations. Current readers refuse retired One Surface\nhistories; their recorded event/profile declarations do not confer current\nreadability. These proof observations neither weaken the admission law nor\nclaim universal historical compatibility or current installed execution.\n",
+    "occurrences": 1
+  },
+  {
+    "file": "M05_S06_PUBLIC_FUNCTION_AND_NATIVE_OCCURRENCE_CLOSURE_DESIGN.md",
+    "old": "18-operation/56-key",
+    "new": "17-operation/46-key",
+    "occurrences": 4
+  },
+  {
+    "file": "M05_S06_PUBLIC_FUNCTION_AND_NATIVE_OCCURRENCE_CLOSURE_DESIGN.md",
+    "old": "18 operations and 56",
+    "new": "17 operations and 46",
+    "occurrences": 2
+  },
+  {
+    "file": "M05_S06_PUBLIC_FUNCTION_AND_NATIVE_OCCURRENCE_CLOSURE_DESIGN.md",
+    "old": "18 operations, 56",
+    "new": "17 operations, 46",
+    "occurrences": 3
+  },
+  {
+    "file": "M05_S06_PUBLIC_FUNCTION_AND_NATIVE_OCCURRENCE_CLOSURE_DESIGN.md",
+    "old": "56-key",
+    "new": "46-key",
+    "occurrences": 2
+  },
+  {
+    "file": "M05_S06_PUBLIC_FUNCTION_AND_NATIVE_OCCURRENCE_CLOSURE_DESIGN.md",
+    "old": "56 request",
+    "new": "46 request",
+    "occurrences": 1
+  },
+  {
+    "file": "M05_S06_PUBLIC_FUNCTION_AND_NATIVE_OCCURRENCE_CLOSURE_DESIGN.md",
+    "old": "56 payload",
+    "new": "46 payload",
+    "occurrences": 1
+  },
+  {
+    "file": "M05_S06_PUBLIC_FUNCTION_AND_NATIVE_OCCURRENCE_CLOSURE_DESIGN.md",
+    "old": "56 bespoke",
+    "new": "46 bespoke",
+    "occurrences": 1
+  },
+  {
+    "file": "M05_S06_PUBLIC_FUNCTION_AND_NATIVE_OCCURRENCE_CLOSURE_DESIGN.md",
+    "old": "56 K",
+    "new": "46 K",
+    "occurrences": 1
+  },
+  {
+    "file": "M05_S06_PUBLIC_FUNCTION_AND_NATIVE_OCCURRENCE_CLOSURE_DESIGN.md",
+    "old": "56 presumed",
+    "new": "46 presumed",
+    "occurrences": 1
+  },
+  {
+    "file": "M05_S06_PUBLIC_FUNCTION_AND_NATIVE_OCCURRENCE_CLOSURE_DESIGN.md",
+    "old": "56 operation-specific",
+    "new": "46 operation-specific",
+    "occurrences": 1
+  },
+  {
+    "file": "M05_S06_PUBLIC_FUNCTION_AND_NATIVE_OCCURRENCE_CLOSURE_DESIGN.md",
+    "old": "56 external",
+    "new": "46 external",
+    "occurrences": 1
+  },
+  {
+    "file": "M05_S06_PUBLIC_FUNCTION_AND_NATIVE_OCCURRENCE_CLOSURE_DESIGN.md",
+    "old": "56 atoms",
+    "new": "46 atoms",
+    "occurrences": 1
+  },
+  {
+    "file": "M05_S06_PUBLIC_FUNCTION_AND_NATIVE_OCCURRENCE_CLOSURE_DESIGN.md",
+    "old": "56 times",
+    "new": "46 times",
+    "occurrences": 1
+  },
+  {
+    "file": "M05_S06_PUBLIC_FUNCTION_AND_NATIVE_OCCURRENCE_CLOSURE_DESIGN.md",
+    "old": "56 installed",
+    "new": "46 installed",
+    "occurrences": 1
+  },
+  {
+    "file": "M05_S06_PUBLIC_FUNCTION_AND_NATIVE_OCCURRENCE_CLOSURE_DESIGN.md",
+    "old": "18 operation identities",
+    "new": "17 operation identities",
+    "occurrences": 5
+  },
+  {
+    "file": "M05_S06_PUBLIC_FUNCTION_AND_NATIVE_OCCURRENCE_CLOSURE_DESIGN.md",
+    "old": "18 operations",
+    "new": "17 operations",
+    "occurrences": 1
+  },
+  {
+    "file": "M05_S06_PUBLIC_FUNCTION_AND_NATIVE_OCCURRENCE_CLOSURE_DESIGN.md",
+    "old": "+56 keys",
+    "new": "+46 keys",
+    "occurrences": 1
+  },
+  {
+    "file": "M05_S06_PUBLIC_FUNCTION_AND_NATIVE_OCCURRENCE_CLOSURE_DESIGN.md",
+    "old": "18 and 56",
+    "new": "17 and 46",
+    "occurrences": 1
+  },
+  {
+    "file": "M05_S06_PUBLIC_FUNCTION_AND_NATIVE_OCCURRENCE_CLOSURE_DESIGN.md",
+    "old": "| `abg.operation.interaction.respond` | `select`, `approve`, `reject`, `assess`, `answer_escalation` | Product F_H validation plus ABG admission | exactly one | required | F_H response event |\n",
+    "new": "",
+    "occurrences": 1
+  },
+  {
+    "file": "M05_S06_PUBLIC_FUNCTION_AND_NATIVE_OCCURRENCE_CLOSURE_DESIGN.md",
+    "old": "| `abg.operation.interaction.respond(select|approve|reject|assess|answer_escalation)` | `Product.InteractionResponse` | `INTERACTION_OPERATION_CONTRACTS.respond[member]` | `InteractionResponsePort.respond` | `InteractionRespondPacket<member>` |\n",
+    "new": "",
+    "occurrences": 1
+  },
+  {
+    "file": "M05_S06_PUBLIC_FUNCTION_AND_NATIVE_OCCURRENCE_CLOSURE_DESIGN.md",
+    "old": "| `workspace_gaps` | WorkspaceBinding | GapProjection<WorkspaceBinding> | exactly one | exact admitted gap basis |\n",
+    "new": "",
+    "occurrences": 1
+  },
+  {
+    "file": "M05_S06_PUBLIC_FUNCTION_AND_NATIVE_OCCURRENCE_CLOSURE_DESIGN.md",
+    "old": "| `run_gaps` | Run | GapProjection<Run> | exactly one | empty |\n",
+    "new": "",
+    "occurrences": 1
+  },
+  {
+    "file": "M05_S06_PUBLIC_FUNCTION_AND_NATIVE_OCCURRENCE_CLOSURE_DESIGN.md",
+    "old": "| `run_lawful_actions` | Run | LawfulActionProjection | exactly one | exact NextActionProjection |\n",
+    "new": "",
+    "occurrences": 1
+  },
+  {
+    "file": "M05_S06_PUBLIC_FUNCTION_AND_NATIVE_OCCURRENCE_CLOSURE_DESIGN.md",
+    "old": "| `ticket_consensus` | ConsensusResult | TicketConsensusProjection | exactly one | ticket, output authority, replay basis |\n",
+    "new": "",
+    "occurrences": 1
+  },
+  {
+    "file": "M05_S06_PUBLIC_FUNCTION_AND_NATIVE_OCCURRENCE_CLOSURE_DESIGN.md",
+    "old": "| `ticket_consensus` | `Product.ConsensusProjectionPort.ticketConsensus` |\n",
+    "new": "",
+    "occurrences": 1
+  },
+  {
+    "file": "M05_S06_PUBLIC_FUNCTION_AND_NATIVE_OCCURRENCE_CLOSURE_DESIGN.md",
+    "old": "| `run.continue(selected_action)` | Run, continuation, exact NextActionProjection, same-basis or covering-reprice relation, actor/grant | admitted construction intent then `completed`, `blocked`, or `runtime_failed` Run/GraphCall truth | stale/mismatched action or intent/reprice/basis refusal before continuation admission | held, gap_stop |\n",
+    "new": "",
+    "occurrences": 1
+  },
+  {
+    "file": "M05_S06_PUBLIC_FUNCTION_AND_NATIVE_OCCURRENCE_CLOSURE_DESIGN.md",
+    "old": "| `interaction.respond(*)` | interaction, response contract, exact variant value/choice, actor, capability, evidence, basis | none; `ResultOf<K> = never` | missing/resolved interaction, kind/contract/choice/value/capability/basis refusal | responded-event, current interaction projection, and held Run/continuation |\n",
+    "new": "",
+    "occurrences": 1
+  },
+  {
+    "file": "M05_S06_PUBLIC_FUNCTION_AND_NATIVE_OCCURRENCE_CLOSURE_DESIGN.md",
+    "old": "| `interaction.respond` | `abg.capability.operator.public-contract@5`, `abg.capability.runtime.replay-continuation@5` | F_H response event | `interaction respond <member>` |\n",
+    "new": "",
+    "occurrences": 1
+  },
+  {
+    "file": "M05_S06_PUBLIC_FUNCTION_AND_NATIVE_OCCURRENCE_CLOSURE_DESIGN.md",
+    "old": "`run_status`, `run_result`, `run_evidence`, `run_replay`, `run_gaps`, `run_lawful_actions`",
+    "new": "`run_status`, `run_result`, `run_evidence`, `run_replay`",
+    "occurrences": 1
+  },
+  {
+    "file": "M05_S06_PUBLIC_FUNCTION_AND_NATIVE_OCCURRENCE_CLOSURE_DESIGN.md",
+    "old": "`workspace_replay`, `workspace_gaps`",
+    "new": "`workspace_replay`",
+    "occurrences": 1
+  },
+  {
+    "file": "M05_S06_PUBLIC_FUNCTION_AND_NATIVE_OCCURRENCE_CLOSURE_DESIGN.md",
+    "old": "  : C is \"workspace_gaps\"\n    ? { kind: \"workspace_gap_basis\", gapBasis: RD<GapProjectionBasis> }\n  : C is \"run_lawful_actions\"\n    ? { kind: \"next_action\", projection: RD<NextActionProjection> }\n  : C is \"ticket_consensus\"\n    ? { kind: \"ticket_consensus\",\n        ticket: RD<Ticket>,\n        outputAuthority: RD<ConsensusOutputAuthority>,\n        replayBasis: RD<ReplayProjectionBasis> }\n",
+    "new": "",
+    "occurrences": 1
+  },
+  {
+    "file": "M05_S06_PUBLIC_FUNCTION_AND_NATIVE_OCCURRENCE_CLOSURE_DESIGN.md",
+    "old": "InteractionRespondRequest<R> = {\n  interaction: RD<FhInteraction>\n  responseContract: RD<PublicContract>\n  responseKind: R\n  choice:\n    R is \"select\" ? RD<DeclaredInteractionChoice> : null\n  value: CanonicalValue<PublicContract>\n  evidence: RDSet<Evidence>\n  currentBasis: RD<ExecutionBasis>\n}\n\nInteractionRespondResult<R> = never\n\nInteractionRespondNonTerminal<R> = {\n  disposition: \"responded\"\n  responseKind: R\n  responseEvent: RD<ActorAttributedResponseEvent>\n  interaction: InteractionProjection<\"responded\">\n  run: RD<Run>\n  continuation: RD<Continuation>\n  evidence: RDSet<Evidence>\n}\n\n",
+    "new": "",
+    "occurrences": 1
+  },
+  {
+    "file": "M05_S06_PUBLIC_FUNCTION_AND_NATIVE_OCCURRENCE_CLOSURE_DESIGN.md",
+    "old": "Three parameterized families that previously admitted implementation choice",
+    "new": "Two retained parameterized families that previously admitted implementation choice",
+    "occurrences": 1
+  },
+  {
+    "file": "M05_S06_PUBLIC_FUNCTION_AND_NATIVE_OCCURRENCE_CLOSURE_DESIGN.md",
+    "old": "`InteractionRespondRequest/Result/NonTerminal` and\n`WitnessAdmitRequest/Result`",
+    "new": "`WitnessAdmitRequest/Result`",
+    "occurrences": 1
+  },
+  {
+    "file": "M05_S06_PUBLIC_FUNCTION_AND_NATIVE_OCCURRENCE_CLOSURE_DESIGN.md",
+    "old": "`interaction.respond(*)`, `result.assess(assess)`",
+    "new": "`result.assess(assess)`",
+    "occurrences": 1
+  },
+  {
+    "file": "M05_S06_PUBLIC_FUNCTION_AND_NATIVE_OCCURRENCE_CLOSURE_DESIGN.md",
+    "old": "held, gap-stop, responded, retry, and assessment-blocked",
+    "new": "held, retry, and assessment-blocked",
+    "occurrences": 1
+  },
+  {
+    "file": "M05_S06_PUBLIC_FUNCTION_AND_NATIVE_OCCURRENCE_CLOSURE_DESIGN.md",
+    "old": "disposition: \"held\" | \"gap_stop\"",
+    "new": "disposition: \"held\"",
+    "occurrences": 2
+  },
+  {
+    "file": "M05_S06_PUBLIC_FUNCTION_AND_NATIVE_OCCURRENCE_CLOSURE_DESIGN.md",
+    "old": "currentIntent: RD<ConstructionIntent>",
+    "new": "pendingCursor: RD<TraversalCursor>",
+    "occurrences": 1
+  },
+  {
+    "file": "M05_S06_PUBLIC_FUNCTION_AND_NATIVE_OCCURRENCE_CLOSURE_DESIGN.md",
+    "old": "RunContinueRequest<\"selected_action\"> = {\n  run: RD<Run>\n  continuation: RD<Continuation>\n  selectedAction: RD<NextActionProjection>\n  basisRelation:\n    | { kind: \"same_basis\" }\n    | { kind: \"authority_changed\",\n        coveringReprice: RD<CoveringReprice> }\n}\n",
+    "new": "",
+    "occurrences": 1
+  },
+  {
+    "file": "M05_S06_PUBLIC_FUNCTION_AND_NATIVE_OCCURRENCE_CLOSURE_DESIGN.md",
+    "old": "RunContinueResult<M> = {\n  continuationKind: M",
+    "new": "RunContinueResult = {\n  continuationKind: \"pending_execution\"",
+    "occurrences": 1
+  },
+  {
+    "file": "M05_S06_PUBLIC_FUNCTION_AND_NATIVE_OCCURRENCE_CLOSURE_DESIGN.md",
+    "old": "  admittedIntent:\n    M is \"selected_action\" ? RD<ConstructionIntent> : null",
+    "new": "  admittedIntent: null",
+    "occurrences": 1
+  },
+  {
+    "file": "M05_S06_PUBLIC_FUNCTION_AND_NATIVE_OCCURRENCE_CLOSURE_DESIGN.md",
+    "old": "RunContinueNonTerminal<M> = {\n  continuationKind: M",
+    "new": "RunContinueNonTerminal = {\n  continuationKind: \"pending_execution\"",
+    "occurrences": 1
+  },
+  {
+    "file": "M05_S06_PUBLIC_FUNCTION_AND_NATIVE_OCCURRENCE_CLOSURE_DESIGN.md",
+    "old": "RunInvokeResult<M> = {\n  invocationKind: M\n  run: RD<Run>\n  graphCall: M is \"invoke\" ? RD<GraphCall> : RD<GraphCall> | null\n  disposition: \"completed\" | \"blocked\" | \"runtime_failed\"\n  result: RD<RuntimeResult> | null\n  stop: RD<RuntimeStop> | null\n  gap: RD<RuntimeGap> | null\n  interaction: RD<FhInteraction> | null\n  evidence: RDSet<Evidence>\n  replay: RD<ReplayProjection>\n}\n",
+    "new": "RunInvokeResult<M> = {\n  invocationKind: M\n  run: RD<Run>\n  graphCall: M is \"invoke\" ? RD<GraphCall> : RD<GraphCall> | null\n  disposition: \"completed\" | \"blocked\" | \"runtime_failed\"\n  result: RD<RuntimeResult> | null\n  stop: RD<RuntimeStop> | null\n  gap: RD<RuntimeGap> | null\n  interaction: RD<FhInteraction> | null\n  evidence: RDSet<Evidence>\n  replay: RD<ReplayProjection>\n  stopStatement?: AbgTypedTerminalResult\n}\n",
+    "occurrences": 1
+  },
+  {
+    "file": "M05_S06_PUBLIC_FUNCTION_AND_NATIVE_OCCURRENCE_CLOSURE_DESIGN.md",
+    "old": "RunInvokeNonTerminal<M> = {\n  invocationKind: M\n  disposition: \"held\"\n  run: RD<Run>\n  graphCall: RD<GraphCall> | null\n  interaction: RD<FhInteraction> | null\n  gap: RD<RuntimeGap> | null\n  evidence: RDSet<Evidence>\n  replay: RD<ReplayProjection>\n}\n\n",
+    "new": "RunInvokeNonTerminal<M> = {\n  invocationKind: M\n  disposition: \"held\"\n  run: RD<Run>\n  graphCall: RD<GraphCall> | null\n  interaction: RD<FhInteraction> | null\n  gap: RD<RuntimeGap> | null\n  evidence: RDSet<Evidence>\n  replay: RD<ReplayProjection>\n  stopStatement?: AbgTypedTerminalResult\n}\n\n",
+    "occurrences": 1
+  },
+  {
+    "file": "M05_S06_PUBLIC_FUNCTION_AND_NATIVE_OCCURRENCE_CLOSURE_DESIGN.md",
+    "old": "RunContinueResult = {\n  continuationKind: \"pending_execution\"\n  run: RD<Run>\n  graphCall: RD<GraphCall> | null\n  admittedIntent: null\n  successor: RD<ContinuationReceipt>\n  disposition: \"completed\" | \"blocked\" | \"runtime_failed\"\n  evidence: RDSet<Evidence>\n  replay: RD<ReplayProjection>\n}\n",
+    "new": "RunContinueResult = {\n  continuationKind: \"pending_execution\"\n  run: RD<Run>\n  graphCall: RD<GraphCall> | null\n  admittedIntent: null\n  successor: RD<ContinuationReceipt>\n  disposition: \"completed\" | \"blocked\" | \"runtime_failed\"\n  evidence: RDSet<Evidence>\n  replay: RD<ReplayProjection>\n  stopStatement?: AbgTypedTerminalResult\n}\n",
+    "occurrences": 1
+  },
+  {
+    "file": "M05_S06_PUBLIC_FUNCTION_AND_NATIVE_OCCURRENCE_CLOSURE_DESIGN.md",
+    "old": "RunContinueNonTerminal = {\n  continuationKind: \"pending_execution\"\n  disposition: \"held\"\n  run: RD<Run>\n  continuation: RD<Continuation>\n  evidence: RDSet<Evidence>\n  replay: RD<ReplayProjection>\n}\n\n",
+    "new": "RunContinueNonTerminal = {\n  continuationKind: \"pending_execution\"\n  disposition: \"held\"\n  run: RD<Run>\n  continuation: RD<Continuation>\n  evidence: RDSet<Evidence>\n  replay: RD<ReplayProjection>\n  stopStatement?: AbgTypedTerminalResult\n}\n\n",
+    "occurrences": 1
+  },
+  {
+    "file": "M05_S06_PUBLIC_FUNCTION_AND_NATIVE_OCCURRENCE_CLOSURE_DESIGN.md",
+    "old": "| held, gap_stop |",
+    "new": "| held |",
+    "occurrences": 3
+  },
+  {
+    "file": "M05_S06_PUBLIC_FUNCTION_AND_NATIVE_OCCURRENCE_CLOSURE_DESIGN.md",
+    "old": "| `run.continue(current_intent)` | Run, continuation, current intent, admitted response/input, expected basis, actor/grant | continued Run with `completed`, `blocked`, or `runtime_failed` terminal truth, successor/evidence/replay refs | missing/resolved continuation or intent/response/replay/basis refusal before continuation admission | held |\n",
+    "new": "| `run.continue(current_intent)` | exact Run, replay-derived pending occurrence, pending cursor, progressed input and expected basis; actor/grant slots | same Run with `continuationKind: pending_execution`, `admittedIntent: null`, terminal disposition, successor/evidence/replay and optional stopStatement | `missing_continuation`, `resolved_continuation`, `response_mismatch`, `replay_mismatch`, `basis_mismatch` | held |\n",
+    "occurrences": 1
+  },
+  {
+    "file": "T287_W2_R3_C3_BRANCH_CONSTRUCTION_AGGREGATE_DESIGN.md",
+    "old": "  -> PublicRunProjectionAuthority\n",
+    "new": "",
+    "occurrences": 1
+  },
+  {
+    "file": "T287_REGISTERED_GRAPH_SELECTION_DESIGN.md",
+    "old": "Ordinary continuation has one successor. Current result-dependent routing handles re-entry/no-action, not forward selection among fixed workflow nodes.",
+    "new": "Ordinary continuation has one successor. Generic graph-span re-entry preserves its declared cursor and progressed input; forward selection uses the separate registered-selection graph relation.",
+    "occurrences": 1
+  },
+  {
+    "file": "ABI5_COMMON_COMPUTATIONAL_CAPABILITY_LIBRARY_DESIGN.md",
+    "old": "from a Run owner's stage, `ticket_consensus`, the native assessment or a direct\ncaller.",
+    "new": "from a Run owner's stage, the native assessment or a direct\ncaller.",
+    "occurrences": 1
+  },
+  {
+    "file": "ABI5_COMMON_COMPUTATIONAL_CAPABILITY_LIBRARY_DESIGN.md",
+    "old": "The one ingress that builds a suspension, the construction resume (`hog/entry.ts`), builds one workflow suspension from the reopened log and consumes it in the same call (`preflightParentReturns`, then `rehydrateParentReturnFrames`): an internal handoff. `rehydrateParentReturnFrames` uses a carried body only after checking it against the digest the log binds (the closure contract by ref and digest). No Public operation resumes an F_H hold: `abg.operation.interaction.respond` has packets and no binding; its binding, when selected, derives the frames from the log and selects a recursion `application` by the evaluator CCall's admitted `compositionRef`.",
+    "new": "Pending execution reconstructs parent return frames and the progressed cursor/input\nfrom admitted truth through `executeGraphTraversalEffect` in\n`hog/graph_execute.ts`; `rehydrateParentReturnFrames` consumes that owner-derived\ninternal handoff. A carried body must match the ref/digest bound by the log.\nNo Public operation resumes an F_H hold: `interaction.respond` is withdrawn,\nand native human response/resume remains reserved to 5.1. The retained\n`current_intent` member resumes pending execution only.",
+    "occurrences": 1
+  },
+  {
+    "file": "ABI5_COMMON_COMPUTATIONAL_CAPABILITY_LIBRARY_DESIGN.md",
+    "old": "- **P-FH-PAIR:** one fresh immutable RAW vector, each row stamped by `projectRuntimeEventFromValidatedHistory` and selected by `selectValidatedRuntimeEventPrefix`, carries a root invocation record whose one capability grant is an explicit `interaction.respond.approve` grant that passes `isCapabilityGrantValue` and binds the record's actor, workspace binding and policy. The invocation, execution-basis, Run-binding, pending-carrier, held-fluent and open-continuation readers each fail one row before their cut and hold at it, in that order. Over the seed, `projectFhEffectfulPublicInvocationFacts` returns `valid` with no F_H fact, and `projectEffectfulPublicInvocationTruthAtPrefix` returns the response ref and an unused ref as `available` and the root's own invocation as `duplicate`. A root without the response grant opens the same hold. A repeated read, a fresh frozen clone and unrelated RAW growth keep the values. The seed plus one hand-built `fh_interaction_responded`, `fh_interaction_resume_admitted`, `continuation_abandoned` or F_H `continuation_superseded` row is refused by the fold (`deriveRuntimeHeldFluentProjection`) and is `invalid_history` to the F_H fact owner. An orphan F_H response operation is `invocation_pair_invalid` to the complete-pair owners. The proof is the two \"RAW F_H hold seed\" cases and the complete-pair case of `test_env/tests/t287-single-address-space-consolidation.test.mjs`. The seed is conditional reader data: current root admission accepts only the direct-invoke grant, so the seed and its grant are not current root admission, Event Store admission, held or owned authority, Public commit, dispatch or resume, a physical cold reopen or installed F_H qualification.\n",
+    "new": "- **P-FH-PAIR:** one fresh immutable RAW vector, each row stamped by `projectRuntimeEventFromValidatedHistory` and selected by `selectValidatedRuntimeEventPrefix`, carries a root invocation record whose one capability grant is an explicit retained `RUN_OPERATION_CONTRACTS.invoke.invoke` grant that passes `isCapabilityGrantValue` and binds the record's actor, workspace binding and policy. The invocation, execution-basis, Run-binding, pending-carrier, held-fluent and open-continuation readers each fail one row before their cut and hold at it, in that order. Over the seed, `projectFhEffectfulPublicInvocationFacts` returns `valid` with no F_H fact, and `projectEffectfulPublicInvocationTruthAtPrefix` returns the response ref and an unused ref as `available` and the root's own invocation as `duplicate`. A root without the direct-invoke grant opens the same conditional RAW hold. A repeated read, a fresh frozen clone and unrelated RAW growth keep the values. The seed plus one hand-built `fh_interaction_responded`, `fh_interaction_resume_admitted`, `continuation_abandoned` or F_H `continuation_superseded` row is refused by the fold (`deriveRuntimeHeldFluentProjection`) and is `invalid_history` to the F_H fact owner. An orphan F_H response operation is `invocation_pair_invalid` to the complete-pair owners. The proof is the two \"RAW F_H hold seed\" cases and the complete-pair case of `test_env/tests/t287-single-address-space-consolidation.test.mjs`. The seed is conditional reader data: the retained grant is only a test vehicle, so the seed is not current root admission, Event Store admission, held or owned authority, Public commit, dispatch or resume, a physical cold reopen or installed F_H qualification. P7's `owners-vehicles-02.tap` (12/12 across the affected vehicles) records the retained grant/prototype/type proof; it does not promote this RAW seed into installed admission evidence.\n",
+    "occurrences": 1
+  },
+  {
+    "file": "T287_PENDING_CONSUMER_CONTINUATION_DESIGN.md",
+    "old": "The alternative is a second, exclusive request arm of the existing\ncurrent-execution member `run.continue/current_intent`. Its closed domain is\n`continuationKind: [\"current_intent\", \"pending_execution\"]`. The exact Public key\nset stays at 56 definitions under its pinned key-set digest\n(`public/binding/owner_contract_source_set.ts`). A separate member would be an\nexact Public-family change, which this correction does not make. The owner\nselects by arm: a request with `pendingCursor` enters the pending-execution\nowner (`runPendingExecutionOwner`, `owner_bindings/run_invocation.ts`).\n\n",
+    "new": "The stable current-execution member `run.continue/current_intent` has one\npending-execution request and the closed result/nonterminal kind\n`continuationKind: \"pending_execution\"`. `runPendingExecutionOwner` in\n`owner_bindings/run_invocation.ts` owns its exact pending-cursor request.\nNo intent or action-selection arm remains. The current owner family has 17\noperations and 46 definitions, key-set SHA-256\n`0988d2088a089d32fa2c90589ee02afb44140dcf68cb463a0f68df6c1a0dcd81`;\n`public/binding/owner_contract_source_set.ts` owns that set.\n\n",
+    "occurrences": 1
+  },
+  {
+    "file": "T287_PENDING_CONSUMER_CONTINUATION_DESIGN.md",
+    "old": "and `admittedIntent: null`; non-terminal likewise. Refusals use the member's\nexisting schema; the failure-code set is unchanged.",
+    "new": "and `admittedIntent: null`, with optional `stopStatement`. Nonterminal has\nkind `pending_execution`, disposition `held` and optional `stopStatement`; it\ndoes not carry `admittedIntent`. The five refusal codes are the table below.",
+    "occurrences": 1
+  },
+  {
+    "file": "T287_R10_TYPED_TERMINAL_OUTCOME_DESIGN.md",
+    "old": "Contract identity (REQ-P-PUBLIC-CONTRACTS-004 supersession within each\noperation identity): `run_status` result schema changes (`lastRootResult`\nreplaces `evaluation`; `operator`, `nextActions` and `missingLink` are added;\ngap support refs admit any non-empty string). `run.invoke` `start` and `invoke`\nand `run.continue` `current_intent` and `selected_action` gain one optional\n`stopStatement` in their result and non-terminal schemas. Digest movement rule:\nthe Run read definitions share one source-module digest, so `run_result`,\n`run_replay`, `run_gaps`, `run_evidence` and `run_lawful_actions` move their\ndefinition digests with no schema change; the family, catalog, adapter\nprojection, capability-definition graph and toolchain manifest move with them.\n",
+    "new": "Current contract identity (REQ-P-PUBLIC-CONTRACTS-004): `run_status` uses\n`lastRootResult`, `operator` and `missingLink`; gap support refs admit any\nnon-empty string. The retired `nextActions` frontier is absent. `run.invoke`\n`start` and `invoke`, and pending-only `run.continue/current_intent`, carry\noptional `stopStatement` in result and nonterminal schemas. `selected_action`\nand the three frontier read members are withdrawn. Remaining Run read source\nclosure identities propagate through their owner source-module, family,\ncatalog, adapter projection, capability graph and toolchain manifest; no\nschema or definition digest is inferred unchanged merely from a member name.\nThe exact final key set is the 17-operation/46-definition owner family.\n",
+    "occurrences": 1
+  },
+  {
+    "file": "T287_R10_TYPED_TERMINAL_OUTCOME_DESIGN.md",
+    "old": "eighteen families and fifty-six concrete members remain exact.",
+    "new": "the current owner family has seventeen operations and forty-six concrete members. The prior eighteen/fifty-six census belongs to the original R10 increment.",
+    "occurrences": 1
+  },
+  {
+    "file": "T287_R10_TYPED_TERMINAL_OUTCOME_DESIGN.md",
+    "old": "Existing eighteen/fifty-six membership,",
+    "new": "Current seventeen/forty-six membership,",
+    "occurrences": 1
+  },
+  {
+    "file": "T287_R10_TYPED_TERMINAL_OUTCOME_DESIGN.md",
+    "old": "contracts, resource close receipts and eighteen/fifty-six membership stay\nunchanged.",
+    "new": "contracts and resource close receipts keep their owning laws. The original\neighteen/fifty-six preservation statement belongs to that correction; current\nmembership is seventeen/forty-six after TD-26 P7/TD-25M.",
+    "occurrences": 1
+  },
+  {
+    "file": "M05_S06_PUBLIC_FUNCTION_AND_NATIVE_OCCURRENCE_CLOSURE_DESIGN.md",
+    "old": "17 operation identities and 56 definition keys",
+    "new": "17 operation identities and 46 definition keys",
+    "occurrences": 2
+  },
+  {
+    "file": "M05_S06_PUBLIC_FUNCTION_AND_NATIVE_OCCURRENCE_CLOSURE_DESIGN.md",
+    "old": "`current_intent`, `selected_action`",
+    "new": "`current_intent`",
+    "occurrences": 1
+  },
+  {
+    "file": "M05_S06_PUBLIC_FUNCTION_AND_NATIVE_OCCURRENCE_CLOSURE_DESIGN.md",
+    "old": "`abg.operation.run.continue(current_intent|selected_action)`",
+    "new": "`abg.operation.run.continue(current_intent)`",
+    "occurrences": 1
+  },
+  {
+    "file": "M05_S06_PUBLIC_FUNCTION_AND_NATIVE_OCCURRENCE_CLOSURE_DESIGN.md",
+    "old": "`run continue --mode <current_intent|selected_action>`",
+    "new": "`run continue --mode current_intent`",
+    "occurrences": 1
+  },
+  {
+    "file": "M05_S06_PUBLIC_FUNCTION_AND_NATIVE_OCCURRENCE_CLOSURE_DESIGN.md",
+    "old": "`RUN_OPERATION_CONTRACTS.continue[member]` | `RunContinuationPort[member]` | `RunContinuePacket<member>`",
+    "new": "`RUN_OPERATION_CONTRACTS.continue.current_intent` | `RUN_DEFINITION_BINDINGS.continue.current_intent` | pending-execution packet",
+    "occurrences": 1
+  },
+  {
+    "file": "M05_S06_PUBLIC_FUNCTION_AND_NATIVE_OCCURRENCE_CLOSURE_DESIGN.md",
+    "old": "Every key has a constructable external contract packet and loadable binding specification.",
+    "new": "Every key has its exact owner contract packet and binding specification; 42 keys are callable and four witness keys remain declared unavailable.",
+    "occurrences": 1
+  },
+  {
+    "file": "M05_S06_PUBLIC_FUNCTION_AND_NATIVE_OCCURRENCE_CLOSURE_DESIGN.md",
+    "old": "Installation proves each specification resolves under the admitted lock to one real direct, statically composed, or projection callable.",
+    "new": "Installation proves each callable specification resolves under the admitted lock to one real direct, statically composed, or projection callable; the four unavailable witness members retain `installed_binding_unavailable`.",
+    "occurrences": 1
+  },
+  {
+    "file": "M05_S06_PUBLIC_FUNCTION_AND_NATIVE_OCCURRENCE_CLOSURE_DESIGN.md",
+    "old": "The exact 5.0 family has 17 operation identities and 46 definition keys. The",
+    "new": "The exact 5.0 family has 17 operation identities and 46 definition keys. Its\nkey-set SHA-256 is `0988d2088a089d32fa2c90589ee02afb44140dcf68cb463a0f68df6c1a0dcd81`.\nThe 42 callable bindings and four unavailable witness members (`attest`,\n`hygiene-stamp`, `intake`, `run-resumed`) are distinct. The ten withdrawn keys\nare absent and exact predecessor calls refuse `unknown_definition`; their CLI\ninvocations exit 2. The",
+    "occurrences": 1
+  },
+  {
+    "file": "ABI5_REALIZATION_CONSTITUTION.md",
+    "old": "`A/run_truth.ts::projectRunTruthAtDurablePrefix`",
+    "new": "`A/project_read_ports.ts::projectRunTruthAtDurablePrefix`",
+    "occurrences": 1
+  },
+  {
+    "file": "ABI5_REALIZATION_CONSTITUTION.md",
+    "old": "| `interaction.respond` | one E33 kernel plus five frozen packets |\n",
+    "new": "",
+    "occurrences": 1
+  },
+  {
+    "file": "ABI5_REALIZATION_CONSTITUTION.md",
+    "old": "one shared continuation carrier/kernel plus two frozen packets; both remain held until that carrier is accepted and preserves current-intent versus selected-action meaning",
+    "new": "one existing pending-execution owner kernel and the retained `current_intent` packet; no selected-action or F_H resume path",
+    "occurrences": 1
+  },
+  {
+    "file": "ABI5_COMMON_COMPUTATIONAL_CAPABILITY_LIBRARY_DESIGN.md",
+    "old": "effectful invocation truth, which selects its construction-continuation operations and their bases through the shared public-operation classification and keeps the global malformed-pair, duplicate and complete-pair checks over those facts",
+    "new": "effectful invocation truth, which selects the sole retained pending-execution operation through the shared public-operation classification and keeps the global malformed-pair, duplicate and complete-pair checks over those facts",
+    "occurrences": 1
+  },
+  {
+    "file": "ABI5_COMMON_COMPUTATIONAL_CAPABILITY_LIBRARY_DESIGN.md",
+    "old": "and `construction-operation:<operation event>` on a construction-continuation `basis_admitted`, assigned by `runtimeHistorySelectorKeys`",
+    "new": "assigned by `runtimeHistorySelectorKeys`",
+    "occurrences": 1
+  },
+  {
+    "file": "ABI5_COMMON_COMPUTATIONAL_CAPABILITY_LIBRARY_DESIGN.md",
+    "old": "each consumer keeps its own Run, F_H or construction join predicate",
+    "new": "each consumer keeps its own Run, F_H or pending-execution join predicate",
+    "occurrences": 1
+  },
+  {
+    "file": "ABI5_COMMON_COMPUTATIONAL_CAPABILITY_LIBRARY_DESIGN.md",
+    "old": "and orphan or mixed-arm construction uses remain keyed by their referenced operation",
+    "new": "and malformed pending uses retain their exact operation-pair refusal",
+    "occurrences": 1
+  },
+  {
+    "file": "ABI5_STDO3_COMPUTATIONAL_BINDING.md",
+    "old": "S02/S03, seven constructors, graph and conservation matrix with current release applicability.",
+    "new": "S02 and current Executive S03, seven constructors, graph and conservation matrix with current release applicability. The retired One Surface fixture is not current evidence.",
+    "occurrences": 1
+  },
+  {
+    "file": "ABI5_STDO3_COMPUTATIONAL_BINDING.md",
+    "old": "a stop or gap reads back through its stop reading, and an F_H hold through its open continuation (`projectFhContinuations`, `abg/fh_continuation_projection.ts`).",
+    "new": "a no-lawful-selection outcome reads as a typed blocked stop and human-readable handoff. An F_H hold reads through its open continuation (`projectFhContinuations`, `abg/fh_continuation_projection.ts`); native response/resume remains 5.1. Replay-derived pending execution uses the separate existing ABG/HoG continuation path.",
+    "occurrences": 1
+  },
+  {
+    "file": "ABI5_STDO3_COMPUTATIONAL_BINDING.md",
+    "old": "Mandatory S01/S02/S03/S06 and the all-family qualification join remain on one exact installed pre-RC candidate; S07 keeps its separate release subjects.",
+    "new": "Product-required S01/S02/S03/S06 and the all-family qualification join must be established on one exact applicable installed pre-RC candidate; S07 keeps its separate release subjects. Retired One Surface S03 fixtures confer no current Executive S03 proof. The retained `t292-td26-p6-span-reentry` and `t292-td26-ps-default-root-mode` lanes prove bounded span/re-entry and supervised-handle versus START mechanics respectively, as recorded by the [P6 Return](../../../../.ai-workspace/work/T292_CONSOLIDATION_01/TD-26_P6_RETURN.md). Neither lane establishes complete S03 or qualification.",
+    "occurrences": 1
+  },
+  {
+    "file": "ABI5_STDO3_COMPUTATIONAL_BINDING.md",
+    "old": "S02 retained language cases and malformed/refusal cases.",
+    "new": "S02 retained language cases and malformed/refusal cases; NEW work raw-admits the complete exact owning publication under [the existing closure owner](M05_S06_AXIOMATIC_AUTHORITY_AND_EXACT_PUBLIC_CONSTRUCTION_DESIGN.md#8-one-normalized-program-before-effects).",
+    "occurrences": 1
+  },
+  {
+    "file": "ABI5_STDO3_COMPUTATIONAL_BINDING.md",
+    "old": "Pure read/narrow/apply, exact call/start and empty/ambiguous cases; no runtime catalog truth.",
+    "new": "Pure read/narrow/apply, exact call/start and empty/ambiguous cases; current publication admission and historical recorded access remain distinct under the same closure law. No runtime catalog truth.",
+    "occurrences": 1
+  },
+  {
+    "file": "M03_DIRECT_GTL_TRAVERSAL_BEHAVIOR_DESIGN.md",
+    "old": "| F_H hold, response, and same-run continuation | ABG5-S03 |",
+    "new": "| F_H hold and replay-derived pending execution | Current Product S03/ABG continuation obligations; native human response and response-driven resume are reserved to 5.1 |",
+    "occurrences": 1
+  },
+  {
+    "file": "M03_DIRECT_GTL_TRAVERSAL_BEHAVIOR_DESIGN.md",
+    "old": "S03 boundary.",
+    "new": "S03 boundary. Those T-270 identities remain historical. Current S03 is the\nProduct Executive/default-direct scenario; the retired One Surface fixture\nprovides no current qualification. Retained span/re-entry and supervised\nhandle/START mechanics are covered only to the bounds recorded in the\n[P6 Return](../../../../.ai-workspace/work/T292_CONSOLIDATION_01/TD-26_P6_RETURN.md).",
+    "occurrences": 1
+  },
+  {
+    "file": "M05_DIRECT_GTL_TRAVERSAL_EXPANSION_DESIGN.md",
+    "old": "**Scenario boundary**: accepted `ABG5-S02` and `ABG5-S03`;\nSections 14.1 and 14.2 advance `ABG5-S06`",
+    "new": "**Historical scenario boundary**: the exact subjects above accepted\n`ABG5-S02` and `ABG5-S03`; Sections 14.1 and 14.2 advance `ABG5-S06`.\nCurrent Product S03 is Executive/default-direct with prepared `F_P` registered\nselection, admitted foldback and truthful block/hold. Retired One Surface\nfixtures supply no current proof. `t292-td26-p6-span-reentry` and\n`t292-td26-ps-default-root-mode` retain bounded generic mechanics only; their\n[P6 Return](../../../../.ai-workspace/work/T292_CONSOLIDATION_01/TD-26_P6_RETURN.md)\nis not complete S03 or qualification evidence.",
+    "occurrences": 1
+  },
+  {
+    "file": "M05_DIRECT_GTL_TRAVERSAL_EXPANSION_DESIGN.md",
+    "old": "`interaction.respond` is declared and unbound, and the transport refuses it with `installed_binding_unavailable`",
+    "new": "`interaction.respond` is withdrawn; exact predecessor calls refuse `unknown_definition`",
+    "occurrences": 2
+  },
+  {
+    "file": "M05_DIRECT_GTL_TRAVERSAL_EXPANSION_DESIGN.md",
+    "old": "`interaction.respond` is unbound (`selectedCallable`, `public/installed_definition_call_transport.ts`)",
+    "new": "`interaction.respond` is withdrawn (`unknown_definition` at exact definition selection)",
+    "occurrences": 1
+  },
+  {
+    "file": "M05_DIRECT_GTL_TRAVERSAL_EXPANSION_DESIGN.md",
+    "old": "`interaction.respond` is declared and unbound, and the\ntransport refuses it with `installed_binding_unavailable` (`selectedCallable`,\n`public/installed_definition_call_transport.ts`).",
+    "new": "`interaction.respond` is withdrawn, and exact predecessor calls refuse\n`unknown_definition` before owner dispatch (CLI exit 2).",
+    "occurrences": 1
+  },
+  {
+    "file": "M05_DIRECT_GTL_TRAVERSAL_EXPANSION_DESIGN.md",
+    "old": "`interaction.respond` is\ndeclared and unbound in 5.0: the transport refuses it with\n`installed_binding_unavailable` (`selectedCallable`,\n`public/installed_definition_call_transport.ts`).",
+    "new": "`interaction.respond` is\nwithdrawn from the 5.0 family: exact predecessor calls refuse\n`unknown_definition` before owner dispatch (CLI exit 2).",
+    "occurrences": 1
+  },
+  {
+    "file": "M05_DIRECT_GTL_TRAVERSAL_EXPANSION_DESIGN.md",
+    "old": "interaction.respond is declared and unbound",
+    "new": "interaction.respond is withdrawn",
+    "occurrences": 1
+  },
+  {
+    "file": "M05_DIRECT_GTL_TRAVERSAL_EXPANSION_DESIGN.md",
+    "old": "interaction.respond is unbound",
+    "new": "interaction.respond is withdrawn",
+    "occurrences": 1
+  },
+  {
+    "file": "M05_DIRECT_GTL_TRAVERSAL_EXPANSION_DESIGN.md",
+    "old": "`interaction.respond` is declared and unbound,\n    `selectedCallable`, `public/installed_definition_call_transport.ts`",
+    "new": "`interaction.respond` is withdrawn; exact predecessor calls return\n    `unknown_definition` before owner dispatch",
+    "occurrences": 1
+  },
+  {
+    "file": "M05_DIRECT_GTL_TRAVERSAL_EXPANSION_DESIGN.md",
+    "old": "`interaction.respond` remains separate from `run.continue`, and every resume\n   binds admitted public ingress, actor, capability, and declared input;",
+    "new": "the retained `run.continue/current_intent` resumes pending execution only\n   and binds admitted public ingress, actor, capability, and progressed input;\n   F_H response/resume remains reserved to 5.1 and has no public member;",
+    "occurrences": 1
+  },
+  {
+    "file": "M05_DIRECT_GTL_TRAVERSAL_EXPANSION_DESIGN.md",
+    "old": "selected S03 realization or proof",
+    "new": "historical S03 realization or proof described by that table",
+    "occurrences": 1
+  },
+  {
+    "file": "M05_DIRECT_GTL_TRAVERSAL_EXPANSION_DESIGN.md",
+    "old": "A blocked or failed selected S03 path emits `run_stopped` only after",
+    "new": "A blocked or failed current Executive S03 path emits `run_stopped` only after",
+    "occurrences": 1
+  },
+  {
+    "file": "T287_PUBLIC_DEFINITION_CALL_CONSTRUCTION.md",
+    "old": "The five `interaction.respond` members and `witness.admit` attest, hygiene-stamp, intake and run-resumed currently lack callable bindings; they remain explicit unavailable members under the existing `installed_binding_unavailable` transport refusal. They receive no fabricated resource contract or callable type. This inventory does not allocate them as reserved5.1 work.",
+    "new": "That inspected6027 inventory is historical. After TD-26 P7/TD-25M the exact owner family is 17 operations/46 members, with 42 callable leaves; only `witness.admit` attest, hygiene-stamp, intake and run-resumed remain declared unavailable under `installed_binding_unavailable`. The five response keys and five TD-26 keys are absent (`unknown_definition`, CLI exit 2 for exact predecessor calls). No resource contract or callable type is fabricated for an unavailable member. Native human response/resume remains reserved by Product to 5.1.",
+    "occurrences": 1
+  },
+  {
+    "file": "T287_W2_R2_CONSUMER_DECLARATION_ADMISSION_DESIGN.md",
+    "old": "Preserve the 16 Product families, 18 operations and 56 definition keys. Existing owner packets retain their request/result/refusal schemas, metadata, native/SDK/CLI coordinates and event meanings.",
+    "new": "The original admission increment preserved its then-selected 16 Product families and 18-operation/56-key source subject. Those counts are historical, not current scope. Current Product fixes 15 selected 5.0 families; TD-26 P7/TD-25M owns the 17-operation/46-key Public family. The remaining owner packets retain their exact current request/result/refusal schemas, metadata, native/SDK/CLI coordinates and event meanings.",
+    "occurrences": 1
+  },
+  {
+    "file": "T287_D6_RC6_RELEASE_IDENTITY_DESIGN.md",
+    "old": "The roster remains 18 operations/56\ndefinitions.",
+    "new": "The current roster is 17 operations/46\ndefinitions after TD-26 P7/TD-25M; the earlier 18/56 observation remains bound\nto its original release-design subject.",
+    "occurrences": 1
+  },
+  {
+    "file": "M05_S06_PUBLIC_FUNCTION_AND_NATIVE_OCCURRENCE_CLOSURE_DESIGN.md",
+    "old": "24 cases in Section 4.3",
+    "new": "20 cases in Section 4.3",
+    "occurrences": 1
+  },
+  {
+    "file": "M05_S06_PUBLIC_FUNCTION_AND_NATIVE_OCCURRENCE_CLOSURE_DESIGN.md",
+    "old": "32 non-read packet references plus the 24 read packet references",
+    "new": "26 non-read packet references plus the 20 read packet references",
+    "occurrences": 1
+  },
+  {
+    "file": "M05_S06_PUBLIC_FUNCTION_AND_NATIVE_OCCURRENCE_CLOSURE_DESIGN.md",
+    "old": "24 exact cases",
+    "new": "20 exact cases",
+    "occurrences": 1
+  },
+  {
+    "file": "M05_S06_PUBLIC_FUNCTION_AND_NATIVE_OCCURRENCE_CLOSURE_DESIGN.md",
+    "old": "all 24 read cases",
+    "new": "all 20 read cases",
+    "occurrences": 1
+  },
+  {
+    "file": "M05_S06_PUBLIC_FUNCTION_AND_NATIVE_OCCURRENCE_CLOSURE_DESIGN.md",
+    "old": "none beyond the active required 18",
+    "new": "none beyond the active required 17",
+    "occurrences": 1
+  },
+  {
+    "file": "ABI5_REALIZATION_CONSTITUTION.md",
+    "old": "roster and therefore retains exactly the canonical 16 DS1 rows.",
+    "new": "roster after TD-26 P7 and therefore retains exactly 15 canonical rows; the\nConsensus capability is withdrawn. The earlier 16-row subjects in Sections\n16.10/16.11 remain historical; Section 16.17 supplies current cardinality.",
+    "occurrences": 1
+  },
+  {
+    "file": "ABI5_REALIZATION_CONSTITUTION.md",
+    "old": "canonical empty graph; the ABIogenesis coordinates yield the existing 16 rows.",
+    "new": "canonical empty graph; the current ABIogenesis coordinates yield 15 rows.",
+    "occurrences": 1
+  },
+  {
+    "file": "ABI5_REALIZATION_CONSTITUTION.md",
+    "old": "**Not selected for the exact 18/56 durable resource identity/receipt composition.**",
+    "new": "**Not selected for the exact 17/46 durable resource identity/receipt composition.**",
+    "occurrences": 1
+  },
+  {
+    "file": "ABI5_REALIZATION_CONSTITUTION.md",
+    "old": "mostly unused by the exact 18/56 rows",
+    "new": "mostly unused by the exact 17/46 rows",
+    "occurrences": 1
+  },
+  {
+    "file": "ABI5_REALIZATION_CONSTITUTION.md",
+    "old": "an implemented 18/56 row",
+    "new": "an implemented 17/46 row",
+    "occurrences": 1
+  },
+  {
+    "file": "ABI5_REALIZATION_CONSTITUTION.md",
+    "old": "All 56 load probes prove exact static coordinate resolution and callable construction",
+    "new": "The 42 callable load probes and four declared-unavailable checks prove their exact static coordinate/binding dispositions",
+    "occurrences": 1
+  },
+  {
+    "file": "ABI5_REALIZATION_CONSTITUTION.md",
+    "old": "`e7e252ed` in Section 16.7; that historical amendment is unchanged.",
+    "new": "`e7e252ed` in Section 16.7; that historical amendment is unchanged.\n\nRetired construction execution does not erase digest/profile carriers.\n`ExecutionBasis.actionCatalogRef`, `actionCatalogDigest`,\n`constructionCompositionRef`, `constructionCompositionDigest` and\n`constructionComposition` remain `null`; `actionCatalogRows` remains `[]`.\nInvocation `reentryBasis` is `null`; F_H hold identity keeps\n`constructionIntentRef: null`, and its projection keeps both intent ref/digest\nnull. Replay keeps `constructionDeltas: []`. Retired event/payload/calculus\nprofiles remain declarations; current readers refuse retired One Surface\nhistory rather than executing or silently omitting it. These constants grant\nno construction, selected-action or F_H response semantics.",
+    "occurrences": 1
+  },
+  {
+    "file": "ABI5_REALIZATION_CONSTITUTION.md",
+    "old": "gap, interaction, evidence, replay}`; nonterminal `{invocationKind, disposition, run, graphCall, interaction, gap, evidence, replay}`",
+    "new": "gap, interaction, evidence, replay, stopStatement?}`; held-only nonterminal `{invocationKind, disposition, run, graphCall, interaction, gap, evidence, replay, stopStatement?}`",
+    "occurrences": 1
+  },
+  {
+    "file": "ABI5_REALIZATION_CONSTITUTION.md",
+    "old": "Exact family 17 operations/46 definitions, 42 callable/four unavailable witness members.",
+    "new": "Exact family 17 operations/46 definitions, 42 callable/four unavailable witness members, 15 capability rows and 58 catalog rows. The historical 16-row cardinality in Sections 16.10/16.11 is superseded only for the current roster.",
+    "occurrences": 1
+  },
+  {
+    "file": "M05_DIRECT_GTL_TRAVERSAL_EXPANSION_DESIGN.md",
+    "old": "`unknown_definition` (`selectedCallable`, `public/installed_definition_call_transport.ts`)",
+    "new": "`unknown_definition` (exact family selection in `public/installed_definition_call_transport.ts`)",
+    "occurrences": 2
+  },
+  {
+    "file": "M05_DIRECT_GTL_TRAVERSAL_EXPANSION_DESIGN.md",
+    "old": "| continue held run | admitted `run.continue` ingress names existing run/continuation, actor, capability, and input | declared continuation contract | ABG uses the reopened context to verify exact durable scope and public authority | `run.continue` explicitly re-enters HoG after resume admission | continuation and replay views | ABG | resolved or run terminal in this cut; superseded and abandoned remain deferred |\n",
+    "new": "| continue pending execution | admitted `run.continue/current_intent` names one replay-derived pending occurrence, cursor, progressed input and expected basis | pending-execution contract; no F_H response input | existing ABG/Product owners rehydrate exact durable scope and current authority | ABG admits the pending operation; HoG resumes the same Run | pending occurrence and fresh Run replay | ABG | occurrence consumed once; current F_H hold remains open |\n",
+    "occurrences": 1
+  },
+  {
+    "file": "M05_DIRECT_GTL_TRAVERSAL_EXPANSION_DESIGN.md",
+    "old": "| continuation resume is actor-authorized | public-operation and continuation relations | public ingress plus ABG | `run.continue` admission, actor, capability, and input | public admission precedes same-run resume event | reopened through ResumeAdmitted | typed operation and capability refs | exact ingress event is causal input to resume | pass | retained T-272 evidence under T-270 |\n",
+    "new": "| pending execution is actor-authorized | public-operation and replay-derived pending occurrence | existing Product/ABG ingress | `run.continue/current_intent`, actor, capability, cursor/input and basis | ABG pending-operation admission precedes HoG same-Run resume | fresh successor Run truth; no F_H ResumeAdmitted event | typed operation and capability refs | exact pending operation consumes one occurrence | retained pending owner relation; runtime evidence remains bounded by its Return | F_H response/resume reserved to 5.1 |\n",
+    "occurrences": 1
+  },
+  {
+    "file": "M05_DIRECT_GTL_TRAVERSAL_EXPANSION_DESIGN.md",
+    "old": "  Held --> ReplayRehydrated: run.continue rehydrates a non-F_H current input\n  ReplayRehydrated --> ResumeAdmitted: ABG admits resume and resolves Continuation\n  ResumeAdmitted --> AtTerm: public operation explicitly re-enters HoG",
+    "new": "  Held --> PendingExecutionRehydrated: current_intent selects a pending occurrence only\n  PendingExecutionRehydrated --> PendingExecutionAdmitted: ABG admits the operation and consumes the occurrence\n  PendingExecutionAdmitted --> AtTerm: HoG restores returns, cursor and progressed input in the same Run",
+    "occurrences": 1
+  },
+  {
+    "file": "ABI5_REALIZATION_CONSTITUTION.md",
+    "old": "| `E13-E20` | `AR[runtimePrefix]` | ABG exact-prefix read followed by the class-specific pure range/replay/gap/action projection; no append. This row covers the exact nine keys in the eight classes. |",
+    "new": "| `E13-E18` | `AR[runtimePrefix]` | ABG exact-prefix read followed by the class-specific pure range/replay projection; no append. This row covers six exact keys in six classes. |",
+    "occurrences": 1
+  },
+  {
+    "file": "ABI5_REALIZATION_CONSTITUTION.md",
+    "old": "The projection covers exactly the 56 Table 5.6.3-A members",
+    "new": "The projection covers exactly the 46 Table 5.6.3-A members",
+    "occurrences": 1
+  },
+  {
+    "file": "ABI5_REALIZATION_CONSTITUTION.md",
+    "old": "the referenced `L01..L65`, `J01..J08`, `R01..R40`, `X01..X04`, and\n`N01..N13` relations with the statuses stated in",
+    "new": "the retained `L`, `J`, `R`, `X01..X04` and `N01..N13` rows, including\nthe existing pending-owner relations `L66-L72`, with the statuses stated in",
+    "occurrences": 1
+  },
+  {
+    "file": "ABI5_REALIZATION_CONSTITUTION.md",
+    "old": "The current banked behavior and remaining-callability partition are distinct:",
+    "new": "The following banked behavior and remaining-callability partition records\n`e7e252ed` only. Its 18/56 census and held continuation/E33 disposition are\nhistorical; the current family and pending path are in Sections 5.6.2C/5.6.3:",
+    "occurrences": 1
+  },
+  {
+    "file": "ABI5_REALIZATION_CONSTITUTION.md",
+    "old": "| E33 carriers are incomplete | hold until exact choice/evidence/grant/environment/install/publication carriers exist, then bind one kernel to five packets |\n",
+    "new": "",
+    "occurrences": 1
+  },
+  {
+    "file": "ABI5_REALIZATION_CONSTITUTION.md",
+    "old": "| continuation carrier is incomplete | hold both `run.continue` exports until one shared Product/ABG carrier is accepted |",
+    "new": "| current pending-execution carrier | `current_intent` uses the existing exact owner path in Section 5.6.2C; selected_action is withdrawn and F_H response/resume remains reserved to 5.1 |",
+    "occurrences": 1
+  },
+  {
+    "file": "ABI5_REALIZATION_CONSTITUTION.md",
+    "old": "delete or exclude it atomically only with 56/56 packed loadability and exact projection equality",
+    "new": "delete or exclude it atomically only with exact 46-key projection equality, 42 callable loads and four declared-unavailable outcomes",
+    "occurrences": 1
+  },
+  {
+    "file": "ABI5_REALIZATION_CONSTITUTION.md",
+    "old": "W2-05 acceptance requires the complete reconciled 56/56 static family and",
+    "new": "Current family correspondence requires the exact 46-key family, 42 callable\nloads, four declared-unavailable outcomes and",
+    "occurrences": 1
+  }
+]

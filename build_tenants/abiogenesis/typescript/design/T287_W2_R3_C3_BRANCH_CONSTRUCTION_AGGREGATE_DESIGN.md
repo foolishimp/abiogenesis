@@ -662,7 +662,6 @@ public run.invoke#invoke
   -> reducer child basis/result/foldback
   -> root result and judgment
   -> one run_closed
-  -> PublicRunProjectionAuthority
   -> fresh project.read / replay equality
 ```
 

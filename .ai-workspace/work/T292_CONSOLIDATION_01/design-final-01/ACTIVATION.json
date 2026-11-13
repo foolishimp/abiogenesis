@@ -1,0 +1,27 @@
+{
+  "activation": "T292-B08-FINAL-DESIGN-01",
+  "role": "Writer (Worker)",
+  "consumer": "Root Executive",
+  "admission": "Root exact post-P7 collaboration grant under owner-approved T292 amendment/resumption and B08 one-pass selection",
+  "decision": "admitted",
+  "base": "e9846da2bb1ffe8ed530e8bad75eb0087a51d6f0",
+  "worktree": "/private/tmp/abg-t292-b08",
+  "branch": "codex/t292-b08-design",
+  "change_class": "design_reframe",
+  "change_intent": "Reconcile only closed named TD26/P7 and TD25M design residue with current Product law and exact retained owners",
+  "target_truth": "Executive default-direct; F08 planned5.1; current public 17/46 family; stable current_intent pending_execution only; retained null/empty/profile carriers; exact new-work owning-publication admission",
+  "superseded_truth": "Current executable/declaration claims for ten withdrawn members and their dedicated owners; prior E31 F_H attribution; superseded current S03 proof applicability",
+  "closure_law": "Named passage mapping, current owner correspondence, all selected current rosters/diagrams/partitions agree; retain historical subjects and explicit unperformed proof",
+  "territory": "Fourteen design files named by Root plus .ai-workspace/work/T292_CONSOLIDATION_01/B08_FINAL_DESIGN_RETURN.md; scratch here; local authored commits",
+  "forbidden": "Product/spec/requirements, implementation/tests, generated outputs, metadata/inventory/recipe, package/release/install/push/provider/build/test; B13/B09/B21; extra agents",
+  "host": "Shared host and prior preparation context; no independence or isolation claim",
+  "basis": {
+    "definition": "urn:stdo:product-definition:abiogenesis",
+    "definition_sha256": "b5720642ff00ebcb47f77ae68df3a960ab70f82cd1227c0712edda9d40745f44",
+    "uri": "stdo://releases/v3.0.4/",
+    "manifest_sha256": "102817a3f4bea4dca1d6fa0fc634b94404dd2ba82ba6d8c38b273402dda9f95b",
+    "composition": []
+  },
+  "invalidators": "Changed source/input or basis; authority conflict; effect outside named territory; return to Root before widening",
+  "non_closure": "No semantic acceptance, independent assurance, qualification or release; Root owns next decision"
+}

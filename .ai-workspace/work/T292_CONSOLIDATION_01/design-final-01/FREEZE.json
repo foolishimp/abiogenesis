@@ -1,0 +1,31 @@
+{
+  "activation": "T292-B08-FINAL-DESIGN-01",
+  "base": "e9846da2bb1ffe8ed530e8bad75eb0087a51d6f0",
+  "commit": "7f0318ad83245a65186eee35a79acb1364c0a987",
+  "tree": "ec78401f1431e3e2e4bb8b40c746ca6b8a494fe0",
+  "branch": "codex/t292-b08-design",
+  "worktree": "/private/tmp/abg-t292-b08",
+  "clean": true,
+  "files": [
+    "build_tenants/abiogenesis/typescript/design/ABI5_COMMON_COMPUTATIONAL_CAPABILITY_LIBRARY_DESIGN.md",
+    "build_tenants/abiogenesis/typescript/design/ABI5_REALIZATION_CONSTITUTION.md",
+    "build_tenants/abiogenesis/typescript/design/ABI5_STDO3_COMPUTATIONAL_BINDING.md",
+    "build_tenants/abiogenesis/typescript/design/M03_DIRECT_GTL_TRAVERSAL_BEHAVIOR_DESIGN.md",
+    "build_tenants/abiogenesis/typescript/design/M05_DIRECT_GTL_TRAVERSAL_EXPANSION_DESIGN.md",
+    "build_tenants/abiogenesis/typescript/design/M05_S06_AXIOMATIC_AUTHORITY_AND_EXACT_PUBLIC_CONSTRUCTION_DESIGN.md",
+    "build_tenants/abiogenesis/typescript/design/M05_S06_PUBLIC_FUNCTION_AND_NATIVE_OCCURRENCE_CLOSURE_DESIGN.md",
+    "build_tenants/abiogenesis/typescript/design/T287_D6_RC6_RELEASE_IDENTITY_DESIGN.md",
+    "build_tenants/abiogenesis/typescript/design/T287_PENDING_CONSUMER_CONTINUATION_DESIGN.md",
+    "build_tenants/abiogenesis/typescript/design/T287_PUBLIC_DEFINITION_CALL_CONSTRUCTION.md",
+    "build_tenants/abiogenesis/typescript/design/T287_R10_TYPED_TERMINAL_OUTCOME_DESIGN.md",
+    "build_tenants/abiogenesis/typescript/design/T287_REGISTERED_GRAPH_SELECTION_DESIGN.md",
+    "build_tenants/abiogenesis/typescript/design/T287_W2_R2_CONSUMER_DECLARATION_ADMISSION_DESIGN.md",
+    "build_tenants/abiogenesis/typescript/design/T287_W2_R3_C3_BRANCH_CONSTRUCTION_AGGREGATE_DESIGN.md",
+    ".ai-workspace/work/T292_CONSOLIDATION_01/B08_FINAL_DESIGN_RETURN.md"
+  ],
+  "scope": "14 design files plus compact Return",
+  "background_jobs_started": 0,
+  "builds_tests_provider_runs": 0,
+  "return_sha256": "d0dfb2dd979795863ffc93c9b6bd12b9fa447c3cfeea266b6b68e1db2e40e5fc",
+  "checks_sha256": "79fcfc132d5db688b30e9549b9da0573868d6346b3b5f05176fd2cba263b4e27"
+}

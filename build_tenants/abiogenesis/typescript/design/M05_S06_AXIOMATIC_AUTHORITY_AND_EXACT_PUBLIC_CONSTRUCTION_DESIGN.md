@@ -5,7 +5,7 @@ authority until direct F_H accepts the exact reviewed commit and tree
 
 Retired sections: [history/M05_S06_AXIOMATIC_AUTHORITY_AND_EXACT_PUBLIC_CONSTRUCTION_DESIGN__RETIRED_SECTIONS.md](history/M05_S06_AXIOMATIC_AUTHORITY_AND_EXACT_PUBLIC_CONSTRUCTION_DESIGN__RETIRED_SECTIONS.md).
 
-**Scope:** ABG5-S06 corrective authority, exact 18-operation/56-key
+**Scope:** ABG5-S06 corrective authority, current exact 17-operation/46-key
 construction map, and hard-break realization boundary
 
 **Re-entry:** targeted `requirement_reprice` for deterministic catalog
@@ -78,7 +78,7 @@ admit common envelope
 
 The implementation is admissible only while all of these axioms hold:
 
-1. `PUBLIC_FUNCTION_DEFINITION_FAMILY` is exactly 18 operations and 56 keys.
+1. `PUBLIC_FUNCTION_DEFINITION_FAMILY` is exactly 17 operations and 46 keys. Its 42 callable leaves and four declared-unavailable witness members retain their distinct binding outcomes.
 2. Every definition references the actual callable Product, ABG, Validator,
    or release owner port value. A string, interface, locator without a value,
    or Public handler is not a port.
@@ -2093,15 +2093,33 @@ same `D17 -> D18 -> executeGraphTraversal(projectedRetryResume)` relation after
 retry progress.
 
 Continuation, source-result, closure, cursor, causation, and run projection
-bases are rehydrated through the same scoped truth. `PublicRunProjectionAuthority`
-constructor semantics are replaced by unverified coordinate parsing plus
-ABG-backed basis rehydration; no Public continuation carrier exists, and a
+bases are rehydrated through the same scoped truth. Caller-supplied coordinates are unverified until ABG-backed basis rehydration succeeds; no Public continuation carrier exists, and a
 continuation is read from the admitted log (T-290 C-17); a self-consistent
 caller value is never admitted merely because its digest matches itself.
 
 ## 8. One Normalized Program Before Effects
 
-Validator raw admission produces one canonical normalized Program. Validator
+Validator raw admission produces one canonical normalized Program.
+
+For NEW work the existing closure owner raw-admits the selected Program and
+its complete exact owning publication. A retired `actionCatalog` or
+`constructionComposition` field anywhere in that publication, including an
+inactive sibling Program, requires a publisher-authored current publication
+without those fields and its resulting identity. No filtering, grandfathering
+or mutation of an old immutable publication is permitted. Recorded access and
+new-work admission remain distinct questions at their existing owners.
+
+The [P6 Return](../../../../.ai-workspace/work/T292_CONSOLIDATION_01/TD-26_P6_RETURN.md)
+binds the limited observations: its named mixed-publication witnesses retain
+exact Catalog/view reconstruction; new start preparation refuses at
+`/program`; the old cross-build pending witness refuses earlier at TD-78's
+`/workspace` guard, while its later `/program` branch is source-traced only.
+Kept-feature recorded replay/artifact truth is preserved only within the
+named compared populations. Current readers refuse retired One Surface
+histories; their recorded event/profile declarations do not confer current
+readability. These proof observations neither weaken the admission law nor
+claim universal historical compatibility or current installed execution.
+ Validator
 and HoG consume the same frozen value and digest. Neither rebuilds a node Map,
 accepts caller GraphFunction order as identity, or selects a first duplicate.
 
@@ -2208,7 +2226,7 @@ The existing installed `./abg` and `./hog` exports also carry the
 owner-internal retry projector and resume relations in `D17` and `D18`. They
 are dependencies of ordinary HoG execution, not Public definitions, Public
 operations, catalog rows, alternate invocation paths, or members of the
-18/56 all-port probe.
+17/46 family probe (42 callable and four declared-unavailable witness members).
 
 The package must include the compiled transitive closure of every row below,
 even when the Gate 2 sentinel does not execute that row.
@@ -2219,15 +2237,14 @@ even when the Gate 2 sentinel does not execute that row.
 |---|---|---|
 | `D00` | `public/definition_family.ts`: `PUBLIC_FUNCTION_DEFINITION_FAMILY`; `public/invoke.ts`: exact four-step invocation | `public/envelope.ts`, `public/invocation_admission.ts`, `public/outcome_projection.ts`, `public/project_read_contracts.ts`, and `D01..D15`; no legacy Public file |
 | `D01` | `product/workspace_operations.ts`: `WORKSPACE_OPERATION_CONTRACTS`, `WorkspaceOperationPort` | new workspace filesystem construction, `shared/select/exact_match.ts`, ABG environment/artifact admission, event store/calculus, shared canonical JSON/digests/references |
-| `D02` | `product/project_read_ports.ts`: `PRODUCT_PROJECT_READ_CONTRACTS`, `CatalogProjectionPort`, `WorkspaceProjectionPort`, `InstallProjectionPort`, `ReleaseProjectionPort`, `ConsensusProjectionPort` | `product/catalog.ts`, `product/environment.ts`, `product/install_product.ts`, `product/publication.ts`, `product/semantics.ts`, `gtl/consensus.ts`, and shared canonical JSON/digests/references |
+| `D02` | `product/project_read_ports.ts`: `PRODUCT_PROJECT_READ_CONTRACTS`, `CatalogProjectionPort`, `WorkspaceProjectionPort`, `InstallProjectionPort`, `ReleaseProjectionPort` | `product/catalog.ts`, `product/environment.ts`, `product/install_product.ts`, `product/publication.ts`, `product/semantics.ts`, and shared canonical JSON/digests/references |
 | `D03` | `abg/project_read_ports.ts`: `ABG_PROJECT_READ_CONTRACTS` and all ABG projection port values | `abg/event_calculus.ts`, `abg/replay.ts`, `abg/continuation.ts`, `abg/c_call.ts`, `abg/closure.ts`, `abg/traversal_cursor.ts`, and shared canonical JSON/digests/references; all run/graph-call/result/assessment/witness/workspace/interaction projector equations live in this target module rather than unnamed helpers |
 | `D04` | `product/verification_operation.ts`: `PRODUCT_VERIFICATION_CONTRACTS`, `ProductVerificationPort` | `product/verify_product.ts`, `product/installed_module.ts`, `product/publication.ts`, native-contract verification, shared canonical JSON/digests/references |
 | `D05` | `product/environment_operations.ts`: `PRODUCT_ENVIRONMENT_CONTRACTS`, `ProductEnvironmentPort` | `product/environment.ts`, `shared/select/exact_match.ts`, `D04` carrier contracts, ABG environment/artifact admission, event store/calculus, shared canonical JSON/digests/references |
 | `D06` | `product/install_operation.ts`: `PRODUCT_INSTALL_CONTRACTS`, `ProductInstallPort` | `product/install_product.ts`, `D04`, `D05`, ABG environment/artifact admission, event store/calculus, shared canonical JSON/digests/references |
 | `D07` | `product/catalog_operations.ts`: `CATALOG_OPERATION_CONTRACTS`, `CatalogOperationPort` | `product/catalog.ts`, `D05`, `D06`, ABG catalog/artifact admission, event store/calculus, shared canonical JSON/digests/references |
 | `D08` | `product/run_invocation_operation.ts`: `RUN_OPERATION_CONTRACTS.invoke`, `RunInvocationPort` | Product invocation/catalog/application, `D07`, `D13`, HoG direct execute, `D17`, `D18`, ABG invocation admission/event store/calculus/replay/closure, shared canonical JSON/digests/references |
-| `D09` | `product/run_continuation_operation.ts`: `RUN_OPERATION_CONTRACTS.continue`, `RunContinuationPort` | Product continuation meaning, `D08`, ABG continuation/event store/calculus/replay/closure, ordinary HoG direct execute, shared canonical JSON/digests/references; it never treats C.retry as a Public continuation ingress |
-| `D10` | `product/interaction_response_operation.ts`: `INTERACTION_OPERATION_CONTRACTS`, `InteractionResponsePort` | Product response evaluation, ABG continuation/event admission/calculus/replay, shared canonical JSON/digests/references |
+| `D09` | `owner_bindings/run_invocation.ts`: `RUN_DEFINITION_BINDINGS.continue.current_intent` over `RUN_OPERATION_CONTRACTS.continue.current_intent` | Product current closure resolution, `D08`, `abg/construction_continuation.ts` pending selection/preparation/admission, ABG event store/calculus/replay/closure, HoG pending-execution resume and fresh Run truth; C.retry remains internal |
 | `D11` | `product/result_assessment_operation.ts`: `RESULT_OPERATION_CONTRACTS`, `ResultAssessmentPort` | Product result/assessment contracts, ABG result/event admission/calculus/replay, shared canonical JSON/digests/references |
 | `D12` | `abg/witness_admission_operation.ts`: `admitWitnessedAct`; its packets are `WITNESS_OPERATION_CONTRACTS` in `abg/witness_operation_contracts.ts` | ABG witness/event store/calculus/replay and shared canonical JSON/digests/references |
 | `D13` | `validator/conformance_operation.ts`: `CONFORMANCE_OPERATION_CONTRACTS`, `ConformancePort` | Validator raw admission, validation, graph, C algebra, implementation resolution, GTL contract/declaration types, shared canonical JSON/digests/references |
@@ -2263,8 +2280,7 @@ file/export/blob, slots, effect, and deletion impact.
 | 33 | `catalog.view / allowlist` | `CATALOG_OPERATION_CONTRACTS.view.allowlist` -> `CatalogOperationPort.constructView` | `product/catalog_operations.ts` / `D07` | deterministic eventless narrowing |
 | 34-35 | `catalog.apply / node_type, overlay` | `CATALOG_OPERATION_CONTRACTS.apply[key]` -> `CatalogOperationPort.apply` | `product/catalog_operations.ts` / `D07` | deterministic eventless construction |
 | 36-37 | `run.invoke / invoke, start` | `RUN_OPERATION_CONTRACTS.invoke[key]` -> `RunInvocationPort[key]` | `product/run_invocation_operation.ts` / `D08` | ABG invocation/traversal events; exact application use when present |
-| 38-39 | `run.continue / current_intent, selected_action` | `RUN_OPERATION_CONTRACTS.continue[key]` -> `RunContinuationPort[key]` | `product/run_continuation_operation.ts` / `D09` | ABG continuation/traversal events |
-| 40-44 | `interaction.respond / select, approve, reject, assess, answer_escalation` | `INTERACTION_OPERATION_CONTRACTS.respond[key]` -> `InteractionResponsePort.respond` | `product/interaction_response_operation.ts` / `D10` | actor-attributed response event |
+| 38 | `run.continue / current_intent` | `RUN_OPERATION_CONTRACTS.continue.current_intent` -> `RUN_DEFINITION_BINDINGS.continue.current_intent` | `owner_bindings/run_invocation.ts` / `D09` | Existing ABG pending-execution admission, HoG same-Run resume and fresh replay; no intent admission |
 | 45 | `result.assess / assess` | `RESULT_OPERATION_CONTRACTS.assess` -> `ResultAssessmentPort.assess` | `product/result_assessment_operation.ts` / `D11` | assessment event or exact non-close |
 | 46-51 | `witness.admit / reprice, attest, hygiene-stamp, intake, run-resumed, run-stopped` | `WITNESS_OPERATION_CONTRACTS.admit[key]` -> `admitWitnessedAct`; `WITNESS_DEFINITION_BINDINGS` (`abg/witness_definition_bindings.ts`) binds `reprice` and `run-stopped` | `abg/witness_admission_operation.ts` / `D12` | exact witnessed ABG event |
 | 52 | `conformance.evaluate / gtl_program` | `CONFORMANCE_OPERATION_CONTRACTS.evaluate.gtl_program` -> `ConformancePort.evaluateGtlProgram` | `validator/conformance_operation.ts` / `D13` | deterministic eventless whole-Program evaluation |
@@ -2302,10 +2318,6 @@ result, default, wrapper callable, or semantic branch.
 | 21 | `interaction_replay` | `ABG_PROJECT_READ_CONTRACTS.interaction_replay` | `ABG.InteractionProjectionPort.replay` | `abg/project_read_ports.ts` / `D03` |
 | 22 | `continuation_replay` | `ABG_PROJECT_READ_CONTRACTS.continuation_replay` | `ABG.ContinuationProjectionPort.replay` | `abg/project_read_ports.ts` / `D03` |
 | 23 | `c_call_replay` | `ABG_PROJECT_READ_CONTRACTS.c_call_replay` | `ABG.CCallProjectionPort.replay` | `abg/project_read_ports.ts` / `D03` |
-| 24 | `workspace_gaps` | `ABG_PROJECT_READ_CONTRACTS.workspace_gaps` | `ABG.WorkspaceProjectionPort.workspace_gaps` | `abg/project_read_ports.ts` / `D03` |
-| 25 | `run_gaps` | `ABG_PROJECT_READ_CONTRACTS.run_gaps` | `ABG.RunProjectionPort.run_gaps` | `abg/project_read_ports.ts` / `D03` |
-| 26 | `run_lawful_actions` | `ABG_PROJECT_READ_CONTRACTS.run_lawful_actions` | `ABG.RunProjectionPort.run_lawful_actions` | `abg/project_read_ports.ts` / `D03` |
-| 27 | `ticket_consensus` | `PRODUCT_PROJECT_READ_CONTRACTS.ticket_consensus` | `Product.ConsensusProjectionPort.ticketConsensus` | `product/project_read_ports.ts` / `D02` |
 
 All 24 are pure, explicitly repeatable, and eventless. ABG-owned rows consume
 only `RuntimeTruth(P)` from the Event Calculus. Product-owned rows consume
@@ -2380,7 +2392,7 @@ event is the only mutation.
 |---|---|---|
 | initial cursor | `src/abg/traversal_cursor.ts::admitInitialTraversalCursor` | `traversal_cursor_admission_refusal`, code `scope_mismatch`, message `initial cursor must immediately extend the opened frame truth`; no R cursor event appended |
 | continuation reconstruction | `src/abg/continuation.ts::rehydrateFhContinuation` | returns `null` because the admitted `run.continue` operation ordinal is not the global tail |
-| F_H response | `src/abg/continuation.ts::admitFhInteractionResponse` (retired at T-290 C-18a `a0829a298`: no caller since C-17; the `interaction.respond` packets stay declared-unbound) | throws `TypeError("F_H response requires one exact open continuation and admitted response operation")`; no R response event appended |
+| F_H response | `src/abg/continuation.ts::admitFhInteractionResponse` (retired at T-290 C-18a `a0829a298`: no caller since C-17; the historical `interaction.respond` packets are withdrawn by TD-25M; this row records the old interleaving fixture) | throws `TypeError("F_H response requires one exact open continuation and admitted response operation")`; no R response event appended |
 | F_H resume | `src/abg/continuation.ts::admitFhInteractionResume` | throws `TypeError("F_H resume requires one exact responded continuation and successor cursor")`; no R resume event appended |
 | normal closure | `src/abg/closure.ts::admitClosure` with otherwise valid R terminal route | throws `TypeError("runtime event causation cannot cross a run scope")` while attempting the erroneous refusal; no R closure or failure event appended |
 | interaction closure | `src/abg/closure.ts::admitInteractionClosure` with otherwise valid R response/resume/terminal route | throws `TypeError("runtime event causation cannot cross a run scope")` while attempting the erroneous refusal; no R closure or failure event appended |

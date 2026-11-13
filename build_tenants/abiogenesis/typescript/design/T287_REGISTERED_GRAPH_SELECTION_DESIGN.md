@@ -37,7 +37,7 @@ Paths below are relative to `build_tenants/abiogenesis/typescript/`.
 | Owner | Relevant fact |
 |---|---|
 | `code/src/gtl/contracts.ts:309`; `product/catalog.ts:20,294` | GraphFunction declarations and input/output/effect contracts travel in the exact catalogue definition/digest. Purpose needs no registry. |
-| `code/src/gtl/source_path.ts:859`; `hog/route_proposal.ts:550` | Ordinary continuation has one successor. Current result-dependent routing handles re-entry/no-action, not forward selection among fixed workflow nodes. |
+| `code/src/gtl/source_path.ts:859`; `hog/route_proposal.ts:550` | Ordinary continuation has one successor. Generic graph-span re-entry preserves its declared cursor and progressed input; forward selection uses the separate registered-selection graph relation. |
 | `code/src/hog/workflow_lifecycle.ts:396`; `hog/child_traversal.ts:141`; `abg/execution_basis.ts:2112` | Existing child preparation joins input, fixed callee, materialization, Program membership and child basis. Reuse those owners. |
 
 The missing semantics is an explicit choice-result-to-workflow-edge relation at

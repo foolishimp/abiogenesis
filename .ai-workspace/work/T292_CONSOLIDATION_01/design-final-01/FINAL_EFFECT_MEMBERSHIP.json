@@ -1,0 +1,259 @@
+{
+  "source": "Root-regenerated owner projections; family ac845697338cda289b83c4e654365b5c45a07ca317d4caae048c8762e8216123",
+  "inputs": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/contracts/public-operations/catalog/admit/operation-contract.json",
+      "sha256": "3ca2cd6595ce9743a8e096ff4c4ffd0b66ab1b4e358b9b5556ab1f9d055dd7b9"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/contracts/public-operations/catalog/apply/operation-contract.json",
+      "sha256": "43ee63533a57b8814b3a618c70933ac3a1a48119180df0c8138f7fab08f69f36"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/contracts/public-operations/catalog/view/operation-contract.json",
+      "sha256": "9bb59c8d1287c79fce522d95b72c8e000efc1b607e42fec53e17ab74a312a79d"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/contracts/public-operations/conformance/evaluate/operation-contract.json",
+      "sha256": "fdcb85fd14cb0f2f9f5ab8bb9e8e503c6d7a28e07cb4b71dbf58768a79057c90"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/contracts/public-operations/product/install/operation-contract.json",
+      "sha256": "207f84a7f103c96f7ad457d8f168f9959d5cf6d968869dca80a17d5057a2a962"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/contracts/public-operations/product/materialize/operation-contract.json",
+      "sha256": "01cfc09f8db5d80d19e789082a9e4532a4028357d47cc6d498a9f944898d9cbe"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/contracts/public-operations/product/resolve/operation-contract.json",
+      "sha256": "97fa295392cd674d7de078eaee6183a4e08190247deb40b01ff8447accc71a36"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/contracts/public-operations/product/verify/operation-contract.json",
+      "sha256": "09b76e4a4180f868859b2475ab746fef035a47d6b25a78019f71b533a9294ac2"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/contracts/public-operations/project/read/operation-contract.json",
+      "sha256": "d66dba558d5086bb348f535bc66aaf8658cda2bb1bd53e1e860e7a21912c5425"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/contracts/public-operations/release/snapshot/operation-contract.json",
+      "sha256": "d204992fcd4fa716d0b82520c9a5780236e77d387fde3c693e61b1a1f42cfb81"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/contracts/public-operations/result/assess/operation-contract.json",
+      "sha256": "6d3083f3edc85bcac0bd3b86558d081ecd28789b97367533d6d42f899f0673dd"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/contracts/public-operations/run/continue/operation-contract.json",
+      "sha256": "c0fe36e603322a7fc4b290cae87218384d30e704f4d8cc87c0c7e024d3af61c1"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/contracts/public-operations/run/invoke/operation-contract.json",
+      "sha256": "1613c5b62b4ff97d4e5e18e8f7c1a9414075a524126b08b960333bfa50764cbd"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/contracts/public-operations/witness/admit/operation-contract.json",
+      "sha256": "deecb1ad0ef3a32e72480a39bd997cca73dadc186e1c61b019d9f1ee01520b24"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/contracts/public-operations/workspace/bind/operation-contract.json",
+      "sha256": "b1e4932f262e4f571ba81c8eace59a44654c045c739f194bce02340593f5ab12"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/contracts/public-operations/workspace/create/operation-contract.json",
+      "sha256": "73c18f9eb4deebf804bd812c8cb3d5dec827ce8cfa1f552facb41dba56a83346"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/contracts/public-operations/workspace/open/operation-contract.json",
+      "sha256": "409f7a50169271f1cea582a5f4fc56b1be2ada2213774a78e9cc2ab64a3b8226"
+    }
+  ],
+  "rows": [
+    {
+      "key": "abg.operation.catalog.admit#admit",
+      "effect": "deterministic_catalog_readiness"
+    },
+    {
+      "key": "abg.operation.catalog.apply#node_type",
+      "effect": "deterministic_catalog_application"
+    },
+    {
+      "key": "abg.operation.catalog.apply#overlay",
+      "effect": "deterministic_catalog_application"
+    },
+    {
+      "key": "abg.operation.catalog.view#allowlist",
+      "effect": "deterministic_catalog_narrowing"
+    },
+    {
+      "key": "abg.operation.conformance.evaluate#gtl_program",
+      "effect": "deterministic_assessment"
+    },
+    {
+      "key": "abg.operation.product.install#install",
+      "effect": "immutable_product_filesystem"
+    },
+    {
+      "key": "abg.operation.product.materialize#configuration",
+      "effect": "product_filesystem"
+    },
+    {
+      "key": "abg.operation.product.materialize#context_bootstrap",
+      "effect": "product_filesystem"
+    },
+    {
+      "key": "abg.operation.product.resolve#resolve",
+      "effect": "deterministic_dependency_resolution"
+    },
+    {
+      "key": "abg.operation.product.verify#verify",
+      "effect": "deterministic_product_attestation"
+    },
+    {
+      "key": "abg.operation.project.read#assessment_evidence",
+      "effect": "event_calculus_projection"
+    },
+    {
+      "key": "abg.operation.project.read#c_call_replay",
+      "effect": "event_calculus_projection"
+    },
+    {
+      "key": "abg.operation.project.read#catalog_describe",
+      "effect": "pure_projection"
+    },
+    {
+      "key": "abg.operation.project.read#catalog_list",
+      "effect": "pure_projection"
+    },
+    {
+      "key": "abg.operation.project.read#continuation_replay",
+      "effect": "event_calculus_projection"
+    },
+    {
+      "key": "abg.operation.project.read#graph_call_evidence",
+      "effect": "event_calculus_projection"
+    },
+    {
+      "key": "abg.operation.project.read#graph_call_replay",
+      "effect": "event_calculus_projection"
+    },
+    {
+      "key": "abg.operation.project.read#graph_call_result",
+      "effect": "event_calculus_projection"
+    },
+    {
+      "key": "abg.operation.project.read#graph_call_status",
+      "effect": "event_calculus_projection"
+    },
+    {
+      "key": "abg.operation.project.read#install_evidence",
+      "effect": "pure_projection"
+    },
+    {
+      "key": "abg.operation.project.read#interaction_replay",
+      "effect": "event_calculus_projection"
+    },
+    {
+      "key": "abg.operation.project.read#release_evidence",
+      "effect": "pure_projection"
+    },
+    {
+      "key": "abg.operation.project.read#result_evidence",
+      "effect": "event_calculus_projection"
+    },
+    {
+      "key": "abg.operation.project.read#run_evidence",
+      "effect": "event_calculus_projection"
+    },
+    {
+      "key": "abg.operation.project.read#run_replay",
+      "effect": "event_calculus_projection"
+    },
+    {
+      "key": "abg.operation.project.read#run_result",
+      "effect": "event_calculus_projection"
+    },
+    {
+      "key": "abg.operation.project.read#run_status",
+      "effect": "event_calculus_projection"
+    },
+    {
+      "key": "abg.operation.project.read#witness_evidence",
+      "effect": "event_calculus_projection"
+    },
+    {
+      "key": "abg.operation.project.read#workspace_replay",
+      "effect": "event_calculus_projection"
+    },
+    {
+      "key": "abg.operation.project.read#workspace_status",
+      "effect": "pure_projection"
+    },
+    {
+      "key": "abg.operation.release.snapshot#published_rc",
+      "effect": "immutable_release_publication"
+    },
+    {
+      "key": "abg.operation.release.snapshot#tapped_release",
+      "effect": "immutable_release_publication"
+    },
+    {
+      "key": "abg.operation.result.assess#assess",
+      "effect": "result_assessment_event"
+    },
+    {
+      "key": "abg.operation.run.continue#current_intent",
+      "effect": "abg_continuation"
+    },
+    {
+      "key": "abg.operation.run.invoke#invoke",
+      "effect": "abg_traversal"
+    },
+    {
+      "key": "abg.operation.run.invoke#start",
+      "effect": "abg_traversal"
+    },
+    {
+      "key": "abg.operation.witness.admit#attest",
+      "effect": "actor_attributed_witness_event"
+    },
+    {
+      "key": "abg.operation.witness.admit#hygiene-stamp",
+      "effect": "actor_attributed_witness_event"
+    },
+    {
+      "key": "abg.operation.witness.admit#intake",
+      "effect": "actor_attributed_witness_event"
+    },
+    {
+      "key": "abg.operation.witness.admit#reprice",
+      "effect": "actor_attributed_witness_event"
+    },
+    {
+      "key": "abg.operation.witness.admit#run-resumed",
+      "effect": "actor_attributed_witness_event"
+    },
+    {
+      "key": "abg.operation.witness.admit#run-stopped",
+      "effect": "actor_attributed_witness_event"
+    },
+    {
+      "key": "abg.operation.workspace.bind#bind",
+      "effect": "workspace_binding_persistence"
+    },
+    {
+      "key": "abg.operation.workspace.create#clean",
+      "effect": "workspace_filesystem"
+    },
+    {
+      "key": "abg.operation.workspace.create#imported",
+      "effect": "workspace_filesystem"
+    },
+    {
+      "key": "abg.operation.workspace.open#open",
+      "effect": "workspace_admission"
+    }
+  ]
+}

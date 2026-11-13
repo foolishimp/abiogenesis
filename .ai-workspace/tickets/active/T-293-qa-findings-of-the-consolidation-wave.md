@@ -43,7 +43,7 @@ One list of the defects found by the reviews, traces and packages of the T-292 w
 | B-05 | A worksite subject in another letter case creates a protected directory that does not exist yet, or links a file into it before the refusal (TD-85, narrow part) | `TD-85_TRACE.md`; reproduced by the evaluation | S2 | P1 | Targeted repair integrated at `d5dbe324f`, 70/70 merged checks; general confinement remains falsified by separate B-21 firmlink condition. `REVIEW_TD85N_CODEX.md` |
 | B-06 | Synchronous canonical-path checks keep the spelling they are given; the command parent writes its manifests into the event-log directory through an alias of an existing root (TD-85, first part) | `TD-85_TRACE.md` | S3 | P1 | Technical repair closed at `686d67db3`; stored-spelling owner and 17 merged checks; QA satisfied within its stated host scope in `REVIEW_TD85A_CODEX.md` |
 | B-07 | The value kinds `observation_snapshot` (as input) and `next_action_projection` with `no_action` (as a leaf result) are admitted as ordinary values since the route package; they were refused before | `TD-26_P4_RETURN.md`, ruling item 1 | S3 | P1 | Technical repair closed at `b4704323b`; both installed owner discriminators pass on merged source and fail on predecessor; `TD-26_P5_RETURN.md` |
-| B-08 | Kept design sentences still describe removed code: 12 passages after the doors package, 5 after the module, 3 after the route package, and constitution rows | Returns of TD-26 P1-P7 and TD25; closed design preparation | S4 | P1 | One final design Writer pass active on integrated P7 `e9846da2b` |
+| B-08 | Kept design sentences still describe removed code: 12 passages after the doors package, 5 after the module, 3 after the route package, and constitution rows | Returns of TD-26 P1-P7 and TD25; closed design preparation | S4 | P1 | Closed by frozen design `7f0318ad8`: fourteen named files reconciled, exact current member/effect sets and pending owner trace; no new dangling links. `B08_FINAL_DESIGN_RETURN.md` |
 | B-09 | `workspace.bind` admits roots that overlap, are absent or are spelled differently from the stored name; with two roots declared equal, materialization writes into the event-log directory | `TD-85_TRACE.md` | S3 | P2 | A change of `REQ-R-ABG3-BINDING-016`: the owner's decision before any build |
 | B-10 | The file-parents realizer omits the graph-function digest comparison that the file-replace realizer makes (TD-83) | `TD-37D_RETURN.md` | S3 | P2 | After the cut |
 | B-11 | The native workspace realizer checks no currentness before it dispatches, which the accepted design asks of realization (TD-83) | `TD-37D_RETURN.md` | S3 | P2 | After the cut |
@@ -67,10 +67,10 @@ One list of the defects found by the reviews, traces and packages of the T-292 w
 
 | When | Items |
 |---|---|
-| In flight | Final B-08 design reconciliation |
-| Dependency-ready sequence | B-22 metadata and exact candidate preparation, then one composed proof |
+| In flight | B-22 metadata and exact candidate preparation |
+| Dependency-ready sequence | Final candidate identity, then one composed proof and local delivery |
 | Integrated with focused proof | B-01, B-02, B-03, B-04, B-05 (bounded; B-21 remains), B-06, B-07, B-23, B-24, B-25, B-26 |
-| After TD-26 P7 | B-08 |
+| Closed after TD-26 P7 | B-08 |
 | At the cut | B-22 |
 | After the cut | B-09 (after the owner decides), B-10, B-11, B-12, B-13, B-21 (S2 physical-ancestry repair before reliable-operation/5.0 qualification claims) |
 | Backlog | B-14 to B-20 |
