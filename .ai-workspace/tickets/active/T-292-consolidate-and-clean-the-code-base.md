@@ -6,9 +6,9 @@
 - owner: abiogenesis
 - build_tenant: typescript
 - parent: T-287
-- updated_at: 2026-11-12
+- updated_at: 2026-11-13
 - current_activation: T292_CONSOLIDATION_01
-- current_package: TD-51 first part (basis-body rereads) and TD-25 second part (source), TD-60 second slice (gate retirement), the first group's independent review, in flight
+- current_package: Codex resumption; TD-77 failure triage and TD-82 closeout active; TD-85 narrow and TD-26 P5 preserved for continuation
 - change_class: realization_refactor
 - derived_change_classes: design_reframe, requirement_reprice and product_reprice, each only for a register entry the owner decides
 - re_entry_point: specification/GOALS.md, the selection block of 2026-11-12
@@ -93,6 +93,35 @@ The owner asked for an independent evaluation of the wave on 2026-11-13 (the Exe
 - **Records.** A Return is tables, counts and rulings. One ledger row per package.
 - **Reviews are QA (the owner, 2026-11-13: "dont pause for reviews, treat them like QA, triage the bugs append them to single ticket with their severity and priority and then schedule them").** No merge waits for a review. A review of merged work adds rows to ticket T-293, where each finding gets a severity, a priority and a slot. The owner also ruled that TD-78, TD-82 and the confinement repair of TD-85 are fixed before the cut; they are P1 rows of T-293.
 - **Wording.** "Recorded history still reads" means the history of kept features. Recorded One Surface Runs (about 223 Run and evidence files) are refused by the new build from the readers' package on; the installs that wrote them still read them.
+
+## Codex resumption, 2026-11-13
+
+The owner selected the takeover plan and instructed "continue approvedd" after
+Claude's usage limit stopped the four Writers. The existing scope amendment
+and T-293 priorities remain the work grant. This resumption adds no backlog
+scope, publication, push or change of the operational builder pin.
+
+Activation `T292-CODEX-RESUME-01` binds Codex's recording Writer to this ticket
+and the existing package Returns, starting from main `dd0d071f3`. This records
+the Writer transition before tracking or integration effects; coordination
+returns to Executive after the record checkpoint. The exact method remains
+`stdo://releases/v3.0.4/`, manifest
+`102817a3f4bea4dca1d6fa0fc634b94404dd2ba82ba6d8c38b273402dda9f95b`, verified
+installed and valid with no failures. The project frame basis is unchanged.
+
+| Package | Preserved subject | Next work |
+|---|---|---|
+| TD-77 | `claude/td77-recorded-lock-truth`, preservation `91aec88b8`; all five surviving authored edits committed, worktree clean | Conjoin owner and independent Product/Proof triage of nine changed-register failures; finish the admitted repair and Return |
+| TD-82 | `claude/td82-lock-namespace`, base `891a39c44` plus surviving source, design and test edits | Writer closeout of B-04 using saved evidence and focused recovery checks |
+| TD-85 narrow | `claude/td85n-absent-protected-root`, base `891a39c44` plus surviving source and test edits | Finish after a Writer slot is available; preserve the untracked new test |
+| TD-26 P5 | `claude/td26-p5-readers-and-gap-family` at `2ac9b96bf`, no repository edits | Readers/gap retirement and B-07, then P6 and P7 |
+
+At most two implementation Writers run concurrently. Integration is serial.
+TD-78 and the parked TD-85a follow TD-77; P7 and TD-25 member withdrawal depend
+on TD-77. One design reconciliation closes B-08, then one composed broad and
+history verification pass and the selected candidate delivery checks. Exact
+valid evidence is retained; a failed or incomplete run is not promoted by
+this resumption. Reviews are QA under the amendment above.
 
 ## Sequence
 
