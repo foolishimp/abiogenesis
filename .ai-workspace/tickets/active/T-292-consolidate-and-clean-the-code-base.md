@@ -172,6 +172,15 @@ cut/install/smoke passed with 5,303 members; this is tooling proof, not final
 RC13 verification. Final version, claim, mirrors and payload are fixed before
 the one composed broad run so its subject is the delivered artifact.
 
+Integration Writer activation `T292-INTEGRATE-TD78-01` binds Root to main
+`f6a9f8016` and returned TD78 `fb973fa5ce1138d28e665a2fe38c1327c0017877`.
+The existing grant covers serial merge, generated identity and affected
+installed entry/read proof plus tracking. Writer reports 24 focused passes,
+three boundary checks and unchanged Public/declaration surfaces; it has
+stopped. Root's bounded kernel-entry and existing retry-refusal rulings are
+recorded in the Return. Separate admission QA is dispatched without gating.
+Root is Writer for these integration effects and then returns to Executive.
+
 At most two implementation Writers run concurrently. Integration is serial.
 TD-78 and the parked TD-85a follow TD-77; P7 and TD-25 member withdrawal depend
 on TD-77. One design reconciliation closes B-08, then one composed broad and
