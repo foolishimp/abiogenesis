@@ -204,6 +204,8 @@ test('mechanical cover cardinality, malformed inventory, broad writes and foreig
   assert.equal(h.owner.projectWorksiteRevisionBindingCover(h.snapshot(),old.workspaceBinding,unauthorized,[h.parent.basis]),null);
   assert.equal(h.owner.worksiteRevisionPhysicalMatches(current),false,'unavailable physical files are not replay-derived currentness');
   assert.equal(h.physicalReads,1);
+  assert.deepEqual(h.physicalOperations,[{operation:'realpathSync.native',path:current.workspaceAuthorityBasis.canonicalRoot}],
+    'the first physical path operation is intercepted inside the shared spelling owner, before any stat');
 });
 
 test('mechanical later revised Design retains its own authenticated historical coordinates across another W',{skip:capturedEnvelopeSkip},async()=>{

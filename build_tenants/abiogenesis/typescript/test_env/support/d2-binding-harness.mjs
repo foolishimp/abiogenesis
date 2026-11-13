@@ -21,6 +21,10 @@ export async function bindingHarness(){
   const installPremises=new Map();
   const graphFunction={name:'graph-function://mechanical/d2',declarations:{'abg.semantic_revision_history':R.historicalOwnerDependencyRef}};
   const time='2026-09-11T08:00:00.000Z';let serial=0,physicalReads=0;
+  const physicalOperations=[];
+  const refusePhysical=(operation,path)=>{physicalReads++;physicalOperations.push({operation,path});throw Error('no original '+operation+' in replay');};
+  const physicalRealpath=path=>refusePhysical('realpathSync',path);
+  physicalRealpath.native=path=>refusePhysical('realpathSync.native',path);
   function event(kind,payload,fields={}){
     const row={kind,payload,eventId:`lookup-event:${++serial}`,admissionOrdinal:events.length+1,eventTime:time,correlationId:'correlation://mechanical',
       causationEventRefs:[],aggregateId:'aggregate://mechanical',...fields};events.push(row);return row;
@@ -198,8 +202,17 @@ export async function bindingHarness(){
       const request=bases.get(e.basisId)?.rawInputValue,path=request?.subject?.relativePath;
       if(request?.workspaceAuthorityBasis?.canonicalRoot!==canonicalRoot||typeof path!=='string')return false;
       return readRoots===undefined?selectedPaths.includes(path):nativeWorkspacePathWithin(path,readRoots);})},
-    'node:fs':{readFileSync:()=>{physicalReads++;throw Error('no original file read in replay');},lstatSync:()=>{physicalReads++;throw Error('no original stat in replay');},realpathSync:()=>{physicalReads++;throw Error('no original path in replay');}},
+    'node:fs':{readFileSync:path=>refusePhysical('readFileSync',path),lstatSync:path=>refusePhysical('lstatSync',path),realpathSync:physicalRealpath},
   };
+  // Keep the actual shared owner inside this fixture's filesystem boundary.
+  // Importing it natively would let realpathSync.native bypass the spy.
+  const spellingPath=resolve(packageRoot,'build/code/src/shared/stored_spelling.js');
+  const spelling=new SourceTextModule(readFileSync(spellingPath,'utf8'),{identifier:spellingPath});
+  await spelling.link(async specifier=>{
+    assert.equal(specifier,'node:fs');
+    return new SyntheticModule(['realpathSync'],function(){this.setExport('realpathSync',physicalRealpath);});
+  });
+  await spelling.evaluate();overrides['../shared/stored_spelling.js']={...spelling.namespace};
   // The foldback provenance owner itself is real; only the same declared
   // basis/install/prefix lookup premises above are substituted for this fixture.
   const provenancePath=resolve(packageRoot,'build/code/src/abg/worksite_input_provenance.js');
@@ -249,6 +262,7 @@ export async function bindingHarness(){
         // history readers and the same invalidation reader as above.
         './event_prefix.js':overrides['./event_prefix.js'],
         './native_worksite_execution.js':overrides['./native_worksite_execution.js'],
+        '../shared/stored_spelling.js':overrides['../shared/stored_spelling.js'],
       };
       const linked=new Map();await semanticModule.link(async specifier=>{
         if(linked.has(specifier))return linked.get(specifier);
@@ -259,5 +273,6 @@ export async function bindingHarness(){
     return semanticModule.namespace[method](semanticBasis,value);
   }
   return {product,R,D,C0,hash,stage,events,bases,sets,invocations,artifacts,transitions,calls,graphFunction,owner:module.namespace,parent,cause,author,
-    event,snapshot,addBinding,operating,reobserve,addCall,cover,replace,revision,semantic,get physicalReads(){return physicalReads;}};
+    event,snapshot,addBinding,operating,reobserve,addCall,cover,replace,revision,semantic,
+    get physicalReads(){return physicalReads;},get physicalOperations(){return structuredClone(physicalOperations);}};
 }
