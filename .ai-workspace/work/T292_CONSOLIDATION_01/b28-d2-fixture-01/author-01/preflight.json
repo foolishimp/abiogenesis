@@ -1,0 +1,39 @@
+{
+  "checks": [
+    {
+      "argv": [
+        "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+        "--check",
+        "/private/tmp/abg-t292-b28/build_tenants/abiogenesis/typescript/test_env/support/d2-binding-harness.mjs"
+      ],
+      "exitCode": 0,
+      "elapsedSeconds": 0.02496554097160697,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+        "--check",
+        "/private/tmp/abg-t292-b28/build_tenants/abiogenesis/typescript/test_env/tests/d2-binding-transition.test.mjs"
+      ],
+      "exitCode": 0,
+      "elapsedSeconds": 0.0270087500102818,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+        "--check",
+        "/private/tmp/abg-t292-b28/build_tenants/abiogenesis/typescript/test_env/tests/t287-native-semantic-revision.test.mjs"
+      ],
+      "exitCode": 0,
+      "elapsedSeconds": 0.02667237538844347,
+      "stdout": "",
+      "stderr": ""
+    }
+  ],
+  "allOriginalAssertionsPreserved": true,
+  "failedCFinalBuildPinsVerified": true
+}

@@ -63,14 +63,14 @@ One list of the defects found by the reviews, traces and packages of the T-292 w
 | B-25 | Evidence gate `s7-pending-consumer-intent` still names the construction-only test removed by P5, causing the gate-catalogue checks to fail | P6 measured gate failures; original `t287-continuation-causation.test.mjs` at `e709bd24f`; T-292 triage | S4 | P1 | Technical repair closed at `eea100729`; writer and detached merged gate catalogue each 3/3. Unused row removed, historical inputs retained and current pending execution proved |
 | B-26 | TD77 N1's injected probabilistic execution basis omits its required workspace-binding digest, so the actual current strict-positive fixture refuses before the sentinel | P7 `history-focused-01.tap` case 69, 75/76 passes; Root Product/typed-owner/Proof triage and preserved inputs | S4 | P1 | Technical repair closed at `e9846da2b`; author and detached merged N1 each 1/1 over four stores. Separate technical QA concurs (`REVIEW_P7_N1_FIXTURE_CODEX.md`); production constructors/guard unchanged |
 | B-27 | Prepared composed runner drops the committed candidate-basis selection, leaving r1/r2/r3 on their packed-artifact self-consistency default | Root environment-to-candidate-basis trace; separate QA concurs before any campaign | S4 | P1 | Closed in successor `composed-proof-01/final-runner/`: fixed sanitized `committed` selection, override remains prohibited; actual environment check and new runner hash recorded |
-| B-28 | D2 mechanical binding truth rows omit causal install references and the partial VM override leaves TD77’s strict-install accessor native over a lookup-only prefix | Exact C_final broad file005: 1 pass/9 failures; `b28-d2-fixture-01/INPUTS.json`; Root and non-author QA trace | S4 | P1 | Open: bounded fixture-premise completion under triage; production strictness remains. Two related manual fixture builders are in the affected cone |
+| B-28 | D2 mechanical binding truth rows omit causal install references and the partial VM override leaves TD77’s strict-install accessor native over a lookup-only prefix | Exact C_final broad file005: 1 pass/9 failures; `b28-d2-fixture-01/INPUTS.json`; Root and non-author QA trace | S4 | P1 | Technical repair integrated at `e1444310b` from frozen `cb1eb011e`: shared explicit premise plus both manual callers, original assertions preserved; author 11/11 + 7/7 once, negative premise controls. Production strictness unchanged; composed successor proof pending |
 
 ## Schedule
 
 | When | Items |
 |---|---|
-| In flight | B-28 test-premise repair after the composed run stopped at file005 |
-| Dependency-ready sequence | Frozen B-28 repair and refreshed source binding, Root-selected proof continuation under the unchanged clock, then local delivery |
+| In flight | Successor proof-source binding after B-28 integration; read-only technical delta QA |
+| Dependency-ready sequence | Exact archive correspondence, Root-selected proof continuation under the unchanged clock, then local delivery |
 | Integrated with focused proof | B-01, B-02, B-03, B-04, B-05 (bounded; B-21 remains), B-06, B-07, B-23, B-24, B-25, B-26 |
 | Closed after TD-26 P7 | B-08 |
 | Metadata complete; final dry-cut correspondence positive | B-22; source inventory will refresh after B-28's test-only change |

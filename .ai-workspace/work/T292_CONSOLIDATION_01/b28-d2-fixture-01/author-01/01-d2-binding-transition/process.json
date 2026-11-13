@@ -1,0 +1,35 @@
+{
+  "started": "2026-11-13T09:21:36.150261+00:00",
+  "finished": "2026-11-13T09:22:15.307442+00:00",
+  "elapsedSeconds": 39.15687337471172,
+  "pid": 88914,
+  "exitCode": 0,
+  "timedOut": false,
+  "tap": {
+    "tests": 11,
+    "suites": 0,
+    "pass": 11,
+    "fail": 0,
+    "cancelled": 0,
+    "skipped": 0,
+    "todo": 0,
+    "duration_ms": 39069.537
+  },
+  "artifacts": [
+    {
+      "path": "/private/tmp/abg-t292-b28-work/proof-01/01-d2-binding-transition/stdout.raw",
+      "bytes": 3460,
+      "sha256": "1d06cb6b4507d7dad6e0198ed0e8e9764892bddbc37c00836d372b4d1506c949"
+    },
+    {
+      "path": "/private/tmp/abg-t292-b28-work/proof-01/01-d2-binding-transition/stderr.raw",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "/private/tmp/abg-t292-b28-work/proof-01/01-d2-binding-transition/request.json",
+      "bytes": 4988,
+      "sha256": "7f1494b2dc01c1cff69316772808befdb5ed2f3fa920b26851c09b6f2f18125d"
+    }
+  ]
+}

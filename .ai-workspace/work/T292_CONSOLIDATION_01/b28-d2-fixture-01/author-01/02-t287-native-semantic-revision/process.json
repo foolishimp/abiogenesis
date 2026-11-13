@@ -1,0 +1,35 @@
+{
+  "started": "2026-11-13T09:22:20.703438+00:00",
+  "finished": "2026-11-13T09:22:22.649937+00:00",
+  "elapsedSeconds": 1.945929250214249,
+  "pid": 89400,
+  "exitCode": 0,
+  "timedOut": false,
+  "tap": {
+    "tests": 7,
+    "suites": 0,
+    "pass": 7,
+    "fail": 0,
+    "cancelled": 0,
+    "skipped": 0,
+    "todo": 0,
+    "duration_ms": 1886.661292
+  },
+  "artifacts": [
+    {
+      "path": "/private/tmp/abg-t292-b28-work/proof-01/02-t287-native-semantic-revision/stdout.raw",
+      "bytes": 3246,
+      "sha256": "935d9087c8369fd9177a5933acdb9171aafdafdba890ef0e3b99a78c01e73332"
+    },
+    {
+      "path": "/private/tmp/abg-t292-b28-work/proof-01/02-t287-native-semantic-revision/stderr.raw",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "/private/tmp/abg-t292-b28-work/proof-01/02-t287-native-semantic-revision/request.json",
+      "bytes": 4996,
+      "sha256": "c475edfb37cfbb635e9eef379fb87af74ba16922cc85e1b6141a8c0677fd4c15"
+    }
+  ]
+}

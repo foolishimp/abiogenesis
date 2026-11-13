@@ -1,0 +1,63 @@
+{
+  "activation": "T292-B28-D2-FIXTURE-01",
+  "allFrozenSourcesUnchanged": true,
+  "allRawEvidenceVerified": true,
+  "onlyFourAuthorizedPathsChanged": true,
+  "artifacts": [
+    {
+      "path": "/private/tmp/abg-t292-b28-work/proof-01/01-d2-binding-transition/process.json",
+      "bytes": 1008,
+      "sha256": "be0bc3c5de3df8026e2d4880308f2aa80296341c2d1f71f348fc6b04ee2efda2"
+    },
+    {
+      "path": "/private/tmp/abg-t292-b28-work/proof-01/01-d2-binding-transition/request.json",
+      "bytes": 4988,
+      "sha256": "7f1494b2dc01c1cff69316772808befdb5ed2f3fa920b26851c09b6f2f18125d"
+    },
+    {
+      "path": "/private/tmp/abg-t292-b28-work/proof-01/01-d2-binding-transition/stderr.raw",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "/private/tmp/abg-t292-b28-work/proof-01/01-d2-binding-transition/stdout.raw",
+      "bytes": 3460,
+      "sha256": "1d06cb6b4507d7dad6e0198ed0e8e9764892bddbc37c00836d372b4d1506c949"
+    },
+    {
+      "path": "/private/tmp/abg-t292-b28-work/proof-01/02-t287-native-semantic-revision/process.json",
+      "bytes": 1032,
+      "sha256": "660577871335818a7fcee6e8293474d178eefd532f8f4ed9dd8a127e77168e83"
+    },
+    {
+      "path": "/private/tmp/abg-t292-b28-work/proof-01/02-t287-native-semantic-revision/request.json",
+      "bytes": 4996,
+      "sha256": "c475edfb37cfbb635e9eef379fb87af74ba16922cc85e1b6141a8c0677fd4c15"
+    },
+    {
+      "path": "/private/tmp/abg-t292-b28-work/proof-01/02-t287-native-semantic-revision/stderr.raw",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "/private/tmp/abg-t292-b28-work/proof-01/02-t287-native-semantic-revision/stdout.raw",
+      "bytes": 3246,
+      "sha256": "935d9087c8369fd9177a5933acdb9171aafdafdba890ef0e3b99a78c01e73332"
+    },
+    {
+      "path": "/private/tmp/abg-t292-b28-work/proof-01/preflight.json",
+      "bytes": 1107,
+      "sha256": "11721f87b8d743b391f133c896d415be302aa3868fcb236b621126cefad7cef8"
+    },
+    {
+      "path": "/private/tmp/abg-t292-b28-work/proof-01/run-one.py",
+      "bytes": 2679,
+      "sha256": "36f6119da82fb4f27fbfd33f28362f194eeab151f50172dfa346d6bd05838f19"
+    },
+    {
+      "path": "/private/tmp/abg-t292-b28-work/proof-01/subject.json",
+      "bytes": 3384,
+      "sha256": "43709c33c8ff4d0a4f86499e6975bd9328d1957d2aa93e90b8b1b4bc515adef9"
+    }
+  ]
+}

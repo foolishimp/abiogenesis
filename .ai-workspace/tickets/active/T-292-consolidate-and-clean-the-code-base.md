@@ -8,7 +8,7 @@
 - parent: T-287
 - updated_at: 2026-11-13
 - current_activation: T292_CONSOLIDATION_01
-- current_package: selected repairs and TD-26 P5/P6/P7 plus TD25 members integrated; B08/B22 complete; composed proof stopped at file005 on B28 test premise; bounded fixture repair active before proof continuation and local RC13 delivery
+- current_package: selected repairs, TD-26 P5/P6/P7, TD25, B08/B22 and bounded B28 fixture repair integrated; refreshed exact proof subject preparing for composed continuation and local RC13 delivery
 - change_class: realization_refactor
 - derived_change_classes: design_reframe, requirement_reprice and product_reprice, each only for a register entry the owner decides
 - re_entry_point: specification/GOALS.md, the selection block of 2026-11-12
@@ -545,3 +545,24 @@ failure and six-hour clock stay unchanged. Recording activation
 `T292-B28-ACTIVATION-RECORD-01` grants only these status/activation records;
 Root returns to Executive after its checkpoint. RC11 remains pinned and no
 official RC13 cut/install, provider run, tag, push or publication has occurred.
+
+B28 Writer froze `cb1eb011e7fd569218523bfa7288b2a7c88c307b` and stopped
+clean. Root accepts the exact component-premise repair: all original assertions
+remain, the one harness now carries the declared causal-install/strict-answer
+premise, and both manual callers use it. Eleven D2 transition cases and seven
+native semantic-revision cases pass once each, with zero failures/skips and
+unchanged production/build bytes. Integration Writer
+`T292-B28-INTEGRATION-INVENTORY-01` merges it at `e1444310b` and refreshes only
+the source inventory through its existing constructor: 1,280 members, exactly
+three changed proof inputs. Recipe path/configuration and runtime payload
+remain unchanged. `b28-d2-fixture-01/author-01` preserves raw proof and metadata
+receipts. A separate read-only technical delta review is active.
+
+Root selects one fresh broad attempt on the integrated, inventory-refreshed
+subject after exact clean-source/archive correspondence is renewed. The original
+failed attempt remains recorded. The four early passing files are repeated to
+give the new subject one complete population; their old passes are not aggregated
+as new results. This is an explicit post-triage continuation, not an automatic
+retry. The original clock/deadline and every selected timeout remain unchanged;
+history and four physical reads share it. A new failure stops for Root triage.
+No provider, formal qualification or operational pin change is selected.
