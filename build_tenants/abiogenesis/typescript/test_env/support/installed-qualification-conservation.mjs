@@ -11,6 +11,7 @@ import * as installedPublic from '@abiogenesis/typescript-tenant/public';
 import * as gtl from '@abiogenesis/typescript-tenant/gtl';
 import * as validator from '@abiogenesis/typescript-tenant/validator';
 import * as preparation from '@abiogenesis/typescript-tenant/qualification/m05';
+import {eventStoreLockPathOf} from './event-store-lock.mjs';
 
 export const runtime = {product, abg, installedPublic, gtl, validator, preparation};
 export const schemaVersion = '5.0.0';
@@ -255,7 +256,7 @@ export async function recoverSetup(caller, {originalRoot, evidenceRoot}) {
   assert.equal(physical.ino, prefix.storeIdentity.inode);
   assert.equal(originalBytes.length, prefix.prefixLength);
   assert.equal(digest(originalBytes), prefix.prefixDigest);
-  const lockPath = join(process.env.TMPDIR, 'abiogenesis-event-store-locks-v5', physical.dev + '-' + physical.ino + '.lock');
+  const lockPath = eventStoreLockPathOf(physical);
   await stat(lockPath).then(() => {throw Error('selected lock is present');}, e => {if (e.code !== 'ENOENT') throw e;});
   for (const pid of [29688, 29689]) {
     let absent = false;
@@ -326,7 +327,7 @@ export async function resumeSetup(caller, {originalRoot, retainedHandoffPath}) {
   assert.equal(physical.dev, old.prefix.storeIdentity.device);
   assert.equal(physical.ino, old.prefix.storeIdentity.inode);
   assert.equal(log.length, old.prefix.prefixLength); assert.equal(digest(log), old.prefix.prefixDigest);
-  const lock = join(process.env.TMPDIR, 'abiogenesis-event-store-locks-v5', physical.dev + '-' + physical.ino + '.lock');
+  const lock = eventStoreLockPathOf(physical);
   await stat(lock).then(() => {throw Error('selected resource is held');}, e => {if (e.code !== 'ENOENT') throw e;});
   caller.state.closeHandoff = handoff.closeHandoff;
   await writeJson(join(caller.root, 'entry-handoff.json'), handoff);

@@ -19,6 +19,7 @@ import {setupInstalledRootCatalog,requirePublicationValidations,installOncePerFi
 import {prepareRegisteredSelectionProduct,constructInstalledStartCall,constructInstalledRunReadCall,runInstalledCliRequest,
   pendingExecutionUseRequest,constructInstalledPendingCall} from '../support/registered-graph-selection.mjs';
 import {libraryConsumerDeclaration,libraryEnvironment,witnessInput,witnessRef,assessmentSchema,schemaPath} from '../support/default-library.mjs';
+import {eventStoreLockPath} from '../support/event-store-lock.mjs';
 // Authentic retained RC2 stdout (4616 bytes, sha256 bee000fc…87b6) and its historical producer citation from
 // rc3-operator-inputs/increment-a-01/retained-stdout-custody.json, embedded so this test reads no untracked operator path.
 const RETAINED_STDOUT_CUSTODY=Object.freeze({"sourcePath":"/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc2-dogfood-01/setup-001/resources/archives/worksite-command-execution/149ac91a90f69c3b4f40c585eccbeca9afd8203c07d4605d6a79736e569ecbce/51b7537287cdf3e55522f1200482e81526a3d608d62c59e98b2bed2ef0fe2455/result.json","sourceSha256":"b2d43b8976ca84d9202661bf8a6a8422f5279d0a375db1791e7cae82959fc2f8","sourceBytes":5484013,"helperArtifactRef":"worksite-command-helper-artifact://abiogenesis/ce43471cd42e48566357375ad44f9c35d6daa8c68c1840e5575a3c472e4222e5","helperArtifactDigest":"sha256:ce43471cd42e48566357375ad44f9c35d6daa8c68c1840e5575a3c472e4222e5","commandId":"command://abiogenesis/rc2-dogfood/fixture-repair-01/fixture-tests","ordinal":4,"observationRef":"worksite-command-observation://abiogenesis/10718e7ba44510b0d85985fd4bdd87b433da4b0d461829b7e7164215a3fdf4eb","observationDigest":"sha256:10718e7ba44510b0d85985fd4bdd87b433da4b0d461829b7e7164215a3fdf4eb","stream":"stdout","streamSha256":"bee000fc220e14f318f5b37558dc96d113ef3428ad7d9d0a0043b7aa4a9787b6","streamBytes":4616,"declaredStreamDigest":"sha256:bee000fc220e14f318f5b37558dc96d113ef3428ad7d9d0a0043b7aa4a9787b6","admittedTestingResult":"result://abiogenesis/3607433aa2790c7a2e0bdd0b49f7a3b1bc54687844c3d5bcc2c9dfad931a1968","resultSource":"failure-008.json","scope":"Byte-identical extraction with supplied producer coordinates; no new ABG event or semantic judgment"});
@@ -2050,7 +2051,7 @@ test('default-library Run interrupted at the durable entered Testing cursor resu
   // 2. Exclusive acquisition of the interrupted nonterminal store.
   const bytes=await readFile(eventLogPath);assert.deepEqual(bytes,await readFile(join(proof,'interrupted-prefix.jsonl')));
   const origin=JSON.parse(await readFile(join(proof,'recovery-origin.json'),'utf8')),physical=handoff.reopenAuthority;
-  const lockPath=join(tmpdir(),'abiogenesis-event-store-locks-v5',`${physical.device}-${physical.inode}.lock`),lock=await stat(lockPath),lockBytes=await readFile(lockPath);
+  const lockPath=eventStoreLockPath(physical,storeOwner),lock=await stat(lockPath),lockBytes=await readFile(lockPath);
   const recovered=storeOwner.recoverInterruptedEventStore({...origin,expectedCurrent:{byteLength:bytes.length,digest:product.sha256Bytes(bytes)},
     abandonedLock:{path:lockPath,device:lock.dev,inode:lock.ino,bytesBase64:lockBytes.toString('base64'),digest:product.sha256Bytes(lockBytes)}});
   assert.equal(recovered.kind,'recovered',JSON.stringify(recovered));handoff=recovered.closeHandoff;
@@ -2258,7 +2259,7 @@ test('retained-source B continued cold after its Testing entry reads A-held decl
   assert.equal(interruption.entered.length,1);assert.equal(interruption.openedAtInterruption,0,'interruption precedes prepare-testing call opening');
   const bytes=await readFile(eventLogPath);assert.deepEqual(bytes,await readFile(join(proof,'interrupted-prefix.jsonl')));
   const origin=JSON.parse(await readFile(join(proof,'recovery-origin.json'),'utf8')),physical=handoff.reopenAuthority;
-  const lockPath=join(tmpdir(),'abiogenesis-event-store-locks-v5',`${physical.device}-${physical.inode}.lock`),lock=await stat(lockPath),lockBytes=await readFile(lockPath);
+  const lockPath=eventStoreLockPath(physical,storeOwner),lock=await stat(lockPath),lockBytes=await readFile(lockPath);
   const recovered=storeOwner.recoverInterruptedEventStore({...origin,expectedCurrent:{byteLength:bytes.length,digest:product.sha256Bytes(bytes)},
     abandonedLock:{path:lockPath,device:lock.dev,inode:lock.ino,bytesBase64:lockBytes.toString('base64'),digest:product.sha256Bytes(lockBytes)}});
   assert.equal(recovered.kind,'recovered',JSON.stringify(recovered));handoff=recovered.closeHandoff;

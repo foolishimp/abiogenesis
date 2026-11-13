@@ -5,11 +5,12 @@ import {readFile,mkdtemp,rm} from 'node:fs/promises';
 import {spawnSync} from 'node:child_process';
 import {syncBuiltinESMExports} from 'node:module';
 import {tmpdir} from 'node:os';
-import {join} from 'node:path';
+import {dirname,join} from 'node:path';
 import * as store from '../../build/code/src/abg/event_store.js';
-import {sha256Canonical} from '../../build/code/src/shared/digests.js';
+import {sha256Bytes,sha256Canonical} from '../../build/code/src/shared/digests.js';
 import {deepFreeze} from '../../build/code/src/shared/immutable.js';
 import {evidenceGate} from '../support/evidence-root.mjs';
+import {eventStoreLockPathOf} from '../support/event-store-lock.mjs';
 const counts=()=>({...globalThis.p0Work});
 const delta=(a,b,k)=>(b[k]??0)-(a[k]??0);
 const ownerHistory=evidenceGate('owner-history-logical-digest');
@@ -211,49 +212,75 @@ test('after a same-length change in a row whose body a later append shares, a pl
   assert.deepEqual(fs.readFileSync(path),afterPlain,'the refused appends write nothing');assert.equal(s.digest(),digest);
 });
 
-// The child is started with another TMPDIR. Its reopen either acquires the log
-// the parent holds or is refused for the parent's lock. Today it acquires it:
-// the lock path lies under TMPDIR, so the child looks in another lock
-// directory and finds no lock (register entry TD-82). Once the lock namespace
-// no longer follows TMPDIR, the child is refused at reopen and the case ends
-// with that refusal. If it appends, its append changes the length, so the
-// parent's next append is refused before its action.
-const CHILD=`const [module,authority]=process.argv.slice(1);const S=await import(module);
+// T-292 TD-82: the lock namespace follows no environment variable. A second
+// process that opens a held log is refused at reopen with the refusal for a
+// held log, whatever its TMPDIR, and writes nothing; the child appends only if
+// its reopen succeeds. A lock abandoned by a process with another TMPDIR is
+// found at the path the store's owner gives and is recovered from it. A lock
+// for the log in the namespace of an earlier build, under this TMPDIR, still
+// refuses the reopen.
+const CHILD=`const [module,authority,mode]=process.argv.slice(1);const S=await import(module);
 const {sha256Canonical}=await import(new URL('../shared/digests.js',module).href);
 const candidate=${candidate.toString()};
 const re=S.reopenEventStore(JSON.parse(authority));if(re.kind!=='reopened_event_store_context'){console.log(JSON.stringify({reopen:re.code,message:re.message}));process.exit(0);}
 const r=S.admitNonEmptyRuntimeEventTransactionAtDurablePrefix(re.store,re.prefix,()=>S.admitRuntimeEvent(re.store,candidate('second-process')));
-console.log(JSON.stringify({reopen:'reopened',ordinal:r.value.admissionOrdinal,handoff:re.store.projectReopenAuthorityAndClose()}));`;
+if(mode==='abandon')process.stdout.write(JSON.stringify({reopen:'reopened',ordinal:r.value.admissionOrdinal,pid:process.pid}),()=>process.kill(process.pid,'SIGKILL'));
+else console.log(JSON.stringify({reopen:'reopened',ordinal:r.value.admissionOrdinal,handoff:re.store.projectReopenAuthorityAndClose()}));`;
+const runChild=(authority,env,mode='append')=>spawnSync(process.execPath,['--input-type=module','-e',CHILD,
+  new URL('../../build/code/src/abg/event_store.js',import.meta.url).href,JSON.stringify(authority),mode],{env,encoding:'utf8'});
+const anotherTmpdir=t=>{const dir=fs.mkdtempSync(join(tmpdir(),'td82-alt-'));t.after(()=>fs.rmSync(dir,{recursive:true,force:true}));return {...process.env,TMPDIR:dir};};
+const HELD_REOPEN=/^durable event sink cannot acquire exact append ownership: TypeError: ABG durable event sink already has an exclusive append lock; abandoned locks require explicit operator recovery$/u;
+const ordinals=path=>fs.readFileSync(path,'utf8').trimEnd().split('\n').map(line=>JSON.parse(line).admissionOrdinal);
 
-test('a second process either is refused at reopen or appends, and then the holder\'s next append is refused at both entries and the log keeps one row per ordinal',async t=>{
+test('a second process is refused at reopen while the log is held, with another TMPDIR or the same one, and writes nothing',async t=>{
+  for(const [label,environment] of [['another TMPDIR',anotherTmpdir],['the same TMPDIR',()=>process.env]]) await t.test(label,st=>{
+    const {s:seed,path}=heldStore(st,['one','two','three']);
+    const authority=seed.projectReopenAuthorityAndClose().reopenAuthority;
+    const holder=store.reopenEventStore(authority);assert.equal(holder.kind,'reopened_event_store_context');
+    const s=holder.store;st.after(()=>s.closeDurableLog());
+    const before=fs.readFileSync(path);
+    const child=runChild(authority,environment(st));
+    assert.equal(child.status,0,child.stderr);
+    const second=JSON.parse(child.stdout.trim());
+    assert.equal(second.reopen,'sink_unavailable',JSON.stringify(second));assert.match(second.message,HELD_REOPEN);
+    assert.deepEqual(fs.readFileSync(path),before,'a refused reopen writes nothing');
+    assert.ok(ENTRIES['durable-prefix'](s,()=>store.admitRuntimeEvent(s,candidate('holder'))).successorPrefix,'the holder appends');
+    assert.deepEqual(ordinals(path),[1,2,3,4]);
+  });
+});
+
+test('a lock abandoned by a process with another TMPDIR refuses the reopen and is recovered from the owner\'s lock path; the recovered log reopens',async t=>{
   const {s:seed,path}=heldStore(t,['one','two','three']);
-  const authority=seed.projectReopenAuthorityAndClose().reopenAuthority;
-  const holder=store.reopenEventStore(authority);assert.equal(holder.kind,'reopened_event_store_context');
-  const s=holder.store;t.after(()=>s.closeDurableLog());
-  const alternate=fs.mkdtempSync(join(tmpdir(),'td80-alt-'));t.after(()=>fs.rmSync(alternate,{recursive:true,force:true}));
-  const beforeSecond=fs.readFileSync(path);
-  const child=spawnSync(process.execPath,['--input-type=module','-e',CHILD,new URL('../../build/code/src/abg/event_store.js',import.meta.url).href,JSON.stringify(authority)],
-    {env:{...process.env,TMPDIR:alternate},encoding:'utf8'});
-  assert.equal(child.status,0,child.stderr);
-  const second=JSON.parse(child.stdout.trim());
-  if(second.reopen!=='reopened') {
-    assert.equal(second.reopen,'sink_unavailable',JSON.stringify(second));
-    assert.match(second.message,/^durable event sink cannot acquire exact append ownership: /u);
-    assert.deepEqual(fs.readFileSync(path),beforeSecond,'a refused reopen writes nothing');
-    return;
-  }
-  assert.equal(second.ordinal,4);
-  const afterSecond=fs.readFileSync(path);
-  for(const [entry,admit] of Object.entries(ENTRIES)) {
-    let ran=false;
-    assert.throws(()=>admit(s,()=>{ran=true;return store.admitRuntimeEvent(s,candidate('holder'));}),refusedBy(LENGTH),`the holder at the ${entry} entry`);
-    assert.equal(ran,false);assert.deepEqual(fs.readFileSync(path),afterSecond);
-  }
-  assert.deepEqual(afterSecond.toString('utf8').trimEnd().split('\n').map(line=>JSON.parse(line).admissionOrdinal),[1,2,3,4]);
-  const stale=store.reopenEventStore(s.projectReopenAuthorityAndClose().reopenAuthority);
-  assert.equal(stale.code,'durable_log_mismatch','the holder\'s handoff names the length before the second append');
-  const current=store.reopenEventStore(second.handoff.reopenAuthority);
-  assert.equal(current.kind,'reopened_event_store_context',JSON.stringify(current));assert.equal(current.historicalEventCount,4);current.store.closeDurableLog();
+  const handoff=seed.projectReopenAuthorityAndClose();
+  const child=runChild(handoff.reopenAuthority,anotherTmpdir(t),'abandon');
+  assert.equal(child.signal,'SIGKILL',child.stderr);
+  const {ordinal,pid}=JSON.parse(child.stdout);assert.equal(ordinal,4);
+  const lockPath=eventStoreLockPathOf(fs.statSync(path));t.after(()=>fs.rmSync(lockPath,{force:true}));
+  const lock=fs.statSync(lockPath),lockBytes=fs.readFileSync(lockPath),bytes=fs.readFileSync(path);
+  const refused=store.reopenEventStore(handoff.reopenAuthority);
+  assert.equal(refused.code,'sink_unavailable',JSON.stringify(refused));assert.match(refused.message,HELD_REOPEN);
+  const recovered=store.recoverInterruptedEventStore({lastCloseHandoff:handoff,expectedCurrent:{byteLength:bytes.length,digest:sha256Bytes(bytes)},
+    abandonedLock:{path:lockPath,device:lock.dev,inode:lock.ino,bytesBase64:lockBytes.toString('base64'),digest:sha256Bytes(lockBytes)},ownerPid:pid});
+  assert.equal(recovered.kind,'recovered',JSON.stringify(recovered));assert.equal(recovered.validatedEventCount,4);
+  assert.equal(fs.existsSync(lockPath),false,'close releases the adopted lock');assert.deepEqual(fs.readFileSync(path),bytes);
+  const next=store.reopenEventStore(recovered.closeHandoff.reopenAuthority);
+  assert.equal(next.kind,'reopened_event_store_context',JSON.stringify(next));assert.equal(next.historicalEventCount,4);next.store.closeDurableLog();
+  assert.deepEqual(ordinals(path),[1,2,3,4]);
+});
+
+// The lock path of a build before TD-82, as that build wrote it.
+const previousNamespaceLock=status=>join(tmpdir(),'abiogenesis-event-store-locks-v5',`${status.dev}-${status.ino}.lock`);
+test('a lock for the log in the previous namespace under this TMPDIR refuses the reopen, which leaves no lock of its own',async t=>{
+  const {s:seed,path}=heldStore(t,['one']);
+  const authority=seed.projectReopenAuthorityAndClose().reopenAuthority,status=fs.statSync(path),previous=previousNamespaceLock(status);
+  fs.mkdirSync(dirname(previous),{recursive:true});t.after(()=>fs.rmSync(previous,{force:true}));
+  fs.writeFileSync(previous,JSON.stringify({device:status.dev,inode:status.ino,kind:'abiogenesis_event_store_append_lock',ownerPid:2_147_483_647,schemaVersion:'5.0.0'})+'\n',{flag:'wx'});
+  const before=fs.readFileSync(path);
+  const refused=store.reopenEventStore(authority);
+  assert.equal(refused.code,'sink_unavailable',JSON.stringify(refused));assert.match(refused.message,HELD_REOPEN);
+  assert.equal(fs.existsSync(eventStoreLockPathOf(status)),false,'the refused reopen releases its own lock');assert.deepEqual(fs.readFileSync(path),before);
+  fs.rmSync(previous);
+  const reopened=store.reopenEventStore(authority);assert.equal(reopened.kind,'reopened_event_store_context',JSON.stringify(reopened));reopened.store.closeDurableLog();
 });
 
 // The store checks the file again after its write and fsync: the held file at
