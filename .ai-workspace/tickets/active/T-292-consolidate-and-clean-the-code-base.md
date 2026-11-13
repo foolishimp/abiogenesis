@@ -274,6 +274,45 @@ runner and exact retained populations while P6 proceeds. It runs no tests,
 builds or provider calls yet and grants no premature qualification. Actual
 composed proof waits for final source, metadata and candidate identity.
 
+Recording Writer activation `T292-P6-TRIAGE-RECORD-01` binds Root to main
+`0f751864b`, with tracking/preparation records as its only write territory.
+It records the following Executive dispositions while P6 remains the sole
+source Writer. Root returns to Executive after this checkpoint.
+
+P6 build setup correction: Root's symlinked `node_modules` permission was
+wrong for the existing generator's exact package-root check. P5 and the
+detached post-merge worktree use physical dependency directories. P6 clones
+the unchanged pinned dependency tree and builds with normal Node resolution;
+the `--preserve-symlinks` attempt is diagnostic only. No generator or boundary
+guard change is selected, and the final installed span proof uses normal setup.
+
+B-25 (S4/P1) is the orphan `s7-pending-consumer-intent` evidence-gate row.
+Its sole case points at P5-deleted `t287-continuation-causation.test.mjs`;
+the original test uses construction/selected-action semantics, and no current
+code consumes the gate. Root inspected those exact sources and authorized P6
+to remove the row alongside its two S03 rows, preserving historical evidence
+files and P5's cold pending-execution proof. Recompute the gate count and rerun
+its catalogue check; recipe/inventory member updates remain B-22's final step.
+
+P6's mixed-publication discriminator is distinct from the already-refused
+steel03 basis. On exact `b4704323b`, a genuinely packed/verified/installed
+ordinary root beside an inactive ActionCatalog Program completed. P6's owners
+reconstruct its recorded Catalog/view exactly, but new Catalog admission and
+Program resolution reject the retired field; current start preparation returns
+`invalid_program` at `/program` with no append. The receipt is
+`/private/tmp/abg-td26p6-work/writer/old-mixed-actionCatalog.json`.
+Root accepts this as the new-admission consequence of the selected language
+retirement under `REQ-L-GTL3-MODULE-003/005`, `REQ-P-CATALOG-001/002/003`,
+and `REQ-L-GTL3-CONTRACT-LAW-API-009/013`: the existing closure owner admits
+the selected Program and its exact immutable owning publication. New work
+requires a publisher-authored current publication without retired declarations
+and its resulting identity. No filtering/rewrite of recorded publication bytes
+or admission-policy exception is selected. Historical completed truth remains
+subject to exact comparison; the final current-fixture span execution proves
+the kept path. The Return/design/delivery claim must state this compatibility
+consequence and distinguish preparation refusal from installed current runtime
+proof. No Product reprice or production repair follows from this observation.
+
 At most two implementation Writers run concurrently. Integration is serial.
 TD-78 and the parked TD-85a follow TD-77; P7 and TD-25 member withdrawal depend
 on TD-77. One design reconciliation closes B-08, then one composed broad and
