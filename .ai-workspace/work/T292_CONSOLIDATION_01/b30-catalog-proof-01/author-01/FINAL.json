@@ -1,0 +1,28 @@
+{
+  "status": "BOUNDED_AUTHOR_PROOF_COMPLETE",
+  "tap": {
+    "complete": true,
+    "counts": {
+      "tests": 2,
+      "pass": 2,
+      "fail": 0,
+      "cancelled": 0,
+      "skipped": 0,
+      "todo": 0
+    },
+    "status": "completed",
+    "skipLines": [
+      "# todo 0"
+    ]
+  },
+  "process": {
+    "path": "/private/tmp/abg-t292-b30-work/proof-01/01-integration-shared-seams.test/process.json",
+    "bytes": 1050,
+    "sha256": "34fb2691393096c2357305c898ef539cf9ee2c3b645a2e51e43795d674f7ded9"
+  },
+  "subject": {
+    "path": "/private/tmp/abg-t292-b30-work/proof-01/SUBJECT.json",
+    "bytes": 3935,
+    "sha256": "7e8a738cd89b1ec4d4de1d7baf662dc66e843db95b119f519591974eefd9c576"
+  }
+}
