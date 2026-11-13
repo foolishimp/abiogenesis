@@ -8,7 +8,7 @@
 - parent: T-287
 - updated_at: 2026-11-13
 - current_activation: T292_CONSOLIDATION_01
-- current_package: selected repairs, TD-26 P5/P6/P7, TD25, B08/B22 and B28 integrated; broad-02 stopped at file007 on B29 unbound VM helper; affected-cone triage active, history and local delivery unperformed
+- current_package: selected consolidation and B28/B29 fixture repairs integrated; inventory-refreshed successor preparing for explicit composed continuation; history and local delivery unperformed
 - change_class: realization_refactor
 - derived_change_classes: design_reframe, requirement_reprice and product_reprice, each only for a register entry the owner decides
 - re_entry_point: specification/GOALS.md, the selection block of 2026-11-12
@@ -600,3 +600,29 @@ source/build pins are retained in `b29-vm-context-01/INPUTS.json`. The server
 restart did not change the host boot or campaign clock. Recording Writer
 `T292-B29-FAILURE-RECORD-01` grants only this preservation/status checkpoint;
 Root returns to Executive afterward, with no automatic retry.
+
+B29's closed multi-frame triage also identifies a reached shared-helper escape
+from the binding fixture's filesystem counter. `b29-vm-context-01/TRIAGE.md`
+preserves the complete bounded consumer cone, why prior checks missed it and
+the reviewer's technical S2 versus Root's T293-scale S4/P1 disposition. Root
+explicitly became Writer `T292-B29-VM-FIXTURE-01` in the isolated B29 worktree,
+then froze `61c6465899a619d3b368b7cd396afe3e1f3236ba` and stopped. Actual
+compiled spelling-owner computations now execute on the declared controlled
+filesystem seams; the free-name guard and all original assertions remain.
+An exact operation/path assertion detects the former hidden root read.
+
+Single-pass author proof: collector 6/6, binding 11/11, unchanged native
+semantic revision 7/7; no failures/skips/retries, unchanged production/build
+pins. `B29_VM_FIXTURE_RETURN.md` binds those results and limits. Integration
+Writer `T292-B29-INTEGRATION-INVENTORY-01` merges at `afcb5ec68` and refreshes
+only the 1,280-member inventory (four changed proof sources). Raw evidence and
+constructor receipts are preserved in `b29-vm-context-01/author-01`.
+Separate read-only `T292-B29-REPAIR-QA-01` inspects the frozen repair.
+
+Root selects one fresh full broad attempt after renewed exact source/archive
+correspondence; this is explicit re-entry after the closed triage and repair,
+not an automatic retry. Both prior failed attempts stay intact; their passing
+cases are not counted as new results. The same campaign clock and all limits
+remain. Any new failure returns to Root before repair or retry. History,
+physical reads and local delivery remain pending; no qualification/provider/
+pin/tag/push/publication follows from this checkpoint.

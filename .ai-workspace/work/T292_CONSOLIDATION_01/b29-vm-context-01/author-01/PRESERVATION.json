@@ -1,0 +1,140 @@
+{
+  "activation": "T292-B29-INTEGRATION-INVENTORY-01",
+  "frozenWriter": "61c6465899a619d3b368b7cd396afe3e1f3236ba",
+  "merge": "afcb5ec68b4de1366b811687d3a7d6329ba9de6d",
+  "standing": "Exact bounded author proof and metadata construction; no composed or qualification result",
+  "files": [
+    {
+      "source": "/private/tmp/abg-t292-b29-work/run-focused.py",
+      "destination": "run-focused.py",
+      "bytes": 2795,
+      "sha256": "ce0ea209da835b7ae40f8b1f731fc81e76a7aba3f71144cdd999d82a89126395"
+    },
+    {
+      "source": "/private/tmp/abg-t292-b29-work/proof-01/SUBJECT.json",
+      "destination": "proof-01/SUBJECT.json",
+      "bytes": 4541,
+      "sha256": "c2c71a531b7d00f3865b85ff0961139240f2ddd9993de3278324bf90a18b4aec"
+    },
+    {
+      "source": "/private/tmp/abg-t292-b29-work/proof-01/FINAL.json",
+      "destination": "proof-01/FINAL.json",
+      "bytes": 2118,
+      "sha256": "e38bdd174cd15088aab39bee72c146a3a98f9772718d0b66c7d065e2f1c6cfbc"
+    },
+    {
+      "source": "/private/tmp/abg-t292-b29-work/proof-01/CONSERVATION.json",
+      "destination": "proof-01/CONSERVATION.json",
+      "bytes": 219,
+      "sha256": "fb3392cd270f3a86f9731198323870b30463f7fdf0deb36553304c79567819a7"
+    },
+    {
+      "source": "/private/tmp/abg-t292-b29-work/proof-01/01-d2-evidence-owner-lookup.test/request.json",
+      "destination": "proof-01/01-d2-evidence-owner-lookup.test/request.json",
+      "bytes": 5078,
+      "sha256": "5c00bbd803c3d3c52df0a6b09e5b3def53842f993549b2b3f7fb7d6df38f83e4"
+    },
+    {
+      "source": "/private/tmp/abg-t292-b29-work/proof-01/01-d2-evidence-owner-lookup.test/process.json",
+      "destination": "proof-01/01-d2-evidence-owner-lookup.test/process.json",
+      "bytes": 1051,
+      "sha256": "9cf608490f4337c97f9d3fad8298f0c8878dc674f48d93e594b5932fd269e80e"
+    },
+    {
+      "source": "/private/tmp/abg-t292-b29-work/proof-01/01-d2-evidence-owner-lookup.test/stdout.raw",
+      "destination": "proof-01/01-d2-evidence-owner-lookup.test/stdout.raw",
+      "bytes": 1994,
+      "sha256": "8defd37ac0cf4922e85e64450d2d0a437cc4c182eecb4c4f35807eb89e63c6d1"
+    },
+    {
+      "source": "/private/tmp/abg-t292-b29-work/proof-01/01-d2-evidence-owner-lookup.test/stderr.raw",
+      "destination": "proof-01/01-d2-evidence-owner-lookup.test/stderr.raw",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "source": "/private/tmp/abg-t292-b29-work/proof-01/01-d2-evidence-owner-lookup.test/tap.json",
+      "destination": "proof-01/01-d2-evidence-owner-lookup.test/tap.json",
+      "bytes": 202,
+      "sha256": "7f312a5ee66732ccf6d9d2ff1c1d3784489a9fadf3884e0c9c1b50a338d30ee3"
+    },
+    {
+      "source": "/private/tmp/abg-t292-b29-work/proof-01/02-d2-binding-transition.test/request.json",
+      "destination": "proof-01/02-d2-binding-transition.test/request.json",
+      "bytes": 5075,
+      "sha256": "c389de409482870fd08a565e145b721a72246d000f2862d42ae96cfed03d971e"
+    },
+    {
+      "source": "/private/tmp/abg-t292-b29-work/proof-01/02-d2-binding-transition.test/process.json",
+      "destination": "proof-01/02-d2-binding-transition.test/process.json",
+      "bytes": 1043,
+      "sha256": "30f75c83ac4b742de0996da8b96ff4e87cb6b8d2bf21de4db6e43a7e5ea79388"
+    },
+    {
+      "source": "/private/tmp/abg-t292-b29-work/proof-01/02-d2-binding-transition.test/stdout.raw",
+      "destination": "proof-01/02-d2-binding-transition.test/stdout.raw",
+      "bytes": 3465,
+      "sha256": "99ab78795a1348be9820c9cdb3ec319e3e169bf4cbad1087181c9e2d7e108d26"
+    },
+    {
+      "source": "/private/tmp/abg-t292-b29-work/proof-01/02-d2-binding-transition.test/stderr.raw",
+      "destination": "proof-01/02-d2-binding-transition.test/stderr.raw",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "source": "/private/tmp/abg-t292-b29-work/proof-01/02-d2-binding-transition.test/tap.json",
+      "destination": "proof-01/02-d2-binding-transition.test/tap.json",
+      "bytes": 204,
+      "sha256": "57077e645030cac430bb307c478b16e176245b1ed83d4ca5ec7fbf5bbd52f7c8"
+    },
+    {
+      "source": "/private/tmp/abg-t292-b29-work/proof-01/03-t287-native-semantic-revision.test/request.json",
+      "destination": "proof-01/03-t287-native-semantic-revision.test/request.json",
+      "bytes": 5083,
+      "sha256": "2df7d7e7f1fc2a5f0d5cd31753833c0244b6e12ba214651d2760bf39df1f3c5a"
+    },
+    {
+      "source": "/private/tmp/abg-t292-b29-work/proof-01/03-t287-native-semantic-revision.test/process.json",
+      "destination": "proof-01/03-t287-native-semantic-revision.test/process.json",
+      "bytes": 1066,
+      "sha256": "0e922da5bb4abf9baab177c18a962391e2899396350fd0454dadf1a74bcca0d3"
+    },
+    {
+      "source": "/private/tmp/abg-t292-b29-work/proof-01/03-t287-native-semantic-revision.test/stdout.raw",
+      "destination": "proof-01/03-t287-native-semantic-revision.test/stdout.raw",
+      "bytes": 3248,
+      "sha256": "8b84a2da1184e9f762c5aaf85aa0daf1309a431ec15bec25dc7c51e539190e7c"
+    },
+    {
+      "source": "/private/tmp/abg-t292-b29-work/proof-01/03-t287-native-semantic-revision.test/stderr.raw",
+      "destination": "proof-01/03-t287-native-semantic-revision.test/stderr.raw",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "source": "/private/tmp/abg-t292-b29-work/proof-01/03-t287-native-semantic-revision.test/tap.json",
+      "destination": "proof-01/03-t287-native-semantic-revision.test/tap.json",
+      "bytes": 202,
+      "sha256": "98c0a7057ae02e3d1b4420425d10a7d77b9aebe065be4d57f3102ff26c8c2b4f"
+    },
+    {
+      "source": "/private/tmp/abg-rc13-composed-proof-20261113/reentry-03/ACTIVATION.json",
+      "destination": "ACTIVATION.json",
+      "bytes": 599,
+      "sha256": "9fd94a9b428ace4ca61370c2bd732f035b34a9ea09ef71f860438392cf134ae7"
+    },
+    {
+      "source": "/private/tmp/abg-rc13-composed-proof-20261113/reentry-03/refresh-inventory.mjs",
+      "destination": "refresh-inventory.mjs",
+      "bytes": 2537,
+      "sha256": "4747c304e34d7deae67aa0c3bb4533e4a8b5839993ff369826865b0d57b69b82"
+    },
+    {
+      "source": "/private/tmp/abg-rc13-composed-proof-20261113/reentry-03/INVENTORY_CONSTRUCTION.json",
+      "destination": "INVENTORY_CONSTRUCTION.json",
+      "bytes": 1196,
+      "sha256": "3268dad71e656c9ea14b5b8093e6a37959505ca3f0ec964025ec957490ec24c9"
+    }
+  ]
+}

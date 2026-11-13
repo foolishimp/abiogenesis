@@ -1,0 +1,11 @@
+{
+  "activation": "T292-B29-REENTRY-PREP-01",
+  "role": "Proof Preparation Writer",
+  "basis": "stdo://releases/v3.0.4/",
+  "grant": "Bind the integrated B29 test-only successor and existing owner inventory to unchanged payload; renew exact population/configuration under the original campaign clock. No execution by preparation.",
+  "territory": "/private/tmp/abg-rc13-composed-proof-20261113/reentry-03",
+  "priorFailedSource": "98c258643857e395ebca3a4646b369e086b042f9",
+  "frozenWriter": "61c6465899a619d3b368b7cd396afe3e1f3236ba",
+  "productionMutation": false,
+  "campaignClockReset": false
+}

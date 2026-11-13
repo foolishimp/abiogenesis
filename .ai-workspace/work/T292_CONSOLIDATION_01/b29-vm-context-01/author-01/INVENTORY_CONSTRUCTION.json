@@ -1,0 +1,20 @@
+{
+  "activation": "T292-B29-INTEGRATION-INVENTORY-01",
+  "owner": "test_env/qualification/build-resources.mjs:constructInventory",
+  "sourceBeforeInventoryCheckpoint": "afcb5ec68b4de1366b811687d3a7d6329ba9de6d",
+  "memberCount": 1280,
+  "changedMembers": [
+    "build_tenants/abiogenesis/typescript/test_env/support/d2-binding-harness.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/support/d2-evidence-owner-harness.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/tests/d2-binding-transition.test.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/tests/d2-evidence-owner-lookup.test.mjs"
+  ],
+  "inventoryRef": "qualification-inventory://abiogenesis/dc3fce54a3faff63ade028a3ca4594dc0098d26de9fc4d24809ffac71bf8558a",
+  "inventoryDigest": "sha256:dc3fce54a3faff63ade028a3ca4594dc0098d26de9fc4d24809ffac71bf8558a",
+  "beforeSha256": "baa9be0ca62bae6ea4b3d58d109c565dc82a5ac0297cf247f84f289f6c2128ee",
+  "afterSha256": "1ef26da79ba5dd4b2ae5bcfa3bbb9b04f28a1351a15a8974b0c312a4dcf262e8",
+  "selfExcluded": true,
+  "recipeUnchanged": "No path or command configuration change; source inputs are path references.",
+  "runtimePayloadUnchanged": true,
+  "qualification": false
+}

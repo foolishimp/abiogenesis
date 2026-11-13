@@ -1,0 +1,79 @@
+{
+  "status": "BOUNDED_AUTHOR_PROOF_COMPLETE",
+  "results": [
+    {
+      "file": "test_env/tests/d2-evidence-owner-lookup.test.mjs",
+      "process": {
+        "path": "/private/tmp/abg-t292-b29-work/proof-01/01-d2-evidence-owner-lookup.test/process.json",
+        "bytes": 1051,
+        "sha256": "9cf608490f4337c97f9d3fad8298f0c8878dc674f48d93e594b5932fd269e80e"
+      },
+      "tap": {
+        "complete": true,
+        "counts": {
+          "tests": 6,
+          "pass": 6,
+          "fail": 0,
+          "cancelled": 0,
+          "skipped": 0,
+          "todo": 0
+        },
+        "status": "completed",
+        "skipLines": [
+          "# todo 0"
+        ]
+      }
+    },
+    {
+      "file": "test_env/tests/d2-binding-transition.test.mjs",
+      "process": {
+        "path": "/private/tmp/abg-t292-b29-work/proof-01/02-d2-binding-transition.test/process.json",
+        "bytes": 1043,
+        "sha256": "30f75c83ac4b742de0996da8b96ff4e87cb6b8d2bf21de4db6e43a7e5ea79388"
+      },
+      "tap": {
+        "complete": true,
+        "counts": {
+          "tests": 11,
+          "pass": 11,
+          "fail": 0,
+          "cancelled": 0,
+          "skipped": 0,
+          "todo": 0
+        },
+        "status": "completed",
+        "skipLines": [
+          "# todo 0"
+        ]
+      }
+    },
+    {
+      "file": "test_env/tests/t287-native-semantic-revision.test.mjs",
+      "process": {
+        "path": "/private/tmp/abg-t292-b29-work/proof-01/03-t287-native-semantic-revision.test/process.json",
+        "bytes": 1066,
+        "sha256": "0e922da5bb4abf9baab177c18a962391e2899396350fd0454dadf1a74bcca0d3"
+      },
+      "tap": {
+        "complete": true,
+        "counts": {
+          "tests": 7,
+          "pass": 7,
+          "fail": 0,
+          "cancelled": 0,
+          "skipped": 0,
+          "todo": 0
+        },
+        "status": "completed",
+        "skipLines": [
+          "# todo 0"
+        ]
+      }
+    }
+  ],
+  "subject": {
+    "path": "/private/tmp/abg-t292-b29-work/proof-01/SUBJECT.json",
+    "bytes": 4541,
+    "sha256": "c2c71a531b7d00f3865b85ff0961139240f2ddd9993de3278324bf90a18b4aec"
+  }
+}
