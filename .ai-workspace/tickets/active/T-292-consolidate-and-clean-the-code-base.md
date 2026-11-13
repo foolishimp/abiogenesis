@@ -8,7 +8,7 @@
 - parent: T-287
 - updated_at: 2026-11-13
 - current_activation: T292_CONSOLIDATION_01
-- current_package: selected consolidation and B28/B29 fixture repairs integrated; inventory-refreshed successor preparing for explicit composed continuation; history and local delivery unperformed
+- current_package: selected consolidation and B28/B29 repairs integrated; composed broad-03 active on exact 21e6d7571 with unchanged RC13 archive; history and local delivery unperformed
 - change_class: realization_refactor
 - derived_change_classes: design_reframe, requirement_reprice and product_reprice, each only for a register entry the owner decides
 - re_entry_point: specification/GOALS.md, the selection block of 2026-11-12
@@ -626,3 +626,18 @@ cases are not counted as new results. The same campaign clock and all limits
 remain. Any new failure returns to Root before repair or retry. History,
 physical reads and local delivery remain pending; no qualification/provider/
 pin/tag/push/publication follows from this checkpoint.
+
+The B29 review returns satisfied without findings;
+`REVIEW_B29_FIXTURE_CODEX.md` preserves its author-request provenance limit.
+Root binds author tests to the actual cwd and pinned SUBJECT.json, not the
+older subject fields carried by its reused child recorder. Separate clean
+compilation of successor `21e6d7571e1897322cb73e96045c08c78413e8d0`, tree
+`d66d3d6bbdf478310dde07d1ba7158db0e23398e`, again produces archive
+`12d49bada287be7e0690af355107d6ffda7734452288f5153c785bb92f3b98b0`
+with all 5,293 files equal; the 1,280-member source inventory also matches.
+Proof Operator `T292-COMPOSED-EXECUTION-03` begins the explicitly selected
+continuation at 2026-11-13T09:50:28Z with config SHA
+`b2da62dac984cd52add57beb6c8f684904845b4a29cd4ec37cff2ee675a431e7`.
+Exact bindings are in `composed-proof-01/execution-03/`; original clock,
+timeouts and failed subjects remain unchanged. Starting the run supplies no
+completion verdict. History, physical reads and official delivery stay pending.

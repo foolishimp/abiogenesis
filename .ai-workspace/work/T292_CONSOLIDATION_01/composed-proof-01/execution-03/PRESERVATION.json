@@ -1,0 +1,85 @@
+{
+  "activation": "T292-COMPOSED-EXECUTION-03-RECORD",
+  "sourceCommit": "21e6d7571e1897322cb73e96045c08c78413e8d0",
+  "standing": "Exact source/configuration/activation records only; broad running, no completed campaign verdict",
+  "files": [
+    {
+      "source": "/private/tmp/abg-rc13-composed-proof-20261113/reentry-03/ACTIVATION.json",
+      "destination": "ACTIVATION.json",
+      "bytes": 599,
+      "sha256": "9fd94a9b428ace4ca61370c2bd732f035b34a9ea09ef71f860438392cf134ae7"
+    },
+    {
+      "source": "/private/tmp/abg-rc13-composed-proof-20261113/reentry-03/prepare-reentry.py",
+      "destination": "prepare-reentry.py",
+      "bytes": 7273,
+      "sha256": "05f5f6c5fbbdd6fe71a2119b4b115e8116ff634ce8bc77062e555b3c3430654e"
+    },
+    {
+      "source": "/private/tmp/abg-rc13-composed-proof-20261113/reentry-03/refresh-inventory.mjs",
+      "destination": "refresh-inventory.mjs",
+      "bytes": 2537,
+      "sha256": "4747c304e34d7deae67aa0c3bb4533e4a8b5839993ff369826865b0d57b69b82"
+    },
+    {
+      "source": "/private/tmp/abg-rc13-composed-proof-20261113/reentry-03/INVENTORY_CONSTRUCTION.json",
+      "destination": "INVENTORY_CONSTRUCTION.json",
+      "bytes": 1196,
+      "sha256": "3268dad71e656c9ea14b5b8093e6a37959505ca3f0ec964025ec957490ec24c9"
+    },
+    {
+      "source": "/private/tmp/abg-rc13-composed-proof-20261113/reentry-03/ARTIFACT_SOURCE_CORRESPONDENCE.json",
+      "destination": "ARTIFACT_SOURCE_CORRESPONDENCE.json",
+      "bytes": 1724,
+      "sha256": "67c93aa8d98d57f2824bbae6b940eccae2fc40d8d6adf4d286c489eccf01299f"
+    },
+    {
+      "source": "/private/tmp/abg-rc13-composed-proof-20261113/reentry-03/FINAL_POPULATION.json",
+      "destination": "FINAL_POPULATION.json",
+      "bytes": 42375,
+      "sha256": "f6ba1ea796efd8a7367e29ef6ca4915c01576ef83632c7f64466ba3bf733aeb4"
+    },
+    {
+      "source": "/private/tmp/abg-rc13-composed-proof-20261113/reentry-03/FINAL_TIMEOUT_AUDIT.json",
+      "destination": "FINAL_TIMEOUT_AUDIT.json",
+      "bytes": 130967,
+      "sha256": "f7fc462e7175a72dc6ff9fa8f2b4cd507a99165f5b7ae1d463ab629a7df758b1"
+    },
+    {
+      "source": "/private/tmp/abg-rc13-composed-proof-20261113/reentry-03/INPUT_RULING.json",
+      "destination": "INPUT_RULING.json",
+      "bytes": 18523,
+      "sha256": "3e369cb0b33ea18b85c5bfa4a40a3eea7007302bc3c1c703832bb85e5138e358"
+    },
+    {
+      "source": "/private/tmp/abg-rc13-composed-proof-20261113/reentry-03/EXECUTION_ACTIVATION.json",
+      "destination": "EXECUTION_ACTIVATION.json",
+      "bytes": 1434,
+      "sha256": "e4a4b8fb73e34da2a9451cc927b98ba6f78ddd6f80de5725613f111c4000bd49"
+    },
+    {
+      "source": "/private/tmp/abg-rc13-composed-proof-20261113/reentry-03/BROAD_CONFIG.json",
+      "destination": "BROAD_CONFIG.json",
+      "bytes": 22174,
+      "sha256": "b2da62dac984cd52add57beb6c8f684904845b4a29cd4ec37cff2ee675a431e7"
+    },
+    {
+      "source": "/private/tmp/abg-rc13-composed-proof-20261113/reentry-03/HISTORY_CONFIG.json",
+      "destination": "HISTORY_CONFIG.json",
+      "bytes": 22180,
+      "sha256": "91ea9188cc79cf56391db8301891820173add2b2269fed352866b518f604a27c"
+    },
+    {
+      "source": "/private/tmp/abg-rc13-composed-proof-20261113/reentry-03/CONFIG_PINS.json",
+      "destination": "CONFIG_PINS.json",
+      "bytes": 405,
+      "sha256": "fbba44f981183a3cd475cd5c546bbec303bd9025fd180d308e8e131cc9f9c024"
+    },
+    {
+      "source": "/private/tmp/abg-rc13-composed-proof-20261113/reentry-03/cut-dry/cut-dry-run-20261113T094906529Z-8965/CUT_RECORD.json",
+      "destination": "DRY_CUT_RECORD.json",
+      "bytes": 8460,
+      "sha256": "4bdf1175c0dd4b18c302c0e6e51ede290a3a323e1d16febb4dca275b6429309f"
+    }
+  ]
+}

@@ -1,0 +1,214 @@
+{
+  "kind": "local_unqualified_development_candidate_cut",
+  "schemaVersion": "1",
+  "mode": "dry-run",
+  "status": "DRY_RUN_COMPLETE_NOTHING_WRITTEN_OUTSIDE_SCRATCH",
+  "startedUtc": "2026-11-13T09:49:06.806Z",
+  "version": "5.0.0-rc.13",
+  "packageName": "@abiogenesis/typescript-tenant",
+  "productId": "product://abiogenesis/typescript-tenant@5.0.0-rc.13",
+  "source": {
+    "repo": "/Users/jim/src/apps/abiogenesis",
+    "commit": "21e6d7571e1897322cb73e96045c08c78413e8d0",
+    "tree": "d66d3d6bbdf478310dde07d1ba7158db0e23398e",
+    "subject": "Freeze corrected B29 proof subject and conserved evidence",
+    "sourceArchive": {
+      "path": "/private/tmp/abg-rc13-composed-proof-20261113/reentry-03/cut-dry/cut-dry-run-20261113T094906529Z-8965/source.tar",
+      "bytes": 37498880,
+      "sha256": "26ea6799a48b31b8f52a5de9c725d91fe9a4136ae1786f2b120781948de0ecb5"
+    },
+    "committedVersion": "5.0.0-rc.13",
+    "scratchStampDelta": null,
+    "scratchClaimDelta": null,
+    "releaseClaim": {
+      "path": "/private/tmp/abg-rc13-composed-proof-20261113/reentry-03/cut-dry/cut-dry-run-20261113T094906529Z-8965/source/build_tenants/abiogenesis/typescript/release-claim.md",
+      "bytes": 3167,
+      "sha256": "389c1a33ba5785a922021251913f6908f403684214b71fb387fcbfaf3062b1d9"
+    }
+  },
+  "dependencies": {
+    "donor": "/private/tmp/abg-rc13-composed-final-03/build_tenants/abiogenesis/typescript/node_modules",
+    "donorFilesAndLinks": 4576,
+    "donorInventoryDigest": "c9c99e50bfe1684cec53e1e5143a372f5a15e0ddb943e991f13c6d2809ec4d4f",
+    "pinnedInventory": {
+      "path": "/private/tmp/abg-rc13-delivery-prep-work/DEPENDENCY_INVENTORY.json",
+      "bytes": 987998,
+      "sha256": "9f417ddd8719598469de5212a85a5ed5e0b850cc21e99aca46c46af049c93a41",
+      "rows": 4576,
+      "equal": true
+    },
+    "lockedPackagesVersionChecked": 16,
+    "payloadOwner": "scripts/product-payload.mjs"
+  },
+  "candidateBasis": {
+    "path": "/private/tmp/abg-rc13-composed-proof-20261113/reentry-03/cut-dry/cut-dry-run-20261113T094906529Z-8965/source/build_tenants/abiogenesis/typescript/test_env/fixtures/abi5-root-candidate-basis.json",
+    "bytes": 517,
+    "sha256": "44a65bf686cbeb1be48b5f62f50e778578a0f8a824926550198a3582950fa4b2",
+    "exactArchiveIdentity": true,
+    "runtimePayload": false
+  },
+  "candidate": {
+    "packageExports": [
+      ".",
+      "./product",
+      "./abg",
+      "./gtl",
+      "./hog",
+      "./public",
+      "./validator",
+      "./gtl/m01",
+      "./gtl/m02",
+      "./gtl/requirements",
+      "./abg/requirements",
+      "./abg/m03",
+      "./abg/m03/transport",
+      "./app/m04",
+      "./qualification/m05"
+    ],
+    "packageExportCount": 15,
+    "publicFunctionDefinitionCount": 46,
+    "publicFunctionFamilyDigest": "sha256:ac845697338cda289b83c4e654365b5c45a07ca317d4caae048c8762e8216123",
+    "bin": {
+      "abg.cli": "./build/code/src/public/cli.js"
+    },
+    "bundleDependencies": [
+      "@valibot/to-json-schema",
+      "effect",
+      "jsonc-parser",
+      "valibot",
+      "ajv",
+      "ajv-formats"
+    ]
+  },
+  "generated": {
+    "equal": true,
+    "committed": [
+      {
+        "path": "product-toolchain-manifest.json",
+        "bytes": 3100640,
+        "sha256": "00e0647836f72999ab899375067c4093a79d3cec07b1e063e0fb937f88019410"
+      },
+      {
+        "path": "contracts/capabilities/capability-definition-graph.json",
+        "bytes": 150703,
+        "sha256": "4dec56be36f3100d7d340b1c8df975acd09fc137804a387bb1db7da62de2a151"
+      }
+    ],
+    "regenerated": [
+      {
+        "path": "product-toolchain-manifest.json",
+        "bytes": 3100640,
+        "sha256": "00e0647836f72999ab899375067c4093a79d3cec07b1e063e0fb937f88019410"
+      },
+      {
+        "path": "contracts/capabilities/capability-definition-graph.json",
+        "bytes": 150703,
+        "sha256": "4dec56be36f3100d7d340b1c8df975acd09fc137804a387bb1db7da62de2a151"
+      }
+    ]
+  },
+  "comparison": {
+    "archive": {
+      "path": "/private/tmp/abg-rc13-finalization-20261113/payload/pack/abiogenesis-typescript-tenant-5.0.0-rc.13.tgz",
+      "bytes": 10793225,
+      "sha256": "12d49bada287be7e0690af355107d6ffda7734452288f5153c785bb92f3b98b0"
+    },
+    "members": 5293,
+    "added": [],
+    "removed": [],
+    "changed": 0,
+    "unchanged": 5293
+  },
+  "archive": {
+    "name": "abiogenesis-typescript-tenant-5.0.0-rc.13.tgz",
+    "bytes": 10793225,
+    "sha256": "12d49bada287be7e0690af355107d6ffda7734452288f5153c785bb92f3b98b0",
+    "path": "/private/tmp/abg-rc13-composed-proof-20261113/reentry-03/cut-dry/cut-dry-run-20261113T094906529Z-8965/pack/abiogenesis-typescript-tenant-5.0.0-rc.13.tgz"
+  },
+  "identity": {
+    "artifactDigest": "sha256:12d49bada287be7e0690af355107d6ffda7734452288f5153c785bb92f3b98b0",
+    "productContentDigest": "sha256:ab3c4deeb7d7fa8c057a7d3ce49c2b310809dd54cea99b7702de02926c5e4955",
+    "manifestDigest": "sha256:75d1402d80d1d88f022e6644472a38c1ff22987c14c68f9857e279235b0bea4e"
+  },
+  "members": {
+    "count": 5293,
+    "payloadBytes": 69177953,
+    "inventoryDigest": "c3a3515d0f86cb5ac657b92290eeea9629f8d1f3e158dfef88b4cc27544d468a",
+    "file": "ARCHIVE_MEMBERS.json",
+    "builtTreeByteEqual": true,
+    "buildAndContractsFilesAllPresent": 963
+  },
+  "verification": {
+    "owner": "product.verifyProduct imported from the archive",
+    "disposition": "verified",
+    "checkedPayloadFiles": 5291
+  },
+  "toolchain": {
+    "node": {
+      "name": "node",
+      "path": "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+      "realPath": "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+      "sha256": "fe1c0128a4c0163b034ec06b8b290494830ccb49922b5ce9ca4edf497a083e5f",
+      "version": "v24.7.0",
+      "execPath": "/opt/homebrew/Cellar/node/24.7.0/bin/node"
+    },
+    "npm": {
+      "name": "npm",
+      "path": "/opt/homebrew/Cellar/node/24.7.0/bin/npm",
+      "realPath": "/opt/homebrew/lib/node_modules/npm/bin/npm-cli.js",
+      "sha256": "8e5f6f3429f8cdbe693cdc29904e9d5a7b127a494bd15c804bd54c7403bfcbe7",
+      "version": "11.5.1"
+    },
+    "tar": {
+      "name": "tar",
+      "path": "/usr/bin/tar",
+      "realPath": "/usr/bin/bsdtar",
+      "sha256": "1d2c90ce52b691db5e4a8b566cb162805de0ddc46d2aadff120009260f3a24a5"
+    },
+    "git": {
+      "name": "git",
+      "path": "/usr/bin/git",
+      "realPath": "/usr/bin/git",
+      "sha256": "5b1ddb7e9c11b87a034fc88b212e8ac243cfe2b4db696d767aa44c79595fc09a"
+    }
+  },
+  "environment": {
+    "HOME": "/Users/jim",
+    "PATH": "/opt/homebrew/Cellar/node/24.7.0/bin:/usr/bin:/bin:/usr/sbin:/sbin",
+    "LANG": "en_US.UTF-8",
+    "LC_ALL": "en_US.UTF-8",
+    "CI": "1",
+    "GIT_TERMINAL_PROMPT": "0",
+    "GIT_OPTIONAL_LOCKS": "0",
+    "TMPDIR": "/private/tmp/abg-rc13-composed-proof-20261113/reentry-03/cut-dry/cut-dry-run-20261113T094906529Z-8965/tmp",
+    "NODE_OPTIONS": "--max-old-space-size=8192",
+    "npm_config_userconfig": "/private/tmp/abg-rc13-composed-proof-20261113/reentry-03/cut-dry/cut-dry-run-20261113T094906529Z-8965/npm/npm-user.npmrc",
+    "npm_config_globalconfig": "/private/tmp/abg-rc13-composed-proof-20261113/reentry-03/cut-dry/cut-dry-run-20261113T094906529Z-8965/npm/npm-global.npmrc",
+    "npm_config_cache": "/private/tmp/abg-rc13-composed-proof-20261113/reentry-03/cut-dry/cut-dry-run-20261113T094906529Z-8965/npm/cache",
+    "npm_config_offline": "true",
+    "npm_config_ignore_scripts": "true",
+    "npm_config_audit": "false",
+    "npm_config_fund": "false",
+    "npm_config_update_notifier": "false"
+  },
+  "timingsMs": {
+    "compile": 7544,
+    "generate": 19941,
+    "pack": 14420
+  },
+  "buildRoot": "/private/tmp/abg-rc13-composed-proof-20261113/reentry-03/cut-dry/cut-dry-run-20261113T094906529Z-8965/source/build_tenants/abiogenesis/typescript",
+  "claims": {
+    "local": true,
+    "unqualified": true,
+    "published": false,
+    "installed": false,
+    "providerCalls": 0,
+    "nativeRuns": 0,
+    "tagsCreated": false,
+    "selectorChanged": false,
+    "pinChanged": false,
+    "qualificationTransferredFromEarlierCandidates": false
+  },
+  "claim": "Local unqualified development candidate 5.0.0-rc.13 cut from 21e6d7571e1897322cb73e96045c08c78413e8d0. It proves only that this archive is the built tree of that commit and that the Product's own verifier accepts it. No qualification, Hello, native-workflow or earlier-candidate result transfers to artifact sha256:12d49bada287be7e0690af355107d6ffda7734452288f5153c785bb92f3b98b0.",
+  "endedUtc": "2026-11-13T09:50:11.098Z"
+}
