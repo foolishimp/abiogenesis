@@ -60,15 +60,15 @@ One list of the defects found by the reviews, traces and packages of the T-292 w
 | B-22 | The qualification inventory and recipe hold digests and member paths of files the wave changed or deleted | Returns of TD-26 P1, P2, P4, TD-67, TD-79 | S4 | P2 | Regenerated at the cut |
 | B-23 | TD-77's strict default reaches a pure historical replay through shared source-provenance/revision helpers, making a kept child unreadable at later prefixes after a register change | `REVIEW_TD77_CODEX_TRIAGE.md`; frozen `91aec88b8`, saved changed-register failures and Writer first-refusal probe | S2 | P1 | Technical repair closed at `54024d63f`; pure recorded replay and strict work consumers separated; 64 merged and 22 frozen changed-register passes |
 | B-24 | The injected witness-mechanics environment omits the lock rows consumed by TD-78, so the operator-stop proof throws before owner entry | P5 `operator-base-attribution.log` on exact `e709bd24f`; T-292 Product/typed-interface/source/Proof triage and separate technical QA | S4 | P1 | Fixture repair closed at `b4704323b`; real guard retained. Merged run-stopped proof 9/9, including missing/different ABI-row controls before append; writer's sibling reprice 15/15. TD32/TD77 shared consumers remain in composed proof |
-| B-25 | Evidence gate `s7-pending-consumer-intent` still names the construction-only test removed by P5, causing the gate-catalogue checks to fail | P6 measured gate failures; original `t287-continuation-causation.test.mjs` at `e709bd24f`; T-292 triage | S4 | P1 | Technical repair merged at `eea100729`; writer gate catalogue 3/3. Unused row removed, historical inputs retained and current pending execution proved; detached merged catalogue check pending |
+| B-25 | Evidence gate `s7-pending-consumer-intent` still names the construction-only test removed by P5, causing the gate-catalogue checks to fail | P6 measured gate failures; original `t287-continuation-causation.test.mjs` at `e709bd24f`; T-292 triage | S4 | P1 | Technical repair closed at `eea100729`; writer and detached merged gate catalogue each 3/3. Unused row removed, historical inputs retained and current pending execution proved |
 
 ## Schedule
 
 | When | Items |
 |---|---|
-| In flight | TD-26 P7 and TD-25 member withdrawal; detached P6 affected proof |
+| In flight | TD-26 P7 and TD-25 member withdrawal |
 | Dependency-ready sequence | Final B-08 reconciliation after P7 |
-| Integrated with focused proof | B-01, B-02, B-03, B-04, B-05 (bounded; B-21 remains), B-06, B-07, B-23, B-24 |
+| Integrated with focused proof | B-01, B-02, B-03, B-04, B-05 (bounded; B-21 remains), B-06, B-07, B-23, B-24, B-25 |
 | After TD-26 P7 | B-08 |
 | At the cut | B-22 |
 | After the cut | B-09 (after the owner decides), B-10, B-11, B-12, B-13, B-21 (S2 physical-ancestry repair before reliable-operation/5.0 qualification claims) |
