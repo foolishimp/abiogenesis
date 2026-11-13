@@ -1,0 +1,420 @@
+{
+  "activation": "T292-B08-DESIGN-PREP-01",
+  "subject": "e709bd24f3db37991b892304f7fa369897bba315",
+  "claim": "locate/account for the 20 named Return items only",
+  "core_result": "satisfied",
+  "final_design_consistency": "not_evaluated",
+  "named_return_item_count": 20,
+  "distinct_passage_groups": 17,
+  "files": {
+    "F1": {
+      "path": "build_tenants/abiogenesis/typescript/design/ABI5_REALIZATION_CONSTITUTION.md",
+      "sha256": "4b6895503046e3e3ec89f4bbd5bbc7493ee0880f4ca7b7e99c72f99b70fead72"
+    },
+    "F2": {
+      "path": "build_tenants/abiogenesis/typescript/design/M05_S06_AXIOMATIC_AUTHORITY_AND_EXACT_PUBLIC_CONSTRUCTION_DESIGN.md",
+      "sha256": "7d629deb9c6b9fe1b3801feef570025b4cdffec6abb291f67693ad04abcc2d9c"
+    },
+    "F3": {
+      "path": "build_tenants/abiogenesis/typescript/design/M05_S06_PUBLIC_FUNCTION_AND_NATIVE_OCCURRENCE_CLOSURE_DESIGN.md",
+      "sha256": "740b8693524405f7e4186b13f8aedc50b9f63f81958cff32103524b4e7aff5bd"
+    },
+    "F4": {
+      "path": "build_tenants/abiogenesis/typescript/design/T287_W2_R3_C3_BRANCH_CONSTRUCTION_AGGREGATE_DESIGN.md",
+      "sha256": "b9076fe6f39f53d147f002c2b5147e318c3ce8f16c234c40e4921fc94e033107"
+    },
+    "F5": {
+      "path": "build_tenants/abiogenesis/typescript/design/ABI5_COMMON_COMPUTATIONAL_CAPABILITY_LIBRARY_DESIGN.md",
+      "sha256": "3bcf70215eacb5d56728e1e65a84086fd87c29b2f0b7c8ba5e38933821557cdb"
+    },
+    "F6": {
+      "path": "build_tenants/abiogenesis/typescript/design/T287_REGISTERED_GRAPH_SELECTION_DESIGN.md",
+      "sha256": "0f927ee856de1caa65ef92a59dd4436817db64baacbd9e4f2e0dff54c33bb5a3"
+    },
+    "F7": {
+      "path": "build_tenants/abiogenesis/typescript/design/T287_PENDING_CONSUMER_CONTINUATION_DESIGN.md",
+      "sha256": "0ffc2bcce62211f85527dd7bb41eb6fadcdc0705091c0ed1961c5b33065a198f"
+    }
+  },
+  "relations": {
+    "R-CONS": "PRODUCT Standard System Program/Consensus, A5-F07/F08 (1061\u20131079, 1363, 1373\u20131378); PUBLIC-CONTRACTS-008 project.read (198). No shipped 5.0 Consensus GraphFunction or ticket projection; P1/P2 removed owners and P7 withdraws declaration.",
+    "R-PROJ": "PRODUCT Definition, Tool, And Runtime Authority (1294\u20131307) and ABG (267\u2013275); reads project admitted truth. The retired PublicRunProjectionAuthority is not replaced by a new authority carrier.",
+    "R-GAP": "PRODUCT Standard System Program and S03 (1063\u20131074, 1418\u20131435), POLICY-065/068; no-lawful-selection yields a blocked stop with gap origin/missing support and truthful reading. P5 removes gap_stop runtime dispositions.",
+    "R-PEND": "PRODUCT 1282\u20131286; PUBLIC-CONTRACTS-008 run.continue (207); CONTINUATION-011; POLICY-024. Same-Run, replay-derived pending execution remains. F7 Contract domain field table (381\u2013395) supplies current meaning, subject to P5 result-domain reconciliation.",
+    "R-ROUTE": "PRODUCT GTL/GraphFunction/HoG/ABG (204\u2013275); F6 One declared application and direct execution path. Registered selection has its own declared graph relation; no One Surface next-action/construction-intent route remains.",
+    "R-HOLD": "PRODUCT ABG and authority split; F5 operation-held body scope (1098\u20131123). Retained Run/native-assessment/direct callers keep the same read scope; removal of one example does not alter caching or owner semantics."
+  },
+  "named_passages": [
+    {
+      "id": "N01",
+      "file": "build_tenants/abiogenesis/typescript/design/ABI5_REALIZATION_CONSTITUTION.md",
+      "file_id": "F1",
+      "anchor": "E21, line 1426",
+      "old_return_items": [
+        "P1 \u00a71.3 row 1, old 1412"
+      ],
+      "old_fragment": "`project.read/ticket_consensus` | read | admitted Consensus result -> Product-owned ticket projection",
+      "exact_fragment_occurrences": 1,
+      "first_fragment_line": 1426,
+      "proposed_action": "Delete E21 from the current external-expression table after P7 withdraws ticket_consensus; retain other IDs without renumbering. Apply C01 to its references.",
+      "owning_relation": "R-CONS",
+      "frozen_file_sha256": "4b6895503046e3e3ec89f4bbd5bbc7493ee0880f4ca7b7e99c72f99b70fead72"
+    },
+    {
+      "id": "N02",
+      "file": "build_tenants/abiogenesis/typescript/design/ABI5_REALIZATION_CONSTITUTION.md",
+      "file_id": "F1",
+      "anchor": "L10, line 1517",
+      "old_return_items": [
+        "P1 \u00a71.3 row 2, old 1503"
+      ],
+      "old_fragment": "TicketConsensusProjectReadPacket + admitted Consensus result -> ProductProjectReadResult<ticket_consensus>  or  ProductProjectReadRefusal",
+      "exact_fragment_occurrences": 1,
+      "first_fragment_line": 1517,
+      "proposed_action": "Delete the L10 current-leaf row. Its Product ticket-projection owner has been removed; do not substitute the Executive as this projection.",
+      "owning_relation": "R-CONS",
+      "frozen_file_sha256": "4b6895503046e3e3ec89f4bbd5bbc7493ee0880f4ca7b7e99c72f99b70fead72"
+    },
+    {
+      "id": "N03",
+      "file": "build_tenants/abiogenesis/typescript/design/ABI5_REALIZATION_CONSTITUTION.md",
+      "file_id": "F1",
+      "anchor": "R21, line 1686",
+      "old_return_items": [
+        "P1 \u00a71.3 row 3, old 1672",
+        "P2 Design sentences listed, old 1672"
+      ],
+      "old_fragment": "Product ConsensusProjection over the accepted GTL AF-03 relation. `P/project_read_ports.ts::projectConsensusTicket` invokes `G/consensus.ts::projectTicketConsensus`;",
+      "exact_fragment_occurrences": 1,
+      "first_fragment_line": 1686,
+      "proposed_action": "Delete the R21 result/refusal row with E21. Its entire result family is a withdrawn member, not a renamed stop reading.",
+      "owning_relation": "R-CONS",
+      "frozen_file_sha256": "4b6895503046e3e3ec89f4bbd5bbc7493ee0880f4ca7b7e99c72f99b70fead72"
+    },
+    {
+      "id": "N04",
+      "file": "build_tenants/abiogenesis/typescript/design/ABI5_REALIZATION_CONSTITUTION.md",
+      "file_id": "F1",
+      "anchor": "project-read installed mapping, line 1966",
+      "old_return_items": [
+        "P1 \u00a71.3 row 4, old 1952"
+      ],
+      "old_fragment": "| `ticket_consensus` | `./product` | `ConsensusProjectionPort.ticketConsensus` |",
+      "exact_fragment_occurrences": 1,
+      "first_fragment_line": 1966,
+      "proposed_action": "Delete this installed-member mapping after P7. No replacement export is introduced.",
+      "owning_relation": "R-CONS",
+      "frozen_file_sha256": "4b6895503046e3e3ec89f4bbd5bbc7493ee0880f4ca7b7e99c72f99b70fead72"
+    },
+    {
+      "id": "N05",
+      "file": "build_tenants/abiogenesis/typescript/design/M05_S06_AXIOMATIC_AUTHORITY_AND_EXACT_PUBLIC_CONSTRUCTION_DESIGN.md",
+      "file_id": "F2",
+      "anchor": "\u00a77 scoped-truth paragraph, lines 2095\u20132100",
+      "old_return_items": [
+        "P1 \u00a71.3 row 5, old 2052\u20132053"
+      ],
+      "old_fragment": "`PublicRunProjectionAuthority`\nconstructor semantics are replaced by unverified coordinate parsing plus\nABG-backed basis rehydration;",
+      "exact_fragment_occurrences": 1,
+      "first_fragment_line": 2096,
+      "proposed_action": "Replace the quoted clause with: \"Caller-supplied coordinates are unverified until ABG-backed basis rehydration succeeds;\". Keep the surrounding scoped-truth/admitted-log/self-consistent-digest constraints. This removes a present-tense constructor for a deleted type without inventing another carrier.",
+      "owning_relation": "R-PROJ",
+      "frozen_file_sha256": "7d629deb9c6b9fe1b3801feef570025b4cdffec6abb291f67693ad04abcc2d9c"
+    },
+    {
+      "id": "N06",
+      "file": "build_tenants/abiogenesis/typescript/design/M05_S06_AXIOMATIC_AUTHORITY_AND_EXACT_PUBLIC_CONSTRUCTION_DESIGN.md",
+      "file_id": "F2",
+      "anchor": "\u00a710.2 D02, line 2222",
+      "old_return_items": [
+        "P1 \u00a71.3 row 6, old 2178",
+        "P2 Design sentences listed, old 2178"
+      ],
+      "old_fragment": "`ReleaseProjectionPort`, `ConsensusProjectionPort` | `product/catalog.ts`, `product/environment.ts`, `product/install_product.ts`, `product/publication.ts`, `product/semantics.ts`, `gtl/consensus.ts`, and shared canonical JSON/digests/references",
+      "exact_fragment_occurrences": 1,
+      "first_fragment_line": 2222,
+      "proposed_action": "Remove only \", `ConsensusProjectionPort`\" from the export list and \"`gtl/consensus.ts`, \" from the dependency list. Preserve the other owner entries; their unrelated currentness is not evaluated here.",
+      "owning_relation": "R-CONS",
+      "frozen_file_sha256": "7d629deb9c6b9fe1b3801feef570025b4cdffec6abb291f67693ad04abcc2d9c"
+    },
+    {
+      "id": "N07",
+      "file": "build_tenants/abiogenesis/typescript/design/M05_S06_AXIOMATIC_AUTHORITY_AND_EXACT_PUBLIC_CONSTRUCTION_DESIGN.md",
+      "file_id": "F2",
+      "anchor": "project-read ledger row 27, line 2308",
+      "old_return_items": [
+        "P1 \u00a71.3 row 7, old 2264"
+      ],
+      "old_fragment": "| 27 | `ticket_consensus` | `PRODUCT_PROJECT_READ_CONTRACTS.ticket_consensus` | `Product.ConsensusProjectionPort.ticketConsensus` | `product/project_read_ports.ts` / `D02` |",
+      "exact_fragment_occurrences": 1,
+      "first_fragment_line": 2308,
+      "proposed_action": "Delete row 27 after P7. Do not renumber retained row identities or invent a new total from this preparation; P5/P7 own the final member set.",
+      "owning_relation": "R-CONS",
+      "frozen_file_sha256": "7d629deb9c6b9fe1b3801feef570025b4cdffec6abb291f67693ad04abcc2d9c"
+    },
+    {
+      "id": "N08",
+      "file": "build_tenants/abiogenesis/typescript/design/M05_S06_PUBLIC_FUNCTION_AND_NATIVE_OCCURRENCE_CLOSURE_DESIGN.md",
+      "file_id": "F3",
+      "anchor": "project.read source/result table, line 1341",
+      "old_return_items": [
+        "P1 \u00a71.3 row 8, old 1339",
+        "P2 Design sentences listed, old 1341"
+      ],
+      "old_fragment": "| `ticket_consensus` | ConsensusResult | TicketConsensusProjection | exactly one | ticket, output authority, replay basis |",
+      "exact_fragment_occurrences": 1,
+      "first_fragment_line": 1341,
+      "proposed_action": "Delete the ticket_consensus case row after P7; the ordinary source/result/read rows retain their owners.",
+      "owning_relation": "R-CONS",
+      "frozen_file_sha256": "740b8693524405f7e4186b13f8aedc50b9f63f81958cff32103524b4e7aff5bd"
+    },
+    {
+      "id": "N09",
+      "file": "build_tenants/abiogenesis/typescript/design/M05_S06_PUBLIC_FUNCTION_AND_NATIVE_OCCURRENCE_CLOSURE_DESIGN.md",
+      "file_id": "F3",
+      "anchor": "PROJECT_READ_OWNER_PORTS table, line 1360",
+      "old_return_items": [
+        "P1 \u00a71.3 row 9, old 1358"
+      ],
+      "old_fragment": "| `ticket_consensus` | `Product.ConsensusProjectionPort.ticketConsensus` |",
+      "exact_fragment_occurrences": 1,
+      "first_fragment_line": 1360,
+      "proposed_action": "Delete this owner-port mapping after P7. Do not relabel it as an Executive port.",
+      "owning_relation": "R-CONS",
+      "frozen_file_sha256": "740b8693524405f7e4186b13f8aedc50b9f63f81958cff32103524b4e7aff5bd"
+    },
+    {
+      "id": "N10",
+      "file": "build_tenants/abiogenesis/typescript/design/M05_S06_PUBLIC_FUNCTION_AND_NATIVE_OCCURRENCE_CLOSURE_DESIGN.md",
+      "file_id": "F3",
+      "anchor": "SelectorOf<C>, lines 1401\u20131405",
+      "old_return_items": [
+        "P1 \u00a71.3 row 10, old 1399\u20131404"
+      ],
+      "old_fragment": "  : C is \"ticket_consensus\"\n    ? { kind: \"ticket_consensus\",\n        ticket: RD<Ticket>,\n        outputAuthority: RD<ConsensusOutputAuthority>,\n        replayBasis: RD<ReplayProjectionBasis> }",
+      "exact_fragment_occurrences": 1,
+      "first_fragment_line": 1401,
+      "proposed_action": "Delete this complete conditional arm after P7; join the preceding remaining arm to `: NoSelector`. Do not delete similarly named source/projection fields elsewhere by string matching.",
+      "owning_relation": "R-CONS",
+      "frozen_file_sha256": "740b8693524405f7e4186b13f8aedc50b9f63f81958cff32103524b4e7aff5bd"
+    },
+    {
+      "id": "N11",
+      "file": "build_tenants/abiogenesis/typescript/design/T287_W2_R3_C3_BRANCH_CONSTRUCTION_AGGREGATE_DESIGN.md",
+      "file_id": "F4",
+      "anchor": "\u00a79 standalone trace, line 665",
+      "old_return_items": [
+        "P1 \u00a71.3 row 11, old 665"
+      ],
+      "old_fragment": "  -> PublicRunProjectionAuthority\n",
+      "exact_fragment_occurrences": 1,
+      "first_fragment_line": 665,
+      "proposed_action": "Delete this trace step. The trace then goes directly from `one run_closed` to `fresh project.read / replay equality`; ABG-admitted history remains the source of that read. No new authority step is added.",
+      "owning_relation": "R-PROJ",
+      "frozen_file_sha256": "b9076fe6f39f53d147f002c2b5147e318c3ce8f16c234c40e4921fc94e033107"
+    },
+    {
+      "id": "N12",
+      "file": "build_tenants/abiogenesis/typescript/design/ABI5_COMMON_COMPUTATIONAL_CAPABILITY_LIBRARY_DESIGN.md",
+      "file_id": "F5",
+      "anchor": "operation-held read examples, lines 1117\u20131120",
+      "old_return_items": [
+        "P1 \u00a71.3 row 12, old 1118"
+      ],
+      "old_fragment": "from a Run owner's stage, `ticket_consensus`, the native assessment or a direct\ncaller.",
+      "exact_fragment_occurrences": 1,
+      "first_fragment_line": 1119,
+      "proposed_action": "Replace with: \"from a Run owner's stage, the native assessment or a direct\ncaller.\" Keep the hold lifetime and body-read rules unchanged.",
+      "owning_relation": "R-HOLD",
+      "frozen_file_sha256": "3bcf70215eacb5d56728e1e65a84086fd87c29b2f0b7c8ba5e38933821557cdb"
+    },
+    {
+      "id": "N13",
+      "file": "build_tenants/abiogenesis/typescript/design/ABI5_REALIZATION_CONSTITUTION.md",
+      "file_id": "F1",
+      "anchor": "L09, line 1516",
+      "old_return_items": [
+        "P2 Design sentences listed, old 1502"
+      ],
+      "old_fragment": "`ConsensusResult -> TicketConsensusProjection  or  Consensus projection refusal`",
+      "exact_fragment_occurrences": 1,
+      "first_fragment_line": 1516,
+      "proposed_action": "Delete L09, including its current `G/consensus.ts::projectTicketConsensus` locus. The source module is absent at the frozen subject.",
+      "owning_relation": "R-CONS",
+      "frozen_file_sha256": "4b6895503046e3e3ec89f4bbd5bbc7493ee0880f4ca7b7e99c72f99b70fead72"
+    },
+    {
+      "id": "N14",
+      "file": "build_tenants/abiogenesis/typescript/design/ABI5_REALIZATION_CONSTITUTION.md",
+      "file_id": "F1",
+      "anchor": "J08, line 1580",
+      "old_return_items": [
+        "P2 Design sentences listed, old 1566"
+      ],
+      "old_fragment": "Consensus result coordinate + admitted GTL/ABG result truth -> exact ConsensusResult  or  source/result refusal",
+      "exact_fragment_occurrences": 1,
+      "first_fragment_line": 1580,
+      "proposed_action": "Delete J08 with the retired L09/L10 projection. Apply C01 to the only E21 composition references.",
+      "owning_relation": "R-CONS",
+      "frozen_file_sha256": "4b6895503046e3e3ec89f4bbd5bbc7493ee0880f4ca7b7e99c72f99b70fead72"
+    },
+    {
+      "id": "N15",
+      "file": "build_tenants/abiogenesis/typescript/design/T287_REGISTERED_GRAPH_SELECTION_DESIGN.md",
+      "file_id": "F6",
+      "anchor": "Existing mechanics and actual gap, line 40",
+      "old_return_items": [
+        "P4 Kept design sentences, bullet 1, old 40"
+      ],
+      "old_fragment": "Ordinary continuation has one successor. Current result-dependent routing handles re-entry/no-action, not forward selection among fixed workflow nodes.",
+      "exact_fragment_occurrences": 1,
+      "first_fragment_line": 40,
+      "proposed_action": "Replace with: \"Ordinary continuation has one successor. Result-dependent routing retains graph-span re-entry; registered selection uses the declared selection relation described below.\" Remove the obsolete `:550` source line suffix; keep the `hog/route_proposal.ts` owner route. This does not claim the still-existing route module was retired.",
+      "owning_relation": "R-ROUTE",
+      "frozen_file_sha256": "0f927ee856de1caa65ef92a59dd4436817db64baacbd9e4f2e0dff54c33bb5a3"
+    },
+    {
+      "id": "N16",
+      "file": "build_tenants/abiogenesis/typescript/design/ABI5_REALIZATION_CONSTITUTION.md",
+      "file_id": "F1",
+      "anchor": "L50/L51/L52, lines 1557\u20131559",
+      "old_return_items": [
+        "P4 Kept design sentences, bullet 2, old 1557\u20131559"
+      ],
+      "old_fragment": "| `L50` | `P/S` | `ValidatedRuntimeEventPrefix + selectedAction coordinate -> one admitted current NextActionProjection  or  stale/absent/ambiguous`",
+      "exact_fragment_occurrences": 1,
+      "first_fragment_line": 1557,
+      "proposed_action": "Delete the three selected-action/construction-intent leaf rows L50\u2013L52 from the current leaf catalog; apply C02 to their E32 composition. Do not delete or redescribe retained generic `projectDeclaredStructuralAdvanceAtPrefix` or `admitRoute` merely because these stale rows cite them.",
+      "owning_relation": "R-ROUTE",
+      "frozen_file_sha256": "4b6895503046e3e3ec89f4bbd5bbc7493ee0880f4ca7b7e99c72f99b70fead72"
+    },
+    {
+      "id": "N17",
+      "file": "build_tenants/abiogenesis/typescript/design/M05_S06_PUBLIC_FUNCTION_AND_NATIVE_OCCURRENCE_CLOSURE_DESIGN.md",
+      "file_id": "F3",
+      "anchor": "RunInvokeNonTerminal/RunContinueNonTerminal and operation matrix, lines 1654, 1692, 1809\u20131812",
+      "old_return_items": [
+        "P4 Kept design sentences, bullet 3, old 1654/1692/1809\u20131812"
+      ],
+      "old_fragment": "disposition: \"held\" | \"gap_stop\"",
+      "exact_fragment_occurrences": 2,
+      "first_fragment_line": 1654,
+      "proposed_action": "For both quoted nonterminal type lines, remove ` | \"gap_stop\"` after the P5 contract change; use `held` as the remaining documented nonterminal disposition. For the kept invoke/start/current_intent operation rows, remove `, gap_stop` from the nonterminal column. Delete the selected_action row after P7, rather than leaving an executable intent-admission promise. Reconcile current_intent input/refusal cells and retained fields under U01\u2013U03; terminal gap origin stays a blocked stop, not a new nonterminal case.",
+      "owning_relation": "R-GAP/R-PEND",
+      "frozen_file_sha256": "740b8693524405f7e4186b13f8aedc50b9f63f81958cff32103524b4e7aff5bd"
+    }
+  ],
+  "constitution_references": [
+    {
+      "id": "C01",
+      "file": "build_tenants/abiogenesis/typescript/design/ABI5_REALIZATION_CONSTITUTION.md",
+      "file_id": "F1",
+      "anchor": "E21 composition 1786 and resource row 1834",
+      "origin": "P1 E21/L10/R21 and P2 L09/J08 direct references",
+      "old_fragment": "| `E21` | `J08 -> L09 -> L10 -> R21` |",
+      "proposed_action": "Delete the E21 composition row and its resource/acquisition row whose exact input is `C[consensusResult] + AR[runtimePrefix]`. These are references to the same retired member, not additional review scope.",
+      "owning_relation": "R-CONS",
+      "frozen_file_sha256": "4b6895503046e3e3ec89f4bbd5bbc7493ee0880f4ca7b7e99c72f99b70fead72"
+    },
+    {
+      "id": "C02",
+      "file": "build_tenants/abiogenesis/typescript/design/ABI5_REALIZATION_CONSTITUTION.md",
+      "file_id": "F1",
+      "anchor": "E32 expression 1437, R32 1697, composition 1797, resource 1846, installed mapping 1947",
+      "origin": "P4 L50\u2013L52; P3 Kept design notes constitution row",
+      "old_fragment": "`run.continue/selected_action` | runtime-mutation | admitted selected action -> exact ConstructionIntent/invocation admission -> HoG traversal -> replay",
+      "proposed_action": "After P7, delete E32, R32, the E32 composition/resource rows and `run.continue#selected_action` installed mapping. Stable remaining IDs stay unchanged. The composite contains L50/L51/L52 and cannot remain an executable row after their removal.",
+      "owning_relation": "R-ROUTE/R-PEND",
+      "frozen_file_sha256": "4b6895503046e3e3ec89f4bbd5bbc7493ee0880f4ca7b7e99c72f99b70fead72"
+    },
+    {
+      "id": "C03",
+      "file": "build_tenants/abiogenesis/typescript/design/ABI5_REALIZATION_CONSTITUTION.md",
+      "file_id": "F1",
+      "anchor": "\u00a75.6.2C continuation paragraph, lines 1304\u20131309",
+      "origin": "P3 Kept design notes, constitution old 1290",
+      "old_fragment": "`run.continue#current_intent` and `run.continue#selected_action` expose one\nshared Product/ABG continuation-carrier gap.",
+      "proposed_action": "Replace the complete six-line paragraph with: \"`run.continue#current_intent` continues only a replay-derived pending execution in the same Run through the existing ABG/HoG owners. The request supplies the exact pending cursor, progressed input and execution basis; it does not select another GraphFunction or admit new work. `selected_action` is withdrawn. Caller-authored traversal state and implicit continuation authority are prohibited.\" Apply only after P7; this is a present Product relation, not an acceptance claim for the implementation.",
+      "owning_relation": "R-PEND",
+      "frozen_file_sha256": "4b6895503046e3e3ec89f4bbd5bbc7493ee0880f4ca7b7e99c72f99b70fead72"
+    },
+    {
+      "id": "C04",
+      "file": "build_tenants/abiogenesis/typescript/design/ABI5_REALIZATION_CONSTITUTION.md",
+      "file_id": "F1",
+      "anchor": "E31/R31 meaning, lines 1436 and 1696",
+      "origin": "P3 Kept design notes, constitution old 1422/1682",
+      "old_fragment": "current continuation rehydration -> successor derivation/resume admission -> HoG continuation -> replay",
+      "proposed_action": "Replace this E31 relation with \"replay-derived pending-execution occurrence and exact cursor/input/basis -> same-Run continuation admission -> HoG pending-execution resume -> replay\". In R31 remove the `intent_mismatch`, `stale_action`, `action_mismatch`, `reprice_mismatch` refusal arms and describe `admittedIntent: null`; keep the five current refusal codes and retained fields. U01\u2013U03 bind final result-domain and field details after P5. Do not assert an F_H response/resume implementation.",
+      "owning_relation": "R-PEND",
+      "frozen_file_sha256": "4b6895503046e3e3ec89f4bbd5bbc7493ee0880f4ca7b7e99c72f99b70fead72"
+    }
+  ],
+  "current_field_dependencies": [
+    {
+      "id": "U01",
+      "anchor": "F3 1663\u20131684; F1 R31; F7 Contract domain; product/run_operation_contracts.ts 200\u2013217, 257\u2013275",
+      "exact_old": "currentIntent: RD<ConstructionIntent>",
+      "current_fact": "The frozen current_intent request instead has run, continuation, pendingCursor, continuationInput and expectedBasis; all are ref/digest pairs. Its admittedIntent schema is v.null(). The closed result domain still declares current_intent and pending_execution although P3 says only pending_execution is produced.",
+      "proposed": "Replace the obsolete currentIntent request field with `pendingCursor: RD<TraversalCursor>` under the existing pending-execution field relation. Retain `admittedIntent: null`. Take the final continuationKind domain from P5; do not silently equate the stable member key current_intent with executable ConstructionIntent semantics.",
+      "dependency": "P3 Needs a ruling item 2 / P5 Return, then P7 member withdrawal."
+    },
+    {
+      "id": "U02",
+      "anchor": "F3 1647/1658 and 1633\u20131637; F1 R31; route and replay carrier fields",
+      "exact_old": "gap: RD<RuntimeGap> | null",
+      "current_fact": "At the frozen subject run_operation_contracts still contains nullable gap and the gap_stop nonterminal literal; P5 has not landed. F3 also contains a sourceBasis projectionAuthority and continuation result admittedIntent, which are not the deleted PublicRunProjectionAuthority constructor.",
+      "proposed": "Do not remove fields by name or infer a new contract from deleted construction semantics. Preserve final null-valued carrier fields if P5 retains them; replace RuntimeGap with its exact null/current field law only when that Return supplies the contract. The sourceBasis field lies outside the named deletion and remains unresolved here.",
+      "dependency": "P5 final schemas and Return. No early field deletion."
+    },
+    {
+      "id": "U03",
+      "anchor": "F1 E31 composition 1796, L46\u2013L49 1553\u20131556, installed current_intent mapping 1946",
+      "exact_old": "J05 -> L11 -> L46 -> L47 -> L48 -> L49 -> L45 -> L13 -> R31",
+      "current_fact": "The quoted current_intent path resolves L46/L47 through F_H continuation projection/resume, while current pending execution uses abg/construction_continuation.ts and runPendingExecutionOwner. L48/L49 explicitly describe an unbound F_H operation. They cannot be presented as the retained pending path by relabeling.",
+      "proposed": "Keep the current pending-execution relation distinct. Bind a replacement E31 path to the exact post-P5 existing pending projection, selection/preparation, ABG admission, HoG resume and replay owners. Reuse the field and admission relations in F7 381\u2013403 and 456\u2013464; do not repurpose the F_H leaf IDs or invent a new owner. The exact post-P5 leaf-expression rewrite remains for the final Writer.",
+      "dependency": "P5 exact subject/Return; typed-interface comparison of its existing owners. This is a named unresolved seam, not a source repair or new full audit."
+    },
+    {
+      "id": "U04",
+      "anchor": "F1 \u00a716.7 continuation-decision amendment record, line 3096",
+      "exact_old": "`run.continue#current_intent` and `run.continue#selected_action` remain held on one shared Product/ABG continuation-carrier gap.",
+      "current_fact": "This is inside an amendment record explicitly based on e7e252ed. It records an earlier state and also reads as an operative current statement.",
+      "proposed": "Preserve historical bytes/provenance. Root should apply the final B08 current relation to the active tables and make its supersession of this continuation ruling explicit if the record remains an operative source. Do not turn this into B13/M05 general status cleanup.",
+      "dependency": "Root distinction between historical amendment evidence and current operative ruling; no guessed historical rewrite."
+    }
+  ],
+  "required_carrier_retention": [
+    [
+      "ExecutionBasis fields",
+      "`actionCatalogRef`, `actionCatalogDigest`, `constructionCompositionRef`, `constructionCompositionDigest`, `constructionComposition`: null; `actionCatalogRows`: []",
+      "Plan \u00a73.4, 654\u2013669; P6 narrows types/writes constants. Preserve profile/digest explanation; no executable ActionCatalog or ConstructionComposition is implied."
+    ],
+    [
+      "Hold identity",
+      "`constructionIntentRef: null`",
+      "Plan \u00a73.4 and P4 What left: part of the digested F_H hold identity. Removal of the intent path does not authorize removing this field."
+    ],
+    [
+      "Replay body",
+      "`constructionDeltas: []`",
+      "Plan \u00a73.4 and P5 risks. Keep the digest-carried empty array and its historical profile role."
+    ],
+    [
+      "Event/profile declarations",
+      "`construction_intent_selected`, `construction_delta_observed`, `construction_continuation_opened`, their payload/calculus declarations; `reentryBasis`",
+      "Plan 670\u2013671 and open point 3, 1514\u20131518. Retain the named profile fields/declarations under the final P5/P6 return. The selected post-P5 readers refuse retired One Surface histories; their original installs remain the readers for them. Declaration/profile persistence is not executable admission authority."
+    ],
+    [
+      "Current pending carrier",
+      "`admittedIntent: null`; stable member key `current_intent`; pending helpers in `abg/construction_continuation.ts`",
+      "P3 and frozen current contract; U01 records the final result-domain dependency. A construction-prefixed filename/helper is not itself retired semantics."
+    ]
+  ],
+  "pending_dependencies": [
+    "P5",
+    "P6",
+    "P7"
+  ],
+  "consumer": "Root Executive"
+}

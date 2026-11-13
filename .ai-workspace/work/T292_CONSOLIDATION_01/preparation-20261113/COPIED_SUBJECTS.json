@@ -1,0 +1,31 @@
+{
+  "activation": "T292-PREPARATION-RECORD-01",
+  "mainAtRecording": "94e588ec9209c0fed89f967601e8f9071573a9cd",
+  "effect": "closed preparation records only",
+  "files": [
+    {
+      "path": "DESIGN_PREPARATION.md",
+      "source": "/private/tmp/abg-design-reconciliation-20261113/REPORT.md",
+      "sha256": "5c3f7d3772756d9313aaec3866c54d52890d4aa4e766f98d25149065029c38c8",
+      "bytes": 23755
+    },
+    {
+      "path": "DESIGN_PROPOSAL.json",
+      "source": "/private/tmp/abg-design-reconciliation-20261113/PROPOSAL.json",
+      "sha256": "e81e9cf48339c975d42a987013226ccf8ea635b47b9dc0c495ea47963eea32c3",
+      "bytes": 28022
+    },
+    {
+      "path": "P6_PREPARATION.md",
+      "source": "/private/tmp/abg-td26p6-work/prep/P6_PREPARATION.md",
+      "sha256": "4c31074247889d4a7fbad6523bc90b975688b2d4abdff497824ee32f073482c3",
+      "bytes": 22790
+    },
+    {
+      "path": "RC13_METADATA_ROUTE.md",
+      "source": "/private/tmp/abg-rc13-metadata-route-20261113/ROUTE.md",
+      "sha256": "eebc802abf1ae272fd67ab1c6f31ba71e91f6927c552fea870f7cf9e8328701e",
+      "bytes": 16149
+    }
+  ]
+}

@@ -193,6 +193,50 @@ Read-only `T292-B08-DESIGN-PREP-01` prepares the already named P1/P2/P4 design
 passages from frozen `e709bd24f`; final mutation remains after P7 and consumes
 P5-P7 additions. Neither activation writes main.
 
+Recording Writer activation `T292-PREPARATION-RECORD-01` binds Root to main
+`94e588ec9209c0fed89f967601e8f9071573a9cd`. It checkpoints closed read-only
+design, P6 and RC13 metadata preparation under this work carrier, records
+dependency-ready P6/P7 assignments and the B-24 proof-fixture disposition,
+and corrects the completed B-06 QA status. Its territory is these tracking
+and preparation records only; no Product source, build or release effect.
+Root returns to Executive after this record checkpoint.
+
+Read-only preparation is closed for B-08 (exact `e709bd24f`, 20 named
+Return items in 17 groups plus constitution relations), P6's language and
+fixture map, and B-22's existing-owner metadata route. Copies are under
+`work/T292_CONSOLIDATION_01/preparation-20261113/`; they are routing evidence,
+not additional work authority or final acceptance. P5/P6/P7 final Returns
+remain dependencies of the one design reconciliation. The metadata route
+uses actual payload checkpoint and archive identity, then a metadata-only
+commit and external final-cut equality proof; it changes no RC1 qualification
+CLI or formal qualification claim.
+
+P6 preparation found a recorded steel03 Catalog containing an inactive
+Consensus Program beside a kept Program. Root's ruling preserves exact
+historical Catalog/view/borrowed-owner closure. New admission of this basis
+already refuses the retired gate relation; P6 may change its first refusal
+to the earlier retired Program field, measured at the same owner. This is
+not permission to change a kept historical projection. Unique generic span
+cursor/re-entry assertions in S03 move to a kept owner lane before the
+retired fixture leaves. P6 implementation waits for the integrated P5 subject.
+
+P7 and TD-25M are prepared read-only as one serial member/register withdrawal
+after P6. They share register and family owners; there is no intermediate
+release or concurrent register mutation. The final counts must be derived
+from the owner, with kept recorded truth and strict new-work proof retained.
+
+B-24 triage binds P5's operator-stop failure and identical reproduction on
+predecessor `e709bd24f`. The mechanical witness fixture injects a lock with
+only id/digest, omitting the row TD-78's real executing-Product guard reads.
+Product/typed-interface/source/Proof frames agree on test-premise re-entry:
+complete the explicitly injected ABI row using the injected verified/executing
+digest, keep the real equality comparison, and prove missing/different rows
+refuse before append/native entry. The existing full operator-stop readback
+stays. Separate technical QA found no supported malformed-lock production
+path: the real owner validates the lock before projecting the environment.
+This is S4/P1 proof-support work in P5, not an admission-policy relaxation or
+installed-artifact proof. Its final Return and affected proof remain pending.
+
 At most two implementation Writers run concurrently. Integration is serial.
 TD-78 and the parked TD-85a follow TD-77; P7 and TD-25 member withdrawal depend
 on TD-77. One design reconciliation closes B-08, then one composed broad and
