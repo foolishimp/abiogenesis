@@ -46,3 +46,19 @@ test('revision collector: the historical prefix it prepares from is strict and i
   assert.ok(h.prefixCalls[0].every(Object.isFrozen));
   assert.equal(h.preparationCalls.length,1);
 });
+
+test('revision collector: actual spelling owner observes the controlled root and member paths (lookup assumptions)',{skip},async()=>{
+  const h=await collectorHarness(),paths=[...h.storedPaths.keys()],root=h.input.provenance.helperPlan.sandboxRoot;
+  assert.equal(paths[0],root);assert.equal(paths.length,23);
+  assert.ok(h.project());
+  assert.deepEqual(h.spellingReads,paths,'one native spelling lookup for the root and each of the 22 members');
+  for(const path of [root,paths[1]]){
+    h.storedPaths.set(path,path+'.different-stored-spelling');
+    assert.equal(h.project(),null,'a differently spelled root or member refuses');
+    h.storedPaths.delete(path);
+    assert.equal(h.project(),null,'a missing root or member refuses through the actual owner exception');
+    h.storedPaths.set(path,path);
+    assert.ok(h.project(),'restored exact spelling keeps valid collection');
+  }
+  assert.ok(h.spellingReads.every(path=>paths.includes(path)),'only declared virtual snapshot paths were observed');
+});

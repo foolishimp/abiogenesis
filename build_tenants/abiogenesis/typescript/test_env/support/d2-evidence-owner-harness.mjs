@@ -55,6 +55,8 @@ export async function collectorHarness() {
   const h=await workflowStepHarness(),original=h.cut.value,entry=h.entry,input=h.observation,prior=h.stage;
   const snapshotBytes=new Map(input.snapshotMembers.map(member=>[resolve(input.provenance.helperPlan.sandboxRoot,member.relativePath),
     Buffer.from(h.cut.value.current.worksite.targets.find(row=>row.target.subject.relativePath===member.relativePath).base64,'base64')]));
+  const storedPaths=new Map([input.provenance.helperPlan.sandboxRoot,...snapshotBytes.keys()].map(path=>[path,path])),spellingReads=[];
+  const spellingOwner=await load(packageRoot,'shared/stored_spelling');
   const R=product.SEMANTIC_REVISION_IDS;
   const bridgeRef=R.bridgeImplementationRef;
   const states=new Map(),executions=new Map(),prefixCalls=[],preparationCalls=[];
@@ -89,7 +91,12 @@ export async function collectorHarness() {
     assert.ok(body.every(Boolean),'one exact compiled collector body and its component selector');body=body.join('\n');
     if(diagnostic){let n=0;body=body.replace(/return null;/g,()=>`{console.error('collector refusal ${++n}');return null;}`).replace(/catch \{/g,"catch(error) { console.error(error.stack);");}
     const context={...product,authenticateOwnedSemanticJobBasis,console,hash,deepFreeze,canonicalEquals,presentMember,onlyExactMatch,ids:R,record:value=>value!==null&&typeof value==='object'&&!Array.isArray(value),
-      resolve,relative,isAbsolute,realpathSync:path=>path,
+      resolve,relative,isAbsolute,
+      // The actual spelling owner runs against the same explicit virtual
+      // snapshot filesystem as stat/read below, never the host's old paths.
+      realpathSync:{native:path=>{spellingReads.push(path);
+        if(!storedPaths.has(path))throw Object.assign(new Error('missing virtual snapshot path'),{code:'ENOENT'});
+        return storedPaths.get(path);}},
       lstatSync:path=>({isSymbolicLink:()=>false,isFile:()=>snapshotBytes.has(path),nlink:1}),
       readFileSync:path=>{assert.ok(snapshotBytes.has(path),'only mapped snapshot bytes');return snapshotBytes.get(path);},
       // The collector authenticates through the owned stage authenticator
@@ -115,12 +122,12 @@ export async function collectorHarness() {
       },
       admitted:()=>({result:{value:prior}}),
     };
-    const source=`${sameInvocation}\n${exactOrNull}\n${stage.selectedSemanticPredecessor.toString()}\n${body}\n${name}`;
+    const source=`${spellingOwner.storedSpelling.toString()}\n${spellingOwner.spelledAsStored.toString()}\n${sameInvocation}\n${exactOrNull}\n${stage.selectedSemanticPredecessor.toString()}\n${body}\n${name}`;
     assertContextBinds(source,context,'the extracted revision evidence collector',JOB_ARM_PRIVATE);
     return runInNewContext(source,context,{filename:file});
   }
   const current=collector();
   return {product,owner,basis,entry,input,original,bridge,alias,construction,command,states,executions,bridgeRef,state,
-    prefixCalls,preparationCalls,project:()=>current(basis,input),diagnose:()=>collector(true)(basis,input),
+    prefixCalls,preparationCalls,storedPaths,spellingReads,project:()=>current(basis,input),diagnose:()=>collector(true)(basis,input),
     removeAlias:()=>{owner.events=Object.freeze(owner.events.filter(e=>e!==alias.event));}};
 }
