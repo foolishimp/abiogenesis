@@ -372,6 +372,19 @@ current and three recorded-only stores. Rerun only that N1 case; retain the
 repair, new assurance campaign or weakened expectation is selected. Root
 returns to Executive after this record checkpoint.
 
+Integration Writer activation `T292-INTEGRATE-P7-TD25M-01` binds Root to main
+`6601a3a83` and clean, stopped combined P7/TD25M
+`2a5ff36806752a5816312e2e8266c8c4cff8ccfa`, source
+`e26f05c1599cc05ce7e18165a7f5601e95bab933`. The grant covers serial merge,
+existing-owner regeneration, detached affected proof, closed preparation/QA
+preservation and tracking. Six explicit retired generated assets stay deleted;
+the other 28 generated outputs are regenerated and compared to tested hashes.
+Actual owner family is 17/46/42/4 and catalog 58. B-26's isolated four-store
+N1 correction passed; non-author technical QA agrees, with sentinel passage
+distinct from complete F_P admission. Root occupies Writer for these effects,
+then returns to Executive. No qualification, release, pin, tag or push follows
+from this integration.
+
 At most two implementation Writers run concurrently. Integration is serial.
 TD-78 and the parked TD-85a follow TD-77; P7 and TD-25 member withdrawal depend
 on TD-77. One design reconciliation closes B-08, then one composed broad and
