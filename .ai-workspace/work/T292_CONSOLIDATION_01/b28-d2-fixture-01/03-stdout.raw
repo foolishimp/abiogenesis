@@ -1,0 +1,213 @@
+TAP version 13
+# (node:75641) ExperimentalWarning: VM Modules is an experimental feature and might change at any time
+# (Use `node --trace-warnings ...` to show where the warning was created)
+# Subtest: native acquisition child uses its exact admitted input when another Run acquired equal content
+ok 1 - native acquisition child uses its exact admitted input when another Run acquired equal content
+  ---
+  duration_ms: 462.423291
+  type: 'test'
+  ...
+# Real binding/native-leaf projection with explicit upstream lookup premises; no journal, actor, physical observation or installed qualification.
+# Subtest: mechanical exact cover; unchanged initial observation crosses W only with its actual native coordinates
+not ok 2 - mechanical exact cover; unchanged initial observation crosses W only with its actual native coordinates
+  ---
+  duration_ms: 104.270375
+  type: 'test'
+  location: '/private/tmp/abg-rc13-composed-final/build_tenants/abiogenesis/typescript/test_env/tests/d2-binding-transition.test.mjs:149:1'
+  failureType: 'testCodeFailure'
+  error: "Cannot read properties of undefined (reading 'length')"
+  code: 'ERR_TEST_FAILURE'
+  name: 'TypeError'
+  stack: |-
+    admittedInstallLocksAnswerStrictAtPrefix (file:///private/tmp/abg-rc13-composed-final/build_tenants/abiogenesis/typescript/build/code/src/abg/artifact_truth.js:673:28)
+    admittedBindingRow (/private/tmp/abg-rc13-composed-final/build_tenants/abiogenesis/typescript/build/code/src/abg/worksite_revision.js:98:56)
+    nativeBinding (/private/tmp/abg-rc13-composed-final/build_tenants/abiogenesis/typescript/build/code/src/abg/worksite_revision.js:103:17)
+    Module.projectWorksiteRevisionBindingCover (/private/tmp/abg-rc13-composed-final/build_tenants/abiogenesis/typescript/build/code/src/abg/worksite_revision.js:121:17)
+    TestContext.<anonymous> (file:///private/tmp/abg-rc13-composed-final/build_tenants/abiogenesis/typescript/test_env/tests/d2-binding-transition.test.mjs:157:32)
+    async Test.run (node:internal/test_runner/test:1113:7)
+    async Test.processPendingSubtests (node:internal/test_runner/test:788:7)
+  ...
+# Subtest: mechanical repeated repair and partially successful C0 preserve S2/V22/R20 and earlier successful origins
+not ok 3 - mechanical repeated repair and partially successful C0 preserve S2/V22/R20 and earlier successful origins
+  ---
+  duration_ms: 387.305875
+  type: 'test'
+  location: '/private/tmp/abg-rc13-composed-final/build_tenants/abiogenesis/typescript/test_env/tests/d2-binding-transition.test.mjs:173:1'
+  failureType: 'testCodeFailure'
+  error: |-
+    Expected values to be strictly equal:
+    + actual - expected
+    
+    + undefined
+    - 'admitted_binding_projection'
+    
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected: 'admitted_binding_projection'
+  operator: 'strictEqual'
+  stack: |-
+    TestContext.<anonymous> (file:///private/tmp/abg-rc13-composed-final/build_tenants/abiogenesis/typescript/test_env/tests/d2-binding-transition.test.mjs:183:95)
+    async Test.run (node:internal/test_runner/test:1113:7)
+    async Test.processPendingSubtests (node:internal/test_runner/test:788:7)
+  ...
+# Subtest: mechanical cover cardinality, malformed inventory, broad writes and foreign branches fail closed
+not ok 4 - mechanical cover cardinality, malformed inventory, broad writes and foreign branches fail closed
+  ---
+  duration_ms: 40.133625
+  type: 'test'
+  location: '/private/tmp/abg-rc13-composed-final/build_tenants/abiogenesis/typescript/test_env/tests/d2-binding-transition.test.mjs:192:1'
+  failureType: 'testCodeFailure'
+  error: "Cannot read properties of undefined (reading 'length')"
+  code: 'ERR_TEST_FAILURE'
+  name: 'TypeError'
+  stack: |-
+    admittedInstallLocksAnswerStrictAtPrefix (file:///private/tmp/abg-rc13-composed-final/build_tenants/abiogenesis/typescript/build/code/src/abg/artifact_truth.js:673:28)
+    admittedBindingRow (/private/tmp/abg-rc13-composed-final/build_tenants/abiogenesis/typescript/build/code/src/abg/worksite_revision.js:98:56)
+    nativeBinding (/private/tmp/abg-rc13-composed-final/build_tenants/abiogenesis/typescript/build/code/src/abg/worksite_revision.js:103:17)
+    Module.projectWorksiteRevisionBindingCover (/private/tmp/abg-rc13-composed-final/build_tenants/abiogenesis/typescript/build/code/src/abg/worksite_revision.js:121:17)
+    TestContext.<anonymous> (file:///private/tmp/abg-rc13-composed-final/build_tenants/abiogenesis/typescript/test_env/tests/d2-binding-transition.test.mjs:195:32)
+    async Test.run (node:internal/test_runner/test:1113:7)
+    async Test.processPendingSubtests (node:internal/test_runner/test:788:7)
+  ...
+# Subtest: mechanical later revised Design retains its own authenticated historical coordinates across another W
+not ok 5 - mechanical later revised Design retains its own authenticated historical coordinates across another W
+  ---
+  duration_ms: 556.799208
+  type: 'test'
+  location: '/private/tmp/abg-rc13-composed-final/build_tenants/abiogenesis/typescript/test_env/tests/d2-binding-transition.test.mjs:209:1'
+  failureType: 'testCodeFailure'
+  error: |-
+    The expression evaluated to a falsy value:
+    
+      assert.ok(mapping)
+    
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected: true
+  actual: ~
+  operator: '=='
+  stack: |-
+    TestContext.<anonymous> (file:///private/tmp/abg-rc13-composed-final/build_tenants/abiogenesis/typescript/test_env/tests/d2-binding-transition.test.mjs:228:10)
+    async Test.run (node:internal/test_runner/test:1113:7)
+    async Test.processPendingSubtests (node:internal/test_runner/test:788:7)
+  ...
+# Subtest: mechanical C0 same-byte/new-inode survives binding translation; residue and unexplained identity refuse
+not ok 6 - mechanical C0 same-byte/new-inode survives binding translation; residue and unexplained identity refuse
+  ---
+  duration_ms: 64.919041
+  type: 'test'
+  location: '/private/tmp/abg-rc13-composed-final/build_tenants/abiogenesis/typescript/test_env/tests/d2-binding-transition.test.mjs:233:1'
+  failureType: 'testCodeFailure'
+  error: "Cannot read properties of undefined (reading 'length')"
+  code: 'ERR_TEST_FAILURE'
+  name: 'TypeError'
+  stack: |-
+    admittedInstallLocksAnswerStrictAtPrefix (file:///private/tmp/abg-rc13-composed-final/build_tenants/abiogenesis/typescript/build/code/src/abg/artifact_truth.js:673:28)
+    admittedBindingRow (/private/tmp/abg-rc13-composed-final/build_tenants/abiogenesis/typescript/build/code/src/abg/worksite_revision.js:98:56)
+    authority (/private/tmp/abg-rc13-composed-final/build_tenants/abiogenesis/typescript/build/code/src/abg/worksite_revision.js:310:36)
+    samePhysicalSubject (/private/tmp/abg-rc13-composed-final/build_tenants/abiogenesis/typescript/build/code/src/abg/worksite_revision.js:311:18)
+    /private/tmp/abg-rc13-composed-final/build_tenants/abiogenesis/typescript/build/code/src/abg/worksite_revision.js:421:49
+    Array.find (<anonymous>)
+    deriveCurrentOrigins (/private/tmp/abg-rc13-composed-final/build_tenants/abiogenesis/typescript/build/code/src/abg/worksite_revision.js:421:39)
+    Module.projectWorksiteRevisionOrigins (/private/tmp/abg-rc13-composed-final/build_tenants/abiogenesis/typescript/build/code/src/abg/worksite_revision.js:680:25)
+    TestContext.<anonymous> (file:///private/tmp/abg-rc13-composed-final/build_tenants/abiogenesis/typescript/test_env/tests/d2-binding-transition.test.mjs:236:25)
+    async Test.run (node:internal/test_runner/test:1113:7)
+  ...
+# Subtest: mechanical multiple binding projections retain actual origins and refuse old-W resurrection after new-W C0
+not ok 7 - mechanical multiple binding projections retain actual origins and refuse old-W resurrection after new-W C0
+  ---
+  duration_ms: 197.527833
+  type: 'test'
+  location: '/private/tmp/abg-rc13-composed-final/build_tenants/abiogenesis/typescript/test_env/tests/d2-binding-transition.test.mjs:248:1'
+  failureType: 'testCodeFailure'
+  error: |-
+    Expected values to be strictly equal:
+    + actual - expected
+    
+    + 'basis_fork_detected'
+    - 'covered'
+    
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected: 'covered'
+  actual: 'basis_fork_detected'
+  operator: 'strictEqual'
+  stack: |-
+    TestContext.<anonymous> (file:///private/tmp/abg-rc13-composed-final/build_tenants/abiogenesis/typescript/test_env/tests/d2-binding-transition.test.mjs:253:10)
+    async Test.run (node:internal/test_runner/test:1113:7)
+    async Test.processPendingSubtests (node:internal/test_runner/test:788:7)
+  ...
+# Subtest: mechanical exact cover rejects wrong direction, scope, historical basis and unadmitted or self projection
+not ok 8 - mechanical exact cover rejects wrong direction, scope, historical basis and unadmitted or self projection
+  ---
+  duration_ms: 38.080917
+  type: 'test'
+  location: '/private/tmp/abg-rc13-composed-final/build_tenants/abiogenesis/typescript/test_env/tests/d2-binding-transition.test.mjs:270:1'
+  failureType: 'testCodeFailure'
+  error: "Cannot read properties of undefined (reading 'length')"
+  code: 'ERR_TEST_FAILURE'
+  name: 'TypeError'
+  stack: |-
+    admittedInstallLocksAnswerStrictAtPrefix (file:///private/tmp/abg-rc13-composed-final/build_tenants/abiogenesis/typescript/build/code/src/abg/artifact_truth.js:673:28)
+    admittedBindingRow (/private/tmp/abg-rc13-composed-final/build_tenants/abiogenesis/typescript/build/code/src/abg/worksite_revision.js:98:56)
+    nativeBinding (/private/tmp/abg-rc13-composed-final/build_tenants/abiogenesis/typescript/build/code/src/abg/worksite_revision.js:103:17)
+    Module.projectWorksiteRevisionBindingCover (/private/tmp/abg-rc13-composed-final/build_tenants/abiogenesis/typescript/build/code/src/abg/worksite_revision.js:121:17)
+    TestContext.<anonymous> (file:///private/tmp/abg-rc13-composed-final/build_tenants/abiogenesis/typescript/test_env/tests/d2-binding-transition.test.mjs:280:26)
+    async Test.run (node:internal/test_runner/test:1113:7)
+    async Test.processPendingSubtests (node:internal/test_runner/test:788:7)
+  ...
+# Subtest: mechanical distinct projection branches are ambiguity, never equal-value or latest-origin selection
+not ok 9 - mechanical distinct projection branches are ambiguity, never equal-value or latest-origin selection
+  ---
+  duration_ms: 152.626625
+  type: 'test'
+  location: '/private/tmp/abg-rc13-composed-final/build_tenants/abiogenesis/typescript/test_env/tests/d2-binding-transition.test.mjs:290:1'
+  failureType: 'testCodeFailure'
+  error: |-
+    Expected values to be strictly equal:
+    + actual - expected
+    
+    + 'basis_fork_detected'
+    - 'covered'
+    
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected: 'covered'
+  actual: 'basis_fork_detected'
+  operator: 'strictEqual'
+  stack: |-
+    TestContext.<anonymous> (file:///private/tmp/abg-rc13-composed-final/build_tenants/abiogenesis/typescript/test_env/tests/d2-binding-transition.test.mjs:296:10)
+    async Test.run (node:internal/test_runner/test:1113:7)
+    async Test.processPendingSubtests (node:internal/test_runner/test:788:7)
+  ...
+# Subtest: mechanical evidence-input gate resolves a real Product new-C2 carrier through its exact earlier projection
+not ok 10 - mechanical evidence-input gate resolves a real Product new-C2 carrier through its exact earlier projection
+  ---
+  duration_ms: 236.4805
+  type: 'test'
+  location: '/private/tmp/abg-rc13-composed-final/build_tenants/abiogenesis/typescript/test_env/tests/d2-binding-transition.test.mjs:304:1'
+  failureType: 'testCodeFailure'
+  error: |-
+    The expression evaluated to a falsy value:
+    
+      assert.ok(entry)
+    
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected: true
+  actual: ~
+  operator: '=='
+  stack: |-
+    TestContext.<anonymous> (file:///private/tmp/abg-rc13-composed-final/build_tenants/abiogenesis/typescript/test_env/tests/d2-binding-transition.test.mjs:306:103)
+    async Test.run (node:internal/test_runner/test:1113:7)
+    async Test.processPendingSubtests (node:internal/test_runner/test:788:7)
+  ...
+1..10
+# tests 10
+# suites 0
+# pass 1
+# fail 9
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 2304.064958

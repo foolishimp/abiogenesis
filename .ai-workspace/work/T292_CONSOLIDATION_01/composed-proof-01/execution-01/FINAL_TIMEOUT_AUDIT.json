@@ -1,0 +1,3214 @@
+{
+  "kind": "static-timeout-preparation",
+  "tenant": "/private/tmp/abg-rc13-composed-final/build_tenants/abiogenesis/typescript",
+  "notFinalPopulation": true,
+  "parserVersion": "5.9.2",
+  "oldMapSha256": "7aaf6fa4ca27ecb3fc0d0baa4ba22069fe5a41b0b067e7c7ff3723e20dd69f4c",
+  "finalRootRulingRequired": true,
+  "overallDeadlineMs": null,
+  "assumption": "Top-level explicit case timeout sums are conservative allowances; skipped live cases remain included. No test or provider execution. Unknown dynamic/spread values stay explicit.",
+  "rows": [
+    {
+      "path": "test_env/tests/a5-f02-canonical-gtl-identity.test.mjs",
+      "sha256": "94e7f673e02eb5dfd1ba887bc398e65eb606dea03c2e0f90602690d82fe87e35",
+      "bytes": 27424,
+      "literalOrConstantCaseTimeoutTotalMs": 0,
+      "explicitTimeouts": [],
+      "unresolved": [],
+      "historicalFloorMs": 600000,
+      "proposedOuterMs": 600000,
+      "standing": "proposal; literal case ceilings plus 120s setup/drainage, no duration prediction"
+    },
+    {
+      "path": "test_env/tests/d1-preserved-result-mechanics.test.mjs",
+      "sha256": "2a25a577832bb8245dccbd2f74f9ec632c99b83310752ec78ac6f18b0de31187",
+      "bytes": 5375,
+      "literalOrConstantCaseTimeoutTotalMs": 0,
+      "explicitTimeouts": [],
+      "unresolved": [],
+      "historicalFloorMs": 600000,
+      "proposedOuterMs": 600000,
+      "standing": "proposal; literal case ceilings plus 120s setup/drainage, no duration prediction"
+    },
+    {
+      "path": "test_env/tests/d2-acknowledgment.test.mjs",
+      "sha256": "c5339763a71e767ac88f851597f2d7636f8b29d2ec3db227f7b85429f3239584",
+      "bytes": 7051,
+      "literalOrConstantCaseTimeoutTotalMs": 0,
+      "explicitTimeouts": [],
+      "unresolved": [],
+      "historicalFloorMs": 600000,
+      "proposedOuterMs": 600000,
+      "standing": "proposal; literal case ceilings plus 120s setup/drainage, no duration prediction"
+    },
+    {
+      "path": "test_env/tests/d2-binding-query-reuse.test.mjs",
+      "sha256": "d5ae4e7a70ab210182e9611ce55a5b5efd10288f20e79b724885b9333e14476a",
+      "bytes": 9357,
+      "literalOrConstantCaseTimeoutTotalMs": 0,
+      "explicitTimeouts": [],
+      "unresolved": [],
+      "historicalFloorMs": 600000,
+      "proposedOuterMs": 600000,
+      "standing": "proposal; literal case ceilings plus 120s setup/drainage, no duration prediction"
+    },
+    {
+      "path": "test_env/tests/d2-binding-transition.test.mjs",
+      "sha256": "e95e7131e8f85afe9ee58057d6633a010679565893909ea83959fe635be5a895",
+      "bytes": 33384,
+      "literalOrConstantCaseTimeoutTotalMs": 0,
+      "explicitTimeouts": [],
+      "unresolved": [],
+      "historicalFloorMs": 600000,
+      "proposedOuterMs": 600000,
+      "standing": "proposal; literal case ceilings plus 120s setup/drainage, no duration prediction"
+    },
+    {
+      "path": "test_env/tests/d2-bounded-repair.test.mjs",
+      "sha256": "1694c90fb60bf9d54ec961cb7afcf3e7a1ddbf61a5825ff604ad51fc59f342e3",
+      "bytes": 6698,
+      "literalOrConstantCaseTimeoutTotalMs": 0,
+      "explicitTimeouts": [],
+      "unresolved": [],
+      "historicalFloorMs": 600000,
+      "proposedOuterMs": 600000,
+      "standing": "proposal; literal case ceilings plus 120s setup/drainage, no duration prediction"
+    },
+    {
+      "path": "test_env/tests/d2-evidence-owner-lookup.test.mjs",
+      "sha256": "ef36f7ed5dc09a6928403f4950a2dd8db0c10b1110b1a106472f2d91aaae67c1",
+      "bytes": 3087,
+      "literalOrConstantCaseTimeoutTotalMs": 0,
+      "explicitTimeouts": [],
+      "unresolved": [],
+      "historicalFloorMs": 600000,
+      "proposedOuterMs": 600000,
+      "standing": "proposal; literal case ceilings plus 120s setup/drainage, no duration prediction"
+    },
+    {
+      "path": "test_env/tests/d2-historical-design.test.mjs",
+      "sha256": "ad37070bb1f38d0df67a612dbc576c9be40fc0c0961c8420e2c7a705702a82c0",
+      "bytes": 7953,
+      "literalOrConstantCaseTimeoutTotalMs": 0,
+      "explicitTimeouts": [],
+      "unresolved": [],
+      "historicalFloorMs": 600000,
+      "proposedOuterMs": 600000,
+      "standing": "proposal; literal case ceilings plus 120s setup/drainage, no duration prediction"
+    },
+    {
+      "path": "test_env/tests/d2-workflow-step.test.mjs",
+      "sha256": "351d4a925bff3b69dcdea117cf4896d489d9c622ae68de43195363b498b45c62",
+      "bytes": 9960,
+      "literalOrConstantCaseTimeoutTotalMs": 0,
+      "explicitTimeouts": [],
+      "unresolved": [],
+      "historicalFloorMs": 600000,
+      "proposedOuterMs": 600000,
+      "standing": "proposal; literal case ceilings plus 120s setup/drainage, no duration prediction"
+    },
+    {
+      "path": "test_env/tests/generic-input-retention.test.mjs",
+      "sha256": "888b7611be5b8f6c3cfcc634a0748f30f107b973388fcbba553a184658c8dbe0",
+      "bytes": 17798,
+      "literalOrConstantCaseTimeoutTotalMs": 0,
+      "explicitTimeouts": [],
+      "unresolved": [],
+      "historicalFloorMs": 600000,
+      "proposedOuterMs": 600000,
+      "standing": "proposal; literal case ceilings plus 120s setup/drainage, no duration prediction"
+    },
+    {
+      "path": "test_env/tests/hello-product-boundary.test.mjs",
+      "sha256": "f0ca5bae8e12d2155009adf0cd2e21bbf6f8f7f508367e76a43dd97118eb60cc",
+      "bytes": 3461,
+      "literalOrConstantCaseTimeoutTotalMs": 0,
+      "explicitTimeouts": [],
+      "unresolved": [],
+      "historicalFloorMs": 600000,
+      "proposedOuterMs": 600000,
+      "standing": "proposal; literal case ceilings plus 120s setup/drainage, no duration prediction"
+    },
+    {
+      "path": "test_env/tests/hog-operator-support.test.mjs",
+      "sha256": "af70f4ad9e0ccd5ca4fbd57ef64272a789f9cbf6fb88314b3ce393a749d2f4dc",
+      "bytes": 5942,
+      "literalOrConstantCaseTimeoutTotalMs": 0,
+      "explicitTimeouts": [],
+      "unresolved": [],
+      "historicalFloorMs": 600000,
+      "proposedOuterMs": 600000,
+      "standing": "proposal; literal case ceilings plus 120s setup/drainage, no duration prediction"
+    },
+    {
+      "path": "test_env/tests/installed-language-smoke.test.mjs",
+      "sha256": "ecda0215f8dfb85b22332f199482edbfd1ccf164415caaeb776892581e923e77",
+      "bytes": 1831,
+      "literalOrConstantCaseTimeoutTotalMs": 0,
+      "explicitTimeouts": [],
+      "unresolved": [],
+      "historicalFloorMs": 600000,
+      "proposedOuterMs": 600000,
+      "standing": "proposal; literal case ceilings plus 120s setup/drainage, no duration prediction"
+    },
+    {
+      "path": "test_env/tests/integration-shared-seams.test.mjs",
+      "sha256": "f81674721953d5b7775820ec67855feb384a4ad3abf7179ebeb41e7bcc20bef3",
+      "bytes": 3455,
+      "literalOrConstantCaseTimeoutTotalMs": 0,
+      "explicitTimeouts": [],
+      "unresolved": [],
+      "historicalFloorMs": 600000,
+      "proposedOuterMs": 600000,
+      "standing": "proposal; literal case ceilings plus 120s setup/drainage, no duration prediction"
+    },
+    {
+      "path": "test_env/tests/m5-c-algebra-validation.test.mjs",
+      "sha256": "41bc5af5bf1f191d7175dbd126d5244bb6563fd8874835e502739bc3a6c77a42",
+      "bytes": 49849,
+      "literalOrConstantCaseTimeoutTotalMs": 0,
+      "explicitTimeouts": [],
+      "unresolved": [],
+      "historicalFloorMs": 600000,
+      "proposedOuterMs": 600000,
+      "standing": "proposal; literal case ceilings plus 120s setup/drainage, no duration prediction"
+    },
+    {
+      "path": "test_env/tests/m5-event-calculus-runtime.test.mjs",
+      "sha256": "4338d4e91188d1529c8580fb5cd2519d3c3b0f069137d2ead6488fb31b316379",
+      "bytes": 74664,
+      "literalOrConstantCaseTimeoutTotalMs": 0,
+      "explicitTimeouts": [],
+      "unresolved": [],
+      "historicalFloorMs": 600000,
+      "proposedOuterMs": 600000,
+      "standing": "proposal; literal case ceilings plus 120s setup/drainage, no duration prediction"
+    },
+    {
+      "path": "test_env/tests/m5-event-store-reopen.test.mjs",
+      "sha256": "463356af6065feaf61237460f469013e1b6b33f13aba13a89ce80f5fd1a68c86",
+      "bytes": 108494,
+      "literalOrConstantCaseTimeoutTotalMs": 0,
+      "explicitTimeouts": [],
+      "unresolved": [],
+      "historicalFloorMs": 600000,
+      "proposedOuterMs": 600000,
+      "standing": "proposal; literal case ceilings plus 120s setup/drainage, no duration prediction"
+    },
+    {
+      "path": "test_env/tests/m5-fresh-process-reconstruction.test.mjs",
+      "sha256": "d221155c75ad5a059e7523bdd62c53e27d70ad02675d91ea0d284645aaa2aedc",
+      "bytes": 3635,
+      "literalOrConstantCaseTimeoutTotalMs": 0,
+      "explicitTimeouts": [],
+      "unresolved": [],
+      "historicalFloorMs": 600000,
+      "proposedOuterMs": 600000,
+      "standing": "proposal; literal case ceilings plus 120s setup/drainage, no duration prediction"
+    },
+    {
+      "path": "test_env/tests/m5-installed-graph-edge.test.mjs",
+      "sha256": "245b66e33ee258ff654cc6fa93fff70edf8a6967d34624915c3076ce01934e45",
+      "bytes": 14147,
+      "literalOrConstantCaseTimeoutTotalMs": 0,
+      "explicitTimeouts": [],
+      "unresolved": [],
+      "historicalFloorMs": 600000,
+      "proposedOuterMs": 600000,
+      "standing": "proposal; literal case ceilings plus 120s setup/drainage, no duration prediction"
+    },
+    {
+      "path": "test_env/tests/m5-installed-portability.test.mjs",
+      "sha256": "1e6fbdaab11c9e2d3ab933fc5812b48ca8474951f8833759d2ffbecc05c238d4",
+      "bytes": 16514,
+      "literalOrConstantCaseTimeoutTotalMs": 0,
+      "explicitTimeouts": [],
+      "unresolved": [],
+      "historicalFloorMs": 600000,
+      "proposedOuterMs": 600000,
+      "standing": "proposal; literal case ceilings plus 120s setup/drainage, no duration prediction"
+    },
+    {
+      "path": "test_env/tests/m5-retry-lifecycle-authority.test.mjs",
+      "sha256": "e24ea645a0a5f059b102076b7ed35ad5e75cce5fa366f9e41d3d3323fd0f1f01",
+      "bytes": 23318,
+      "literalOrConstantCaseTimeoutTotalMs": 0,
+      "explicitTimeouts": [],
+      "unresolved": [],
+      "historicalFloorMs": 600000,
+      "proposedOuterMs": 600000,
+      "standing": "proposal; literal case ceilings plus 120s setup/drainage, no duration prediction"
+    },
+    {
+      "path": "test_env/tests/m5-s03-authority.test.mjs",
+      "sha256": "185949d2e878964274438082f612cfb7dea66906193b78f7ebee3dcf50233dfc",
+      "bytes": 17709,
+      "literalOrConstantCaseTimeoutTotalMs": 0,
+      "explicitTimeouts": [],
+      "unresolved": [],
+      "historicalFloorMs": 600000,
+      "proposedOuterMs": 600000,
+      "standing": "proposal; literal case ceilings plus 120s setup/drainage, no duration prediction"
+    },
+    {
+      "path": "test_env/tests/m5-s06-prime.test.mjs",
+      "sha256": "594ca0b5c2749d22fb999c2a985b1fb2aecdc8dacec3f9aca02b6204c13e31d2",
+      "bytes": 69721,
+      "literalOrConstantCaseTimeoutTotalMs": 0,
+      "explicitTimeouts": [],
+      "unresolved": [],
+      "historicalFloorMs": 600000,
+      "proposedOuterMs": 600000,
+      "standing": "proposal; literal case ceilings plus 120s setup/drainage, no duration prediction"
+    },
+    {
+      "path": "test_env/tests/m5-terminal-quiescence-owner.test.mjs",
+      "sha256": "71d1aacc4f0eae1f84863a3a87572ff866db63b6904b1953e24b7c3b5204ace2",
+      "bytes": 12089,
+      "literalOrConstantCaseTimeoutTotalMs": 0,
+      "explicitTimeouts": [],
+      "unresolved": [],
+      "historicalFloorMs": 600000,
+      "proposedOuterMs": 600000,
+      "standing": "proposal; literal case ceilings plus 120s setup/drainage, no duration prediction"
+    },
+    {
+      "path": "test_env/tests/m5-worker-transport.test.mjs",
+      "sha256": "870931191165fde4777ee611eec83d26c576699975066c45922a400a49aed23c",
+      "bytes": 147982,
+      "literalOrConstantCaseTimeoutTotalMs": 10000,
+      "explicitTimeouts": [
+        {
+          "line": 979,
+          "expression": "m5Cap(M5_SETUP_MS + 350 + m5CleanupMs(75))",
+          "timeoutMs": null,
+          "multiplicity": 1,
+          "unresolvedLoop": null,
+          "name": "\"M5 ABG transport force-terminates a worker that ignores SIGTERM\""
+        },
+        {
+          "line": 1049,
+          "expression": "m5Cap(M5_PROGRESS.absoluteMs + m5CleanupMs(75))",
+          "timeoutMs": null,
+          "multiplicity": 1,
+          "unresolvedLoop": null,
+          "name": "\"M5 ABG transport renews its inactivity lease only from observed progress\""
+        },
+        {
+          "line": 1114,
+          "expression": "m5Cap(2 * M5_SETUP_MS + m5CleanupMs(75))",
+          "timeoutMs": null,
+          "multiplicity": 1,
+          "unresolvedLoop": null,
+          "name": "\"M5 ABG transport does not renew from unacknowledged output\""
+        },
+        {
+          "line": 1162,
+          "expression": "m5Cap(2 * M5_SETUP_MS + m5CleanupMs(250))",
+          "timeoutMs": null,
+          "multiplicity": 1,
+          "unresolvedLoop": null,
+          "name": "\"M5 ABG transport excludes semantic output emitted after its timeout boundary\""
+        },
+        {
+          "line": 1225,
+          "expression": "m5Cap(6 * (M5_GROUP.absoluteTimeoutMs + m5CleanupMs(M5_GROUP.graceMs)))",
+          "timeoutMs": null,
+          "multiplicity": 1,
+          "unresolvedLoop": null,
+          "name": "'owned process groups retain descendant cleanup after normal and TERM leader exits'"
+        },
+        {
+          "line": 1333,
+          "expression": "m5Cap(M5_GROUP_SETUP_MS + 1000 + m5CleanupMs(500))",
+          "timeoutMs": null,
+          "multiplicity": 1,
+          "unresolvedLoop": null,
+          "name": "\"M5 ABG transport excludes descendant output emitted after direct-process exit\""
+        },
+        {
+          "line": 1467,
+          "expression": "10000",
+          "timeoutMs": 10000,
+          "multiplicity": 1,
+          "unresolvedLoop": null,
+          "name": "'M5 an actual early stdin close rejects EPIPE after cleanup and leaves the isolated host alive'"
+        }
+      ],
+      "unresolved": [
+        {
+          "line": 979,
+          "reason": "dynamic timeout",
+          "expression": "m5Cap(M5_SETUP_MS + 350 + m5CleanupMs(75))",
+          "loop": null
+        },
+        {
+          "line": 1049,
+          "reason": "dynamic timeout",
+          "expression": "m5Cap(M5_PROGRESS.absoluteMs + m5CleanupMs(75))",
+          "loop": null
+        },
+        {
+          "line": 1114,
+          "reason": "dynamic timeout",
+          "expression": "m5Cap(2 * M5_SETUP_MS + m5CleanupMs(75))",
+          "loop": null
+        },
+        {
+          "line": 1162,
+          "reason": "dynamic timeout",
+          "expression": "m5Cap(2 * M5_SETUP_MS + m5CleanupMs(250))",
+          "loop": null
+        },
+        {
+          "line": 1225,
+          "reason": "dynamic timeout",
+          "expression": "m5Cap(6 * (M5_GROUP.absoluteTimeoutMs + m5CleanupMs(M5_GROUP.graceMs)))",
+          "loop": null
+        },
+        {
+          "line": 1333,
+          "reason": "dynamic timeout",
+          "expression": "m5Cap(M5_GROUP_SETUP_MS + 1000 + m5CleanupMs(500))",
+          "loop": null
+        }
+      ],
+      "historicalFloorMs": 600000,
+      "proposedOuterMs": 600000,
+      "standing": "proposal; Root must resolve dynamic options/multiplicity"
+    },
+    {
+      "path": "test_env/tests/r1-packed-artifact.test.mjs",
+      "sha256": "461434d3506964fbaa30fbf9c83117441fc07756189c5a7f586178d6ce0e35e5",
+      "bytes": 5431,
+      "literalOrConstantCaseTimeoutTotalMs": 0,
+      "explicitTimeouts": [],
+      "unresolved": [],
+      "historicalFloorMs": 600000,
+      "proposedOuterMs": 600000,
+      "standing": "proposal; literal case ceilings plus 120s setup/drainage, no duration prediction"
+    },
+    {
+      "path": "test_env/tests/r10-child-proof.test.mjs",
+      "sha256": "33d26664cfeb61ec4c5988791a4e0921d4a9fb22b5f1569228d8eec38a1cdf98",
+      "bytes": 20026,
+      "literalOrConstantCaseTimeoutTotalMs": 0,
+      "explicitTimeouts": [],
+      "unresolved": [],
+      "historicalFloorMs": 600000,
+      "proposedOuterMs": 600000,
+      "standing": "proposal; literal case ceilings plus 120s setup/drainage, no duration prediction"
+    },
+    {
+      "path": "test_env/tests/r10-projection-contracts.test.mjs",
+      "sha256": "cd49535ecac5f54f2ef231e25aad25a9e2cd289239aa17843c0eb96a4e7f5a02",
+      "bytes": 18032,
+      "literalOrConstantCaseTimeoutTotalMs": 0,
+      "explicitTimeouts": [],
+      "unresolved": [],
+      "historicalFloorMs": 600000,
+      "proposedOuterMs": 600000,
+      "standing": "proposal; literal case ceilings plus 120s setup/drainage, no duration prediction"
+    },
+    {
+      "path": "test_env/tests/r2-clean-install.test.mjs",
+      "sha256": "56bb75b62aef28120152dba2d43f9095e15d0961af4d6cda6af230dca0d98b19",
+      "bytes": 6001,
+      "literalOrConstantCaseTimeoutTotalMs": 0,
+      "explicitTimeouts": [],
+      "unresolved": [],
+      "historicalFloorMs": 600000,
+      "proposedOuterMs": 600000,
+      "standing": "proposal; literal case ceilings plus 120s setup/drainage, no duration prediction"
+    },
+    {
+      "path": "test_env/tests/r3-workspace-binding.test.mjs",
+      "sha256": "9c5175fd35ba7fe4bd1b25adbcf75aadc31d63a030e8e09611b50c33827b4dd4",
+      "bytes": 24347,
+      "literalOrConstantCaseTimeoutTotalMs": 0,
+      "explicitTimeouts": [],
+      "unresolved": [],
+      "historicalFloorMs": 600000,
+      "proposedOuterMs": 600000,
+      "standing": "proposal; literal case ceilings plus 120s setup/drainage, no duration prediction"
+    },
+    {
+      "path": "test_env/tests/r4-catalog-admission.test.mjs",
+      "sha256": "21c82cc7024c24fea2dcb10c2ccdf9315ab551d2722f4c6c6f7c9de167be04dc",
+      "bytes": 27131,
+      "literalOrConstantCaseTimeoutTotalMs": 0,
+      "explicitTimeouts": [],
+      "unresolved": [],
+      "historicalFloorMs": 600000,
+      "proposedOuterMs": 600000,
+      "standing": "proposal; literal case ceilings plus 120s setup/drainage, no duration prediction"
+    },
+    {
+      "path": "test_env/tests/r5-invocation-admission.test.mjs",
+      "sha256": "a5a034f6ad78ec6e5bef0b57a7fd1a766c85de7cc2817d94c3a89aa2c44e4df4",
+      "bytes": 27658,
+      "literalOrConstantCaseTimeoutTotalMs": 0,
+      "explicitTimeouts": [],
+      "unresolved": [],
+      "historicalFloorMs": 600000,
+      "proposedOuterMs": 600000,
+      "standing": "proposal; literal case ceilings plus 120s setup/drainage, no duration prediction"
+    },
+    {
+      "path": "test_env/tests/r6-implementation-resolution.test.mjs",
+      "sha256": "b3e7d0ec987b6fd1e2e4366277906fa7829387013fd047a013ba3c52891d2072",
+      "bytes": 8462,
+      "literalOrConstantCaseTimeoutTotalMs": 0,
+      "explicitTimeouts": [],
+      "unresolved": [],
+      "historicalFloorMs": 600000,
+      "proposedOuterMs": 600000,
+      "standing": "proposal; literal case ceilings plus 120s setup/drainage, no duration prediction"
+    },
+    {
+      "path": "test_env/tests/r7-graph-validation-basis.test.mjs",
+      "sha256": "f4e1a65669529dde51853b51e5d5639e247b49292c1adeb4718d193bac8be790",
+      "bytes": 16348,
+      "literalOrConstantCaseTimeoutTotalMs": 0,
+      "explicitTimeouts": [],
+      "unresolved": [],
+      "historicalFloorMs": 600000,
+      "proposedOuterMs": 600000,
+      "standing": "proposal; literal case ceilings plus 120s setup/drainage, no duration prediction"
+    },
+    {
+      "path": "test_env/tests/r8-direct-hog-entry.test.mjs",
+      "sha256": "ce9afbc11feb10726e0cd667f38f731d6be5477cc0f6c4e2becc7336efbdb5a8",
+      "bytes": 8651,
+      "literalOrConstantCaseTimeoutTotalMs": 0,
+      "explicitTimeouts": [],
+      "unresolved": [],
+      "historicalFloorMs": 600000,
+      "proposedOuterMs": 600000,
+      "standing": "proposal; literal case ceilings plus 120s setup/drainage, no duration prediction"
+    },
+    {
+      "path": "test_env/tests/r9-causal-result-closure.test.mjs",
+      "sha256": "c4e6e8e8929a2a1bebe419f3f88dda14f7e64debb604acc10899b6cda237d903",
+      "bytes": 10866,
+      "literalOrConstantCaseTimeoutTotalMs": 0,
+      "explicitTimeouts": [],
+      "unresolved": [],
+      "historicalFloorMs": 600000,
+      "proposedOuterMs": 600000,
+      "standing": "proposal; literal case ceilings plus 120s setup/drainage, no duration prediction"
+    },
+    {
+      "path": "test_env/tests/rc2-assessment-intake.test.mjs",
+      "sha256": "943014254de59bc5bbfb3a991b6e3b41a7d407fc5733a992be2c52938610bb73",
+      "bytes": 4717,
+      "literalOrConstantCaseTimeoutTotalMs": 0,
+      "explicitTimeouts": [],
+      "unresolved": [],
+      "historicalFloorMs": 600000,
+      "proposedOuterMs": 600000,
+      "standing": "proposal; literal case ceilings plus 120s setup/drainage, no duration prediction"
+    },
+    {
+      "path": "test_env/tests/retained-route-cursor-transition.test.mjs",
+      "sha256": "992338b1261292fd6e12712ef03307c22172ebdc5d4a3b6d5f8b9914d6e0dac8",
+      "bytes": 18498,
+      "literalOrConstantCaseTimeoutTotalMs": 0,
+      "explicitTimeouts": [],
+      "unresolved": [],
+      "historicalFloorMs": 600000,
+      "proposedOuterMs": 600000,
+      "standing": "proposal; literal case ceilings plus 120s setup/drainage, no duration prediction"
+    },
+    {
+      "path": "test_env/tests/rival-authority-mutations.test.mjs",
+      "sha256": "edaa64474b5496dc42cd6915e36458de847c3b3c79f664d92b6685b074a727ff",
+      "bytes": 5874,
+      "literalOrConstantCaseTimeoutTotalMs": 0,
+      "explicitTimeouts": [],
+      "unresolved": [],
+      "historicalFloorMs": 600000,
+      "proposedOuterMs": 600000,
+      "standing": "proposal; literal case ceilings plus 120s setup/drainage, no duration prediction"
+    },
+    {
+      "path": "test_env/tests/runtime-scope-regressions.test.mjs",
+      "sha256": "07e704b66eedba3fdb3658e7377138edab7915a6ade6e4a15763cfb632b1c21e",
+      "bytes": 3313,
+      "literalOrConstantCaseTimeoutTotalMs": 0,
+      "explicitTimeouts": [],
+      "unresolved": [],
+      "historicalFloorMs": 600000,
+      "proposedOuterMs": 600000,
+      "standing": "proposal; literal case ceilings plus 120s setup/drainage, no duration prediction"
+    },
+    {
+      "path": "test_env/tests/steel-basic-cli-c2.test.mjs",
+      "sha256": "c980bc7ad91ec1f9fedd8a11ac0ae7cda30524b05eb0a5fcfd123bf8c7681a42",
+      "bytes": 7343,
+      "literalOrConstantCaseTimeoutTotalMs": 0,
+      "explicitTimeouts": [],
+      "unresolved": [],
+      "historicalFloorMs": 600000,
+      "proposedOuterMs": 600000,
+      "standing": "proposal; literal case ceilings plus 120s setup/drainage, no duration prediction"
+    },
+    {
+      "path": "test_env/tests/steel-basic-cli-public.test.mjs",
+      "sha256": "6231af9f58a66ccd6a87979045fde4baf3abac845030163bb9eca9b2e65a62c9",
+      "bytes": 36258,
+      "literalOrConstantCaseTimeoutTotalMs": 0,
+      "explicitTimeouts": [],
+      "unresolved": [],
+      "historicalFloorMs": 600000,
+      "proposedOuterMs": 600000,
+      "standing": "proposal; literal case ceilings plus 120s setup/drainage, no duration prediction"
+    },
+    {
+      "path": "test_env/tests/steel-consumer-declaration.test.mjs",
+      "sha256": "428ad9b9299686ef21a2aeb4855469120bbabdc1cb119ebd6fe7b3d3b1771510",
+      "bytes": 44278,
+      "literalOrConstantCaseTimeoutTotalMs": 0,
+      "explicitTimeouts": [],
+      "unresolved": [],
+      "historicalFloorMs": 600000,
+      "proposedOuterMs": 600000,
+      "standing": "proposal; literal case ceilings plus 120s setup/drainage, no duration prediction"
+    },
+    {
+      "path": "test_env/tests/t287-amendment-witness.test.mjs",
+      "sha256": "49a54dabae9901f76a099ab40573e039643852c276ab80f7f4d60f68bcb19b6c",
+      "bytes": 51383,
+      "literalOrConstantCaseTimeoutTotalMs": 11700000,
+      "explicitTimeouts": [
+        {
+          "line": 194,
+          "expression": "900_000",
+          "timeoutMs": 900000,
+          "multiplicity": 1,
+          "unresolvedLoop": null,
+          "name": "'one Public start builds the amendment: impact review once and current, preservation adverse then corrected, closure only when acceptance and both reviews hold'"
+        },
+        {
+          "line": 284,
+          "expression": "900_000",
+          "timeoutMs": 900000,
+          "multiplicity": 1,
+          "unresolvedLoop": null,
+          "name": "'W1: a choice whose prerequisites do not hold is refused before its stage runs; the typed refusal returns to the Executive, the lawful order follows and the Run"
+        },
+        {
+          "line": 306,
+          "expression": "900_000",
+          "timeoutMs": 900000,
+          "multiplicity": 1,
+          "unresolvedLoop": null,
+          "name": "'W2: a worker that writes part of its change and exits non-zero returns its attempt with the changed path; the touched review is not current; construction is se"
+        },
+        {
+          "line": 329,
+          "expression": "900_000",
+          "timeoutMs": 900000,
+          "multiplicity": 1,
+          "unresolvedLoop": null,
+          "name": "'W3: a silent worker is contained at inactivity; its failed attempt carries the timeout class; the Run continues and closes'"
+        },
+        {
+          "line": 341,
+          "expression": "1_800_000",
+          "timeoutMs": 1800000,
+          "multiplicity": 1,
+          "unresolvedLoop": null,
+          "name": "'W4: a write outside the grant stops the Run; nothing folds back into a selection'"
+        },
+        {
+          "line": 368,
+          "expression": "900_000",
+          "timeoutMs": 900000,
+          "multiplicity": 1,
+          "unresolvedLoop": null,
+          "name": "'W5: with a small limit and an always-failing worker, failed steps consume the limit and the Run ends at the blocked stop'"
+        },
+        {
+          "line": 381,
+          "expression": "900_000",
+          "timeoutMs": 900000,
+          "multiplicity": 1,
+          "unresolvedLoop": null,
+          "name": "'W6: after a restated design makes impact stale, construction is refused again until impact is re-satisfied, then the Run closes'"
+        },
+        {
+          "line": 396,
+          "expression": "900_000",
+          "timeoutMs": 900000,
+          "multiplicity": 1,
+          "unresolvedLoop": null,
+          "name": "'a task that omits a review its Program names is refused at selection intake: no actor call, no write; the event log names the review'"
+        },
+        {
+          "line": 434,
+          "expression": "3_600_000",
+          "timeoutMs": 3600000,
+          "multiplicity": 1,
+          "unresolvedLoop": null,
+          "name": "'live: the same amendment witness against a real provider writes its evidence'"
+        }
+      ],
+      "unresolved": [],
+      "historicalFloorMs": 600000,
+      "proposedOuterMs": 11820000,
+      "standing": "proposal; literal case ceilings plus 120s setup/drainage, no duration prediction"
+    },
+    {
+      "path": "test_env/tests/t287-authenticated-owner-values.test.mjs",
+      "sha256": "e883c2af3e2e7179a709443d10c1eea1144eb4ef41fc91ebff97fc9c4e7e3a84",
+      "bytes": 10906,
+      "literalOrConstantCaseTimeoutTotalMs": 0,
+      "explicitTimeouts": [],
+      "unresolved": [],
+      "historicalFloorMs": 600000,
+      "proposedOuterMs": 600000,
+      "standing": "proposal; literal case ceilings plus 120s setup/drainage, no duration prediction"
+    },
+    {
+      "path": "test_env/tests/t287-c0-correction-regressions.test.mjs",
+      "sha256": "9984ad17a9e184f77054d3d0ee4a4a01764b2449939a21bb4bebbce578e27275",
+      "bytes": 10487,
+      "literalOrConstantCaseTimeoutTotalMs": 0,
+      "explicitTimeouts": [],
+      "unresolved": [],
+      "historicalFloorMs": 600000,
+      "proposedOuterMs": 600000,
+      "standing": "proposal; literal case ceilings plus 120s setup/drainage, no duration prediction"
+    },
+    {
+      "path": "test_env/tests/t287-c0-post-publication-failure-owner-admission-close.test.mjs",
+      "sha256": "517c55484527dacc03304a7b32901d818409f71c5bfd043cec1243977055ec7b",
+      "bytes": 1778,
+      "literalOrConstantCaseTimeoutTotalMs": 0,
+      "explicitTimeouts": [],
+      "unresolved": [],
+      "historicalFloorMs": 600000,
+      "proposedOuterMs": 600000,
+      "standing": "proposal; literal case ceilings plus 120s setup/drainage, no duration prediction"
+    },
+    {
+      "path": "test_env/tests/t287-c0-post-publication-failure.test.mjs",
+      "sha256": "783e6f745362a2a662a8975fb0db868120905517d4d7b05f74ef83b4267decee",
+      "bytes": 1899,
+      "literalOrConstantCaseTimeoutTotalMs": 0,
+      "explicitTimeouts": [],
+      "unresolved": [],
+      "historicalFloorMs": 2100000,
+      "proposedOuterMs": 2100000,
+      "standing": "proposal; literal case ceilings plus 120s setup/drainage, no duration prediction"
+    },
+    {
+      "path": "test_env/tests/t287-c2-child-program.test.mjs",
+      "sha256": "7721b82f91543bf9f84ab92a4e8403b6ccc47ac97251726068142ce9cf00e43f",
+      "bytes": 8682,
+      "literalOrConstantCaseTimeoutTotalMs": 0,
+      "explicitTimeouts": [],
+      "unresolved": [],
+      "historicalFloorMs": 600000,
+      "proposedOuterMs": 600000,
+      "standing": "proposal; literal case ceilings plus 120s setup/drainage, no duration prediction"
+    },
+    {
+      "path": "test_env/tests/t287-c2-core-environment.test.mjs",
+      "sha256": "b22b676d9a4a73d6c643dfe7f828870363e73ad532a0a062ca2cb5b15194a3cf",
+      "bytes": 22426,
+      "literalOrConstantCaseTimeoutTotalMs": 0,
+      "explicitTimeouts": [],
+      "unresolved": [],
+      "historicalFloorMs": 600000,
+      "proposedOuterMs": 600000,
+      "standing": "proposal; literal case ceilings plus 120s setup/drainage, no duration prediction"
+    },
+    {
+      "path": "test_env/tests/t287-c2a-fp-source-contract.test.mjs",
+      "sha256": "9ffdc51f90561375bdf228cf48f6bc8e2a187bb7079ea1db0a2a267093216c03",
+      "bytes": 15892,
+      "literalOrConstantCaseTimeoutTotalMs": 0,
+      "explicitTimeouts": [],
+      "unresolved": [],
+      "historicalFloorMs": 600000,
+      "proposedOuterMs": 600000,
+      "standing": "proposal; literal case ceilings plus 120s setup/drainage, no duration prediction"
+    },
+    {
+      "path": "test_env/tests/t287-calculus-fold.test.mjs",
+      "sha256": "8a8efdf2a9bbcf625e1323c18c93c87c439b93f38a55f20ad4247101eed9ba6a",
+      "bytes": 142896,
+      "literalOrConstantCaseTimeoutTotalMs": 0,
+      "explicitTimeouts": [],
+      "unresolved": [],
+      "historicalFloorMs": 600000,
+      "proposedOuterMs": 600000,
+      "standing": "proposal; literal case ceilings plus 120s setup/drainage, no duration prediction"
+    },
+    {
+      "path": "test_env/tests/t287-calculus-state-transfer.test.mjs",
+      "sha256": "d3a70467a62346d006ade9318a6b4aa3861f1a5677faf518ab604bb81b15de12",
+      "bytes": 8597,
+      "literalOrConstantCaseTimeoutTotalMs": 600000,
+      "explicitTimeouts": [
+        {
+          "line": 59,
+          "expression": "600_000",
+          "timeoutMs": 600000,
+          "multiplicity": 1,
+          "unresolvedLoop": null,
+          "name": "'real admitted compose and shared batches conserve changing inputs under one basis'"
+        }
+      ],
+      "unresolved": [],
+      "historicalFloorMs": 900000,
+      "proposedOuterMs": 900000,
+      "standing": "proposal; literal case ceilings plus 120s setup/drainage, no duration prediction"
+    },
+    {
+      "path": "test_env/tests/t287-cold-record-decoder.test.mjs",
+      "sha256": "68aeea29169084d3bf4e884aa7531ba58af6a00966c37dd5aa1f43bb831a4cec",
+      "bytes": 7488,
+      "literalOrConstantCaseTimeoutTotalMs": 0,
+      "explicitTimeouts": [],
+      "unresolved": [],
+      "historicalFloorMs": 600000,
+      "proposedOuterMs": 600000,
+      "standing": "proposal; literal case ceilings plus 120s setup/drainage, no duration prediction"
+    },
+    {
+      "path": "test_env/tests/t287-common-computational-library.test.mjs",
+      "sha256": "9311bfd575042f53aa2893d1e8eeb124d8b8871a05548041024f3efde2bf48b3",
+      "bytes": 31621,
+      "literalOrConstantCaseTimeoutTotalMs": 0,
+      "explicitTimeouts": [],
+      "unresolved": [],
+      "historicalFloorMs": 600000,
+      "proposedOuterMs": 600000,
+      "standing": "proposal; literal case ceilings plus 120s setup/drainage, no duration prediction"
+    },
+    {
+      "path": "test_env/tests/t287-conformance-owner-reuse.test.mjs",
+      "sha256": "e9cfc9f7037260e1e8b58c0bcbcf276b9ff007a6d3825aba5ef7eecc93d01359",
+      "bytes": 40115,
+      "literalOrConstantCaseTimeoutTotalMs": 0,
+      "explicitTimeouts": [],
+      "unresolved": [],
+      "historicalFloorMs": 600000,
+      "proposedOuterMs": 600000,
+      "standing": "proposal; literal case ceilings plus 120s setup/drainage, no duration prediction"
+    },
+    {
+      "path": "test_env/tests/t287-cross-cut-public-read.test.mjs",
+      "sha256": "206bb5c1d80c1a8b5495bca516b8ca859b71e124046e9ac73f359d8f8d6292a2",
+      "bytes": 20035,
+      "literalOrConstantCaseTimeoutTotalMs": 0,
+      "explicitTimeouts": [],
+      "unresolved": [],
+      "historicalFloorMs": 600000,
+      "proposedOuterMs": 600000,
+      "standing": "proposal; literal case ceilings plus 120s setup/drainage, no duration prediction"
+    },
+    {
+      "path": "test_env/tests/t287-d1-semantic-stage.test.mjs",
+      "sha256": "a4b24745fd52e234db17c6a655ed8cb68a0c726274907b99724c6775c3ca09ab",
+      "bytes": 4348,
+      "literalOrConstantCaseTimeoutTotalMs": 0,
+      "explicitTimeouts": [],
+      "unresolved": [],
+      "historicalFloorMs": 600000,
+      "proposedOuterMs": 600000,
+      "standing": "proposal; literal case ceilings plus 120s setup/drainage, no duration prediction"
+    },
+    {
+      "path": "test_env/tests/t287-d5-authentic-preserved-result.test.mjs",
+      "sha256": "2f5263711ad524fb3a69631e39b04494d9631bb211049e242c2ce043c687bd56",
+      "bytes": 13615,
+      "literalOrConstantCaseTimeoutTotalMs": 180000,
+      "explicitTimeouts": [
+        {
+          "line": 58,
+          "expression": "180_000",
+          "timeoutMs": 180000,
+          "multiplicity": 1,
+          "unresolvedLoop": null,
+          "name": "\"D5 authentic preserved Construction proposal through installed owners; genuine causal negatives refuse\""
+        }
+      ],
+      "unresolved": [],
+      "historicalFloorMs": 600000,
+      "proposedOuterMs": 600000,
+      "standing": "proposal; literal case ceilings plus 120s setup/drainage, no duration prediction"
+    },
+    {
+      "path": "test_env/tests/t287-declaration-closure-symbol-reuse.test.mjs",
+      "sha256": "51f8d5548f3c1d4835e25c38355f45b786ab7e9f9018b9a53f7874475f18d97b",
+      "bytes": 2197,
+      "literalOrConstantCaseTimeoutTotalMs": 0,
+      "explicitTimeouts": [],
+      "unresolved": [],
+      "historicalFloorMs": 600000,
+      "proposedOuterMs": 600000,
+      "standing": "proposal; literal case ceilings plus 120s setup/drainage, no duration prediction"
+    },
+    {
+      "path": "test_env/tests/t287-declared-testing-capability.test.mjs",
+      "sha256": "f17cf126094b5e4497705e508e56cea5a496c9b8ffa66255ba89d000edbf9320",
+      "bytes": 12423,
+      "literalOrConstantCaseTimeoutTotalMs": 180000,
+      "explicitTimeouts": [
+        {
+          "line": 123,
+          "expression": "180_000",
+          "timeoutMs": 180000,
+          "multiplicity": 1,
+          "unresolvedLoop": null,
+          "name": "\"declared testing fixture aligns with current authority, observation, construction and command owners\""
+        }
+      ],
+      "unresolved": [],
+      "historicalFloorMs": 600000,
+      "proposedOuterMs": 600000,
+      "standing": "proposal; literal case ceilings plus 120s setup/drainage, no duration prediction"
+    },
+    {
+      "path": "test_env/tests/t287-default-library-fulfillment.test.mjs",
+      "sha256": "165cec1bf1d86f971b0f297d67cce5fd4f2030d02ca1c578b8e10ee416169966",
+      "bytes": 48862,
+      "literalOrConstantCaseTimeoutTotalMs": 0,
+      "explicitTimeouts": [],
+      "unresolved": [],
+      "historicalFloorMs": 600000,
+      "proposedOuterMs": 600000,
+      "standing": "proposal; literal case ceilings plus 120s setup/drainage, no duration prediction"
+    },
+    {
+      "path": "test_env/tests/t287-default-library-prerequisites.test.mjs",
+      "sha256": "f60431b780f88f086271d2bb8249c28cbe822e6455bd26dfa3064423dbd257bb",
+      "bytes": 26602,
+      "literalOrConstantCaseTimeoutTotalMs": 0,
+      "explicitTimeouts": [],
+      "unresolved": [],
+      "historicalFloorMs": 600000,
+      "proposedOuterMs": 600000,
+      "standing": "proposal; literal case ceilings plus 120s setup/drainage, no duration prediction"
+    },
+    {
+      "path": "test_env/tests/t287-default-library-recoverable-failure.test.mjs",
+      "sha256": "290406156d2d2c3ab7e1a32f63bb2242bf23df7b6b4777ec835378ac2278d011",
+      "bytes": 21049,
+      "literalOrConstantCaseTimeoutTotalMs": 3600000,
+      "explicitTimeouts": [
+        {
+          "line": 77,
+          "expression": "900_000",
+          "timeoutMs": 900000,
+          "multiplicity": 1,
+          "unresolvedLoop": null,
+          "name": "'the fold: each selection task carries this Run\\'s failed steps in order, re-derived from the admitted prefix, absent before the first failure'"
+        },
+        {
+          "line": 115,
+          "expression": "900_000",
+          "timeoutMs": 900000,
+          "multiplicity": 1,
+          "unresolvedLoop": null,
+          "name": "'the parent continues only over a recoverable origin with attributable effects; each other reading refuses with its relation'"
+        },
+        {
+          "line": 150,
+          "expression": "900_000",
+          "timeoutMs": 900000,
+          "multiplicity": 1,
+          "unresolvedLoop": null,
+          "name": "'a worker that ends normally with an empty final output fails with the native no_output class; the Run continues and the next selection shows the attempt'"
+        },
+        {
+          "line": 172,
+          "expression": "900_000",
+          "timeoutMs": 900000,
+          "multiplicity": 1,
+          "unresolvedLoop": null,
+          "name": "'the selector completion: an exchange identity mismatch throws; every other unbound completion is a typed missing-owned-select refusal'"
+        }
+      ],
+      "unresolved": [],
+      "historicalFloorMs": 600000,
+      "proposedOuterMs": 3720000,
+      "standing": "proposal; literal case ceilings plus 120s setup/drainage, no duration prediction"
+    },
+    {
+      "path": "test_env/tests/t287-default-library-reviews.test.mjs",
+      "sha256": "ad554dfa5337b524f3c672743b1000af58dd650c9f3befb425cce064288e6b8d",
+      "bytes": 63100,
+      "literalOrConstantCaseTimeoutTotalMs": 1200000,
+      "explicitTimeouts": [
+        {
+          "line": 465,
+          "expression": "600_000",
+          "timeoutMs": 600000,
+          "multiplicity": 1,
+          "unresolvedLoop": null,
+          "name": "'one Public start with two required framed reviews: each frame runs on the one assessor, adverse or stale review keeps the Run open, only the touched review rer"
+        },
+        {
+          "line": 489,
+          "expression": "600_000",
+          "timeoutMs": 600000,
+          "multiplicity": 1,
+          "unresolvedLoop": null,
+          "name": "'one Public start: a Construction that changes only review A readFirst input retires A through the event-log invalidation owner; B stays current and only A reru"
+        }
+      ],
+      "unresolved": [],
+      "historicalFloorMs": 600000,
+      "proposedOuterMs": 1320000,
+      "standing": "proposal; literal case ceilings plus 120s setup/drainage, no duration prediction"
+    },
+    {
+      "path": "test_env/tests/t287-default-library.test.mjs",
+      "sha256": "b0f0ccebbb7860c8ba9339da7f444766663d761629241145146b1c11f214a78a",
+      "bytes": 358297,
+      "literalOrConstantCaseTimeoutTotalMs": 820000,
+      "explicitTimeouts": [
+        {
+          "line": 2400,
+          "expression": "540_000",
+          "timeoutMs": 540000,
+          "multiplicity": 1,
+          "unresolvedLoop": null,
+          "name": "'RC7 fixed admission: a Public direct Testing state Result admits direct UAT through actual invocation admission'"
+        },
+        {
+          "line": 2560,
+          "expression": "280_000",
+          "timeoutMs": 280000,
+          "multiplicity": 1,
+          "unresolvedLoop": null,
+          "name": "'RC7 assessment dependency: exact admitted consumer selection, refusals and cold preimage'"
+        }
+      ],
+      "unresolved": [],
+      "historicalFloorMs": 900000,
+      "proposedOuterMs": 940000,
+      "standing": "proposal; literal case ceilings plus 120s setup/drainage, no duration prediction"
+    },
+    {
+      "path": "test_env/tests/t287-event-body-encoding.test.mjs",
+      "sha256": "db76ed6ad9c2a4eed0e98a9efe7c12609b73b50602ee34880ce7ed65a143a295",
+      "bytes": 104530,
+      "literalOrConstantCaseTimeoutTotalMs": 0,
+      "explicitTimeouts": [],
+      "unresolved": [],
+      "historicalFloorMs": 600000,
+      "proposedOuterMs": 600000,
+      "standing": "proposal; literal case ceilings plus 120s setup/drainage, no duration prediction"
+    },
+    {
+      "path": "test_env/tests/t287-exact-prefix-projection-reuse.test.mjs",
+      "sha256": "2df5407c1f9428c7b17955b71ebea36774346ce452e366e5d698a26d86dfb1ea",
+      "bytes": 17382,
+      "literalOrConstantCaseTimeoutTotalMs": 280000,
+      "explicitTimeouts": [
+        {
+          "line": 66,
+          "expression": "280_000",
+          "timeoutMs": 280000,
+          "multiplicity": 1,
+          "unresolvedLoop": null,
+          "name": "'RC7 HS02: one held acquisition serves warm Runs and held run_result/run_replay without another decode, reopen or append, refuses stale/copied/foreign/closed se"
+        }
+      ],
+      "unresolved": [],
+      "historicalFloorMs": 600000,
+      "proposedOuterMs": 600000,
+      "standing": "proposal; literal case ceilings plus 120s setup/drainage, no duration prediction"
+    },
+    {
+      "path": "test_env/tests/t287-f04a-probabilistic-result-candidate.test.mjs",
+      "sha256": "306d7410c5791df1e55ba09787681203d54118ca99b90caf92d0c863ab2adc80",
+      "bytes": 55353,
+      "literalOrConstantCaseTimeoutTotalMs": 0,
+      "explicitTimeouts": [],
+      "unresolved": [],
+      "historicalFloorMs": 600000,
+      "proposedOuterMs": 600000,
+      "standing": "proposal; literal case ceilings plus 120s setup/drainage, no duration prediction"
+    },
+    {
+      "path": "test_env/tests/t287-f09-frontier-handoff.test.mjs",
+      "sha256": "14102c36ffa9761598fbd12c7774dff7e06edea05477a25cef15309a3d94d2ba",
+      "bytes": 467,
+      "literalOrConstantCaseTimeoutTotalMs": 0,
+      "explicitTimeouts": [],
+      "unresolved": [],
+      "historicalFloorMs": 600000,
+      "proposedOuterMs": 600000,
+      "standing": "proposal; literal case ceilings plus 120s setup/drainage, no duration prediction"
+    },
+    {
+      "path": "test_env/tests/t287-framework-handoff-types.test.mjs",
+      "sha256": "743b330ea4fcba8f25f87fbc2fc4b504ae20d311a8d9504e531d7515222ccd0b",
+      "bytes": 22306,
+      "literalOrConstantCaseTimeoutTotalMs": 0,
+      "explicitTimeouts": [],
+      "unresolved": [],
+      "historicalFloorMs": 600000,
+      "proposedOuterMs": 600000,
+      "standing": "proposal; literal case ceilings plus 120s setup/drainage, no duration prediction"
+    },
+    {
+      "path": "test_env/tests/t287-generic-job-intake.test.mjs",
+      "sha256": "7e6a2411b9fb6cdd998317901afc2dffc4003a3cd222e63fd13e80f4df3aab23",
+      "bytes": 6524,
+      "literalOrConstantCaseTimeoutTotalMs": 300000,
+      "explicitTimeouts": [
+        {
+          "line": 12,
+          "expression": "300000",
+          "timeoutMs": 300000,
+          "multiplicity": 1,
+          "unresolvedLoop": null,
+          "name": "\"one installed generic declaration admits two ordinary jobs through actual native child intake\""
+        }
+      ],
+      "unresolved": [],
+      "historicalFloorMs": 600000,
+      "proposedOuterMs": 600000,
+      "standing": "proposal; literal case ceilings plus 120s setup/drainage, no duration prediction"
+    },
+    {
+      "path": "test_env/tests/t287-generic-job-lifecycle.test.mjs",
+      "sha256": "e10312a4fba1b38b11c7dec74e5e8dd7c85baa5b8f7bd831592b256c7722c8e7",
+      "bytes": 8177,
+      "literalOrConstantCaseTimeoutTotalMs": 3600000,
+      "explicitTimeouts": [
+        {
+          "line": 15,
+          "expression": "3600000",
+          "timeoutMs": 3600000,
+          "multiplicity": 1,
+          "unresolvedLoop": null,
+          "name": "\"installed ordinary job traverses full native semantic, parent, C1, C2 and Evidence owners\""
+        }
+      ],
+      "unresolved": [],
+      "historicalFloorMs": 600000,
+      "proposedOuterMs": 3720000,
+      "standing": "proposal; literal case ceilings plus 120s setup/drainage, no duration prediction"
+    },
+    {
+      "path": "test_env/tests/t287-generic-job-meaning.test.mjs",
+      "sha256": "b88e589436386c279198f7242d1bf57bf4c341936d38450700e492f79f411d96",
+      "bytes": 9495,
+      "literalOrConstantCaseTimeoutTotalMs": 0,
+      "explicitTimeouts": [],
+      "unresolved": [],
+      "historicalFloorMs": 600000,
+      "proposedOuterMs": 600000,
+      "standing": "proposal; literal case ceilings plus 120s setup/drainage, no duration prediction"
+    },
+    {
+      "path": "test_env/tests/t287-generic-job-read-dependency.test.mjs",
+      "sha256": "9a5ae9268894ddaa212c8409195d7c04e96175341e0cf25c3f4b138218e47bf2",
+      "bytes": 12498,
+      "literalOrConstantCaseTimeoutTotalMs": 0,
+      "explicitTimeouts": [],
+      "unresolved": [],
+      "historicalFloorMs": 600000,
+      "proposedOuterMs": 600000,
+      "standing": "proposal; literal case ceilings plus 120s setup/drainage, no duration prediction"
+    },
+    {
+      "path": "test_env/tests/t287-generic-job-revision.test.mjs",
+      "sha256": "fdbf7ff23f8acdf646378d85ff09b7428a0dfc5662c80f1705d6db67ef30b85b",
+      "bytes": 15031,
+      "literalOrConstantCaseTimeoutTotalMs": 7200000,
+      "explicitTimeouts": [
+        {
+          "line": 51,
+          "expression": "7200000",
+          "timeoutMs": 7200000,
+          "multiplicity": 1,
+          "unresolvedLoop": null,
+          "name": "\"native correction consumes an actual failed verifier and preserves the unselected file\""
+        }
+      ],
+      "unresolved": [],
+      "historicalFloorMs": 600000,
+      "proposedOuterMs": 7320000,
+      "standing": "proposal; literal case ceilings plus 120s setup/drainage, no duration prediction"
+    },
+    {
+      "path": "test_env/tests/t287-generic-job-worksite.test.mjs",
+      "sha256": "1699a9900ab35fde219fa58f5e23f9227207c308413991c33e20f628bba4b4bc",
+      "bytes": 15639,
+      "literalOrConstantCaseTimeoutTotalMs": 0,
+      "explicitTimeouts": [],
+      "unresolved": [],
+      "historicalFloorMs": 600000,
+      "proposedOuterMs": 600000,
+      "standing": "proposal; literal case ceilings plus 120s setup/drainage, no duration prediction"
+    },
+    {
+      "path": "test_env/tests/t287-governance-covered-source-use.test.mjs",
+      "sha256": "d7b2496aa8a418a5ba9f6827f9cac2ce4746be2851501ccb08200cee0f659638",
+      "bytes": 54177,
+      "literalOrConstantCaseTimeoutTotalMs": 0,
+      "explicitTimeouts": [],
+      "unresolved": [],
+      "historicalFloorMs": 600000,
+      "proposedOuterMs": 600000,
+      "standing": "proposal; literal case ceilings plus 120s setup/drainage, no duration prediction"
+    },
+    {
+      "path": "test_env/tests/t287-gtl-graph-law.test.mjs",
+      "sha256": "087fae0ea8405036a04c45dec8f27121d808d7f437cb79855b6c0bf6ff53ee4e",
+      "bytes": 19072,
+      "literalOrConstantCaseTimeoutTotalMs": 0,
+      "explicitTimeouts": [],
+      "unresolved": [],
+      "historicalFloorMs": 600000,
+      "proposedOuterMs": 600000,
+      "standing": "proposal; literal case ceilings plus 120s setup/drainage, no duration prediction"
+    },
+    {
+      "path": "test_env/tests/t287-gtl-language-corpus.test.mjs",
+      "sha256": "73d84b14f1293c4b0c7843ff945b5c6b6e42c62b6a9415244711095b0e4c5ed9",
+      "bytes": 5512,
+      "literalOrConstantCaseTimeoutTotalMs": 0,
+      "explicitTimeouts": [],
+      "unresolved": [],
+      "historicalFloorMs": 600000,
+      "proposedOuterMs": 600000,
+      "standing": "proposal; literal case ceilings plus 120s setup/drainage, no duration prediction"
+    },
+    {
+      "path": "test_env/tests/t287-gtl-serialization-publication.test.mjs",
+      "sha256": "62e84cb28541b9fb8579541f342d110be0b9b0d4d8df006f541a1d7a668e0781",
+      "bytes": 39881,
+      "literalOrConstantCaseTimeoutTotalMs": 0,
+      "explicitTimeouts": [],
+      "unresolved": [],
+      "historicalFloorMs": 600000,
+      "proposedOuterMs": 600000,
+      "standing": "proposal; literal case ceilings plus 120s setup/drainage, no duration prediction"
+    },
+    {
+      "path": "test_env/tests/t287-held-basis-lifetime.test.mjs",
+      "sha256": "0ac57f9af340f1d057ce7147f90d3830bcd6c1313a82eb1441ce46d2aa06c2bf",
+      "bytes": 15036,
+      "literalOrConstantCaseTimeoutTotalMs": 1400000,
+      "explicitTimeouts": [
+        {
+          "line": 55,
+          "expression": "500_000",
+          "timeoutMs": 500000,
+          "multiplicity": 1,
+          "unresolvedLoop": null,
+          "name": "'RC10 LIFE-01: basis row facts and history basis bodies live only in open run operation scopes; completed, historical, overlapping and closed cases release exac"
+        },
+        {
+          "line": 169,
+          "expression": "900_000",
+          "timeoutMs": 900000,
+          "multiplicity": 1,
+          "unresolvedLoop": null,
+          "name": "'RC10 LIFE-01 workload: fifty sequential calls release both retaining owners after every completed call'"
+        }
+      ],
+      "unresolved": [],
+      "historicalFloorMs": 600000,
+      "proposedOuterMs": 1520000,
+      "standing": "proposal; literal case ceilings plus 120s setup/drainage, no duration prediction"
+    },
+    {
+      "path": "test_env/tests/t287-held-operation-bodies.test.mjs",
+      "sha256": "c7f4e1c6a13dfd5b6e2d62e13e451153d9857188a6e19f867d2225c0d7ad6c1d",
+      "bytes": 24769,
+      "literalOrConstantCaseTimeoutTotalMs": 600000,
+      "explicitTimeouts": [
+        {
+          "line": 54,
+          "expression": "600_000",
+          "timeoutMs": 600000,
+          "multiplicity": 1,
+          "unresolvedLoop": null,
+          "name": "'TD-51a: a read operation reads each selected body once and holds none after it returns; an open run scope keeps exactly its own'"
+        }
+      ],
+      "unresolved": [],
+      "historicalFloorMs": 600000,
+      "proposedOuterMs": 720000,
+      "standing": "proposal; literal case ceilings plus 120s setup/drainage, no duration prediction"
+    },
+    {
+      "path": "test_env/tests/t287-held-owner-fold-reuse.test.mjs",
+      "sha256": "3952ee6f533cd869fb4dee29ade2b443670c3d4ad3434da17551dac0da0e1c03",
+      "bytes": 22243,
+      "literalOrConstantCaseTimeoutTotalMs": 500000,
+      "explicitTimeouts": [
+        {
+          "line": 15,
+          "expression": "500_000",
+          "timeoutMs": 500000,
+          "multiplicity": 1,
+          "unresolvedLoop": null,
+          "name": "'RC9 OWN-01: owner folds over immutable rows and bytes are reused within their territory; changed, copied, earlier and cold inputs keep their checks and refusal"
+        }
+      ],
+      "unresolved": [],
+      "historicalFloorMs": 600000,
+      "proposedOuterMs": 620000,
+      "standing": "proposal; literal case ceilings plus 120s setup/drainage, no duration prediction"
+    },
+    {
+      "path": "test_env/tests/t287-held-prefix.test.mjs",
+      "sha256": "67bec3a7c4d9a3984b094c1befb0cf41a1bc4fe2ae4e478dc7df4d5ddc6f8520",
+      "bytes": 13404,
+      "literalOrConstantCaseTimeoutTotalMs": 0,
+      "explicitTimeouts": [],
+      "unresolved": [],
+      "historicalFloorMs": 600000,
+      "proposedOuterMs": 600000,
+      "standing": "proposal; literal case ceilings plus 120s setup/drainage, no duration prediction"
+    },
+    {
+      "path": "test_env/tests/t287-historical-source-resource.test.mjs",
+      "sha256": "178c6b5ebb613146f9b8a49b4133e73164710fa12aa247a7263e3dfe080394a4",
+      "bytes": 17823,
+      "literalOrConstantCaseTimeoutTotalMs": 0,
+      "explicitTimeouts": [],
+      "unresolved": [],
+      "historicalFloorMs": 600000,
+      "proposedOuterMs": 600000,
+      "standing": "proposal; literal case ceilings plus 120s setup/drainage, no duration prediction"
+    },
+    {
+      "path": "test_env/tests/t287-installed-product-coordinate.test.mjs",
+      "sha256": "2875626ffb7f484b493e7c10e7202a9ea67896647a416dd8261099af79ce3041",
+      "bytes": 13857,
+      "literalOrConstantCaseTimeoutTotalMs": 0,
+      "explicitTimeouts": [],
+      "unresolved": [],
+      "historicalFloorMs": 600000,
+      "proposedOuterMs": 600000,
+      "standing": "proposal; literal case ceilings plus 120s setup/drainage, no duration prediction"
+    },
+    {
+      "path": "test_env/tests/t287-installed-qualification-conservation.test.mjs",
+      "sha256": "2d4761cb518388e919029478f98df36e477b57ba1b813d12fe84efb8252e7f2a",
+      "bytes": 32751,
+      "literalOrConstantCaseTimeoutTotalMs": 0,
+      "explicitTimeouts": [],
+      "unresolved": [],
+      "historicalFloorMs": 600000,
+      "proposedOuterMs": 600000,
+      "standing": "proposal; literal case ceilings plus 120s setup/drainage, no duration prediction"
+    },
+    {
+      "path": "test_env/tests/t287-interrupted-event-resource-recovery.test.mjs",
+      "sha256": "15d92127aeb54d86ea3a0765133c69f300ab20fab96cb20276a7b06d12895e2f",
+      "bytes": 25210,
+      "literalOrConstantCaseTimeoutTotalMs": 0,
+      "explicitTimeouts": [],
+      "unresolved": [],
+      "historicalFloorMs": 600000,
+      "proposedOuterMs": 600000,
+      "standing": "proposal; literal case ceilings plus 120s setup/drainage, no duration prediction"
+    },
+    {
+      "path": "test_env/tests/t287-json-value-definition.test.mjs",
+      "sha256": "c0096f3451edbbef1ef81aeddbaa0b52a811f1405b88ca5a223955793927500e",
+      "bytes": 1664,
+      "literalOrConstantCaseTimeoutTotalMs": 0,
+      "explicitTimeouts": [],
+      "unresolved": [],
+      "historicalFloorMs": 600000,
+      "proposedOuterMs": 600000,
+      "standing": "proposal; literal case ceilings plus 120s setup/drainage, no duration prediction"
+    },
+    {
+      "path": "test_env/tests/t287-lifecycle-failure-carrier.test.mjs",
+      "sha256": "f0f361f272cce7dffbcd2397337f6ae2c6d1f340a63cc7df4242854e96b7a6d6",
+      "bytes": 57408,
+      "literalOrConstantCaseTimeoutTotalMs": 40000,
+      "explicitTimeouts": [
+        {
+          "line": 358,
+          "expression": "20_000",
+          "timeoutMs": 20000,
+          "multiplicity": 1,
+          "unresolvedLoop": null,
+          "name": "'helper route: the classifier reports spawn failure as confirmed and unresolved cleanup with processFacts'"
+        },
+        {
+          "line": 397,
+          "expression": "20_000",
+          "timeoutMs": 20000,
+          "multiplicity": 1,
+          "unresolvedLoop": null,
+          "name": "'helper route: an error after launch with unresolved cleanup throws the command failure with processFacts'"
+        }
+      ],
+      "unresolved": [],
+      "historicalFloorMs": 600000,
+      "proposedOuterMs": 600000,
+      "standing": "proposal; literal case ceilings plus 120s setup/drainage, no duration prediction"
+    },
+    {
+      "path": "test_env/tests/t287-live-worksite-construction.test.mjs",
+      "sha256": "8928a5cf1e3753517cb9e7b5202e20f7594d82e9bdd044f9a0ae69212e336d81",
+      "bytes": 10892,
+      "literalOrConstantCaseTimeoutTotalMs": 300000,
+      "explicitTimeouts": [
+        {
+          "line": 64,
+          "expression": "300_000",
+          "timeoutMs": 300000,
+          "multiplicity": 1,
+          "unresolvedLoop": null,
+          "name": "\"T-287 C1 traverses one installed real-Claude candidate through C0 and fresh replay\""
+        }
+      ],
+      "unresolved": [],
+      "historicalFloorMs": 600000,
+      "proposedOuterMs": 600000,
+      "standing": "proposal; literal case ceilings plus 120s setup/drainage, no duration prediction"
+    },
+    {
+      "path": "test_env/tests/t287-liveness-heartbeat.test.mjs",
+      "sha256": "8879a98abbab2b3ed8e425f76bce70eeb667e8b0b93122b05c1258295e150b30",
+      "bytes": 13017,
+      "literalOrConstantCaseTimeoutTotalMs": 150000,
+      "explicitTimeouts": [
+        {
+          "line": 119,
+          "expression": "30_000",
+          "timeoutMs": 30000,
+          "multiplicity": 1,
+          "unresolvedLoop": null,
+          "name": "\"status heartbeats renew the lease of a working actor across an interval longer than its inactivity\""
+        },
+        {
+          "line": 129,
+          "expression": "30_000",
+          "timeoutMs": 30000,
+          "multiplicity": 1,
+          "unresolvedLoop": null,
+          "name": "\"after its last heartbeat a silent actor is contained at its inactivity, and the window carries the heartbeat instant\""
+        },
+        {
+          "line": 146,
+          "expression": "30_000",
+          "timeoutMs": 30000,
+          "multiplicity": 1,
+          "unresolvedLoop": null,
+          "name": "\"retry rows after the request's status row renew nothing: the lease runs from the status row\""
+        },
+        {
+          "line": 157,
+          "expression": "30_000",
+          "timeoutMs": 30000,
+          "multiplicity": 1,
+          "unresolvedLoop": null,
+          "name": "\"an actor that emits neither progress nor a heartbeat is contained at its declared inactivity\""
+        },
+        {
+          "line": 164,
+          "expression": "30_000",
+          "timeoutMs": 30000,
+          "multiplicity": 1,
+          "unresolvedLoop": null,
+          "name": "\"a heartbeat written after the direct process exits is not captured and renews nothing\""
+        }
+      ],
+      "unresolved": [],
+      "historicalFloorMs": 600000,
+      "proposedOuterMs": 600000,
+      "standing": "proposal; literal case ceilings plus 120s setup/drainage, no duration prediction"
+    },
+    {
+      "path": "test_env/tests/t287-liveness-inactivity.test.mjs",
+      "sha256": "635eec6259a8cc4304242fb9031db0c7008308f674ced28ca1e4a1f9b1657815",
+      "bytes": 12683,
+      "literalOrConstantCaseTimeoutTotalMs": 0,
+      "explicitTimeouts": [],
+      "unresolved": [],
+      "historicalFloorMs": 600000,
+      "proposedOuterMs": 600000,
+      "standing": "proposal; literal case ceilings plus 120s setup/drainage, no duration prediction"
+    },
+    {
+      "path": "test_env/tests/t287-malformed-gtl-gate.test.mjs",
+      "sha256": "ba7506e029f26e2175a0c02ce5f7976032ccce22e15a9b825d9e6f79571253b3",
+      "bytes": 13733,
+      "literalOrConstantCaseTimeoutTotalMs": 0,
+      "explicitTimeouts": [],
+      "unresolved": [],
+      "historicalFloorMs": 600000,
+      "proposedOuterMs": 600000,
+      "standing": "proposal; literal case ceilings plus 120s setup/drainage, no duration prediction"
+    },
+    {
+      "path": "test_env/tests/t287-management-context.test.mjs",
+      "sha256": "de0411b4597adf36893e5b26280d8029a75dc209648b63aae0dbfd0c3aab27ae",
+      "bytes": 41242,
+      "literalOrConstantCaseTimeoutTotalMs": 300000,
+      "explicitTimeouts": [
+        {
+          "line": 410,
+          "expression": "300000",
+          "timeoutMs": 300000,
+          "multiplicity": 1,
+          "unresolvedLoop": null,
+          "name": "\"Public-start exact positive and schema-valid crossed input coordinate use the existing preparation owner\""
+        }
+      ],
+      "unresolved": [],
+      "historicalFloorMs": 600000,
+      "proposedOuterMs": 600000,
+      "standing": "proposal; literal case ceilings plus 120s setup/drainage, no duration prediction"
+    },
+    {
+      "path": "test_env/tests/t287-management-stream-drain.test.mjs",
+      "sha256": "2ea56e302ebc84fcab3dcaf484491cc0c7780e7cd53b4f4dd0b7e3c79702e151",
+      "bytes": 13155,
+      "literalOrConstantCaseTimeoutTotalMs": 0,
+      "explicitTimeouts": [],
+      "unresolved": [],
+      "historicalFloorMs": 600000,
+      "proposedOuterMs": 600000,
+      "standing": "proposal; literal case ceilings plus 120s setup/drainage, no duration prediction"
+    },
+    {
+      "path": "test_env/tests/t287-management-supervision.test.mjs",
+      "sha256": "fa7a413cf991fbd79791a636404908e1460475df148b7213987f886179462dfd",
+      "bytes": 15371,
+      "literalOrConstantCaseTimeoutTotalMs": 620000,
+      "explicitTimeouts": [
+        {
+          "line": 59,
+          "expression": "10000",
+          "timeoutMs": 10000,
+          "multiplicity": 1,
+          "unresolvedLoop": null,
+          "name": "\"prompt and both stream archives survive supervisor SIGKILL before process completion\""
+        },
+        {
+          "line": 87,
+          "expression": "10000",
+          "timeoutMs": 10000,
+          "multiplicity": 1,
+          "unresolvedLoop": null,
+          "name": "\"retry-only process rows remain archived without renewing the observer lease\""
+        },
+        {
+          "line": 105,
+          "expression": "600000",
+          "timeoutMs": 600000,
+          "multiplicity": 1,
+          "unresolvedLoop": null,
+          "name": "\"native lease contains a silent actor at inactivity before its hard cap without a no-progress classification under unknown coverage; an active blocked child rea"
+        }
+      ],
+      "unresolved": [],
+      "historicalFloorMs": 900000,
+      "proposedOuterMs": 900000,
+      "standing": "proposal; literal case ceilings plus 120s setup/drainage, no duration prediction"
+    },
+    {
+      "path": "test_env/tests/t287-native-assembly-retained-input.test.mjs",
+      "sha256": "eb9ec220f6ab956396d81fc53db86014b7902ab31587c91bc61cc41077ca0c41",
+      "bytes": 8417,
+      "literalOrConstantCaseTimeoutTotalMs": 0,
+      "explicitTimeouts": [],
+      "unresolved": [],
+      "historicalFloorMs": 600000,
+      "proposedOuterMs": 600000,
+      "standing": "proposal; literal case ceilings plus 120s setup/drainage, no duration prediction"
+    },
+    {
+      "path": "test_env/tests/t287-native-assessment-evidence.test.mjs",
+      "sha256": "39c0bfff51ba8655f4de58c3ec237cf46dec03c03458d3db52cd466bf476ebc5",
+      "bytes": 9616,
+      "literalOrConstantCaseTimeoutTotalMs": 0,
+      "explicitTimeouts": [],
+      "unresolved": [],
+      "historicalFloorMs": 600000,
+      "proposedOuterMs": 600000,
+      "standing": "proposal; literal case ceilings plus 120s setup/drainage, no duration prediction"
+    },
+    {
+      "path": "test_env/tests/t287-native-c2-instruction-assembly.test.mjs",
+      "sha256": "bdc820d117ec9a3c1a446d4a3c6f5ee62bb3c6119d367c9c6ab45cd152d09dec",
+      "bytes": 10560,
+      "literalOrConstantCaseTimeoutTotalMs": 0,
+      "explicitTimeouts": [],
+      "unresolved": [],
+      "historicalFloorMs": 600000,
+      "proposedOuterMs": 600000,
+      "standing": "proposal; literal case ceilings plus 120s setup/drainage, no duration prediction"
+    },
+    {
+      "path": "test_env/tests/t287-native-event-time.test.mjs",
+      "sha256": "723e4a2ca74c3ae449862c1026d62f1154a30412fa75a992ffcf638bafe2fc51",
+      "bytes": 11098,
+      "literalOrConstantCaseTimeoutTotalMs": 0,
+      "explicitTimeouts": [],
+      "unresolved": [],
+      "historicalFloorMs": 600000,
+      "proposedOuterMs": 600000,
+      "standing": "proposal; literal case ceilings plus 120s setup/drainage, no duration prediction"
+    },
+    {
+      "path": "test_env/tests/t287-native-frame-observation.test.mjs",
+      "sha256": "02c58efcda18eb874586cf86e02b7bbc3b51615685fdad25b59d9e794de6a7e9",
+      "bytes": 17398,
+      "literalOrConstantCaseTimeoutTotalMs": 0,
+      "explicitTimeouts": [],
+      "unresolved": [],
+      "historicalFloorMs": 600000,
+      "proposedOuterMs": 600000,
+      "standing": "proposal; literal case ceilings plus 120s setup/drainage, no duration prediction"
+    },
+    {
+      "path": "test_env/tests/t287-native-owner-reuse.test.mjs",
+      "sha256": "a6e8bc5285873a11ccb016d630bafe044673e2101a8ca4aec7994f117a244ebd",
+      "bytes": 10504,
+      "literalOrConstantCaseTimeoutTotalMs": 0,
+      "explicitTimeouts": [],
+      "unresolved": [],
+      "historicalFloorMs": 600000,
+      "proposedOuterMs": 600000,
+      "standing": "proposal; literal case ceilings plus 120s setup/drainage, no duration prediction"
+    },
+    {
+      "path": "test_env/tests/t287-native-runtime-gate.test.mjs",
+      "sha256": "3807e344a385da916575f8c7faed47dbdb46a001ff2cea96feb5ae33cb4c1894",
+      "bytes": 14998,
+      "literalOrConstantCaseTimeoutTotalMs": 0,
+      "explicitTimeouts": [],
+      "unresolved": [],
+      "historicalFloorMs": 600000,
+      "proposedOuterMs": 600000,
+      "standing": "proposal; literal case ceilings plus 120s setup/drainage, no duration prediction"
+    },
+    {
+      "path": "test_env/tests/t287-native-semantic-job.test.mjs",
+      "sha256": "a068e0d21fb4fdf62cadda7f863cc0451fcfa909ace5d0ad9e159a260afacb66",
+      "bytes": 41383,
+      "literalOrConstantCaseTimeoutTotalMs": 0,
+      "explicitTimeouts": [],
+      "unresolved": [],
+      "historicalFloorMs": 600000,
+      "proposedOuterMs": 600000,
+      "standing": "proposal; literal case ceilings plus 120s setup/drainage, no duration prediction"
+    },
+    {
+      "path": "test_env/tests/t287-native-semantic-revision.test.mjs",
+      "sha256": "2ec486938ed447585141ae2b7a1ad5f83d9743c6f5f71bffe19ac87597530c5c",
+      "bytes": 67610,
+      "literalOrConstantCaseTimeoutTotalMs": 0,
+      "explicitTimeouts": [],
+      "unresolved": [],
+      "historicalFloorMs": 600000,
+      "proposedOuterMs": 600000,
+      "standing": "proposal; literal case ceilings plus 120s setup/drainage, no duration prediction"
+    },
+    {
+      "path": "test_env/tests/t287-native-structural-gates.test.mjs",
+      "sha256": "4f92919b9dbd537eaefc9899a56caf3edffb4ce4d9783aa315ddcbb71c3ee8f6",
+      "bytes": 12666,
+      "literalOrConstantCaseTimeoutTotalMs": 0,
+      "explicitTimeouts": [],
+      "unresolved": [],
+      "historicalFloorMs": 600000,
+      "proposedOuterMs": 600000,
+      "standing": "proposal; literal case ceilings plus 120s setup/drainage, no duration prediction"
+    },
+    {
+      "path": "test_env/tests/t287-native-work-currentness-consumers.test.mjs",
+      "sha256": "c26208d91bc926df70dfc0a7bbc288dcb2e651765b10dd4e0cfaee7e79901cae",
+      "bytes": 130797,
+      "literalOrConstantCaseTimeoutTotalMs": 0,
+      "explicitTimeouts": [],
+      "unresolved": [],
+      "historicalFloorMs": 600000,
+      "proposedOuterMs": 600000,
+      "standing": "proposal; literal case ceilings plus 120s setup/drainage, no duration prediction"
+    },
+    {
+      "path": "test_env/tests/t287-native-work-reacquisition-normalization.test.mjs",
+      "sha256": "e2d74fde4a620024c97641939e2d50fd988437804b87121484a513cb24b778be",
+      "bytes": 4636,
+      "literalOrConstantCaseTimeoutTotalMs": 0,
+      "explicitTimeouts": [],
+      "unresolved": [],
+      "historicalFloorMs": 600000,
+      "proposedOuterMs": 600000,
+      "standing": "proposal; literal case ceilings plus 120s setup/drainage, no duration prediction"
+    },
+    {
+      "path": "test_env/tests/t287-native-work-reacquisition.test.mjs",
+      "sha256": "b49f58f8f886ce08e24492ff2cc7ef37b2d29961e9a427341a5e14123c5e6738",
+      "bytes": 48407,
+      "literalOrConstantCaseTimeoutTotalMs": 0,
+      "explicitTimeouts": [],
+      "unresolved": [],
+      "historicalFloorMs": 600000,
+      "proposedOuterMs": 600000,
+      "standing": "proposal; literal case ceilings plus 120s setup/drainage, no duration prediction"
+    },
+    {
+      "path": "test_env/tests/t287-native-work-unknown-effect.test.mjs",
+      "sha256": "259301c52f320dfaa2a7061842a77d3f394d840a0129419b0bed9e3246b8a667",
+      "bytes": 14600,
+      "literalOrConstantCaseTimeoutTotalMs": 0,
+      "explicitTimeouts": [],
+      "unresolved": [],
+      "historicalFloorMs": 600000,
+      "proposedOuterMs": 600000,
+      "standing": "proposal; literal case ceilings plus 120s setup/drainage, no duration prediction"
+    },
+    {
+      "path": "test_env/tests/t287-native-worksite-execution.test.mjs",
+      "sha256": "d8f26bc77a4442282bd47abe99b9404727853e7fedf41d5c9509ec29a408fa79",
+      "bytes": 41316,
+      "literalOrConstantCaseTimeoutTotalMs": 0,
+      "explicitTimeouts": [],
+      "unresolved": [],
+      "historicalFloorMs": 600000,
+      "proposedOuterMs": 600000,
+      "standing": "proposal; literal case ceilings plus 120s setup/drainage, no duration prediction"
+    },
+    {
+      "path": "test_env/tests/t287-native-workspace-work.test.mjs",
+      "sha256": "e166aab8e6582737f12034906fde1baacf30f811d2b9c4f522256aa45f7bf357",
+      "bytes": 112777,
+      "literalOrConstantCaseTimeoutTotalMs": 0,
+      "explicitTimeouts": [],
+      "unresolved": [],
+      "historicalFloorMs": 600000,
+      "proposedOuterMs": 600000,
+      "standing": "proposal; literal case ceilings plus 120s setup/drainage, no duration prediction"
+    },
+    {
+      "path": "test_env/tests/t287-observed-worksite-command.test.mjs",
+      "sha256": "883e9af8d3bb83fc7831b0031cfeec0baa270442ac472ab8701e039f20f6add5",
+      "bytes": 29125,
+      "literalOrConstantCaseTimeoutTotalMs": 0,
+      "explicitTimeouts": [],
+      "unresolved": [],
+      "historicalFloorMs": 600000,
+      "proposedOuterMs": 600000,
+      "standing": "proposal; literal case ceilings plus 120s setup/drainage, no duration prediction"
+    },
+    {
+      "path": "test_env/tests/t287-ordered-reconstruction.test.mjs",
+      "sha256": "2161fbcb513b3b412fce9a23647cd028c961303cae03f74a710e403f7f38ba52",
+      "bytes": 17414,
+      "literalOrConstantCaseTimeoutTotalMs": 0,
+      "explicitTimeouts": [],
+      "unresolved": [],
+      "historicalFloorMs": 600000,
+      "proposedOuterMs": 600000,
+      "standing": "proposal; literal case ceilings plus 120s setup/drainage, no duration prediction"
+    },
+    {
+      "path": "test_env/tests/t287-owned-call-reference.test.mjs",
+      "sha256": "ebfa1e20e50a42a1359808eb0fc4a5ef0f44d0240fd607790c84368a760838c1",
+      "bytes": 21885,
+      "literalOrConstantCaseTimeoutTotalMs": 500000,
+      "explicitTimeouts": [
+        {
+          "line": 17,
+          "expression": "500_000",
+          "timeoutMs": 500000,
+          "multiplicity": 1,
+          "unresolvedLoop": null,
+          "name": "'RC8 REF-01: constructed canonical calls and setup Catalog/view reach the run owner by reference from the first call; canonical outputs, refusals and copies kee"
+        }
+      ],
+      "unresolved": [],
+      "historicalFloorMs": 600000,
+      "proposedOuterMs": 620000,
+      "standing": "proposal; literal case ceilings plus 120s setup/drainage, no duration prediction"
+    },
+    {
+      "path": "test_env/tests/t287-owned-native-proof.test.mjs",
+      "sha256": "e8b911080ff7ef26ef7b6472471223abf44a187ff48ae659385edc4b5a163eac",
+      "bytes": 15707,
+      "literalOrConstantCaseTimeoutTotalMs": 0,
+      "explicitTimeouts": [],
+      "unresolved": [],
+      "historicalFloorMs": 600000,
+      "proposedOuterMs": 600000,
+      "standing": "proposal; literal case ceilings plus 120s setup/drainage, no duration prediction"
+    },
+    {
+      "path": "test_env/tests/t287-owned-process-lifetime.test.mjs",
+      "sha256": "c2e25abb47ea4efe783801c5df52a0805fefc53de9f31b7d272813b264ac5d9a",
+      "bytes": 92761,
+      "literalOrConstantCaseTimeoutTotalMs": 10000,
+      "explicitTimeouts": [
+        {
+          "line": 1098,
+          "expression": "5000",
+          "timeoutMs": 5000,
+          "multiplicity": 1,
+          "unresolvedLoop": null,
+          "name": "'physical lifetime: actual direct exit, stdio close, disposal and group absence are separately observed'"
+        },
+        {
+          "line": 1164,
+          "expression": "HTTP_TEST_CAP_MS",
+          "timeoutMs": null,
+          "multiplicity": 1,
+          "unresolvedLoop": null,
+          "name": "'physical HTTP owner: response, invalid/missing port, failed request and exceptional owner path finalize'"
+        },
+        {
+          "line": 1218,
+          "expression": "CAPTURE_TEST_CAP_MS",
+          "timeoutMs": null,
+          "multiplicity": 1,
+          "unresolvedLoop": null,
+          "name": "'physical owner capture: finite inherited-pipe late output stays HTTP diagnostic and never worker/command result'"
+        },
+        {
+          "line": 1299,
+          "expression": "5000",
+          "timeoutMs": 5000,
+          "multiplicity": 1,
+          "unresolvedLoop": null,
+          "name": "'physical lifetime: an escaped finite pipe holder is outside owned-group absence and drain remains bounded'"
+        }
+      ],
+      "unresolved": [
+        {
+          "line": 1164,
+          "reason": "dynamic timeout",
+          "expression": "HTTP_TEST_CAP_MS",
+          "loop": null
+        },
+        {
+          "line": 1218,
+          "reason": "dynamic timeout",
+          "expression": "CAPTURE_TEST_CAP_MS",
+          "loop": null
+        }
+      ],
+      "historicalFloorMs": 600000,
+      "proposedOuterMs": 600000,
+      "standing": "proposal; Root must resolve dynamic options/multiplicity"
+    },
+    {
+      "path": "test_env/tests/t287-pfc-f08a-product-verification-boundary.test.mjs",
+      "sha256": "ddb66c4d6f327d7e418ea0d306f90953c4a45bbd51d7f5d5533e9da897ee035c",
+      "bytes": 29898,
+      "literalOrConstantCaseTimeoutTotalMs": 0,
+      "explicitTimeouts": [],
+      "unresolved": [],
+      "historicalFloorMs": 600000,
+      "proposedOuterMs": 600000,
+      "standing": "proposal; literal case ceilings plus 120s setup/drainage, no duration prediction"
+    },
+    {
+      "path": "test_env/tests/t287-post-binding-worksite-write.test.mjs",
+      "sha256": "c18384e6cdc80cd8fcd7cac2108ed29fb10569a62f42c652937e1c85b984ac87",
+      "bytes": 51446,
+      "literalOrConstantCaseTimeoutTotalMs": 0,
+      "explicitTimeouts": [],
+      "unresolved": [],
+      "historicalFloorMs": 600000,
+      "proposedOuterMs": 600000,
+      "standing": "proposal; literal case ceilings plus 120s setup/drainage, no duration prediction"
+    },
+    {
+      "path": "test_env/tests/t287-predecessor-context.test.mjs",
+      "sha256": "943ec983cb981cbf199940b2d90b7314c7b40b0bbb28f30b95b50bf782273a49",
+      "bytes": 4801,
+      "literalOrConstantCaseTimeoutTotalMs": 0,
+      "explicitTimeouts": [],
+      "unresolved": [],
+      "historicalFloorMs": 600000,
+      "proposedOuterMs": 600000,
+      "standing": "proposal; literal case ceilings plus 120s setup/drainage, no duration prediction"
+    },
+    {
+      "path": "test_env/tests/t287-public-groups.test.mjs",
+      "sha256": "273d574198119c54ade64cd0c896e8764fda762be40ab9b8b64eeeca84d09a92",
+      "bytes": 7732,
+      "literalOrConstantCaseTimeoutTotalMs": 0,
+      "explicitTimeouts": [],
+      "unresolved": [],
+      "historicalFloorMs": 600000,
+      "proposedOuterMs": 600000,
+      "standing": "proposal; literal case ceilings plus 120s setup/drainage, no duration prediction"
+    },
+    {
+      "path": "test_env/tests/t287-public-preparation.test.mjs",
+      "sha256": "32aa99390f277584d246c2d910539b5b096fc041bd4c53f0a01aab30b461161e",
+      "bytes": 25429,
+      "literalOrConstantCaseTimeoutTotalMs": 0,
+      "explicitTimeouts": [],
+      "unresolved": [],
+      "historicalFloorMs": 600000,
+      "proposedOuterMs": 600000,
+      "standing": "proposal; literal case ceilings plus 120s setup/drainage, no duration prediction"
+    },
+    {
+      "path": "test_env/tests/t287-public-terminal-projection.test.mjs",
+      "sha256": "3761f016ed1600e1b4cd932806c2ebc9b653ced0f6b52012a71039f7a8fe7aac",
+      "bytes": 7401,
+      "literalOrConstantCaseTimeoutTotalMs": 0,
+      "explicitTimeouts": [],
+      "unresolved": [],
+      "historicalFloorMs": 600000,
+      "proposedOuterMs": 600000,
+      "standing": "proposal; literal case ceilings plus 120s setup/drainage, no duration prediction"
+    },
+    {
+      "path": "test_env/tests/t287-publication-observer.test.mjs",
+      "sha256": "44733710fd85aa4b6bc3ed2decc875e7334e7778a1358e3564a0ab39da4f0c61",
+      "bytes": 9781,
+      "literalOrConstantCaseTimeoutTotalMs": 0,
+      "explicitTimeouts": [],
+      "unresolved": [],
+      "historicalFloorMs": 600000,
+      "proposedOuterMs": 600000,
+      "standing": "proposal; literal case ceilings plus 120s setup/drainage, no duration prediction"
+    },
+    {
+      "path": "test_env/tests/t287-qual056-material.test.mjs",
+      "sha256": "fefb9e4f64aaa01e91b0eea84032843e462b796a2952e03ea73b25b28dd46fcb",
+      "bytes": 34018,
+      "literalOrConstantCaseTimeoutTotalMs": 0,
+      "explicitTimeouts": [],
+      "unresolved": [],
+      "historicalFloorMs": 600000,
+      "proposedOuterMs": 600000,
+      "standing": "proposal; literal case ceilings plus 120s setup/drainage, no duration prediction"
+    },
+    {
+      "path": "test_env/tests/t287-qualification-contraction.test.mjs",
+      "sha256": "b768ee0976a20b66a8ae204b9452742ed9afca2008f75dc98240bc648f910236",
+      "bytes": 13745,
+      "literalOrConstantCaseTimeoutTotalMs": 0,
+      "explicitTimeouts": [],
+      "unresolved": [],
+      "historicalFloorMs": 600000,
+      "proposedOuterMs": 600000,
+      "standing": "proposal; literal case ceilings plus 120s setup/drainage, no duration prediction"
+    },
+    {
+      "path": "test_env/tests/t287-qualification-law.test.mjs",
+      "sha256": "d171fb1d365c9805079d9299a191fd3d84b591a5450447029f429ca94d692a5d",
+      "bytes": 27762,
+      "literalOrConstantCaseTimeoutTotalMs": 0,
+      "explicitTimeouts": [],
+      "unresolved": [],
+      "historicalFloorMs": 600000,
+      "proposedOuterMs": 600000,
+      "standing": "proposal; literal case ceilings plus 120s setup/drainage, no duration prediction"
+    },
+    {
+      "path": "test_env/tests/t287-qualification-producer-acquisition-reuse.test.mjs",
+      "sha256": "290d629fb3c516bd2afd4557041bc20750b0163fc5b915a8910ae58371f1b9ea",
+      "bytes": 20877,
+      "literalOrConstantCaseTimeoutTotalMs": 0,
+      "explicitTimeouts": [],
+      "unresolved": [],
+      "historicalFloorMs": 600000,
+      "proposedOuterMs": 600000,
+      "standing": "proposal; literal case ceilings plus 120s setup/drainage, no duration prediction"
+    },
+    {
+      "path": "test_env/tests/t287-qualification-producer-context.test.mjs",
+      "sha256": "b581f43132bfafe9b11a90af90130d3b1a70fe5c355ba336d595805571963fab",
+      "bytes": 7649,
+      "literalOrConstantCaseTimeoutTotalMs": 0,
+      "explicitTimeouts": [],
+      "unresolved": [],
+      "historicalFloorMs": 600000,
+      "proposedOuterMs": 600000,
+      "standing": "proposal; literal case ceilings plus 120s setup/drainage, no duration prediction"
+    },
+    {
+      "path": "test_env/tests/t287-qualification-scopes.test.mjs",
+      "sha256": "d3056ab7421f540d4babb0aa26a5418958287be3da4a470842877523373506b6",
+      "bytes": 99489,
+      "literalOrConstantCaseTimeoutTotalMs": 0,
+      "explicitTimeouts": [],
+      "unresolved": [],
+      "historicalFloorMs": 600000,
+      "proposedOuterMs": 600000,
+      "standing": "proposal; literal case ceilings plus 120s setup/drainage, no duration prediction"
+    },
+    {
+      "path": "test_env/tests/t287-r4-aba-retry.test.mjs",
+      "sha256": "ea517677bea5b6fe4c246f8f95de2e69e7c766dad6c0166ab5371b2783edfbd7",
+      "bytes": 483,
+      "literalOrConstantCaseTimeoutTotalMs": 0,
+      "explicitTimeouts": [],
+      "unresolved": [],
+      "historicalFloorMs": 600000,
+      "proposedOuterMs": 600000,
+      "standing": "proposal; literal case ceilings plus 120s setup/drainage, no duration prediction"
+    },
+    {
+      "path": "test_env/tests/t287-r6-retry-success-exit.test.mjs",
+      "sha256": "99c5ad9af2d30f9d6e4f2990ca4dfe2faf80417f0bc2256ad15f141149dd9587",
+      "bytes": 10906,
+      "literalOrConstantCaseTimeoutTotalMs": 0,
+      "explicitTimeouts": [],
+      "unresolved": [],
+      "historicalFloorMs": 600000,
+      "proposedOuterMs": 600000,
+      "standing": "proposal; literal case ceilings plus 120s setup/drainage, no duration prediction"
+    },
+    {
+      "path": "test_env/tests/t287-reacquisition-root-contract.test.mjs",
+      "sha256": "613d26cd694bba86d79d9f04f8c0485868f2c05ad6832436f526d8abb24203f8",
+      "bytes": 6782,
+      "literalOrConstantCaseTimeoutTotalMs": 0,
+      "explicitTimeouts": [],
+      "unresolved": [],
+      "historicalFloorMs": 600000,
+      "proposedOuterMs": 600000,
+      "standing": "proposal; literal case ceilings plus 120s setup/drainage, no duration prediction"
+    },
+    {
+      "path": "test_env/tests/t287-readable-stops-foldback.test.mjs",
+      "sha256": "8849a8daefc0682680616630ef02c0dd448e6a2cce0b76ee0c2e08b6b5fa3a58",
+      "bytes": 18278,
+      "literalOrConstantCaseTimeoutTotalMs": 1800000,
+      "explicitTimeouts": [
+        {
+          "line": 74,
+          "expression": "1_800_000",
+          "timeoutMs": 1800000,
+          "multiplicity": 1,
+          "unresolvedLoop": null,
+          "name": "'declared failure foldbacks read back by cause: the bound is the origin, the undeclared failure is named, and no ended frame reads live'"
+        }
+      ],
+      "unresolved": [],
+      "historicalFloorMs": 600000,
+      "proposedOuterMs": 1920000,
+      "standing": "proposal; literal case ceilings plus 120s setup/drainage, no duration prediction"
+    },
+    {
+      "path": "test_env/tests/t287-readable-stops.test.mjs",
+      "sha256": "0355cdad98759b70bbfbefb95263edef74ffa17b29905f3db6189d02126ea986",
+      "bytes": 24381,
+      "literalOrConstantCaseTimeoutTotalMs": 3600000,
+      "explicitTimeouts": [
+        {
+          "line": 189,
+          "expression": "900_000",
+          "timeoutMs": 900000,
+          "multiplicity": 1,
+          "unresolvedLoop": null,
+          "name": "'worker exit failure reads back its originating failure class, reason and last root Result cold'"
+        },
+        {
+          "line": 195,
+          "expression": "900_000",
+          "timeoutMs": 900000,
+          "multiplicity": 1,
+          "unresolvedLoop": null,
+          "name": "'absolute time ceiling reads back the originating failure with its timeout class cold'"
+        },
+        {
+          "line": 201,
+          "expression": "900_000",
+          "timeoutMs": 900000,
+          "multiplicity": 1,
+          "unresolvedLoop": null,
+          "name": "'recursion bound 2 reads back the bound reason, the judged Result as origin and the last root Result cold'"
+        },
+        {
+          "line": 215,
+          "expression": "900_000",
+          "timeoutMs": 900000,
+          "multiplicity": 1,
+          "unresolvedLoop": null,
+          "name": "'selection gap reads back as a blocked stop with its missing support references and reason cold'"
+        }
+      ],
+      "unresolved": [],
+      "historicalFloorMs": 600000,
+      "proposedOuterMs": 3720000,
+      "standing": "proposal; literal case ceilings plus 120s setup/drainage, no duration prediction"
+    },
+    {
+      "path": "test_env/tests/t287-recursive-failure-foldback.test.mjs",
+      "sha256": "6116e4317a80a805ddf65afd42b18a64aca4b0e63d96f0931efd8a27d886b130",
+      "bytes": 31976,
+      "literalOrConstantCaseTimeoutTotalMs": 0,
+      "explicitTimeouts": [],
+      "unresolved": [],
+      "historicalFloorMs": 600000,
+      "proposedOuterMs": 600000,
+      "standing": "proposal; literal case ceilings plus 120s setup/drainage, no duration prediction"
+    },
+    {
+      "path": "test_env/tests/t287-recursive-registered-selection.test.mjs",
+      "sha256": "49f558b44567c0a348fbb80e0416a17dfefc799345c2d7935411549501b77c34",
+      "bytes": 64491,
+      "literalOrConstantCaseTimeoutTotalMs": 0,
+      "explicitTimeouts": [],
+      "unresolved": [],
+      "historicalFloorMs": 600000,
+      "proposedOuterMs": 600000,
+      "standing": "proposal; literal case ceilings plus 120s setup/drainage, no duration prediction"
+    },
+    {
+      "path": "test_env/tests/t287-registered-graph-selection.test.mjs",
+      "sha256": "13ea567a5e3c0bdbb36b413671c0ee72794fe8306737e0019c47edada2eb5c6c",
+      "bytes": 13096,
+      "literalOrConstantCaseTimeoutTotalMs": 0,
+      "explicitTimeouts": [],
+      "unresolved": [],
+      "historicalFloorMs": 600000,
+      "proposedOuterMs": 600000,
+      "standing": "proposal; literal case ceilings plus 120s setup/drainage, no duration prediction"
+    },
+    {
+      "path": "test_env/tests/t287-release-acceptance.test.mjs",
+      "sha256": "b374f43c7b600dbfe07024f092a31c54e5ab019250b4b12d45d5e3ba917e330b",
+      "bytes": 23843,
+      "literalOrConstantCaseTimeoutTotalMs": 0,
+      "explicitTimeouts": [],
+      "unresolved": [],
+      "historicalFloorMs": 600000,
+      "proposedOuterMs": 600000,
+      "standing": "proposal; literal case ceilings plus 120s setup/drainage, no duration prediction"
+    },
+    {
+      "path": "test_env/tests/t287-release-publication.test.mjs",
+      "sha256": "ea374123f3a5bfcd14bd4b37a12e3b4b774f7a63cf421ef57233abedb926f40a",
+      "bytes": 13220,
+      "literalOrConstantCaseTimeoutTotalMs": 0,
+      "explicitTimeouts": [],
+      "unresolved": [],
+      "historicalFloorMs": 600000,
+      "proposedOuterMs": 600000,
+      "standing": "proposal; literal case ceilings plus 120s setup/drainage, no duration prediction"
+    },
+    {
+      "path": "test_env/tests/t287-required-operation-bindings.test.mjs",
+      "sha256": "be38b605b15386de82e3c5f68329a88cf8fb15e97c68513eb3a529efb7350fb6",
+      "bytes": 46120,
+      "literalOrConstantCaseTimeoutTotalMs": 1800000,
+      "explicitTimeouts": [
+        {
+          "line": 130,
+          "expression": "1800000",
+          "timeoutMs": 1800000,
+          "multiplicity": 1,
+          "unresolvedLoop": null,
+          "name": "'T-287 R2-b result.assess through the installed transport: the declared result and an owner refusal'"
+        }
+      ],
+      "unresolved": [],
+      "historicalFloorMs": 2100000,
+      "proposedOuterMs": 2100000,
+      "standing": "proposal; literal case ceilings plus 120s setup/drainage, no duration prediction"
+    },
+    {
+      "path": "test_env/tests/t287-result-evidence-lineage-projection.test.mjs",
+      "sha256": "a25bb4dabc552902d5ba1a66c2d266b4d5cd25d0ca9983f3351a10e22c180cf3",
+      "bytes": 23154,
+      "literalOrConstantCaseTimeoutTotalMs": 0,
+      "explicitTimeouts": [],
+      "unresolved": [],
+      "historicalFloorMs": 600000,
+      "proposedOuterMs": 600000,
+      "standing": "proposal; literal case ceilings plus 120s setup/drainage, no duration prediction"
+    },
+    {
+      "path": "test_env/tests/t287-result-evidence-lineage-type-contract.test.mjs",
+      "sha256": "c8e6782a660d4d2ea030a911279862739ff78296b4d19613ada9ecf636fef33b",
+      "bytes": 7008,
+      "literalOrConstantCaseTimeoutTotalMs": 0,
+      "explicitTimeouts": [],
+      "unresolved": [],
+      "historicalFloorMs": 600000,
+      "proposedOuterMs": 600000,
+      "standing": "proposal; literal case ceilings plus 120s setup/drainage, no duration prediction"
+    },
+    {
+      "path": "test_env/tests/t287-retained-installed-consumer.test.mjs",
+      "sha256": "2dc3fa1974bfa09c0640e1eb2868cfd5c8d7c6f2ba03c90c8ef318e5a3810a2d",
+      "bytes": 17380,
+      "literalOrConstantCaseTimeoutTotalMs": 0,
+      "explicitTimeouts": [],
+      "unresolved": [],
+      "historicalFloorMs": 600000,
+      "proposedOuterMs": 600000,
+      "standing": "proposal; literal case ceilings plus 120s setup/drainage, no duration prediction"
+    },
+    {
+      "path": "test_env/tests/t287-retry-run-prefix.test.mjs",
+      "sha256": "3f1e6bf8249e48977261e5e63d065ab32f52540092e2f49af1dcf05ce81b0349",
+      "bytes": 23609,
+      "literalOrConstantCaseTimeoutTotalMs": 0,
+      "explicitTimeouts": [],
+      "unresolved": [],
+      "historicalFloorMs": 600000,
+      "proposedOuterMs": 600000,
+      "standing": "proposal; literal case ceilings plus 120s setup/drainage, no duration prediction"
+    },
+    {
+      "path": "test_env/tests/t287-route-reconstruction.test.mjs",
+      "sha256": "88c7498aa1d43b92238bfe0b9275978b3d56d61192c4a03cd99b556e17836669",
+      "bytes": 80313,
+      "literalOrConstantCaseTimeoutTotalMs": 0,
+      "explicitTimeouts": [],
+      "unresolved": [],
+      "historicalFloorMs": 600000,
+      "proposedOuterMs": 600000,
+      "standing": "proposal; literal case ceilings plus 120s setup/drainage, no duration prediction"
+    },
+    {
+      "path": "test_env/tests/t287-rp2-behavior-carriers.test.mjs",
+      "sha256": "d38a46b57b182de6ffa98609b6bf27646d99f715b75406afe31e4ac07843f8aa",
+      "bytes": 8290,
+      "literalOrConstantCaseTimeoutTotalMs": 0,
+      "explicitTimeouts": [],
+      "unresolved": [],
+      "historicalFloorMs": 600000,
+      "proposedOuterMs": 600000,
+      "standing": "proposal; literal case ceilings plus 120s setup/drainage, no duration prediction"
+    },
+    {
+      "path": "test_env/tests/t287-rp2-fibre-substitution.test.mjs",
+      "sha256": "22e9253a89194167e38884e3fe1abcae567fef73bcd564d700ba6b8fd07a9058",
+      "bytes": 7982,
+      "literalOrConstantCaseTimeoutTotalMs": 0,
+      "explicitTimeouts": [],
+      "unresolved": [],
+      "historicalFloorMs": 600000,
+      "proposedOuterMs": 600000,
+      "standing": "proposal; literal case ceilings plus 120s setup/drainage, no duration prediction"
+    },
+    {
+      "path": "test_env/tests/t287-rp2-material-selection.test.mjs",
+      "sha256": "2575195a4578317cec857a26f38e017a28d56a81768cc2c9ad41ebfeb8b53267",
+      "bytes": 4270,
+      "literalOrConstantCaseTimeoutTotalMs": 0,
+      "explicitTimeouts": [],
+      "unresolved": [],
+      "historicalFloorMs": 600000,
+      "proposedOuterMs": 600000,
+      "standing": "proposal; literal case ceilings plus 120s setup/drainage, no duration prediction"
+    },
+    {
+      "path": "test_env/tests/t287-rp2-resource-memo.test.mjs",
+      "sha256": "3b7f94ffee0879af65e28afb3236fe8717ead145772b2f6053bf251207c9459c",
+      "bytes": 3982,
+      "literalOrConstantCaseTimeoutTotalMs": 0,
+      "explicitTimeouts": [],
+      "unresolved": [],
+      "historicalFloorMs": 600000,
+      "proposedOuterMs": 600000,
+      "standing": "proposal; literal case ceilings plus 120s setup/drainage, no duration prediction"
+    },
+    {
+      "path": "test_env/tests/t287-runtime-activity-quiescence.test.mjs",
+      "sha256": "74bbe59f4df60c1962c7c08ecb71baa6423f3a16b5e72870bdb34447e257857b",
+      "bytes": 4373,
+      "literalOrConstantCaseTimeoutTotalMs": 0,
+      "explicitTimeouts": [],
+      "unresolved": [],
+      "historicalFloorMs": 600000,
+      "proposedOuterMs": 600000,
+      "standing": "proposal; literal case ceilings plus 120s setup/drainage, no duration prediction"
+    },
+    {
+      "path": "test_env/tests/t287-runtime-failure-diagnostic.test.mjs",
+      "sha256": "f44780a082bf20c60b3e6f9a4eb11d1f6f3984c4804bcbb459e9e607f8640fb4",
+      "bytes": 87290,
+      "literalOrConstantCaseTimeoutTotalMs": 0,
+      "explicitTimeouts": [],
+      "unresolved": [],
+      "historicalFloorMs": 600000,
+      "proposedOuterMs": 600000,
+      "standing": "proposal; literal case ceilings plus 120s setup/drainage, no duration prediction"
+    },
+    {
+      "path": "test_env/tests/t287-select-family.test.mjs",
+      "sha256": "6b03d204210b82dc914d66a2b5ce113a359ee96d4fcca34b9e51e63626e5a5b2",
+      "bytes": 6457,
+      "literalOrConstantCaseTimeoutTotalMs": 0,
+      "explicitTimeouts": [],
+      "unresolved": [],
+      "historicalFloorMs": 600000,
+      "proposedOuterMs": 600000,
+      "standing": "proposal; literal case ceilings plus 120s setup/drainage, no duration prediction"
+    },
+    {
+      "path": "test_env/tests/t287-single-address-space-consolidation.test.mjs",
+      "sha256": "af74cbf30593907b59783ac86622b7c6cba7f686b20731f52feff0253cf15c85",
+      "bytes": 120786,
+      "literalOrConstantCaseTimeoutTotalMs": 7200000,
+      "explicitTimeouts": [
+        {
+          "line": 104,
+          "expression": "600_000",
+          "timeoutMs": 600000,
+          "multiplicity": 1,
+          "unresolvedLoop": null,
+          "name": "'retained RC5 history: the owned prefix of the migrated liveness callers preserves the measured context with fewer event-log bytes, no full snapshot and no immu"
+        },
+        {
+          "line": 182,
+          "expression": "600_000",
+          "timeoutMs": 600000,
+          "multiplicity": 1,
+          "unresolvedLoop": null,
+          "name": "'liveness candidate validation forks its admitted base: equal decisions and context, isolated siblings, unchanged base, no per-candidate rebuild'"
+        },
+        {
+          "line": 308,
+          "expression": "600_000",
+          "timeoutMs": 600000,
+          "multiplicity": 1,
+          "unresolvedLoop": null,
+          "name": "'shared public-operation classification equals the complete class predicates of the retained history, with orphan and mixed-arm facts kept'"
+        },
+        {
+          "line": 354,
+          "expression": "600_000",
+          "timeoutMs": 600000,
+          "multiplicity": 1,
+          "unresolvedLoop": null,
+          "name": "'global run-invocation pairs stay history-wide on real earlier cuts, and a foreign Run stays distinct from a missing one'"
+        },
+        {
+          "line": 409,
+          "expression": "900_000",
+          "timeoutMs": 900000,
+          "multiplicity": 1,
+          "unresolvedLoop": null,
+          "name": "'installed producer to consumer: borrowed held history keeps exact values, reuses warm selections as unrelated history grows, refuses stale/copied/foreign/rollb"
+        },
+        {
+          "line": 670,
+          "expression": "900_000",
+          "timeoutMs": 900000,
+          "multiplicity": 1,
+          "unresolvedLoop": null,
+          "name": "'qualification material at a genuine owned cut: an invalidating producer fibre refuses warm, copied and cold alike; the historical cut stays valid and unrelated"
+        },
+        {
+          "line": 789,
+          "expression": "900_000",
+          "timeoutMs": 900000,
+          "multiplicity": 1,
+          "unresolvedLoop": null,
+          "name": "'complete-pair owners refuse orphan F_H, construction-intent and selected-action operations by stage and admission order, alike warm, copied and cold; a mixed a"
+        },
+        {
+          "line": 895,
+          "expression": "900_000",
+          "timeoutMs": 900000,
+          "multiplicity": 1,
+          "unresolvedLoop": null,
+          "name": "'maintained SDK setup holds one acquired resource, borrows every history call, closes once, owns failure cleanup and reopens cold'"
+        },
+        {
+          "line": 1191,
+          "expression": "600_000",
+          "timeoutMs": 600000,
+          "multiplicity": 1,
+          "unresolvedLoop": null,
+          "name": "'historical revision cuts: the shared before-event owner selects the replaced full-history filter\\'s exact exclusive prefix with no body pass, immutability walk"
+        },
+        {
+          "line": 1247,
+          "expression": "600_000",
+          "timeoutMs": 600000,
+          "multiplicity": 1,
+          "unresolvedLoop": null,
+          "name": "'semantic stage authentication borrows the owned prefix: the retired materializing adapter\\'s exact owner facts with no materialization or cold revalidation'"
+        }
+      ],
+      "unresolved": [],
+      "historicalFloorMs": 600000,
+      "proposedOuterMs": 7320000,
+      "standing": "proposal; literal case ceilings plus 120s setup/drainage, no duration prediction"
+    },
+    {
+      "path": "test_env/tests/t287-st1-installed-cross-owner-hello.test.mjs",
+      "sha256": "04c4e36a994968b72ef5dab565b52358da9468f7e0fac4b1eb6a62ba40580cb3",
+      "bytes": 83532,
+      "literalOrConstantCaseTimeoutTotalMs": 0,
+      "explicitTimeouts": [],
+      "unresolved": [],
+      "historicalFloorMs": 600000,
+      "proposedOuterMs": 600000,
+      "standing": "proposal; literal case ceilings plus 120s setup/drainage, no duration prediction"
+    },
+    {
+      "path": "test_env/tests/t287-st2a-e-exact-prefix-workspace-environment.test.mjs",
+      "sha256": "a8cc28369dc70e05ab229ef5c8bc489e4669d3faddea601c60908b7c2b2eeef6",
+      "bytes": 10056,
+      "literalOrConstantCaseTimeoutTotalMs": 0,
+      "explicitTimeouts": [],
+      "unresolved": [],
+      "historicalFloorMs": 600000,
+      "proposedOuterMs": 600000,
+      "standing": "proposal; literal case ceilings plus 120s setup/drainage, no duration prediction"
+    },
+    {
+      "path": "test_env/tests/t287-st2a-g-capability-definition-graph.test.mjs",
+      "sha256": "d5ec05bf980ad83f607fa3b6fc9112721f771c9baba1ddc81604a73b48c6ac5c",
+      "bytes": 19085,
+      "literalOrConstantCaseTimeoutTotalMs": 0,
+      "explicitTimeouts": [],
+      "unresolved": [],
+      "historicalFloorMs": 600000,
+      "proposedOuterMs": 600000,
+      "standing": "proposal; literal case ceilings plus 120s setup/drainage, no duration prediction"
+    },
+    {
+      "path": "test_env/tests/t287-static-declaration-closure.test.mjs",
+      "sha256": "95f50ce93d10a233123b3608496c1a715318a516ca1445fa734b0546b790487a",
+      "bytes": 16982,
+      "literalOrConstantCaseTimeoutTotalMs": 0,
+      "explicitTimeouts": [],
+      "unresolved": [],
+      "historicalFloorMs": 600000,
+      "proposedOuterMs": 600000,
+      "standing": "proposal; literal case ceilings plus 120s setup/drainage, no duration prediction"
+    },
+    {
+      "path": "test_env/tests/t287-stdo-proof-entry.test.mjs",
+      "sha256": "15f74f7191ce5b414270a0890e8919ebc45d2877aab9f27010d7ff76c63e08ea",
+      "bytes": 2573,
+      "literalOrConstantCaseTimeoutTotalMs": 0,
+      "explicitTimeouts": [],
+      "unresolved": [],
+      "historicalFloorMs": 600000,
+      "proposedOuterMs": 600000,
+      "standing": "proposal; literal case ceilings plus 120s setup/drainage, no duration prediction"
+    },
+    {
+      "path": "test_env/tests/t287-stdo3-run-environment.test.mjs",
+      "sha256": "39cb051df0635db4cca5fdff796cc98bd8aaf3266b1de41cea7c60428f3f9c67",
+      "bytes": 16907,
+      "literalOrConstantCaseTimeoutTotalMs": 0,
+      "explicitTimeouts": [],
+      "unresolved": [],
+      "historicalFloorMs": 600000,
+      "proposedOuterMs": 600000,
+      "standing": "proposal; literal case ceilings plus 120s setup/drainage, no duration prediction"
+    },
+    {
+      "path": "test_env/tests/t287-tv5-rooted-topology-partition.test.mjs",
+      "sha256": "28105f9e1073609907ed984664551723c0d40fe024bef74bc29fb1c1e62050a2",
+      "bytes": 6957,
+      "literalOrConstantCaseTimeoutTotalMs": 0,
+      "explicitTimeouts": [],
+      "unresolved": [],
+      "historicalFloorMs": 600000,
+      "proposedOuterMs": 600000,
+      "standing": "proposal; literal case ceilings plus 120s setup/drainage, no duration prediction"
+    },
+    {
+      "path": "test_env/tests/t287-undispatched-diagnostic.test.mjs",
+      "sha256": "c37e14ece6df0cadee6106f706f1d745ea5fee6d064c68c6812e68d3f3742565",
+      "bytes": 31144,
+      "literalOrConstantCaseTimeoutTotalMs": 0,
+      "explicitTimeouts": [],
+      "unresolved": [],
+      "historicalFloorMs": 600000,
+      "proposedOuterMs": 600000,
+      "standing": "proposal; literal case ceilings plus 120s setup/drainage, no duration prediction"
+    },
+    {
+      "path": "test_env/tests/t287-value-equality.test.mjs",
+      "sha256": "d31a34d191605fb4fda05a3326554e37f6edb461ac46372e7c5de6cc90fdaab2",
+      "bytes": 11855,
+      "literalOrConstantCaseTimeoutTotalMs": 0,
+      "explicitTimeouts": [],
+      "unresolved": [],
+      "historicalFloorMs": 600000,
+      "proposedOuterMs": 600000,
+      "standing": "proposal; literal case ceilings plus 120s setup/drainage, no duration prediction"
+    },
+    {
+      "path": "test_env/tests/t287-w2-05-generator-package-reproducibility.test.mjs",
+      "sha256": "6657a72070ad88052f63d01f7f5a37c1a1c5e5c2c1aeddcb3e3ebd173f96731a",
+      "bytes": 15077,
+      "literalOrConstantCaseTimeoutTotalMs": 0,
+      "explicitTimeouts": [],
+      "unresolved": [],
+      "historicalFloorMs": 900000,
+      "proposedOuterMs": 900000,
+      "standing": "proposal; literal case ceilings plus 120s setup/drainage, no duration prediction"
+    },
+    {
+      "path": "test_env/tests/t287-w2-05-install-catalog-owner-chain.test.mjs",
+      "sha256": "590e7ff0e8f84a4b8ec5138658119993507e399cc9e94984b897b67979860e4b",
+      "bytes": 59446,
+      "literalOrConstantCaseTimeoutTotalMs": 0,
+      "explicitTimeouts": [],
+      "unresolved": [],
+      "historicalFloorMs": 600000,
+      "proposedOuterMs": 600000,
+      "standing": "proposal; literal case ceilings plus 120s setup/drainage, no duration prediction"
+    },
+    {
+      "path": "test_env/tests/t287-w2-05-release-snapshot-definition-bindings.test.mjs",
+      "sha256": "c8c26b30cd16cb5daaad97c91fd349ac54afaca9750feafe9e49003d1686757f",
+      "bytes": 5033,
+      "literalOrConstantCaseTimeoutTotalMs": 0,
+      "explicitTimeouts": [],
+      "unresolved": [],
+      "historicalFloorMs": 900000,
+      "proposedOuterMs": 900000,
+      "standing": "proposal; literal case ceilings plus 120s setup/drainage, no duration prediction"
+    },
+    {
+      "path": "test_env/tests/t287-w2-05-static-binding-algebra.test.mjs",
+      "sha256": "7e8a6d0bf3840c60d233d565a1f4d7eeb421a6d79d87ec692f5168da29e50964",
+      "bytes": 39688,
+      "literalOrConstantCaseTimeoutTotalMs": 0,
+      "explicitTimeouts": [],
+      "unresolved": [],
+      "historicalFloorMs": 600000,
+      "proposedOuterMs": 600000,
+      "standing": "proposal; literal case ceilings plus 120s setup/drainage, no duration prediction"
+    },
+    {
+      "path": "test_env/tests/t287-wave2-definition-coordinate.test.mjs",
+      "sha256": "7ab4c8d1c80d218c31f03c355f8b59420c07d39943e838e8459e5ffb02a72ff2",
+      "bytes": 2199,
+      "literalOrConstantCaseTimeoutTotalMs": 0,
+      "explicitTimeouts": [],
+      "unresolved": [],
+      "historicalFloorMs": 600000,
+      "proposedOuterMs": 600000,
+      "standing": "proposal; literal case ceilings plus 120s setup/drainage, no duration prediction"
+    },
+    {
+      "path": "test_env/tests/t287-wave2-installed-product-verification.test.mjs",
+      "sha256": "ded91451066319cb25802cf4164ce9cb9e70af30fc16d40dd6ab80874e36a4af",
+      "bytes": 7342,
+      "literalOrConstantCaseTimeoutTotalMs": 0,
+      "explicitTimeouts": [],
+      "unresolved": [],
+      "historicalFloorMs": 600000,
+      "proposedOuterMs": 600000,
+      "standing": "proposal; literal case ceilings plus 120s setup/drainage, no duration prediction"
+    },
+    {
+      "path": "test_env/tests/t287-wave2-owner-chain.test.mjs",
+      "sha256": "72f71c3738e53e4cba605030ce06a477f09c18240035bd1651a732cbcc278771",
+      "bytes": 5252,
+      "literalOrConstantCaseTimeoutTotalMs": 0,
+      "explicitTimeouts": [],
+      "unresolved": [],
+      "historicalFloorMs": 600000,
+      "proposedOuterMs": 600000,
+      "standing": "proposal; literal case ceilings plus 120s setup/drainage, no duration prediction"
+    },
+    {
+      "path": "test_env/tests/t287-wave2-owner-contract-source-set.test.mjs",
+      "sha256": "aa7d65a9fa8f23c4ef34693eb179742368fbe08c186ea949212ca79c520d99f2",
+      "bytes": 38898,
+      "literalOrConstantCaseTimeoutTotalMs": 0,
+      "explicitTimeouts": [],
+      "unresolved": [],
+      "historicalFloorMs": 600000,
+      "proposedOuterMs": 600000,
+      "standing": "proposal; literal case ceilings plus 120s setup/drainage, no duration prediction"
+    },
+    {
+      "path": "test_env/tests/t287-worksite-branch-construction.test.mjs",
+      "sha256": "15c025a667c5a64337a61dcf9c5d81b845f82f2ebedaba656e7aaaac965c3869",
+      "bytes": 29032,
+      "literalOrConstantCaseTimeoutTotalMs": 480000,
+      "explicitTimeouts": [
+        {
+          "line": 593,
+          "expression": "240_000",
+          "timeoutMs": 240000,
+          "multiplicity": 1,
+          "unresolvedLoop": null,
+          "name": "\"T-287 C3 Parallel topology constructs canonically and closes installed C1 children\""
+        },
+        {
+          "line": 678,
+          "expression": "240_000",
+          "timeoutMs": 240000,
+          "multiplicity": 1,
+          "unresolvedLoop": null,
+          "name": "\"T-287 C3 preserves outer and nested partial prefixes and never opens fan-in\""
+        }
+      ],
+      "unresolved": [],
+      "historicalFloorMs": 600000,
+      "proposedOuterMs": 600000,
+      "standing": "proposal; literal case ceilings plus 120s setup/drainage, no duration prediction"
+    },
+    {
+      "path": "test_env/tests/t287-worksite-command-execution.test.mjs",
+      "sha256": "0e556e999ab541dcfc2721a73262953476d87d54e13d52537073d33f77e9cda4",
+      "bytes": 110328,
+      "literalOrConstantCaseTimeoutTotalMs": 900000,
+      "explicitTimeouts": [
+        {
+          "line": 1198,
+          "expression": "process.env.ABG_T287_C2_PROOF_CONFIG === undefined ? 180_000 : 600_000",
+          "timeoutMs": null,
+          "multiplicity": 1,
+          "unresolvedLoop": null,
+          "name": "\"T-287 C2 compact acknowledgment preserves installed large-log observation and replay\""
+        },
+        {
+          "line": 1206,
+          "expression": "180_000",
+          "timeoutMs": 180000,
+          "multiplicity": 1,
+          "unresolvedLoop": null,
+          "name": "\"T-287 C2 helper failure after launch reaches result admission with its subject inline\""
+        },
+        {
+          "line": 1475,
+          "expression": "180_000",
+          "timeoutMs": 180000,
+          "multiplicity": 1,
+          "unresolvedLoop": null,
+          "name": "\"T-287 C2 helper failure http_probe_failed through the installed helper reaches result admission with its subject inline\""
+        },
+        {
+          "line": 1479,
+          "expression": "180_000",
+          "timeoutMs": 180000,
+          "multiplicity": 1,
+          "unresolvedLoop": null,
+          "name": "\"T-287 C2 helper failure http_cleanup_unresolved through the installed helper reaches result admission with its subject inline\""
+        },
+        {
+          "line": 1660,
+          "expression": "180_000",
+          "timeoutMs": 180000,
+          "multiplicity": 1,
+          "unresolvedLoop": null,
+          "name": "\"T-287 C2 command launch spawn error ENOEXEC through the installed helper publishes the no-child launch failure and reaches result admission\""
+        },
+        {
+          "line": 1664,
+          "expression": "180_000",
+          "timeoutMs": 180000,
+          "multiplicity": 1,
+          "unresolvedLoop": null,
+          "name": "\"T-287 C2 HTTP launch spawn error ENOEXEC through the installed helper publishes the no-child launch failure and reaches result admission\""
+        }
+      ],
+      "unresolved": [
+        {
+          "line": 1198,
+          "reason": "dynamic timeout",
+          "expression": "process.env.ABG_T287_C2_PROOF_CONFIG === undefined ? 180_000 : 600_000",
+          "loop": null
+        }
+      ],
+      "historicalFloorMs": 600000,
+      "proposedOuterMs": 1020000,
+      "standing": "proposal; Root must resolve dynamic options/multiplicity"
+    },
+    {
+      "path": "test_env/tests/t287-worksite-construction.test.mjs",
+      "sha256": "e47a2de84bc573d6caef8dc2c10c0173e5f99f7bfce865bedbdcddcf422ed4a9",
+      "bytes": 42986,
+      "literalOrConstantCaseTimeoutTotalMs": 360000,
+      "explicitTimeouts": [
+        {
+          "line": 380,
+          "expression": "180_000",
+          "timeoutMs": 180000,
+          "multiplicity": 1,
+          "unresolvedLoop": null,
+          "name": "\"T-287 C1 traverses one installed fake-Claude candidate through C0 and fresh replay\""
+        },
+        {
+          "line": 708,
+          "expression": "180_000",
+          "timeoutMs": 180000,
+          "multiplicity": 1,
+          "unresolvedLoop": null,
+          "name": "\"T-287 C1 retains an exact partial prefix when a later C0 member refuses\""
+        }
+      ],
+      "unresolved": [],
+      "historicalFloorMs": 600000,
+      "proposedOuterMs": 600000,
+      "standing": "proposal; literal case ceilings plus 120s setup/drainage, no duration prediction"
+    },
+    {
+      "path": "test_env/tests/t288-initial-cursor-entry.test.mjs",
+      "sha256": "3032b45c11c7b081cb8732c9875f4aff08ccec359de504a101f4bde7c93d884b",
+      "bytes": 3158,
+      "literalOrConstantCaseTimeoutTotalMs": 0,
+      "explicitTimeouts": [],
+      "unresolved": [],
+      "historicalFloorMs": 600000,
+      "proposedOuterMs": 600000,
+      "standing": "proposal; literal case ceilings plus 120s setup/drainage, no duration prediction"
+    },
+    {
+      "path": "test_env/tests/t288-instruction-assembly-owner.test.mjs",
+      "sha256": "dfa9537d76cc66b41151591ff42f90e913c4b3e61cd073690510ed5d3e2c8b41",
+      "bytes": 24631,
+      "literalOrConstantCaseTimeoutTotalMs": 0,
+      "explicitTimeouts": [],
+      "unresolved": [],
+      "historicalFloorMs": 600000,
+      "proposedOuterMs": 600000,
+      "standing": "proposal; literal case ceilings plus 120s setup/drainage, no duration prediction"
+    },
+    {
+      "path": "test_env/tests/t288-logical-prefix-digest.test.mjs",
+      "sha256": "160030431feae1dc62411213d617c8795429357e3ab54671201918a8c791168b",
+      "bytes": 31537,
+      "literalOrConstantCaseTimeoutTotalMs": 0,
+      "explicitTimeouts": [],
+      "unresolved": [],
+      "historicalFloorMs": 600000,
+      "proposedOuterMs": 600000,
+      "standing": "proposal; literal case ceilings plus 120s setup/drainage, no duration prediction"
+    },
+    {
+      "path": "test_env/tests/t289-install-event-bodies.test.mjs",
+      "sha256": "af65174bcb7ea1fb37d358650c70b4dd310408a391291c7f2439e22549ee8c36",
+      "bytes": 33658,
+      "literalOrConstantCaseTimeoutTotalMs": 0,
+      "explicitTimeouts": [],
+      "unresolved": [],
+      "historicalFloorMs": 600000,
+      "proposedOuterMs": 600000,
+      "standing": "proposal; literal case ceilings plus 120s setup/drainage, no duration prediction"
+    },
+    {
+      "path": "test_env/tests/t291-m6-admission-refusal-surface.test.mjs",
+      "sha256": "114262835be76544ee856f86c415e56a5d66521c43bb72152a8891605d16fb9c",
+      "bytes": 4704,
+      "literalOrConstantCaseTimeoutTotalMs": 0,
+      "explicitTimeouts": [],
+      "unresolved": [],
+      "historicalFloorMs": 600000,
+      "proposedOuterMs": 600000,
+      "standing": "proposal; literal case ceilings plus 120s setup/drainage, no duration prediction"
+    },
+    {
+      "path": "test_env/tests/t292-binding-row-owner-differential.test.mjs",
+      "sha256": "9689e82eccebaaca844361c1052e33ec4687ba991105db92e4bf6e74f1e9561a",
+      "bytes": 38325,
+      "literalOrConstantCaseTimeoutTotalMs": 0,
+      "explicitTimeouts": [],
+      "unresolved": [],
+      "historicalFloorMs": 600000,
+      "proposedOuterMs": 600000,
+      "standing": "proposal; literal case ceilings plus 120s setup/drainage, no duration prediction"
+    },
+    {
+      "path": "test_env/tests/t292-event-store-lock-namespace.test.mjs",
+      "sha256": "1a75712a6e255e87f6956798ec3f6318c332254da86b1775dad27eb15a6e9668",
+      "bytes": 7463,
+      "literalOrConstantCaseTimeoutTotalMs": 0,
+      "explicitTimeouts": [],
+      "unresolved": [],
+      "historicalFloorMs": 600000,
+      "proposedOuterMs": 600000,
+      "standing": "proposal; literal case ceilings plus 120s setup/drainage, no duration prediction"
+    },
+    {
+      "path": "test_env/tests/t292-product-payload-rule.test.mjs",
+      "sha256": "c82b9415d193f10ea4c3906ee756d6b7e9e252913621d393168b64d650a2c53e",
+      "bytes": 4759,
+      "literalOrConstantCaseTimeoutTotalMs": 0,
+      "explicitTimeouts": [],
+      "unresolved": [],
+      "historicalFloorMs": 600000,
+      "proposedOuterMs": 600000,
+      "standing": "proposal; literal case ceilings plus 120s setup/drainage, no duration prediction"
+    },
+    {
+      "path": "test_env/tests/t292-td26-p2-module-refused.test.mjs",
+      "sha256": "92c264800cef288d50a0ca73b32e9838587ccf297804f5350a098d6675210aa6",
+      "bytes": 8942,
+      "literalOrConstantCaseTimeoutTotalMs": 0,
+      "explicitTimeouts": [],
+      "unresolved": [],
+      "historicalFloorMs": 600000,
+      "proposedOuterMs": 600000,
+      "standing": "proposal; literal case ceilings plus 120s setup/drainage, no duration prediction"
+    },
+    {
+      "path": "test_env/tests/t292-td26-p2t-declaration-rows-installed.test.mjs",
+      "sha256": "70e11b8883967cf187ff558aa0775b58de3ccdd486cbd978af30c7aea51ad77b",
+      "bytes": 28991,
+      "literalOrConstantCaseTimeoutTotalMs": 0,
+      "explicitTimeouts": [],
+      "unresolved": [],
+      "historicalFloorMs": 600000,
+      "proposedOuterMs": 600000,
+      "standing": "proposal; literal case ceilings plus 120s setup/drainage, no duration prediction"
+    },
+    {
+      "path": "test_env/tests/t292-td26-p3-continuation-refused.test.mjs",
+      "sha256": "a4d569177180dfcd7a505adbe753ea7a39c45d42398382161cf86865b0e585a2",
+      "bytes": 8547,
+      "literalOrConstantCaseTimeoutTotalMs": 0,
+      "explicitTimeouts": [],
+      "unresolved": [],
+      "historicalFloorMs": 600000,
+      "proposedOuterMs": 600000,
+      "standing": "proposal; literal case ceilings plus 120s setup/drainage, no duration prediction"
+    },
+    {
+      "path": "test_env/tests/t292-td26-p4-basis-door-refused.test.mjs",
+      "sha256": "59058210523617c6973337d734cbd5a8f6010b414518d0cf3495f52463e3958e",
+      "bytes": 2862,
+      "literalOrConstantCaseTimeoutTotalMs": 0,
+      "explicitTimeouts": [],
+      "unresolved": [],
+      "historicalFloorMs": 600000,
+      "proposedOuterMs": 600000,
+      "standing": "proposal; literal case ceilings plus 120s setup/drainage, no duration prediction"
+    },
+    {
+      "path": "test_env/tests/t292-td26-p5-owner-doors-refused.test.mjs",
+      "sha256": "047896d470ab4af686c77461fc3d7f19dea6087e0df310befac2cfe3e3f5a5d2",
+      "bytes": 8518,
+      "literalOrConstantCaseTimeoutTotalMs": 0,
+      "explicitTimeouts": [],
+      "unresolved": [],
+      "historicalFloorMs": 600000,
+      "proposedOuterMs": 600000,
+      "standing": "proposal; literal case ceilings plus 120s setup/drainage, no duration prediction"
+    },
+    {
+      "path": "test_env/tests/t292-td26-p5-readers-refused.test.mjs",
+      "sha256": "22e620031a3daed139c867acb233a418f4a88cf5362e681f8473c63bae0a51a2",
+      "bytes": 4228,
+      "literalOrConstantCaseTimeoutTotalMs": 0,
+      "explicitTimeouts": [],
+      "unresolved": [],
+      "historicalFloorMs": 600000,
+      "proposedOuterMs": 600000,
+      "standing": "proposal; literal case ceilings plus 120s setup/drainage, no duration prediction"
+    },
+    {
+      "path": "test_env/tests/t292-td26-p6-language-retired.test.mjs",
+      "sha256": "8d82c303afbed72796f42afeb2bb3359c1891f61566d5f04ab00a59678b05005",
+      "bytes": 5683,
+      "literalOrConstantCaseTimeoutTotalMs": 0,
+      "explicitTimeouts": [],
+      "unresolved": [],
+      "historicalFloorMs": 600000,
+      "proposedOuterMs": 600000,
+      "standing": "proposal; literal case ceilings plus 120s setup/drainage, no duration prediction"
+    },
+    {
+      "path": "test_env/tests/t292-td26-p6-span-reentry.test.mjs",
+      "sha256": "37c3e137fc5ca476f94f912dfb7b667ec828e334fe465e5bed7f91770e2147e4",
+      "bytes": 7972,
+      "literalOrConstantCaseTimeoutTotalMs": 0,
+      "explicitTimeouts": [],
+      "unresolved": [],
+      "historicalFloorMs": 600000,
+      "proposedOuterMs": 600000,
+      "standing": "proposal; literal case ceilings plus 120s setup/drainage, no duration prediction"
+    },
+    {
+      "path": "test_env/tests/t292-td26-ps-default-root-mode.test.mjs",
+      "sha256": "e2767d92c1fe723f18183e99378b8147088432f925cba0bbdc79c61774df836c",
+      "bytes": 25565,
+      "literalOrConstantCaseTimeoutTotalMs": 1800000,
+      "explicitTimeouts": [
+        {
+          "line": 272,
+          "expression": "900_000",
+          "timeoutMs": 900000,
+          "multiplicity": 1,
+          "unresolvedLoop": null,
+          "name": "'Public start table over the default library Program: a default-only next start reaches the Executive'"
+        },
+        {
+          "line": 279,
+          "expression": "900_000",
+          "timeoutMs": 900000,
+          "multiplicity": 1,
+          "unresolvedLoop": null,
+          "name": "'Public start table over a supervised Program: only a start that states supervised selects its declared start'"
+        }
+      ],
+      "unresolved": [],
+      "historicalFloorMs": 600000,
+      "proposedOuterMs": 1920000,
+      "standing": "proposal; literal case ceilings plus 120s setup/drainage, no duration prediction"
+    },
+    {
+      "path": "test_env/tests/t292-td28c-governed-context-policy.test.mjs",
+      "sha256": "6112cdcb7baa5c74752f1fd0d5a724a45c0f705037f969dc967554939246dcb8",
+      "bytes": 8363,
+      "literalOrConstantCaseTimeoutTotalMs": 0,
+      "explicitTimeouts": [],
+      "unresolved": [],
+      "historicalFloorMs": 600000,
+      "proposedOuterMs": 600000,
+      "standing": "proposal; literal case ceilings plus 120s setup/drainage, no duration prediction"
+    },
+    {
+      "path": "test_env/tests/t292-td28d-command-forward-refused.test.mjs",
+      "sha256": "8d855813b5ea2c8e942d9f0c3e287cc05e99ff182ca9da217e7d2bfdf61c7ce5",
+      "bytes": 18478,
+      "literalOrConstantCaseTimeoutTotalMs": 0,
+      "explicitTimeouts": [],
+      "unresolved": [],
+      "historicalFloorMs": 600000,
+      "proposedOuterMs": 600000,
+      "standing": "proposal; literal case ceilings plus 120s setup/drainage, no duration prediction"
+    },
+    {
+      "path": "test_env/tests/t292-td31-stdo-run-environment-shape.test.mjs",
+      "sha256": "caeafa1bdad2ee0a7c12830f9099aaefef1a67e64d9cddfa9b08a4691c7ba135",
+      "bytes": 6775,
+      "literalOrConstantCaseTimeoutTotalMs": 0,
+      "explicitTimeouts": [],
+      "unresolved": [],
+      "historicalFloorMs": 600000,
+      "proposedOuterMs": 600000,
+      "standing": "proposal; literal case ceilings plus 120s setup/drainage, no duration prediction"
+    },
+    {
+      "path": "test_env/tests/t292-td32-current-profile-pin.test.mjs",
+      "sha256": "4131208042481c5ef1a0cf3677835367e03c8abfb639160d4e3d912d62ab40c8",
+      "bytes": 1703,
+      "literalOrConstantCaseTimeoutTotalMs": 0,
+      "explicitTimeouts": [],
+      "unresolved": [],
+      "historicalFloorMs": 600000,
+      "proposedOuterMs": 600000,
+      "standing": "proposal; literal case ceilings plus 120s setup/drainage, no duration prediction"
+    },
+    {
+      "path": "test_env/tests/t292-td32-legacy-store-door.test.mjs",
+      "sha256": "c7ff74513dd213412fa3b1e1ee38ba8930f9fe8e9157e16dd55bab5818e82752",
+      "bytes": 10767,
+      "literalOrConstantCaseTimeoutTotalMs": 0,
+      "explicitTimeouts": [],
+      "unresolved": [],
+      "historicalFloorMs": 600000,
+      "proposedOuterMs": 600000,
+      "standing": "proposal; literal case ceilings plus 120s setup/drainage, no duration prediction"
+    },
+    {
+      "path": "test_env/tests/t292-td34a-run-invocation-schema-owner.test.mjs",
+      "sha256": "c7b0766400bc4676f0e407ace72363cd64486032e5a0a984d68119febfc917fc",
+      "bytes": 21032,
+      "literalOrConstantCaseTimeoutTotalMs": 0,
+      "explicitTimeouts": [],
+      "unresolved": [],
+      "historicalFloorMs": 600000,
+      "proposedOuterMs": 600000,
+      "standing": "proposal; literal case ceilings plus 120s setup/drainage, no duration prediction"
+    },
+    {
+      "path": "test_env/tests/t292-td36r-admitted-binding-owner.test.mjs",
+      "sha256": "80aade98891b03b519cc4d813e60b1b9e79e9a47d36f3a6a657818a6ce035b05",
+      "bytes": 5891,
+      "literalOrConstantCaseTimeoutTotalMs": 0,
+      "explicitTimeouts": [],
+      "unresolved": [],
+      "historicalFloorMs": 600000,
+      "proposedOuterMs": 600000,
+      "standing": "proposal; literal case ceilings plus 120s setup/drainage, no duration prediction"
+    },
+    {
+      "path": "test_env/tests/t292-td36r-bind-door-strings.test.mjs",
+      "sha256": "0479030db674ac4e7a8d9fc53a8a6417fe6b948383fe1cd59be01aeff805dd93",
+      "bytes": 10098,
+      "literalOrConstantCaseTimeoutTotalMs": 0,
+      "explicitTimeouts": [],
+      "unresolved": [],
+      "historicalFloorMs": 600000,
+      "proposedOuterMs": 600000,
+      "standing": "proposal; literal case ceilings plus 120s setup/drainage, no duration prediction"
+    },
+    {
+      "path": "test_env/tests/t292-td36r-remaining-owners.test.mjs",
+      "sha256": "017f7873efdda683313c096d61a408dae0bb5f8e0eac1384d300de686726ff93",
+      "bytes": 14318,
+      "literalOrConstantCaseTimeoutTotalMs": 0,
+      "explicitTimeouts": [],
+      "unresolved": [],
+      "historicalFloorMs": 600000,
+      "proposedOuterMs": 600000,
+      "standing": "proposal; literal case ceilings plus 120s setup/drainage, no duration prediction"
+    },
+    {
+      "path": "test_env/tests/t292-td36s-bind-string-rule.test.mjs",
+      "sha256": "c1a0fd6c82f6dfb37113999842656cb2a0d816208acde4180c1997e04188f783",
+      "bytes": 19820,
+      "literalOrConstantCaseTimeoutTotalMs": 0,
+      "explicitTimeouts": [],
+      "unresolved": [],
+      "historicalFloorMs": 600000,
+      "proposedOuterMs": 600000,
+      "standing": "proposal; literal case ceilings plus 120s setup/drainage, no duration prediction"
+    },
+    {
+      "path": "test_env/tests/t292-td37a-path-relation.test.mjs",
+      "sha256": "493cf6b987b7aed2c7f6d7895c185a9227618df407f7ccbf641e0a586be915af",
+      "bytes": 15707,
+      "literalOrConstantCaseTimeoutTotalMs": 0,
+      "explicitTimeouts": [],
+      "unresolved": [],
+      "historicalFloorMs": 600000,
+      "proposedOuterMs": 600000,
+      "standing": "proposal; literal case ceilings plus 120s setup/drainage, no duration prediction"
+    },
+    {
+      "path": "test_env/tests/t292-td37a-worksite-subject.test.mjs",
+      "sha256": "1c560ff99b5f0f464e122a70e5f944b33d0c3961439874c724eaaf8385010d05",
+      "bytes": 17922,
+      "literalOrConstantCaseTimeoutTotalMs": 0,
+      "explicitTimeouts": [],
+      "unresolved": [],
+      "historicalFloorMs": 600000,
+      "proposedOuterMs": 600000,
+      "standing": "proposal; literal case ceilings plus 120s setup/drainage, no duration prediction"
+    },
+    {
+      "path": "test_env/tests/t292-td37b-launch-identity.test.mjs",
+      "sha256": "3f30086c084423433c83492b91704d2b7aefd9553ce41d1b2c1372661c899a23",
+      "bytes": 16222,
+      "literalOrConstantCaseTimeoutTotalMs": 0,
+      "explicitTimeouts": [],
+      "unresolved": [],
+      "historicalFloorMs": 600000,
+      "proposedOuterMs": 600000,
+      "standing": "proposal; literal case ceilings plus 120s setup/drainage, no duration prediction"
+    },
+    {
+      "path": "test_env/tests/t292-td37c-tree-walker.test.mjs",
+      "sha256": "4ef61e7a3d5d8f64bbc4e9214e631407cfc5d265b81fcf97c94696eaf828532c",
+      "bytes": 10721,
+      "literalOrConstantCaseTimeoutTotalMs": 0,
+      "explicitTimeouts": [],
+      "unresolved": [],
+      "historicalFloorMs": 600000,
+      "proposedOuterMs": 600000,
+      "standing": "proposal; literal case ceilings plus 120s setup/drainage, no duration prediction"
+    },
+    {
+      "path": "test_env/tests/t292-td37d-leaf-authority-gate.test.mjs",
+      "sha256": "767dcbf8d41d999ffc652871113f4276420c04cde1b6ae7938613f94d1b02bd2",
+      "bytes": 12151,
+      "literalOrConstantCaseTimeoutTotalMs": 0,
+      "explicitTimeouts": [],
+      "unresolved": [],
+      "historicalFloorMs": 600000,
+      "proposedOuterMs": 600000,
+      "standing": "proposal; literal case ceilings plus 120s setup/drainage, no duration prediction"
+    },
+    {
+      "path": "test_env/tests/t292-td60b-evidence-gate-catalogue.test.mjs",
+      "sha256": "3f45f4a953c04387665f9c41986a09265ce99bbd6cf90216f473606f91b7eaf3",
+      "bytes": 2948,
+      "literalOrConstantCaseTimeoutTotalMs": 0,
+      "explicitTimeouts": [],
+      "unresolved": [],
+      "historicalFloorMs": 600000,
+      "proposedOuterMs": 600000,
+      "standing": "proposal; literal case ceilings plus 120s setup/drainage, no duration prediction"
+    },
+    {
+      "path": "test_env/tests/t292-td67-module-export-predicate-refused.test.mjs",
+      "sha256": "a2c34a511d740df38aa48856b9c7014d3b3b531e301e50d6b08f8e52f7f914df",
+      "bytes": 19839,
+      "literalOrConstantCaseTimeoutTotalMs": 0,
+      "explicitTimeouts": [],
+      "unresolved": [],
+      "historicalFloorMs": 600000,
+      "proposedOuterMs": 600000,
+      "standing": "proposal; literal case ceilings plus 120s setup/drainage, no duration prediction"
+    },
+    {
+      "path": "test_env/tests/t292-td76-record-schema-keys.test.mjs",
+      "sha256": "5d5aa739154a635f883a2ad549c9149c346497fbe023b5c2d839592b6ba91e9a",
+      "bytes": 34751,
+      "literalOrConstantCaseTimeoutTotalMs": 0,
+      "explicitTimeouts": [],
+      "unresolved": [],
+      "historicalFloorMs": 600000,
+      "proposedOuterMs": 600000,
+      "standing": "proposal; literal case ceilings plus 120s setup/drainage, no duration prediction"
+    },
+    {
+      "path": "test_env/tests/t292-td77-recorded-product-truth.test.mjs",
+      "sha256": "087d2b1f145fc77644cbeec355ee8fda8139479fed4a5dd7073c19a9dee642d6",
+      "bytes": 105171,
+      "literalOrConstantCaseTimeoutTotalMs": 0,
+      "explicitTimeouts": [],
+      "unresolved": [],
+      "historicalFloorMs": 600000,
+      "proposedOuterMs": 600000,
+      "standing": "proposal; literal case ceilings plus 120s setup/drainage, no duration prediction"
+    },
+    {
+      "path": "test_env/tests/t292-td78-bound-product.test.mjs",
+      "sha256": "ca40040f332022a7abad824bbab722b09309614aca239caf1fd10cb30a1aab75",
+      "bytes": 21644,
+      "literalOrConstantCaseTimeoutTotalMs": 0,
+      "explicitTimeouts": [],
+      "unresolved": [],
+      "historicalFloorMs": 600000,
+      "proposedOuterMs": 600000,
+      "standing": "proposal; literal case ceilings plus 120s setup/drainage, no duration prediction"
+    },
+    {
+      "path": "test_env/tests/t292-td79-cli-exit-classification.test.mjs",
+      "sha256": "aecdcb35e7f28a6b04803454f9ab58aca9e51e7599e478ed8fb9a967d06e58df",
+      "bytes": 14482,
+      "literalOrConstantCaseTimeoutTotalMs": 0,
+      "explicitTimeouts": [],
+      "unresolved": [],
+      "historicalFloorMs": 600000,
+      "proposedOuterMs": 600000,
+      "standing": "proposal; literal case ceilings plus 120s setup/drainage, no duration prediction"
+    },
+    {
+      "path": "test_env/tests/t292-td81-walk-order-and-root.test.mjs",
+      "sha256": "02d811b8066da12caaea756bb0bfe1f0c0245c3ec0ad2e857fa9c714a3adfc8d",
+      "bytes": 14964,
+      "literalOrConstantCaseTimeoutTotalMs": 0,
+      "explicitTimeouts": [],
+      "unresolved": [],
+      "historicalFloorMs": 600000,
+      "proposedOuterMs": 600000,
+      "standing": "proposal; literal case ceilings plus 120s setup/drainage, no duration prediction"
+    },
+    {
+      "path": "test_env/tests/t292-td85a-stored-spelling.test.mjs",
+      "sha256": "8a5aaa375ca7b01d262b9c06b45d56ef19dfdc0a0796332f50f494d18a676c19",
+      "bytes": 23990,
+      "literalOrConstantCaseTimeoutTotalMs": 0,
+      "explicitTimeouts": [],
+      "unresolved": [],
+      "historicalFloorMs": 600000,
+      "proposedOuterMs": 600000,
+      "standing": "proposal; literal case ceilings plus 120s setup/drainage, no duration prediction"
+    },
+    {
+      "path": "test_env/tests/t292-td85n-absent-protected-root.test.mjs",
+      "sha256": "95c6fcde7a7850196c93db20094c34d6c0a93fa5fa39aaf9161338c47e75ef3a",
+      "bytes": 13954,
+      "literalOrConstantCaseTimeoutTotalMs": 0,
+      "explicitTimeouts": [],
+      "unresolved": [],
+      "historicalFloorMs": 600000,
+      "proposedOuterMs": 600000,
+      "standing": "proposal; literal case ceilings plus 120s setup/drainage, no duration prediction"
+    },
+    {
+      "path": "test_env/tests/t292-workspace-binding-extra-key.test.mjs",
+      "sha256": "6f3ed9b7612c58966357a84277145b489446d5c2d6b72079af813ae4827392ab",
+      "bytes": 6019,
+      "literalOrConstantCaseTimeoutTotalMs": 0,
+      "explicitTimeouts": [],
+      "unresolved": [],
+      "historicalFloorMs": 600000,
+      "proposedOuterMs": 600000,
+      "standing": "proposal; literal case ceilings plus 120s setup/drainage, no duration prediction"
+    },
+    {
+      "path": "test_env/tests/w2-steel-serial-branch-installed.test.mjs",
+      "sha256": "d4a2d740008ad1ed777dcaa5668f326d0c08adb0cdd77d7533a81ca5e3e07d4c",
+      "bytes": 52137,
+      "literalOrConstantCaseTimeoutTotalMs": 0,
+      "explicitTimeouts": [],
+      "unresolved": [],
+      "historicalFloorMs": 600000,
+      "proposedOuterMs": 600000,
+      "standing": "proposal; literal case ceilings plus 120s setup/drainage, no duration prediction"
+    },
+    {
+      "path": "test_env/tests/w2-steel-single-start-closure.test.mjs",
+      "sha256": "9dc5458c9257711f1f0a5401fc0325635541c8056bdf128e0a1cea6c75cfd5dd",
+      "bytes": 7795,
+      "literalOrConstantCaseTimeoutTotalMs": 0,
+      "explicitTimeouts": [],
+      "unresolved": [],
+      "historicalFloorMs": 600000,
+      "proposedOuterMs": 600000,
+      "standing": "proposal; literal case ceilings plus 120s setup/drainage, no duration prediction"
+    },
+    {
+      "path": "test_env/tests/w2-steel-single-start-installed.test.mjs",
+      "sha256": "eee947072191f71d4ecd147c2277c3e21ef461bd1f3f81cfc1fe22a69110c5ac",
+      "bytes": 42567,
+      "literalOrConstantCaseTimeoutTotalMs": 0,
+      "explicitTimeouts": [],
+      "unresolved": [],
+      "historicalFloorMs": 600000,
+      "proposedOuterMs": 600000,
+      "standing": "proposal; literal case ceilings plus 120s setup/drainage, no duration prediction"
+    },
+    {
+      "path": "test_env/tests/w2-steel-single-start.test.mjs",
+      "sha256": "981e0aeeb44cb37dc9387eaa5ddd4e8ccf1890775e3945bbb7ebde6783c181f5",
+      "bytes": 10727,
+      "literalOrConstantCaseTimeoutTotalMs": 0,
+      "explicitTimeouts": [],
+      "unresolved": [],
+      "historicalFloorMs": 600000,
+      "proposedOuterMs": 600000,
+      "standing": "proposal; literal case ceilings plus 120s setup/drainage, no duration prediction"
+    },
+    {
+      "path": "test_env/tests/witness-reprice-definition-binding.test.mjs",
+      "sha256": "4cf12953a555534cdbc2b87922e33cb7d9ecbae63117f5f617d3e70db0c2bf6f",
+      "bytes": 27190,
+      "literalOrConstantCaseTimeoutTotalMs": 0,
+      "explicitTimeouts": [],
+      "unresolved": [],
+      "historicalFloorMs": 600000,
+      "proposedOuterMs": 600000,
+      "standing": "proposal; literal case ceilings plus 120s setup/drainage, no duration prediction"
+    },
+    {
+      "path": "test_env/tests/witness-run-stopped-definition-binding.test.mjs",
+      "sha256": "c6f48ea2e5a3a97254aa421ff874336732312a27fc7b7402a70e3d3415411c2b",
+      "bytes": 13293,
+      "literalOrConstantCaseTimeoutTotalMs": 0,
+      "explicitTimeouts": [],
+      "unresolved": [],
+      "historicalFloorMs": 600000,
+      "proposedOuterMs": 600000,
+      "standing": "proposal; literal case ceilings plus 120s setup/drainage, no duration prediction"
+    },
+    {
+      "path": "test_env/uat/harness.test.mjs",
+      "sha256": "d97649a81606ee9d54a725c46951457bfed4d390e23c97ce7e937ed3447410a0",
+      "bytes": 98327,
+      "literalOrConstantCaseTimeoutTotalMs": 0,
+      "explicitTimeouts": [],
+      "unresolved": [],
+      "historicalFloorMs": 1200000,
+      "proposedOuterMs": 1200000,
+      "standing": "proposal; literal case ceilings plus 120s setup/drainage, no duration prediction"
+    }
+  ]
+}

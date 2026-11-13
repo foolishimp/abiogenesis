@@ -1,0 +1,66 @@
+{
+  "activation": "T292-FINAL-QA-AND-B28-RECORD-01",
+  "sourceCommit": "e36e4b316503053a81c4556f0bda73216e76cdf6",
+  "rows": [
+    {
+      "source": "/private/tmp/abg-rc13-composed-proof-20261113/broad-01/HALT.json",
+      "copy": "00-HALT.json",
+      "bytes": 3588,
+      "sha256": "113c7d67a16ae4f251a4f85d3b05bf2b1edadff29d4bf9e3356fbfa1d5c9e07a"
+    },
+    {
+      "source": "/private/tmp/abg-rc13-composed-proof-20261113/broad-01/005-d2-binding-transition.test/request.json",
+      "copy": "01-request.json",
+      "bytes": 5115,
+      "sha256": "8d4b4932482d38f3cf971044b7b635432a1ca37c7de0545153eb6f5568e6670b"
+    },
+    {
+      "source": "/private/tmp/abg-rc13-composed-proof-20261113/broad-01/005-d2-binding-transition.test/process.json",
+      "copy": "02-process.json",
+      "bytes": 1087,
+      "sha256": "45406e598e2ef89fd517d50c62dc6e306c0d360d4706ad2e90562083938ef043"
+    },
+    {
+      "source": "/private/tmp/abg-rc13-composed-proof-20261113/broad-01/005-d2-binding-transition.test/stdout.raw",
+      "copy": "03-stdout.raw",
+      "bytes": 12091,
+      "sha256": "f70b549623cdadff24d0cc5151359d824a1bbbfdd023521011ffcf6c76c6873a"
+    },
+    {
+      "source": "/private/tmp/abg-rc13-composed-proof-20261113/broad-01/005-d2-binding-transition.test/stderr.raw",
+      "copy": "04-stderr.raw",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "source": "/private/tmp/abg-rc13-composed-final/build_tenants/abiogenesis/typescript/test_env/support/d2-binding-harness.mjs",
+      "copy": "05-d2-binding-harness.mjs",
+      "bytes": 25759,
+      "sha256": "b633d1f69ef4f24d521e056206f0fb6f7b6467444d06dc64a9f9a23f69f98627"
+    },
+    {
+      "source": "/private/tmp/abg-rc13-composed-final/build_tenants/abiogenesis/typescript/test_env/tests/d2-binding-transition.test.mjs",
+      "copy": "06-d2-binding-transition.test.mjs",
+      "bytes": 33384,
+      "sha256": "e95e7131e8f85afe9ee58057d6633a010679565893909ea83959fe635be5a895"
+    },
+    {
+      "source": "/private/tmp/abg-rc13-composed-final/build_tenants/abiogenesis/typescript/test_env/tests/t287-native-semantic-revision.test.mjs",
+      "copy": "07-t287-native-semantic-revision.test.mjs",
+      "bytes": 67610,
+      "sha256": "2ec486938ed447585141ae2b7a1ad5f83d9743c6f5f71bffe19ac87597530c5c"
+    },
+    {
+      "source": "/private/tmp/abg-rc13-composed-final/build_tenants/abiogenesis/typescript/code/src/abg/artifact_truth.ts",
+      "copy": "08-artifact_truth.ts",
+      "bytes": 48144,
+      "sha256": "498cbadae87d0ce050839ce86a030942eabec3bb7d98d674744c779a2d509d6e"
+    },
+    {
+      "source": "/private/tmp/abg-rc13-composed-final/build_tenants/abiogenesis/typescript/code/src/abg/worksite_revision.ts",
+      "copy": "09-worksite_revision.ts",
+      "bytes": 69702,
+      "sha256": "7b40783d74c369b787cea83d4af7b5fd2f721723a6a32780d037bfdc67308517"
+    }
+  ]
+}

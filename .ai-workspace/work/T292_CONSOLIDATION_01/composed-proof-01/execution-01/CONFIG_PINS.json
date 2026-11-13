@@ -1,0 +1,29 @@
+{
+  "activation": {
+    "path": "/private/tmp/abg-rc13-composed-proof-20261113/EXECUTION_ACTIVATION.json",
+    "bytes": 1143,
+    "sha256": "d8a92d6266ead2a8aff4d57cdb171242845ae4764ed9b574bd2411b59f486758"
+  },
+  "runner": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T292_CONSOLIDATION_01/composed-proof-01/final-runner/run-composed.py",
+    "bytes": 28529,
+    "sha256": "324c41ef31e164f9ec76497dd98febaeb3b93ff4bbcc5ef914ada075e096714e"
+  },
+  "campaign": {
+    "path": "/private/tmp/abg-rc13-composed-proof-20261113/CAMPAIGN_CLOCK.json",
+    "bytes": 743,
+    "sha256": "92ab95ac102291d48fde6471cd487031b4a82064eb60491e9f5ca5f25536ff28"
+  },
+  "configs": [
+    {
+      "path": "/private/tmp/abg-rc13-composed-proof-20261113/BROAD_CONFIG.json",
+      "bytes": 22076,
+      "sha256": "0f2ec5529d3a214669fa2966c187ae06f9aee84441a090f30b6399f6b7274ffe"
+    },
+    {
+      "path": "/private/tmp/abg-rc13-composed-proof-20261113/HISTORY_CONFIG.json",
+      "bytes": 22082,
+      "sha256": "041efc6f01104db9fdbf19734c9521b15adbe0775d975bcf876863c18c165630"
+    }
+  ]
+}

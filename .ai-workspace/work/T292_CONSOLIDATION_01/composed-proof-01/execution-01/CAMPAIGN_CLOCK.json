@@ -1,0 +1,15 @@
+{
+  "kind": "t292.shared-monotonic-campaign",
+  "campaignId": "T292-RC13-CFINAL-COMPOSED-01",
+  "rootRuling": "Root: one 21600000ms combined suite/history/physical-read ceiling, exact frozen C_final and committed candidate basis; no extension or automatic retry",
+  "overallMs": 21600000,
+  "hostBoot": {
+    "hostname": "MythagoForest.local",
+    "bootSessionUuid": "2cddb6b5-0df5-4c88-867b-74626b0dc0ab",
+    "clockImplementation": "mach_absolute_time()"
+  },
+  "startMonotonicNs": 3378647048966833,
+  "deadlineMonotonicNs": 3400247048966833,
+  "createdAtUtc": "2026-11-13T09:00:32.229098+00:00",
+  "standing": "One shared execution ceiling for broad, history and external physical reads; UTC is receipt time only. No extension or retry."
+}

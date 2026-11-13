@@ -1,0 +1,33 @@
+{
+  "activation": "T292-COMPOSED-FINAL-PREP-01",
+  "sourceCommit": "e36e4b316503053a81c4556f0bda73216e76cdf6",
+  "sourceTree": "57c0e2cfb1f9c8e1a90ac854e88f1044bcf511ea",
+  "payloadCommit": "d2970a6c870aabc3a5567db4fa86d13d48328d9e",
+  "metadataOnlyTenantDelta": [
+    "build_tenants/abiogenesis/typescript/test_env/fixtures/abi5-root-candidate-basis.json",
+    "build_tenants/abiogenesis/typescript/test_env/qualification/classification.json",
+    "build_tenants/abiogenesis/typescript/test_env/qualification/inventory.json",
+    "build_tenants/abiogenesis/typescript/test_env/qualification/recipe/declared-commands.json",
+    "build_tenants/abiogenesis/typescript/test_env/qualification/recipe/expected-output-inventory.json",
+    "build_tenants/abiogenesis/typescript/test_env/qualification/recipe/verification-recipe.json"
+  ],
+  "cutRecord": {
+    "path": "/private/tmp/abg-rc13-composed-proof-20261113/cut-dry/cut-dry-run-20261113T085426346Z-71308/CUT_RECORD.json",
+    "bytes": 8358,
+    "sha256": "312e078ba72dfe4f179f9d26dbaa37339222a5f3dfd0a23364bafb2c854ea329"
+  },
+  "archive": {
+    "path": "/private/tmp/abg-rc13-composed-proof-20261113/cut-dry/cut-dry-run-20261113T085426346Z-71308/pack/abiogenesis-typescript-tenant-5.0.0-rc.13.tgz",
+    "bytes": 10793225,
+    "sha256": "12d49bada287be7e0690af355107d6ffda7734452288f5153c785bb92f3b98b0"
+  },
+  "archiveMembers": 5293,
+  "archiveShaEqualsPayloadCheckpoint": true,
+  "zeroArchiveMemberDeltas": true,
+  "allFinalWorktreePayloadMembersByteEqual": true,
+  "sourceInventoryMembers": 1280,
+  "allSourceInventoryMembersByteEqual": true,
+  "basisMatchesArchive": true,
+  "installed": false,
+  "qualification": false
+}

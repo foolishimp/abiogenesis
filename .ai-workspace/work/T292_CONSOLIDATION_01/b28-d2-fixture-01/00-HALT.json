@@ -1,0 +1,120 @@
+{
+  "at": "2026-11-13T09:00:56.072466+00:00",
+  "status": "FAILED_OR_INCOMPLETE",
+  "error": "RuntimeError('command failed/incomplete: 005-d2-binding-transition.test')",
+  "completedResults": [
+    {
+      "lane": "imports",
+      "status": "completed",
+      "receipt": {
+        "path": "/private/tmp/abg-rc13-composed-proof-20261113/broad-01/lint-imports/process.json",
+        "bytes": 1020,
+        "sha256": "27bcf7c6b69b3a64da4d91b913e886c5f8f3bc2d5f2afd297b31c2b5f3bf7d30"
+      }
+    },
+    {
+      "lane": "lifecycle",
+      "status": "completed",
+      "receipt": {
+        "path": "/private/tmp/abg-rc13-composed-proof-20261113/broad-01/lint-lifecycle/process.json",
+        "bytes": 1025,
+        "sha256": "9e286e39a902f3f794109bc0c7adf86b376d60faf744ac294a94eca16e10a552"
+      }
+    },
+    {
+      "lane": "calculus",
+      "status": "completed",
+      "receipt": {
+        "path": "/private/tmp/abg-rc13-composed-proof-20261113/broad-01/lint-calculus/process.json",
+        "bytes": 1023,
+        "sha256": "0db47558b29fe27639cf6f3d39b09f9a519f883cef080718fc284057ddb992b3"
+      }
+    },
+    {
+      "file": "test_env/tests/a5-f02-canonical-gtl-identity.test.mjs",
+      "complete": true,
+      "counts": {
+        "tests": 6,
+        "pass": 6,
+        "fail": 0,
+        "cancelled": 0,
+        "skipped": 0,
+        "todo": 0
+      },
+      "status": "completed",
+      "skipLines": [
+        "# todo 0"
+      ],
+      "receipt": {
+        "path": "/private/tmp/abg-rc13-composed-proof-20261113/broad-01/001-a5-f02-canonical-gtl-identity.test/process.json",
+        "bytes": 1099,
+        "sha256": "f771a7a92430b8150e14961cbad25c1897fc2b7895f2403949b6691d315a4079"
+      }
+    },
+    {
+      "file": "test_env/tests/d1-preserved-result-mechanics.test.mjs",
+      "complete": true,
+      "counts": {
+        "tests": 2,
+        "pass": 2,
+        "fail": 0,
+        "cancelled": 0,
+        "skipped": 0,
+        "todo": 0
+      },
+      "status": "completed",
+      "skipLines": [
+        "# todo 0"
+      ],
+      "receipt": {
+        "path": "/private/tmp/abg-rc13-composed-proof-20261113/broad-01/002-d1-preserved-result-mechanics.test/process.json",
+        "bytes": 1098,
+        "sha256": "06ef4bb3bebdbf1faaaba56a830a7b267a1b2aa760bf1ec96f12483aa09f77d5"
+      }
+    },
+    {
+      "file": "test_env/tests/d2-acknowledgment.test.mjs",
+      "complete": true,
+      "counts": {
+        "tests": 3,
+        "pass": 3,
+        "fail": 0,
+        "cancelled": 0,
+        "skipped": 0,
+        "todo": 0
+      },
+      "status": "completed",
+      "skipLines": [
+        "# todo 0"
+      ],
+      "receipt": {
+        "path": "/private/tmp/abg-rc13-composed-proof-20261113/broad-01/003-d2-acknowledgment.test/process.json",
+        "bytes": 1063,
+        "sha256": "45e121bf28af074e0ee344f52adcfda036a61676e6ebb66aab4bb5fa8a0ccfaa"
+      }
+    },
+    {
+      "file": "test_env/tests/d2-binding-query-reuse.test.mjs",
+      "complete": true,
+      "counts": {
+        "tests": 7,
+        "pass": 7,
+        "fail": 0,
+        "cancelled": 0,
+        "skipped": 0,
+        "todo": 0
+      },
+      "status": "completed",
+      "skipLines": [
+        "# todo 0"
+      ],
+      "receipt": {
+        "path": "/private/tmp/abg-rc13-composed-proof-20261113/broad-01/004-d2-binding-query-reuse.test/process.json",
+        "bytes": 1078,
+        "sha256": "7c19fa1ab2b60de604a43887623f3dc9ccaed6e95ab99ac90f9bb646de79e6d5"
+      }
+    }
+  ],
+  "remainingPopulation": "not executed after first failure",
+  "standing": "no retry, repair, wider cleanup or green aggregation"
+}

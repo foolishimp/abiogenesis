@@ -1,0 +1,32 @@
+{
+  "label": "005-d2-binding-transition.test",
+  "started": "2026-11-13T09:00:52.838942+00:00",
+  "ended": "2026-11-13T09:00:56.072084+00:00",
+  "wallMs": 3233,
+  "exitCode": 1,
+  "signal": null,
+  "stopReason": null,
+  "outputLimitExceeded": false,
+  "rawStreams": {
+    "stdout": {
+      "path": "/private/tmp/abg-rc13-composed-proof-20261113/broad-01/005-d2-binding-transition.test/stdout.raw",
+      "bytes": 12091,
+      "sha256": "f70b549623cdadff24d0cc5151359d824a1bbbfdd023521011ffcf6c76c6873a"
+    },
+    "stderr": {
+      "path": "/private/tmp/abg-rc13-composed-proof-20261113/broad-01/005-d2-binding-transition.test/stderr.raw",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  },
+  "cleanupNeeded": false,
+  "cleanup": {
+    "signals": [],
+    "errors": [],
+    "remainingObserved": []
+  },
+  "observationError": null,
+  "observedOwnershipCount": 2,
+  "ownershipLimit": "Polling records observed ancestry only; an unobserved detached/reparented escape is not excluded.",
+  "processStatus": "failed_or_incomplete"
+}
