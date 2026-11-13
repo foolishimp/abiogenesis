@@ -406,6 +406,7 @@ import type { OpenedTraversalScope } from "./open_call.js";
 
 import { projectAdmittedTraversalCursorAtPrefix, projectTraversalInputAtPrefix } from "./traversal_cursor.js";
 import { projectAdmittedWorkspaceBindingAtCoordinate, projectWitnessedWorkspaceBindingCover } from "./worksite_revision.js";
+import { boundWorkspaceMatchesExecutingToolchain } from "./environment_admission.js";
 
 /** A selected route is the occurrence. This projection neither opens another
  * intent nor grants permission to run it. */
@@ -691,6 +692,7 @@ export function admitPendingExecutionContinuationOperation(store: AbgEventStore,
   use: PendingExecutionUse, grant: CapabilityGrant, basis: PublicOperationAdmissionBasis) {
   const { invocation, source, rootBasis, request } = use;
   if (!pendingExecutionUses.has(use) || runtimeEventPrefixDigest(readOwnedRuntimeEventPrefixAtDurablePrefix(predecessorPrefix)) !== use.predecessorDigest ||
+    !boundWorkspaceMatchesExecutingToolchain(predecessorPrefix, {ref: invocation.workspaceBindingId, digest: invocation.workspaceBindingDigest}) ||
     validatePublicOperationBasis(basis, "abg.operation.run.continue", "current_intent") !== null ||
     !isCapabilityGrantValue(grant) || grant.operationId !== "abg.operation.run.continue" || grant.actorRef !== invocation.actorRef ||
     grant.policyRef !== invocation.policyRef || basis.authorityScopeRef !== invocation.workspaceBindingId ||

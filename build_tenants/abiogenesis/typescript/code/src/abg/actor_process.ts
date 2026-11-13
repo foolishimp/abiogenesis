@@ -27,7 +27,7 @@ import { classifyOwnedProcessTerminal, encodeOwnedProcessFacts } from "../shared
 import { isNonBlankRef } from "../shared/references.js";
 import type { ExactPrefixArtifactTruthProjection } from "./artifact_truth.js";
 import type { CCall } from "./c_call.js";
-import { hasAdmittedWorkspaceBinding } from "./environment_admission.js";
+import { hasAdmittedWorkspaceBinding, boundWorkspaceMatchesExecutingToolchain } from "./environment_admission.js";
 import type { ExecutionBasis, RuntimeAdmissionBasis } from "./execution_basis.js";
 import {
   admitNonEmptyRuntimeEventTransactionAtDurablePrefix,
@@ -861,6 +861,9 @@ async function invokeActorProcessWithAssembly(
       input.runtime.artifactTruth,
       input.runtime.workspaceBinding,
     ) ||
+    !boundWorkspaceMatchesExecutingToolchain(predecessorPrefix, {
+      ref: input.runtime.workspaceBinding.bindingId, digest: input.runtime.workspaceBinding.bindingDigest,
+    }) ||
     input.runtime.workspaceBinding.bindingId !== input.executionBasis.workspaceBindingId ||
     input.runtime.workspaceBinding.bindingDigest !== input.executionBasis.workspaceBindingDigest
   ) {

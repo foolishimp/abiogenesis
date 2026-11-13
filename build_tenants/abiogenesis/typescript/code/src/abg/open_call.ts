@@ -39,6 +39,7 @@ import { runtimeEventPrefixDigest,
 } from "./event_prefix.js";
 import { canonicalEquals } from "../shared/value/index.js";
 import { onlyExactMatch, type ExactMatch } from "../shared/select/index.js";
+import { boundWorkspaceMatchesExecutingToolchain } from "./environment_admission.js";
 /** Owner boundary: `absent` and `many` map to `undefined`. */
 const exactOrUndefined = <T>(match: ExactMatch<T>): T | undefined => match.kind === "one" ? match.value : undefined;
 
@@ -478,6 +479,9 @@ export function openTraversalScope(
 ): OpenTraversalScopeResult {
   try {
     assertHeldEventStoreAtDurablePrefix(store, predecessorPrefix);
+    if (!boundWorkspaceMatchesExecutingToolchain(predecessorPrefix, {
+      ref: subject.executionBasis.workspaceBindingId, digest: subject.executionBasis.workspaceBindingDigest,
+    })) throw new TypeError("scope opening requires the selected bound toolchain");
   } catch {
     return scopeOpenRefusal(
       subject.kind === "root"

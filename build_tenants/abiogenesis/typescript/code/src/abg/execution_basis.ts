@@ -93,6 +93,7 @@ import {
 } from "./invocation_admission.js";
 import {
   projectExactPrefixWorkspaceEnvironment,
+  boundWorkspaceMatchesExecutingToolchain,
   projectWorkspaceEnvironmentFromArtifactTruth,
   type ExactPrefixWorkspaceEnvironment,
 } from "./environment_admission.js";
@@ -1509,7 +1510,10 @@ export function admitInvocationRefusal(
 ): InvocationRefusalAdmissionReceipt {
   assertHeldEventStoreAtDurablePrefix(store, predecessorPrefix);
   const authorityPrefix = selectRuntimeEventPrefixFromStore(store);
-  if (!hasAdmittedInvocationAtPrefix(authorityPrefix, invocationAdmission)) {
+  if (!hasAdmittedInvocationAtPrefix(authorityPrefix, invocationAdmission) ||
+      !boundWorkspaceMatchesExecutingToolchain(predecessorPrefix, {
+        ref: invocationAdmission.workspaceBindingId, digest: invocationAdmission.workspaceBindingDigest,
+      })) {
     throw new TypeError("invocation refusal requires one exact admitted InvocationAdmission");
   }
   if (contractOrDiagnosticRefs.length === 0) {
@@ -1585,10 +1589,10 @@ export function admitExecutionBasis(
   // names, asked here with the strict question; an invocation over a
   // recorded-only environment is not admitted for work.
   if (!hasAdmittedInvocationAtPrefix(authorityPrefix, input.invocationAdmission) ||
-    projectExactPrefixWorkspaceEnvironment(predecessorPrefix, {
+    !boundWorkspaceMatchesExecutingToolchain(predecessorPrefix, {
       ref: input.invocationAdmission.workspaceBindingId,
       digest: input.invocationAdmission.workspaceBindingDigest,
-    }).kind !== "exact_prefix_workspace_environment") {
+    })) {
     throw new TypeError("ExecutionBasis requires one exact admitted invocation");
   }
   const rawInputValue = detachJsonRecord(input.rawInputValue);
@@ -2313,10 +2317,10 @@ function admitChildExecutionBasisUsing(
       // Strict: a child basis continues work over its parent's workspace
       // environment, asked here with the strict question; a parent over a
       // recorded-only environment is not a current parent for work.
-      if (projectExactPrefixWorkspaceEnvironment(predecessorPrefix, {
+      if (!boundWorkspaceMatchesExecutingToolchain(predecessorPrefix, {
         ref: input.parentExecutionBasis.workspaceBindingId,
         digest: input.parentExecutionBasis.workspaceBindingDigest,
-      }).kind !== "exact_prefix_workspace_environment") return null;
+      })) return null;
       const expectedStorePrefixDigest = runtimeEventPrefixDigest(authorityPrefix);
       if (store.digest() !== expectedStorePrefixDigest) return null;
       const runPrefix = selectRuntimeEventPrefixFromAuthority(authorityPrefix, { runId: input.parentTraversalScope.runId });

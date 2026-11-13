@@ -85,6 +85,7 @@ import {
 } from "./effectful_invocation_truth.js";
 import {
   projectExactPrefixWorkspaceEnvironment,
+  boundWorkspaceMatchesExecutingToolchain,
   validatePublicOperationBasis,
   type AbgAdmissionRefusal,
   type PublicOperationAdmissionBasis,
@@ -897,6 +898,9 @@ function admitInvocationWithRequest(
   );
   if (
     environment.kind !== "exact_prefix_workspace_environment" ||
+    !boundWorkspaceMatchesExecutingToolchain(input.artifactTruth.prefix, {
+      ref: input.workspaceBinding.bindingId, digest: input.workspaceBinding.bindingDigest,
+    }) ||
     !canonicalEquals(
       environment.artifactTruth,
       input.artifactTruth,

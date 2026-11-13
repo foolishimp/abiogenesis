@@ -552,6 +552,15 @@ export function installedToolchainProductContentDigest(): Sha256Digest | null {
   }
 }
 
+/** @internal One Product-content identity relation for lock construction and
+ * bound-work admission. Missing executing identity never matches. */
+export function toolchainProductContentMatches(
+  selected: Sha256Digest | undefined,
+  executing: Sha256Digest | null,
+): boolean {
+  return selected !== undefined && executing !== null && executing === selected;
+}
+
 interface CompilerBasis {
   readonly options: TypeScript.CompilerOptions;
   readonly standardHost: TypeScript.CompilerHost;
@@ -2070,10 +2079,7 @@ export function linkNativeContractSet(
   toolchainProductContentDigest: Sha256Digest,
   executingToolchainProductContentDigest: Sha256Digest | null,
 ): NativeContractLinkResult {
-  if (
-    executingToolchainProductContentDigest !==
-      toolchainProductContentDigest
-  ) {
+  if (!toolchainProductContentMatches(toolchainProductContentDigest, executingToolchainProductContentDigest)) {
     return linkedRefusal(
       "incompatible_dependency",
       "selected ABIogenesis Product does not match the installed compiler basis",

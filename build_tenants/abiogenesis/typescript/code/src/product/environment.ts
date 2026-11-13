@@ -37,6 +37,7 @@ import {
 import {
   linkNativeContractSet,
   installedToolchainProductContentDigest,
+  toolchainProductContentMatches,
   type NativeLinkProduct,
   type NativeContractLinkResult,
 } from "./declaration_exports.js";
@@ -93,6 +94,16 @@ export type ResolvedProductLock = {
   readonly rows: readonly ResolvedProductLockRow[];
   readonly dependencyEdges: readonly ProductDependencyEdge[];
 };
+
+/** @internal The operation's authenticated lock selects the ABI row; another
+ * binding or install in the same store cannot satisfy this relation. */
+export function resolvedLockMatchesExecutingToolchain(
+  lock: ResolvedProductLock,
+  executing: Sha256Digest | null,
+): boolean {
+  const rows = lock.rows.filter(row => row.productId === ABI5_PRODUCT_ID);
+  return rows.length === 1 && toolchainProductContentMatches(rows[0]!.productContentDigest, executing);
+}
 
 export type ProductSet = {
   readonly kind: "product_set";
@@ -436,8 +447,9 @@ export function resolveProductArtifacts(
   if (retained !== undefined &&
       retained.artifacts.length === artifacts.length &&
       retained.artifacts.every((artifact, index) => artifact === artifacts[index]) &&
-      executingToolchainProductContentDigest ===
-        artifacts.find((artifact) => artifact.productId === ABI5_PRODUCT_ID)?.productContentDigest) {
+      toolchainProductContentMatches(
+        artifacts.find((artifact) => artifact.productId === ABI5_PRODUCT_ID)?.productContentDigest,
+        executingToolchainProductContentDigest)) {
     return retained.result;
   }
   if (
