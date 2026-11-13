@@ -58,12 +58,14 @@ One list of the defects found by the reviews, traces and packages of the T-292 w
 | B-20 | On the CLI's exit-70 path the written line still has kind `public_transport_refusal` and disposition `refused` | `TD-79_RETURN.md` | S4 | P3 | Backlog; the status and the code carry the classification |
 | B-21 | A firmlink spelling of a path passes as the stored spelling | `TD-85A_RETURN.md` | S4 | P3 | Backlog |
 | B-22 | The qualification inventory and recipe hold digests and member paths of files the wave changed or deleted | Returns of TD-26 P1, P2, P4, TD-67, TD-79 | S4 | P2 | Regenerated at the cut |
+| B-23 | TD-77's strict default reaches a pure historical replay through shared source-provenance/revision helpers, making a kept child unreadable at later prefixes after a register change | `REVIEW_TD77_CODEX_TRIAGE.md`; frozen `91aec88b8`, saved changed-register failures and Writer first-refusal probe | S2 | P1 | Repair selected within TD-77 during Codex resumption; preserve strict work callers, repair read setup, and re-prove the actual historical read |
 
 ## Schedule
 
 | When | Items |
 |---|---|
-| In flight | B-01, B-02 (TD-77 closing round); B-07 (TD-26 P5); B-04; B-05 |
+| In flight | B-01, B-02, B-23 (TD-77 closing round); B-04 (TD-82 closeout) |
+| Preserved for continuation | B-05 (TD-85 narrow); B-07 (TD-26 P5) |
 | When TD-77 merges | B-03; B-06 |
 | After TD-26 P7 | B-08 |
 | At the cut | B-22 |
