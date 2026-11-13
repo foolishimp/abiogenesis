@@ -49,10 +49,6 @@ import {
   resolveNativeDeclarationClosures,
 } from "../build/code/src/product/declaration_exports.js";
 import {
-  CONSENSUS_PUBLIC_SCHEMA,
-  CONSENSUS_SCHEMA_ASSET_BINDINGS,
-} from "../build/code/src/gtl/consensus_schema.js";
-import {
   constructWorksiteConstructionModulePublication,
   constructWorksiteCommandExecutionModulePublication,
   WORKSITE_COMMAND_EXECUTION_CONTEXT_INVENTORY,
@@ -151,7 +147,6 @@ if (
   throw new Error("package metadata and exported ABI5 Product identity disagree");
 }
 
-const consensusSchemaPath = "contracts/schemas/consensus.schema.json";
 const nativeRuntimeContractPath = "contracts/schemas/native-runtime-observation.json";
 const nativeRuntimeContractBytes = Buffer.from(JSON.stringify({
   kind: "native_runtime_observation_contract", schemaVersion: "5.0.0",
@@ -175,7 +170,6 @@ function closedVocabulary(vocabularyId, values) {
 }
 
 await Promise.all([
-  mkdir(dirname(join(root, consensusSchemaPath)), { recursive: true }),
   mkdir(join(root, "contracts/vocabularies"), { recursive: true }),
 ]);
 
@@ -283,11 +277,6 @@ for (const entry of await readdir(typescriptLibRoot)) {
 await Promise.all([
   writeFile(join(root, nativeRuntimeContractPath), nativeRuntimeContractBytes),
   writeFile(
-    join(root, consensusSchemaPath),
-    `${JSON.stringify(CONSENSUS_PUBLIC_SCHEMA, null, 2)}\n`,
-    "utf8",
-  ),
-  writeFile(
     join(root, publicOperationSchemaPath),
     PUBLIC_PROJECTION_PAYLOADS.commonSchemaAsset.bytes,
     "utf8",
@@ -378,7 +367,6 @@ const productContentDigest = payloadInventoryDigest(payloadInventory);
 const manifestSchemaPath = "contracts/schemas/product-toolchain-manifest.schema.json";
 const catalogSchemaDigest = await sha256File(join(root, catalogSchemaPath));
 const manifestSchemaDigest = await sha256File(join(root, manifestSchemaPath));
-const consensusSchemaDigest = await sha256File(join(root, consensusSchemaPath));
 const publicOperationSchemaDigest = await sha256File(
   join(root, publicOperationSchemaPath),
 );
@@ -453,26 +441,6 @@ function nativeTypedLocator(inventory, namedSymbol) {
   };
 }
 
-const consensusContractRows = CONSENSUS_SCHEMA_ASSET_BINDINGS.map(
-  ([contractId, definitionName]) => ({
-  contractId,
-  contractVersion: "5.0.0",
-  contractDigest: consensusSchemaDigest,
-  contractKind: "schema_asset",
-  owningProduct: productId,
-  requirementAuthorityRefs: [
-    "specification/requirements/product/REQ-P-CONSENSUS.md#REQ-P-CONSENSUS-004",
-  ],
-  capabilityIdentities: capabilityRefsForContract(contractId),
-  assetLocator: {
-    path: consensusSchemaPath,
-    mediaType: "application/schema+json",
-    schemaVersion: "5.0.0",
-    contentDigest: consensusSchemaDigest,
-    definitionRef: `#/$defs/${definitionName}`,
-  },
-}));
-
 const extantRows = [
   ...[
     ["abg.schema.gtl-graph-function", "GraphFunction", "./gtl/m01", "GTL_GRAPH_FUNCTION_SERIALIZATION_API"],
@@ -528,7 +496,6 @@ const extantRows = [
     };
   }),
   ...constructSelfConformanceAssetRows({ productId, schemaBytes: selfConformanceSchemaBytes, catalogBytes: selfConformanceCatalogBytes, nativeLocator: nativeTypedLocator(validatorNativeInventory, "QualificationRuleCatalog") }),
-  ...consensusContractRows,
   {
     contractId: "abg.contract.product.verification",
     contractVersion: "5.0.0",

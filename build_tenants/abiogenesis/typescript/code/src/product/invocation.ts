@@ -977,7 +977,6 @@ function constructInvocationCapabilityGrant(
   const workspaceAuthority = isWorkspaceAuthorityBasis(policy) ? policy : null;
   const workspaceRead = operationId === "abg.operation.project.read";
   const invocationOperation = [
-    "abg.operation.interaction.respond",
     "abg.operation.run.continue",
     "abg.operation.run.invoke",
   ].includes(operationId);

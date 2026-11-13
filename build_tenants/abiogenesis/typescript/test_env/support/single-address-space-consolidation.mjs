@@ -149,10 +149,10 @@ export const freezeRaw = value => { if (value && typeof value === 'object') { Ob
 
 /** One fresh immutable RAW F_H seed: conditional test-owned reader data, never
  * current root admission. The root record declares one explicit response grant
- * against the existing interaction.respond.approve packet; every row is stamped
+ * against the kept run.invoke.invoke packet; every row is stamped
  * by the actual projector over the rows before it. `cuts` name the prefix
  * length at which each reader gate's last row exists. */
-export function rawFhResponseSeed({store, digests, family, interaction, capabilities, values, cursors}, {responseGrant = true} = {}) {
+export function rawFhResponseSeed({store, digests, family, runContracts, capabilities, values, cursors}, {responseGrant = true} = {}) {
   const hash = digests.sha256Canonical, hex = digest => digest.slice('sha256:'.length);
   const H = label => hash(['single-address-space-raw-fh', label]), R = label => 'ref://single-address-space/raw-fh/' + label;
   const eventTime = '2026-11-04T00:00:00.000Z', correlationId = 'correlation://single-address-space/raw-fh/root';
@@ -166,11 +166,11 @@ export function rawFhResponseSeed({store, digests, family, interaction, capabili
   const graph = {graphRef: R('graph'), graphDigest: H('graph')};
   const sets = {implementationSetRef: R('implementation-set'), implementationSetDigest: H('implementation-set'),
     interactionSetRef: R('interaction-set'), interactionSetDigest: H('interaction-set')};
-  // The grant's definition and capability come from the existing approve
+  // The grant's definition and capability come from the kept Run invocation
   // packet; its catalog and capability-graph coordinates are RAW declarations.
-  const definitionKey = {operationId: 'abg.operation.interaction.respond', memberKey: 'approve'};
+  const definitionKey = {operationId: 'abg.operation.run.invoke', memberKey: 'invoke'};
   const definition = family.selectIntrinsicPublicFunctionDefinition(definitionKey);
-  const packet = interaction.INTERACTION_OPERATION_CONTRACTS.respond.approve;
+  const packet = runContracts.RUN_OPERATION_CONTRACTS.invoke.invoke;
   assert.deepEqual([packet.definitionKey, packet.owner.authorityRef], [definitionKey, definition.semanticAuthorityRef]);
   assert.deepEqual([...packet.metadata.capabilityRefs], [...capabilities.capabilityRefsForDefinition(definitionKey)]);
   const capabilityRef = packet.metadata.capabilityRefs[0];

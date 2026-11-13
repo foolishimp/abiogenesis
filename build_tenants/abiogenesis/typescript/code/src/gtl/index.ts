@@ -159,7 +159,6 @@ export {
   materializeGraph,
   rehydrateMaterializedGtlGraph,
 } from "./materialize.js";
-export { CONSENSUS_PUBLIC_SCHEMA, CONSENSUS_SCHEMA_ASSET_BINDINGS } from "./consensus_schema.js";
 export {
   deriveCBatchTaskInput,
   deriveCContinuationTarget,

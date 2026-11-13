@@ -188,7 +188,6 @@ type AdditionalRequiredAuthoritySlot<
                       "input_contract" | "session_policy" | "actor" |
                       "transport_steering" | "execution_basis"
                     : K["operationId"] extends
-                      "abg.operation.interaction.respond" |
                         "abg.operation.result.assess"
                       ? "workspace_binding" | "product_set" |
                         "dependency_lock" | "actor" | "execution_basis"

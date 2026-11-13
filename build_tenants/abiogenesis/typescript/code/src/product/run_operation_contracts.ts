@@ -185,18 +185,6 @@ const currentExecutionRefusalSchema = refusalSchema([
   "basis_mismatch",
 ]);
 
-const selectedActionRefusalSchema = refusalSchema([
-  "missing_continuation",
-  "resolved_continuation",
-  "intent_mismatch",
-  "response_mismatch",
-  "replay_mismatch",
-  "basis_mismatch",
-  "stale_action",
-  "action_mismatch",
-  "reprice_mismatch",
-]);
-
 const CURRENT_EXECUTION_KINDS = ["pending_execution"] as const;
 
 // Each continuation member constructs only its own variant, so the packet type
@@ -215,25 +203,6 @@ const continueVariantFactories = {
     admittedIntent: v.null(),
     refusal: currentExecutionRefusalSchema,
   }),
-  // The unchanged selected_action member keeps its exact single-literal serialization.
-  selected_action: () => ({
-    kinds: ["selected_action"] as const,
-    kindSchema: v.literal("selected_action"),
-    request: v.strictObject({
-      run: refDigestSchema,
-      continuation: refDigestSchema,
-      selectedAction: refDigestSchema,
-      basisRelation: v.union([
-        v.strictObject({ kind: v.literal("same_basis") }),
-        v.strictObject({
-          kind: v.literal("authority_changed"),
-          coveringReprice: refDigestSchema,
-        }),
-      ]),
-    }),
-    admittedIntent: refDigestSchema,
-    refusal: selectedActionRefusalSchema,
-  }),
 };
 type ContinueVariant = {
   readonly [M in keyof typeof continueVariantFactories]: ReturnType<
@@ -245,7 +214,7 @@ const CONTINUE_VARIANTS: {
 } = continueVariantFactories;
 
 function continueContract<const TMember extends
-  "current_intent" | "selected_action">(member: TMember) {
+  "current_intent">(member: TMember) {
   const variant = CONTINUE_VARIANTS[member]();
   // Indexed annotations keep each member's own variant instead of the union.
   const kinds: ContinueVariant[TMember]["kinds"] = variant.kinds;
@@ -317,13 +286,11 @@ function continueContract<const TMember extends
 }
 
 const currentIntent = continueContract("current_intent");
-const selectedAction = continueContract("selected_action");
 
 export const RUN_OPERATION_CONTRACTS = Object.freeze({
   invoke: Object.freeze({ invoke, start }),
   continue: Object.freeze({
     current_intent: currentIntent,
-    selected_action: selectedAction,
   }),
 });
 

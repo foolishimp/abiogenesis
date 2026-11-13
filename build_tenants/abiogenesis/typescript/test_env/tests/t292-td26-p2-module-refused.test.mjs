@@ -10,8 +10,7 @@ import { productSemanticsFromModules } from '../../build/code/src/product/semant
 // T-292 TD-26 P2: the Product ships no Consensus module, no system semantics
 // and no Consensus vocabulary. A value that names one of them is refused at
 // the door a caller reaches with that door's existing refusal; no refusal code
-// is new. The 13 Consensus schema contracts stay published until the
-// capability register changes (P7).
+// is new. P7 also withdraws all thirteen schema contracts and the capability.
 const packageRoot = new URL('../..', import.meta.url).pathname;
 const MODULE = 'module://abg/consensus@5';
 const PROGRAM = 'program://abg/system/consensus-one-surface@5';
@@ -67,7 +66,7 @@ test('the semantics loader refuses the system semantics binding over the tenant 
 });
 
 test('the shipped publications carry no Consensus module and the Catalog refuses its handles, Program and declarations', () => {
-  assert.deepEqual(Object.keys(gtl).filter((name) => /Consensus/u.test(name) && name !== 'CONSENSUS_PUBLIC_SCHEMA'), []);
+  assert.deepEqual(Object.keys(gtl).filter((name) => /consensus/iu.test(name)), []);
   const publications = SHIPPED.map((name) => gtl[name](basis));
   assert.equal(publications.some(({ moduleRef }) => moduleRef === MODULE), false);
   const catalog = catalogOwner.buildGraphFunctionCatalog(publications);
@@ -102,9 +101,17 @@ test('the generated contracts bind eight publications, no Consensus row and no C
     assert.equal(product.MANDATORY_SCHEMA_VOCABULARY_CORPUS_IDS.includes(id), false, id);
     await assert.rejects(stat(new URL(`contracts/vocabularies/${id.slice('abg.vocabulary.'.length)}.json`, `file://${packageRoot}`)), { code: 'ENOENT' }, id);
   }
-  assert.equal(product.MANDATORY_SCHEMA_VOCABULARY_CORPUS_IDS.length, 42);
-  // The schema contracts stay: they carry the Consensus capability of the register.
-  const schemaRows = manifest.publicContractCatalog.rows.filter(({ assetLocator }) => assetLocator?.path === 'contracts/schemas/consensus.schema.json');
-  assert.equal(schemaRows.length, 13);
-  assert.ok(schemaRows.every(({ capabilityIdentities }) => capabilityIdentities.includes('abg.capability.graph-function.consensus@5')));
+  assert.equal(product.MANDATORY_SCHEMA_VOCABULARY_CORPUS_IDS.length, 33);
+  const schemas = ['consensus-subject', 'consensus-panel', 'consensus-reviewer-profile', 'consensus-submitter-profile',
+    'consensus-ruling-overlay', 'consensus-submitter-response', 'consensus-escalation-decision', 'review-findings', 'review-rulings',
+    'consensus-round-policy', 'consensus-round-outcome', 'consensus-result', 'ticket-consensus-projection'];
+  for (const name of schemas) {
+    assert.equal(contractIds.includes(`abg.schema.${name}`), false, name);
+    assert.equal(product.MANDATORY_SCHEMA_VOCABULARY_CORPUS_IDS.includes(`abg.schema.${name}`), false, name);
+  }
+  assert.equal(manifest.publicContractCatalog.rows.some(({ capabilityIdentities }) =>
+    capabilityIdentities.includes('abg.capability.graph-function.consensus@5')), false);
+  await assert.rejects(stat(new URL('contracts/schemas/consensus.schema.json', `file://${packageRoot}`)), {code: 'ENOENT'});
+  assert.equal('CONSENSUS_PUBLIC_SCHEMA' in gtl, false);
+  assert.equal('CONSENSUS_SCHEMA_ASSET_BINDINGS' in gtl, false);
 });

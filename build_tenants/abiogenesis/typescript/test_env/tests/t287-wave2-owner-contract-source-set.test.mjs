@@ -203,15 +203,6 @@ const representativeRequests = Object.freeze([
     continuationInput: rd("continuation-input://accepted"),
     expectedBasis: rd("execution-basis://accepted"),
   }],
-  ["D10", packet("abg.operation.interaction.respond", "approve"), {
-    interaction: rd("interaction://accepted"),
-    responseContract: rd("contract://response"),
-    responseKind: "approve",
-    choice: null,
-    value: { approved: true },
-    evidence,
-    currentBasis: rd("execution-basis://accepted"),
-  }],
   ["D11", packet("abg.operation.result.assess", "assess"), {
     expectedResult: rd("result://accepted"),
     assessmentContract: rd("contract://assessment"),
@@ -288,10 +279,8 @@ function capabilityRefs(operationId, memberKey) {
       "catalog_list",
       "catalog_describe",
       "workspace_status",
-      "workspace_gaps",
       "witness_evidence",
       "release_evidence",
-      "ticket_consensus",
     ].includes(memberKey)) {
       return ["abg.capability.operator.public-contract@5"];
     }
@@ -330,12 +319,6 @@ function capabilityRefs(operationId, memberKey) {
   }
   if (operationId === "abg.operation.run.continue") {
     return ["abg.capability.runtime.replay-continuation@5"];
-  }
-  if (operationId === "abg.operation.interaction.respond") {
-    return [
-      "abg.capability.operator.public-contract@5",
-      "abg.capability.runtime.replay-continuation@5",
-    ];
   }
   if (operationId === "abg.operation.result.assess") {
     return ["abg.capability.runtime.admit-fp-result@5"];
@@ -409,7 +392,7 @@ function slots(operationId, memberKey) {
       "execution_basis",
     ];
   }
-  if (["abg.operation.interaction.respond", "abg.operation.result.assess"].includes(operationId)) {
+  if (operationId === "abg.operation.result.assess") {
     return [...bound, "actor", "execution_basis"];
   }
   if (operationId === "abg.operation.witness.admit") {
@@ -435,12 +418,12 @@ function renderedSlot(requirement) {
   return `${requirement.slot}?${path}=${requirement.requiredWhen.equalsAny.join("|")}`;
 }
 
-test("one owner source relation derives the exact frozen 18/56 key set", () => {
-  assert.equal(OWNER_CONTRACT_SOURCES.length, 56);
-  assert.equal(Object.keys(OWNER_CONTRACT_SOURCE_MAP).length, 18);
+test("one owner source relation derives the exact frozen 17/46 key set", () => {
+  assert.equal(OWNER_CONTRACT_SOURCES.length, 46);
+  assert.equal(Object.keys(OWNER_CONTRACT_SOURCE_MAP).length, 17);
   assert.equal(OWNER_CONTRACT_KEY_SET_DIGEST, EXACT_OWNER_CONTRACT_KEY_SET_DIGEST);
   assert.equal(new Set(OWNER_CONTRACT_SOURCES.map(({ memberDigest }) =>
-    memberDigest)).size, 56);
+    memberDigest)).size, 46);
   for (const source of OWNER_CONTRACT_SOURCES) {
     assert.deepEqual(Object.keys(source.packet).sort(), [
       "definitionKey",
@@ -629,11 +612,11 @@ test("the deeply frozen intrinsic family closes exact schemas and schema-free di
     ...family,
     definitions: Object.freeze(family.definitions.map(frozenSchemaFreeProjection)),
   })), true);
-  assert.equal(family.definitions.length, 56);
+  assert.equal(family.definitions.length, 46);
   assert.equal(
     new Set(family.definitions.map(({ definitionKey }) =>
       definitionKey.operationId)).size,
-    18,
+    17,
   );
   assert.equal(family.keySetDigest, EXACT_OWNER_CONTRACT_KEY_SET_DIGEST);
   assert.deepEqual(Object.keys(family.definitions[0]).sort(), [
@@ -713,10 +696,10 @@ test("the deeply frozen intrinsic family closes exact schemas and schema-free di
 
   const derived = derivePublicOperationContractProjections(family);
   assert.deepEqual(derived, PUBLIC_OPERATION_CONTRACT_PROJECTIONS);
-  assert.equal(derived.length, 18);
+  assert.equal(derived.length, 17);
   assert.equal(
     derived.flatMap(({ definitions }) => definitions).length,
-    56,
+    46,
   );
   for (const projection of derived) {
     const { rowRef, rowDigest, ...body } = projection;
@@ -761,7 +744,7 @@ test("recursive family schema normalization survives refCount perturbation", () 
 
   const normalizedBefore = canonicalJson(projectStrictJsonSchema(selected));
   const perturbationCoordinates = [
-    ["abg.operation.interaction.respond", "approve"],
+    ["abg.operation.run.invoke", "invoke"],
     ["abg.operation.product.materialize", "configuration"],
     ["abg.operation.witness.admit", "run-stopped"],
   ];
@@ -793,7 +776,7 @@ test("recursive family schema normalization survives refCount perturbation", () 
   assert.equal(normalizedAfter, normalizedBefore);
 });
 
-test("all 56 packets preserve exact capability and authority-slot vectors", () => {
+test("all 46 packets preserve exact capability and authority-slot vectors", () => {
   for (const source of OWNER_CONTRACT_SOURCES) {
     const { operationId, memberKey } = source.packet.definitionKey;
     assert.deepEqual(
@@ -842,7 +825,7 @@ test("D01-D15 reject the superseded wrapper and construction-issue shapes", () =
   }
 });
 
-test("all 56 result contracts project closed schemas rather than open JSON", () => {
+test("all 46 result contracts project closed schemas rather than open JSON", () => {
   for (const { declaration: selected } of OWNER_CONTRACT_SOURCES) {
     const schema = projectStrictJsonSchema(selected.resultSchema);
     assert.equal(

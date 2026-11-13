@@ -72,7 +72,6 @@ export type PublicOperationId =
   | "abg.operation.catalog.admit"
   | "abg.operation.catalog.apply"
   | "abg.operation.catalog.view"
-  | "abg.operation.interaction.respond"
   | "abg.operation.project.read"
   | "abg.operation.result.assess"
   | "abg.operation.product.materialize"

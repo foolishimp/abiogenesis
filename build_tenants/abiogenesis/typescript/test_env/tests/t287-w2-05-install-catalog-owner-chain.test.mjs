@@ -394,7 +394,7 @@ test("W2-05 installed Product install and catalog owners compose without catalog
     .filter((row) => !row.callable)
     .map(({ definitionKey }) => definitionKey)
     .sort();
-  assert.equal(census.report.definitionCount, 56);
+  assert.equal(census.report.definitionCount, 46);
   // RETIRED (T-290 C-18b, superseded cut): the W2-05 cut's frozen callable
   // census (39 callable, 17 named remaining, release_evidence unbound, 28
   // earlier keys and their digest). Later work bound five more definitions
@@ -406,9 +406,8 @@ test("W2-05 installed Product install and catalog owners compose without catalog
     loadedKeys.filter((key) => selectedAdditions.includes(key)),
     selectedAdditions,
   );
-  // T-292 TD-26 P1: the W2-05 addition project.read#ticket_consensus stays
-  // declared without a binding until its withdrawal.
-  assert.ok(missingKeys.includes("abg.operation.project.read#ticket_consensus"));
+  // T-292 TD-26 P7: only the four retained witness packets lack bindings.
+  assert.deepEqual(missingKeys, ["attest", "hygiene-stamp", "intake", "run-resumed"].map(key => `abg.operation.witness.admit#${key}`));
 
   const verificationPacket = Object.freeze({
     kind: "product_verification_packet",
@@ -1154,88 +1153,15 @@ test("W2-05 installed Product install and catalog owners compose without catalog
   );
   assert.equal(unavailableRunTruth.kind, "abg_run_truth_refusal");
   assert.equal(unavailableRunTruth.code, "target_absent");
-  const unavailableConsensusSource = coordinate(
-    product,
-    "consensus-result://abiogenesis/t287/w2-05/not-issued",
-  );
-  const unavailableConsensusBasis = projectionBasis("ticket_consensus", {
-    requestedSource: unavailableConsensusSource,
+  assert.equal(publicApi.PUBLIC_FUNCTION_DEFINITION_FAMILY.definitions.some(({ definitionKey }) =>
+    definitionKey.operationId === "abg.operation.project.read" && definitionKey.memberKey === "ticket_consensus"), false);
+  assert.equal(Object.hasOwn(product.PRODUCT_PROJECT_READ_DEFINITION_BINDINGS, "ticket_consensus"), false);
+  const ticketConsensusWithdrawnFault = await publicApi.runInstalledDefinitionCallTransport({kind: "eventless"}, {
+    ...installEvidenceCall, invocation: {...installEvidenceCall.invocation,
+      definitionKey: {operationId: "abg.operation.project.read", memberKey: "ticket_consensus"}},
   });
-  const unavailableTicketSelector = Object.freeze({
-    kind: "ticket_consensus",
-    ticket: coordinate(product, "ticket://abiogenesis/T-287"),
-    outputAuthority: coordinate(
-      product,
-      "result://abiogenesis/t287/w2-05/not-issued",
-    ),
-    replayBasis: coordinate(
-      product,
-      "replay://abiogenesis/t287/w2-05/not-issued",
-    ),
-  });
-  const unavailableTicketPacket = Object.freeze({
-    kind: "product_project_read_packet",
-    schemaVersion,
-    memberKey: "ticket_consensus",
-    sourceRef: unavailableConsensusSource.ref,
-    sourceDigest: unavailableConsensusSource.digest,
-    projectionBasis: unavailableConsensusBasis,
-    selector: unavailableTicketSelector,
-  });
-  assert.equal("consensusResult" in unavailableTicketPacket, false);
-  const ticketConsensusUnavailableCall = definitionCall({
-    publicApi,
-    product,
-    operationId: "abg.operation.project.read",
-    memberKey: "ticket_consensus",
-    ordinal: 25,
-    request: readRequest(
-      "ticket_consensus",
-      "consensus_result",
-      unavailableConsensusSource,
-      unavailableConsensusBasis,
-      unavailableTicketSelector,
-    ),
-    slots: environmentReadSlots,
-    resources: readResources(unavailableTicketPacket, {
-      artifactTruth,
-      runtime: Object.freeze({
-        prefix: artifactTruth.prefix,
-        runId: unavailableRunId,
-        graphCallId: unavailableGraphCallId,
-      }),
-    }),
-  });
-  const ticketDefinition = definitionFor(
-    publicApi,
-    "abg.operation.project.read",
-    "ticket_consensus",
-  );
-  assert.equal(
-    keyOf(ticketDefinition),
-    "abg.operation.project.read#ticket_consensus",
-  );
-  assert.deepEqual(
-    ticketConsensusUnavailableCall.invocation.definitionKey,
-    ticketDefinition.definitionKey,
-  );
-  assert.equal(
-    Object.hasOwn(product.PRODUCT_PROJECT_READ_DEFINITION_BINDINGS, "ticket_consensus"),
-    false,
-  );
-  const ticketConsensusUnavailableFault =
-    await publicApi.runInstalledDefinitionCallTransport(
-      { kind: "eventless" },
-      ticketConsensusUnavailableCall,
-    );
-  assert.equal(
-    ticketConsensusUnavailableFault.kind,
-    "installed_definition_call_transport_refusal",
-  );
-  assert.equal(
-    ticketConsensusUnavailableFault.code,
-    "installed_binding_unavailable",
-  );
+  assert.equal(ticketConsensusWithdrawnFault.kind, "installed_definition_call_transport_refusal");
+  assert.equal(ticketConsensusWithdrawnFault.code, "unknown_definition");
 
   for (const [label, mutate] of [
     ["blank request ref", (call) => {
@@ -1658,6 +1584,6 @@ test("W2-05 installed Product install and catalog owners compose without catalog
     remainingKeys: missingKeys,
     eventCountBeforeCatalog: 2,
     eventCountAfterCatalog: 2,
-    ticketConsensusUnavailableCode: ticketConsensusUnavailableFault.code,
+    ticketConsensusWithdrawnCode: ticketConsensusWithdrawnFault.code,
   })}\n`);
 });

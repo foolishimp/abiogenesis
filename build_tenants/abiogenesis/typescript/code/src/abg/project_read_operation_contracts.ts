@@ -35,9 +35,6 @@ export const ABG_PROJECT_READ_CASES = Object.freeze([
   "interaction_replay",
   "continuation_replay",
   "c_call_replay",
-  "workspace_gaps",
-  "run_gaps",
-  "run_lawful_actions",
 ] as const);
 
 type AbgReadCase = (typeof ABG_PROJECT_READ_CASES)[number];
@@ -120,57 +117,6 @@ function terminalSummaryFields() {
   };
 }
 
-function subjectGapProjectionSchema<
-  const K extends "workspace_gap_projection" | "run_gap_projection",
->(kind: K) {
-  return withNativeLiveness({
-    kind: v.literal(kind),
-    subject: refDigestSchema,
-    gaps: refDigestSetSchema,
-    frontiers: v.array(ABG_ADMITTED_GAP_SCHEMA),
-    replay: refDigestSchema,
-  });
-}
-
-/** Contract-tagged admitted domain values, not an interior traversal object.
- * The ABG projector authenticates the result and its producing C-call. */
-function admittedGapValueSchema(valueKind: "next_action_basis" | "next_action_projection") {
-  return v.strictObject({
-    result: refDigestSchema,
-    contractRef: nonblankSchema,
-    valueKind: v.literal(valueKind),
-    valueDigest: refDigestSchema.entries.digest,
-    value: v.record(v.string(), jsonValueSchema),
-    cCallRef: nonblankSchema,
-    resultAdmissionEventRef: nonblankSchema,
-    judgmentRef: nonblankSchema,
-    judgmentAdmissionEventRef: nonblankSchema,
-  });
-}
-
-export const ABG_ADMITTED_GAP_SCHEMA = v.strictObject({
-  kind: v.literal("abg_admitted_gap"),
-  schemaVersion: v.literal("5.0.0"),
-  run: refDigestSchema,
-  executionBasis: refDigestSchema,
-  route: refDigestSchema,
-  routeAdmissionEventRef: nonblankSchema,
-  stop: refDigestSchema,
-  nextAction: admittedGapValueSchema("next_action_projection"),
-  // Immutable input content, authenticated by this no-action call's evidence.
-  // This does not assert which of possibly equal producers supplied it.
-  basis: v.strictObject({
-    contractRef: nonblankSchema,
-    valueKind: v.literal("next_action_basis"),
-    valueDigest: refDigestSchema.entries.digest,
-    value: v.record(v.string(), jsonValueSchema),
-    inputEvidence: v.array(v.strictObject({
-      evidence: refDigestSchema,
-      admissionEventRef: nonblankSchema,
-    })),
-  }),
-});
-
 // REQ-P-POLICY-065–068: a stopped Run's reading, folded at read time from its
 // admitted stop, route, foldback, Result and evidence events. Each link the
 // record does not establish is `not_admitted`. The root Result's value is
@@ -245,13 +191,6 @@ export const ABG_RUN_STOP_READING_SCHEMA = v.strictObject({
     stopNotAdmittedSchema,
   ]),
   statement: nonblankSchema,
-});
-
-const lawfulActionProjectionSchema = withNativeLiveness({
-  kind: v.literal("run_lawful_action_projection"),
-  run: refDigestSchema,
-  actions: refDigestSetSchema,
-  replay: refDigestSchema,
 });
 
 const replaySelectorSchema = replayPageSchema;
@@ -485,34 +424,6 @@ const cCallReplay = abgReadContract({
   replay: true,
 });
 
-const workspaceGaps = abgReadContract({
-  caseKey: "workspace_gaps",
-  sourceKind: "workspace_binding",
-  selector: v.strictObject({
-    kind: v.literal("workspace_gap_basis"),
-    gapBasis: refDigestSchema,
-  }),
-  projection: subjectGapProjectionSchema("workspace_gap_projection"),
-  abstractModule: "ABG.WorkspaceProjection",
-});
-const runGaps = abgReadContract({
-  caseKey: "run_gaps",
-  sourceKind: "run",
-  selector: noSelectorSchema,
-  projection: subjectGapProjectionSchema("run_gap_projection"),
-  abstractModule: "ABG.RunProjection",
-});
-const runLawfulActions = abgReadContract({
-  caseKey: "run_lawful_actions",
-  sourceKind: "run",
-  selector: v.strictObject({
-    kind: v.literal("next_action"),
-    projection: refDigestSchema,
-  }),
-  projection: lawfulActionProjectionSchema,
-  abstractModule: "ABG.RunProjection",
-});
-
 export const ABG_PROJECT_READ_CONTRACTS = Object.freeze({
   run_status: runStatus,
   graph_call_status: graphCallStatus,
@@ -529,9 +440,6 @@ export const ABG_PROJECT_READ_CONTRACTS = Object.freeze({
   interaction_replay: interactionReplay,
   continuation_replay: continuationReplay,
   c_call_replay: cCallReplay,
-  workspace_gaps: workspaceGaps,
-  run_gaps: runGaps,
-  run_lawful_actions: runLawfulActions,
 });
 
 export interface RunProjectionPort {

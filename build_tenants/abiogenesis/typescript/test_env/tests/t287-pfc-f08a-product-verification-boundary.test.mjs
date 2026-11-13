@@ -283,19 +283,6 @@ async function constructLawfulCandidate(temporaryRoot) {
     await mkdir(dirname(path), { recursive: true });
     await writeFile(path, asset.bytes, "utf8");
   }
-  // run.invoke owns the consensus capability, whose projected contracts are
-  // the consensus schema rows; the capability rosters are equal only when the
-  // candidate carries them (verify_product, capability rosters). They are the
-  // tenant's own rows and asset.
-  const tenantManifest = JSON.parse(await readFile(join(tenantRoot, manifestName), "utf8"));
-  const consensusRows = tenantManifest.publicContractCatalog.rows.filter(({ capabilityIdentities }) =>
-    capabilityIdentities.includes("abg.capability.graph-function.consensus@5"));
-  assert.ok(consensusRows.length > 0, "the tenant publishes the consensus schema rows");
-  for (const path of new Set(consensusRows.map(({ assetLocator }) => assetLocator.path))) {
-    await mkdir(dirname(join(packageDirectory, path)), { recursive: true });
-    await cp(join(tenantRoot, path), join(packageDirectory, path));
-  }
-
   const { closures, packageJson } = await nativeClosures(packageDirectory);
   const { files } = await packagePayloadFiles(packageDirectory);
   const productContentDigest = payloadInventoryDigest(
@@ -331,7 +318,7 @@ async function constructLawfulCandidate(temporaryRoot) {
         schemaVersion: "5.0.0",
         contentDigest: catalogSchemaDigest,
       },
-    }, ...consensusRows].sort((left, right) =>
+    }].sort((left, right) =>
       left.contractId < right.contractId ? -1 : left.contractId > right.contractId ? 1 : 0),
   };
   const extantCatalog = {
@@ -500,12 +487,12 @@ test("PFC-F08A is minted only by verifyProduct over exact artifact bytes", async
     assert.equal(verified.kind, "verified_product_artifact", JSON.stringify(verified));
     assert.equal(productApi.isVerifiedProductArtifact(verified), true);
     assert.notEqual(verified.definitionContractCoordinates, null);
-    assert.equal(verified.definitionContractCoordinates.operations.length, 18);
+    assert.equal(verified.definitionContractCoordinates.operations.length, 17);
     assert.equal(
       verified.definitionContractCoordinates.operations.flatMap(({ members }) =>
         members
       ).length,
-      56,
+      46,
     );
     assert.ok(verified.nativeDeclarationEvidence.contracts.length > 0);
     for (const evidence of verified.nativeDeclarationEvidence.contracts) {
@@ -536,7 +523,7 @@ test("PFC-F08A is minted only by verifyProduct over exact artifact bytes", async
         const adapter = JSON.parse(await readFile(path, "utf8"));
         adapter.family.familyDigest = sha256Canonical({ forged: "family" });
         await writeCanonicalJson(path, adapter);
-      }, /does not declare the selected exact 18\/56/u],
+      }, /does not declare the selected exact 17\/46/u],
       ["cli-grammar-adapter-exit-map", async (packageDirectory) => {
         const path = join(packageDirectory, adapterPath);
         const adapter = JSON.parse(await readFile(path, "utf8"));
@@ -555,7 +542,7 @@ test("PFC-F08A is minted only by verifyProduct over exact artifact bytes", async
           };
         }
         await writeCanonicalJson(path, adapter);
-      }, /does not declare the selected exact 18\/56/u],
+      }, /does not declare the selected exact 17\/46/u],
       ["altered-operation-bytes", async (packageDirectory, manifest) => {
         await rewriteOperationProjection(
           packageDirectory,
