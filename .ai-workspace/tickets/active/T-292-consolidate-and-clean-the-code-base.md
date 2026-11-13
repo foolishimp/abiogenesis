@@ -8,7 +8,7 @@
 - parent: T-287
 - updated_at: 2026-11-13
 - current_activation: T292_CONSOLIDATION_01
-- current_package: Codex resumption; TD-77 failure triage and TD-82 closeout active; TD-85 narrow and TD-26 P5 preserved for continuation
+- current_package: TD-82 merged and focused checks passed; TD-77 integration; TD-85 narrow pre-effect repair; TD-78 follows TD-77
 - change_class: realization_refactor
 - derived_change_classes: design_reframe, requirement_reprice and product_reprice, each only for a register entry the owner decides
 - re_entry_point: specification/GOALS.md, the selection block of 2026-11-12
@@ -123,6 +123,17 @@ the serial merge, generated identity rebuild, detached affected checks and
 ledger/T-293 updates. The Writer has stopped; targeted integrity QA runs
 separately. This activation grants no release or semantic-assurance claim.
 
+Integration Writer activation `T292-INTEGRATE-TD77-01` binds Root to main
+`a3c03d90c` and frozen TD-77 `820206a4ea1ed1e4b2f356d625e6f6482ce3cc23`.
+The existing owner-approved integration grant covers the serial merge,
+bounded conflict resolution preserving both selected owners, regenerated
+identity, detached affected checks and tracking. TD-77's Writer has returned
+and stopped. An integration failure returns to Executive triage before repair.
+Root occupies Writer for these effects and returns to Executive coordination
+after the integration checkpoint. TD-85N runs separately under Writer
+`T292-TD85N-CODEX-02`: read-only pre-effect separation, explicit uncertainty,
+no compensation that erases an effect; its owning HOW records limitations.
+
 At most two implementation Writers run concurrently. Integration is serial.
 TD-78 and the parked TD-85a follow TD-77; P7 and TD-25 member withdrawal depend
 on TD-77. One design reconciliation closes B-08, then one composed broad and
@@ -201,3 +212,5 @@ this resumption. Reviews are QA under the amendment above.
 | TD-26, continuation write side (P3) | Standalone Consensus and the One Surface loop | `claude/td26-p3-continuation-write-side` `c02abccb8..4ccd7a985`, merged at `4f38635c7`; identity at `e77bd3fa4` | Accepted 2026-11-13. Rulings on its three questions: the moved definition digest of `current_intent` in a new continuation's admission is the reported digest move, not a changed event; the continuation kind `current_intent` leaves the result domain with the readers' package; `selected_action`'s digest moves only through its module's digest | 895 source lines removed, 98 added. `selected_action` refused `installed_binding_unavailable`; a construction-intent body refused `invalid_definition_call`; pending-execution continuations admitted as before; 45 of 56 members callable; 23 replays and artifact truth over 25 stores identical. Post-merge on `6464a5d50`: 34 files, 297 tests, 296 pass, 0 fail, 1 skip (the live case) | P4 is in flight from `e77bd3fa4` |
 | TD-26, route write side (P4) | Standalone Consensus and the One Surface loop | `claude/td26-p4-route-write-side`, merged at `ed6e452f2` (one Return line cherry-picked at `2ac9b96bf`); identity `29eb074bb` | Accepted 2026-11-13. Its one question (two value kinds of the loop now admitted as ordinary values) is ruled into P5 and is row B-07 of T-293 | ABG 2,425 lines removed and 29 added, HoG 171 and 24; `abg/traversal_route.ts` 5,531 to 3,301 lines. Every cut arm read false on kept Runs (probes over 20 lanes). Events of a default-library Run and two registered-selection Runs equal on base and final apart from product identity. `admitExecutionBasis` refuses a Program with an action catalog (`invalid_graph_function`). Replay over 23 logs and artifact truth over 25 stores byte-identical. Post-merge with TD-67: 17 files, 146 tests, 144 pass, 0 fail, 2 skip | P5 in flight from `2ac9b96bf` |
 | TD-67 | The helper's module-export predicate runs outside its lifetime and budget | Trace `TD-67_TRACE.md`; `claude/td67-retire-module-export-predicate`, merged at `60ccc1549`; identity `29eb074bb` | Decided 2026-11-13 by the owner's rule (retire what the kept features already deliver); accepted after the Executive completed the Return from the Writer's recorded lane results, the Writer having stopped at a usage limit. Its question (two recorded tasks admitted on the base and refused now) is the intended refusal of a recorded task admitted anew | The helper imports no sandbox module. A configuration that declares the kind is refused at every door as an unknown kind. Five scenario checks are declared commands with `process_exit` and `stdout_exact`. Writer's lanes on final: 44 files, 316 tests, 301 pass, 0 fail, 15 skip. The evaluation of 2026-11-13 ran the five commands against expected, wrong and throwing modules: 15 checks passed | The three scenarios need their live run at the cut |
+
+| TD-82 | Stable event-log append ownership | Frozen `97371cec7`, source `88a13a047`, merged and identity regenerated at `a3c03d90c` | Integrated 2026-11-13; B-04 technical repair closed on the evidenced same-user/current-build domain | Writer: 62 focused passes and 3 installed-consumer passes. Detached merged build: 27 passes, 0 fail/skip in the two affected files. Separate QA found no technical counterexample; its 8 rerun cases overlap the 62. Return `TD-82_RETURN.md`; QA `REVIEW_TD82_CODEX_INTEGRITY.md`; receipts `/private/tmp/abg-codex-integration-20261113/td82` | Native Windows and group qualification unperformed; mixed-version ownership is not supplied. Same-family semantic independence for Codex-authored completion is not claimed. No release acceptance |

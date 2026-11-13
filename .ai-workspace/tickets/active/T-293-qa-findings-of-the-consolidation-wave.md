@@ -39,7 +39,7 @@ One list of the defects found by the reviews, traces and packages of the T-292 w
 | B-01 | Six exported entries that admit or continue Run work take a binding, an install or an environment from recorded history without the strict answer (TD-77) | `REVIEW_TD77_RECHECK.md` N1 | S2 | P1 | In the closing round of TD-77, in flight |
 | B-02 | The materialization branch of the strict candidate has no case and an untrue error text; one new text is thrown where no lock is in question; three design sentences (TD-77) | `REVIEW_TD77_RECHECK.md` N2 to N4 | S4 | P1 | Same round as B-01 |
 | B-03 | A build of one cut runs work on a store that another cut installed and bound; nothing compares the executing Product with the binding the operation selects (TD-78) | `TD-78_TRACE.md`; evaluation of 2026-11-13 | S2 | P1 | Fix after TD-77 merges (same files) |
-| B-04 | Two processes with different `TMPDIR` values both hold one event log; both append the same ordinal; an acknowledged append cannot be reopened (TD-82) | `TD-80_TRACE.md`; reproduced after TD-80 by the evaluation | S2 | P1 | Fix launched 2026-11-13 |
+| B-04 | Two processes with different `TMPDIR` values both hold one event log; both append the same ordinal; an acknowledged append cannot be reopened (TD-82) | `TD-80_TRACE.md`; reproduced after TD-80 by the evaluation | S2 | P1 | Technical repair closed at `a3c03d90c`; 27 merged focused passes; separate QA has no technical finding. Assurance/platform limits in `REVIEW_TD82_CODEX_INTEGRITY.md` |
 | B-05 | A worksite subject in another letter case creates a protected directory that does not exist yet, or links a file into it before the refusal (TD-85, narrow part) | `TD-85_TRACE.md`; reproduced by the evaluation | S2 | P1 | Fix launched 2026-11-13 |
 | B-06 | Synchronous canonical-path checks keep the spelling they are given; the command parent writes its manifests into the event-log directory through an alias of an existing root (TD-85, first part) | `TD-85_TRACE.md` | S3 | P1 | Built on branch `claude/td85a-stored-spelling-checks`; merged after TD-77 if it still merges cleanly |
 | B-07 | The value kinds `observation_snapshot` (as input) and `next_action_projection` with `no_action` (as a leaf result) are admitted as ordinary values since the route package; they were refused before | `TD-26_P4_RETURN.md`, ruling item 1 | S3 | P1 | In TD-26 P5, in flight |
@@ -64,7 +64,7 @@ One list of the defects found by the reviews, traces and packages of the T-292 w
 
 | When | Items |
 |---|---|
-| In flight | B-01, B-02, B-23 (TD-77 closing round); B-04 (TD-82 closeout) |
+| In flight | B-01, B-02, B-23 (TD-77 integration); B-05 (TD-85 narrow pre-effect repair) |
 | Preserved for continuation | B-05 (TD-85 narrow); B-07 (TD-26 P5) |
 | When TD-77 merges | B-03; B-06 |
 | After TD-26 P7 | B-08 |
