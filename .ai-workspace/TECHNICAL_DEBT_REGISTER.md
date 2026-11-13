@@ -865,7 +865,7 @@ Status Closed at `54024d63f` (2026-11-13) for the selected recorded-lock/strict-
 
 #### TD-78 — Nothing refuses a Run driven by Product bytes other than those the store is bound to
 
-Status Open; a defect, confirmed by experiment on 2026-11-12. Added from TD-77's trace. Sources: `work/T292_CONSOLIDATION_01/TD-78_TRACE.md`; `work/T292_CONSOLIDATION_01/TD-77_RETURN.md`, section 5.
+Status Closed on the selected new/resumed bound-work entry boundary at `e709bd24f` (2026-11-13). `TD-78_RETURN.md` and `REVIEW_TD78_CODEX.md` bind the exact causal-lock comparison, unchanged Public surfaces, 24 author and 14 merged focused passes, and preserved cold reads. Existing owned runtime primitives retain the entry invariant; this is not per-helper host policing or release qualification. Originally open; a defect, confirmed by experiment on 2026-11-12. Added from TD-77's trace. Sources: `work/T292_CONSOLIDATION_01/TD-78_TRACE.md`; `work/T292_CONSOLIDATION_01/TD-77_RETURN.md`, section 5.
 
 - **Evidence:**
   - Run, with built-in implementations only and no provider credentials: the current source's CLI (`21c108af0`, product content digest `sha256:060b0259…`) admits and completes a `run.invoke#start` on a store that `5.0.0-rc.12` (`sha256:dcfbcf42…`) installed and bound, appending 31 rows; the rc.12 CLI does the same on a store bound by the current source. The only refusal met is `invalid_definition_call` (`selectedCallable`, `public/installed_definition_call_transport.ts:261-266`), for a request that carries the other build's definition digests; a request built for the executing build is admitted. `run.continue` was not driven, because the only way to a pending execution dispatches an actor.

@@ -8,7 +8,7 @@
 - parent: T-287
 - updated_at: 2026-11-13
 - current_activation: T292_CONSOLIDATION_01
-- current_package: TD-77, TD-82 and both selected TD-85 parts integrated with focused proof; TD-78 Writer active; TD-26 P5 follows; RC13 tooling preparation in parallel
+- current_package: selected TD-77/TD-78/TD-82/TD-85 repairs integrated with focused proof; TD-26 P5 active; RC13 delivery tools prepared; final design pass being prepared read-only
 - change_class: realization_refactor
 - derived_change_classes: design_reframe, requirement_reprice and product_reprice, each only for a register entry the owner decides
 - re_entry_point: specification/GOALS.md, the selection block of 2026-11-12
@@ -181,6 +181,18 @@ stopped. Root's bounded kernel-entry and existing retry-refusal rulings are
 recorded in the Return. Separate admission QA is dispatched without gating.
 Root is Writer for these integration effects and then returns to Executive.
 
+Worker `T292-TD26-P5-CODEX-01` is dispatched from exact main `e709bd24f`.
+Its clean preserved worktree `/private/tmp/abg-td26p5` advances from `2ac9b96bf`.
+The existing P5 grant includes the narrow predecessor ruling 6: Product
+conservation names `gap_stop` become `blocked_gap` without changing the kept
+meaning/count, specification first in its own commit, then generator roster.
+Root will restage mirrors at integration. Other Product changes and P6/P7
+register steps remain excluded from P5. The current amendment's focused proof
+and one composed broad pass override obsolete per-package broad routines.
+Read-only `T292-B08-DESIGN-PREP-01` prepares the already named P1/P2/P4 design
+passages from frozen `e709bd24f`; final mutation remains after P7 and consumes
+P5-P7 additions. Neither activation writes main.
+
 At most two implementation Writers run concurrently. Integration is serial.
 TD-78 and the parked TD-85a follow TD-77; P7 and TD-25 member withdrawal depend
 on TD-77. One design reconciliation closes B-08, then one composed broad and
@@ -275,3 +287,6 @@ B-22 refresh instructions. Write territory is new work-carrier tools and Return,
 not Product source or real install/release locations. TD-71 general tooling
 refactor, publication, pins, tags and push remain excluded. Final cut waits for
 the selected composition. This is the second implementation Writer beside TD78.
+
+| TD-78 | Executing Product equals selected binding's toolchain at new/resumed work entry | Frozen `fb973fa5c`, merged and identity regenerated at `e709bd24f` | B-03 technical repair closed on the declared entry boundary | Writer 24 focused passes and unchanged Public/declaration surfaces. Merged 14/14 installed/read/retry checks; separate QA no findings and cold reconstruction unchanged with zero executing-manifest reads. Return `TD-78_RETURN.md`; QA `REVIEW_TD78_CODEX.md` | Ongoing owned runtime primitives retain entry invariant, not per-helper policing. Group proof remains; no undeclared same-family semantic independence or reliable-operation qualification |
+| RC13 delivery preparation | Existing local cut/install route through TD69 payload owner | Frozen tools `ace0e7371`, Return `9cf3285ba`, merged at `f6a9f8016` | Tooling preparation satisfied; no final candidate cut or official install | Scratch precursor cut/install/smoke: 5,303 exact members, 56 Public definitions, empty resource closed. `rc13-local-cut-01/RC13_DELIVERY_PREP_RETURN.md` | Final composition/version/mirrors/metadata and exact artifact proof remain. B21 named in staged claim; B22 uses bounded metadata refresh, not qualification-system repricing |

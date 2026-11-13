@@ -38,7 +38,7 @@ One list of the defects found by the reviews, traces and packages of the T-292 w
 |---|---|---|---|---|---|
 | B-01 | Six exported entries that admit or continue Run work take a binding, an install or an environment from recorded history without the strict answer (TD-77) | `REVIEW_TD77_RECHECK.md` N1 | S2 | P1 | Technical repair closed at `54024d63f`; merged 64/64 focused checks; TD-77 Return binds strict-entry proof |
 | B-02 | The materialization branch of the strict candidate has no case and an untrue error text; one new text is thrown where no lock is in question; three design sentences (TD-77) | `REVIEW_TD77_RECHECK.md` N2 to N4 | S4 | P1 | Technical repair closed at `54024d63f`; design/error/test repairs in TD-77 Return |
-| B-03 | A build of one cut runs work on a store that another cut installed and bound; nothing compares the executing Product with the binding the operation selects (TD-78) | `TD-78_TRACE.md`; evaluation of 2026-11-13 | S2 | P1 | Fix after TD-77 merges (same files) |
+| B-03 | A build of one cut runs work on a store that another cut installed and bound; nothing compares the executing Product with the binding the operation selects (TD-78) | `TD-78_TRACE.md`; evaluation of 2026-11-13 | S2 | P1 | Technical repair closed at `e709bd24f`; 14 merged focused passes, separate QA no finding on declared entry boundary; `REVIEW_TD78_CODEX.md` |
 | B-04 | Two processes with different `TMPDIR` values both hold one event log; both append the same ordinal; an acknowledged append cannot be reopened (TD-82) | `TD-80_TRACE.md`; reproduced after TD-80 by the evaluation | S2 | P1 | Technical repair closed at `a3c03d90c`; 27 merged focused passes; separate QA has no technical finding. Assurance/platform limits in `REVIEW_TD82_CODEX_INTEGRITY.md` |
 | B-05 | A worksite subject in another letter case creates a protected directory that does not exist yet, or links a file into it before the refusal (TD-85, narrow part) | `TD-85_TRACE.md`; reproduced by the evaluation | S2 | P1 | Targeted repair integrated at `d5dbe324f`, 70/70 merged checks; general confinement remains falsified by separate B-21 firmlink condition. `REVIEW_TD85N_CODEX.md` |
 | B-06 | Synchronous canonical-path checks keep the spelling they are given; the command parent writes its manifests into the event-log directory through an alias of an existing root (TD-85, first part) | `TD-85_TRACE.md` | S3 | P1 | Technical repair closed at `686d67db3`; stored-spelling owner and 17 merged checks; QA in progress |
@@ -64,9 +64,9 @@ One list of the defects found by the reviews, traces and packages of the T-292 w
 
 | When | Items |
 |---|---|
-| In flight | B-03 (TD-78 executing Product identity) |
-| Preserved for continuation | B-07 (TD-26 P5 after the overlapping TD-78 repair) |
-| Integrated with focused proof | B-01, B-02, B-04, B-05 (bounded; B-21 remains), B-06, B-23 |
+| In flight | B-07 (TD-26 P5 readers/refusal doors) |
+| Dependency-ready sequence | TD-26 P6, then P7 and TD-25 member withdrawal after P5 |
+| Integrated with focused proof | B-01, B-02, B-03, B-04, B-05 (bounded; B-21 remains), B-06, B-23 |
 | After TD-26 P7 | B-08 |
 | At the cut | B-22 |
 | After the cut | B-09 (after the owner decides), B-10, B-11, B-12, B-13, B-21 (S2 physical-ancestry repair before reliable-operation/5.0 qualification claims) |
