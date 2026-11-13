@@ -27,7 +27,7 @@ test('RP-2 declared ticket and asset starts, with actual admission, closure and 
       return [prepared];
     }});
   const {product,additionalProducts:[fixture]}=e, ids=fixture.ids;
-  e.catalogView=product.narrowGraphFunctionCatalog(e.catalog,[ids.graphFunctionRef,ids.ticketGraphFunctionRef,ids.oneSurfaceGraphFunctionRef]);
+  e.catalogView=product.narrowGraphFunctionCatalog(e.catalog,[ids.graphFunctionRef,ids.ticketGraphFunctionRef]);
   assert.equal(e.catalogView.kind,'graph_function_catalog_view');
   const load=p=>import(pathToFileURL(join(e.installedRoot,'build/code/src/'+p+'.js')).href);
   const publicApi=await load('public/index');

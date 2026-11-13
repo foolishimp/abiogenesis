@@ -498,6 +498,23 @@ test('interrupted recursive workflow resumes once through the cold Public run.co
   };
   const storeOwner=await load('abg/event_store'),storeOwnerRead=()=>storeOwner.readRuntimeEventsAtDurablePrefix(handoff.prefix);
   const before=storeOwnerRead().length;
+  // P6: untrusted Catalog resources with retired Program keys fail the shared
+  // language gate before this genuine pending execution can be selected.
+  const retiredProgramResourceRefusals=[];
+  for(const key of ['actionCatalog','constructionComposition']){
+    const call=structuredClone(pending.replay('retired-'+key));
+    const publication=call.resources.catalog.readinessBasis.publications.find(p=>p.programs.some(pr=>pr.programRef===ref('program','root')));
+    assert.ok(publication);publication.programs.find(p=>p.programRef===ref('program','root'))[key]=null;
+    const boundary=handoff.prefix,bytes=await readFile(new URL(boundary.eventLogRef));
+    const raw=await runInstalledCliRequest({scratch:env.scratch,installedRoot:env.installedRoot,identity:'pending-retired-'+key,
+      acquisition:{kind:'reopen',closeHandoff:handoff},call,expectedExitCode:null});
+    const receipt=raw.output.receipt;assert.ok(receipt,JSON.stringify(raw.output).slice(0,1000));
+    assert.equal(receipt.failure?.fault?.stage,'resource_admission',JSON.stringify(receipt.failure));
+    assert.equal(receipt.failure.fault.code,'invalid_resource_assertion');
+    if(receipt.resources?.eventResource?.closeHandoff)handoff=receipt.resources.eventResource.closeHandoff;
+    assert.deepEqual(handoff.prefix,boundary);assert.deepEqual(await readFile(new URL(boundary.eventLogRef)),bytes);
+    retiredProgramResourceRefusals.push({key,stage:receipt.failure.fault.stage,code:receipt.failure.fault.code,appendedBytes:0});
+  }
   const crossed=await cli('crossed',pending.replay('crossed',{pendingCursor:coordinate(p.pendingCursorRef,zero)}));
   assert.equal(crossed.ownerOutput.outcomeKind,'refusal');assert.equal(crossed.ownerOutput.value.code,'response_mismatch');assert.deepEqual(crossed.ownerOutput.value.issuePaths,['/pendingCursor']);
   assert.equal(storeOwnerRead().length,before,'a refused crossed request admits nothing');
@@ -566,6 +583,6 @@ test('interrupted recursive workflow resumes once through the cold Public run.co
   const omitted=await childRead('child-graph-call-omitted-proof');
   assert.equal(omitted.ownerOutput.outcomeKind,'refusal');assert.equal(omitted.ownerOutput.value.code,'projection_basis_mismatch');assert.deepEqual(omitted.ownerOutput.value.issuePaths,[]);
   assert.equal(storeOwnerRead().length,beforeChildReads,'child GraphCall reads append zero events');
-  t.diagnostic(JSON.stringify({runId,continuationRef:p.continuationRef,chain:p.chain.map(c=>c.relation),eventsBefore:interruptedEvents.length,eventsAfter:storeOwnerRead().length,
+  t.diagnostic(JSON.stringify({runId,continuationRef:p.continuationRef,chain:p.chain.map(c=>c.relation),eventsBefore:interruptedEvents.length,eventsAfter:storeOwnerRead().length,retiredProgramResourceRefusals,
     replay:continued.ownerOutput.value.replay,proofLimit:'Cold reopen through the installed Public CLI pending_execution arm over the generic recursion fixture; not the default-library pending-Testing topology; not Root installed fresh-process witness.'}));
 });

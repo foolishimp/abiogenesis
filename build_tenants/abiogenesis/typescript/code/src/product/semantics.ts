@@ -195,7 +195,6 @@ export interface ProductSemanticsProvider {
       readonly workspaceBindingId: string;
       readonly workspaceBindingDigest: Sha256Digest;
       readonly workspaceId: string;
-      readonly actionCatalog: JsonValue | null;
       readonly catalogView: GraphFunctionCatalogView;
       readonly catalogApplications: readonly DeclarationApplication[];
       readonly sourceResultBasis: ProductInvocationSourceResultBasis | null;
@@ -437,7 +436,8 @@ async function loadProductSemantics(
       typeof value.validateInvocationBasis !== "function"
     ) ||
     "publicResultProjectionKinds" in value ||
-    "projectPublicResult" in value
+    "projectPublicResult" in value ||
+    "actionCatalog" in value
   ) {
     throw new TypeError(
       "installed Product semantics provider differs from its published binding",

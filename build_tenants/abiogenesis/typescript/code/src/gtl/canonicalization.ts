@@ -103,26 +103,10 @@ function canonicalizeContribution(carrier: MutableJsonRecord): void {
   canonicalizeStringInventory(carrier, "provenanceRefs");
 }
 
-function canonicalizeActionCatalog(carrier: MutableJsonRecord): void {
-  canonicalizeRecordInventory(carrier, "rows", ["actionRef"]);
-  const {
-    catalogDigest: _catalogDigest,
-    catalogRef: _catalogRef,
-    ...catalogBody
-  } = carrier;
-  const catalogDigest = sha256Canonical(catalogBody);
-  carrier.catalogDigest = catalogDigest;
-  carrier.catalogRef =
-    `action-catalog://product/${catalogDigest.slice("sha256:".length)}`;
-}
-
 function canonicalizeProgram(carrier: MutableJsonRecord): void {
   canonicalizeRecordInventory(carrier, "starts", ["startRef"]);
   canonicalizeStringInventory(carrier, "callableMembership");
   canonicalizeRecordInventory(carrier, "publicAssetTargets", ["handle"]);
-  if (isRecord(carrier.actionCatalog)) {
-    canonicalizeActionCatalog(mutable(carrier.actionCatalog));
-  }
 }
 
 function canonicalizeGraphFunction(carrier: MutableJsonRecord): void {

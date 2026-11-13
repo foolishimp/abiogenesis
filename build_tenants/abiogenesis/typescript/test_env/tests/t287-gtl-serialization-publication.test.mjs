@@ -50,7 +50,7 @@ test('strict published definitions and the complete composed tuple census are re
   if(Array.isArray(node.prefixItems)){assert.equal(node.minItems,node.prefixItems.length,pointer+' exact minimum');assert.equal(node.items,false,pointer+' closed tail');tuples.push(pointer);}
   for(const [key,value]of Object.entries(node))visit(value,pointer+'/'+key);};
  for(const name of names)visit(schema.$defs[name],'#/$defs/'+name);
- assert.equal(tuples.length,23,'complete imported-owner tuple population');
+ assert.equal(tuples.length,18,'complete imported-owner tuple population');
  assert.equal(schemaCheck('GtlLanguageConformanceCorpus')(corpus),true,'actual emitted fixed corpus');
  t.diagnostic(JSON.stringify({strictAjv2020:true,compiledDefinitions:names,closedComposedTuples:tuples.length,publishedSchema:corpus.schema.path}));
 });
@@ -73,8 +73,7 @@ test('closed tuple arity and closure-event order agree in native admission and t
  const roundtrip=(publication,label)=>{const first=admitted(m02.admitModule(publication),label);
   assert.equal(check(first.value),true,label+' published');const second=admitted(m02.admitModule(admitIJsonText(m02.serializeModule(first.value))),label+' serialized');
   assert.deepEqual(second.value,first.value);assert.equal(second.subjectDigest,first.subjectDigest);};
- // Complete original publication is supplied from the fixed corpus. The added
- // authority declaration below proves local tuple shape, not whole-Program law.
+ // Complete original publication is supplied from the fixed corpus.
  roundtrip(original,'original publication');let negatives=0,restorations=0;
  for(const [scope,expected]of [['run',['terminal_reached','frame_closed','graph_call_closed','run_closed']],
   ['graph_call',['terminal_reached','frame_closed','graph_call_closed']]]){
@@ -90,32 +89,18 @@ test('closed tuple arity and closure-event order agree in native admission and t
    roundtrip(original,scope+' '+label+' original restoration');restorations++;
   }
  }
- const publication=clone(original),zero='sha256:'+'0'.repeat(64);
- publication.programs[0].constructionComposition={kind:'construction_composition',schemaVersion:'5.0.0',
-  compositionRef:'composition://supplied-local',compositionDigest:zero,graphFunctionRef:'graph-function://supplied-local',
-  authorities:['synthesizeModel','evalGap','evaluateNext','evaluateAction'].map((semanticAuthority,index)=>({
-   kind:'construction_authority_binding',semanticAuthority,authorityRef:'authority://supplied-local/'+index,
-   initialProgramLocusRef:'locus://supplied-local/'+index,refreshProgramLocusRef:null})),
-  interactionProgramLocusRef:'locus://supplied-local/interaction',closurePolicy:{kind:'construction_policy',
-   policyRef:'policy://supplied-local',requireCompleteEvidence:true,requirePostEvidenceRefresh:true}};
- roundtrip(publication,'four supplied local authorities');
- const authorities=publication.programs[0].constructionComposition.authorities;
- for(const [label,items]of [['short',authorities.slice(0,-1)],['surplus',[...authorities,clone(authorities[0])]],
-  ['wrong element',[{...authorities[0],semanticAuthority:'invented'},...authorities.slice(1)]]]){
-  const changed=clone(publication);changed.programs[0].constructionComposition.authorities=items;
-  assert.equal(check(changed),false,label+' authorities published');const refused=m02.admitModule(changed);
-  assert.equal(refused.code,'invalid_kind',label+' authorities native');assert(refused.message.includes('$/programs'),refused.message);
-  assert.throws(()=>m02.serializeModule(changed),TypeError);negatives++;
-  roundtrip(publication,label+' authorities original restoration');restorations++;
+ t.diagnostic(JSON.stringify({closedTuples:2,arityOrderTailNegatives:negatives,originalRestorations:restorations}));
+});
+
+test('retired Program members refuse in the actual published and native module schemas',()=>{
+ const original=clone(corpus.programs[0].packet.publication),check=schemaCheck('ModulePublication');
+ assert.equal(check(original),true);
+ for(const key of ['actionCatalog','constructionComposition'])for(const value of [null,{},[]]){
+  const publication=clone(original);publication.programs[0][key]=value;
+  assert.equal(check(publication),false,key+' published strict key refusal');
+  const refused=m02.admitModule(publication);assert.equal(refused.code,'invalid_kind');
+  assert.match(refused.message,new RegExp(key));assert.throws(()=>m02.serializeModule(publication),TypeError);
  }
- // All four positions have the same structural element contract. Authority
- // order and uniqueness remain at the existing whole-Program validator.
- for(const items of [[authorities[1],authorities[0],...authorities.slice(2)],Array.from({length:4},()=>clone(authorities[0]))]){
-  const local=clone(publication);local.programs[0].constructionComposition.authorities=items;
-  roundtrip(local,'local authority shape only');
- }
- t.diagnostic(JSON.stringify({closedTuples:3,arityOrderTailNegatives:negatives,originalRestorations:restorations,
-  suppliedLocalAuthorityDeclaration:true,authorityOrderAndUniquenessRemainWholeProgramLaw:true,wholeProgramClaims:0}));
 });
 
 test('packaged environment scalar projections preserve the original predicate languages',async t=>{
@@ -302,6 +287,45 @@ test('packed native types expose original recursively typed carriers and preserv
 import {admitModule,serializeModule,type ModulePublication} from '@abiogenesis/typescript-tenant/gtl/m02';
 import {admitGtlProgramConformanceInput,typecheckGtlProgram,type GtlProgramConformanceInput,type GtlProgramDiagnosticId} from '@abiogenesis/typescript-tenant/abg/m03';
 declare const graph:GraphFunction, publication:ModulePublication, input:GtlProgramConformanceInput;
+// @ts-expect-error retired language type is absent from gtl
+import type {GtlActionCatalog as Retired0_0} from '@abiogenesis/typescript-tenant/gtl';
+// @ts-expect-error retired language type is absent from gtl
+import type {GtlActionCatalogRow as Retired0_1} from '@abiogenesis/typescript-tenant/gtl';
+// @ts-expect-error retired language type is absent from gtl
+import type {GtlConstructionAuthorityBinding as Retired0_2} from '@abiogenesis/typescript-tenant/gtl';
+// @ts-expect-error retired language type is absent from gtl
+import type {GtlConstructionComposition as Retired0_3} from '@abiogenesis/typescript-tenant/gtl';
+// @ts-expect-error retired language type is absent from gtl
+import type {GtlConstructionPolicy as Retired0_4} from '@abiogenesis/typescript-tenant/gtl';
+// @ts-expect-error retired language type is absent from gtl
+import type {GtlConstructionSemanticAuthority as Retired0_5} from '@abiogenesis/typescript-tenant/gtl';
+// @ts-expect-error retired language type is absent from gtl/m01
+import type {GtlActionCatalog as Retired1_0} from '@abiogenesis/typescript-tenant/gtl/m01';
+// @ts-expect-error retired language type is absent from gtl/m01
+import type {GtlActionCatalogRow as Retired1_1} from '@abiogenesis/typescript-tenant/gtl/m01';
+// @ts-expect-error retired language type is absent from gtl/m01
+import type {GtlConstructionAuthorityBinding as Retired1_2} from '@abiogenesis/typescript-tenant/gtl/m01';
+// @ts-expect-error retired language type is absent from gtl/m01
+import type {GtlConstructionComposition as Retired1_3} from '@abiogenesis/typescript-tenant/gtl/m01';
+// @ts-expect-error retired language type is absent from gtl/m01
+import type {GtlConstructionPolicy as Retired1_4} from '@abiogenesis/typescript-tenant/gtl/m01';
+// @ts-expect-error retired language type is absent from gtl/m01
+import type {GtlConstructionSemanticAuthority as Retired1_5} from '@abiogenesis/typescript-tenant/gtl/m01';
+// @ts-expect-error retired language type is absent from gtl/m02
+import type {GtlActionCatalog as Retired2_0} from '@abiogenesis/typescript-tenant/gtl/m02';
+// @ts-expect-error retired language type is absent from gtl/m02
+import type {GtlActionCatalogRow as Retired2_1} from '@abiogenesis/typescript-tenant/gtl/m02';
+// @ts-expect-error retired language type is absent from gtl/m02
+import type {GtlConstructionAuthorityBinding as Retired2_2} from '@abiogenesis/typescript-tenant/gtl/m02';
+// @ts-expect-error retired language type is absent from gtl/m02
+import type {GtlConstructionComposition as Retired2_3} from '@abiogenesis/typescript-tenant/gtl/m02';
+// @ts-expect-error retired language type is absent from gtl/m02
+import type {GtlConstructionPolicy as Retired2_4} from '@abiogenesis/typescript-tenant/gtl/m02';
+// @ts-expect-error retired language type is absent from gtl/m02
+import type {GtlConstructionSemanticAuthority as Retired2_5} from '@abiogenesis/typescript-tenant/gtl/m02';
+import type {ExecutionBasis} from '@abiogenesis/typescript-tenant/abg';
+declare const basis:ExecutionBasis;
+const constants:readonly [null,null,readonly [],null,null,null]=[basis.actionCatalogRef,basis.actionCatalogDigest,basis.actionCatalogRows,basis.constructionCompositionRef,basis.constructionCompositionDigest,basis.constructionComposition];
 const graphText:string=serializeGraphFunction(graph),moduleText:string=serializeModule(publication);
 const g=admitGraphFunction(JSON.parse(graphText));if(g.kind==='raw_admitted_value'){const n:CProgramNode=g.value.template.nodes[0]!.term;serializeCProgramCanonical(n);}
 const m=admitModule(JSON.parse(moduleText));if(m.kind==='raw_admitted_value'){const p:ModulePublication=m.value;serializeModule(p);}

@@ -510,38 +510,6 @@
    "note": "class A lane: it gates on evidenceInput. TD-60T: since RC6 (e7179b19b) the read owner's preparation takes its rows from readOwnedRuntimeEventPrefixAtDurablePrefix (./event_prefix.js), not from ./event_store.js, so the old stub intercepted nothing; the premise is now supplied there and the owner refuses the malformed liveness event with invalid_history. Last passing rc.5 (f49e7533e), first failing rc.6"
   },
   {
-   "gate": "s7-pending-consumer-intent",
-   "class": "A",
-   "status": "runs_with_root",
-   "variables": [],
-   "cases": [
-    {
-     "file": "tests/t287-continuation-causation.test.mjs",
-     "titles": [
-      "shared continuation constructor admits workspace causes and authenticates pending Run payload after cold reopen"
-     ],
-     "suiteSkips": 1
-    }
-   ],
-   "input": "the S7 pending-consumer final events and continue call",
-   "inputs": [
-    {
-     "name": "finalEvents",
-     "path": "comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/exact-intent-02/final-events.json",
-     "sha256": "4e96fd895487a6b9e581467e6cad6ad60415a15dd411e9fbc68e39eb18e8a6a8",
-     "bytes": 5070328
-    },
-    {
-     "name": "continueCall",
-     "path": "comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/exact-intent-02/attempt-07/continue-call.json",
-     "sha256": "5c83dcf7daded0f8af1cc53ad7e070faa6b83d2d26f9604090b206c56b3ebf4c",
-     "bytes": 22500824
-    }
-   ],
-   "producer": null,
-   "observed": "root-set run of the file (ABI5_EVIDENCE_ROOT set): 1/1 pass"
-  },
-  {
    "gate": "hs03-liveness-metadata-oracle",
    "class": "A",
    "status": "runs_with_root",
@@ -1379,44 +1347,6 @@
     }
    ],
    "note": "the lane asserts process.execPath equals the pinned node and writes fixture files under its territory; not a read-only retained input"
-  },
-  {
-   "gate": "s03-phase-b-release",
-   "class": "B",
-   "status": "opt_in_run",
-   "variables": [
-    "ABI5_S03_PHASE_B_RELEASE"
-   ],
-   "cases": [
-    {
-     "file": "tests/t287-s03-automatic.test.mjs",
-     "titles": [
-      "S03 Phase B (runs only with the released Phase B selector)"
-     ],
-     "suiteSkips": 0
-    }
-   ],
-   "input": "explicit release of S03 Phase B (value ROOT_RELEASED_PHASE_B)",
-   "producer": null,
-   "recorded": [
-    {
-     "variable": "ABI5_S03_PHASE_B_RELEASE",
-     "value": "ROOT_RELEASED_PHASE_B",
-     "exists": null,
-     "underRoot": false,
-     "records": [],
-     "recordCount": null
-    },
-    {
-     "variable": "ABI5_S03_PHASE_B_RELEASE",
-     "value": "ROOT_RELEASED_PHASE_B.",
-     "exists": null,
-     "underRoot": false,
-     "records": [],
-     "recordCount": null
-    }
-   ],
-   "note": "no suite2 skip of its own"
   },
   {
    "gate": "frame-native-controlled-run",
@@ -3458,39 +3388,6 @@
    ],
    "observed": "pre-check: the unconverted lane, root unset, its variables set to the recorded values, writes under the root refused with a fresh output directory: 1/1 pass; 630 root paths read (the frozen install tree)",
    "note": "not converted: the case writes focused.json into ABI5_DECLARATION_PROOF_ROOT (output root, ruling 6), so it cannot run with the evidence root alone"
-  },
-  {
-   "gate": "s03-evidence-directory",
-   "class": "C",
-   "status": "input_present_writes_under_root",
-   "variables": [
-    "ABI5_S03_EVIDENCE_ROOT"
-   ],
-   "cases": [
-    {
-     "file": "tests/t287-s03-automatic.test.mjs",
-     "titles": [
-      "S03 Phase A pure declaration and finite domain construction",
-      "S03 Phase B ordinary installed positive and no-action"
-     ],
-     "suiteSkips": 2
-    }
-   ],
-   "input": "the exact S03 evidence directory",
-   "producer": null,
-   "recorded": [
-    {
-     "variable": "ABI5_S03_EVIDENCE_ROOT",
-     "value": "<root>/comments/codex/20260928_FRAMED_GOVERNANCE/s03-automatic-01",
-     "exists": true,
-     "underRoot": true,
-     "records": [
-      "comments/codex/20260928_FRAMED_GOVERNANCE/s03-automatic-01/phase-b-launch.json"
-     ],
-     "recordCount": 1
-    }
-   ],
-   "note": "not converted: Phase A writes pure-preflight.json into the evidence directory, which would write under the root. Not pre-checked (the write would be refused), so no traced file list: the input is not pinned"
   },
   {
    "gate": "qualification-source-release-roots",
